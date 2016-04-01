@@ -23,6 +23,7 @@ class Processor {
 
     }
     virtual void Update(Frame *frame) = 0;
+    virtual void Update(FrameBatch *frameBatch) = 0;
  protected:
     Processor *next_;
 };
