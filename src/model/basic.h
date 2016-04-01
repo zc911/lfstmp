@@ -13,6 +13,7 @@
 
 namespace deepglint {
 
+typedef long long int Identification;
 typedef float Confidence;
 typedef long long int Timestamp;
 typedef pair<int, float> Prediction;
@@ -57,7 +58,7 @@ typedef struct :public MetaData {
 } VideoMetaData;
 
 typedef struct {
-    long long int id;
+    Identification id;
     Timestamp timestamp;
     MessageStatus status;
     VideoMetaData video_meta_data;
