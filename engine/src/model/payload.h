@@ -17,6 +17,11 @@ namespace deepglint {
 
 class Payload {
  public:
+    Payload(Identification id)
+            : id_(id) {
+
+    }
+
     Payload(Identification id, cv::Mat data)
             : id_(id),
               data_(data) {
