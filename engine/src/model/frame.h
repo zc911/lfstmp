@@ -28,16 +28,23 @@ typedef enum {
 class Frame {
  public:
     Frame();
-    ~Frame();
- private:
-    volatile Identification id_;
-    volatile Timestamp timestamp_;
+    virtual ~Frame();
+ protected:
+    Identification id_;
+    Timestamp timestamp_;
     volatile FrameType type_;
     volatile FrameStatus status_;
     pthread_mutex_t status_lock_;
     pthread_mutex_t type_lock_;
     Payload payload_;
+    // base pointer
     vector<Object *> objects_;
+};
+
+class RenderableFrame : public Frame {
+    RenderableFrame();
+    ~RenderableFrame();
+ private:
     cv::Mat render_data_;
 };
 
@@ -48,7 +55,7 @@ class FrameBatch {
  private:
     Identification id_;
     unsigned int batch_size_;
-    vector<Frame> frames_;
+    vector<Frame *> frames_;
 };
 
 }

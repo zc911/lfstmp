@@ -10,6 +10,7 @@
 
 #include <vector>
 #include <utility>
+using namespace std;
 
 namespace deepglint {
 
@@ -36,13 +37,13 @@ typedef struct {
 } Box;
 
 // TODO
-typedef struct {
-    int id;
-    float confidence;
-    Box rect;
-    Box gt;
-    bool deleted;
-} BoundingBox;
+//typedef struct {
+//    int id;
+//    float confidence;
+//    Box rect;
+//    Box gt;
+//    bool deleted;
+//} BoundingBox;
 
 typedef struct {
     int id;
@@ -53,7 +54,7 @@ typedef struct {
     unsigned int chanel;
 } MetaData;
 
-typedef struct :public MetaData {
+typedef struct VideoMetaData : public MetaData {
     unsigned int fps;
 } VideoMetaData;
 
