@@ -16,7 +16,6 @@ grpc
 
 
 
-
 ```
 
 ## Code structure
