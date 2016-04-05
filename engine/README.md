@@ -6,13 +6,17 @@ Matrix is an engine for computer vision and deep learning.
 ## Dependency
 ```
 opencv 2.x
-cuda/cudnn
+cuda/cudnn 7.0
 tbb
 boost
 glog
 gtest
 protobuf 3.x
 grpc
+
+
+
+
 ```
 
 ## Code structure
