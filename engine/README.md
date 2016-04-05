@@ -14,7 +14,6 @@ gtest
 protobuf 3.x
 grpc
 
-
 ```
 
 ## Code structure
