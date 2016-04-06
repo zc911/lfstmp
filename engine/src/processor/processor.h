@@ -14,18 +14,23 @@ namespace deepglint {
  * the basic processor interface.
  */
 class Processor {
- public:
-    Processor()
-            : next_(NULL) {
+public:
+	Processor() :
+			next_(NULL) {
 
-    }
-    virtual ~Processor() {
+	}
+	virtual ~Processor() {
 
-    }
-    virtual void Update(Frame *frame) = 0;
-    virtual void Update(FrameBatch *frameBatch) = 0;
- protected:
-    Processor *next_;
+	}
+	virtual void Update(Frame *frame) = 0;
+	virtual void Update(FrameBatch *frameBatch) = 0;
+	virtual Frame* operator()(Frame* f) ;
+protected:
+	Processor *next_;
+
+	bool checkOperation(Frame *frame) {
+		return false;
+	}
 };
 }
 #endif /* PROCESSOR_H_ */
