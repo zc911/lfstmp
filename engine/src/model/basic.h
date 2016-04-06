@@ -10,6 +10,8 @@
 
 #include <vector>
 #include <utility>
+#include <opencv2/core/core.hpp>
+
 using namespace std;
 
 namespace deepglint {
@@ -32,9 +34,7 @@ enum MessageStatus {
     MESSAGE_STATUS_SENT = 2,
 };
 
-typedef struct {
-    unsigned x, y, w, h;
-} Box;
+typedef cv::Rect Box;
 
 // TODO
 //typedef struct {
@@ -62,7 +62,7 @@ typedef struct {
     Identification id;
     Timestamp timestamp;
     MessageStatus status;
-    VideoMetaData video_meta_data;
+    MetaData *video_meta_data;
     Object *object;
 } Message;
 
