@@ -62,5 +62,9 @@ class Engine {
     pthread_t tid_;
 
 };
+
+class ConfigableEngine : public Engine{
+
+};
 }
 #endif /* ENGINE_H_ */
