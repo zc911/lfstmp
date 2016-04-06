@@ -51,8 +51,8 @@ typedef struct Object {
     ObjectType type;
     Confidence confidence;
     Detection detection;
-    Feature feature;
-    cv::Mat pic;
+    // Feature feature;
+    // cv::Mat pic;
     vector<Object *> children;
     Object *parent;
 } Object;
