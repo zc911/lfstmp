@@ -36,7 +36,7 @@ class Frame {
     volatile FrameStatus status_;
     pthread_mutex_t status_lock_;
     pthread_mutex_t type_lock_;
-    Payload payload_;
+    Payload *payload_;
     // base pointer
     vector<Object *> objects_;
 };
