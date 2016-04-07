@@ -22,6 +22,4 @@ grpc
 ## How to build
 
 ## How to use
-test
-test2
-test3
+test test3 test2
