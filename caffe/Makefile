@@ -244,7 +244,8 @@ ifeq ($(OSX), 1)
 	# gtest needs to use its own tuple to not conflict with clang
 	COMMON_FLAGS += -DGTEST_USE_OWN_TR1_TUPLE=1
 	# boost::thread is called boost_thread-mt to mark multithreading on OS X
-	LIBRARIES += boost_thread-mt
+	#LIBRARIES += boost_thread-mt
+	LIBRARIES += boost_thread
 	# we need to explicitly ask for the rpath to be obeyed
 	DYNAMIC_FLAGS := -install_name @rpath/libcaffe.so
 	ORIGIN := @loader_path
@@ -326,7 +327,8 @@ else
 			LDFLAGS += -framework Accelerate
 		else
 			BLAS_INCLUDE ?= /System/Library/Frameworks/vecLib.framework/Versions/Current/Headers/
-			LDFLAGS += -framework vecLib
+			#LDFLAGS += -framework vecLib
+			LDFLAGS += -framework Accelerate
 		endif
 	endif
 endif
