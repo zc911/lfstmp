@@ -14,9 +14,11 @@ using namespace cv;
 namespace dg {
 
 Displayer * Displayer::self_ = NULL;
+
 void Displayer::glutDisplayIt() {
     Displayer::self_->displayFrame();
 }
+
 void Displayer::glutTimerFuncIt(int n) {
     Displayer::self_->timeFunc(0);
 }
@@ -45,13 +47,9 @@ Displayer::Displayer(RingBuffer* buffer, const string winName, int width,
     glutTimerFunc(frame_iterval_, glutTimerFuncIt, 0);
 
     ring_buffer_ = buffer;
-    buffer_size_ = ring_buffer_->BufferSize();
     display_pointer_ = 0;
 
-    display_config_ = false;
-    profile_time_ = false;
-
-    Display::self_ = this;
+    Displayer::self_ = this;
 
 }
 
@@ -59,8 +57,15 @@ void Displayer::displayFrame() {
 
     glRasterPos3f(-1.0f, 1.0f, 0);
     glPixelZoom(1.0f, -1.0f);
-    t_profiler_.reset();
-//    Frame *f = ring_buffer_->GetFrame(display_pointer_);
+    Frame *f = ring_buffer_->Get(display_pointer_);
+    if (f == NULL) {
+        return;
+    }
+    display_pointer_++;
+    glDrawPixels(width_, height_, GL_BGRA, GL_UNSIGNED_BYTE,
+                 f->payload()->data().data);
+    glutSwapBuffers();
+
 //
 //    if (f == NULL) {
 //        return;
@@ -76,9 +81,7 @@ void Displayer::displayFrame() {
 //
 //    DLOG(INFO)<< ">>>>> Display frame: " << f <<"-" << f->FrameId() << "-" << f->GetStatus() << endl;
 //
-//    glDrawPixels(width_, height_, GL_BGR, GL_UNSIGNED_BYTE,
-//                 f->RenderRGB()->data);
-//    glutSwapBuffers();
+
 //
 //    DLOG(INFO)<< ">>>>> End display: " << f << "-" << f->FrameId() << "-" << f->GetStatus() << endl;
 //
@@ -101,9 +104,7 @@ void Displayer::timeFunc(int n) {
 }
 
 void Displayer::Run() {
-
     glutMainLoop();
-
 }
 
 }

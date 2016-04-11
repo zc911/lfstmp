@@ -19,14 +19,11 @@ namespace dg {
 class SimpleEngine : public Engine {
  public:
 
-    SimpleEngine(RingBuffer *buffer, Displayer *displayer)
+    SimpleEngine(RingBuffer *buffer)
             : Engine(),
               buffer_(buffer),
               cur_frame_(0) {
-        displayer_ = displayer;
         processor_ = new SimpleProcessor();
-        tube_ = new StreamTube(buffer, "/home/chenzhen/video/road1.mp4", 25,
-                               640, 480, true);
 
     }
 
@@ -35,7 +32,6 @@ class SimpleEngine : public Engine {
     }
 
     virtual void Process() {
-        tube_->StartAsyn();
         cout << "start process" << endl;
         while (1) {
             if (buffer_->IsEmpty()) {
@@ -62,9 +58,7 @@ class SimpleEngine : public Engine {
     }
 
  private:
-    StreamTube *tube_;
     RingBuffer *buffer_;
-    Displayer *displayer_;
     Processor *processor_;
     unsigned int cur_frame_;
 }
