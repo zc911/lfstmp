@@ -16,8 +16,9 @@
 #include <boost/locale/encoding_utf.hpp>
 
 using namespace std;
+using namespace cv;
 
-namespace deepglint {
+namespace dg {
 
 static wstring utf8_to_wstring(const string &str) {
     return boost::locale::conv::utf_to_utf<wchar_t>(str.c_str(),
@@ -49,10 +50,10 @@ static string encode2base64(char *data, int size) {
     return encoded.str();
 }
 
-static string encode2JPEGInBase64(cv::Mat &data) {
-    vector < uchar > buff;
-    cv::imencode(".jpg", data, buff);
-    return encode2base64((char*) buff.data(), buff.size());
-}
+//static string encode2JPEGInBase64(cv::Mat &data) {
+//    vector < uchar > buff;
+//    cv::imencode(".jpg", data, buff);
+//    return encode2base64((char*) buff.data(), buff.size());
+//}
 }
 #endif /* STRING_UTIL_H_ */

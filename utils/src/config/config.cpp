@@ -5,22 +5,26 @@
 #include <string.h>
 #include "glog/logging.h"
 
+namespace dg {
 Config* Config::instance_ = NULL;
 
 Config::Config() {
 }
 
 bool Config::Load(string const& configFilePath) {
-    LOG(INFO)<< "Load config file: " << configFilePath << endl;
+    LOG(INFO) << "Load config file: " << configFilePath << endl;
     if (configFilePath.find(JSON_FILE_POSTFIX) != string::npos) {
         loadJson(configFilePath);
     } else if (configFilePath.find(INI_FILE_POSTFIX) != string::npos) {
         loadText(configFilePath);
         string newConfigFilePath = convertTextToJson(configFilePath);
-        LOG(WARNING) << "Old config file detected, new config has been created: " << newConfigFilePath << endl;
+        LOG(WARNING)
+                << "Old config file detected, new config has been created: "
+                << newConfigFilePath << endl;
         Load(newConfigFilePath);
     } else {
-        LOG(ERROR) << "Cannot find config file:" << configFilePath.c_str() << endl;
+        LOG(ERROR) << "Cannot find config file:" << configFilePath.c_str()
+                << endl;
         exit(1);
     }
 
@@ -227,4 +231,4 @@ string Config::trim(string const& source, char const* delims) {
         result.erase();
     return result;
 }
-
+}

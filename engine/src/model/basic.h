@@ -8,19 +8,22 @@
 #ifndef BASIC_H_
 #define BASIC_H_
 
+#include <stdint.h>
 #include <vector>
 #include <utility>
 #include <opencv2/core/core.hpp>
 
 using namespace std;
 
-namespace deepglint {
+namespace dg {
 
-typedef long long int Identification;
+typedef int64_t Identification;
 typedef float Confidence;
-typedef long long int Timestamp;
+typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
 typedef vector<uchar> Feature;
+typedef cv::Rect Box;
+typedef uint64_t Operation;
 
 enum ContentType {
     IMAGE_JPEG = 1,
@@ -34,16 +37,13 @@ enum MessageStatus {
     MESSAGE_STATUS_SENT = 2,
 };
 
-typedef cv::Rect Box;
-
-// TODO
-//typedef struct {
-//    int id;
-//    float confidence;
-//    Box rect;
-//    Box gt;
-//    bool deleted;
-//} BoundingBox;
+enum Operations {
+    OPERATION_DETECT = 1,
+    OPERATION_TRACK = 2,
+    OPERATION_VEHICLE_STYLE = 4,
+    OPERATION_VEHICLE_COLOR = 8,
+    OPERATION_VEHICLE_PLATE = 16,
+};
 
 typedef struct {
     int id;
@@ -57,14 +57,6 @@ typedef struct {
 typedef struct VideoMetaData : public MetaData {
     unsigned int fps;
 } VideoMetaData;
-
-typedef struct {
-    Identification id;
-    Timestamp timestamp;
-    MessageStatus status;
-    MetaData *video_meta_data;
-    Object *object;
-} Message;
 
 }
 

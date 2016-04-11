@@ -9,7 +9,7 @@
 #define HTTP_CLIENT_H_
 #include <curl/curl.h>
 
-namespace deepglint {
+namespace dg {
 
 class HttpClient {
  public:

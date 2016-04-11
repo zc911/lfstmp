@@ -9,7 +9,8 @@
 #define ENGINE_H_
 #include <pthread.h>
 
-namespace deepglint {
+namespace dg {
+
 template<typename TYPE, void (TYPE::*Process)()>
 void* _start_thread_t(void *param) {
     TYPE *This = (TYPE*) param;
@@ -26,7 +27,7 @@ void* _start_thread_t(void *param) {
  */
 class Engine {
  public:
-    Engine(RingBuffer *buffer)
+    Engine()
             : tid_(NULL) {
     }
 
@@ -50,12 +51,6 @@ class Engine {
     virtual int Stop() = 0;
     virtual int Release() = 0;
 
-    void SetDisplay(bool display) {
-        display_ = display;
-    }
-    bool IsDisplay() {
-        return display_;
-    }
     virtual void Process() = 0;
 
  protected:
@@ -63,8 +58,5 @@ class Engine {
 
 };
 
-class ConfigableEngine : public Engine{
-
-};
 }
 #endif /* ENGINE_H_ */

@@ -14,7 +14,7 @@
 #include <opencv/cv.h>
 #include <opencv/highgui.h>
 
-namespace deepglint {
+namespace dg {
 
 class CvxText {
     // 禁止copy

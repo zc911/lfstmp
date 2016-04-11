@@ -10,7 +10,7 @@
 #include <string.h>
 
 using namespace std;
-
+namespace dg {
 void timing_profiler::reset(void) {
     time_pieces.clear();
 
@@ -102,4 +102,5 @@ unsigned long long GetCurrentMicroSecond() {
     gettimeofday(&start, NULL);
     cur_time_in_microsend = (start.tv_sec) * 1000 + start.tv_usec / 1000;
     return cur_time_in_microsend;
+}
 }

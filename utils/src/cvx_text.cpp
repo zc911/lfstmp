@@ -5,7 +5,7 @@
 
 #include "cvx_text.h"
 
-
+namespace dg {
 
 CvxText::CvxText(const char *freeType) {
     assert(freeType != NULL);
@@ -98,10 +98,10 @@ void CvxText::restoreFont() {
 // 输出函数(颜色默认为黑色)
 
 int CvxText::putText(IplImage *img, const char *text, CvPoint pos) {
-    return putText(img, text, pos, CV_RGB(255,255,255));
+    return putText(img, text, pos, CV_RGB(255, 255, 255));
 }
 int CvxText::putText(IplImage *img, const wchar_t *text, CvPoint pos) {
-    return putText(img, text, pos, CV_RGB(255,255,255));
+    return putText(img, text, pos, CV_RGB(255, 255, 255));
 }
 
 //
@@ -204,3 +204,4 @@ void CvxText::putWChar(IplImage *img, wchar_t wc, CvPoint &pos,
     pos.x += (int) ((cols ? cols : space) + sep);
 }
 
+}

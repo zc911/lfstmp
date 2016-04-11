@@ -3,6 +3,7 @@
 #include <sstream>
 #include "anyconversion.h"
 
+namespace dg {
 AnyConversion::AnyConversion(string const& value) {
     value_ = value;
 }
@@ -103,4 +104,5 @@ AnyConversion::operator bool() const {
     if (value_.compare("on") == 0 || atoi(value_.c_str()) == 1)
         return true;
     return false;
+}
 }

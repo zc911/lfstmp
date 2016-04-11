@@ -8,7 +8,7 @@
 #ifndef CONFIG_KEY_H_
 #define CONFIG_KEY_H_
 
-namespace deepglint {
+namespace dg {
 
 const string ADDR_VIDEO = "Source";
 const string ADDR_VIDEO_ID = "SourceId";

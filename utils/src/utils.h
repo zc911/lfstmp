@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <uuid/uuid.h>
 #include <sys/time.h>
-namespace deepglint {
+namespace dg {
 static long long int GenerateUid() {
     long long int num = 0;
     uuid_t uuid;

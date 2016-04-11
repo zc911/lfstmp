@@ -8,10 +8,6 @@
 #ifndef SRC_ALG_CAFFE_DETECTOR_H_
 #define SRC_ALG_CAFFE_DETECTOR_H_
 
-#include <caffe/caffe.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-
 #include <iosfwd>
 #include <memory>
 #include <string>
@@ -20,10 +16,17 @@
 #include <ctime>
 #include <cassert>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
+#include "caffe/caffe.hpp"
+#include "model/basic.h"
 #include "detector.h"
-#include "model/basis.h"
+#include "caffe_config.h"
 
 using namespace std;
+
+namespace dg {
 
 class CaffeDetector : public Detector {
  public:
@@ -76,4 +79,5 @@ class CaffeDetectorAdvance : public CaffeDetector {
 
     vector<BoundingBox> vbbox_;
 };
+}
 #endif /* SRC_ALG_CAFFE_DETECTOR_H_ */
