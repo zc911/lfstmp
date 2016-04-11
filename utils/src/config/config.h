@@ -7,7 +7,7 @@
 #include "jsoncpp/json/json.h"
 #include "anyconversion.h"
 
-namespace deepglint {
+namespace dg {
 
 const char INI_SEPERATOR = '=';
 const string JSON_FILE_POSTFIX = ".json";

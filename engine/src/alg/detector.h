@@ -8,14 +8,15 @@
 #ifndef DETECTOR_H_
 #define DETECTOR_H_
 
-#include <opencv2/core/core.hpp>
+#include <vector>
 #include <algorithm>
+#include <opencv2/core/core.hpp>
 
-#include "model/basis.h"
+#include "model/basic.h"
 
-using namespace cv;
+using namespace std;
 
-namespace deepglint {
+namespace dg {
 
 class Detector {
  public:
@@ -24,9 +25,10 @@ class Detector {
     virtual ~Detector() {
     }
 
-    virtual vector<BoundingBox> Detect(const Mat &img,
-                                       const int target_image_size) = 0;
-
+    virtual vector<Detection> Detect(const cv::Mat &img,
+                                     const int target_image_size) = 0;
+    virtual vector<vector<Detection>> DetectBatch(
+            const vector<cv::Mat> &img, const int target_image_size) = 0;
 };
 }
 #endif /* DETECTOR_H_ */

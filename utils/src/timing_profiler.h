@@ -6,7 +6,7 @@
 #include <string>
 #include <time.h>
 
-namespace deepglint {
+namespace dg {
 
 class timing_profiler {
 

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-namespace deepglint {
+namespace dg {
 
 class AnyConversion {
  public:

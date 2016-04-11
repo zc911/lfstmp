@@ -13,26 +13,27 @@
 #include "basic.h"
 #include "model.h"
 
-namespace deepglint {
+namespace dg {
 
 class Payload {
  public:
-    Payload(Identification id)
+
+    // TODO
+    Payload(Identification id, unsigned int width, unsigned int height,
+            unsigned char *data)
             : id_(id) {
-
-    }
-
-    Payload(Identification id, cv::Mat data)
-            : id_(id),
-              data_(data) {
+        cv::Mat tmp = cv::Mat(height, width, CV_8UC3, data);
+        tmp.copyTo(data_);
 
     }
     ~Payload() {
-
+        data_.release();
+        rgb_.release();
     }
  private:
     Identification id_;
     cv::Mat data_;
+    cv::Mat rgb_;
 };
 
 }

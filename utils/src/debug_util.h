@@ -2,7 +2,7 @@
 #define DEBUG_UTIL_H
 
 #include <sys/time.h>
-namespace deepglint {
+namespace dg {
 
 static int TimeCostInMs(struct timeval timeStart, struct timeval timeEnd) {
     return (timeEnd.tv_sec - timeStart.tv_sec) * 1000

@@ -13,7 +13,7 @@
 #include <cstdio>
 
 using namespace std;
-namespace deepglint {
+namespace dg {
 
 static int WriteToFile(string filePath, char* data, unsigned int size) {
     FILE* file = fopen(filePath.c_str(), "wr");
