@@ -32,6 +32,9 @@ int RingBuffer::TryPut(unsigned int width, unsigned int height,
 }
 Frame* RingBuffer::Get(unsigned int index) {
     int i = index;
+    if (IsEmpty()) {
+        return NULL;
+    }
     if (index < 0 || index >= buffer_.size()) {
         index = 0;
     }

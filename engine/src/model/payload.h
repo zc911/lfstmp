@@ -8,11 +8,13 @@
 #ifndef PAYLOAD_H_
 #define PAYLOAD_H_
 
+#include <iostream>
 #include <opencv2/core/core.hpp>
 
 #include "basic.h"
 #include "model.h"
 
+using namespace std;
 namespace dg {
 
 class Payload {
@@ -22,13 +24,17 @@ class Payload {
     Payload(Identification id, unsigned int width, unsigned int height,
             unsigned char *data)
             : id_(id) {
-        cv::Mat tmp = cv::Mat(height, width, CV_8UC3, data);
+        cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
         tmp.copyTo(data_);
 
     }
     ~Payload() {
         data_.release();
         rgb_.release();
+    }
+
+    cv::Mat data() {
+        return data_;
     }
  private:
     Identification id_;
