@@ -13,6 +13,11 @@
 #include <string>
 #include <vector>
 
+#include <streambuf>
+#include <iostream>
+#include <istream>
+#include <ostream>
+
 #include "caffe/common.hpp"
 #include "caffe/proto/caffe.pb.h"
 #include "caffe/util/io.hpp"
@@ -62,8 +67,18 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
   return success;
 }
 
+struct OneShotReadBuf : public std::streambuf
+{
+    OneShotReadBuf(char* s, std::size_t n)
+    {
+        setg(s, s, s + n);
+    }
+};
+
+
 bool ReadProtoFromMemory(unsigned char* buffer, int len, Message* proto) {
-  memstream is(buffer, len);
+  OneShotReadBuf osrb(buffer, len);
+  std::istream is(&osrb);
   ZeroCopyInputStream* raw_input = new IstreamInputStream(is);
   CodedInputStream* coded_input = new CodedInputStream(raw_input);
   coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
