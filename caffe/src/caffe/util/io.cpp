@@ -62,6 +62,19 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
   return success;
 }
 
+bool ReadProtoFromMemory(unsigned char* buffer, int len, Message* proto) {
+  memstream is(buffer, len);
+  ZeroCopyInputStream* raw_input = new IstreamInputStream(is);
+  CodedInputStream* coded_input = new CodedInputStream(raw_input);
+  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
+
+  bool success = proto->ParseFromCodedStream(coded_input);
+
+  delete coded_input;
+  delete raw_input;
+  return success;
+}
+
 void WriteProtoToBinaryFile(const Message& proto, const char* filename) {
   fstream output(filename, ios::out | ios::trunc | ios::binary);
   CHECK(proto.SerializeToOstream(&output));
