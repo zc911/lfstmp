@@ -284,10 +284,7 @@ endif
 
 # AES model configuration
 ifeq ($(USE_AES_MODEL), 1)
-	COMMON_FLAGS += -DUSE_USE_AES_MODEL=1
-endif
-ifeq ($(USE_AES_MODEL), 0)
-        COMMON_FLAGS += -DUSE_USE_AES_MODEL=0
+	COMMON_FLAGS += -DUSE_AES_MODEL
 endif
 
 # CPU-only configuration
