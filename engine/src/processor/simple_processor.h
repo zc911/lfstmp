@@ -33,22 +33,20 @@ class SimpleProcessor : public Processor {
             cout << "check status failed " << endl;
             return;
         }
-        cout << "process frame: " << frame->id() << endl;
-        usleep(100 * 1000);
+        cout << "start process frame: " << frame->id() << endl;
+        usleep(30 * 1000);
         frame->set_status(FRAME_STATUS_FINISHED);
+        cout << "end process frame: " << frame->id() << endl;
     }
+
     virtual void Update(FrameBatch *frameBatch) {
 
     }
-//    virtual Frame* operator()(Frame* frame) {
-//        return NULL;
-//    }
-//    virtual FrameBatch* operator()(FrameBatch* frameBatch) {
-//        return NULL;
-//    }
+
     virtual bool checkOperation(Frame *frame) {
         return true;
     }
+
     virtual bool checkStatus(Frame *frame) {
         return frame->status() == FRAME_STATUS_FINISHED ? false : true;
     }
