@@ -11,9 +11,6 @@
 #include <GL/glut.h>
 #include "model/model.h"
 #include "model/ringbuffer.h"
-//#include "util/timing_profiler.h"
-//#include "planeview/planeview.h"
-//#include "processor/deepv_classify_processor.h"
 
 namespace dg {
 class Displayer {

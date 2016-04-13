@@ -12,6 +12,7 @@
 #include "model/frame.h"
 #include "io/stream_tube.h"
 #include "processor/simple_processor.h"
+#include "processor/vehicle_detector_processor.h"
 #include "vis/display.h"
 
 namespace dg {
@@ -45,6 +46,9 @@ class SimpleEngine : public Engine {
                 continue;
             }
             cur_frame_++;
+            if (cur_frame_ >= buffer_->Size()) {
+                cur_frame_ = 0;
+            }
             processor_->Update(f);
             usleep(40 * 1000);
 
