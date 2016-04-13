@@ -97,9 +97,10 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
     Blob<float>* im_info_layer = net_->input_blobs()[1];
     float* im_info = im_info_layer->mutable_cpu_data();
 
-    assert(static_cast<int>(imgs.size()) <= batch_size_);
+//    assert(static_cast<int>(imgs.size()) <= batch_size_);
     int cnt = 0;
-    assert(imgs.size() == 1);
+//    assert(imgs.size() == 1);
+
     for (size_t i = 0; i < imgs.size(); i++) {
         Mat sample;
         Mat img = imgs[i];
@@ -128,6 +129,8 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
             net_->Reshape();
         } while (0);
 
+        cout << "num_channels_: " << num_channels_ << endl;
+
         if (img.channels() == 3 && num_channels_ == 1)
             cvtColor(img, sample, CV_BGR2GRAY);
         else if (img.channels() == 4 && num_channels_ == 1)
@@ -139,6 +142,8 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
         else
             sample = img;
 
+        cout << "sample: " << sample.channels() << "-" << sample.rows << "-"
+             << sample.cols << endl;
         float* input_data = input_layer->mutable_cpu_data();
 
         for (int k = 0; k < sample.channels(); k++) {
@@ -154,16 +159,16 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
         im_info[i * 3 + 1] = img.cols;
         im_info[i * 3 + 2] = resize_ratio;
     }
-    if (use_gpu_) {
-        cudaDeviceSynchronize();
-    }
-    cout << "before forward" << endl;
+
+    cout << "before forward: " << endl;
     struct timeval start;
     gettimeofday(&start, NULL);
     net_->ForwardPrefilled();
+
     if (use_gpu_) {
         cudaDeviceSynchronize();
     }
+
     struct timeval end;
     gettimeofday(&end, NULL);
     cout << "after forward" << endl;

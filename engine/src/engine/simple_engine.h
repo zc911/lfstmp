@@ -24,7 +24,7 @@ class SimpleEngine : public Engine {
             : Engine(),
               buffer_(buffer),
               cur_frame_(0) {
-        processor_ = new SimpleProcessor();
+        processor_ = new VehicleDetectorProcessor();
 
     }
 

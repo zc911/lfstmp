@@ -61,10 +61,15 @@ void Displayer::displayFrame() {
     if (f == NULL) {
         return;
     }
+    if (f->status() != FRAME_STATUS_DETECTED) {
+        return;
+    }
     display_pointer_++;
     glDrawPixels(width_, height_, GL_BGRA, GL_UNSIGNED_BYTE,
                  f->payload()->data().data);
+
     glutSwapBuffers();
+    f->set_status(FRAME_STATUS_FINISHED);
 
 //
 //    if (f == NULL) {

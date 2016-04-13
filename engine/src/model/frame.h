@@ -65,10 +65,11 @@ class Frame {
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
                 itr != objects_.end(); ++itr) {
-            Object *obj = *itr;
+            Object *old_obj = *itr;
 
-            if (obj->id() == obj->id()) {
-                delete *itr;
+            if (old_obj->id() == obj->id()) {
+                delete old_obj;
+                itr = objects_.erase(itr);
                 break;
             }
         }
