@@ -714,7 +714,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
 
-#ifdef USE_AES_MODEL
+#ifdef USE_AES_MODEL 
   printf("%s\n", "++++++++++++++++++++");
 #else
   printf("%s\n", "--------------------");
