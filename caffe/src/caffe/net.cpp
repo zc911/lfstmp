@@ -715,16 +715,23 @@ template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   NetParameter param;
 #ifdef USE_AES_MODEL
-  printf("%s\n", "++++++++++++++++++++");
   FILE *fp = fopen(trained_filename.c_str(), "rb");
   fseek(fp, 0L, SEEK_END);
   int size = ftell(fp);
   fseek(fp, 0L, SEEK_SET);
+
+  unsigned char buffer[size];
+  fread(buffer, 1, size, fp);
+  fclose(fp);
+
+  ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param)
+
+  printf("%s\n", "++++++++++++++++++++");
   printf("%d\n", size);
 
 #else
-  printf("%s\n", "--------------------");
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
+  printf("%s\n", "--------------------");
 #endif
   CopyTrainedLayersFrom(param);
 }
