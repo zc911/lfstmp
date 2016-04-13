@@ -69,7 +69,7 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
 
 struct OneShotReadBuf : public std::streambuf
 {
-    OneShotReadBuf(char* s, std::size_t n)
+    OneShotReadBuf(unsigned char* s, std::size_t n)
     {
         setg(s, s, s + n);
     }
