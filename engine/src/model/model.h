@@ -32,6 +32,7 @@ typedef enum {
 } ObjectType;
 
 typedef struct {
+    int id;
     Box box;
     Confidence confidence;
 } Detection;
@@ -41,8 +42,7 @@ class Object {
     Object()
             : id_(0),
               type_(OBJECT_UNKNOWN),
-              confidence_(0),
-              parent_(NULL) {
+              confidence_(0) {
         children_.clear();
 
     }
@@ -58,13 +58,53 @@ class Object {
         children_.clear();
     }
 
+    const vector<Object*>& children() const {
+        return children_;
+    }
+
+    void set_children(const vector<Object*>& children) {
+        children_ = children;
+    }
+
+    Confidence confidence() const {
+        return confidence_;
+    }
+
+    void set_confidence(Confidence confidence) {
+        confidence_ = confidence;
+    }
+
+    const Detection& detection() const {
+        return detection_;
+    }
+
+    void set_detection(const Detection& detection) {
+        detection_ = detection;
+    }
+
+    Identification id() const {
+        return id_;
+    }
+
+    void set_id(Identification id) {
+        id_ = id;
+    }
+
+    ObjectType type() const {
+        return type_;
+    }
+
+    void set_type(ObjectType type) {
+        type_ = type;
+    }
+
  protected:
     Identification id_;
     ObjectType type_;
     Confidence confidence_;
     Detection detection_;
     vector<Object *> children_;
-    Object *parent_;
+//    Object *parent_;
 };
 
 class Vehicle : public Object {

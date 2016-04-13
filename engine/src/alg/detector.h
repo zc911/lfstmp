@@ -13,6 +13,7 @@
 #include <opencv2/core/core.hpp>
 
 #include "model/basic.h"
+#include "model/model.h"
 
 using namespace std;
 
@@ -20,15 +21,14 @@ namespace dg {
 
 class Detector {
  public:
-    Detector(const string model) {
+    Detector() {
     }
     virtual ~Detector() {
     }
 
-    virtual vector<Detection> Detect(const cv::Mat &img,
-                                     const int target_image_size) = 0;
+    virtual vector<Detection> Detect(const cv::Mat &img) = 0;
     virtual vector<vector<Detection>> DetectBatch(
-            const vector<cv::Mat> &img, const int target_image_size) = 0;
+            const vector<cv::Mat> &img) = 0;
 };
 }
 #endif /* DETECTOR_H_ */
