@@ -69,7 +69,7 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
 
 struct OneShotReadBuf : public std::streambuf
 {
-    OneShotReadBuf(unsigned char* s, std::size_t n)
+    OneShotReadBuf(char* s, std::size_t n)
     {
         setg(s, s, s + n);
     }
@@ -77,7 +77,7 @@ struct OneShotReadBuf : public std::streambuf
 
 
 bool ReadProtoFromMemory(unsigned char* buffer, int len, Message* proto) {
-  OneShotReadBuf osrb(buffer, len);
+  OneShotReadBuf osrb((char *)buffer, len);
   std::istream is(&osrb);
   ZeroCopyInputStream* raw_input = new IstreamInputStream(is);
   CodedInputStream* coded_input = new CodedInputStream(raw_input);
