@@ -724,7 +724,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   fread(buffer, size, 1, fp);
   fclose(fp);
 
-  // ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
+  ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
 
   printf("%s\n", "++++++++++++++++++++");
   printf("%d\n", size);
