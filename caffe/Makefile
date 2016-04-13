@@ -282,6 +282,14 @@ ifeq ($(USE_CUDNN), 1)
 	COMMON_FLAGS += -DUSE_CUDNN
 endif
 
+# AES model configuration
+ifeq ($(USE_AES_MODEL), 1)
+	COMMON_FLAGS += -DUSE_USE_AES_MODEL=1
+endif
+ifeq ($(USE_AES_MODEL), 0)
+        COMMON_FLAGS += -DUSE_USE_AES_MODEL=0
+endif
+
 # CPU-only configuration
 ifeq ($(CPU_ONLY), 1)
 	OBJS := $(PROTO_OBJS) $(CXX_OBJS)

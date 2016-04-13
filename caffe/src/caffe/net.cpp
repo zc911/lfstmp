@@ -714,7 +714,13 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
 
-  FILE *file = fopen(trained_filename.c_str(), "rb");
+#if USE_AES_MODEL
+  printf("%s\n", "++++++++++++++++++++");
+#else
+  printf("%s\n", "--------------------");
+  //FILE *file = fopen(trained_filename.c_str(), "rb");
+#endif
+  
 
   NetParameter param;
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
