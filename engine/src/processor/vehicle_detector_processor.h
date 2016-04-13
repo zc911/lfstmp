@@ -22,7 +22,7 @@ class VehicleDetectorProcessor : public Processor {
         config.batch_size = 1;
         config.model_file =
                 "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-        config.deploy_file = "models/detector/train.prototxt";
+        config.deploy_file = "models/detector/test.prototxt";
         config.use_gpu = true;
         config.gpu_id = 0;
         config.rescale = 400;
@@ -38,7 +38,7 @@ class VehicleDetectorProcessor : public Processor {
         if (!checkStatus(frame)) {
             return;
         }
-
+        cout << "Start detector frame: " << endl;
         vector<Detection> detections = detector_->Detect(
                 frame->payload()->data());
 
@@ -50,7 +50,7 @@ class VehicleDetectorProcessor : public Processor {
             frame->put_object(obj);
             print(d);
         }
-
+        cout << "End detector frame: " << endl;
         frame->set_status(FRAME_STATUS_DETECTED);
 
     }

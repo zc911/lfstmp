@@ -18,7 +18,7 @@ namespace dg {
 
 static void print(Detection &d) {
     cout << "Detection: " << "[" << d.box.x << "," << d.box.y << ","
-         << d.box.width << "," << d.box.height << "-";
+         << d.box.width << "," << d.box.height << "] ";
     string type;
     switch (d.id) {
         case 0:
@@ -41,7 +41,7 @@ static void print(Detection &d) {
             type = "Unknown";
             break;
     }
-    cout << "Type: " << type << "-" << d.confidence << endl;
+    cout << "Type: " << type << " Conf:" << d.confidence << endl;
 }
 
 }
