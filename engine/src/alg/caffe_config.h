@@ -8,6 +8,10 @@
 #ifndef CAFFE_CONFIG_H_
 #define CAFFE_CONFIG_H_
 
+#include <string>
+
+using namespace std;
+
 typedef struct {
     int batch_size = 0;
     int class_num = 0;

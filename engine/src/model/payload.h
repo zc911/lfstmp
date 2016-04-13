@@ -20,7 +20,7 @@ namespace dg {
 class Payload {
  public:
 
-    // TODO
+    // TODO init data_ as YUV and rbg_ as BGR format
     Payload(Identification id, unsigned int width, unsigned int height,
             unsigned char *data)
             : id_(id) {

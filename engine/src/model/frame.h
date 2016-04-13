@@ -23,6 +23,7 @@ typedef enum {
 
 enum FrameStatus {
     FRAME_STATUS_INIT = 0,
+    FRAME_STATUS_DETECTED = 1,
     FRAME_STATUS_FINISHED = 128
 };
 
@@ -59,6 +60,30 @@ class Frame {
 
     const vector<Object*>& objects() const {
         return objects_;
+    }
+
+    void put_object(Object *obj) {
+        for (vector<Object *>::iterator itr = objects_.begin();
+                itr != objects_.end(); ++itr) {
+            Object *obj = *itr;
+
+            if (obj->id() == obj->id()) {
+                delete *itr;
+                break;
+            }
+        }
+        objects_.push_back(obj);
+    }
+
+    Object* get_object(Identification id) {
+        for (vector<Object *>::iterator itr = objects_.begin();
+                itr != objects_.end(); ++itr) {
+            Object *obj = *itr;
+            if (obj->id() == id) {
+                return *itr;
+            }
+        }
+        return NULL;
     }
 
     void set_objects(const vector<Object*>& objects) {

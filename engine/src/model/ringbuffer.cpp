@@ -23,9 +23,15 @@ int RingBuffer::TryPut(unsigned int width, unsigned int height,
                        unsigned char *data) {
     Frame *f = Front();
     if (f != NULL) {
-        delete f;
-        f = NULL;
+        if (f->status() == FRAME_STATUS_FINISHED) {
+            delete f;
+            f = NULL;
+        } else {
+            cout << "skip put frame" << endl;
+            return -1;
+        }
     }
+
     f = new Frame(last_id_++, width, height, data);
     TryPut(f);
     return 0;
