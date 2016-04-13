@@ -67,21 +67,9 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
   return success;
 }
 
-// struct OneShotReadBuf : public std::streambuf
-// {
-//     OneShotReadBuf(char* s, std::size_t n)
-//     {
-//         setg(s, s, s + n);
-//     }
-// };
-
 
 bool ReadProtoFromMemory(unsigned char* buffer, int len, Message* proto) {
-  // OneShotReadBuf osrb((char *)buffer, len);
-  // std::istream is(&osrb);
-  std::fstream tokenFile(“”, std::ios_base::in);
-  google::protobuf::io::IstreamInputStream raw_input(&tokenFile);
-  // ZeroCopyInputStream* raw_input = new IstreamInputStream(is);
+  ZeroCopyInputStream* raw_input = new ArrayInputStream(buffer, len);
   CodedInputStream* coded_input = new CodedInputStream(raw_input);
   coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
 
