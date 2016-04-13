@@ -724,14 +724,12 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   fread(buffer, size, 1, fp);
   fclose(fp);
 
+  DLOG(INFO) << "Caffe will load AES model, size=" << size;
   ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
 
-  printf("%s\n", "++++++++++++++++++++");
-  printf("%d\n", size);
-
 #else
+  DLOG(INFO) << "Caffe will load clear text model";
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
-  printf("%s\n", "--------------------");
 #endif
   CopyTrainedLayersFrom(param);
 }
