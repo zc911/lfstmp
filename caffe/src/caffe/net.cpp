@@ -720,11 +720,11 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   int size = ftell(fp);
   fseek(fp, 0L, SEEK_SET);
 
-  unsigned char buffer[size];
-  fread(buffer, 1, size, fp);
+  unsigned char *buffer = (unsigned char *)malloc(size+1);
+  fread(buffer, size, 1, fp);
   fclose(fp);
 
-  ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
+  // ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
 
   printf("%s\n", "++++++++++++++++++++");
   printf("%d\n", size);
