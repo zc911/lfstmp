@@ -713,6 +713,14 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
+
+  ifstream mySource;
+  mySource.open(trained_filename, ios_base::binary);
+  mySource.seekg(0,ios_base::end);
+  int size = mySource.tellg();
+  std:cout << "LEO: " << size << std::endl;
+  mySource.close();
+
   NetParameter param;
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
   CopyTrainedLayersFrom(param);
