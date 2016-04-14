@@ -5,6 +5,12 @@
 #include <utility>
 #include <vector>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <openssl/aes.h>
+
 #include "caffe/common.hpp"
 #include "caffe/layer.hpp"
 #include "caffe/net.hpp"
@@ -709,6 +715,15 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
       target_blobs[j]->FromProto(source_layer.blobs(j), kReshape);
     }
   }
+}
+
+template <typename Dtype>
+void Net<Dtype>::AESDecoder(unsigned char *in, int len, unsigned char *out, unsigned char *key) {
+  unsigned char iv_dec[AES_BLOCK_SIZE];
+  memset(iv_dec, 'D', AES_BLOCK_SIZE);
+  AES_KEY dec_key;
+  AES_set_decrypt_key(key, 128, &dec_key);
+  AES_cbc_encrypt(in, out, len, &dec_key, iv_dec, AES_DECRYPT);
 }
 
 template <typename Dtype>
