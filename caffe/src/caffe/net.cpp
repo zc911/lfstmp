@@ -717,16 +717,16 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
 #ifdef USE_AES_MODEL
   FILE *fp = fopen(trained_filename.c_str(), "rb");
   fseek(fp, 0L, SEEK_END);
-  int size = ftell(fp);
+  long int size = ftell(fp);
   fseek(fp, 0L, SEEK_SET);
 
-  unsigned char *buffer = (unsigned char *)malloc(size+1);
+  unsigned char *buffer = (unsigned char *)malloc(size);
   fread(buffer, size, 1, fp);
   fclose(fp);
 
   LOG(INFO) << "Caffe will load AES model, size=" << size;
   ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
-
+  free(buffer);
 #else
   LOG(INFO) << "Caffe will load clear text model";
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
