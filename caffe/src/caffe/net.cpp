@@ -739,9 +739,19 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   fread(buffer, size, 1, fp);
   fclose(fp);
 
+  unsigned char aes_key[] = { 0x32, 0xF1, 0xAA, 0x14, 0x82, 0x11, 0x41, 0x0C, 0xDD, 0xCA, 0x19, 0x28,
+      0x90, 0xE0, 0x9F, 0x2F };
+
+  unsigned char *decrypt = (unsigned char *) malloc(size);
+
+  AESDecoder(buffer, size, decrypt, aes_key);
+
   LOG(INFO) << "Caffe will load AES model, size=" << size;
-  ReadNetParamsFromMemoryOrDie(trained_filename, buffer, size, &param);
+  ReadNetParamsFromMemoryOrDie(trained_filename, decrypt, size, &param);
+
   free(buffer);
+  free(decrypt);
+
 #else
   LOG(INFO) << "Caffe will load clear text model";
   ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
