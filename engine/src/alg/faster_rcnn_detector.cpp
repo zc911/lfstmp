@@ -1,7 +1,5 @@
 #include "faster_rcnn_detector.h"
-
 namespace dg {
-
 bool FasterRcnnDetector::mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
