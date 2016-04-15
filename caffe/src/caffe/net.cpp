@@ -718,15 +718,6 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 }
 
 template <typename Dtype>
-void Net<Dtype>::AESDecoder(unsigned char *in, int len, unsigned char *out, unsigned char *key) {
-  unsigned char iv_dec[AES_BLOCK_SIZE];
-  memset(iv_dec, 'D', AES_BLOCK_SIZE);
-  AES_KEY dec_key;
-  AES_set_decrypt_key(key, 256, &dec_key);
-  AES_cbc_encrypt(in, out, len, &dec_key, iv_dec, AES_DECRYPT);
-}
-
-template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   NetParameter param;
 #ifdef USE_AES_MODEL
@@ -738,10 +729,6 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   unsigned char *buffer = (unsigned char *)malloc(size);
   fread(buffer, size, 1, fp);
   fclose(fp);
-
-  unsigned char aes_key[] = { 0x32, 0xF1, 0xAA, 0x14, 0x82, 0x11, 0x41, 0x0C, 0xDD, 0xCA, 0x19, 0x28,
-      0x90, 0xE0, 0x9F, 0x2F, 0x4F, 0x0D, 0x35, 0x84, 0xC4, 0xAF, 0xF2,
-      0xA1, 0xDD, 0x3F, 0xB0, 0x32, 0x78, 0xC9, 0xAA, 0xCC };
 
   unsigned char *decrypt = (unsigned char *) malloc(size);
 

@@ -68,11 +68,6 @@ class Net {
   void BackwardTo(int end);
 
   /**
-   * AES model decoder
-   */
-  void AESDecoder(unsigned char *in, int len, unsigned char *out, unsigned char *key);
-
-  /**
    * @brief Reshape all layers from bottom to top.
    *
    * This is useful to propagate changes to layer sizes without running
