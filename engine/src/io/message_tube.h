@@ -15,7 +15,7 @@
 #include "model/model.h"
 #include "network/data_service_client.h"
 
-namespace deepglint {
+namespace dg {
 
 class MessageTube {
  public:
