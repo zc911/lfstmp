@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <openssl/aes.h>
+#include <watch_dog.h>
 
 #include "caffe/common.hpp"
 #include "caffe/layer.hpp"
@@ -745,7 +745,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
 
   unsigned char *decrypt = (unsigned char *) malloc(size);
 
-  AESDecoder(buffer, size, decrypt, aes_key);
+  DecryptModel(buffer, size, decrypt);
 
   LOG(INFO) << "Caffe will load AES model, size=" << size;
   ReadNetParamsFromMemoryOrDie(trained_filename, decrypt, size, &param);
