@@ -10,24 +10,21 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include "model/model.h"
-#include "io/ringbuffer.h"
-#include "util/timing_profiler.h"
-#include "planeview/planeview.h"
-#include "processor/deepv_classify_processor.h"
+#include "model/ringbuffer.h"
 
-class Display {
+namespace dg {
+class Displayer {
  public:
-    Display(RingBuffer* buffer, const string winName, int width, int height,
-            int snapWidth, int snapHeight, const int fps);
-    ~Display() {
-    }
+    Displayer(RingBuffer* buffer, const string winName, int width, int height,
+              int snapWidth, int snapHeight, const int fps);
+
     void Update(Frame *frame);
     void Run();
     void displayFrame();
     void timeFunc(int n);
 
  private:
-    static Display *self_;
+    static Displayer *self_;
     static void glutDisplayIt();
     static void glutTimerFuncIt(int n);
     static void glutIdleIt();
@@ -44,9 +41,7 @@ class Display {
     string vehicle_pic_window_name_;
     bool display_config_;
     string t_profiler_str_;
-    timing_profiler t_profiler_;
-    bool profile_time_;
 
 };
-
+}
 #endif /* SRC_UTIL_DISPLAY_H_ */

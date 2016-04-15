@@ -10,78 +10,40 @@
 
 #include <memory>
 #include <opencv2/core/core.hpp>
-#include <caffe/caffe.hpp>
-#include "classifier.h"
 
-namespace deepglint {
+#include "caffe/caffe.hpp"
+
+#include "caffe_config.h"
+#include "classifier.h"
 
 using namespace std;
 
-typedef struct {
-    int batch_size;
-    int class_num;
-    int target_min_size;
-    int target_max_size;
-    int rescale;
-    int gpu_id;
-    bool use_gpu;
-    float means[3];
-    string deploy_file;
-    string model_file;
-} CaffeConfig;
+namespace dg {
 
 class CaffeClassifier : public Classifier {
 
  public:
-    CaffeClassifier(CaffeConfig &caffeConfig) {
-        device_setted_ = false;
-        use_gpu_ = config.UseGPU;
+    CaffeClassifier(CaffeConfig &caffeConfig)
+            : gpu_id_(caffeConfig.gpu_id),
+              batch_size_(caffeConfig.batch_size),
+              target_min_size_(caffeConfig.target_min_size),
+              target_max_size_(caffeConfig.target_max_size),
+              use_gpu_(caffeConfig.use_gpu),
+              device_setted_(false),
+              meas_(caffeConfig.means) {
 
-        if (use_GPU_) {
-            Caffe::SetDevice(config.gpu_id);
-            gpu_id_ = config.gpu_id;
-            Caffe::set_mode(Caffe::GPU);
-            LOG(INFO) << "Use device " << config.gpu_id << endl;
-
-        } else {
-            LOG(WARNING) << "Use CPU only" << endl;
-            Caffe::set_mode(Caffe::CPU);
-        }
-        batch_size_ = config.batch_size;
-
-        net_.reset(new Net<float>(config.deploy_file, TEST));
-        net_->CopyTrainedLayersFrom(config.model_file);
-        CHECK_EQ(net_->num_inputs(), 1)
-                << "Network should have exactly one input.";
-
-        Blob<float>* input_layer = net_->input_blobs()[0];
-        num_channels_ = input_layer->channels();
-        CHECK(num_channels_ == 3 || num_channels_ == 1)
-                << "Input layer should have 1 or 3 channels.";
-        input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-
-        means_[0] = config.Means[0];
-        means_[1] = config.Means[1];
-        means_[2] = config.Means[2];
-
-        target_min_size_ = config.TargetMinSize;
-        target_max_size_ = config.TargetMaxSize;
-        rescale_ = config.Rescale;
     }
     virtual ~CaffeClassifier() {
 
     }
-    virtual std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs,
-                                                   float mean[3],
-                                                   float rescale) = 0;
-    virtual vector<vector<Prediction> > Classify(const vector<Mat> &imgs) = 0;
+
+    virtual vector<Prediction> Classify(const Mat &imgs) = 0;
     virtual vector<vector<Prediction> > ClassifyBatch(
             const vector<Mat> &imgs) = 0;
 
  protected:
 
     int gpu_id_;
-    int num_channels_;
     int batch_size_;
     float target_min_size_;
     float target_max_size_;
