@@ -26,13 +26,13 @@ namespace caffe {
 
 template <typename Dtype>
 Net<Dtype>::Net(const NetParameter& param) {
-  is_encrypt = false;
+  is_encrypt_ = false;
   Init(param);
 }
 
 template <typename Dtype>
 Net<Dtype>::Net(const string& param_file, Phase phase) {
-  is_encrypt = false;
+  is_encrypt_ = false;
   NetParameter param;
   ReadNetParamsFromTextFileOrDie(param_file, &param);
   param.mutable_state()->set_phase(phase);
@@ -51,7 +51,11 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt) {
     fseek(fp, 0L, SEEK_SET);
 
     unsigned char *buffer = (unsigned char *)malloc(size);
-    fread(buffer, size, 1, fp);
+    size_t rds = fread(buffer, size, 1, fp);
+    if (rds != size)
+    {
+      LOG(WARNING) << "Model file size read error";
+    }
     fclose(fp);
 
     unsigned char *decrypt = (unsigned char *) malloc(size);
@@ -755,7 +759,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   NetParameter param;
-  if (is_encrypt == true)
+  if (is_encrypt_ == true)
   {
     FILE *fp = fopen(trained_filename.c_str(), "rb");
     fseek(fp, 0L, SEEK_END);
@@ -763,7 +767,11 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
     fseek(fp, 0L, SEEK_SET);
 
     unsigned char *buffer = (unsigned char *)malloc(size);
-    fread(buffer, size, 1, fp);
+    size_t rds = fread(buffer, size, 1, fp);
+    if (rds != size)
+    {
+      LOG(WARNING) << "Model file size read error";
+    }
     fclose(fp);
 
     unsigned char *decrypt = (unsigned char *) malloc(size);
