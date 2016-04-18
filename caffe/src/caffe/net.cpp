@@ -45,7 +45,7 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt) {
   NetParameter param;
   if (is_encrypt == true)
   {
-    FILE *fp = fopen(param_file.c_str(), "r+");
+    FILE *fp = fopen(param_file.c_str(), "rb");
     fseek(fp, 0L, SEEK_END);
     long int size = ftell(fp);
     fseek(fp, 0L, SEEK_SET);
