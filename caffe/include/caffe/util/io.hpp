@@ -84,10 +84,10 @@ inline void ReadProtoFromBinaryMemoryOrDie(unsigned char* buffer, int len, Messa
   CHECK(ReadProtoFromBinaryMemory(buffer, len, proto));
 }
 
-bool ReadProtoFromTextMemory(unsigned char* buffer, int len, Message* proto);
+bool ReadProtoFromTextMemory(const string & input, Message* proto);
 
-inline bool ReadProtoFromTextMemoryOrDie(unsigned char* buffer, int len, Message* proto) {
-  return ReadProtoFromTextMemory(buffer, len, proto);
+inline bool ReadProtoFromTextMemoryOrDie(const string & input, Message* proto) {
+  return ReadProtoFromTextMemory(input, proto);
 }
 
 void WriteProtoToBinaryFile(const Message& proto, const char* filename);
