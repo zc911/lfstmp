@@ -86,7 +86,7 @@ inline void ReadProtoFromBinaryMemoryOrDie(unsigned char* buffer, int len, Messa
 
 bool ReadProtoFromTextMemory(unsigned char* buffer, int len, Message* proto);
 
-inline bool ReadProtoFromTextMemory(unsigned char* buffer, int len, Message* proto) {
+inline bool ReadProtoFromTextMemoryOrDie(unsigned char* buffer, int len, Message* proto) {
   return ReadProtoFromTextMemory(buffer, len, proto);
 }
 
