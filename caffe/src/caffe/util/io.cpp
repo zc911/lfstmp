@@ -69,7 +69,7 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
 }
 
 
-bool ReadProtoFromMemory(unsigned char* buffer, int len, Message* proto) {
+bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto) {
   ZeroCopyInputStream* raw_input = new ArrayInputStream(buffer, len);
   CodedInputStream* coded_input = new CodedInputStream(raw_input);
   coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
