@@ -45,10 +45,8 @@ bool ReadProtoFromTextFile(const char* filename, Message* proto) {
   return success;
 }
 
-bool ReadProtoFromTextMemory(unsigned char* buffer, int len, Message* proto) {
-  ArrayInputStream* input = new ArrayInputStream(buffer, len);
-  bool success = google::protobuf::TextFormat::Parse(input, proto);
-  delete input;
+bool ReadProtoFromTextMemory(const string & input, Message* proto) {
+  bool success = google::protobuf::TextFormat::ParseFromString(input, proto);
   return success;
 }
 

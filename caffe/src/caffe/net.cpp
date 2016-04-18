@@ -61,9 +61,10 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt) {
     unsigned char *decrypt = (unsigned char *) malloc(size);
 
     DecryptModel(buffer, size, decrypt);
+    string input = string((char *)decrypt) ;
 
     LOG(INFO) << "Caffe will load AES descript model, size=" << size;
-    ReadNetParamsFromTextMemoryOrDie(param_file, decrypt, size, &param);
+    ReadNetParamsFromTextMemoryOrDie(param_file, input, &param);
 
     free(buffer);
     free(decrypt);
