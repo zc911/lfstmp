@@ -25,6 +25,7 @@ class Net {
  public:
   explicit Net(const NetParameter& param);
   explicit Net(const string& param_file, Phase phase);
+  explicit Net(const string& param_file, Phase phase, bool is_encrypt);
   virtual ~Net() {}
 
   /// @brief Initialize a network with a NetParameter.
@@ -255,6 +256,8 @@ class Net {
   size_t memory_used_;
   /// Whether to compute and display debug info for the net.
   bool debug_info_;
+  /// if use encrypt model
+  bool is_encrypt_;
 
   DISABLE_COPY_AND_ASSIGN(Net);
 };
