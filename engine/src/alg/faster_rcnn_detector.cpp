@@ -19,11 +19,7 @@ FasterRcnnDetector::FasterRcnnDetector(const CaffeConfig &config)
     deploy_file_ = config.deploy_file;
     scale_ = config.rescale;
 
-    cout << "loading " << deploy_file_ << endl;
-
-    net_.reset(new Net<float>(deploy_file_, TEST));
-
-    cout << "loading " << model_file_ << endl;
+    net_.reset(new Net<float>(deploy_file_, TEST, config.is_model_encrypt));
 
     net_->CopyTrainedLayersFrom(model_file_);
     CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";

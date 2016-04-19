@@ -20,9 +20,16 @@ class VehicleDetectorProcessor : public Processor {
             : Processor() {
         CaffeConfig config;
         config.batch_size = 1;
-        config.model_file =
-                "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-        config.deploy_file = "models/detector/test.prototxt";
+
+        if (config.is_model_encrypt) {
+            config.model_file =
+                    "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
+            config.deploy_file = "models/detector/test.prototxt";
+        } else {
+            config.model_file =
+                    "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
+            config.deploy_file = "models/detector/test.prototxt";
+        }
         config.use_gpu = true;
         config.gpu_id = 0;
         config.rescale = 400;
