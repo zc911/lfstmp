@@ -9,7 +9,7 @@
 #define VEHICLE_DETECTOR_PROCESSOR_H_
 
 #include "processor.h"
-#include "alg/faster_rcnn_detector.h"
+#include "alg/vehicle_multi_type_detector.h"
 #include "util/debug_util.h"
 
 namespace dg {
@@ -33,7 +33,7 @@ class VehicleDetectorProcessor : public Processor {
         config.use_gpu = true;
         config.gpu_id = 0;
         config.rescale = 400;
-        detector_ = new FasterRcnnDetector(config);
+        detector_ = new VehicleMultiTypeDetector(config);
     }
     ~VehicleDetectorProcessor() {
 
@@ -61,6 +61,7 @@ class VehicleDetectorProcessor : public Processor {
         frame->set_status(FRAME_STATUS_DETECTED);
 
     }
+
     void Update(FrameBatch *frameBatch) {
 
     }
