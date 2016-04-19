@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <string>
 #include <vector>
-#include <iostream>
-#include <sstream>
 
 #include "caffe/net.hpp"
 #include "caffe/proto/caffe.pb.h"
@@ -12,8 +10,6 @@
 #include "caffe/util/io.hpp"
 #include "caffe/util/math_functions.hpp"
 #include "caffe/util/upgrade_proto.hpp"
-
-using namespace std;
 
 namespace caffe {
 

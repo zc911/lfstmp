@@ -5,12 +5,6 @@
 #include <utility>
 #include <vector>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <watch_dog.h>
-
 #include "caffe/common.hpp"
 #include "caffe/layer.hpp"
 #include "caffe/net.hpp"
@@ -26,53 +20,13 @@ namespace caffe {
 
 template <typename Dtype>
 Net<Dtype>::Net(const NetParameter& param) {
-  is_encrypt_ = false;
   Init(param);
 }
 
 template <typename Dtype>
 Net<Dtype>::Net(const string& param_file, Phase phase) {
-  is_encrypt_ = false;
   NetParameter param;
   ReadNetParamsFromTextFileOrDie(param_file, &param);
-  param.mutable_state()->set_phase(phase);
-  Init(param);
-}
-
-template <typename Dtype>
-Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt) {
-  is_encrypt_ = is_encrypt;
-  NetParameter param;
-  if (is_encrypt == true)
-  {
-    FILE *fp = fopen(param_file.c_str(), "rb");
-    fseek(fp, 0L, SEEK_END);
-    long int size = ftell(fp);
-    fseek(fp, 0L, SEEK_SET);
-
-    unsigned char *buffer = (unsigned char *)malloc(size);
-    size_t rds = fread(buffer, size, 1, fp);
-    if (rds != size)
-    {
-      LOG(WARNING) << "Model file size read error";
-    }
-    fclose(fp);
-
-    unsigned char *decrypt = (unsigned char *) malloc(size);
-
-    DecryptModel(buffer, size, decrypt);
-    string input = string((char *)decrypt) ;
-
-    LOG(INFO) << "Caffe will load AES descript model, size=" << size;
-    ReadNetParamsFromTextMemoryOrDie(param_file, input, &param);
-
-    free(buffer);
-    free(decrypt);
-  }
-  else
-  {
-    ReadNetParamsFromTextFileOrDie(param_file, &param);
-  }
   param.mutable_state()->set_phase(phase);
   Init(param);
 }
@@ -760,36 +714,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   NetParameter param;
-  if (is_encrypt_ == true)
-  {
-    FILE *fp = fopen(trained_filename.c_str(), "rb");
-    fseek(fp, 0L, SEEK_END);
-    long int size = ftell(fp);
-    fseek(fp, 0L, SEEK_SET);
-
-    unsigned char *buffer = (unsigned char *)malloc(size);
-    size_t rds = fread(buffer, size, 1, fp);
-    if (rds != size)
-    {
-      LOG(WARNING) << "Model file size read error";
-    }
-    fclose(fp);
-
-    unsigned char *decrypt = (unsigned char *) malloc(size);
-
-    DecryptModel(buffer, size, decrypt);
-
-    LOG(INFO) << "Caffe will load AES model, size=" << size;
-    ReadNetParamsFromBinaryMemoryOrDie(trained_filename, decrypt, size, &param);
-
-    free(buffer);
-    free(decrypt);
-  }
-  else
-  {
-    LOG(INFO) << "Caffe will load clear text model";
-    ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
-  }
+  ReadNetParamsFromBinaryFileOrDie(trained_filename, &param);
   CopyTrainedLayersFrom(param);
 }
 
