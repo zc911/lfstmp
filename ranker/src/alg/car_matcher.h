@@ -16,10 +16,12 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <vector>
 #include <stdio.h>
-#include "timing_profiler.h"
 #if USE_CUDA
 #include <cuda_runtime.h>
 #endif
+
+#include "timing_profiler.h"
+#include "feature.h"
 
 using namespace cv;
 using namespace std;
@@ -35,41 +37,25 @@ if (_m_cudaStat != cudaSuccess) {	\
 }}
 #endif
 
-struct CarDescriptor
-{
-	ushort car_width;
-	ushort car_height;
-	Mat position;
-	Mat descriptor;
-};
-
-struct box
-{
-	ushort x;
-	ushort y;
-	ushort height;
-	ushort width;
-};
-
 class CarMatcher
 {
 public:
 	CarMatcher();
 	virtual ~CarMatcher();
 	
-	void extract_descriptor(const Mat &img, CarDescriptor &des);
+	void extract_descriptor(const Mat &img, CarFeature &des);
 
-	vector<int> compute_match_score(const CarDescriptor &des, const Rect &in_box, const vector<CarDescriptor> &all_des);
-	vector<int> compute_match_score(const int &query_img_idx, const Rect &in_box, const vector<CarDescriptor> &all_des)
+	vector<int> compute_match_score(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+	vector<int> compute_match_score(const int &query_img_idx, const Rect &in_box, const vector<CarFeature> &all_des)
 	{
-		const CarDescriptor &des = all_des[query_img_idx];
+		const CarFeature &des = all_des[query_img_idx];
 		vector<int> score = compute_match_score(des, in_box, all_des);
 		score[query_img_idx] = -999;
 		return score;
 	}
 
-	int compute_match_score(const CarDescriptor &des1, const CarDescriptor &des2, const Rect &box);
-	int compute_match_score(const CarDescriptor &des1, const CarDescriptor &des2)
+	int compute_match_score(const CarFeature &des1, const CarFeature &des2, const Rect &box);
+	int compute_match_score(const CarFeature &des1, const CarFeature &des2)
 	{
 		LOG(INFO)<<"No interest area inputed.";
 		return compute_match_score(des1, des2, Rect(-1, -1, -1, -1));
@@ -110,7 +96,7 @@ private:
 	int selected_area_weight_;
 	int score_[100000];
 
-	void calc_new_box(const CarDescriptor &des1, const CarDescriptor &des2, const Rect &box, Rect &box1, Rect &box2);
+	void calc_new_box(const CarFeature &des1, const CarFeature &des2, const Rect &box, Rect &box1, Rect &box2);
 
 	void calc_new_size(const ushort &ori_height, const ushort &ori_width, Size &new_size)
 	{
@@ -149,9 +135,9 @@ private:
 	ushort *db_height_cuda;
 	int *score_cuda;
 
-	vector<int> compute_match_score_gpu(const CarDescriptor &des, const Rect &in_box, const vector<CarDescriptor> &all_des);
+	vector<int> compute_match_score_gpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
 #endif
-	vector<int> compute_match_score_cpu(const CarDescriptor &des, const Rect &in_box, const vector<CarDescriptor> &all_des);
+	vector<int> compute_match_score_cpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
 };
 
 #endif /* SRC_CAR_MATCHER_H_ */

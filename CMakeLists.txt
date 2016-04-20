@@ -12,22 +12,39 @@ ELSE()
     SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF()
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -g -O3 -w")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DCPU_ONLY -DDEBUG -g -O3 -w")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -O3 -w")
 
 find_package(Threads REQUIRED)
 if(CMAKE_COMPILER_IS_GNUCXX)
-  add_definitions(-Wall -ansi -Wno-deprecated -pthread)
+  add_definitions(-Wall -Wno-deprecated -pthread)
 endif()
 message(STATUS "Found Threads libs: ${THREADS_LIBS}")
 
-find_package(FreeType REQUIRED)
+find_package(Freetype REQUIRED)
 INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIRS})
 message(STATUS "Found FreeType libs: ${FREETYPE_LIBRARIES}")
+
+find_package(Caffe REQUIRED)
+INCLUDE_DIRECTORIES(${CAFFE_INCLUDE_DIRS})
+message(STATUS "Found Caffe libs: ${Caffe_LIBRARIES}")
+#FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS lib/caffe/${PLATFORM} )
+
+set(OpenBLAS_DIR /usr/local/share/cmake/Modules/)
+find_package(OpenBLAS REQUIRED)
+INCLUDE_DIRECTORIES(${OpenBLAS_INCLUDE_DIR})
+message(STATUS "Found OpenBLAS libs: ${OpenBLAS_LIB}")
+
+#find_package(Dlib REQUIRED)
+#INCLUDE_DIRECTORIES(${DLIB_INCLUDE_DIRS})
+#message(STATUS "Found dlib libs: ${DLIB_INCLUDE_DIRS}")
 
 find_package(Protobuf REQUIRED)
 INCLUDE_DIRECTORIES(${PROTOBUF_INCLUDE_DIRS})
 message(STATUS "Protobuf libs: ${PROTOBUF_LIBRARY}")
+
+find_library(DLIB_LIBRARY NAMES dlib)
+message(STATUS "Found dlib libs: ${DLIB_LIBRARY}")
 
 find_library(GRPC_LIBRARY NAMES grpc)
 find_library(GRPCPP_LIBRARY NAMES grpc++)
@@ -43,13 +60,6 @@ message(STATUS "Glog libs: ${GLOG_LIBRARIES}")
 
 find_package(OpenCV REQUIRED)
 message(STATUS "opencv libs: ${OpenCV_LIBS}")
-
-
-#find_library(OPENCV_CORE_LIBRARY NAMES opencv_core)
-#find_library(OPENCV_FEATURES2D_LIBRARY NAMES opencv_features2d)
-#find_library(OPENCV_IMGPROC_LIBRARY NAMES opencv_imgproc)
-#set(OPENCV_LIBRARIES ${OPENCV_CORE_LIBRARY} ${OPENCV_FEATURES2D_LIBRARY} ${OPENCV_IMGPROC_LIBRARY})
-#message(STATUS "opencv libs: ${OPENCV_LIBRARIES}")
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src)
