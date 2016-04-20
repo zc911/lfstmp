@@ -7,7 +7,7 @@
  * Description : 
  * ==========================================================================*/
 
-#include "processors/face_detect_processor.h"
+#include "processor/face_detect_processor.h"
 
 namespace dg
 {
