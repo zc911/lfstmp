@@ -14,134 +14,211 @@
 
 using namespace std;
 
-namespace dg {
+namespace dg
+{
 
-typedef enum {
-    OBJECT_UNKNOWN = 0,
-    OBJECT_VEHICLE = 1,
-    OBJECT_BICYCLE = 2,
-    OBJECT_TRICYCLE = 4,
-    OBJECT_PEDESTRIAN = 8,
-    OBJECT_MARKER_0 = 16,
-    OBJECT_MARKER_1 = 16,
-    OBJECT_MARKER_2 = 16,
-    OBJECT_MARKER_3 = 16,
-    OBJECT_MARKER_4 = 16,
-    OBJECT_PEOPLE = 32,
-    OBJECT_FACE = 64,
+typedef enum
+{
+	OBJECT_UNKNOWN = 0,
+	OBJECT_VEHICLE = 1,
+	OBJECT_BICYCLE = 2,
+	OBJECT_TRICYCLE = 4,
+	OBJECT_PEDESTRIAN = 8,
+	OBJECT_MARKER_0 = 16,
+	OBJECT_MARKER_1 = 16,
+	OBJECT_MARKER_2 = 16,
+	OBJECT_MARKER_3 = 16,
+	OBJECT_MARKER_4 = 16,
+	OBJECT_PEOPLE = 32,
+	OBJECT_FACE = 64,
 } ObjectType;
 
-typedef struct {
-    int id;
-    Box box;
-    Confidence confidence;
+typedef struct
+{
+	int id;
+	Box box;
+	Confidence confidence;
 } Detection;
 
-class Object {
- public:
-    Object()
-            : id_(0),
-              type_(OBJECT_UNKNOWN),
-              confidence_(0) {
-        children_.clear();
+class Object
+{
+public:
+	Object() :
+			id_(0), type_(OBJECT_UNKNOWN), confidence_(0)
+	{
+		children_.clear();
 
-    }
-    virtual ~Object() {
-        // here we only take care of children but not parent
-        for (int i = 0; i < children_.size(); ++i) {
-            Object * obj = children_[i];
-            if (obj) {
-                delete obj;
-                obj = NULL;
-            }
-        }
-        children_.clear();
-    }
+	}
+	virtual ~Object()
+	{
+		// here we only take care of children but not parent
+		for (int i = 0; i < children_.size(); ++i)
+		{
+			Object * obj = children_[i];
+			if (obj)
+			{
+				delete obj;
+				obj = NULL;
+			}
+		}
+		children_.clear();
+	}
 
-    const vector<Object*>& children() const {
-        return children_;
-    }
+	const vector<Object*>& children() const
+	{
+		return children_;
+	}
 
-    void set_children(const vector<Object*>& children) {
-        children_ = children;
-    }
+	void set_children(const vector<Object*>& children)
+	{
+		children_ = children;
+	}
 
-    Confidence confidence() const {
-        return confidence_;
-    }
+	Confidence confidence() const
+	{
+		return confidence_;
+	}
 
-    void set_confidence(Confidence confidence) {
-        confidence_ = confidence;
-    }
+	void set_confidence(Confidence confidence)
+	{
+		confidence_ = confidence;
+	}
 
-    const Detection& detection() const {
-        return detection_;
-    }
+	const Detection& detection() const
+	{
+		return detection_;
+	}
 
-    void set_detection(const Detection& detection) {
-        detection_ = detection;
-    }
+	void set_detection(const Detection& detection)
+	{
+		detection_ = detection;
+	}
 
-    Identification id() const {
-        return id_;
-    }
+	Identification id() const
+	{
+		return id_;
+	}
 
-    void set_id(Identification id) {
-        id_ = id;
-    }
+	void set_id(Identification id)
+	{
+		id_ = id;
+	}
 
-    ObjectType type() const {
-        return type_;
-    }
+	ObjectType type() const
+	{
+		return type_;
+	}
 
-    void set_type(ObjectType type) {
-        type_ = type;
-    }
+	void set_type(ObjectType type)
+	{
+		type_ = type;
+	}
 
- protected:
-    Identification id_;
-    ObjectType type_;
-    Confidence confidence_;
-    Detection detection_;
-    vector<Object *> children_;
+protected:
+	Identification id_;
+	ObjectType type_;
+	Confidence confidence_;
+	Detection detection_;
+	vector<Object *> children_;
 //    Object *parent_;
 };
 
-class Vehicle : public Object {
- public:
-    Vehicle()
-            : confidence_(0) {
-    }
- private:
-    cv::Mat image_;
-    Confidence confidence_;
+class Vehicle : public Object
+{
+public:
+	Vehicle() :
+			confidence_(0)
+	{
+	}
+private:
+	cv::Mat image_;
+	Confidence confidence_;
 };
 
-class Marker : public Object {
- public:
-    Marker()
-            : confidence_(0) {
-    }
- private:
-    Confidence confidence_;
+class Marker : public Object
+{
+public:
+	Marker() :
+			confidence_(0)
+	{
+	}
+private:
+	Confidence confidence_;
 };
 
-class People : public Object {
-    People() {
-    }
+class People : public Object
+{
+	People()
+	{
+	}
 };
 
-class Face : public Object {
-    Face() {
-    }
+class Face : public Object
+{
+
+public:
+	Face(Identification id, int x, int y, int width, int height,
+			Confidence confidence) :
+			x_(x), y_(y), width_(width), height_(height)
+	{
+		id_ = id;
+		confidence_ = confidence;
+	}
+
+	int x() const
+	{
+		return x_;
+	}
+
+	void set_x(int x)
+	{
+		x_ = x;
+	}
+
+	int y() const
+	{
+		return y_;
+	}
+
+	void set_y(int y)
+	{
+		y_ = y;
+	}
+
+	int width() const
+	{
+		return width_;
+	}
+
+	void set_width(int width)
+	{
+		width_ = width;
+	}
+
+	int height() const
+	{
+		return height_;
+	}
+
+	void set_height(int height)
+	{
+		height_ = height;
+	}
+
+private:
+	int x_;
+	int y_;
+	int width_;
+	int height_;
 };
 
-typedef struct {
-    Identification id;
-    Timestamp timestamp;
-    MessageStatus status;
-    MetaData *video_meta_data;
-    Object *object;
+typedef struct
+{
+	Identification id;
+	Timestamp timestamp;
+	MessageStatus status;
+	MetaData *video_meta_data;
+	Object *object;
 } Message;
 
 }
