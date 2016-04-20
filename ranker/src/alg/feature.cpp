@@ -8,46 +8,21 @@
  * ==========================================================================*/
 
 #include <iterator>
-#include <codec/base64.h>
-#include "feature_serializer.h"
+#include <opencv2/core/core.hpp>
+#include "feature.h"
+#include "codec/base64.h"
 
-namespace dg {
+using namespace cv;
+using namespace dg;
 
-FeatureSerializer::FeatureSerializer()
-{
-
-}
-
-FeatureSerializer::~FeatureSerializer()
-{
-
-}
-
-
-template<typename T>
-void FeatureSerializer::ConvertToByte(T value, vector<uchar> &data)
-{
-    uchar *ptr = (uchar *) (&value);
-    copy(ptr, ptr + sizeof(T), back_inserter(data));
-}
-
-template<typename T>
-void FeatureSerializer::ConvertToValue(T *value, vector<uchar> data)
-{
-    uchar *ptr = (uchar *) value;
-    for (int i = 0; i < sizeof(T); i++)
-    {
-        ptr[i] = data[i];
-    }
-}
-
-string FeatureSerializer::FeatureSerialize(Mat des, Mat pos)
+string CarFeature::Serialize()
 {
     float version = 1.0;
-
     vector<uchar> data;
     ConvertToByte(version, data);
     
+    Mat &des = descriptor;
+    Mat &pos = position;
     ConvertToByte((int) (des.dataend - des.datastart), data);
     ConvertToByte((int) (pos.dataend - pos.dataend), data);
     copy(des.datastart, des.dataend, back_inserter(data));
@@ -55,13 +30,13 @@ string FeatureSerializer::FeatureSerialize(Mat des, Mat pos)
     return Base64::Encode(data);
 }
 
-void FeatureSerializer::FeatureDeserialize(string str, Mat &des, Mat &pos)
+bool CarFeature::Deserialize(string featureStr)
 {
     float version;
     int des_size, pos_size;
 
     vector<uchar> data;
-    Base64::Decode(str, data);
+    Base64::Decode(featureStr, data);
 
     vector<uchar>::iterator it = data.begin();    
     vector<uchar> version_v(it, it + sizeof(version));
@@ -82,9 +57,22 @@ void FeatureSerializer::FeatureDeserialize(string str, Mat &des, Mat &pos)
     it += des_size;
     vector<uchar> pos_v(it, it + pos_size);
 
-    Mat des_p = Mat(des_size / 32, 32, 0, des_v.data());
-    Mat pos_p = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
-    des_p.copyTo(des);
-    pos_p.copyTo(pos);
+    descriptor = Mat(des_size / 32, 32, 0, des_v.data());
+    position = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    width = descriptor.cols;
+    height = descriptor.rows;
+    return true;
 }
+
+string FaceFeature::Serialize()
+{
+    return Base64::Encode(descriptor);
 }
+
+bool FaceFeature::Deserialize(string featureStr)
+{
+    descriptor.clear();
+    Base64::Decode(featureStr, descriptor);
+    return true;
+}
+

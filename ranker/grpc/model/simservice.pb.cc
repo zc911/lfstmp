@@ -115,10 +115,10 @@ void protobuf_AddDesc_simservice_2eproto() {
     "dates\030\004 \003(\0132\024.model.FeatureVector\022\r\n\005Lim"
     "it\030\005 \001(\005\"D\n\026FeatureRankingResponse\022\r\n\005Re"
     "qId\030\001 \001(\003\022\013\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022\276"
-    "\001\n\021SimilarityService\022S\n\022GetRankedCarVect"
-    "or\022\034.model.FeatureRankingRequest\032\035.model"
-    ".FeatureRankingResponse\"\000\022T\n\023GetRankedFa"
-    "ceVector\022\034.model.FeatureRankingRequest\032\035"
+    "\001\n\021SimilarityService\022T\n\023GetRankedFaceVec"
+    "tor\022\034.model.FeatureRankingRequest\032\035.mode"
+    "l.FeatureRankingResponse\"\000\022S\n\022GetRankedC"
+    "arVector\022\034.model.FeatureRankingRequest\032\035"
     ".model.FeatureRankingResponse\"\000b\006proto3", 479);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "simservice.proto", &protobuf_RegisterTypes);
