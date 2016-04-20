@@ -15,31 +15,41 @@
 #include "model.h"
 
 using namespace std;
-namespace dg {
 
-class Payload {
- public:
+namespace dg
+{
 
-    // TODO init data_ as YUV and rbg_ as BGR format
-    Payload(Identification id, unsigned int width, unsigned int height,
-            unsigned char *data)
-            : id_(id) {
-        cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
-        tmp.copyTo(data_);
+class Payload
+{
+public:
 
-    }
-    ~Payload() {
-        data_.release();
-        rgb_.release();
-    }
+	// TODO init data_ as YUV and rbg_ as BGR format
+	Payload(Identification id, unsigned int width, unsigned int height,
+			unsigned char *data) :
+			id_(id)
+	{
+		cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
+		tmp.copyTo(data_);
+	}
+	Payload(Identification id, Mat img) :
+			id_(id)
+	{
+		img.copyTo(data_);
+	}
+	~Payload()
+	{
+		data_.release();
+		rgb_.release();
+	}
 
-    cv::Mat data() {
-        return data_;
-    }
- private:
-    Identification id_;
-    cv::Mat data_;
-    cv::Mat rgb_;
+	cv::Mat data()
+	{
+		return data_;
+	}
+private:
+	Identification id_;
+	cv::Mat data_;
+	cv::Mat rgb_;
 };
 
 }
