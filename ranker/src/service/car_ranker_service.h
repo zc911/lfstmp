@@ -10,6 +10,7 @@
 #ifndef MATRIX_RANKER_CAR_RANKER_SERVICE_H_
 #define MATRIX_RANKER_CAR_RANKER_SERVICE_H_
 
+#include <glog/logging.h>
 #include "alg/car_matcher.h"
 #include "ranker_service.h"
 #include "timing_profiler.h"

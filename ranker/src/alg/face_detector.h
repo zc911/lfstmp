@@ -13,6 +13,7 @@
 #include <queue>
 #include <vector>
 
+#include <glog/logging.h>
 #include <dlib/image_processing.h>
 #include <dlib/image_processing/frontal_face_detector.h>
 #include <opencv2/opencv.hpp>

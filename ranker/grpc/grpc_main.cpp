@@ -43,6 +43,9 @@ private:
             LOG(WARNING) << "no image in request context" << endl;
             return false;
         }
+        LOG(INFO) << "image width: " << request->image().width();
+        LOG(INFO) << "image height: " << request->image().height();
+        LOG(INFO) << "image base64 size: " << request->image().bindata().size();
 
         if (request->candidates_size() <= 0) {
             LOG(WARNING) << "no candidates in request context" << endl;
@@ -57,7 +60,11 @@ private:
         }
         vector<uchar> jpgdata;
         Base64::Decode(imgdata, jpgdata);
+        LOG(INFO) << "image size: " << jpgdata.size();
+
         Mat image = imdecode(Mat(jpgdata), 1);
+        LOG(INFO) << "image real width: " << image.rows;
+        LOG(INFO) << "image real height: " << image.cols;
 
         int limit = request->limit();
         if (limit <= 0 || limit >= request->candidates_size())
@@ -131,6 +138,8 @@ private:
             LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
             return Status::CANCELLED;
         }
+
+        return Status::CANCELLED;
     }
 };
 
@@ -149,13 +158,19 @@ void RunServer(string address)
 
 int main(int argc, char* argv[])
 {
+    string server("0.0.0.0:9876");
     if (argc < 2)
     {
-        printf("Usage: %s [port] [glog args]\n", argv[0]);
+        cout << "Usage: " << argv[0] << " [address] [glog args]" << endl;
+    }
+    else
+    {
+        server = string(argv[1]);
+        if (server.size() == 0)server = string("0.0.0.0:9876");
     }
 
     google::InitGoogleLogging("rankerd");
     google::ParseCommandLineFlags(&argc, &argv, true);
-    RunServer(string(argv[1]));
+    RunServer(server);
     return 0;
 }
