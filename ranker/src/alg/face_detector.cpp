@@ -13,9 +13,16 @@ using namespace dg;
 FaceDetector::FaceDetector(string align_model, string avg_face)
         : _detector(dlib::get_frontal_face_detector()) 
 {
+    LOG(INFO) << "initialize face detector";
+    LOG(INFO) << "align_model: " << align_model;
+    LOG(INFO) << "avg_face: " << avg_face;
+
     dlib::deserialize(align_model) >> _sp;
 
     Mat avg_face_img = imread(avg_face);
+    LOG(INFO) << "avg_face.width: " << avg_face_img.cols;
+    LOG(INFO) << "avg_face.height: " << avg_face_img.rows;
+
     dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
 
     vector<dlib::rectangle> avg_face_bbox = _detector(avg_face_image);

@@ -11,6 +11,7 @@
 #define MATRIX_RANKER_FACE_RANKER_SERVICE_H_
 
 #include <string>
+#include <glog/logging.h>
 
 #include "alg/face_extractor.h"
 #include "alg/face_detector.h"

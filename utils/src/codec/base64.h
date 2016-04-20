@@ -49,21 +49,18 @@ public:
         base64_encodestate state;
         base64_init_encodestate(&state);
 
-        while(1)
+        while(input.good())
         {
             input.read(buffer_in, BUFSIZ);
             buffer_in_len = input.gcount();
-            if(input.fail() || buffer_in_len <= 0)
-            {
-                break;
-            }
-
             buffer_out_len = base64_encode_block(buffer_in, buffer_in_len, buffer_out, &state);
             output.write((const char*)buffer_out, buffer_out_len);
         }
 
         buffer_out_len = encodeEnd(buffer_out, &state);
         output.write(buffer_out, buffer_out_len);
+
+        output.flush();
     }
 
     template<typename T>
@@ -99,15 +96,10 @@ public:
         base64_decodestate state;
         base64_init_decodestate(&state);
 
-        while(1)
+        while(input.good())
         {
             input.read(buffer_in, BUFSIZ);
             buffer_in_len = input.gcount();
-            if(input.fail() || buffer_in_len <= 0)
-            {
-                break;
-            }
-
             buffer_out_len = base64_decode_block(buffer_in, buffer_in_len, buffer_out, &state);
             output.write((const char *)buffer_out, buffer_out_len);
         }

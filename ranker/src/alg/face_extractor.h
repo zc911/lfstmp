@@ -10,6 +10,7 @@
 #ifndef MATRIX_RANKER_ALG_FACE_EXTRACTOR_H_
 #define MATRIX_RANKER_ALG_FACE_EXTRACTOR_H_
 
+#include <glog/logging.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
 #include <caffe/caffe.hpp>
