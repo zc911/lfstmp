@@ -58,7 +58,10 @@ void ReadNetParamsFromTextFileOrDie(const string& param_file,
                                     NetParameter* param);
 void ReadNetParamsFromBinaryFileOrDie(const string& param_file,
                                       NetParameter* param);
-
+void ReadNetParamsFromTextMemoryOrDie(const string& param_file, 
+					const string & input, NetParameter* param);
+void ReadNetParamsFromBinaryMemoryOrDie(const string& param_file, 
+					unsigned char *buffer, int len, NetParameter* param);
 }  // namespace caffe
 
 #endif   // CAFFE_UTIL_UPGRADE_PROTO_H_
