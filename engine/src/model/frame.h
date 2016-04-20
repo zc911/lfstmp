@@ -11,6 +11,8 @@
 #include <vector>
 #include <pthread.h>
 
+#include <opencv2/core/core.hpp>
+
 #include "payload.h"
 
 using namespace std;
