@@ -16,6 +16,7 @@
 #include "payload.h"
 
 using namespace std;
+using namespace cv;
 
 namespace dg
 {
