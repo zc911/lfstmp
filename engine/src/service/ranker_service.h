@@ -13,7 +13,7 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 
-#include "alg/feature.h"
+#include "model/rank_feature.h"
 
 using namespace cv;
 using namespace std;

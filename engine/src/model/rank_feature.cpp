@@ -9,7 +9,7 @@
 
 #include <iterator>
 #include <opencv2/core/core.hpp>
-#include "feature.h"
+#include "rank_feature.h"
 #include "codec/base64.h"
 
 using namespace cv;
@@ -61,6 +61,8 @@ bool CarFeature::Deserialize(string featureStr)
     position = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
     width = descriptor.cols;
     height = descriptor.rows;
+
+    LOG(INFO) << "feature: w(" << width << "), h(" << height << ")";
     return true;
 }
 

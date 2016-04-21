@@ -13,8 +13,7 @@
 
 #include "codec/base64.h"
 #include "model/simservice.grpc.pb.h"
-#include "service/car_ranker_service.h"
-#include "service/face_ranker_service.h"
+#include "service/ranker_service.h"
 
 using namespace model;
 using namespace dg;
@@ -29,11 +28,11 @@ using grpc::Status;
 class RankerServiceImpl final : public model::SimilarityService::Service
 {
 private:
-    CarRanker car_ranker_;
-    FaceRanker face_ranker_;
+    CarRankService car_ranker_;
+    FaceRankService face_ranker_;
 
     template <typename F>
-    bool process(const FeatureRankingRequest* request, Ranker<F>& ranker,  FeatureRankingResponse* response)
+    bool process(const FeatureRankingRequest* request, RankService<F>& ranker,  FeatureRankingResponse* response)
     {
         google::protobuf::int64 reqid = request->reqid();
         LOG(INFO) << "request(" << reqid << ")" << endl;
@@ -71,6 +70,7 @@ private:
         {
             limit = request->candidates_size();
         }
+        LOG(INFO) << "result limits: " << limit;
 
         vector<F> features;
         for(int i = 0; i < request->candidates_size(); i++)
@@ -85,6 +85,7 @@ private:
             F feature = ranker.Deserialize(featureStr);
             features.push_back(feature);
         }
+        LOG(INFO) << "feature size: " << features.size();
 
         Rect hotspot(0, 0, image.cols, image.rows);
         if ( request->interestedareas_size() > 0 )
@@ -95,8 +96,14 @@ private:
                 hotspot = Rect(cb.x(), cb.y(), cb.width(), cb.height());
             }
         }
+        LOG(INFO) << "hotspot: " << hotspot;
 
         vector<Score> topn = ranker.Rank(image, hotspot, features);
+        LOG(INFO) << "result size: " << topn.size();
+        for(Score& s : topn)
+        {
+            LOG(INFO) << "index: " << s.index << ", score: " << s.score;
+        }
 
         //sort
         partial_sort(topn.begin(), topn.begin() + limit, topn.end());
