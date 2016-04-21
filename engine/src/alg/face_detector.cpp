@@ -9,12 +9,12 @@ bool mycmp(struct Bbox b1, struct Bbox b2)
 }
 
 FaceDetector::FaceDetector(const string& model_file, const string& trained_file,
-		const bool use_GPU, const int batch_size, const Size &image_size,
+		const bool use_gpu, const int batch_size, const Size &image_size,
 		const float conf_thres) :
 		image_size_(image_size), batch_size_(batch_size), conf_thres_(
 				conf_thres)
 {
-	if (use_GPU)
+	if (use_gpu)
 	{
 		Caffe::set_mode(Caffe::GPU);
 		Caffe::SetDevice(0);

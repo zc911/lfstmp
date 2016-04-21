@@ -15,7 +15,6 @@
 #include "model.h"
 
 using namespace std;
-using namespace cv;
 
 namespace dg
 {

@@ -19,7 +19,8 @@ namespace dg
 class FaceDetectProcessor
 {
 public:
-	FaceDetectProcessor(string model_file, string trained_file, float threshold,
+	FaceDetectProcessor(string model_file, string trained_file,
+			const bool use_gpu, const int batch_size, float threshold,
 			int width, int height);
 	virtual ~FaceDetectProcessor();
 

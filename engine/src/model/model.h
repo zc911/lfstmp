@@ -165,6 +165,14 @@ public:
 		confidence_ = confidence;
 	}
 
+	Face()
+	{
+		x_ = 0;
+		y_ = 0;
+		width_ = 0;
+		height_ = 0;
+	}
+
 	int x() const
 	{
 		return x_;
@@ -205,11 +213,22 @@ public:
 		height_ = height;
 	}
 
+	FaceFeature feature() const
+	{
+		return feature_;
+	}
+
+	void set_feature(FaceFeature feature)
+	{
+		feature_ = feature;
+	}
+
 private:
 	int x_;
 	int y_;
 	int width_;
 	int height_;
+	FaceFeature feature_;
 };
 
 typedef struct

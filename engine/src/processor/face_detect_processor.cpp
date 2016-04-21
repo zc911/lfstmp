@@ -13,7 +13,8 @@ namespace dg
 {
 
 FaceDetectProcessor::FaceDetectProcessor(string model_file, string trained_file,
-		float threshold, int width, int height)
+		const bool use_gpu, const int batch_size, float threshold, int width,
+		int height)
 {
 	//Initialize face detection caffe model and arguments
 	std::cout << "Strart loading fece detector model" << std::endl;
@@ -24,20 +25,21 @@ FaceDetectProcessor::FaceDetectProcessor(string model_file, string trained_file,
 	resolution_.height = height;
 
 	//Initialize face detector
-	detector_ = new FaceDetector(model_file_, trained_file_, true, 1,
-			resolution_, det_thresh_);
+	detector_ = new FaceDetector(model_file_, trained_file_, use_gpu,
+			batch_size, resolution_, det_thresh_);
 	std::cout << "Fece detector has been initialized" << std::endl;
 }
 
 FaceDetectProcessor::~FaceDetectProcessor()
 {
+	delete detector_;
 }
 
 void FaceDetectProcessor::Update(Frame *frame)
 {
-	vector<Mat> images;
-	images.push_back(frame->payload()->data());
-	vector<vector<struct Bbox>> boxes_in = detector_->Detect(images);
+	vector<Mat> imgs;
+	imgs.push_back(frame->payload()->data());
+	vector<vector<struct Bbox>> boxes_in = detector_->Detect(imgs);
 
 	for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++)
 	{
