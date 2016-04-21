@@ -31,7 +31,7 @@ public:
     }
 };
 
-class Feature 
+class RankFeature 
 {
 public:
     virtual string Serialize() {};
@@ -56,7 +56,7 @@ protected:
     }
 };
 
-class CarFeature final : public Feature
+class CarFeature final : public RankFeature
 {
 public:
     int width;
@@ -68,7 +68,7 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
-class FaceFeature final : public Feature
+class FaceFeature final : public RankFeature
 {
 public:
     std::vector<float> descriptor;
