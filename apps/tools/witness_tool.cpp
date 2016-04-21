@@ -110,8 +110,8 @@ class WitnessClientAsyn {
 };
 
 static int RandomSessionId() {
-    int id = 0;
     srand(time(NULL));
+    int id = rand();
     for (int i = 0; i < 10; ++i) {
         id = (id << 7) | rand();
     }
@@ -140,15 +140,17 @@ int main(int argc, char *argv[]) {
         WitnessClientAsyn client(
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
-
-        client.Recognize(image_file_path, RandomSessionId());
+        int id = RandomSessionId();
+        cout << "Rec asyn: " << id << endl;
+        client.Recognize(image_file_path, id);
 
     } else {
         WitnessClient client(
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
-
-        client.Recognize(image_file_path, RandomSessionId());
+        int id = RandomSessionId();
+        cout << "Rec: " << id << endl;
+        client.Recognize(image_file_path, id);
     }
 
 }
