@@ -36,7 +36,11 @@ IF(APPLE)
     message(STATUS "Found OpenBLAS libs: ${OpenBLAS_LIB}")
 
 ELSE(APPLE)
-FIND_LIBRARY(Caffe_LIBRARIES caffe)
+FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS /usr/local/cuda/lib64)
+FIND_LIBRARY(LIB_DGMEDIA NAMES dgmedia)
+FIND_LIBRARY(LIB_CAFFE NAMES caffe)
+SET(Caffe_LIBRARIES ${LIB_CUDART} ${LIB_DGMEDIA} ${LIB_CAFFE})
+
 ENDIF(APPLE)
 
 find_package(Protobuf REQUIRED)
@@ -49,7 +53,8 @@ message(STATUS "Found dlib libs: ${DLIB_LIBRARY}")
 find_library(GRPC_LIBRARY NAMES grpc)
 find_library(GRPCPP_LIBRARY NAMES grpc++)
 find_library(GPR_LIBRARY NAMES gpr)
-set(GRPC_LIBRARIES ${GRPCPP_LIBRARY} ${GRPC_LIBRARY} ${GPR_LIBRARY})
+find_library(GFLAGS_LIBRARY NAMES gflags)
+set(GRPC_LIBRARIES ${GRPCPP_LIBRARY} ${GRPC_LIBRARY} ${GPR_LIBRARY} ${GFLAGS_LIBRARY})
 message(STATUS "Grpc libs: ${GRPC_LIBRARIES}")
 
 find_library(JSONCPP_LIBRARIES NAMES jsoncpp HINTS /usr/lib /usr/local/lib)

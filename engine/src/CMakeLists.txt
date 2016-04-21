@@ -18,7 +18,7 @@ AUX_SOURCE_DIRECTORY(vis SRC_VIS)
 file(GLOB_RECURSE SRC_FILES *.cpp *.c *.cc)
 
 set(PROJECT_RANKER_LIB ${PROJECT_NAME_STR}_engine)
-add_library(${PROJECT_RANKER_LIB} SHARED ${SRC_FILES})
+add_library(${PROJECT_RANKER_LIB} ${SRC_FILES}) # SHARED ${SRC_FILES})
 
 target_link_libraries(${PROJECT_RANKER_LIB} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(${PROJECT_RANKER_LIB} ${FREETYPE_LIBRARIES})
@@ -29,3 +29,4 @@ target_link_libraries(${PROJECT_RANKER_LIB} ${PROTOBUF_LIBRARY})
 target_link_libraries(${PROJECT_RANKER_LIB} ${DLIB_LIBRARY})
 target_link_libraries(${PROJECT_RANKER_LIB} ${Caffe_LIBRARIES})
 target_link_libraries(${PROJECT_RANKER_LIB} ${PROJECT_NAME_STR}_utils)
+
