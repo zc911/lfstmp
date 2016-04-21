@@ -1,3 +1,4 @@
+#include <time.h>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -18,9 +19,9 @@ class WitnessClient {
             : stub_(WitnessService::NewStub(channel)) {
     }
 
-    void Recognize(const string file_path) {
+    void Recognize(const string file_path, int session_id) {
         RecognizeRequest req;
-        req.set_sessionid(112233);
+        req.set_sessionid(session_id);
         req.mutable_image()->set_uri(file_path);
 
         RecognizeResponse resp;
@@ -48,10 +49,10 @@ class WitnessClientAsyn {
 
     // Assambles the client's payload, sends it and presents the response back
     // from the server.
-    void Recognize(const string file_path) {
+    void Recognize(const string file_path, int session_id) {
         // Data we are sending to the server.
         RecognizeRequest request;
-        request.set_sessionid(112233);
+        request.set_sessionid(session_id);
         request.mutable_image()->set_uri(file_path);
 
         // Container for the data we expect from the server.
@@ -108,6 +109,16 @@ class WitnessClientAsyn {
     std::unique_ptr<WitnessService::Stub> stub_;
 };
 
+static int RandomSessionId() {
+    int id = 0;
+    srand(time(NULL));
+    for (int i = 0; i < 10; ++i) {
+        id = (id << 7) | rand();
+    }
+
+    return id < 0 ? -1 * id : id;
+}
+
 int main(int argc, char *argv[]) {
     if (argc != 4) {
         cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] IP:PORT"
@@ -130,14 +141,14 @@ int main(int argc, char *argv[]) {
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
 
-        client.Recognize(image_file_path);
+        client.Recognize(image_file_path, RandomSessionId());
 
     } else {
         WitnessClient client(
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
 
-        client.Recognize(image_file_path);
+        client.Recognize(image_file_path, RandomSessionId());
     }
 
 }
