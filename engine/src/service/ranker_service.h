@@ -13,6 +13,7 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 
+#include "engine/rank_engine.h"
 #include "model/rank_feature.h"
 
 using namespace cv;
@@ -42,7 +43,7 @@ public:
     virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<F>& candidates);
 };
 
-class CarRankService final : RankService<CarFeature>
+class CarRankService final : public RankService<CarFeature>
 {
 private:
     CarRankEngine engine_;
@@ -53,7 +54,7 @@ private:
     }
 };
 
-class FaceRankService final : RankService<FaceFeature>
+class FaceRankService final : public RankService<FaceFeature>
 {
 private:
     FaceRankEngine engine_;

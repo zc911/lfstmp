@@ -12,8 +12,10 @@
 #include <pthread.h>
 
 #include "payload.h"
+#include "rank_feature.h"
 
 using namespace std;
+using namespace cv;
 
 namespace dg {
 
@@ -151,6 +153,56 @@ class FrameBatch : private Frame {
     unsigned int batch_size_;
     vector<Frame *> frames_;
 };
+
+class CarRankFrame : public Frame {
+public:
+    CarRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<CarFeature>& candidates)
+            : Frame(id)
+            , image(image)
+            , hotspots(hotspots)
+            , candidates(candidates)
+    {}
+    ~CarRankFrame(){}
+    CarRankFrame(const CarRankFrame& f) 
+            : Frame(f.id_)
+            , image(f.image)
+            , hotspots(f.hotspots)
+            , candidates(f.candidates)
+    {
+    }
+
+    const Mat& image;
+    const vector<Rect>& hotspots;
+    const vector<CarFeature>& candidates;
+
+    vector<Score> result;
+};
+
+
+class FaceRankFrame : public Frame {
+public:
+    FaceRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<FaceFeature>& candidates)
+            : Frame(id)
+            , image(image)
+            , hotspots(hotspots)
+            , candidates(candidates)
+    {}
+    ~FaceRankFrame(){}
+    FaceRankFrame(const FaceRankFrame& f) 
+            : Frame(f.id_)
+            , image(f.image)
+            , hotspots(f.hotspots)
+            , candidates(f.candidates)
+    {
+    }
+
+    const Mat& image;
+    const vector<Rect>& hotspots;
+    const vector<FaceFeature>& candidates;
+
+    vector<Score> result;
+};
+
 
 // TODO
 class RankData : public Frame {
