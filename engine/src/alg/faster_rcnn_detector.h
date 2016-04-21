@@ -11,10 +11,11 @@
 #include <string>
 
 #include <opencv2/opencv.hpp>
+
+#include "../alg/caffe_config.h"
 #include "caffe/caffe.hpp"
 
-#include "caffe_config.h"
-#include "caffe_detector.h"
+#include "vehicle_caffe_detector.h"
 
 using namespace std;
 using namespace cv;

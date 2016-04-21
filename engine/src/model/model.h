@@ -35,6 +35,7 @@ typedef struct {
     int id;
     Box box;
     Confidence confidence;
+    bool deleted;
 } Detection;
 
 class Object {
