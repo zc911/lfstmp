@@ -15,7 +15,7 @@
 #include <opencv2/core/core.hpp>
 #include <caffe/caffe.hpp>
 
-#include "feature.h"
+#include "model/rank_feature.h"
 
 using namespace std;
 using namespace cv;

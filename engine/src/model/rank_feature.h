@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <glog/logging.h>
 #include <opencv2/core/core.hpp>
 
 using namespace std;
@@ -26,7 +27,7 @@ public:
     //sortable: score[desc] >> index[asc]
     bool operator<(const Score& right) const
     {
-        return score > right.score && index < right.index;
+        return score != right.score ? (score > right.score) : (index < right.index);
     }
 };
 

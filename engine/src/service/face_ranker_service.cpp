@@ -11,16 +11,6 @@
 
 using namespace dg;
 
-
-const string model_tmp_folder="models/";
-
-const string Trained_file_face_detect = "shapeface1";
-const string Avg_file_face_detect = "avgface1";
-const string Trained_file_face_detect_caffe = "googlenet_face_iter_100000.caffemodel";
-const string Model_file_face_detect_caffe = "face.prototxt";
-const string Trained_file_face = "modelface1";
-const string Model_file_face= "deployface1";
-
 FaceRanker::FaceRanker() :
 detector_("models/shapeface1", "models/avgface1"), extractor_("models/deployface1", "models/modelface1")
 {

@@ -21,7 +21,7 @@
 #endif
 
 #include "timing_profiler.h"
-#include "feature.h"
+#include "model/rank_feature.h"
 
 using namespace cv;
 using namespace std;
