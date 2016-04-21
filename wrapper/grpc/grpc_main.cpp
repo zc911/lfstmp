@@ -25,6 +25,8 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
+int _USER_ERROR__missing_dlib_all_source_cpp_file__OR__inconsistent_use_of_DEBUG_or_ENABLE_ASSERTS_preprocessor_directives_;
+
 class RankerServiceImpl final : public model::SimilarityService::Service
 {
 private:
@@ -42,9 +44,6 @@ private:
             LOG(WARNING) << "no image in request context" << endl;
             return false;
         }
-        LOG(INFO) << "image width: " << request->image().width();
-        LOG(INFO) << "image height: " << request->image().height();
-        LOG(INFO) << "image base64 size: " << request->image().bindata().size();
 
         if (request->candidates_size() <= 0) {
             LOG(WARNING) << "no candidates in request context" << endl;
@@ -59,18 +58,14 @@ private:
         }
         vector<uchar> jpgdata;
         Base64::Decode(imgdata, jpgdata);
-        LOG(INFO) << "image size: " << jpgdata.size();
 
         Mat image = imdecode(Mat(jpgdata), 1);
-        LOG(INFO) << "image real width: " << image.rows;
-        LOG(INFO) << "image real height: " << image.cols;
 
         int limit = request->limit();
         if (limit <= 0 || limit >= request->candidates_size())
         {
             limit = request->candidates_size();
         }
-        LOG(INFO) << "result limits: " << limit;
 
         vector<F> features;
         for(int i = 0; i < request->candidates_size(); i++)
@@ -85,7 +80,6 @@ private:
             F feature = ranker.Deserialize(featureStr);
             features.push_back(feature);
         }
-        LOG(INFO) << "feature size: " << features.size();
 
         Rect hotspot(0, 0, image.cols, image.rows);
         if ( request->interestedareas_size() > 0 )
@@ -96,15 +90,8 @@ private:
                 hotspot = Rect(cb.x(), cb.y(), cb.width(), cb.height());
             }
         }
-        LOG(INFO) << "hotspot: " << hotspot;
 
         vector<Score> topn = ranker.Rank(image, hotspot, features);
-        LOG(INFO) << "result size: " << topn.size();
-        for(Score& s : topn)
-        {
-            LOG(INFO) << "index: " << s.index << ", score: " << s.score;
-        }
-
         //sort
         partial_sort(topn.begin(), topn.begin() + limit, topn.end());
         topn.resize(limit);

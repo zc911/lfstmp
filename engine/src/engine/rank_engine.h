@@ -46,7 +46,7 @@ public:
             return;
         }
 
-        Frame *f = buffer_->Get(cur_frame_);
+        Frame *f = buffer_->Back();
         if (f == NULL) {
             return;
         }

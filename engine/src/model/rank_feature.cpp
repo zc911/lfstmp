@@ -32,37 +32,97 @@ string CarFeature::Serialize()
 
 bool CarFeature::Deserialize(string featureStr)
 {
-    float version;
-    int des_size, pos_size;
-
     vector<uchar> data;
     Base64::Decode(featureStr, data);
 
-    vector<uchar>::iterator it = data.begin();    
-    vector<uchar> version_v(it, it + sizeof(version));
-
-    it += sizeof(version);
-    vector<uchar> des_size_v(it, it + sizeof(des_size));
-
-    it += sizeof(des_size);
-    vector<uchar> pos_size_v(it, it + sizeof(des_size));
+    float version;
+    int des_size, pos_size;
+    int hpos = 0;
+    vector<uchar> version_v(data.begin() + hpos,
+            data.begin() + hpos + sizeof(version));
+    hpos += sizeof(version);
+    vector<uchar> des_size_v(data.begin() + hpos,
+            data.begin() + hpos + sizeof(des_size));
+    hpos += sizeof(des_size);
+    vector<uchar> pos_size_v(data.begin() + hpos,
+            data.begin() + hpos + sizeof(des_size));
+    hpos += sizeof(pos_size);
 
     ConvertToValue(&version, version_v);
     ConvertToValue(&des_size, des_size_v);
     ConvertToValue(&pos_size, pos_size_v);
 
-    it += sizeof(pos_size);
-    vector<uchar> des_v(it, it + des_size);
+    vector<uchar> des_v(data.begin() + hpos, data.begin() + hpos + des_size);
+    hpos += des_size;
 
-    it += des_size;
-    vector<uchar> pos_v(it, it + pos_size);
+    vector<uchar> pos_v(data.begin() + hpos, data.begin() + hpos + pos_size);
+    hpos += pos_size;
 
-    descriptor = Mat(des_size / 32, 32, 0, des_v.data());
-    position = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    Mat des_p = Mat(des_size / (32 * sizeof(ushort)), 32, 0, des_v.data());
+    Mat pos_p = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    des_p.copyTo(descriptor);
+    pos_p.copyTo(position);
+
+
+    // float version;
+    // int des_size, pos_size;
+
+    // vector<uchar> data;
+    // data.clear();
+    // Base64::Decode(featureStr, data);
+
+    // vector<uchar>::iterator it = data.begin();    
+    // vector<uchar> version_v(it, it + sizeof(version));
+
+    // it += sizeof(version);
+    // vector<uchar> des_size_v(it, it + sizeof(des_size));
+
+    // it += sizeof(des_size);
+    // vector<uchar> pos_size_v(it, it + sizeof(des_size));
+
+    // ConvertToValue(&version, version_v);
+    // ConvertToValue(&des_size, des_size_v);
+    // ConvertToValue(&pos_size, pos_size_v);
+
+    // it += sizeof(pos_size);
+    // vector<uchar> des_v(it, it + des_size);
+
+    // it += des_size;
+    // vector<uchar> pos_v(it, it + pos_size);
+
+    // Mat des(des_size / 32, 32, 0, des_v.data());
+    // Mat pos(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    // des.copyTo(descriptor);
+    // pos.copyTo(position);
+
     width = descriptor.cols;
     height = descriptor.rows;
 
-    LOG(INFO) << "feature: w(" << width << "), h(" << height << ")";
+            int des_s = 0, pos_s = 0, str_s = 0;
+            for(uchar u : data)
+            {
+                str_s += u;
+            }
+
+            for(int i = 0; i < descriptor.rows; i ++)
+            {
+                for(int j = 0; j < descriptor.cols; j ++)
+                {
+                    des_s += descriptor.at<ushort>(i, j);
+                }
+            }
+            for(int i = 0; i < position.rows; i ++)
+            {
+                for(int j = 0; j < position.cols; j ++)
+                {
+                    pos_s += position.at<ushort>(i, j);
+                }
+            }
+
+    LOG(INFO) << "feature: w(" << width << "), h(" << height << "), length: " << descriptor.size() << ", size: " << str_s;
+    LOG(INFO) << descriptor.rows << ":" << descriptor.cols << ":" << des_s;
+    LOG(INFO) << position.rows << ":" << position.cols << ":" << pos_s;
+
     return true;
 }
 

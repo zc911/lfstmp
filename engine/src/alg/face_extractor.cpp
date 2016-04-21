@@ -103,9 +103,7 @@ void FaceExtractor::Classify(const vector<Mat>& images, const vector<FaceFeature
 
         vector<Score> pred;
         for (int i = 0; i < features.size(); i ++) {
-            Score p;
-            p.index = i;
-            p.score = get_cos_similarity(output, features[i].descriptor);
+            Score p(i, get_cos_similarity(output, features[i].descriptor));
             pred.push_back(p);
         }
         predicts.push_back(pred);
