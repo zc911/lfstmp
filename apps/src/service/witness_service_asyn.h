@@ -18,6 +18,8 @@
 #include <grpc++/grpc++.h>
 
 #include "model/proto/witness.grpc.pb.h"
+#include "basic_service.h"
+#include "config/config.h"
 
 using grpc::Server;
 using grpc::ServerAsyncResponseWriter;
@@ -28,12 +30,13 @@ using grpc::Status;
 using namespace std;
 
 namespace dg {
-class WitnessServiceAsynImpl {
+class WitnessServiceAsynImpl : public BasicService {
 
  public:
-    WitnessServiceAsynImpl(const string addr)
-            : addr_(addr) {
-
+    WitnessServiceAsynImpl(Config *config)
+            : config_(config) {
+        addr_ = (string) config_->Value("System/Ip") + ":"
+                + (string) config_->Value("System/Port");
     }
 
     ~WitnessServiceAsynImpl() {
@@ -44,12 +47,10 @@ class WitnessServiceAsynImpl {
 
     // There is no shutdown handling in this code.
     void Run() {
-        std::string server_address(addr_);
 
         ServerBuilder builder;
         // Listen on the given address without any authentication mechanism.
-        builder.AddListeningPort(server_address,
-                                 grpc::InsecureServerCredentials());
+        builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
         // Register "service_" as the instance through which we'll communicate with
         // clients. In this case it corresponds to an *asynchronous* service.
         builder.RegisterService(&service_);
@@ -67,6 +68,7 @@ class WitnessServiceAsynImpl {
         pthread_create(&tid_, NULL, callback, (void*) this);
         pthread_create(&tid2_, NULL, callback, (void*) this);
 
+        std::cout << "Server(Asyn) listening on " << addr_ << std::endl;
         pthread_join(tid_, NULL);
 
         //HandleRpcs();
@@ -110,13 +112,13 @@ class WitnessServiceAsynImpl {
                 // The actual processing.
                 cout << "Get Recognize request: " << request_.sessionid()
                      << ", Image URI:" << request_.image().uri() << endl;
-                cout << "Start processing: " << request_.sessionid() << "..."
-                     << endl;
+                cout << "Start processing(Asyn): " << request_.sessionid()
+                     << "..." << endl;
                 sleep(5);
                 reply_.mutable_result()->mutable_brand()->set_brandid(123);
                 reply_.mutable_status()->set_msg("finish");
-                cout << "Finish processing: " << request_.sessionid() << "..."
-                     << endl;
+                cout << "Finish processing(Asyn): " << request_.sessionid()
+                     << "..." << endl;
                 cout << "=======" << endl;
                 // And we are done! Let the gRPC runtime know we've finished, using the
                 // memory address of this instance as the uniquely identifying tag for
@@ -175,6 +177,7 @@ class WitnessServiceAsynImpl {
         }
     }
 
+    Config *config_;
     string addr_;
     std::unique_ptr<ServerCompletionQueue> cq_;
     WitnessService::AsyncService service_;

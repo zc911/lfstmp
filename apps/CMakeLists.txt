@@ -13,7 +13,7 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
 INCLUDE_DIRECTORIES(src include)
 
-LIST(APPEND LIBS glog gflags protobuf grpc++ grpc pthread)
+LIST(APPEND LIBS glog gflags protobuf grpc++ grpc jsoncpp pthread)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(tools)
