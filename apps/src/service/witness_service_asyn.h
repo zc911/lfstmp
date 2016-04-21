@@ -9,6 +9,7 @@
 #define WITNESS_SERVICE_ASYN_H_
 
 #include <unistd.h>
+#include <pthread.h>
 #include <memory>
 #include <iostream>
 #include <string>
@@ -59,7 +60,16 @@ class WitnessServiceAsynImpl {
         server_ = builder.BuildAndStart();
 
         // Proceed to the server's main loop.
-        HandleRpcs();
+
+        pthread_t tid_, tid2_;
+        typedef void* (*FUNC)(void*);
+        FUNC callback = (FUNC) &WitnessServiceAsynImpl::HandleRpcs;
+        pthread_create(&tid_, NULL, callback, (void*) this);
+        pthread_create(&tid2_, NULL, callback, (void*) this);
+
+        pthread_join(tid_, NULL);
+
+        //HandleRpcs();
     }
 
  private:
@@ -107,7 +117,7 @@ class WitnessServiceAsynImpl {
                 reply_.mutable_status()->set_msg("finish");
                 cout << "Finish processing: " << request_.sessionid() << "..."
                      << endl;
-
+                cout << "=======" << endl;
                 // And we are done! Let the gRPC runtime know we've finished, using the
                 // memory address of this instance as the uniquely identifying tag for
                 // the event.

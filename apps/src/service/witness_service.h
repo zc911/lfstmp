@@ -25,6 +25,8 @@ class WitnessServiceImpl : public WitnessService::Service {
              << ", Image URI:" << request->image().uri() << endl;
         response->mutable_result()->mutable_brand()->set_brandid(123);
         response->mutable_status()->set_msg("finish");
+        cout << "Finish processing: " << request->sessionid() << "..." << endl;
+        cout << "=======" << endl;
         return grpc::Status::OK;
     }
 
