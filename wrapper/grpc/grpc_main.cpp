@@ -106,7 +106,7 @@ private:
         return true;
     }
 
-    virtual Status GetRankedCarVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    virtual Status GetRankedVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
     {
         try
         {
@@ -120,21 +120,35 @@ private:
     }
 
 
-    
-    virtual Status GetRankedFaceVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
-    {
-        try
-        {
-            return process(request, face_ranker_, response) ? Status::OK : Status::CANCELLED;
-        }
-        catch (const std::exception& e)
-        {
-            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
-            return Status::CANCELLED;
-        }
+    // virtual Status GetRankedCarVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    // {
+    //     try
+    //     {
+    //         return process(request, car_ranker_, response) ? Status::OK : Status::CANCELLED;
+    //     }
+    //     catch (const std::exception& e)
+    //     {
+    //         LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+    //         return Status::CANCELLED;
+    //     }
+    // }
 
-        return Status::CANCELLED;
-    }
+
+    
+    // virtual Status GetRankedFaceVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    // {
+    //     try
+    //     {
+    //         return process(request, face_ranker_, response) ? Status::OK : Status::CANCELLED;
+    //     }
+    //     catch (const std::exception& e)
+    //     {
+    //         LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+    //         return Status::CANCELLED;
+    //     }
+
+    //     return Status::CANCELLED;
+    // }
 };
 
 void RunServer(string address)

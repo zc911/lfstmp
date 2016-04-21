@@ -32,68 +32,36 @@ string CarFeature::Serialize()
 
 bool CarFeature::Deserialize(string featureStr)
 {
-    vector<uchar> data;
-    Base64::Decode(featureStr, data);
-
     float version;
     int des_size, pos_size;
-    int hpos = 0;
-    vector<uchar> version_v(data.begin() + hpos,
-            data.begin() + hpos + sizeof(version));
-    hpos += sizeof(version);
-    vector<uchar> des_size_v(data.begin() + hpos,
-            data.begin() + hpos + sizeof(des_size));
-    hpos += sizeof(des_size);
-    vector<uchar> pos_size_v(data.begin() + hpos,
-            data.begin() + hpos + sizeof(des_size));
-    hpos += sizeof(pos_size);
+
+    vector<uchar> data;
+    data.clear();
+    Base64::Decode(featureStr, data);
+
+    vector<uchar>::iterator it = data.begin();    
+    vector<uchar> version_v(it, it + sizeof(version));
+
+    it += sizeof(version);
+    vector<uchar> des_size_v(it, it + sizeof(des_size));
+
+    it += sizeof(des_size);
+    vector<uchar> pos_size_v(it, it + sizeof(des_size));
 
     ConvertToValue(&version, version_v);
     ConvertToValue(&des_size, des_size_v);
     ConvertToValue(&pos_size, pos_size_v);
 
-    vector<uchar> des_v(data.begin() + hpos, data.begin() + hpos + des_size);
-    hpos += des_size;
+    it += sizeof(pos_size);
+    vector<uchar> des_v(it, it + des_size);
 
-    vector<uchar> pos_v(data.begin() + hpos, data.begin() + hpos + pos_size);
-    hpos += pos_size;
+    it += des_size;
+    vector<uchar> pos_v(it, it + pos_size);
 
-    Mat des_p = Mat(des_size / (32 * sizeof(ushort)), 32, 0, des_v.data());
-    Mat pos_p = Mat(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
-    des_p.copyTo(descriptor);
-    pos_p.copyTo(position);
-
-
-    // float version;
-    // int des_size, pos_size;
-
-    // vector<uchar> data;
-    // data.clear();
-    // Base64::Decode(featureStr, data);
-
-    // vector<uchar>::iterator it = data.begin();    
-    // vector<uchar> version_v(it, it + sizeof(version));
-
-    // it += sizeof(version);
-    // vector<uchar> des_size_v(it, it + sizeof(des_size));
-
-    // it += sizeof(des_size);
-    // vector<uchar> pos_size_v(it, it + sizeof(des_size));
-
-    // ConvertToValue(&version, version_v);
-    // ConvertToValue(&des_size, des_size_v);
-    // ConvertToValue(&pos_size, pos_size_v);
-
-    // it += sizeof(pos_size);
-    // vector<uchar> des_v(it, it + des_size);
-
-    // it += des_size;
-    // vector<uchar> pos_v(it, it + pos_size);
-
-    // Mat des(des_size / 32, 32, 0, des_v.data());
-    // Mat pos(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
-    // des.copyTo(descriptor);
-    // pos.copyTo(position);
+    Mat des(des_size / 32, 32, 0, des_v.data());
+    Mat pos(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    des.copyTo(descriptor);
+    pos.copyTo(position);
 
     width = descriptor.cols;
     height = descriptor.rows;
@@ -108,7 +76,7 @@ bool CarFeature::Deserialize(string featureStr)
             {
                 for(int j = 0; j < descriptor.cols; j ++)
                 {
-                    des_s += descriptor.at<ushort>(i, j);
+                    des_s += descriptor.at<uchar>(i, j);
                 }
             }
             for(int i = 0; i < position.rows; i ++)
