@@ -22,9 +22,9 @@ namespace dg
 {
 
 template <typename F>
-class Ranker
+class RankService
 {
-static_assert(std::is_base_of<Feature, F>::value, "F must derive from Feature");
+static_assert(std::is_base_of<RankFeature, F>::value, "F must derive from RankFeature");
 
 public:
     F Deserialize(string featureStr) const
@@ -41,6 +41,29 @@ public:
 
     virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<F>& candidates);
 };
+
+class CarRankService final : RankService<CarFeature>
+{
+private:
+    CarRankEngine engine_;
+
+    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates) override
+    {
+        return engine_.Rank(image, hotspot, candidates);
+    }
+};
+
+class FaceRankService final : RankService<FaceFeature>
+{
+private:
+    FaceRankEngine engine_;
+
+    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates) override
+    {
+        return engine_.Rank(image, hotspot, candidates);
+    }
+};
+
 
 }
 
