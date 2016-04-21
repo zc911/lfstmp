@@ -5,8 +5,9 @@ package model;
 import "common.proto";
 
 service SimilarityService { 
-	rpc GetRankedFaceVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
-	rpc GetRankedCarVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+	//rpc GetRankedFaceVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+	//rpc GetRankedCarVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+	rpc GetRankedVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
 }
 
 message FeatureRankingRequest {

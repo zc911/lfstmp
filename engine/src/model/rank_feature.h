@@ -43,43 +43,22 @@ public:
     virtual bool Deserialize(string featureStr) {};
 
 protected:
-    // template<typename T>
-    // static void ConvertToByte(T value, vector<uchar> &data)
-    // {
-    //     uchar *ptr = (uchar *) (&value);
-    //     copy(ptr, ptr + sizeof(T), back_inserter(data));
-    // }
-
-    // template<typename T>
-    // static void ConvertToValue(T *value, vector<uchar> data)
-    // {
-    //     uchar *ptr = (uchar *) value;
-    //     for (int i = 0; i < sizeof(T); i++)
-    //     {
-    //         ptr[i] = data[i];
-    //     }
-    // }
-
-
-template<typename T>
-static void ConvertToByte(T value, vector<uchar> &data)
-{
-    uchar tmp[sizeof(T)];
-    memcpy(tmp, &value, sizeof(T));
-    for (int i = 0; i < sizeof(T); i++)
-        data.push_back(tmp[i]);
-}
-
-template<typename T>
-static void ConvertToValue(T *value, vector<uchar> data)
-{
-    uchar tmp[sizeof(T)];
-    for (int i = 0; i < sizeof(T); i++)
+    template<typename T>
+    static void ConvertToByte(T value, vector<uchar> &data)
     {
-        tmp[i] = data[i];
+        uchar *ptr = (uchar *) (&value);
+        copy(ptr, ptr + sizeof(T), back_inserter(data));
     }
-    memcpy(value, tmp, sizeof(T));
-}
+
+    template<typename T>
+    static void ConvertToValue(T *value, vector<uchar> data)
+    {
+        uchar *ptr = (uchar *) value;
+        for (int i = 0; i < sizeof(T); i++)
+        {
+            ptr[i] = data[i];
+        }
+    }
 
 };
 

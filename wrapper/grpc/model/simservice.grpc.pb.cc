@@ -16,8 +16,7 @@
 namespace model {
 
 static const char* SimilarityService_method_names[] = {
-  "/model.SimilarityService/GetRankedFaceVector",
-  "/model.SimilarityService/GetRankedCarVector",
+  "/model.SimilarityService/GetRankedVector",
 };
 
 std::unique_ptr< SimilarityService::Stub> SimilarityService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -26,24 +25,15 @@ std::unique_ptr< SimilarityService::Stub> SimilarityService::NewStub(const std::
 }
 
 SimilarityService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_GetRankedFaceVector_(SimilarityService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetRankedCarVector_(SimilarityService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_GetRankedVector_(SimilarityService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status SimilarityService::Stub::GetRankedFaceVector(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::model::FeatureRankingResponse* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRankedFaceVector_, context, request, response);
+::grpc::Status SimilarityService::Stub::GetRankedVector(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::model::FeatureRankingResponse* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRankedVector_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>* SimilarityService::Stub::AsyncGetRankedFaceVectorRaw(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>(channel_.get(), cq, rpcmethod_GetRankedFaceVector_, context, request);
-}
-
-::grpc::Status SimilarityService::Stub::GetRankedCarVector(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::model::FeatureRankingResponse* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRankedCarVector_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>* SimilarityService::Stub::AsyncGetRankedCarVectorRaw(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>(channel_.get(), cq, rpcmethod_GetRankedCarVector_, context, request);
+::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>* SimilarityService::Stub::AsyncGetRankedVectorRaw(::grpc::ClientContext* context, const ::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::model::FeatureRankingResponse>(channel_.get(), cq, rpcmethod_GetRankedVector_, context, request);
 }
 
 SimilarityService::Service::Service() {
@@ -52,25 +42,13 @@ SimilarityService::Service::Service() {
       SimilarityService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SimilarityService::Service, ::model::FeatureRankingRequest, ::model::FeatureRankingResponse>(
-          std::mem_fn(&SimilarityService::Service::GetRankedFaceVector), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      SimilarityService_method_names[1],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< SimilarityService::Service, ::model::FeatureRankingRequest, ::model::FeatureRankingResponse>(
-          std::mem_fn(&SimilarityService::Service::GetRankedCarVector), this)));
+          std::mem_fn(&SimilarityService::Service::GetRankedVector), this)));
 }
 
 SimilarityService::Service::~Service() {
 }
 
-::grpc::Status SimilarityService::Service::GetRankedFaceVector(::grpc::ServerContext* context, const ::model::FeatureRankingRequest* request, ::model::FeatureRankingResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status SimilarityService::Service::GetRankedCarVector(::grpc::ServerContext* context, const ::model::FeatureRankingRequest* request, ::model::FeatureRankingResponse* response) {
+::grpc::Status SimilarityService::Service::GetRankedVector(::grpc::ServerContext* context, const ::model::FeatureRankingRequest* request, ::model::FeatureRankingResponse* response) {
   (void) context;
   (void) request;
   (void) response;
