@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package dg;
+
+import "common.proto";
+
+service WitnessService {
+	
+	rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
+	
+	rpc BatchRecognize(BatchRecognizeRequest) returns (BatchRecognizeResponse) {}
+
+}
+
+
+message RecognizeStatus {
+	int32 Code = 1;
+	string Msg = 2;
+}
+
+enum RecognizeType {
+	REC_TYPE_DEFAULT = 0;
+	REC_TYPE_VEHICLE = 1;
+	REC_TYPE_FACE = 2;
+}
+
+enum RecognizeFunction {
+	REC_FUNC_DEFAULT = 0;
+	REC_FUNC_DETECTION = 1;
+	REC_FUNC_FEATURE = 2;
+}
+
+message RecognizeParam {
+	RecognizeType Type = 1;
+	RecognizeFunction Function = 2;
+}
+
+message RecognizeRequest {
+	int64 SessionId = 1;
+	Image Image = 2;
+	RecognizeParam Param = 3;
+}
+
+message VehicleBrand {
+	int32 BrandId = 1;
+	float Confidence = 2;
+}
+
+message VehiclePlate {
+	Cutboard Box = 1;
+	int32 PlateType = 2;
+	string PlateNum = 3;
+	Color PlateColor = 4;
+	float Confidence = 5;
+}
+
+message VehicleSymbol {
+	Cutboard Box = 1;
+	int32 SymbolType = 2;
+	float Confidence = 3;
+}
+
+message Feature {
+	bytes FeatureVector = 1;
+}
+
+message RecognizeResult{
+	ObjType Type = 1;
+	Cutboard Box = 2;
+	VehicleBrand Brand = 3;
+	VehiclePlate Plate = 4;
+	Color Color = 5;
+	Feature Feature = 6;
+	repeated VehicleSymbol Symbols = 7;
+}
+
+message RecognizeResponse{
+	int64 SessionId = 1;
+	RecognizeStatus Status = 2;
+	RecognizeResult Result = 3;
+}
+
+message BatchRecognizeRequest {
+	repeated RecognizeRequest Requests = 1;
+}
+
+message BatchRecognizeResponse{
+	repeated RecognizeResponse Reponses = 1;
+}
