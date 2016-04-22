@@ -156,7 +156,7 @@ class FrameBatch : private Frame {
 class RankData : public Frame {
     Frame *frame_;
     vector<Box> hotspots_;
-    vector<Feature> features_;
+    vector<FeatureVector> features_;
 };
 
 }
