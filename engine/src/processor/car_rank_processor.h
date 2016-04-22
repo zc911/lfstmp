@@ -43,7 +43,7 @@ public:
 
         //process frame
         CarRankFrame *cframe = (CarRankFrame *)frame;
-        cframe->result = Rank(cframe->image, cframe->hotspots[0], cframe->candidates);
+        cframe->result_ = Rank(cframe->image_, cframe->hotspots_[0], cframe->candidates_);
 
         frame->set_status(FRAME_STATUS_FINISHED);
         LOG(INFO) << "end process frame: " << frame->id() << endl;
@@ -70,8 +70,8 @@ private:
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates)
     {
         CarFeature des;
-        car_matcher_.extract_descriptor(image, des);
-        LOG(INFO) << "image feature w(" << des.width << "), h(" << des.height << ")"; 
+        car_matcher_.ExtractDescriptor(image, des);
+        LOG(INFO) << "image feature w(" << des.width_ << "), h(" << des.height_ << ")"; 
 
         float resize_rto = 600.0 / (float) max(image.cols, image.rows);
         int offset = (600 - resize_rto * image.cols) / 2;
@@ -84,7 +84,7 @@ private:
         LOG(INFO) << "hotspot resized: " << hotspot_resized;
 
         t_profiler_matching_.Reset();
-        vector<int> score = car_matcher_.compute_match_score(des, hotspot_resized, candidates);
+        vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized, candidates);
         t_profiler_str_ = "TotalMatching";
         t_profiler_matching_.Update(t_profiler_str_);
         

@@ -45,9 +45,9 @@ public:
     void Align(vector<Mat>& images, vector<Mat>& results);
 
 private:
-    dlib::frontal_face_detector _detector;
-    dlib::shape_predictor _sp;
-    vector<dlib::point> _avg_face_points;
+    dlib::frontal_face_detector detector_;
+    dlib::shape_predictor sp_;
+    vector<dlib::point> avg_face_points_;
 
     bool predict(dlib::cv_image<dlib::bgr_pixel>& image, dlib::rectangle& bbox, vector<dlib::point>& points);
     Mat transform(dlib::cv_image<dlib::bgr_pixel>& image, vector<dlib::point>& points);

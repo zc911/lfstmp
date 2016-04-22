@@ -27,54 +27,44 @@ using namespace cv;
 using namespace std;
 using namespace dg;
 
-#if USE_CUDA
-#define CUDA_CALL(value) {	\
-cudaError_t _m_cudaStat = value;	\
-if (_m_cudaStat != cudaSuccess) {	\
-	fprintf(stderr, "Error %s at line %d in file %s\n",	\
-			cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);	\
-	exit(1);	\
-}}
-#endif
-
 class CarMatcher
 {
 public:
 	CarMatcher();
 	virtual ~CarMatcher();
 	
-	void extract_descriptor(const Mat &img, CarFeature &des);
+	void ExtractDescriptor(const Mat &img, CarFeature &des);
 
-	vector<int> compute_match_score(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
-	vector<int> compute_match_score(const int &query_img_idx, const Rect &in_box, const vector<CarFeature> &all_des)
+	vector<int> ComputeMatchScore(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+	vector<int> ComputeMatchScore(const int &query_img_idx, const Rect &in_box, const vector<CarFeature> &all_des)
 	{
 		const CarFeature &des = all_des[query_img_idx];
-		vector<int> score = compute_match_score(des, in_box, all_des);
+		vector<int> score = ComputeMatchScore(des, in_box, all_des);
 		score[query_img_idx] = -999;
 		return score;
 	}
 
-	int compute_match_score(const CarFeature &des1, const CarFeature &des2, const Rect &box);
-	int compute_match_score(const CarFeature &des1, const CarFeature &des2)
+	int ComputeMatchScore(const CarFeature &des1, const CarFeature &des2, const Rect &box);
+	int ComputeMatchScore(const CarFeature &des1, const CarFeature &des2)
 	{
 		LOG(INFO)<<"No interest area inputed.";
-		return compute_match_score(des1, des2, Rect(-1, -1, -1, -1));
+		return ComputeMatchScore(des1, des2, Rect(-1, -1, -1, -1));
 	}
-	string get_feature_time_cost()
+	string getFeatureTimeCost()
 	{
 		return (profile_time_) ?
 			t_profiler_feature_.getSmoothedTimeProfileString()
 			:
 			"TimeProfiling is not opened!";
 	}
-	string get_match_time_cost()
+	string getMatchTimeCost()
 	{
 		return (profile_time_) ?
 			t_profiler_matching_.getSmoothedTimeProfileString()
 			:
 			"TimeProfiling is not opened!";
 	}
-	int get_feat_num()
+	int getFeatNum()
 	{
 		return feature_num_;
 	}
@@ -96,9 +86,25 @@ private:
 	int selected_area_weight_;
 	int score_[100000];
 
-	void calc_new_box(const CarFeature &des1, const CarFeature &des2, const Rect &box, Rect &box1, Rect &box2);
+#if USE_CUDA
+	cudaStream_t stream_;
 
-	void calc_new_size(const ushort &ori_height, const ushort &ori_width, Size &new_size)
+	ushort *query_pos_cuda_;
+	uchar *query_desc_cuda_;
+	ushort *db_pos_cuda_;
+	uchar *db_desc_cuda_;
+	ushort *db_width_cuda_;
+	ushort *db_height_cuda_;
+	int *score_cuda_;
+
+	vector<int> computeMatchScoreGpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+#endif
+	vector<int> computeMatchScoreCpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+
+
+	void calcNewBox(const CarFeature &des1, const CarFeature &des2, const Rect &box, Rect &box1, Rect &box2);
+
+	void calcNewSize(const ushort &ori_height, const ushort &ori_width, Size &new_size)
 	{
 		float resize_rto = max(ori_height, ori_width);
 		resize_rto = ((float) max_resize_size_) / resize_rto;
@@ -106,38 +112,23 @@ private:
 		new_size.width = resize_rto * ori_width;
 	}
 
-	unsigned int calc_hamming_distance(const unsigned char* a, const unsigned char* b) 
+	unsigned int calcHammingDistance(const unsigned char* a, const unsigned char* b) 
 	{
 		return lut_(a, b, 32);
 	}
 
-	int calc_dis2(const ushort &x1, const ushort &y1, const ushort &x2,
+	int calcDis2(const ushort &x1, const ushort &y1, const ushort &x2,
 			const ushort &y2)
 	{
 		return (((int) x1) - ((int) x2)) * (((int) x1) - ((int) x2))
 			 + (((int) y1) - ((int) y2)) * (((int) y1) - ((int) y2));
 	}
 
-	bool is_in_box(const ushort &x, const ushort &y, const Rect &box)
+	bool inBox(const ushort &x, const ushort &y, const Rect &box)
 	{
 		return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
 			&& (y <= box.y + box.height);
 	}
-
-#if USE_CUDA
-	cudaStream_t stream_;
-
-	ushort *query_pos_cuda;
-	uchar *query_desc_cuda;
-	ushort *db_pos_cuda;
-	uchar *db_desc_cuda;
-	ushort *db_width_cuda;
-	ushort *db_height_cuda;
-	int *score_cuda;
-
-	vector<int> compute_match_score_gpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
-#endif
-	vector<int> compute_match_score_cpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
 };
 
 #endif /* SRC_CAR_MATCHER_H_ */

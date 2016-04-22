@@ -11,6 +11,18 @@
 #define FEATURE_NUM_CUDA 256
 #define MAX_IMG_NUM 10000
 
+
+#if USE_CUDA
+#define CUDA_CALL(value) {  \
+cudaError_t _m_cudaStat = value;    \
+if (_m_cudaStat != cudaSuccess) {   \
+    fprintf(stderr, "Error %s at line %d in file %s\n", \
+            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);   \
+    exit(1);    \
+}}
+#endif
+
+
 CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
     orb_ = ORB(feature_num_);
@@ -23,13 +35,13 @@ CarMatcher::CarMatcher() {
 
 #if USE_CUDA
     cudaStreamCreate(&stream_);
-    CUDA_CALL(cudaMallocManaged(&query_pos_cuda, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&query_desc_cuda, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_pos_cuda, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_desc_cuda, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_width_cuda, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_height_cuda, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&score_cuda, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+    CUDA_CALL(cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
 #endif
 }
 
@@ -41,14 +53,14 @@ CarMatcher::~CarMatcher()
 }
 
 
-void CarMatcher::extract_descriptor(const Mat &img, CarFeature &des) {
+void CarMatcher::ExtractDescriptor(const Mat &img, CarFeature &des) {
     if (profile_time_)
         t_profiler_feature_.Reset();
-    des.height = img.rows;
-    des.width = img.cols;
+    des.height_ = img.rows;
+    des.width_ = img.cols;
     Mat resize_img;
     Size new_size;
-    calc_new_size(des.height, des.width, new_size);
+    calcNewSize(des.height_, des.width_, new_size);
     if (img.channels() != 3)
         LOG(WARNING)<<"Color image is required.";
     if ((img.rows < 10) || (img.cols < 10))
@@ -57,11 +69,11 @@ void CarMatcher::extract_descriptor(const Mat &img, CarFeature &des) {
     orb_(resize_img, Mat(), key_point_, descriptor_);
     if (key_point_.size() < 50)
         LOG(WARNING)<<"Not enough feature extracted.";
-    descriptor_.copyTo(des.descriptor);
-    des.position = Mat::zeros(key_point_.size(), 2, CV_16UC1);
+    descriptor_.copyTo(des.descriptor_);
+    des.position_ = Mat::zeros(key_point_.size(), 2, CV_16UC1);
     for (int i = 0; i < key_point_.size(); i++) {
-        des.position.at<ushort>(i, 0) = ((ushort) key_point_[i].pt.x);
-        des.position.at<ushort>(i, 1) = ((ushort) key_point_[i].pt.y);
+        des.position_.at<ushort>(i, 0) = ((ushort) key_point_[i].pt.x);
+        des.position_.at<ushort>(i, 1) = ((ushort) key_point_[i].pt.y);
     }
     if (profile_time_) {
         t_profiler_str_ = "Descriptor";
@@ -69,25 +81,25 @@ void CarMatcher::extract_descriptor(const Mat &img, CarFeature &des) {
     }
 }
 
-int CarMatcher::compute_match_score(const CarFeature &des1, const CarFeature &des2, const Rect &box) {
+int CarMatcher::ComputeMatchScore(const CarFeature &des1, const CarFeature &des2, const Rect &box) {
     if (profile_time_)
         t_profiler_matching_.Reset();
     Rect box1, box2;
-    calc_new_box(des1, des2, box, box1, box2);
+    calcNewBox(des1, des2, box, box1, box2);
     int score = 0;
-    for (int i = 0; i < des1.descriptor.rows; i++) {
+    for (int i = 0; i < des1.descriptor_.rows; i++) {
         uint min_dist = 9999;
         uint sec_dist = 9999;
         int min_idx = -1, sec_idx = -1;
-        const uchar* query_feat = des1.descriptor.ptr<uchar>(i);
-        for (int j = 0; j < des2.descriptor.rows; j++)
-            if (calc_dis2(des1.position.at<ushort>(i, 0),
-                    des1.position.at<ushort>(i, 1),
-                    des2.position.at<ushort>(j, 0),
-                    des2.position.at<ushort>(j, 1))
+        const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
+        for (int j = 0; j < des2.descriptor_.rows; j++)
+            if (calcDis2(des1.position_.at<ushort>(i, 0),
+                    des1.position_.at<ushort>(i, 1),
+                    des2.position_.at<ushort>(j, 0),
+                    des2.position_.at<ushort>(j, 1))
                     < max_mapping_offset_ * max_mapping_offset_) {
-                const uchar* train_feat = des2.descriptor.ptr(j);
-                uint dist = calc_hamming_distance(query_feat, train_feat);
+                const uchar* train_feat = des2.descriptor_.ptr(j);
+                uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
                     sec_dist = min_dist;
                     sec_idx = min_idx;
@@ -100,10 +112,10 @@ int CarMatcher::compute_match_score(const CarFeature &des1, const CarFeature &de
             }
         if ((min_dist <= (unsigned int) (min_remarkableness_ * sec_dist))
                 && (min_dist <= (unsigned int) max_mis_match_)) {
-            if ((is_in_box(des1.position.at<ushort>(i, 0),
-                    des1.position.at<ushort>(i, 1), box1))
-                    && (is_in_box(des2.position.at<ushort>(min_idx, 0),
-                            des2.position.at<ushort>(min_idx, 1), box2))) {
+            if ((inBox(des1.position_.at<ushort>(i, 0),
+                    des1.position_.at<ushort>(i, 1), box1))
+                    && (inBox(des2.position_.at<ushort>(min_idx, 0),
+                            des2.position_.at<ushort>(min_idx, 1), box2))) {
                 score = score + selected_area_weight_;
             } else
                 score++;
@@ -116,18 +128,18 @@ int CarMatcher::compute_match_score(const CarFeature &des1, const CarFeature &de
     return score;
 }
 
-void CarMatcher::calc_new_box(
+void CarMatcher::calcNewBox(
     const CarFeature &des1,
     const CarFeature &des2, 
     const Rect &box, Rect &box1, Rect &box2) {
     if (box.x > 0) {
-        float resize_rto1 = max(des1.height, des1.width);
+        float resize_rto1 = max(des1.height_, des1.width_);
         resize_rto1 = ((float) max_resize_size_) / resize_rto1;
         box1.x = box.x * resize_rto1;
         box1.y = box.y * resize_rto1;
         box1.width = box.width * resize_rto1;
         box1.height = box.height * resize_rto1;
-        float resize_rto2 = max(des2.height, des2.width);
+        float resize_rto2 = max(des2.height_, des2.width_);
         resize_rto2 = ((float) max_resize_size_) / resize_rto2;
         box2.x = box.x * resize_rto2 - max_mapping_offset_;
         box2.y = box.y * resize_rto2 - max_mapping_offset_;
@@ -145,22 +157,22 @@ void CarMatcher::calc_new_box(
     }
 }
 
-vector<int> CarMatcher::compute_match_score_cpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des)
+vector<int> CarMatcher::computeMatchScoreCpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des)
 {
     vector<int> score;
     for(int i = 0; i < all_des.size(); i ++)
     {
-        score.push_back(compute_match_score(des, all_des[i], in_box));
+        score.push_back(ComputeMatchScore(des, all_des[i], in_box));
     }
     return score;
 }
 
-vector<int> CarMatcher::compute_match_score(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des)
+vector<int> CarMatcher::ComputeMatchScore(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des)
 {
 #if USE_CUDA
-    return compute_match_score_gpu(des, in_box, all_des);
+    return computeMatchScoreGpu(des, in_box, all_des);
 #else
-    return compute_match_score_cpu(des, in_box, all_des);
+    return computeMatchScoreCpu(des, in_box, all_des);
 #endif
 }
 
@@ -256,7 +268,7 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uin
         score[blockIdx.x] = score_shared[0];
 }
 
-vector<int> CarMatcher::compute_match_score_gpu(
+vector<int> CarMatcher::computeMatchScoreGpu(
     const CarFeature &des, 
     const Rect &in_box, 
     const vector<CarFeature> &all_des) {
@@ -269,56 +281,56 @@ vector<int> CarMatcher::compute_match_score_gpu(
     query_box.height = in_box.height;
     for (int j = 0; j < feature_num_; j++) {
         if (j < des.position.rows) {
-            query_pos_cuda[j * 2 + 0] = des.position.at<ushort>(j, 0);
-            query_pos_cuda[j * 2 + 1] = des.position.at<ushort>(j, 1);
+            query_pos_cuda_[j * 2 + 0] = des.position.at<ushort>(j, 0);
+            query_pos_cuda_[j * 2 + 1] = des.position.at<ushort>(j, 1);
             for (int k = 0; k < 32; k++)
-                query_desc_cuda[j * 32 + k] = des.descriptor.at<uchar>(j, k);
+                query_desc_cuda_[j * 32 + k] = des.descriptor.at<uchar>(j, k);
         } else {
-            query_pos_cuda[j * 2 + 0] = -1;
-            query_pos_cuda[j * 2 + 1] = -1;
+            query_pos_cuda_[j * 2 + 0] = -1;
+            query_pos_cuda_[j * 2 + 1] = -1;
             for (int k = 0; k < 32; k++)
-                query_desc_cuda[j * 32 + k] = 0;
+                query_desc_cuda_[j * 32 + k] = 0;
         }
     }
     ushort query_width = des.width;
     ushort query_height = des.height;
     for (int i = 0; i < all_des.size(); i++) {
-        db_width_cuda[i] = all_des[i].width;
-        db_height_cuda[i] = all_des[i].height;
+        db_width_cuda_[i] = all_des[i].width;
+        db_height_cuda_[i] = all_des[i].height;
         for (int j = 0; j < feature_num_; j++) {
             if (j < all_des[i].position.rows) {
-                db_pos_cuda[i * feature_num_ * 2 + j * 2 + 0] = all_des[i].position.at<ushort>(j, 0);
-                db_pos_cuda[i * feature_num_ * 2 + j * 2 + 1] = all_des[i].position.at<ushort>(j, 1);
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = all_des[i].position.at<ushort>(j, 0);
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = all_des[i].position.at<ushort>(j, 1);
                 for (int k = 0; k < 32; k++)
-                    db_desc_cuda[i * feature_num_ * 32 + j * 32 + k] = all_des[i].descriptor.at<uchar>(j, k);
+                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] = all_des[i].descriptor.at<uchar>(j, k);
             } else {
-                db_pos_cuda[i * feature_num_ * 2 + j * 2 + 0] = -1;
-                db_pos_cuda[i * feature_num_ * 2 + j * 2 + 1] = -1;
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = -1;
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = -1;
                 for (int k = 0; k < 32; k++)
-                    db_desc_cuda[i * feature_num_ * 32 + j * 32 + k] = 0;
+                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] = 0;
             }
         }
     }
     
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_pos_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_desc_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_pos_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_desc_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_width_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_height_cuda));
-    CUDA_CALL(cudaStreamAttachMemAsync(stream_, score_cuda));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_pos_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_desc_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_pos_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_desc_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_width_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_height_cuda_));
+    CUDA_CALL(cudaStreamAttachMemAsync(stream_, score_cuda_));
 
     dim3 grid, block;
     grid = dim3(all_des.size());
     block = dim3(FEATURE_NUM_CUDA);
-    compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda, (uint*)query_desc_cuda, 
-        db_pos_cuda, (uint*)db_desc_cuda, query_width, 
-        query_height, db_width_cuda, db_height_cuda, 
+    compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda_, (uint*)query_desc_cuda_, 
+        db_pos_cuda_, (uint*)db_desc_cuda_, query_width, 
+        query_height, db_width_cuda_, db_height_cuda_, 
         max_resize_size_, feature_num_, min_remarkableness_, 
-        max_mis_match_, selected_area_weight_, score_cuda);
+        max_mis_match_, selected_area_weight_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
 
-    return vector<int>(score_cuda, score_cuda + all_des.size());
+    return vector<int>(score_cuda_, score_cuda_ + all_des.size());
 }
 #endif
