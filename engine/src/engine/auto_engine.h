@@ -5,8 +5,8 @@
  *      Author: chenzhen
  */
 
-#ifndef ENGINE_H_
-#define ENGINE_H_
+#ifndef AUTO_ENGINE_H_
+#define AUTO_ENGINE_H_
 #include <pthread.h>
 
 namespace dg {
@@ -25,13 +25,13 @@ void* _start_thread_t(void *param) {
  * An engine aggregates several processors and invoke them to handle the frame
  * using some schedule method
  */
-class Engine {
+class AutoEngine {
  public:
-    Engine()
+    AutoEngine()
             : tid_(NULL) {
     }
 
-    virtual ~Engine() {
+    virtual ~AutoEngine() {
         //TODO release resources
     }
     virtual int Start() {
@@ -44,7 +44,8 @@ class Engine {
      * The child class must implement the process method.
      */
     virtual int StartAsyn() {
-        pthread_create(&tid_, NULL, _start_thread_t<Engine, &Engine::Process>,
+        pthread_create(&tid_, NULL,
+                       _start_thread_t<AutoEngine, &AutoEngine::Process>,
                        (void*) this);
         return 0;
     }

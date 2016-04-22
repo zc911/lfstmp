@@ -8,18 +8,20 @@
 #ifndef VEHICLE_DETECTOR_PROCESSOR_H_
 #define VEHICLE_DETECTOR_PROCESSOR_H_
 
+#include <glog/logging.h>
 #include "processor.h"
 #include "alg/vehicle_multi_type_detector.h"
 #include "util/debug_util.h"
 
 namespace dg {
 
-class VehicleDetectorProcessor : public Processor {
+class VehicleMultiTypeDetectorProcessor : public Processor {
  public:
-    VehicleDetectorProcessor()
+    VehicleMultiTypeDetectorProcessor()
             : Processor() {
         CaffeConfig config;
         config.batch_size = 1;
+        config.is_model_encrypt = false;
 
         if (config.is_model_encrypt) {
             config.model_file =
@@ -35,30 +37,33 @@ class VehicleDetectorProcessor : public Processor {
         config.rescale = 400;
         detector_ = new VehicleMultiTypeDetector(config);
     }
-    ~VehicleDetectorProcessor() {
+    ~VehicleMultiTypeDetectorProcessor() {
 
     }
     void Update(Frame *frame) {
-        if (!checkOperation(frame)) {
-            return;
-        }
-        if (!checkStatus(frame)) {
-            return;
-        }
-        cout << "Start detector frame: " << endl;
+        DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
+
         vector<Detection> detections = detector_->Detect(
                 frame->payload()->data());
 
         for (vector<Detection>::iterator itr = detections.begin();
                 itr != detections.end(); ++itr) {
-            Detection d = *itr;
-            Object *obj = new Object();
-            obj->set_detection(d);
+            Detection detection = *itr;
+            Object *obj;
+            if(d.id == OBJECT_CAR) {
+                obj = new Vehicle(OBJECT_CAR);
+            } else {
+                obj = new Object(d.id);
+            }
+
+            obj->set_detection(detection);
             frame->put_object(obj);
             print(d);
         }
+
+        Proceed(frame);
+
         cout << "End detector frame: " << endl;
-        frame->set_status(FRAME_STATUS_DETECTED);
 
     }
 
@@ -70,14 +75,10 @@ class VehicleDetectorProcessor : public Processor {
         return true;
     }
     bool checkStatus(Frame *frame) {
-        if (frame->status() != FRAME_STATUS_INIT
-                || frame->status() == FRAME_STATUS_DETECTED) {
-            return false;
-        }
         return true;
     }
- private:
-    Detector *detector_;
+private:
+    VehicleMultiTypeDetector *detector_;
 
 };
 
