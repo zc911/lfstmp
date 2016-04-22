@@ -1,44 +1,42 @@
 #ifndef TIMEING_PROFILER_H_
 #define TIMEING_PROFILER_H_
 
-#include <vector>
 #include <map>
 #include <string>
-#include <time.h>
+
+using namespace std;
 
 namespace dg {
 
-class timing_profiler {
+class TimingProfiler {
 
  public:
-    timing_profiler() {
-        starting_time_in_microsend = 0;
-        cur_time_in_microsend = 0;
-        time_pieces.clear();
-        history.clear();
+    TimingProfiler() {
+        cur_time_in_microsend_ = 0;
+        time_pieces_.clear();
+        history_.clear();
     }
-    ~timing_profiler() {
-        time_pieces.clear();
-        history.clear();
+    ~TimingProfiler() {
+        time_pieces_.clear();
+        history_.clear();
     }
 
-    void reset(void);
-    void update(std::string& name);
-    float getTimePieceInMillisecend(std::string& name);
-    char* getTimeProfileString(void);
-    char* getSmoothedTimeProfileString(void);
+    void Reset(void);
+    void Update(string& name);
+
+    float getTimePieceInMillisecend(string& name);
+    string getTimeProfileString(void);
+    string getSmoothedTimeProfileString(void);
 
  private:
-    unsigned long long starting_time_in_microsend;
-    unsigned long long cur_time_in_microsend;
+    unsigned long long cur_time_in_microsend_;
 
-    char profile_string[10000];
-    std::map<std::string, float> time_pieces;
-    std::map<std::string, float> history;
-
+    map<string, float> time_pieces_;
+    map<string, float> history_;
 };
-unsigned long long GetCurrentMicroSecond();
 
+unsigned long long GetCurrentMicroSecond();
+unsigned long long GetCurrentMilliSecond();
 }
 
 #endif
