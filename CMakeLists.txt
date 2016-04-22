@@ -39,11 +39,15 @@ IF(APPLE)
 
 ELSE(APPLE)
     OPTION(ENABLE_CUDA "enable cuda by default" ON)
-    find_package(CUDA)
+    find_package(CUDA REQUIRED)
+
+#    find_package(gstreamer REQUIRED)
 
     FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS /usr/local/cuda/lib64)
     FIND_LIBRARY(LIB_DGMEDIA NAMES dgmedia)
     FIND_LIBRARY(LIB_CAFFE NAMES caffe)
+
+    INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/include/dgmedia-1.4.0 /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/include/libxml2)
     SET(Caffe_DEP_LIBRARIES ${LIB_CUDART} ${LIB_DGMEDIA} ${LIB_CAFFE})
 ENDIF(APPLE)
 
