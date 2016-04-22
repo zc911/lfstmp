@@ -29,3 +29,4 @@ target_link_libraries(${PROJECT_RANKER_LIB} ${PROTOBUF_LIBRARY})
 target_link_libraries(${PROJECT_RANKER_LIB} ${DLIB_LIBRARY})
 target_link_libraries(${PROJECT_RANKER_LIB} ${Caffe_LIBRARIES})
 target_link_libraries(${PROJECT_RANKER_LIB} ${PROJECT_NAME_STR}_utils)
+

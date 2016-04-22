@@ -25,7 +25,7 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
-int _USER_ERROR__missing_dlib_all_source_cpp_file__OR__inconsistent_use_of_DEBUG_or_ENABLE_ASSERTS_preprocessor_directives_;
+int USER_ERROR__missing_dlib_all_source_cpp_file__OR__inconsistent_use_of_DEBUG_or_ENABLE_ASSERTS_preprocessor_directives;
 
 class RankerServiceImpl final : public model::SimilarityService::Service
 {
@@ -101,6 +101,8 @@ private:
             Score& s = topn[i];
             response->add_ids(request->candidates(s.index_).id());
             response->add_scores(s.score_);
+
+            LOG(INFO) << "id: " << request->candidates(s.index_).id() << ", score: " << s.score_;
         }
 
         return true;
