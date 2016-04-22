@@ -32,6 +32,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace apps {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_witness_2eproto();
@@ -169,7 +170,7 @@ class RecognizeStatus : public ::google::protobuf::Message {
   ::std::string* release_msg();
   void set_allocated_msg(::std::string* msg);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizeStatus)
+  // @@protoc_insertion_point(class_scope:dg.apps.RecognizeStatus)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -242,19 +243,19 @@ class RecognizeParam : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.RecognizeType Type = 1;
+  // optional .dg.apps.RecognizeType Type = 1;
   void clear_type();
   static const int kTypeFieldNumber = 1;
-  ::dg::RecognizeType type() const;
-  void set_type(::dg::RecognizeType value);
+  ::dg::apps::RecognizeType type() const;
+  void set_type(::dg::apps::RecognizeType value);
 
-  // optional .dg.RecognizeFunction Function = 2;
+  // optional .dg.apps.RecognizeFunction Function = 2;
   void clear_function();
   static const int kFunctionFieldNumber = 2;
-  ::dg::RecognizeFunction function() const;
-  void set_function(::dg::RecognizeFunction value);
+  ::dg::apps::RecognizeFunction function() const;
+  void set_function(::dg::apps::RecognizeFunction value);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizeParam)
+  // @@protoc_insertion_point(class_scope:dg.apps.RecognizeParam)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -333,32 +334,32 @@ class RecognizeRequest : public ::google::protobuf::Message {
   ::google::protobuf::int64 sessionid() const;
   void set_sessionid(::google::protobuf::int64 value);
 
-  // optional .dg.Image Image = 2;
+  // optional .dg.apps.Image Image = 2;
   bool has_image() const;
   void clear_image();
   static const int kImageFieldNumber = 2;
-  const ::dg::Image& image() const;
-  ::dg::Image* mutable_image();
-  ::dg::Image* release_image();
-  void set_allocated_image(::dg::Image* image);
+  const ::dg::apps::Image& image() const;
+  ::dg::apps::Image* mutable_image();
+  ::dg::apps::Image* release_image();
+  void set_allocated_image(::dg::apps::Image* image);
 
-  // optional .dg.RecognizeParam Param = 3;
+  // optional .dg.apps.RecognizeParam Param = 3;
   bool has_param() const;
   void clear_param();
   static const int kParamFieldNumber = 3;
-  const ::dg::RecognizeParam& param() const;
-  ::dg::RecognizeParam* mutable_param();
-  ::dg::RecognizeParam* release_param();
-  void set_allocated_param(::dg::RecognizeParam* param);
+  const ::dg::apps::RecognizeParam& param() const;
+  ::dg::apps::RecognizeParam* mutable_param();
+  ::dg::apps::RecognizeParam* release_param();
+  void set_allocated_param(::dg::apps::RecognizeParam* param);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizeRequest)
+  // @@protoc_insertion_point(class_scope:dg.apps.RecognizeRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 sessionid_;
-  ::dg::Image* image_;
-  ::dg::RecognizeParam* param_;
+  ::dg::apps::Image* image_;
+  ::dg::apps::RecognizeParam* param_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -437,7 +438,7 @@ class VehicleBrand : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.VehicleBrand)
+  // @@protoc_insertion_point(class_scope:dg.apps.VehicleBrand)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -510,14 +511,14 @@ class VehiclePlate : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.Cutboard Box = 1;
+  // optional .dg.apps.Cutboard Box = 1;
   bool has_box() const;
   void clear_box();
   static const int kBoxFieldNumber = 1;
-  const ::dg::Cutboard& box() const;
-  ::dg::Cutboard* mutable_box();
-  ::dg::Cutboard* release_box();
-  void set_allocated_box(::dg::Cutboard* box);
+  const ::dg::apps::Cutboard& box() const;
+  ::dg::apps::Cutboard* mutable_box();
+  ::dg::apps::Cutboard* release_box();
+  void set_allocated_box(::dg::apps::Cutboard* box);
 
   // optional int32 PlateType = 2;
   void clear_platetype();
@@ -536,14 +537,14 @@ class VehiclePlate : public ::google::protobuf::Message {
   ::std::string* release_platenum();
   void set_allocated_platenum(::std::string* platenum);
 
-  // optional .dg.Color PlateColor = 4;
+  // optional .dg.apps.Color PlateColor = 4;
   bool has_platecolor() const;
   void clear_platecolor();
   static const int kPlateColorFieldNumber = 4;
-  const ::dg::Color& platecolor() const;
-  ::dg::Color* mutable_platecolor();
-  ::dg::Color* release_platecolor();
-  void set_allocated_platecolor(::dg::Color* platecolor);
+  const ::dg::apps::Color& platecolor() const;
+  ::dg::apps::Color* mutable_platecolor();
+  ::dg::apps::Color* release_platecolor();
+  void set_allocated_platecolor(::dg::apps::Color* platecolor);
 
   // optional float Confidence = 5;
   void clear_confidence();
@@ -551,16 +552,16 @@ class VehiclePlate : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.VehiclePlate)
+  // @@protoc_insertion_point(class_scope:dg.apps.VehiclePlate)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Cutboard* box_;
+  ::dg::apps::Cutboard* box_;
   ::google::protobuf::internal::ArenaStringPtr platenum_;
   ::google::protobuf::int32 platetype_;
   float confidence_;
-  ::dg::Color* platecolor_;
+  ::dg::apps::Color* platecolor_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -627,14 +628,14 @@ class VehicleSymbol : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.Cutboard Box = 1;
+  // optional .dg.apps.Cutboard Box = 1;
   bool has_box() const;
   void clear_box();
   static const int kBoxFieldNumber = 1;
-  const ::dg::Cutboard& box() const;
-  ::dg::Cutboard* mutable_box();
-  ::dg::Cutboard* release_box();
-  void set_allocated_box(::dg::Cutboard* box);
+  const ::dg::apps::Cutboard& box() const;
+  ::dg::apps::Cutboard* mutable_box();
+  ::dg::apps::Cutboard* release_box();
+  void set_allocated_box(::dg::apps::Cutboard* box);
 
   // optional int32 SymbolType = 2;
   void clear_symboltype();
@@ -648,12 +649,12 @@ class VehicleSymbol : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.VehicleSymbol)
+  // @@protoc_insertion_point(class_scope:dg.apps.VehicleSymbol)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Cutboard* box_;
+  ::dg::apps::Cutboard* box_;
   ::google::protobuf::int32 symboltype_;
   float confidence_;
   mutable int _cached_size_;
@@ -733,7 +734,7 @@ class Feature : public ::google::protobuf::Message {
   ::std::string* release_featurevector();
   void set_allocated_featurevector(::std::string* featurevector);
 
-  // @@protoc_insertion_point(class_scope:dg.Feature)
+  // @@protoc_insertion_point(class_scope:dg.apps.Feature)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -805,80 +806,80 @@ class RecognizeResult : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.ObjType Type = 1;
+  // optional .dg.apps.ObjType Type = 1;
   void clear_type();
   static const int kTypeFieldNumber = 1;
-  ::dg::ObjType type() const;
-  void set_type(::dg::ObjType value);
+  ::dg::apps::ObjType type() const;
+  void set_type(::dg::apps::ObjType value);
 
-  // optional .dg.Cutboard Box = 2;
+  // optional .dg.apps.Cutboard Box = 2;
   bool has_box() const;
   void clear_box();
   static const int kBoxFieldNumber = 2;
-  const ::dg::Cutboard& box() const;
-  ::dg::Cutboard* mutable_box();
-  ::dg::Cutboard* release_box();
-  void set_allocated_box(::dg::Cutboard* box);
+  const ::dg::apps::Cutboard& box() const;
+  ::dg::apps::Cutboard* mutable_box();
+  ::dg::apps::Cutboard* release_box();
+  void set_allocated_box(::dg::apps::Cutboard* box);
 
-  // optional .dg.VehicleBrand Brand = 3;
+  // optional .dg.apps.VehicleBrand Brand = 3;
   bool has_brand() const;
   void clear_brand();
   static const int kBrandFieldNumber = 3;
-  const ::dg::VehicleBrand& brand() const;
-  ::dg::VehicleBrand* mutable_brand();
-  ::dg::VehicleBrand* release_brand();
-  void set_allocated_brand(::dg::VehicleBrand* brand);
+  const ::dg::apps::VehicleBrand& brand() const;
+  ::dg::apps::VehicleBrand* mutable_brand();
+  ::dg::apps::VehicleBrand* release_brand();
+  void set_allocated_brand(::dg::apps::VehicleBrand* brand);
 
-  // optional .dg.VehiclePlate Plate = 4;
+  // optional .dg.apps.VehiclePlate Plate = 4;
   bool has_plate() const;
   void clear_plate();
   static const int kPlateFieldNumber = 4;
-  const ::dg::VehiclePlate& plate() const;
-  ::dg::VehiclePlate* mutable_plate();
-  ::dg::VehiclePlate* release_plate();
-  void set_allocated_plate(::dg::VehiclePlate* plate);
+  const ::dg::apps::VehiclePlate& plate() const;
+  ::dg::apps::VehiclePlate* mutable_plate();
+  ::dg::apps::VehiclePlate* release_plate();
+  void set_allocated_plate(::dg::apps::VehiclePlate* plate);
 
-  // optional .dg.Color Color = 5;
+  // optional .dg.apps.Color Color = 5;
   bool has_color() const;
   void clear_color();
   static const int kColorFieldNumber = 5;
-  const ::dg::Color& color() const;
-  ::dg::Color* mutable_color();
-  ::dg::Color* release_color();
-  void set_allocated_color(::dg::Color* color);
+  const ::dg::apps::Color& color() const;
+  ::dg::apps::Color* mutable_color();
+  ::dg::apps::Color* release_color();
+  void set_allocated_color(::dg::apps::Color* color);
 
-  // optional .dg.Feature Feature = 6;
+  // optional .dg.apps.Feature Feature = 6;
   bool has_feature() const;
   void clear_feature();
   static const int kFeatureFieldNumber = 6;
-  const ::dg::Feature& feature() const;
-  ::dg::Feature* mutable_feature();
-  ::dg::Feature* release_feature();
-  void set_allocated_feature(::dg::Feature* feature);
+  const ::dg::apps::Feature& feature() const;
+  ::dg::apps::Feature* mutable_feature();
+  ::dg::apps::Feature* release_feature();
+  void set_allocated_feature(::dg::apps::Feature* feature);
 
-  // repeated .dg.VehicleSymbol Symbols = 7;
+  // repeated .dg.apps.VehicleSymbol Symbols = 7;
   int symbols_size() const;
   void clear_symbols();
   static const int kSymbolsFieldNumber = 7;
-  const ::dg::VehicleSymbol& symbols(int index) const;
-  ::dg::VehicleSymbol* mutable_symbols(int index);
-  ::dg::VehicleSymbol* add_symbols();
-  ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >*
+  const ::dg::apps::VehicleSymbol& symbols(int index) const;
+  ::dg::apps::VehicleSymbol* mutable_symbols(int index);
+  ::dg::apps::VehicleSymbol* add_symbols();
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >*
       mutable_symbols();
-  const ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >&
       symbols() const;
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizeResult)
+  // @@protoc_insertion_point(class_scope:dg.apps.RecognizeResult)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Cutboard* box_;
-  ::dg::VehicleBrand* brand_;
-  ::dg::VehiclePlate* plate_;
-  ::dg::Color* color_;
-  ::dg::Feature* feature_;
-  ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol > symbols_;
+  ::dg::apps::Cutboard* box_;
+  ::dg::apps::VehicleBrand* brand_;
+  ::dg::apps::VehiclePlate* plate_;
+  ::dg::apps::Color* color_;
+  ::dg::apps::Feature* feature_;
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol > symbols_;
   int type_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
@@ -952,32 +953,32 @@ class RecognizeResponse : public ::google::protobuf::Message {
   ::google::protobuf::int64 sessionid() const;
   void set_sessionid(::google::protobuf::int64 value);
 
-  // optional .dg.RecognizeStatus Status = 2;
+  // optional .dg.apps.RecognizeStatus Status = 2;
   bool has_status() const;
   void clear_status();
   static const int kStatusFieldNumber = 2;
-  const ::dg::RecognizeStatus& status() const;
-  ::dg::RecognizeStatus* mutable_status();
-  ::dg::RecognizeStatus* release_status();
-  void set_allocated_status(::dg::RecognizeStatus* status);
+  const ::dg::apps::RecognizeStatus& status() const;
+  ::dg::apps::RecognizeStatus* mutable_status();
+  ::dg::apps::RecognizeStatus* release_status();
+  void set_allocated_status(::dg::apps::RecognizeStatus* status);
 
-  // optional .dg.RecognizeResult Result = 3;
+  // optional .dg.apps.RecognizeResult Result = 3;
   bool has_result() const;
   void clear_result();
   static const int kResultFieldNumber = 3;
-  const ::dg::RecognizeResult& result() const;
-  ::dg::RecognizeResult* mutable_result();
-  ::dg::RecognizeResult* release_result();
-  void set_allocated_result(::dg::RecognizeResult* result);
+  const ::dg::apps::RecognizeResult& result() const;
+  ::dg::apps::RecognizeResult* mutable_result();
+  ::dg::apps::RecognizeResult* release_result();
+  void set_allocated_result(::dg::apps::RecognizeResult* result);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizeResponse)
+  // @@protoc_insertion_point(class_scope:dg.apps.RecognizeResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 sessionid_;
-  ::dg::RecognizeStatus* status_;
-  ::dg::RecognizeResult* result_;
+  ::dg::apps::RecognizeStatus* status_;
+  ::dg::apps::RecognizeResult* result_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1044,24 +1045,24 @@ class BatchRecognizeRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .dg.RecognizeRequest Requests = 1;
+  // repeated .dg.apps.RecognizeRequest Requests = 1;
   int requests_size() const;
   void clear_requests();
   static const int kRequestsFieldNumber = 1;
-  const ::dg::RecognizeRequest& requests(int index) const;
-  ::dg::RecognizeRequest* mutable_requests(int index);
-  ::dg::RecognizeRequest* add_requests();
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >*
+  const ::dg::apps::RecognizeRequest& requests(int index) const;
+  ::dg::apps::RecognizeRequest* mutable_requests(int index);
+  ::dg::apps::RecognizeRequest* add_requests();
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >*
       mutable_requests();
-  const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >&
       requests() const;
 
-  // @@protoc_insertion_point(class_scope:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(class_scope:dg.apps.BatchRecognizeRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest > requests_;
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest > requests_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1128,24 +1129,24 @@ class BatchRecognizeResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .dg.RecognizeResponse Reponses = 1;
+  // repeated .dg.apps.RecognizeResponse Reponses = 1;
   int reponses_size() const;
   void clear_reponses();
   static const int kReponsesFieldNumber = 1;
-  const ::dg::RecognizeResponse& reponses(int index) const;
-  ::dg::RecognizeResponse* mutable_reponses(int index);
-  ::dg::RecognizeResponse* add_reponses();
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >*
+  const ::dg::apps::RecognizeResponse& reponses(int index) const;
+  ::dg::apps::RecognizeResponse* mutable_reponses(int index);
+  ::dg::apps::RecognizeResponse* add_reponses();
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >*
       mutable_reponses();
-  const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >&
       reponses() const;
 
-  // @@protoc_insertion_point(class_scope:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(class_scope:dg.apps.BatchRecognizeResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse > reponses_;
+  ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse > reponses_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1167,13 +1168,13 @@ inline void RecognizeStatus::clear_code() {
   code_ = 0;
 }
 inline ::google::protobuf::int32 RecognizeStatus::code() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeStatus.Code)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeStatus.Code)
   return code_;
 }
 inline void RecognizeStatus::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeStatus.Code)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeStatus.Code)
 }
 
 // optional string Msg = 2;
@@ -1181,28 +1182,28 @@ inline void RecognizeStatus::clear_msg() {
   msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& RecognizeStatus::msg() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeStatus.Msg)
   return msg_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void RecognizeStatus::set_msg(const ::std::string& value) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeStatus.Msg)
 }
 inline void RecognizeStatus::set_msg(const char* value) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_char:dg.apps.RecognizeStatus.Msg)
 }
 inline void RecognizeStatus::set_msg(const char* value, size_t size) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.RecognizeStatus.Msg)
 }
 inline ::std::string* RecognizeStatus::mutable_msg() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeStatus.Msg)
   return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecognizeStatus::release_msg() {
@@ -1216,39 +1217,39 @@ inline void RecognizeStatus::set_allocated_msg(::std::string* msg) {
     
   }
   msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeStatus.Msg)
 }
 
 // -------------------------------------------------------------------
 
 // RecognizeParam
 
-// optional .dg.RecognizeType Type = 1;
+// optional .dg.apps.RecognizeType Type = 1;
 inline void RecognizeParam::clear_type() {
   type_ = 0;
 }
-inline ::dg::RecognizeType RecognizeParam::type() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeParam.Type)
-  return static_cast< ::dg::RecognizeType >(type_);
+inline ::dg::apps::RecognizeType RecognizeParam::type() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeParam.Type)
+  return static_cast< ::dg::apps::RecognizeType >(type_);
 }
-inline void RecognizeParam::set_type(::dg::RecognizeType value) {
+inline void RecognizeParam::set_type(::dg::apps::RecognizeType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeParam.Type)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeParam.Type)
 }
 
-// optional .dg.RecognizeFunction Function = 2;
+// optional .dg.apps.RecognizeFunction Function = 2;
 inline void RecognizeParam::clear_function() {
   function_ = 0;
 }
-inline ::dg::RecognizeFunction RecognizeParam::function() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeParam.Function)
-  return static_cast< ::dg::RecognizeFunction >(function_);
+inline ::dg::apps::RecognizeFunction RecognizeParam::function() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeParam.Function)
+  return static_cast< ::dg::apps::RecognizeFunction >(function_);
 }
-inline void RecognizeParam::set_function(::dg::RecognizeFunction value) {
+inline void RecognizeParam::set_function(::dg::apps::RecognizeFunction value) {
   
   function_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeParam.Function)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeParam.Function)
 }
 
 // -------------------------------------------------------------------
@@ -1260,16 +1261,16 @@ inline void RecognizeRequest::clear_sessionid() {
   sessionid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 RecognizeRequest::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.SessionId)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.SessionId)
   return sessionid_;
 }
 inline void RecognizeRequest::set_sessionid(::google::protobuf::int64 value) {
   
   sessionid_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeRequest.SessionId)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeRequest.SessionId)
 }
 
-// optional .dg.Image Image = 2;
+// optional .dg.apps.Image Image = 2;
 inline bool RecognizeRequest::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -1277,25 +1278,25 @@ inline void RecognizeRequest::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-inline const ::dg::Image& RecognizeRequest::image() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.Image)
+inline const ::dg::apps::Image& RecognizeRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-inline ::dg::Image* RecognizeRequest::mutable_image() {
+inline ::dg::apps::Image* RecognizeRequest::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::Image;
+    image_ = new ::dg::apps::Image;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeRequest.Image)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeRequest.Image)
   return image_;
 }
-inline ::dg::Image* RecognizeRequest::release_image() {
+inline ::dg::apps::Image* RecognizeRequest::release_image() {
   
-  ::dg::Image* temp = image_;
+  ::dg::apps::Image* temp = image_;
   image_ = NULL;
   return temp;
 }
-inline void RecognizeRequest::set_allocated_image(::dg::Image* image) {
+inline void RecognizeRequest::set_allocated_image(::dg::apps::Image* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -1303,10 +1304,10 @@ inline void RecognizeRequest::set_allocated_image(::dg::Image* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeRequest.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeRequest.Image)
 }
 
-// optional .dg.RecognizeParam Param = 3;
+// optional .dg.apps.RecognizeParam Param = 3;
 inline bool RecognizeRequest::has_param() const {
   return !_is_default_instance_ && param_ != NULL;
 }
@@ -1314,25 +1315,25 @@ inline void RecognizeRequest::clear_param() {
   if (GetArenaNoVirtual() == NULL && param_ != NULL) delete param_;
   param_ = NULL;
 }
-inline const ::dg::RecognizeParam& RecognizeRequest::param() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.Param)
+inline const ::dg::apps::RecognizeParam& RecognizeRequest::param() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.Param)
   return param_ != NULL ? *param_ : *default_instance_->param_;
 }
-inline ::dg::RecognizeParam* RecognizeRequest::mutable_param() {
+inline ::dg::apps::RecognizeParam* RecognizeRequest::mutable_param() {
   
   if (param_ == NULL) {
-    param_ = new ::dg::RecognizeParam;
+    param_ = new ::dg::apps::RecognizeParam;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeRequest.Param)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeRequest.Param)
   return param_;
 }
-inline ::dg::RecognizeParam* RecognizeRequest::release_param() {
+inline ::dg::apps::RecognizeParam* RecognizeRequest::release_param() {
   
-  ::dg::RecognizeParam* temp = param_;
+  ::dg::apps::RecognizeParam* temp = param_;
   param_ = NULL;
   return temp;
 }
-inline void RecognizeRequest::set_allocated_param(::dg::RecognizeParam* param) {
+inline void RecognizeRequest::set_allocated_param(::dg::apps::RecognizeParam* param) {
   delete param_;
   param_ = param;
   if (param) {
@@ -1340,7 +1341,7 @@ inline void RecognizeRequest::set_allocated_param(::dg::RecognizeParam* param) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeRequest.Param)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeRequest.Param)
 }
 
 // -------------------------------------------------------------------
@@ -1352,13 +1353,13 @@ inline void VehicleBrand::clear_brandid() {
   brandid_ = 0;
 }
 inline ::google::protobuf::int32 VehicleBrand::brandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleBrand.BrandId)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleBrand.BrandId)
   return brandid_;
 }
 inline void VehicleBrand::set_brandid(::google::protobuf::int32 value) {
   
   brandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleBrand.BrandId)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleBrand.BrandId)
 }
 
 // optional float Confidence = 2;
@@ -1366,20 +1367,20 @@ inline void VehicleBrand::clear_confidence() {
   confidence_ = 0;
 }
 inline float VehicleBrand::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleBrand.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleBrand.Confidence)
   return confidence_;
 }
 inline void VehicleBrand::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleBrand.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleBrand.Confidence)
 }
 
 // -------------------------------------------------------------------
 
 // VehiclePlate
 
-// optional .dg.Cutboard Box = 1;
+// optional .dg.apps.Cutboard Box = 1;
 inline bool VehiclePlate::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -1387,25 +1388,25 @@ inline void VehiclePlate::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-inline const ::dg::Cutboard& VehiclePlate::box() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.Box)
+inline const ::dg::apps::Cutboard& VehiclePlate::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-inline ::dg::Cutboard* VehiclePlate::mutable_box() {
+inline ::dg::apps::Cutboard* VehiclePlate::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.Box)
   return box_;
 }
-inline ::dg::Cutboard* VehiclePlate::release_box() {
+inline ::dg::apps::Cutboard* VehiclePlate::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-inline void VehiclePlate::set_allocated_box(::dg::Cutboard* box) {
+inline void VehiclePlate::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -1413,7 +1414,7 @@ inline void VehiclePlate::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.Box)
 }
 
 // optional int32 PlateType = 2;
@@ -1421,13 +1422,13 @@ inline void VehiclePlate::clear_platetype() {
   platetype_ = 0;
 }
 inline ::google::protobuf::int32 VehiclePlate::platetype() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateType)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateType)
   return platetype_;
 }
 inline void VehiclePlate::set_platetype(::google::protobuf::int32 value) {
   
   platetype_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.PlateType)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.PlateType)
 }
 
 // optional string PlateNum = 3;
@@ -1435,28 +1436,28 @@ inline void VehiclePlate::clear_platenum() {
   platenum_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VehiclePlate::platenum() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateNum)
   return platenum_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VehiclePlate::set_platenum(const ::std::string& value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.PlateNum)
 }
 inline void VehiclePlate::set_platenum(const char* value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_char:dg.apps.VehiclePlate.PlateNum)
 }
 inline void VehiclePlate::set_platenum(const char* value, size_t size) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.VehiclePlate.PlateNum)
 }
 inline ::std::string* VehiclePlate::mutable_platenum() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.PlateNum)
   return platenum_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehiclePlate::release_platenum() {
@@ -1470,10 +1471,10 @@ inline void VehiclePlate::set_allocated_platenum(::std::string* platenum) {
     
   }
   platenum_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), platenum);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.PlateNum)
 }
 
-// optional .dg.Color PlateColor = 4;
+// optional .dg.apps.Color PlateColor = 4;
 inline bool VehiclePlate::has_platecolor() const {
   return !_is_default_instance_ && platecolor_ != NULL;
 }
@@ -1481,25 +1482,25 @@ inline void VehiclePlate::clear_platecolor() {
   if (GetArenaNoVirtual() == NULL && platecolor_ != NULL) delete platecolor_;
   platecolor_ = NULL;
 }
-inline const ::dg::Color& VehiclePlate::platecolor() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateColor)
+inline const ::dg::apps::Color& VehiclePlate::platecolor() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateColor)
   return platecolor_ != NULL ? *platecolor_ : *default_instance_->platecolor_;
 }
-inline ::dg::Color* VehiclePlate::mutable_platecolor() {
+inline ::dg::apps::Color* VehiclePlate::mutable_platecolor() {
   
   if (platecolor_ == NULL) {
-    platecolor_ = new ::dg::Color;
+    platecolor_ = new ::dg::apps::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.PlateColor)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.PlateColor)
   return platecolor_;
 }
-inline ::dg::Color* VehiclePlate::release_platecolor() {
+inline ::dg::apps::Color* VehiclePlate::release_platecolor() {
   
-  ::dg::Color* temp = platecolor_;
+  ::dg::apps::Color* temp = platecolor_;
   platecolor_ = NULL;
   return temp;
 }
-inline void VehiclePlate::set_allocated_platecolor(::dg::Color* platecolor) {
+inline void VehiclePlate::set_allocated_platecolor(::dg::apps::Color* platecolor) {
   delete platecolor_;
   platecolor_ = platecolor;
   if (platecolor) {
@@ -1507,7 +1508,7 @@ inline void VehiclePlate::set_allocated_platecolor(::dg::Color* platecolor) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.PlateColor)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.PlateColor)
 }
 
 // optional float Confidence = 5;
@@ -1515,20 +1516,20 @@ inline void VehiclePlate::clear_confidence() {
   confidence_ = 0;
 }
 inline float VehiclePlate::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.Confidence)
   return confidence_;
 }
 inline void VehiclePlate::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.Confidence)
 }
 
 // -------------------------------------------------------------------
 
 // VehicleSymbol
 
-// optional .dg.Cutboard Box = 1;
+// optional .dg.apps.Cutboard Box = 1;
 inline bool VehicleSymbol::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -1536,25 +1537,25 @@ inline void VehicleSymbol::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-inline const ::dg::Cutboard& VehicleSymbol::box() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.Box)
+inline const ::dg::apps::Cutboard& VehicleSymbol::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-inline ::dg::Cutboard* VehicleSymbol::mutable_box() {
+inline ::dg::apps::Cutboard* VehicleSymbol::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehicleSymbol.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehicleSymbol.Box)
   return box_;
 }
-inline ::dg::Cutboard* VehicleSymbol::release_box() {
+inline ::dg::apps::Cutboard* VehicleSymbol::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-inline void VehicleSymbol::set_allocated_box(::dg::Cutboard* box) {
+inline void VehicleSymbol::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -1562,7 +1563,7 @@ inline void VehicleSymbol::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleSymbol.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehicleSymbol.Box)
 }
 
 // optional int32 SymbolType = 2;
@@ -1570,13 +1571,13 @@ inline void VehicleSymbol::clear_symboltype() {
   symboltype_ = 0;
 }
 inline ::google::protobuf::int32 VehicleSymbol::symboltype() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.SymbolType)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.SymbolType)
   return symboltype_;
 }
 inline void VehicleSymbol::set_symboltype(::google::protobuf::int32 value) {
   
   symboltype_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleSymbol.SymbolType)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleSymbol.SymbolType)
 }
 
 // optional float Confidence = 3;
@@ -1584,13 +1585,13 @@ inline void VehicleSymbol::clear_confidence() {
   confidence_ = 0;
 }
 inline float VehicleSymbol::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.Confidence)
   return confidence_;
 }
 inline void VehicleSymbol::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleSymbol.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleSymbol.Confidence)
 }
 
 // -------------------------------------------------------------------
@@ -1602,28 +1603,28 @@ inline void Feature::clear_featurevector() {
   featurevector_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Feature::featurevector() const {
-  // @@protoc_insertion_point(field_get:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_get:dg.apps.Feature.FeatureVector)
   return featurevector_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Feature::set_featurevector(const ::std::string& value) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set:dg.apps.Feature.FeatureVector)
 }
 inline void Feature::set_featurevector(const char* value) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_char:dg.apps.Feature.FeatureVector)
 }
 inline void Feature::set_featurevector(const void* value, size_t size) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.Feature.FeatureVector)
 }
 inline ::std::string* Feature::mutable_featurevector() {
   
-  // @@protoc_insertion_point(field_mutable:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_mutable:dg.apps.Feature.FeatureVector)
   return featurevector_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Feature::release_featurevector() {
@@ -1637,28 +1638,28 @@ inline void Feature::set_allocated_featurevector(::std::string* featurevector) {
     
   }
   featurevector_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), featurevector);
-  // @@protoc_insertion_point(field_set_allocated:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.Feature.FeatureVector)
 }
 
 // -------------------------------------------------------------------
 
 // RecognizeResult
 
-// optional .dg.ObjType Type = 1;
+// optional .dg.apps.ObjType Type = 1;
 inline void RecognizeResult::clear_type() {
   type_ = 0;
 }
-inline ::dg::ObjType RecognizeResult::type() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Type)
-  return static_cast< ::dg::ObjType >(type_);
+inline ::dg::apps::ObjType RecognizeResult::type() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Type)
+  return static_cast< ::dg::apps::ObjType >(type_);
 }
-inline void RecognizeResult::set_type(::dg::ObjType value) {
+inline void RecognizeResult::set_type(::dg::apps::ObjType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeResult.Type)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeResult.Type)
 }
 
-// optional .dg.Cutboard Box = 2;
+// optional .dg.apps.Cutboard Box = 2;
 inline bool RecognizeResult::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -1666,25 +1667,25 @@ inline void RecognizeResult::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-inline const ::dg::Cutboard& RecognizeResult::box() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Box)
+inline const ::dg::apps::Cutboard& RecognizeResult::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-inline ::dg::Cutboard* RecognizeResult::mutable_box() {
+inline ::dg::apps::Cutboard* RecognizeResult::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Box)
   return box_;
 }
-inline ::dg::Cutboard* RecognizeResult::release_box() {
+inline ::dg::apps::Cutboard* RecognizeResult::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-inline void RecognizeResult::set_allocated_box(::dg::Cutboard* box) {
+inline void RecognizeResult::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -1692,10 +1693,10 @@ inline void RecognizeResult::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Box)
 }
 
-// optional .dg.VehicleBrand Brand = 3;
+// optional .dg.apps.VehicleBrand Brand = 3;
 inline bool RecognizeResult::has_brand() const {
   return !_is_default_instance_ && brand_ != NULL;
 }
@@ -1703,25 +1704,25 @@ inline void RecognizeResult::clear_brand() {
   if (GetArenaNoVirtual() == NULL && brand_ != NULL) delete brand_;
   brand_ = NULL;
 }
-inline const ::dg::VehicleBrand& RecognizeResult::brand() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Brand)
+inline const ::dg::apps::VehicleBrand& RecognizeResult::brand() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Brand)
   return brand_ != NULL ? *brand_ : *default_instance_->brand_;
 }
-inline ::dg::VehicleBrand* RecognizeResult::mutable_brand() {
+inline ::dg::apps::VehicleBrand* RecognizeResult::mutable_brand() {
   
   if (brand_ == NULL) {
-    brand_ = new ::dg::VehicleBrand;
+    brand_ = new ::dg::apps::VehicleBrand;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Brand)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Brand)
   return brand_;
 }
-inline ::dg::VehicleBrand* RecognizeResult::release_brand() {
+inline ::dg::apps::VehicleBrand* RecognizeResult::release_brand() {
   
-  ::dg::VehicleBrand* temp = brand_;
+  ::dg::apps::VehicleBrand* temp = brand_;
   brand_ = NULL;
   return temp;
 }
-inline void RecognizeResult::set_allocated_brand(::dg::VehicleBrand* brand) {
+inline void RecognizeResult::set_allocated_brand(::dg::apps::VehicleBrand* brand) {
   delete brand_;
   brand_ = brand;
   if (brand) {
@@ -1729,10 +1730,10 @@ inline void RecognizeResult::set_allocated_brand(::dg::VehicleBrand* brand) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Brand)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Brand)
 }
 
-// optional .dg.VehiclePlate Plate = 4;
+// optional .dg.apps.VehiclePlate Plate = 4;
 inline bool RecognizeResult::has_plate() const {
   return !_is_default_instance_ && plate_ != NULL;
 }
@@ -1740,25 +1741,25 @@ inline void RecognizeResult::clear_plate() {
   if (GetArenaNoVirtual() == NULL && plate_ != NULL) delete plate_;
   plate_ = NULL;
 }
-inline const ::dg::VehiclePlate& RecognizeResult::plate() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Plate)
+inline const ::dg::apps::VehiclePlate& RecognizeResult::plate() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Plate)
   return plate_ != NULL ? *plate_ : *default_instance_->plate_;
 }
-inline ::dg::VehiclePlate* RecognizeResult::mutable_plate() {
+inline ::dg::apps::VehiclePlate* RecognizeResult::mutable_plate() {
   
   if (plate_ == NULL) {
-    plate_ = new ::dg::VehiclePlate;
+    plate_ = new ::dg::apps::VehiclePlate;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Plate)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Plate)
   return plate_;
 }
-inline ::dg::VehiclePlate* RecognizeResult::release_plate() {
+inline ::dg::apps::VehiclePlate* RecognizeResult::release_plate() {
   
-  ::dg::VehiclePlate* temp = plate_;
+  ::dg::apps::VehiclePlate* temp = plate_;
   plate_ = NULL;
   return temp;
 }
-inline void RecognizeResult::set_allocated_plate(::dg::VehiclePlate* plate) {
+inline void RecognizeResult::set_allocated_plate(::dg::apps::VehiclePlate* plate) {
   delete plate_;
   plate_ = plate;
   if (plate) {
@@ -1766,10 +1767,10 @@ inline void RecognizeResult::set_allocated_plate(::dg::VehiclePlate* plate) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Plate)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Plate)
 }
 
-// optional .dg.Color Color = 5;
+// optional .dg.apps.Color Color = 5;
 inline bool RecognizeResult::has_color() const {
   return !_is_default_instance_ && color_ != NULL;
 }
@@ -1777,25 +1778,25 @@ inline void RecognizeResult::clear_color() {
   if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
   color_ = NULL;
 }
-inline const ::dg::Color& RecognizeResult::color() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Color)
+inline const ::dg::apps::Color& RecognizeResult::color() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Color)
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
-inline ::dg::Color* RecognizeResult::mutable_color() {
+inline ::dg::apps::Color* RecognizeResult::mutable_color() {
   
   if (color_ == NULL) {
-    color_ = new ::dg::Color;
+    color_ = new ::dg::apps::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Color)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Color)
   return color_;
 }
-inline ::dg::Color* RecognizeResult::release_color() {
+inline ::dg::apps::Color* RecognizeResult::release_color() {
   
-  ::dg::Color* temp = color_;
+  ::dg::apps::Color* temp = color_;
   color_ = NULL;
   return temp;
 }
-inline void RecognizeResult::set_allocated_color(::dg::Color* color) {
+inline void RecognizeResult::set_allocated_color(::dg::apps::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
@@ -1803,10 +1804,10 @@ inline void RecognizeResult::set_allocated_color(::dg::Color* color) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Color)
 }
 
-// optional .dg.Feature Feature = 6;
+// optional .dg.apps.Feature Feature = 6;
 inline bool RecognizeResult::has_feature() const {
   return !_is_default_instance_ && feature_ != NULL;
 }
@@ -1814,25 +1815,25 @@ inline void RecognizeResult::clear_feature() {
   if (GetArenaNoVirtual() == NULL && feature_ != NULL) delete feature_;
   feature_ = NULL;
 }
-inline const ::dg::Feature& RecognizeResult::feature() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Feature)
+inline const ::dg::apps::Feature& RecognizeResult::feature() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Feature)
   return feature_ != NULL ? *feature_ : *default_instance_->feature_;
 }
-inline ::dg::Feature* RecognizeResult::mutable_feature() {
+inline ::dg::apps::Feature* RecognizeResult::mutable_feature() {
   
   if (feature_ == NULL) {
-    feature_ = new ::dg::Feature;
+    feature_ = new ::dg::apps::Feature;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Feature)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Feature)
   return feature_;
 }
-inline ::dg::Feature* RecognizeResult::release_feature() {
+inline ::dg::apps::Feature* RecognizeResult::release_feature() {
   
-  ::dg::Feature* temp = feature_;
+  ::dg::apps::Feature* temp = feature_;
   feature_ = NULL;
   return temp;
 }
-inline void RecognizeResult::set_allocated_feature(::dg::Feature* feature) {
+inline void RecognizeResult::set_allocated_feature(::dg::apps::Feature* feature) {
   delete feature_;
   feature_ = feature;
   if (feature) {
@@ -1840,36 +1841,36 @@ inline void RecognizeResult::set_allocated_feature(::dg::Feature* feature) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Feature)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Feature)
 }
 
-// repeated .dg.VehicleSymbol Symbols = 7;
+// repeated .dg.apps.VehicleSymbol Symbols = 7;
 inline int RecognizeResult::symbols_size() const {
   return symbols_.size();
 }
 inline void RecognizeResult::clear_symbols() {
   symbols_.Clear();
 }
-inline const ::dg::VehicleSymbol& RecognizeResult::symbols(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Symbols)
+inline const ::dg::apps::VehicleSymbol& RecognizeResult::symbols(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Symbols)
   return symbols_.Get(index);
 }
-inline ::dg::VehicleSymbol* RecognizeResult::mutable_symbols(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Symbols)
+inline ::dg::apps::VehicleSymbol* RecognizeResult::mutable_symbols(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Symbols)
   return symbols_.Mutable(index);
 }
-inline ::dg::VehicleSymbol* RecognizeResult::add_symbols() {
-  // @@protoc_insertion_point(field_add:dg.RecognizeResult.Symbols)
+inline ::dg::apps::VehicleSymbol* RecognizeResult::add_symbols() {
+  // @@protoc_insertion_point(field_add:dg.apps.RecognizeResult.Symbols)
   return symbols_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >*
 RecognizeResult::mutable_symbols() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizeResult.Symbols)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.RecognizeResult.Symbols)
   return &symbols_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >&
 RecognizeResult::symbols() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizeResult.Symbols)
+  // @@protoc_insertion_point(field_list:dg.apps.RecognizeResult.Symbols)
   return symbols_;
 }
 
@@ -1882,16 +1883,16 @@ inline void RecognizeResponse::clear_sessionid() {
   sessionid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 RecognizeResponse::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.SessionId)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.SessionId)
   return sessionid_;
 }
 inline void RecognizeResponse::set_sessionid(::google::protobuf::int64 value) {
   
   sessionid_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeResponse.SessionId)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeResponse.SessionId)
 }
 
-// optional .dg.RecognizeStatus Status = 2;
+// optional .dg.apps.RecognizeStatus Status = 2;
 inline bool RecognizeResponse::has_status() const {
   return !_is_default_instance_ && status_ != NULL;
 }
@@ -1899,25 +1900,25 @@ inline void RecognizeResponse::clear_status() {
   if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
   status_ = NULL;
 }
-inline const ::dg::RecognizeStatus& RecognizeResponse::status() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.Status)
+inline const ::dg::apps::RecognizeStatus& RecognizeResponse::status() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.Status)
   return status_ != NULL ? *status_ : *default_instance_->status_;
 }
-inline ::dg::RecognizeStatus* RecognizeResponse::mutable_status() {
+inline ::dg::apps::RecognizeStatus* RecognizeResponse::mutable_status() {
   
   if (status_ == NULL) {
-    status_ = new ::dg::RecognizeStatus;
+    status_ = new ::dg::apps::RecognizeStatus;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResponse.Status)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResponse.Status)
   return status_;
 }
-inline ::dg::RecognizeStatus* RecognizeResponse::release_status() {
+inline ::dg::apps::RecognizeStatus* RecognizeResponse::release_status() {
   
-  ::dg::RecognizeStatus* temp = status_;
+  ::dg::apps::RecognizeStatus* temp = status_;
   status_ = NULL;
   return temp;
 }
-inline void RecognizeResponse::set_allocated_status(::dg::RecognizeStatus* status) {
+inline void RecognizeResponse::set_allocated_status(::dg::apps::RecognizeStatus* status) {
   delete status_;
   status_ = status;
   if (status) {
@@ -1925,10 +1926,10 @@ inline void RecognizeResponse::set_allocated_status(::dg::RecognizeStatus* statu
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResponse.Status)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResponse.Status)
 }
 
-// optional .dg.RecognizeResult Result = 3;
+// optional .dg.apps.RecognizeResult Result = 3;
 inline bool RecognizeResponse::has_result() const {
   return !_is_default_instance_ && result_ != NULL;
 }
@@ -1936,25 +1937,25 @@ inline void RecognizeResponse::clear_result() {
   if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
   result_ = NULL;
 }
-inline const ::dg::RecognizeResult& RecognizeResponse::result() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.Result)
+inline const ::dg::apps::RecognizeResult& RecognizeResponse::result() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.Result)
   return result_ != NULL ? *result_ : *default_instance_->result_;
 }
-inline ::dg::RecognizeResult* RecognizeResponse::mutable_result() {
+inline ::dg::apps::RecognizeResult* RecognizeResponse::mutable_result() {
   
   if (result_ == NULL) {
-    result_ = new ::dg::RecognizeResult;
+    result_ = new ::dg::apps::RecognizeResult;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResponse.Result)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResponse.Result)
   return result_;
 }
-inline ::dg::RecognizeResult* RecognizeResponse::release_result() {
+inline ::dg::apps::RecognizeResult* RecognizeResponse::release_result() {
   
-  ::dg::RecognizeResult* temp = result_;
+  ::dg::apps::RecognizeResult* temp = result_;
   result_ = NULL;
   return temp;
 }
-inline void RecognizeResponse::set_allocated_result(::dg::RecognizeResult* result) {
+inline void RecognizeResponse::set_allocated_result(::dg::apps::RecognizeResult* result) {
   delete result_;
   result_ = result;
   if (result) {
@@ -1962,40 +1963,40 @@ inline void RecognizeResponse::set_allocated_result(::dg::RecognizeResult* resul
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResponse.Result)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResponse.Result)
 }
 
 // -------------------------------------------------------------------
 
 // BatchRecognizeRequest
 
-// repeated .dg.RecognizeRequest Requests = 1;
+// repeated .dg.apps.RecognizeRequest Requests = 1;
 inline int BatchRecognizeRequest::requests_size() const {
   return requests_.size();
 }
 inline void BatchRecognizeRequest::clear_requests() {
   requests_.Clear();
 }
-inline const ::dg::RecognizeRequest& BatchRecognizeRequest::requests(int index) const {
-  // @@protoc_insertion_point(field_get:dg.BatchRecognizeRequest.Requests)
+inline const ::dg::apps::RecognizeRequest& BatchRecognizeRequest::requests(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Get(index);
 }
-inline ::dg::RecognizeRequest* BatchRecognizeRequest::mutable_requests(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.BatchRecognizeRequest.Requests)
+inline ::dg::apps::RecognizeRequest* BatchRecognizeRequest::mutable_requests(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Mutable(index);
 }
-inline ::dg::RecognizeRequest* BatchRecognizeRequest::add_requests() {
-  // @@protoc_insertion_point(field_add:dg.BatchRecognizeRequest.Requests)
+inline ::dg::apps::RecognizeRequest* BatchRecognizeRequest::add_requests() {
+  // @@protoc_insertion_point(field_add:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >*
 BatchRecognizeRequest::mutable_requests() {
-  // @@protoc_insertion_point(field_mutable_list:dg.BatchRecognizeRequest.Requests)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.BatchRecognizeRequest.Requests)
   return &requests_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >&
 BatchRecognizeRequest::requests() const {
-  // @@protoc_insertion_point(field_list:dg.BatchRecognizeRequest.Requests)
+  // @@protoc_insertion_point(field_list:dg.apps.BatchRecognizeRequest.Requests)
   return requests_;
 }
 
@@ -2003,33 +2004,33 @@ BatchRecognizeRequest::requests() const {
 
 // BatchRecognizeResponse
 
-// repeated .dg.RecognizeResponse Reponses = 1;
+// repeated .dg.apps.RecognizeResponse Reponses = 1;
 inline int BatchRecognizeResponse::reponses_size() const {
   return reponses_.size();
 }
 inline void BatchRecognizeResponse::clear_reponses() {
   reponses_.Clear();
 }
-inline const ::dg::RecognizeResponse& BatchRecognizeResponse::reponses(int index) const {
-  // @@protoc_insertion_point(field_get:dg.BatchRecognizeResponse.Reponses)
+inline const ::dg::apps::RecognizeResponse& BatchRecognizeResponse::reponses(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Get(index);
 }
-inline ::dg::RecognizeResponse* BatchRecognizeResponse::mutable_reponses(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.BatchRecognizeResponse.Reponses)
+inline ::dg::apps::RecognizeResponse* BatchRecognizeResponse::mutable_reponses(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Mutable(index);
 }
-inline ::dg::RecognizeResponse* BatchRecognizeResponse::add_reponses() {
-  // @@protoc_insertion_point(field_add:dg.BatchRecognizeResponse.Reponses)
+inline ::dg::apps::RecognizeResponse* BatchRecognizeResponse::add_reponses() {
+  // @@protoc_insertion_point(field_add:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >*
 BatchRecognizeResponse::mutable_reponses() {
-  // @@protoc_insertion_point(field_mutable_list:dg.BatchRecognizeResponse.Reponses)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.BatchRecognizeResponse.Reponses)
   return &reponses_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >&
 BatchRecognizeResponse::reponses() const {
-  // @@protoc_insertion_point(field_list:dg.BatchRecognizeResponse.Reponses)
+  // @@protoc_insertion_point(field_list:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_;
 }
 
@@ -2057,21 +2058,22 @@ BatchRecognizeResponse::reponses() const {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace apps
 }  // namespace dg
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::dg::RecognizeType> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::dg::apps::RecognizeType> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::RecognizeType>() {
-  return ::dg::RecognizeType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::apps::RecognizeType>() {
+  return ::dg::apps::RecognizeType_descriptor();
 }
-template <> struct is_proto_enum< ::dg::RecognizeFunction> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::dg::apps::RecognizeFunction> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::RecognizeFunction>() {
-  return ::dg::RecognizeFunction_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::apps::RecognizeFunction>() {
+  return ::dg::apps::RecognizeFunction_descriptor();
 }
 
 }  // namespace protobuf

@@ -42,23 +42,22 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
     }
     void Update(Frame *frame) {
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
-
-        vector<Detection> detections = detector_->Detect(
-                frame->payload()->data());
+        Mat data= frame->payload()->data();
+        vector<Detection> detections = detector_->Detect(data);
 
         for (vector<Detection>::iterator itr = detections.begin();
                 itr != detections.end(); ++itr) {
             Detection detection = *itr;
             Object *obj;
-            if(d.id == OBJECT_CAR) {
-                obj = new Vehicle(OBJECT_CAR);
-            } else {
-                obj = new Object(d.id);
+            if(1) {
+                Vehicle *v = new Vehicle(OBJECT_CAR);
+                Mat roi = Mat(data, detection.box);
+                v->set_image(roi);
             }
 
             obj->set_detection(detection);
             frame->put_object(obj);
-            print(d);
+            print(detection);
         }
 
         Proceed(frame);

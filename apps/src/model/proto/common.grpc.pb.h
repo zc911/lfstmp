@@ -23,7 +23,9 @@ class ServerContext;
 }  // namespace grpc
 
 namespace dg {
+namespace apps {
 
+}  // namespace apps
 }  // namespace dg
 
 

@@ -9,6 +9,7 @@
 using namespace std;
 
 using namespace dg;
+using namespace dg::apps;
 
 int main(int argc, char* argv[]) {
 

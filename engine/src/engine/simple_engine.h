@@ -8,12 +8,7 @@
 #ifndef SIMPLE_ENGINE_H_
 #define SIMPLE_ENGINE_H_
 
-#include "model/model.h"
 #include "model/frame.h"
-#include "io/stream_tube.h"
-#include "processor/simple_processor.h"
-#include "processor/vehicle_detector_processor.h"
-#include "vis/display.h"
 
 namespace dg {
 
