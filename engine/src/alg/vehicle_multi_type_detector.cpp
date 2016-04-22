@@ -23,7 +23,7 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
     net_.reset(new Net<float>(deploy_file_, TEST, config.is_model_encrypt));
 
     net_->CopyTrainedLayersFrom(model_file_);
-    CHECK_EQ(net_->num_inputs(), 2)<< "Network should have exactly two input.";
+    CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     Blob<float>* im_info_layer = net_->input_blobs()[1];
