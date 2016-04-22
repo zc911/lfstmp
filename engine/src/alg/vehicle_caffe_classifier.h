@@ -25,27 +25,25 @@ namespace dg {
 
 class VehicleCaffeClassifier {
  public:
-     VehicleCaffeClassifier(CaffeConfig &config);
-     virtual ~VehicleCaffeClassifier();
-     vector<vector<Prediction> > ClassifyAutoBatch(
-             const vector<Mat> &imgs);
+    VehicleCaffeClassifier(CaffeConfig &config);
+    virtual ~VehicleCaffeClassifier();
+    vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
  protected:
-     vector<vector<Prediction > > ClassifyBatch(const vector<Mat> &imgs);
+    vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
+    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
 
-     std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
-     void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
-
-     void PreprocessBatch(const vector<Mat> imgs,
-                          vector<vector<Mat> >* input_batch);
+    void PreprocessBatch(const vector<Mat> imgs,
+                         vector<vector<Mat> >* input_batch);
  private:
-     boost::shared_ptr<caffe::Net<float> > net_;
-     int num_channels_;
-     cv::Size input_geometry_;
-     bool device_setted_;
-     CaffeConfig caffe_config_;
-     Mat means_;
-     int rescale_;
+    boost::shared_ptr<caffe::Net<float> > net_;
+    int num_channels_;
+    cv::Size input_geometry_;
+    bool device_setted_;
+    CaffeConfig caffe_config_;
+    Mat means_;
+    int rescale_;
 };
 
 } /* namespace dg */
