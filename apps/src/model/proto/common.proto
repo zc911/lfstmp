@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package model;
+package dg;
+
 
 message VideoMetadata {
 	int64 Timestamp = 1;
@@ -14,7 +15,8 @@ message Image {
 	string Id = 1;
 	int32 Width = 2;
 	int32 Height = 3;
-	bytes BinData = 4; // base64 format image
+	string URI = 4;
+	bytes BinData = 5; // base64 format image
 }
 
 message CutboardImage {
