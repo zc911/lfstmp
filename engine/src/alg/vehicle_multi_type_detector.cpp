@@ -1,11 +1,11 @@
-#include "faster_rcnn_detector.h"
+#include "vehicle_confirm_caffe_detector.h"
 
-
-bool FasterRcnnDetector::mycmp(struct Bbox b1, struct Bbox b2) {
+namespace dg {
+bool VehicleMultiTypeDetector::mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
-FasterRcnnDetector::FasterRcnnDetector(const CaffeConfig &config)
+VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
         : CaffeDetector(config) {
     use_gpu_ = config.use_gpu;
     if (use_gpu_) {
@@ -20,14 +20,10 @@ FasterRcnnDetector::FasterRcnnDetector(const CaffeConfig &config)
     deploy_file_ = config.deploy_file;
     scale_ = config.rescale;
 
-    cout << "loading " << deploy_file_ << endl;
-
-    net_.reset(new Net<float>(deploy_file_, TEST));
-
-    cout << "loading " << model_file_ << endl;
+    net_.reset(new Net<float>(deploy_file_, TEST, config.is_model_encrypt));
 
     net_->CopyTrainedLayersFrom(model_file_);
-    CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";
+    CHECK_EQ(net_->num_inputs(), 2)<< "Network should have exactly two input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     Blob<float>* im_info_layer = net_->input_blobs()[1];
@@ -57,11 +53,11 @@ FasterRcnnDetector::FasterRcnnDetector(const CaffeConfig &config)
     sliding_window_stride_ = 16;
 }
 
-FasterRcnnDetector::~FasterRcnnDetector() {
+VehicleMultiTypeDetector::~VehicleMultiTypeDetector() {
 
 }
 
-vector<Detection> FasterRcnnDetector::Detect(const cv::Mat &img) {
+vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
 
     vector<Mat> images;
     vector<Blob<float>*> tmp_outputs;
@@ -83,22 +79,20 @@ vector<Detection> FasterRcnnDetector::Detect(const cv::Mat &img) {
 
 }
 
-vector<vector<Detection>> FasterRcnnDetector::DetectBatch(
+vector<vector<Detection>> VehicleMultiTypeDetector::DetectBatch(
         const vector<cv::Mat> &img) {
     return vector<vector<Detection> >();
 }
 
 // predict single frame forward function
-void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
-                                 vector<Blob<float>*> &outputs) {
+void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
+                                       vector<Blob<float>*> &outputs) {
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     Blob<float>* im_info_layer = net_->input_blobs()[1];
     float* im_info = im_info_layer->mutable_cpu_data();
 
-//    assert(static_cast<int>(imgs.size()) <= batch_size_);
     int cnt = 0;
-//    assert(imgs.size() == 1);
 
     for (size_t i = 0; i < imgs.size(); i++) {
         Mat sample;
@@ -128,8 +122,6 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
             net_->Reshape();
         } while (0);
 
-        cout << "num_channels_: " << num_channels_ << endl;
-
         if (img.channels() == 3 && num_channels_ == 1)
             cvtColor(img, sample, CV_BGR2GRAY);
         else if (img.channels() == 4 && num_channels_ == 1)
@@ -141,8 +133,6 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
         else
             sample = img;
 
-        cout << "sample: " << sample.channels() << "-" << sample.rows << "-"
-             << sample.cols << endl;
         float* input_data = input_layer->mutable_cpu_data();
 
         for (int k = 0; k < sample.channels(); k++) {
@@ -159,21 +149,11 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
         im_info[i * 3 + 2] = resize_ratio;
     }
 
-    cout << "before forward: " << endl;
-    struct timeval start;
-    gettimeofday(&start, NULL);
     net_->ForwardPrefilled();
 
     if (use_gpu_) {
         cudaDeviceSynchronize();
     }
-
-    struct timeval end;
-    gettimeofday(&end, NULL);
-    cout << "after forward" << endl;
-    double timecost = (double(end.tv_sec - start.tv_sec)
-            + double(end.tv_usec - start.tv_usec) / 1.0e6);
-    cout << "time cost " << timecost << endl;
 
     outputs.resize(0);
     Blob<float>* output_rois = net_->blob_by_name(layer_name_rois_).get();
@@ -184,8 +164,8 @@ void FasterRcnnDetector::forward(vector<cv::Mat> imgs,
     outputs.push_back(output_bbox);
 }
 
-void FasterRcnnDetector::getDetection(vector<Blob<float>*>& outputs,
-                                      vector<struct Bbox> &final_vbbox) {
+void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
+                                            vector<struct Bbox> &final_vbbox) {
     Blob<float>* roi = outputs[0];
     Blob<float>* cls = outputs[1];
     Blob<float>* reg = outputs[2];
@@ -206,7 +186,7 @@ void FasterRcnnDetector::getDetection(vector<Blob<float>*>& outputs,
 
     if (vbbox.size() != 0) {
 
-        sort(vbbox.begin(), vbbox.end(), FasterRcnnDetector::mycmp);
+        sort(vbbox.begin(), vbbox.end(), VehicleMultiTypeDetector::mycmp);
         vbbox.resize(min(static_cast<size_t>(max_per_img_), vbbox.size()));
         nms(vbbox, 0.2);
     }
@@ -231,7 +211,7 @@ void FasterRcnnDetector::getDetection(vector<Blob<float>*>& outputs,
     }
 }
 
-void FasterRcnnDetector::nms(vector<struct Bbox>& p, float threshold) {
+void VehicleMultiTypeDetector::nms(vector<struct Bbox>& p, float threshold) {
 
     sort(p.begin(), p.end(), mycmp);
     int cnt = 0;
@@ -244,7 +224,6 @@ void FasterRcnnDetector::nms(vector<struct Bbox>& p, float threshold) {
 
             if (!p[j].deleted && p[i].cls_id == p[j].cls_id) {
                 cv::Rect intersect = p[i].rect & p[j].rect;
-                //float iou = intersect.area() * 1.0/p[j].rect.area(); /// (p[i].rect.area() + p[j].rect.area() - intersect.area());
                 float iou = intersect.area() * 1.0
                         / (p[i].rect.area() + p[j].rect.area()
                                 - intersect.area());
@@ -256,11 +235,9 @@ void FasterRcnnDetector::nms(vector<struct Bbox>& p, float threshold) {
     }
 }
 
-void FasterRcnnDetector::bboxTransformInvClip(Blob<float>* roi,
-                                              Blob<float>* cls,
-                                              Blob<float>* reg,
-                                              Blob<float>* im_info_layer,
-                                              vector<struct Bbox> &vbbox) {
+void VehicleMultiTypeDetector::bboxTransformInvClip(
+        Blob<float>* roi, Blob<float>* cls, Blob<float>* reg,
+        Blob<float>* im_info_layer, vector<struct Bbox> &vbbox) {
     const float* roi_cpu = roi->cpu_data();
     const float* cls_cpu = cls->cpu_data();
     const float* reg_cpu = reg->cpu_data();

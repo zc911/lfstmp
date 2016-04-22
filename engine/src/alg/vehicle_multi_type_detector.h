@@ -23,11 +23,11 @@ using namespace caffe;
 
 namespace dg {
 
-class FasterRcnnDetector : public CaffeDetector {
+class VehicleMultiTypeDetector : public CaffeDetector {
  public:
 
-    FasterRcnnDetector(const CaffeConfig &config);
-    ~FasterRcnnDetector();
+    VehicleMultiTypeDetector(const CaffeConfig &config);
+    ~VehicleMultiTypeDetector();
 
     vector<Detection> Detect(const cv::Mat &img);
     vector<vector<Detection>> DetectBatch(const vector<cv::Mat> &img);

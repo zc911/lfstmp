@@ -18,7 +18,7 @@ namespace dg {
 
 typedef enum {
     OBJECT_UNKNOWN = 0,
-    OBJECT_VEHICLE = 1,
+    OBJECT_CAR = 1,
     OBJECT_BICYCLE = 2,
     OBJECT_TRICYCLE = 4,
     OBJECT_PEDESTRIAN = 8,
@@ -101,29 +101,36 @@ class Object {
 
  protected:
     Identification id_;
+    Identification class_id_;
     ObjectType type_;
     Confidence confidence_;
     Detection detection_;
     vector<Object *> children_;
-//    Object *parent_;
 };
 
 class Vehicle : public Object {
  public:
+
     Vehicle()
             : confidence_(0) {
     }
+
+    typedef struct {
+        Identification class_id;
+        Confidence confidence;
+    } Color;
+
+    typedef struct {
+        Box box;
+        string plate_num;
+        int plate_type;
+        Confidence confidence;
+    } Plate;
+
  private:
     cv::Mat image_;
-    Confidence confidence_;
-};
-
-class Marker : public Object {
- public:
-    Marker()
-            : confidence_(0) {
-    }
- private:
+    Plate plate_;
+    Color color_;
     Confidence confidence_;
 };
 
