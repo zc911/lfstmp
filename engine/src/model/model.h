@@ -12,11 +12,12 @@
 #include <opencv2/core/core.hpp>
 #include "basic.h"
 
-namespace deepglint {
-
 using namespace std;
 
+namespace dg {
+
 typedef enum {
+    OBJECT_UNKNOWN = 0,
     OBJECT_VEHICLE = 1,
     OBJECT_BICYCLE = 2,
     OBJECT_TRICYCLE = 4,
@@ -31,49 +32,117 @@ typedef enum {
 } ObjectType;
 
 typedef struct {
+    int id;
     Box box;
     Confidence confidence;
 } Detection;
 
-typedef struct Object {
+class Object {
+ public:
+    Object()
+            : id_(0),
+              type_(OBJECT_UNKNOWN),
+              confidence_(0) {
+        children_.clear();
+
+    }
     virtual ~Object() {
         // here we only take care of children but not parent
-        for (int i = 0; i < children.size(); ++i) {
-            Object * obj = children[i];
+        for (int i = 0; i < children_.size(); ++i) {
+            Object * obj = children_[i];
             if (obj) {
                 delete obj;
                 obj = NULL;
             }
         }
-        children.clear();
+        children_.clear();
     }
-    Identification id;
-    ObjectType type;
-    Confidence confidence;
-    Detection detection;
-    Feature feature;
-    cv::Mat pic;
-    vector<Object *> children;
-    Object *parent;
-} Object;
 
-typedef struct Vehicle : public Object {
-    Vehicle() {
-        type = OBJECT_VEHICLE;
+    const vector<Object*>& children() const {
+        return children_;
     }
-} Vehicle;
 
-typedef struct People : public Object {
+    void set_children(const vector<Object*>& children) {
+        children_ = children;
+    }
+
+    Confidence confidence() const {
+        return confidence_;
+    }
+
+    void set_confidence(Confidence confidence) {
+        confidence_ = confidence;
+    }
+
+    const Detection& detection() const {
+        return detection_;
+    }
+
+    void set_detection(const Detection& detection) {
+        detection_ = detection;
+    }
+
+    Identification id() const {
+        return id_;
+    }
+
+    void set_id(Identification id) {
+        id_ = id;
+    }
+
+    ObjectType type() const {
+        return type_;
+    }
+
+    void set_type(ObjectType type) {
+        type_ = type;
+    }
+
+ protected:
+    Identification id_;
+    ObjectType type_;
+    Confidence confidence_;
+    Detection detection_;
+    vector<Object *> children_;
+//    Object *parent_;
+};
+
+class Vehicle : public Object {
+ public:
+    Vehicle()
+            : confidence_(0) {
+    }
+ private:
+    cv::Mat image_;
+    Confidence confidence_;
+};
+
+class Marker : public Object {
+ public:
+    Marker()
+            : confidence_(0) {
+    }
+ private:
+    Confidence confidence_;
+};
+
+class People : public Object {
     People() {
-        type = OBJECT_PEOPLE;
     }
-} People;
+};
 
-typedef struct Face : public Object {
+class Face : public Object {
     Face() {
-        type = OBJECT_FACE;
     }
-} Face;
+};
+
+typedef struct {
+    Identification id;
+    Timestamp timestamp;
+    MessageStatus status;
+    MetaData *video_meta_data;
+    Object *object;
+} Message;
 
 }
 

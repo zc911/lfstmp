@@ -14,11 +14,8 @@
 #include <opencv2/core/core.hpp>
 
 using namespace std;
-using namespace cv;
 
-namespace deepglint {
-
-typedef pair<int, float> Prediction;
+namespace dg {
 
 /**
  * The basic classifier interface which defines the functions
@@ -31,9 +28,10 @@ class Classifier {
     virtual ~Classifier() {
     }
 
-    virtual vector<vector<Prediction> > Classify(const vector<Mat> &imgs) = 0;
+    virtual vector<vector<Prediction> > Classify(
+            const vector<cv::Mat> &imgs) = 0;
     virtual vector<vector<Prediction> > ClassifyBatch(
-            const vector<Mat> &imgs) = 0;
+            const vector<cv::Mat> &imgs) = 0;
 };
 }
 #endif /* CLASSIFIER_H_ */
