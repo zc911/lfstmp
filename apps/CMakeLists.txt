@@ -11,7 +11,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -O3 -w")
 
 SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
-INCLUDE_DIRECTORIES(src include)
+INCLUDE_DIRECTORIES(src include ../engine/src/model)
 
 LIST(APPEND LIBS glog gflags protobuf grpc++ grpc jsoncpp pthread)
 
