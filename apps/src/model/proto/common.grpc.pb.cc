@@ -14,6 +14,8 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace dg {
+namespace apps {
 
 }  // namespace dg
+}  // namespace apps
 

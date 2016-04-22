@@ -21,7 +21,9 @@ class WitnessEngine : SimpleEngine {
         processor_ = NULL;
         is_init_ = false;
     }
-    ~WitnessEngine();
+    ~WitnessEngine() {
+
+    }
 
     virtual void Process(Frame *frame) {
         if (!is_init_) {

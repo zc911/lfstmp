@@ -18,6 +18,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace apps {
 
 namespace {
 
@@ -321,43 +322,46 @@ void protobuf_AddDesc_witness_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::dg::protobuf_AddDesc_common_2eproto();
+  ::dg::apps::protobuf_AddDesc_common_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rwitness.proto\022\002dg\032\014common.proto\",\n\017Rec"
-    "ognizeStatus\022\014\n\004Code\030\001 \001(\005\022\013\n\003Msg\030\002 \001(\t\""
-    "Z\n\016RecognizeParam\022\037\n\004Type\030\001 \001(\0162\021.dg.Rec"
-    "ognizeType\022\'\n\010Function\030\002 \001(\0162\025.dg.Recogn"
-    "izeFunction\"b\n\020RecognizeRequest\022\021\n\tSessi"
-    "onId\030\001 \001(\003\022\030\n\005Image\030\002 \001(\0132\t.dg.Image\022!\n\005"
-    "Param\030\003 \001(\0132\022.dg.RecognizeParam\"3\n\014Vehic"
-    "leBrand\022\017\n\007BrandId\030\001 \001(\005\022\022\n\nConfidence\030\002"
-    " \001(\002\"\201\001\n\014VehiclePlate\022\031\n\003Box\030\001 \001(\0132\014.dg."
-    "Cutboard\022\021\n\tPlateType\030\002 \001(\005\022\020\n\010PlateNum\030"
-    "\003 \001(\t\022\035\n\nPlateColor\030\004 \001(\0132\t.dg.Color\022\022\n\n"
-    "Confidence\030\005 \001(\002\"R\n\rVehicleSymbol\022\031\n\003Box"
-    "\030\001 \001(\0132\014.dg.Cutboard\022\022\n\nSymbolType\030\002 \001(\005"
+    "\n\rwitness.proto\022\007dg.apps\032\014common.proto\","
+    "\n\017RecognizeStatus\022\014\n\004Code\030\001 \001(\005\022\013\n\003Msg\030\002"
+    " \001(\t\"d\n\016RecognizeParam\022$\n\004Type\030\001 \001(\0162\026.d"
+    "g.apps.RecognizeType\022,\n\010Function\030\002 \001(\0162\032"
+    ".dg.apps.RecognizeFunction\"l\n\020RecognizeR"
+    "equest\022\021\n\tSessionId\030\001 \001(\003\022\035\n\005Image\030\002 \001(\013"
+    "2\016.dg.apps.Image\022&\n\005Param\030\003 \001(\0132\027.dg.app"
+    "s.RecognizeParam\"3\n\014VehicleBrand\022\017\n\007Bran"
+    "dId\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\"\213\001\n\014Vehicl"
+    "ePlate\022\036\n\003Box\030\001 \001(\0132\021.dg.apps.Cutboard\022\021"
+    "\n\tPlateType\030\002 \001(\005\022\020\n\010PlateNum\030\003 \001(\t\022\"\n\nP"
+    "lateColor\030\004 \001(\0132\016.dg.apps.Color\022\022\n\nConfi"
+    "dence\030\005 \001(\002\"W\n\rVehicleSymbol\022\036\n\003Box\030\001 \001("
+    "\0132\021.dg.apps.Cutboard\022\022\n\nSymbolType\030\002 \001(\005"
     "\022\022\n\nConfidence\030\003 \001(\002\" \n\007Feature\022\025\n\rFeatu"
-    "reVector\030\001 \001(\014\"\345\001\n\017RecognizeResult\022\031\n\004Ty"
-    "pe\030\001 \001(\0162\013.dg.ObjType\022\031\n\003Box\030\002 \001(\0132\014.dg."
-    "Cutboard\022\037\n\005Brand\030\003 \001(\0132\020.dg.VehicleBran"
-    "d\022\037\n\005Plate\030\004 \001(\0132\020.dg.VehiclePlate\022\030\n\005Co"
-    "lor\030\005 \001(\0132\t.dg.Color\022\034\n\007Feature\030\006 \001(\0132\013."
-    "dg.Feature\022\"\n\007Symbols\030\007 \003(\0132\021.dg.Vehicle"
-    "Symbol\"p\n\021RecognizeResponse\022\021\n\tSessionId"
-    "\030\001 \001(\003\022#\n\006Status\030\002 \001(\0132\023.dg.RecognizeSta"
-    "tus\022#\n\006Result\030\003 \001(\0132\023.dg.RecognizeResult"
-    "\"\?\n\025BatchRecognizeRequest\022&\n\010Requests\030\001 "
-    "\003(\0132\024.dg.RecognizeRequest\"A\n\026BatchRecogn"
-    "izeResponse\022\'\n\010Reponses\030\001 \003(\0132\025.dg.Recog"
-    "nizeResponse*N\n\rRecognizeType\022\024\n\020REC_TYP"
-    "E_DEFAULT\020\000\022\024\n\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC"
-    "_TYPE_FACE\020\002*W\n\021RecognizeFunction\022\024\n\020REC"
-    "_FUNC_DEFAULT\020\000\022\026\n\022REC_FUNC_DETECTION\020\001\022"
-    "\024\n\020REC_FUNC_FEATURE\020\0022\227\001\n\016WitnessService"
-    "\022:\n\tRecognize\022\024.dg.RecognizeRequest\032\025.dg"
-    ".RecognizeResponse\"\000\022I\n\016BatchRecognize\022\031"
-    ".dg.BatchRecognizeRequest\032\032.dg.BatchReco"
-    "gnizeResponse\"\000b\006proto3", 1383);
+    "reVector\030\001 \001(\014\"\210\002\n\017RecognizeResult\022\036\n\004Ty"
+    "pe\030\001 \001(\0162\020.dg.apps.ObjType\022\036\n\003Box\030\002 \001(\0132"
+    "\021.dg.apps.Cutboard\022$\n\005Brand\030\003 \001(\0132\025.dg.a"
+    "pps.VehicleBrand\022$\n\005Plate\030\004 \001(\0132\025.dg.app"
+    "s.VehiclePlate\022\035\n\005Color\030\005 \001(\0132\016.dg.apps."
+    "Color\022!\n\007Feature\030\006 \001(\0132\020.dg.apps.Feature"
+    "\022\'\n\007Symbols\030\007 \003(\0132\026.dg.apps.VehicleSymbo"
+    "l\"z\n\021RecognizeResponse\022\021\n\tSessionId\030\001 \001("
+    "\003\022(\n\006Status\030\002 \001(\0132\030.dg.apps.RecognizeSta"
+    "tus\022(\n\006Result\030\003 \001(\0132\030.dg.apps.RecognizeR"
+    "esult\"D\n\025BatchRecognizeRequest\022+\n\010Reques"
+    "ts\030\001 \003(\0132\031.dg.apps.RecognizeRequest\"F\n\026B"
+    "atchRecognizeResponse\022,\n\010Reponses\030\001 \003(\0132"
+    "\032.dg.apps.RecognizeResponse*N\n\rRecognize"
+    "Type\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n\020REC_TYPE_V"
+    "EHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002*W\n\021Recognize"
+    "Function\022\024\n\020REC_FUNC_DEFAULT\020\000\022\026\n\022REC_FU"
+    "NC_DETECTION\020\001\022\024\n\020REC_FUNC_FEATURE\020\0022\253\001\n"
+    "\016WitnessService\022D\n\tRecognize\022\031.dg.apps.R"
+    "ecognizeRequest\032\032.dg.apps.RecognizeRespo"
+    "nse\"\000\022S\n\016BatchRecognize\022\036.dg.apps.BatchR"
+    "ecognizeRequest\032\037.dg.apps.BatchRecognize"
+    "Response\"\000b\006proto3", 1498);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   RecognizeStatus::default_instance_ = new RecognizeStatus();
@@ -442,7 +446,7 @@ const int RecognizeStatus::kMsgFieldNumber;
 RecognizeStatus::RecognizeStatus()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizeStatus)
+  // @@protoc_insertion_point(constructor:dg.apps.RecognizeStatus)
 }
 
 void RecognizeStatus::InitAsDefaultInstance() {
@@ -454,7 +458,7 @@ RecognizeStatus::RecognizeStatus(const RecognizeStatus& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizeStatus)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.RecognizeStatus)
 }
 
 void RecognizeStatus::SharedCtor() {
@@ -466,7 +470,7 @@ void RecognizeStatus::SharedCtor() {
 }
 
 RecognizeStatus::~RecognizeStatus() {
-  // @@protoc_insertion_point(destructor:dg.RecognizeStatus)
+  // @@protoc_insertion_point(destructor:dg.apps.RecognizeStatus)
   SharedDtor();
 }
 
@@ -510,7 +514,7 @@ bool RecognizeStatus::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizeStatus)
+  // @@protoc_insertion_point(parse_start:dg.apps.RecognizeStatus)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -539,7 +543,7 @@ bool RecognizeStatus::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->msg().data(), this->msg().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.RecognizeStatus.Msg"));
+            "dg.apps.RecognizeStatus.Msg"));
         } else {
           goto handle_unusual;
         }
@@ -560,17 +564,17 @@ bool RecognizeStatus::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizeStatus)
+  // @@protoc_insertion_point(parse_success:dg.apps.RecognizeStatus)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizeStatus)
+  // @@protoc_insertion_point(parse_failure:dg.apps.RecognizeStatus)
   return false;
 #undef DO_
 }
 
 void RecognizeStatus::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizeStatus)
+  // @@protoc_insertion_point(serialize_start:dg.apps.RecognizeStatus)
   // optional int32 Code = 1;
   if (this->code() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->code(), output);
@@ -581,17 +585,17 @@ void RecognizeStatus::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->msg().data(), this->msg().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizeStatus.Msg");
+      "dg.apps.RecognizeStatus.Msg");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->msg(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizeStatus)
+  // @@protoc_insertion_point(serialize_end:dg.apps.RecognizeStatus)
 }
 
 ::google::protobuf::uint8* RecognizeStatus::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizeStatus)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.RecognizeStatus)
   // optional int32 Code = 1;
   if (this->code() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->code(), target);
@@ -602,13 +606,13 @@ void RecognizeStatus::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->msg().data(), this->msg().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizeStatus.Msg");
+      "dg.apps.RecognizeStatus.Msg");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->msg(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizeStatus)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.RecognizeStatus)
   return target;
 }
 
@@ -702,13 +706,13 @@ void RecognizeStatus::clear_code() {
   code_ = 0;
 }
  ::google::protobuf::int32 RecognizeStatus::code() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeStatus.Code)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeStatus.Code)
   return code_;
 }
  void RecognizeStatus::set_code(::google::protobuf::int32 value) {
   
   code_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeStatus.Code)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeStatus.Code)
 }
 
 // optional string Msg = 2;
@@ -716,28 +720,28 @@ void RecognizeStatus::clear_msg() {
   msg_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& RecognizeStatus::msg() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeStatus.Msg)
   return msg_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void RecognizeStatus::set_msg(const ::std::string& value) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeStatus.Msg)
 }
  void RecognizeStatus::set_msg(const char* value) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_char:dg.apps.RecognizeStatus.Msg)
 }
  void RecognizeStatus::set_msg(const char* value, size_t size) {
   
   msg_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.RecognizeStatus.Msg)
 }
  ::std::string* RecognizeStatus::mutable_msg() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeStatus.Msg)
   return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecognizeStatus::release_msg() {
@@ -751,7 +755,7 @@ void RecognizeStatus::clear_msg() {
     
   }
   msg_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), msg);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeStatus.Msg)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeStatus.Msg)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -766,7 +770,7 @@ const int RecognizeParam::kFunctionFieldNumber;
 RecognizeParam::RecognizeParam()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizeParam)
+  // @@protoc_insertion_point(constructor:dg.apps.RecognizeParam)
 }
 
 void RecognizeParam::InitAsDefaultInstance() {
@@ -778,7 +782,7 @@ RecognizeParam::RecognizeParam(const RecognizeParam& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizeParam)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.RecognizeParam)
 }
 
 void RecognizeParam::SharedCtor() {
@@ -789,7 +793,7 @@ void RecognizeParam::SharedCtor() {
 }
 
 RecognizeParam::~RecognizeParam() {
-  // @@protoc_insertion_point(destructor:dg.RecognizeParam)
+  // @@protoc_insertion_point(destructor:dg.apps.RecognizeParam)
   SharedDtor();
 }
 
@@ -843,20 +847,20 @@ bool RecognizeParam::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizeParam)
+  // @@protoc_insertion_point(parse_start:dg.apps.RecognizeParam)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.RecognizeType Type = 1;
+      // optional .dg.apps.RecognizeType Type = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::dg::RecognizeType >(value));
+          set_type(static_cast< ::dg::apps::RecognizeType >(value));
         } else {
           goto handle_unusual;
         }
@@ -864,7 +868,7 @@ bool RecognizeParam::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.RecognizeFunction Function = 2;
+      // optional .dg.apps.RecognizeFunction Function = 2;
       case 2: {
         if (tag == 16) {
          parse_Function:
@@ -872,7 +876,7 @@ bool RecognizeParam::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_function(static_cast< ::dg::RecognizeFunction >(value));
+          set_function(static_cast< ::dg::apps::RecognizeFunction >(value));
         } else {
           goto handle_unusual;
         }
@@ -893,61 +897,61 @@ bool RecognizeParam::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizeParam)
+  // @@protoc_insertion_point(parse_success:dg.apps.RecognizeParam)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizeParam)
+  // @@protoc_insertion_point(parse_failure:dg.apps.RecognizeParam)
   return false;
 #undef DO_
 }
 
 void RecognizeParam::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizeParam)
-  // optional .dg.RecognizeType Type = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.RecognizeParam)
+  // optional .dg.apps.RecognizeType Type = 1;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->type(), output);
   }
 
-  // optional .dg.RecognizeFunction Function = 2;
+  // optional .dg.apps.RecognizeFunction Function = 2;
   if (this->function() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       2, this->function(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizeParam)
+  // @@protoc_insertion_point(serialize_end:dg.apps.RecognizeParam)
 }
 
 ::google::protobuf::uint8* RecognizeParam::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizeParam)
-  // optional .dg.RecognizeType Type = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.RecognizeParam)
+  // optional .dg.apps.RecognizeType Type = 1;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->type(), target);
   }
 
-  // optional .dg.RecognizeFunction Function = 2;
+  // optional .dg.apps.RecognizeFunction Function = 2;
   if (this->function() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       2, this->function(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizeParam)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.RecognizeParam)
   return target;
 }
 
 int RecognizeParam::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.RecognizeType Type = 1;
+  // optional .dg.apps.RecognizeType Type = 1;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
-  // optional .dg.RecognizeFunction Function = 2;
+  // optional .dg.apps.RecognizeFunction Function = 2;
   if (this->function() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->function());
@@ -1020,32 +1024,32 @@ void RecognizeParam::InternalSwap(RecognizeParam* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RecognizeParam
 
-// optional .dg.RecognizeType Type = 1;
+// optional .dg.apps.RecognizeType Type = 1;
 void RecognizeParam::clear_type() {
   type_ = 0;
 }
- ::dg::RecognizeType RecognizeParam::type() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeParam.Type)
-  return static_cast< ::dg::RecognizeType >(type_);
+ ::dg::apps::RecognizeType RecognizeParam::type() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeParam.Type)
+  return static_cast< ::dg::apps::RecognizeType >(type_);
 }
- void RecognizeParam::set_type(::dg::RecognizeType value) {
+ void RecognizeParam::set_type(::dg::apps::RecognizeType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeParam.Type)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeParam.Type)
 }
 
-// optional .dg.RecognizeFunction Function = 2;
+// optional .dg.apps.RecognizeFunction Function = 2;
 void RecognizeParam::clear_function() {
   function_ = 0;
 }
- ::dg::RecognizeFunction RecognizeParam::function() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeParam.Function)
-  return static_cast< ::dg::RecognizeFunction >(function_);
+ ::dg::apps::RecognizeFunction RecognizeParam::function() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeParam.Function)
+  return static_cast< ::dg::apps::RecognizeFunction >(function_);
 }
- void RecognizeParam::set_function(::dg::RecognizeFunction value) {
+ void RecognizeParam::set_function(::dg::apps::RecognizeFunction value) {
   
   function_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeParam.Function)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeParam.Function)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1061,13 +1065,13 @@ const int RecognizeRequest::kParamFieldNumber;
 RecognizeRequest::RecognizeRequest()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizeRequest)
+  // @@protoc_insertion_point(constructor:dg.apps.RecognizeRequest)
 }
 
 void RecognizeRequest::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  image_ = const_cast< ::dg::Image*>(&::dg::Image::default_instance());
-  param_ = const_cast< ::dg::RecognizeParam*>(&::dg::RecognizeParam::default_instance());
+  image_ = const_cast< ::dg::apps::Image*>(&::dg::apps::Image::default_instance());
+  param_ = const_cast< ::dg::apps::RecognizeParam*>(&::dg::apps::RecognizeParam::default_instance());
 }
 
 RecognizeRequest::RecognizeRequest(const RecognizeRequest& from)
@@ -1075,7 +1079,7 @@ RecognizeRequest::RecognizeRequest(const RecognizeRequest& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizeRequest)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.RecognizeRequest)
 }
 
 void RecognizeRequest::SharedCtor() {
@@ -1087,7 +1091,7 @@ void RecognizeRequest::SharedCtor() {
 }
 
 RecognizeRequest::~RecognizeRequest() {
-  // @@protoc_insertion_point(destructor:dg.RecognizeRequest)
+  // @@protoc_insertion_point(destructor:dg.apps.RecognizeRequest)
   SharedDtor();
 }
 
@@ -1135,7 +1139,7 @@ bool RecognizeRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizeRequest)
+  // @@protoc_insertion_point(parse_start:dg.apps.RecognizeRequest)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1155,7 +1159,7 @@ bool RecognizeRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Image Image = 2;
+      // optional .dg.apps.Image Image = 2;
       case 2: {
         if (tag == 18) {
          parse_Image:
@@ -1168,7 +1172,7 @@ bool RecognizeRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.RecognizeParam Param = 3;
+      // optional .dg.apps.RecognizeParam Param = 3;
       case 3: {
         if (tag == 26) {
          parse_Param:
@@ -1194,60 +1198,60 @@ bool RecognizeRequest::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizeRequest)
+  // @@protoc_insertion_point(parse_success:dg.apps.RecognizeRequest)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizeRequest)
+  // @@protoc_insertion_point(parse_failure:dg.apps.RecognizeRequest)
   return false;
 #undef DO_
 }
 
 void RecognizeRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizeRequest)
+  // @@protoc_insertion_point(serialize_start:dg.apps.RecognizeRequest)
   // optional int64 SessionId = 1;
   if (this->sessionid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->sessionid(), output);
   }
 
-  // optional .dg.Image Image = 2;
+  // optional .dg.apps.Image Image = 2;
   if (this->has_image()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->image_, output);
   }
 
-  // optional .dg.RecognizeParam Param = 3;
+  // optional .dg.apps.RecognizeParam Param = 3;
   if (this->has_param()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->param_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizeRequest)
+  // @@protoc_insertion_point(serialize_end:dg.apps.RecognizeRequest)
 }
 
 ::google::protobuf::uint8* RecognizeRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizeRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.RecognizeRequest)
   // optional int64 SessionId = 1;
   if (this->sessionid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->sessionid(), target);
   }
 
-  // optional .dg.Image Image = 2;
+  // optional .dg.apps.Image Image = 2;
   if (this->has_image()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->image_, target);
   }
 
-  // optional .dg.RecognizeParam Param = 3;
+  // optional .dg.apps.RecognizeParam Param = 3;
   if (this->has_param()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, *this->param_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizeRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.RecognizeRequest)
   return target;
 }
 
@@ -1261,14 +1265,14 @@ int RecognizeRequest::ByteSize() const {
         this->sessionid());
   }
 
-  // optional .dg.Image Image = 2;
+  // optional .dg.apps.Image Image = 2;
   if (this->has_image()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->image_);
   }
 
-  // optional .dg.RecognizeParam Param = 3;
+  // optional .dg.apps.RecognizeParam Param = 3;
   if (this->has_param()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1299,10 +1303,10 @@ void RecognizeRequest::MergeFrom(const RecognizeRequest& from) {
     set_sessionid(from.sessionid());
   }
   if (from.has_image()) {
-    mutable_image()->::dg::Image::MergeFrom(from.image());
+    mutable_image()->::dg::apps::Image::MergeFrom(from.image());
   }
   if (from.has_param()) {
-    mutable_param()->::dg::RecognizeParam::MergeFrom(from.param());
+    mutable_param()->::dg::apps::RecognizeParam::MergeFrom(from.param());
   }
 }
 
@@ -1351,16 +1355,16 @@ void RecognizeRequest::clear_sessionid() {
   sessionid_ = GOOGLE_LONGLONG(0);
 }
  ::google::protobuf::int64 RecognizeRequest::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.SessionId)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.SessionId)
   return sessionid_;
 }
  void RecognizeRequest::set_sessionid(::google::protobuf::int64 value) {
   
   sessionid_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeRequest.SessionId)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeRequest.SessionId)
 }
 
-// optional .dg.Image Image = 2;
+// optional .dg.apps.Image Image = 2;
 bool RecognizeRequest::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -1368,25 +1372,25 @@ void RecognizeRequest::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-const ::dg::Image& RecognizeRequest::image() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.Image)
+const ::dg::apps::Image& RecognizeRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-::dg::Image* RecognizeRequest::mutable_image() {
+::dg::apps::Image* RecognizeRequest::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::Image;
+    image_ = new ::dg::apps::Image;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeRequest.Image)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeRequest.Image)
   return image_;
 }
-::dg::Image* RecognizeRequest::release_image() {
+::dg::apps::Image* RecognizeRequest::release_image() {
   
-  ::dg::Image* temp = image_;
+  ::dg::apps::Image* temp = image_;
   image_ = NULL;
   return temp;
 }
-void RecognizeRequest::set_allocated_image(::dg::Image* image) {
+void RecognizeRequest::set_allocated_image(::dg::apps::Image* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -1394,10 +1398,10 @@ void RecognizeRequest::set_allocated_image(::dg::Image* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeRequest.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeRequest.Image)
 }
 
-// optional .dg.RecognizeParam Param = 3;
+// optional .dg.apps.RecognizeParam Param = 3;
 bool RecognizeRequest::has_param() const {
   return !_is_default_instance_ && param_ != NULL;
 }
@@ -1405,25 +1409,25 @@ void RecognizeRequest::clear_param() {
   if (GetArenaNoVirtual() == NULL && param_ != NULL) delete param_;
   param_ = NULL;
 }
-const ::dg::RecognizeParam& RecognizeRequest::param() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeRequest.Param)
+const ::dg::apps::RecognizeParam& RecognizeRequest::param() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeRequest.Param)
   return param_ != NULL ? *param_ : *default_instance_->param_;
 }
-::dg::RecognizeParam* RecognizeRequest::mutable_param() {
+::dg::apps::RecognizeParam* RecognizeRequest::mutable_param() {
   
   if (param_ == NULL) {
-    param_ = new ::dg::RecognizeParam;
+    param_ = new ::dg::apps::RecognizeParam;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeRequest.Param)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeRequest.Param)
   return param_;
 }
-::dg::RecognizeParam* RecognizeRequest::release_param() {
+::dg::apps::RecognizeParam* RecognizeRequest::release_param() {
   
-  ::dg::RecognizeParam* temp = param_;
+  ::dg::apps::RecognizeParam* temp = param_;
   param_ = NULL;
   return temp;
 }
-void RecognizeRequest::set_allocated_param(::dg::RecognizeParam* param) {
+void RecognizeRequest::set_allocated_param(::dg::apps::RecognizeParam* param) {
   delete param_;
   param_ = param;
   if (param) {
@@ -1431,7 +1435,7 @@ void RecognizeRequest::set_allocated_param(::dg::RecognizeParam* param) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeRequest.Param)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeRequest.Param)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1446,7 +1450,7 @@ const int VehicleBrand::kConfidenceFieldNumber;
 VehicleBrand::VehicleBrand()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.VehicleBrand)
+  // @@protoc_insertion_point(constructor:dg.apps.VehicleBrand)
 }
 
 void VehicleBrand::InitAsDefaultInstance() {
@@ -1458,7 +1462,7 @@ VehicleBrand::VehicleBrand(const VehicleBrand& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.VehicleBrand)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.VehicleBrand)
 }
 
 void VehicleBrand::SharedCtor() {
@@ -1469,7 +1473,7 @@ void VehicleBrand::SharedCtor() {
 }
 
 VehicleBrand::~VehicleBrand() {
-  // @@protoc_insertion_point(destructor:dg.VehicleBrand)
+  // @@protoc_insertion_point(destructor:dg.apps.VehicleBrand)
   SharedDtor();
 }
 
@@ -1523,7 +1527,7 @@ bool VehicleBrand::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.VehicleBrand)
+  // @@protoc_insertion_point(parse_start:dg.apps.VehicleBrand)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1571,17 +1575,17 @@ bool VehicleBrand::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.VehicleBrand)
+  // @@protoc_insertion_point(parse_success:dg.apps.VehicleBrand)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.VehicleBrand)
+  // @@protoc_insertion_point(parse_failure:dg.apps.VehicleBrand)
   return false;
 #undef DO_
 }
 
 void VehicleBrand::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.VehicleBrand)
+  // @@protoc_insertion_point(serialize_start:dg.apps.VehicleBrand)
   // optional int32 BrandId = 1;
   if (this->brandid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->brandid(), output);
@@ -1592,12 +1596,12 @@ void VehicleBrand::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.VehicleBrand)
+  // @@protoc_insertion_point(serialize_end:dg.apps.VehicleBrand)
 }
 
 ::google::protobuf::uint8* VehicleBrand::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.VehicleBrand)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.VehicleBrand)
   // optional int32 BrandId = 1;
   if (this->brandid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->brandid(), target);
@@ -1608,7 +1612,7 @@ void VehicleBrand::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.VehicleBrand)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.VehicleBrand)
   return target;
 }
 
@@ -1699,13 +1703,13 @@ void VehicleBrand::clear_brandid() {
   brandid_ = 0;
 }
  ::google::protobuf::int32 VehicleBrand::brandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleBrand.BrandId)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleBrand.BrandId)
   return brandid_;
 }
  void VehicleBrand::set_brandid(::google::protobuf::int32 value) {
   
   brandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleBrand.BrandId)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleBrand.BrandId)
 }
 
 // optional float Confidence = 2;
@@ -1713,13 +1717,13 @@ void VehicleBrand::clear_confidence() {
   confidence_ = 0;
 }
  float VehicleBrand::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleBrand.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleBrand.Confidence)
   return confidence_;
 }
  void VehicleBrand::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleBrand.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleBrand.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1737,13 +1741,13 @@ const int VehiclePlate::kConfidenceFieldNumber;
 VehiclePlate::VehiclePlate()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.VehiclePlate)
+  // @@protoc_insertion_point(constructor:dg.apps.VehiclePlate)
 }
 
 void VehiclePlate::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  box_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
-  platecolor_ = const_cast< ::dg::Color*>(&::dg::Color::default_instance());
+  box_ = const_cast< ::dg::apps::Cutboard*>(&::dg::apps::Cutboard::default_instance());
+  platecolor_ = const_cast< ::dg::apps::Color*>(&::dg::apps::Color::default_instance());
 }
 
 VehiclePlate::VehiclePlate(const VehiclePlate& from)
@@ -1751,7 +1755,7 @@ VehiclePlate::VehiclePlate(const VehiclePlate& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.VehiclePlate)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.VehiclePlate)
 }
 
 void VehiclePlate::SharedCtor() {
@@ -1766,7 +1770,7 @@ void VehiclePlate::SharedCtor() {
 }
 
 VehiclePlate::~VehiclePlate() {
-  // @@protoc_insertion_point(destructor:dg.VehiclePlate)
+  // @@protoc_insertion_point(destructor:dg.apps.VehiclePlate)
   SharedDtor();
 }
 
@@ -1828,13 +1832,13 @@ bool VehiclePlate::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.VehiclePlate)
+  // @@protoc_insertion_point(parse_start:dg.apps.VehiclePlate)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.Cutboard Box = 1;
+      // optional .dg.apps.Cutboard Box = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -1870,7 +1874,7 @@ bool VehiclePlate::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->platenum().data(), this->platenum().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.VehiclePlate.PlateNum"));
+            "dg.apps.VehiclePlate.PlateNum"));
         } else {
           goto handle_unusual;
         }
@@ -1878,7 +1882,7 @@ bool VehiclePlate::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Color PlateColor = 4;
+      // optional .dg.apps.Color PlateColor = 4;
       case 4: {
         if (tag == 34) {
          parse_PlateColor:
@@ -1919,18 +1923,18 @@ bool VehiclePlate::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.VehiclePlate)
+  // @@protoc_insertion_point(parse_success:dg.apps.VehiclePlate)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.VehiclePlate)
+  // @@protoc_insertion_point(parse_failure:dg.apps.VehiclePlate)
   return false;
 #undef DO_
 }
 
 void VehiclePlate::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.VehiclePlate)
-  // optional .dg.Cutboard Box = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.VehiclePlate)
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->box_, output);
@@ -1946,12 +1950,12 @@ void VehiclePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->platenum().data(), this->platenum().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehiclePlate.PlateNum");
+      "dg.apps.VehiclePlate.PlateNum");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->platenum(), output);
   }
 
-  // optional .dg.Color PlateColor = 4;
+  // optional .dg.apps.Color PlateColor = 4;
   if (this->has_platecolor()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->platecolor_, output);
@@ -1962,13 +1966,13 @@ void VehiclePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.VehiclePlate)
+  // @@protoc_insertion_point(serialize_end:dg.apps.VehiclePlate)
 }
 
 ::google::protobuf::uint8* VehiclePlate::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.VehiclePlate)
-  // optional .dg.Cutboard Box = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.VehiclePlate)
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -1985,13 +1989,13 @@ void VehiclePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->platenum().data(), this->platenum().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehiclePlate.PlateNum");
+      "dg.apps.VehiclePlate.PlateNum");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->platenum(), target);
   }
 
-  // optional .dg.Color PlateColor = 4;
+  // optional .dg.apps.Color PlateColor = 4;
   if (this->has_platecolor()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -2003,14 +2007,14 @@ void VehiclePlate::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.VehiclePlate)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.VehiclePlate)
   return target;
 }
 
 int VehiclePlate::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.Cutboard Box = 1;
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2031,7 +2035,7 @@ int VehiclePlate::ByteSize() const {
         this->platenum());
   }
 
-  // optional .dg.Color PlateColor = 4;
+  // optional .dg.apps.Color PlateColor = 4;
   if (this->has_platecolor()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2064,7 +2068,7 @@ void VehiclePlate::MergeFrom(const ::google::protobuf::Message& from) {
 void VehiclePlate::MergeFrom(const VehiclePlate& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_box()) {
-    mutable_box()->::dg::Cutboard::MergeFrom(from.box());
+    mutable_box()->::dg::apps::Cutboard::MergeFrom(from.box());
   }
   if (from.platetype() != 0) {
     set_platetype(from.platetype());
@@ -2074,7 +2078,7 @@ void VehiclePlate::MergeFrom(const VehiclePlate& from) {
     platenum_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.platenum_);
   }
   if (from.has_platecolor()) {
-    mutable_platecolor()->::dg::Color::MergeFrom(from.platecolor());
+    mutable_platecolor()->::dg::apps::Color::MergeFrom(from.platecolor());
   }
   if (from.confidence() != 0) {
     set_confidence(from.confidence());
@@ -2123,7 +2127,7 @@ void VehiclePlate::InternalSwap(VehiclePlate* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // VehiclePlate
 
-// optional .dg.Cutboard Box = 1;
+// optional .dg.apps.Cutboard Box = 1;
 bool VehiclePlate::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -2131,25 +2135,25 @@ void VehiclePlate::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-const ::dg::Cutboard& VehiclePlate::box() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.Box)
+const ::dg::apps::Cutboard& VehiclePlate::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-::dg::Cutboard* VehiclePlate::mutable_box() {
+::dg::apps::Cutboard* VehiclePlate::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.Box)
   return box_;
 }
-::dg::Cutboard* VehiclePlate::release_box() {
+::dg::apps::Cutboard* VehiclePlate::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-void VehiclePlate::set_allocated_box(::dg::Cutboard* box) {
+void VehiclePlate::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -2157,7 +2161,7 @@ void VehiclePlate::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.Box)
 }
 
 // optional int32 PlateType = 2;
@@ -2165,13 +2169,13 @@ void VehiclePlate::clear_platetype() {
   platetype_ = 0;
 }
  ::google::protobuf::int32 VehiclePlate::platetype() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateType)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateType)
   return platetype_;
 }
  void VehiclePlate::set_platetype(::google::protobuf::int32 value) {
   
   platetype_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.PlateType)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.PlateType)
 }
 
 // optional string PlateNum = 3;
@@ -2179,28 +2183,28 @@ void VehiclePlate::clear_platenum() {
   platenum_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VehiclePlate::platenum() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateNum)
   return platenum_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VehiclePlate::set_platenum(const ::std::string& value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.PlateNum)
 }
  void VehiclePlate::set_platenum(const char* value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_char:dg.apps.VehiclePlate.PlateNum)
 }
  void VehiclePlate::set_platenum(const char* value, size_t size) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.VehiclePlate.PlateNum)
 }
  ::std::string* VehiclePlate::mutable_platenum() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.PlateNum)
   return platenum_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehiclePlate::release_platenum() {
@@ -2214,10 +2218,10 @@ void VehiclePlate::clear_platenum() {
     
   }
   platenum_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), platenum);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.PlateNum)
 }
 
-// optional .dg.Color PlateColor = 4;
+// optional .dg.apps.Color PlateColor = 4;
 bool VehiclePlate::has_platecolor() const {
   return !_is_default_instance_ && platecolor_ != NULL;
 }
@@ -2225,25 +2229,25 @@ void VehiclePlate::clear_platecolor() {
   if (GetArenaNoVirtual() == NULL && platecolor_ != NULL) delete platecolor_;
   platecolor_ = NULL;
 }
-const ::dg::Color& VehiclePlate::platecolor() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.PlateColor)
+const ::dg::apps::Color& VehiclePlate::platecolor() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.PlateColor)
   return platecolor_ != NULL ? *platecolor_ : *default_instance_->platecolor_;
 }
-::dg::Color* VehiclePlate::mutable_platecolor() {
+::dg::apps::Color* VehiclePlate::mutable_platecolor() {
   
   if (platecolor_ == NULL) {
-    platecolor_ = new ::dg::Color;
+    platecolor_ = new ::dg::apps::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehiclePlate.PlateColor)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehiclePlate.PlateColor)
   return platecolor_;
 }
-::dg::Color* VehiclePlate::release_platecolor() {
+::dg::apps::Color* VehiclePlate::release_platecolor() {
   
-  ::dg::Color* temp = platecolor_;
+  ::dg::apps::Color* temp = platecolor_;
   platecolor_ = NULL;
   return temp;
 }
-void VehiclePlate::set_allocated_platecolor(::dg::Color* platecolor) {
+void VehiclePlate::set_allocated_platecolor(::dg::apps::Color* platecolor) {
   delete platecolor_;
   platecolor_ = platecolor;
   if (platecolor) {
@@ -2251,7 +2255,7 @@ void VehiclePlate::set_allocated_platecolor(::dg::Color* platecolor) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehiclePlate.PlateColor)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehiclePlate.PlateColor)
 }
 
 // optional float Confidence = 5;
@@ -2259,13 +2263,13 @@ void VehiclePlate::clear_confidence() {
   confidence_ = 0;
 }
  float VehiclePlate::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehiclePlate.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehiclePlate.Confidence)
   return confidence_;
 }
  void VehiclePlate::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehiclePlate.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehiclePlate.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2281,12 +2285,12 @@ const int VehicleSymbol::kConfidenceFieldNumber;
 VehicleSymbol::VehicleSymbol()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.VehicleSymbol)
+  // @@protoc_insertion_point(constructor:dg.apps.VehicleSymbol)
 }
 
 void VehicleSymbol::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  box_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
+  box_ = const_cast< ::dg::apps::Cutboard*>(&::dg::apps::Cutboard::default_instance());
 }
 
 VehicleSymbol::VehicleSymbol(const VehicleSymbol& from)
@@ -2294,7 +2298,7 @@ VehicleSymbol::VehicleSymbol(const VehicleSymbol& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.VehicleSymbol)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.VehicleSymbol)
 }
 
 void VehicleSymbol::SharedCtor() {
@@ -2306,7 +2310,7 @@ void VehicleSymbol::SharedCtor() {
 }
 
 VehicleSymbol::~VehicleSymbol() {
-  // @@protoc_insertion_point(destructor:dg.VehicleSymbol)
+  // @@protoc_insertion_point(destructor:dg.apps.VehicleSymbol)
   SharedDtor();
 }
 
@@ -2363,13 +2367,13 @@ bool VehicleSymbol::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.VehicleSymbol)
+  // @@protoc_insertion_point(parse_start:dg.apps.VehicleSymbol)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.Cutboard Box = 1;
+      // optional .dg.apps.Cutboard Box = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -2424,18 +2428,18 @@ bool VehicleSymbol::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.VehicleSymbol)
+  // @@protoc_insertion_point(parse_success:dg.apps.VehicleSymbol)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.VehicleSymbol)
+  // @@protoc_insertion_point(parse_failure:dg.apps.VehicleSymbol)
   return false;
 #undef DO_
 }
 
 void VehicleSymbol::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.VehicleSymbol)
-  // optional .dg.Cutboard Box = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.VehicleSymbol)
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->box_, output);
@@ -2451,13 +2455,13 @@ void VehicleSymbol::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.VehicleSymbol)
+  // @@protoc_insertion_point(serialize_end:dg.apps.VehicleSymbol)
 }
 
 ::google::protobuf::uint8* VehicleSymbol::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.VehicleSymbol)
-  // optional .dg.Cutboard Box = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.VehicleSymbol)
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -2474,14 +2478,14 @@ void VehicleSymbol::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.VehicleSymbol)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.VehicleSymbol)
   return target;
 }
 
 int VehicleSymbol::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.Cutboard Box = 1;
+  // optional .dg.apps.Cutboard Box = 1;
   if (this->has_box()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2521,7 +2525,7 @@ void VehicleSymbol::MergeFrom(const ::google::protobuf::Message& from) {
 void VehicleSymbol::MergeFrom(const VehicleSymbol& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_box()) {
-    mutable_box()->::dg::Cutboard::MergeFrom(from.box());
+    mutable_box()->::dg::apps::Cutboard::MergeFrom(from.box());
   }
   if (from.symboltype() != 0) {
     set_symboltype(from.symboltype());
@@ -2571,7 +2575,7 @@ void VehicleSymbol::InternalSwap(VehicleSymbol* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // VehicleSymbol
 
-// optional .dg.Cutboard Box = 1;
+// optional .dg.apps.Cutboard Box = 1;
 bool VehicleSymbol::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -2579,25 +2583,25 @@ void VehicleSymbol::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-const ::dg::Cutboard& VehicleSymbol::box() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.Box)
+const ::dg::apps::Cutboard& VehicleSymbol::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-::dg::Cutboard* VehicleSymbol::mutable_box() {
+::dg::apps::Cutboard* VehicleSymbol::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.VehicleSymbol.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.VehicleSymbol.Box)
   return box_;
 }
-::dg::Cutboard* VehicleSymbol::release_box() {
+::dg::apps::Cutboard* VehicleSymbol::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-void VehicleSymbol::set_allocated_box(::dg::Cutboard* box) {
+void VehicleSymbol::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -2605,7 +2609,7 @@ void VehicleSymbol::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleSymbol.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.VehicleSymbol.Box)
 }
 
 // optional int32 SymbolType = 2;
@@ -2613,13 +2617,13 @@ void VehicleSymbol::clear_symboltype() {
   symboltype_ = 0;
 }
  ::google::protobuf::int32 VehicleSymbol::symboltype() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.SymbolType)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.SymbolType)
   return symboltype_;
 }
  void VehicleSymbol::set_symboltype(::google::protobuf::int32 value) {
   
   symboltype_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleSymbol.SymbolType)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleSymbol.SymbolType)
 }
 
 // optional float Confidence = 3;
@@ -2627,13 +2631,13 @@ void VehicleSymbol::clear_confidence() {
   confidence_ = 0;
 }
  float VehicleSymbol::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleSymbol.Confidence)
+  // @@protoc_insertion_point(field_get:dg.apps.VehicleSymbol.Confidence)
   return confidence_;
 }
  void VehicleSymbol::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleSymbol.Confidence)
+  // @@protoc_insertion_point(field_set:dg.apps.VehicleSymbol.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2647,7 +2651,7 @@ const int Feature::kFeatureVectorFieldNumber;
 Feature::Feature()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.Feature)
+  // @@protoc_insertion_point(constructor:dg.apps.Feature)
 }
 
 void Feature::InitAsDefaultInstance() {
@@ -2659,7 +2663,7 @@ Feature::Feature(const Feature& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.Feature)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.Feature)
 }
 
 void Feature::SharedCtor() {
@@ -2670,7 +2674,7 @@ void Feature::SharedCtor() {
 }
 
 Feature::~Feature() {
-  // @@protoc_insertion_point(destructor:dg.Feature)
+  // @@protoc_insertion_point(destructor:dg.apps.Feature)
   SharedDtor();
 }
 
@@ -2713,7 +2717,7 @@ bool Feature::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.Feature)
+  // @@protoc_insertion_point(parse_start:dg.apps.Feature)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2744,29 +2748,29 @@ bool Feature::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.Feature)
+  // @@protoc_insertion_point(parse_success:dg.apps.Feature)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.Feature)
+  // @@protoc_insertion_point(parse_failure:dg.apps.Feature)
   return false;
 #undef DO_
 }
 
 void Feature::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.Feature)
+  // @@protoc_insertion_point(serialize_start:dg.apps.Feature)
   // optional bytes FeatureVector = 1;
   if (this->featurevector().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       1, this->featurevector(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.Feature)
+  // @@protoc_insertion_point(serialize_end:dg.apps.Feature)
 }
 
 ::google::protobuf::uint8* Feature::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.Feature)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.Feature)
   // optional bytes FeatureVector = 1;
   if (this->featurevector().size() > 0) {
     target =
@@ -2774,7 +2778,7 @@ void Feature::SerializeWithCachedSizes(
         1, this->featurevector(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.Feature)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.Feature)
   return target;
 }
 
@@ -2857,28 +2861,28 @@ void Feature::clear_featurevector() {
   featurevector_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& Feature::featurevector() const {
-  // @@protoc_insertion_point(field_get:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_get:dg.apps.Feature.FeatureVector)
   return featurevector_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void Feature::set_featurevector(const ::std::string& value) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set:dg.apps.Feature.FeatureVector)
 }
  void Feature::set_featurevector(const char* value) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_char:dg.apps.Feature.FeatureVector)
 }
  void Feature::set_featurevector(const void* value, size_t size) {
   
   featurevector_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_pointer:dg.apps.Feature.FeatureVector)
 }
  ::std::string* Feature::mutable_featurevector() {
   
-  // @@protoc_insertion_point(field_mutable:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_mutable:dg.apps.Feature.FeatureVector)
   return featurevector_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Feature::release_featurevector() {
@@ -2892,7 +2896,7 @@ void Feature::clear_featurevector() {
     
   }
   featurevector_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), featurevector);
-  // @@protoc_insertion_point(field_set_allocated:dg.Feature.FeatureVector)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.Feature.FeatureVector)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2912,16 +2916,16 @@ const int RecognizeResult::kSymbolsFieldNumber;
 RecognizeResult::RecognizeResult()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizeResult)
+  // @@protoc_insertion_point(constructor:dg.apps.RecognizeResult)
 }
 
 void RecognizeResult::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  box_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
-  brand_ = const_cast< ::dg::VehicleBrand*>(&::dg::VehicleBrand::default_instance());
-  plate_ = const_cast< ::dg::VehiclePlate*>(&::dg::VehiclePlate::default_instance());
-  color_ = const_cast< ::dg::Color*>(&::dg::Color::default_instance());
-  feature_ = const_cast< ::dg::Feature*>(&::dg::Feature::default_instance());
+  box_ = const_cast< ::dg::apps::Cutboard*>(&::dg::apps::Cutboard::default_instance());
+  brand_ = const_cast< ::dg::apps::VehicleBrand*>(&::dg::apps::VehicleBrand::default_instance());
+  plate_ = const_cast< ::dg::apps::VehiclePlate*>(&::dg::apps::VehiclePlate::default_instance());
+  color_ = const_cast< ::dg::apps::Color*>(&::dg::apps::Color::default_instance());
+  feature_ = const_cast< ::dg::apps::Feature*>(&::dg::apps::Feature::default_instance());
 }
 
 RecognizeResult::RecognizeResult(const RecognizeResult& from)
@@ -2929,7 +2933,7 @@ RecognizeResult::RecognizeResult(const RecognizeResult& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizeResult)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.RecognizeResult)
 }
 
 void RecognizeResult::SharedCtor() {
@@ -2944,7 +2948,7 @@ void RecognizeResult::SharedCtor() {
 }
 
 RecognizeResult::~RecognizeResult() {
-  // @@protoc_insertion_point(destructor:dg.RecognizeResult)
+  // @@protoc_insertion_point(destructor:dg.apps.RecognizeResult)
   SharedDtor();
 }
 
@@ -3002,20 +3006,20 @@ bool RecognizeResult::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizeResult)
+  // @@protoc_insertion_point(parse_start:dg.apps.RecognizeResult)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.ObjType Type = 1;
+      // optional .dg.apps.ObjType Type = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::dg::ObjType >(value));
+          set_type(static_cast< ::dg::apps::ObjType >(value));
         } else {
           goto handle_unusual;
         }
@@ -3023,7 +3027,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Cutboard Box = 2;
+      // optional .dg.apps.Cutboard Box = 2;
       case 2: {
         if (tag == 18) {
          parse_Box:
@@ -3036,7 +3040,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.VehicleBrand Brand = 3;
+      // optional .dg.apps.VehicleBrand Brand = 3;
       case 3: {
         if (tag == 26) {
          parse_Brand:
@@ -3049,7 +3053,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.VehiclePlate Plate = 4;
+      // optional .dg.apps.VehiclePlate Plate = 4;
       case 4: {
         if (tag == 34) {
          parse_Plate:
@@ -3062,7 +3066,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Color Color = 5;
+      // optional .dg.apps.Color Color = 5;
       case 5: {
         if (tag == 42) {
          parse_Color:
@@ -3075,7 +3079,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Feature Feature = 6;
+      // optional .dg.apps.Feature Feature = 6;
       case 6: {
         if (tag == 50) {
          parse_Feature:
@@ -3088,7 +3092,7 @@ bool RecognizeResult::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.VehicleSymbol Symbols = 7;
+      // repeated .dg.apps.VehicleSymbol Symbols = 7;
       case 7: {
         if (tag == 58) {
          parse_Symbols:
@@ -3118,162 +3122,162 @@ bool RecognizeResult::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizeResult)
+  // @@protoc_insertion_point(parse_success:dg.apps.RecognizeResult)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizeResult)
+  // @@protoc_insertion_point(parse_failure:dg.apps.RecognizeResult)
   return false;
 #undef DO_
 }
 
 void RecognizeResult::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizeResult)
-  // optional .dg.ObjType Type = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.RecognizeResult)
+  // optional .dg.apps.ObjType Type = 1;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->type(), output);
   }
 
-  // optional .dg.Cutboard Box = 2;
+  // optional .dg.apps.Cutboard Box = 2;
   if (this->has_box()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->box_, output);
   }
 
-  // optional .dg.VehicleBrand Brand = 3;
+  // optional .dg.apps.VehicleBrand Brand = 3;
   if (this->has_brand()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->brand_, output);
   }
 
-  // optional .dg.VehiclePlate Plate = 4;
+  // optional .dg.apps.VehiclePlate Plate = 4;
   if (this->has_plate()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->plate_, output);
   }
 
-  // optional .dg.Color Color = 5;
+  // optional .dg.apps.Color Color = 5;
   if (this->has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, *this->color_, output);
   }
 
-  // optional .dg.Feature Feature = 6;
+  // optional .dg.apps.Feature Feature = 6;
   if (this->has_feature()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, *this->feature_, output);
   }
 
-  // repeated .dg.VehicleSymbol Symbols = 7;
+  // repeated .dg.apps.VehicleSymbol Symbols = 7;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       7, this->symbols(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizeResult)
+  // @@protoc_insertion_point(serialize_end:dg.apps.RecognizeResult)
 }
 
 ::google::protobuf::uint8* RecognizeResult::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizeResult)
-  // optional .dg.ObjType Type = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.RecognizeResult)
+  // optional .dg.apps.ObjType Type = 1;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->type(), target);
   }
 
-  // optional .dg.Cutboard Box = 2;
+  // optional .dg.apps.Cutboard Box = 2;
   if (this->has_box()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->box_, target);
   }
 
-  // optional .dg.VehicleBrand Brand = 3;
+  // optional .dg.apps.VehicleBrand Brand = 3;
   if (this->has_brand()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, *this->brand_, target);
   }
 
-  // optional .dg.VehiclePlate Plate = 4;
+  // optional .dg.apps.VehiclePlate Plate = 4;
   if (this->has_plate()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         4, *this->plate_, target);
   }
 
-  // optional .dg.Color Color = 5;
+  // optional .dg.apps.Color Color = 5;
   if (this->has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         5, *this->color_, target);
   }
 
-  // optional .dg.Feature Feature = 6;
+  // optional .dg.apps.Feature Feature = 6;
   if (this->has_feature()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         6, *this->feature_, target);
   }
 
-  // repeated .dg.VehicleSymbol Symbols = 7;
+  // repeated .dg.apps.VehicleSymbol Symbols = 7;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         7, this->symbols(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizeResult)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.RecognizeResult)
   return target;
 }
 
 int RecognizeResult::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.ObjType Type = 1;
+  // optional .dg.apps.ObjType Type = 1;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
-  // optional .dg.Cutboard Box = 2;
+  // optional .dg.apps.Cutboard Box = 2;
   if (this->has_box()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->box_);
   }
 
-  // optional .dg.VehicleBrand Brand = 3;
+  // optional .dg.apps.VehicleBrand Brand = 3;
   if (this->has_brand()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->brand_);
   }
 
-  // optional .dg.VehiclePlate Plate = 4;
+  // optional .dg.apps.VehiclePlate Plate = 4;
   if (this->has_plate()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->plate_);
   }
 
-  // optional .dg.Color Color = 5;
+  // optional .dg.apps.Color Color = 5;
   if (this->has_color()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->color_);
   }
 
-  // optional .dg.Feature Feature = 6;
+  // optional .dg.apps.Feature Feature = 6;
   if (this->has_feature()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->feature_);
   }
 
-  // repeated .dg.VehicleSymbol Symbols = 7;
+  // repeated .dg.apps.VehicleSymbol Symbols = 7;
   total_size += 1 * this->symbols_size();
   for (int i = 0; i < this->symbols_size(); i++) {
     total_size +=
@@ -3306,19 +3310,19 @@ void RecognizeResult::MergeFrom(const RecognizeResult& from) {
     set_type(from.type());
   }
   if (from.has_box()) {
-    mutable_box()->::dg::Cutboard::MergeFrom(from.box());
+    mutable_box()->::dg::apps::Cutboard::MergeFrom(from.box());
   }
   if (from.has_brand()) {
-    mutable_brand()->::dg::VehicleBrand::MergeFrom(from.brand());
+    mutable_brand()->::dg::apps::VehicleBrand::MergeFrom(from.brand());
   }
   if (from.has_plate()) {
-    mutable_plate()->::dg::VehiclePlate::MergeFrom(from.plate());
+    mutable_plate()->::dg::apps::VehiclePlate::MergeFrom(from.plate());
   }
   if (from.has_color()) {
-    mutable_color()->::dg::Color::MergeFrom(from.color());
+    mutable_color()->::dg::apps::Color::MergeFrom(from.color());
   }
   if (from.has_feature()) {
-    mutable_feature()->::dg::Feature::MergeFrom(from.feature());
+    mutable_feature()->::dg::apps::Feature::MergeFrom(from.feature());
   }
 }
 
@@ -3366,21 +3370,21 @@ void RecognizeResult::InternalSwap(RecognizeResult* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RecognizeResult
 
-// optional .dg.ObjType Type = 1;
+// optional .dg.apps.ObjType Type = 1;
 void RecognizeResult::clear_type() {
   type_ = 0;
 }
- ::dg::ObjType RecognizeResult::type() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Type)
-  return static_cast< ::dg::ObjType >(type_);
+ ::dg::apps::ObjType RecognizeResult::type() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Type)
+  return static_cast< ::dg::apps::ObjType >(type_);
 }
- void RecognizeResult::set_type(::dg::ObjType value) {
+ void RecognizeResult::set_type(::dg::apps::ObjType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeResult.Type)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeResult.Type)
 }
 
-// optional .dg.Cutboard Box = 2;
+// optional .dg.apps.Cutboard Box = 2;
 bool RecognizeResult::has_box() const {
   return !_is_default_instance_ && box_ != NULL;
 }
@@ -3388,25 +3392,25 @@ void RecognizeResult::clear_box() {
   if (GetArenaNoVirtual() == NULL && box_ != NULL) delete box_;
   box_ = NULL;
 }
-const ::dg::Cutboard& RecognizeResult::box() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Box)
+const ::dg::apps::Cutboard& RecognizeResult::box() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Box)
   return box_ != NULL ? *box_ : *default_instance_->box_;
 }
-::dg::Cutboard* RecognizeResult::mutable_box() {
+::dg::apps::Cutboard* RecognizeResult::mutable_box() {
   
   if (box_ == NULL) {
-    box_ = new ::dg::Cutboard;
+    box_ = new ::dg::apps::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Box)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Box)
   return box_;
 }
-::dg::Cutboard* RecognizeResult::release_box() {
+::dg::apps::Cutboard* RecognizeResult::release_box() {
   
-  ::dg::Cutboard* temp = box_;
+  ::dg::apps::Cutboard* temp = box_;
   box_ = NULL;
   return temp;
 }
-void RecognizeResult::set_allocated_box(::dg::Cutboard* box) {
+void RecognizeResult::set_allocated_box(::dg::apps::Cutboard* box) {
   delete box_;
   box_ = box;
   if (box) {
@@ -3414,10 +3418,10 @@ void RecognizeResult::set_allocated_box(::dg::Cutboard* box) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Box)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Box)
 }
 
-// optional .dg.VehicleBrand Brand = 3;
+// optional .dg.apps.VehicleBrand Brand = 3;
 bool RecognizeResult::has_brand() const {
   return !_is_default_instance_ && brand_ != NULL;
 }
@@ -3425,25 +3429,25 @@ void RecognizeResult::clear_brand() {
   if (GetArenaNoVirtual() == NULL && brand_ != NULL) delete brand_;
   brand_ = NULL;
 }
-const ::dg::VehicleBrand& RecognizeResult::brand() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Brand)
+const ::dg::apps::VehicleBrand& RecognizeResult::brand() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Brand)
   return brand_ != NULL ? *brand_ : *default_instance_->brand_;
 }
-::dg::VehicleBrand* RecognizeResult::mutable_brand() {
+::dg::apps::VehicleBrand* RecognizeResult::mutable_brand() {
   
   if (brand_ == NULL) {
-    brand_ = new ::dg::VehicleBrand;
+    brand_ = new ::dg::apps::VehicleBrand;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Brand)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Brand)
   return brand_;
 }
-::dg::VehicleBrand* RecognizeResult::release_brand() {
+::dg::apps::VehicleBrand* RecognizeResult::release_brand() {
   
-  ::dg::VehicleBrand* temp = brand_;
+  ::dg::apps::VehicleBrand* temp = brand_;
   brand_ = NULL;
   return temp;
 }
-void RecognizeResult::set_allocated_brand(::dg::VehicleBrand* brand) {
+void RecognizeResult::set_allocated_brand(::dg::apps::VehicleBrand* brand) {
   delete brand_;
   brand_ = brand;
   if (brand) {
@@ -3451,10 +3455,10 @@ void RecognizeResult::set_allocated_brand(::dg::VehicleBrand* brand) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Brand)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Brand)
 }
 
-// optional .dg.VehiclePlate Plate = 4;
+// optional .dg.apps.VehiclePlate Plate = 4;
 bool RecognizeResult::has_plate() const {
   return !_is_default_instance_ && plate_ != NULL;
 }
@@ -3462,25 +3466,25 @@ void RecognizeResult::clear_plate() {
   if (GetArenaNoVirtual() == NULL && plate_ != NULL) delete plate_;
   plate_ = NULL;
 }
-const ::dg::VehiclePlate& RecognizeResult::plate() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Plate)
+const ::dg::apps::VehiclePlate& RecognizeResult::plate() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Plate)
   return plate_ != NULL ? *plate_ : *default_instance_->plate_;
 }
-::dg::VehiclePlate* RecognizeResult::mutable_plate() {
+::dg::apps::VehiclePlate* RecognizeResult::mutable_plate() {
   
   if (plate_ == NULL) {
-    plate_ = new ::dg::VehiclePlate;
+    plate_ = new ::dg::apps::VehiclePlate;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Plate)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Plate)
   return plate_;
 }
-::dg::VehiclePlate* RecognizeResult::release_plate() {
+::dg::apps::VehiclePlate* RecognizeResult::release_plate() {
   
-  ::dg::VehiclePlate* temp = plate_;
+  ::dg::apps::VehiclePlate* temp = plate_;
   plate_ = NULL;
   return temp;
 }
-void RecognizeResult::set_allocated_plate(::dg::VehiclePlate* plate) {
+void RecognizeResult::set_allocated_plate(::dg::apps::VehiclePlate* plate) {
   delete plate_;
   plate_ = plate;
   if (plate) {
@@ -3488,10 +3492,10 @@ void RecognizeResult::set_allocated_plate(::dg::VehiclePlate* plate) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Plate)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Plate)
 }
 
-// optional .dg.Color Color = 5;
+// optional .dg.apps.Color Color = 5;
 bool RecognizeResult::has_color() const {
   return !_is_default_instance_ && color_ != NULL;
 }
@@ -3499,25 +3503,25 @@ void RecognizeResult::clear_color() {
   if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
   color_ = NULL;
 }
-const ::dg::Color& RecognizeResult::color() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Color)
+const ::dg::apps::Color& RecognizeResult::color() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Color)
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
-::dg::Color* RecognizeResult::mutable_color() {
+::dg::apps::Color* RecognizeResult::mutable_color() {
   
   if (color_ == NULL) {
-    color_ = new ::dg::Color;
+    color_ = new ::dg::apps::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Color)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Color)
   return color_;
 }
-::dg::Color* RecognizeResult::release_color() {
+::dg::apps::Color* RecognizeResult::release_color() {
   
-  ::dg::Color* temp = color_;
+  ::dg::apps::Color* temp = color_;
   color_ = NULL;
   return temp;
 }
-void RecognizeResult::set_allocated_color(::dg::Color* color) {
+void RecognizeResult::set_allocated_color(::dg::apps::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
@@ -3525,10 +3529,10 @@ void RecognizeResult::set_allocated_color(::dg::Color* color) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Color)
 }
 
-// optional .dg.Feature Feature = 6;
+// optional .dg.apps.Feature Feature = 6;
 bool RecognizeResult::has_feature() const {
   return !_is_default_instance_ && feature_ != NULL;
 }
@@ -3536,25 +3540,25 @@ void RecognizeResult::clear_feature() {
   if (GetArenaNoVirtual() == NULL && feature_ != NULL) delete feature_;
   feature_ = NULL;
 }
-const ::dg::Feature& RecognizeResult::feature() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Feature)
+const ::dg::apps::Feature& RecognizeResult::feature() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Feature)
   return feature_ != NULL ? *feature_ : *default_instance_->feature_;
 }
-::dg::Feature* RecognizeResult::mutable_feature() {
+::dg::apps::Feature* RecognizeResult::mutable_feature() {
   
   if (feature_ == NULL) {
-    feature_ = new ::dg::Feature;
+    feature_ = new ::dg::apps::Feature;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Feature)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Feature)
   return feature_;
 }
-::dg::Feature* RecognizeResult::release_feature() {
+::dg::apps::Feature* RecognizeResult::release_feature() {
   
-  ::dg::Feature* temp = feature_;
+  ::dg::apps::Feature* temp = feature_;
   feature_ = NULL;
   return temp;
 }
-void RecognizeResult::set_allocated_feature(::dg::Feature* feature) {
+void RecognizeResult::set_allocated_feature(::dg::apps::Feature* feature) {
   delete feature_;
   feature_ = feature;
   if (feature) {
@@ -3562,36 +3566,36 @@ void RecognizeResult::set_allocated_feature(::dg::Feature* feature) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResult.Feature)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResult.Feature)
 }
 
-// repeated .dg.VehicleSymbol Symbols = 7;
+// repeated .dg.apps.VehicleSymbol Symbols = 7;
 int RecognizeResult::symbols_size() const {
   return symbols_.size();
 }
 void RecognizeResult::clear_symbols() {
   symbols_.Clear();
 }
-const ::dg::VehicleSymbol& RecognizeResult::symbols(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResult.Symbols)
+const ::dg::apps::VehicleSymbol& RecognizeResult::symbols(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResult.Symbols)
   return symbols_.Get(index);
 }
-::dg::VehicleSymbol* RecognizeResult::mutable_symbols(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResult.Symbols)
+::dg::apps::VehicleSymbol* RecognizeResult::mutable_symbols(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResult.Symbols)
   return symbols_.Mutable(index);
 }
-::dg::VehicleSymbol* RecognizeResult::add_symbols() {
-  // @@protoc_insertion_point(field_add:dg.RecognizeResult.Symbols)
+::dg::apps::VehicleSymbol* RecognizeResult::add_symbols() {
+  // @@protoc_insertion_point(field_add:dg.apps.RecognizeResult.Symbols)
   return symbols_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >*
+::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >*
 RecognizeResult::mutable_symbols() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizeResult.Symbols)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.RecognizeResult.Symbols)
   return &symbols_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::VehicleSymbol >&
+const ::google::protobuf::RepeatedPtrField< ::dg::apps::VehicleSymbol >&
 RecognizeResult::symbols() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizeResult.Symbols)
+  // @@protoc_insertion_point(field_list:dg.apps.RecognizeResult.Symbols)
   return symbols_;
 }
 
@@ -3608,13 +3612,13 @@ const int RecognizeResponse::kResultFieldNumber;
 RecognizeResponse::RecognizeResponse()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizeResponse)
+  // @@protoc_insertion_point(constructor:dg.apps.RecognizeResponse)
 }
 
 void RecognizeResponse::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  status_ = const_cast< ::dg::RecognizeStatus*>(&::dg::RecognizeStatus::default_instance());
-  result_ = const_cast< ::dg::RecognizeResult*>(&::dg::RecognizeResult::default_instance());
+  status_ = const_cast< ::dg::apps::RecognizeStatus*>(&::dg::apps::RecognizeStatus::default_instance());
+  result_ = const_cast< ::dg::apps::RecognizeResult*>(&::dg::apps::RecognizeResult::default_instance());
 }
 
 RecognizeResponse::RecognizeResponse(const RecognizeResponse& from)
@@ -3622,7 +3626,7 @@ RecognizeResponse::RecognizeResponse(const RecognizeResponse& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizeResponse)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.RecognizeResponse)
 }
 
 void RecognizeResponse::SharedCtor() {
@@ -3634,7 +3638,7 @@ void RecognizeResponse::SharedCtor() {
 }
 
 RecognizeResponse::~RecognizeResponse() {
-  // @@protoc_insertion_point(destructor:dg.RecognizeResponse)
+  // @@protoc_insertion_point(destructor:dg.apps.RecognizeResponse)
   SharedDtor();
 }
 
@@ -3682,7 +3686,7 @@ bool RecognizeResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizeResponse)
+  // @@protoc_insertion_point(parse_start:dg.apps.RecognizeResponse)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -3702,7 +3706,7 @@ bool RecognizeResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.RecognizeStatus Status = 2;
+      // optional .dg.apps.RecognizeStatus Status = 2;
       case 2: {
         if (tag == 18) {
          parse_Status:
@@ -3715,7 +3719,7 @@ bool RecognizeResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.RecognizeResult Result = 3;
+      // optional .dg.apps.RecognizeResult Result = 3;
       case 3: {
         if (tag == 26) {
          parse_Result:
@@ -3741,60 +3745,60 @@ bool RecognizeResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizeResponse)
+  // @@protoc_insertion_point(parse_success:dg.apps.RecognizeResponse)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizeResponse)
+  // @@protoc_insertion_point(parse_failure:dg.apps.RecognizeResponse)
   return false;
 #undef DO_
 }
 
 void RecognizeResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizeResponse)
+  // @@protoc_insertion_point(serialize_start:dg.apps.RecognizeResponse)
   // optional int64 SessionId = 1;
   if (this->sessionid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->sessionid(), output);
   }
 
-  // optional .dg.RecognizeStatus Status = 2;
+  // optional .dg.apps.RecognizeStatus Status = 2;
   if (this->has_status()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->status_, output);
   }
 
-  // optional .dg.RecognizeResult Result = 3;
+  // optional .dg.apps.RecognizeResult Result = 3;
   if (this->has_result()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->result_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizeResponse)
+  // @@protoc_insertion_point(serialize_end:dg.apps.RecognizeResponse)
 }
 
 ::google::protobuf::uint8* RecognizeResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizeResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.RecognizeResponse)
   // optional int64 SessionId = 1;
   if (this->sessionid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->sessionid(), target);
   }
 
-  // optional .dg.RecognizeStatus Status = 2;
+  // optional .dg.apps.RecognizeStatus Status = 2;
   if (this->has_status()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->status_, target);
   }
 
-  // optional .dg.RecognizeResult Result = 3;
+  // optional .dg.apps.RecognizeResult Result = 3;
   if (this->has_result()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, *this->result_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizeResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.RecognizeResponse)
   return target;
 }
 
@@ -3808,14 +3812,14 @@ int RecognizeResponse::ByteSize() const {
         this->sessionid());
   }
 
-  // optional .dg.RecognizeStatus Status = 2;
+  // optional .dg.apps.RecognizeStatus Status = 2;
   if (this->has_status()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->status_);
   }
 
-  // optional .dg.RecognizeResult Result = 3;
+  // optional .dg.apps.RecognizeResult Result = 3;
   if (this->has_result()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -3846,10 +3850,10 @@ void RecognizeResponse::MergeFrom(const RecognizeResponse& from) {
     set_sessionid(from.sessionid());
   }
   if (from.has_status()) {
-    mutable_status()->::dg::RecognizeStatus::MergeFrom(from.status());
+    mutable_status()->::dg::apps::RecognizeStatus::MergeFrom(from.status());
   }
   if (from.has_result()) {
-    mutable_result()->::dg::RecognizeResult::MergeFrom(from.result());
+    mutable_result()->::dg::apps::RecognizeResult::MergeFrom(from.result());
   }
 }
 
@@ -3898,16 +3902,16 @@ void RecognizeResponse::clear_sessionid() {
   sessionid_ = GOOGLE_LONGLONG(0);
 }
  ::google::protobuf::int64 RecognizeResponse::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.SessionId)
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.SessionId)
   return sessionid_;
 }
  void RecognizeResponse::set_sessionid(::google::protobuf::int64 value) {
   
   sessionid_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizeResponse.SessionId)
+  // @@protoc_insertion_point(field_set:dg.apps.RecognizeResponse.SessionId)
 }
 
-// optional .dg.RecognizeStatus Status = 2;
+// optional .dg.apps.RecognizeStatus Status = 2;
 bool RecognizeResponse::has_status() const {
   return !_is_default_instance_ && status_ != NULL;
 }
@@ -3915,25 +3919,25 @@ void RecognizeResponse::clear_status() {
   if (GetArenaNoVirtual() == NULL && status_ != NULL) delete status_;
   status_ = NULL;
 }
-const ::dg::RecognizeStatus& RecognizeResponse::status() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.Status)
+const ::dg::apps::RecognizeStatus& RecognizeResponse::status() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.Status)
   return status_ != NULL ? *status_ : *default_instance_->status_;
 }
-::dg::RecognizeStatus* RecognizeResponse::mutable_status() {
+::dg::apps::RecognizeStatus* RecognizeResponse::mutable_status() {
   
   if (status_ == NULL) {
-    status_ = new ::dg::RecognizeStatus;
+    status_ = new ::dg::apps::RecognizeStatus;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResponse.Status)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResponse.Status)
   return status_;
 }
-::dg::RecognizeStatus* RecognizeResponse::release_status() {
+::dg::apps::RecognizeStatus* RecognizeResponse::release_status() {
   
-  ::dg::RecognizeStatus* temp = status_;
+  ::dg::apps::RecognizeStatus* temp = status_;
   status_ = NULL;
   return temp;
 }
-void RecognizeResponse::set_allocated_status(::dg::RecognizeStatus* status) {
+void RecognizeResponse::set_allocated_status(::dg::apps::RecognizeStatus* status) {
   delete status_;
   status_ = status;
   if (status) {
@@ -3941,10 +3945,10 @@ void RecognizeResponse::set_allocated_status(::dg::RecognizeStatus* status) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResponse.Status)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResponse.Status)
 }
 
-// optional .dg.RecognizeResult Result = 3;
+// optional .dg.apps.RecognizeResult Result = 3;
 bool RecognizeResponse::has_result() const {
   return !_is_default_instance_ && result_ != NULL;
 }
@@ -3952,25 +3956,25 @@ void RecognizeResponse::clear_result() {
   if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
   result_ = NULL;
 }
-const ::dg::RecognizeResult& RecognizeResponse::result() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizeResponse.Result)
+const ::dg::apps::RecognizeResult& RecognizeResponse::result() const {
+  // @@protoc_insertion_point(field_get:dg.apps.RecognizeResponse.Result)
   return result_ != NULL ? *result_ : *default_instance_->result_;
 }
-::dg::RecognizeResult* RecognizeResponse::mutable_result() {
+::dg::apps::RecognizeResult* RecognizeResponse::mutable_result() {
   
   if (result_ == NULL) {
-    result_ = new ::dg::RecognizeResult;
+    result_ = new ::dg::apps::RecognizeResult;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizeResponse.Result)
+  // @@protoc_insertion_point(field_mutable:dg.apps.RecognizeResponse.Result)
   return result_;
 }
-::dg::RecognizeResult* RecognizeResponse::release_result() {
+::dg::apps::RecognizeResult* RecognizeResponse::release_result() {
   
-  ::dg::RecognizeResult* temp = result_;
+  ::dg::apps::RecognizeResult* temp = result_;
   result_ = NULL;
   return temp;
 }
-void RecognizeResponse::set_allocated_result(::dg::RecognizeResult* result) {
+void RecognizeResponse::set_allocated_result(::dg::apps::RecognizeResult* result) {
   delete result_;
   result_ = result;
   if (result) {
@@ -3978,7 +3982,7 @@ void RecognizeResponse::set_allocated_result(::dg::RecognizeResult* result) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizeResponse.Result)
+  // @@protoc_insertion_point(field_set_allocated:dg.apps.RecognizeResponse.Result)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3992,7 +3996,7 @@ const int BatchRecognizeRequest::kRequestsFieldNumber;
 BatchRecognizeRequest::BatchRecognizeRequest()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(constructor:dg.apps.BatchRecognizeRequest)
 }
 
 void BatchRecognizeRequest::InitAsDefaultInstance() {
@@ -4004,7 +4008,7 @@ BatchRecognizeRequest::BatchRecognizeRequest(const BatchRecognizeRequest& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.BatchRecognizeRequest)
 }
 
 void BatchRecognizeRequest::SharedCtor() {
@@ -4013,7 +4017,7 @@ void BatchRecognizeRequest::SharedCtor() {
 }
 
 BatchRecognizeRequest::~BatchRecognizeRequest() {
-  // @@protoc_insertion_point(destructor:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(destructor:dg.apps.BatchRecognizeRequest)
   SharedDtor();
 }
 
@@ -4055,13 +4059,13 @@ bool BatchRecognizeRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(parse_start:dg.apps.BatchRecognizeRequest)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .dg.RecognizeRequest Requests = 1;
+      // repeated .dg.apps.RecognizeRequest Requests = 1;
       case 1: {
         if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
@@ -4090,44 +4094,44 @@ bool BatchRecognizeRequest::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(parse_success:dg.apps.BatchRecognizeRequest)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(parse_failure:dg.apps.BatchRecognizeRequest)
   return false;
 #undef DO_
 }
 
 void BatchRecognizeRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.BatchRecognizeRequest)
-  // repeated .dg.RecognizeRequest Requests = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.BatchRecognizeRequest)
+  // repeated .dg.apps.RecognizeRequest Requests = 1;
   for (unsigned int i = 0, n = this->requests_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->requests(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(serialize_end:dg.apps.BatchRecognizeRequest)
 }
 
 ::google::protobuf::uint8* BatchRecognizeRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.BatchRecognizeRequest)
-  // repeated .dg.RecognizeRequest Requests = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.BatchRecognizeRequest)
+  // repeated .dg.apps.RecognizeRequest Requests = 1;
   for (unsigned int i = 0, n = this->requests_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, this->requests(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.BatchRecognizeRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.BatchRecognizeRequest)
   return target;
 }
 
 int BatchRecognizeRequest::ByteSize() const {
   int total_size = 0;
 
-  // repeated .dg.RecognizeRequest Requests = 1;
+  // repeated .dg.apps.RecognizeRequest Requests = 1;
   total_size += 1 * this->requests_size();
   for (int i = 0; i < this->requests_size(); i++) {
     total_size +=
@@ -4196,33 +4200,33 @@ void BatchRecognizeRequest::InternalSwap(BatchRecognizeRequest* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BatchRecognizeRequest
 
-// repeated .dg.RecognizeRequest Requests = 1;
+// repeated .dg.apps.RecognizeRequest Requests = 1;
 int BatchRecognizeRequest::requests_size() const {
   return requests_.size();
 }
 void BatchRecognizeRequest::clear_requests() {
   requests_.Clear();
 }
-const ::dg::RecognizeRequest& BatchRecognizeRequest::requests(int index) const {
-  // @@protoc_insertion_point(field_get:dg.BatchRecognizeRequest.Requests)
+const ::dg::apps::RecognizeRequest& BatchRecognizeRequest::requests(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Get(index);
 }
-::dg::RecognizeRequest* BatchRecognizeRequest::mutable_requests(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.BatchRecognizeRequest.Requests)
+::dg::apps::RecognizeRequest* BatchRecognizeRequest::mutable_requests(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Mutable(index);
 }
-::dg::RecognizeRequest* BatchRecognizeRequest::add_requests() {
-  // @@protoc_insertion_point(field_add:dg.BatchRecognizeRequest.Requests)
+::dg::apps::RecognizeRequest* BatchRecognizeRequest::add_requests() {
+  // @@protoc_insertion_point(field_add:dg.apps.BatchRecognizeRequest.Requests)
   return requests_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >*
+::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >*
 BatchRecognizeRequest::mutable_requests() {
-  // @@protoc_insertion_point(field_mutable_list:dg.BatchRecognizeRequest.Requests)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.BatchRecognizeRequest.Requests)
   return &requests_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeRequest >&
+const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeRequest >&
 BatchRecognizeRequest::requests() const {
-  // @@protoc_insertion_point(field_list:dg.BatchRecognizeRequest.Requests)
+  // @@protoc_insertion_point(field_list:dg.apps.BatchRecognizeRequest.Requests)
   return requests_;
 }
 
@@ -4237,7 +4241,7 @@ const int BatchRecognizeResponse::kReponsesFieldNumber;
 BatchRecognizeResponse::BatchRecognizeResponse()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(constructor:dg.apps.BatchRecognizeResponse)
 }
 
 void BatchRecognizeResponse::InitAsDefaultInstance() {
@@ -4249,7 +4253,7 @@ BatchRecognizeResponse::BatchRecognizeResponse(const BatchRecognizeResponse& fro
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(copy_constructor:dg.apps.BatchRecognizeResponse)
 }
 
 void BatchRecognizeResponse::SharedCtor() {
@@ -4258,7 +4262,7 @@ void BatchRecognizeResponse::SharedCtor() {
 }
 
 BatchRecognizeResponse::~BatchRecognizeResponse() {
-  // @@protoc_insertion_point(destructor:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(destructor:dg.apps.BatchRecognizeResponse)
   SharedDtor();
 }
 
@@ -4300,13 +4304,13 @@ bool BatchRecognizeResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(parse_start:dg.apps.BatchRecognizeResponse)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .dg.RecognizeResponse Reponses = 1;
+      // repeated .dg.apps.RecognizeResponse Reponses = 1;
       case 1: {
         if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
@@ -4335,44 +4339,44 @@ bool BatchRecognizeResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(parse_success:dg.apps.BatchRecognizeResponse)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(parse_failure:dg.apps.BatchRecognizeResponse)
   return false;
 #undef DO_
 }
 
 void BatchRecognizeResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.BatchRecognizeResponse)
-  // repeated .dg.RecognizeResponse Reponses = 1;
+  // @@protoc_insertion_point(serialize_start:dg.apps.BatchRecognizeResponse)
+  // repeated .dg.apps.RecognizeResponse Reponses = 1;
   for (unsigned int i = 0, n = this->reponses_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, this->reponses(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(serialize_end:dg.apps.BatchRecognizeResponse)
 }
 
 ::google::protobuf::uint8* BatchRecognizeResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.BatchRecognizeResponse)
-  // repeated .dg.RecognizeResponse Reponses = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.apps.BatchRecognizeResponse)
+  // repeated .dg.apps.RecognizeResponse Reponses = 1;
   for (unsigned int i = 0, n = this->reponses_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, this->reponses(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.BatchRecognizeResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.apps.BatchRecognizeResponse)
   return target;
 }
 
 int BatchRecognizeResponse::ByteSize() const {
   int total_size = 0;
 
-  // repeated .dg.RecognizeResponse Reponses = 1;
+  // repeated .dg.apps.RecognizeResponse Reponses = 1;
   total_size += 1 * this->reponses_size();
   for (int i = 0; i < this->reponses_size(); i++) {
     total_size +=
@@ -4441,33 +4445,33 @@ void BatchRecognizeResponse::InternalSwap(BatchRecognizeResponse* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // BatchRecognizeResponse
 
-// repeated .dg.RecognizeResponse Reponses = 1;
+// repeated .dg.apps.RecognizeResponse Reponses = 1;
 int BatchRecognizeResponse::reponses_size() const {
   return reponses_.size();
 }
 void BatchRecognizeResponse::clear_reponses() {
   reponses_.Clear();
 }
-const ::dg::RecognizeResponse& BatchRecognizeResponse::reponses(int index) const {
-  // @@protoc_insertion_point(field_get:dg.BatchRecognizeResponse.Reponses)
+const ::dg::apps::RecognizeResponse& BatchRecognizeResponse::reponses(int index) const {
+  // @@protoc_insertion_point(field_get:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Get(index);
 }
-::dg::RecognizeResponse* BatchRecognizeResponse::mutable_reponses(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.BatchRecognizeResponse.Reponses)
+::dg::apps::RecognizeResponse* BatchRecognizeResponse::mutable_reponses(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Mutable(index);
 }
-::dg::RecognizeResponse* BatchRecognizeResponse::add_reponses() {
-  // @@protoc_insertion_point(field_add:dg.BatchRecognizeResponse.Reponses)
+::dg::apps::RecognizeResponse* BatchRecognizeResponse::add_reponses() {
+  // @@protoc_insertion_point(field_add:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >*
+::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >*
 BatchRecognizeResponse::mutable_reponses() {
-  // @@protoc_insertion_point(field_mutable_list:dg.BatchRecognizeResponse.Reponses)
+  // @@protoc_insertion_point(field_mutable_list:dg.apps.BatchRecognizeResponse.Reponses)
   return &reponses_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::RecognizeResponse >&
+const ::google::protobuf::RepeatedPtrField< ::dg::apps::RecognizeResponse >&
 BatchRecognizeResponse::reponses() const {
-  // @@protoc_insertion_point(field_list:dg.BatchRecognizeResponse.Reponses)
+  // @@protoc_insertion_point(field_list:dg.apps.BatchRecognizeResponse.Reponses)
   return reponses_;
 }
 
@@ -4475,6 +4479,7 @@ BatchRecognizeResponse::reponses() const {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace apps
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)
