@@ -21,8 +21,8 @@ string CarFeature::Serialize()
     vector<uchar> data;
     ConvertToByte(version, data);
     
-    Mat &des = descriptor;
-    Mat &pos = position;
+    Mat &des = descriptor_;
+    Mat &pos = position_;
     ConvertToByte((int) (des.dataend - des.datastart), data);
     ConvertToByte((int) (pos.dataend - pos.dataend), data);
     copy(des.datastart, des.dataend, back_inserter(data));
@@ -60,49 +60,24 @@ bool CarFeature::Deserialize(string featureStr)
 
     Mat des(des_size / 32, 32, 0, des_v.data());
     Mat pos(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
-    des.copyTo(descriptor);
-    pos.copyTo(position);
+    des.copyTo(descriptor_);
+    pos.copyTo(position_);
 
-    width = descriptor.cols;
-    height = descriptor.rows;
-
-            int des_s = 0, pos_s = 0, str_s = 0;
-            for(uchar u : data)
-            {
-                str_s += u;
-            }
-
-            for(int i = 0; i < descriptor.rows; i ++)
-            {
-                for(int j = 0; j < descriptor.cols; j ++)
-                {
-                    des_s += descriptor.at<uchar>(i, j);
-                }
-            }
-            for(int i = 0; i < position.rows; i ++)
-            {
-                for(int j = 0; j < position.cols; j ++)
-                {
-                    pos_s += position.at<ushort>(i, j);
-                }
-            }
-
-    LOG(INFO) << "feature: w(" << width << "), h(" << height << "), length: " << descriptor.size() << ", size: " << str_s;
-    LOG(INFO) << descriptor.rows << ":" << descriptor.cols << ":" << des_s;
-    LOG(INFO) << position.rows << ":" << position.cols << ":" << pos_s;
+    width_ = descriptor_.cols;
+    height_ = descriptor_.rows;
 
     return true;
 }
 
 string FaceFeature::Serialize()
 {
-    return Base64::Encode(descriptor);
+    return Base64::Encode(descriptor_);
 }
 
 bool FaceFeature::Deserialize(string featureStr)
 {
-    descriptor.clear();
-    Base64::Decode(featureStr, descriptor);
+    descriptor_.clear();
+    Base64::Decode(featureStr, descriptor_);
     return true;
 }
 

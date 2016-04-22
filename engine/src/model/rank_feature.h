@@ -21,18 +21,18 @@ namespace dg
 class Score
 {
 public:
-    int index;
-    float score;
+    int index_;
+    float score_;
 
     Score() {}
-    Score(int index, float score): index(index), score(score) {}
-    Score(const Score& s) : index(s.index), score(s.score) {}
+    Score(int index, float score): index_(index), score_(score) {}
+    Score(const Score& s) : index_(s.index_), score_(s.score_) {}
     virtual ~Score() {}
 
     //sortable: score[desc] >> index[asc]
     bool operator<(const Score& right) const
     {
-        return score != right.score ? (score > right.score) : (index < right.index);
+        return score_ != right.score_ ? (score_ > right.score_) : (index_ < right.index_);
     }
 };
 
@@ -59,16 +59,15 @@ protected:
             ptr[i] = data[i];
         }
     }
-
 };
 
 class CarFeature final : public RankFeature
 {
 public:
-    int width;
-    int height;
-    cv::Mat descriptor;
-    cv::Mat position;
+    int width_;
+    int height_;
+    cv::Mat descriptor_;
+    cv::Mat position_;
 
     virtual string Serialize() override;
     virtual bool Deserialize(string featureStr) override;
@@ -77,7 +76,7 @@ public:
 class FaceFeature final : public RankFeature
 {
 public:
-    std::vector<float> descriptor;
+    std::vector<float> descriptor_;
 
     virtual string Serialize() override;
     virtual bool Deserialize(string featureStr) override;

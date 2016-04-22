@@ -158,24 +158,24 @@ class CarRankFrame : public Frame {
 public:
     CarRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<CarFeature>& candidates)
             : Frame(id)
-            , image(image)
-            , hotspots(hotspots)
-            , candidates(candidates)
+            , image_(image)
+            , hotspots_(hotspots)
+            , candidates_(candidates)
     {}
     ~CarRankFrame(){}
     CarRankFrame(const CarRankFrame& f) 
             : Frame(f.id_)
-            , image(f.image)
-            , hotspots(f.hotspots)
-            , candidates(f.candidates)
+            , image_(f.image_)
+            , hotspots_(f.hotspots_)
+            , candidates_(f.candidates_)
     {
     }
 
-    const Mat& image;
-    const vector<Rect>& hotspots;
-    const vector<CarFeature>& candidates;
+    const Mat& image_;
+    const vector<Rect>& hotspots_;
+    const vector<CarFeature>& candidates_;
 
-    vector<Score> result;
+    vector<Score> result_;
 };
 
 
@@ -183,33 +183,26 @@ class FaceRankFrame : public Frame {
 public:
     FaceRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<FaceFeature>& candidates)
             : Frame(id)
-            , image(image)
-            , hotspots(hotspots)
-            , candidates(candidates)
+            , image_(image)
+            , hotspots_(hotspots)
+            , candidates_(candidates)
     {}
     ~FaceRankFrame(){}
     FaceRankFrame(const FaceRankFrame& f) 
             : Frame(f.id_)
-            , image(f.image)
-            , hotspots(f.hotspots)
-            , candidates(f.candidates)
+            , image_(f.image_)
+            , hotspots_(f.hotspots_)
+            , candidates_(f.candidates_)
     {
     }
 
-    const Mat& image;
-    const vector<Rect>& hotspots;
-    const vector<FaceFeature>& candidates;
+    const Mat& image_;
+    const vector<Rect>& hotspots_;
+    const vector<FaceFeature>& candidates_;
 
-    vector<Score> result;
+    vector<Score> result_;
 };
 
-
-// TODO
-class RankData : public Frame {
-    Frame *frame_;
-    vector<Box> hotspots_;
-    vector<Feature> features_;
-};
 
 }
 

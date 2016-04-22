@@ -26,54 +26,19 @@ namespace dg {
 
 class RankEngine : public Engine {
 public:
-    RankEngine(RingBuffer *buffer, Processor *processor)
-            : Engine(),
-              buffer_(buffer),
-              processor_(processor),
-              cur_frame_(0)
-    {
-        assert(buffer_ != NULL);
-        assert(processor_ != NULL);
-    }
+    RankEngine() : Engine() {}
     virtual ~RankEngine() {}
 
-    virtual void Process() override {
-        if (buffer_->IsEmpty()) {
-            return;
-        }
+    virtual void Process() override {}
 
-        if (cur_frame_ >= buffer_->Size()) {
-            return;
-        }
+    virtual int Stop() override { return 0; }
 
-        Frame *f = buffer_->Back();
-        if (f == NULL) {
-            return;
-        }
-
-        cur_frame_ = (cur_frame_ + 1) % buffer_->Size();
-
-        processor_->Update(f);
-        return;
-    }
-
-    virtual int Stop() {
-        return 0;
-    }
-
-    virtual int Release() {
-        return 0;
-    }
-
- private:
-    RingBuffer *buffer_;
-    Processor *processor_;
-    unsigned int cur_frame_;
+    virtual int Release() override { return 0; }
 };
 
 class CarRankEngine : public RankEngine {
 public:
-    CarRankEngine() : id_(0), buffer_(5), RankEngine(&buffer_, &processor_) {}
+    CarRankEngine() : id_(0) {}
     virtual ~CarRankEngine() {}
 
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates)
@@ -81,21 +46,19 @@ public:
         vector<Rect> hotspots;
         hotspots.push_back(hotspot);
         CarRankFrame f(id_++, image, hotspots, candidates);
-        buffer_.TryPut(&f);
-        Process();
-        return f.result;
+        processor_.Update(&f);
+        return f.result_;
     }
 
 private:
     Identification id_;
-    RingBuffer buffer_;
     CarRankProcessor processor_;
 };
 
 
 class FaceRankEngine : public RankEngine {
 public:
-    FaceRankEngine() : id_(0), buffer_(5), RankEngine(&buffer_, &processor_) {}
+    FaceRankEngine() : id_(0) {}
     virtual ~FaceRankEngine() {}
 
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates)
@@ -103,14 +66,12 @@ public:
         vector<Rect> hotspots;
         hotspots.push_back(hotspot);
         FaceRankFrame f(id_++, image, hotspots, candidates);
-        buffer_.TryPut(&f);
-        Process();
-        return f.result;
+        processor_.Update(&f);
+        return f.result_;
     }
 
 private:
     Identification id_;
-    RingBuffer buffer_;
     FaceRankProcessor processor_;
 };
 

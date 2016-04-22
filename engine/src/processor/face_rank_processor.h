@@ -51,7 +51,7 @@ public:
 
         //process frame
         FaceRankFrame *fframe = (FaceRankFrame *)frame;
-        fframe->result = Rank(fframe->image, fframe->hotspots[0], fframe->candidates);
+        fframe->result_ = Rank(fframe->image_, fframe->hotspots_[0], fframe->candidates_);
 
         frame->set_status(FRAME_STATUS_FINISHED);
         LOG(INFO) << "end process frame: " << frame->id() << endl;

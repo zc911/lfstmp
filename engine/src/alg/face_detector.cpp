@@ -11,13 +11,13 @@
 using namespace dg;
 
 FaceDetector::FaceDetector(string align_model, string avg_face)
-        : _detector(dlib::get_frontal_face_detector()) 
+        : detector_(dlib::get_frontal_face_detector()) 
 {
     LOG(INFO) << "initialize face detector";
     LOG(INFO) << "align_model: " << align_model;
     LOG(INFO) << "avg_face: " << avg_face;
 
-    dlib::deserialize(align_model) >> _sp;
+    dlib::deserialize(align_model) >> sp_;
 
     Mat avg_face_img = imread(avg_face);
     LOG(INFO) << "avg_face.width: " << avg_face_img.cols;
@@ -25,10 +25,10 @@ FaceDetector::FaceDetector(string align_model, string avg_face)
 
     dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
 
-    vector<dlib::rectangle> avg_face_bbox = _detector(avg_face_image);
+    vector<dlib::rectangle> avg_face_bbox = detector_(avg_face_image);
     assert(avg_face_bbox.size() == 1);
 
-    predict(avg_face_image, avg_face_bbox[0], _avg_face_points);
+    predict(avg_face_image, avg_face_bbox[0], avg_face_points_);
 }
 
 FaceDetector::~FaceDetector() 
@@ -38,8 +38,8 @@ FaceDetector::~FaceDetector()
 
 bool FaceDetector::predict(dlib::cv_image<dlib::bgr_pixel>& image, dlib::rectangle& bbox, vector<dlib::point>& points)
 {
-    dlib::full_object_detection shape = _sp(image, bbox);
-    if (shape.num_parts() != _avg_face_points.size())
+    dlib::full_object_detection shape = sp_(image, bbox);
+    if (shape.num_parts() != avg_face_points_.size())
     {
         return false;
     }
@@ -55,7 +55,7 @@ bool FaceDetector::predict(dlib::cv_image<dlib::bgr_pixel>& image, dlib::rectang
 Mat FaceDetector::transform(dlib::cv_image<dlib::bgr_pixel>& image, vector<dlib::point>& points)
 {
     dlib::array2d<dlib::bgr_pixel> out(128, 128);    
-    dlib::point_transform_affine trans = find_affine_transform(_avg_face_points, points);
+    dlib::point_transform_affine trans = find_affine_transform(avg_face_points_, points);
     transform_image(image, out, dlib::interpolate_bilinear(), trans);
     return toMat(out).clone();
 }
@@ -65,7 +65,7 @@ void FaceDetector::Detect(vector<cv::Mat>& images, vector<vector<Mat>>& vvResult
     for(Mat& image : images)
     {
         dlib::cv_image<dlib::bgr_pixel> dlibImg(image);
-        vector<dlib::rectangle> faceBoxes = _detector(dlibImg);
+        vector<dlib::rectangle> faceBoxes = detector_(dlibImg);
 
         vector<Mat> results;
         vector<BoundingBox> vboxes;
