@@ -9,20 +9,8 @@
 #include "car_matcher.h"
 
 #define FEATURE_NUM_CUDA 256
-#define MAX_IMG_NUM 10000
 
-
-#if USE_CUDA
-#define CUDA_CALL(value) {  \
-cudaError_t _m_cudaStat = value;    \
-if (_m_cudaStat != cudaSuccess) {   \
-    fprintf(stderr, "Error %s at line %d in file %s\n", \
-            cudaGetErrorString(_m_cudaStat), __LINE__, __FILE__);   \
-    exit(1);    \
-}}
-#endif
-
-
+#if not USE_CUDA
 CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
     orb_ = ORB(feature_num_);
@@ -32,26 +20,12 @@ CarMatcher::CarMatcher() {
     max_mapping_offset_ = 50;
     selected_area_weight_ = 50;
     profile_time_ = false;
-
-#if USE_CUDA
-    cudaStreamCreate(&stream_);
-    CUDA_CALL(cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
-#endif
 }
 
 CarMatcher::~CarMatcher()
 {
-#if USE_CUDA
-    CUDA_CALL(cudaStreamDestroy(stream_));
-#endif
 }
-
+#endif
 
 void CarMatcher::ExtractDescriptor(const Mat &img, CarFeature &des) {
     if (profile_time_)
@@ -177,6 +151,7 @@ vector<int> CarMatcher::ComputeMatchScore(const CarFeature &des, const Rect &in_
 }
 
 #if USE_CUDA
+/*
 __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uint *query_desc, 
     ushort *db_pos, uint *db_desc, 
     ushort query_width, ushort query_height, 
@@ -333,4 +308,5 @@ vector<int> CarMatcher::computeMatchScoreGpu(
 
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());
 }
+*/
 #endif
