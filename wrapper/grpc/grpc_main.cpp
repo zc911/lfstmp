@@ -108,6 +108,7 @@ private:
         return true;
     }
 
+    //this is for test compatible 
     virtual Status GetRankedVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
     {
         try
