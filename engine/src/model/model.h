@@ -40,9 +40,9 @@ typedef struct {
 
 class Object {
  public:
-    Object()
+    Object(ObjectType type)
             : id_(0),
-              type_(OBJECT_UNKNOWN),
+              type_(type),
               confidence_(0) {
         children_.clear();
 
@@ -101,7 +101,7 @@ class Object {
 
  protected:
     Identification id_;
-    Identification class_id_;
+
     ObjectType type_;
     Confidence confidence_;
     Detection detection_;
@@ -110,10 +110,6 @@ class Object {
 
 class Vehicle : public Object {
  public:
-
-    Vehicle()
-            : confidence_(0) {
-    }
 
     typedef struct {
         Identification class_id;
@@ -127,22 +123,70 @@ class Vehicle : public Object {
         Confidence confidence;
     } Plate;
 
+    Vehicle(ObjectType type)
+            : Object(type),
+              confidence_(0),
+              class_id_(-1) {
+    }
+
+    const Color& color() const {
+        return color_;
+    }
+
+    void set_color(const Color& color) {
+        color_ = color;
+    }
+
+    Confidence confidence1() const {
+        return confidence_;
+    }
+
+    void set_confidence(Confidence confidence) {
+        confidence_ = confidence;
+    }
+
+    const cv::Mat& image() const {
+        return image_;
+    }
+
+    void set_image(const cv::Mat& image) {
+        image_ = image;
+    }
+
+    const Plate& plate() const {
+        return plate_;
+    }
+
+    void set_plate(const Plate& plate) {
+        plate_ = plate;
+    }
+
+    Identification class_Id() const {
+        return class_id_;
+    }
+
+    void set_class_id(Identification classId) {
+        class_id_ = classId;
+    }
+
  private:
+
     cv::Mat image_;
+    Identification class_id_;
     Plate plate_;
     Color color_;
     Confidence confidence_;
 };
 
-class People : public Object {
-    People() {
-    }
-};
-
-class Face : public Object {
-    Face() {
-    }
-};
+//class People : public Object {
+//    People() {
+//    }
+//};
+//
+//class Face : public Object {
+//    Face() {
+//    }
+//};
 
 typedef struct {
     Identification id;

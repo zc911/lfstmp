@@ -25,10 +25,22 @@ class Processor {
 
     }
 
+    Processor* SetNextProcessor(Processor *proc) {
+        Processor *old = next_;
+        next_ = proc;
+        return old;
+    }
+
+    virtual bool Proceed(Frame *frame) {
+        if (next_ != NULL) {
+            next_->Update(frame);
+            return true;
+        }
+        return false;
+    }
+
     virtual void Update(Frame *frame) = 0;
     virtual void Update(FrameBatch *frameBatch) = 0;
-//    virtual Frame* operator()(Frame* frame);
-//    virtual FrameBatch* operator()(FrameBatch* frameBatch);
 
     virtual bool checkOperation(Frame *frame) = 0;
     virtual bool checkStatus(Frame *frame) = 0;

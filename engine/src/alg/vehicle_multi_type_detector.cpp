@@ -1,14 +1,15 @@
-#include "vehicle_confirm_caffe_detector.h"
+#include "vehicle_multi_type_detector.h"
 
 namespace dg {
-bool VehicleMultiTypeDetector::mycmp(struct Bbox b1, struct Bbox b2) {
+
+static bool mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
 VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
-        : CaffeDetector(config) {
-    use_gpu_ = config.use_gpu;
-    if (use_gpu_) {
+        : config_(config) {
+
+    if (config.use_gpu) {
         Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(config.gpu_id);
     } else {
@@ -16,14 +17,13 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
     }
 
     batch_size_ = config.batch_size;
-    model_file_ = config.model_file;
-    deploy_file_ = config.deploy_file;
     scale_ = config.rescale;
 
-    net_.reset(new Net<float>(deploy_file_, TEST, config.is_model_encrypt));
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 
-    net_->CopyTrainedLayersFrom(model_file_);
-    CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";
+    net_->CopyTrainedLayersFrom(config.model_file);
+    CHECK_EQ(net_->num_inputs(), 2)<< "Network should have exactly two input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     Blob<float>* im_info_layer = net_->input_blobs()[1];
@@ -151,7 +151,7 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
 
     net_->ForwardPrefilled();
 
-    if (use_gpu_) {
+    if (config_.use_gpu) {
         cudaDeviceSynchronize();
     }
 
@@ -186,7 +186,7 @@ void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
 
     if (vbbox.size() != 0) {
 
-        sort(vbbox.begin(), vbbox.end(), VehicleMultiTypeDetector::mycmp);
+        sort(vbbox.begin(), vbbox.end(), mycmp);
         vbbox.resize(min(static_cast<size_t>(max_per_img_), vbbox.size()));
         nms(vbbox, 0.2);
     }
