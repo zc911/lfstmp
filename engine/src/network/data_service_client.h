@@ -8,7 +8,7 @@
 #ifndef DATA_SERVICE_H_
 #define DATA_SERVICE_H_
 #include "model/model.h"
-namespace deepglint {
+namespace dg {
 /**
  * The data service client interface
  */

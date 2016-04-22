@@ -7,7 +7,8 @@
 
 #ifndef SERVICE_H_
 #define SERVICE_H_
-namespace deepglint {
+
+namespace dg {
 
 enum ServiceStatus {
     OK = 200,
