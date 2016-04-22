@@ -7,6 +7,7 @@
 
 namespace dg {
 Config* Config::instance_ = NULL;
+AnyConversion EmptyAnyConversion("");
 
 Config::Config() {
 }
@@ -46,7 +47,7 @@ AnyConversion const& Config::Value(string const& key) const {
     std::map<string, AnyConversion>::const_iterator ci = content_.find(key);
     if (ci == content_.end()) {
 
-        return AnyConversion("");
+        return EmptyAnyConversion;
     }
 
     return ci->second;
@@ -113,8 +114,9 @@ bool Config::loadJson(string const& configFile) {
 }
 
 void Config::parseJsonNode(Json::Value &node, const string prefix) {
+    Json::Value::Members::iterator itr;
     Json::Value::Members children = node.getMemberNames();
-    for (auto itr = children.begin(); itr != children.end(); ++itr) {
+    for (itr = children.begin(); itr != children.end(); ++itr) {
         string sectionName = *itr;
         Json::Value section = node[sectionName];
         string key = prefix + '/' + sectionName;

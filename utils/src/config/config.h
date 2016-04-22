@@ -4,7 +4,11 @@
 
 #include <string>
 #include <map>
-#include "jsoncpp/json/json.h"
+#ifdef __APPLE__
+  #include <json/json.h>
+#else
+  #include <jsoncpp/json/json.h>
+#endif //__APPLE__
 #include "anyconversion.h"
 
 namespace dg {
