@@ -15,32 +15,44 @@
 
 namespace dg {
 
+const static string MODEL_FILE =
+        "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
+const static string DEPLOY_FILE = "models/detector/test.prototxt";
+const static string MODEL_FILE_EN =
+        "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
+const static string DEPLOY_FILE_EN = "models/detector/test.prototxt";
+
 class VehicleMultiTypeDetectorProcessor : public Processor {
  public:
-    VehicleMultiTypeDetectorProcessor()
+
+    VehicleMultiTypeDetectorProcessor(int batch_size, bool gpu_id, int rescale,
+                                      bool is_model_encrypt)
             : Processor() {
+
         CaffeConfig config;
-        config.batch_size = 1;
-        config.is_model_encrypt = false;
+        config.batch_size = batch_size;
+        config.is_model_encrypt = is_model_encrypt;
 
         if (config.is_model_encrypt) {
-            config.model_file =
-                    "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-            config.deploy_file = "models/detector/test.prototxt";
+            config.model_file = MODEL_FILE;
+            config.deploy_file = DEPLOY_FILE;
         } else {
-            config.model_file =
-                    "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-            config.deploy_file = "models/detector/test.prototxt";
+            config.model_file = MODEL_FILE_EN;
+            config.deploy_file = DEPLOY_FILE_EN;
         }
+
         config.use_gpu = true;
-        config.gpu_id = 0;
-        config.rescale = 400;
+        config.gpu_id = gpu_id;
+        config.rescale = rescale;
         detector_ = new VehicleMultiTypeDetector(config);
     }
+
     ~VehicleMultiTypeDetectorProcessor() {
 
     }
+
     void Update(Frame *frame) {
+
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
         Mat data= frame->payload()->data();
         vector<Detection> detections = detector_->Detect(data);
@@ -62,8 +74,6 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
         }
         cout << "End detector frame: " << endl;
         Proceed(frame);
-
-
 
     }
 

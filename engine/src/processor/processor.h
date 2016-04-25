@@ -31,6 +31,10 @@ class Processor {
         return old;
     }
 
+    Processor* GetNextProcessor() {
+        return next_;
+    }
+
     virtual bool Proceed(Frame *frame) {
         if (next_ != NULL) {
             next_->Update(frame);

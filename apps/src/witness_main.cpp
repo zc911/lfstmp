@@ -24,6 +24,7 @@ int main(int argc, char* argv[]) {
         bool asyn = config->Value("System/EnableAsyn");
 
         BasicService *service;
+
         if (asyn) {
             service = new WitnessServiceAsynImpl(config);
         } else {
