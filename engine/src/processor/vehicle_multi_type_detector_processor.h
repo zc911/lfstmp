@@ -51,6 +51,7 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
             Object *obj;
             if(1) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
+                obj = static_cast<Object*>(v);
                 Mat roi = Mat(data, detection.box);
                 v->set_image(roi);
             }
@@ -59,10 +60,10 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
             frame->put_object(obj);
             print(detection);
         }
-
+        cout << "End detector frame: " << endl;
         Proceed(frame);
 
-        cout << "End detector frame: " << endl;
+
 
     }
 

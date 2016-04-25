@@ -41,6 +41,20 @@ static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
     return vimg;
 }
 
+static bool ConfidenceCmp(Prediction b1, Prediction b2) {
+    return b1.second > b2.second;
+}
+
+static void SortPrediction(vector<vector<Prediction> > &dstPreds) {
+    for (int i = 0; i < dstPreds.size(); i++) {
+
+        vector<Prediction> dstPred = dstPreds.at(i);
+        sort(dstPred.begin(), dstPred.end(), ConfidenceCmp);
+        dstPreds[i] = dstPred;
+
+    }
+}
+
 static bool PairCompare(const std::pair<float, int>& lhs,
                         const std::pair<float, int>& rhs) {
     return lhs.first > rhs.first;

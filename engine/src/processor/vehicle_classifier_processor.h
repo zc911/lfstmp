@@ -22,6 +22,7 @@ class VehicleClassifierProcessor : public Processor {
         config.deploy_file = "models/classify/deploy_256.prototxt";
 
         config.is_model_encrypt = false;
+        config.batch_size = 1;
         classifier_ = new VehicleCaffeClassifier(config);
     }
 
@@ -53,13 +54,12 @@ class VehicleClassifierProcessor : public Processor {
         vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
                 images);
 
-        for (int i = 0; i < result.size(); ++i) {
-            vector<Prediction> image_result = result[i];
-            DLOG(INFO)<< "Vehicle classification: " << endl;
-            for (int j = 0; j < image_result.size(); ++j) {
-                Prediction pred = image_result[j];
-                DLOG(INFO)<< "Class: " << pred.first << " - Conf: " << pred.second << endl;
-            }
+        SortPrediction(result);
+
+        cout << "Classify result: " << endl;
+        for (int i = 0; i < 6; ++i) {
+            cout << "Class: " << result[0][i].first << " , Conf: "
+                 << result[0][i].second << endl;
         }
     }
 
@@ -73,7 +73,7 @@ class VehicleClassifierProcessor : public Processor {
     virtual bool checkStatus(Frame *frame) {
         return true;
     }
-private:
+ private:
     VehicleCaffeClassifier *classifier_;
 
 };

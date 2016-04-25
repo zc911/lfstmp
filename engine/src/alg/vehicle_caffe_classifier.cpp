@@ -12,7 +12,6 @@ namespace dg {
 VehicleCaffeClassifier::VehicleCaffeClassifier(CaffeConfig &config)
         : device_setted_(false),
           caffe_config_(config),
-          means_(input_geometry_, CV_32FC3, Scalar(128, 128, 128)),
           rescale_(100) {
 
     device_setted_ = false;
@@ -34,6 +33,7 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(CaffeConfig &config)
     Blob<float>* input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+    means_ = cv::Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
 
 }
 
@@ -45,6 +45,7 @@ vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(
     vector<vector<Prediction> > prediction;
     vector<Mat> images = imgs;
     for (auto batch_images : PrepareBatch(images, caffe_config_.batch_size)) {
+
         vector<vector<Prediction> > pred = ClassifyBatch(batch_images);
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }
@@ -57,20 +58,19 @@ vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(
 
 vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyBatch(
         const vector<Mat> &imgs) {
-    //return ClassifyBatchDifferentSIze(imgs);
     vector<Blob<float>*> output_layer = PredictBatch(imgs);
     int class_num_ = output_layer[0]->channels();
     const float* begin = output_layer[0]->cpu_data();
     const float* end = begin + output_layer[0]->channels() * imgs.size();
     vector<float> output_batch = std::vector<float>(begin, end);
     std::vector<std::vector<Prediction> > predictions;
+
     for (int j = 0; j < imgs.size(); j++) {
         std::vector<float> output(output_batch.begin() + j * class_num_,
                                   output_batch.begin() + (j + 1) * class_num_);
-        //   std::vector<int> maxN = Argmax(output, class_num_);
         std::vector<Prediction> prediction_single;
+
         for (int i = 0; i < class_num_; ++i) {
-            //     int idx = maxN[i];
             prediction_single.push_back(std::make_pair(i, output[i]));
         }
         predictions.push_back(std::vector<Prediction>(prediction_single));
@@ -87,7 +87,6 @@ vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
     }
 
     Blob<float>* input_layer = net_->input_blobs()[0];
-
     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
                          input_geometry_.height, input_geometry_.width);
     /* Forward dimension change to all layers. */
@@ -95,9 +94,7 @@ vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
     std::vector<std::vector<cv::Mat> > input_batch;
     WrapBatchInputLayer(&input_batch);
     PreprocessBatch(imgs, &input_batch);
-
     net_->ForwardPrefilled();
-
     if (caffe_config_.use_gpu) {
         cudaDeviceSynchronize();
     }
@@ -140,7 +137,6 @@ void VehicleCaffeClassifier::PreprocessBatch(
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat img = imgs[i];
         std::vector<cv::Mat> *input_channels = &(input_batch->at(i));
-
         /* Convert the input image to the input image format of the network. */
         cv::Mat sample;
         if (img.channels() == 3 && num_channels_ == 1)
@@ -153,19 +149,16 @@ void VehicleCaffeClassifier::PreprocessBatch(
             cv::cvtColor(img, sample, CV_GRAY2BGR);
         else
             sample = img;
-
         cv::Mat sample_resized;
         if (sample.size() != input_geometry_)
             cv::resize(sample, sample_resized, input_geometry_);
         else
             sample_resized = sample;
-
         cv::Mat sample_float;
         if (num_channels_ == 3)
             sample_resized.convertTo(sample_float, CV_32FC3);
         else
             sample_resized.convertTo(sample_float, CV_32FC1);
-
         cv::Mat sample_normalized;
 
         cv::subtract(sample_float, means_, sample_normalized);
@@ -177,11 +170,7 @@ void VehicleCaffeClassifier::PreprocessBatch(
             cv::addWeighted(sample_normalized, 0.01, sample_normalized, 0, 0,
                             sample_normalized);
         }
-
         cv::split(sample_normalized, *input_channels);
-//        CHECK(reinterpret_ckast<float*>(input_channels->at(0).data)
-//              == net_->input_blobs()[0]->cpu_data())
-//          << "Input channels are not wrapping the input layer of the network.";
     }
 }
 
