@@ -13,7 +13,7 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
 INCLUDE_DIRECTORIES(src include ../engine/src/ ../engine/include/dgcaffe)
 
-FIND_LIBRARY(LIB_MATRIX NAMES libmatrix.a PATHS ../engine/build/src)
+FIND_LIBRARY(LIB_MATRIX NAMES matrix PATHS ../engine/build/src)
 FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS ../engine/lib/caffe/${PLATFORM})
 SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS ${CUDA_LIB_PATH})

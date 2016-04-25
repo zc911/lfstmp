@@ -31,11 +31,20 @@ typedef enum {
     OBJECT_FACE = 64,
 } ObjectType;
 
-typedef struct {
+typedef struct Detection {
     int id;
+    bool deleted;
     Box box;
     Confidence confidence;
-    bool deleted;
+    Detection& operator =(const Detection &detection) {
+        if (this == &detection) {
+            return *this;
+        }
+        id = detection.id;
+        box = detection.box;
+        confidence = detection.confidence;
+        return *this;
+    }
 } Detection;
 
 class Object {
@@ -101,7 +110,6 @@ class Object {
 
  protected:
     Identification id_;
-
     ObjectType type_;
     Confidence confidence_;
     Detection detection_;

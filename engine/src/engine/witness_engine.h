@@ -20,6 +20,7 @@ class WitnessEngine : SimpleEngine {
     WitnessEngine() {
         processor_ = NULL;
         is_init_ = false;
+        init();
     }
     ~WitnessEngine() {
 
