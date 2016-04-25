@@ -48,7 +48,6 @@ class WitnessServiceImpl : public apps::WitnessService::Service,
         cout << "Get Recognize request: " << request->sessionid()
                 << ", Image URI:" << request->image().uri() << endl;
         cout << "Start processing: " << request->sessionid() << "..." << endl;
-
         Frame *frame = new Frame(request->sessionid());
         DLOG(INFO) << "Read data from test.jpg" << endl;
         cv::Mat image = cv::imread("test.jpg");
@@ -57,8 +56,6 @@ class WitnessServiceImpl : public apps::WitnessService::Service,
 
         engine_->Process(frame);
 
-//        response->mutable_result()->mutable_brand()->set_brandid(123);
-//        response->mutable_status()->set_msg("finish");
         cout << "Finish processing: " << request->sessionid() << "..." << endl;
         cout << "=======" << endl;
         return grpc::Status::OK;
