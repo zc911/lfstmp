@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package dg;
+
+
+message VideoMetadata {
+	int64 Timestamp = 1;
+	int32 Duration = 2;
+	int32 SensorId = 3;
+	string SensorName = 4;
+	string SensorUrl = 5;
+}
+
+message Image {
+	string Id = 1;
+	int32 Width = 2;
+	int32 Height = 3;
+	string URI = 4;
+	bytes BinData = 5; // base64 format image
+}
+
+message CutboardImage {
+	VideoMetadata Metadata = 1;
+	Cutboard Cutboard = 2;
+	Image Img = 3;
+}
+
+message Color {
+	int32 Id = 1;
+	float Confidence = 2;
+	string ColorName = 3;
+}
+
+message Cutboard {
+	uint32 X = 1;
+	uint32 Y = 2;
+	uint32 Width = 3;
+	uint32 Height = 4;
+	uint32 ResWidth = 5;
+	uint32 ResHeight = 6;
+}
+
+enum ObjType {
+	UNKNOWNOBJ = 0;
+	VEHICLE = 1;
+	BICYCLE = 2;
+	TRICYCLE = 3;
+	PEDESTRIAN = 4;
+	FACE = 1024;
+	VEHICLE_VECTOR = 2048;
+	BICYCLE_VECTOR = 2049;
+	TRICYCLE_VECTOR = 2050;
+	PEDESTRIAN_VECTOR = 2051;
+	FACE_VECTOR = 3072;
+}
+
+enum DataFmtType {
+	UNKNOWNFMT = 0;
+	JSON = 1;
+	PROTOBUF = 2;
+}
+
+message FeatureVector {
+	int64 Id = 1; // This is only for ranking. Can be void during feature extraction.
+	bytes Feature = 2;
+}
