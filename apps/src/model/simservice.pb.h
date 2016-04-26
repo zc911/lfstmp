@@ -30,7 +30,7 @@
 #include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
-namespace model {
+namespace dg {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_simservice_2eproto();
@@ -104,37 +104,37 @@ class FeatureRankingRequest : public ::google::protobuf::Message {
   ::google::protobuf::int64 reqid() const;
   void set_reqid(::google::protobuf::int64 value);
 
-  // optional .model.Image Image = 2;
+  // optional .dg.Image Image = 2;
   bool has_image() const;
   void clear_image();
   static const int kImageFieldNumber = 2;
-  const ::model::Image& image() const;
-  ::model::Image* mutable_image();
-  ::model::Image* release_image();
-  void set_allocated_image(::model::Image* image);
+  const ::dg::Image& image() const;
+  ::dg::Image* mutable_image();
+  ::dg::Image* release_image();
+  void set_allocated_image(::dg::Image* image);
 
-  // repeated .model.Cutboard InterestedAreas = 3;
+  // repeated .dg.Cutboard InterestedAreas = 3;
   int interestedareas_size() const;
   void clear_interestedareas();
   static const int kInterestedAreasFieldNumber = 3;
-  const ::model::Cutboard& interestedareas(int index) const;
-  ::model::Cutboard* mutable_interestedareas(int index);
-  ::model::Cutboard* add_interestedareas();
-  ::google::protobuf::RepeatedPtrField< ::model::Cutboard >*
+  const ::dg::Cutboard& interestedareas(int index) const;
+  ::dg::Cutboard* mutable_interestedareas(int index);
+  ::dg::Cutboard* add_interestedareas();
+  ::google::protobuf::RepeatedPtrField< ::dg::Cutboard >*
       mutable_interestedareas();
-  const ::google::protobuf::RepeatedPtrField< ::model::Cutboard >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::Cutboard >&
       interestedareas() const;
 
-  // repeated .model.FeatureVector Candidates = 4;
+  // repeated .dg.FeatureVector Candidates = 4;
   int candidates_size() const;
   void clear_candidates();
   static const int kCandidatesFieldNumber = 4;
-  const ::model::FeatureVector& candidates(int index) const;
-  ::model::FeatureVector* mutable_candidates(int index);
-  ::model::FeatureVector* add_candidates();
-  ::google::protobuf::RepeatedPtrField< ::model::FeatureVector >*
+  const ::dg::FeatureVector& candidates(int index) const;
+  ::dg::FeatureVector* mutable_candidates(int index);
+  ::dg::FeatureVector* add_candidates();
+  ::google::protobuf::RepeatedPtrField< ::dg::FeatureVector >*
       mutable_candidates();
-  const ::google::protobuf::RepeatedPtrField< ::model::FeatureVector >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::FeatureVector >&
       candidates() const;
 
   // optional int32 Limit = 5;
@@ -143,15 +143,15 @@ class FeatureRankingRequest : public ::google::protobuf::Message {
   ::google::protobuf::int32 limit() const;
   void set_limit(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:model.FeatureRankingRequest)
+  // @@protoc_insertion_point(class_scope:dg.FeatureRankingRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 reqid_;
-  ::model::Image* image_;
-  ::google::protobuf::RepeatedPtrField< ::model::Cutboard > interestedareas_;
-  ::google::protobuf::RepeatedPtrField< ::model::FeatureVector > candidates_;
+  ::dg::Image* image_;
+  ::google::protobuf::RepeatedPtrField< ::dg::Cutboard > interestedareas_;
+  ::google::protobuf::RepeatedPtrField< ::dg::FeatureVector > candidates_;
   ::google::protobuf::int32 limit_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_simservice_2eproto();
@@ -249,7 +249,7 @@ class FeatureRankingResponse : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedField< float >*
       mutable_scores();
 
-  // @@protoc_insertion_point(class_scope:model.FeatureRankingResponse)
+  // @@protoc_insertion_point(class_scope:dg.FeatureRankingResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -280,16 +280,16 @@ inline void FeatureRankingRequest::clear_reqid() {
   reqid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 FeatureRankingRequest::reqid() const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingRequest.ReqId)
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingRequest.ReqId)
   return reqid_;
 }
 inline void FeatureRankingRequest::set_reqid(::google::protobuf::int64 value) {
   
   reqid_ = value;
-  // @@protoc_insertion_point(field_set:model.FeatureRankingRequest.ReqId)
+  // @@protoc_insertion_point(field_set:dg.FeatureRankingRequest.ReqId)
 }
 
-// optional .model.Image Image = 2;
+// optional .dg.Image Image = 2;
 inline bool FeatureRankingRequest::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -297,25 +297,25 @@ inline void FeatureRankingRequest::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-inline const ::model::Image& FeatureRankingRequest::image() const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingRequest.Image)
+inline const ::dg::Image& FeatureRankingRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingRequest.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-inline ::model::Image* FeatureRankingRequest::mutable_image() {
+inline ::dg::Image* FeatureRankingRequest::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::model::Image;
+    image_ = new ::dg::Image;
   }
-  // @@protoc_insertion_point(field_mutable:model.FeatureRankingRequest.Image)
+  // @@protoc_insertion_point(field_mutable:dg.FeatureRankingRequest.Image)
   return image_;
 }
-inline ::model::Image* FeatureRankingRequest::release_image() {
+inline ::dg::Image* FeatureRankingRequest::release_image() {
   
-  ::model::Image* temp = image_;
+  ::dg::Image* temp = image_;
   image_ = NULL;
   return temp;
 }
-inline void FeatureRankingRequest::set_allocated_image(::model::Image* image) {
+inline void FeatureRankingRequest::set_allocated_image(::dg::Image* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -323,66 +323,66 @@ inline void FeatureRankingRequest::set_allocated_image(::model::Image* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:model.FeatureRankingRequest.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.FeatureRankingRequest.Image)
 }
 
-// repeated .model.Cutboard InterestedAreas = 3;
+// repeated .dg.Cutboard InterestedAreas = 3;
 inline int FeatureRankingRequest::interestedareas_size() const {
   return interestedareas_.size();
 }
 inline void FeatureRankingRequest::clear_interestedareas() {
   interestedareas_.Clear();
 }
-inline const ::model::Cutboard& FeatureRankingRequest::interestedareas(int index) const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingRequest.InterestedAreas)
+inline const ::dg::Cutboard& FeatureRankingRequest::interestedareas(int index) const {
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingRequest.InterestedAreas)
   return interestedareas_.Get(index);
 }
-inline ::model::Cutboard* FeatureRankingRequest::mutable_interestedareas(int index) {
-  // @@protoc_insertion_point(field_mutable:model.FeatureRankingRequest.InterestedAreas)
+inline ::dg::Cutboard* FeatureRankingRequest::mutable_interestedareas(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.FeatureRankingRequest.InterestedAreas)
   return interestedareas_.Mutable(index);
 }
-inline ::model::Cutboard* FeatureRankingRequest::add_interestedareas() {
-  // @@protoc_insertion_point(field_add:model.FeatureRankingRequest.InterestedAreas)
+inline ::dg::Cutboard* FeatureRankingRequest::add_interestedareas() {
+  // @@protoc_insertion_point(field_add:dg.FeatureRankingRequest.InterestedAreas)
   return interestedareas_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::model::Cutboard >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::Cutboard >*
 FeatureRankingRequest::mutable_interestedareas() {
-  // @@protoc_insertion_point(field_mutable_list:model.FeatureRankingRequest.InterestedAreas)
+  // @@protoc_insertion_point(field_mutable_list:dg.FeatureRankingRequest.InterestedAreas)
   return &interestedareas_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::model::Cutboard >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::Cutboard >&
 FeatureRankingRequest::interestedareas() const {
-  // @@protoc_insertion_point(field_list:model.FeatureRankingRequest.InterestedAreas)
+  // @@protoc_insertion_point(field_list:dg.FeatureRankingRequest.InterestedAreas)
   return interestedareas_;
 }
 
-// repeated .model.FeatureVector Candidates = 4;
+// repeated .dg.FeatureVector Candidates = 4;
 inline int FeatureRankingRequest::candidates_size() const {
   return candidates_.size();
 }
 inline void FeatureRankingRequest::clear_candidates() {
   candidates_.Clear();
 }
-inline const ::model::FeatureVector& FeatureRankingRequest::candidates(int index) const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingRequest.Candidates)
+inline const ::dg::FeatureVector& FeatureRankingRequest::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingRequest.Candidates)
   return candidates_.Get(index);
 }
-inline ::model::FeatureVector* FeatureRankingRequest::mutable_candidates(int index) {
-  // @@protoc_insertion_point(field_mutable:model.FeatureRankingRequest.Candidates)
+inline ::dg::FeatureVector* FeatureRankingRequest::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.FeatureRankingRequest.Candidates)
   return candidates_.Mutable(index);
 }
-inline ::model::FeatureVector* FeatureRankingRequest::add_candidates() {
-  // @@protoc_insertion_point(field_add:model.FeatureRankingRequest.Candidates)
+inline ::dg::FeatureVector* FeatureRankingRequest::add_candidates() {
+  // @@protoc_insertion_point(field_add:dg.FeatureRankingRequest.Candidates)
   return candidates_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::model::FeatureVector >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::FeatureVector >*
 FeatureRankingRequest::mutable_candidates() {
-  // @@protoc_insertion_point(field_mutable_list:model.FeatureRankingRequest.Candidates)
+  // @@protoc_insertion_point(field_mutable_list:dg.FeatureRankingRequest.Candidates)
   return &candidates_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::model::FeatureVector >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::FeatureVector >&
 FeatureRankingRequest::candidates() const {
-  // @@protoc_insertion_point(field_list:model.FeatureRankingRequest.Candidates)
+  // @@protoc_insertion_point(field_list:dg.FeatureRankingRequest.Candidates)
   return candidates_;
 }
 
@@ -391,13 +391,13 @@ inline void FeatureRankingRequest::clear_limit() {
   limit_ = 0;
 }
 inline ::google::protobuf::int32 FeatureRankingRequest::limit() const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingRequest.Limit)
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingRequest.Limit)
   return limit_;
 }
 inline void FeatureRankingRequest::set_limit(::google::protobuf::int32 value) {
   
   limit_ = value;
-  // @@protoc_insertion_point(field_set:model.FeatureRankingRequest.Limit)
+  // @@protoc_insertion_point(field_set:dg.FeatureRankingRequest.Limit)
 }
 
 // -------------------------------------------------------------------
@@ -409,13 +409,13 @@ inline void FeatureRankingResponse::clear_reqid() {
   reqid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 FeatureRankingResponse::reqid() const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingResponse.ReqId)
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingResponse.ReqId)
   return reqid_;
 }
 inline void FeatureRankingResponse::set_reqid(::google::protobuf::int64 value) {
   
   reqid_ = value;
-  // @@protoc_insertion_point(field_set:model.FeatureRankingResponse.ReqId)
+  // @@protoc_insertion_point(field_set:dg.FeatureRankingResponse.ReqId)
 }
 
 // repeated int64 Ids = 2;
@@ -426,25 +426,25 @@ inline void FeatureRankingResponse::clear_ids() {
   ids_.Clear();
 }
 inline ::google::protobuf::int64 FeatureRankingResponse::ids(int index) const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingResponse.Ids)
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingResponse.Ids)
   return ids_.Get(index);
 }
 inline void FeatureRankingResponse::set_ids(int index, ::google::protobuf::int64 value) {
   ids_.Set(index, value);
-  // @@protoc_insertion_point(field_set:model.FeatureRankingResponse.Ids)
+  // @@protoc_insertion_point(field_set:dg.FeatureRankingResponse.Ids)
 }
 inline void FeatureRankingResponse::add_ids(::google::protobuf::int64 value) {
   ids_.Add(value);
-  // @@protoc_insertion_point(field_add:model.FeatureRankingResponse.Ids)
+  // @@protoc_insertion_point(field_add:dg.FeatureRankingResponse.Ids)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
 FeatureRankingResponse::ids() const {
-  // @@protoc_insertion_point(field_list:model.FeatureRankingResponse.Ids)
+  // @@protoc_insertion_point(field_list:dg.FeatureRankingResponse.Ids)
   return ids_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
 FeatureRankingResponse::mutable_ids() {
-  // @@protoc_insertion_point(field_mutable_list:model.FeatureRankingResponse.Ids)
+  // @@protoc_insertion_point(field_mutable_list:dg.FeatureRankingResponse.Ids)
   return &ids_;
 }
 
@@ -456,25 +456,25 @@ inline void FeatureRankingResponse::clear_scores() {
   scores_.Clear();
 }
 inline float FeatureRankingResponse::scores(int index) const {
-  // @@protoc_insertion_point(field_get:model.FeatureRankingResponse.Scores)
+  // @@protoc_insertion_point(field_get:dg.FeatureRankingResponse.Scores)
   return scores_.Get(index);
 }
 inline void FeatureRankingResponse::set_scores(int index, float value) {
   scores_.Set(index, value);
-  // @@protoc_insertion_point(field_set:model.FeatureRankingResponse.Scores)
+  // @@protoc_insertion_point(field_set:dg.FeatureRankingResponse.Scores)
 }
 inline void FeatureRankingResponse::add_scores(float value) {
   scores_.Add(value);
-  // @@protoc_insertion_point(field_add:model.FeatureRankingResponse.Scores)
+  // @@protoc_insertion_point(field_add:dg.FeatureRankingResponse.Scores)
 }
 inline const ::google::protobuf::RepeatedField< float >&
 FeatureRankingResponse::scores() const {
-  // @@protoc_insertion_point(field_list:model.FeatureRankingResponse.Scores)
+  // @@protoc_insertion_point(field_list:dg.FeatureRankingResponse.Scores)
   return scores_;
 }
 inline ::google::protobuf::RepeatedField< float >*
 FeatureRankingResponse::mutable_scores() {
-  // @@protoc_insertion_point(field_mutable_list:model.FeatureRankingResponse.Scores)
+  // @@protoc_insertion_point(field_mutable_list:dg.FeatureRankingResponse.Scores)
   return &scores_;
 }
 
@@ -484,7 +484,7 @@ FeatureRankingResponse::mutable_scores() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace model
+}  // namespace dg
 
 // @@protoc_insertion_point(global_scope)
 

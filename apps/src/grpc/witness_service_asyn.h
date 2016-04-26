@@ -17,7 +17,7 @@
 
 #include <grpc++/grpc++.h>
 
-#include "model/proto/witness.grpc.pb.h"
+#include "model/witness.grpc.pb.h"
 #include "basic_service.h"
 #include "config/config.h"
 
@@ -62,14 +62,14 @@ class WitnessServiceAsynImpl : public BasicService {
 
         // Proceed to the server's main loop.
 
-        pthread_t tid_, tid2_;
-        typedef void* (*FUNC)(void*);
-        FUNC callback = (FUNC) &WitnessServiceAsynImpl::HandleRpcs;
-        pthread_create(&tid_, NULL, callback, (void*) this);
-        pthread_create(&tid2_, NULL, callback, (void*) this);
+        // pthread_t tid_, tid2_;
+        // typedef void* (*FUNC)(void*);
+        // FUNC callback = (FUNC) &WitnessServiceAsynImpl::HandleRpcs;
+        // pthread_create(&tid_, NULL, callback, (void*) this);
+        // pthread_create(&tid2_, NULL, callback, (void*) this);
 
-        std::cout << "Server(Asyn) listening on " << addr_ << std::endl;
-        pthread_join(tid_, NULL);
+        // std::cout << "Server(Asyn) listening on " << addr_ << std::endl;
+        // pthread_join(tid_, NULL);
 
         //HandleRpcs();
     }
