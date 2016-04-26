@@ -13,11 +13,20 @@
 #include <vector>
 #include <algorithm>
 #include <opencv2/core/core.hpp>
+#include "model/basic.h"
+#include "model/model.h"
 
 using namespace cv;
 using namespace std;
 
 namespace dg {
+
+struct Bbox {
+    float confidence;
+    Rect rect;
+    bool deleted;
+    int cls_id;
+};
 
 static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
                                          int batch_size) {
@@ -73,12 +82,12 @@ static std::vector<int> Argmax(const std::vector<float>& v, int N) {
     return result;
 }
 
-static bool mycmp(Detection b1, Detection b2) {
+static bool detectionCmp(Detection b1, Detection b2) {
     return b1.confidence > b2.confidence;
 }
 
-static void nms(vector<Detection>& p, float threshold) {
-    sort(p.begin(), p.end(), mycmp);
+static void detectionNMS(vector<Detection>& p, float threshold) {
+    sort(p.begin(), p.end(), detectionCmp);
     int cnt = 0;
     for (int i = 0; i < p.size(); i++) {
         if (p[i].deleted)
@@ -102,6 +111,28 @@ static void nms(vector<Detection>& p, float threshold) {
                                 <= (p[i].box.y + p[i].box.height + 0.2)) {
                     p[j].deleted = true;
 
+                }
+            }
+        }
+    }
+}
+
+static bool BboxCmp(struct Bbox b1, struct Bbox b2) {
+    return b1.confidence > b2.confidence;
+}
+
+static void NMS(vector<struct Bbox>& p, float threshold) {
+    sort(p.begin(), p.end(), BboxCmp);
+    for (size_t i = 0; i < p.size(); ++i) {
+        if (p[i].deleted)
+            continue;
+        for (size_t j = i + 1; j < p.size(); ++j) {
+
+            if (!p[j].deleted) {
+                cv::Rect intersect = p[i].rect & p[j].rect;
+                float iou = intersect.area() * 1.0f / p[j].rect.area();
+                if (iou > threshold) {
+                    p[j].deleted = true;
                 }
             }
         }

@@ -190,13 +190,20 @@ class Face : public Object {
 
  public:
     Face()
-            : Object() {
+            : Object(OBJECT_FACE) {
 
     }
+
+    Face(Identification id, Detection detection, Confidence confidence)
+            : Object(OBJECT_FACE) {
+        id_ = id;
+        confidence_ = confidence;
+        detection_ = detection;
+    }
+
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-            : Object(),
-              type_(OBJECT_FACE) {
+            : Object(OBJECT_FACE) {
         id_ = id;
         confidence_ = confidence;
         detection_.box = Box(x, y, width, height);

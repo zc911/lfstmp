@@ -2,7 +2,7 @@
 
 namespace dg {
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-        int batch_size, bool gpu_id, int rescale, bool is_model_encrypt)
+        int batch_size, int gpu_id, int rescale, bool is_model_encrypt)
         : Processor() {
 
     CaffeConfig config;

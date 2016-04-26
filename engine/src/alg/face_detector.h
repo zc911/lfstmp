@@ -4,19 +4,15 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <caffe/caffe.hpp>
+#include "model/basic.h"
+#include "model/model.h"
+#include "caffe_helper.h"
 
 using namespace std;
 using namespace cv;
 using namespace caffe;
 
 namespace dg {
-
-struct Bbox {
-    float confidence;
-    Rect rect;
-    bool deleted;
-
-};
 
 class FaceDetector {
  public:
@@ -25,12 +21,12 @@ class FaceDetector {
                  const Size &image_size, const float conf_thres);
 
     virtual ~FaceDetector();
-    vector<vector<struct Bbox>> Detect(vector<Mat> imgs);
+    vector<vector<Detection>> Detect(vector<Mat> imgs);
 
  private:
     void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
     void GetDetection(vector<Blob<float>*>& outputs,
-                      vector<vector<struct Bbox>> &final_vbbox);
+                      vector<vector<Detection> > &final_vbbox);
     void NMS(vector<struct Bbox>& p, float threshold);
 
  private:

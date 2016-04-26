@@ -1,10 +1,7 @@
 #include "alg/face_detector.h"
+#include "caffe_helper.h"
 
 namespace dg {
-
-bool mycmp(struct Bbox b1, struct Bbox b2) {
-    return b1.confidence > b2.confidence;
-}
 
 FaceDetector::FaceDetector(const string& model_file, const string& trained_file,
                            const bool use_gpu, const int batch_size,
@@ -119,37 +116,18 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
     outputs.push_back(output_reg);
 }
 
-void FaceDetector::NMS(vector<struct Bbox>& p, float threshold) {
-    sort(p.begin(), p.end(), mycmp);
-    for (size_t i = 0; i < p.size(); ++i) {
-        if (p[i].deleted)
-            continue;
-        for (size_t j = i + 1; j < p.size(); ++j) {
-
-            if (!p[j].deleted) {
-                cv::Rect intersect = p[i].rect & p[j].rect;
-                float iou = intersect.area() * 1.0f / p[j].rect.area();
-                if (iou > threshold) {
-                    p[j].deleted = true;
-                }
-            }
-        }
-    }
-}
-
-vector<vector<struct Bbox>> FaceDetector::Detect(vector<Mat> imgs) {
+vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
     vector<Blob<float>*> outputs;
     Forward(imgs, outputs);
 
-    vector<vector<struct Bbox> > boxes_in;
-    vector<struct Bbox> boxes_out;
+    vector<vector<Detection> > boxes_in;
     GetDetection(outputs, boxes_in);
 
     return boxes_in;
 }
 
 void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
-                                vector<vector<struct Bbox> > &final_vbbox) {
+                                vector<vector<Detection> > &final_vbbox) {
     Blob<float>* cls = outputs[0];
     Blob<float>* reg = outputs[1];
 
@@ -232,7 +210,10 @@ void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
         for (size_t i = 0; i < vbbox.size(); ++i) {
             struct Bbox box = vbbox[i];
             if (!box.deleted) {
-                final_vbbox[img_idx].push_back(vbbox[i]);
+                Detection detection;
+                detection.box = vbbox[i].rect;
+                detection.confidence = vbbox[i].confidence;
+                final_vbbox[img_idx].push_back(detection);
             }
         }
     }
