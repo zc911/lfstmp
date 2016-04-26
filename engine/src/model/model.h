@@ -189,53 +189,17 @@ class Vehicle : public Object {
 class Face : public Object {
 
  public:
+    Face()
+            : Object() {
+
+    }
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-            : x_(x),
-              y_(y),
-              width_(width),
-              height_(height) {
+            : Object(),
+              type_(OBJECT_FACE) {
         id_ = id;
         confidence_ = confidence;
-    }
-
-    Face() {
-        x_ = 0;
-        y_ = 0;
-        width_ = 0;
-        height_ = 0;
-    }
-
-    int x() const {
-        return x_;
-    }
-
-    void set_x(int x) {
-        x_ = x;
-    }
-
-    int y() const {
-        return y_;
-    }
-
-    void set_y(int y) {
-        y_ = y;
-    }
-
-    int width() const {
-        return width_;
-    }
-
-    void set_width(int width) {
-        width_ = width;
-    }
-
-    int height() const {
-        return height_;
-    }
-
-    void set_height(int height) {
-        height_ = height;
+        detection_.box = Box(x, y, width, height);
     }
 
     FaceFeature feature() const {
@@ -247,10 +211,6 @@ class Face : public Object {
     }
 
  private:
-    int x_;
-    int y_;
-    int width_;
-    int height_;
     FaceFeature feature_;
 };
 

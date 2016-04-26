@@ -22,6 +22,7 @@ class WitnessEngine : SimpleEngine {
     WitnessEngine(const Config &config);
     ~WitnessEngine();
     virtual void Process(Frame *frame);
+    virtual void Process(FrameBatch *frame);
 
  private:
     void init(const Config &config);
@@ -41,6 +42,7 @@ class WitnessEngine : SimpleEngine {
     bool enable_vehicle_feature_vector_;
 
     bool enable_face_;
+    bool enable_face_feature_vector_;
 
 };
 

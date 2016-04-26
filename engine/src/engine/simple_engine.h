@@ -24,6 +24,7 @@ class SimpleEngine {
     }
 
     virtual void Process(Frame *frame) =0;
+    virtual void Process(FrameBatch *frame) =0;
 
 }
 ;

@@ -1,5 +1,7 @@
 #include "witness_engine.h"
 #include "engine_config_value.h"
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
 
 namespace dg {
 
@@ -24,6 +26,23 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
+void WitnessEngine::Process(Frame *frame) {
+
+    if (frame->operation().Check(OPERATION_VEHICLE)) {
+        vehicle_processor_->Update(frame);
+    }
+
+    if (frame->operation().Check(OPERATION_FACE)) {
+        face_processor_->Update(frame);
+    }
+
+}
+
+// TODO
+void WitnessEngine::Process(FrameBatch *frame) {
+
+}
+
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(
             EngineConfigValue::FEATURE_VEHICLE_ENABLE);
@@ -43,7 +62,8 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
             EngineConfigValue::FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
 
     enable_face_ = (bool) config.Value(EngineConfigValue::FEATURE_FACE_ENABLE);
-
+    enable_face_feature_vector_ = (bool) config.Value(
+            FEATURE_FACE_ENABLE_FEATURE_VECTOR);
 }
 
 void WitnessEngine::init(const Config &config) {
@@ -77,6 +97,11 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
+        face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
+        if(enable_face_feature_vector_) {
+            LOG(INFO) << "Enable face feature vector processor." << endl;
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("","", true, 1, "",""));
+        }
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
