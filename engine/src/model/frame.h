@@ -36,24 +36,21 @@ class Frame {
     Frame(const Identification id)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT),
-              operation_(0),
-              payload_(0) {
+              status_(FRAME_STATUS_INIT) {
+        payload_ = 0;
     }
 
     Frame(const Identification id, unsigned int width, unsigned int height,
           unsigned char *data)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT),
-              operation_(0) {
+              status_(FRAME_STATUS_INIT) {
         payload_ = new Payload(id_, width, height, data);
     }
     Frame(const Identification id, Mat img)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT),
-              operation_(0) {
+              status_(FRAME_STATUS_INIT) {
         payload_ = new Payload(id_, img);
     }
     virtual ~Frame() {
@@ -144,9 +141,10 @@ class Frame {
     volatile FrameStatus status_;
     Operation operation_;
     Payload *payload_;
-    // base pointer
+// base pointer
     vector<Object *> objects_;
-};
+}
+;
 
 class RenderableFrame : public Frame {
  public:

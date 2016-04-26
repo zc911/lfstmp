@@ -11,7 +11,7 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include "caffe/caffe.hpp"
-
+#include "caffe_helper.h"
 #include "model/model.h"
 #include "caffe_config.h"
 
@@ -20,13 +20,6 @@ using namespace cv;
 using namespace caffe;
 
 namespace dg {
-
-struct Bbox {
-    float confidence;
-    Rect rect;
-    bool deleted;
-    int cls_id;
-};
 
 class VehicleMultiTypeDetector {
  public:

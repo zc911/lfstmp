@@ -58,18 +58,30 @@ enum Operations
 }
 ;
 
-typedef struct {
+typedef struct Operation {
     OperationValue operate;
+
+    Operation()
+            : operate(OPERATION_NONE) {
+
+    }
 
     bool Check(Operations op) {
         return operate | op;
     }
 
-    bool Check(const Operation &operation) {
-        return Check(this->operate, operation.operate);
+    void Set(Operations op) {
+        operate = operate | op;
+        if (op >= OPERATION_FACE && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+            Set(OPERATION_VEHICLE);
+        }
+        if (op >= OPERATION_FACE_DETECTOR
+                && op <= OPERATION_FACE_FEATURE_VECTOR) {
+            Set(OPERATION_FACE);
+        }
     }
 
-    void Set(Operations op) {
+    void Set(OperationValue op) {
         operate = operate | op;
         if (op >= OPERATION_FACE && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
