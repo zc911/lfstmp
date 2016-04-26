@@ -5,21 +5,21 @@ package dg;
 import "common.proto";
 
 service SimilarityService { 
-	rpc GetRankedFaceVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
-	rpc GetRankedCarVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
 	rpc GetRankedVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
 }
 
 message FeatureRankingRequest {
 	int64 ReqId = 1;
+	RecognizeType Type = 2;
 	// This is the image data.
-	Image Image = 2;
+	Image Image = 3;
 	// This is the interested areas.
-	repeated Cutboard InterestedAreas = 3;
-	repeated FeatureVector Candidates = 4;
+	repeated Cutboard InterestedAreas = 4;
+	repeated Cutboard DisabledAreas = 5;
+	repeated FeatureVector Candidates = 6;
 	// Limit limits the count of results returned.
 	// If zero, returns all.
-	int32 Limit = 5;
+	int32 Limit = 7;
 }
 
 message FeatureRankingResponse {
