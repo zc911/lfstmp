@@ -11,6 +11,8 @@
 #include <vector>
 #include <pthread.h>
 
+#include <opencv2/core/core.hpp>
+
 #include "payload.h"
 
 using namespace std;
@@ -35,8 +37,8 @@ class Frame {
               status_(FRAME_STATUS_INIT),
               operation_(0),
               payload_(0) {
-
     }
+
     Frame(const Identification id, unsigned int width, unsigned int height,
           unsigned char *data)
             : id_(id),
@@ -44,6 +46,13 @@ class Frame {
               status_(FRAME_STATUS_INIT),
               operation_(0) {
         payload_ = new Payload(id_, width, height, data);
+    }
+    Frame(const Identification id, Mat img)
+            : id_(id),
+              timestamp_(0),
+              status_(FRAME_STATUS_INIT),
+              operation_(0) {
+        payload_ = new Payload(id_, img);
     }
     virtual ~Frame() {
         if (payload_)
@@ -121,6 +130,10 @@ class Frame {
 
     void set_timestamp(Timestamp timestamp) {
         timestamp_ = timestamp;
+    }
+
+    int get_object_size() {
+        return objects_.size();
     }
 
  protected:
