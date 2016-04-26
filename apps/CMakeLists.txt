@@ -1,19 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
-PROJECT(Matrix_App)
-
-IF(CMAKE_BUILD_TYPE)
-ELSE()
-	SET(CMAKE_BUILD_TYPE "Debug")
-ENDIF()
-
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -g -O3 -w")
-SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -O3 -w")
-
-SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
-
-INCLUDE_DIRECTORIES(src include ../engine/src/model)
-
-LIST(APPEND LIBS glog gflags protobuf grpc++ grpc jsoncpp pthread)
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(tools)

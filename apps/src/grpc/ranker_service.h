@@ -7,16 +7,17 @@
  * Description : 
  * ==========================================================================*/
 
+ #ifndef MATRIX_APPS_GRPC_RANKER_SERVICE_H_
+ #define MATRIX_APPS_GRPC_RANKER_SERVICE_H_
 
 #include <glog/logging.h>
 #include <grpc++/grpc++.h>
 
-#include "codec/base64.h"
-#include "model/simservice.grpc.pb.h"
-#include "service/ranker_service.h"
+#include "codec/base64.h" //from util
+#include "model/simservice.grpc.pb.h" //from apps
+#include "service/ranker_service.h" //from engine
 
-using namespace model;
-using namespace dg;
+
 using namespace cv;
 using namespace std;
 
@@ -25,13 +26,61 @@ using grpc::ServerBuilder;
 using grpc::ServerContext;
 using grpc::Status;
 
-int USER_ERROR__missing_dlib_all_source_cpp_file__OR__inconsistent_use_of_DEBUG_or_ENABLE_ASSERTS_preprocessor_directives;
-
-class RankerServiceImpl final : public model::SimilarityService::Service
+namespace dg {
+class RankerServiceImpl final : public SimilarityService::Service
 {
+public:
+    RankerServiceImpl(Config *config)
+        : config_(config)
+    {
+    }
+
+
 private:
     CarRankService car_ranker_;
     FaceRankService face_ranker_;
+
+    //this is for test compatible 
+    virtual Status GetRankedVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    {
+        try
+        {
+            return process(request, car_ranker_, response) ? Status::OK : Status::CANCELLED;
+        }
+        catch (const std::exception& e)
+        {
+            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+            return Status::CANCELLED;
+        }
+    }
+
+    virtual Status GetRankedCarVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    {
+        try
+        {
+            return process(request, car_ranker_, response) ? Status::OK : Status::CANCELLED;
+        }
+        catch (const std::exception& e)
+        {
+            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+            return Status::CANCELLED;
+        }
+    }
+
+    virtual Status GetRankedFaceVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
+    {
+        try
+        {
+            return process(request, face_ranker_, response) ? Status::OK : Status::CANCELLED;
+        }
+        catch (const std::exception& e)
+        {
+            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+            return Status::CANCELLED;
+        }
+
+        return Status::CANCELLED;
+    }
 
     template <typename F>
     bool process(const FeatureRankingRequest* request, RankService<F>& ranker,  FeatureRankingResponse* response)
@@ -107,81 +156,10 @@ private:
 
         return true;
     }
-
-    //this is for test compatible 
-    virtual Status GetRankedVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
-    {
-        try
-        {
-            return process(request, car_ranker_, response) ? Status::OK : Status::CANCELLED;
-        }
-        catch (const std::exception& e)
-        {
-            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
-            return Status::CANCELLED;
-        }
-    }
-
-
-    virtual Status GetRankedCarVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
-    {
-        try
-        {
-            return process(request, car_ranker_, response) ? Status::OK : Status::CANCELLED;
-        }
-        catch (const std::exception& e)
-        {
-            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
-            return Status::CANCELLED;
-        }
-    }
-
-
-    
-    virtual Status GetRankedFaceVector(ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
-    {
-        try
-        {
-            return process(request, face_ranker_, response) ? Status::OK : Status::CANCELLED;
-        }
-        catch (const std::exception& e)
-        {
-            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
-            return Status::CANCELLED;
-        }
-
-        return Status::CANCELLED;
-    }
 };
 
-void RunServer(string address)
-{
-    RankerServiceImpl service;
-    ServerBuilder builder;
-
-    builder.AddListeningPort(address, grpc::InsecureServerCredentials());
-    builder.RegisterService(&service);
-
-    std::unique_ptr<Server> server(builder.BuildAndStart());
-    LOG(INFO)<< "Server listening on " << address;
-    server->Wait();
 }
 
-int main(int argc, char* argv[])
-{
-    string server("0.0.0.0:9876");
-    if (argc < 2)
-    {
-        cout << "Usage: " << argv[0] << " [address] [glog args]" << endl;
-    }
-    else
-    {
-        server = string(argv[1]);
-        if (server.size() == 0)server = string("0.0.0.0:9876");
-    }
 
-    google::InitGoogleLogging("rankerd");
-    google::ParseCommandLineFlags(&argc, &argv, true);
-    RunServer(server);
-    return 0;
-}
+
+ #endif //MATRIX_APPS_GRPC_RANKER_SERVICE_H_

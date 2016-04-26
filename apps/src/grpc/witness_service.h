@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <iostream>
 #include <grpc++/grpc++.h>
-#include "model/proto/witness.grpc.pb.h"
+#include "model/witness.grpc.pb.h"
 #include "basic_service.h"
 #include "config/config.h"
 
@@ -23,15 +23,18 @@ using grpc::Status;
 
 namespace dg {
 
-class WitnessServiceImpl : public WitnessService::Service, public BasicService {
+class WitnessServiceImpl : public WitnessService::Service 
+{
  public:
 
     WitnessServiceImpl(Config *config)
-            : config_(config) {
-        addr_ = (string) config_->Value("System/Ip") + ":"
-                + (string) config_->Value("System/Port");
-
+            : config_(config) 
+    {
     }
+
+ private:
+    Config *config_;
+
     grpc::Status Recognize(::grpc::ServerContext* context,
                            const ::dg::RecognizeRequest* request,
                            ::dg::RecognizeResponse* response) {
@@ -51,19 +54,6 @@ class WitnessServiceImpl : public WitnessService::Service, public BasicService {
                                 ::dg::BatchRecognizeResponse* response) {
         return grpc::Status::OK;
     }
-
-    void Run() {
-        ServerBuilder builder;
-        builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
-        builder.RegisterService(this);
-        std::unique_ptr<Server> server(builder.BuildAndStart());
-        std::cout << "Server listening on " << addr_ << std::endl;
-        server->Wait();
-    }
-
- private:
-    Config *config_;
-    string addr_;
 };
 }
 #endif /* DEEPV_SERVICE_H_ */

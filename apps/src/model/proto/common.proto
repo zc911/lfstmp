@@ -26,7 +26,7 @@ message CutboardImage {
 }
 
 message Color {
-	int32 Id = 1;
+	int32 Id = 1; //DEPLICATE!
 	float Confidence = 2;
 	string ColorName = 3;
 }

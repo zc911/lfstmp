@@ -32,7 +32,8 @@ enum RecognizeFunction {
 
 message RecognizeParam {
 	RecognizeType Type = 1;
-	RecognizeFunction Function = 2;
+	repeated RecognizeFunction Function = 2;
+	map<string, string> Adjusts = 3;
 }
 
 message RecognizeRequest {
