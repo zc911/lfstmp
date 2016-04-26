@@ -46,6 +46,7 @@ class Payload {
     Identification id_;
     cv::Mat data_;
     cv::Mat rgb_;
+
 };
 
 }

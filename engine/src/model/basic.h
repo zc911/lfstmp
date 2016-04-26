@@ -25,6 +25,10 @@ typedef vector<uchar> FeatureVector;
 typedef cv::Rect Box;
 typedef uint64_t Operation;
 
+struct FaceFeature {
+    float data[256];
+};
+
 enum ContentType {
     IMAGE_JPEG = 1,
     FILE_MP4 = 2,
