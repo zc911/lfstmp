@@ -33,19 +33,19 @@ public:
 	CarMatcher();
 	virtual ~CarMatcher();
 	
-	void ExtractDescriptor(const Mat &img, CarFeature &des);
+	void ExtractDescriptor(const Mat &img, CarRankFeature &des);
 
-	vector<int> ComputeMatchScore(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
-	vector<int> ComputeMatchScore(const int &query_img_idx, const Rect &in_box, const vector<CarFeature> &all_des)
+	vector<int> ComputeMatchScore(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
+	vector<int> ComputeMatchScore(const int &query_img_idx, const Rect &in_box, const vector<CarRankFeature> &all_des)
 	{
-		const CarFeature &des = all_des[query_img_idx];
+		const CarRankFeature &des = all_des[query_img_idx];
 		vector<int> score = ComputeMatchScore(des, in_box, all_des);
 		score[query_img_idx] = -999;
 		return score;
 	}
 
-	int ComputeMatchScore(const CarFeature &des1, const CarFeature &des2, const Rect &box);
-	int ComputeMatchScore(const CarFeature &des1, const CarFeature &des2)
+	int ComputeMatchScore(const CarRankFeature &des1, const CarRankFeature &des2, const Rect &box);
+	int ComputeMatchScore(const CarRankFeature &des1, const CarRankFeature &des2)
 	{
 		LOG(INFO)<<"No interest area inputed.";
 		return ComputeMatchScore(des1, des2, Rect(-1, -1, -1, -1));
@@ -97,12 +97,12 @@ private:
 	ushort *db_height_cuda_;
 	int *score_cuda_;
 
-	vector<int> computeMatchScoreGpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+	vector<int> computeMatchScoreGpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
 #endif
-	vector<int> computeMatchScoreCpu(const CarFeature &des, const Rect &in_box, const vector<CarFeature> &all_des);
+	vector<int> computeMatchScoreCpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
 
 
-	void calcNewBox(const CarFeature &des1, const CarFeature &des2, const Rect &box, Rect &box1, Rect &box2);
+	void calcNewBox(const CarRankFeature &des1, const CarRankFeature &des2, const Rect &box, Rect &box1, Rect &box2);
 
 	void calcNewSize(const ushort &ori_height, const ushort &ori_width, Size &new_size)
 	{
