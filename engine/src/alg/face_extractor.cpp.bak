@@ -56,7 +56,7 @@ FaceExtractor::~FaceExtractor()
 
 }
 
-void FaceExtractor::Classify(const vector<Mat>& images, const vector<FaceFeature>& features, vector<vector<Score>>& predicts)
+void FaceExtractor::Classify(const vector<Mat>& images, const vector<FaceRankFeature>& features, vector<vector<Score>>& predicts)
 {
     Blob<float>* input_blob = net_->input_blobs()[0];
     float* input_data = input_blob->mutable_cpu_data();
