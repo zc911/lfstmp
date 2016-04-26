@@ -12,22 +12,34 @@
 #include "alg/face_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
+#include "processor.h"
 
-namespace dg
-{
+namespace dg {
 
-class FaceFeatureExtractProcessor
-{
-public:
-	FaceFeatureExtractProcessor(const string& model_file, const string& trained_file,
-			const bool use_gpu, const int batch_size, const string &align_model,
-			const string &avg_face);
-	virtual ~FaceFeatureExtractProcessor();
+class FaceFeatureExtractProcessor : public Processor {
+ public:
+    FaceFeatureExtractProcessor(const string& model_file,
+                                const string& trained_file, const bool use_gpu,
+                                const int batch_size, const string &align_model,
+                                const string &avg_face);
+    virtual ~FaceFeatureExtractProcessor();
 
-	void Update(Frame *frame);
+    void Update(Frame *frame);
+    virtual void Update(FrameBatch *frameBatch) {
+    }
+    ;
 
-private:
-	FaceFeatureExtractor *extractor_;
+    virtual bool checkOperation(Frame *frame) {
+        return true;
+    }
+    ;
+    virtual bool checkStatus(Frame *frame) {
+        return true;
+    }
+    ;
+
+ private:
+    FaceFeatureExtractor *extractor_;
 };
 
 } /* namespace dg */

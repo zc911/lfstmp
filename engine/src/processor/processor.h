@@ -10,6 +10,7 @@
 
 #include "model/basic.h"
 #include "model/model.h"
+#include "model/frame.h"
 
 namespace dg {
 /**

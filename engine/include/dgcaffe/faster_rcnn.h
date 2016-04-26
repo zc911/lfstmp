@@ -87,7 +87,7 @@ Faster_rcnn::Faster_rcnn(const string& model_file, const string& trained_file,
 
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
-                                                             << "Input layer should have 1 or 3 channels.";
+            << "Input layer should have 1 or 3 channels.";
     pixel_means_.push_back(102.9801);
     pixel_means_.push_back(115.9465);
     pixel_means_.push_back(122.7717);
@@ -158,7 +158,7 @@ void Faster_rcnn::forward(vector<cv::Mat> imgs, vector<Blob<float>*> &outputs) {
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {
                 for (int j = 0; j < sample.cols; j++) {
-                    input_data[cnt] = float(sample.at < uchar > (i, j * 3 + k))
+                    input_data[cnt] = float(sample.at<uchar>(i, j * 3 + k))
                             - pixel_means_[k];
                     cnt += 1;
                 }
@@ -321,4 +321,3 @@ void Faster_rcnn::get_detection(vector<Blob<float>*>& outputs,
 }
 
 #endif // FASTER_RCNN_H_INCLUDED
-
