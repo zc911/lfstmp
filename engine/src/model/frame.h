@@ -171,7 +171,7 @@ class CarRankFrame : public Frame {
  public:
     CarRankFrame(Identification id, const Mat& image,
                  const vector<Rect>& hotspots,
-                 const vector<CarFeature>& candidates)
+                 const vector<CarRankFeature>& candidates)
             : Frame(id),
               image_(image),
               hotspots_(hotspots),
@@ -188,7 +188,7 @@ class CarRankFrame : public Frame {
 
     const Mat& image_;
     const vector<Rect>& hotspots_;
-    const vector<CarFeature>& candidates_;
+    const vector<CarRankFeature>& candidates_;
 
     vector<Score> result_;
 };
@@ -197,7 +197,7 @@ class FaceRankFrame : public Frame {
  public:
     FaceRankFrame(Identification id, const Mat& image,
                   const vector<Rect>& hotspots,
-                  const vector<FaceFeature>& candidates)
+                  const vector<FaceRankFeature>& candidates)
             : Frame(id),
               image_(image),
               hotspots_(hotspots),
@@ -214,7 +214,7 @@ class FaceRankFrame : public Frame {
 
     const Mat& image_;
     const vector<Rect>& hotspots_;
-    const vector<FaceFeature>& candidates_;
+    const vector<FaceRankFeature>& candidates_;
 
     vector<Score> result_;
 };
