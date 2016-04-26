@@ -4,7 +4,8 @@
 #include "vis/display.h"
 
 using namespace dg;
-
+/*
+// disable this to make lib, move to wrapper or test later
 int main() {
 
     RingBuffer *buffer = new RingBuffer(100);
@@ -18,3 +19,4 @@ int main() {
     displayer->Run();
 
 }
+*/
