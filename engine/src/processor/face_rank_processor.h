@@ -70,30 +70,24 @@ class FaceRankProcessor : public Processor {
         return frame->status() == FRAME_STATUS_FINISHED ? false : true;
     }
 
-    void rank(const Mat& image) {
-
-
-    }
-
 private:
     FaceDetector detector_;
     FaceFeatureExtractor extractor_;
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates)
+    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates)
     {
         std::vector<Mat> images;
         images.push_back(image);
-        std::vector<FaceFeature> features = extractor_.Extract(images);
+        std::vector<FaceRankFeature> features = extractor_.Extract(images);
 
-        FaceFeature feature = features[0];
+        vector<float> feature(features[0].data, features[0].data + 256);
 
-            vector<Score> pred;
-            for (int i = 0; i < features.size(); i ++) {
-                Score p(i, get_cos_similarity(feature.descriptor_, features[i].descriptor_));
-                pred.push_back(p);
-            }
-            return pred;
-
+        vector<Score> pred;
+        for (int i = 0; i < features.size(); i ++) {
+            Score p(i, get_cos_similarity(feature, candidates[i].descriptor_));
+            pred.push_back(p);
+        }
+        return pred;
     }
 
 

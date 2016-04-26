@@ -67,9 +67,9 @@ private:
     TimingProfiler t_profiler_matching_;
     CarMatcher car_matcher_;
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates)
+    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates)
     {
-        CarFeature des;
+        CarRankFeature des;
         car_matcher_.ExtractDescriptor(image, des);
         LOG(INFO) << "image feature w(" << des.width_ << "), h(" << des.height_ << ")"; 
 
