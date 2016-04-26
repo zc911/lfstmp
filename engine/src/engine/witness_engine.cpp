@@ -1,4 +1,5 @@
 #include "witness_engine.h"
+#include "engine_config_value.h"
 
 namespace dg {
 
@@ -23,10 +24,62 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
+void WitnessEngine::initFeatureOptions(const Config &config) {
+    enable_vehicle_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE);
+
+    enable_vehicle_type_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_TYPE);
+
+    enable_vehicle_color_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_COLOR);
+    enable_vehicle_plate_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_PLATE);
+    enable_vehicle_plate_enhance_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_PLATE_ENHANCED);
+    enable_vehicle_marker_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_MARKER);
+    enable_vehicle_feature_vector_ = (bool) config.Value(
+            EngineConfigValue::FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+
+    enable_face_ = (bool) config.Value(EngineConfigValue::FEATURE_FACE_ENABLE);
+
+}
+
 void WitnessEngine::init(const Config &config) {
 
-    processor_ = new VehicleMultiTypeDetectorProcessor();
-    processor_->SetNextProcessor(new VehicleClassifierProcessor());
+    if (enable_vehicle_) {
+        LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
+        vehicle_processor_ = new VehicleMultiTypeDetectorProcessor();
+        Processor *last = vehicle_processor_;
+        if (enable_vehicle_type_) {
+            LOG(INFO)<< "Enable vehicle type classification processor." << endl;
+            Processor *vehicle_class = new VehicleClassifierProcessor();
+            last->SetNextProcessor(vehicle_class);
+            last = vehicle_class;
+        }
+        if (enable_vehicle_color_) {
+            LOG(INFO)<< "Enable vehicle color classification processor." << endl;
+        }
+        if (enable_vehicle_plate_) {
+            LOG(INFO)<< "Enable vehicle plate processor." << endl;
+        }
+        if (enable_vehicle_marker_) {
+            LOG(INFO)<< "Enable vehicle marker processor." << endl;
+        }
+        if (enable_vehicle_feature_vector_) {
+            LOG(INFO)<< "Enable vehicle feature vector processor." << endl;
+        }
+
+        LOG(INFO)<< "Init vehicle processor pipeline finished. " << endl;
+
+    }
+
+    if (enable_face_) {
+        LOG(INFO) << "Init face processor pipeline. " << endl;
+        LOG(INFO) << "Init face processor pipeline finished. " << endl;
+    }
+
     is_init_ = true;
 }
 
