@@ -15,6 +15,10 @@ int main(int argc, char* argv[]) {
 
     google::InitGoogleLogging(argv[0]);
 
+#ifdef DEBUG
+    FLAGS_logtostderr = 1;
+#endif
+
     Config *config = Config::GetInstance();
     config->Load("config.json");
 

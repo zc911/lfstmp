@@ -23,7 +23,6 @@ typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
 typedef vector<uchar> FeatureVector;
 typedef cv::Rect Box;
-typedef uint64_t Operation;
 
 struct FaceFeature {
     float data[256];
@@ -41,13 +40,47 @@ enum MessageStatus {
     MESSAGE_STATUS_SENT = 2,
 };
 
-enum Operations {
-    OPERATION_DETECT = 1,
-    OPERATION_TRACK = 2,
-    OPERATION_VEHICLE_STYLE = 4,
-    OPERATION_VEHICLE_COLOR = 8,
-    OPERATION_VEHICLE_PLATE = 16,
-};
+typedef uint64_t OperationValue;
+enum Operations
+    : OperationValue {
+        OPERATION_NONE = 0,
+    OPERATION_VEHICLE = 1 << 0,
+    OPERATION_VEHICLE_DETECT = 1 << 1,
+    OPERATION_VEHICLE_TRACK = 1 << 2,
+    OPERATION_VEHICLE_STYLE = 1 << 3,
+    OPERATION_VEHICLE_COLOR = 1 << 4,
+    OPERATION_VEHICLE_MARKER = 1 << 5,
+    OPERATION_VEHICLE_FEATURE_VECTOR = 1 << 6,
+    OPERATION_FACE = 1 << 7,
+    OPERATION_FACE_DETECTOR = 1 << 8,
+    OPERATION_FACE_FEATURE_VECTOR = 1 << 9,
+    OPERATION_MAX = 1 << 63
+}
+;
+
+typedef struct {
+    OperationValue operate;
+
+    bool Check(Operations op) {
+        return operate | op;
+    }
+
+    bool Check(const Operation &operation) {
+        return Check(this->operate, operation.operate);
+    }
+
+    void Set(Operations op) {
+        operate = operate | op;
+        if (op >= OPERATION_FACE && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+            Set(OPERATION_VEHICLE);
+        }
+        if (op >= OPERATION_FACE_DETECTOR
+                && op <= OPERATION_FACE_FEATURE_VECTOR) {
+            Set(OPERATION_FACE);
+        }
+    }
+
+} Operation;
 
 typedef struct {
     int id;
