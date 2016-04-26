@@ -25,8 +25,22 @@ class WitnessEngine : SimpleEngine {
 
  private:
     void init(const Config &config);
-    Processor *processor_;
+    void initFeatureOptions(const Config &config);
+
+    Processor *vehicle_processor_;
+    Processor *face_processor_;
+
     bool is_init_;
+
+    bool enable_vehicle_;
+    bool enable_vehicle_type_;
+    bool enable_vehicle_color_;
+    bool enable_vehicle_plate_;
+    bool enable_vehicle_plate_enhance_;
+    bool enable_vehicle_marker_;
+    bool enable_vehicle_feature_vector_;
+
+    bool enable_face_;
 
 };
 
