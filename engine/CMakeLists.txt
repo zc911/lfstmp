@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 cmake_minimum_required(VERSION 2.8)
 PROJECT(matrix)
 
@@ -30,5 +31,8 @@ FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS ${CUDA_LIB_PATH})
 
 LIST(APPEND LIBS glog gflags protobuf leveldb grpc++ grpc jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d  gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)
 LIST(APPEND LIBS ${DLIB} ${LIB_TBB} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA})
+=======
+>>>>>>> ranker
 
 ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(test)
