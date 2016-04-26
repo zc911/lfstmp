@@ -27,7 +27,6 @@ class FaceDetector {
     void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
     void GetDetection(vector<Blob<float>*>& outputs,
                       vector<vector<Detection> > &final_vbbox);
-    void NMS(vector<struct Bbox>& p, float threshold);
 
  private:
     caffe::shared_ptr<Net<float> > net_;
