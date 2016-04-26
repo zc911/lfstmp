@@ -42,8 +42,33 @@ class Cutboard;
 class CutboardImage;
 class FeatureVector;
 class Image;
+class MatrixError;
+class Time;
 class VideoMetadata;
 
+enum RecognizeType {
+  REC_TYPE_DEFAULT = 0,
+  REC_TYPE_VEHICLE = 1,
+  REC_TYPE_FACE = 2,
+  REC_TYPE_ALL = 3,
+  RecognizeType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  RecognizeType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool RecognizeType_IsValid(int value);
+const RecognizeType RecognizeType_MIN = REC_TYPE_DEFAULT;
+const RecognizeType RecognizeType_MAX = REC_TYPE_ALL;
+const int RecognizeType_ARRAYSIZE = RecognizeType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor();
+inline const ::std::string& RecognizeType_Name(RecognizeType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    RecognizeType_descriptor(), value);
+}
+inline bool RecognizeType_Parse(
+    const ::std::string& name, RecognizeType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<RecognizeType>(
+    RecognizeType_descriptor(), name, value);
+}
 enum ObjType {
   UNKNOWNOBJ = 0,
   VEHICLE = 1,
@@ -97,6 +122,181 @@ inline bool DataFmtType_Parse(
     DataFmtType_descriptor(), name, value);
 }
 // ===================================================================
+
+class Time : public ::google::protobuf::Message {
+ public:
+  Time();
+  virtual ~Time();
+
+  Time(const Time& from);
+
+  inline Time& operator=(const Time& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Time& default_instance();
+
+  void Swap(Time* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Time* New() const { return New(NULL); }
+
+  Time* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Time& from);
+  void MergeFrom(const Time& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Time* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int64 Seconds = 1;
+  void clear_seconds();
+  static const int kSecondsFieldNumber = 1;
+  ::google::protobuf::int64 seconds() const;
+  void set_seconds(::google::protobuf::int64 value);
+
+  // optional int64 NanoSecs = 2;
+  void clear_nanosecs();
+  static const int kNanoSecsFieldNumber = 2;
+  ::google::protobuf::int64 nanosecs() const;
+  void set_nanosecs(::google::protobuf::int64 value);
+
+  // @@protoc_insertion_point(class_scope:dg.Time)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 seconds_;
+  ::google::protobuf::int64 nanosecs_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static Time* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class MatrixError : public ::google::protobuf::Message {
+ public:
+  MatrixError();
+  virtual ~MatrixError();
+
+  MatrixError(const MatrixError& from);
+
+  inline MatrixError& operator=(const MatrixError& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MatrixError& default_instance();
+
+  void Swap(MatrixError* other);
+
+  // implements Message ----------------------------------------------
+
+  inline MatrixError* New() const { return New(NULL); }
+
+  MatrixError* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const MatrixError& from);
+  void MergeFrom(const MatrixError& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MatrixError* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 Code = 1;
+  void clear_code();
+  static const int kCodeFieldNumber = 1;
+  ::google::protobuf::int32 code() const;
+  void set_code(::google::protobuf::int32 value);
+
+  // optional string Message = 2;
+  void clear_message();
+  static const int kMessageFieldNumber = 2;
+  const ::std::string& message() const;
+  void set_message(const ::std::string& value);
+  void set_message(const char* value);
+  void set_message(const char* value, size_t size);
+  ::std::string* mutable_message();
+  ::std::string* release_message();
+  void set_allocated_message(::std::string* message);
+
+  // @@protoc_insertion_point(class_scope:dg.MatrixError)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr message_;
+  ::google::protobuf::int32 code_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static MatrixError* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class VideoMetadata : public ::google::protobuf::Message {
  public:
@@ -304,13 +504,13 @@ class Image : public ::google::protobuf::Message {
   ::std::string* release_uri();
   void set_allocated_uri(::std::string* uri);
 
-  // optional bytes BinData = 5;
+  // optional string BinData = 5;
   void clear_bindata();
   static const int kBinDataFieldNumber = 5;
   const ::std::string& bindata() const;
   void set_bindata(const ::std::string& value);
   void set_bindata(const char* value);
-  void set_bindata(const void* value, size_t size);
+  void set_bindata(const char* value, size_t size);
   ::std::string* mutable_bindata();
   ::std::string* release_bindata();
   void set_allocated_bindata(::std::string* bindata);
@@ -740,6 +940,99 @@ class FeatureVector : public ::google::protobuf::Message {
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// Time
+
+// optional int64 Seconds = 1;
+inline void Time::clear_seconds() {
+  seconds_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 Time::seconds() const {
+  // @@protoc_insertion_point(field_get:dg.Time.Seconds)
+  return seconds_;
+}
+inline void Time::set_seconds(::google::protobuf::int64 value) {
+  
+  seconds_ = value;
+  // @@protoc_insertion_point(field_set:dg.Time.Seconds)
+}
+
+// optional int64 NanoSecs = 2;
+inline void Time::clear_nanosecs() {
+  nanosecs_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 Time::nanosecs() const {
+  // @@protoc_insertion_point(field_get:dg.Time.NanoSecs)
+  return nanosecs_;
+}
+inline void Time::set_nanosecs(::google::protobuf::int64 value) {
+  
+  nanosecs_ = value;
+  // @@protoc_insertion_point(field_set:dg.Time.NanoSecs)
+}
+
+// -------------------------------------------------------------------
+
+// MatrixError
+
+// optional int32 Code = 1;
+inline void MatrixError::clear_code() {
+  code_ = 0;
+}
+inline ::google::protobuf::int32 MatrixError::code() const {
+  // @@protoc_insertion_point(field_get:dg.MatrixError.Code)
+  return code_;
+}
+inline void MatrixError::set_code(::google::protobuf::int32 value) {
+  
+  code_ = value;
+  // @@protoc_insertion_point(field_set:dg.MatrixError.Code)
+}
+
+// optional string Message = 2;
+inline void MatrixError::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& MatrixError::message() const {
+  // @@protoc_insertion_point(field_get:dg.MatrixError.Message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MatrixError::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.MatrixError.Message)
+}
+inline void MatrixError::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.MatrixError.Message)
+}
+inline void MatrixError::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.MatrixError.Message)
+}
+inline ::std::string* MatrixError::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.MatrixError.Message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MatrixError::release_message() {
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MatrixError::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:dg.MatrixError.Message)
+}
+
+// -------------------------------------------------------------------
+
 // VideoMetadata
 
 // optional int64 Timestamp = 1;
@@ -988,7 +1281,7 @@ inline void Image::set_allocated_uri(::std::string* uri) {
   // @@protoc_insertion_point(field_set_allocated:dg.Image.URI)
 }
 
-// optional bytes BinData = 5;
+// optional string BinData = 5;
 inline void Image::clear_bindata() {
   bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1006,7 +1299,7 @@ inline void Image::set_bindata(const char* value) {
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.Image.BinData)
 }
-inline void Image::set_bindata(const void* value, size_t size) {
+inline void Image::set_bindata(const char* value, size_t size) {
   
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -1381,6 +1674,10 @@ inline void FeatureVector::set_allocated_feature(::std::string* feature) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1390,6 +1687,11 @@ inline void FeatureVector::set_allocated_feature(::std::string* feature) {
 namespace google {
 namespace protobuf {
 
+template <> struct is_proto_enum< ::dg::RecognizeType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::RecognizeType>() {
+  return ::dg::RecognizeType_descriptor();
+}
 template <> struct is_proto_enum< ::dg::ObjType> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::ObjType>() {

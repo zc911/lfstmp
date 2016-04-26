@@ -30,20 +30,20 @@ WitnessService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   , rpcmethod_BatchRecognize_(WitnessService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status WitnessService::Stub::Recognize(::grpc::ClientContext* context, const ::dg::RecognizeRequest& request, ::dg::RecognizeResponse* response) {
+::grpc::Status WitnessService::Stub::Recognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::dg::WitnessResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Recognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::RecognizeResponse>* WitnessService::Stub::AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::RecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::RecognizeResponse>(channel_.get(), cq, rpcmethod_Recognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>* WitnessService::Stub::AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>(channel_.get(), cq, rpcmethod_Recognize_, context, request);
 }
 
-::grpc::Status WitnessService::Stub::BatchRecognize(::grpc::ClientContext* context, const ::dg::BatchRecognizeRequest& request, ::dg::BatchRecognizeResponse* response) {
+::grpc::Status WitnessService::Stub::BatchRecognize(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::dg::WitnessBatchResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_BatchRecognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::BatchRecognizeResponse>* WitnessService::Stub::AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::BatchRecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::BatchRecognizeResponse>(channel_.get(), cq, rpcmethod_BatchRecognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>* WitnessService::Stub::AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>(channel_.get(), cq, rpcmethod_BatchRecognize_, context, request);
 }
 
 WitnessService::Service::Service() {
@@ -51,26 +51,26 @@ WitnessService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       WitnessService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::RecognizeRequest, ::dg::RecognizeResponse>(
+      new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::WitnessRequest, ::dg::WitnessResponse>(
           std::mem_fn(&WitnessService::Service::Recognize), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       WitnessService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::BatchRecognizeRequest, ::dg::BatchRecognizeResponse>(
+      new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::WitnessBatchRequest, ::dg::WitnessBatchResponse>(
           std::mem_fn(&WitnessService::Service::BatchRecognize), this)));
 }
 
 WitnessService::Service::~Service() {
 }
 
-::grpc::Status WitnessService::Service::Recognize(::grpc::ServerContext* context, const ::dg::RecognizeRequest* request, ::dg::RecognizeResponse* response) {
+::grpc::Status WitnessService::Service::Recognize(::grpc::ServerContext* context, const ::dg::WitnessRequest* request, ::dg::WitnessResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status WitnessService::Service::BatchRecognize(::grpc::ServerContext* context, const ::dg::BatchRecognizeRequest* request, ::dg::BatchRecognizeResponse* response) {
+::grpc::Status WitnessService::Service::BatchRecognize(::grpc::ServerContext* context, const ::dg::WitnessBatchRequest* request, ::dg::WitnessBatchResponse* response) {
   (void) context;
   (void) request;
   (void) response;

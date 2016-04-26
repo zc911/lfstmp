@@ -2,6 +2,22 @@ syntax = "proto3";
 
 package dg;
 
+message Time {
+    int64 Seconds = 1;
+    int64 NanoSecs = 2;
+}
+
+enum RecognizeType {
+	REC_TYPE_DEFAULT = 0;
+	REC_TYPE_VEHICLE = 1;
+	REC_TYPE_FACE = 2;
+	REC_TYPE_ALL = 3;
+}
+
+message MatrixError {
+	int32 Code = 1;
+	string Message = 2;
+}
 
 message VideoMetadata {
 	int64 Timestamp = 1;
@@ -16,7 +32,7 @@ message Image {
 	int32 Width = 2;
 	int32 Height = 3;
 	string URI = 4;
-	bytes BinData = 5; // base64 format image
+	string BinData = 5; // base64 format image
 }
 
 message CutboardImage {
