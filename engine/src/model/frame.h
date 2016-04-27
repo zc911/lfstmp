@@ -10,9 +10,7 @@
 
 #include <vector>
 #include <pthread.h>
-
 #include <opencv2/core/core.hpp>
-
 #include "payload.h"
 #include "rank_feature.h"
 
@@ -164,9 +162,45 @@ class RenderableFrame : public Frame {
 };
 
 // just derive the base class
-class FrameBatch : private Frame {
+class FrameBatch {
  public:
-    FrameBatch();
+    FrameBatch(const Identification id, int batch_size)
+            : id_(id),
+              batch_size_(batch_size) {
+
+    }
+    int add_frame(Frame *frame) {
+        if (frames_.size() < batch_size_) {
+            frames_.push_back(frame);
+            return frames_.size();
+        } else {
+            return -1;
+        }
+    }
+    int add_frames(vector<Frame *> frames) {
+        if ((frames.size() + frames_.size()) > batch_size_) {
+            return -1;
+        } else {
+            frames_.insert(frames_.end(), frames.begin(), frames.end());
+            return 1;
+        }
+    }
+    vector<Frame *> frames() const {
+        return frames_;
+    }
+    unsigned int batch_size() const {
+        return batch_size_;
+    }
+    vector<Object*> objects() {
+        vector<Object *> objects;
+        for (auto * frame : frames_) {
+
+            objects.insert(objects.end(), frame->objects().begin(),
+                           frame->objects().end());
+        }
+        return objects;
+    }
+
     ~FrameBatch();
  private:
     Identification id_;
@@ -222,8 +256,8 @@ class FaceRankFrame : public Frame {
     const Mat& image_;
     const vector<Rect>& hotspots_;
     const vector<FaceRankFeature>& candidates_;
-
     vector<Score> result_;
+
 };
 
 }

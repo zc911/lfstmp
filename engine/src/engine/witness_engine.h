@@ -11,6 +11,9 @@
 #include "config.h"
 #include "simple_engine.h"
 #include "processor/processor.h"
+#include "processor/vehicle_multi_type_detector_processor.h"
+#include "processor/vehicle_classifier_processor.h"
+
 
 namespace dg {
 
