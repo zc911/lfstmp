@@ -11,19 +11,19 @@
 #define MATRIX_APPS_GRPC_RANKER_H_
 
 #include <grpc++/grpc++.h>
-#include "service/ranker_service.h"
+#include "services/ranker_service.h"
 
 namespace dg 
 {
 
-class GrpcSystemImpl final : public SystemService::Service
+class GrpcRankerServiceImpl final : public SimilarityService::Service
 {
 public:
-    GrpcSystemImpl(Config *config) : service_(config) {}
-    virtual ~GrpcSystemImpl() {}
+    GrpcRankerServiceImpl(Config *config) : service_(config) {}
+    virtual ~GrpcRankerServiceImpl() {}
 
 private:
-    SystemService service_;
+    SystemAppsService service_;
 
     virtual grpc::Status GetRankedVector(grpc::ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
     {

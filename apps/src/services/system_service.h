@@ -13,12 +13,12 @@
 namespace dg
 {
 
-class SystemService
+class SystemAppsService
 {
 
 public:
-    WitnessService(Config *config);
-    virtual ~WitnessService();
+    SystemAppsService(Config *config);
+    virtual ~SystemAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
 

@@ -11,19 +11,19 @@
 #define MATRIX_APPS_GRPC_SKYNET_H_
 
 #include <grpc++/grpc++.h>
-#include "service/matrix_service.h"
+#include "services/matrix_service.h"
 
 namespace dg 
 {
 
-class GrpcMatrixImpl final : public MatrixService::Service
+class GrpcMatrixServiceImpl final : public MatrixService::Service
 {
 public:
-    GrpcMatrixImpl(Config *config) : service_(config) {}
-    virtual ~GrpcMatrixImpl() {}
+    GrpcMatrixServiceImpl(Config *config) : service_(config) {}
+    virtual ~GrpcMatrixServiceImpl() {}
 
 private:
-    MatrixService service_;
+    MatrixAppsService service_;
 
     virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response) override
     {
@@ -54,7 +54,7 @@ private:
     {
         return service_.BatchRecognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
     }
-    
+
     virtual grpc::Status VideoRecognize(grpc::ServerContext* context, const SkynetRequest* request, SkynetResponse* response) override
     {
         return service_.VideoRecognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
