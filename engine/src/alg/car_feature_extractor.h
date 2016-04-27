@@ -13,7 +13,7 @@
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include "model/rank_feature"
+#include "model/rank_feature.h"
 
 using namespace std;
 
@@ -22,7 +22,8 @@ namespace dg {
 class CarFeatureExtractor {
  public:
     CarFeatureExtractor() {
-        orb_ = ORB(256);
+        orb_ = cv::ORB(256);
+        max_resize_size_ = 300;
     }
 
     void ExtractDescriptor(const cv::Mat &img, CarRankFeature &des) {
@@ -34,10 +35,9 @@ class CarFeatureExtractor {
         calcNewSize(des.height_, des.width_, new_size);
 
         if (img.channels() != 3)
-            LOG(WARNING) << "Color image is required.";
+            LOG(WARNING)<< "Color image is required.";
         if ((img.rows < 10) || (img.cols < 10))
-            LOG(WARNING)
-                    << "Image needs to be larger than 10*10 to extract enough feature.";
+            LOG(WARNING)<< "Image needs to be larger than 10*10 to extract enough feature.";
 
         resize(img, resize_img, new_size);
         vector<cv::KeyPoint> key_point;
@@ -45,10 +45,10 @@ class CarFeatureExtractor {
 
         orb_(resize_img, cv::Mat(), key_point, descriptor);
         if (key_point.size() < 50)
-            LOG(WARNING) << "Not enough feature extracted.";
+            LOG(WARNING)<< "Not enough feature extracted.";
 
         descriptor.copyTo(des.descriptor_);
-        des.position_ = Mat::zeros(key_point.size(), 2, CV_16UC1);
+        des.position_ = cv::Mat::zeros(key_point.size(), 2, CV_16UC1);
 
         for (int i = 0; i < key_point.size(); i++) {
             des.position_.at<ushort>(i, 0) = ((ushort) key_point[i].pt.x);
@@ -58,6 +58,7 @@ class CarFeatureExtractor {
     }
  private:
     cv::ORB orb_;
+    int max_resize_size_;
 
     void calcNewSize(const ushort &ori_height, const ushort &ori_width,
                      cv::Size &new_size) {

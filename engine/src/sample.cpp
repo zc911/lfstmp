@@ -31,6 +31,8 @@ static void PrintFrame(Frame &frame) {
                 Detection d = markers[i];
                 cout << "Marker " << i << ": " << d << endl;
             }
+
+            cout << "Feature Vector: " << v->feature().Serialize() << endl;
         } else {
             cout << "Type not support now. " << endl;
         }

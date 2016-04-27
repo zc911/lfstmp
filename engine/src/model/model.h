@@ -14,6 +14,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "basic.h"
+#include "rank_feature.h"
 
 using namespace std;
 namespace dg {
@@ -194,7 +195,7 @@ class Vehicle : public Object {
         class_id_ = classId;
     }
 
-    const CarRankFeature& feature() const {
+    CarRankFeature& feature() {
         return feature_;
     }
 

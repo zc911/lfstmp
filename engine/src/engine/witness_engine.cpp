@@ -114,7 +114,7 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
 
-        if (enable_vehicle_plate_) {
+        if (0) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
             Processor *p = new PlateRecognizerProcessor();
             last->SetNextProcessor(p);

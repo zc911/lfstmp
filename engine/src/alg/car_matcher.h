@@ -16,6 +16,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/legacy/legacy.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "timing_profiler.h"
 
 #if USE_CUDA
 #include <cuda_runtime.h>
