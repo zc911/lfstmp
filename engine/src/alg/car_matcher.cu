@@ -138,9 +138,9 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uin
 }
 
 vector<int> CarMatcher::computeMatchScoreGpu(
-    const CarFeature &des,
+    const CarRankFeature &des,
     const Rect &in_box,
-    const vector<CarFeature> &all_des) {
+    const vector<CarRankFeature> &all_des) {
 
     box query_box;
     query_box.x = in_box.x;

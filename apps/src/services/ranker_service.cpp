@@ -10,7 +10,9 @@
 #include <glog/logging.h>
 
 #include "ranker_service.h"
-#include "codec/base64.h" //from util
+#include "codec/base64.h"
+#include "ranker_service.h"
+#include "image_service.h"
  
 
 namespace dg
@@ -62,6 +64,12 @@ bool RankerAppsService::getRankedCarVector(const FeatureRankingRequest* request,
     LOG(INFO) << prefix << "started";
     response->set_reqid(request->reqid());
 
+    if (!request->has_image())
+    {
+        LOG(ERROR) << prefix << "image descriptor does not exist";
+        return false;
+    }
+
     Mat image;
     MatrixError err = ImageService::ParseImage(request->image(), image);
     if (err.code() != 0)
@@ -73,7 +81,7 @@ bool RankerAppsService::getRankedCarVector(const FeatureRankingRequest* request,
     Rect hotspot = getHotspot(request, image);
 
     vector<CarRankFeature> features;
-    err = extractFeatures(request, car_ranker_, features);
+    err = extractFeatures(request, features);
     if (err.code() != 0)
     {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
@@ -105,7 +113,7 @@ bool RankerAppsService::getRankedFaceVector(const FeatureRankingRequest* request
     Rect hotspot = getHotspot(request, image);
 
     vector<FaceRankFeature> features;
-    err = extractFeatures(request, face_ranker_, features);
+    err = extractFeatures(request, features);
     if (err.code() != 0)
     {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
@@ -149,10 +157,10 @@ Rect RankerAppsService::getHotspot(const FeatureRankingRequest* request, const M
         const Cutboard& cb = request->interestedareas(0);
         if (cb.width() != 0 && cb.height() != 0)
         {
-            return Rect(cb.x(), cb.y(), cb.width(), cb.height())
+            return Rect(cb.x(), cb.y(), cb.width(), cb.height());
         }
     }
-    return hotspot(0, 0, image.cols, image.rows);
+    return Rect(0, 0, image.cols, image.rows);
 }
 
 int RankerAppsService::getLimit(const FeatureRankingRequest* request)

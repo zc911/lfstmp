@@ -43,26 +43,28 @@ public:
     virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<F>& candidates);
 };
 
-class CarRankService final : public RankService<CarFeature>
+class CarRankService final : public RankService<CarRankFeature>
 {
+public:
+    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates) override
+    {
+        return engine_.Rank(image, hotspot, candidates);
+    }
+
 private:
     CarRankEngine engine_;
-
-    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates) override
-    {
-        return engine_.Rank(image, hotspot, candidates);
-    }
 };
 
-class FaceRankService final : public RankService<FaceFeature>
+class FaceRankService final : public RankService<FaceRankFeature>
 {
-private:
-    FaceRankEngine engine_;
-
-    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates) override
+public:
+    virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates) override
     {
         return engine_.Rank(image, hotspot, candidates);
     }
+
+private:
+    FaceRankEngine engine_;
 };
 
 

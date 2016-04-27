@@ -74,7 +74,7 @@ private:
     FaceDetector detector_;
     FaceExtractor extractor_;
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates)
+    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates)
     {
         vector<Mat> images;
         images.push_back(image);
