@@ -22,7 +22,6 @@ class WitnessEngine : public SimpleEngine {
  public:
     WitnessEngine(const Config &config);
     ~WitnessEngine();
-    virtual void Process(Frame *frame);
     virtual void Process(FrameBatch *frame);
 
  private:

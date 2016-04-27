@@ -5,7 +5,7 @@
 #include "engine/simple_engine.h"
 #include "engine/witness_engine.h"
 #include "vis/display.h"
-
+#include "config.h"
 using namespace dg;
 
 static void PrintFrame(Frame &frame) {
