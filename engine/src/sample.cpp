@@ -8,6 +8,23 @@
 
 using namespace dg;
 
+static void PrintFrame(Frame &frame) {
+    cout << "=====FRAME INFO=====" << endl;
+    cout << "Frame ID: " << frame.id() << endl;
+    Vector<Object *> objs = frame.objects();
+    for (int i = 0; i < objs.size(); ++i) {
+        Object *obj = objs[i];
+        ObjectType type = obj->type();
+        if (type >= OBJECT_CAR && type << OBJECT_TRICYCLE) {
+            Vehicle *v = (Vehicle*) obj;
+            cout << "Vehicle class id: " << v->class_id() << ", Conf: "
+                 << v->confidence() << endl;
+        } else {
+            cout << "Type not support now. " << endl;
+        }
+    }
+}
+
 int main() {
 
 //    RingBuffer *buffer = new RingBuffer(100);
@@ -19,20 +36,25 @@ int main() {
 //    tube_->StartAsyn();
 //    engine->StartAsyn();
 //    displayer->Run();
+
     Config *config = Config::GetInstance();
     config->Load("config.json");
     SimpleEngine *engine = new WitnessEngine(*config);
     Frame *f = new Frame(1);
 
-    cv::Mat image = imread("test.jpg");
+    cv::Mat image = cv::imread("test.jpg");
     Payload *payload = new Payload(1, image);
     Operation op;
-    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-            | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-            | OPERATION_VEHICLE_FEATURE_VECTOR);
+    op.Set(OPERATION_VEHICLE_DETECT);
+    cout << "op" << op.operate << endl;
+//    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+//            | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+//            | OPERATION_VEHICLE_FEATURE_VECTOR);
     f->set_operation(op);
     f->set_payload(payload);
 
     engine->Process(f);
+    PrintFrame(*f);
+    DLOG(INFO)<< "FINISHED" << endl;
 
 }

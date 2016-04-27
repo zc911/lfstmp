@@ -43,11 +43,13 @@ WitnessEngine::~WitnessEngine() {
 void WitnessEngine::Process(Frame *frame) {
 
     if (frame->operation().Check(OPERATION_VEHICLE)) {
-        vehicle_processor_->Update(frame);
+        if (vehicle_processor_)
+            vehicle_processor_->Update(frame);
     }
 
     if (frame->operation().Check(OPERATION_FACE)) {
-        face_processor_->Update(frame);
+        if (face_processor_)
+            face_processor_->Update(frame);
     }
 
 }
@@ -109,7 +111,7 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
+        //face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
         if(enable_face_feature_vector_) {
             //LOG(INFO) << "Enable face feature vector processor." << endl;
             //face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("","", true, 1, "",""));

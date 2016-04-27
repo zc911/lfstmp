@@ -67,12 +67,17 @@ typedef struct Operation {
     }
 
     bool Check(Operations op) {
-        return operate | op;
+        return (operate & op);
+    }
+
+    bool Check(OperationValue opv) {
+        return (operate & opv);
     }
 
     void Set(Operations op) {
-        operate = operate | op;
-        if (op >= OPERATION_FACE && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+        operate = (operate | op);
+        if (op >= OPERATION_VEHICLE_DETECT
+                && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
         if (op >= OPERATION_FACE_DETECTOR
@@ -81,13 +86,14 @@ typedef struct Operation {
         }
     }
 
-    void Set(OperationValue op) {
-        operate = operate | op;
-        if (op >= OPERATION_FACE && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+    void Set(OperationValue opv) {
+        operate = (operate | opv);
+        if (opv >= OPERATION_VEHICLE_DETECT
+                && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
-        if (op >= OPERATION_FACE_DETECTOR
-                && op <= OPERATION_FACE_FEATURE_VECTOR) {
+        if (opv >= OPERATION_FACE_DETECTOR
+                && opv <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
     }

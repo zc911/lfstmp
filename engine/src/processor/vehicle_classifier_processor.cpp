@@ -20,6 +20,11 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 
 void VehicleClassifierProcessor::Update(Frame *frame) {
 
+    if (!checkOperation(frame)) {
+        DLOG(INFO)<< "OPERATION_VEHICLE_STYLE disable." << endl;
+        return Proceed(frame);
+    }
+
     vector<Mat> images;
     vector<Object*> objects = frame->objects();
 
@@ -29,7 +34,7 @@ void VehicleClassifierProcessor::Update(Frame *frame) {
         if (obj->type() == OBJECT_CAR) {
 
             Vehicle *v = (Vehicle*) obj;
-            DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
+            DLOG(INFO)<< "Put vehicle images into vector to be classified: " << obj->id() << endl;
             images.push_back(v->image());
 
         } else {
@@ -40,13 +45,23 @@ void VehicleClassifierProcessor::Update(Frame *frame) {
 
     vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(images);
 
-    SortPrediction(result);
-
-    cout << "Classify result: " << endl;
-    for (int i = 0; i < 6; ++i) {
-        cout << "Class: " << result[0][i].first << " , Conf: "
-             << result[0][i].second << endl;
+    if (result.size() != objects.size()) {
+        DLOG(ERROR)<< "Classification results size is different from object size. " << endl;
+        frame->set_status(FRAME_STATUS_ERROR);
+        frame->set_error_msg("Classification results size is different from object size.");
+        return;
     }
+
+    for (int i = 0; i < result.size(); ++i) {
+        vector<Prediction> pre = result[i];
+        Vehicle *v = (Vehicle*) objects[i];
+        Prediction max = MaxPrediction(result[0]);
+        v->set_class_id(max.first);
+        v->set_confidence(max.second);
+
+    }
+
+    Proceed(frame);
 }
 
 void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
@@ -54,7 +69,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 }
 
 bool VehicleClassifierProcessor::checkOperation(Frame *frame) {
-    return true;
+    return frame->operation().Check(OPERATION_VEHICLE_STYLE);
 }
 bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
     return true;
