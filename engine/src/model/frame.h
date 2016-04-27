@@ -65,7 +65,7 @@ class Frame {
         id_ = id;
     }
 
-    const vector<Object*>& objects() const {
+    vector<Object*>& objects() {
         return objects_;
     }
 
@@ -94,7 +94,7 @@ class Frame {
         return NULL;
     }
 
-    void set_objects(const vector<Object*>& objects) {
+    void set_objects(vector<Object*>& objects) {
         objects_ = objects;
     }
 
