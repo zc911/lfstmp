@@ -29,8 +29,7 @@ static void PrintFrame(Frame &frame) {
 
             for (int i = 0; i < markers.size(); i++) {
                 Detection d = markers[i];
-                cout << "Marker " << i << ": id: " << d.id << ", Conf: "
-                     << d.confidence << endl;
+                cout << "Marker " << i << ": " << d << endl;
             }
         } else {
             cout << "Type not support now. " << endl;
