@@ -14,6 +14,8 @@
 #include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
 #include "processor/vehicle_marker_classifier_processor.h"
+#include "processor/vehicle_plate_recognizer_processor.h"
+
 namespace dg {
 
 class WitnessEngine : SimpleEngine {
@@ -42,9 +44,9 @@ class WitnessEngine : SimpleEngine {
  private:
     void init() {
         processor_ = new VehicleMultiTypeDetectorProcessor();
-    //    processor_->SetNextProcessor(new VehicleClassifierProcessor());
-        processor_->SetNextProcessor(new VehicleMarkerClassifierProcessor());
-
+        processor_->SetNextProcessor(new VehicleClassifierProcessor());
+    //    processor_->SetNextProcessor(new VehicleMarkerClassifierProcessor());
+        processor_->SetNextProcessor(new PlateRecognizerProcessor());
         is_init_ = true;
     }
 
