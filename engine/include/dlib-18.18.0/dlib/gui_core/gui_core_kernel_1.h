@@ -8,7 +8,7 @@
 #endif
 
 #ifdef DLIB_NO_GUI_SUPPORT
-#error "DLIB_NO_GUI_SUPPORT is defined so you can't use the GUI code.  Turn DLIB_NO_GUI_SUPPORT off if you want to use it."
+//#error "DLIB_NO_GUI_SUPPORT is defined so you can't use the GUI code.  Turn DLIB_NO_GUI_SUPPORT off if you want to use it."
 #endif
 
 #include <string>
