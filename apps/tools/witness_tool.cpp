@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 #include <grpc++/grpc++.h>
-#include "model/proto/witness.grpc.pb.h"
+#include "model/witness.grpc.pb.h"
 
 using namespace std;
 using grpc::Channel;
@@ -19,18 +19,18 @@ class WitnessClient {
             : stub_(WitnessService::NewStub(channel)) {
     }
 
-    void Recognize(const string file_path, int session_id) {
-        RecognizeRequest req;
-        req.set_sessionid(session_id);
-        req.mutable_image()->set_uri(file_path);
+    void Recognize(const string file_path, const string session_id) {
+        WitnessRequest req;
+        req.mutable_context()->set_sessionid(session_id);
+        req.mutable_image()->mutable_data()->set_uri(file_path);
 
-        RecognizeResponse resp;
+        WitnessResponse resp;
         ClientContext context;
 
         Status status = stub_->Recognize(&context, req, &resp);
 
         if (status.ok()) {
-            cout << "Rec finished: " << resp.result().brand().brandid() << endl;
+            cout << "Rec finished: " << resp.context().sessionid() << endl;
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
@@ -49,14 +49,14 @@ class WitnessClientAsyn {
 
     // Assambles the client's payload, sends it and presents the response back
     // from the server.
-    void Recognize(const string file_path, int session_id) {
+    void Recognize(const string file_path, const string session_id) {
         // Data we are sending to the server.
-        RecognizeRequest request;
-        request.set_sessionid(session_id);
-        request.mutable_image()->set_uri(file_path);
+        WitnessRequest request;
+        request.mutable_context()->set_sessionid(session_id);
+        request.mutable_image()->mutable_data()->set_uri(file_path);
 
         // Container for the data we expect from the server.
-        RecognizeResponse reply;
+        WitnessResponse reply;
 
         // Context for the client. It could be used to convey extra information to
         // the server and/or tweak certain RPC behaviors.
@@ -73,7 +73,7 @@ class WitnessClientAsyn {
         // store in "rpc". Because we are using the asynchronous API, we need the
         // hold on to the "rpc" instance in order to get updates on the ongoig RPC.
         cout << "Send request..." << endl;
-        std::unique_ptr<ClientAsyncResponseReader<RecognizeResponse> > rpc(
+        std::unique_ptr<ClientAsyncResponseReader<WitnessResponse> > rpc(
                 stub_->AsyncRecognize(&context, request, &cq));
 
         // Request that, upon completion of the RPC, "reply" be updated with the
@@ -95,8 +95,7 @@ class WitnessClientAsyn {
 
         // Act upon the status of the actual RPC.
         if (status.ok()) {
-            cout << "Rec finished: " << reply.result().brand().brandid()
-                 << endl;
+            cout << "Rec finished: " << reply.context().sessionid() << endl;
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
@@ -109,14 +108,15 @@ class WitnessClientAsyn {
     std::unique_ptr<WitnessService::Stub> stub_;
 };
 
-static int RandomSessionId() {
+static string RandomSessionId() {
     srand(time(NULL));
     int id = rand();
     for (int i = 0; i < 10; ++i) {
         id = (id << 7) | rand();
     }
 
-    return id < 0 ? -1 * id : id;
+    id = id < 0 ? -1 * id : id;
+    return std::to_string(id);
 }
 
 int main(int argc, char *argv[]) {
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]) {
         WitnessClientAsyn client(
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
-        int id = RandomSessionId();
+        string id = RandomSessionId();
         cout << "Rec asyn: " << id << endl;
         client.Recognize(image_file_path, id);
 
@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
         WitnessClient client(
                 grpc::CreateChannel(string(address),
                                     grpc::InsecureChannelCredentials()));
-        int id = RandomSessionId();
+        string id = RandomSessionId();
         cout << "Rec: " << id << endl;
         client.Recognize(image_file_path, id);
     }

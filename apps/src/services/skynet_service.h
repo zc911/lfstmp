@@ -10,6 +10,8 @@
 #ifndef MATRIX_APPS_SKYNET_SERVICE_H_
 #define MATRIX_APPS_SKYNET_SERVICE_H_
 
+#include "config/config.h"
+#include "model/skynet.grpc.pb.h"
 namespace dg
 {
 

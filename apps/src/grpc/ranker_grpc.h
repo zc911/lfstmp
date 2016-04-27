@@ -23,7 +23,7 @@ public:
     virtual ~GrpcRankerServiceImpl() {}
 
 private:
-    SystemAppsService service_;
+    RankerAppsService service_;
 
     virtual grpc::Status GetRankedVector(grpc::ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
     {

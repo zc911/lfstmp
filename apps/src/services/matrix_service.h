@@ -10,6 +10,7 @@
 #ifndef MATRIX_APPS_MATRIX_SERVICE_H_
 #define MATRIX_APPS_MATRIX_SERVICE_H_
 
+#include "config/config.h"
 #include "model/matrix.grpc.pb.h"
 
 namespace dg

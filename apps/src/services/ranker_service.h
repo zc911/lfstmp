@@ -10,9 +10,13 @@
 #ifndef MATRIX_APPS_RANKER_SERVICE_H_
 #define MATRIX_APPS_RANKER_SERVICE_H_
 
-
+#include <opencv2/core/core.hpp>
+#include "config/config.h"
 #include "model/ranker.grpc.pb.h" //from apps
-
+//#include "service/ranker_service.h"
+#include "model/rank_feature.h"
+#include "model/frame.h"
+#include "engine/rank_engine.h"
 
 using namespace cv;
 using namespace std;
@@ -30,9 +34,8 @@ public:
 
 private:
     Config *config_;
-    CarRankService car_ranker_;
-    FaceRankService face_ranker_;
-
+    CarRankEngine car_ranker_;
+    FaceRankEngine face_ranker_;
 
     bool getRankedCarVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
 
@@ -48,7 +51,7 @@ private:
     static int getLimit(const FeatureRankingRequest* request);
 
     template <typename F>
-    static MatrixError extractFeatures(const FeatureRankingRequest* request, RankService<F>& ranker, vector<F>& features)
+    static MatrixError extractFeatures(const FeatureRankingRequest* request, vector<F>& features)
     {
         MatrixError err;
         if (request->candidates_size() <= 0)
@@ -68,7 +71,9 @@ private:
                 return err;
             }
 
-            features.push_back(ranker.Deserialize(featureStr));
+            F feature;
+            feature.Deserialize(featureStr);
+            features.push_back(feature);
         }
 
         return err;
