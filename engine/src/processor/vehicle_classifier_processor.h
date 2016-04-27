@@ -15,66 +15,100 @@ namespace dg {
 
 class VehicleClassifierProcessor : public Processor {
  public:
-    VehicleClassifierProcessor() {
-        CaffeConfig config;
-        config.model_file =
-                "models/classify/car_python_mini_alex_256_0_iter_70000.caffemodel";
-        config.deploy_file = "models/classify/deploy_256.prototxt";
+     VehicleClassifierProcessor() {
+          CaffeConfig config;
+          config.model_file =
+                    "models/classify/car_python_mini_alex_256_0_iter_70000.caffemodel";
+          config.deploy_file = "models/classify/deploy_256.prototxt";
 
-        config.is_model_encrypt = false;
-        config.batch_size = 1;
-        classifier_ = new VehicleCaffeClassifier(config);
-    }
+          config.is_model_encrypt = false;
+          config.batch_size = 1;
+          classifier_ = new VehicleCaffeClassifier(config);
+     }
 
-    ~VehicleClassifierProcessor() {
-        if (classifier_)
-            delete classifier_;
-    }
+     ~VehicleClassifierProcessor() {
+          if (classifier_)
+               delete classifier_;
+     }
 
-    virtual void Update(Frame *frame) {
+     virtual void Update(Frame *frame) {
 
-        vector<Mat> images;
-        vector<Object*> objects = frame->objects();
+          vector<Mat> images;
+          vector<Object*> objects = frame->objects();
 
-        for (int i = 0; i < objects.size(); ++i) {
+          for (int i = 0; i < objects.size(); ++i) {
 
-            Object *obj = objects[i];
-            if (obj->type() == OBJECT_CAR) {
+               Object *obj = objects[i];
+               if (obj->type() == OBJECT_CAR) {
 
-                Vehicle *v = (Vehicle*) obj;
-                DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
-                images.push_back(v->image());
+                    Vehicle *v = (Vehicle*) obj;
+                    DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
+                    images.push_back(v->image());
 
-            } else {
-                DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
-            }
+               } else {
+                    DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+               }
 
-        }
+          }
 
-        vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
-                images);
+          vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
+                    images);
 
-        SortPrediction(result);
+          SortPrediction(result);
 
-        cout << "Classify result: " << endl;
-        for (int i = 0; i < 6; ++i) {
-            cout << "Class: " << result[0][i].first << " , Conf: "
-                 << result[0][i].second << endl;
-        }
-    }
+          cout << "Classify result: " << endl;
+          for (int i = 0; i < 6; ++i) {
+               cout << "Class: " << result[0][i].first << " , Conf: "
+                    << result[0][i].second << endl;
+          }
+     }
 
-    virtual void Update(FrameBatch *frameBatch) {
+     virtual void Update(FrameBatch *frameBatch) {
+          for (int i = 0; i < frameBatch->frames().size(); i++) {
+               Frame *frame = frameBatch->frames()[i];
+               vector<Mat> images;
+               vector<Object*> objects = frame->objects();
 
-    }
+               for (int i = 0; i < objects.size(); ++i) {
 
-    virtual bool checkOperation(Frame *frame) {
-        return true;
-    }
-    virtual bool checkStatus(Frame *frame) {
-        return true;
-    }
+                    Object *obj = objects[i];
+                    if (obj->type() == OBJECT_CAR) {
+
+                         Vehicle *v = (Vehicle*) obj;
+                         DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
+                         images.push_back(v->image());
+
+                    } else {
+                         DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+                    }
+
+               }
+
+               vector<vector<Prediction> > result = classifier_
+                         ->ClassifyAutoBatch(images);
+
+               SortPrediction(result);
+
+               cout << "Classify result: " << endl;
+               for (int i = 0; i < 6; ++i) {
+                    cout << "Class: " << result[0][i].first << " , Conf: "
+                         << result[0][i].second << endl;
+               }
+          }
+          Proceed(frameBatch);
+
+     }
+
+     virtual bool checkOperation(Frame *frame) {
+          return true;
+     }
+     virtual bool checkStatus(Frame *frame) {
+          return true;
+     }
+ protected:
+
  private:
-    VehicleCaffeClassifier *classifier_;
+     VehicleCaffeClassifier *classifier_;
 
 };
 
