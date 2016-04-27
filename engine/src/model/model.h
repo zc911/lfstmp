@@ -76,14 +76,6 @@ class Object {
         children_ = children;
     }
 
-    Confidence confidence() const {
-        return confidence_;
-    }
-
-    void set_confidence(Confidence confidence) {
-        confidence_ = confidence;
-    }
-
     const Detection& detection() const {
         return detection_;
     }
@@ -100,6 +92,14 @@ class Object {
         id_ = id;
     }
 
+    Confidence confidence() const {
+        return confidence_;
+    }
+
+    void set_confidence(Confidence confidence) {
+        confidence_ = confidence;
+    }
+
     ObjectType type() const {
         return type_;
     }
@@ -110,10 +110,11 @@ class Object {
 
  protected:
     Identification id_;
-    ObjectType type_;
     Confidence confidence_;
+    ObjectType type_;
     Detection detection_;
     vector<Object *> children_;
+
 };
 
 class Vehicle : public Object {
@@ -133,7 +134,6 @@ class Vehicle : public Object {
 
     Vehicle(ObjectType type)
             : Object(type),
-              confidence_(0),
               class_id_(-1) {
     }
 
@@ -143,14 +143,6 @@ class Vehicle : public Object {
 
     void set_color(const Color& color) {
         color_ = color;
-    }
-
-    Confidence confidence1() const {
-        return confidence_;
-    }
-
-    void set_confidence(Confidence confidence) {
-        confidence_ = confidence;
     }
 
     const cv::Mat& image() const {
@@ -169,7 +161,7 @@ class Vehicle : public Object {
         plate_ = plate;
     }
 
-    Identification class_Id() const {
+    Identification class_id() const {
         return class_id_;
     }
 
@@ -183,7 +175,7 @@ class Vehicle : public Object {
     Identification class_id_;
     Plate plate_;
     Color color_;
-    Confidence confidence_;
+
 };
 
 class Face : public Object {
@@ -218,6 +210,7 @@ class Face : public Object {
     }
 
  private:
+
     FaceFeature feature_;
 };
 

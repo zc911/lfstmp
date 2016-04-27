@@ -28,7 +28,8 @@ typedef enum {
 enum FrameStatus {
     FRAME_STATUS_INIT = 0,
     FRAME_STATUS_DETECTED = 1,
-    FRAME_STATUS_FINISHED = 128
+    FRAME_STATUS_FINISHED = 128,
+    FRAME_STATUS_ERROR = 256
 };
 
 class Frame {
@@ -135,14 +136,22 @@ class Frame {
         return objects_.size();
     }
 
+    const string& error_Msg() const {
+        return error_msg_;
+    }
+
+    void set_error_msg(const string& errorMsg) {
+        error_msg_ = errorMsg;
+    }
+
  protected:
     Identification id_;
     Timestamp timestamp_;
     volatile FrameStatus status_;
     Operation operation_;
     Payload *payload_;
-// base pointer
     vector<Object *> objects_;
+    string error_msg_;
 }
 ;
 

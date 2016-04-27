@@ -36,12 +36,10 @@ class Processor {
         return next_;
     }
 
-    virtual bool Proceed(Frame *frame) {
+    virtual void Proceed(Frame *frame) {
         if (next_ != NULL) {
             next_->Update(frame);
-            return true;
         }
-        return false;
     }
 
     virtual void Update(Frame *frame) = 0;
