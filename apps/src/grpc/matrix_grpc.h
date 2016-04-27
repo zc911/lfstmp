@@ -1,5 +1,5 @@
 /*============================================================================
- * File Name   : skynet_grpc.h
+ * File Name   : matrix_grpc.h
  * Author      : yanlongtan@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
@@ -7,8 +7,8 @@
  * Description : 
  * ==========================================================================*/
 
-#ifndef MATRIX_APPS_GRPC_SKYNET_H_
-#define MATRIX_APPS_GRPC_SKYNET_H_
+#ifndef MATRIX_APPS_GRPC_MATRIX_H_
+#define MATRIX_APPS_GRPC_MATRIX_H_
 
 #include <grpc++/grpc++.h>
 #include "services/matrix_service.h"
@@ -68,4 +68,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_GRPC_SKYNET_H_
+ #endif //MATRIX_APPS_GRPC_MATRIX_H_

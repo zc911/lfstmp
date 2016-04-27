@@ -12,7 +12,7 @@ ELSE()
     SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF()
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -g -O3 -w")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DUSE_CUDA -DDEBUG -g -O3 -w")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -O3 -w")
 
 find_package(Threads REQUIRED)
@@ -24,6 +24,8 @@ message(STATUS "Found Threads libs: ${THREADS_LIBS}")
 find_package(Freetype REQUIRED)
 INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIRS})
 message(STATUS "Found FreeType libs: ${FREETYPE_LIBRARIES}")
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/apps/include/pbjson)
 
 IF(APPLE)
     OPTION(ENABLE_CUDA "disable cuda by default" OFF)
