@@ -27,6 +27,7 @@ class Processor {
     }
 
     Processor* SetNextProcessor(Processor *proc) {
+        DLOG(INFO)<<"set next processor"<<endl;
         Processor *old = next_;
         next_ = proc;
         return old;
@@ -42,15 +43,20 @@ class Processor {
         }
     }
 
+    virtual void Proceed(FrameBatch *frameBatch) {
+        if (next_ != NULL) {
+            next_->Update(frameBatch);
+        }
+    }
+
     virtual void Update(Frame *frame) = 0;
     virtual void Update(FrameBatch *frameBatch) = 0;
 
     virtual bool checkOperation(Frame *frame) = 0;
     virtual bool checkStatus(Frame *frame) = 0;
 
- protected:
+protected:
     Processor *next_;
 
-};
-}
+};}
 #endif /* PROCESSOR_H_ */

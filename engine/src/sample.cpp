@@ -19,6 +19,18 @@ static void PrintFrame(Frame &frame) {
             Vehicle *v = (Vehicle*) obj;
             cout << "Vehicle class id: " << v->class_id() << ", Conf: "
                  << v->confidence() << endl;
+            cout << "Vehicle color id: " << v->color().class_id << ", "
+                 << v->color().confidence << endl;
+            cout << "Vehicle plate: " << v->plate().plate_num << ", "
+                 << v->plate().confidence << endl;
+            vector<Detection> markers = v->markers();
+            cout << "Vehicle Markers: " << ", Window: " << v->window().box.x
+                 << endl;
+
+            for (int i = 0; i < markers.size(); i++) {
+                Detection d = markers[i];
+                cout << "Marker " << i << ": " << d << endl;
+            }
         } else {
             cout << "Type not support now. " << endl;
         }
@@ -45,15 +57,18 @@ int main() {
     cv::Mat image = cv::imread("test.jpg");
     Payload *payload = new Payload(1, image);
     Operation op;
-    op.Set(OPERATION_VEHICLE_DETECT);
-    cout << "op" << op.operate << endl;
-//    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-//            | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-//            | OPERATION_VEHICLE_FEATURE_VECTOR);
+//    op.Set(OPERATION_VEHICLE_DETECT);
+    op.Set(OPERATION_VEHICLE);
+    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+            | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+            | OPERATION_VEHICLE_FEATURE_VECTOR);
     f->set_operation(op);
     f->set_payload(payload);
 
-    engine->Process(f);
+    FrameBatch *fb = new FrameBatch(1, 1);
+    fb->add_frame(f);
+
+    engine->Process(fb);
     PrintFrame(*f);
     DLOG(INFO)<< "FINISHED" << endl;
 
