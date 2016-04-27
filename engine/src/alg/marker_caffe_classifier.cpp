@@ -144,6 +144,7 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
      vector<Mat> tiny_images;
      vector<float> enlarge_ratios;
      for (int i = 0; i < batch_size; i++) {
+
           Mat img = imgs[i];
           int max_size = max(img.rows, img.cols);
           int min_size = min(img.rows, img.cols);
@@ -156,12 +157,15 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
           int target_col = img.cols * enlarge_ratio;
           enlarge_ratios.push_back(enlarge_ratio);
           Mat tmp;
-          resize(img, tmp, Size(target_col, target_row));
-          tiny_images.push_back(tmp);
+
+          resize(img, img, Size(target_col, target_row));
+
+          tiny_images.push_back(img);
 
      }
 
      vector<Blob<float>*> tiny_outputs = PredictBatch(tiny_images);
+
      vector<vector<Detection> > preds(batch_size);
 
      for (map<int, Marker>::iterator it = markers_.begin();
@@ -268,10 +272,6 @@ vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
                          bbox.box = Rect(rect[0], rect[1], rect[2], rect[3]);
                          bbox.box &= Rect(0, 0, tmp.cols, tmp.rows);
                          bbox.deleted = false;
-                         bbox.gt = Rect(gt_cx - gt_ww[i] / 2,
-                                        gt_cy - gt_hh[i] / 2, gt_ww[i],
-                                        gt_hh[i])
-                                   & Rect(0, 0, tmp.cols, tmp.rows);
 
                          vvbbox[i * batch_size / cls->num()].push_back(bbox);
                     }
@@ -371,65 +371,69 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
           device_setted_ = true;
      }
 
+
      Blob<float>* input_layer = net_->input_blobs()[0];
      input_geometry_.height = imgs[0].rows;  // + 100;
      input_geometry_.width = imgs[0].cols;  // + 100;
 
      for (int i = 1; i < imgs.size(); i++) {
-          if (input_geometry_.height < imgs[i].rows) {
-               input_geometry_.height = imgs[i].rows;
-          }
-          if (input_geometry_.width < imgs[i].cols) {
-               input_geometry_.width = imgs[i].cols;
-          }
+         if (input_geometry_.height < imgs[i].rows) {
+             input_geometry_.height = imgs[i].rows;
+         }
+         if (input_geometry_.width < imgs[i].cols) {
+             input_geometry_.width = imgs[i].cols;
+         }
 
      }
 
-     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
-                          input_geometry_.height, input_geometry_.width);
+     input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
+                          input_geometry_.width);
      /* Forward dimension change to all layers. */
      net_->Reshape();
 
-     float* input_data = input_layer->mutable_cpu_data();
-     int cnt = 0;
-     for (int i = 0; i < imgs.size(); i++) {
-          cv::Mat sample;
-          cv::Mat img = imgs[i];
+      float* input_data = input_layer->mutable_cpu_data();
+       int cnt = 0;
+       for(int i = 0; i < imgs.size(); i++) {
+         cv::Mat sample;
+         cv::Mat img = imgs[i];
 
-          if (img.channels() == 3 && num_channels_ == 1)
-               cv::cvtColor(img, sample, CV_BGR2GRAY);
-          else if (img.channels() == 4 && num_channels_ == 1)
-               cv::cvtColor(img, sample, CV_BGRA2GRAY);
-          else if (img.channels() == 4 && num_channels_ == 3)
-               cv::cvtColor(img, sample, CV_BGRA2BGR);
-          else if (img.channels() == 1 && num_channels_ == 3)
-               cv::cvtColor(img, sample, CV_GRAY2BGR);
-          else
-               sample = img;
+         if (img.channels() == 3 && num_channels_ == 1)
+           cv::cvtColor(img, sample, CV_BGR2GRAY);
+         else if (img.channels() == 4 && num_channels_ == 1)
+           cv::cvtColor(img, sample, CV_BGRA2GRAY);
+         else if (img.channels() == 4 && num_channels_ == 3)
+           cv::cvtColor(img, sample, CV_BGRA2BGR);
+         else if (img.channels() == 1 && num_channels_ == 3)
+           cv::cvtColor(img, sample, CV_GRAY2BGR);
+         else
+           sample = img;
 
-          for (int k = 0; k < sample.channels(); k++) {
-               for (int i = 0; i < sample.rows; i++) {
-                    for (int j = 0; j < sample.cols; j++) {
-                         input_data[cnt] = (float(
-                                   sample.at<uchar>(i, j * 3 + k)) - mean[k])
-                                   / rescale_;
-                         cnt += 1;
-                    }
-               }
-          }
-     }
+         //if((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
+         //    cv::resize(sample, sample, Size(input_geometry_.width, input_geometry_.height));
+         //}
+
+         for(int k = 0; k < sample.channels(); k++) {
+             for(int i = 0; i < sample.rows; i++) {
+                 for(int j = 0; j < sample.cols; j++) {
+                    input_data[cnt] = (float(sample.at<uchar>(i,j*3+k))-128)/rescale_;
+                    cnt += 1;
+                 }
+             }
+         }
+       }
+
 
      net_->ForwardPrefilled();
 
      if (caffe_config_.use_gpu) {
-          cudaDeviceSynchronize();
+         cudaDeviceSynchronize();
      }
 
      /* Copy the output layer to a std::vector */
      vector<Blob<float>*> outputs;
      for (int i = 0; i < net_->num_outputs(); i++) {
-          Blob<float>* output_layer = net_->output_blobs()[i];
-          outputs.push_back(output_layer);
+         Blob<float>* output_layer = net_->output_blobs()[i];
+         outputs.push_back(output_layer);
      }
 
      return outputs;

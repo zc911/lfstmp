@@ -26,6 +26,7 @@ class Processor {
     }
 
     Processor* SetNextProcessor(Processor *proc) {
+         DLOG(INFO)<<"set next processor"<<endl;
         Processor *old = next_;
         next_ = proc;
         return old;
@@ -34,6 +35,13 @@ class Processor {
     virtual bool Proceed(Frame *frame) {
         if (next_ != NULL) {
             next_->Update(frame);
+            return true;
+        }
+        return false;
+    }
+    virtual bool Proceed(FrameBatch *frameBatch) {
+        if (next_ != NULL) {
+            next_->Update(frameBatch);
             return true;
         }
         return false;

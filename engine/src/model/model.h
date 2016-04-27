@@ -10,10 +10,11 @@
 
 #include <vector>
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
 #include "basic.h"
 
 using namespace std;
-
 namespace dg {
 
 typedef enum {
@@ -144,7 +145,12 @@ class Vehicle : public Object {
     void set_color(const Color& color) {
         color_ = color;
     }
-
+    const Detection & window()const {
+         return window_;
+    }
+    void set_window(const Detection & detection){
+         window_=detection;
+    }
     Confidence confidence1() const {
         return confidence_;
     }
@@ -156,11 +162,20 @@ class Vehicle : public Object {
     const cv::Mat& image() const {
         return image_;
     }
-
+    const cv::Mat& resized_image() const {
+        return resized_image_;
+    }
     void set_image(const cv::Mat& image) {
         image_ = image;
+        cv::resize(image_,resized_image_, cv::Size(256, 256));
+        resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
     }
-
+    void set_markers(const vector<Detection> &markers){
+         markers_=markers;
+    }
+    const vector<Detection>& markers(){
+         return markers_;
+    }
     const Plate& plate() const {
         return plate_;
     }
@@ -180,10 +195,13 @@ class Vehicle : public Object {
  private:
 
     cv::Mat image_;
+    cv::Mat resized_image_;
     Identification class_id_;
     Plate plate_;
     Color color_;
     Confidence confidence_;
+    Detection window_;
+    vector<Detection> markers_;
 };
 
 //class People : public Object {
