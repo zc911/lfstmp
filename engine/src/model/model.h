@@ -18,7 +18,7 @@ namespace dg {
 
 typedef enum {
     OBJECT_UNKNOWN = 0,
-    OBJECT_VEHICLE = 1,
+    OBJECT_CAR = 1,
     OBJECT_BICYCLE = 2,
     OBJECT_TRICYCLE = 4,
     OBJECT_PEDESTRIAN = 8,
@@ -31,17 +31,27 @@ typedef enum {
     OBJECT_FACE = 64,
 } ObjectType;
 
-typedef struct {
+typedef struct Detection {
     int id;
+    bool deleted;
     Box box;
     Confidence confidence;
+    Detection& operator =(const Detection &detection) {
+        if (this == &detection) {
+            return *this;
+        }
+        id = detection.id;
+        box = detection.box;
+        confidence = detection.confidence;
+        return *this;
+    }
 } Detection;
 
 class Object {
  public:
-    Object()
+    Object(ObjectType type)
             : id_(0),
-              type_(OBJECT_UNKNOWN),
+              type_(type),
               confidence_(0) {
         children_.clear();
 
@@ -66,14 +76,6 @@ class Object {
         children_ = children;
     }
 
-    Confidence confidence() const {
-        return confidence_;
-    }
-
-    void set_confidence(Confidence confidence) {
-        confidence_ = confidence;
-    }
-
     const Detection& detection() const {
         return detection_;
     }
@@ -90,6 +92,14 @@ class Object {
         id_ = id;
     }
 
+    Confidence confidence() const {
+        return confidence_;
+    }
+
+    void set_confidence(Confidence confidence) {
+        confidence_ = confidence;
+    }
+
     ObjectType type() const {
         return type_;
     }
@@ -100,40 +110,108 @@ class Object {
 
  protected:
     Identification id_;
-    ObjectType type_;
     Confidence confidence_;
+    ObjectType type_;
     Detection detection_;
     vector<Object *> children_;
-//    Object *parent_;
+
 };
 
 class Vehicle : public Object {
  public:
-    Vehicle()
-            : confidence_(0) {
+
+    typedef struct {
+        Identification class_id;
+        Confidence confidence;
+    } Color;
+
+    typedef struct {
+        Box box;
+        string plate_num;
+        int plate_type;
+        Confidence confidence;
+    } Plate;
+
+    Vehicle(ObjectType type)
+            : Object(type),
+              class_id_(-1) {
     }
+
+    const Color& color() const {
+        return color_;
+    }
+
+    void set_color(const Color& color) {
+        color_ = color;
+    }
+
+    const cv::Mat& image() const {
+        return image_;
+    }
+
+    void set_image(const cv::Mat& image) {
+        image_ = image;
+    }
+
+    const Plate& plate() const {
+        return plate_;
+    }
+
+    void set_plate(const Plate& plate) {
+        plate_ = plate;
+    }
+
+    Identification class_id() const {
+        return class_id_;
+    }
+
+    void set_class_id(Identification classId) {
+        class_id_ = classId;
+    }
+
  private:
+
     cv::Mat image_;
-    Confidence confidence_;
-};
+    Identification class_id_;
+    Plate plate_;
+    Color color_;
 
-class Marker : public Object {
- public:
-    Marker()
-            : confidence_(0) {
-    }
- private:
-    Confidence confidence_;
-};
-
-class People : public Object {
-    People() {
-    }
 };
 
 class Face : public Object {
-    Face() {
+
+ public:
+    Face()
+            : Object(OBJECT_FACE) {
+
     }
+
+    Face(Identification id, Detection detection, Confidence confidence)
+            : Object(OBJECT_FACE) {
+        id_ = id;
+        confidence_ = confidence;
+        detection_ = detection;
+    }
+
+    Face(Identification id, int x, int y, int width, int height,
+         Confidence confidence)
+            : Object(OBJECT_FACE) {
+        id_ = id;
+        confidence_ = confidence;
+        detection_.box = Box(x, y, width, height);
+    }
+
+    FaceFeature feature() const {
+        return feature_;
+    }
+
+    void set_feature(FaceFeature feature) {
+        feature_ = feature;
+    }
+
+ private:
+
+    FaceFeature feature_;
 };
 
 typedef struct {
@@ -145,5 +223,4 @@ typedef struct {
 } Message;
 
 }
-
 #endif /* MODEL_H_ */
