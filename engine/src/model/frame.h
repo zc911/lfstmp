@@ -66,7 +66,6 @@ class Frame {
           for (vector<Object *>::iterator itr = objects_.begin();
                     itr != objects_.end(); ++itr) {
                Object *old_obj = *itr;
-               DLOG(INFO)<<"old obj id "<<old_obj->id()<<"|| obj id "<<obj->id()<<endl;
                if (old_obj->id() == obj->id()) {
                     delete old_obj;
                     itr = objects_.erase(itr);
