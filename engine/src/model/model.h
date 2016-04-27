@@ -39,10 +39,6 @@ typedef struct Detection {
     Box box;
     Confidence confidence;
 
-//    ostream& operator<<(std::ostream& os, const Detection& det) {
-//        os << det.
-//    }
-
     Detection& operator =(const Detection &detection) {
         if (this == &detection) {
             return *this;
@@ -52,6 +48,12 @@ typedef struct Detection {
         confidence = detection.confidence;
         return *this;
     }
+    friend ostream& operator<<(std::ostream& os, const Detection& det) {
+        return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
+                  << det.box.y << "," << det.box.width << "," << det.box.height
+                  << "] Conf: " << det.confidence;
+    }
+
 } Detection;
 
 class Object {
