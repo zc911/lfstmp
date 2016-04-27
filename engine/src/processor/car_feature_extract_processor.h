@@ -26,11 +26,9 @@ class CarFeatureExtractProcessor : public Processor {
     virtual bool checkOperation(Frame *frame) {
         return true;
     }
-    ;
     virtual bool checkStatus(Frame *frame) {
         return true;
     }
-    ;
 
  private:
     CarFeatureExtractor *extractor_;
