@@ -6,6 +6,7 @@
 #include "processor/vehicle_color_processor.h"
 #include "processor/vehicle_marker_classifier_processor.h"
 #include "processor/vehicle_plate_recognizer_processor.h"
+#include "processor/car_feature_extract_processor.h"
 
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
@@ -129,7 +130,9 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_feature_vector_) {
             LOG(INFO)<< "Enable vehicle feature vector processor." << endl;
-
+            Processor *p = new CarFeatureExtractProcessor();
+            last->SetNextProcessor(p);
+            last = p;
         }
 
         LOG(INFO)<< "Init vehicle processor pipeline finished. " << endl;
