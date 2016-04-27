@@ -16,6 +16,7 @@
 #include <caffe/caffe.hpp>
 #include "model/basic.h"
 #include "model/model.h"
+#include "caffe_helper.h"
 
 #include "detector.h"
 #include "caffe_config.h"
@@ -61,14 +62,16 @@ class MarkerCaffeClassifier {
      } MarkerConfig;
      MarkerCaffeClassifier(CaffeConfig &config, MarkerConfig &markerconfig);
      virtual ~MarkerCaffeClassifier();
-     vector<vector<Detection > > ClassifyAutoBatch(vector<Mat> imgs);
+     vector<vector<Detection> > ClassifyAutoBatch(vector<Mat> imgs);
  protected:
-     vector<vector<Detection > > ClassifyBatch(vector<Mat> imgs);
+     vector<vector<Detection> > ClassifyBatch(vector<Mat> imgs);
+     vector<vector<Detection> > get_final_bbox(vector<Mat> images,
+                                               Blob<float>* cls,
+                                               Blob<float>* reg,
+                                               vector<float> enlarge_ratios,
+                                               Marker &marker,
+                                               vector<Mat> origin_imgs);
 
-     vector<vector<Detection> > get_final_bbox(
-               vector<Mat> image, Blob<float>* cls, Blob<float>* reg,
-               vector<float> enlarge_ratio, Marker &marker,
-               vector<Mat> origin_img);
      bool filter(Detection, int row, int col);
 
      std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);

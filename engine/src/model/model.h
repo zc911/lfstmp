@@ -8,12 +8,14 @@
 #ifndef MODEL_H_
 #define MODEL_H_
 
+#include <iostream>
 #include <vector>
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+
 #include "basic.h"
 
 using namespace std;
-
 namespace dg {
 
 typedef enum {
@@ -36,6 +38,11 @@ typedef struct Detection {
     bool deleted;
     Box box;
     Confidence confidence;
+
+//    ostream& operator<<(std::ostream& os, const Detection& det) {
+//        os << det.
+//    }
+
     Detection& operator =(const Detection &detection) {
         if (this == &detection) {
             return *this;
@@ -128,6 +135,7 @@ class Vehicle : public Object {
     typedef struct {
         Box box;
         string plate_num;
+        int color_id;
         int plate_type;
         Confidence confidence;
     } Plate;
@@ -144,15 +152,30 @@ class Vehicle : public Object {
     void set_color(const Color& color) {
         color_ = color;
     }
+    const Detection & window() const {
+        return window_;
+    }
+    void set_window(const Detection & detection) {
+        window_ = detection;
+    }
 
     const cv::Mat& image() const {
         return image_;
     }
-
+    const cv::Mat& resized_image() const {
+        return resized_image_;
+    }
     void set_image(const cv::Mat& image) {
         image_ = image;
+        cv::resize(image_, resized_image_, cv::Size(256, 256));
+        resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
     }
-
+    void set_markers(const vector<Detection> &markers) {
+        markers_ = markers;
+    }
+    const vector<Detection>& markers() {
+        return markers_;
+    }
     const Plate& plate() const {
         return plate_;
     }
@@ -172,9 +195,12 @@ class Vehicle : public Object {
  private:
 
     cv::Mat image_;
+    cv::Mat resized_image_;
     Identification class_id_;
     Plate plate_;
     Color color_;
+    Detection window_;
+    vector<Detection> markers_;
 
 };
 

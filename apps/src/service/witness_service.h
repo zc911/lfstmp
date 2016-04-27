@@ -53,8 +53,9 @@ class WitnessServiceImpl : public apps::WitnessService::Service,
         cv::Mat image = cv::imread("test.jpg");
         Payload *payload = new Payload(request->sessionid(), image);
         frame->set_payload(payload);
-
-        engine_->Process(frame);
+        FrameBatch *framebatch = new FrameBatch(request->sessionid()*10,1);
+        framebatch->add_frame(frame);
+        engine_->Process(framebatch);
 
         cout << "Finish processing: " << request->sessionid() << "..." << endl;
         cout << "=======" << endl;
