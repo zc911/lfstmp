@@ -17,6 +17,7 @@ WitnessEngine::WitnessEngine(const Config &config) {
     vehicle_processor_ = NULL;
     face_processor_ = NULL;
     is_init_ = false;
+
     init(config);
 }
 
@@ -92,7 +93,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 }
 
 void WitnessEngine::init(const Config &config) {
-
+    initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
 
@@ -114,7 +115,7 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
 
-        if (0) {
+        if (enable_vehicle_plate_) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
             Processor *p = new PlateRecognizerProcessor();
             last->SetNextProcessor(p);
@@ -140,7 +141,7 @@ void WitnessEngine::init(const Config &config) {
     }
 
     if (enable_face_) {
-        LOG(INFO) << "Init face processor pipeline. " << endl;
+        LOG(INFO)<< "Init face processor pipeline. " << endl;
         // face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
         if(enable_face_feature_vector_) {
             //LOG(INFO) << "Enable face feature vector processor." << endl;
