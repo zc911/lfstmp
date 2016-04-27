@@ -2,12 +2,14 @@
 #include <memory>
 #include <iostream>
 #include <glog/logging.h>
+#include <grpc++/grpc++.h>
 #include "config/config.h"
-#include "grpc/witness.h"
-#include "grpc/ranker.h"
+#include "grpc/witness_grpc.h"
+#include "grpc/ranker_grpc.h"
 
 using namespace std;
 using namespace dg;
+using namespace grpc;
 
 int main(int argc, char* argv[]) {
     google::InitGoogleLogging(argv[0]);
@@ -34,8 +36,8 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    string address = (string) config_->Value("System/Ip") + ":"
-          + (string) config_->Value("System/Port");
+    string address = (string) config->Value("System/Ip") + ":"
+          + (string) config->Value("System/Port");
 
     ServerBuilder builder;
     builder.AddListeningPort(address, grpc::InsecureServerCredentials());

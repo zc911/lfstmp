@@ -41,7 +41,7 @@ public:
     CarRankEngine() : id_(0) {}
     virtual ~CarRankEngine() {}
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarFeature>& candidates)
+    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates)
     {
         vector<Rect> hotspots;
         hotspots.push_back(hotspot);
@@ -61,7 +61,7 @@ public:
     FaceRankEngine() : id_(0) {}
     virtual ~FaceRankEngine() {}
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceFeature>& candidates)
+    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates)
     {
         vector<Rect> hotspots;
         hotspots.push_back(hotspot);

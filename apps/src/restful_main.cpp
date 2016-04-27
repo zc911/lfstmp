@@ -3,8 +3,8 @@
 #include <iostream>
 #include <glog/logging.h>
 #include "config/config.h"
-#include "grpc/witness_service.h"
-#include "grpc/witness_service_asyn.h"
+#include "grpc/witness_grpc.h"
+#include "grpc/ranker_grpc.h"
 
 using namespace std;
 

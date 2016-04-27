@@ -9,14 +9,18 @@
 
 #include <vector>
 #include <glog/logging.h>
+#include <opencv2/highgui/highgui.hpp>
  
 #include "image_service.h"
 #include "codec/base64.h"
 
-::dg::MatrixError ImageService::ParseImage(const ::dg::Image *imgDes, ::cv::Mat& imgMat)
+namespace dg 
+{
+
+::dg::MatrixError ImageService::ParseImage(const ::dg::Image& imgDes, ::cv::Mat& imgMat)
 {
     ::dg::MatrixError err;
-    if (imgDes == NULL || imgDes->uri_.size() == 0 || imgDes->bindata_.size() == 0)
+    if (imgDes.uri().size() == 0 || imgDes.bindata().size() == 0)
     {
         err.set_code(-1);
         err.set_message("image URI or Data is required!");
@@ -24,13 +28,13 @@
     }
 
     vector<uchar> imgBin;
-    if (imgDes->uri_.size() > 0)
+    if (imgDes.uri().size() > 0)
     {
-        imgBin = getImageFromUri(imgDes->uri_);
+        imgBin = getImageFromUri(imgDes.uri());
     }
     else 
     {
-        imgBin = getImageFromData(imgDes->bindata_);
+        imgBin = getImageFromData(imgDes.bindata());
     }
 
     if (imgBin.size() == 0)
@@ -40,7 +44,7 @@
         return err;
     }
 
-    imgMat = imdecode(Mat(imgBin), 1);
+    imgMat = cv::imdecode(cv::Mat(imgBin), 1);
     return err;
 }
 
@@ -54,4 +58,6 @@ vector<uchar> ImageService::getImageFromData(const string img64)
 vector<uchar> ImageService::getImageFromUri(const string uri)
 {
     return vector<uchar>();
+}
+
 }

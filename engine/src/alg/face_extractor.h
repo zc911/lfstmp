@@ -29,7 +29,7 @@ public:
     FaceExtractor(string deploy, string model,int batchSize = 8, int gpuId=0);
     virtual ~FaceExtractor();
 
-    void Classify(const vector<Mat>& images, const vector<FaceFeature>& features, vector<vector<Score>>& predicts);
+    void Classify(const vector<Mat>& images, const vector<FaceRankFeature>& features, vector<vector<Score>>& predicts);
 
 private:
     int batch_size_;
