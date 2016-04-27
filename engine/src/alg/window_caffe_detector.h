@@ -11,11 +11,12 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>s
+#include <opencv2/imgproc/imgproc.hpp>
 
 #include <caffe/caffe.hpp>
 #include "model/basic.h"
 #include "detector.h"
+#include "caffe_helper.h"
 #include "caffe_config.h"
 using namespace std;
 using namespace caffe;
@@ -27,9 +28,9 @@ class WindowCaffeDetector {
      virtual ~WindowCaffeDetector();
 
 
-     virtual int DetectBatch(const vector<cv::Mat> &img,const vector<cv::Mat> &resized_img,vector<vector<Detection> > &detect_results);
+     virtual vector<Detection>  DetectBatch(const vector<cv::Mat> &img,const vector<cv::Mat> &resized_img);
  protected:
-     vector<Rect> Detect(vector<Mat> resized_imgs,
+     vector<Detection> Detect(vector<Mat> resized_imgs,
                          vector<Mat> imgs);
      std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
      void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
@@ -42,9 +43,9 @@ class WindowCaffeDetector {
      cv::Size input_geometry_;
      bool device_setted_;
      CaffeConfig caffe_config_;
-     Mat means_;
      int rescale_;
 
 };
+
 }
 #endif /* SRC_ALG_WINDOW_CAFFE_DETECTOR_H_ */

@@ -15,6 +15,7 @@ namespace dg {
 
 class VehicleClassifierProcessor : public Processor {
  public:
+
     VehicleClassifierProcessor();
 
     ~VehicleClassifierProcessor();
@@ -25,6 +26,7 @@ class VehicleClassifierProcessor : public Processor {
 
     virtual bool checkOperation(Frame *frame);
     virtual bool checkStatus(Frame *frame);
+
  private:
     VehicleCaffeClassifier *classifier_;
 

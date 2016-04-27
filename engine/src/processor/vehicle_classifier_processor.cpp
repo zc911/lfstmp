@@ -61,10 +61,16 @@ void VehicleClassifierProcessor::Update(Frame *frame) {
 
     }
 
-    Proceed(frame);
+    //Proceed(frame);
 }
 
 void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
+
+    for (int i = 0; i < frameBatch->frames().size(); i++) {
+        Frame *frame = frameBatch->frames()[i];
+        Update(frame);
+    }
+    Proceed(frameBatch);
 
 }
 
