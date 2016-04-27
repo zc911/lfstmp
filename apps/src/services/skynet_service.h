@@ -13,12 +13,12 @@
 namespace dg
 {
 
-class SkynetService
+class SkynetAppsService
 {
 
 public:
-    SkynetService(Config *config);
-    virtual ~SkynetService();
+    SkynetAppsService(Config *config);
+    virtual ~SkynetAppsService();
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
     

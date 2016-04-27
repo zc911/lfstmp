@@ -3,11 +3,10 @@
 #include <iostream>
 #include <glog/logging.h>
 #include "config/config.h"
-#include "grpc/witness_service.h"
-#include "grpc/witness_service_asyn.h"
+#include "grpc/witness.h"
+#include "grpc/ranker.h"
 
 using namespace std;
-
 using namespace dg;
 
 int main(int argc, char* argv[]) {
@@ -21,14 +20,15 @@ int main(int argc, char* argv[]) {
     
     grpc::Service *service = NULL;
     if (instType == "witness") {
-        bool asyn = config->Value("System/EnableAsyn");
-        if (asyn) {
-            service = new WitnessServiceAsynImpl(config);
-        } else {
-            service = new WitnessServiceImpl(config);
-        }
+        service = new GrpcWitnessServiceImpl(config);
+        // bool asyn = config->Value("System/EnableAsyn");
+        // if (asyn) {
+        //     service = new WitnessServiceAsynImpl(config);
+        // } else {
+        //     service = new WitnessServiceImpl(config);
+        // }
     } else if(instType == "ranker") {
-        service = new RankerServiceImpl(config);
+        service = new GrpcRankerServiceImpl(config);
     } else {
         cout << "unknown instance type: " << instType << endl;
         return -1;

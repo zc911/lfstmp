@@ -20,11 +20,11 @@ using namespace std;
 namespace dg 
 {
 
-class RankerService
+class RankerAppsService
 {
 public:
-    RankerService(Config *config);
-    virtual ~RankerService();
+    RankerAppsService(Config *config);
+    virtual ~RankerAppsService();
 
     bool GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
 

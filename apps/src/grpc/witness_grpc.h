@@ -11,19 +11,19 @@
 #define MATRIX_APPS_GRPC_WITNESS_H_
 
 #include <grpc++/grpc++.h>
-#include "service/witness_service.h"
+#include "services/witness_service.h"
 
 namespace dg 
 {
 
-class GrpcWitnessImpl final : public WitnessService::Service 
+class GrpcWitnessServiceImpl final : public WitnessService::Service 
 {
 public:
-    GrpcWitnessImpl(Config *config) : service_(config) {}
-    virtual ~GrpcWitnessImpl() {}
+    GrpcWitnessServiceImpl(Config *config) : service_(config) {}
+    virtual ~GrpcWitnessServiceImpl() {}
 
 private:
-    WitnessService service_;
+    WitnessAppsService service_;
 
     virtual grpc::Status Recognize(grpc::ServerContext* context, const WitnessRequest* request, WitnessResponse* response) override
     {

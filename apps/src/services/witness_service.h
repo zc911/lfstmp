@@ -15,11 +15,11 @@
 namespace dg 
 {
 
-class WitnessService
+class WitnessAppsService
 {
 public:
-    WitnessService(Config *config);
-    virtual ~WitnessService();
+    WitnessAppsService(Config *config);
+    virtual ~WitnessAppsService();
 
     bool Recognize(const WitnessRequest *request, WitnessResponse *response);
 

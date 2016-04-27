@@ -11,19 +11,19 @@
 #define MATRIX_APPS_GRPC_RANKER_H_
 
 #include <grpc++/grpc++.h>
-#include "service/ranker_service.h"
+#include "services/ranker_service.h"
 
 namespace dg 
 {
 
-class GrpcRankerImpl final : public SimilarityService::Service
+class GrpcSystemServiceImpl final : public SimilarityService::Service
 {
 public:
-    GrpcRankerImpl(Config *config) : service_(config) {}
-    virtual ~GrpcRankerImpl() {}
+    GrpcSystemServiceImpl(Config *config) : service_(config) {}
+    virtual ~GrpcSystemServiceImpl() {}
 
 private:
-    RankService service_;
+    RankAppsService service_;
 
     virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response) override
     {
