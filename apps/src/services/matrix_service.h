@@ -15,11 +15,11 @@
 namespace dg
 {
 
-class MatrixService
+class MatrixAppsService
 {
 public:
-    MatrixService(Config *config);
-    virtual ~MatrixService();
+    MatrixAppsService(Config *config);
+    virtual ~MatrixAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
 

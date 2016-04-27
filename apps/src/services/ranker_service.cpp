@@ -16,7 +16,7 @@
 namespace dg
 {
 
-RankerService::RankerService(Config *config)
+RankerAppsService::RankerAppsService(Config *config)
                     : config_(config)
                     , car_ranker_()
                     , face_ranker_()
@@ -24,13 +24,13 @@ RankerService::RankerService(Config *config)
 
 }
 
-RankerService::~RankerService()
+RankerAppsService::~RankerAppsService()
 {
 
 }
 
 
-bool RankerService::GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
+bool RankerAppsService::GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
 {
     try
     {
@@ -56,7 +56,7 @@ bool RankerService::GetRankedVector(const FeatureRankingRequest* request, Featur
     }
 }
 
-bool RankerService::getRankedCarVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
+bool RankerAppsService::getRankedCarVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
 {
     string prefix = requestPrefix(request);
     LOG(INFO) << prefix << "started";
@@ -88,7 +88,7 @@ bool RankerService::getRankedCarVector(const FeatureRankingRequest* request, Fea
 }
 
 
-bool RankerService::getRankedFaceVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
+bool RankerAppsService::getRankedFaceVector(const FeatureRankingRequest* request, FeatureRankingResponse* response)
 {
     string prefix = requestPrefix(request);
     LOG(INFO) << prefix << "started";
@@ -119,7 +119,7 @@ bool RankerService::getRankedFaceVector(const FeatureRankingRequest* request, Fe
     return true;
 }
 
-static void RankerService::sortAndFillResponse(const FeatureRankingRequest* request, vector<Score>& scores, FeatureRankingResponse* response)
+void RankerAppsService::sortAndFillResponse(const FeatureRankingRequest* request, vector<Score>& scores, FeatureRankingResponse* response)
 {
     int limit = getLimit(request);
 
@@ -135,41 +135,14 @@ static void RankerService::sortAndFillResponse(const FeatureRankingRequest* requ
 }
 
 
-static string RankerService::requestPrefix(const FeatureRankingRequest* request)
+string RankerAppsService::requestPrefix(const FeatureRankingRequest* request)
 {
     stringstream ss;
     ss << "request(" << request->reqid() << "): ";
     return ss.str();
 }
 
-    template <typename F>
-    static MatrixError extractFeatures(const FeatureRankingRequest* request, RankService<F>& ranker, vector<F>& features)
-    {
-        MatrixError err;
-        if (request->candidates_size() <= 0)
-        {
-            err.set_code(-1);
-            err.set_message("no candidates in request context");
-            return err;
-        }
-
-        for(int i = 0; i < request->candidates_size(); i ++)
-        {
-            string featureStr = request->candidates(i).feature();
-            if (featureStr.size() <= 0)
-            {
-                err.set_code(-1);
-                err.set_message("invalid candidate");
-                return err;
-            }
-
-            features.push_back(ranker.Deserialize(featureStr));
-        }
-
-        return err;
-    }
-
-static Rect RankerService::getHotspot(const FeatureRankingRequest* request, const Mat& image)
+Rect RankerAppsService::getHotspot(const FeatureRankingRequest* request, const Mat& image)
 {
     if (request->interestedareas_size() > 0)
     {
@@ -182,7 +155,7 @@ static Rect RankerService::getHotspot(const FeatureRankingRequest* request, cons
     return hotspot(0, 0, image.cols, image.rows);
 }
 
-static int RankerService::getLimit(const FeatureRankingRequest* request)
+int RankerAppsService::getLimit(const FeatureRankingRequest* request)
 {
     int limit = request->limit();
     if (limit <= 0 || limit >= request->candidates_size())
