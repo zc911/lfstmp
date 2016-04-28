@@ -32,7 +32,8 @@ static void PrintFrame(Frame &frame) {
                 cout << "Marker " << i << ": " << d << endl;
             }
 
-            cout << "Feature Vector: " << v->feature().Serialize() << endl;
+            cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
+                 << "... Len: " << v->feature().Serialize().size() << endl;
         } else {
             cout << "Type not support now. " << endl;
         }
@@ -50,13 +51,15 @@ int main() {
     Config *config = Config::GetInstance();
     config->Load("config.json");
     SimpleEngine *engine = new WitnessEngine(*config);
-    FrameBatch *fb = new FrameBatch(1111, 2);
+    FrameBatch *fb = new FrameBatch(1111, 4);
 
-    for (int i = 0; i < 2; ++i) {
-        Frame *f = new Frame(i * 100);
-
-        cv::Mat image = cv::imread("test.jpg");
-        Payload *payload = new Payload(i * 100, image);
+    for (int i = 0; i < 4; ++i) {
+        Frame *f = new Frame((i + 1) * 100);
+        char index[1];
+        index[0] = '0' + i;
+        string file = "test" + string(index) + ".jpg";
+        cv::Mat image = cv::imread(file.c_str());
+        Payload *payload = new Payload((i + 1) * 100, image);
         Operation op;
         op.Set(OPERATION_VEHICLE);
         op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
