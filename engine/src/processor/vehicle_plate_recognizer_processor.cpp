@@ -23,12 +23,13 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
         delete recognizer_;
 }
 void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
-    DLOG(INFO)<<"Start plate frame: "<< endl;
-    vector<Mat> vehicles = this->vehicles_mat(frameBatch);
+    DLOG(INFO)<<"Start plate recognize processor "<< endl;
 
-    for(int i=0;i<vehicles.size();i++) {
+    beforeUpdate(frameBatch);
+
+    for(int i=0;i<images_.size();i++) {
         Vehicle *v = (Vehicle*) objs_[i];
-        Mat tmp = vehicles[i];
+        Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         DLOG(INFO)<<"plate number "<<pred.plate_num<<endl;
         v->set_plate(pred);
@@ -36,8 +37,8 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
     Proceed(frameBatch);
 }
 
-bool PlateRecognizerProcessor::checkOperation(Frame *frame) {
-    return true;
+void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
+     images_ = this->vehicles_mat(frameBatch);
 }
 bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
     return true;

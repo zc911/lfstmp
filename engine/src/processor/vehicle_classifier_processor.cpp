@@ -23,10 +23,11 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 
      DLOG(INFO)<<"Start vehicle classify frame: "<< endl;
-     vector<Mat> images = this->vehicles_resized_mat(frameBatch);
+
+     beforeUpdate(frameBatch);
 
      vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
-               images);
+               images_);
 
 
      for(int i=0;i<objs_.size();i++) {
@@ -44,8 +45,8 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 
 }
 
-bool VehicleClassifierProcessor::checkOperation(Frame *frame) {
-    return frame->operation().Check(OPERATION_VEHICLE_STYLE);
+void VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    images_=vehicles_resized_mat(frameBatch);
 }
 bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
     return true;
