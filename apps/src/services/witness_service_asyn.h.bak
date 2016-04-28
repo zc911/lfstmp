@@ -30,6 +30,7 @@ using grpc::Status;
 using namespace std;
 
 namespace dg {
+namespace apps {
 class WitnessServiceAsynImpl : public BasicService {
 
  public:
@@ -111,7 +112,7 @@ class WitnessServiceAsynImpl : public BasicService {
 
                 // The actual processing.
                 cout << "Get Recognize request: " << request_.sessionid()
-                     << ", Image URI:" << request_.image().uri() << endl;
+                        << ", Image URI:" << request_.image().uri() << endl;
                 cout << "Start processing(Asyn): " << request_.sessionid()
                      << "..." << endl;
                 sleep(5);
@@ -184,5 +185,5 @@ class WitnessServiceAsynImpl : public BasicService {
     std::unique_ptr<Server> server_;
 };
 }
-
+}
 #endif /* WITNESS_SERVICE_ASYN_H_ */
