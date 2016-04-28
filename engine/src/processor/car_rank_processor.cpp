@@ -34,7 +34,7 @@ bool CarRankProcessor::checkStatus(Frame *frame) {
 vector<Score> CarRankProcessor::rank(const Mat& image, const Rect& hotspot,
                                      const vector<CarRankFeature>& candidates) {
     CarRankFeature des;
-    car_matcher_.ExtractDescriptor(image, des);
+    car_feature_extractor_.ExtractDescriptor(image, des);
     LOG(INFO)<< "image feature w(" << des.width_ << "), h(" << des.height_ << ")";
 
     float resize_rto = 600.0 / (float) max(image.cols, image.rows);
