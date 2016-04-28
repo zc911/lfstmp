@@ -19,7 +19,7 @@ namespace dg
 
 WitnessAppsService::WitnessAppsService(const Config *config)
                     : config_(config)
-                    , engine_(config)
+                    , engine_(*config)
                     , id_(0)
 {
 
@@ -32,9 +32,10 @@ WitnessAppsService::~WitnessAppsService()
 
 bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessResponse *response)
 {
-        cout << "Get Recognize request: " << request->sessionid()
-             << ", Image URI:" << request->image().uri() << endl;
-        cout << "Start processing: " << request->sessionid() << "..." << endl;
+        const string& sessionid = request->context().sessionid();
+        cout << "Get Recognize request: " << sessionid
+             << ", Image URI:" << request->image().data().uri() << endl;
+        cout << "Start processing: " << sessionid << "..." << endl;
 
         if (!request->has_image() || !request->image().has_data())
         {
@@ -43,7 +44,7 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
         }
 
         Mat image;
-        MatrixError err = ImageService::ParseImage(request->image().data(), image)
+        MatrixError err = ImageService::ParseImage(request->image().data(), image);
         if (err.code() != 0)
         {
             LOG(ERROR) << "parse image failed, " << err.message();
@@ -62,7 +63,7 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
 
         cout << "recognized objects: " << frame.objects().size() << endl;
 
-        cout << "Finish processing: " << request->sessionid() << "..." << endl;
+        cout << "Finish processing: " << sessionid << "..." << endl;
         cout << "=======" << endl;
     return true;
 }
