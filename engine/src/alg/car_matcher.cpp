@@ -8,12 +8,13 @@
 #include <glog/logging.h>
 #include "car_matcher.h"
 
+namespace dg {
 #define FEATURE_NUM_CUDA 256
 
 #if not USE_CUDA
 CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
-    orb_ = ORB(feature_num_);
+//    orb_ = ORB(feature_num_);
     max_resize_size_ = 300;
     max_mis_match_ = 50;
     min_remarkableness_ = 0.8;
@@ -26,39 +27,39 @@ CarMatcher::~CarMatcher() {
 }
 #endif
 
-void CarMatcher::ExtractDescriptor(const Mat &img, CarRankFeature &des) {
-    if (profile_time_)
-        t_profiler_feature_.Reset();
-
-    des.height_ = img.rows;
-    des.width_ = img.cols;
-    Mat resize_img;
-    Size new_size;
-    calcNewSize(des.height_, des.width_, new_size);
-
-    if (img.channels() != 3)
-        LOG(WARNING)<<"Color image is required.";
-    if ((img.rows < 10) || (img.cols < 10))
-        LOG(WARNING)<<"Image needs to be larger than 10*10 to extract enough feature.";
-    resize(img, resize_img, new_size);
-
-    orb_(resize_img, Mat(), key_point_, descriptor_);
-    if (key_point_.size() < 50)
-        LOG(WARNING)<<"Not enough feature extracted.";
-
-    descriptor_.copyTo(des.descriptor_);
-    des.position_ = Mat::zeros(key_point_.size(), 2, CV_16UC1);
-
-    for (int i = 0; i < key_point_.size(); i++) {
-        des.position_.at<ushort>(i, 0) = ((ushort) key_point_[i].pt.x);
-        des.position_.at<ushort>(i, 1) = ((ushort) key_point_[i].pt.y);
-    }
-
-    if (profile_time_) {
-        t_profiler_str_ = "Descriptor";
-        t_profiler_feature_.Update(t_profiler_str_);
-    }
-}
+//void CarMatcher::ExtractDescriptor(const Mat &img, CarRankFeature &des) {
+//    if (profile_time_)
+//        t_profiler_feature_.Reset();
+//
+//    des.height_ = img.rows;
+//    des.width_ = img.cols;
+//    Mat resize_img;
+//    Size new_size;
+//    calcNewSize(des.height_, des.width_, new_size);
+//
+//    if (img.channels() != 3)
+//        LOG(WARNING)<<"Color image is required.";
+//    if ((img.rows < 10) || (img.cols < 10))
+//        LOG(WARNING)<<"Image needs to be larger than 10*10 to extract enough feature.";
+//    resize(img, resize_img, new_size);
+//
+//    orb_(resize_img, Mat(), key_point_, descriptor_);
+//    if (key_point_.size() < 50)
+//        LOG(WARNING)<<"Not enough feature extracted.";
+//
+//    descriptor_.copyTo(des.descriptor_);
+//    des.position_ = Mat::zeros(key_point_.size(), 2, CV_16UC1);
+//
+//    for (int i = 0; i < key_point_.size(); i++) {
+//        des.position_.at<ushort>(i, 0) = ((ushort) key_point_[i].pt.x);
+//        des.position_.at<ushort>(i, 1) = ((ushort) key_point_[i].pt.y);
+//    }
+//
+//    if (profile_time_) {
+//        t_profiler_str_ = "Descriptor";
+//        t_profiler_feature_.Update(t_profiler_str_);
+//    }
+//}
 
 int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
                                   const CarRankFeature &des2, const Rect &box) {
@@ -154,5 +155,7 @@ vector<int> CarMatcher::ComputeMatchScore(
 #else
     return computeMatchScoreCpu(des, in_box, all_des);
 #endif
+}
+
 }
 
