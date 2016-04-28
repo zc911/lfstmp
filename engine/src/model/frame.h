@@ -55,6 +55,14 @@ class Frame {
     virtual ~Frame() {
         if (payload_)
             delete payload_;
+        for (int i = 0; i < objects_.size(); ++i) {
+            Object * obj = objects_[i];
+            if (obj) {
+                delete obj;
+                obj = NULL;
+            }
+        }
+        objects_.clear();
     }
 
     Identification id() const {
@@ -210,7 +218,17 @@ class FrameBatch {
         }
         return objects;
     }
-    ~FrameBatch();
+    ~FrameBatch() {
+        for (int i = 0; i < frames_.size(); ++i) {
+            Frame * f = frames_[i];
+            if (f) {
+                delete f;
+                f = NULL;
+            }
+        }
+        frames_.clear();
+    }
+    ;
  private:
     Identification id_;
     unsigned int batch_size_;
