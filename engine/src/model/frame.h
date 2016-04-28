@@ -234,7 +234,7 @@ class FrameBatch {
 };
 
 class CarRankFrame : public Frame {
- public:
+public:
     CarRankFrame(Identification id, const Mat& image,
                  const vector<Rect>& hotspots,
                  const vector<CarRankFeature>& candidates)
