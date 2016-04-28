@@ -1,4 +1,5 @@
 #include "rank_engine.h"
+#include "model/frame.h"
 namespace dg {
 
 CarRankEngine::CarRankEngine()
