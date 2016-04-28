@@ -65,7 +65,7 @@ class Frame {
         id_ = id;
     }
 
-    const vector<Object*>& objects() const {
+    vector<Object*>& objects() {
         return objects_;
     }
 
@@ -94,7 +94,7 @@ class Frame {
         return NULL;
     }
 
-    void set_objects(const vector<Object*>& objects) {
+    void set_objects(vector<Object*>& objects) {
         objects_ = objects;
     }
 
@@ -185,16 +185,28 @@ class FrameBatch {
             return 1;
         }
     }
-    vector<Frame *> frames() const {
+    vector<Frame *> frames() {
         return frames_;
     }
     unsigned int batch_size() const {
         return batch_size_;
     }
+
     vector<Object*> objects() {
         vector<Object *> objects;
         for (auto * frame : frames_) {
 
+            objects.insert(objects.end(), frame->objects().begin(),
+                           frame->objects().end());
+        }
+        return objects;
+    }
+
+    vector<Object*> objects(uint64_t operation) {
+        vector<Object *> objects;
+        for (auto * frame : frames_) {
+             if(!frame->operation().Check(operation))
+                  continue;
             objects.insert(objects.end(), frame->objects().begin(),
                            frame->objects().end());
         }
