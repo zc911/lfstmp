@@ -28,6 +28,12 @@ class Payload {
         tmp.copyTo(data_);
 
     }
+
+    Payload(Identification id, cv::Mat data)
+            : id_(id),
+              data_(data) {
+    }
+
     ~Payload() {
         data_.release();
         rgb_.release();
@@ -40,6 +46,7 @@ class Payload {
     Identification id_;
     cv::Mat data_;
     cv::Mat rgb_;
+
 };
 
 }

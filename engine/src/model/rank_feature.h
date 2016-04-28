@@ -16,53 +16,67 @@
 
 using namespace std;
 
-namespace dg 
-{
-class Score
-{
-public:
+namespace dg {
+
+class Score {
+ public:
     int index_;
     float score_;
 
-    Score() {}
-    Score(int index, float score): index_(index), score_(score) {}
-    Score(const Score& s) : index_(s.index_), score_(s.score_) {}
-    virtual ~Score() {}
+    Score() {
+    }
+
+    Score(int index, float score)
+            : index_(index),
+              score_(score) {
+    }
+
+    Score(const Score& s)
+            : index_(s.index_),
+              score_(s.score_) {
+    }
+
+    virtual ~Score() {
+    }
 
     //sortable: score[desc] >> index[asc]
-    bool operator<(const Score& right) const
-    {
-        return score_ != right.score_ ? (score_ > right.score_) : (index_ < right.index_);
+    bool operator<(const Score& right) const {
+        return score_ != right.score_ ?
+                (score_ > right.score_) : (index_ < right.index_);
     }
 };
 
-class RankFeature 
-{
-public:
-    virtual string Serialize() {};
-    virtual bool Deserialize(string featureStr) {};
+class RankFeature {
+ public:
+    virtual string Serialize() {
+    }
+    ;
+    virtual bool Deserialize(string featureStr) {
+    }
+    ;
 
-protected:
+ protected:
     template<typename T>
-    static void ConvertToByte(T value, vector<uchar> &data)
-    {
+    static void ConvertToByte(T value, vector<uchar> &data) {
         uchar *ptr = (uchar *) (&value);
         copy(ptr, ptr + sizeof(T), back_inserter(data));
     }
 
     template<typename T>
-    static void ConvertToValue(T *value, vector<uchar> data)
-    {
+    static void ConvertToValue(T *value, vector<uchar> data) {
         uchar *ptr = (uchar *) value;
-        for (int i = 0; i < sizeof(T); i++)
-        {
+        for (int i = 0; i < sizeof(T); i++) {
             ptr[i] = data[i];
         }
     }
 };
 
+<<<<<<< HEAD
 class CarRankFeature final : public RankFeature
 {
+=======
+class CarRankFeature final : public RankFeature {
+>>>>>>> origin
 public:
     int width_;
     int height_;
@@ -73,8 +87,12 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
+<<<<<<< HEAD
 class FaceRankFeature final : public RankFeature
 {
+=======
+class FaceRankFeature final : public RankFeature {
+>>>>>>> origin
 public:
     std::vector<float> descriptor_;
 
@@ -82,7 +100,10 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
-
 }
 
+<<<<<<< HEAD
  #endif //MATRIX_RANKER_FEATURE_SERIALIZER_H_
+=======
+#endif //MATRIX_RANKER_FEATURE_SERIALIZER_H_
+>>>>>>> origin
