@@ -45,7 +45,6 @@ private:
 
 };
 
-
 } /* namespace dg */
 
 #endif /* SRC_ALG_PLATE_RECOGNIZER_H_ */

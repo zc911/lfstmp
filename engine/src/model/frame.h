@@ -202,15 +202,28 @@ class FrameBatch {
         return objects;
     }
 
-    vector<Object*> objects(uint64_t operation) {
+    vector<Object*> objects(OperationValue operations) {
         vector<Object *> objects;
         for (auto * frame : frames_) {
-             if(!frame->operation().Check(operation))
-                  continue;
+            if (!frame->operation().Check(operations))
+                continue;
             objects.insert(objects.end(), frame->objects().begin(),
                            frame->objects().end());
         }
         return objects;
+    }
+
+    /**
+     * Check the operations of each frame.
+     * Return true if any frame satisfy the input operations
+     * Return false otherwise
+     */
+    bool CheckFrameBatchOperation(OperationValue operations) const {
+        for (auto * frame : frames_) {
+            if (frame->operation().Check(operations))
+                return true;
+        }
+        return false;
     }
 
     ~FrameBatch();
