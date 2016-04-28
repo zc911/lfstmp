@@ -173,11 +173,18 @@ class Vehicle : public Object {
           resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
      }
      void set_markers(const vector<Detection> &markers) {
-          markers_ = markers;
+         vector<Object *> objects;
+          for(auto detection:markers){
+              Marker *m = new Vehicle(OBJECT_MARKER_0);
+              m->set_detection(detection);
+              m->set_id(detection.id);
+              m->set_confidence(detection.confidence);
+              Object *obj = static_cast<Object*>(m);
+              objects.push_back(obj);
+          }
+          this->set_children(objects);
      }
-     const vector<Detection>& markers() {
-          return markers_;
-     }
+
      const Plate& plate() const {
           return plate_;
      }
@@ -202,7 +209,17 @@ class Vehicle : public Object {
      Plate plate_;
      Color color_;
      Detection window_;
-     vector<Detection> markers_;
+
+};
+
+class Marker:public Object{
+ public:
+    Marker(ObjectType type)
+              : Object(type),
+                class_id_(-1) {
+    }
+ private:
+    Identification class_id_;
 
 };
 
