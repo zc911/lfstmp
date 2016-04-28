@@ -5,7 +5,7 @@ namespace dg {
 FaceRankProcessor::FaceRankProcessor()
         : Processor() {
     extractor_ = new FaceFeatureExtractor("models/deployface1",
-                                          "models/modelface1", true, 1, "", "");
+                                          "models/modelface1", true, 1, "models/shapeface1", "models/avgface1");
 }
 FaceRankProcessor::~FaceRankProcessor() {
 }
