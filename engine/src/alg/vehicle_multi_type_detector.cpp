@@ -81,7 +81,14 @@ vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
 
 vector<vector<Detection>> VehicleMultiTypeDetector::DetectBatch(
         const vector<cv::Mat> &img) {
-    return vector<vector<Detection> >();
+    vector<vector<Detection>> results;
+
+    for (int i = 0; i < img.size(); ++i) {
+        vector<Detection> detections = Detect(img[i]);
+        results.push_back(detections);
+    }
+
+    return results;
 }
 
 // predict single frame forward function
