@@ -26,7 +26,8 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(CaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
 
-    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
     net_->CopyTrainedLayersFrom(caffe_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
 
@@ -127,8 +128,7 @@ void VehicleCaffeClassifier::WrapBatchInputLayer(
         }
         input_batch->push_back(vector<cv::Mat>(input_channels));
     }
-    //cv::imshow("bla", input_batch->at(1).at(0));
-    //cv::waitKey(1);
+
 }
 
 void VehicleCaffeClassifier::PreprocessBatch(
