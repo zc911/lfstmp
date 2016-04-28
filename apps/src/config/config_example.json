@@ -10,15 +10,30 @@
 		"GpuId" : 0,
 		"EnableAsyn" : true
 	},
+	"Advanced" : {
+		"DetectionRescale" : 400,
+		"DetectionBatchSize": 1
+	},
 	"Log" : {
 		"Dir": "",
 		"Level": ""
 	},
 	"Feature":{
-		"EnableDetection": true,
-		"EnablePlate" : true,
-		"EnablePlateEnhance" : false,
-		"EnableFeatureVector" : true
+		"Vehicle": {
+			"Enable" : true,
+			"EnableDetection": true,
+			"EnableType" : true,
+			"EnableColor" : true,
+			"EnablePlate" : true,
+			"EnablePlateEnhanced" : false,
+			"EnableMarker" : true,
+			"EnableFeatureVector" : true
+		},
+		"Face": {
+			"Enable" : true,
+			"EnableDetection": true,
+			"EnableFeatureVector": true
+		}
 	},
 	"Debug" : {
 		"Enable" : true,

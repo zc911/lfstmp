@@ -8,12 +8,13 @@
 #include <glog/logging.h>
 #include "car_matcher.h"
 
+namespace dg {
 #define FEATURE_NUM_CUDA 256
 
 #if not USE_CUDA
 CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
-    orb_ = ORB(feature_num_);
+//    orb_ = ORB(feature_num_);
     max_resize_size_ = 300;
     max_mis_match_ = 50;
     min_remarkableness_ = 0.8;
@@ -22,11 +23,11 @@ CarMatcher::CarMatcher() {
     profile_time_ = false;
 }
 
-CarMatcher::~CarMatcher()
-{
+CarMatcher::~CarMatcher() {
 }
 #endif
 
+<<<<<<< HEAD
 void CarMatcher::ExtractDescriptor(const Mat &img, CarRankFeature &des) {
     if (profile_time_)
         t_profiler_feature_.Reset();
@@ -56,6 +57,44 @@ void CarMatcher::ExtractDescriptor(const Mat &img, CarRankFeature &des) {
 }
 
 int CarMatcher::ComputeMatchScore(const CarRankFeature &des1, const CarRankFeature &des2, const Rect &box) {
+=======
+//void CarMatcher::ExtractDescriptor(const Mat &img, CarRankFeature &des) {
+//    if (profile_time_)
+//        t_profiler_feature_.Reset();
+//
+//    des.height_ = img.rows;
+//    des.width_ = img.cols;
+//    Mat resize_img;
+//    Size new_size;
+//    calcNewSize(des.height_, des.width_, new_size);
+//
+//    if (img.channels() != 3)
+//        LOG(WARNING)<<"Color image is required.";
+//    if ((img.rows < 10) || (img.cols < 10))
+//        LOG(WARNING)<<"Image needs to be larger than 10*10 to extract enough feature.";
+//    resize(img, resize_img, new_size);
+//
+//    orb_(resize_img, Mat(), key_point_, descriptor_);
+//    if (key_point_.size() < 50)
+//        LOG(WARNING)<<"Not enough feature extracted.";
+//
+//    descriptor_.copyTo(des.descriptor_);
+//    des.position_ = Mat::zeros(key_point_.size(), 2, CV_16UC1);
+//
+//    for (int i = 0; i < key_point_.size(); i++) {
+//        des.position_.at<ushort>(i, 0) = ((ushort) key_point_[i].pt.x);
+//        des.position_.at<ushort>(i, 1) = ((ushort) key_point_[i].pt.y);
+//    }
+//
+//    if (profile_time_) {
+//        t_profiler_str_ = "Descriptor";
+//        t_profiler_feature_.Update(t_profiler_str_);
+//    }
+//}
+
+int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
+                                  const CarRankFeature &des2, const Rect &box) {
+>>>>>>> origin
     if (profile_time_)
         t_profiler_matching_.Reset();
     Rect box1, box2;
@@ -68,9 +107,9 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1, const CarRankFeatu
         const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
         for (int j = 0; j < des2.descriptor_.rows; j++)
             if (calcDis2(des1.position_.at<ushort>(i, 0),
-                    des1.position_.at<ushort>(i, 1),
-                    des2.position_.at<ushort>(j, 0),
-                    des2.position_.at<ushort>(j, 1))
+                         des1.position_.at<ushort>(i, 1),
+                         des2.position_.at<ushort>(j, 0),
+                         des2.position_.at<ushort>(j, 1))
                     < max_mapping_offset_ * max_mapping_offset_) {
                 const uchar* train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
@@ -87,9 +126,9 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1, const CarRankFeatu
         if ((min_dist <= (unsigned int) (min_remarkableness_ * sec_dist))
                 && (min_dist <= (unsigned int) max_mis_match_)) {
             if ((inBox(des1.position_.at<ushort>(i, 0),
-                    des1.position_.at<ushort>(i, 1), box1))
+                       des1.position_.at<ushort>(i, 1), box1))
                     && (inBox(des2.position_.at<ushort>(min_idx, 0),
-                            des2.position_.at<ushort>(min_idx, 1), box2))) {
+                              des2.position_.at<ushort>(min_idx, 1), box2))) {
                 score = score + selected_area_weight_;
             } else
                 score++;
@@ -102,10 +141,16 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1, const CarRankFeatu
     return score;
 }
 
+<<<<<<< HEAD
 void CarMatcher::calcNewBox(
     const CarRankFeature &des1,
     const CarRankFeature &des2, 
     const Rect &box, Rect &box1, Rect &box2) {
+=======
+void CarMatcher::calcNewBox(const CarRankFeature &des1,
+                            const CarRankFeature &des2, const Rect &box,
+                            Rect &box1, Rect &box2) {
+>>>>>>> origin
     if (box.x > 0) {
         float resize_rto1 = max(des1.height_, des1.width_);
         resize_rto1 = ((float) max_resize_size_) / resize_rto1;
@@ -131,18 +176,29 @@ void CarMatcher::calcNewBox(
     }
 }
 
+<<<<<<< HEAD
 vector<int> CarMatcher::computeMatchScoreCpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des)
 {
+=======
+vector<int> CarMatcher::computeMatchScoreCpu(
+        const CarRankFeature &des, const Rect &in_box,
+        const vector<CarRankFeature> &all_des) {
+>>>>>>> origin
     vector<int> score;
-    for(int i = 0; i < all_des.size(); i ++)
-    {
+    for (int i = 0; i < all_des.size(); i++) {
         score.push_back(ComputeMatchScore(des, all_des[i], in_box));
     }
     return score;
 }
 
+<<<<<<< HEAD
 vector<int> CarMatcher::ComputeMatchScore(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des)
 {
+=======
+vector<int> CarMatcher::ComputeMatchScore(
+        const CarRankFeature &des, const Rect &in_box,
+        const vector<CarRankFeature> &all_des) {
+>>>>>>> origin
 #if USE_CUDA
     return computeMatchScoreGpu(des, in_box, all_des);
 #else
@@ -150,3 +206,8 @@ vector<int> CarMatcher::ComputeMatchScore(const CarRankFeature &des, const Rect 
 #endif
 }
 
+<<<<<<< HEAD
+=======
+}
+
+>>>>>>> origin

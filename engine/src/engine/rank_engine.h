@@ -12,35 +12,24 @@
 
 #include <glog/logging.h>
 
-#include "engine.h"
-#include "timing_profiler.h"
 #include "model/frame.h"
 #include "model/model.h"
-#include "model/ringbuffer.h"
 #include "model/rank_feature.h"
 #include "processor/car_rank_processor.h"
 #include "processor/face_rank_processor.h"
 
-
 namespace dg {
 
-class RankEngine : public Engine {
-public:
-    RankEngine() : Engine() {}
-    virtual ~RankEngine() {}
+class RankEngine {
 
-    virtual void Process() override {}
-
-    virtual int Stop() override { return 0; }
-
-    virtual int Release() override { return 0; }
 };
 
 class CarRankEngine : public RankEngine {
-public:
-    CarRankEngine() : id_(0) {}
-    virtual ~CarRankEngine() {}
+ public:
+    CarRankEngine();
+    virtual ~CarRankEngine();
 
+<<<<<<< HEAD
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates)
     {
         vector<Rect> hotspots;
@@ -49,14 +38,18 @@ public:
         processor_.Update(&f);
         return f.result_;
     }
+=======
+    vector<Score> Rank(const Mat& image, const Rect& hotspot,
+                       const vector<CarRankFeature>& candidates);
+>>>>>>> origin
 
-private:
+ private:
     Identification id_;
     CarRankProcessor processor_;
 };
 
-
 class FaceRankEngine : public RankEngine {
+<<<<<<< HEAD
 public:
     FaceRankEngine() : id_(0) {}
     virtual ~FaceRankEngine() {}
@@ -69,8 +62,15 @@ public:
         processor_.Update(&f);
         return f.result_;
     }
+=======
+ public:
+    FaceRankEngine();
+    virtual ~FaceRankEngine();
+    vector<Score> Rank(const Mat& image, const Rect& hotspot,
+                       const vector<FaceRankFeature>& candidates);
+>>>>>>> origin
 
-private:
+ private:
     Identification id_;
     FaceRankProcessor processor_;
 };

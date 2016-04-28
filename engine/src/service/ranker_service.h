@@ -45,19 +45,33 @@ public:
 
 class CarRankService final : public RankService<CarRankFeature>
 {
+<<<<<<< HEAD
 public:
+=======
+private:
+    CarRankEngine engine_;
+
+>>>>>>> origin
     virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates) override
     {
         return engine_.Rank(image, hotspot, candidates);
     }
 
+<<<<<<< HEAD
+=======
+class FaceRankService final : public RankService<FaceRankFeature>
+{
+>>>>>>> origin
 private:
     CarRankEngine engine_;
 };
 
+<<<<<<< HEAD
 class FaceRankService final : public RankService<FaceRankFeature>
 {
 public:
+=======
+>>>>>>> origin
     virtual vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates) override
     {
         return engine_.Rank(image, hotspot, candidates);

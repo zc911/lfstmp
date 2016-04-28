@@ -1,9 +1,9 @@
 #include <glog/logging.h>
 #include "car_matcher.h"
 
+namespace dg {
 #define FEATURE_NUM_CUDA 256
 #define MAX_IMG_NUM 10000
-
 
 #define CUDA_CALL(value) {  \
 cudaError_t _m_cudaStat = value;    \
@@ -13,17 +13,15 @@ if (_m_cudaStat != cudaSuccess) {   \
     exit(1);    \
 }}
 
-struct box
-{
-	ushort x;
-	ushort y;
-	ushort height;
-	ushort width;
+struct box {
+    ushort x;
+    ushort y;
+    ushort height;
+    ushort width;
 };
 
 CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
-    orb_ = ORB(feature_num_);
     max_resize_size_ = 300;
     max_mis_match_ = 50;
     min_remarkableness_ = 0.8;
@@ -31,44 +29,55 @@ CarMatcher::CarMatcher() {
     selected_area_weight_ = 50;
     profile_time_ = false;
 
-    cudaStreamCreate(&stream_);
-    CUDA_CALL(cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
-    CUDA_CALL(cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
+    cudaStreamCreate (&stream_);
+    CUDA_CALL(
+            cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+    CUDA_CALL(
+            cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
 }
 
-CarMatcher::~CarMatcher()
-{
+CarMatcher::~CarMatcher() {
     CUDA_CALL(cudaStreamDestroy(stream_));
 }
 
-__global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uint *query_desc,
-    ushort *db_pos, uint *db_desc,
-    ushort query_width, ushort query_height,
-    ushort *db_width, ushort *db_height,
-    int max_resize_size, int feature_num,
-    float min_remarkableness, int max_mis_match,
-    int selected_area_weight, int *score) {
+__global__ void compute_match_score_kernel(box query_box, ushort *query_pos,
+                                           uint *query_desc, ushort *db_pos,
+                                           uint *db_desc, ushort query_width,
+                                           ushort query_height,
+                                           ushort *db_width, ushort *db_height,
+                                           int max_resize_size, int feature_num,
+                                           float min_remarkableness,
+                                           int max_mis_match,
+                                           int selected_area_weight,
+                                           int *score) {
     //Calculate new bounding box
     box query_box_resize;
     box db_box_resize;
-    if(query_box.x > 0) {
+    if (query_box.x > 0) {
         float resize_rto_query = 0;
         float resize_rto_db = 0;
-        if(query_width > query_height)
-            resize_rto_query = (float)max_resize_size / query_width;
-        else resize_rto_query = (float)max_resize_size / query_height;
+        if (query_width > query_height)
+            resize_rto_query = (float) max_resize_size / query_width;
+        else
+            resize_rto_query = (float) max_resize_size / query_height;
         query_box_resize.x = query_box.x * resize_rto_query;
         query_box_resize.y = query_box.y * resize_rto_query;
         query_box_resize.width = query_box.width * resize_rto_query;
         query_box_resize.height = query_box.height * resize_rto_query;
-        if(db_width[blockIdx.x] > db_height[blockIdx.x])
-            resize_rto_db = (float)max_resize_size / db_width[blockIdx.x];
-        else resize_rto_db = (float)max_resize_size /db_height[blockIdx.x];
+        if (db_width[blockIdx.x] > db_height[blockIdx.x])
+            resize_rto_db = (float) max_resize_size / db_width[blockIdx.x];
+        else
+            resize_rto_db = (float) max_resize_size / db_height[blockIdx.x];
         db_box_resize.x = query_box.x * resize_rto_db;
         db_box_resize.y = query_box.y * resize_rto_db;
         db_box_resize.width = query_box.width * resize_rto_db;
@@ -89,42 +98,49 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uin
     int score_tmp;
     for (int i = 0; i < FEATURE_NUM_CUDA; i++) {
         //__syncthreads();
-        if(db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] == -1)
+        if (db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] == -1)
             break;
         score_tmp = 0;
         for (int j = 0; j < 8; j++) {
-                score_tmp += __popc(query_desc[threadIdx.x * 8 + j] ^ db_desc[blockIdx.x * feature_num* 8 + i * 8 + j]);
+            score_tmp +=
+                    __popc(query_desc[threadIdx.x * 8 + j]
+                            ^ db_desc[blockIdx.x * feature_num * 8 + i * 8 + j]);
         }
         if (score_tmp < min_dist) {
             sec_dist = min_dist;
             min_dist = score_tmp;
             min_idx = i;
-        }
-        else if (score_tmp < sec_dist) {
+        } else if (score_tmp < sec_dist) {
             sec_dist = score_tmp;
         }
     }
     score_tmp = 0;
     if ((min_dist < (unsigned int) (min_remarkableness * sec_dist))
             && (min_dist < (unsigned int) max_mis_match)) {
-        if (query_pos[threadIdx.x * 2] > query_box_resize.x &&
-                query_pos[threadIdx.x * 2] < (query_box_resize.x + query_box_resize.width) &&
-                query_pos[threadIdx.x * 2 + 1] > query_box_resize.y &&
-                query_pos[threadIdx.x * 2 + 1] < (query_box_resize.y + query_box_resize.height) &&
-                db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2] > db_box_resize.x &&
-                db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2] < db_box_resize.x + db_box_resize.width &&
-                db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1] > db_box_resize.y &&
-                db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1] < db_box_resize.y + db_box_resize.height) {
+        if (query_pos[threadIdx.x * 2] > query_box_resize.x
+                && query_pos[threadIdx.x * 2]
+                        < (query_box_resize.x + query_box_resize.width)
+                && query_pos[threadIdx.x * 2 + 1] > query_box_resize.y
+                && query_pos[threadIdx.x * 2 + 1]
+                        < (query_box_resize.y + query_box_resize.height)
+                && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2]
+                        > db_box_resize.x
+                && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2]
+                        < db_box_resize.x + db_box_resize.width
+                && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1]
+                        > db_box_resize.y
+                && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1]
+                        < db_box_resize.y + db_box_resize.height) {
             score_tmp = score_tmp + selected_area_weight;
-        }
-        else score_tmp++;
+        } else
+            score_tmp++;
     }
-    if(query_pos[threadIdx.x * 2] == -1)
+    if (query_pos[threadIdx.x * 2] == -1)
         score_tmp = 0;
     __shared__ int score_shared[FEATURE_NUM_CUDA];
     score_shared[threadIdx.x] = score_tmp;
     // Sum the score of each image in the shared memory
-    for (int stride = blockDim.x; stride > 1; stride >>=1) {
+    for (int stride = blockDim.x; stride > 1; stride >>= 1) {
         __syncthreads();
         if (stride % 2 != 0 && threadIdx.x == 0)
             score_shared[0] += score_shared[stride - 1];
@@ -138,9 +154,14 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uin
 }
 
 vector<int> CarMatcher::computeMatchScoreGpu(
+<<<<<<< HEAD
     const CarRankFeature &des,
     const Rect &in_box,
     const vector<CarRankFeature> &all_des) {
+=======
+        const CarRankFeature &des, const Rect &in_box,
+        const vector<CarRankFeature> &all_des) {
+>>>>>>> origin
 
     box query_box;
     query_box.x = in_box.x;
@@ -167,10 +188,13 @@ vector<int> CarMatcher::computeMatchScoreGpu(
         db_height_cuda_[i] = all_des[i].height_;
         for (int j = 0; j < feature_num_; j++) {
             if (j < all_des[i].position_.rows) {
-                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = all_des[i].position_.at<ushort>(j, 0);
-                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = all_des[i].position_.at<ushort>(j, 1);
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = all_des[i]
+                        .position_.at<ushort>(j, 0);
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = all_des[i]
+                        .position_.at<ushort>(j, 1);
                 for (int k = 0; k < 32; k++)
-                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] = all_des[i].descriptor_.at<uchar>(j, k);
+                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] =
+                            all_des[i].descriptor_.at<uchar>(j, k);
             } else {
                 db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = -1;
                 db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = -1;
@@ -192,14 +216,14 @@ vector<int> CarMatcher::computeMatchScoreGpu(
     grid = dim3(all_des.size());
     block = dim3(FEATURE_NUM_CUDA);
     compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda_, (uint*)query_desc_cuda_,
-        db_pos_cuda_, (uint*)db_desc_cuda_, query_width,
-        query_height, db_width_cuda_, db_height_cuda_,
-        max_resize_size_, feature_num_, min_remarkableness_,
-        max_mis_match_, selected_area_weight_, score_cuda_);
+            db_pos_cuda_, (uint*)db_desc_cuda_, query_width,
+            query_height, db_width_cuda_, db_height_cuda_,
+            max_resize_size_, feature_num_, min_remarkableness_,
+            max_mis_match_, selected_area_weight_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
 
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());
 }
-
+}
 

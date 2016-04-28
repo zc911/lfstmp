@@ -10,7 +10,6 @@
 #ifndef MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
 #define MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
 
-
 #include <string>
 #include <glog/logging.h>
 
@@ -19,7 +18,7 @@
 
 #include "model/frame.h"
 #include "model/rank_feature.h"
-#include "alg/face_extractor.h"
+#include "alg/face_feature_extractor.h"
 #include "alg/face_detector.h"
 
 using namespace cv;
@@ -28,65 +27,35 @@ using namespace std;
 namespace dg {
 
 class FaceRankProcessor : public Processor {
-public:
-    FaceRankProcessor()
-            :Processor(),
-             detector_("models/shapeface1", "models/avgface1"),
-             extractor_("models/deployface1", "models/modelface1")
-    {
+ public:
+    FaceRankProcessor();
+    virtual ~FaceRankProcessor();
 
-    }
-    virtual ~FaceRankProcessor() {}
+    virtual void Update(Frame *frame);
 
-    virtual void Update(Frame *frame) {
-        if (!checkOperation(frame)) {
-            LOG(INFO) << "operation no allowed" << endl;
-            return;
-        }
-        if (!checkStatus(frame)) {
-            LOG(INFO) << "check status failed " << endl;
-            return;
-        }
-        LOG(INFO) << "start process frame: " << frame->id() << endl;
+    virtual void Update(FrameBatch *frameBatch);
 
-        //process frame
-        FaceRankFrame *fframe = (FaceRankFrame *)frame;
-        fframe->result_ = Rank(fframe->image_, fframe->hotspots_[0], fframe->candidates_);
+    virtual bool checkOperation(Frame *frame);
 
-        frame->set_status(FRAME_STATUS_FINISHED);
-        LOG(INFO) << "end process frame: " << frame->id() << endl;
-    }
-
-
-    virtual void Update(FrameBatch *frameBatch) {
-
-    }
-
-    virtual bool checkOperation(Frame *frame) {
-        return true;
-    }
-
-    virtual bool checkStatus(Frame *frame) {
-        return frame->status() == FRAME_STATUS_FINISHED ? false : true;
-    }
-
-private:
-    FaceDetector detector_;
-    FaceExtractor extractor_;
-
+<<<<<<< HEAD
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates)
     {
         vector<Mat> images;
         images.push_back(image);
         vector<Mat> vFace;
         detector_.Align(images, vFace);
+=======
+    virtual bool checkStatus(Frame *frame);
+>>>>>>> origin
 
-        vector<vector<Score> > prediction;
-        extractor_.Classify(vFace, candidates, prediction);
+ private:
+//    FaceDetector *detector_;
+    FaceFeatureExtractor *extractor_;
 
-        return prediction[0];
-    }
+    vector<Score> rank(const Mat& image, const Rect& hotspot,
+                       const vector<FaceRankFeature>& candidates);
 
+    float getCosSimilarity(const vector<float> & A, const vector<float> & B);
 };
 
 }

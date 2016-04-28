@@ -12,6 +12,7 @@ using grpc::Status;
 using grpc::ClientAsyncResponseReader;
 using grpc::CompletionQueue;
 using namespace dg;
+using namespace dg::apps;
 
 class WitnessClient {
  public:

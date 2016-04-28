@@ -7,7 +7,6 @@
  * Description : 
  * ==========================================================================*/
 
-
 #ifndef MATRIX_ENGINE_CAR_RANK_PROCESSOR_H_
 #define MATRIX_ENGINE_CAR_RANK_PROCESSOR_H_
 
@@ -17,56 +16,32 @@
 #include "model/frame.h"
 #include "model/rank_feature.h"
 #include "alg/car_matcher.h"
+#include "alg/car_feature_extractor.h"
+
 #include "timing_profiler.h"
 
 namespace dg {
 
 class CarRankProcessor : public Processor {
-public:
-    CarRankProcessor()
-            :Processor()
-    {
+ public:
+    CarRankProcessor();
+    virtual ~CarRankProcessor();
 
-    }
-    virtual ~CarRankProcessor() {}
+    virtual void Update(Frame *frame);
 
-    virtual void Update(Frame *frame) {
-        if (!checkOperation(frame)) {
-            LOG(INFO) << "operation no allowed" << endl;
-            return;
-        }
-        if (!checkStatus(frame)) {
-            LOG(INFO) << "check status failed " << endl;
-            return;
-        }
-        LOG(INFO) << "start process frame: " << frame->id() << endl;
+    virtual void Update(FrameBatch *frameBatch);
 
-        //process frame
-        CarRankFrame *cframe = (CarRankFrame *)frame;
-        cframe->result_ = Rank(cframe->image_, cframe->hotspots_[0], cframe->candidates_);
+    virtual bool checkOperation(Frame *frame);
 
-        frame->set_status(FRAME_STATUS_FINISHED);
-        LOG(INFO) << "end process frame: " << frame->id() << endl;
-    }
+    virtual bool checkStatus(Frame *frame);
 
-
-    virtual void Update(FrameBatch *frameBatch) {
-
-    }
-
-    virtual bool checkOperation(Frame *frame) {
-        return true;
-    }
-
-    virtual bool checkStatus(Frame *frame) {
-        return frame->status() == FRAME_STATUS_FINISHED ? false : true;
-    }
-
-private:
+ private:
     string t_profiler_str_;
     TimingProfiler t_profiler_matching_;
     CarMatcher car_matcher_;
+    CarFeatureExtractor car_feature_extractor_;
 
+<<<<<<< HEAD
     vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<CarRankFeature>& candidates)
     {
         CarRankFeature des;
@@ -102,6 +77,10 @@ private:
         LOG(INFO)<< "Ranking finished, " <<t_profiler_matching_.getSmoothedTimeProfileString();
         return topx;
     }
+=======
+    vector<Score> rank(const Mat& image, const Rect& hotspot,
+                       const vector<CarRankFeature>& candidates);
+>>>>>>> origin
 };
 
 }
