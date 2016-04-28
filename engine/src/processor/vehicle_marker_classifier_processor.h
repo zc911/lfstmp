@@ -20,6 +20,10 @@ class VehicleMarkerClassifierProcessor : public Processor {
 
      ~VehicleMarkerClassifierProcessor();
 
+     virtual void Update(Frame *frame) {
+
+     }
+
      virtual void Update(FrameBatch *frameBatch);
 
      virtual bool checkOperation(Frame *frame);
