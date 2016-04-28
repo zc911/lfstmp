@@ -29,12 +29,12 @@ void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
         }
     }
 }
-void CarFeatureExtractProcessor::Update(Frame *frame) {
-    DLOG(INFO)<< "Start feature extract. " << endl;
-    extract(frame->objects());
-    DLOG(INFO)<< "End feature extract. " << endl;
-    Proceed(frame);
-}
+//void CarFeatureExtractProcessor::Update(Frame *frame) {
+//    DLOG(INFO)<< "Start feature extract. " << endl;
+//    extract(frame->objects());
+//    DLOG(INFO)<< "End feature extract. " << endl;
+//    Proceed(frame);
+//}
 
 void CarFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
     DLOG(INFO)<< "Start feature extract(Batch). " << endl;
