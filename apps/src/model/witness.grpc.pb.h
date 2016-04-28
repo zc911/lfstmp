@@ -17,21 +17,18 @@
 
 namespace grpc {
 class CompletionQueue;
-class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
 }  // namespace grpc
 
 namespace dg {
-namespace apps {
 
 class WitnessService GRPC_FINAL {
  public:
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     virtual ::grpc::Status Recognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::dg::WitnessResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::WitnessResponse>> AsyncRecognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::WitnessResponse>>(AsyncRecognizeRaw(context, request, cq));
@@ -43,24 +40,10 @@ class WitnessService GRPC_FINAL {
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::WitnessResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::WitnessBatchResponse>* AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) = 0;
-=======
-    virtual ::grpc::Status Recognize(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::dg::apps::RecognizeResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::RecognizeResponse>> AsyncRecognize(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::RecognizeResponse>>(AsyncRecognizeRaw(context, request, cq));
-    }
-    virtual ::grpc::Status BatchRecognize(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::dg::apps::BatchRecognizeResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::BatchRecognizeResponse>> AsyncBatchRecognize(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::BatchRecognizeResponse>>(AsyncBatchRecognizeRaw(context, request, cq));
-    }
-  private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::RecognizeResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::apps::BatchRecognizeResponse>* AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::grpc::CompletionQueue* cq) = 0;
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::Status Recognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::dg::WitnessResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>> AsyncRecognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>>(AsyncRecognizeRaw(context, request, cq));
@@ -68,26 +51,12 @@ class WitnessService GRPC_FINAL {
     ::grpc::Status BatchRecognize(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::dg::WitnessBatchResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>> AsyncBatchRecognize(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>>(AsyncBatchRecognizeRaw(context, request, cq));
-=======
-    ::grpc::Status Recognize(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::dg::apps::RecognizeResponse* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::apps::RecognizeResponse>> AsyncRecognize(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::apps::RecognizeResponse>>(AsyncRecognizeRaw(context, request, cq));
-    }
-    ::grpc::Status BatchRecognize(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::dg::apps::BatchRecognizeResponse* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::apps::BatchRecognizeResponse>> AsyncBatchRecognize(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::apps::BatchRecognizeResponse>>(AsyncBatchRecognizeRaw(context, request, cq));
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>* AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-=======
-    ::grpc::ClientAsyncResponseReader< ::dg::apps::RecognizeResponse>* AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::apps::RecognizeRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::dg::apps::BatchRecognizeResponse>* AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::apps::BatchRecognizeRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
     const ::grpc::RpcMethod rpcmethod_Recognize_;
     const ::grpc::RpcMethod rpcmethod_BatchRecognize_;
   };
@@ -97,18 +66,13 @@ class WitnessService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     virtual ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::WitnessRequest* request, ::dg::WitnessResponse* response);
     virtual ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::WitnessBatchRequest* request, ::dg::WitnessBatchResponse* response);
-=======
-    virtual ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::apps::RecognizeRequest* request, ::dg::apps::RecognizeResponse* response);
-    virtual ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::apps::BatchRecognizeRequest* request, ::dg::apps::BatchRecognizeResponse* response);
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
   };
   template <class BaseClass>
   class WithAsyncMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_Recognize() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -117,26 +81,18 @@ class WitnessService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::WitnessRequest* request, ::dg::WitnessResponse* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestRecognize(::grpc::ServerContext* context, ::dg::WitnessRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::WitnessResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-=======
-    ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::apps::RecognizeRequest* request, ::dg::apps::RecognizeResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestRecognize(::grpc::ServerContext* context, ::dg::apps::RecognizeRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::apps::RecognizeResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
   class WithAsyncMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -145,19 +101,11 @@ class WitnessService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::WitnessBatchRequest* request, ::dg::WitnessBatchResponse* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestBatchRecognize(::grpc::ServerContext* context, ::dg::WitnessBatchRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::WitnessBatchResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-=======
-    ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::apps::BatchRecognizeRequest* request, ::dg::apps::BatchRecognizeResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestBatchRecognize(::grpc::ServerContext* context, ::dg::apps::BatchRecognizeRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::apps::BatchRecognizeResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -165,7 +113,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_Recognize() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -174,11 +122,7 @@ class WitnessService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::WitnessRequest* request, ::dg::WitnessResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-=======
-    ::grpc::Status Recognize(::grpc::ServerContext* context, const ::dg::apps::RecognizeRequest* request, ::dg::apps::RecognizeResponse* response) GRPC_FINAL GRPC_OVERRIDE {
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -186,7 +130,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -195,18 +139,13 @@ class WitnessService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-<<<<<<< HEAD:apps/src/model/witness.grpc.pb.h
     ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::WitnessBatchRequest* request, ::dg::WitnessBatchResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-=======
-    ::grpc::Status BatchRecognize(::grpc::ServerContext* context, const ::dg::apps::BatchRecognizeRequest* request, ::dg::apps::BatchRecognizeResponse* response) GRPC_FINAL GRPC_OVERRIDE {
->>>>>>> origin:apps/src/model/proto/witness.grpc.pb.h
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
 };
 
-}  // namespace apps
 }  // namespace dg
 
 

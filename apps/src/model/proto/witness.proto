@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package dg.apps;
+package dg;
 
 import "common.proto";
 import "system.proto";

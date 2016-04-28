@@ -11,7 +11,7 @@
 #define MATRIX_APPS_RANKER_SERVICE_H_
 
 #include <opencv2/core/core.hpp>
-#include "config/config.h"
+#include "config.h"
 #include "model/ranker.grpc.pb.h" //from apps
 //#include "service/ranker_service.h"
 #include "model/rank_feature.h"
