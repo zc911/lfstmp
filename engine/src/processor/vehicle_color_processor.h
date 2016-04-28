@@ -21,7 +21,7 @@ class VehicleColorProcessor : public Processor {
 
     virtual void Update(FrameBatch *frameBatch);
 
-    virtual bool checkOperation(Frame *frame);
+    virtual void beforeUpdate(FrameBatch *frameBatch);
 
     virtual bool checkStatus(Frame *frame) ;
 
@@ -30,6 +30,8 @@ protected:
 private:
     VehicleCaffeClassifier *classifier_;
     vector<Object *> objs_;
+    vector<Mat> images_;
+
 };
 
 }

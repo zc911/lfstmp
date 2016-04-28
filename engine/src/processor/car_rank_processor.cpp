@@ -23,8 +23,7 @@ void CarRankProcessor::Update(FrameBatch *frameBatch) {
 
 }
 
-bool CarRankProcessor::checkOperation(Frame *frame) {
-    return true;
+void CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 
 bool CarRankProcessor::checkStatus(Frame *frame) {
