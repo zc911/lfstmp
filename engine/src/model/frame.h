@@ -226,7 +226,7 @@ class FrameBatch {
         return false;
     }
 
-    ~FrameBatch();
+    ~FrameBatch(){}
  private:
     Identification id_;
     unsigned int batch_size_;
