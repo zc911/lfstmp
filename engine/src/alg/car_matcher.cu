@@ -154,14 +154,8 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos,
 }
 
 vector<int> CarMatcher::computeMatchScoreGpu(
-<<<<<<< HEAD
-    const CarRankFeature &des,
-    const Rect &in_box,
-    const vector<CarRankFeature> &all_des) {
-=======
         const CarRankFeature &des, const Rect &in_box,
         const vector<CarRankFeature> &all_des) {
->>>>>>> origin
 
     box query_box;
     query_box.x = in_box.x;

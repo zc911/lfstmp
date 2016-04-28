@@ -26,51 +26,7 @@
 
 using namespace cv;
 using namespace std;
-<<<<<<< HEAD
-using namespace dg;
 
-class CarMatcher
-{
-public:
-	CarMatcher();
-	virtual ~CarMatcher();
-	
-	void ExtractDescriptor(const Mat &img, CarRankFeature &des);
-
-	vector<int> ComputeMatchScore(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
-	vector<int> ComputeMatchScore(const int &query_img_idx, const Rect &in_box, const vector<CarRankFeature> &all_des)
-	{
-		const CarRankFeature &des = all_des[query_img_idx];
-		vector<int> score = ComputeMatchScore(des, in_box, all_des);
-		score[query_img_idx] = -999;
-		return score;
-	}
-
-	int ComputeMatchScore(const CarRankFeature &des1, const CarRankFeature &des2, const Rect &box);
-	int ComputeMatchScore(const CarRankFeature &des1, const CarRankFeature &des2)
-	{
-		LOG(INFO)<<"No interest area inputed.";
-		return ComputeMatchScore(des1, des2, Rect(-1, -1, -1, -1));
-	}
-	string getFeatureTimeCost()
-	{
-		return (profile_time_) ?
-			t_profiler_feature_.getSmoothedTimeProfileString()
-			:
-			"TimeProfiling is not opened!";
-	}
-	string getMatchTimeCost()
-	{
-		return (profile_time_) ?
-			t_profiler_matching_.getSmoothedTimeProfileString()
-			:
-			"TimeProfiling is not opened!";
-	}
-	int getFeatNum()
-	{
-		return feature_num_;
-	}
-=======
 namespace dg {
 
 class CarMatcher {
@@ -115,7 +71,6 @@ class CarMatcher {
     {
         return feature_num_;
     }
->>>>>>> origin
 
 private:
 //    ORB orb_;
@@ -145,42 +100,6 @@ private:
     ushort *db_height_cuda_;
     int *score_cuda_;
 
-<<<<<<< HEAD
-	vector<int> computeMatchScoreGpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
-#endif
-	vector<int> computeMatchScoreCpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
-
-
-	void calcNewBox(const CarRankFeature &des1, const CarRankFeature &des2, const Rect &box, Rect &box1, Rect &box2);
-
-	void calcNewSize(const ushort &ori_height, const ushort &ori_width, Size &new_size)
-	{
-		float resize_rto = max(ori_height, ori_width);
-		resize_rto = ((float) max_resize_size_) / resize_rto;
-		new_size.height = resize_rto * ori_height;
-		new_size.width = resize_rto * ori_width;
-	}
-
-	unsigned int calcHammingDistance(const unsigned char* a, const unsigned char* b) 
-	{
-		return lut_(a, b, 32);
-	}
-
-	int calcDis2(const ushort &x1, const ushort &y1, const ushort &x2,
-			const ushort &y2)
-	{
-		return (((int) x1) - ((int) x2)) * (((int) x1) - ((int) x2))
-			 + (((int) y1) - ((int) y2)) * (((int) y1) - ((int) y2));
-	}
-
-	bool inBox(const ushort &x, const ushort &y, const Rect &box)
-	{
-		return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
-			&& (y <= box.y + box.height);
-	}
-};
-
-=======
     vector<int> computeMatchScoreGpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
 #endif
     vector<int> computeMatchScoreCpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
@@ -212,6 +131,7 @@ private:
         return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
         && (y <= box.y + box.height);
     }
-};}
->>>>>>> origin
+};
+
+}
 #endif /* SRC_CAR_MATCHER_H_ */

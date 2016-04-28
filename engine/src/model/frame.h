@@ -221,23 +221,7 @@ class FrameBatch {
 };
 
 class CarRankFrame : public Frame {
-<<<<<<< HEAD
 public:
-    CarRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<CarRankFeature>& candidates)
-            : Frame(id)
-            , image_(image)
-            , hotspots_(hotspots)
-            , candidates_(candidates)
-    {}
-    ~CarRankFrame(){}
-    CarRankFrame(const CarRankFrame& f) 
-            : Frame(f.id_)
-            , image_(f.image_)
-            , hotspots_(f.hotspots_)
-            , candidates_(f.candidates_)
-    {
-=======
- public:
     CarRankFrame(Identification id, const Mat& image,
                  const vector<Rect>& hotspots,
                  const vector<CarRankFeature>& candidates)
@@ -253,7 +237,6 @@ public:
               image_(f.image_),
               hotspots_(f.hotspots_),
               candidates_(f.candidates_) {
->>>>>>> origin
     }
 
     const Mat& image_;
@@ -264,22 +247,6 @@ public:
 };
 
 class FaceRankFrame : public Frame {
-<<<<<<< HEAD
-public:
-    FaceRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<FaceRankFeature>& candidates)
-            : Frame(id)
-            , image_(image)
-            , hotspots_(hotspots)
-            , candidates_(candidates)
-    {}
-    ~FaceRankFrame(){}
-    FaceRankFrame(const FaceRankFrame& f) 
-            : Frame(f.id_)
-            , image_(f.image_)
-            , hotspots_(f.hotspots_)
-            , candidates_(f.candidates_)
-    {
-=======
  public:
     FaceRankFrame(Identification id, const Mat& image,
                   const vector<Rect>& hotspots,
@@ -296,16 +263,11 @@ public:
               image_(f.image_),
               hotspots_(f.hotspots_),
               candidates_(f.candidates_) {
->>>>>>> origin
     }
 
     const Mat& image_;
     const vector<Rect>& hotspots_;
     const vector<FaceRankFeature>& candidates_;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin
     vector<Score> result_;
 
 };
