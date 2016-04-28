@@ -52,30 +52,14 @@ VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
 }
 
 void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
-     vector<cv::Mat> vehicleResizedMat;
-     vector<cv::Mat> vehicleMat;
+     DLOG(INFO)<<"start marker processor"<<endl;
 
-     objs_ = frameBatch->objects(OPERATION_VEHICLE_MARKER);
-     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-               ++itr) {
-          Object *obj = *itr;
+     DLOG(INFO)<<"start window detection"<<endl;
 
-          if (obj->type() == OBJECT_CAR) {
+     beforeUpdate(frameBatch);
 
-               Vehicle *v = (Vehicle*) obj;
-
-               DLOG(INFO)<< "Put vehicle images to be marker classified: " << obj->id() << endl;
-               vehicleResizedMat.push_back(v->resized_image());
-               vehicleMat.push_back(v->image());
-
-          } else {
-               delete obj;
-               itr = objs_.erase(itr);
-               DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
-          }
-     }
-     vector<Detection> crops = detector_->DetectBatch(vehicleResizedMat,
-                                                      vehicleMat);
+     vector<Detection> crops = detector_->DetectBatch(resized_images_,
+                                                      images_);
      DLOG(INFO)<<"window crops result"<<endl;
      for (int i = 0; i < objs_.size(); i++) {
           Vehicle *v = (Vehicle*) objs_[i];
@@ -84,7 +68,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
      vector<Mat> images;
      for (int i = 0; i < crops.size(); i++) {
-          Mat img = vehicleResizedMat[i](crops[i].box);
+          Mat img = resized_images_[i](crops[i].box);
           images.push_back(img);
 
      }
@@ -99,8 +83,26 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
 }
 
-bool VehicleMarkerClassifierProcessor::checkOperation(Frame *frame) {
-     return true;
+void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+     objs_ = frameBatch->objects(OPERATION_VEHICLE_MARKER);
+     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
+               ++itr) {
+          Object *obj = *itr;
+
+          if (obj->type() == OBJECT_CAR) {
+
+               Vehicle *v = (Vehicle*) obj;
+
+               DLOG(INFO)<< "Put vehicle images to be marker classified: " << obj->id() << endl;
+               resized_images_.push_back(v->resized_image());
+               images_.push_back(v->image());
+
+          } else {
+               delete obj;
+               itr = objs_.erase(itr);
+               DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+          }
+     }
 }
 bool VehicleMarkerClassifierProcessor::checkStatus(Frame *frame) {
      return true;

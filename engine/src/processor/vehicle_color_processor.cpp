@@ -25,12 +25,12 @@ VehicleColorProcessor::~VehicleColorProcessor() {
 
 void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
      DLOG(INFO)<<"Start detect frame: "<< endl;
-     vector<Mat> images = this->vehicles_resized_mat(frameBatch);
+
+     beforeUpdate(frameBatch);
 
      vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
-               images);
+               images_);
 
-     SortPrediction(result);
 
      for(int i=0;i<objs_.size();i++) {
           Vehicle *v = (Vehicle*) objs_[i];
@@ -38,8 +38,10 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
           if(result[i].size()<0) {
                continue;
           }
-          color.class_id=result[i][0].first;
-          color.confidence=result[i][0].second;
+          Prediction max = MaxPrediction(result[i]);
+
+          color.class_id=max.first;
+          color.confidence=max.second;
           v->set_color(color);
      }
 
@@ -47,8 +49,8 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
 
 }
 
-bool VehicleColorProcessor::checkOperation(Frame *frame) {
-     return true;
+void VehicleColorProcessor::beforeUpdate(FrameBatch *frameBatch) {
+     images_ = this->vehicles_resized_mat(frameBatch);
 }
 
 bool VehicleColorProcessor::checkStatus(Frame *frame) {

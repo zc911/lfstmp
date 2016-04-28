@@ -19,7 +19,7 @@ class PlateRecognizerProcessor : public Processor {
 
     ~PlateRecognizerProcessor();
     virtual void Update(FrameBatch *frameBatch);
-    virtual bool checkOperation(Frame *frame);
+    virtual void beforeUpdate(FrameBatch *frameBatch);
     virtual bool checkStatus(Frame *frame);
 protected:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
@@ -27,6 +27,7 @@ protected:
 private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
+    vector<Mat> images_;
 
 };
 
