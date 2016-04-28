@@ -5,7 +5,7 @@
 #include <grpc++/grpc++.h>
 
 #define BOOST_SPIRIT_THREADSAFE
-#include "config/config.h"
+#include "config.h"
 
 #include "grpc/witness_grpc.h"
 #include "grpc/ranker_grpc.h"
