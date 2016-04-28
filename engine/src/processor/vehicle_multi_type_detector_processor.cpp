@@ -27,17 +27,15 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 
 }
 
-
 void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
 
-     beforeUpdate(frameBatch);
-
+    beforeUpdate(frameBatch);
 
     for (int i = 0; i < frameBatch->frames().size(); i++) {
         Frame *frame = frameBatch->frames()[i];
 
-        if(!frame->operation().Check(OPERATION_VEHICLE_DETECT)){
-             DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
+        if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
+            DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
         }
 
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;

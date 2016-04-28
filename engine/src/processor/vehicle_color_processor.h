@@ -18,16 +18,15 @@ class VehicleColorProcessor : public Processor {
     VehicleColorProcessor();
     ~VehicleColorProcessor();
 
-
     virtual void Update(FrameBatch *frameBatch);
 
     virtual void beforeUpdate(FrameBatch *frameBatch);
 
-    virtual bool checkStatus(Frame *frame) ;
+    virtual bool checkStatus(Frame *frame);
 
-protected:
-    vector<Mat > vehicles_resized_mat(FrameBatch *frameBatch);
-private:
+ protected:
+    vector<Mat> vehicles_resized_mat(FrameBatch *frameBatch);
+ private:
     VehicleCaffeClassifier *classifier_;
     vector<Object *> objs_;
     vector<Mat> images_;
