@@ -5,7 +5,7 @@
 #include "engine/simple_engine.h"
 #include "engine/witness_engine.h"
 #include "vis/display.h"
-
+#include "config.h"
 using namespace dg;
 
 static void PrintFrame(Frame &frame) {
@@ -61,7 +61,7 @@ int main() {
         op.Set(OPERATION_VEHICLE);
         op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
                 | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-                | OPERATION_VEHICLE_FEATURE_VECTOR);
+                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_VEHICLE_PLATE);
         f->set_operation(op);
         f->set_payload(payload);
         fb->add_frame(f);

@@ -47,20 +47,6 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
-void WitnessEngine::Process(Frame *frame) {
-
-    if (frame->operation().Check(OPERATION_VEHICLE)) {
-        if (vehicle_processor_)
-            vehicle_processor_->Update(frame);
-    }
-
-    if (frame->operation().Check(OPERATION_FACE)) {
-        if (face_processor_)
-            face_processor_->Update(frame);
-    }
-
-}
-
 // TODO
 void WitnessEngine::Process(FrameBatch *frame) {
 //    if (frame->operation().Check(OPERATION_VEHICLE)) {
