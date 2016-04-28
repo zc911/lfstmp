@@ -14,6 +14,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "basic.h"
+#include "rank_feature.h"
 
 using namespace std;
 namespace dg {
@@ -194,6 +195,14 @@ class Vehicle : public Object {
         class_id_ = classId;
     }
 
+    CarRankFeature& feature() {
+        return feature_;
+    }
+
+    void set_feature(const CarRankFeature& feature) {
+        feature_ = feature;
+    }
+
  private:
 
     cv::Mat image_;
@@ -203,6 +212,7 @@ class Vehicle : public Object {
     Color color_;
     Detection window_;
     vector<Detection> markers_;
+    CarRankFeature feature_;
 
 };
 
