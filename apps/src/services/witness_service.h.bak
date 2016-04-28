@@ -16,7 +16,7 @@
 
 #include "model/witness.grpc.pb.h"
 #include "basic_service.h"
-#include "config/config.h"
+#include "config.h"
 
 #include "model/frame.h"
 #include "model/payload.h"

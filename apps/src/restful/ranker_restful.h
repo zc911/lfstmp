@@ -22,19 +22,19 @@ public:
     RestRankerServiceImpl(const Config *config) 
               : RestfulService()
               , service_(config) 
-              , rank_binder_(std::bind(&RankerAppsService::GetRankedVector, &service_, std::placeholders::_1, std::placeholders::_2))
     {
     }
     virtual ~RestRankerServiceImpl() {}
 
     virtual void Bind(HttpServer& server) override
     {
-        rank_binder_.Bind(server, "^/rank$", "POST");
+        BindFunction<FeatureRankingRequest, FeatureRankingResponse> rankBinder = std::bind(&RankerAppsService::GetRankedVector, &service_, std::placeholders::_1, std::placeholders::_2);
+
+        bind(server, "^/rank$", "POST", rankBinder);
     }
 
 private:
     RankerAppsService service_;
-    RestfulBinder<FeatureRankingRequest, FeatureRankingResponse> rank_binder_;
 };
 
 }
