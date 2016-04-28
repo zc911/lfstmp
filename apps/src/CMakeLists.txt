@@ -22,5 +22,7 @@ target_link_libraries(${GRPC_PROJECT} ${OpenCV_LIBS})
 target_link_libraries(${GRPC_PROJECT} ${PROTOBUF_LIBRARY})
 target_link_libraries(${GRPC_PROJECT} ${DLIB_LIBRARY})
 target_link_libraries(${GRPC_PROJECT} ${Caffe_DEP_LIBRARIES})
+target_link_libraries(${GRPC_PROJECT} ${Boost_LIBRARIES})
+target_link_libraries(${GRPC_PROJECT} ${LIB_PBJSON})
 
 #INSTALL(TARGETS witness RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})

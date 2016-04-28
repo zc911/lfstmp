@@ -19,18 +19,25 @@ namespace dg
 class RestWitnessServiceImpl final : public RestfulService
 {
 public:
-    RestWitnessServiceImpl(Config *config) : service_(config) {}
+    RestWitnessServiceImpl(const Config *config)
+               : RestfulService()
+               , service_(config) 
+               , rec_binder_(std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2))
+               , batch_rec_binder_(std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2))
+    {
+    }
     virtual ~RestWitnessServiceImpl() {}
 
-    template <class socket_type>
-    virtual void Bind(SimpleWeb::ServerBase<socket_type>& server) override
+    virtual void Bind(HttpServer& server) override
     {
-        bind(server, "^/rec/image$", "POST", service_.Recognize);
-        bind(server, "^/rec/image/batch$", "POST", service_.BatchRecognize);
+        rec_binder_.Bind(server, "^/rec/image$", "POST");
+        batch_rec_binder_.Bind(server, "^/rec/image/batch$", "POST");
     }
 
 private:
     WitnessAppsService service_;
+    RestfulBinder<WitnessRequest, WitnessResponse> rec_binder_;
+    RestfulBinder<WitnessBatchRequest, WitnessBatchResponse> batch_rec_binder_;
 };
 }
 

@@ -20,7 +20,7 @@ class SystemAppsService
 {
 
 public:
-    SystemAppsService(Config *config);
+    SystemAppsService(const Config *config);
     virtual ~SystemAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
@@ -32,7 +32,7 @@ public:
     bool ConfigEngine(const InstanceConfigureRequest *request, InstanceConfigureResponse *response);
     
 private:
-    Config *config_;
+    const Config *config_;
 
 };
 };

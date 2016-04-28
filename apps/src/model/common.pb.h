@@ -908,13 +908,13 @@ class FeatureVector : public ::google::protobuf::Message {
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // optional bytes Feature = 2;
+  // optional string Feature = 2;
   void clear_feature();
   static const int kFeatureFieldNumber = 2;
   const ::std::string& feature() const;
   void set_feature(const ::std::string& value);
   void set_feature(const char* value);
-  void set_feature(const void* value, size_t size);
+  void set_feature(const char* value, size_t size);
   ::std::string* mutable_feature();
   ::std::string* release_feature();
   void set_allocated_feature(::std::string* feature);
@@ -1620,7 +1620,7 @@ inline void FeatureVector::set_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:dg.FeatureVector.Id)
 }
 
-// optional bytes Feature = 2;
+// optional string Feature = 2;
 inline void FeatureVector::clear_feature() {
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1638,7 +1638,7 @@ inline void FeatureVector::set_feature(const char* value) {
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.FeatureVector.Feature)
 }
-inline void FeatureVector::set_feature(const void* value, size_t size) {
+inline void FeatureVector::set_feature(const char* value, size_t size) {
   
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

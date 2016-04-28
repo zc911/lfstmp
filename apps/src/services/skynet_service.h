@@ -19,13 +19,13 @@ class SkynetAppsService
 {
 
 public:
-    SkynetAppsService(Config *config);
+    SkynetAppsService(const Config *config);
     virtual ~SkynetAppsService();
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
     
 private:
-    Config *config_;
+    const Config *config_;
 
 };
 

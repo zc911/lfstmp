@@ -19,7 +19,7 @@ namespace dg
 class GrpcSystemServiceImpl final : public SimilarityService::Service
 {
 public:
-    GrpcSystemServiceImpl(Config *config) : service_(config) {}
+    GrpcSystemServiceImpl(const Config *config) : service_(config) {}
     virtual ~GrpcSystemServiceImpl() {}
 
 private:

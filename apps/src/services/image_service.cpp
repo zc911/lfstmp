@@ -20,7 +20,7 @@ namespace dg
 ::dg::MatrixError ImageService::ParseImage(const ::dg::Image& imgDes, ::cv::Mat& imgMat)
 {
     ::dg::MatrixError err;
-    if (imgDes.uri().size() == 0 || imgDes.bindata().size() == 0)
+    if (imgDes.uri().size() == 0 && imgDes.bindata().size() == 0)
     {
         err.set_code(-1);
         err.set_message("image URI or Data is required!");

@@ -16,16 +16,16 @@ SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DUSE_CUDA -DDEBUG -g -O3 
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -O3 -w")
 
 find_package(Threads REQUIRED)
-if(CMAKE_COMPILER_IS_GNUCXX)
-  add_definitions(-Wall -Wno-deprecated -pthread)
-endif()
+#if(CMAKE_COMPILER_IS_GNUCXX)
+#  add_definitions(-Wall -Wno-deprecated -pthread)
+#endif()
 message(STATUS "Found Threads libs: ${THREADS_LIBS}")
 
 find_package(Freetype REQUIRED)
 INCLUDE_DIRECTORIES(${FREETYPE_INCLUDE_DIRS})
 message(STATUS "Found FreeType libs: ${FREETYPE_LIBRARIES}")
 
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/apps/include/pbjson)
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/apps/include/pbjson ${PROJECT_SOURCE_DIR}/apps/include/Simple-Web-Server)
 
 IF(APPLE)
     OPTION(ENABLE_CUDA "disable cuda by default" OFF)
@@ -54,6 +54,7 @@ ELSE(APPLE)
     message(STATUS "caffe dep libraries: ${Caffe_DEP_LIBRARIES}")
 ENDIF(APPLE)
 
+find_library(LIB_PBJSON pbjson PATHS ${PROJECT_SOURCE_DIR}/apps/lib/pbjson)
 
 find_package(Protobuf REQUIRED)
 INCLUDE_DIRECTORIES(${PROTOBUF_INCLUDE_DIRS})
@@ -77,6 +78,9 @@ message(STATUS "Glog libs: ${GLOG_LIBRARIES}")
 
 find_package(OpenCV REQUIRED)
 message(STATUS "opencv libs: ${OpenCV_LIBS}")
+
+find_package(Boost COMPONENTS regex system filesystem coroutine context REQUIRED)
+message(STATUS "boost library: ${Boost_LIBRARIES}")
 
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/apps/src)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/src)

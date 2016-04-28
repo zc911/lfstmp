@@ -19,7 +19,7 @@ namespace dg
 class MatrixAppsService
 {
 public:
-    MatrixAppsService(Config *config);
+    MatrixAppsService(const Config *config);
     virtual ~MatrixAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
@@ -39,7 +39,7 @@ public:
     bool GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
 
 private:
-    Config *config_;
+    const Config *config_;
 
 };
 

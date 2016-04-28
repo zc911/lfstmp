@@ -19,11 +19,11 @@ namespace dg
 class RestSkynetServiceImpl final : public RestfulService
 {
 public:
-    RestSkynetServiceImpl(Config *config) : service_(config) {}
+    RestSkynetServiceImpl(const Config *config) : service_(config) {}
     virtual ~RestSkynetServiceImpl() {}
 
     template <class socket_type>
-    virtual void Bind(SimpleWeb::ServerBase<socket_type>& server) override
+    void Bind(SimpleWeb::Server<socket_type>& server)
     {
         bind(server, "^/rec/video$", "POST", service_.VideoRecognize);
     }
