@@ -185,7 +185,7 @@ class FrameBatch {
             return 1;
         }
     }
-    vector<Frame *> frames() const {
+    vector<Frame *> frames() {
         return frames_;
     }
     unsigned int batch_size() const {
