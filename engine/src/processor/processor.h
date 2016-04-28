@@ -10,6 +10,7 @@
 
 #include "model/basic.h"
 #include "model/model.h"
+#include "model/frame.h"
 
 namespace dg {
 /**
@@ -25,17 +26,37 @@ class Processor {
 
     }
 
+    Processor* SetNextProcessor(Processor *proc) {
+        DLOG(INFO)<<"set next processor"<<endl;
+        Processor *old = next_;
+        next_ = proc;
+        return old;
+    }
+
+    Processor* GetNextProcessor() {
+        return next_;
+    }
+
+    virtual void Proceed(Frame *frame) {
+        if (next_ != NULL) {
+            next_->Update(frame);
+        }
+    }
+
+    virtual void Proceed(FrameBatch *frameBatch) {
+        if (next_ != NULL) {
+            next_->Update(frameBatch);
+        }
+    }
+
     virtual void Update(Frame *frame) = 0;
     virtual void Update(FrameBatch *frameBatch) = 0;
-//    virtual Frame* operator()(Frame* frame);
-//    virtual FrameBatch* operator()(FrameBatch* frameBatch);
 
     virtual bool checkOperation(Frame *frame) = 0;
     virtual bool checkStatus(Frame *frame) = 0;
 
- protected:
+protected:
     Processor *next_;
 
-};
-}
+};}
 #endif /* PROCESSOR_H_ */

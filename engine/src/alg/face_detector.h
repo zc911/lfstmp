@@ -1,58 +1,49 @@
-/*============================================================================
- * File Name   : face_detector.h
- * Author      : yanlongtan@deepglint.com
- * Version     : 1.0.0.0
- * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 04/19/2016
- * Description : 
- * ==========================================================================*/
+#ifndef FACE_DETECTOR_H_INCLUDED
+#define FACE_DETECTOR_H_INCLUDED
 
-#ifndef MATRIX_RANKER_ALG_FACE_DETECTOR_H_
-#define MATRIX_RANKER_ALG_FACE_DETECTOR_H_
-
-#include <queue>
-#include <vector>
-
-#include <glog/logging.h>
-#include <dlib/image_processing.h>
-#include <dlib/image_processing/frontal_face_detector.h>
+#include <string>
 #include <opencv2/opencv.hpp>
-#include <dlib/opencv.h>
-#include <dlib/image_processing/render_face_detections.h>
+#include <caffe/caffe.hpp>
+#include "model/basic.h"
+#include "model/model.h"
+#include "caffe_helper.h"
 
-using namespace cv;
 using namespace std;
+using namespace cv;
+using namespace caffe;
 
-namespace dg 
-{
-struct BoundingBox {
-    float confidence;
-    Rect rect;
-    Rect gt;
-    bool deleted;
-    int border;
-    int id;
-};
+namespace dg {
 
-class FaceDetector
-{
-public:
-    FaceDetector(string align_model, string avg_face);
+class FaceDetector {
+ public:
+    FaceDetector(const string& model_file, const string& trained_file,
+                 const bool use_gpu, const int batch_size,
+                 const Size &image_size, const float conf_thres);
+
     virtual ~FaceDetector();
+    vector<vector<Detection>> Detect(vector<Mat> imgs);
 
-    void Detect(vector<Mat>& images, vector<vector<Mat>>& vvResults, vector<vector<BoundingBox>>& vvBoxes);
-    void Detect(Mat& image, vector<BoundingBox> boxes, vector<Mat>& results);
-    void Align(vector<Mat>& images, vector<Mat>& results);
+ private:
+    void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
+    void GetDetection(vector<Blob<float>*>& outputs,
+                      vector<vector<Detection> > &final_vbbox);
 
-private:
-    dlib::frontal_face_detector detector_;
-    dlib::shape_predictor sp_;
-    vector<dlib::point> avg_face_points_;
-
-    bool predict(dlib::cv_image<dlib::bgr_pixel>& image, dlib::rectangle& bbox, vector<dlib::point>& points);
-    Mat transform(dlib::cv_image<dlib::bgr_pixel>& image, vector<dlib::point>& points);
+ private:
+    caffe::shared_ptr<Net<float> > net_;
+    int num_channels_;
+    int batch_size_;
+    bool use_gpu_;
+    vector<float> pixel_means_;
+    float conf_thres_;
+    Size image_size_;
+    string layer_name_cls_;
+    string layer_name_reg_;
+    int sliding_window_stride_;
+    vector<float> area_;
+    vector<float> ratio_;
 };
 
-}
+} /* namespace dg */
 
-#endif //MATRIX_RANKER_ALG_FACE_DETECTOR_H_
+#endif /* FACE_DETECTOR_H_INCLUDED */
+

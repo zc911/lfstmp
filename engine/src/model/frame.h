@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <pthread.h>
-
+#include <opencv2/core/core.hpp>
 #include "payload.h"
 #include "rank_feature.h"
 
@@ -26,7 +26,8 @@ typedef enum {
 enum FrameStatus {
     FRAME_STATUS_INIT = 0,
     FRAME_STATUS_DETECTED = 1,
-    FRAME_STATUS_FINISHED = 128
+    FRAME_STATUS_FINISHED = 128,
+    FRAME_STATUS_ERROR = 256
 };
 
 class Frame {
@@ -34,18 +35,22 @@ class Frame {
     Frame(const Identification id)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT),
-              operation_(0),
-              payload_(0) {
-
+              status_(FRAME_STATUS_INIT) {
+        payload_ = 0;
     }
+
     Frame(const Identification id, unsigned int width, unsigned int height,
           unsigned char *data)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT),
-              operation_(0) {
+              status_(FRAME_STATUS_INIT) {
         payload_ = new Payload(id_, width, height, data);
+    }
+    Frame(const Identification id, Mat img)
+            : id_(id),
+              timestamp_(0),
+              status_(FRAME_STATUS_INIT) {
+        payload_ = new Payload(id_, img);
     }
     virtual ~Frame() {
         if (payload_)
@@ -125,15 +130,28 @@ class Frame {
         timestamp_ = timestamp;
     }
 
+    int get_object_size() {
+        return objects_.size();
+    }
+
+    const string& error_Msg() const {
+        return error_msg_;
+    }
+
+    void set_error_msg(const string& errorMsg) {
+        error_msg_ = errorMsg;
+    }
+
  protected:
     Identification id_;
     Timestamp timestamp_;
     volatile FrameStatus status_;
     Operation operation_;
     Payload *payload_;
-    // base pointer
     vector<Object *> objects_;
-};
+    string error_msg_;
+}
+;
 
 class RenderableFrame : public Frame {
  public:
@@ -144,9 +162,45 @@ class RenderableFrame : public Frame {
 };
 
 // just derive the base class
-class FrameBatch : private Frame {
+class FrameBatch {
  public:
-    FrameBatch();
+    FrameBatch(const Identification id, int batch_size)
+            : id_(id),
+              batch_size_(batch_size) {
+
+    }
+    int add_frame(Frame *frame) {
+        if (frames_.size() < batch_size_) {
+            frames_.push_back(frame);
+            return frames_.size();
+        } else {
+            return -1;
+        }
+    }
+    int add_frames(vector<Frame *> frames) {
+        if ((frames.size() + frames_.size()) > batch_size_) {
+            return -1;
+        } else {
+            frames_.insert(frames_.end(), frames.begin(), frames.end());
+            return 1;
+        }
+    }
+    vector<Frame *> frames() const {
+        return frames_;
+    }
+    unsigned int batch_size() const {
+        return batch_size_;
+    }
+    vector<Object*> objects() {
+        vector<Object *> objects;
+        for (auto * frame : frames_) {
+
+            objects.insert(objects.end(), frame->objects().begin(),
+                           frame->objects().end());
+        }
+        return objects;
+    }
+
     ~FrameBatch();
  private:
     Identification id_;
@@ -155,54 +209,56 @@ class FrameBatch : private Frame {
 };
 
 class CarRankFrame : public Frame {
-public:
-    CarRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<CarFeature>& candidates)
-            : Frame(id)
-            , image_(image)
-            , hotspots_(hotspots)
-            , candidates_(candidates)
-    {}
-    ~CarRankFrame(){}
-    CarRankFrame(const CarRankFrame& f) 
-            : Frame(f.id_)
-            , image_(f.image_)
-            , hotspots_(f.hotspots_)
-            , candidates_(f.candidates_)
-    {
+ public:
+    CarRankFrame(Identification id, const Mat& image,
+                 const vector<Rect>& hotspots,
+                 const vector<CarRankFeature>& candidates)
+            : Frame(id),
+              image_(image),
+              hotspots_(hotspots),
+              candidates_(candidates) {
+    }
+    ~CarRankFrame() {
+    }
+    CarRankFrame(const CarRankFrame& f)
+            : Frame(f.id_),
+              image_(f.image_),
+              hotspots_(f.hotspots_),
+              candidates_(f.candidates_) {
     }
 
     const Mat& image_;
     const vector<Rect>& hotspots_;
-    const vector<CarFeature>& candidates_;
+    const vector<CarRankFeature>& candidates_;
 
     vector<Score> result_;
 };
-
 
 class FaceRankFrame : public Frame {
-public:
-    FaceRankFrame(Identification id, const Mat& image, const vector<Rect>& hotspots, const vector<FaceFeature>& candidates)
-            : Frame(id)
-            , image_(image)
-            , hotspots_(hotspots)
-            , candidates_(candidates)
-    {}
-    ~FaceRankFrame(){}
-    FaceRankFrame(const FaceRankFrame& f) 
-            : Frame(f.id_)
-            , image_(f.image_)
-            , hotspots_(f.hotspots_)
-            , candidates_(f.candidates_)
-    {
+ public:
+    FaceRankFrame(Identification id, const Mat& image,
+                  const vector<Rect>& hotspots,
+                  const vector<FaceRankFeature>& candidates)
+            : Frame(id),
+              image_(image),
+              hotspots_(hotspots),
+              candidates_(candidates) {
+    }
+    ~FaceRankFrame() {
+    }
+    FaceRankFrame(const FaceRankFrame& f)
+            : Frame(f.id_),
+              image_(f.image_),
+              hotspots_(f.hotspots_),
+              candidates_(f.candidates_) {
     }
 
     const Mat& image_;
     const vector<Rect>& hotspots_;
-    const vector<FaceFeature>& candidates_;
-
+    const vector<FaceRankFeature>& candidates_;
     vector<Score> result_;
-};
 
+};
 
 }
 
