@@ -15,16 +15,24 @@ namespace dg {
 
 class PlateRecognizerProcessor : public Processor {
  public:
+
     PlateRecognizerProcessor();
 
     ~PlateRecognizerProcessor();
+    virtual void Update(Frame *frame) {
+
+    }
+
     virtual void Update(FrameBatch *frameBatch);
     virtual bool checkOperation(Frame *frame);
     virtual bool checkStatus(Frame *frame);
-protected:
+
+ protected:
+
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
-    vector<Mat > vehicles_mat(FrameBatch *frameBatch);
-private:
+    vector<Mat> vehicles_mat(FrameBatch *frameBatch);
+
+ private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
 

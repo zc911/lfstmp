@@ -26,9 +26,7 @@ class CarRankProcessor : public Processor {
  public:
     CarRankProcessor();
     virtual ~CarRankProcessor();
-
     virtual void Update(Frame *frame);
-
     virtual void Update(FrameBatch *frameBatch);
 
     virtual bool checkOperation(Frame *frame);
