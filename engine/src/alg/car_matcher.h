@@ -26,6 +26,7 @@
 
 using namespace cv;
 using namespace std;
+
 namespace dg {
 
 class CarMatcher {
@@ -130,5 +131,7 @@ private:
         return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
         && (y <= box.y + box.height);
     }
-};}
+};
+
+}
 #endif /* SRC_CAR_MATCHER_H_ */

@@ -38,6 +38,7 @@ class CarRankEngine : public RankEngine {
 };
 
 class FaceRankEngine : public RankEngine {
+
  public:
     FaceRankEngine();
     virtual ~FaceRankEngine();
