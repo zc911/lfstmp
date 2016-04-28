@@ -55,7 +55,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
      vector<cv::Mat> vehicleResizedMat;
      vector<cv::Mat> vehicleMat;
 
-     objs_ = frameBatch->objects();
+     objs_ = frameBatch->objects(OPERATION_VEHICLE_MARKER);
      for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
                ++itr) {
           Object *obj = *itr;
@@ -64,7 +64,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
                Vehicle *v = (Vehicle*) obj;
 
-               DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
+               DLOG(INFO)<< "Put vehicle images to be marker classified: " << obj->id() << endl;
                vehicleResizedMat.push_back(v->resized_image());
                vehicleMat.push_back(v->image());
 

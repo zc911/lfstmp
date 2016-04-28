@@ -58,7 +58,7 @@ bool VehicleColorProcessor::checkStatus(Frame *frame) {
 vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
           FrameBatch *frameBatch) {
      vector<cv::Mat> vehicleMat;
-     objs_ = frameBatch->objects();
+     objs_ = frameBatch->objects(OPERATION_VEHICLE_COLOR);
      for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
                ++itr) {
           Object *obj = *itr;
@@ -67,7 +67,7 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
 
                Vehicle *v = (Vehicle*) obj;
 
-               DLOG(INFO)<< "Put vehicle images to be classified: " << obj->id() << endl;
+               DLOG(INFO)<< "Put vehicle images to be color classified: " << obj->id() << endl;
                vehicleMat.push_back(v->resized_image());
 
           } else {

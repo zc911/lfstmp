@@ -31,6 +31,11 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
     for (int i = 0; i < frameBatch->frames().size(); i++) {
         Frame *frame = frameBatch->frames()[i];
+
+        if(!checkOperation(frame)){
+             DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
+        }
+
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
         Mat data = frame->payload()->data();
         vector<Detection> detections = detector_->Detect(data);
@@ -52,7 +57,6 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
             print(detection);
         }
         DLOG(INFO)<<frame->objects().size()<<" "<<detections.size()<<" cars are detected in frame "<<frame->id()<<endl;
-        cout << "End detector frame: " << endl;
     }
     Proceed(frameBatch);
 
@@ -61,10 +65,6 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
 bool VehicleMultiTypeDetectorProcessor::checkOperation(Frame *frame) {
     // if detection disabled, lots of features must be disabled either.
     if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
-        frame->operation().Set(
-                !(OPERATION_VEHICLE_TRACK | OPERATION_VEHICLE_STYLE
-                        | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-                        | OPERATION_VEHICLE_FEATURE_VECTOR));
         return false;
     }
     return true;
