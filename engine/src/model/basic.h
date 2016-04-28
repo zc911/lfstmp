@@ -21,7 +21,7 @@ typedef int64_t Identification;
 typedef float Confidence;
 typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
-typedef vector<uchar> FeatureVector;
+//typedef vector<uchar> FeatureVector;
 typedef cv::Rect Box;
 
 struct FaceFeature {
