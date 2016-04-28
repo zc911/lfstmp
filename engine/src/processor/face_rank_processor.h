@@ -37,16 +37,7 @@ class FaceRankProcessor : public Processor {
 
     virtual bool checkOperation(Frame *frame);
 
-<<<<<<< HEAD
-    vector<Score> Rank(const Mat& image, const Rect& hotspot, const vector<FaceRankFeature>& candidates)
-    {
-        vector<Mat> images;
-        images.push_back(image);
-        vector<Mat> vFace;
-        detector_.Align(images, vFace);
-=======
     virtual bool checkStatus(Frame *frame);
->>>>>>> origin
 
  private:
 //    FaceDetector *detector_;

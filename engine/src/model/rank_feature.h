@@ -71,12 +71,7 @@ class RankFeature {
     }
 };
 
-<<<<<<< HEAD
-class CarRankFeature final : public RankFeature
-{
-=======
 class CarRankFeature final : public RankFeature {
->>>>>>> origin
 public:
     int width_;
     int height_;
@@ -87,12 +82,8 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
-<<<<<<< HEAD
-class FaceRankFeature final : public RankFeature
-{
-=======
+
 class FaceRankFeature final : public RankFeature {
->>>>>>> origin
 public:
     std::vector<float> descriptor_;
 
@@ -102,8 +93,4 @@ public:
 
 }
 
-<<<<<<< HEAD
- #endif //MATRIX_RANKER_FEATURE_SERIALIZER_H_
-=======
 #endif //MATRIX_RANKER_FEATURE_SERIALIZER_H_
->>>>>>> origin
