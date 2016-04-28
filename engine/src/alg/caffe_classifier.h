@@ -11,10 +11,10 @@
 #include <memory>
 #include <opencv2/core/core.hpp>
 
+#include "../alg/caffe_config.h"
+#include "../alg/classifier.h"
 #include "caffe/caffe.hpp"
 
-#include "caffe_config.h"
-#include "classifier.h"
 
 using namespace std;
 
