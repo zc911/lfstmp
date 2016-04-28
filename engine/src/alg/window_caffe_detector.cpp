@@ -30,7 +30,6 @@ WindowCaffeDetector::WindowCaffeDetector(CaffeConfig &config)
      net_.reset(
              new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
      net_->CopyTrainedLayersFrom(config.model_file);
-     cout<<"window builder"<<endl;
      CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
      //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
