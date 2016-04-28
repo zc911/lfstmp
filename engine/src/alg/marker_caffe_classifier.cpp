@@ -28,7 +28,8 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(CaffeConfig &config,
     }
 
     /* Load the network. */
-    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
     net_->CopyTrainedLayersFrom(caffe_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
