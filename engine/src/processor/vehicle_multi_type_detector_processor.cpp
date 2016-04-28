@@ -1,6 +1,7 @@
 #include "vehicle_multi_type_detector_processor.h"
 
 namespace dg {
+
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
         int batch_size, int gpu_id, int rescale, bool is_model_encrypt)
         : Processor() {
@@ -23,6 +24,7 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
     detector_ = new VehicleMultiTypeDetector(config);
 }
 
+// TODO complete construction
 VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 
 }
@@ -35,6 +37,7 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[i];
 
         if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
+
             DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
         }
 
@@ -46,12 +49,16 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
                 itr != detections.end(); ++itr) {
             Detection detection = *itr;
             Object *obj;
+
+            // TODO check object type
             if (1) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
                 obj = static_cast<Object*>(v);
                 obj->set_id(id++);
                 Mat roi = Mat(data, detection.box);
                 v->set_image(roi);
+            } else {
+
             }
 
             obj->set_detection(detection);
