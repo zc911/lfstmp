@@ -200,7 +200,16 @@ class FrameBatch {
         }
         return objects;
     }
-
+    vector<Object*> objects(uint64_t operation) {
+        vector<Object *> objects;
+        for (auto * frame : frames_) {
+             if(!frame->operation().Check(operation))
+                  continue;
+            objects.insert(objects.end(), frame->objects().begin(),
+                           frame->objects().end());
+        }
+        return objects;
+    }
     ~FrameBatch();
  private:
     Identification id_;
