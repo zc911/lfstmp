@@ -61,6 +61,7 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
 vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_PLATE);
+
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
         Object *obj = *itr;
