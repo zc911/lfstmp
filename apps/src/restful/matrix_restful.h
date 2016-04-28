@@ -19,11 +19,11 @@ namespace dg
 class RestMatrixServiceImpl final : public RestfulService
 {
 public:
-    RestMatrixServiceImpl(Config *config) : service_(config) {}
+    RestMatrixServiceImpl(const Config *config) : service_(config) {}
     virtual ~RestMatrixServiceImpl() {}
 
     template <class socket_type>
-    virtual void Bind(SimpleWeb::ServerBase<socket_type>& server) override
+    void Bind(SimpleWeb::Server<socket_type>& server)
     {
         bind(server, "^/ping$", "GET", service_.Ping);
         bind(server, "^/info$", "GET", service_.SystemStatus);

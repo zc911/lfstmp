@@ -27,13 +27,13 @@ namespace dg
 class RankerAppsService
 {
 public:
-    RankerAppsService(Config *config);
+    RankerAppsService(const Config *config);
     virtual ~RankerAppsService();
 
     bool GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
 
 private:
-    Config *config_;
+    const Config *config_;
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
 

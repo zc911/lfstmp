@@ -19,7 +19,7 @@ namespace dg
 class GrpcSkynetServiceImpl final : public SkynetService::Service
 {
 public:
-    GrpcSkynetServiceImpl(Config *config) : service_(config) {}
+    GrpcSkynetServiceImpl(const Config *config) : service_(config) {}
     virtual ~GrpcSkynetServiceImpl() {}
 
 private:

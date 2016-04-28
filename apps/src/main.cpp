@@ -13,7 +13,7 @@
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
 
-#include "http_server.hpp"
+#include "server_http.hpp"
 
 using namespace std;
 using namespace dg;
@@ -30,7 +30,7 @@ void serveGrpc(const Config* config)
         service = new GrpcRankerServiceImpl(config);
     } else {
         cout << "unknown instance type: " << instType << endl;
-        return -1;
+        return;
     }
 
     string address = (string) config->Value("System/Ip") + ":"
@@ -49,19 +49,19 @@ void serveHttp(const Config* config)
     string instType = (string) config->Value("InstanceType");
     cout << "Instance type: " << instType << endl;
 
-    restful::RestfulService *service = NULL;
+    RestfulService *service = NULL;
     if (instType == "witness") {
         service = new RestWitnessServiceImpl(config);
     } else if(instType == "ranker") {
         service = new RestRankerServiceImpl(config);
     } else {
         cout << "unknown instance type: " << instType << endl;
-        return -1;
+        return;
     }
 
     int port = (int) config->Value("System/Port");
     SimpleWeb::Server<SimpleWeb::HTTP> server(port, 1); //at port with 1 thread
-    service.Bind(server);
+    service->Bind(server);
 
     cout << "Server listening on " << port << endl;
     server.start();
@@ -70,6 +70,7 @@ void serveHttp(const Config* config)
 int main(int argc, char* argv[]) 
 {
     google::InitGoogleLogging(argv[0]);
+    google::ParseCommandLineFlags(&argc, &argv, true);
 
     Config *config = Config::GetInstance();
     config->Load("config.json");

@@ -274,7 +274,7 @@ void protobuf_AddDesc_common_2eproto() {
     "rd\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r\n\005Width\030\003 \001(\r\022"
     "\016\n\006Height\030\004 \001(\r\022\020\n\010ResWidth\030\005 \001(\r\022\021\n\tRes"
     "Height\030\006 \001(\r\",\n\rFeatureVector\022\n\n\002Id\030\001 \001("
-    "\003\022\017\n\007Feature\030\002 \001(\014*`\n\rRecognizeType\022\024\n\020R"
+    "\003\022\017\n\007Feature\030\002 \001(\t*`\n\rRecognizeType\022\024\n\020R"
     "EC_TYPE_DEFAULT\020\000\022\024\n\020REC_TYPE_VEHICLE\020\001\022"
     "\021\n\rREC_TYPE_FACE\020\002\022\020\n\014REC_TYPE_ALL\020\003*\306\001\n"
     "\007ObjType\022\016\n\nUNKNOWNOBJ\020\000\022\013\n\007VEHICLE\020\001\022\013\n"
@@ -3504,12 +3504,16 @@ bool FeatureVector::MergePartialFromCodedStream(
         break;
       }
 
-      // optional bytes Feature = 2;
+      // optional string Feature = 2;
       case 2: {
         if (tag == 18) {
          parse_Feature:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_feature()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->feature().data(), this->feature().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.FeatureVector.Feature"));
         } else {
           goto handle_unusual;
         }
@@ -3546,9 +3550,13 @@ void FeatureVector::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
   }
 
-  // optional bytes Feature = 2;
+  // optional string Feature = 2;
   if (this->feature().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->feature().data(), this->feature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.FeatureVector.Feature");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->feature(), output);
   }
 
@@ -3563,10 +3571,14 @@ void FeatureVector::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
   }
 
-  // optional bytes Feature = 2;
+  // optional string Feature = 2;
   if (this->feature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->feature().data(), this->feature().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.FeatureVector.Feature");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->feature(), target);
   }
 
@@ -3584,10 +3596,10 @@ int FeatureVector::ByteSize() const {
         this->id());
   }
 
-  // optional bytes Feature = 2;
+  // optional string Feature = 2;
   if (this->feature().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
+      ::google::protobuf::internal::WireFormatLite::StringSize(
         this->feature());
   }
 
@@ -3673,7 +3685,7 @@ void FeatureVector::clear_id() {
   // @@protoc_insertion_point(field_set:dg.FeatureVector.Id)
 }
 
-// optional bytes Feature = 2;
+// optional string Feature = 2;
 void FeatureVector::clear_feature() {
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3691,7 +3703,7 @@ void FeatureVector::clear_feature() {
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.FeatureVector.Feature)
 }
- void FeatureVector::set_feature(const void* value, size_t size) {
+ void FeatureVector::set_feature(const char* value, size_t size) {
   
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

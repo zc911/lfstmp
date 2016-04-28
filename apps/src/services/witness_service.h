@@ -19,7 +19,7 @@ namespace dg
 class WitnessAppsService
 {
 public:
-    WitnessAppsService(Config *config);
+    WitnessAppsService(const Config *config);
     virtual ~WitnessAppsService();
 
     bool Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -27,7 +27,7 @@ public:
     bool BatchRecognize(const WitnessBatchRequest *request, WitnessBatchResponse *response);
 
 private:
-    Config *config_;
+    const Config *config_;
 
 };
 
