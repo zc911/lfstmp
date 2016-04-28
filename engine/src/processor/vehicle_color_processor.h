@@ -18,6 +18,9 @@ class VehicleColorProcessor : public Processor {
     VehicleColorProcessor();
     ~VehicleColorProcessor();
 
+    virtual void Update(Frame *frame) {
+
+    }
 
     virtual void Update(FrameBatch *frameBatch);
 
