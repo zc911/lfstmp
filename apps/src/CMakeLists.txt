@@ -12,7 +12,7 @@ set(GRPC_PROJECT matrix_apps)
 add_executable(${GRPC_PROJECT} ${SRC_LIST} main.cpp)
 
 target_link_libraries(${GRPC_PROJECT} ${PROJECT_NAME_STR}_utils)
-target_link_libraries(${GRPC_PROJECT} ${PROJECT_NAME_STR}_engine)
+target_link_libraries(${GRPC_PROJECT} ${PROJECT_NAME_STR})
 target_link_libraries(${GRPC_PROJECT} ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(${GRPC_PROJECT} ${FREETYPE_LIBRARIES})
 target_link_libraries(${GRPC_PROJECT} ${JSONCPP_LIBRARIES})

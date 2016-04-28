@@ -4,8 +4,6 @@ namespace dg {
 
 FaceRankProcessor::FaceRankProcessor()
         : Processor() {
-//    detector_ = new FaceDetector("models/shapeface1", "models/avgface1", true,
-//                                 1, Size(800, 450), 0.7);
     extractor_ = new FaceFeatureExtractor("models/deployface1",
                                           "models/modelface1", true, 1, "", "");
 }
