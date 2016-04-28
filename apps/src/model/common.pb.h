@@ -31,7 +31,6 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
-namespace apps {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_common_2eproto();
@@ -395,7 +394,7 @@ class VideoMetadata : public ::google::protobuf::Message {
   ::std::string* release_sensorurl();
   void set_allocated_sensorurl(::std::string* sensorurl);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.VideoMetadata)
+  // @@protoc_insertion_point(class_scope:dg.VideoMetadata)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -516,7 +515,7 @@ class Image : public ::google::protobuf::Message {
   ::std::string* release_bindata();
   void set_allocated_bindata(::std::string* bindata);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.Image)
+  // @@protoc_insertion_point(class_scope:dg.Image)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -592,41 +591,41 @@ class CutboardImage : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.apps.VideoMetadata Metadata = 1;
+  // optional .dg.VideoMetadata Metadata = 1;
   bool has_metadata() const;
   void clear_metadata();
   static const int kMetadataFieldNumber = 1;
-  const ::dg::apps::VideoMetadata& metadata() const;
-  ::dg::apps::VideoMetadata* mutable_metadata();
-  ::dg::apps::VideoMetadata* release_metadata();
-  void set_allocated_metadata(::dg::apps::VideoMetadata* metadata);
+  const ::dg::VideoMetadata& metadata() const;
+  ::dg::VideoMetadata* mutable_metadata();
+  ::dg::VideoMetadata* release_metadata();
+  void set_allocated_metadata(::dg::VideoMetadata* metadata);
 
-  // optional .dg.apps.Cutboard Cutboard = 2;
+  // optional .dg.Cutboard Cutboard = 2;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 2;
-  const ::dg::apps::Cutboard& cutboard() const;
-  ::dg::apps::Cutboard* mutable_cutboard();
-  ::dg::apps::Cutboard* release_cutboard();
-  void set_allocated_cutboard(::dg::apps::Cutboard* cutboard);
+  const ::dg::Cutboard& cutboard() const;
+  ::dg::Cutboard* mutable_cutboard();
+  ::dg::Cutboard* release_cutboard();
+  void set_allocated_cutboard(::dg::Cutboard* cutboard);
 
-  // optional .dg.apps.Image Img = 3;
+  // optional .dg.Image Img = 3;
   bool has_img() const;
   void clear_img();
   static const int kImgFieldNumber = 3;
-  const ::dg::apps::Image& img() const;
-  ::dg::apps::Image* mutable_img();
-  ::dg::apps::Image* release_img();
-  void set_allocated_img(::dg::apps::Image* img);
+  const ::dg::Image& img() const;
+  ::dg::Image* mutable_img();
+  ::dg::Image* release_img();
+  void set_allocated_img(::dg::Image* img);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.CutboardImage)
+  // @@protoc_insertion_point(class_scope:dg.CutboardImage)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::apps::VideoMetadata* metadata_;
-  ::dg::apps::Cutboard* cutboard_;
-  ::dg::apps::Image* img_;
+  ::dg::VideoMetadata* metadata_;
+  ::dg::Cutboard* cutboard_;
+  ::dg::Image* img_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -716,7 +715,7 @@ class Color : public ::google::protobuf::Message {
   ::std::string* release_colorname();
   void set_allocated_colorname(::std::string* colorname);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.Color)
+  // @@protoc_insertion_point(class_scope:dg.Color)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -826,7 +825,7 @@ class Cutboard : public ::google::protobuf::Message {
   ::google::protobuf::uint32 resheight() const;
   void set_resheight(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.Cutboard)
+  // @@protoc_insertion_point(class_scope:dg.Cutboard)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -920,7 +919,7 @@ class FeatureVector : public ::google::protobuf::Message {
   ::std::string* release_feature();
   void set_allocated_feature(::std::string* feature);
 
-  // @@protoc_insertion_point(class_scope:dg.apps.FeatureVector)
+  // @@protoc_insertion_point(class_scope:dg.FeatureVector)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1041,13 +1040,13 @@ inline void VideoMetadata::clear_timestamp() {
   timestamp_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 VideoMetadata::timestamp() const {
-  // @@protoc_insertion_point(field_get:dg.apps.VideoMetadata.Timestamp)
+  // @@protoc_insertion_point(field_get:dg.VideoMetadata.Timestamp)
   return timestamp_;
 }
 inline void VideoMetadata::set_timestamp(::google::protobuf::int64 value) {
   
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.VideoMetadata.Timestamp)
+  // @@protoc_insertion_point(field_set:dg.VideoMetadata.Timestamp)
 }
 
 // optional int32 Duration = 2;
@@ -1055,13 +1054,13 @@ inline void VideoMetadata::clear_duration() {
   duration_ = 0;
 }
 inline ::google::protobuf::int32 VideoMetadata::duration() const {
-  // @@protoc_insertion_point(field_get:dg.apps.VideoMetadata.Duration)
+  // @@protoc_insertion_point(field_get:dg.VideoMetadata.Duration)
   return duration_;
 }
 inline void VideoMetadata::set_duration(::google::protobuf::int32 value) {
   
   duration_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.VideoMetadata.Duration)
+  // @@protoc_insertion_point(field_set:dg.VideoMetadata.Duration)
 }
 
 // optional int32 SensorId = 3;
@@ -1069,13 +1068,13 @@ inline void VideoMetadata::clear_sensorid() {
   sensorid_ = 0;
 }
 inline ::google::protobuf::int32 VideoMetadata::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.apps.VideoMetadata.SensorId)
+  // @@protoc_insertion_point(field_get:dg.VideoMetadata.SensorId)
   return sensorid_;
 }
 inline void VideoMetadata::set_sensorid(::google::protobuf::int32 value) {
   
   sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.VideoMetadata.SensorId)
+  // @@protoc_insertion_point(field_set:dg.VideoMetadata.SensorId)
 }
 
 // optional string SensorName = 4;
@@ -1083,28 +1082,28 @@ inline void VideoMetadata::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VideoMetadata::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_get:dg.VideoMetadata.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VideoMetadata::set_sensorname(const ::std::string& value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set:dg.VideoMetadata.SensorName)
 }
 inline void VideoMetadata::set_sensorname(const char* value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_char:dg.VideoMetadata.SensorName)
 }
 inline void VideoMetadata::set_sensorname(const char* value, size_t size) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.VideoMetadata.SensorName)
 }
 inline ::std::string* VideoMetadata::mutable_sensorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_mutable:dg.VideoMetadata.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VideoMetadata::release_sensorname() {
@@ -1118,7 +1117,7 @@ inline void VideoMetadata::set_allocated_sensorname(::std::string* sensorname) {
     
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.VideoMetadata.SensorName)
 }
 
 // optional string SensorUrl = 5;
@@ -1126,28 +1125,28 @@ inline void VideoMetadata::clear_sensorurl() {
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VideoMetadata::sensorurl() const {
-  // @@protoc_insertion_point(field_get:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_get:dg.VideoMetadata.SensorUrl)
   return sensorurl_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VideoMetadata::set_sensorurl(const ::std::string& value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set:dg.VideoMetadata.SensorUrl)
 }
 inline void VideoMetadata::set_sensorurl(const char* value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_char:dg.VideoMetadata.SensorUrl)
 }
 inline void VideoMetadata::set_sensorurl(const char* value, size_t size) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_pointer:dg.VideoMetadata.SensorUrl)
 }
 inline ::std::string* VideoMetadata::mutable_sensorurl() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_mutable:dg.VideoMetadata.SensorUrl)
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VideoMetadata::release_sensorurl() {
@@ -1161,7 +1160,7 @@ inline void VideoMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
     
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_allocated:dg.VideoMetadata.SensorUrl)
 }
 
 // -------------------------------------------------------------------
@@ -1173,28 +1172,28 @@ inline void Image::clear_id() {
   id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Image::id() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_get:dg.Image.Id)
   return id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Image::set_id(const ::std::string& value) {
   
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_set:dg.Image.Id)
 }
 inline void Image::set_id(const char* value) {
   
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_set_char:dg.Image.Id)
 }
 inline void Image::set_id(const char* value, size_t size) {
   
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_set_pointer:dg.Image.Id)
 }
 inline ::std::string* Image::mutable_id() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_mutable:dg.Image.Id)
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_id() {
@@ -1208,7 +1207,7 @@ inline void Image::set_allocated_id(::std::string* id) {
     
   }
   id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.Image.Id)
+  // @@protoc_insertion_point(field_set_allocated:dg.Image.Id)
 }
 
 // optional int32 Width = 2;
@@ -1216,13 +1215,13 @@ inline void Image::clear_width() {
   width_ = 0;
 }
 inline ::google::protobuf::int32 Image::width() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Image.Width)
+  // @@protoc_insertion_point(field_get:dg.Image.Width)
   return width_;
 }
 inline void Image::set_width(::google::protobuf::int32 value) {
   
   width_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Image.Width)
+  // @@protoc_insertion_point(field_set:dg.Image.Width)
 }
 
 // optional int32 Height = 3;
@@ -1230,13 +1229,13 @@ inline void Image::clear_height() {
   height_ = 0;
 }
 inline ::google::protobuf::int32 Image::height() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Image.Height)
+  // @@protoc_insertion_point(field_get:dg.Image.Height)
   return height_;
 }
 inline void Image::set_height(::google::protobuf::int32 value) {
   
   height_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Image.Height)
+  // @@protoc_insertion_point(field_set:dg.Image.Height)
 }
 
 // optional string URI = 4;
@@ -1244,28 +1243,28 @@ inline void Image::clear_uri() {
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Image::uri() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_get:dg.Image.URI)
   return uri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Image::set_uri(const ::std::string& value) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_set:dg.Image.URI)
 }
 inline void Image::set_uri(const char* value) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_set_char:dg.Image.URI)
 }
 inline void Image::set_uri(const char* value, size_t size) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_set_pointer:dg.Image.URI)
 }
 inline ::std::string* Image::mutable_uri() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_mutable:dg.Image.URI)
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_uri() {
@@ -1279,7 +1278,7 @@ inline void Image::set_allocated_uri(::std::string* uri) {
     
   }
   uri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uri);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.Image.URI)
+  // @@protoc_insertion_point(field_set_allocated:dg.Image.URI)
 }
 
 // optional string BinData = 5;
@@ -1287,28 +1286,28 @@ inline void Image::clear_bindata() {
   bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Image::bindata() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_get:dg.Image.BinData)
   return bindata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Image::set_bindata(const ::std::string& value) {
   
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_set:dg.Image.BinData)
 }
 inline void Image::set_bindata(const char* value) {
   
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_set_char:dg.Image.BinData)
 }
 inline void Image::set_bindata(const char* value, size_t size) {
   
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_set_pointer:dg.Image.BinData)
 }
 inline ::std::string* Image::mutable_bindata() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_mutable:dg.Image.BinData)
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_bindata() {
@@ -1322,14 +1321,14 @@ inline void Image::set_allocated_bindata(::std::string* bindata) {
     
   }
   bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.Image.BinData)
+  // @@protoc_insertion_point(field_set_allocated:dg.Image.BinData)
 }
 
 // -------------------------------------------------------------------
 
 // CutboardImage
 
-// optional .dg.apps.VideoMetadata Metadata = 1;
+// optional .dg.VideoMetadata Metadata = 1;
 inline bool CutboardImage::has_metadata() const {
   return !_is_default_instance_ && metadata_ != NULL;
 }
@@ -1337,25 +1336,25 @@ inline void CutboardImage::clear_metadata() {
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
 }
-inline const ::dg::apps::VideoMetadata& CutboardImage::metadata() const {
-  // @@protoc_insertion_point(field_get:dg.apps.CutboardImage.Metadata)
+inline const ::dg::VideoMetadata& CutboardImage::metadata() const {
+  // @@protoc_insertion_point(field_get:dg.CutboardImage.Metadata)
   return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
 }
-inline ::dg::apps::VideoMetadata* CutboardImage::mutable_metadata() {
+inline ::dg::VideoMetadata* CutboardImage::mutable_metadata() {
   
   if (metadata_ == NULL) {
-    metadata_ = new ::dg::apps::VideoMetadata;
+    metadata_ = new ::dg::VideoMetadata;
   }
-  // @@protoc_insertion_point(field_mutable:dg.apps.CutboardImage.Metadata)
+  // @@protoc_insertion_point(field_mutable:dg.CutboardImage.Metadata)
   return metadata_;
 }
-inline ::dg::apps::VideoMetadata* CutboardImage::release_metadata() {
+inline ::dg::VideoMetadata* CutboardImage::release_metadata() {
   
-  ::dg::apps::VideoMetadata* temp = metadata_;
+  ::dg::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
   return temp;
 }
-inline void CutboardImage::set_allocated_metadata(::dg::apps::VideoMetadata* metadata) {
+inline void CutboardImage::set_allocated_metadata(::dg::VideoMetadata* metadata) {
   delete metadata_;
   metadata_ = metadata;
   if (metadata) {
@@ -1363,10 +1362,10 @@ inline void CutboardImage::set_allocated_metadata(::dg::apps::VideoMetadata* met
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.CutboardImage.Metadata)
+  // @@protoc_insertion_point(field_set_allocated:dg.CutboardImage.Metadata)
 }
 
-// optional .dg.apps.Cutboard Cutboard = 2;
+// optional .dg.Cutboard Cutboard = 2;
 inline bool CutboardImage::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -1374,25 +1373,25 @@ inline void CutboardImage::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-inline const ::dg::apps::Cutboard& CutboardImage::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.apps.CutboardImage.Cutboard)
+inline const ::dg::Cutboard& CutboardImage::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.CutboardImage.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-inline ::dg::apps::Cutboard* CutboardImage::mutable_cutboard() {
+inline ::dg::Cutboard* CutboardImage::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::apps::Cutboard;
+    cutboard_ = new ::dg::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.apps.CutboardImage.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.CutboardImage.Cutboard)
   return cutboard_;
 }
-inline ::dg::apps::Cutboard* CutboardImage::release_cutboard() {
+inline ::dg::Cutboard* CutboardImage::release_cutboard() {
   
-  ::dg::apps::Cutboard* temp = cutboard_;
+  ::dg::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-inline void CutboardImage::set_allocated_cutboard(::dg::apps::Cutboard* cutboard) {
+inline void CutboardImage::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -1400,10 +1399,10 @@ inline void CutboardImage::set_allocated_cutboard(::dg::apps::Cutboard* cutboard
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.CutboardImage.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.CutboardImage.Cutboard)
 }
 
-// optional .dg.apps.Image Img = 3;
+// optional .dg.Image Img = 3;
 inline bool CutboardImage::has_img() const {
   return !_is_default_instance_ && img_ != NULL;
 }
@@ -1411,25 +1410,25 @@ inline void CutboardImage::clear_img() {
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
   img_ = NULL;
 }
-inline const ::dg::apps::Image& CutboardImage::img() const {
-  // @@protoc_insertion_point(field_get:dg.apps.CutboardImage.Img)
+inline const ::dg::Image& CutboardImage::img() const {
+  // @@protoc_insertion_point(field_get:dg.CutboardImage.Img)
   return img_ != NULL ? *img_ : *default_instance_->img_;
 }
-inline ::dg::apps::Image* CutboardImage::mutable_img() {
+inline ::dg::Image* CutboardImage::mutable_img() {
   
   if (img_ == NULL) {
-    img_ = new ::dg::apps::Image;
+    img_ = new ::dg::Image;
   }
-  // @@protoc_insertion_point(field_mutable:dg.apps.CutboardImage.Img)
+  // @@protoc_insertion_point(field_mutable:dg.CutboardImage.Img)
   return img_;
 }
-inline ::dg::apps::Image* CutboardImage::release_img() {
+inline ::dg::Image* CutboardImage::release_img() {
   
-  ::dg::apps::Image* temp = img_;
+  ::dg::Image* temp = img_;
   img_ = NULL;
   return temp;
 }
-inline void CutboardImage::set_allocated_img(::dg::apps::Image* img) {
+inline void CutboardImage::set_allocated_img(::dg::Image* img) {
   delete img_;
   img_ = img;
   if (img) {
@@ -1437,7 +1436,7 @@ inline void CutboardImage::set_allocated_img(::dg::apps::Image* img) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.CutboardImage.Img)
+  // @@protoc_insertion_point(field_set_allocated:dg.CutboardImage.Img)
 }
 
 // -------------------------------------------------------------------
@@ -1449,13 +1448,13 @@ inline void Color::clear_id() {
   id_ = 0;
 }
 inline ::google::protobuf::int32 Color::id() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Color.Id)
+  // @@protoc_insertion_point(field_get:dg.Color.Id)
   return id_;
 }
 inline void Color::set_id(::google::protobuf::int32 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Color.Id)
+  // @@protoc_insertion_point(field_set:dg.Color.Id)
 }
 
 // optional float Confidence = 2;
@@ -1463,13 +1462,13 @@ inline void Color::clear_confidence() {
   confidence_ = 0;
 }
 inline float Color::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Color.Confidence)
+  // @@protoc_insertion_point(field_get:dg.Color.Confidence)
   return confidence_;
 }
 inline void Color::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Color.Confidence)
+  // @@protoc_insertion_point(field_set:dg.Color.Confidence)
 }
 
 // optional string ColorName = 3;
@@ -1477,28 +1476,28 @@ inline void Color::clear_colorname() {
   colorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Color::colorname() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_get:dg.Color.ColorName)
   return colorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Color::set_colorname(const ::std::string& value) {
   
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_set:dg.Color.ColorName)
 }
 inline void Color::set_colorname(const char* value) {
   
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_set_char:dg.Color.ColorName)
 }
 inline void Color::set_colorname(const char* value, size_t size) {
   
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.Color.ColorName)
 }
 inline ::std::string* Color::mutable_colorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_mutable:dg.Color.ColorName)
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Color::release_colorname() {
@@ -1512,7 +1511,7 @@ inline void Color::set_allocated_colorname(::std::string* colorname) {
     
   }
   colorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), colorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.Color.ColorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.Color.ColorName)
 }
 
 // -------------------------------------------------------------------
@@ -1524,13 +1523,13 @@ inline void Cutboard::clear_x() {
   x_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::x() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.X)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.X)
   return x_;
 }
 inline void Cutboard::set_x(::google::protobuf::uint32 value) {
   
   x_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.X)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.X)
 }
 
 // optional uint32 Y = 2;
@@ -1538,13 +1537,13 @@ inline void Cutboard::clear_y() {
   y_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::y() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.Y)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.Y)
   return y_;
 }
 inline void Cutboard::set_y(::google::protobuf::uint32 value) {
   
   y_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.Y)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.Y)
 }
 
 // optional uint32 Width = 3;
@@ -1552,13 +1551,13 @@ inline void Cutboard::clear_width() {
   width_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::width() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.Width)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.Width)
   return width_;
 }
 inline void Cutboard::set_width(::google::protobuf::uint32 value) {
   
   width_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.Width)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.Width)
 }
 
 // optional uint32 Height = 4;
@@ -1566,13 +1565,13 @@ inline void Cutboard::clear_height() {
   height_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::height() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.Height)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.Height)
   return height_;
 }
 inline void Cutboard::set_height(::google::protobuf::uint32 value) {
   
   height_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.Height)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.Height)
 }
 
 // optional uint32 ResWidth = 5;
@@ -1580,13 +1579,13 @@ inline void Cutboard::clear_reswidth() {
   reswidth_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::reswidth() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.ResWidth)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.ResWidth)
   return reswidth_;
 }
 inline void Cutboard::set_reswidth(::google::protobuf::uint32 value) {
   
   reswidth_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.ResWidth)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.ResWidth)
 }
 
 // optional uint32 ResHeight = 6;
@@ -1594,13 +1593,13 @@ inline void Cutboard::clear_resheight() {
   resheight_ = 0u;
 }
 inline ::google::protobuf::uint32 Cutboard::resheight() const {
-  // @@protoc_insertion_point(field_get:dg.apps.Cutboard.ResHeight)
+  // @@protoc_insertion_point(field_get:dg.Cutboard.ResHeight)
   return resheight_;
 }
 inline void Cutboard::set_resheight(::google::protobuf::uint32 value) {
   
   resheight_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.Cutboard.ResHeight)
+  // @@protoc_insertion_point(field_set:dg.Cutboard.ResHeight)
 }
 
 // -------------------------------------------------------------------
@@ -1612,13 +1611,13 @@ inline void FeatureVector::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 FeatureVector::id() const {
-  // @@protoc_insertion_point(field_get:dg.apps.FeatureVector.Id)
+  // @@protoc_insertion_point(field_get:dg.FeatureVector.Id)
   return id_;
 }
 inline void FeatureVector::set_id(::google::protobuf::int64 value) {
   
   id_ = value;
-  // @@protoc_insertion_point(field_set:dg.apps.FeatureVector.Id)
+  // @@protoc_insertion_point(field_set:dg.FeatureVector.Id)
 }
 
 // optional string Feature = 2;
@@ -1626,28 +1625,28 @@ inline void FeatureVector::clear_feature() {
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& FeatureVector::feature() const {
-  // @@protoc_insertion_point(field_get:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_get:dg.FeatureVector.Feature)
   return feature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void FeatureVector::set_feature(const ::std::string& value) {
   
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_set:dg.FeatureVector.Feature)
 }
 inline void FeatureVector::set_feature(const char* value) {
   
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_set_char:dg.FeatureVector.Feature)
 }
 inline void FeatureVector::set_feature(const char* value, size_t size) {
   
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_set_pointer:dg.FeatureVector.Feature)
 }
 inline ::std::string* FeatureVector::mutable_feature() {
   
-  // @@protoc_insertion_point(field_mutable:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_mutable:dg.FeatureVector.Feature)
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FeatureVector::release_feature() {
@@ -1661,7 +1660,7 @@ inline void FeatureVector::set_allocated_feature(::std::string* feature) {
     
   }
   feature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feature);
-  // @@protoc_insertion_point(field_set_allocated:dg.apps.FeatureVector.Feature)
+  // @@protoc_insertion_point(field_set_allocated:dg.FeatureVector.Feature)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1682,31 +1681,26 @@ inline void FeatureVector::set_allocated_feature(::std::string* feature) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace apps
 }  // namespace dg
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-<<<<<<< HEAD:apps/src/model/common.pb.h
 template <> struct is_proto_enum< ::dg::RecognizeType> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::RecognizeType>() {
   return ::dg::RecognizeType_descriptor();
 }
 template <> struct is_proto_enum< ::dg::ObjType> : ::google::protobuf::internal::true_type {};
-=======
-template <> struct is_proto_enum< ::dg::apps::ObjType> : ::google::protobuf::internal::true_type {};
->>>>>>> origin:apps/src/model/proto/common.pb.h
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::apps::ObjType>() {
-  return ::dg::apps::ObjType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::ObjType>() {
+  return ::dg::ObjType_descriptor();
 }
-template <> struct is_proto_enum< ::dg::apps::DataFmtType> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::dg::DataFmtType> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::apps::DataFmtType>() {
-  return ::dg::apps::DataFmtType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::DataFmtType>() {
+  return ::dg::DataFmtType_descriptor();
 }
 
 }  // namespace protobuf

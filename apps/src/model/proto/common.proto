@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package dg.apps;
+package dg;
 
 message Time {
     int64 Seconds = 1;

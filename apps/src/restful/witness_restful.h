@@ -22,22 +22,22 @@ public:
     RestWitnessServiceImpl(const Config *config)
                : RestfulService()
                , service_(config) 
-               , rec_binder_(std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2))
-               , batch_rec_binder_(std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2))
     {
     }
     virtual ~RestWitnessServiceImpl() {}
 
     virtual void Bind(HttpServer& server) override
     {
-        rec_binder_.Bind(server, "^/rec/image$", "POST");
-        batch_rec_binder_.Bind(server, "^/rec/image/batch$", "POST");
+
+        BindFunction<WitnessRequest, WitnessResponse> recBinder = std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder = std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
+
+        bind(server, "^/rec/image$", "POST", recBinder);
+        bind(server, "^/rec/image/batch$", "POST", batchRecBinder);
     }
 
 private:
     WitnessAppsService service_;
-    RestfulBinder<WitnessRequest, WitnessResponse> rec_binder_;
-    RestfulBinder<WitnessBatchRequest, WitnessBatchResponse> batch_rec_binder_;
 };
 }
 

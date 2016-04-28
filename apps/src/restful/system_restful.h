@@ -19,16 +19,24 @@ namespace dg
 class RestSystemServiceImpl final : public RestfulService
 {
 public:
-    RestSystemServiceImpl(const Config *config) : service_(config) {}
+    RestSystemServiceImpl(const Config *config) 
+              : RestfulService()
+              , service_(config) 
+    {
+    }
     virtual ~RestSystemServiceImpl() {}
 
-    template <class socket_type>
-    void Bind(SimpleWeb::Server<socket_type>& server)
+    virtual void Bind(HttpServer& server) override
     {
-        bind(server, "^/ping$", "GET", service_.Ping);
-        bind(server, "^/info$", "GET", service_.SystemStatus);
-        bind(server, "^/instances$", "GET", service_.GetInstances);
-        bind(server, "^/config$", "POST", service_.ConfigEngine);
+        BindFunction<PingRequest, PingResponse> pingBinder = std::bind(&SystemAppsService::Ping, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<SystemStatusRequest, SystemStatusResponse> statusBinder = std::bind(&SystemAppsService::SystemStatus, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<InstanceConfigureRequest, InstanceConfigureResponse> getInstBinder = std::bind(&SystemAppsService::GetInstances, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<GetInstancesRequest, InstanceConfigureResponse> configBinder = std::bind(&SystemAppsService::ConfigEngine, &service_, std::placeholders::_1, std::placeholders::_2);
+
+        bind(server, "^/ping$", "GET", pingBinder);
+        bind(server, "^/info$", "GET", statusBinder);
+        bind(server, "^/instances$", "GET", getInstBinder);
+        bind(server, "^/config$", "POST", configBinder);
     }
 
 private:

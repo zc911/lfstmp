@@ -17,7 +17,6 @@
 
 namespace grpc {
 class CompletionQueue;
-class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -61,7 +60,7 @@ class SimilarityService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_GetRankedVector : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithAsyncMethod_GetRankedVector() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -82,7 +81,7 @@ class SimilarityService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_GetRankedVector : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(Service *service) {}
    public:
     WithGenericMethod_GetRankedVector() {
       ::grpc::Service::MarkMethodGeneric(0);

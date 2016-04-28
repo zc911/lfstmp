@@ -22,10 +22,11 @@ public:
     RestSkynetServiceImpl(const Config *config) : service_(config) {}
     virtual ~RestSkynetServiceImpl() {}
 
-    template <class socket_type>
-    void Bind(SimpleWeb::Server<socket_type>& server)
+    virtual void Bind(HttpServer& server) override
     {
-        bind(server, "^/rec/video$", "POST", service_.VideoRecognize);
+        BindFunction<SkynetRequest, SkynetResponse> recVideoBinder = std::bind(&SkynetAppsService::VideoRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
+
+        bind(server, "^/rec/video$", "POST", recVideoBinder);
     }
 
 private:
