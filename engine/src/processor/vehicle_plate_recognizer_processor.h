@@ -21,10 +21,10 @@ class PlateRecognizerProcessor : public Processor {
     virtual void Update(FrameBatch *frameBatch);
     virtual void beforeUpdate(FrameBatch *frameBatch);
     virtual bool checkStatus(Frame *frame);
-protected:
+ protected:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
-    vector<Mat > vehicles_mat(FrameBatch *frameBatch);
-private:
+    vector<Mat> vehicles_mat(FrameBatch *frameBatch);
+ private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
     vector<Mat> images_;

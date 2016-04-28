@@ -16,22 +16,22 @@ namespace dg {
 
 class VehicleMarkerClassifierProcessor : public Processor {
  public:
-     VehicleMarkerClassifierProcessor();
+    VehicleMarkerClassifierProcessor();
 
-     ~VehicleMarkerClassifierProcessor();
+    ~VehicleMarkerClassifierProcessor();
 
-     virtual void Update(FrameBatch *frameBatch);
+    virtual void Update(FrameBatch *frameBatch);
 
-     virtual void beforeUpdate(FrameBatch *frameBatch);
-     virtual bool checkStatus(Frame *frame);
+    virtual void beforeUpdate(FrameBatch *frameBatch);
+    virtual bool checkStatus(Frame *frame);
  protected:
 
  private:
-     MarkerCaffeClassifier *classifier_;
-     WindowCaffeDetector *detector_;
-     vector<Object *> objs_;
-     vector<Mat> images_;
-     vector<Mat> resized_images_;
+    MarkerCaffeClassifier *classifier_;
+    WindowCaffeDetector *detector_;
+    vector<Object *> objs_;
+    vector<Mat> images_;
+    vector<Mat> resized_images_;
 
 };
 

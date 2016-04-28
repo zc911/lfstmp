@@ -191,7 +191,7 @@ class FrameBatch {
     unsigned int batch_size() const {
         return batch_size_;
     }
-    vector<Object*> objects() {
+    vector<Object*> collect_objects() {
         vector<Object *> objects;
         for (auto * frame : frames_) {
 
@@ -200,11 +200,11 @@ class FrameBatch {
         }
         return objects;
     }
-    vector<Object*> objects(uint64_t operation) {
+    vector<Object*> collect_objects(uint64_t operation) {
         vector<Object *> objects;
         for (auto * frame : frames_) {
-             if(!frame->operation().Check(operation))
-                  continue;
+            if (!frame->operation().Check(operation))
+                continue;
             objects.insert(objects.end(), frame->objects().begin(),
                            frame->objects().end());
         }
