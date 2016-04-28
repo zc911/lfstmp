@@ -6,7 +6,7 @@
  */
 #include "vehicle_plate_recognizer_processor.h"
 
-namespace dg{
+namespace dg {
 
 PlateRecognizerProcessor::PlateRecognizerProcessor() {
     PlateRecognizer::PlateConfig pConfig;
@@ -42,7 +42,8 @@ bool PlateRecognizerProcessor::checkOperation(Frame *frame) {
 bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
     return true;
 }
-void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image, cv::Mat &result) {
+void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
+                                            cv::Mat &result) {
     //创建并初始化滤波模板
     cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
     kernel.at<float>(1, 1) = 5.0;
@@ -56,11 +57,11 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image, cv::Mat &resul
     //对图像进行滤波
     cv::filter2D(image, result, image.depth(), kernel);
 }
-vector<Mat > PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
+vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
     objs_ = frameBatch->objects(OPERATION_VEHICLE_PLATE);
-    for (vector<Object *>::iterator itr = objs_.begin();
-            itr != objs_.end(); ++itr) {
+    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
+            ++itr) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
@@ -78,7 +79,6 @@ vector<Mat > PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
     }
     return vehicleMat;
 }
-
 
 }
 
