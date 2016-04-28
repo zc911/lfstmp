@@ -18,7 +18,7 @@ namespace dg
 {
 
 template <class request_type, class response_type>
-typedef BindFunction std::function<bool(const request_type*, response_type*)>;
+using BindFunction = std::function<bool(const request_type*, response_type*)>;
 
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 
@@ -54,7 +54,7 @@ protected:
                     return;
                 }
 
-                if (!func_(&protobufRequestMessage, &protobufResponseMessage))
+                if (!func(&protobufRequestMessage, &protobufResponseMessage))
                 {
                     responseText(response, 500, "call method failed");
                     return;
@@ -77,8 +77,8 @@ private:
 
     static void responseText(HttpServer::Response& response, int code, const string& text)
     {
-        response << protocol_ << " " << std::to_string(code) << "\r\nContent-Length: "
-                 << text.length() << "\r\nContent-Type: " << mime_type_ << "\r\n\r\n" << text;
+        response << "HTTP/1.1 " << std::to_string(code) << "\r\nContent-Length: "
+                 << text.length() << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n" << text;
     }
 };
 
