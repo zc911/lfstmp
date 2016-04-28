@@ -19,18 +19,24 @@ namespace dg
 class RestRankerServiceImpl final : public RestfulService
 {
 public:
-    RestRankerServiceImpl(Config *config) : service_(config) {}
+    RestRankerServiceImpl(const Config *config) 
+              : RestfulService()
+              , service_(config) 
+              , rank_binder_(std::bind(&RankerAppsService::GetRankedVector, &service_, std::placeholders::_1, std::placeholders::_2))
+    {
+    }
     virtual ~RestRankerServiceImpl() {}
 
-    template <class socket_type>
-    virtual void Bind(SimpleWeb::ServerBase<socket_type>& server) override
+    virtual void Bind(HttpServer& server) override
     {
-        bind(server, "^/rank$", "POST", service_.GetRankedVector);
+        rank_binder_.Bind(server, "^/rank$", "POST");
     }
 
 private:
     RankerAppsService service_;
+    RestfulBinder<FeatureRankingRequest, FeatureRankingResponse> rank_binder_;
 };
+
 }
 
 #endif //MATRIX_APPS_RESTFUL_RANKER_H_

@@ -19,7 +19,7 @@ namespace dg
 class GrpcMatrixServiceImpl final : public MatrixService::Service
 {
 public:
-    GrpcMatrixServiceImpl(Config *config) : service_(config) {}
+    GrpcMatrixServiceImpl(const Config *config) : service_(config) {}
     virtual ~GrpcMatrixServiceImpl() {}
 
 private:

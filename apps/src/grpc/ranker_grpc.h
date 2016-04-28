@@ -19,7 +19,7 @@ namespace dg
 class GrpcRankerServiceImpl final : public SimilarityService::Service
 {
 public:
-    GrpcRankerServiceImpl(Config *config) : service_(config) {}
+    GrpcRankerServiceImpl(const Config *config) : service_(config) {}
     virtual ~GrpcRankerServiceImpl() {}
 
 private:

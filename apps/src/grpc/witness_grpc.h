@@ -19,7 +19,7 @@ namespace dg
 class GrpcWitnessServiceImpl final : public WitnessService::Service 
 {
 public:
-    GrpcWitnessServiceImpl(Config *config) : service_(config) {}
+    GrpcWitnessServiceImpl(const Config *config) : service_(config) {}
     virtual ~GrpcWitnessServiceImpl() {}
 
 private:

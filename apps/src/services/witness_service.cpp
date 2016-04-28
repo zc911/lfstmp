@@ -18,7 +18,7 @@
 namespace dg
 {
 
-WitnessAppsService::WitnessAppsService(Config *config)
+WitnessAppsService::WitnessAppsService(const Config *config)
                     : config_(config)
 {
 

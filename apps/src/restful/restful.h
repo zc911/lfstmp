@@ -11,63 +11,79 @@
 #define MATRIX_APPS_RESTFUL_H_
 
 #include "pbjson.hpp" //from pbjson
-#include "http_server.hpp" //from Simple-Web-Server
+#include "server_http.hpp" //from Simple-Web-Server
 
 
 namespace dg
 {
 
+typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 
 class RestfulService
 {
 public:
-    template <class socket_type>
-    virtual void Bind(SimpleWeb::ServerBase<socket_type>& server);
+    RestfulService(){}
+    virtual ~RestfulService(){}
 
-protected:
-    template<class socket_type, class request_type, class response_type>
-    void bind(SimpleWeb::ServerBase<socket_type>& server, string endpoint, string method, bool caller(const request_type* req, response_type* resp))
+    virtual void Bind(HttpServer& server) = 0;
+};
+
+template<class request_type, class response_type>
+class RestfulBinder
+{
+public:
+    RestfulBinder(std::function<bool(const request_type*, response_type*)> func)
+            : func_(func)
     {
-        server.resource[endpoint][method] = [](SimpleWeb::ServerBase<socket_type>::Response& response, shared_ptr<SimpleWeb::ServerBase<socket_type>::Request> request)
+
+    }
+    virtual ~RestfulBinder(){}
+
+    void Bind(HttpServer& server, string endpoint, string method)
+    {
+        server.resource[endpoint][method] = [this](HttpServer::Response& response, std::shared_ptr<HttpServer::Request> request)
         {
             request_type protobufRequestMessage;
             response_type protobufResponseMessage;
 
-            try 
+            try
             {
                 string content = request->content.string();
                 string err;
-                int ret = pbjson::json2pb(content, &protobufRequestMessage, err)
+                int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
                 if (ret < 0)
                 {
                     responseText(response, 400, "parameter conversion failed: " + err);
-                    return
+                    return;
                 }
 
-                if (!caller(&protobufRequestMessage, &protobufResponseMessage))
+                if (!func_(&protobufRequestMessage, &protobufResponseMessage))
                 {
                     responseText(response, 500, "call method failed");
                     return;
                 }
 
+                content = "";
                 pbjson::pb2json(&protobufResponseMessage, content);
                 responseText(response, 200, content);
-            } 
-            catch (exception& e) 
+            }
+            catch (exception& e)
             {
                 responseText(response, 500, e.what());
             }
-        }
+        };
     }
 
 private:
-    template <class socket_type>
-    void responseText(SimpleWeb::ServerBase<socket_type>::Response& response, int code, string& text)
+    std::function<bool(const request_type*, response_type*)> func_;
+
+    static void responseText(HttpServer::Response& response, int code, const string& text)
     {
-        response << "HTTP/1.1 " << code << "\r\nContent-Length: " 
+        response << "HTTP/1.1 " << std::to_string(code) << "\r\nContent-Length: "
                  << text.length() << "\r\n\r\n" << text;
     }
 };
+
 }
 
 #endif //MATRIX_APPS_RESTFUL_H_
