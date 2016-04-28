@@ -60,6 +60,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
             images_);
+
     DLOG(INFO)<<"window crops result"<<endl;
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle*) objs_[i];
@@ -84,6 +85,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 }
 
 void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_MARKER);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
@@ -103,6 +105,7 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
+
 }
 bool VehicleMarkerClassifierProcessor::checkStatus(Frame *frame) {
     return true;
