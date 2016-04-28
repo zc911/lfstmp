@@ -14,8 +14,8 @@
 
 #include "model/model.h"
 #include "model/rank_feature.h"
-#include "processor/car_rank_processor.h"
-#include "processor/face_rank_processor.h"
+#include "processor/processor.h"
+
 
 namespace dg {
 
@@ -33,7 +33,7 @@ class CarRankEngine : public RankEngine {
 
  private:
     Identification id_;
-    CarRankProcessor processor_;
+    Processor *processor_;
 };
 
 class FaceRankEngine : public RankEngine {
@@ -46,7 +46,7 @@ class FaceRankEngine : public RankEngine {
 
  private:
     Identification id_;
-    FaceRankProcessor processor_;
+    Processor *processor_;
 };
 
 }

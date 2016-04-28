@@ -19,14 +19,16 @@ class VehicleClassifierProcessor : public Processor {
     VehicleClassifierProcessor();
 
     ~VehicleClassifierProcessor();
+    virtual void Update(Frame *frame) {
 
+    }
 
     virtual void Update(FrameBatch *frameBatch);
 
     virtual bool checkOperation(Frame *frame);
     virtual bool checkStatus(Frame *frame);
  protected:
-     vector<Mat > vehicles_resized_mat(FrameBatch *frameBatch);
+    vector<Mat> vehicles_resized_mat(FrameBatch *frameBatch);
  private:
     VehicleCaffeClassifier *classifier_;
     vector<Object *> objs_;

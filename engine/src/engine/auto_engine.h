@@ -7,6 +7,7 @@
 
 #ifndef AUTO_ENGINE_H_
 #define AUTO_ENGINE_H_
+
 #include <pthread.h>
 
 namespace dg {
