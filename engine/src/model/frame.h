@@ -191,6 +191,7 @@ class FrameBatch {
     unsigned int batch_size() const {
         return batch_size_;
     }
+
     vector<Object*> objects() {
         vector<Object *> objects;
         for (auto * frame : frames_) {
@@ -200,6 +201,7 @@ class FrameBatch {
         }
         return objects;
     }
+
     vector<Object*> objects(uint64_t operation) {
         vector<Object *> objects;
         for (auto * frame : frames_) {
@@ -210,6 +212,7 @@ class FrameBatch {
         }
         return objects;
     }
+
     ~FrameBatch();
  private:
     Identification id_;
