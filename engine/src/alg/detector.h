@@ -21,14 +21,10 @@ namespace dg {
 
 class Detector {
  public:
-    Detector() {
-    }
-    virtual ~Detector() {
-    }
-
-    virtual vector<Detection> Detect(const cv::Mat &img) = 0;
-    virtual vector<vector<Detection>> DetectBatch(
-            const vector<cv::Mat> &img) = 0;
+     Detector() {
+     }
+     virtual ~Detector() {
+     }
 };
 }
 #endif /* DETECTOR_H_ */

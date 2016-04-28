@@ -1,123 +1,222 @@
-/*============================================================================
- * File Name   : face_detector.cpp
- * Author      : yanlongtan@deepglint.com
- * Version     : 1.0.0.0
- * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 04/19/2016
- * Description : 
- * ==========================================================================*/
+#include "alg/face_detector.h"
+#include "caffe_helper.h"
 
-#include "face_detector.h"
-using namespace dg;
+namespace dg {
 
-FaceDetector::FaceDetector(string align_model, string avg_face)
-        : detector_(dlib::get_frontal_face_detector()) 
-{
-    LOG(INFO) << "initialize face detector";
-    LOG(INFO) << "align_model: " << align_model;
-    LOG(INFO) << "avg_face: " << avg_face;
-
-    dlib::deserialize(align_model) >> sp_;
-
-    Mat avg_face_img = imread(avg_face);
-    LOG(INFO) << "avg_face.width: " << avg_face_img.cols;
-    LOG(INFO) << "avg_face.height: " << avg_face_img.rows;
-
-    dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
-
-    vector<dlib::rectangle> avg_face_bbox = detector_(avg_face_image);
-    assert(avg_face_bbox.size() == 1);
-
-    predict(avg_face_image, avg_face_bbox[0], avg_face_points_);
-}
-
-FaceDetector::~FaceDetector() 
-{
-
-}
-
-bool FaceDetector::predict(dlib::cv_image<dlib::bgr_pixel>& image, dlib::rectangle& bbox, vector<dlib::point>& points)
-{
-    dlib::full_object_detection shape = sp_(image, bbox);
-    if (shape.num_parts() != avg_face_points_.size())
-    {
-        return false;
+FaceDetector::FaceDetector(const string& model_file, const string& trained_file,
+                           const bool use_gpu, const int batch_size,
+                           const Size &image_size, const float conf_thres)
+        : image_size_(image_size),
+          batch_size_(batch_size),
+          conf_thres_(conf_thres) {
+    if (use_gpu) {
+        Caffe::set_mode(Caffe::GPU);
+        Caffe::SetDevice(0);
+        use_gpu_ = true;
+    } else {
+        Caffe::set_mode(Caffe::CPU);
+        use_gpu_ = false;
     }
 
-    for (unsigned long i = 0; i < shape.num_parts(); i++)
-    {
-        points.push_back(shape.part(i));
+    LOG(INFO)<< "loading model file: " << model_file;
+    net_.reset(new Net<float>(model_file, TEST));
+    LOG(INFO)<< "loading trained file : " << trained_file;
+    net_->CopyTrainedLayersFrom(trained_file);
+    CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
+
+    Blob<float>* input_layer = net_->input_blobs()[0];
+
+    num_channels_ = input_layer->channels();
+    CHECK(num_channels_ == 3 || num_channels_ == 1)
+            << "Input layer should have 1 or 3 channels.";
+    pixel_means_.push_back(102.9801);
+    pixel_means_.push_back(115.9465);
+    pixel_means_.push_back(122.7717);
+
+    layer_name_cls_ = "conv_face_16_cls";
+    layer_name_reg_ = "conv_face_16_reg";
+    sliding_window_stride_ = 16;
+    area_.push_back(2 * 24 * 24);
+    area_.push_back(48 * 48);
+    area_.push_back(2 * 48 * 48);
+    area_.push_back(96 * 96);
+    area_.push_back(2 * 96 * 96);
+    ratio_.push_back(1);
+
+    do {
+        vector<int> shape;
+        shape.push_back(batch_size_);
+        shape.push_back(3);
+        shape.push_back(image_size_.height);
+        shape.push_back(image_size_.width);
+        input_layer->Reshape(shape);
+        net_->Reshape();
+    } while (0);
+}
+
+FaceDetector::~FaceDetector() {
+
+}
+
+void FaceDetector::Forward(const vector<cv::Mat> &imgs,
+                           vector<Blob<float>*> &outputs) {
+    Blob<float>* input_layer = net_->input_blobs()[0];
+    assert(static_cast<int>(imgs.size()) <= batch_size_ && imgs.size());
+
+    if (static_cast<int>(imgs.size()) != batch_size_) {
+        vector<int> shape;
+        shape.push_back(static_cast<int>(imgs.size()));
+        shape.push_back(3);
+        shape.push_back(image_size_.height);
+        shape.push_back(image_size_.width);
+        input_layer->Reshape(shape);
+        net_->Reshape();
     }
-    return true;
-}
 
+    for (size_t i = 0; i < imgs.size(); ++i) {
+        Mat sample;
+        Mat img = imgs[i];
+        assert(img.rows == image_size_.height && img.cols == image_size_.width);
+        if (img.channels() == 3 && num_channels_ == 1)
+            cvtColor(img, sample, CV_BGR2GRAY);
+        else if (img.channels() == 4 && num_channels_ == 1)
+            cvtColor(img, sample, CV_BGRA2GRAY);
+        else if (img.channels() == 4 && num_channels_ == 3)
+            cvtColor(img, sample, CV_RGBA2BGR);
+        else if (img.channels() == 1 && num_channels_ == 3)
+            cvtColor(img, sample, CV_GRAY2BGR);
+        else
+            sample = img;
 
-Mat FaceDetector::transform(dlib::cv_image<dlib::bgr_pixel>& image, vector<dlib::point>& points)
-{
-    dlib::array2d<dlib::bgr_pixel> out(128, 128);    
-    dlib::point_transform_affine trans = find_affine_transform(avg_face_points_, points);
-    transform_image(image, out, dlib::interpolate_bilinear(), trans);
-    return toMat(out).clone();
-}
-
-void FaceDetector::Detect(vector<cv::Mat>& images, vector<vector<Mat>>& vvResults, vector<vector<BoundingBox>>& vvBoxes)
-{
-    for(Mat& image : images)
-    {
-        dlib::cv_image<dlib::bgr_pixel> dlibImg(image);
-        vector<dlib::rectangle> faceBoxes = detector_(dlibImg);
-
-        vector<Mat> results;
-        vector<BoundingBox> vboxes;
-        for(dlib::rectangle& bbox : faceBoxes)
-        {
-            vector<dlib::point> points;
-            if (predict(dlibImg, bbox, points))
-            {
-                results.push_back(transform(dlibImg, points));
-
-                struct BoundingBox box;
-                box.rect.x = bbox.left();
-                box.rect.y = bbox.right();
-                box.rect.width = bbox.width();
-                box.rect.height = bbox.height();
-                vboxes.push_back(box);
+        float* input_data = input_layer->mutable_cpu_data();
+        size_t image_off = i * sample.channels() * sample.rows * sample.cols;
+        for (int k = 0; k < sample.channels(); ++k) {
+            size_t channel_off = k * sample.rows * sample.cols;
+            for (int row = 0; row < sample.rows; ++row) {
+                size_t row_off = row * sample.cols;
+                for (int col = 0; col < sample.cols; ++col) {
+                    input_data[image_off + channel_off + row_off + col] = float(
+                            sample.at<uchar>(row, col * 3 + k))
+                            - pixel_means_[k];
+                }
             }
         }
-
-        vvBoxes.push_back(vboxes);
-        vvResults.push_back(results);
     }
+
+    net_->ForwardPrefilled();
+
+    if (use_gpu_ == true) {
+        cudaDeviceSynchronize();
+    }
+
+    outputs.resize(0);
+    Blob<float>* output_cls = net_->blob_by_name(layer_name_cls_).get();
+    Blob<float>* output_reg = net_->blob_by_name(layer_name_reg_).get();
+    outputs.push_back(output_cls);
+    outputs.push_back(output_reg);
 }
 
-void FaceDetector::Detect(Mat& image, vector<BoundingBox> boxes, vector<Mat>& results)
-{
-    dlib::cv_image<dlib::bgr_pixel> dlibImg(image);
+vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
+    vector<Blob<float>*> outputs;
+    Forward(imgs, outputs);
 
-    for(BoundingBox& box : boxes)
-    {
-        dlib::rectangle bbox(box.rect.x, box.rect.y, 
-            box.rect.x + box.rect.width, box.rect.y + box.rect.height);
+    vector<vector<Detection> > boxes_in;
+    GetDetection(outputs, boxes_in);
 
-        vector<dlib::point> points;
-        if (predict(dlibImg, bbox, points))
-        {
-            results.push_back(transform(dlibImg, points));
+    return boxes_in;
+}
+
+void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
+                                vector<vector<Detection> > &final_vbbox) {
+    Blob<float>* cls = outputs[0];
+    Blob<float>* reg = outputs[1];
+
+    final_vbbox.resize(0);
+    final_vbbox.resize(cls->num());
+    int scale_num = area_.size() * ratio_.size();
+
+    assert(cls->channels() == scale_num * 2);
+    assert(reg->channels() == scale_num * 4);
+
+    assert(cls->height() == reg->height());
+    assert(cls->width() == reg->width());
+
+    vector<struct Bbox> vbbox;
+    const float* cls_cpu = cls->cpu_data();
+    const float* reg_cpu = reg->cpu_data();
+
+    vector<float> gt_ww, gt_hh;
+    gt_ww.resize(scale_num);
+    gt_hh.resize(scale_num);
+
+    for (size_t i = 0; i < area_.size(); ++i) {
+        for (size_t j = 0; j < ratio_.size(); ++j) {
+            int index = i * ratio_.size() + j;
+            gt_ww[index] = sqrt(area_[i] * ratio_[j]);
+            gt_hh[index] = gt_ww[index] / ratio_[j];
+        }
+    }
+    int cls_index = 0;
+    int reg_index = 0;
+    for (int img_idx = 0; img_idx < cls->num(); ++img_idx) {
+        vbbox.resize(0);
+        for (int scale_idx = 0; scale_idx < scale_num; ++scale_idx) {
+            int skip = cls->height() * cls->width();
+            for (int h = 0; h < cls->height(); ++h) {
+                for (int w = 0; w < cls->width(); ++w) {
+                    float confidence;
+                    float rect[4] = { };
+                    {
+                        float x0 = cls_cpu[cls_index];
+                        float x1 = cls_cpu[cls_index + skip];
+                        float min_01 = min(x1, x0);
+                        x0 -= min_01;
+                        x1 -= min_01;
+                        confidence = exp(x1) / (exp(x1) + exp(x0));
+                    }
+                    if (confidence > conf_thres_) {
+                        for (int j = 0; j < 4; ++j) {
+                            rect[j] = reg_cpu[reg_index + j * skip];
+                        }
+
+                        float shift_x = w * sliding_window_stride_
+                                + sliding_window_stride_ / 2.f - 1;
+                        float shift_y = h * sliding_window_stride_
+                                + sliding_window_stride_ / 2.f - 1;
+                        rect[2] = exp(rect[2]) * gt_ww[scale_idx];
+                        rect[3] = exp(rect[3]) * gt_hh[scale_idx];
+                        rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f
+                                + shift_x;
+                        rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f
+                                + shift_y;
+
+                        struct Bbox bbox;
+                        bbox.confidence = confidence;
+                        bbox.rect = Rect(rect[0], rect[1], rect[2], rect[3]);
+                        bbox.rect &= Rect(0, 0, image_size_.width,
+                                          image_size_.height);
+                        bbox.deleted = false;
+                        vbbox.push_back(bbox);
+                    }
+
+                    cls_index += 1;
+                    reg_index += 1;
+                }
+            }
+            cls_index += skip;
+            reg_index += 3 * skip;
+        }
+        NMS(vbbox, 0.2);
+        for (size_t i = 0; i < vbbox.size(); ++i) {
+            struct Bbox box = vbbox[i];
+            if (!box.deleted) {
+                Detection detection;
+                detection.box = vbbox[i].rect;
+                detection.confidence = vbbox[i].confidence;
+                final_vbbox[img_idx].push_back(detection);
+            }
         }
     }
 }
 
-void FaceDetector::Align(vector<Mat>& images, vector<Mat>& results)
-{
-    for(Mat& image : images)
-    {
-        dlib::cv_image<dlib::bgr_pixel> dlibImg(image);
-        dlib::rectangle bbox(0, 0, image.cols, image.rows);
-
-        vector<dlib::point> points;
-        if (predict(dlibImg, bbox, points))
-        {
-            results.push_back(transform(dlibImg, points));
-        }
-    }
-}
+} /* namespace dg */

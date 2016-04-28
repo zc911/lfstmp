@@ -11,11 +11,13 @@
 #include <utility>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <opencv2/core/core.hpp>
 
 using namespace std;
-
+using namespace cv;
 namespace dg {
+
 
 /**
  * The basic classifier interface which defines the functions
@@ -27,11 +29,8 @@ class Classifier {
     }
     virtual ~Classifier() {
     }
-
-    virtual vector<vector<Prediction> > Classify(
-            const vector<cv::Mat> &imgs) = 0;
-    virtual vector<vector<Prediction> > ClassifyBatch(
-            const vector<cv::Mat> &imgs) = 0;
+    virtual int ClassifyBatch(
+            const vector<cv::Mat> &imgs,vector<vector<Prediction> > & predict_results) = 0;
 };
 }
 #endif /* CLASSIFIER_H_ */
