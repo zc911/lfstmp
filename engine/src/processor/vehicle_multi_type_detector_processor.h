@@ -34,6 +34,7 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
 
     bool checkOperation(Frame *frame);
     bool checkStatus(Frame *frame);
+
  private:
     VehicleMultiTypeDetector *detector_;
 
