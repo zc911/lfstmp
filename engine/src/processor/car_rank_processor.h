@@ -16,6 +16,7 @@
 #include "model/frame.h"
 #include "model/rank_feature.h"
 #include "alg/car_matcher.h"
+#include "alg/car_feature_extractor.h"
 
 #include "timing_profiler.h"
 
@@ -38,6 +39,7 @@ class CarRankProcessor : public Processor {
     string t_profiler_str_;
     TimingProfiler t_profiler_matching_;
     CarMatcher car_matcher_;
+    CarFeatureExtractor car_feature_extractor_;
 
     vector<Score> rank(const Mat& image, const Rect& hotspot,
                        const vector<CarRankFeature>& candidates);

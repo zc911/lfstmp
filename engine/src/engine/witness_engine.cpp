@@ -6,6 +6,7 @@
 #include "processor/vehicle_color_processor.h"
 #include "processor/vehicle_marker_classifier_processor.h"
 #include "processor/vehicle_plate_recognizer_processor.h"
+#include "processor/car_feature_extract_processor.h"
 
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
@@ -16,6 +17,7 @@ WitnessEngine::WitnessEngine(const Config &config) {
     vehicle_processor_ = NULL;
     face_processor_ = NULL;
     is_init_ = false;
+
     init(config);
 }
 
@@ -60,6 +62,7 @@ void WitnessEngine::Process(FrameBatch *frame) {
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
+    DLOG(INFO)<<"begin "<<enable_vehicle_<<endl;
 
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
@@ -78,6 +81,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 void WitnessEngine::init(const Config &config) {
 
+    initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
 
@@ -86,6 +90,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
+            DLOG(INFO)<<"begin  "<<endl;
 
             Processor *p = new VehicleClassifierProcessor();
             last->SetNextProcessor(p);
@@ -115,7 +120,9 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_feature_vector_) {
             LOG(INFO)<< "Enable vehicle feature vector processor." << endl;
-
+            Processor *p = new CarFeatureExtractProcessor();
+            last->SetNextProcessor(p);
+            last = p;
         }
 
         LOG(INFO)<< "Init vehicle processor pipeline finished. " << endl;
@@ -123,7 +130,7 @@ void WitnessEngine::init(const Config &config) {
     }
 
     if (enable_face_) {
-        LOG(INFO) << "Init face processor pipeline. " << endl;
+        LOG(INFO)<< "Init face processor pipeline. " << endl;
         // face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
         if(enable_face_feature_vector_) {
             //LOG(INFO) << "Enable face feature vector processor." << endl;

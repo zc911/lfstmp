@@ -14,6 +14,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include "basic.h"
+#include "rank_feature.h"
 
 using namespace std;
 namespace dg {
@@ -125,6 +126,25 @@ class Object {
      vector<Object *> children_;
 
 };
+class Marker:public Object{
+ public:
+    Marker(ObjectType type)
+              : Object(type),
+                class_id_(-1) {
+    }
+    Identification class_id() const {
+         return class_id_;
+    }
+
+    void set_class_id(Identification id) {
+        class_id_ = id;
+    }
+
+
+ private:
+    Identification class_id_;
+
+};
 
 class Vehicle : public Object {
  public:
@@ -175,12 +195,13 @@ class Vehicle : public Object {
      void set_markers(const vector<Detection> &markers) {
          vector<Object *> objects;
           for(auto detection:markers){
-              Marker *m = new Vehicle(OBJECT_MARKER_0);
+              Marker *m = new Marker(OBJECT_MARKER_0);
               m->set_detection(detection);
-              m->set_id(detection.id);
+              m->set_class_id(detection.id);
               m->set_confidence(detection.confidence);
               Object *obj = static_cast<Object*>(m);
               objects.push_back(obj);
+              DLOG(INFO)<<"set markers "<<detection.id<<endl;
           }
           this->set_children(objects);
      }
@@ -200,7 +221,13 @@ class Vehicle : public Object {
      void set_class_id(Identification classId) {
           class_id_ = classId;
      }
+     CarRankFeature& feature() {
+         return feature_;
+     }
 
+     void set_feature(const CarRankFeature& feature) {
+         feature_ = feature;
+     }
  private:
 
      cv::Mat image_;
@@ -209,19 +236,10 @@ class Vehicle : public Object {
      Plate plate_;
      Color color_;
      Detection window_;
+     CarRankFeature feature_;
 
 };
 
-class Marker:public Object{
- public:
-    Marker(ObjectType type)
-              : Object(type),
-                class_id_(-1) {
-    }
- private:
-    Identification class_id_;
-
-};
 
 class Face : public Object {
 
