@@ -102,6 +102,12 @@ bool RankerAppsService::getRankedFaceVector(const FeatureRankingRequest* request
     LOG(INFO) << prefix << "started";
     response->set_reqid(request->reqid());
 
+    if (!request->has_image())
+    {
+        LOG(ERROR) << prefix << "image descriptor does not exist";
+        return false;
+    }
+
     Mat image;
     MatrixError err = ImageService::ParseImage(request->image(), image);
     if (err.code() != 0)

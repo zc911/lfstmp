@@ -12,6 +12,7 @@
 
 #include "config.h"
 #include "model/witness.grpc.pb.h"
+#include "engine/witness_engine.h"
 
 namespace dg 
 {
@@ -28,7 +29,8 @@ public:
 
 private:
     const Config *config_;
-
+    WitnessEngine engine_;
+    Identification id_;
 };
 
 }
