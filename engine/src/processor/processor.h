@@ -50,7 +50,7 @@ class Processor {
      */
     virtual void Update(FrameBatch *frameBatch) = 0;
 
-    virtual void beforeUpdate(FrameBatch *frameBatch) = 0;
+    virtual void beforeUpdate(FrameBatch *frameBatch){};
     virtual bool checkStatus(Frame *frame) = 0;
 
     /**
