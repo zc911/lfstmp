@@ -32,16 +32,18 @@ int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &dst,
     return 1;
 }
 VehicleClassifierProcessor::VehicleClassifierProcessor() {
-    classifiers_size_ = 8;
+    classifiers_size_ = 1;
 
     for (int i = 0; i < classifiers_size_; i++) {
         CaffeConfig config;
-        config.model_file = "models/car_style/front_day_" + to_string(i)
-                + "/car_python_mini_alex_256_" + to_string(i)
-                + "_iter_70000.caffemodel";
-        config.deploy_file = "models/car_style/front_day_" + to_string(i)
-                + "/deploy_256.prototxt";
+//        config.model_file = "models/car_style/front_day_" + to_string(i)
+//                + "/car_python_mini_alex_256_" + to_string(i)
+//                + "_iter_70000.caffemodel";
+//        config.deploy_file = "models/car_style/front_day_" + to_string(i)
+//                + "/deploy_256.prototxt";
 
+        config.model_file = "models/classify/car_python_mini_alex_256_0_iter_70000.caffemodel";
+        config.deploy_file = "models/classify/deploy_256.prototxt";
         config.is_model_encrypt = false;
         config.batch_size = 1;
 
@@ -88,6 +90,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 }
 
 void VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    images_.clear();
     images_ = vehicles_resized_mat(frameBatch);
 }
 bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
@@ -97,6 +100,7 @@ bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
 vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
         FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
+    objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_STYLE);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
