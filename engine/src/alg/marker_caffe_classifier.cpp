@@ -2,7 +2,7 @@
  * marker_caffe_classifier.cpp
  *
  *  Created on: Apr 21, 2016
- *      Author: jiajaichen
+ *      Author: jiajiachen
  */
 
 #include "marker_caffe_classifier.h"
