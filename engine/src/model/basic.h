@@ -24,10 +24,6 @@ typedef pair<int, float> Prediction;
 typedef vector<uchar> FeatureVector;
 typedef cv::Rect Box;
 
-struct FaceFeature {
-    float data[256];
-};
-
 enum ContentType {
     IMAGE_JPEG = 1,
     FILE_MP4 = 2,
