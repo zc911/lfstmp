@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package dg;
+
+import "common.proto";
+
+service SimilarityService { 
+	rpc GetRankedVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+}
+
+message FeatureRankingRequest {
+	int64 ReqId = 1;
+	RecognizeType Type = 2;
+	// This is the image data.
+	Image Image = 3;
+	// This is the interested areas.
+	repeated Cutboard InterestedAreas = 4;
+	repeated Cutboard DisabledAreas = 5;
+	repeated FeatureVector Candidates = 6;
+	// Limit limits the count of results returned.
+	// If zero, returns all.
+	int32 Limit = 7;
+}
+
+message FeatureRankingResponse {
+	int64 ReqId = 1;
+	repeated int64 Ids = 2;
+	repeated float Scores = 3;
+}

@@ -50,9 +50,9 @@ class FaceRankEngine : public RankEngine {
 
  private:
     Identification id_;
-    FaceDetectProcessor *detector_;
-    FaceFeatureExtractProcessor *extractor_;
-    FaceRankProcessor *ranker_;
+    Processor *detector_;
+    Processor *extractor_;
+    Processor *ranker_;
 };
 
 }

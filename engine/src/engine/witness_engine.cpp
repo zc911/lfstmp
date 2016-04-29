@@ -1,13 +1,12 @@
 #include "witness_engine.h"
-#include "engine_config_value.h"
 
-#include "processor/vehicle_classifier_processor.h"
+#include "engine_config_value.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
+#include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
 #include "processor/vehicle_marker_classifier_processor.h"
 #include "processor/vehicle_plate_recognizer_processor.h"
 #include "processor/car_feature_extract_processor.h"
-
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 
@@ -47,21 +46,21 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
-// TODO
 void WitnessEngine::Process(FrameBatch *frame) {
-//    if (frame->operation().Check(OPERATION_VEHICLE)) {
-    if (vehicle_processor_)
-        vehicle_processor_->Update(frame);
-//    }
+    if (frame->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
+        if (vehicle_processor_)
+            vehicle_processor_->Update(frame);
+    }
 
-//    if (frame->operation().Check(OPERATION_FACE)) {
-    if (face_processor_)
-        face_processor_->Update(frame);
-//    }
+    if (frame->CheckFrameBatchOperation(OPERATION_FACE)) {
+        if (face_processor_)
+            face_processor_->Update(frame);
+    }
 }
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
+    DLOG(INFO)<<"begin "<<enable_vehicle_<<endl;
 
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
@@ -79,15 +78,17 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 }
 
 void WitnessEngine::init(const Config &config) {
+
     initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
 
-        vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(1,0,600,false);
+        vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(1, 0, 600,false);
         Processor *last = vehicle_processor_;
 
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
+            DLOG(INFO)<<"begin  "<<endl;
 
             Processor *p = new VehicleClassifierProcessor();
             last->SetNextProcessor(p);
