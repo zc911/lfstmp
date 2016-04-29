@@ -29,12 +29,15 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 
 }
 
-// TODO improve to "real" batch mode
 void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
+
+    beforeUpdate(frameBatch);
+
     for (int i = 0; i < frameBatch->frames().size(); i++) {
         Frame *frame = frameBatch->frames()[i];
 
-        if (!checkOperation(frame)) {
+        if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
+
             DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
         }
 
@@ -68,12 +71,8 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
 
 }
 
-bool VehicleMultiTypeDetectorProcessor::checkOperation(Frame *frame) {
-    // if detection disabled, lots of features must be disabled either.
-    if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
-        return false;
-    }
-    return true;
+void VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
 }
 bool VehicleMultiTypeDetectorProcessor::checkStatus(Frame *frame) {
     return true;
