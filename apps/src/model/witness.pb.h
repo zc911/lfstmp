@@ -58,15 +58,24 @@ class WitnessResponseContext;
 class WitnessResult;
 
 enum WitnessFunction {
-  REC_FUNC_DEFAULT = 0,
-  REC_FUNC_DETECTION = 1,
-  REC_FUNC_FEATURE = 2,
+  RECFUNC_NONE = 0,
+  RECFUNC_VEHICLE = 1,
+  RECFUNC_VEHICLE_DETECT = 2,
+  RECFUNC_VEHICLE_TRACK = 3,
+  RECFUNC_VEHICLE_STYLE = 4,
+  RECFUNC_VEHICLE_COLOR = 5,
+  RECFUNC_VEHICLE_MARKER = 6,
+  RECFUNC_VEHICLE_PLATE = 7,
+  RECFUNC_VEHICLE_FEATURE_VECTOR = 8,
+  RECFUNC_FACE = 9,
+  RECFUNC_FACE_DETECTOR = 10,
+  RECFUNC_FACE_FEATURE_VECTOR = 11,
   WitnessFunction_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   WitnessFunction_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool WitnessFunction_IsValid(int value);
-const WitnessFunction WitnessFunction_MIN = REC_FUNC_DEFAULT;
-const WitnessFunction WitnessFunction_MAX = REC_FUNC_FEATURE;
+const WitnessFunction WitnessFunction_MIN = RECFUNC_NONE;
+const WitnessFunction WitnessFunction_MAX = RECFUNC_FACE_FEATURE_VECTOR;
 const int WitnessFunction_ARRAYSIZE = WitnessFunction_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* WitnessFunction_descriptor();

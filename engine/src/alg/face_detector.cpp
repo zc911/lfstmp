@@ -89,6 +89,7 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
 	{
 		Mat sample;
 		Mat img = imgs[i];
+		cv::resize(img, img, image_size_);
 		assert(img.rows == image_size_.height && img.cols == image_size_.width);
 		if (img.channels() == 3 && num_channels_ == 1)
 			cvtColor(img, sample, CV_BGR2GRAY);
