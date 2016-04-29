@@ -1,27 +1,27 @@
 #include "rank_engine.h"
-//#include "processor/car_rank_processor.h"
-#include "processor/face_rank_processor.h"
+
 namespace dg
 {
 
-//CarRankEngine::CarRankEngine()
-//        : id_(0) {
-//    processor_ = new CarRankProcessor();
-//}
-//CarRankEngine::~CarRankEngine() {
-//    if (processor_) {
-//        delete processor_;
-//    }
-//}
+CarRankEngine::CarRankEngine()
+        : id_(0) {
+    processor_ = new CarRankProcessor();
+}
 
-//vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
-//                                  const vector<CarRankFeature>& candidates) {
-//    vector<Rect> hotspots;
-//    hotspots.push_back(hotspot);
-//    CarRankFrame f(id_++, image, hotspots, candidates);
-//    processor_->Update(&f);
-//    return f.result_;
-//}
+CarRankEngine::~CarRankEngine() {
+    if (processor_) {
+        delete processor_;
+    }
+}
+
+vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
+                                  const vector<CarRankFeature>& candidates) {
+    vector<Rect> hotspots;
+    hotspots.push_back(hotspot);
+    CarRankFrame f(id_++, image, hotspots, candidates);
+    //processor_->Update(&f);
+    return f.result_;
+}
 
 FaceRankEngine::FaceRankEngine() :
 		id_(0)
@@ -40,6 +40,7 @@ FaceRankEngine::~FaceRankEngine()
 {
 	delete detector_;
 	delete extractor_;
+	delete ranker_;
 }
 
 vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
@@ -56,8 +57,8 @@ vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
 
 	FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
 			candidates);
-	FaceRankProcessor *ranker = new FaceRankProcessor();
-	ranker->Update(face_rank_frame);
+	ranker_ = new FaceRankProcessor();
+	ranker_->Update(face_rank_frame);
 
 	vector<Score> result = face_rank_frame->result_;
 	delete frame;
