@@ -17,6 +17,7 @@
 
 namespace grpc {
 class CompletionQueue;
+class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -60,7 +61,7 @@ class SkynetService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_VideoRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_VideoRecognize() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -81,7 +82,7 @@ class SkynetService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_VideoRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_VideoRecognize() {
       ::grpc::Service::MarkMethodGeneric(0);

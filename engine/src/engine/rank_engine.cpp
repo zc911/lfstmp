@@ -19,7 +19,7 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
     vector<Rect> hotspots;
     hotspots.push_back(hotspot);
     CarRankFrame f(id_++, image, hotspots, candidates);
-    //processor_->Update(&f);
+    processor_->Update(&f);
     return f.result_;
 }
 

@@ -56,7 +56,7 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
     }
 
     Identification curr_id = id_ ++; //TODO: make thread safe
-    Frame frame(curr_id, image);
+    Frame *frame = new Frame(curr_id, image);
 
     Operation op;
     for(int i = 0; i < request->context().functions_size(); i ++)
@@ -78,10 +78,10 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
         default: break;
         }
     }
-    frame.set_operation(op);
+    frame->set_operation(op);
 
     FrameBatch framebatch(curr_id * 10, 1);
-    framebatch.add_frame(&frame);
+    framebatch.add_frame(frame);
     engine_.Process(&framebatch);
 
     ::dg::WitnessResponseContext* ctx = response->mutable_context();
@@ -91,10 +91,10 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
-    ::google::protobuf::Map<::std::string, ::dg::Time>* debugTs = ctx->mutable_debugts()
-    (*debugTs)["start"] = ctx->requestts();
+    ::google::protobuf::Map<::std::string, ::dg::Time>& debugTs = *ctx->mutable_debugts();
+    debugTs["start"] = ctx->requestts();
 
-    for(const Object *o : frame.objects())
+    for(const Object *o : frame->objects())
     {
         switch(o->type())
         {
@@ -110,9 +110,9 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t)curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t)curr_time.tv_usec);
-    (*debugTs)["end"] = ctx->responsets();
+    debugTs["end"] = ctx->responsets();
 
-    cout << "recognized objects: " << frame.objects().size() << endl;
+    cout << "recognized objects: " << frame->objects().size() << endl;
 
     cout << "Finish processing: " << sessionid << "..." << endl;
     cout << "=======" << endl;
