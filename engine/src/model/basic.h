@@ -21,7 +21,6 @@ typedef int64_t Identification;
 typedef float Confidence;
 typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
-//typedef vector<uchar> FeatureVector;
 typedef cv::Rect Box;
 
 struct FaceFeature {
@@ -59,6 +58,11 @@ enum Operations
 }
 ;
 
+/**
+ * This class defines the operations each request(Frame/FrameBatch) asked for.
+ * The operation value can be OPERATION_VEHICLE_DETECT or anyone defined in enum OperationValue .
+ *
+ */
 typedef struct Operation {
     OperationValue operate;
 
