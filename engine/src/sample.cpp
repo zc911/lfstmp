@@ -23,13 +23,15 @@ static void PrintFrame(Frame &frame) {
                  << v->color().confidence << endl;
             cout << "Vehicle plate: " << v->plate().plate_num << ", "
                  << v->plate().confidence << endl;
-            vector<Detection> markers = v->markers();
-            cout << "Vehicle Markers: " << ", Window: " << v->window().box.x
-                 << endl;
+            vector<Object *> markers = v->children();
+            cout << "Vehicle Markers: " << v->children().size() << ", Window: "
+                 << v->window().box.x << endl;
 
             for (int i = 0; i < markers.size(); i++) {
-                Detection d = markers[i];
-                cout << "Marker " << i << ": " << d << endl;
+                Marker *m = (Marker*) markers[i];
+                Detection d = m->detection();
+                cout << "Marker " << i << ": " << d << " class id: "
+                     << m->class_id() << endl;
             }
 
             cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
