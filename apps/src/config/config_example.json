@@ -3,7 +3,7 @@
 		"Code" : "1.0.0",
 		"Model" : "1.9"
 	},
-	"InstanceType": "witness",
+	"InstanceType" : "witness",
 	"System" : {
 		"Ip" : "0.0.0.0",
 		"Port" : 6500,

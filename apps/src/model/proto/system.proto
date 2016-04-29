@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package dg;
+
+//import "common.proto";
+
+service SystemService { 
+    rpc Ping(PingRequest) returns (PingResponse) {}
+
+    rpc SystemStatus(SystemStatusRequest) returns (SystemStatusResponse) {}
+
+    rpc GetInstances(GetInstancesRequest) returns (InstanceConfigureResponse) {}
+    
+    rpc ConfigEngine(InstanceConfigureRequest) returns (InstanceConfigureResponse) {}
+}
+
+message PingRequest {
+    
+}
+
+message PingResponse {
+    string Message = 1;
+}
+
+message SystemStatusRequest {
+    
+}
+
+message SystemStatusResponse {
+    string ModelVer = 1;
+    string EngineVer = 2;
+    string ServiceVer = 3;
+    string CpuUsage = 4;
+    string AvailMem = 5;
+    string TotalMem = 6;
+    string AvailDisk = 7;
+    string TotalDisk = 8;
+    string NetIOSend = 9;
+    string NetIORecv = 10;
+    string GpuUsage = 11;
+    string GpuAvailMem = 12;
+    string GpuTotalMem = 13;
+}
+
+message InstanceConfigureRequest {
+    RecImageVConfig RecImageVConfig = 1;
+    RecImageFConfig RecImageFConfig = 2;
+    RecVideoVConfig RecVideoVConfig = 3;
+    RecVideoFConfig RecVideoFConfig = 4;
+    RankVConfig RankVConfig = 5;
+    RankFConfig RankFConfig = 6;
+}
+
+message GetInstancesRequest {
+    
+}
+
+message InstanceConfigureResponse {
+    string Status = 1;
+    string Message = 2;
+    repeated EngineStatus Results = 3; 
+}
+
+message StorageConfig {
+    string Address = 1;
+    string RepoInfo = 2;
+    repeated string Tags = 3;
+}
+
+enum InstanceType {
+    CFG_TYPE_VEHICLE_IMAGE = 0;
+    CFG_TYPE_VEHICLE_VIDEO = 1;
+    CFG_TYPE_VEHICLE_RANKER = 2;
+    CFG_TYPE_FACE_IMAGE = 3;
+    CFG_TYPE_FACE_VIDEO = 4;
+    CFG_TYPE_FACE_RANKER = 5;
+}
+
+message InstanceConfig {
+    InstanceType Type = 1;
+    int32 Count = 2;
+    repeated uint32 Functions = 3; //default enabled functions
+    StorageConfig StorageConfig = 4; //default storage configure
+}
+
+message RecImageVConfig {
+    InstanceConfig Instances = 1;
+}
+
+message RecImageFConfig {
+    InstanceConfig Instances = 1;
+}
+
+message RecVideoVConfig {
+    InstanceConfig Instances = 1;
+
+    int32 BufferSize = 2;
+    int32 DetectInterval = 3;
+    int32 ClassifyInterval =4;
+    int32 ClassifyBufferSize = 5;
+}
+
+message RecVideoFConfig {
+    InstanceConfig Instances = 1;
+
+    int32 BufferSize = 2;
+    float DetectThreshold = 3;
+    int32 DetectWidth = 4;
+    int32 DetectHeight = 5;
+}
+
+message RankVConfig {
+    InstanceConfig Instances = 1;
+}
+
+message RankFConfig {
+    InstanceConfig Instances = 1;
+}
+
+message EngineStatus {
+    int32 Instances = 1;
+    repeated int32 RpcPorts = 2; //must enable multi-process control
+}
