@@ -21,6 +21,7 @@
 #include <dlib/image_processing/render_face_detections.h>
 
 #include "model/basic.h"
+#include "model/rank_feature.h"
 
 using namespace std;
 using namespace cv;
@@ -28,6 +29,10 @@ using namespace caffe;
 
 namespace dg
 {
+
+struct InnFaceFeature {
+	float data[256];
+};
 
 class FaceFeatureExtractor
 {
@@ -37,7 +42,7 @@ public:
 			const string &avg_face);
 
 	virtual ~FaceFeatureExtractor();
-	std::vector<FaceFeature> Extract(const std::vector<Mat> &imgs);
+	std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
 	std::vector<Mat> Align(std::vector<Mat> imgs);
 
 private:
