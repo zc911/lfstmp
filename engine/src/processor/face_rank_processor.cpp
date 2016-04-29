@@ -32,7 +32,9 @@ void FaceRankProcessor::Update(Frame *frame) {
 void FaceRankProcessor::Update(FrameBatch *frameBatch) {
 
 }
+void FaceRankProcessor::beforeUpdate(FrameBatch *frameBatch){
 
+}
 bool FaceRankProcessor::checkOperation(Frame *frame) {
     return true;
 }
