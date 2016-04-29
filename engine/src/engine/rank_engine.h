@@ -18,6 +18,8 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 
+#include "processor/car_rank_processor.h"
+#include "processor/face_rank_processor.h"
 
 namespace dg {
 
@@ -25,18 +27,18 @@ class RankEngine {
 
 };
 
-//class CarRankEngine : public RankEngine {
-// public:
-//    CarRankEngine();
-//    virtual ~CarRankEngine();
-//
-//    vector<Score> Rank(const Mat& image, const Rect& hotspot,
-//                       const vector<CarRankFeature>& candidates);
-//
-// private:
-//    Identification id_;
-//    Processor *processor_;
-//};
+class CarRankEngine : public RankEngine {
+ public:
+    CarRankEngine();
+    virtual ~CarRankEngine();
+
+    vector<Score> Rank(const Mat& image, const Rect& hotspot,
+                       const vector<CarRankFeature>& candidates);
+
+ private:
+    Identification id_;
+    Processor *processor_;
+};
 
 class FaceRankEngine : public RankEngine {
 
@@ -50,6 +52,7 @@ class FaceRankEngine : public RankEngine {
     Identification id_;
     FaceDetectProcessor *detector_;
     FaceFeatureExtractProcessor *extractor_;
+    FaceRankProcessor *ranker_;
 };
 
 }
