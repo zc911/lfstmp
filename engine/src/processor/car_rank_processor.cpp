@@ -7,7 +7,7 @@ CarRankProcessor::CarRankProcessor()
 CarRankProcessor::~CarRankProcessor() {
 }
 
-void CarRankProcessor::Update(CarRankFrame *frame) {
+void CarRankProcessor::Update(Frame *frame) {
 
     LOG(INFO)<< "start process frame: " << frame->id() << endl;
 
@@ -17,10 +17,6 @@ void CarRankProcessor::Update(CarRankFrame *frame) {
 
     frame->set_status(FRAME_STATUS_FINISHED);
     LOG(INFO) << "end process frame: " << frame->id() << endl;
-}
-
-bool CarRankProcessor::checkOperation(Frame *frame) {
-    return true;
 }
 
 bool CarRankProcessor::checkStatus(Frame *frame) {
