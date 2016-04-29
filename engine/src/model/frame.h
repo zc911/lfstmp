@@ -52,9 +52,18 @@ class Frame {
               status_(FRAME_STATUS_INIT) {
         payload_ = new Payload(id_, img);
     }
+
     virtual ~Frame() {
         if (payload_)
             delete payload_;
+        for (int i = 0; i < objects_.size(); ++i) {
+            Object * obj = objects_[i];
+            if (obj) {
+                delete obj;
+                obj = NULL;
+            }
+        }
+        objects_.clear();
     }
 
     Identification id() const {
@@ -191,8 +200,8 @@ class FrameBatch {
     unsigned int batch_size() const {
         return batch_size_;
     }
+    vector<Object*> collect_objects() {
 
-    vector<Object*> objects() {
         vector<Object *> objects;
         for (auto * frame : frames_) {
 
@@ -201,16 +210,26 @@ class FrameBatch {
         }
         return objects;
     }
+    vector<Object*> collect_objects(uint64_t operation) {
 
-    vector<Object*> objects(OperationValue operations) {
         vector<Object *> objects;
         for (auto * frame : frames_) {
-            if (!frame->operation().Check(operations))
+            if (!frame->operation().Check(operation))
                 continue;
             objects.insert(objects.end(), frame->objects().begin(),
                            frame->objects().end());
         }
         return objects;
+    }
+    ~FrameBatch() {
+        for (int i = 0; i < frames_.size(); ++i) {
+            Frame * f = frames_[i];
+            if (f) {
+                delete f;
+                f = NULL;
+            }
+        }
+        frames_.clear();
     }
 
     /**
@@ -226,7 +245,6 @@ class FrameBatch {
         return false;
     }
 
-    ~FrameBatch(){}
  private:
     Identification id_;
     unsigned int batch_size_;
@@ -234,7 +252,7 @@ class FrameBatch {
 };
 
 class CarRankFrame : public Frame {
-public:
+ public:
     CarRankFrame(Identification id, const Mat& image,
                  const vector<Rect>& hotspots,
                  const vector<CarRankFeature>& candidates)
