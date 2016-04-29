@@ -1,74 +1,30 @@
-#include "face_rank_processor.h"
+/*============================================================================
+ * File Name   : face_rank_processor.cpp
+ * Author      : tongliu@deepglint.com
+ * Version     : 1.0.0.0
+ * Copyright   : Copyright 2016 DeepGlint Inc.
+ * Created on  : 2016年4月28日 下午4:09:47
+ * Description : 
+ * ==========================================================================*/
+#include "processor/face_rank_processor.h"
 
-namespace dg {
+namespace dg
+{
 
 FaceRankProcessor::FaceRankProcessor()
-        : Processor() {
-    extractor_ = new FaceFeatureExtractor("models/deployface1",
-                                          "models/modelface1", true, 1, "models/shapeface1", "models/avgface1");
-}
-FaceRankProcessor::~FaceRankProcessor() {
+{
+	ranker_ = new FaceRanker();
 }
 
-void FaceRankProcessor::Update(Frame *frame) {
-    if (!checkOperation(frame)) {
-        LOG(INFO)<< "operation no allowed" << endl;
-        return;
-    }
-    if (!checkStatus(frame)) {
-        LOG(INFO) << "check status failed " << endl;
-        return;
-    }
-    LOG(INFO) << "start process frame: " << frame->id() << endl;
-
-    //process frame
-    FaceRankFrame *fframe = (FaceRankFrame *)frame;
-    fframe->result_ = rank(fframe->image_, fframe->hotspots_[0], fframe->candidates_);
-
-    frame->set_status(FRAME_STATUS_FINISHED);
-    LOG(INFO) << "end process frame: " << frame->id() << endl;
+FaceRankProcessor::~FaceRankProcessor()
+{
+	delete ranker_;
 }
 
-void FaceRankProcessor::Update(FrameBatch *frameBatch) {
-
-}
-void FaceRankProcessor::beforeUpdate(FrameBatch *frameBatch){
-
-}
-bool FaceRankProcessor::checkOperation(Frame *frame) {
-    return true;
+void FaceRankProcessor::Update(FaceRankFrame *frame)
+{
+	frame->result_ = ranker_->Rank(frame->datum_, frame->hotspots_,
+			frame->candidates_);
 }
 
-bool FaceRankProcessor::checkStatus(Frame *frame) {
-    return frame->status() == FRAME_STATUS_FINISHED ? false : true;
-}
-
-vector<Score> FaceRankProcessor::rank(
-        const Mat& image, const Rect& hotspot,
-        const vector<FaceRankFeature>& candidates) {
-    std::vector<Mat> images;
-    images.push_back(image);
-    std::vector<FaceFeature> features = extractor_->Extract(images);
-
-    vector<float> feature(features[0].data, features[0].data + 256);
-
-    vector<Score> pred;
-    for (int i = 0; i < candidates.size(); i++) {
-        Score p(i, getCosSimilarity(feature, candidates[i].descriptor_));
-        pred.push_back(p);
-    }
-    return pred;
-}
-
-float FaceRankProcessor::getCosSimilarity(const vector<float> & A,
-                                          const vector<float> & B) {
-    float dot = 0.0, denom_a = 0.0, denom_b = 0.0;
-    for (unsigned int i = 0; i < A.size(); ++i) {
-        dot += A[i] * B[i];
-        denom_a += A[i] * A[i];
-        denom_b += B[i] * B[i];
-    }
-    return abs(dot) / (sqrt(denom_a) * sqrt(denom_b));
-}
-
-}
+} /* namespace dg */
