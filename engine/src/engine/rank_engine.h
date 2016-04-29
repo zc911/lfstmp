@@ -12,7 +12,6 @@
 
 #include <glog/logging.h>
 
-#include "model/frame.h"
 #include "model/model.h"
 #include "model/rank_feature.h"
 #include "processor/processor.h"
@@ -38,6 +37,7 @@ class CarRankEngine : public RankEngine {
 };
 
 class FaceRankEngine : public RankEngine {
+
  public:
     FaceRankEngine();
     virtual ~FaceRankEngine();

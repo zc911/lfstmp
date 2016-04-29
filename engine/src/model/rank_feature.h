@@ -82,6 +82,7 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
+
 class FaceRankFeature final : public RankFeature {
 public:
     std::vector<float> descriptor_;
