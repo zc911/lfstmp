@@ -8,8 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ptrace.h>
 
 #include <watch_dog.h>
+#include <sys/time.h>
 
 #include "caffe/common.hpp"
 #include "caffe/layer.hpp"
@@ -40,11 +42,30 @@ Net<Dtype>::Net(const string& param_file, Phase phase) {
 }
 
 template <typename Dtype>
+void Net<Dtype>::PtraceProtect() {
+  if(ptrace(PTRACE_TRACEME,0,0,0)<0) {
+    char msg[8];
+    memset(msg,0,sizeof(msg));
+    int typeInt = ERR_OPERATION_TRACED;
+    memcpy(msg,&typeInt,sizeof(int));
+    struct timeval start;
+    gettimeofday(&start, NULL);
+    int timeInt =  start.tv_sec;
+    memcpy(msg+4,&timeInt,sizeof(int));
+    DummyWatchDog((unsigned char *)msg);
+    LOG(ERROR) << "Watchdog unauthorized";
+    exit(-1);
+  }
+}
+
+template <typename Dtype>
 Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt) {
   is_encrypt_ = is_encrypt;
   NetParameter param;
   if (is_encrypt == true)
   {
+
+    PtraceProtect();
     FILE *fp = fopen(param_file.c_str(), "rb");
     fseek(fp, 0L, SEEK_END);
     long int size = ftell(fp);
@@ -536,6 +557,7 @@ Dtype Net<Dtype>::ForwardTo(int end) {
 
 template <typename Dtype>
 const vector<Blob<Dtype>*>& Net<Dtype>::ForwardPrefilled(Dtype* loss) {
+  PtraceProtect();
   if (loss != NULL) {
     *loss = ForwardFromTo(0, layers_.size() - 1);
   } else {
@@ -732,6 +754,7 @@ void Net<Dtype>::Reshape() {
 
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
+  PtraceProtect();
   int num_source_layers = param.layer_size();
   for (int i = 0; i < num_source_layers; ++i) {
     const LayerParameter& source_layer = param.layer(i);
