@@ -20,12 +20,10 @@ void* _start_thread_t(void *param) {
     return NULL;
 }
 
-/**
- * The basic engine interface.
- * An engine reads Frame data from ring buffer.
- * An engine aggregates several processors and invoke them to handle the frame
- * using some schedule method
- */
+/// The basic engine interface.
+/// An engine reads Frame data from ring buffer.
+/// An engine aggregates several processors and invoke them to handle the frame
+/// using some schedule method
 class AutoEngine {
  public:
     AutoEngine()
@@ -40,10 +38,8 @@ class AutoEngine {
         return 0;
     }
 
-    /**
-     * Start the engine processing in thread by invoking the process method.
-     * The child class must implement the process method.
-     */
+    /// Start the engine processing in thread by invoking the process method.
+    /// The child class must implement the process method.
     virtual int StartAsyn() {
         pthread_create(&tid_, NULL,
                        _start_thread_t<AutoEngine, &AutoEngine::Process>,
