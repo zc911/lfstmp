@@ -30,15 +30,24 @@ enum FrameStatus {
     FRAME_STATUS_ERROR = 256
 };
 
+/// Frame represents a single request. A frame encapsulates a payload
+/// which is the data will be computed and processed. The processed data
+/// will also be found from this class.
 class Frame {
  public:
+
     Frame(const Identification id)
             : id_(id),
               timestamp_(0),
-              status_(FRAME_STATUS_INIT) {
-        payload_ = 0;
+              status_(FRAME_STATUS_INIT),
+              payload_(0) {
+
     }
 
+    /// @param id The frame id which need to be unique
+    /// @param width The width of the data
+    /// @param height The height of the data
+    /// @param data the data
     Frame(const Identification id, unsigned int width, unsigned int height,
           unsigned char *data)
             : id_(id),
@@ -46,6 +55,9 @@ class Frame {
               status_(FRAME_STATUS_INIT) {
         payload_ = new Payload(id_, width, height, data);
     }
+
+    /// @param id The frame id which need to be unique
+    /// @param img The data
     Frame(const Identification id, Mat img)
             : id_(id),
               timestamp_(0),
@@ -115,14 +127,6 @@ class Frame {
         operation_ = operation;
     }
 
-    Payload* payload() const {
-        return payload_;
-    }
-
-    void set_payload(Payload* payload) {
-        payload_ = payload;
-    }
-
     volatile FrameStatus status() const {
         return status_;
     }
@@ -149,6 +153,10 @@ class Frame {
 
     void set_error_msg(const string& errorMsg) {
         error_msg_ = errorMsg;
+    }
+
+    Payload * payload() {
+        return payload_;
     }
 
  protected:
@@ -178,6 +186,17 @@ class FrameBatch {
               batch_size_(batch_size) {
 
     }
+    ~FrameBatch() {
+        for (int i = 0; i < frames_.size(); ++i) {
+            Frame * f = frames_[i];
+            if (f) {
+                delete f;
+                f = NULL;
+            }
+        }
+        frames_.clear();
+    }
+
     int add_frame(Frame *frame) {
         if (frames_.size() < batch_size_) {
             frames_.push_back(frame);
@@ -221,22 +240,10 @@ class FrameBatch {
         }
         return objects;
     }
-    ~FrameBatch() {
-        for (int i = 0; i < frames_.size(); ++i) {
-            Frame * f = frames_[i];
-            if (f) {
-                delete f;
-                f = NULL;
-            }
-        }
-        frames_.clear();
-    }
 
-    /**
-     * Check the operations of each frame.
-     * Return true if any frame satisfy the input operations
-     * Return false otherwise
-     */
+    /// Check the operations of each frame.
+    /// Return true if any frame satisfy the input operations
+    /// Return false otherwise
     bool CheckFrameBatchOperation(OperationValue operations) const {
         for (auto * frame : frames_) {
             if (frame->operation().Check(operations))
