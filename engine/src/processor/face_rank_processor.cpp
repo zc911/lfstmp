@@ -5,7 +5,7 @@ namespace dg {
 FaceRankProcessor::FaceRankProcessor()
         : Processor() {
     extractor_ = new FaceFeatureExtractor("models/deployface1",
-                                          "models/modelface1", true, 1, "", "");
+                                          "models/modelface1", true, 1, "models/shapeface1", "models/avgface1");
 }
 FaceRankProcessor::~FaceRankProcessor() {
 }
@@ -53,7 +53,7 @@ vector<Score> FaceRankProcessor::rank(
     vector<float> feature(features[0].data, features[0].data + 256);
 
     vector<Score> pred;
-    for (int i = 0; i < features.size(); i++) {
+    for (int i = 0; i < candidates.size(); i++) {
         Score p(i, getCosSimilarity(feature, candidates[i].descriptor_));
         pred.push_back(p);
     }
