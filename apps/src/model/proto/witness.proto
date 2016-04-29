@@ -1,89 +1,132 @@
 syntax = "proto3";
 
-package dg.apps;
+package dg;
 
 import "common.proto";
+import "system.proto";
 
 service WitnessService {
+
+	rpc Recognize(WitnessRequest) returns (WitnessResponse) {}
 	
-	rpc Recognize(RecognizeRequest) returns (RecognizeResponse) {}
-	
-	rpc BatchRecognize(BatchRecognizeRequest) returns (BatchRecognizeResponse) {}
+	rpc BatchRecognize(WitnessBatchRequest) returns (WitnessBatchResponse) {}
 
 }
 
 
-message RecognizeStatus {
-	int32 Code = 1;
-	string Msg = 2;
+message WitnessRequest {
+	WitnessRequestContext Context = 1;
+	WitnessImage Image = 2;
 }
 
-enum RecognizeType {
-	REC_TYPE_DEFAULT = 0;
-	REC_TYPE_VEHICLE = 1;
-	REC_TYPE_FACE = 2;
+message WitnessBatchRequest {
+	WitnessRequestContext Context = 1;
+	repeated WitnessImage Images = 2;
 }
 
-enum RecognizeFunction {
+message WitnessResponse {
+	WitnessResponseContext Context = 1;
+	WitnessResult Result = 2;
+}
+
+message WitnessBatchResponse {
+	WitnessResponseContext Context = 1;
+	repeated WitnessResult Results = 2;
+}
+
+message WitnessRequestContext {
+	string SessionId = 1;
+	//string UserName = 2;
+	//string Token = 3;
+	repeated WitnessFunction Functions = 4;
+	RecognizeType Type = 5;
+	StorageConfig Storage = 6;
+	map<string, string> Params = 7;
+}
+
+enum WitnessFunction {
 	REC_FUNC_DEFAULT = 0;
 	REC_FUNC_DETECTION = 1;
 	REC_FUNC_FEATURE = 2;
 }
 
-message RecognizeParam {
-	RecognizeType Type = 1;
-	RecognizeFunction Function = 2;
+message WitnessImage {
+	Image Data = 1;
+	int32 SensorId = 2;
+	string SensorName = 3;
 }
 
-message RecognizeRequest {
-	int64 SessionId = 1;
-	Image Image = 2;
-	RecognizeParam Param = 3;
+message WitnessResponseContext {
+	string SessionId = 1;
+	string Status = 2;
+	string Message = 3;
+	Time RequestTs = 4;
+	Time ResponseTs = 5;
+	map<string, Time> DebugTs = 6; //used for profile debug mode only
 }
 
-message VehicleBrand {
-	int32 BrandId = 1;
+message WitnessResult {
+	string InnerStatus = 1;
+	string InnerMessage = 2;
+	WitnessImage Image = 3;
+	repeated RecognizedVehicle Vehicles = 4;
+	repeated RecognizedFace Faces = 5;
+}
+
+message RecognizedVehicle {
+	VehicleModel Model = 1;
+	Cutboard Cutboard = 2;
+	Color Color = 3;
+	LicensePlate LicensePlate = 4;
+	repeated SymbolItem SymbolItems = 5;
+	repeated VehicleModel Candidates = 6; //DEPRECATED !!!
+	string Features = 7;
+	Scene Scene = 8; //DEPRECATED !!!
+}
+
+message RecognizedFace {
+	Cutboard Cutboard = 1;
 	float Confidence = 2;
+	string Features = 3;
 }
 
-message VehiclePlate {
-	Cutboard Box = 1;
-	int32 PlateType = 2;
-	string PlateNum = 3;
-	Color PlateColor = 4;
-	float Confidence = 5;
+message VehicleModel {
+    int32 TypeId = 1;
+    int32 BrandId = 2;
+    int32 SubBrandId = 3;
+    int32 ModelYearId = 4;
+    string Type = 5;
+    string Brand = 6;
+    string SubBrand = 7;
+    string ModelYear = 8;
+    int32 IsHead = 9;
+    float Confidence = 10;
 }
 
-message VehicleSymbol {
-	Cutboard Box = 1;
-	int32 SymbolType = 2;
-	float Confidence = 3;
+message LicensePlate {
+    string PlateNum = 1;
+    Cutboard Cutboard = 2;
+    int32 ColorId = 3;
+    string Color = 4;
+    int32 TypeId = 5;
+    string Type = 6;
+    float Confidence = 7;
 }
 
-message Feature {
-	bytes FeatureVector = 1;
+message SymbolItem {
+    int32 SymbolId = 1;
+    string SymbolName = 2;
+    repeated Symbol Symbols = 3;
 }
 
-message RecognizeResult{
-	ObjType Type = 1;
-	Cutboard Box = 2;
-	VehicleBrand Brand = 3;
-	VehiclePlate Plate = 4;
-	Color Color = 5;
-	Feature Feature = 6;
-	repeated VehicleSymbol Symbols = 7;
+//DEPRECATED !!!
+message Scene {
+    int32 IsHead = 1;
+    int32 IsDay = 2;
+    string Border = 3; 
 }
 
-message RecognizeResponse{
-	int64 SessionId = 1;
-	RecognizeStatus Status = 2;
-	RecognizeResult Result = 3;
-}
-
-message BatchRecognizeRequest {
-	repeated RecognizeRequest Requests = 1;
-}
-
-message BatchRecognizeResponse{
-	repeated RecognizeResponse Reponses = 1;
+message Symbol {
+    Cutboard Cutboard = 3;
+    float Confidence = 4;
 }
