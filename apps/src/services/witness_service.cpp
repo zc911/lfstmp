@@ -52,14 +52,20 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
         }
 
         Identification curr_id = id_ ++;
-        Payload payload(curr_id, image); //use struct, avoid delete it
+        Frame frame(curr_id, image);
 
-        Frame frame(curr_id);
-        frame.set_payload(&payload);
+        Operation op;
+        op.Set(OPERATION_VEHICLE_DETECT);
+        frame.set_operation(op);
 
         FrameBatch framebatch(curr_id * 10, 1);
         framebatch.add_frame(&frame);
         engine_.Process(&framebatch);
+
+        for(const Object *o : frame.objects())
+        {
+
+        }
 
         cout << "recognized objects: " << frame.objects().size() << endl;
 

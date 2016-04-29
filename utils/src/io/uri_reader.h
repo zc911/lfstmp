@@ -26,7 +26,7 @@ public:
 private:
     static UriReader reader_; //used for global initialize only
 
-    static size_t write_callback(void* buffer, size_t size, size_t nmemb, void* stream);
+//    static size_t write_callback(void* buffer, size_t size, size_t nmemb, void* stream);
 }; //end of class Reader
 } //end of namespace dg
 
