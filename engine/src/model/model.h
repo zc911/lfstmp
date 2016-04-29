@@ -239,17 +239,17 @@ class Face : public Object {
         detection_.box = Box(x, y, width, height);
     }
 
-    FaceFeature feature() const {
+    FaceRankFeature feature() const {
         return feature_;
     }
 
-    void set_feature(FaceFeature feature) {
+    void set_feature(FaceRankFeature feature) {
         feature_ = feature;
     }
 
  private:
 
-    FaceFeature feature_;
+    FaceRankFeature feature_;
 };
 
 typedef struct {
