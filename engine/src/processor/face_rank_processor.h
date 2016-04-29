@@ -23,17 +23,12 @@ public:
 	FaceRankProcessor();
 	virtual ~FaceRankProcessor();
 
-	void Update(FaceRankFrame *frame);
-	virtual void Update(FrameBatch *frameBatch)
+	virtual void Update(Frame *frame) override;
+	virtual void Update(FrameBatch *frameBatch) override
 	{
 	}
 
-	virtual bool checkOperation(Frame *frame)
-	{
-		return true;
-	}
-
-	virtual bool checkStatus(Frame *frame)
+	virtual bool checkStatus(Frame *frame) override
 	{
 		return true;
 	}
