@@ -30,9 +30,13 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
 
     ~VehicleMultiTypeDetectorProcessor();
 
+    virtual void Update(Frame *frame) {
+
+    }
+
     void Update(FrameBatch *frameBatch);
 
-    bool checkOperation(Frame *frame);
+    void beforeUpdate(FrameBatch *frameBatch);
     bool checkStatus(Frame *frame);
 
  private:
