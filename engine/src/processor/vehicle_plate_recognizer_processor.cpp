@@ -38,6 +38,7 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
 }
 
 void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    images_.clear();
     images_ = this->vehicles_mat(frameBatch);
 }
 bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
@@ -60,6 +61,7 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
 }
 vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
+    objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_PLATE);
 
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
