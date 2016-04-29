@@ -513,13 +513,19 @@ void protobuf_AddDesc_witness_2eproto() {
     "\022\033\n\007Symbols\030\003 \003(\0132\n.dg.Symbol\"6\n\005Scene\022\016"
     "\n\006IsHead\030\001 \001(\005\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030"
     "\003 \001(\t\"<\n\006Symbol\022\036\n\010Cutboard\030\003 \001(\0132\014.dg.C"
-    "utboard\022\022\n\nConfidence\030\004 \001(\002*U\n\017WitnessFu"
-    "nction\022\024\n\020REC_FUNC_DEFAULT\020\000\022\026\n\022REC_FUNC"
-    "_DETECTION\020\001\022\024\n\020REC_FUNC_FEATURE\020\0022\217\001\n\016W"
-    "itnessService\0226\n\tRecognize\022\022.dg.WitnessR"
-    "equest\032\023.dg.WitnessResponse\"\000\022E\n\016BatchRe"
-    "cognize\022\027.dg.WitnessBatchRequest\032\030.dg.Wi"
-    "tnessBatchResponse\"\000b\006proto3", 2348);
+    "utboard\022\022\n\nConfidence\030\004 \001(\002*\316\002\n\017WitnessF"
+    "unction\022\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEH"
+    "ICLE\020\001\022\032\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RE"
+    "CFUNC_VEHICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE"
+    "_STYLE\020\004\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026R"
+    "ECFUNC_VEHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHIC"
+    "LE_PLATE\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VE"
+    "CTOR\020\010\022\020\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE"
+    "_DETECTOR\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECT"
+    "OR\020\0132\217\001\n\016WitnessService\0226\n\tRecognize\022\022.d"
+    "g.WitnessRequest\032\023.dg.WitnessResponse\"\000\022"
+    "E\n\016BatchRecognize\022\027.dg.WitnessBatchReque"
+    "st\032\030.dg.WitnessBatchResponse\"\000b\006proto3", 2598);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   WitnessRequest::default_instance_ = new WitnessRequest();
@@ -570,6 +576,15 @@ bool WitnessFunction_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;
