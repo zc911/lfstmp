@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <pthread.h>
 #include <iostream>
 
@@ -9,6 +10,11 @@
 #include "vis/display.h"
 #include "config.h"
 using namespace dg;
+
+// int main(int argc, char **argv)
+// {
+// 	return 0;
+// }
 
 static void PrintFrame(Frame &frame) {
     cout << "=====FRAME INFO=====" << endl;
