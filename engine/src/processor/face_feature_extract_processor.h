@@ -26,11 +26,10 @@ class FaceFeatureExtractProcessor : public Processor {
 
     void Update(Frame *frame);
     virtual void Update(FrameBatch *frameBatch) {
-
     }
+    ;
 
-    virtual bool checkOperation(Frame *frame) {
-        return true;
+    virtual void beforeUpdate(FrameBatch *frameBatch) {
     }
     ;
     virtual bool checkStatus(Frame *frame) {

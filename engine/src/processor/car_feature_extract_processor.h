@@ -20,7 +20,7 @@ class CarFeatureExtractProcessor : public Processor {
     CarFeatureExtractProcessor();
     virtual ~CarFeatureExtractProcessor();
 
-    void Update(Frame *frame);
+    virtual void Update(Frame *frame);
     virtual void Update(FrameBatch *frameBatch);
 
     virtual bool checkOperation(Frame *frame) {
@@ -29,7 +29,9 @@ class CarFeatureExtractProcessor : public Processor {
     virtual bool checkStatus(Frame *frame) {
         return true;
     }
+    virtual void beforeUpdate(FrameBatch *frameBatch) {
 
+    }
  private:
     CarFeatureExtractor *extractor_;
     void extract(vector<Object*> &objs);
