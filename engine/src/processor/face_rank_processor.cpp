@@ -21,10 +21,11 @@ FaceRankProcessor::~FaceRankProcessor()
 	delete ranker_;
 }
 
-void FaceRankProcessor::Update(FaceRankFrame *frame)
+void FaceRankProcessor::Update(Frame *frame)
 {
-	frame->result_ = ranker_->Rank(frame->datum_, frame->hotspots_,
-			frame->candidates_);
+	FaceRankFrame *fframe = (FaceRankFrame *)frame;
+	fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
+			fframe->candidates_);
 }
 
 } /* namespace dg */
