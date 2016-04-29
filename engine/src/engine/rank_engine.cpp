@@ -34,6 +34,7 @@ FaceRankEngine::FaceRankEngine() :
 			"/models/lcnn.caffemodel", true, 1,
 			"/models/shape_predictor_68_face_landmarks.dat",
 			"/models/avgface.jpg");
+    ranker_ = new FaceRankProcessor();
 }
 
 FaceRankEngine::~FaceRankEngine()
@@ -54,10 +55,10 @@ vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
 	Face *face = (Face *) frame->get_object(0);
 	FaceRankFeature feature = face->feature();
 	vector<Rect> hotspots;
+    hotspots.push_back(hotspot);
 
 	FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
 			candidates);
-	ranker_ = new FaceRankProcessor();
 	ranker_->Update(face_rank_frame);
 
 	vector<Score> result = face_rank_frame->result_;
