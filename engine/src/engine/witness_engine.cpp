@@ -60,6 +60,7 @@ void WitnessEngine::Process(FrameBatch *frame) {
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
+    DLOG(INFO)<<"begin "<<enable_vehicle_<<endl;
 
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
@@ -77,6 +78,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 }
 
 void WitnessEngine::init(const Config &config) {
+
     initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
@@ -86,6 +88,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
+            DLOG(INFO)<<"begin  "<<endl;
 
             Processor *p = new VehicleClassifierProcessor();
             last->SetNextProcessor(p);
