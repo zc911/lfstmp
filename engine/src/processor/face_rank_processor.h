@@ -35,7 +35,9 @@ class FaceRankProcessor : public Processor {
 
     virtual void Update(FrameBatch *frameBatch);
 
-    virtual bool checkOperation(Frame *frame);
+    virtual void beforeUpdate(FrameBatch *frameBatch);
+
+    bool checkOperation(Frame *frame);
 
     virtual bool checkStatus(Frame *frame);
 

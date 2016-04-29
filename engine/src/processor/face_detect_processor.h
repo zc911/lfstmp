@@ -18,28 +18,27 @@ namespace dg {
 
 class FaceDetectProcessor : public Processor {
  public:
-    FaceDetectProcessor(string model_file, string trained_file,
-                        const bool use_gpu, const int batch_size,
-                        float threshold, int width, int height);
-    virtual ~FaceDetectProcessor();
+     FaceDetectProcessor(string model_file, string trained_file,
+                         const bool use_gpu, const int batch_size,
+                         float threshold, int width, int height);
+     virtual ~FaceDetectProcessor();
 
-    void Update(Frame *frame);
-    void Update(FrameBatch *frameBatch) {
+     void Update(Frame *frame);
+     void Update(FrameBatch *frameBatch) {
 
-    }
+     }
+     void beforeUpdate(FrameBatch *frameBatch) {
+     }
 
-    bool checkOperation(Frame *frame) {
-        return true;
-    }
-    bool checkStatus(Frame *frame) {
-        return true;
-    }
+     bool checkStatus(Frame *frame) {
+          return true;
+     }
  private:
-    string model_file_;
-    string trained_file_;
-    float det_thresh_;
-    Size resolution_;
-    FaceDetector *detector_;
+     string model_file_;
+     string trained_file_;
+     float det_thresh_;
+     Size resolution_;
+     FaceDetector *detector_;
 };
 
 } /* namespace dg */
