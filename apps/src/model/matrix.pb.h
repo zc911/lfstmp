@@ -32,6 +32,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace model {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_matrix_2eproto();
@@ -52,6 +53,7 @@ void protobuf_ShutdownFile_matrix_2eproto();
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)
