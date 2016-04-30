@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package dg;
+package dg.model;
 
 //import "common.proto";
 
