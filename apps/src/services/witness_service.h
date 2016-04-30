@@ -16,6 +16,7 @@
 
 namespace dg 
 {
+using namespace ::dg::model;
 
 class WitnessAppsService
 {
@@ -31,6 +32,17 @@ private:
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
+
+    static Operation getOperation(const WitnessRequestContext& ctx);
+    static void copyCutboard(const Box &b, Cutboard *cb);
+
+    MatrixError fillModel(Identification id, VehicleModel *model);
+    MatrixError fillColor(const dg::Color &color, model::Color *rcolor);
+    MatrixError fillPlate(const Plate &plate, LicensePlate *rplate);
+    MatrixError fillSymbols(const vector<Object*>& objects, RecognizedVehicle *vrec));
+    MatrixError getRecognizedVehicle(Vehicle *vobj, RecognizedVehicle *vrec);
+    MatrixError getRecognizedFace(Face *fobj, RecognizedFace *frec);
+    MatrixError getRecognizeResult(const Frame *frame, WitnessResult *result);
 };
 
 }
