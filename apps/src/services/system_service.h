@@ -15,6 +15,7 @@
 
 namespace dg
 {
+using namespace ::dg::model;
 
 class SystemAppsService
 {

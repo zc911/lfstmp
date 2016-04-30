@@ -18,6 +18,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace model {
 
 namespace {
 
@@ -56,27 +57,30 @@ void protobuf_AddDesc_matrix_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::dg::protobuf_AddDesc_system_2eproto();
-  ::dg::protobuf_AddDesc_witness_2eproto();
-  ::dg::protobuf_AddDesc_skynet_2eproto();
-  ::dg::protobuf_AddDesc_ranker_2eproto();
+  ::dg::model::protobuf_AddDesc_system_2eproto();
+  ::dg::model::protobuf_AddDesc_witness_2eproto();
+  ::dg::model::protobuf_AddDesc_skynet_2eproto();
+  ::dg::model::protobuf_AddDesc_ranker_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014matrix.proto\022\002dg\032\014system.proto\032\rwitnes"
-    "s.proto\032\014skynet.proto\032\014ranker.proto2\240\004\n\r"
-    "MatrixService\022+\n\004Ping\022\017.dg.PingRequest\032\020"
-    ".dg.PingResponse\"\000\022C\n\014SystemStatus\022\027.dg."
-    "SystemStatusRequest\032\030.dg.SystemStatusRes"
-    "ponse\"\000\022H\n\014GetInstances\022\027.dg.GetInstance"
-    "sRequest\032\035.dg.InstanceConfigureResponse\""
-    "\000\022M\n\014ConfigEngine\022\034.dg.InstanceConfigure"
-    "Request\032\035.dg.InstanceConfigureResponse\"\000"
-    "\0226\n\tRecognize\022\022.dg.WitnessRequest\032\023.dg.W"
-    "itnessResponse\"\000\022E\n\016BatchRecognize\022\027.dg."
-    "WitnessBatchRequest\032\030.dg.WitnessBatchRes"
-    "ponse\"\000\0229\n\016VideoRecognize\022\021.dg.SkynetReq"
-    "uest\032\022.dg.SkynetResponse\"\000\022J\n\017GetRankedV"
-    "ector\022\031.dg.FeatureRankingRequest\032\032.dg.Fe"
-    "atureRankingResponse\"\000b\006proto3", 630);
+    "\n\014matrix.proto\022\010dg.model\032\014system.proto\032\r"
+    "witness.proto\032\014skynet.proto\032\014ranker.prot"
+    "o2\200\005\n\rMatrixService\0227\n\004Ping\022\025.dg.model.P"
+    "ingRequest\032\026.dg.model.PingResponse\"\000\022O\n\014"
+    "SystemStatus\022\035.dg.model.SystemStatusRequ"
+    "est\032\036.dg.model.SystemStatusResponse\"\000\022T\n"
+    "\014GetInstances\022\035.dg.model.GetInstancesReq"
+    "uest\032#.dg.model.InstanceConfigureRespons"
+    "e\"\000\022Y\n\014ConfigEngine\022\".dg.model.InstanceC"
+    "onfigureRequest\032#.dg.model.InstanceConfi"
+    "gureResponse\"\000\022B\n\tRecognize\022\030.dg.model.W"
+    "itnessRequest\032\031.dg.model.WitnessResponse"
+    "\"\000\022Q\n\016BatchRecognize\022\035.dg.model.WitnessB"
+    "atchRequest\032\036.dg.model.WitnessBatchRespo"
+    "nse\"\000\022E\n\016VideoRecognize\022\027.dg.model.Skyne"
+    "tRequest\032\030.dg.model.SkynetResponse\"\000\022V\n\017"
+    "GetRankedVector\022\037.dg.model.FeatureRankin"
+    "gRequest\032 .dg.model.FeatureRankingRespon"
+    "se\"\000b\006proto3", 732);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "matrix.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_matrix_2eproto);
@@ -91,6 +95,7 @@ struct StaticDescriptorInitializer_matrix_2eproto {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)

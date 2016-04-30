@@ -22,6 +22,7 @@ using namespace std;
 
 namespace dg 
 {
+using namespace ::dg::model;
 
 class RankerAppsService
 {
