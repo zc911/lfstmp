@@ -53,6 +53,7 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext& ctx)
         default: break;
         }
     }
+
     return op;
 }
 
@@ -73,7 +74,7 @@ MatrixError WitnessAppsService::fillModel(Identification id, VehicleModel *model
     return err;
 }
 
-MatrixError WitnessAppsService::fillColor(const dg::Color &color, model::Color *rcolor)
+MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color, model::Color *rcolor)
 {
     MatrixError err;
 
@@ -83,24 +84,25 @@ MatrixError WitnessAppsService::fillColor(const dg::Color &color, model::Color *
     return err;
 }
 
-MatrixError WitnessAppsService::fillPlate(const Plate &plate, LicensePlate *rplate)
+MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate)
 {
     MatrixError err;
     rplate->set_platenum(plate.plate_num);
     copyCutboard(plate.box, rplate->mutable_cutboard());
     rplate->set_colorid(plate.color_id);
-    rplate->set_typeid(plate.plate_type);
+    rplate->set_typeid_(plate.plate_type);
     rplate->set_confidence(plate.confidence);
 
     return err;
 }
 
-MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects, RecognizedVehicle *vrec))
+MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects, RecognizedVehicle *vrec)
 {
     MatrixError err;
 
-    int isize = 6;  //TODO: 6 to size
-    SymbolItem *items = new SymbolItem[isize]; 
+    int isize = 7;  //TODO: change 6 to real size
+    int* indexes = new int[isize];
+    for(int i = 0; i < isize; i ++)indexes[i] = -1;
     for(const Object *object : objects)
     {
         LOG(INFO) << "recognized object(marker?): " << object->id() << ", type: " << object->type();
@@ -114,21 +116,24 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects, Reco
         Identification mid = m->class_id();
         if (mid >= 0 && mid < isize)
         {
-            Symbol *s =  items[mid]->mutable_symbols();
+            SymbolItem *item = NULL;
+            if (indexes[mid] < 0)
+            {
+                indexes[mid] = vrec->symbolitems_size();
+                item = vrec->add_symbolitems();
+                item->set_symbolid(mid);
+            }
+            else
+            {
+                item = vrec->mutable_symbolitems( indexes[mid] );
+            }
+
+            Symbol *s =  item->add_symbols();
             s->set_confidence(m->detection().confidence);
             copyCutboard(m->detection().box, s->mutable_cutboard());
         }
     }
-
-    for(int i = 0; i < isize; i ++)
-    {
-        SymbolItem *item = items[i];
-        if (item->symbols_size() > 0)
-        {
-            SymbolItem *addItem = vrec->add_symbolitems();
-            addItem->CopyFrom(*item);
-        }
-    }
+    delete indexes;
 
     return err;
 }
@@ -143,16 +148,16 @@ MatrixError WitnessAppsService::getRecognizedVehicle(Vehicle *vobj, RecognizedVe
     copyCutboard(d.box, vrec->mutable_cutboard());
 
     err = fillModel(vobj->class_id(), vrec->mutable_model());
-    if (err.code < 0)return err;
+    if (err.code() < 0)return err;
 
     err = fillColor(vobj->color(), vrec->mutable_color());
-    if (err.code < 0)return err;
+    if (err.code() < 0)return err;
 
     err = fillPlate(vobj->plate(), vrec->mutable_licenseplate());
-    if (err.code < 0)return err;
+    if (err.code() < 0)return err;
 
     err = fillSymbols(vobj->children(), vrec);
-    if (err.code < 0)return err;
+    if (err.code() < 0)return err;
 
     return err;
 }
@@ -169,7 +174,7 @@ MatrixError WitnessAppsService::getRecognizedFace(Face *fobj, RecognizedFace *fr
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizeResult(const Frame *frame, WitnessResult *result)
+MatrixError WitnessAppsService::getRecognizeResult(Frame *frame, WitnessResult *result)
 {
     MatrixError err;
 
@@ -179,18 +184,18 @@ MatrixError WitnessAppsService::getRecognizeResult(const Frame *frame, WitnessRe
         switch(object->type())
         {
         case OBJECT_CAR:
-            RecognizedVehicle *vehicle = result->add_vehicles();
-            err = getRecognizedVehicle((Vehicle *)object, vehicle)
+            err = getRecognizedVehicle((Vehicle *)object, result->add_vehicles());
+            break;
 
         case OBJECT_FACE:
-            RecognizedFace *face = result->add_faces();
-            err = getRecognizedFace((Face *)object, face);
-            
+            err = getRecognizedFace((Face *)object, result->add_faces());
+            break;
+
         default:
             LOG(WARNING) << "unknown object type: " << object->type();
         }
 
-        if (err.code < 0)
+        if (err.code() < 0)
         {
             break;
         }
@@ -255,8 +260,8 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request, WitnessRespons
 
     WitnessImage *ret_image = result->mutable_image();
     ret_image->CopyFrom(request->image());
-    ret_image->data().set_width(image.cols);
-    ret_image->data().set_height(image.rows);
+    ret_image->mutable_data()->set_width(image.cols);
+    ret_image->mutable_data()->set_height(image.rows);
     //if ReturnsImage, compress image into data.bindata
 
     gettimeofday(&curr_time, NULL);
