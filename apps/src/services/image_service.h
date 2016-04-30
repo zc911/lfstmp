@@ -17,6 +17,8 @@
 namespace dg 
 {
 
+using namespace ::dg::model;
+
 class ImageService
 {
 public:
