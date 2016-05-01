@@ -11,7 +11,6 @@
 
 #include "ranker_service.h"
 #include "codec/base64.h"
-#include "ranker_service.h"
 #include "image_service.h"
  
 
