@@ -1,5 +1,5 @@
 /*============================================================================
- * File Name   : ranker_service.h
+ * File Name   : witness_service.h
  * Author      : yanlongtan@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
