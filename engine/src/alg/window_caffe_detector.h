@@ -24,7 +24,18 @@ using namespace cv;
 namespace dg {
 class WindowCaffeDetector {
  public:
-     WindowCaffeDetector(CaffeConfig &config);
+    typedef struct {
+
+        bool is_model_encrypt = false;
+        int batch_size = 1;
+        int target_min_size = 400;
+        int target_max_size = 1000;
+        int gpu_id = 0;
+        bool use_gpu = true;
+        string deploy_file;
+        string model_file;
+    } WindowCaffeConfig;
+     WindowCaffeDetector(WindowCaffeConfig &config);
      virtual ~WindowCaffeDetector();
 
 
@@ -42,7 +53,7 @@ class WindowCaffeDetector {
      int num_channels_;
      cv::Size input_geometry_;
      bool device_setted_;
-     CaffeConfig caffe_config_;
+     WindowCaffeConfig caffe_config_;
      int rescale_;
 
 };

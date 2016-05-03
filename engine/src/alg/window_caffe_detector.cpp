@@ -8,7 +8,7 @@
 #include "window_caffe_detector.h"
 namespace dg {
 
-WindowCaffeDetector::WindowCaffeDetector(CaffeConfig &config)
+WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
           : device_setted_(false),
             caffe_config_(config),
             rescale_(100) {
