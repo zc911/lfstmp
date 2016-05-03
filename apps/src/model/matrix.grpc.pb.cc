@@ -14,16 +14,17 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace dg {
+namespace model {
 
 static const char* MatrixService_method_names[] = {
-  "/dg.MatrixService/Ping",
-  "/dg.MatrixService/SystemStatus",
-  "/dg.MatrixService/GetInstances",
-  "/dg.MatrixService/ConfigEngine",
-  "/dg.MatrixService/Recognize",
-  "/dg.MatrixService/BatchRecognize",
-  "/dg.MatrixService/VideoRecognize",
-  "/dg.MatrixService/GetRankedVector",
+  "/dg.model.MatrixService/Ping",
+  "/dg.model.MatrixService/SystemStatus",
+  "/dg.model.MatrixService/GetInstances",
+  "/dg.model.MatrixService/ConfigEngine",
+  "/dg.model.MatrixService/Recognize",
+  "/dg.model.MatrixService/BatchRecognize",
+  "/dg.model.MatrixService/VideoRecognize",
+  "/dg.model.MatrixService/GetRankedVector",
 };
 
 std::unique_ptr< MatrixService::Stub> MatrixService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -42,68 +43,68 @@ MatrixService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chan
   , rpcmethod_GetRankedVector_(MatrixService_method_names[7], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status MatrixService::Stub::Ping(::grpc::ClientContext* context, const ::dg::PingRequest& request, ::dg::PingResponse* response) {
+::grpc::Status MatrixService::Stub::Ping(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::dg::model::PingResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Ping_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::PingResponse>* MatrixService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::dg::PingRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::PingResponse>(channel_.get(), cq, rpcmethod_Ping_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>* MatrixService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>(channel_.get(), cq, rpcmethod_Ping_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::SystemStatus(::grpc::ClientContext* context, const ::dg::SystemStatusRequest& request, ::dg::SystemStatusResponse* response) {
+::grpc::Status MatrixService::Stub::SystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::dg::model::SystemStatusResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_SystemStatus_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::SystemStatusResponse>* MatrixService::Stub::AsyncSystemStatusRaw(::grpc::ClientContext* context, const ::dg::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::SystemStatusResponse>(channel_.get(), cq, rpcmethod_SystemStatus_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::SystemStatusResponse>* MatrixService::Stub::AsyncSystemStatusRaw(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::SystemStatusResponse>(channel_.get(), cq, rpcmethod_SystemStatus_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::GetInstances(::grpc::ClientContext* context, const ::dg::GetInstancesRequest& request, ::dg::InstanceConfigureResponse* response) {
+::grpc::Status MatrixService::Stub::GetInstances(::grpc::ClientContext* context, const ::dg::model::GetInstancesRequest& request, ::dg::model::InstanceConfigureResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetInstances_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::InstanceConfigureResponse>* MatrixService::Stub::AsyncGetInstancesRaw(::grpc::ClientContext* context, const ::dg::GetInstancesRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::InstanceConfigureResponse>(channel_.get(), cq, rpcmethod_GetInstances_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>* MatrixService::Stub::AsyncGetInstancesRaw(::grpc::ClientContext* context, const ::dg::model::GetInstancesRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>(channel_.get(), cq, rpcmethod_GetInstances_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::ConfigEngine(::grpc::ClientContext* context, const ::dg::InstanceConfigureRequest& request, ::dg::InstanceConfigureResponse* response) {
+::grpc::Status MatrixService::Stub::ConfigEngine(::grpc::ClientContext* context, const ::dg::model::InstanceConfigureRequest& request, ::dg::model::InstanceConfigureResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_ConfigEngine_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::InstanceConfigureResponse>* MatrixService::Stub::AsyncConfigEngineRaw(::grpc::ClientContext* context, const ::dg::InstanceConfigureRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::InstanceConfigureResponse>(channel_.get(), cq, rpcmethod_ConfigEngine_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>* MatrixService::Stub::AsyncConfigEngineRaw(::grpc::ClientContext* context, const ::dg::model::InstanceConfigureRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>(channel_.get(), cq, rpcmethod_ConfigEngine_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::Recognize(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::dg::WitnessResponse* response) {
+::grpc::Status MatrixService::Stub::Recognize(::grpc::ClientContext* context, const ::dg::model::WitnessRequest& request, ::dg::model::WitnessResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Recognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>* MatrixService::Stub::AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::WitnessResponse>(channel_.get(), cq, rpcmethod_Recognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::WitnessResponse>* MatrixService::Stub::AsyncRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::WitnessRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::WitnessResponse>(channel_.get(), cq, rpcmethod_Recognize_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::BatchRecognize(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::dg::WitnessBatchResponse* response) {
+::grpc::Status MatrixService::Stub::BatchRecognize(::grpc::ClientContext* context, const ::dg::model::WitnessBatchRequest& request, ::dg::model::WitnessBatchResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_BatchRecognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>* MatrixService::Stub::AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::WitnessBatchResponse>(channel_.get(), cq, rpcmethod_BatchRecognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::WitnessBatchResponse>* MatrixService::Stub::AsyncBatchRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::WitnessBatchRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::WitnessBatchResponse>(channel_.get(), cq, rpcmethod_BatchRecognize_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::VideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::dg::SkynetResponse* response) {
+::grpc::Status MatrixService::Stub::VideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::dg::model::SkynetResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_VideoRecognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>* MatrixService::Stub::AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>(channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>* MatrixService::Stub::AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>(channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
 }
 
-::grpc::Status MatrixService::Stub::GetRankedVector(::grpc::ClientContext* context, const ::dg::FeatureRankingRequest& request, ::dg::FeatureRankingResponse* response) {
+::grpc::Status MatrixService::Stub::GetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::dg::model::FeatureRankingResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetRankedVector_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::FeatureRankingResponse>* MatrixService::Stub::AsyncGetRankedVectorRaw(::grpc::ClientContext* context, const ::dg::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::FeatureRankingResponse>(channel_.get(), cq, rpcmethod_GetRankedVector_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::FeatureRankingResponse>* MatrixService::Stub::AsyncGetRankedVectorRaw(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::FeatureRankingResponse>(channel_.get(), cq, rpcmethod_GetRankedVector_, context, request);
 }
 
 MatrixService::Service::Service() {
@@ -111,98 +112,98 @@ MatrixService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::PingRequest, ::dg::PingResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::PingRequest, ::dg::model::PingResponse>(
           std::mem_fn(&MatrixService::Service::Ping), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::SystemStatusRequest, ::dg::SystemStatusResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::SystemStatusRequest, ::dg::model::SystemStatusResponse>(
           std::mem_fn(&MatrixService::Service::SystemStatus), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::GetInstancesRequest, ::dg::InstanceConfigureResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::GetInstancesRequest, ::dg::model::InstanceConfigureResponse>(
           std::mem_fn(&MatrixService::Service::GetInstances), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::InstanceConfigureRequest, ::dg::InstanceConfigureResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::InstanceConfigureRequest, ::dg::model::InstanceConfigureResponse>(
           std::mem_fn(&MatrixService::Service::ConfigEngine), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[4],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::WitnessRequest, ::dg::WitnessResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::WitnessRequest, ::dg::model::WitnessResponse>(
           std::mem_fn(&MatrixService::Service::Recognize), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[5],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::WitnessBatchRequest, ::dg::WitnessBatchResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::WitnessBatchRequest, ::dg::model::WitnessBatchResponse>(
           std::mem_fn(&MatrixService::Service::BatchRecognize), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[6],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::SkynetRequest, ::dg::SkynetResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::SkynetRequest, ::dg::model::SkynetResponse>(
           std::mem_fn(&MatrixService::Service::VideoRecognize), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
       MatrixService_method_names[7],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::FeatureRankingRequest, ::dg::FeatureRankingResponse>(
+      new ::grpc::RpcMethodHandler< MatrixService::Service, ::dg::model::FeatureRankingRequest, ::dg::model::FeatureRankingResponse>(
           std::mem_fn(&MatrixService::Service::GetRankedVector), this)));
 }
 
 MatrixService::Service::~Service() {
 }
 
-::grpc::Status MatrixService::Service::Ping(::grpc::ServerContext* context, const ::dg::PingRequest* request, ::dg::PingResponse* response) {
+::grpc::Status MatrixService::Service::Ping(::grpc::ServerContext* context, const ::dg::model::PingRequest* request, ::dg::model::PingResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::SystemStatus(::grpc::ServerContext* context, const ::dg::SystemStatusRequest* request, ::dg::SystemStatusResponse* response) {
+::grpc::Status MatrixService::Service::SystemStatus(::grpc::ServerContext* context, const ::dg::model::SystemStatusRequest* request, ::dg::model::SystemStatusResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::GetInstances(::grpc::ServerContext* context, const ::dg::GetInstancesRequest* request, ::dg::InstanceConfigureResponse* response) {
+::grpc::Status MatrixService::Service::GetInstances(::grpc::ServerContext* context, const ::dg::model::GetInstancesRequest* request, ::dg::model::InstanceConfigureResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::ConfigEngine(::grpc::ServerContext* context, const ::dg::InstanceConfigureRequest* request, ::dg::InstanceConfigureResponse* response) {
+::grpc::Status MatrixService::Service::ConfigEngine(::grpc::ServerContext* context, const ::dg::model::InstanceConfigureRequest* request, ::dg::model::InstanceConfigureResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::Recognize(::grpc::ServerContext* context, const ::dg::WitnessRequest* request, ::dg::WitnessResponse* response) {
+::grpc::Status MatrixService::Service::Recognize(::grpc::ServerContext* context, const ::dg::model::WitnessRequest* request, ::dg::model::WitnessResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::BatchRecognize(::grpc::ServerContext* context, const ::dg::WitnessBatchRequest* request, ::dg::WitnessBatchResponse* response) {
+::grpc::Status MatrixService::Service::BatchRecognize(::grpc::ServerContext* context, const ::dg::model::WitnessBatchRequest* request, ::dg::model::WitnessBatchResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::VideoRecognize(::grpc::ServerContext* context, const ::dg::SkynetRequest* request, ::dg::SkynetResponse* response) {
+::grpc::Status MatrixService::Service::VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status MatrixService::Service::GetRankedVector(::grpc::ServerContext* context, const ::dg::FeatureRankingRequest* request, ::dg::FeatureRankingResponse* response) {
+::grpc::Status MatrixService::Service::GetRankedVector(::grpc::ServerContext* context, const ::dg::model::FeatureRankingRequest* request, ::dg::model::FeatureRankingResponse* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -211,4 +212,5 @@ MatrixService::Service::~Service() {
 
 
 }  // namespace dg
+}  // namespace model
 

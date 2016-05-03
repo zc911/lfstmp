@@ -18,6 +18,7 @@
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace model {
 
 namespace {
 
@@ -394,7 +395,7 @@ void protobuf_RegisterTypes(const ::std::string&) {
         WitnessResponseContext_DebugTsEntry_descriptor_,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
-            ::dg::Time,
+            ::dg::model::Time,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
             0>::CreateDefaultInstance(
@@ -458,68 +459,80 @@ void protobuf_AddDesc_witness_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::dg::protobuf_AddDesc_common_2eproto();
-  ::dg::protobuf_AddDesc_system_2eproto();
+  ::dg::model::protobuf_AddDesc_common_2eproto();
+  ::dg::model::protobuf_AddDesc_system_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rwitness.proto\022\002dg\032\014common.proto\032\014syste"
-    "m.proto\"]\n\016WitnessRequest\022*\n\007Context\030\001 \001"
-    "(\0132\031.dg.WitnessRequestContext\022\037\n\005Image\030\002"
-    " \001(\0132\020.dg.WitnessImage\"c\n\023WitnessBatchRe"
-    "quest\022*\n\007Context\030\001 \001(\0132\031.dg.WitnessReque"
-    "stContext\022 \n\006Images\030\002 \003(\0132\020.dg.WitnessIm"
-    "age\"a\n\017WitnessResponse\022+\n\007Context\030\001 \001(\0132"
-    "\032.dg.WitnessResponseContext\022!\n\006Result\030\002 "
-    "\001(\0132\021.dg.WitnessResult\"g\n\024WitnessBatchRe"
-    "sponse\022+\n\007Context\030\001 \001(\0132\032.dg.WitnessResp"
-    "onseContext\022\"\n\007Results\030\002 \003(\0132\021.dg.Witnes"
-    "sResult\"\375\001\n\025WitnessRequestContext\022\021\n\tSes"
-    "sionId\030\001 \001(\t\022&\n\tFunctions\030\004 \003(\0162\023.dg.Wit"
-    "nessFunction\022\037\n\004Type\030\005 \001(\0162\021.dg.Recogniz"
-    "eType\022\"\n\007Storage\030\006 \001(\0132\021.dg.StorageConfi"
-    "g\0225\n\006Params\030\007 \003(\0132%.dg.WitnessRequestCon"
-    "text.ParamsEntry\032-\n\013ParamsEntry\022\013\n\003key\030\001"
-    " \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"M\n\014WitnessImage\022"
-    "\027\n\004Data\030\001 \001(\0132\t.dg.Image\022\020\n\010SensorId\030\002 \001"
-    "(\005\022\022\n\nSensorName\030\003 \001(\t\"\373\001\n\026WitnessRespon"
-    "seContext\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006Status\030\002"
-    " \001(\t\022\017\n\007Message\030\003 \001(\t\022\033\n\tRequestTs\030\004 \001(\013"
-    "2\010.dg.Time\022\034\n\nResponseTs\030\005 \001(\0132\010.dg.Time"
-    "\0228\n\007DebugTs\030\006 \003(\0132\'.dg.WitnessResponseCo"
-    "ntext.DebugTsEntry\0328\n\014DebugTsEntry\022\013\n\003ke"
-    "y\030\001 \001(\t\022\027\n\005value\030\002 \001(\0132\010.dg.Time:\0028\001\"\247\001\n"
-    "\rWitnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014I"
-    "nnerMessage\030\002 \001(\t\022\037\n\005Image\030\003 \001(\0132\020.dg.Wi"
-    "tnessImage\022\'\n\010Vehicles\030\004 \003(\0132\025.dg.Recogn"
-    "izedVehicle\022!\n\005Faces\030\005 \003(\0132\022.dg.Recogniz"
-    "edFace\"\215\002\n\021RecognizedVehicle\022\037\n\005Model\030\001 "
-    "\001(\0132\020.dg.VehicleModel\022\036\n\010Cutboard\030\002 \001(\0132"
-    "\014.dg.Cutboard\022\030\n\005Color\030\003 \001(\0132\t.dg.Color\022"
-    "&\n\014LicensePlate\030\004 \001(\0132\020.dg.LicensePlate\022"
-    "#\n\013SymbolItems\030\005 \003(\0132\016.dg.SymbolItem\022$\n\n"
-    "Candidates\030\006 \003(\0132\020.dg.VehicleModel\022\020\n\010Fe"
-    "atures\030\007 \001(\t\022\030\n\005Scene\030\010 \001(\0132\t.dg.Scene\"V"
-    "\n\016RecognizedFace\022\036\n\010Cutboard\030\001 \001(\0132\014.dg."
-    "Cutboard\022\022\n\nConfidence\030\002 \001(\002\022\020\n\010Features"
-    "\030\003 \001(\t\"\276\001\n\014VehicleModel\022\016\n\006TypeId\030\001 \001(\005\022"
-    "\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013"
-    "ModelYearId\030\004 \001(\005\022\014\n\004Type\030\005 \001(\t\022\r\n\005Brand"
-    "\030\006 \001(\t\022\020\n\010SubBrand\030\007 \001(\t\022\021\n\tModelYear\030\010 "
-    "\001(\t\022\016\n\006IsHead\030\t \001(\005\022\022\n\nConfidence\030\n \001(\002\""
-    "\222\001\n\014LicensePlate\022\020\n\010PlateNum\030\001 \001(\t\022\036\n\010Cu"
-    "tboard\030\002 \001(\0132\014.dg.Cutboard\022\017\n\007ColorId\030\003 "
-    "\001(\005\022\r\n\005Color\030\004 \001(\t\022\016\n\006TypeId\030\005 \001(\005\022\014\n\004Ty"
-    "pe\030\006 \001(\t\022\022\n\nConfidence\030\007 \001(\002\"O\n\nSymbolIt"
-    "em\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t"
-    "\022\033\n\007Symbols\030\003 \003(\0132\n.dg.Symbol\"6\n\005Scene\022\016"
-    "\n\006IsHead\030\001 \001(\005\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030"
-    "\003 \001(\t\"<\n\006Symbol\022\036\n\010Cutboard\030\003 \001(\0132\014.dg.C"
-    "utboard\022\022\n\nConfidence\030\004 \001(\002*U\n\017WitnessFu"
-    "nction\022\024\n\020REC_FUNC_DEFAULT\020\000\022\026\n\022REC_FUNC"
-    "_DETECTION\020\001\022\024\n\020REC_FUNC_FEATURE\020\0022\217\001\n\016W"
-    "itnessService\0226\n\tRecognize\022\022.dg.WitnessR"
-    "equest\032\023.dg.WitnessResponse\"\000\022E\n\016BatchRe"
-    "cognize\022\027.dg.WitnessBatchRequest\032\030.dg.Wi"
-    "tnessBatchResponse\"\000b\006proto3", 2348);
+    "\n\rwitness.proto\022\010dg.model\032\014common.proto\032"
+    "\014system.proto\"i\n\016WitnessRequest\0220\n\007Conte"
+    "xt\030\001 \001(\0132\037.dg.model.WitnessRequestContex"
+    "t\022%\n\005Image\030\002 \001(\0132\026.dg.model.WitnessImage"
+    "\"o\n\023WitnessBatchRequest\0220\n\007Context\030\001 \001(\013"
+    "2\037.dg.model.WitnessRequestContext\022&\n\006Ima"
+    "ges\030\002 \003(\0132\026.dg.model.WitnessImage\"m\n\017Wit"
+    "nessResponse\0221\n\007Context\030\001 \001(\0132 .dg.model"
+    ".WitnessResponseContext\022\'\n\006Result\030\002 \001(\0132"
+    "\027.dg.model.WitnessResult\"s\n\024WitnessBatch"
+    "Response\0221\n\007Context\030\001 \001(\0132 .dg.model.Wit"
+    "nessResponseContext\022(\n\007Results\030\002 \003(\0132\027.d"
+    "g.model.WitnessResult\"\225\002\n\025WitnessRequest"
+    "Context\022\021\n\tSessionId\030\001 \001(\t\022,\n\tFunctions\030"
+    "\004 \003(\0162\031.dg.model.WitnessFunction\022%\n\004Type"
+    "\030\005 \001(\0162\027.dg.model.RecognizeType\022(\n\007Stora"
+    "ge\030\006 \001(\0132\027.dg.model.StorageConfig\022;\n\006Par"
+    "ams\030\007 \003(\0132+.dg.model.WitnessRequestConte"
+    "xt.ParamsEntry\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001"
+    "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"S\n\014WitnessImage\022\035\n"
+    "\004Data\030\001 \001(\0132\017.dg.model.Image\022\020\n\010SensorId"
+    "\030\002 \001(\005\022\022\n\nSensorName\030\003 \001(\t\"\223\002\n\026WitnessRe"
+    "sponseContext\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006Stat"
+    "us\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tRequestTs\030\004"
+    " \001(\0132\016.dg.model.Time\022\"\n\nResponseTs\030\005 \001(\013"
+    "2\016.dg.model.Time\022>\n\007DebugTs\030\006 \003(\0132-.dg.m"
+    "odel.WitnessResponseContext.DebugTsEntry"
+    "\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002"
+    " \001(\0132\016.dg.model.Time:\0028\001\"\271\001\n\rWitnessResu"
+    "lt\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014InnerMessage\030"
+    "\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.model.WitnessI"
+    "mage\022-\n\010Vehicles\030\004 \003(\0132\033.dg.model.Recogn"
+    "izedVehicle\022\'\n\005Faces\030\005 \003(\0132\030.dg.model.Re"
+    "cognizedFace\"\267\002\n\021RecognizedVehicle\022%\n\005Mo"
+    "del\030\001 \001(\0132\026.dg.model.VehicleModel\022$\n\010Cut"
+    "board\030\002 \001(\0132\022.dg.model.Cutboard\022\036\n\005Color"
+    "\030\003 \001(\0132\017.dg.model.Color\022,\n\014LicensePlate\030"
+    "\004 \001(\0132\026.dg.model.LicensePlate\022)\n\013SymbolI"
+    "tems\030\005 \003(\0132\024.dg.model.SymbolItem\022*\n\nCand"
+    "idates\030\006 \003(\0132\026.dg.model.VehicleModel\022\020\n\010"
+    "Features\030\007 \001(\t\022\036\n\005Scene\030\010 \001(\0132\017.dg.model"
+    ".Scene\"\\\n\016RecognizedFace\022$\n\010Cutboard\030\001 \001"
+    "(\0132\022.dg.model.Cutboard\022\022\n\nConfidence\030\002 \001"
+    "(\002\022\020\n\010Features\030\003 \001(\t\"\276\001\n\014VehicleModel\022\016\n"
+    "\006TypeId\030\001 \001(\005\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBra"
+    "ndId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\014\n\004Type\030"
+    "\005 \001(\t\022\r\n\005Brand\030\006 \001(\t\022\020\n\010SubBrand\030\007 \001(\t\022\021"
+    "\n\tModelYear\030\010 \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022\n\nCon"
+    "fidence\030\n \001(\002\"\230\001\n\014LicensePlate\022\020\n\010PlateN"
+    "um\030\001 \001(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cu"
+    "tboard\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 \001(\t\022\016"
+    "\n\006TypeId\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nConfiden"
+    "ce\030\007 \001(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030\001 \001(\005"
+    "\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020."
+    "dg.model.Symbol\"6\n\005Scene\022\016\n\006IsHead\030\001 \001(\005"
+    "\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006Symbo"
+    "l\022$\n\010Cutboard\030\003 \001(\0132\022.dg.model.Cutboard\022"
+    "\022\n\nConfidence\030\004 \001(\002*\316\002\n\017WitnessFunction\022"
+    "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
+    "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
+    "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
+    "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_V"
+    "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
+    "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
+    "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
+    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\0132\247\001\n"
+    "\016WitnessService\022B\n\tRecognize\022\030.dg.model."
+    "WitnessRequest\032\031.dg.model.WitnessRespons"
+    "e\"\000\022Q\n\016BatchRecognize\022\035.dg.model.Witness"
+    "BatchRequest\032\036.dg.model.WitnessBatchResp"
+    "onse\"\000b\006proto3", 2814);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   WitnessRequest::default_instance_ = new WitnessRequest();
@@ -570,6 +583,15 @@ bool WitnessFunction_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;
@@ -597,13 +619,13 @@ const int WitnessRequest::kImageFieldNumber;
 WitnessRequest::WitnessRequest()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessRequest)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessRequest)
 }
 
 void WitnessRequest::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  context_ = const_cast< ::dg::WitnessRequestContext*>(&::dg::WitnessRequestContext::default_instance());
-  image_ = const_cast< ::dg::WitnessImage*>(&::dg::WitnessImage::default_instance());
+  context_ = const_cast< ::dg::model::WitnessRequestContext*>(&::dg::model::WitnessRequestContext::default_instance());
+  image_ = const_cast< ::dg::model::WitnessImage*>(&::dg::model::WitnessImage::default_instance());
 }
 
 WitnessRequest::WitnessRequest(const WitnessRequest& from)
@@ -611,7 +633,7 @@ WitnessRequest::WitnessRequest(const WitnessRequest& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessRequest)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequest)
 }
 
 void WitnessRequest::SharedCtor() {
@@ -622,7 +644,7 @@ void WitnessRequest::SharedCtor() {
 }
 
 WitnessRequest::~WitnessRequest() {
-  // @@protoc_insertion_point(destructor:dg.WitnessRequest)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessRequest)
   SharedDtor();
 }
 
@@ -669,13 +691,13 @@ bool WitnessRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessRequest)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessRequest)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.WitnessRequestContext Context = 1;
+      // optional .dg.model.WitnessRequestContext Context = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -687,7 +709,7 @@ bool WitnessRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.WitnessImage Image = 2;
+      // optional .dg.model.WitnessImage Image = 2;
       case 2: {
         if (tag == 18) {
          parse_Image:
@@ -713,64 +735,64 @@ bool WitnessRequest::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessRequest)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessRequest)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessRequest)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequest)
   return false;
 #undef DO_
 }
 
 void WitnessRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessRequest)
-  // optional .dg.WitnessRequestContext Context = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequest)
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->context_, output);
   }
 
-  // optional .dg.WitnessImage Image = 2;
+  // optional .dg.model.WitnessImage Image = 2;
   if (this->has_image()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->image_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessRequest)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequest)
 }
 
 ::google::protobuf::uint8* WitnessRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessRequest)
-  // optional .dg.WitnessRequestContext Context = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequest)
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, *this->context_, target);
   }
 
-  // optional .dg.WitnessImage Image = 2;
+  // optional .dg.model.WitnessImage Image = 2;
   if (this->has_image()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->image_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequest)
   return target;
 }
 
 int WitnessRequest::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.WitnessRequestContext Context = 1;
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->context_);
   }
 
-  // optional .dg.WitnessImage Image = 2;
+  // optional .dg.model.WitnessImage Image = 2;
   if (this->has_image()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -798,10 +820,10 @@ void WitnessRequest::MergeFrom(const ::google::protobuf::Message& from) {
 void WitnessRequest::MergeFrom(const WitnessRequest& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_context()) {
-    mutable_context()->::dg::WitnessRequestContext::MergeFrom(from.context());
+    mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
   }
   if (from.has_image()) {
-    mutable_image()->::dg::WitnessImage::MergeFrom(from.image());
+    mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
   }
 }
 
@@ -844,7 +866,7 @@ void WitnessRequest::InternalSwap(WitnessRequest* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessRequest
 
-// optional .dg.WitnessRequestContext Context = 1;
+// optional .dg.model.WitnessRequestContext Context = 1;
 bool WitnessRequest::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -852,25 +874,25 @@ void WitnessRequest::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-const ::dg::WitnessRequestContext& WitnessRequest::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequest.Context)
+const ::dg::model::WitnessRequestContext& WitnessRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequest.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-::dg::WitnessRequestContext* WitnessRequest::mutable_context() {
+::dg::model::WitnessRequestContext* WitnessRequest::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessRequestContext;
+    context_ = new ::dg::model::WitnessRequestContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequest.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequest.Context)
   return context_;
 }
-::dg::WitnessRequestContext* WitnessRequest::release_context() {
+::dg::model::WitnessRequestContext* WitnessRequest::release_context() {
   
-  ::dg::WitnessRequestContext* temp = context_;
+  ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-void WitnessRequest::set_allocated_context(::dg::WitnessRequestContext* context) {
+void WitnessRequest::set_allocated_context(::dg::model::WitnessRequestContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -878,10 +900,10 @@ void WitnessRequest::set_allocated_context(::dg::WitnessRequestContext* context)
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequest.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Context)
 }
 
-// optional .dg.WitnessImage Image = 2;
+// optional .dg.model.WitnessImage Image = 2;
 bool WitnessRequest::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -889,25 +911,25 @@ void WitnessRequest::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-const ::dg::WitnessImage& WitnessRequest::image() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequest.Image)
+const ::dg::model::WitnessImage& WitnessRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequest.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-::dg::WitnessImage* WitnessRequest::mutable_image() {
+::dg::model::WitnessImage* WitnessRequest::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::WitnessImage;
+    image_ = new ::dg::model::WitnessImage;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequest.Image)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequest.Image)
   return image_;
 }
-::dg::WitnessImage* WitnessRequest::release_image() {
+::dg::model::WitnessImage* WitnessRequest::release_image() {
   
-  ::dg::WitnessImage* temp = image_;
+  ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
 }
-void WitnessRequest::set_allocated_image(::dg::WitnessImage* image) {
+void WitnessRequest::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -915,7 +937,7 @@ void WitnessRequest::set_allocated_image(::dg::WitnessImage* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequest.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Image)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -930,12 +952,12 @@ const int WitnessBatchRequest::kImagesFieldNumber;
 WitnessBatchRequest::WitnessBatchRequest()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessBatchRequest)
 }
 
 void WitnessBatchRequest::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  context_ = const_cast< ::dg::WitnessRequestContext*>(&::dg::WitnessRequestContext::default_instance());
+  context_ = const_cast< ::dg::model::WitnessRequestContext*>(&::dg::model::WitnessRequestContext::default_instance());
 }
 
 WitnessBatchRequest::WitnessBatchRequest(const WitnessBatchRequest& from)
@@ -943,7 +965,7 @@ WitnessBatchRequest::WitnessBatchRequest(const WitnessBatchRequest& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchRequest)
 }
 
 void WitnessBatchRequest::SharedCtor() {
@@ -953,7 +975,7 @@ void WitnessBatchRequest::SharedCtor() {
 }
 
 WitnessBatchRequest::~WitnessBatchRequest() {
-  // @@protoc_insertion_point(destructor:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessBatchRequest)
   SharedDtor();
 }
 
@@ -998,13 +1020,13 @@ bool WitnessBatchRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchRequest)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.WitnessRequestContext Context = 1;
+      // optional .dg.model.WitnessRequestContext Context = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -1016,7 +1038,7 @@ bool WitnessBatchRequest::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.WitnessImage Images = 2;
+      // repeated .dg.model.WitnessImage Images = 2;
       case 2: {
         if (tag == 18) {
          parse_Images:
@@ -1046,64 +1068,64 @@ bool WitnessBatchRequest::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchRequest)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchRequest)
   return false;
 #undef DO_
 }
 
 void WitnessBatchRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessBatchRequest)
-  // optional .dg.WitnessRequestContext Context = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchRequest)
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->context_, output);
   }
 
-  // repeated .dg.WitnessImage Images = 2;
+  // repeated .dg.model.WitnessImage Images = 2;
   for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->images(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchRequest)
 }
 
 ::google::protobuf::uint8* WitnessBatchRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessBatchRequest)
-  // optional .dg.WitnessRequestContext Context = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchRequest)
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, *this->context_, target);
   }
 
-  // repeated .dg.WitnessImage Images = 2;
+  // repeated .dg.model.WitnessImage Images = 2;
   for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->images(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchRequest)
   return target;
 }
 
 int WitnessBatchRequest::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.WitnessRequestContext Context = 1;
+  // optional .dg.model.WitnessRequestContext Context = 1;
   if (this->has_context()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->context_);
   }
 
-  // repeated .dg.WitnessImage Images = 2;
+  // repeated .dg.model.WitnessImage Images = 2;
   total_size += 1 * this->images_size();
   for (int i = 0; i < this->images_size(); i++) {
     total_size +=
@@ -1133,7 +1155,7 @@ void WitnessBatchRequest::MergeFrom(const WitnessBatchRequest& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   images_.MergeFrom(from.images_);
   if (from.has_context()) {
-    mutable_context()->::dg::WitnessRequestContext::MergeFrom(from.context());
+    mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
   }
 }
 
@@ -1176,7 +1198,7 @@ void WitnessBatchRequest::InternalSwap(WitnessBatchRequest* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessBatchRequest
 
-// optional .dg.WitnessRequestContext Context = 1;
+// optional .dg.model.WitnessRequestContext Context = 1;
 bool WitnessBatchRequest::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1184,25 +1206,25 @@ void WitnessBatchRequest::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-const ::dg::WitnessRequestContext& WitnessBatchRequest::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchRequest.Context)
+const ::dg::model::WitnessRequestContext& WitnessBatchRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchRequest.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-::dg::WitnessRequestContext* WitnessBatchRequest::mutable_context() {
+::dg::model::WitnessRequestContext* WitnessBatchRequest::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessRequestContext;
+    context_ = new ::dg::model::WitnessRequestContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchRequest.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchRequest.Context)
   return context_;
 }
-::dg::WitnessRequestContext* WitnessBatchRequest::release_context() {
+::dg::model::WitnessRequestContext* WitnessBatchRequest::release_context() {
   
-  ::dg::WitnessRequestContext* temp = context_;
+  ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-void WitnessBatchRequest::set_allocated_context(::dg::WitnessRequestContext* context) {
+void WitnessBatchRequest::set_allocated_context(::dg::model::WitnessRequestContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1210,36 +1232,36 @@ void WitnessBatchRequest::set_allocated_context(::dg::WitnessRequestContext* con
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessBatchRequest.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchRequest.Context)
 }
 
-// repeated .dg.WitnessImage Images = 2;
+// repeated .dg.model.WitnessImage Images = 2;
 int WitnessBatchRequest::images_size() const {
   return images_.size();
 }
 void WitnessBatchRequest::clear_images() {
   images_.Clear();
 }
-const ::dg::WitnessImage& WitnessBatchRequest::images(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchRequest.Images)
+const ::dg::model::WitnessImage& WitnessBatchRequest::images(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchRequest.Images)
   return images_.Get(index);
 }
-::dg::WitnessImage* WitnessBatchRequest::mutable_images(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchRequest.Images)
+::dg::model::WitnessImage* WitnessBatchRequest::mutable_images(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchRequest.Images)
   return images_.Mutable(index);
 }
-::dg::WitnessImage* WitnessBatchRequest::add_images() {
-  // @@protoc_insertion_point(field_add:dg.WitnessBatchRequest.Images)
+::dg::model::WitnessImage* WitnessBatchRequest::add_images() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessBatchRequest.Images)
   return images_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >*
+::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >*
 WitnessBatchRequest::mutable_images() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessBatchRequest.Images)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessBatchRequest.Images)
   return &images_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >&
 WitnessBatchRequest::images() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessBatchRequest.Images)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessBatchRequest.Images)
   return images_;
 }
 
@@ -1255,13 +1277,13 @@ const int WitnessResponse::kResultFieldNumber;
 WitnessResponse::WitnessResponse()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessResponse)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessResponse)
 }
 
 void WitnessResponse::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  context_ = const_cast< ::dg::WitnessResponseContext*>(&::dg::WitnessResponseContext::default_instance());
-  result_ = const_cast< ::dg::WitnessResult*>(&::dg::WitnessResult::default_instance());
+  context_ = const_cast< ::dg::model::WitnessResponseContext*>(&::dg::model::WitnessResponseContext::default_instance());
+  result_ = const_cast< ::dg::model::WitnessResult*>(&::dg::model::WitnessResult::default_instance());
 }
 
 WitnessResponse::WitnessResponse(const WitnessResponse& from)
@@ -1269,7 +1291,7 @@ WitnessResponse::WitnessResponse(const WitnessResponse& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessResponse)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponse)
 }
 
 void WitnessResponse::SharedCtor() {
@@ -1280,7 +1302,7 @@ void WitnessResponse::SharedCtor() {
 }
 
 WitnessResponse::~WitnessResponse() {
-  // @@protoc_insertion_point(destructor:dg.WitnessResponse)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessResponse)
   SharedDtor();
 }
 
@@ -1327,13 +1349,13 @@ bool WitnessResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessResponse)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessResponse)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.WitnessResponseContext Context = 1;
+      // optional .dg.model.WitnessResponseContext Context = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -1345,7 +1367,7 @@ bool WitnessResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.WitnessResult Result = 2;
+      // optional .dg.model.WitnessResult Result = 2;
       case 2: {
         if (tag == 18) {
          parse_Result:
@@ -1371,64 +1393,64 @@ bool WitnessResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessResponse)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessResponse)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessResponse)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponse)
   return false;
 #undef DO_
 }
 
 void WitnessResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessResponse)
-  // optional .dg.WitnessResponseContext Context = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponse)
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->context_, output);
   }
 
-  // optional .dg.WitnessResult Result = 2;
+  // optional .dg.model.WitnessResult Result = 2;
   if (this->has_result()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->result_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessResponse)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponse)
 }
 
 ::google::protobuf::uint8* WitnessResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessResponse)
-  // optional .dg.WitnessResponseContext Context = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponse)
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, *this->context_, target);
   }
 
-  // optional .dg.WitnessResult Result = 2;
+  // optional .dg.model.WitnessResult Result = 2;
   if (this->has_result()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->result_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponse)
   return target;
 }
 
 int WitnessResponse::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.WitnessResponseContext Context = 1;
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->context_);
   }
 
-  // optional .dg.WitnessResult Result = 2;
+  // optional .dg.model.WitnessResult Result = 2;
   if (this->has_result()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -1456,10 +1478,10 @@ void WitnessResponse::MergeFrom(const ::google::protobuf::Message& from) {
 void WitnessResponse::MergeFrom(const WitnessResponse& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_context()) {
-    mutable_context()->::dg::WitnessResponseContext::MergeFrom(from.context());
+    mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
   }
   if (from.has_result()) {
-    mutable_result()->::dg::WitnessResult::MergeFrom(from.result());
+    mutable_result()->::dg::model::WitnessResult::MergeFrom(from.result());
   }
 }
 
@@ -1502,7 +1524,7 @@ void WitnessResponse::InternalSwap(WitnessResponse* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessResponse
 
-// optional .dg.WitnessResponseContext Context = 1;
+// optional .dg.model.WitnessResponseContext Context = 1;
 bool WitnessResponse::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1510,25 +1532,25 @@ void WitnessResponse::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-const ::dg::WitnessResponseContext& WitnessResponse::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponse.Context)
+const ::dg::model::WitnessResponseContext& WitnessResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponse.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-::dg::WitnessResponseContext* WitnessResponse::mutable_context() {
+::dg::model::WitnessResponseContext* WitnessResponse::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessResponseContext;
+    context_ = new ::dg::model::WitnessResponseContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponse.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponse.Context)
   return context_;
 }
-::dg::WitnessResponseContext* WitnessResponse::release_context() {
+::dg::model::WitnessResponseContext* WitnessResponse::release_context() {
   
-  ::dg::WitnessResponseContext* temp = context_;
+  ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-void WitnessResponse::set_allocated_context(::dg::WitnessResponseContext* context) {
+void WitnessResponse::set_allocated_context(::dg::model::WitnessResponseContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1536,10 +1558,10 @@ void WitnessResponse::set_allocated_context(::dg::WitnessResponseContext* contex
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponse.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Context)
 }
 
-// optional .dg.WitnessResult Result = 2;
+// optional .dg.model.WitnessResult Result = 2;
 bool WitnessResponse::has_result() const {
   return !_is_default_instance_ && result_ != NULL;
 }
@@ -1547,25 +1569,25 @@ void WitnessResponse::clear_result() {
   if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
   result_ = NULL;
 }
-const ::dg::WitnessResult& WitnessResponse::result() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponse.Result)
+const ::dg::model::WitnessResult& WitnessResponse::result() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponse.Result)
   return result_ != NULL ? *result_ : *default_instance_->result_;
 }
-::dg::WitnessResult* WitnessResponse::mutable_result() {
+::dg::model::WitnessResult* WitnessResponse::mutable_result() {
   
   if (result_ == NULL) {
-    result_ = new ::dg::WitnessResult;
+    result_ = new ::dg::model::WitnessResult;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponse.Result)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponse.Result)
   return result_;
 }
-::dg::WitnessResult* WitnessResponse::release_result() {
+::dg::model::WitnessResult* WitnessResponse::release_result() {
   
-  ::dg::WitnessResult* temp = result_;
+  ::dg::model::WitnessResult* temp = result_;
   result_ = NULL;
   return temp;
 }
-void WitnessResponse::set_allocated_result(::dg::WitnessResult* result) {
+void WitnessResponse::set_allocated_result(::dg::model::WitnessResult* result) {
   delete result_;
   result_ = result;
   if (result) {
@@ -1573,7 +1595,7 @@ void WitnessResponse::set_allocated_result(::dg::WitnessResult* result) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponse.Result)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Result)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1588,12 +1610,12 @@ const int WitnessBatchResponse::kResultsFieldNumber;
 WitnessBatchResponse::WitnessBatchResponse()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessBatchResponse)
 }
 
 void WitnessBatchResponse::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  context_ = const_cast< ::dg::WitnessResponseContext*>(&::dg::WitnessResponseContext::default_instance());
+  context_ = const_cast< ::dg::model::WitnessResponseContext*>(&::dg::model::WitnessResponseContext::default_instance());
 }
 
 WitnessBatchResponse::WitnessBatchResponse(const WitnessBatchResponse& from)
@@ -1601,7 +1623,7 @@ WitnessBatchResponse::WitnessBatchResponse(const WitnessBatchResponse& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchResponse)
 }
 
 void WitnessBatchResponse::SharedCtor() {
@@ -1611,7 +1633,7 @@ void WitnessBatchResponse::SharedCtor() {
 }
 
 WitnessBatchResponse::~WitnessBatchResponse() {
-  // @@protoc_insertion_point(destructor:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessBatchResponse)
   SharedDtor();
 }
 
@@ -1656,13 +1678,13 @@ bool WitnessBatchResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchResponse)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.WitnessResponseContext Context = 1;
+      // optional .dg.model.WitnessResponseContext Context = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -1674,7 +1696,7 @@ bool WitnessBatchResponse::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.WitnessResult Results = 2;
+      // repeated .dg.model.WitnessResult Results = 2;
       case 2: {
         if (tag == 18) {
          parse_Results:
@@ -1704,64 +1726,64 @@ bool WitnessBatchResponse::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchResponse)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchResponse)
   return false;
 #undef DO_
 }
 
 void WitnessBatchResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessBatchResponse)
-  // optional .dg.WitnessResponseContext Context = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchResponse)
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->context_, output);
   }
 
-  // repeated .dg.WitnessResult Results = 2;
+  // repeated .dg.model.WitnessResult Results = 2;
   for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, this->results(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchResponse)
 }
 
 ::google::protobuf::uint8* WitnessBatchResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessBatchResponse)
-  // optional .dg.WitnessResponseContext Context = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchResponse)
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, *this->context_, target);
   }
 
-  // repeated .dg.WitnessResult Results = 2;
+  // repeated .dg.model.WitnessResult Results = 2;
   for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, this->results(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchResponse)
   return target;
 }
 
 int WitnessBatchResponse::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.WitnessResponseContext Context = 1;
+  // optional .dg.model.WitnessResponseContext Context = 1;
   if (this->has_context()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->context_);
   }
 
-  // repeated .dg.WitnessResult Results = 2;
+  // repeated .dg.model.WitnessResult Results = 2;
   total_size += 1 * this->results_size();
   for (int i = 0; i < this->results_size(); i++) {
     total_size +=
@@ -1791,7 +1813,7 @@ void WitnessBatchResponse::MergeFrom(const WitnessBatchResponse& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   results_.MergeFrom(from.results_);
   if (from.has_context()) {
-    mutable_context()->::dg::WitnessResponseContext::MergeFrom(from.context());
+    mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
   }
 }
 
@@ -1834,7 +1856,7 @@ void WitnessBatchResponse::InternalSwap(WitnessBatchResponse* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessBatchResponse
 
-// optional .dg.WitnessResponseContext Context = 1;
+// optional .dg.model.WitnessResponseContext Context = 1;
 bool WitnessBatchResponse::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1842,25 +1864,25 @@ void WitnessBatchResponse::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-const ::dg::WitnessResponseContext& WitnessBatchResponse::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchResponse.Context)
+const ::dg::model::WitnessResponseContext& WitnessBatchResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchResponse.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-::dg::WitnessResponseContext* WitnessBatchResponse::mutable_context() {
+::dg::model::WitnessResponseContext* WitnessBatchResponse::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessResponseContext;
+    context_ = new ::dg::model::WitnessResponseContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchResponse.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchResponse.Context)
   return context_;
 }
-::dg::WitnessResponseContext* WitnessBatchResponse::release_context() {
+::dg::model::WitnessResponseContext* WitnessBatchResponse::release_context() {
   
-  ::dg::WitnessResponseContext* temp = context_;
+  ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-void WitnessBatchResponse::set_allocated_context(::dg::WitnessResponseContext* context) {
+void WitnessBatchResponse::set_allocated_context(::dg::model::WitnessResponseContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1868,36 +1890,36 @@ void WitnessBatchResponse::set_allocated_context(::dg::WitnessResponseContext* c
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessBatchResponse.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchResponse.Context)
 }
 
-// repeated .dg.WitnessResult Results = 2;
+// repeated .dg.model.WitnessResult Results = 2;
 int WitnessBatchResponse::results_size() const {
   return results_.size();
 }
 void WitnessBatchResponse::clear_results() {
   results_.Clear();
 }
-const ::dg::WitnessResult& WitnessBatchResponse::results(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchResponse.Results)
+const ::dg::model::WitnessResult& WitnessBatchResponse::results(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchResponse.Results)
   return results_.Get(index);
 }
-::dg::WitnessResult* WitnessBatchResponse::mutable_results(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchResponse.Results)
+::dg::model::WitnessResult* WitnessBatchResponse::mutable_results(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchResponse.Results)
   return results_.Mutable(index);
 }
-::dg::WitnessResult* WitnessBatchResponse::add_results() {
-  // @@protoc_insertion_point(field_add:dg.WitnessBatchResponse.Results)
+::dg::model::WitnessResult* WitnessBatchResponse::add_results() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessBatchResponse.Results)
   return results_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >*
+::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >*
 WitnessBatchResponse::mutable_results() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessBatchResponse.Results)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessBatchResponse.Results)
   return &results_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >&
 WitnessBatchResponse::results() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessBatchResponse.Results)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessBatchResponse.Results)
   return results_;
 }
 
@@ -1916,12 +1938,12 @@ const int WitnessRequestContext::kParamsFieldNumber;
 WitnessRequestContext::WitnessRequestContext()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessRequestContext)
 }
 
 void WitnessRequestContext::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  storage_ = const_cast< ::dg::StorageConfig*>(&::dg::StorageConfig::default_instance());
+  storage_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
 }
 
 WitnessRequestContext::WitnessRequestContext(const WitnessRequestContext& from)
@@ -1929,7 +1951,7 @@ WitnessRequestContext::WitnessRequestContext(const WitnessRequestContext& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequestContext)
 }
 
 void WitnessRequestContext::SharedCtor() {
@@ -1942,11 +1964,11 @@ void WitnessRequestContext::SharedCtor() {
   params_.SetAssignDescriptorCallback(
       protobuf_AssignDescriptorsOnce);
   params_.SetEntryDescriptor(
-      &::dg::WitnessRequestContext_ParamsEntry_descriptor_);
+      &::dg::model::WitnessRequestContext_ParamsEntry_descriptor_);
 }
 
 WitnessRequestContext::~WitnessRequestContext() {
-  // @@protoc_insertion_point(destructor:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessRequestContext)
   SharedDtor();
 }
 
@@ -1995,7 +2017,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessRequestContext)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2009,7 +2031,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sessionid().data(), this->sessionid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessRequestContext.SessionId"));
+            "dg.model.WitnessRequestContext.SessionId"));
         } else {
           goto handle_unusual;
         }
@@ -2017,7 +2039,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.WitnessFunction Functions = 4;
+      // repeated .dg.model.WitnessFunction Functions = 4;
       case 4: {
         if (tag == 34) {
          parse_Functions:
@@ -2029,7 +2051,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
             DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-            add_functions(static_cast< ::dg::WitnessFunction >(value));
+            add_functions(static_cast< ::dg::model::WitnessFunction >(value));
           }
           input->PopLimit(limit);
         } else if (tag == 32) {
@@ -2037,7 +2059,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          add_functions(static_cast< ::dg::WitnessFunction >(value));
+          add_functions(static_cast< ::dg::model::WitnessFunction >(value));
         } else {
           goto handle_unusual;
         }
@@ -2045,7 +2067,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.RecognizeType Type = 5;
+      // optional .dg.model.RecognizeType Type = 5;
       case 5: {
         if (tag == 40) {
          parse_Type:
@@ -2053,7 +2075,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::dg::RecognizeType >(value));
+          set_type(static_cast< ::dg::model::RecognizeType >(value));
         } else {
           goto handle_unusual;
         }
@@ -2061,7 +2083,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.StorageConfig Storage = 6;
+      // optional .dg.model.StorageConfig Storage = 6;
       case 6: {
         if (tag == 50) {
          parse_Storage:
@@ -2087,12 +2109,12 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             entry->key().data(), entry->key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessRequestContext.ParamsEntry.key"));
+            "dg.model.WitnessRequestContext.ParamsEntry.key"));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             entry->mutable_value()->data(),
             entry->mutable_value()->length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessRequestContext.ParamsEntry.value"));
+            "dg.model.WitnessRequestContext.ParamsEntry.value"));
         } else {
           goto handle_unusual;
         }
@@ -2115,28 +2137,28 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessRequestContext)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequestContext)
   return false;
 #undef DO_
 }
 
 void WitnessRequestContext::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequestContext)
   // optional string SessionId = 1;
   if (this->sessionid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sessionid().data(), this->sessionid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessRequestContext.SessionId");
+      "dg.model.WitnessRequestContext.SessionId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->sessionid(), output);
   }
 
-  // repeated .dg.WitnessFunction Functions = 4;
+  // repeated .dg.model.WitnessFunction Functions = 4;
   if (this->functions_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(
       4,
@@ -2149,13 +2171,13 @@ void WitnessRequestContext::SerializeWithCachedSizes(
       this->functions(i), output);
   }
 
-  // optional .dg.RecognizeType Type = 5;
+  // optional .dg.model.RecognizeType Type = 5;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       5, this->type(), output);
   }
 
-  // optional .dg.StorageConfig Storage = 6;
+  // optional .dg.model.StorageConfig Storage = 6;
   if (this->has_storage()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, *this->storage_, output);
@@ -2173,32 +2195,32 @@ void WitnessRequestContext::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->first.data(), it->first.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessRequestContext.ParamsEntry.key");
+        "dg.model.WitnessRequestContext.ParamsEntry.key");
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->second.data(), it->second.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessRequestContext.ParamsEntry.value");
+        "dg.model.WitnessRequestContext.ParamsEntry.value");
     }
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequestContext)
 }
 
 ::google::protobuf::uint8* WitnessRequestContext::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequestContext)
   // optional string SessionId = 1;
   if (this->sessionid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sessionid().data(), this->sessionid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessRequestContext.SessionId");
+      "dg.model.WitnessRequestContext.SessionId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->sessionid(), target);
   }
 
-  // repeated .dg.WitnessFunction Functions = 4;
+  // repeated .dg.model.WitnessFunction Functions = 4;
   if (this->functions_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       4,
@@ -2211,13 +2233,13 @@ void WitnessRequestContext::SerializeWithCachedSizes(
       this->functions(i), target);
   }
 
-  // optional .dg.RecognizeType Type = 5;
+  // optional .dg.model.RecognizeType Type = 5;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       5, this->type(), target);
   }
 
-  // optional .dg.StorageConfig Storage = 6;
+  // optional .dg.model.StorageConfig Storage = 6;
   if (this->has_storage()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -2237,15 +2259,15 @@ void WitnessRequestContext::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->first.data(), it->first.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessRequestContext.ParamsEntry.key");
+        "dg.model.WitnessRequestContext.ParamsEntry.key");
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->second.data(), it->second.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessRequestContext.ParamsEntry.value");
+        "dg.model.WitnessRequestContext.ParamsEntry.value");
     }
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequestContext)
   return target;
 }
 
@@ -2259,20 +2281,20 @@ int WitnessRequestContext::ByteSize() const {
         this->sessionid());
   }
 
-  // optional .dg.RecognizeType Type = 5;
+  // optional .dg.model.RecognizeType Type = 5;
   if (this->type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
-  // optional .dg.StorageConfig Storage = 6;
+  // optional .dg.model.StorageConfig Storage = 6;
   if (this->has_storage()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->storage_);
   }
 
-  // repeated .dg.WitnessFunction Functions = 4;
+  // repeated .dg.model.WitnessFunction Functions = 4;
   {
     int data_size = 0;
     for (int i = 0; i < this->functions_size(); i++) {
@@ -2332,7 +2354,7 @@ void WitnessRequestContext::MergeFrom(const WitnessRequestContext& from) {
     set_type(from.type());
   }
   if (from.has_storage()) {
-    mutable_storage()->::dg::StorageConfig::MergeFrom(from.storage());
+    mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
   }
 }
 
@@ -2383,28 +2405,28 @@ void WitnessRequestContext::clear_sessionid() {
   sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessRequestContext::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.SessionId)
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_sessionid(const ::std::string& value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.SessionId)
 }
  void WitnessRequestContext::set_sessionid(const char* value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.SessionId)
 }
  void WitnessRequestContext::set_sessionid(const char* value, size_t size) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.SessionId)
 }
  ::std::string* WitnessRequestContext::mutable_sessionid() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessRequestContext::release_sessionid() {
@@ -2418,54 +2440,54 @@ void WitnessRequestContext::clear_sessionid() {
     
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
 }
 
-// repeated .dg.WitnessFunction Functions = 4;
+// repeated .dg.model.WitnessFunction Functions = 4;
 int WitnessRequestContext::functions_size() const {
   return functions_.size();
 }
 void WitnessRequestContext::clear_functions() {
   functions_.Clear();
 }
- ::dg::WitnessFunction WitnessRequestContext::functions(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Functions)
-  return static_cast< ::dg::WitnessFunction >(functions_.Get(index));
+ ::dg::model::WitnessFunction WitnessRequestContext::functions(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Functions)
+  return static_cast< ::dg::model::WitnessFunction >(functions_.Get(index));
 }
- void WitnessRequestContext::set_functions(int index, ::dg::WitnessFunction value) {
+ void WitnessRequestContext::set_functions(int index, ::dg::model::WitnessFunction value) {
   functions_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Functions)
 }
- void WitnessRequestContext::add_functions(::dg::WitnessFunction value) {
+ void WitnessRequestContext::add_functions(::dg::model::WitnessFunction value) {
   functions_.Add(value);
-  // @@protoc_insertion_point(field_add:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_add:dg.model.WitnessRequestContext.Functions)
 }
  const ::google::protobuf::RepeatedField<int>&
 WitnessRequestContext::functions() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessRequestContext.Functions)
   return functions_;
 }
  ::google::protobuf::RepeatedField<int>*
 WitnessRequestContext::mutable_functions() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessRequestContext.Functions)
   return &functions_;
 }
 
-// optional .dg.RecognizeType Type = 5;
+// optional .dg.model.RecognizeType Type = 5;
 void WitnessRequestContext::clear_type() {
   type_ = 0;
 }
- ::dg::RecognizeType WitnessRequestContext::type() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Type)
-  return static_cast< ::dg::RecognizeType >(type_);
+ ::dg::model::RecognizeType WitnessRequestContext::type() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Type)
+  return static_cast< ::dg::model::RecognizeType >(type_);
 }
- void WitnessRequestContext::set_type(::dg::RecognizeType value) {
+ void WitnessRequestContext::set_type(::dg::model::RecognizeType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.Type)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Type)
 }
 
-// optional .dg.StorageConfig Storage = 6;
+// optional .dg.model.StorageConfig Storage = 6;
 bool WitnessRequestContext::has_storage() const {
   return !_is_default_instance_ && storage_ != NULL;
 }
@@ -2473,25 +2495,25 @@ void WitnessRequestContext::clear_storage() {
   if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
   storage_ = NULL;
 }
-const ::dg::StorageConfig& WitnessRequestContext::storage() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Storage)
+const ::dg::model::StorageConfig& WitnessRequestContext::storage() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Storage)
   return storage_ != NULL ? *storage_ : *default_instance_->storage_;
 }
-::dg::StorageConfig* WitnessRequestContext::mutable_storage() {
+::dg::model::StorageConfig* WitnessRequestContext::mutable_storage() {
   
   if (storage_ == NULL) {
-    storage_ = new ::dg::StorageConfig;
+    storage_ = new ::dg::model::StorageConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequestContext.Storage)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.Storage)
   return storage_;
 }
-::dg::StorageConfig* WitnessRequestContext::release_storage() {
+::dg::model::StorageConfig* WitnessRequestContext::release_storage() {
   
-  ::dg::StorageConfig* temp = storage_;
+  ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
   return temp;
 }
-void WitnessRequestContext::set_allocated_storage(::dg::StorageConfig* storage) {
+void WitnessRequestContext::set_allocated_storage(::dg::model::StorageConfig* storage) {
   delete storage_;
   storage_ = storage;
   if (storage) {
@@ -2499,7 +2521,7 @@ void WitnessRequestContext::set_allocated_storage(::dg::StorageConfig* storage) 
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequestContext.Storage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.Storage)
 }
 
 // map<string, string> Params = 7;
@@ -2511,12 +2533,12 @@ void WitnessRequestContext::clear_params() {
 }
  const ::google::protobuf::Map< ::std::string, ::std::string >&
 WitnessRequestContext::params() const {
-  // @@protoc_insertion_point(field_map:dg.WitnessRequestContext.Params)
+  // @@protoc_insertion_point(field_map:dg.model.WitnessRequestContext.Params)
   return params_.GetMap();
 }
  ::google::protobuf::Map< ::std::string, ::std::string >*
 WitnessRequestContext::mutable_params() {
-  // @@protoc_insertion_point(field_mutable_map:dg.WitnessRequestContext.Params)
+  // @@protoc_insertion_point(field_mutable_map:dg.model.WitnessRequestContext.Params)
   return params_.MutableMap();
 }
 
@@ -2533,12 +2555,12 @@ const int WitnessImage::kSensorNameFieldNumber;
 WitnessImage::WitnessImage()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessImage)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessImage)
 }
 
 void WitnessImage::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  data_ = const_cast< ::dg::Image*>(&::dg::Image::default_instance());
+  data_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
 }
 
 WitnessImage::WitnessImage(const WitnessImage& from)
@@ -2546,7 +2568,7 @@ WitnessImage::WitnessImage(const WitnessImage& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessImage)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessImage)
 }
 
 void WitnessImage::SharedCtor() {
@@ -2559,7 +2581,7 @@ void WitnessImage::SharedCtor() {
 }
 
 WitnessImage::~WitnessImage() {
-  // @@protoc_insertion_point(destructor:dg.WitnessImage)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessImage)
   SharedDtor();
 }
 
@@ -2606,13 +2628,13 @@ bool WitnessImage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessImage)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessImage)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.Image Data = 1;
+      // optional .dg.model.Image Data = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -2648,7 +2670,7 @@ bool WitnessImage::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sensorname().data(), this->sensorname().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessImage.SensorName"));
+            "dg.model.WitnessImage.SensorName"));
         } else {
           goto handle_unusual;
         }
@@ -2669,18 +2691,18 @@ bool WitnessImage::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessImage)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessImage)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessImage)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessImage)
   return false;
 #undef DO_
 }
 
 void WitnessImage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessImage)
-  // optional .dg.Image Data = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessImage)
+  // optional .dg.model.Image Data = 1;
   if (this->has_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->data_, output);
@@ -2696,18 +2718,18 @@ void WitnessImage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorname().data(), this->sensorname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessImage.SensorName");
+      "dg.model.WitnessImage.SensorName");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->sensorname(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessImage)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessImage)
 }
 
 ::google::protobuf::uint8* WitnessImage::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessImage)
-  // optional .dg.Image Data = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessImage)
+  // optional .dg.model.Image Data = 1;
   if (this->has_data()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -2724,20 +2746,20 @@ void WitnessImage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorname().data(), this->sensorname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessImage.SensorName");
+      "dg.model.WitnessImage.SensorName");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->sensorname(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessImage)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessImage)
   return target;
 }
 
 int WitnessImage::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.Image Data = 1;
+  // optional .dg.model.Image Data = 1;
   if (this->has_data()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2779,7 +2801,7 @@ void WitnessImage::MergeFrom(const ::google::protobuf::Message& from) {
 void WitnessImage::MergeFrom(const WitnessImage& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_data()) {
-    mutable_data()->::dg::Image::MergeFrom(from.data());
+    mutable_data()->::dg::model::Image::MergeFrom(from.data());
   }
   if (from.sensorid() != 0) {
     set_sensorid(from.sensorid());
@@ -2830,7 +2852,7 @@ void WitnessImage::InternalSwap(WitnessImage* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessImage
 
-// optional .dg.Image Data = 1;
+// optional .dg.model.Image Data = 1;
 bool WitnessImage::has_data() const {
   return !_is_default_instance_ && data_ != NULL;
 }
@@ -2838,25 +2860,25 @@ void WitnessImage::clear_data() {
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
   data_ = NULL;
 }
-const ::dg::Image& WitnessImage::data() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.Data)
+const ::dg::model::Image& WitnessImage::data() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.Data)
   return data_ != NULL ? *data_ : *default_instance_->data_;
 }
-::dg::Image* WitnessImage::mutable_data() {
+::dg::model::Image* WitnessImage::mutable_data() {
   
   if (data_ == NULL) {
-    data_ = new ::dg::Image;
+    data_ = new ::dg::model::Image;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessImage.Data)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.Data)
   return data_;
 }
-::dg::Image* WitnessImage::release_data() {
+::dg::model::Image* WitnessImage::release_data() {
   
-  ::dg::Image* temp = data_;
+  ::dg::model::Image* temp = data_;
   data_ = NULL;
   return temp;
 }
-void WitnessImage::set_allocated_data(::dg::Image* data) {
+void WitnessImage::set_allocated_data(::dg::model::Image* data) {
   delete data_;
   data_ = data;
   if (data) {
@@ -2864,7 +2886,7 @@ void WitnessImage::set_allocated_data(::dg::Image* data) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessImage.Data)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.Data)
 }
 
 // optional int32 SensorId = 2;
@@ -2872,13 +2894,13 @@ void WitnessImage::clear_sensorid() {
   sensorid_ = 0;
 }
  ::google::protobuf::int32 WitnessImage::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.SensorId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorId)
   return sensorid_;
 }
  void WitnessImage::set_sensorid(::google::protobuf::int32 value) {
   
   sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.WitnessImage.SensorId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorId)
 }
 
 // optional string SensorName = 3;
@@ -2886,28 +2908,28 @@ void WitnessImage::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessImage::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessImage::set_sensorname(const ::std::string& value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorName)
 }
  void WitnessImage::set_sensorname(const char* value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessImage.SensorName)
 }
  void WitnessImage::set_sensorname(const char* value, size_t size) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessImage.SensorName)
 }
  ::std::string* WitnessImage::mutable_sensorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessImage::release_sensorname() {
@@ -2921,7 +2943,7 @@ void WitnessImage::clear_sensorname() {
     
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -2940,13 +2962,13 @@ const int WitnessResponseContext::kDebugTsFieldNumber;
 WitnessResponseContext::WitnessResponseContext()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessResponseContext)
 }
 
 void WitnessResponseContext::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  requestts_ = const_cast< ::dg::Time*>(&::dg::Time::default_instance());
-  responsets_ = const_cast< ::dg::Time*>(&::dg::Time::default_instance());
+  requestts_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
+  responsets_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
 }
 
 WitnessResponseContext::WitnessResponseContext(const WitnessResponseContext& from)
@@ -2954,7 +2976,7 @@ WitnessResponseContext::WitnessResponseContext(const WitnessResponseContext& fro
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponseContext)
 }
 
 void WitnessResponseContext::SharedCtor() {
@@ -2969,11 +2991,11 @@ void WitnessResponseContext::SharedCtor() {
   debugts_.SetAssignDescriptorCallback(
       protobuf_AssignDescriptorsOnce);
   debugts_.SetEntryDescriptor(
-      &::dg::WitnessResponseContext_DebugTsEntry_descriptor_);
+      &::dg::model::WitnessResponseContext_DebugTsEntry_descriptor_);
 }
 
 WitnessResponseContext::~WitnessResponseContext() {
-  // @@protoc_insertion_point(destructor:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessResponseContext)
   SharedDtor();
 }
 
@@ -3027,7 +3049,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessResponseContext)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -3041,7 +3063,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sessionid().data(), this->sessionid().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResponseContext.SessionId"));
+            "dg.model.WitnessResponseContext.SessionId"));
         } else {
           goto handle_unusual;
         }
@@ -3058,7 +3080,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->status().data(), this->status().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResponseContext.Status"));
+            "dg.model.WitnessResponseContext.Status"));
         } else {
           goto handle_unusual;
         }
@@ -3075,7 +3097,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->message().data(), this->message().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResponseContext.Message"));
+            "dg.model.WitnessResponseContext.Message"));
         } else {
           goto handle_unusual;
         }
@@ -3083,7 +3105,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Time RequestTs = 4;
+      // optional .dg.model.Time RequestTs = 4;
       case 4: {
         if (tag == 34) {
          parse_RequestTs:
@@ -3096,7 +3118,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Time ResponseTs = 5;
+      // optional .dg.model.Time ResponseTs = 5;
       case 5: {
         if (tag == 42) {
          parse_ResponseTs:
@@ -3109,7 +3131,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
         break;
       }
 
-      // map<string, .dg.Time> DebugTs = 6;
+      // map<string, .dg.model.Time> DebugTs = 6;
       case 6: {
         if (tag == 50) {
          parse_DebugTs:
@@ -3122,7 +3144,7 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             entry->key().data(), entry->key().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResponseContext.DebugTsEntry.key"));
+            "dg.model.WitnessResponseContext.DebugTsEntry.key"));
         } else {
           goto handle_unusual;
         }
@@ -3145,23 +3167,23 @@ bool WitnessResponseContext::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessResponseContext)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponseContext)
   return false;
 #undef DO_
 }
 
 void WitnessResponseContext::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponseContext)
   // optional string SessionId = 1;
   if (this->sessionid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sessionid().data(), this->sessionid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.SessionId");
+      "dg.model.WitnessResponseContext.SessionId");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->sessionid(), output);
   }
@@ -3171,7 +3193,7 @@ void WitnessResponseContext::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->status().data(), this->status().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.Status");
+      "dg.model.WitnessResponseContext.Status");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->status(), output);
   }
@@ -3181,27 +3203,27 @@ void WitnessResponseContext::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.Message");
+      "dg.model.WitnessResponseContext.Message");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->message(), output);
   }
 
-  // optional .dg.Time RequestTs = 4;
+  // optional .dg.model.Time RequestTs = 4;
   if (this->has_requestts()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->requestts_, output);
   }
 
-  // optional .dg.Time ResponseTs = 5;
+  // optional .dg.model.Time ResponseTs = 5;
   if (this->has_responsets()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, *this->responsets_, output);
   }
 
-  // map<string, .dg.Time> DebugTs = 6;
+  // map<string, .dg.model.Time> DebugTs = 6;
   {
     ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::Time >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
         it = this->debugts().begin();
         it != this->debugts().end(); ++it) {
       entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
@@ -3210,22 +3232,22 @@ void WitnessResponseContext::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->first.data(), it->first.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessResponseContext.DebugTsEntry.key");
+        "dg.model.WitnessResponseContext.DebugTsEntry.key");
     }
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponseContext)
 }
 
 ::google::protobuf::uint8* WitnessResponseContext::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponseContext)
   // optional string SessionId = 1;
   if (this->sessionid().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sessionid().data(), this->sessionid().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.SessionId");
+      "dg.model.WitnessResponseContext.SessionId");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->sessionid(), target);
@@ -3236,7 +3258,7 @@ void WitnessResponseContext::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->status().data(), this->status().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.Status");
+      "dg.model.WitnessResponseContext.Status");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->status(), target);
@@ -3247,30 +3269,30 @@ void WitnessResponseContext::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->message().data(), this->message().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResponseContext.Message");
+      "dg.model.WitnessResponseContext.Message");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->message(), target);
   }
 
-  // optional .dg.Time RequestTs = 4;
+  // optional .dg.model.Time RequestTs = 4;
   if (this->has_requestts()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         4, *this->requestts_, target);
   }
 
-  // optional .dg.Time ResponseTs = 5;
+  // optional .dg.model.Time ResponseTs = 5;
   if (this->has_responsets()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         5, *this->responsets_, target);
   }
 
-  // map<string, .dg.Time> DebugTs = 6;
+  // map<string, .dg.model.Time> DebugTs = 6;
   {
     ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::Time >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
         it = this->debugts().begin();
         it != this->debugts().end(); ++it) {
       entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
@@ -3280,11 +3302,11 @@ void WitnessResponseContext::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
         it->first.data(), it->first.length(),
         ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.WitnessResponseContext.DebugTsEntry.key");
+        "dg.model.WitnessResponseContext.DebugTsEntry.key");
     }
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponseContext)
   return target;
 }
 
@@ -3312,25 +3334,25 @@ int WitnessResponseContext::ByteSize() const {
         this->message());
   }
 
-  // optional .dg.Time RequestTs = 4;
+  // optional .dg.model.Time RequestTs = 4;
   if (this->has_requestts()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->requestts_);
   }
 
-  // optional .dg.Time ResponseTs = 5;
+  // optional .dg.model.Time ResponseTs = 5;
   if (this->has_responsets()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->responsets_);
   }
 
-  // map<string, .dg.Time> DebugTs = 6;
+  // map<string, .dg.model.Time> DebugTs = 6;
   total_size += 1 * this->debugts_size();
   {
     ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::Time >::const_iterator
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
         it = this->debugts().begin();
         it != this->debugts().end(); ++it) {
       entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
@@ -3373,10 +3395,10 @@ void WitnessResponseContext::MergeFrom(const WitnessResponseContext& from) {
     message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
   }
   if (from.has_requestts()) {
-    mutable_requestts()->::dg::Time::MergeFrom(from.requestts());
+    mutable_requestts()->::dg::model::Time::MergeFrom(from.requestts());
   }
   if (from.has_responsets()) {
-    mutable_responsets()->::dg::Time::MergeFrom(from.responsets());
+    mutable_responsets()->::dg::model::Time::MergeFrom(from.responsets());
   }
 }
 
@@ -3428,28 +3450,28 @@ void WitnessResponseContext::clear_sessionid() {
   sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessResponseContext::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.SessionId)
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_sessionid(const ::std::string& value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.SessionId)
 }
  void WitnessResponseContext::set_sessionid(const char* value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.SessionId)
 }
  void WitnessResponseContext::set_sessionid(const char* value, size_t size) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.SessionId)
 }
  ::std::string* WitnessResponseContext::mutable_sessionid() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_sessionid() {
@@ -3463,7 +3485,7 @@ void WitnessResponseContext::clear_sessionid() {
     
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.SessionId)
 }
 
 // optional string Status = 2;
@@ -3471,28 +3493,28 @@ void WitnessResponseContext::clear_status() {
   status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessResponseContext::status() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.Status)
   return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_status(const ::std::string& value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Status)
 }
  void WitnessResponseContext::set_status(const char* value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Status)
 }
  void WitnessResponseContext::set_status(const char* value, size_t size) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Status)
 }
  ::std::string* WitnessResponseContext::mutable_status() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Status)
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_status() {
@@ -3506,7 +3528,7 @@ void WitnessResponseContext::clear_status() {
     
   }
   status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Status)
 }
 
 // optional string Message = 3;
@@ -3514,28 +3536,28 @@ void WitnessResponseContext::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessResponseContext::message() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.Message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Message)
 }
  void WitnessResponseContext::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Message)
 }
  void WitnessResponseContext::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Message)
 }
  ::std::string* WitnessResponseContext::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_message() {
@@ -3549,10 +3571,10 @@ void WitnessResponseContext::clear_message() {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Message)
 }
 
-// optional .dg.Time RequestTs = 4;
+// optional .dg.model.Time RequestTs = 4;
 bool WitnessResponseContext::has_requestts() const {
   return !_is_default_instance_ && requestts_ != NULL;
 }
@@ -3560,25 +3582,25 @@ void WitnessResponseContext::clear_requestts() {
   if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
   requestts_ = NULL;
 }
-const ::dg::Time& WitnessResponseContext::requestts() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.RequestTs)
+const ::dg::model::Time& WitnessResponseContext::requestts() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.RequestTs)
   return requestts_ != NULL ? *requestts_ : *default_instance_->requestts_;
 }
-::dg::Time* WitnessResponseContext::mutable_requestts() {
+::dg::model::Time* WitnessResponseContext::mutable_requestts() {
   
   if (requestts_ == NULL) {
-    requestts_ = new ::dg::Time;
+    requestts_ = new ::dg::model::Time;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.RequestTs)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.RequestTs)
   return requestts_;
 }
-::dg::Time* WitnessResponseContext::release_requestts() {
+::dg::model::Time* WitnessResponseContext::release_requestts() {
   
-  ::dg::Time* temp = requestts_;
+  ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
   return temp;
 }
-void WitnessResponseContext::set_allocated_requestts(::dg::Time* requestts) {
+void WitnessResponseContext::set_allocated_requestts(::dg::model::Time* requestts) {
   delete requestts_;
   requestts_ = requestts;
   if (requestts) {
@@ -3586,10 +3608,10 @@ void WitnessResponseContext::set_allocated_requestts(::dg::Time* requestts) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.RequestTs)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.RequestTs)
 }
 
-// optional .dg.Time ResponseTs = 5;
+// optional .dg.model.Time ResponseTs = 5;
 bool WitnessResponseContext::has_responsets() const {
   return !_is_default_instance_ && responsets_ != NULL;
 }
@@ -3597,25 +3619,25 @@ void WitnessResponseContext::clear_responsets() {
   if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
   responsets_ = NULL;
 }
-const ::dg::Time& WitnessResponseContext::responsets() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.ResponseTs)
+const ::dg::model::Time& WitnessResponseContext::responsets() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.ResponseTs)
   return responsets_ != NULL ? *responsets_ : *default_instance_->responsets_;
 }
-::dg::Time* WitnessResponseContext::mutable_responsets() {
+::dg::model::Time* WitnessResponseContext::mutable_responsets() {
   
   if (responsets_ == NULL) {
-    responsets_ = new ::dg::Time;
+    responsets_ = new ::dg::model::Time;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.ResponseTs)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.ResponseTs)
   return responsets_;
 }
-::dg::Time* WitnessResponseContext::release_responsets() {
+::dg::model::Time* WitnessResponseContext::release_responsets() {
   
-  ::dg::Time* temp = responsets_;
+  ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
   return temp;
 }
-void WitnessResponseContext::set_allocated_responsets(::dg::Time* responsets) {
+void WitnessResponseContext::set_allocated_responsets(::dg::model::Time* responsets) {
   delete responsets_;
   responsets_ = responsets;
   if (responsets) {
@@ -3623,24 +3645,24 @@ void WitnessResponseContext::set_allocated_responsets(::dg::Time* responsets) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.ResponseTs)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.ResponseTs)
 }
 
-// map<string, .dg.Time> DebugTs = 6;
+// map<string, .dg.model.Time> DebugTs = 6;
 int WitnessResponseContext::debugts_size() const {
   return debugts_.size();
 }
 void WitnessResponseContext::clear_debugts() {
   debugts_.Clear();
 }
- const ::google::protobuf::Map< ::std::string, ::dg::Time >&
+ const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
 WitnessResponseContext::debugts() const {
-  // @@protoc_insertion_point(field_map:dg.WitnessResponseContext.DebugTs)
+  // @@protoc_insertion_point(field_map:dg.model.WitnessResponseContext.DebugTs)
   return debugts_.GetMap();
 }
- ::google::protobuf::Map< ::std::string, ::dg::Time >*
+ ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
 WitnessResponseContext::mutable_debugts() {
-  // @@protoc_insertion_point(field_mutable_map:dg.WitnessResponseContext.DebugTs)
+  // @@protoc_insertion_point(field_mutable_map:dg.model.WitnessResponseContext.DebugTs)
   return debugts_.MutableMap();
 }
 
@@ -3659,12 +3681,12 @@ const int WitnessResult::kFacesFieldNumber;
 WitnessResult::WitnessResult()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.WitnessResult)
+  // @@protoc_insertion_point(constructor:dg.model.WitnessResult)
 }
 
 void WitnessResult::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  image_ = const_cast< ::dg::WitnessImage*>(&::dg::WitnessImage::default_instance());
+  image_ = const_cast< ::dg::model::WitnessImage*>(&::dg::model::WitnessImage::default_instance());
 }
 
 WitnessResult::WitnessResult(const WitnessResult& from)
@@ -3672,7 +3694,7 @@ WitnessResult::WitnessResult(const WitnessResult& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.WitnessResult)
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResult)
 }
 
 void WitnessResult::SharedCtor() {
@@ -3685,7 +3707,7 @@ void WitnessResult::SharedCtor() {
 }
 
 WitnessResult::~WitnessResult() {
-  // @@protoc_insertion_point(destructor:dg.WitnessResult)
+  // @@protoc_insertion_point(destructor:dg.model.WitnessResult)
   SharedDtor();
 }
 
@@ -3735,7 +3757,7 @@ bool WitnessResult::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.WitnessResult)
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessResult)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -3749,7 +3771,7 @@ bool WitnessResult::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->innerstatus().data(), this->innerstatus().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResult.InnerStatus"));
+            "dg.model.WitnessResult.InnerStatus"));
         } else {
           goto handle_unusual;
         }
@@ -3766,7 +3788,7 @@ bool WitnessResult::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->innermessage().data(), this->innermessage().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.WitnessResult.InnerMessage"));
+            "dg.model.WitnessResult.InnerMessage"));
         } else {
           goto handle_unusual;
         }
@@ -3774,7 +3796,7 @@ bool WitnessResult::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.WitnessImage Image = 3;
+      // optional .dg.model.WitnessImage Image = 3;
       case 3: {
         if (tag == 26) {
          parse_Image:
@@ -3787,7 +3809,7 @@ bool WitnessResult::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.RecognizedVehicle Vehicles = 4;
+      // repeated .dg.model.RecognizedVehicle Vehicles = 4;
       case 4: {
         if (tag == 34) {
          parse_Vehicles:
@@ -3804,7 +3826,7 @@ bool WitnessResult::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.RecognizedFace Faces = 5;
+      // repeated .dg.model.RecognizedFace Faces = 5;
       case 5: {
         if (tag == 42) {
           DO_(input->IncrementRecursionDepth());
@@ -3833,23 +3855,23 @@ bool WitnessResult::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.WitnessResult)
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessResult)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.WitnessResult)
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResult)
   return false;
 #undef DO_
 }
 
 void WitnessResult::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.WitnessResult)
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResult)
   // optional string InnerStatus = 1;
   if (this->innerstatus().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->innerstatus().data(), this->innerstatus().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResult.InnerStatus");
+      "dg.model.WitnessResult.InnerStatus");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->innerstatus(), output);
   }
@@ -3859,41 +3881,41 @@ void WitnessResult::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->innermessage().data(), this->innermessage().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResult.InnerMessage");
+      "dg.model.WitnessResult.InnerMessage");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->innermessage(), output);
   }
 
-  // optional .dg.WitnessImage Image = 3;
+  // optional .dg.model.WitnessImage Image = 3;
   if (this->has_image()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->image_, output);
   }
 
-  // repeated .dg.RecognizedVehicle Vehicles = 4;
+  // repeated .dg.model.RecognizedVehicle Vehicles = 4;
   for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, this->vehicles(i), output);
   }
 
-  // repeated .dg.RecognizedFace Faces = 5;
+  // repeated .dg.model.RecognizedFace Faces = 5;
   for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->faces(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.WitnessResult)
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResult)
 }
 
 ::google::protobuf::uint8* WitnessResult::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.WitnessResult)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResult)
   // optional string InnerStatus = 1;
   if (this->innerstatus().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->innerstatus().data(), this->innerstatus().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResult.InnerStatus");
+      "dg.model.WitnessResult.InnerStatus");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->innerstatus(), target);
@@ -3904,34 +3926,34 @@ void WitnessResult::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->innermessage().data(), this->innermessage().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.WitnessResult.InnerMessage");
+      "dg.model.WitnessResult.InnerMessage");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->innermessage(), target);
   }
 
-  // optional .dg.WitnessImage Image = 3;
+  // optional .dg.model.WitnessImage Image = 3;
   if (this->has_image()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, *this->image_, target);
   }
 
-  // repeated .dg.RecognizedVehicle Vehicles = 4;
+  // repeated .dg.model.RecognizedVehicle Vehicles = 4;
   for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         4, this->vehicles(i), target);
   }
 
-  // repeated .dg.RecognizedFace Faces = 5;
+  // repeated .dg.model.RecognizedFace Faces = 5;
   for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         5, this->faces(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.WitnessResult)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResult)
   return target;
 }
 
@@ -3952,14 +3974,14 @@ int WitnessResult::ByteSize() const {
         this->innermessage());
   }
 
-  // optional .dg.WitnessImage Image = 3;
+  // optional .dg.model.WitnessImage Image = 3;
   if (this->has_image()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->image_);
   }
 
-  // repeated .dg.RecognizedVehicle Vehicles = 4;
+  // repeated .dg.model.RecognizedVehicle Vehicles = 4;
   total_size += 1 * this->vehicles_size();
   for (int i = 0; i < this->vehicles_size(); i++) {
     total_size +=
@@ -3967,7 +3989,7 @@ int WitnessResult::ByteSize() const {
         this->vehicles(i));
   }
 
-  // repeated .dg.RecognizedFace Faces = 5;
+  // repeated .dg.model.RecognizedFace Faces = 5;
   total_size += 1 * this->faces_size();
   for (int i = 0; i < this->faces_size(); i++) {
     total_size +=
@@ -4006,7 +4028,7 @@ void WitnessResult::MergeFrom(const WitnessResult& from) {
     innermessage_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.innermessage_);
   }
   if (from.has_image()) {
-    mutable_image()->::dg::WitnessImage::MergeFrom(from.image());
+    mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
   }
 }
 
@@ -4057,28 +4079,28 @@ void WitnessResult::clear_innerstatus() {
   innerstatus_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessResult::innerstatus() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.InnerStatus)
   return innerstatus_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_innerstatus(const ::std::string& value) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerStatus)
 }
  void WitnessResult::set_innerstatus(const char* value) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerStatus)
 }
  void WitnessResult::set_innerstatus(const char* value, size_t size) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerStatus)
 }
  ::std::string* WitnessResult::mutable_innerstatus() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerStatus)
   return innerstatus_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResult::release_innerstatus() {
@@ -4092,7 +4114,7 @@ void WitnessResult::clear_innerstatus() {
     
   }
   innerstatus_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innerstatus);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerStatus)
 }
 
 // optional string InnerMessage = 2;
@@ -4100,28 +4122,28 @@ void WitnessResult::clear_innermessage() {
   innermessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& WitnessResult::innermessage() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.InnerMessage)
   return innermessage_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_innermessage(const ::std::string& value) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerMessage)
 }
  void WitnessResult::set_innermessage(const char* value) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerMessage)
 }
  void WitnessResult::set_innermessage(const char* value, size_t size) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerMessage)
 }
  ::std::string* WitnessResult::mutable_innermessage() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerMessage)
   return innermessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResult::release_innermessage() {
@@ -4135,10 +4157,10 @@ void WitnessResult::clear_innermessage() {
     
   }
   innermessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innermessage);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerMessage)
 }
 
-// optional .dg.WitnessImage Image = 3;
+// optional .dg.model.WitnessImage Image = 3;
 bool WitnessResult::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -4146,25 +4168,25 @@ void WitnessResult::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-const ::dg::WitnessImage& WitnessResult::image() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Image)
+const ::dg::model::WitnessImage& WitnessResult::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-::dg::WitnessImage* WitnessResult::mutable_image() {
+::dg::model::WitnessImage* WitnessResult::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::WitnessImage;
+    image_ = new ::dg::model::WitnessImage;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Image)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Image)
   return image_;
 }
-::dg::WitnessImage* WitnessResult::release_image() {
+::dg::model::WitnessImage* WitnessResult::release_image() {
   
-  ::dg::WitnessImage* temp = image_;
+  ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
 }
-void WitnessResult::set_allocated_image(::dg::WitnessImage* image) {
+void WitnessResult::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -4172,66 +4194,66 @@ void WitnessResult::set_allocated_image(::dg::WitnessImage* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.Image)
 }
 
-// repeated .dg.RecognizedVehicle Vehicles = 4;
+// repeated .dg.model.RecognizedVehicle Vehicles = 4;
 int WitnessResult::vehicles_size() const {
   return vehicles_.size();
 }
 void WitnessResult::clear_vehicles() {
   vehicles_.Clear();
 }
-const ::dg::RecognizedVehicle& WitnessResult::vehicles(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Vehicles)
+const ::dg::model::RecognizedVehicle& WitnessResult::vehicles(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Vehicles)
   return vehicles_.Get(index);
 }
-::dg::RecognizedVehicle* WitnessResult::mutable_vehicles(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Vehicles)
+::dg::model::RecognizedVehicle* WitnessResult::mutable_vehicles(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Vehicles)
   return vehicles_.Mutable(index);
 }
-::dg::RecognizedVehicle* WitnessResult::add_vehicles() {
-  // @@protoc_insertion_point(field_add:dg.WitnessResult.Vehicles)
+::dg::model::RecognizedVehicle* WitnessResult::add_vehicles() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Vehicles)
   return vehicles_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >*
+::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >*
 WitnessResult::mutable_vehicles() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessResult.Vehicles)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Vehicles)
   return &vehicles_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >&
 WitnessResult::vehicles() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessResult.Vehicles)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Vehicles)
   return vehicles_;
 }
 
-// repeated .dg.RecognizedFace Faces = 5;
+// repeated .dg.model.RecognizedFace Faces = 5;
 int WitnessResult::faces_size() const {
   return faces_.size();
 }
 void WitnessResult::clear_faces() {
   faces_.Clear();
 }
-const ::dg::RecognizedFace& WitnessResult::faces(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Faces)
+const ::dg::model::RecognizedFace& WitnessResult::faces(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Faces)
   return faces_.Get(index);
 }
-::dg::RecognizedFace* WitnessResult::mutable_faces(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Faces)
+::dg::model::RecognizedFace* WitnessResult::mutable_faces(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Faces)
   return faces_.Mutable(index);
 }
-::dg::RecognizedFace* WitnessResult::add_faces() {
-  // @@protoc_insertion_point(field_add:dg.WitnessResult.Faces)
+::dg::model::RecognizedFace* WitnessResult::add_faces() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Faces)
   return faces_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >*
+::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >*
 WitnessResult::mutable_faces() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessResult.Faces)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Faces)
   return &faces_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >&
 WitnessResult::faces() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessResult.Faces)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Faces)
   return faces_;
 }
 
@@ -4253,16 +4275,16 @@ const int RecognizedVehicle::kSceneFieldNumber;
 RecognizedVehicle::RecognizedVehicle()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(constructor:dg.model.RecognizedVehicle)
 }
 
 void RecognizedVehicle::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  model_ = const_cast< ::dg::VehicleModel*>(&::dg::VehicleModel::default_instance());
-  cutboard_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
-  color_ = const_cast< ::dg::Color*>(&::dg::Color::default_instance());
-  licenseplate_ = const_cast< ::dg::LicensePlate*>(&::dg::LicensePlate::default_instance());
-  scene_ = const_cast< ::dg::Scene*>(&::dg::Scene::default_instance());
+  model_ = const_cast< ::dg::model::VehicleModel*>(&::dg::model::VehicleModel::default_instance());
+  cutboard_ = const_cast< ::dg::model::Cutboard*>(&::dg::model::Cutboard::default_instance());
+  color_ = const_cast< ::dg::model::Color*>(&::dg::model::Color::default_instance());
+  licenseplate_ = const_cast< ::dg::model::LicensePlate*>(&::dg::model::LicensePlate::default_instance());
+  scene_ = const_cast< ::dg::model::Scene*>(&::dg::model::Scene::default_instance());
 }
 
 RecognizedVehicle::RecognizedVehicle(const RecognizedVehicle& from)
@@ -4270,7 +4292,7 @@ RecognizedVehicle::RecognizedVehicle(const RecognizedVehicle& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(copy_constructor:dg.model.RecognizedVehicle)
 }
 
 void RecognizedVehicle::SharedCtor() {
@@ -4286,7 +4308,7 @@ void RecognizedVehicle::SharedCtor() {
 }
 
 RecognizedVehicle::~RecognizedVehicle() {
-  // @@protoc_insertion_point(destructor:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(destructor:dg.model.RecognizedVehicle)
   SharedDtor();
 }
 
@@ -4346,13 +4368,13 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(parse_start:dg.model.RecognizedVehicle)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.VehicleModel Model = 1;
+      // optional .dg.model.VehicleModel Model = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -4364,7 +4386,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Cutboard Cutboard = 2;
+      // optional .dg.model.Cutboard Cutboard = 2;
       case 2: {
         if (tag == 18) {
          parse_Cutboard:
@@ -4377,7 +4399,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Color Color = 3;
+      // optional .dg.model.Color Color = 3;
       case 3: {
         if (tag == 26) {
          parse_Color:
@@ -4390,7 +4412,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.LicensePlate LicensePlate = 4;
+      // optional .dg.model.LicensePlate LicensePlate = 4;
       case 4: {
         if (tag == 34) {
          parse_LicensePlate:
@@ -4403,7 +4425,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.SymbolItem SymbolItems = 5;
+      // repeated .dg.model.SymbolItem SymbolItems = 5;
       case 5: {
         if (tag == 42) {
          parse_SymbolItems:
@@ -4420,7 +4442,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.VehicleModel Candidates = 6;
+      // repeated .dg.model.VehicleModel Candidates = 6;
       case 6: {
         if (tag == 50) {
           DO_(input->IncrementRecursionDepth());
@@ -4445,7 +4467,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->features().data(), this->features().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.RecognizedVehicle.Features"));
+            "dg.model.RecognizedVehicle.Features"));
         } else {
           goto handle_unusual;
         }
@@ -4453,7 +4475,7 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Scene Scene = 8;
+      // optional .dg.model.Scene Scene = 8;
       case 8: {
         if (tag == 66) {
          parse_Scene:
@@ -4479,48 +4501,48 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(parse_success:dg.model.RecognizedVehicle)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(parse_failure:dg.model.RecognizedVehicle)
   return false;
 #undef DO_
 }
 
 void RecognizedVehicle::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizedVehicle)
-  // optional .dg.VehicleModel Model = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.RecognizedVehicle)
+  // optional .dg.model.VehicleModel Model = 1;
   if (this->has_model()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->model_, output);
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->cutboard_, output);
   }
 
-  // optional .dg.Color Color = 3;
+  // optional .dg.model.Color Color = 3;
   if (this->has_color()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->color_, output);
   }
 
-  // optional .dg.LicensePlate LicensePlate = 4;
+  // optional .dg.model.LicensePlate LicensePlate = 4;
   if (this->has_licenseplate()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       4, *this->licenseplate_, output);
   }
 
-  // repeated .dg.SymbolItem SymbolItems = 5;
+  // repeated .dg.model.SymbolItem SymbolItems = 5;
   for (unsigned int i = 0, n = this->symbolitems_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       5, this->symbolitems(i), output);
   }
 
-  // repeated .dg.VehicleModel Candidates = 6;
+  // repeated .dg.model.VehicleModel Candidates = 6;
   for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       6, this->candidates(i), output);
@@ -4531,59 +4553,59 @@ void RecognizedVehicle::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizedVehicle.Features");
+      "dg.model.RecognizedVehicle.Features");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->features(), output);
   }
 
-  // optional .dg.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 8;
   if (this->has_scene()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       8, *this->scene_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(serialize_end:dg.model.RecognizedVehicle)
 }
 
 ::google::protobuf::uint8* RecognizedVehicle::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizedVehicle)
-  // optional .dg.VehicleModel Model = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecognizedVehicle)
+  // optional .dg.model.VehicleModel Model = 1;
   if (this->has_model()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         1, *this->model_, target);
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->cutboard_, target);
   }
 
-  // optional .dg.Color Color = 3;
+  // optional .dg.model.Color Color = 3;
   if (this->has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, *this->color_, target);
   }
 
-  // optional .dg.LicensePlate LicensePlate = 4;
+  // optional .dg.model.LicensePlate LicensePlate = 4;
   if (this->has_licenseplate()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         4, *this->licenseplate_, target);
   }
 
-  // repeated .dg.SymbolItem SymbolItems = 5;
+  // repeated .dg.model.SymbolItem SymbolItems = 5;
   for (unsigned int i = 0, n = this->symbolitems_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         5, this->symbolitems(i), target);
   }
 
-  // repeated .dg.VehicleModel Candidates = 6;
+  // repeated .dg.model.VehicleModel Candidates = 6;
   for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -4595,48 +4617,48 @@ void RecognizedVehicle::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizedVehicle.Features");
+      "dg.model.RecognizedVehicle.Features");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->features(), target);
   }
 
-  // optional .dg.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 8;
   if (this->has_scene()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         8, *this->scene_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecognizedVehicle)
   return target;
 }
 
 int RecognizedVehicle::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.VehicleModel Model = 1;
+  // optional .dg.model.VehicleModel Model = 1;
   if (this->has_model()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->model_);
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->cutboard_);
   }
 
-  // optional .dg.Color Color = 3;
+  // optional .dg.model.Color Color = 3;
   if (this->has_color()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->color_);
   }
 
-  // optional .dg.LicensePlate LicensePlate = 4;
+  // optional .dg.model.LicensePlate LicensePlate = 4;
   if (this->has_licenseplate()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -4650,14 +4672,14 @@ int RecognizedVehicle::ByteSize() const {
         this->features());
   }
 
-  // optional .dg.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 8;
   if (this->has_scene()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->scene_);
   }
 
-  // repeated .dg.SymbolItem SymbolItems = 5;
+  // repeated .dg.model.SymbolItem SymbolItems = 5;
   total_size += 1 * this->symbolitems_size();
   for (int i = 0; i < this->symbolitems_size(); i++) {
     total_size +=
@@ -4665,7 +4687,7 @@ int RecognizedVehicle::ByteSize() const {
         this->symbolitems(i));
   }
 
-  // repeated .dg.VehicleModel Candidates = 6;
+  // repeated .dg.model.VehicleModel Candidates = 6;
   total_size += 1 * this->candidates_size();
   for (int i = 0; i < this->candidates_size(); i++) {
     total_size +=
@@ -4696,23 +4718,23 @@ void RecognizedVehicle::MergeFrom(const RecognizedVehicle& from) {
   symbolitems_.MergeFrom(from.symbolitems_);
   candidates_.MergeFrom(from.candidates_);
   if (from.has_model()) {
-    mutable_model()->::dg::VehicleModel::MergeFrom(from.model());
+    mutable_model()->::dg::model::VehicleModel::MergeFrom(from.model());
   }
   if (from.has_cutboard()) {
-    mutable_cutboard()->::dg::Cutboard::MergeFrom(from.cutboard());
+    mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
   }
   if (from.has_color()) {
-    mutable_color()->::dg::Color::MergeFrom(from.color());
+    mutable_color()->::dg::model::Color::MergeFrom(from.color());
   }
   if (from.has_licenseplate()) {
-    mutable_licenseplate()->::dg::LicensePlate::MergeFrom(from.licenseplate());
+    mutable_licenseplate()->::dg::model::LicensePlate::MergeFrom(from.licenseplate());
   }
   if (from.features().size() > 0) {
 
     features_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.features_);
   }
   if (from.has_scene()) {
-    mutable_scene()->::dg::Scene::MergeFrom(from.scene());
+    mutable_scene()->::dg::model::Scene::MergeFrom(from.scene());
   }
 }
 
@@ -4761,7 +4783,7 @@ void RecognizedVehicle::InternalSwap(RecognizedVehicle* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RecognizedVehicle
 
-// optional .dg.VehicleModel Model = 1;
+// optional .dg.model.VehicleModel Model = 1;
 bool RecognizedVehicle::has_model() const {
   return !_is_default_instance_ && model_ != NULL;
 }
@@ -4769,25 +4791,25 @@ void RecognizedVehicle::clear_model() {
   if (GetArenaNoVirtual() == NULL && model_ != NULL) delete model_;
   model_ = NULL;
 }
-const ::dg::VehicleModel& RecognizedVehicle::model() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Model)
+const ::dg::model::VehicleModel& RecognizedVehicle::model() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Model)
   return model_ != NULL ? *model_ : *default_instance_->model_;
 }
-::dg::VehicleModel* RecognizedVehicle::mutable_model() {
+::dg::model::VehicleModel* RecognizedVehicle::mutable_model() {
   
   if (model_ == NULL) {
-    model_ = new ::dg::VehicleModel;
+    model_ = new ::dg::model::VehicleModel;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Model)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Model)
   return model_;
 }
-::dg::VehicleModel* RecognizedVehicle::release_model() {
+::dg::model::VehicleModel* RecognizedVehicle::release_model() {
   
-  ::dg::VehicleModel* temp = model_;
+  ::dg::model::VehicleModel* temp = model_;
   model_ = NULL;
   return temp;
 }
-void RecognizedVehicle::set_allocated_model(::dg::VehicleModel* model) {
+void RecognizedVehicle::set_allocated_model(::dg::model::VehicleModel* model) {
   delete model_;
   model_ = model;
   if (model) {
@@ -4795,10 +4817,10 @@ void RecognizedVehicle::set_allocated_model(::dg::VehicleModel* model) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Model)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Model)
 }
 
-// optional .dg.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 2;
 bool RecognizedVehicle::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -4806,25 +4828,25 @@ void RecognizedVehicle::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-const ::dg::Cutboard& RecognizedVehicle::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Cutboard)
+const ::dg::model::Cutboard& RecognizedVehicle::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-::dg::Cutboard* RecognizedVehicle::mutable_cutboard() {
+::dg::model::Cutboard* RecognizedVehicle::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Cutboard)
   return cutboard_;
 }
-::dg::Cutboard* RecognizedVehicle::release_cutboard() {
+::dg::model::Cutboard* RecognizedVehicle::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-void RecognizedVehicle::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+void RecognizedVehicle::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -4832,10 +4854,10 @@ void RecognizedVehicle::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Cutboard)
 }
 
-// optional .dg.Color Color = 3;
+// optional .dg.model.Color Color = 3;
 bool RecognizedVehicle::has_color() const {
   return !_is_default_instance_ && color_ != NULL;
 }
@@ -4843,25 +4865,25 @@ void RecognizedVehicle::clear_color() {
   if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
   color_ = NULL;
 }
-const ::dg::Color& RecognizedVehicle::color() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Color)
+const ::dg::model::Color& RecognizedVehicle::color() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Color)
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
-::dg::Color* RecognizedVehicle::mutable_color() {
+::dg::model::Color* RecognizedVehicle::mutable_color() {
   
   if (color_ == NULL) {
-    color_ = new ::dg::Color;
+    color_ = new ::dg::model::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Color)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Color)
   return color_;
 }
-::dg::Color* RecognizedVehicle::release_color() {
+::dg::model::Color* RecognizedVehicle::release_color() {
   
-  ::dg::Color* temp = color_;
+  ::dg::model::Color* temp = color_;
   color_ = NULL;
   return temp;
 }
-void RecognizedVehicle::set_allocated_color(::dg::Color* color) {
+void RecognizedVehicle::set_allocated_color(::dg::model::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
@@ -4869,10 +4891,10 @@ void RecognizedVehicle::set_allocated_color(::dg::Color* color) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Color)
 }
 
-// optional .dg.LicensePlate LicensePlate = 4;
+// optional .dg.model.LicensePlate LicensePlate = 4;
 bool RecognizedVehicle::has_licenseplate() const {
   return !_is_default_instance_ && licenseplate_ != NULL;
 }
@@ -4880,25 +4902,25 @@ void RecognizedVehicle::clear_licenseplate() {
   if (GetArenaNoVirtual() == NULL && licenseplate_ != NULL) delete licenseplate_;
   licenseplate_ = NULL;
 }
-const ::dg::LicensePlate& RecognizedVehicle::licenseplate() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.LicensePlate)
+const ::dg::model::LicensePlate& RecognizedVehicle::licenseplate() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.LicensePlate)
   return licenseplate_ != NULL ? *licenseplate_ : *default_instance_->licenseplate_;
 }
-::dg::LicensePlate* RecognizedVehicle::mutable_licenseplate() {
+::dg::model::LicensePlate* RecognizedVehicle::mutable_licenseplate() {
   
   if (licenseplate_ == NULL) {
-    licenseplate_ = new ::dg::LicensePlate;
+    licenseplate_ = new ::dg::model::LicensePlate;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.LicensePlate)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.LicensePlate)
   return licenseplate_;
 }
-::dg::LicensePlate* RecognizedVehicle::release_licenseplate() {
+::dg::model::LicensePlate* RecognizedVehicle::release_licenseplate() {
   
-  ::dg::LicensePlate* temp = licenseplate_;
+  ::dg::model::LicensePlate* temp = licenseplate_;
   licenseplate_ = NULL;
   return temp;
 }
-void RecognizedVehicle::set_allocated_licenseplate(::dg::LicensePlate* licenseplate) {
+void RecognizedVehicle::set_allocated_licenseplate(::dg::model::LicensePlate* licenseplate) {
   delete licenseplate_;
   licenseplate_ = licenseplate;
   if (licenseplate) {
@@ -4906,66 +4928,66 @@ void RecognizedVehicle::set_allocated_licenseplate(::dg::LicensePlate* licensepl
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.LicensePlate)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.LicensePlate)
 }
 
-// repeated .dg.SymbolItem SymbolItems = 5;
+// repeated .dg.model.SymbolItem SymbolItems = 5;
 int RecognizedVehicle::symbolitems_size() const {
   return symbolitems_.size();
 }
 void RecognizedVehicle::clear_symbolitems() {
   symbolitems_.Clear();
 }
-const ::dg::SymbolItem& RecognizedVehicle::symbolitems(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.SymbolItems)
+const ::dg::model::SymbolItem& RecognizedVehicle::symbolitems(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Get(index);
 }
-::dg::SymbolItem* RecognizedVehicle::mutable_symbolitems(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.SymbolItems)
+::dg::model::SymbolItem* RecognizedVehicle::mutable_symbolitems(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Mutable(index);
 }
-::dg::SymbolItem* RecognizedVehicle::add_symbolitems() {
-  // @@protoc_insertion_point(field_add:dg.RecognizedVehicle.SymbolItems)
+::dg::model::SymbolItem* RecognizedVehicle::add_symbolitems() {
+  // @@protoc_insertion_point(field_add:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >*
+::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >*
 RecognizedVehicle::mutable_symbolitems() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizedVehicle.SymbolItems)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecognizedVehicle.SymbolItems)
   return &symbolitems_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >&
 RecognizedVehicle::symbolitems() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizedVehicle.SymbolItems)
+  // @@protoc_insertion_point(field_list:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_;
 }
 
-// repeated .dg.VehicleModel Candidates = 6;
+// repeated .dg.model.VehicleModel Candidates = 6;
 int RecognizedVehicle::candidates_size() const {
   return candidates_.size();
 }
 void RecognizedVehicle::clear_candidates() {
   candidates_.Clear();
 }
-const ::dg::VehicleModel& RecognizedVehicle::candidates(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Candidates)
+const ::dg::model::VehicleModel& RecognizedVehicle::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Candidates)
   return candidates_.Get(index);
 }
-::dg::VehicleModel* RecognizedVehicle::mutable_candidates(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Candidates)
+::dg::model::VehicleModel* RecognizedVehicle::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Candidates)
   return candidates_.Mutable(index);
 }
-::dg::VehicleModel* RecognizedVehicle::add_candidates() {
-  // @@protoc_insertion_point(field_add:dg.RecognizedVehicle.Candidates)
+::dg::model::VehicleModel* RecognizedVehicle::add_candidates() {
+  // @@protoc_insertion_point(field_add:dg.model.RecognizedVehicle.Candidates)
   return candidates_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >*
+::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >*
 RecognizedVehicle::mutable_candidates() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizedVehicle.Candidates)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecognizedVehicle.Candidates)
   return &candidates_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >&
 RecognizedVehicle::candidates() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizedVehicle.Candidates)
+  // @@protoc_insertion_point(field_list:dg.model.RecognizedVehicle.Candidates)
   return candidates_;
 }
 
@@ -4974,28 +4996,28 @@ void RecognizedVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& RecognizedVehicle::features() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void RecognizedVehicle::set_features(const ::std::string& value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedVehicle.Features)
 }
  void RecognizedVehicle::set_features(const char* value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_char:dg.model.RecognizedVehicle.Features)
 }
  void RecognizedVehicle::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecognizedVehicle.Features)
 }
  ::std::string* RecognizedVehicle::mutable_features() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecognizedVehicle::release_features() {
@@ -5009,10 +5031,10 @@ void RecognizedVehicle::clear_features() {
     
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Features)
 }
 
-// optional .dg.Scene Scene = 8;
+// optional .dg.model.Scene Scene = 8;
 bool RecognizedVehicle::has_scene() const {
   return !_is_default_instance_ && scene_ != NULL;
 }
@@ -5020,25 +5042,25 @@ void RecognizedVehicle::clear_scene() {
   if (GetArenaNoVirtual() == NULL && scene_ != NULL) delete scene_;
   scene_ = NULL;
 }
-const ::dg::Scene& RecognizedVehicle::scene() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Scene)
+const ::dg::model::Scene& RecognizedVehicle::scene() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Scene)
   return scene_ != NULL ? *scene_ : *default_instance_->scene_;
 }
-::dg::Scene* RecognizedVehicle::mutable_scene() {
+::dg::model::Scene* RecognizedVehicle::mutable_scene() {
   
   if (scene_ == NULL) {
-    scene_ = new ::dg::Scene;
+    scene_ = new ::dg::model::Scene;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Scene)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Scene)
   return scene_;
 }
-::dg::Scene* RecognizedVehicle::release_scene() {
+::dg::model::Scene* RecognizedVehicle::release_scene() {
   
-  ::dg::Scene* temp = scene_;
+  ::dg::model::Scene* temp = scene_;
   scene_ = NULL;
   return temp;
 }
-void RecognizedVehicle::set_allocated_scene(::dg::Scene* scene) {
+void RecognizedVehicle::set_allocated_scene(::dg::model::Scene* scene) {
   delete scene_;
   scene_ = scene;
   if (scene) {
@@ -5046,7 +5068,7 @@ void RecognizedVehicle::set_allocated_scene(::dg::Scene* scene) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Scene)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Scene)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5062,12 +5084,12 @@ const int RecognizedFace::kFeaturesFieldNumber;
 RecognizedFace::RecognizedFace()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.RecognizedFace)
+  // @@protoc_insertion_point(constructor:dg.model.RecognizedFace)
 }
 
 void RecognizedFace::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  cutboard_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
+  cutboard_ = const_cast< ::dg::model::Cutboard*>(&::dg::model::Cutboard::default_instance());
 }
 
 RecognizedFace::RecognizedFace(const RecognizedFace& from)
@@ -5075,7 +5097,7 @@ RecognizedFace::RecognizedFace(const RecognizedFace& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.RecognizedFace)
+  // @@protoc_insertion_point(copy_constructor:dg.model.RecognizedFace)
 }
 
 void RecognizedFace::SharedCtor() {
@@ -5088,7 +5110,7 @@ void RecognizedFace::SharedCtor() {
 }
 
 RecognizedFace::~RecognizedFace() {
-  // @@protoc_insertion_point(destructor:dg.RecognizedFace)
+  // @@protoc_insertion_point(destructor:dg.model.RecognizedFace)
   SharedDtor();
 }
 
@@ -5135,13 +5157,13 @@ bool RecognizedFace::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.RecognizedFace)
+  // @@protoc_insertion_point(parse_start:dg.model.RecognizedFace)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.Cutboard Cutboard = 1;
+      // optional .dg.model.Cutboard Cutboard = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -5177,7 +5199,7 @@ bool RecognizedFace::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->features().data(), this->features().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.RecognizedFace.Features"));
+            "dg.model.RecognizedFace.Features"));
         } else {
           goto handle_unusual;
         }
@@ -5198,18 +5220,18 @@ bool RecognizedFace::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.RecognizedFace)
+  // @@protoc_insertion_point(parse_success:dg.model.RecognizedFace)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.RecognizedFace)
+  // @@protoc_insertion_point(parse_failure:dg.model.RecognizedFace)
   return false;
 #undef DO_
 }
 
 void RecognizedFace::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.RecognizedFace)
-  // optional .dg.Cutboard Cutboard = 1;
+  // @@protoc_insertion_point(serialize_start:dg.model.RecognizedFace)
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->cutboard_, output);
@@ -5225,18 +5247,18 @@ void RecognizedFace::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizedFace.Features");
+      "dg.model.RecognizedFace.Features");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->features(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.RecognizedFace)
+  // @@protoc_insertion_point(serialize_end:dg.model.RecognizedFace)
 }
 
 ::google::protobuf::uint8* RecognizedFace::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.RecognizedFace)
-  // optional .dg.Cutboard Cutboard = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecognizedFace)
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -5253,20 +5275,20 @@ void RecognizedFace::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.RecognizedFace.Features");
+      "dg.model.RecognizedFace.Features");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->features(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.RecognizedFace)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecognizedFace)
   return target;
 }
 
 int RecognizedFace::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.Cutboard Cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -5306,7 +5328,7 @@ void RecognizedFace::MergeFrom(const ::google::protobuf::Message& from) {
 void RecognizedFace::MergeFrom(const RecognizedFace& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_cutboard()) {
-    mutable_cutboard()->::dg::Cutboard::MergeFrom(from.cutboard());
+    mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
   }
   if (from.confidence() != 0) {
     set_confidence(from.confidence());
@@ -5357,7 +5379,7 @@ void RecognizedFace::InternalSwap(RecognizedFace* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RecognizedFace
 
-// optional .dg.Cutboard Cutboard = 1;
+// optional .dg.model.Cutboard Cutboard = 1;
 bool RecognizedFace::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -5365,25 +5387,25 @@ void RecognizedFace::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-const ::dg::Cutboard& RecognizedFace::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Cutboard)
+const ::dg::model::Cutboard& RecognizedFace::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-::dg::Cutboard* RecognizedFace::mutable_cutboard() {
+::dg::model::Cutboard* RecognizedFace::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedFace.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedFace.Cutboard)
   return cutboard_;
 }
-::dg::Cutboard* RecognizedFace::release_cutboard() {
+::dg::model::Cutboard* RecognizedFace::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-void RecognizedFace::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+void RecognizedFace::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -5391,7 +5413,7 @@ void RecognizedFace::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedFace.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedFace.Cutboard)
 }
 
 // optional float Confidence = 2;
@@ -5399,13 +5421,13 @@ void RecognizedFace::clear_confidence() {
   confidence_ = 0;
 }
  float RecognizedFace::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Confidence)
   return confidence_;
 }
  void RecognizedFace::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizedFace.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedFace.Confidence)
 }
 
 // optional string Features = 3;
@@ -5413,28 +5435,28 @@ void RecognizedFace::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& RecognizedFace::features() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void RecognizedFace::set_features(const ::std::string& value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedFace.Features)
 }
  void RecognizedFace::set_features(const char* value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_char:dg.model.RecognizedFace.Features)
 }
  void RecognizedFace::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecognizedFace.Features)
 }
  ::std::string* RecognizedFace::mutable_features() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedFace.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecognizedFace::release_features() {
@@ -5448,7 +5470,7 @@ void RecognizedFace::clear_features() {
     
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedFace.Features)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5471,7 +5493,7 @@ const int VehicleModel::kConfidenceFieldNumber;
 VehicleModel::VehicleModel()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.VehicleModel)
+  // @@protoc_insertion_point(constructor:dg.model.VehicleModel)
 }
 
 void VehicleModel::InitAsDefaultInstance() {
@@ -5483,7 +5505,7 @@ VehicleModel::VehicleModel(const VehicleModel& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.VehicleModel)
+  // @@protoc_insertion_point(copy_constructor:dg.model.VehicleModel)
 }
 
 void VehicleModel::SharedCtor() {
@@ -5503,7 +5525,7 @@ void VehicleModel::SharedCtor() {
 }
 
 VehicleModel::~VehicleModel() {
-  // @@protoc_insertion_point(destructor:dg.VehicleModel)
+  // @@protoc_insertion_point(destructor:dg.model.VehicleModel)
   SharedDtor();
 }
 
@@ -5566,7 +5588,7 @@ bool VehicleModel::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.VehicleModel)
+  // @@protoc_insertion_point(parse_start:dg.model.VehicleModel)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -5640,7 +5662,7 @@ bool VehicleModel::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->type().data(), this->type().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.VehicleModel.Type"));
+            "dg.model.VehicleModel.Type"));
         } else {
           goto handle_unusual;
         }
@@ -5657,7 +5679,7 @@ bool VehicleModel::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->brand().data(), this->brand().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.VehicleModel.Brand"));
+            "dg.model.VehicleModel.Brand"));
         } else {
           goto handle_unusual;
         }
@@ -5674,7 +5696,7 @@ bool VehicleModel::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->subbrand().data(), this->subbrand().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.VehicleModel.SubBrand"));
+            "dg.model.VehicleModel.SubBrand"));
         } else {
           goto handle_unusual;
         }
@@ -5691,7 +5713,7 @@ bool VehicleModel::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->modelyear().data(), this->modelyear().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.VehicleModel.ModelYear"));
+            "dg.model.VehicleModel.ModelYear"));
         } else {
           goto handle_unusual;
         }
@@ -5742,17 +5764,17 @@ bool VehicleModel::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.VehicleModel)
+  // @@protoc_insertion_point(parse_success:dg.model.VehicleModel)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.VehicleModel)
+  // @@protoc_insertion_point(parse_failure:dg.model.VehicleModel)
   return false;
 #undef DO_
 }
 
 void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.VehicleModel)
+  // @@protoc_insertion_point(serialize_start:dg.model.VehicleModel)
   // optional int32 TypeId = 1;
   if (this->typeid_() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->typeid_(), output);
@@ -5778,7 +5800,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.Type");
+      "dg.model.VehicleModel.Type");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       5, this->type(), output);
   }
@@ -5788,7 +5810,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->brand().data(), this->brand().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.Brand");
+      "dg.model.VehicleModel.Brand");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->brand(), output);
   }
@@ -5798,7 +5820,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->subbrand().data(), this->subbrand().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.SubBrand");
+      "dg.model.VehicleModel.SubBrand");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->subbrand(), output);
   }
@@ -5808,7 +5830,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->modelyear().data(), this->modelyear().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.ModelYear");
+      "dg.model.VehicleModel.ModelYear");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       8, this->modelyear(), output);
   }
@@ -5823,12 +5845,12 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(10, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.VehicleModel)
+  // @@protoc_insertion_point(serialize_end:dg.model.VehicleModel)
 }
 
 ::google::protobuf::uint8* VehicleModel::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.VehicleModel)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleModel)
   // optional int32 TypeId = 1;
   if (this->typeid_() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->typeid_(), target);
@@ -5854,7 +5876,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.Type");
+      "dg.model.VehicleModel.Type");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->type(), target);
@@ -5865,7 +5887,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->brand().data(), this->brand().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.Brand");
+      "dg.model.VehicleModel.Brand");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->brand(), target);
@@ -5876,7 +5898,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->subbrand().data(), this->subbrand().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.SubBrand");
+      "dg.model.VehicleModel.SubBrand");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->subbrand(), target);
@@ -5887,7 +5909,7 @@ void VehicleModel::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->modelyear().data(), this->modelyear().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.VehicleModel.ModelYear");
+      "dg.model.VehicleModel.ModelYear");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         8, this->modelyear(), target);
@@ -5903,7 +5925,7 @@ void VehicleModel::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(10, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.VehicleModel)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleModel)
   return target;
 }
 
@@ -6086,13 +6108,13 @@ void VehicleModel::clear_typeid_() {
   typeid__ = 0;
 }
  ::google::protobuf::int32 VehicleModel::typeid_() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.TypeId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.TypeId)
   return typeid__;
 }
  void VehicleModel::set_typeid_(::google::protobuf::int32 value) {
   
   typeid__ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.TypeId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.TypeId)
 }
 
 // optional int32 BrandId = 2;
@@ -6100,13 +6122,13 @@ void VehicleModel::clear_brandid() {
   brandid_ = 0;
 }
  ::google::protobuf::int32 VehicleModel::brandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.BrandId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.BrandId)
   return brandid_;
 }
  void VehicleModel::set_brandid(::google::protobuf::int32 value) {
   
   brandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.BrandId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.BrandId)
 }
 
 // optional int32 SubBrandId = 3;
@@ -6114,13 +6136,13 @@ void VehicleModel::clear_subbrandid() {
   subbrandid_ = 0;
 }
  ::google::protobuf::int32 VehicleModel::subbrandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.SubBrandId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.SubBrandId)
   return subbrandid_;
 }
  void VehicleModel::set_subbrandid(::google::protobuf::int32 value) {
   
   subbrandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.SubBrandId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.SubBrandId)
 }
 
 // optional int32 ModelYearId = 4;
@@ -6128,13 +6150,13 @@ void VehicleModel::clear_modelyearid() {
   modelyearid_ = 0;
 }
  ::google::protobuf::int32 VehicleModel::modelyearid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.ModelYearId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.ModelYearId)
   return modelyearid_;
 }
  void VehicleModel::set_modelyearid(::google::protobuf::int32 value) {
   
   modelyearid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.ModelYearId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.ModelYearId)
 }
 
 // optional string Type = 5;
@@ -6142,28 +6164,28 @@ void VehicleModel::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VehicleModel::type() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Type)
   return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VehicleModel::set_type(const ::std::string& value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Type)
 }
  void VehicleModel::set_type(const char* value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.Type)
 }
  void VehicleModel::set_type(const char* value, size_t size) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.Type)
 }
  ::std::string* VehicleModel::mutable_type() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.Type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModel::release_type() {
@@ -6177,7 +6199,7 @@ void VehicleModel::clear_type() {
     
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.Type)
 }
 
 // optional string Brand = 6;
@@ -6185,28 +6207,28 @@ void VehicleModel::clear_brand() {
   brand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VehicleModel::brand() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Brand)
   return brand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VehicleModel::set_brand(const ::std::string& value) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Brand)
 }
  void VehicleModel::set_brand(const char* value) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.Brand)
 }
  void VehicleModel::set_brand(const char* value, size_t size) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.Brand)
 }
  ::std::string* VehicleModel::mutable_brand() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.Brand)
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModel::release_brand() {
@@ -6220,7 +6242,7 @@ void VehicleModel::clear_brand() {
     
   }
   brand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), brand);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.Brand)
 }
 
 // optional string SubBrand = 7;
@@ -6228,28 +6250,28 @@ void VehicleModel::clear_subbrand() {
   subbrand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VehicleModel::subbrand() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.SubBrand)
   return subbrand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VehicleModel::set_subbrand(const ::std::string& value) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.SubBrand)
 }
  void VehicleModel::set_subbrand(const char* value) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.SubBrand)
 }
  void VehicleModel::set_subbrand(const char* value, size_t size) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.SubBrand)
 }
  ::std::string* VehicleModel::mutable_subbrand() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.SubBrand)
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModel::release_subbrand() {
@@ -6263,7 +6285,7 @@ void VehicleModel::clear_subbrand() {
     
   }
   subbrand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subbrand);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.SubBrand)
 }
 
 // optional string ModelYear = 8;
@@ -6271,28 +6293,28 @@ void VehicleModel::clear_modelyear() {
   modelyear_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VehicleModel::modelyear() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.ModelYear)
   return modelyear_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VehicleModel::set_modelyear(const ::std::string& value) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.ModelYear)
 }
  void VehicleModel::set_modelyear(const char* value) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.ModelYear)
 }
  void VehicleModel::set_modelyear(const char* value, size_t size) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.ModelYear)
 }
  ::std::string* VehicleModel::mutable_modelyear() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.ModelYear)
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModel::release_modelyear() {
@@ -6306,7 +6328,7 @@ void VehicleModel::clear_modelyear() {
     
   }
   modelyear_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelyear);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.ModelYear)
 }
 
 // optional int32 IsHead = 9;
@@ -6314,13 +6336,13 @@ void VehicleModel::clear_ishead() {
   ishead_ = 0;
 }
  ::google::protobuf::int32 VehicleModel::ishead() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.IsHead)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.IsHead)
   return ishead_;
 }
  void VehicleModel::set_ishead(::google::protobuf::int32 value) {
   
   ishead_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.IsHead)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.IsHead)
 }
 
 // optional float Confidence = 10;
@@ -6328,13 +6350,13 @@ void VehicleModel::clear_confidence() {
   confidence_ = 0;
 }
  float VehicleModel::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Confidence)
   return confidence_;
 }
  void VehicleModel::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -6354,12 +6376,12 @@ const int LicensePlate::kConfidenceFieldNumber;
 LicensePlate::LicensePlate()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.LicensePlate)
+  // @@protoc_insertion_point(constructor:dg.model.LicensePlate)
 }
 
 void LicensePlate::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  cutboard_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
+  cutboard_ = const_cast< ::dg::model::Cutboard*>(&::dg::model::Cutboard::default_instance());
 }
 
 LicensePlate::LicensePlate(const LicensePlate& from)
@@ -6367,7 +6389,7 @@ LicensePlate::LicensePlate(const LicensePlate& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.LicensePlate)
+  // @@protoc_insertion_point(copy_constructor:dg.model.LicensePlate)
 }
 
 void LicensePlate::SharedCtor() {
@@ -6384,7 +6406,7 @@ void LicensePlate::SharedCtor() {
 }
 
 LicensePlate::~LicensePlate() {
-  // @@protoc_insertion_point(destructor:dg.LicensePlate)
+  // @@protoc_insertion_point(destructor:dg.model.LicensePlate)
   SharedDtor();
 }
 
@@ -6448,7 +6470,7 @@ bool LicensePlate::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.LicensePlate)
+  // @@protoc_insertion_point(parse_start:dg.model.LicensePlate)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -6462,7 +6484,7 @@ bool LicensePlate::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->platenum().data(), this->platenum().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.LicensePlate.PlateNum"));
+            "dg.model.LicensePlate.PlateNum"));
         } else {
           goto handle_unusual;
         }
@@ -6470,7 +6492,7 @@ bool LicensePlate::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.Cutboard Cutboard = 2;
+      // optional .dg.model.Cutboard Cutboard = 2;
       case 2: {
         if (tag == 18) {
          parse_Cutboard:
@@ -6507,7 +6529,7 @@ bool LicensePlate::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->color().data(), this->color().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.LicensePlate.Color"));
+            "dg.model.LicensePlate.Color"));
         } else {
           goto handle_unusual;
         }
@@ -6539,7 +6561,7 @@ bool LicensePlate::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->type().data(), this->type().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.LicensePlate.Type"));
+            "dg.model.LicensePlate.Type"));
         } else {
           goto handle_unusual;
         }
@@ -6575,28 +6597,28 @@ bool LicensePlate::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.LicensePlate)
+  // @@protoc_insertion_point(parse_success:dg.model.LicensePlate)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.LicensePlate)
+  // @@protoc_insertion_point(parse_failure:dg.model.LicensePlate)
   return false;
 #undef DO_
 }
 
 void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.LicensePlate)
+  // @@protoc_insertion_point(serialize_start:dg.model.LicensePlate)
   // optional string PlateNum = 1;
   if (this->platenum().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->platenum().data(), this->platenum().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.PlateNum");
+      "dg.model.LicensePlate.PlateNum");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       1, this->platenum(), output);
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->cutboard_, output);
@@ -6612,7 +6634,7 @@ void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->color().data(), this->color().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.Color");
+      "dg.model.LicensePlate.Color");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->color(), output);
   }
@@ -6627,7 +6649,7 @@ void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.Type");
+      "dg.model.LicensePlate.Type");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->type(), output);
   }
@@ -6637,24 +6659,24 @@ void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.LicensePlate)
+  // @@protoc_insertion_point(serialize_end:dg.model.LicensePlate)
 }
 
 ::google::protobuf::uint8* LicensePlate::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.LicensePlate)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.LicensePlate)
   // optional string PlateNum = 1;
   if (this->platenum().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->platenum().data(), this->platenum().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.PlateNum");
+      "dg.model.LicensePlate.PlateNum");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         1, this->platenum(), target);
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -6671,7 +6693,7 @@ void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->color().data(), this->color().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.Color");
+      "dg.model.LicensePlate.Color");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->color(), target);
@@ -6687,7 +6709,7 @@ void LicensePlate::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->type().data(), this->type().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.LicensePlate.Type");
+      "dg.model.LicensePlate.Type");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         6, this->type(), target);
@@ -6698,7 +6720,7 @@ void LicensePlate::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.LicensePlate)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.LicensePlate)
   return target;
 }
 
@@ -6712,7 +6734,7 @@ int LicensePlate::ByteSize() const {
         this->platenum());
   }
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -6777,7 +6799,7 @@ void LicensePlate::MergeFrom(const LicensePlate& from) {
     platenum_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.platenum_);
   }
   if (from.has_cutboard()) {
-    mutable_cutboard()->::dg::Cutboard::MergeFrom(from.cutboard());
+    mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
   }
   if (from.colorid() != 0) {
     set_colorid(from.colorid());
@@ -6847,28 +6869,28 @@ void LicensePlate::clear_platenum() {
   platenum_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& LicensePlate::platenum() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.PlateNum)
   return platenum_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void LicensePlate::set_platenum(const ::std::string& value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.PlateNum)
 }
  void LicensePlate::set_platenum(const char* value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.PlateNum)
 }
  void LicensePlate::set_platenum(const char* value, size_t size) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.PlateNum)
 }
  ::std::string* LicensePlate::mutable_platenum() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.PlateNum)
   return platenum_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_platenum() {
@@ -6882,10 +6904,10 @@ void LicensePlate::clear_platenum() {
     
   }
   platenum_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), platenum);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.PlateNum)
 }
 
-// optional .dg.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 2;
 bool LicensePlate::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -6893,25 +6915,25 @@ void LicensePlate::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-const ::dg::Cutboard& LicensePlate::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Cutboard)
+const ::dg::model::Cutboard& LicensePlate::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-::dg::Cutboard* LicensePlate::mutable_cutboard() {
+::dg::model::Cutboard* LicensePlate::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Cutboard)
   return cutboard_;
 }
-::dg::Cutboard* LicensePlate::release_cutboard() {
+::dg::model::Cutboard* LicensePlate::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-void LicensePlate::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+void LicensePlate::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -6919,7 +6941,7 @@ void LicensePlate::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Cutboard)
 }
 
 // optional int32 ColorId = 3;
@@ -6927,13 +6949,13 @@ void LicensePlate::clear_colorid() {
   colorid_ = 0;
 }
  ::google::protobuf::int32 LicensePlate::colorid() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.ColorId)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.ColorId)
   return colorid_;
 }
  void LicensePlate::set_colorid(::google::protobuf::int32 value) {
   
   colorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.ColorId)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.ColorId)
 }
 
 // optional string Color = 4;
@@ -6941,28 +6963,28 @@ void LicensePlate::clear_color() {
   color_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& LicensePlate::color() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Color)
   return color_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void LicensePlate::set_color(const ::std::string& value) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Color)
 }
  void LicensePlate::set_color(const char* value) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.Color)
 }
  void LicensePlate::set_color(const char* value, size_t size) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.Color)
 }
  ::std::string* LicensePlate::mutable_color() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Color)
   return color_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_color() {
@@ -6976,7 +6998,7 @@ void LicensePlate::clear_color() {
     
   }
   color_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), color);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Color)
 }
 
 // optional int32 TypeId = 5;
@@ -6984,13 +7006,13 @@ void LicensePlate::clear_typeid_() {
   typeid__ = 0;
 }
  ::google::protobuf::int32 LicensePlate::typeid_() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.TypeId)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.TypeId)
   return typeid__;
 }
  void LicensePlate::set_typeid_(::google::protobuf::int32 value) {
   
   typeid__ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.TypeId)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.TypeId)
 }
 
 // optional string Type = 6;
@@ -6998,28 +7020,28 @@ void LicensePlate::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& LicensePlate::type() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Type)
   return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void LicensePlate::set_type(const ::std::string& value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Type)
 }
  void LicensePlate::set_type(const char* value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.Type)
 }
  void LicensePlate::set_type(const char* value, size_t size) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.Type)
 }
  ::std::string* LicensePlate::mutable_type() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_type() {
@@ -7033,7 +7055,7 @@ void LicensePlate::clear_type() {
     
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Type)
 }
 
 // optional float Confidence = 7;
@@ -7041,13 +7063,13 @@ void LicensePlate::clear_confidence() {
   confidence_ = 0;
 }
  float LicensePlate::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Confidence)
   return confidence_;
 }
  void LicensePlate::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7063,7 +7085,7 @@ const int SymbolItem::kSymbolsFieldNumber;
 SymbolItem::SymbolItem()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.SymbolItem)
+  // @@protoc_insertion_point(constructor:dg.model.SymbolItem)
 }
 
 void SymbolItem::InitAsDefaultInstance() {
@@ -7075,7 +7097,7 @@ SymbolItem::SymbolItem(const SymbolItem& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.SymbolItem)
+  // @@protoc_insertion_point(copy_constructor:dg.model.SymbolItem)
 }
 
 void SymbolItem::SharedCtor() {
@@ -7087,7 +7109,7 @@ void SymbolItem::SharedCtor() {
 }
 
 SymbolItem::~SymbolItem() {
-  // @@protoc_insertion_point(destructor:dg.SymbolItem)
+  // @@protoc_insertion_point(destructor:dg.model.SymbolItem)
   SharedDtor();
 }
 
@@ -7132,7 +7154,7 @@ bool SymbolItem::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.SymbolItem)
+  // @@protoc_insertion_point(parse_start:dg.model.SymbolItem)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -7161,7 +7183,7 @@ bool SymbolItem::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->symbolname().data(), this->symbolname().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.SymbolItem.SymbolName"));
+            "dg.model.SymbolItem.SymbolName"));
         } else {
           goto handle_unusual;
         }
@@ -7169,7 +7191,7 @@ bool SymbolItem::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.Symbol Symbols = 3;
+      // repeated .dg.model.Symbol Symbols = 3;
       case 3: {
         if (tag == 26) {
          parse_Symbols:
@@ -7199,17 +7221,17 @@ bool SymbolItem::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.SymbolItem)
+  // @@protoc_insertion_point(parse_success:dg.model.SymbolItem)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.SymbolItem)
+  // @@protoc_insertion_point(parse_failure:dg.model.SymbolItem)
   return false;
 #undef DO_
 }
 
 void SymbolItem::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.SymbolItem)
+  // @@protoc_insertion_point(serialize_start:dg.model.SymbolItem)
   // optional int32 SymbolId = 1;
   if (this->symbolid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->symbolid(), output);
@@ -7220,23 +7242,23 @@ void SymbolItem::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbolname().data(), this->symbolname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.SymbolItem.SymbolName");
+      "dg.model.SymbolItem.SymbolName");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->symbolname(), output);
   }
 
-  // repeated .dg.Symbol Symbols = 3;
+  // repeated .dg.model.Symbol Symbols = 3;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, this->symbols(i), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.SymbolItem)
+  // @@protoc_insertion_point(serialize_end:dg.model.SymbolItem)
 }
 
 ::google::protobuf::uint8* SymbolItem::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.SymbolItem)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.SymbolItem)
   // optional int32 SymbolId = 1;
   if (this->symbolid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->symbolid(), target);
@@ -7247,20 +7269,20 @@ void SymbolItem::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->symbolname().data(), this->symbolname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.SymbolItem.SymbolName");
+      "dg.model.SymbolItem.SymbolName");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->symbolname(), target);
   }
 
-  // repeated .dg.Symbol Symbols = 3;
+  // repeated .dg.model.Symbol Symbols = 3;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         3, this->symbols(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.SymbolItem)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.SymbolItem)
   return target;
 }
 
@@ -7281,7 +7303,7 @@ int SymbolItem::ByteSize() const {
         this->symbolname());
   }
 
-  // repeated .dg.Symbol Symbols = 3;
+  // repeated .dg.model.Symbol Symbols = 3;
   total_size += 1 * this->symbols_size();
   for (int i = 0; i < this->symbols_size(); i++) {
     total_size +=
@@ -7364,13 +7386,13 @@ void SymbolItem::clear_symbolid() {
   symbolid_ = 0;
 }
  ::google::protobuf::int32 SymbolItem::symbolid() const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.SymbolId)
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.SymbolId)
   return symbolid_;
 }
  void SymbolItem::set_symbolid(::google::protobuf::int32 value) {
   
   symbolid_ = value;
-  // @@protoc_insertion_point(field_set:dg.SymbolItem.SymbolId)
+  // @@protoc_insertion_point(field_set:dg.model.SymbolItem.SymbolId)
 }
 
 // optional string SymbolName = 2;
@@ -7378,28 +7400,28 @@ void SymbolItem::clear_symbolname() {
   symbolname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& SymbolItem::symbolname() const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.SymbolName)
   return symbolname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void SymbolItem::set_symbolname(const ::std::string& value) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set:dg.model.SymbolItem.SymbolName)
 }
  void SymbolItem::set_symbolname(const char* value) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_char:dg.model.SymbolItem.SymbolName)
 }
  void SymbolItem::set_symbolname(const char* value, size_t size) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SymbolItem.SymbolName)
 }
  ::std::string* SymbolItem::mutable_symbolname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_mutable:dg.model.SymbolItem.SymbolName)
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SymbolItem::release_symbolname() {
@@ -7413,36 +7435,36 @@ void SymbolItem::clear_symbolname() {
     
   }
   symbolname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolname);
-  // @@protoc_insertion_point(field_set_allocated:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SymbolItem.SymbolName)
 }
 
-// repeated .dg.Symbol Symbols = 3;
+// repeated .dg.model.Symbol Symbols = 3;
 int SymbolItem::symbols_size() const {
   return symbols_.size();
 }
 void SymbolItem::clear_symbols() {
   symbols_.Clear();
 }
-const ::dg::Symbol& SymbolItem::symbols(int index) const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.Symbols)
+const ::dg::model::Symbol& SymbolItem::symbols(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.Symbols)
   return symbols_.Get(index);
 }
-::dg::Symbol* SymbolItem::mutable_symbols(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.SymbolItem.Symbols)
+::dg::model::Symbol* SymbolItem::mutable_symbols(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.SymbolItem.Symbols)
   return symbols_.Mutable(index);
 }
-::dg::Symbol* SymbolItem::add_symbols() {
-  // @@protoc_insertion_point(field_add:dg.SymbolItem.Symbols)
+::dg::model::Symbol* SymbolItem::add_symbols() {
+  // @@protoc_insertion_point(field_add:dg.model.SymbolItem.Symbols)
   return symbols_.Add();
 }
-::google::protobuf::RepeatedPtrField< ::dg::Symbol >*
+::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >*
 SymbolItem::mutable_symbols() {
-  // @@protoc_insertion_point(field_mutable_list:dg.SymbolItem.Symbols)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.SymbolItem.Symbols)
   return &symbols_;
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::Symbol >&
+const ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >&
 SymbolItem::symbols() const {
-  // @@protoc_insertion_point(field_list:dg.SymbolItem.Symbols)
+  // @@protoc_insertion_point(field_list:dg.model.SymbolItem.Symbols)
   return symbols_;
 }
 
@@ -7459,7 +7481,7 @@ const int Scene::kBorderFieldNumber;
 Scene::Scene()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.Scene)
+  // @@protoc_insertion_point(constructor:dg.model.Scene)
 }
 
 void Scene::InitAsDefaultInstance() {
@@ -7471,7 +7493,7 @@ Scene::Scene(const Scene& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.Scene)
+  // @@protoc_insertion_point(copy_constructor:dg.model.Scene)
 }
 
 void Scene::SharedCtor() {
@@ -7484,7 +7506,7 @@ void Scene::SharedCtor() {
 }
 
 Scene::~Scene() {
-  // @@protoc_insertion_point(destructor:dg.Scene)
+  // @@protoc_insertion_point(destructor:dg.model.Scene)
   SharedDtor();
 }
 
@@ -7540,7 +7562,7 @@ bool Scene::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.Scene)
+  // @@protoc_insertion_point(parse_start:dg.model.Scene)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -7584,7 +7606,7 @@ bool Scene::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->border().data(), this->border().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.Scene.Border"));
+            "dg.model.Scene.Border"));
         } else {
           goto handle_unusual;
         }
@@ -7605,17 +7627,17 @@ bool Scene::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.Scene)
+  // @@protoc_insertion_point(parse_success:dg.model.Scene)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.Scene)
+  // @@protoc_insertion_point(parse_failure:dg.model.Scene)
   return false;
 #undef DO_
 }
 
 void Scene::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.Scene)
+  // @@protoc_insertion_point(serialize_start:dg.model.Scene)
   // optional int32 IsHead = 1;
   if (this->ishead() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->ishead(), output);
@@ -7631,17 +7653,17 @@ void Scene::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->border().data(), this->border().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.Scene.Border");
+      "dg.model.Scene.Border");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->border(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.Scene)
+  // @@protoc_insertion_point(serialize_end:dg.model.Scene)
 }
 
 ::google::protobuf::uint8* Scene::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.Scene)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.Scene)
   // optional int32 IsHead = 1;
   if (this->ishead() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->ishead(), target);
@@ -7657,13 +7679,13 @@ void Scene::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->border().data(), this->border().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.Scene.Border");
+      "dg.model.Scene.Border");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->border(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.Scene)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.Scene)
   return target;
 }
 
@@ -7768,13 +7790,13 @@ void Scene::clear_ishead() {
   ishead_ = 0;
 }
  ::google::protobuf::int32 Scene::ishead() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.IsHead)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.IsHead)
   return ishead_;
 }
  void Scene::set_ishead(::google::protobuf::int32 value) {
   
   ishead_ = value;
-  // @@protoc_insertion_point(field_set:dg.Scene.IsHead)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.IsHead)
 }
 
 // optional int32 IsDay = 2;
@@ -7782,13 +7804,13 @@ void Scene::clear_isday() {
   isday_ = 0;
 }
  ::google::protobuf::int32 Scene::isday() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.IsDay)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.IsDay)
   return isday_;
 }
  void Scene::set_isday(::google::protobuf::int32 value) {
   
   isday_ = value;
-  // @@protoc_insertion_point(field_set:dg.Scene.IsDay)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.IsDay)
 }
 
 // optional string Border = 3;
@@ -7796,28 +7818,28 @@ void Scene::clear_border() {
   border_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& Scene::border() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.Border)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.Border)
   return border_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void Scene::set_border(const ::std::string& value) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.Border)
 }
  void Scene::set_border(const char* value) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_char:dg.model.Scene.Border)
 }
  void Scene::set_border(const char* value, size_t size) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.Scene.Border)
 }
  ::std::string* Scene::mutable_border() {
   
-  // @@protoc_insertion_point(field_mutable:dg.Scene.Border)
+  // @@protoc_insertion_point(field_mutable:dg.model.Scene.Border)
   return border_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Scene::release_border() {
@@ -7831,7 +7853,7 @@ void Scene::clear_border() {
     
   }
   border_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), border);
-  // @@protoc_insertion_point(field_set_allocated:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Scene.Border)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7846,12 +7868,12 @@ const int Symbol::kConfidenceFieldNumber;
 Symbol::Symbol()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.Symbol)
+  // @@protoc_insertion_point(constructor:dg.model.Symbol)
 }
 
 void Symbol::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  cutboard_ = const_cast< ::dg::Cutboard*>(&::dg::Cutboard::default_instance());
+  cutboard_ = const_cast< ::dg::model::Cutboard*>(&::dg::model::Cutboard::default_instance());
 }
 
 Symbol::Symbol(const Symbol& from)
@@ -7859,7 +7881,7 @@ Symbol::Symbol(const Symbol& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.Symbol)
+  // @@protoc_insertion_point(copy_constructor:dg.model.Symbol)
 }
 
 void Symbol::SharedCtor() {
@@ -7870,7 +7892,7 @@ void Symbol::SharedCtor() {
 }
 
 Symbol::~Symbol() {
-  // @@protoc_insertion_point(destructor:dg.Symbol)
+  // @@protoc_insertion_point(destructor:dg.model.Symbol)
   SharedDtor();
 }
 
@@ -7915,13 +7937,13 @@ bool Symbol::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.Symbol)
+  // @@protoc_insertion_point(parse_start:dg.model.Symbol)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.Cutboard Cutboard = 3;
+      // optional .dg.model.Cutboard Cutboard = 3;
       case 3: {
         if (tag == 26) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -7961,18 +7983,18 @@ bool Symbol::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.Symbol)
+  // @@protoc_insertion_point(parse_success:dg.model.Symbol)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.Symbol)
+  // @@protoc_insertion_point(parse_failure:dg.model.Symbol)
   return false;
 #undef DO_
 }
 
 void Symbol::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.Symbol)
-  // optional .dg.Cutboard Cutboard = 3;
+  // @@protoc_insertion_point(serialize_start:dg.model.Symbol)
+  // optional .dg.model.Cutboard Cutboard = 3;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       3, *this->cutboard_, output);
@@ -7983,13 +8005,13 @@ void Symbol::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->confidence(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.Symbol)
+  // @@protoc_insertion_point(serialize_end:dg.model.Symbol)
 }
 
 ::google::protobuf::uint8* Symbol::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.Symbol)
-  // optional .dg.Cutboard Cutboard = 3;
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.Symbol)
+  // optional .dg.model.Cutboard Cutboard = 3;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -8001,14 +8023,14 @@ void Symbol::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->confidence(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.Symbol)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.Symbol)
   return target;
 }
 
 int Symbol::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.Cutboard Cutboard = 3;
+  // optional .dg.model.Cutboard Cutboard = 3;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -8041,7 +8063,7 @@ void Symbol::MergeFrom(const ::google::protobuf::Message& from) {
 void Symbol::MergeFrom(const Symbol& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_cutboard()) {
-    mutable_cutboard()->::dg::Cutboard::MergeFrom(from.cutboard());
+    mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
   }
   if (from.confidence() != 0) {
     set_confidence(from.confidence());
@@ -8087,7 +8109,7 @@ void Symbol::InternalSwap(Symbol* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Symbol
 
-// optional .dg.Cutboard Cutboard = 3;
+// optional .dg.model.Cutboard Cutboard = 3;
 bool Symbol::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -8095,25 +8117,25 @@ void Symbol::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-const ::dg::Cutboard& Symbol::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.Symbol.Cutboard)
+const ::dg::model::Cutboard& Symbol::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-::dg::Cutboard* Symbol::mutable_cutboard() {
+::dg::model::Cutboard* Symbol::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.Symbol.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.Cutboard)
   return cutboard_;
 }
-::dg::Cutboard* Symbol::release_cutboard() {
+::dg::model::Cutboard* Symbol::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-void Symbol::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -8121,7 +8143,7 @@ void Symbol::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.Symbol.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.Cutboard)
 }
 
 // optional float Confidence = 4;
@@ -8129,19 +8151,20 @@ void Symbol::clear_confidence() {
   confidence_ = 0;
 }
  float Symbol::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.Symbol.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Confidence)
   return confidence_;
 }
  void Symbol::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.Symbol.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.Symbol.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)

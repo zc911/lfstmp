@@ -14,9 +14,10 @@
 #include <grpc++/impl/codegen/service_type.h>
 #include <grpc++/impl/codegen/sync_stream.h>
 namespace dg {
+namespace model {
 
 static const char* SkynetService_method_names[] = {
-  "/dg.SkynetService/VideoRecognize",
+  "/dg.model.SkynetService/VideoRecognize",
 };
 
 std::unique_ptr< SkynetService::Stub> SkynetService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -28,12 +29,12 @@ SkynetService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chan
   : channel_(channel), rpcmethod_VideoRecognize_(SkynetService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status SkynetService::Stub::VideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::dg::SkynetResponse* response) {
+::grpc::Status SkynetService::Stub::VideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::dg::model::SkynetResponse* response) {
   return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_VideoRecognize_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>* SkynetService::Stub::AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>(channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>* SkynetService::Stub::AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>(channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
 }
 
 SkynetService::Service::Service() {
@@ -41,14 +42,14 @@ SkynetService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       SkynetService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< SkynetService::Service, ::dg::SkynetRequest, ::dg::SkynetResponse>(
+      new ::grpc::RpcMethodHandler< SkynetService::Service, ::dg::model::SkynetRequest, ::dg::model::SkynetResponse>(
           std::mem_fn(&SkynetService::Service::VideoRecognize), this)));
 }
 
 SkynetService::Service::~Service() {
 }
 
-::grpc::Status SkynetService::Service::VideoRecognize(::grpc::ServerContext* context, const ::dg::SkynetRequest* request, ::dg::SkynetResponse* response) {
+::grpc::Status SkynetService::Service::VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response) {
   (void) context;
   (void) request;
   (void) response;
@@ -57,4 +58,5 @@ SkynetService::Service::~Service() {
 
 
 }  // namespace dg
+}  // namespace model
 
