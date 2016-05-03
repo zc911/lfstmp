@@ -106,7 +106,10 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_marker_) {
             LOG(INFO)<< "Enable vehicle marker processor." << endl;
-            Processor *p = new VehicleMarkerClassifierProcessor();
+            MarkerCaffeClassifier::MarkerConfig mConfig = createMarkersConfig(config);
+            WindowCaffeDetector::WindowCaffeConfig wConfig = createWindowConfig(config);
+
+            Processor *p = new VehicleMarkerClassifierProcessor(wConfig,mConfig);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -197,4 +200,67 @@ const VehicleMultiTypeDetector::VehicleMultiTypeConfig & WitnessEngine::createVe
     config.batch_size = batch_size;
     return config;
 }
+const MarkerCaffeClassifier::MarkerConfig & WitnessEngine::createMarkersConfig(
+        const Config &cconfig) {
+
+    MarkerCaffeClassifier::MarkerConfig mConfig;
+    int mot_confidence = (int) cconfig.Value(ADVANCED_MARKER_MOT_CONFIDENCE);
+    int belt_confidence = (int) cconfig.Value(ADVANCED_MARKER_BETLT_CONFIDENCE);
+    int global_confidence = (int) cconfig.Value(
+            ADVANCED_MARKER_GLOBAL_CONFIDENCE);
+    int accessories_confidence = (int) cconfig.Value(
+            ADVANCED_MARKER_ACCESSORIES_CONFIDENCE);
+    int others_confidence = (int) cconfig.Value(
+            ADVANCED_MARKER_OTHERS_CONFIDENCE);
+    int tissuebox_confidence = (int) cconfig.Value(
+            ADVANCED_MARKER_TISSUEBOX_CONFIDENCE);
+    int sunvisor_confidence = (int) cconfig.Value(
+            ADVANCED_MARKER_SUNVISOR_CONFIDENCE);
+    int batch_size = (int) cconfig.Value(ADVANCED_MARKER_BATCH_SIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::MOT, mot_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::Belt,
+                                  belt_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::Global,
+                                  global_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::Accessories,
+                                  accessories_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::Others,
+                                  others_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::TissueBox,
+                                  tissuebox_confidence));
+    mConfig.marker_confidence.insert(
+            make_pair<int, float>(MarkerCaffeClassifier::SunVisor,
+                                  sunvisor_confidence));
+    mConfig.model_file = (string) cconfig.Value(FILE_MARKER_MODEL_PATH)
+            + (string) cconfig.Value(FILE_MARKER_TRAINED_MODEL);
+    mConfig.deploy_file = (string) cconfig.Value(FILE_MARKER_MODEL_PATH)
+            + (string) cconfig.Value(FILE_MARKER_DEPLOY_MODEL);
+
+    mConfig.is_model_encrypt = is_encrypted;
+    mConfig.batch_size = batch_size;
+    return mConfig;
+}
+const WindowCaffeDetector::WindowCaffeConfig & WitnessEngine::createWindowConfig(
+        const Config &cconfig) {
+    int batch_size = (int) cconfig.Value(ADVANCED_WINDOW_BATCH_SIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+
+    WindowCaffeDetector::WindowCaffeConfig wConfig;
+    wConfig.model_file =(string) cconfig.Value(FILE_WINDOW_MODEL_PATH)
+                    + (string) cconfig.Value(FILE_WINDOW_TRAINED_MODEL);
+    wConfig.deploy_file = (string) cconfig.Value(FILE_WINDOW_MODEL_PATH)
+                            + (string) cconfig.Value(FILE_WINDOW_DEPLOY_MODEL);
+    wConfig.is_model_encrypt = is_encrypted;
+    wConfig.batch_size = batch_size;
+    return wConfig;
+}
+
 }
