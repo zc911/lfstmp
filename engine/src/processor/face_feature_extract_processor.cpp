@@ -8,43 +8,72 @@
  * ==========================================================================*/
 #include "processor/face_feature_extract_processor.h"
 
-namespace dg
-{
+namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-		const string& model_file, const string& trained_file,
-		const bool use_gpu, const int batch_size, const string &align_model,
-		const string &avg_face)
-{
-	extractor_ = new FaceFeatureExtractor(model_file, trained_file, use_gpu,
-			batch_size, align_model, avg_face);
+        const string& model_file, const string& trained_file,
+        const bool use_gpu, const int batch_size, const string &align_model,
+        const string &avg_face) {
+    extractor_ = new FaceFeatureExtractor(model_file, trained_file, use_gpu,
+                                          batch_size, align_model, avg_face);
 }
 
-FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor()
-{
-	delete extractor_;
+FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
+    delete extractor_;
 }
 
-void FaceFeatureExtractProcessor::Update(Frame *frame)
-{
-	int size = frame->objects().size();
+void FaceFeatureExtractProcessor::Update(Frame *frame) {
+    int size = frame->objects().size();
 
-	for (int i = 0; i < size; ++i)
-	{
-		Face *face = (Face *) frame->get_object(i);
-		Rect rect;
-		rect = face->detection().box;
+    for (int i = 0; i < size; ++i) {
+        Object * obj = frame->get_object(i);
+        if (obj->type() == OBJECT_FACE) {
+            Face *face = static_cast<Face*>(obj);
+            Rect rect;
+            rect = face->detection().box;
 
-		Mat img = frame->payload()->data();
-		Mat cut;
-		img(rect).copyTo(cut);
+            Mat img = frame->payload()->data();
+            Mat cut = img(rect);
 
-		vector<Mat> imgs;
-		imgs.push_back(cut);
-		vector<FaceRankFeature> features = extractor_->Extract(imgs);
-		FaceRankFeature feature = features[0];
-		face->set_feature(feature);
-	}
+            vector<Mat> imgs;
+            imgs.push_back(cut);
+            vector<FaceRankFeature> features = extractor_->Extract(imgs);
+            FaceRankFeature feature = features[0];
+            face->set_feature(feature);
+        } else {
+            DLOG(WARNING)<< "Object is not type of face: " << obj->id() << endl;
+        }
+
+    }
+
+    Proceed(frame);
+}
+
+void FaceFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
+    for (int i = 0; i < frameBatch->frames().size(); ++i) {
+        Frame *frame = frameBatch->frames()[i];
+        int size = frame->objects().size();
+
+        for (int i = 0; i < size; ++i) {
+            Object * obj = frame->get_object(i);
+            if (obj->type() == OBJECT_FACE) {
+
+                Face *face = static_cast<Face*>(obj);
+                Rect rect = face->detection().box;
+                Mat img = frame->payload()->data();
+                Mat cut = img(rect);
+
+                vector<Mat> imgs;
+                imgs.push_back(cut);
+                vector<FaceRankFeature> features = extractor_->Extract(imgs);
+                FaceRankFeature feature = features[0];
+                face->set_feature(feature);
+            } else {
+                DLOG(WARNING)<< "Object is not type of face: " << obj->id() << endl;
+            }
+
+        }
+    }
 }
 
 } /* namespace dg */

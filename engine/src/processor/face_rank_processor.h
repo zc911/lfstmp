@@ -14,27 +14,24 @@
 #include "model/model.h"
 #include "processor/processor.h"
 
-namespace dg
-{
+namespace dg {
 
-class FaceRankProcessor : public Processor
-{
-public:
-	FaceRankProcessor();
-	virtual ~FaceRankProcessor();
+class FaceRankProcessor : public Processor {
+ public:
+    FaceRankProcessor();
+    virtual ~FaceRankProcessor();
 
-	virtual void Update(Frame *frame) override;
-	virtual void Update(FrameBatch *frameBatch) override
-	{
-	}
+    virtual void Update(Frame *frame);
+    virtual void Update(FrameBatch *frameBatch) {
 
-	virtual bool checkStatus(Frame *frame) override
-	{
-		return true;
-	}
+    }
 
-private:
-	FaceRanker *ranker_;
+    virtual bool checkStatus(Frame *frame) {
+        return true;
+    }
+
+ private:
+    FaceRanker *ranker_;
 };
 
 } /* namespace dg */
