@@ -1,56 +1,42 @@
 /*============================================================================
  * File Name   : face_rank_processor.h
- * Author      : yanlongtan@deepglint.com
+ * Author      : tongliu@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 04/15/2016
+ * Created on  : 2016年4月28日 下午4:09:47
  * Description : 
  * ==========================================================================*/
+#ifndef FACE_RANK_PROCESSOR_H_
+#define FACE_RANK_PROCESSOR_H_
 
-#ifndef MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
-#define MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
-
-#include <string>
-#include <glog/logging.h>
-
-#include "processor.h"
-#include "timing_profiler.h"
-
+#include "alg/face_ranker.h"
 #include "model/frame.h"
-#include "model/rank_feature.h"
-#include "alg/face_feature_extractor.h"
-#include "alg/face_detector.h"
+#include "model/model.h"
+#include "processor/processor.h"
 
-using namespace cv;
-using namespace std;
+namespace dg
+{
 
-namespace dg {
+class FaceRankProcessor : public Processor
+{
+public:
+	FaceRankProcessor();
+	virtual ~FaceRankProcessor();
 
-class FaceRankProcessor : public Processor {
- public:
-    FaceRankProcessor();
-    virtual ~FaceRankProcessor();
+	virtual void Update(Frame *frame) override;
+	virtual void Update(FrameBatch *frameBatch) override
+	{
+	}
 
-    virtual void Update(Frame *frame);
+	virtual bool checkStatus(Frame *frame) override
+	{
+		return true;
+	}
 
-    virtual void Update(FrameBatch *frameBatch);
-
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-
-    bool checkOperation(Frame *frame);
-
-    virtual bool checkStatus(Frame *frame);
-
- private:
-//    FaceDetector *detector_;
-    FaceFeatureExtractor *extractor_;
-
-    vector<Score> rank(const Mat& image, const Rect& hotspot,
-                       const vector<FaceRankFeature>& candidates);
-
-    float getCosSimilarity(const vector<float> & A, const vector<float> & B);
+private:
+	FaceRanker *ranker_;
 };
 
-}
+} /* namespace dg */
 
-#endif //MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
+#endif /* FACE_RANK_PROCESSOR_H_ */

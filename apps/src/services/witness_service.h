@@ -1,5 +1,5 @@
 /*============================================================================
- * File Name   : ranker_service.h
+ * File Name   : witness_service.h
  * Author      : yanlongtan@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
@@ -12,9 +12,11 @@
 
 #include "config.h"
 #include "model/witness.grpc.pb.h"
+#include "engine/witness_engine.h"
 
 namespace dg 
 {
+using namespace ::dg::model;
 
 class WitnessAppsService
 {
@@ -28,7 +30,19 @@ public:
 
 private:
     const Config *config_;
+    WitnessEngine engine_;
+    Identification id_;
 
+    static Operation getOperation(const WitnessRequestContext& ctx);
+    static void copyCutboard(const Box &b, Cutboard *cb);
+
+    MatrixError fillModel(Identification id, VehicleModel *model);
+    MatrixError fillColor(const Vehicle::Color &color, model::Color *rcolor);
+    MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
+    MatrixError fillSymbols(const vector<Object*>& objects, RecognizedVehicle *vrec);
+    MatrixError getRecognizedVehicle(Vehicle *vobj, RecognizedVehicle *vrec);
+    MatrixError getRecognizedFace(Face *fobj, RecognizedFace *frec);
+    MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 };
 
 }

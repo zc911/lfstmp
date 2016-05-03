@@ -25,6 +25,7 @@ typedef enum {
     OBJECT_BICYCLE = 2,
     OBJECT_TRICYCLE = 4,
     OBJECT_PEDESTRIAN = 8,
+    OBJECT_MARKER = 16,
     OBJECT_MARKER_0 = 16,
     OBJECT_MARKER_1 = 16,
     OBJECT_MARKER_2 = 16,
@@ -251,37 +252,37 @@ private:
 class Face : public Object {
 
  public:
-    Face()
-            : Object(OBJECT_FACE) {
+     Face()
+               : Object(OBJECT_FACE) {
 
-    }
+     }
 
-    Face(Identification id, Detection detection, Confidence confidence)
-            : Object(OBJECT_FACE) {
-        id_ = id;
-        confidence_ = confidence;
-        detection_ = detection;
-    }
+     Face(Identification id, Detection detection, Confidence confidence)
+               : Object(OBJECT_FACE) {
+          id_ = id;
+          confidence_ = confidence;
+          detection_ = detection;
+     }
 
-    Face(Identification id, int x, int y, int width, int height,
-         Confidence confidence)
-            : Object(OBJECT_FACE) {
-        id_ = id;
-        confidence_ = confidence;
-        detection_.box = Box(x, y, width, height);
-    }
+     Face(Identification id, int x, int y, int width, int height,
+          Confidence confidence)
+               : Object(OBJECT_FACE) {
+          id_ = id;
+          confidence_ = confidence;
+          detection_.box = Box(x, y, width, height);
+     }
 
-    FaceFeature feature() const {
-        return feature_;
-    }
+     FaceRankFeature feature() const {
+          return feature_;
+     }
 
-    void set_feature(FaceFeature feature) {
-        feature_ = feature;
-    }
+     void set_feature(FaceRankFeature feature) {
+          feature_ = feature;
+     }
 
  private:
 
-    FaceFeature feature_;
+     FaceRankFeature feature_;
 };
 
 typedef struct {
