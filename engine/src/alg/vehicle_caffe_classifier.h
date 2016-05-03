@@ -25,7 +25,18 @@ namespace dg {
 
 class VehicleCaffeClassifier {
  public:
-    VehicleCaffeClassifier(CaffeConfig &config);
+    typedef struct {
+
+        bool is_model_encrypt = false;
+        int batch_size = 1;
+        int target_min_size = 400;
+        int target_max_size = 1000;
+        int gpu_id = 0;
+        bool use_gpu = true;
+        string deploy_file;
+        string model_file;
+    } VehicleCaffeConfig;
+    VehicleCaffeClassifier(const VehicleCaffeConfig &config);
     virtual ~VehicleCaffeClassifier();
     vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
  protected:
@@ -41,7 +52,7 @@ class VehicleCaffeClassifier {
     int num_channels_;
     cv::Size input_geometry_;
     bool device_setted_;
-    CaffeConfig caffe_config_;
+    VehicleCaffeConfig caffe_config_;
     Mat means_;
     int rescale_;
 };
