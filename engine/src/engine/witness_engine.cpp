@@ -1,6 +1,5 @@
 #include "witness_engine.h"
-
-
+#include "engine_config_value.h"
 namespace dg {
 
 WitnessEngine::WitnessEngine(const Config &config) {
@@ -66,6 +65,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
     enable_face_feature_vector_ = (bool) config.Value(
             FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+
 }
 
 void WitnessEngine::init(const Config &config) {
@@ -134,30 +134,42 @@ void WitnessEngine::init(const Config &config) {
     is_init_ = true;
 }
 const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & WitnessEngine::createVehicleConfig(
-        const Config &config) {
+        const Config &cconfig) {
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+    string model_path = (string) cconfig.Value(FILE_STYLE_MODEL_PATH);
+    string trained_model = (string) cconfig.Value(FILE_STYLE_TRAINED_MODEL);
+    string deploy_model = (string) cconfig.Value(FILE_STYLE_DEPLOY_MODEL);
+    int batch_size = (bool) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     for (int i = 0; i < 8; i++) {
         VehicleCaffeClassifier::VehicleCaffeConfig config;
-        config.model_file = "models/car_style/front_day_" + to_string(i)
-                + "/car_python_mini_alex_256_" + to_string(i)
-                + "_iter_70000.caffemodel";
-        config.deploy_file = "models/car_style/front_day_" + to_string(i)
-                + "/deploy_256.prototxt";
-        config.is_model_encrypt = false;
-        config.batch_size = 1;
+        config.model_file = model_path + to_string(i) + trained_model
+                + to_string(i) + "_iter_70000.caffemodel";
+        config.deploy_file = model_path + to_string(i) + deploy_model;
+        config.is_model_encrypt = is_encrypted;
+        config.batch_size = batch_size;
 
         configs.push_back(config);
     }
+    return configs;
 }
 const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &WitnessEngine::createVehicleColorConfig(
-        const Config &config) {
+        const Config &cconfig) {
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+    string model_path = (string) cconfig.Value(FILE_COLOR_MODEL_PATH);
+    string trained_model = (string) cconfig.Value(
+            FILE_COLOR_TRAINED_MODEL);
+    string deploy_model = (string)cconfig.Value(
+            FILE_COLOR_DEPLOY_MODEL);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int batch_size = (bool) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
+
     for (int i = 0; i < 1; i++) {
         VehicleCaffeClassifier::VehicleCaffeConfig config;
-        config.model_file = "models/color/zf_q_iter_70000.caffemodel";
-        config.deploy_file = "models/color/deploy.prototxt";
-        config.is_model_encrypt = false;
-        config.batch_size = 1;
+        config.model_file = model_path + trained_model;
+        config.deploy_file = model_path + deploy_model;
+        config.is_model_encrypt = is_encrypted;
+        config.batch_size = batch_size;
 
         configs.push_back(config);
     }
@@ -166,9 +178,10 @@ const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &WitnessEngine::createV
 const PlateRecognizer::PlateConfig& WitnessEngine::createVehiclePlateConfig(
         const Config &config) {
     PlateRecognizer::PlateConfig pConfig;
-    pConfig.LocalProvince = "";
-    pConfig.OCR = 1;
-    pConfig.PlateLocate = 5;
+    pConfig.LocalProvince = (const string&) config.Value(
+            ADVANCED_PLATE_LOCAL_PROVINCE);
+    pConfig.OCR = (int) config.Value(ADVANCED_PLATE_OCR);
+    pConfig.PlateLocate = (int) config.Value(ADVANCED_PLATE_LOCATE);
     return pConfig;
 }
 }
