@@ -35,7 +35,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
                 vote(tmpPred,result,classifiers_.size());
 
             });
-
+    //set results
     for(int i=0;i<objs_.size();i++) {
         if(result[i].size()<0) {
             continue;
@@ -65,16 +65,13 @@ vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
         Object *obj = *itr;
-
+        //collect car objects
         if (obj->type() == OBJECT_CAR) {
-
             Vehicle *v = (Vehicle*) obj;
-
             DLOG(INFO)<< "Put vehicle images to be type classified: " << obj->id() << endl;
             vehicleMat.push_back(v->resized_image());
 
         } else {
-            delete obj;
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }

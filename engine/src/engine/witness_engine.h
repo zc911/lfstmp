@@ -34,15 +34,22 @@ class WitnessEngine : public SimpleEngine {
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
 
-    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & createVehicleConfig(const Config &config);
+    void createVehicleConfig(
+            const Config &cconfig,
+            vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs);
 
-    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & createVehicleColorConfig(const Config &config);
-    const MarkerCaffeClassifier::MarkerConfig & createMarkersConfig(const Config &config);
-    const VehicleMultiTypeDetector::VehicleMultiTypeConfig & createVehicleMutiTypeDetectorConfig(const Config &config);
-    const WindowCaffeDetector::WindowCaffeConfig & createWindowConfig(const Config &config);
+    void createVehicleColorConfig(
+            const Config &config,vector<VehicleCaffeClassifier::VehicleCaffeConfig> &);
+    void createMarkersConfig(
+            const Config &config,MarkerCaffeClassifier::MarkerConfig &);
+    void createVehicleMutiTypeDetectorConfig(
+            const Config &cconfig,
+            VehicleMultiTypeDetector::VehicleMultiTypeConfig & config);
+    void createWindowConfig(
+            const Config &config,WindowCaffeDetector::WindowCaffeConfig &);
 
-    const PlateRecognizer::PlateConfig & createVehiclePlateConfig(const Config &config);
-
+    void createVehiclePlateConfig(
+            const Config &config,PlateRecognizer::PlateConfig &);
 
     Processor *vehicle_processor_;
     Processor *face_processor_;
