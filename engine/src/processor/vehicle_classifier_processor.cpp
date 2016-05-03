@@ -2,50 +2,14 @@
 
 namespace dg {
 
-int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &dst,
-         int factor) {
-    if (src.size() > dst.size()) {
-        for (int i = 0; i < src.size(); i++) {
-            vector<Prediction> tmpSrc = src[i];
-            vector<Prediction> tmpDst;
-            for (int j = 0; j < tmpSrc.size(); j++) {
-                tmpDst.push_back(
-                        pair<int, float>(tmpSrc[j].first,
-                                         tmpSrc[j].second / factor));
-            }
-            dst.push_back(tmpDst);
-        }
-        return 1;
-    }
-    for (int i = 0; i < src.size(); i++) {
 
-        vector<Prediction> tmpSrc = src[i];
-        vector<Prediction> tmpDst = dst[i];
-        if (tmpSrc.size() != tmpDst.size()) {
-            return -1;
-        }
-        for (int j = 0; j < tmpSrc.size(); j++) {
-            tmpDst[j].second += tmpSrc[j].second / factor;
-        }
-        dst[i] = tmpDst;
-    }
-    return 1;
-}
-VehicleClassifierProcessor::VehicleClassifierProcessor() {
-    classifiers_size_ = 8;
+VehicleClassifierProcessor::VehicleClassifierProcessor(
+        const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 
-    for (int i = 0; i < classifiers_size_; i++) {
-        CaffeConfig config;
-        config.model_file = "models/car_style/front_day_" + to_string(i)
-                + "/car_python_mini_alex_256_" + to_string(i)
-                + "_iter_70000.caffemodel";
-        config.deploy_file = "models/car_style/front_day_" + to_string(i)
-                + "/deploy_256.prototxt";
+    for (int i = 0; i < configs.size(); i++) {
 
-        config.is_model_encrypt = false;
-        config.batch_size = 1;
-
-        VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(config);
+        VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(
+                configs[i]);
 
         classifiers_.push_back(classifier);
 
@@ -68,7 +32,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
     vector<vector<Prediction> > result;
     for_each(classifiers_.begin(),classifiers_.end(),[&](VehicleCaffeClassifier *elem) {
                 auto tmpPred=elem->ClassifyAutoBatch(images_);
-                vote(tmpPred,result,classifiers_size_);
+                vote(tmpPred,result,classifiers_.size());
 
             });
 

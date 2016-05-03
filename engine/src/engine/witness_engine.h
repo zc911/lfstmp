@@ -11,6 +11,15 @@
 #include "config.h"
 #include "simple_engine.h"
 #include "processor/processor.h"
+#include "engine_config_value.h"
+#include "processor/vehicle_multi_type_detector_processor.h"
+#include "processor/vehicle_classifier_processor.h"
+#include "processor/vehicle_color_processor.h"
+#include "processor/vehicle_marker_classifier_processor.h"
+#include "processor/vehicle_plate_recognizer_processor.h"
+#include "processor/car_feature_extract_processor.h"
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
 
 namespace dg {
 
@@ -24,6 +33,12 @@ class WitnessEngine : public SimpleEngine {
  private:
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
+    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & createVehicleConfig(const Config &config);
+    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & createVehicleColorConfig(const Config &config);
+   // const VehicleCaffeClassifier::VehicleCaffeConfig & createMarkersConfig(const Config &config);
+
+    const PlateRecognizer::PlateConfig & createVehiclePlateConfig(const Config &config);
+
 
     Processor *vehicle_processor_;
     Processor *face_processor_;
