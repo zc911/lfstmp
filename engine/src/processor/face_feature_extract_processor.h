@@ -14,35 +14,29 @@
 #include "model/model.h"
 #include "processor/processor.h"
 
-namespace dg
-{
+namespace dg {
 
-class FaceFeatureExtractProcessor : public Processor
-{
-public:
-	FaceFeatureExtractProcessor(const string& model_file,
-			const string& trained_file, const bool use_gpu,
-			const int batch_size, const string &align_model,
-			const string &avg_face);
-	virtual ~FaceFeatureExtractProcessor();
+class FaceFeatureExtractProcessor : public Processor {
+ public:
+    FaceFeatureExtractProcessor(const string& model_file,
+                                const string& trained_file, const bool use_gpu,
+                                const int batch_size, const string &align_model,
+                                const string &avg_face);
+    virtual ~FaceFeatureExtractProcessor();
 
-	void Update(Frame *frame);
-	virtual void Update(FrameBatch *frameBatch)
-	{
-	}
+    void Update(Frame *frame);
+    virtual void Update(FrameBatch *frameBatch);
 
-	virtual bool checkOperation(Frame *frame)
-	{
-		return true;
-	}
+    virtual bool checkOperation(Frame *frame) {
+        return true;
+    }
 
-	virtual bool checkStatus(Frame *frame)
-	{
-		return true;
-	}
+    virtual bool checkStatus(Frame *frame) {
+        return true;
+    }
 
-private:
-	FaceFeatureExtractor *extractor_;
+ private:
+    FaceFeatureExtractor *extractor_;
 };
 
 } /* namespace dg */

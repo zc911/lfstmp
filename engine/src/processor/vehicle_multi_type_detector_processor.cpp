@@ -48,10 +48,10 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
         for (vector<Detection>::iterator itr = detections.begin();
                 itr != detections.end(); ++itr) {
             Detection detection = *itr;
-            Object *obj;
+            Object *obj = NULL;
 
             // TODO check object type
-            if (1) {
+            if (detection.id == DETECTION_CAR) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
                 Mat roi = Mat(data, detection.box);
                 v->set_image(roi);
@@ -60,9 +60,11 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
             } else {
 
             }
+            if (obj) {
+                obj->set_detection(detection);
+                frame->put_object(obj);
+            }
 
-            obj->set_detection(detection);
-            frame->put_object(obj);
         }
         DLOG(INFO)<< frame->objects().size() << " cars are detected in frame "<<frame->id() << endl;
     }

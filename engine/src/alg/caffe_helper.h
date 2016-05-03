@@ -146,6 +146,41 @@ static void NMS(vector<struct Bbox>& p, float threshold) {
         }
     }
 }
+
+static float ReScaleImage(Mat &img, unsigned int scale) {
+
+    Size resize_r_c;
+    float resize_ratio = 1;
+
+    if (img.rows > scale && img.cols > scale) {
+        if (img.rows < img.cols) {
+            resize_ratio = float(scale) / img.rows;
+            resize_r_c = Size(img.cols * resize_ratio, scale);
+            resize(img, img, resize_r_c);
+        } else {
+            resize_ratio = float(scale) / img.cols;
+            resize_r_c = Size(scale, img.rows * resize_ratio);
+            resize(img, img, resize_r_c);
+        }
+    }
+
+    return resize_ratio;
+}
+
+static void CheckChannel(Mat &img, unsigned char tarChannel, Mat &newImage) {
+
+    if (img.channels() == 3 && tarChannel == 1)
+        cvtColor(img, newImage, CV_BGR2GRAY);
+    else if (img.channels() == 4 && tarChannel == 1)
+        cvtColor(img, newImage, CV_BGRA2GRAY);
+    else if (img.channels() == 4 && tarChannel == 3)
+        cvtColor(img, newImage, CV_RGBA2BGR);
+    else if (img.channels() == 1 && tarChannel == 3)
+        cvtColor(img, newImage, CV_GRAY2BGR);
+    else
+        newImage = img;
+}
+
 }
 
 #endif /* SRC_ALG_CAFFE_HELPER_H_ */
