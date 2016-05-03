@@ -60,6 +60,7 @@ static const string ADVANCED_PLATE_LOCAL_PROVINCE =
         "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
 static const string ADVANCED_PLATE_LOCATE = "Advanced/Plate/Locate";
+static const string ADVANCED_PLATE_ENBALE_SHARPEN = "Advanced/Plate/EnableSharp";
 
 static const string FILE_COLOR_MODEL_PATH = "File/Color/ModelPath";
 static const string FILE_COLOR_TRAINED_MODEL = "File/Color/TrainedModel";

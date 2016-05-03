@@ -18,6 +18,7 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const VehicleMultiTypeConfig 
 
     batch_size_ = config.batch_size;
     scale_ = config.target_min_size;
+    cout<<"SELKJa"<<config.deploy_file<<" "<<config.model_file<<" "<<batch_size_<<endl;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -65,6 +66,7 @@ vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
     vector<Detection> result;
     images.push_back(img);
     forward(images, tmp_outputs);
+
     getDetection(tmp_outputs, tmp_result);
     for (int i = 0; i < tmp_result.size(); ++i) {
         Bbox bbox = tmp_result[i];
@@ -126,6 +128,8 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
             shape.push_back(img.rows);
             shape.push_back(img.cols);
             input_layer->Reshape(shape);
+            DLOG(INFO)<<"SELKJa"<<img.cols<<endl;
+
             net_->Reshape();
         } while (0);
 

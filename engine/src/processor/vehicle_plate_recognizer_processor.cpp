@@ -8,8 +8,9 @@
 
 namespace dg {
 
-PlateRecognizerProcessor::PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig) {
-
+PlateRecognizerProcessor::PlateRecognizerProcessor(
+        const PlateRecognizer::PlateConfig &pConfig) {
+    enable_sharpen_=pConfig.isSharpen;
     recognizer_ = new PlateRecognizer(pConfig);
 }
 
@@ -40,6 +41,21 @@ bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
 }
 void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
                                             cv::Mat &result) {
+    Mat tmp;
+    float wRate = (float) image.cols / 350.0;
+    float hRate = (float) image.rows / 290.0;
+    if ((wRate < 1) || (hRate < 1)) {
+        if (wRate < hRate) {
+            resize(image, tmp,
+                   Size(350, (int) ((float) image.rows / wRate)));
+        } else {
+            resize(image, tmp,
+                   Size((int) ((float) image.cols / hRate), 290));
+        }
+    } else {
+        tmp = image;
+    }
+
     //创建并初始化滤波模板
     cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
     kernel.at<float>(1, 1) = 5.0;
@@ -66,10 +82,15 @@ vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
             Vehicle *v = (Vehicle*) obj;
 
             DLOG(INFO)<< "Put vehicle images to be plate recognized: " << obj->id() << endl;
-            vehicleMat.push_back(v->image());
+            if(enable_sharpen_){
+                Mat result;
+                sharpenImage(v->image(),result);
+                vehicleMat.push_back(result);
+            }else{
+                vehicleMat.push_back(v->image());
+            }
 
         } else {
-            delete obj;
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
