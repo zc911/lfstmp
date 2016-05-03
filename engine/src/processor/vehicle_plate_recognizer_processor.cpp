@@ -31,7 +31,6 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
         Vehicle *v = (Vehicle*) objs_[i];
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
-        DLOG(INFO)<<"plate number "<<pred.plate_num<<endl;
         v->set_plate(pred);
     }
     Proceed(frameBatch);

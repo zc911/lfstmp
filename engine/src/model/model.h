@@ -162,10 +162,10 @@ class Vehicle : public Object {
 
     typedef struct {
         Box box;
-        string plate_num;
-        int color_id;
-        int plate_type;
-        Confidence confidence;
+        string plate_num = "";
+        int color_id = -1;
+        int plate_type = -1;
+        Confidence confidence = 0;
     } Plate;
 
     Vehicle(ObjectType type)
