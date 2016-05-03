@@ -38,6 +38,7 @@ class WitnessEngine : public SimpleEngine {
 
     const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & createVehicleColorConfig(const Config &config);
    // const VehicleCaffeClassifier::VehicleCaffeConfig & createMarkersConfig(const Config &config);
+    const VehicleMultiTypeDetector::VehicleMultiTypeConfig & createVehicleMutiTypeDetectorConfig(const Config &config);
 
     const PlateRecognizer::PlateConfig & createVehiclePlateConfig(const Config &config);
 

@@ -25,8 +25,7 @@ const static string DEPLOY_FILE_EN = "models/detector/test.prototxt";
 class VehicleMultiTypeDetectorProcessor : public Processor {
  public:
 
-    VehicleMultiTypeDetectorProcessor(int batch_size, int gpu_id, int rescale,
-                                      bool is_model_encrypt);
+    VehicleMultiTypeDetectorProcessor(const VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
 
     ~VehicleMultiTypeDetectorProcessor();
 
