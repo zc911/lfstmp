@@ -97,10 +97,10 @@ Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
     recognizeImage(img);
 
     Vehicle::Plate plate;
-    plate.plate_num=result.license;
-    plate.color_id=result.nColor;
-    plate.plate_type=result.nType;
-    plate.confidence=result.nConfidence;
+    plate.plate_num = result.license;
+    plate.color_id = result.nColor;
+    plate.plate_type = result.nType;
+    plate.confidence = result.nConfidence / 100.0;
 
     Box cutboard;
     cutboard.x=result.rcLocation.left;

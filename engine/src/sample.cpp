@@ -52,11 +52,11 @@ static void PrintFrame(FrameBatch &frameBatch) {
 
 static Config *config;
 static SimpleEngine *engine1;
-static SimpleEngine *engine2;
-static SimpleEngine *engine3;
-static SimpleEngine *engine4;
-static SimpleEngine *engine5;
-static SimpleEngine *engine6;
+//static SimpleEngine *engine2;
+//static SimpleEngine *engine3;
+//static SimpleEngine *engine4;
+//static SimpleEngine *engine5;
+//static SimpleEngine *engine6;
 
 static void* process(void* p) {
     SimpleEngine *engine = (SimpleEngine*) p;
@@ -91,11 +91,11 @@ int main() {
     config = Config::GetInstance();
     config->Load("config.json");
     engine1 = new WitnessEngine(*config);
-    engine2 = new WitnessEngine(*config);
-    engine3 = new WitnessEngine(*config);
-    engine4 = new WitnessEngine(*config);
-    engine5 = new WitnessEngine(*config);
-    engine6 = new WitnessEngine(*config);
+//    engine2 = new WitnessEngine(*config);
+//    engine3 = new WitnessEngine(*config);
+//    engine4 = new WitnessEngine(*config);
+//    engine5 = new WitnessEngine(*config);
+//    engine6 = new WitnessEngine(*config);
 
     pthread_t t1, t2, t3, t4, t5, t6;
     pthread_create(&t1, NULL, process, (void*) engine1);
