@@ -11,12 +11,11 @@
 #include "config.h"
 using namespace dg;
 
- int main(int argc, char **argv)
- {
- 	return 0;
- }
+// int main(int argc, char **argv)
+// {
+// 	return 0;
+// }
 
-/*
 static void PrintFrame(Frame &frame) {
     cout << "=====FRAME INFO=====" << endl;
     cout << "Frame ID: " << frame.id() << endl;
@@ -24,7 +23,7 @@ static void PrintFrame(Frame &frame) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
         ObjectType type = obj->type();
-        if (type >= OBJECT_CAR && type << OBJECT_TRICYCLE) {
+        if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE) {
             Vehicle *v = (Vehicle*) obj;
             cout << "Vehicle class id: " << v->class_id() << ", Conf: "
                  << v->confidence() << endl;
@@ -45,8 +44,11 @@ static void PrintFrame(Frame &frame) {
 
             cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
                  << "... Len: " << v->feature().Serialize().size() << endl;
-        } else {
-            cout << "Type not support now. " << endl;
+        } else if (type == OBJECT_FACE) {
+            Face *f = (Face*) obj;
+            cout << "Face Detection: " << f->detection() << endl;
+            cout << "Face Vector: " << f->feature().Serialize().substr(0, 32)
+                 << "... Len:" << f->feature().Serialize().size() << endl;
         }
     }
 }
@@ -67,14 +69,18 @@ static SimpleEngine *engine1;
 
 static void* process(void* p) {
     SimpleEngine *engine = (SimpleEngine*) p;
-    while (1) {
-        FrameBatch *fb = new FrameBatch(1111, 4);
-        for (int i = 0; i < 4; ++i) {
+    if (1) {
+        FrameBatch *fb = new FrameBatch(1111, 2);
+        for (int i = 0; i < 2; ++i) {
 
             char index[1];
             index[0] = '0' + i;
-            string file = "test" + string(index) + ".jpg";
+            string file = "faces" + string(index) + ".jpg";
             cv::Mat image = cv::imread(file.c_str());
+            if (image.empty()) {
+                cout << "Read image file failed: " << file << endl;
+                return 0;
+            }
             Frame *f = new Frame((i + 1) * 100, image);
             Operation op;
             op.Set(OPERATION_VEHICLE);
@@ -82,6 +88,8 @@ static void* process(void* p) {
                     | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
                     | OPERATION_VEHICLE_FEATURE_VECTOR
                     | OPERATION_VEHICLE_PLATE);
+            op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+                    | OPERATION_FACE_FEATURE_VECTOR);
             f->set_operation(op);
             fb->add_frame(f);
         }
@@ -107,7 +115,7 @@ int main() {
     pthread_t t1, t2, t3, t4, t5, t6;
     pthread_create(&t1, NULL, process, (void*) engine1);
     //sleep(1);
-   // pthread_create(&t2, NULL, process, (void*) engine2);
+    // pthread_create(&t2, NULL, process, (void*) engine2);
 //    sleep(1);
 //    pthread_create(&t3, NULL, process, (void*) engine3);
 //    sleep(1);
@@ -147,4 +155,4 @@ int main() {
     DLOG(INFO)<< "FINISHED" << endl;
 
 }
-*/
+

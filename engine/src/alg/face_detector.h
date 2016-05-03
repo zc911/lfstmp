@@ -11,39 +11,38 @@ using namespace std;
 using namespace cv;
 using namespace caffe;
 
-namespace dg
-{
+namespace dg {
 
-class FaceDetector
-{
-public:
-	FaceDetector(const string& model_file, const string& trained_file,
-			const bool use_gpu, const int batch_size, const Size &image_size,
-			const float conf_thres);
+class FaceDetector {
+ public:
+    FaceDetector(const string& model_file, const string& trained_file,
+                 const bool use_gpu, const int batch_size, unsigned int scale,
+                 const float conf_thres);
 
-	virtual ~FaceDetector();
-	vector<vector<Detection>> Detect(vector<Mat> imgs);
+    virtual ~FaceDetector();
+    vector<vector<Detection>> Detect(vector<Mat> imgs);
 
-private:
-	void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
-	void GetDetection(vector<Blob<float>*>& outputs,
-			vector<vector<Detection>> &final_vbbox);
-	void NMS(vector<Detection>& p, float threshold);
+ private:
+    void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
+    void GetDetection(vector<Blob<float>*>& outputs,
+                      vector<vector<Detection>> &final_vbbox);
+    void NMS(vector<Detection>& p, float threshold);
 
-
-private:
-	caffe::shared_ptr<Net<float> > net_;
-	int num_channels_;
-	int batch_size_;
-	bool use_gpu_;
-	vector<float> pixel_means_;
-	float conf_thres_;
-	Size image_size_;
-	string layer_name_cls_;
-	string layer_name_reg_;
-	int sliding_window_stride_;
-	vector<float> area_;
-	vector<float> ratio_;
+ private:
+    caffe::shared_ptr<Net<float> > net_;
+    int num_channels_;
+    int batch_size_;
+    bool use_gpu_;
+    vector<float> pixel_means_;
+    float conf_thres_;
+//    Size image_size_;
+    unsigned int scale_;
+    string layer_name_cls_;
+    string layer_name_reg_;
+    int sliding_window_stride_;
+    vector<float> area_;
+    vector<float> ratio_;
+    vector<float> resize_ratios_;
 };
 
 } /* namespace dg */
