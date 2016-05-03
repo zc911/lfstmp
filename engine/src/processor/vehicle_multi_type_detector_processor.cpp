@@ -2,25 +2,9 @@
 
 namespace dg {
 
-VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-        int batch_size, int gpu_id, int rescale, bool is_model_encrypt)
+VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(const VehicleMultiTypeDetector::VehicleMultiTypeConfig &config)
         : Processor() {
 
-    CaffeConfig config;
-    config.batch_size = batch_size;
-    config.is_model_encrypt = is_model_encrypt;
-
-    if (config.is_model_encrypt) {
-        config.model_file = MODEL_FILE;
-        config.deploy_file = DEPLOY_FILE;
-    } else {
-        config.model_file = MODEL_FILE_EN;
-        config.deploy_file = DEPLOY_FILE_EN;
-    }
-
-    config.use_gpu = true;
-    config.gpu_id = gpu_id;
-    config.rescale = rescale;
     detector_ = new VehicleMultiTypeDetector(config);
 }
 
