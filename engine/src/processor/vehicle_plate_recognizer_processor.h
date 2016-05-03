@@ -16,7 +16,7 @@ namespace dg {
 class PlateRecognizerProcessor : public Processor {
  public:
 
-    PlateRecognizerProcessor();
+    PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig);
 
     ~PlateRecognizerProcessor();
     virtual void Update(Frame *frame) {

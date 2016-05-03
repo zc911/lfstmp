@@ -8,12 +8,7 @@
 
 namespace dg {
 
-PlateRecognizerProcessor::PlateRecognizerProcessor() {
-    PlateRecognizer::PlateConfig pConfig;
-    pConfig.LocalProvince = "";
-
-    pConfig.OCR = 1;
-    pConfig.PlateLocate = 5;
+PlateRecognizerProcessor::PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig) {
 
     recognizer_ = new PlateRecognizer(pConfig);
 }
