@@ -32,6 +32,7 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
+        cout << "PLATE:" << pred.plate_num << endl;
     }
     Proceed(frameBatch);
 }
@@ -68,14 +69,12 @@ vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
-
             Vehicle *v = (Vehicle*) obj;
 
             DLOG(INFO)<< "Put vehicle images to be plate recognized: " << obj->id() << endl;
             vehicleMat.push_back(v->image());
 
         } else {
-            delete obj;
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }

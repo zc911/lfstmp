@@ -197,8 +197,7 @@ void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
         vbbox.resize(min(static_cast<size_t>(max_per_img_), vbbox.size()));
         nms(vbbox, 0.2);
     }
-
-    final_vbbox.resize(0);
+    final_vbbox.clear();
     for (size_t i = 0; i < vbbox.size(); i++) {
 
         if (!vbbox[i].deleted) {
