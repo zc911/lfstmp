@@ -10,12 +10,13 @@
 
 #include "processor/processor.h"
 #include "alg/vehicle_caffe_classifier.h"
+#include "processor_helper.h"
 namespace dg {
 
 class VehicleClassifierProcessor : public Processor {
  public:
 
-    VehicleClassifierProcessor();
+    VehicleClassifierProcessor(const vector< VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
 
     ~VehicleClassifierProcessor();
 
@@ -30,7 +31,6 @@ class VehicleClassifierProcessor : public Processor {
  protected:
     vector<Mat> vehicles_resized_mat(FrameBatch *frameBatch);
  private:
-    int classifiers_size_;
     vector<VehicleCaffeClassifier*> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;

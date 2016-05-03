@@ -9,7 +9,7 @@
 
 namespace dg {
 
-VehicleCaffeClassifier::VehicleCaffeClassifier(CaffeConfig &config)
+VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
         : device_setted_(false),
           caffe_config_(config),
           rescale_(100) {

@@ -8,28 +8,37 @@
 #include "vehicle_color_processor.h"
 namespace dg {
 
-VehicleColorProcessor::VehicleColorProcessor() {
-    CaffeConfig config;
-    config.model_file = "models/color/zf_q_iter_70000.caffemodel";
-    config.deploy_file = "models/color/deploy.prototxt";
+VehicleColorProcessor::VehicleColorProcessor(
+        const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 
-    config.is_model_encrypt = false;
-    config.batch_size = 1;
-    classifier_ = new VehicleCaffeClassifier(config);
+    for (int i = 0; i < configs.size(); i++) {
+
+        VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(
+                configs[i]);
+
+        classifiers_.push_back(classifier);
+
+    }
 }
 
 VehicleColorProcessor::~VehicleColorProcessor() {
-    if (classifier_)
-        delete classifier_;
+    for (int i = 0; i < classifiers_.size(); i++) {
+        delete classifiers_[i];
+    }
+    classifiers_.clear();
 }
 
 void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
     DLOG(INFO)<<"Start detect frame: "<< endl;
 
     beforeUpdate(frameBatch);
+    vector<vector<Prediction> > result;
+    for_each(classifiers_.begin(),classifiers_.end(),[&](VehicleCaffeClassifier *elem) {
+                auto tmpPred=elem->ClassifyAutoBatch(images_);
+                vote(tmpPred,result,classifiers_.size());
 
-    vector<vector<Prediction> > result = classifier_->ClassifyAutoBatch(
-            images_);
+            });
+
 
     for(int i=0;i<objs_.size();i++) {
         Vehicle *v = (Vehicle*) objs_[i];
