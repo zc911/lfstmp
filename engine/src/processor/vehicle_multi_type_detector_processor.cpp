@@ -53,9 +53,9 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
             // TODO check object type
             if (1) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
-                v->set_id(id++);
                 Mat roi = Mat(data, detection.box);
                 v->set_image(roi);
+                v->set_id(id++);
                 obj = static_cast<Object*>(v);
             } else {
 
