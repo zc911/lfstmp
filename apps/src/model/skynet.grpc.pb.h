@@ -23,30 +23,31 @@ class ServerContext;
 }  // namespace grpc
 
 namespace dg {
+namespace model {
 
 class SkynetService GRPC_FINAL {
  public:
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status VideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::dg::SkynetResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::SkynetResponse>> AsyncVideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::SkynetResponse>>(AsyncVideoRecognizeRaw(context, request, cq));
+    virtual ::grpc::Status VideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::dg::model::SkynetResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SkynetResponse>> AsyncVideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SkynetResponse>>(AsyncVideoRecognizeRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::SkynetResponse>* AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SkynetResponse>* AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status VideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::dg::SkynetResponse* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>> AsyncVideoRecognize(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>>(AsyncVideoRecognizeRaw(context, request, cq));
+    ::grpc::Status VideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::dg::model::SkynetResponse* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>> AsyncVideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>>(AsyncVideoRecognizeRaw(context, request, cq));
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::dg::SkynetResponse>* AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::SkynetRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>* AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_VideoRecognize_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -55,7 +56,7 @@ class SkynetService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::SkynetRequest* request, ::dg::SkynetResponse* response);
+    virtual ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_VideoRecognize : public BaseClass {
@@ -69,11 +70,11 @@ class SkynetService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::SkynetRequest* request, ::dg::SkynetResponse* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestVideoRecognize(::grpc::ServerContext* context, ::dg::SkynetRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::SkynetResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestVideoRecognize(::grpc::ServerContext* context, ::dg::model::SkynetRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::SkynetResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
@@ -90,13 +91,14 @@ class SkynetService GRPC_FINAL {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::SkynetRequest* request, ::dg::SkynetResponse* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
 };
 
+}  // namespace model
 }  // namespace dg
 
 

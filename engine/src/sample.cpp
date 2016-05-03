@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <pthread.h>
 #include <iostream>
 
@@ -10,6 +11,12 @@
 #include "config.h"
 using namespace dg;
 
+ int main(int argc, char **argv)
+ {
+ 	return 0;
+ }
+
+/*
 static void PrintFrame(Frame &frame) {
     cout << "=====FRAME INFO=====" << endl;
     cout << "Frame ID: " << frame.id() << endl;
@@ -140,3 +147,4 @@ int main() {
     DLOG(INFO)<< "FINISHED" << endl;
 
 }
+*/
