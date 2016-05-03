@@ -1,14 +1,5 @@
 #include "witness_engine.h"
 
-#include "engine_config_value.h"
-#include "processor/vehicle_multi_type_detector_processor.h"
-#include "processor/vehicle_classifier_processor.h"
-#include "processor/vehicle_color_processor.h"
-#include "processor/vehicle_marker_classifier_processor.h"
-#include "processor/vehicle_plate_recognizer_processor.h"
-#include "processor/car_feature_extract_processor.h"
-#include "processor/face_detect_processor.h"
-#include "processor/face_feature_extract_processor.h"
 
 namespace dg {
 
@@ -89,22 +80,26 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
             DLOG(INFO)<<"begin  "<<endl;
-
-            Processor *p = new VehicleClassifierProcessor();
+            vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs = createVehicleConfig(config);
+            Processor *p = new VehicleClassifierProcessor(configs);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_color_) {
             LOG(INFO)<< "Enable vehicle color classification processor." << endl;
-            Processor *p = new VehicleColorProcessor();
+            vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs = createVehicleColorConfig(config);
+
+            Processor *p = new VehicleColorProcessor(configs);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_plate_) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
-            Processor *p = new PlateRecognizerProcessor();
+            PlateRecognizer::PlateConfig pConfig;
+
+            Processor *p = new PlateRecognizerProcessor(pConfig);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -115,7 +110,6 @@ void WitnessEngine::init(const Config &config) {
             last->SetNextProcessor(p);
             last = p;
         }
-
         if (enable_vehicle_feature_vector_) {
             LOG(INFO)<< "Enable vehicle feature vector processor." << endl;
             Processor *p = new CarFeatureExtractProcessor();
@@ -139,5 +133,42 @@ void WitnessEngine::init(const Config &config) {
 
     is_init_ = true;
 }
+const vector<VehicleCaffeClassifier::VehicleCaffeConfig> & WitnessEngine::createVehicleConfig(
+        const Config &config) {
+    vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+    for (int i = 0; i < 8; i++) {
+        VehicleCaffeClassifier::VehicleCaffeConfig config;
+        config.model_file = "models/car_style/front_day_" + to_string(i)
+                + "/car_python_mini_alex_256_" + to_string(i)
+                + "_iter_70000.caffemodel";
+        config.deploy_file = "models/car_style/front_day_" + to_string(i)
+                + "/deploy_256.prototxt";
+        config.is_model_encrypt = false;
+        config.batch_size = 1;
 
+        configs.push_back(config);
+    }
+}
+const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &WitnessEngine::createVehicleColorConfig(
+        const Config &config) {
+    vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+    for (int i = 0; i < 1; i++) {
+        VehicleCaffeClassifier::VehicleCaffeConfig config;
+        config.model_file = "models/color/zf_q_iter_70000.caffemodel";
+        config.deploy_file = "models/color/deploy.prototxt";
+        config.is_model_encrypt = false;
+        config.batch_size = 1;
+
+        configs.push_back(config);
+    }
+    return configs;
+}
+const PlateRecognizer::PlateConfig& WitnessEngine::createVehiclePlateConfig(
+        const Config &config) {
+    PlateRecognizer::PlateConfig pConfig;
+    pConfig.LocalProvince = "";
+    pConfig.OCR = 1;
+    pConfig.PlateLocate = 5;
+    return pConfig;
+}
 }
