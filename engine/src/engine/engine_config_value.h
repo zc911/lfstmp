@@ -44,6 +44,7 @@ static const string ADVANCED_DETECTION_BATCH_SIZE =
         "Advanced/DetectionBatchSize";
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/ColorBatchSize";
 static const string ADVANCED_STYLE_BATCH_SIZE = "Advanced/StyleBatchSize";
+
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
         "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
@@ -56,6 +57,10 @@ static const string FILE_COLOR_DEPLOY_MODEL = "File/Color/DeployModel";
 static const string FILE_STYLE_MODEL_PATH = "File/Style/ModelPath";
 static const string FILE_STYLE_TRAINED_MODEL = "File/Style/TrainedModel";
 static const string FILE_STYLE_DEPLOY_MODEL = "File/Style/DeployModel";
+
+static const string FILE_DETECTION_MODEL_PATH = "File/Detection/ModelPath";
+static const string FILE_DETECTION_TRAINED_MODEL = "File/Detection/TrainedModel";
+static const string FILE_DETECTION_DEPLOY_MODEL = "File/Detection/DeployModel";
 
 }
 
