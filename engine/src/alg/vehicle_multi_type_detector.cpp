@@ -28,15 +28,13 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
     Blob<float>* input_layer = net_->input_blobs()[0];
     Blob<float>* im_info_layer = net_->input_blobs()[1];
 
-    do {
-        vector<int> shape = input_layer->shape();
-        shape[0] = batch_size_;
-        input_layer->Reshape(shape);
-        vector<int> shape_im_info;
-        shape_im_info.push_back(batch_size_);
-        shape_im_info.push_back(3);
-        im_info_layer->Reshape(shape_im_info);
-    } while (0);
+    vector<int> shape = input_layer->shape();
+    shape[0] = batch_size_;
+    input_layer->Reshape(shape);
+    vector<int> shape_im_info;
+    shape_im_info.push_back(batch_size_);
+    shape_im_info.push_back(3);
+    im_info_layer->Reshape(shape_im_info);
 
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
@@ -105,40 +103,43 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
         Mat sample;
         Mat img = imgs[i];
 
-        float resize_ratio = 1;
-        Size resize_r_c;
-        if (img.rows > scale_ && img.cols > scale_) {
-            if (img.rows < img.cols) {
-                resize_ratio = float(scale_) / img.rows;
-                resize_r_c = Size(img.cols * resize_ratio, scale_);
-                resize(img, img, resize_r_c);
-            } else {
-                resize_ratio = float(scale_) / img.cols;
-                resize_r_c = Size(scale_, img.rows * resize_ratio);
-                resize(img, img, resize_r_c);
-            }
-        }
+        float resize_ratio = ReScaleImage(img, scale_);
 
-        do {
-            vector<int> shape;
-            shape.push_back(batch_size_);
-            shape.push_back(3);
-            shape.push_back(img.rows);
-            shape.push_back(img.cols);
-            input_layer->Reshape(shape);
-            net_->Reshape();
-        } while (0);
+//        float resize_ratio = 1;
+//        Size resize_r_c;
 
-        if (img.channels() == 3 && num_channels_ == 1)
-            cvtColor(img, sample, CV_BGR2GRAY);
-        else if (img.channels() == 4 && num_channels_ == 1)
-            cvtColor(img, sample, CV_BGRA2GRAY);
-        else if (img.channels() == 4 && num_channels_ == 3)
-            cvtColor(img, sample, CV_RGBA2BGR);
-        else if (img.channels() == 1 && num_channels_ == 3)
-            cvtColor(img, sample, CV_GRAY2BGR);
-        else
-            sample = img;
+//        if (img.rows > scale_ && img.cols > scale_) {
+//            if (img.rows < img.cols) {
+//                resize_ratio = float(scale_) / img.rows;
+//                resize_r_c = Size(img.cols * resize_ratio, scale_);
+//                resize(img, img, resize_r_c);
+//            } else {
+//                resize_ratio = float(scale_) / img.cols;
+//                resize_r_c = Size(scale_, img.rows * resize_ratio);
+//                resize(img, img, resize_r_c);
+//            }
+//        }
+
+        vector<int> shape;
+        shape.push_back(batch_size_);
+        shape.push_back(3);
+        shape.push_back(img.rows);
+        shape.push_back(img.cols);
+        input_layer->Reshape(shape);
+        net_->Reshape();
+
+        CheckChannel(img, num_channels_, sample);
+
+//        if (img.channels() == 3 && num_channels_ == 1)
+//            cvtColor(img, sample, CV_BGR2GRAY);
+//        else if (img.channels() == 4 && num_channels_ == 1)
+//            cvtColor(img, sample, CV_BGRA2GRAY);
+//        else if (img.channels() == 4 && num_channels_ == 3)
+//            cvtColor(img, sample, CV_RGBA2BGR);
+//        else if (img.channels() == 1 && num_channels_ == 3)
+//            cvtColor(img, sample, CV_GRAY2BGR);
+//        else
+//            sample = img;
 
         float* input_data = input_layer->mutable_cpu_data();
 

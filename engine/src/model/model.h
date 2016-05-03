@@ -35,21 +35,26 @@ typedef enum {
     OBJECT_FACE = 64,
 } ObjectType;
 
+enum DetectionTypeId {
+    DETECTION_UNKNOWN = 0,
+    DETECTION_CAR = 1,
+    DETECTION_PERSON = 2,
+    DETECTION_BIKE = 3,
+    DETECTION_TRICYCLE = 4
+};
+
 typedef struct Detection {
-    int id;
+    int id = -1;
     bool deleted;
     Box box;
-    Confidence confidence;
+    Confidence confidence = 0;
 
-//    Detection& operator =(const Detection &detection) {
-//        if (this == &detection) {
-//            return *this;
-//        }
-//        id = detection.id;
-//        box = detection.box;
-//        confidence = detection.confidence;
-//        return *this;
-//    }
+    void Rescale(float scale) {
+        box.x = box.x / scale;
+        box.y = box.y / scale;
+        box.width = box.width / scale;
+        box.height = box.height / scale;
+    }
     friend ostream& operator<<(std::ostream& os, const Detection& det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
                   << det.box.y << "," << det.box.width << "," << det.box.height
@@ -84,12 +89,8 @@ class Object {
     }
 
     void AddChild(Object *child) {
-        cout << "add child " << child->id() << endl;
         children_.push_back(child);
     }
-//     void set_children(const vector<Object*>& children) {
-//          children_ = children;
-//     }
 
     const Detection& detection() const {
         return detection_;
@@ -252,37 +253,37 @@ private:
 class Face : public Object {
 
  public:
-     Face()
-               : Object(OBJECT_FACE) {
+    Face()
+            : Object(OBJECT_FACE) {
 
-     }
+    }
 
-     Face(Identification id, Detection detection, Confidence confidence)
-               : Object(OBJECT_FACE) {
-          id_ = id;
-          confidence_ = confidence;
-          detection_ = detection;
-     }
+    Face(Identification id, Detection detection, Confidence confidence)
+            : Object(OBJECT_FACE) {
+        id_ = id;
+        confidence_ = confidence;
+        detection_ = detection;
+    }
 
-     Face(Identification id, int x, int y, int width, int height,
-          Confidence confidence)
-               : Object(OBJECT_FACE) {
-          id_ = id;
-          confidence_ = confidence;
-          detection_.box = Box(x, y, width, height);
-     }
+    Face(Identification id, int x, int y, int width, int height,
+         Confidence confidence)
+            : Object(OBJECT_FACE) {
+        id_ = id;
+        confidence_ = confidence;
+        detection_.box = Box(x, y, width, height);
+    }
 
-     FaceRankFeature feature() const {
-          return feature_;
-     }
+    FaceRankFeature feature() const {
+        return feature_;
+    }
 
-     void set_feature(FaceRankFeature feature) {
-          feature_ = feature;
-     }
+    void set_feature(FaceRankFeature feature) {
+        feature_ = feature;
+    }
 
  private:
 
-     FaceRankFeature feature_;
+    FaceRankFeature feature_;
 };
 
 typedef struct {
