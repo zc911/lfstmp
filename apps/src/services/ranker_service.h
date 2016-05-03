@@ -13,8 +13,6 @@
 #include <opencv2/core/core.hpp>
 #include "config.h"
 #include "model/ranker.grpc.pb.h" //from apps
-//#include "service/ranker_service.h"
-#include "model/rank_feature.h"
 #include "engine/rank_engine.h"
 
 using namespace cv;
@@ -22,6 +20,7 @@ using namespace std;
 
 namespace dg 
 {
+using namespace ::dg::model;
 
 class RankerAppsService
 {

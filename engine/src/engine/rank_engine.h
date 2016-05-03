@@ -15,7 +15,11 @@
 #include "model/model.h"
 #include "model/rank_feature.h"
 #include "processor/processor.h"
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
 
+#include "processor/car_rank_processor.h"
+#include "processor/face_rank_processor.h"
 
 namespace dg {
 
@@ -46,7 +50,9 @@ class FaceRankEngine : public RankEngine {
 
  private:
     Identification id_;
-    Processor *processor_;
+    Processor *detector_;
+    Processor *extractor_;
+    Processor *ranker_;
 };
 
 }

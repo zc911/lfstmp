@@ -10,24 +10,26 @@
 
 #include <vector>
 #include <pthread.h>
-#include <opencv2/core/core.hpp>
+
 #include "payload.h"
 #include "rank_feature.h"
 
 using namespace std;
 using namespace cv;
 
-namespace dg {
+namespace dg
+{
 
-typedef enum {
+typedef enum
+{
 
 } FrameType;
 
-enum FrameStatus {
-    FRAME_STATUS_INIT = 0,
-    FRAME_STATUS_DETECTED = 1,
-    FRAME_STATUS_FINISHED = 128,
-    FRAME_STATUS_ERROR = 256
+enum FrameStatus
+{
+	FRAME_STATUS_INIT = 0,
+	FRAME_STATUS_DETECTED = 1,
+	FRAME_STATUS_FINISHED = 128
 };
 
 /// Frame represents a single request. A frame encapsulates a payload
@@ -258,56 +260,51 @@ class FrameBatch {
     vector<Frame *> frames_;
 };
 
-class CarRankFrame : public Frame {
- public:
-    CarRankFrame(Identification id, const Mat& image,
-                 const vector<Rect>& hotspots,
-                 const vector<CarRankFeature>& candidates)
-            : Frame(id),
-              image_(image),
-              hotspots_(hotspots),
-              candidates_(candidates) {
-    }
-    ~CarRankFrame() {
-    }
-    CarRankFrame(const CarRankFrame& f)
-            : Frame(f.id_),
-              image_(f.image_),
-              hotspots_(f.hotspots_),
-              candidates_(f.candidates_) {
-    }
+class CarRankFrame : public Frame
+{
+public:
+	CarRankFrame(Identification id, const Mat& image,
+			const vector<Rect>& hotspots,
+			const vector<CarRankFeature>& candidates) :
+			Frame(id), image_(image), hotspots_(hotspots), candidates_(
+					candidates)
+	{
+	}
+	~CarRankFrame()
+	{
+	}
+	CarRankFrame(const CarRankFrame& f) :
+			Frame(f.id_), image_(f.image_), hotspots_(f.hotspots_), candidates_(
+					f.candidates_)
+	{
+	}
 
-    const Mat& image_;
-    const vector<Rect>& hotspots_;
-    const vector<CarRankFeature>& candidates_;
+	const Mat& image_;
+	const vector<Rect>& hotspots_;
+	const vector<CarRankFeature>& candidates_;
 
-    vector<Score> result_;
+	vector<Score> result_;
 };
 
-class FaceRankFrame : public Frame {
- public:
-    FaceRankFrame(Identification id, const Mat& image,
-                  const vector<Rect>& hotspots,
-                  const vector<FaceRankFeature>& candidates)
-            : Frame(id),
-              image_(image),
-              hotspots_(hotspots),
-              candidates_(candidates) {
-    }
-    ~FaceRankFrame() {
-    }
-    FaceRankFrame(const FaceRankFrame& f)
-            : Frame(f.id_),
-              image_(f.image_),
-              hotspots_(f.hotspots_),
-              candidates_(f.candidates_) {
-    }
+class FaceRankFrame : public Frame
+{
+public:
+	FaceRankFrame(Identification id, const FaceRankFeature& datum,
+			const vector<Rect>& hotspots,
+			const vector<FaceRankFeature>& candidates) :
+			Frame(id), datum_(datum), hotspots_(hotspots), candidates_(
+					candidates)
+	{
+	}
 
-    const Mat& image_;
-    const vector<Rect>& hotspots_;
-    const vector<FaceRankFeature>& candidates_;
-    vector<Score> result_;
+	~FaceRankFrame()
+	{
+	}
 
+	const vector<Rect>& hotspots_;
+	const vector<FaceRankFeature>& candidates_;
+	vector<Score> result_;
+	const FaceRankFeature& datum_;
 };
 
 }
