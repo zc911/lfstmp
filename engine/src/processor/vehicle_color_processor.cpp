@@ -39,6 +39,7 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
 
             });
 
+    //set results
 
     for(int i=0;i<objs_.size();i++) {
         Vehicle *v = (Vehicle*) objs_[i];
@@ -81,7 +82,6 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
             vehicleMat.push_back(v->resized_image());
 
         } else {
-            delete obj;
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }

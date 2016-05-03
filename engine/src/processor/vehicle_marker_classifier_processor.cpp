@@ -15,8 +15,6 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 
     classifier_ = new MarkerCaffeClassifier( mConfig);
 
-
-
     detector_ = new WindowCaffeDetector(wConfig);
 
 }
@@ -75,7 +73,6 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             images_.push_back(v->image());
 
         } else {
-            delete obj;
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
