@@ -8,41 +8,16 @@
 #include "vehicle_marker_classifier_processor.h"
 namespace dg {
 
-VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor()
+VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
+        WindowCaffeDetector::WindowCaffeConfig & wConfig,
+        MarkerCaffeClassifier::MarkerConfig &mConfig)
         : Processor() {
-    CaffeConfig dConfig;
-    dConfig.model_file =
-            "models/marker_model/frcnn_train_iter_100000.caffemodel";
-    dConfig.deploy_file = "models/marker_model/tiny_deploy.prototxt";
 
-    dConfig.is_model_encrypt = false;
-    dConfig.batch_size = 1;
-    MarkerCaffeClassifier::MarkerConfig mConfig;
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::MOT, 0.6));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Belt, 0.8));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Global, 0.8));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Accessories, 0.8));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Others, 0.8));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::TissueBox, 0.8));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::SunVisor, 0.8));
+    classifier_ = new MarkerCaffeClassifier( mConfig);
 
-    classifier_ = new MarkerCaffeClassifier(dConfig, mConfig);
 
-    CaffeConfig cConfig;
-    cConfig.model_file =
-            "models/window_model/car_python_mini_alex_256_5_iter_25000.caffemodel";
-    cConfig.deploy_file = "models/window_model/window_deploy.prototxt";
-    cConfig.is_model_encrypt = false;
-    cConfig.batch_size = 1;
 
-    detector_ = new WindowCaffeDetector(cConfig);
+    detector_ = new WindowCaffeDetector(wConfig);
 
 }
 
