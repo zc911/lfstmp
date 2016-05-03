@@ -42,6 +42,20 @@ static const string DEBUG_ENABLE = "Debug/Enable";
 static const string ADVANCED_DETECTION_RESCALE = "Advanced/DetectionRescale";
 static const string ADVANCED_DETECTION_BATCH_SIZE =
         "Advanced/DetectionBatchSize";
+static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/ColorBatchSize";
+static const string ADVANCED_STYLE_BATCH_SIZE = "Advanced/StyleBatchSize";
+static const string ADVANCED_PLATE_LOCAL_PROVINCE =
+        "Advanced/Plate/LocalProvince";
+static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
+static const string ADVANCED_PLATE_LOCATE = "Advanced/Plate/Locate";
+
+static const string FILE_COLOR_MODEL_PATH = "File/Color/ModelPath";
+static const string FILE_COLOR_TRAINED_MODEL = "File/Color/TrainedModel";
+static const string FILE_COLOR_DEPLOY_MODEL = "File/Color/DeployModel";
+
+static const string FILE_STYLE_MODEL_PATH = "File/Style/ModelPath";
+static const string FILE_STYLE_TRAINED_MODEL = "File/Style/TrainedModel";
+static const string FILE_STYLE_DEPLOY_MODEL = "File/Style/DeployModel";
 
 }
 
