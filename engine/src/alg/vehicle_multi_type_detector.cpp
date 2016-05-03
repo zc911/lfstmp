@@ -6,7 +6,7 @@ static bool mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
-VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
+VehicleMultiTypeDetector::VehicleMultiTypeDetector(const VehicleMultiTypeConfig &config)
         : config_(config) {
 
     if (config.use_gpu) {
@@ -17,7 +17,7 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
     }
 
     batch_size_ = config.batch_size;
-    scale_ = config.rescale;
+    scale_ = config.target_min_size;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
