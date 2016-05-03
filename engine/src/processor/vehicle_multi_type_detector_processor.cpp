@@ -27,6 +27,7 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
 
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
         Mat data = frame->payload()->data();
+        DLOG(INFO)<<data.cols<<"data"<<endl;
         vector<Detection> detections = detector_->Detect(data);
         int id = 0;
         for (vector<Detection>::iterator itr = detections.begin();

@@ -59,9 +59,12 @@ int main() {
         Frame *f = new Frame((i + 1) * 100);
         char index[1];
         index[0] = '0' + i;
-        string file = "test" + string(index) + ".jpg";
+      //  string file = "test" + string(index) + ".jpg";
+        string file = "test0.jpg";
+
         cv::Mat image = cv::imread(file.c_str());
         Payload *payload = new Payload((i + 1) * 100, image);
+
         Operation op;
         op.Set(OPERATION_VEHICLE);
         op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
