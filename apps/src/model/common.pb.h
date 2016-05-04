@@ -70,6 +70,37 @@ inline bool RecognizeType_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<RecognizeType>(
     RecognizeType_descriptor(), name, value);
 }
+enum RecognizeFunctions {
+  RECFUNC_NONE = 0,
+  RECFUNC_VEHICLE = 1,
+  RECFUNC_VEHICLE_DETECT = 2,
+  RECFUNC_VEHICLE_TRACK = 3,
+  RECFUNC_VEHICLE_STYLE = 4,
+  RECFUNC_VEHICLE_COLOR = 5,
+  RECFUNC_VEHICLE_MARKER = 6,
+  RECFUNC_VEHICLE_PLATE = 7,
+  RECFUNC_VEHICLE_FEATURE_VECTOR = 8,
+  RECFUNC_FACE = 9,
+  RECFUNC_FACE_DETECTOR = 10,
+  RECFUNC_FACE_FEATURE_VECTOR = 11,
+  RecognizeFunctions_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  RecognizeFunctions_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool RecognizeFunctions_IsValid(int value);
+const RecognizeFunctions RecognizeFunctions_MIN = RECFUNC_NONE;
+const RecognizeFunctions RecognizeFunctions_MAX = RECFUNC_FACE_FEATURE_VECTOR;
+const int RecognizeFunctions_ARRAYSIZE = RecognizeFunctions_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor();
+inline const ::std::string& RecognizeFunctions_Name(RecognizeFunctions value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    RecognizeFunctions_descriptor(), value);
+}
+inline bool RecognizeFunctions_Parse(
+    const ::std::string& name, RecognizeFunctions* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<RecognizeFunctions>(
+    RecognizeFunctions_descriptor(), name, value);
+}
 enum ObjType {
   UNKNOWNOBJ = 0,
   VEHICLE = 1,
@@ -1693,6 +1724,11 @@ template <> struct is_proto_enum< ::dg::model::RecognizeType> : ::google::protob
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::RecognizeType>() {
   return ::dg::model::RecognizeType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::RecognizeFunctions> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::RecognizeFunctions>() {
+  return ::dg::model::RecognizeFunctions_descriptor();
 }
 template <> struct is_proto_enum< ::dg::model::ObjType> : ::google::protobuf::internal::true_type {};
 template <>

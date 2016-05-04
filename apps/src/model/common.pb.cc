@@ -47,6 +47,7 @@ const ::google::protobuf::Descriptor* FeatureVector_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   FeatureVector_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 
@@ -200,8 +201,9 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _is_default_instance_));
   RecognizeType_descriptor_ = file->enum_type(0);
-  ObjType_descriptor_ = file->enum_type(1);
-  DataFmtType_descriptor_ = file->enum_type(2);
+  RecognizeFunctions_descriptor_ = file->enum_type(1);
+  ObjType_descriptor_ = file->enum_type(2);
+  DataFmtType_descriptor_ = file->enum_type(3);
 }
 
 namespace {
@@ -278,14 +280,22 @@ void protobuf_AddDesc_common_2eproto() {
     "FeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature\030\002 \001"
     "(\t*`\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020"
     "\000\022\024\n\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE"
-    "\020\002\022\020\n\014REC_TYPE_ALL\020\003*\306\001\n\007ObjType\022\016\n\nUNKN"
-    "OWNOBJ\020\000\022\013\n\007VEHICLE\020\001\022\013\n\007BICYCLE\020\002\022\014\n\010TR"
-    "ICYCLE\020\003\022\016\n\nPEDESTRIAN\020\004\022\t\n\004FACE\020\200\010\022\023\n\016V"
-    "EHICLE_VECTOR\020\200\020\022\023\n\016BICYCLE_VECTOR\020\201\020\022\024\n"
-    "\017TRICYCLE_VECTOR\020\202\020\022\026\n\021PEDESTRIAN_VECTOR"
-    "\020\203\020\022\020\n\013FACE_VECTOR\020\200\030*5\n\013DataFmtType\022\016\n\n"
-    "UNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002b\006pr"
-    "oto3", 1004);
+    "\020\002\022\020\n\014REC_TYPE_ALL\020\003*\321\002\n\022RecognizeFuncti"
+    "ons\022\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE"
+    "\020\001\022\032\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUN"
+    "C_VEHICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STY"
+    "LE\020\004\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFU"
+    "NC_VEHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_P"
+    "LATE\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR"
+    "\020\010\022\020\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DET"
+    "ECTOR\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013"
+    "*\306\001\n\007ObjType\022\016\n\nUNKNOWNOBJ\020\000\022\013\n\007VEHICLE\020"
+    "\001\022\013\n\007BICYCLE\020\002\022\014\n\010TRICYCLE\020\003\022\016\n\nPEDESTRI"
+    "AN\020\004\022\t\n\004FACE\020\200\010\022\023\n\016VEHICLE_VECTOR\020\200\020\022\023\n\016"
+    "BICYCLE_VECTOR\020\201\020\022\024\n\017TRICYCLE_VECTOR\020\202\020\022"
+    "\026\n\021PEDESTRIAN_VECTOR\020\203\020\022\020\n\013FACE_VECTOR\020\200"
+    "\030*5\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON"
+    "\020\001\022\014\n\010PROTOBUF\020\002b\006proto3", 1344);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -323,6 +333,30 @@ bool RecognizeType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecognizeFunctions_descriptor_;
+}
+bool RecognizeFunctions_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
       return true;
     default:
       return false;

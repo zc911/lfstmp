@@ -231,7 +231,7 @@ class Vehicle : public Object {
     void set_class_id(Identification classId) {
         class_id_ = classId;
     }
-    CarRankFeature& feature() {
+    const CarRankFeature& feature() const {
         return feature_;
     }
 
