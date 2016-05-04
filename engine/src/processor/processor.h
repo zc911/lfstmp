@@ -43,7 +43,7 @@ class Processor {
     /// A FrameBatch is a package of one or more Frame.
     virtual void Update(FrameBatch *frameBatch) = 0;
 
-    virtual void beforeUpdate(FrameBatch *frameBatch) = 0;
+    virtual void beforeUpdate(FrameBatch *frameBatch){};
     virtual bool checkStatus(Frame *frame) = 0;
 
     /// This method will invoke the next processor chained to the
