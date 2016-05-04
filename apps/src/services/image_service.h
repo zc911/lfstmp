@@ -17,14 +17,16 @@
 namespace dg 
 {
 
+using namespace ::dg::model;
+
 class ImageService
 {
 public:
-    static ::dg::MatrixError ParseImage(const ::dg::Image& image, ::cv::Mat& imgMat);
+    static MatrixError ParseImage(const Image& image, ::cv::Mat& imgMat);
 
 private:
-    static ::dg::MatrixError getImageFromUri(const std::string uri, ::cv::Mat& imgMat);
-    static ::dg::MatrixError getImageFromData(const std::string img64, ::cv::Mat& imgMat);
+    static MatrixError getImageFromUri(const std::string uri, ::cv::Mat& imgMat);
+    static MatrixError getImageFromData(const std::string img64, ::cv::Mat& imgMat);
 };
 
 }

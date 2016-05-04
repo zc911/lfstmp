@@ -59,7 +59,8 @@ FaceFeatureExtractor::FaceFeatureExtractor(const string& model_file,
 }
 
 void FaceFeatureExtractor::Detection2Points(
-		const dlib::full_object_detection &detection, std::vector<dlib::point> &points)
+		const dlib::full_object_detection &detection,
+		std::vector<dlib::point> &points)
 {
 	points.resize(0);
 	for (unsigned long i = 0; i < detection.num_parts(); i++)
@@ -99,11 +100,11 @@ std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs)
 	return result;
 }
 
-std::vector<FaceFeature> FaceFeatureExtractor::Extract(
+std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
 		const std::vector<Mat> &imgs)
 {
 	std::vector<Mat> align_imgs = Align(imgs);
-	std::vector<FaceFeature> features;
+	std::vector<FaceRankFeature> features;
 	Blob<float>* input_blob = net_->input_blobs()[0];
 	assert(align_imgs.size() <= batch_size_);
 	features.resize(align_imgs.size());
@@ -145,11 +146,18 @@ std::vector<FaceFeature> FaceFeatureExtractor::Extract(
 	const float *output_data = output_blob->cpu_data();
 	for (size_t i = 0; i < align_imgs.size(); i++)
 	{
+		InnFaceFeature feature;
 		const float *data = output_data
-				+ i * sizeof(FaceFeature) / sizeof(float);
-		memcpy(&features[i], data, sizeof(FaceFeature));
-	}
+				+ i * sizeof(InnFaceFeature) / sizeof(float);
+		memcpy(&feature, data, sizeof(InnFaceFeature));
 
+		FaceRankFeature face_feature;
+		for (int j = 0; j < 256; ++j)
+		{
+			face_feature.descriptor_.push_back(feature.data[j]);
+		}
+		features[i] = face_feature;
+	}
 	return features;
 }
 
