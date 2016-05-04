@@ -25,13 +25,15 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
 FaceRankEngine::FaceRankEngine()
         : id_(0) {
     detector_ = new FaceDetectProcessor(
-            "/models/test.prototxt",
-            "/models/googlenet_face_iter_100000.caffemodel", true, 1, 0.7, 640);
+            "models/face/detect/test.prototxt",
+            "models/face/detect/googlenet_face_iter_100000.caffemodel", true, 1,
+            0.7, 640);
 
     extractor_ = new FaceFeatureExtractProcessor(
-            "/models/lcnn.prototxt", "/models/lcnn.caffemodel", true, 1,
-            "/models/shape_predictor_68_face_landmarks.dat",
-            "/models/avgface.jpg");
+            "models/face/feature/lcnn.prototxt",
+            "models/face/feature/lcnn.caffemodel", true, 1,
+            "models/face/feature/shape_predictor_68_face_landmarks.dat",
+            "models/face/feature/avgface.jpg");
     ranker_ = new FaceRankProcessor();
 }
 
