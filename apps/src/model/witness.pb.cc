@@ -69,7 +69,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Symbol_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Symbol_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* WitnessFunction_descriptor_ = NULL;
 
 }  // namespace
 
@@ -222,13 +221,12 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
   RecognizedVehicle_descriptor_ = file->message_type(8);
-  static const int RecognizedVehicle_offsets_[8] = {
+  static const int RecognizedVehicle_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, model_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, licenseplate_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, symbolitems_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, candidates_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, features_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, scene_),
   };
@@ -355,7 +353,6 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  WitnessFunction_descriptor_ = file->enum_type(0);
 }
 
 namespace {
@@ -474,65 +471,55 @@ void protobuf_AddDesc_witness_2eproto() {
     "\027.dg.model.WitnessResult\"s\n\024WitnessBatch"
     "Response\0221\n\007Context\030\001 \001(\0132 .dg.model.Wit"
     "nessResponseContext\022(\n\007Results\030\002 \003(\0132\027.d"
-    "g.model.WitnessResult\"\225\002\n\025WitnessRequest"
-    "Context\022\021\n\tSessionId\030\001 \001(\t\022,\n\tFunctions\030"
-    "\004 \003(\0162\031.dg.model.WitnessFunction\022%\n\004Type"
-    "\030\005 \001(\0162\027.dg.model.RecognizeType\022(\n\007Stora"
-    "ge\030\006 \001(\0132\027.dg.model.StorageConfig\022;\n\006Par"
-    "ams\030\007 \003(\0132+.dg.model.WitnessRequestConte"
-    "xt.ParamsEntry\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001"
-    "(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"S\n\014WitnessImage\022\035\n"
-    "\004Data\030\001 \001(\0132\017.dg.model.Image\022\020\n\010SensorId"
-    "\030\002 \001(\005\022\022\n\nSensorName\030\003 \001(\t\"\223\002\n\026WitnessRe"
-    "sponseContext\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006Stat"
-    "us\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tRequestTs\030\004"
-    " \001(\0132\016.dg.model.Time\022\"\n\nResponseTs\030\005 \001(\013"
-    "2\016.dg.model.Time\022>\n\007DebugTs\030\006 \003(\0132-.dg.m"
-    "odel.WitnessResponseContext.DebugTsEntry"
-    "\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002"
-    " \001(\0132\016.dg.model.Time:\0028\001\"\271\001\n\rWitnessResu"
-    "lt\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014InnerMessage\030"
-    "\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.model.WitnessI"
-    "mage\022-\n\010Vehicles\030\004 \003(\0132\033.dg.model.Recogn"
-    "izedVehicle\022\'\n\005Faces\030\005 \003(\0132\030.dg.model.Re"
-    "cognizedFace\"\267\002\n\021RecognizedVehicle\022%\n\005Mo"
-    "del\030\001 \001(\0132\026.dg.model.VehicleModel\022$\n\010Cut"
-    "board\030\002 \001(\0132\022.dg.model.Cutboard\022\036\n\005Color"
-    "\030\003 \001(\0132\017.dg.model.Color\022,\n\014LicensePlate\030"
-    "\004 \001(\0132\026.dg.model.LicensePlate\022)\n\013SymbolI"
-    "tems\030\005 \003(\0132\024.dg.model.SymbolItem\022*\n\nCand"
-    "idates\030\006 \003(\0132\026.dg.model.VehicleModel\022\020\n\010"
-    "Features\030\007 \001(\t\022\036\n\005Scene\030\010 \001(\0132\017.dg.model"
-    ".Scene\"\\\n\016RecognizedFace\022$\n\010Cutboard\030\001 \001"
-    "(\0132\022.dg.model.Cutboard\022\022\n\nConfidence\030\002 \001"
-    "(\002\022\020\n\010Features\030\003 \001(\t\"\276\001\n\014VehicleModel\022\016\n"
-    "\006TypeId\030\001 \001(\005\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBra"
-    "ndId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\014\n\004Type\030"
-    "\005 \001(\t\022\r\n\005Brand\030\006 \001(\t\022\020\n\010SubBrand\030\007 \001(\t\022\021"
-    "\n\tModelYear\030\010 \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022\n\nCon"
-    "fidence\030\n \001(\002\"\230\001\n\014LicensePlate\022\020\n\010PlateN"
-    "um\030\001 \001(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cu"
-    "tboard\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 \001(\t\022\016"
-    "\n\006TypeId\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nConfiden"
-    "ce\030\007 \001(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030\001 \001(\005"
-    "\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020."
-    "dg.model.Symbol\"6\n\005Scene\022\016\n\006IsHead\030\001 \001(\005"
-    "\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006Symbo"
-    "l\022$\n\010Cutboard\030\003 \001(\0132\022.dg.model.Cutboard\022"
-    "\022\n\nConfidence\030\004 \001(\002*\316\002\n\017WitnessFunction\022"
-    "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
-    "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
-    "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
-    "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_V"
-    "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
-    "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
-    "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
-    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\0132\247\001\n"
-    "\016WitnessService\022B\n\tRecognize\022\030.dg.model."
-    "WitnessRequest\032\031.dg.model.WitnessRespons"
-    "e\"\000\022Q\n\016BatchRecognize\022\035.dg.model.Witness"
-    "BatchRequest\032\036.dg.model.WitnessBatchResp"
-    "onse\"\000b\006proto3", 2814);
+    "g.model.WitnessResult\"\230\002\n\025WitnessRequest"
+    "Context\022\021\n\tSessionId\030\001 \001(\t\022/\n\tFunctions\030"
+    "\004 \003(\0162\034.dg.model.RecognizeFunctions\022%\n\004T"
+    "ype\030\005 \001(\0162\027.dg.model.RecognizeType\022(\n\007St"
+    "orage\030\006 \001(\0132\027.dg.model.StorageConfig\022;\n\006"
+    "Params\030\007 \003(\0132+.dg.model.WitnessRequestCo"
+    "ntext.ParamsEntry\032-\n\013ParamsEntry\022\013\n\003key\030"
+    "\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"S\n\014WitnessImage"
+    "\022\035\n\004Data\030\001 \001(\0132\017.dg.model.Image\022\020\n\010Senso"
+    "rId\030\002 \001(\005\022\022\n\nSensorName\030\003 \001(\t\"\223\002\n\026Witnes"
+    "sResponseContext\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006S"
+    "tatus\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tRequestT"
+    "s\030\004 \001(\0132\016.dg.model.Time\022\"\n\nResponseTs\030\005 "
+    "\001(\0132\016.dg.model.Time\022>\n\007DebugTs\030\006 \003(\0132-.d"
+    "g.model.WitnessResponseContext.DebugTsEn"
+    "try\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022\035\n\005valu"
+    "e\030\002 \001(\0132\016.dg.model.Time:\0028\001\"\271\001\n\rWitnessR"
+    "esult\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014InnerMessa"
+    "ge\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.model.Witne"
+    "ssImage\022-\n\010Vehicles\030\004 \003(\0132\033.dg.model.Rec"
+    "ognizedVehicle\022\'\n\005Faces\030\005 \003(\0132\030.dg.model"
+    ".RecognizedFace\"\213\002\n\021RecognizedVehicle\022%\n"
+    "\005Model\030\001 \001(\0132\026.dg.model.VehicleModel\022$\n\010"
+    "Cutboard\030\002 \001(\0132\022.dg.model.Cutboard\022\036\n\005Co"
+    "lor\030\003 \001(\0132\017.dg.model.Color\022,\n\014LicensePla"
+    "te\030\004 \001(\0132\026.dg.model.LicensePlate\022)\n\013Symb"
+    "olItems\030\005 \003(\0132\024.dg.model.SymbolItem\022\020\n\010F"
+    "eatures\030\006 \001(\t\022\036\n\005Scene\030\007 \001(\0132\017.dg.model."
+    "Scene\"\\\n\016RecognizedFace\022$\n\010Cutboard\030\001 \001("
+    "\0132\022.dg.model.Cutboard\022\022\n\nConfidence\030\002 \001("
+    "\002\022\020\n\010Features\030\003 \001(\t\"\276\001\n\014VehicleModel\022\016\n\006"
+    "TypeId\030\001 \001(\005\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBran"
+    "dId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\014\n\004Type\030\005"
+    " \001(\t\022\r\n\005Brand\030\006 \001(\t\022\020\n\010SubBrand\030\007 \001(\t\022\021\n"
+    "\tModelYear\030\010 \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022\n\nConf"
+    "idence\030\n \001(\002\"\230\001\n\014LicensePlate\022\020\n\010PlateNu"
+    "m\030\001 \001(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cut"
+    "board\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 \001(\t\022\016\n"
+    "\006TypeId\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nConfidenc"
+    "e\030\007 \001(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030\001 \001(\005\022"
+    "\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.d"
+    "g.model.Symbol\"6\n\005Scene\022\016\n\006IsHead\030\001 \001(\005\022"
+    "\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006Symbol"
+    "\022$\n\010Cutboard\030\003 \001(\0132\022.dg.model.Cutboard\022\022"
+    "\n\nConfidence\030\004 \001(\0022\247\001\n\016WitnessService\022B\n"
+    "\tRecognize\022\030.dg.model.WitnessRequest\032\031.d"
+    "g.model.WitnessResponse\"\000\022Q\n\016BatchRecogn"
+    "ize\022\035.dg.model.WitnessBatchRequest\032\036.dg."
+    "model.WitnessBatchResponse\"\000b\006proto3", 2436);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   WitnessRequest::default_instance_ = new WitnessRequest();
@@ -574,30 +561,6 @@ struct StaticDescriptorInitializer_witness_2eproto {
     protobuf_AddDesc_witness_2eproto();
   }
 } static_descriptor_initializer_witness_2eproto_;
-const ::google::protobuf::EnumDescriptor* WitnessFunction_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessFunction_descriptor_;
-}
-bool WitnessFunction_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-      return true;
-    default:
-      return false;
-  }
-}
-
 
 namespace {
 
@@ -2039,7 +2002,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .dg.model.WitnessFunction Functions = 4;
+      // repeated .dg.model.RecognizeFunctions Functions = 4;
       case 4: {
         if (tag == 34) {
          parse_Functions:
@@ -2051,7 +2014,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
             DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-            add_functions(static_cast< ::dg::model::WitnessFunction >(value));
+            add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
           }
           input->PopLimit(limit);
         } else if (tag == 32) {
@@ -2059,7 +2022,7 @@ bool WitnessRequestContext::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          add_functions(static_cast< ::dg::model::WitnessFunction >(value));
+          add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
         } else {
           goto handle_unusual;
         }
@@ -2158,7 +2121,7 @@ void WitnessRequestContext::SerializeWithCachedSizes(
       1, this->sessionid(), output);
   }
 
-  // repeated .dg.model.WitnessFunction Functions = 4;
+  // repeated .dg.model.RecognizeFunctions Functions = 4;
   if (this->functions_size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteTag(
       4,
@@ -2220,7 +2183,7 @@ void WitnessRequestContext::SerializeWithCachedSizes(
         1, this->sessionid(), target);
   }
 
-  // repeated .dg.model.WitnessFunction Functions = 4;
+  // repeated .dg.model.RecognizeFunctions Functions = 4;
   if (this->functions_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       4,
@@ -2294,7 +2257,7 @@ int WitnessRequestContext::ByteSize() const {
         *this->storage_);
   }
 
-  // repeated .dg.model.WitnessFunction Functions = 4;
+  // repeated .dg.model.RecognizeFunctions Functions = 4;
   {
     int data_size = 0;
     for (int i = 0; i < this->functions_size(); i++) {
@@ -2443,22 +2406,22 @@ void WitnessRequestContext::clear_sessionid() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
 }
 
-// repeated .dg.model.WitnessFunction Functions = 4;
+// repeated .dg.model.RecognizeFunctions Functions = 4;
 int WitnessRequestContext::functions_size() const {
   return functions_.size();
 }
 void WitnessRequestContext::clear_functions() {
   functions_.Clear();
 }
- ::dg::model::WitnessFunction WitnessRequestContext::functions(int index) const {
+ ::dg::model::RecognizeFunctions WitnessRequestContext::functions(int index) const {
   // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Functions)
-  return static_cast< ::dg::model::WitnessFunction >(functions_.Get(index));
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
- void WitnessRequestContext::set_functions(int index, ::dg::model::WitnessFunction value) {
+ void WitnessRequestContext::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Functions)
 }
- void WitnessRequestContext::add_functions(::dg::model::WitnessFunction value) {
+ void WitnessRequestContext::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
   // @@protoc_insertion_point(field_add:dg.model.WitnessRequestContext.Functions)
 }
@@ -4267,7 +4230,6 @@ const int RecognizedVehicle::kCutboardFieldNumber;
 const int RecognizedVehicle::kColorFieldNumber;
 const int RecognizedVehicle::kLicensePlateFieldNumber;
 const int RecognizedVehicle::kSymbolItemsFieldNumber;
-const int RecognizedVehicle::kCandidatesFieldNumber;
 const int RecognizedVehicle::kFeaturesFieldNumber;
 const int RecognizedVehicle::kSceneFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -4361,7 +4323,6 @@ void RecognizedVehicle::Clear() {
   if (GetArenaNoVirtual() == NULL && scene_ != NULL) delete scene_;
   scene_ = NULL;
   symbolitems_.Clear();
-  candidates_.Clear();
 }
 
 bool RecognizedVehicle::MergePartialFromCodedStream(
@@ -4437,30 +4398,14 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(42)) goto parse_loop_SymbolItems;
-        if (input->ExpectTag(50)) goto parse_loop_Candidates;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(50)) goto parse_Features;
         break;
       }
 
-      // repeated .dg.model.VehicleModel Candidates = 6;
+      // optional string Features = 6;
       case 6: {
         if (tag == 50) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Candidates:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_candidates()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_loop_Candidates;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(58)) goto parse_Features;
-        break;
-      }
-
-      // optional string Features = 7;
-      case 7: {
-        if (tag == 58) {
          parse_Features:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_features()));
@@ -4471,13 +4416,13 @@ bool RecognizedVehicle::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_Scene;
+        if (input->ExpectTag(58)) goto parse_Scene;
         break;
       }
 
-      // optional .dg.model.Scene Scene = 8;
-      case 8: {
-        if (tag == 66) {
+      // optional .dg.model.Scene Scene = 7;
+      case 7: {
+        if (tag == 58) {
          parse_Scene:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_scene()));
@@ -4542,26 +4487,20 @@ void RecognizedVehicle::SerializeWithCachedSizes(
       5, this->symbolitems(i), output);
   }
 
-  // repeated .dg.model.VehicleModel Candidates = 6;
-  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->candidates(i), output);
-  }
-
-  // optional string Features = 7;
+  // optional string Features = 6;
   if (this->features().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "dg.model.RecognizedVehicle.Features");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      7, this->features(), output);
+      6, this->features(), output);
   }
 
-  // optional .dg.model.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 7;
   if (this->has_scene()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, *this->scene_, output);
+      7, *this->scene_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.RecognizedVehicle)
@@ -4605,14 +4544,7 @@ void RecognizedVehicle::SerializeWithCachedSizes(
         5, this->symbolitems(i), target);
   }
 
-  // repeated .dg.model.VehicleModel Candidates = 6;
-  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, this->candidates(i), target);
-  }
-
-  // optional string Features = 7;
+  // optional string Features = 6;
   if (this->features().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->features().data(), this->features().length(),
@@ -4620,14 +4552,14 @@ void RecognizedVehicle::SerializeWithCachedSizes(
       "dg.model.RecognizedVehicle.Features");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        7, this->features(), target);
+        6, this->features(), target);
   }
 
-  // optional .dg.model.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 7;
   if (this->has_scene()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        8, *this->scene_, target);
+        7, *this->scene_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecognizedVehicle)
@@ -4665,14 +4597,14 @@ int RecognizedVehicle::ByteSize() const {
         *this->licenseplate_);
   }
 
-  // optional string Features = 7;
+  // optional string Features = 6;
   if (this->features().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->features());
   }
 
-  // optional .dg.model.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 7;
   if (this->has_scene()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -4685,14 +4617,6 @@ int RecognizedVehicle::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->symbolitems(i));
-  }
-
-  // repeated .dg.model.VehicleModel Candidates = 6;
-  total_size += 1 * this->candidates_size();
-  for (int i = 0; i < this->candidates_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->candidates(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -4716,7 +4640,6 @@ void RecognizedVehicle::MergeFrom(const ::google::protobuf::Message& from) {
 void RecognizedVehicle::MergeFrom(const RecognizedVehicle& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   symbolitems_.MergeFrom(from.symbolitems_);
-  candidates_.MergeFrom(from.candidates_);
   if (from.has_model()) {
     mutable_model()->::dg::model::VehicleModel::MergeFrom(from.model());
   }
@@ -4765,7 +4688,6 @@ void RecognizedVehicle::InternalSwap(RecognizedVehicle* other) {
   std::swap(color_, other->color_);
   std::swap(licenseplate_, other->licenseplate_);
   symbolitems_.UnsafeArenaSwap(&other->symbolitems_);
-  candidates_.UnsafeArenaSwap(&other->candidates_);
   features_.Swap(&other->features_);
   std::swap(scene_, other->scene_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -4961,37 +4883,7 @@ RecognizedVehicle::symbolitems() const {
   return symbolitems_;
 }
 
-// repeated .dg.model.VehicleModel Candidates = 6;
-int RecognizedVehicle::candidates_size() const {
-  return candidates_.size();
-}
-void RecognizedVehicle::clear_candidates() {
-  candidates_.Clear();
-}
-const ::dg::model::VehicleModel& RecognizedVehicle::candidates(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Get(index);
-}
-::dg::model::VehicleModel* RecognizedVehicle::mutable_candidates(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Mutable(index);
-}
-::dg::model::VehicleModel* RecognizedVehicle::add_candidates() {
-  // @@protoc_insertion_point(field_add:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >*
-RecognizedVehicle::mutable_candidates() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.RecognizedVehicle.Candidates)
-  return &candidates_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >&
-RecognizedVehicle::candidates() const {
-  // @@protoc_insertion_point(field_list:dg.model.RecognizedVehicle.Candidates)
-  return candidates_;
-}
-
-// optional string Features = 7;
+// optional string Features = 6;
 void RecognizedVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5034,7 +4926,7 @@ void RecognizedVehicle::clear_features() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Features)
 }
 
-// optional .dg.model.Scene Scene = 8;
+// optional .dg.model.Scene Scene = 7;
 bool RecognizedVehicle::has_scene() const {
   return !_is_default_instance_ && scene_ != NULL;
 }

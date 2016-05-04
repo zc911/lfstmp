@@ -3,6 +3,7 @@
 		"Code" : "1.0.0",
 		"Model" : "1.9"
 	},
+	"ProtocolType" : "restful",
 	"InstanceType" : "witness",
 	"System" : {
 		"Ip" : "0.0.0.0",
