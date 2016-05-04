@@ -14,6 +14,21 @@ enum RecognizeType {
 	REC_TYPE_ALL = 3;
 }
 
+enum RecognizeFunctions {
+    RECFUNC_NONE = 0;
+    RECFUNC_VEHICLE = 1;
+    RECFUNC_VEHICLE_DETECT = 2;
+    RECFUNC_VEHICLE_TRACK = 3;
+    RECFUNC_VEHICLE_STYLE = 4;
+    RECFUNC_VEHICLE_COLOR = 5;
+    RECFUNC_VEHICLE_MARKER = 6;
+    RECFUNC_VEHICLE_PLATE = 7;
+    RECFUNC_VEHICLE_FEATURE_VECTOR = 8;
+    RECFUNC_FACE = 9;
+    RECFUNC_FACE_DETECTOR = 10;
+    RECFUNC_FACE_FEATURE_VECTOR = 11;
+}
+
 message MatrixError {
 	int32 Code = 1;
 	string Message = 2;
@@ -43,8 +58,8 @@ message CutboardImage {
 
 message Color {
 	int32 Id = 1; //DEPLICATE!
-	float Confidence = 2;
-	string ColorName = 3;
+	float Confidence = 2; //颜色汉字表示
+	string ColorName = 3; //颜色识别置信度
 }
 
 message Cutboard {
@@ -77,6 +92,6 @@ enum DataFmtType {
 }
 
 message FeatureVector {
-	int64 Id = 1; // This is only for ranking. Can be void during feature extraction.
-	string Feature = 2;
+	int64 Id = 1; 		//特征的关键字
+	string Feature = 2;	//特征值
 }

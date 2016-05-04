@@ -28,6 +28,7 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace dg {
@@ -1024,17 +1025,15 @@ class InstanceConfig : public ::google::protobuf::Message {
   ::google::protobuf::int32 count() const;
   void set_count(::google::protobuf::int32 value);
 
-  // repeated uint32 Functions = 3;
+  // repeated .dg.model.RecognizeFunctions Functions = 3;
   int functions_size() const;
   void clear_functions();
   static const int kFunctionsFieldNumber = 3;
-  ::google::protobuf::uint32 functions(int index) const;
-  void set_functions(int index, ::google::protobuf::uint32 value);
-  void add_functions(::google::protobuf::uint32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-      functions() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-      mutable_functions();
+  ::dg::model::RecognizeFunctions functions(int index) const;
+  void set_functions(int index, ::dg::model::RecognizeFunctions value);
+  void add_functions(::dg::model::RecognizeFunctions value);
+  const ::google::protobuf::RepeatedField<int>& functions() const;
+  ::google::protobuf::RepeatedField<int>* mutable_functions();
 
   // optional .dg.model.StorageConfig StorageConfig = 4;
   bool has_storageconfig() const;
@@ -1052,7 +1051,7 @@ class InstanceConfig : public ::google::protobuf::Message {
   bool _is_default_instance_;
   int type_;
   ::google::protobuf::int32 count_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > functions_;
+  ::google::protobuf::RepeatedField<int> functions_;
   mutable int _functions_cached_byte_size_;
   ::dg::model::StorageConfig* storageconfig_;
   mutable int _cached_size_;
@@ -2845,31 +2844,31 @@ inline void InstanceConfig::set_count(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Count)
 }
 
-// repeated uint32 Functions = 3;
+// repeated .dg.model.RecognizeFunctions Functions = 3;
 inline int InstanceConfig::functions_size() const {
   return functions_.size();
 }
 inline void InstanceConfig::clear_functions() {
   functions_.Clear();
 }
-inline ::google::protobuf::uint32 InstanceConfig::functions(int index) const {
+inline ::dg::model::RecognizeFunctions InstanceConfig::functions(int index) const {
   // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.Functions)
-  return functions_.Get(index);
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
-inline void InstanceConfig::set_functions(int index, ::google::protobuf::uint32 value) {
+inline void InstanceConfig::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
   // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Functions)
 }
-inline void InstanceConfig::add_functions(::google::protobuf::uint32 value) {
+inline void InstanceConfig::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
   // @@protoc_insertion_point(field_add:dg.model.InstanceConfig.Functions)
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+inline const ::google::protobuf::RepeatedField<int>&
 InstanceConfig::functions() const {
   // @@protoc_insertion_point(field_list:dg.model.InstanceConfig.Functions)
   return functions_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+inline ::google::protobuf::RepeatedField<int>*
 InstanceConfig::mutable_functions() {
   // @@protoc_insertion_point(field_mutable_list:dg.model.InstanceConfig.Functions)
   return &functions_;
