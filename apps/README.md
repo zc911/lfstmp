@@ -1,7 +1,7 @@
-# Matrix Engine
+# Matrix Apps
 ## Introduction
 
-Matrix is an engine for computer vision and deep learning.
+Matrix apps is the service front-end intergrated with matrix engine library.
 
 ## Developers
 ```
@@ -13,9 +13,8 @@ Matrix is an engine for computer vision and deep learning.
 ```
 ## Dependency
 ```
+- matrix engine
 - opencv 2.x
-- cuda/cudnn 7.0
-- tbb
 - boost
 - glog
 - gtest
@@ -35,7 +34,6 @@ $ make clean && make && make install
 
 ## How to use
 ```
-The matrix engine will be released as header files and static library 
-which you could find from the release folder.
+
 ```
 
