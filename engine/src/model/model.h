@@ -25,6 +25,7 @@ typedef enum {
     OBJECT_BICYCLE = 2,
     OBJECT_TRICYCLE = 4,
     OBJECT_PEDESTRIAN = 8,
+    OBJECT_MARKER = 16,
     OBJECT_MARKER_0 = 16,
     OBJECT_MARKER_1 = 16,
     OBJECT_MARKER_2 = 16,
@@ -34,21 +35,26 @@ typedef enum {
     OBJECT_FACE = 64,
 } ObjectType;
 
+enum DetectionTypeId {
+    DETECTION_UNKNOWN = 0,
+    DETECTION_CAR = 1,
+    DETECTION_PERSON = 2,
+    DETECTION_BIKE = 3,
+    DETECTION_TRICYCLE = 4
+};
+
 typedef struct Detection {
-    int id;
+    int id = -1;
     bool deleted;
     Box box;
-    Confidence confidence;
+    Confidence confidence = 0;
 
-//    Detection& operator =(const Detection &detection) {
-//        if (this == &detection) {
-//            return *this;
-//        }
-//        id = detection.id;
-//        box = detection.box;
-//        confidence = detection.confidence;
-//        return *this;
-//    }
+    void Rescale(float scale) {
+        box.x = box.x / scale;
+        box.y = box.y / scale;
+        box.width = box.width / scale;
+        box.height = box.height / scale;
+    }
     friend ostream& operator<<(std::ostream& os, const Detection& det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
                   << det.box.y << "," << det.box.width << "," << det.box.height
@@ -83,12 +89,8 @@ class Object {
     }
 
     void AddChild(Object *child) {
-        cout << "add child " << child->id() << endl;
         children_.push_back(child);
     }
-//     void set_children(const vector<Object*>& children) {
-//          children_ = children;
-//     }
 
     const Detection& detection() const {
         return detection_;
@@ -162,10 +164,10 @@ class Vehicle : public Object {
 
     typedef struct {
         Box box;
-        string plate_num;
-        int color_id;
-        int plate_type;
-        Confidence confidence;
+        string plate_num = "";
+        int color_id = -1;
+        int plate_type = -1;
+        Confidence confidence = 0;
     } Plate;
 
     Vehicle(ObjectType type)
@@ -229,7 +231,7 @@ class Vehicle : public Object {
     void set_class_id(Identification classId) {
         class_id_ = classId;
     }
-    CarRankFeature& feature() {
+    const CarRankFeature& feature() const {
         return feature_;
     }
 
@@ -271,17 +273,17 @@ class Face : public Object {
         detection_.box = Box(x, y, width, height);
     }
 
-    FaceFeature feature() const {
+    FaceRankFeature feature() const {
         return feature_;
     }
 
-    void set_feature(FaceFeature feature) {
+    void set_feature(FaceRankFeature feature) {
         feature_ = feature;
     }
 
  private:
 
-    FaceFeature feature_;
+    FaceRankFeature feature_;
 };
 
 typedef struct {
