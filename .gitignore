@@ -6,4 +6,4 @@ Release/
 .DS_Store
 dgcaffe/.build_release/
 dgcaffe/build
-
+apps/lib/
