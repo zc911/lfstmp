@@ -19,13 +19,6 @@ void CarRankProcessor::Update(Frame *frame) {
     LOG(INFO) << "end process frame: " << frame->id() << endl;
 }
 
-void CarRankProcessor::Update(FrameBatch *frameBatch) {
-
-}
-
-void CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
-}
-
 bool CarRankProcessor::checkStatus(Frame *frame) {
     return frame->status() == FRAME_STATUS_FINISHED ? false : true;
 }

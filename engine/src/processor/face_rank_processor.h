@@ -1,28 +1,18 @@
 /*============================================================================
  * File Name   : face_rank_processor.h
- * Author      : yanlongtan@deepglint.com
+ * Author      : tongliu@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 04/15/2016
+ * Created on  : 2016年4月28日 下午4:09:47
  * Description : 
  * ==========================================================================*/
+#ifndef FACE_RANK_PROCESSOR_H_
+#define FACE_RANK_PROCESSOR_H_
 
-#ifndef MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
-#define MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
-
-#include <string>
-#include <glog/logging.h>
-
-#include "processor.h"
-#include "timing_profiler.h"
-
+#include "alg/face_ranker.h"
 #include "model/frame.h"
-#include "model/rank_feature.h"
-#include "alg/face_feature_extractor.h"
-#include "alg/face_detector.h"
-
-using namespace cv;
-using namespace std;
+#include "model/model.h"
+#include "processor/processor.h"
 
 namespace dg {
 
@@ -32,25 +22,18 @@ class FaceRankProcessor : public Processor {
     virtual ~FaceRankProcessor();
 
     virtual void Update(Frame *frame);
+    virtual void Update(FrameBatch *frameBatch) {
 
-    virtual void Update(FrameBatch *frameBatch);
+    }
 
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-
-    bool checkOperation(Frame *frame);
-
-    virtual bool checkStatus(Frame *frame);
+    virtual bool checkStatus(Frame *frame) {
+        return true;
+    }
 
  private:
-//    FaceDetector *detector_;
-    FaceFeatureExtractor *extractor_;
-
-    vector<Score> rank(const Mat& image, const Rect& hotspot,
-                       const vector<FaceRankFeature>& candidates);
-
-    float getCosSimilarity(const vector<float> & A, const vector<float> & B);
+    FaceRanker *ranker_;
 };
 
-}
+} /* namespace dg */
 
-#endif //MATRIX_ENGINE_FACE_RANK_PROCESSOR_H_
+#endif /* FACE_RANK_PROCESSOR_H_ */

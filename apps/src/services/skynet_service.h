@@ -14,6 +14,7 @@
 #include "model/skynet.grpc.pb.h"
 namespace dg
 {
+using namespace ::dg::model;
 
 class SkynetAppsService
 {

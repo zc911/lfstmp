@@ -10,7 +10,7 @@
 
 #include <vector>
 #include <pthread.h>
-#include <opencv2/core/core.hpp>
+
 #include "payload.h"
 #include "rank_feature.h"
 
@@ -26,8 +26,7 @@ typedef enum {
 enum FrameStatus {
     FRAME_STATUS_INIT = 0,
     FRAME_STATUS_DETECTED = 1,
-    FRAME_STATUS_FINISHED = 128,
-    FRAME_STATUS_ERROR = 256
+    FRAME_STATUS_FINISHED = 128
 };
 
 /// Frame represents a single request. A frame encapsulates a payload
@@ -286,28 +285,22 @@ class CarRankFrame : public Frame {
 
 class FaceRankFrame : public Frame {
  public:
-    FaceRankFrame(Identification id, const Mat& image,
+    FaceRankFrame(Identification id, const FaceRankFeature& datum,
                   const vector<Rect>& hotspots,
                   const vector<FaceRankFeature>& candidates)
             : Frame(id),
-              image_(image),
+              datum_(datum),
               hotspots_(hotspots),
               candidates_(candidates) {
     }
+
     ~FaceRankFrame() {
     }
-    FaceRankFrame(const FaceRankFrame& f)
-            : Frame(f.id_),
-              image_(f.image_),
-              hotspots_(f.hotspots_),
-              candidates_(f.candidates_) {
-    }
 
-    const Mat& image_;
     const vector<Rect>& hotspots_;
     const vector<FaceRankFeature>& candidates_;
     vector<Score> result_;
-
+    const FaceRankFeature& datum_;
 };
 
 }

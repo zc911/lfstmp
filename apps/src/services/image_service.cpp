@@ -18,7 +18,7 @@
 namespace dg 
 {
 
-::dg::MatrixError ImageService::ParseImage(const ::dg::Image& imgDes, ::cv::Mat& imgMat)
+MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat)
 {
     if (imgDes.uri().size() > 0)
     {
@@ -29,47 +29,41 @@ namespace dg
         return getImageFromData(imgDes.bindata(), imgMat);
     }
 
-    ::dg::MatrixError err;
+    MatrixError err;
     err.set_code(-1);
     err.set_message("image URI or Data is required!");
     return err;
 }
 
-::dg::MatrixError ImageService::getImageFromData(const string img64, ::cv::Mat& imgMat)
+MatrixError ImageService::getImageFromData(const string img64, ::cv::Mat& imgMat)
 {
-    ::dg::MatrixError err;
-
+    MatrixError err;
     vector<uchar> bin;
-    ::dg::Base64::Decode(img64, bin);
-    if (bin.size() == 0)
-    {
-        err.set_code(-1);
-        err.set_message("received empty image");
-    }
-    else
+    Base64::Decode(img64, bin);
+    if (bin.size() >= 0)
     {
         imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
+        return err;
     }
 
+    err.set_code(-1);
+    err.set_message("received empty image");
     return err;
 }
 
-::dg::MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat)
+MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat)
 {
-    ::dg::MatrixError err;
-
+    MatrixError err;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin);
-    if (ret < 0)
-    {
-        err.set_code(ret);
-        err.set_message("load image failed!");
-    }
-    else
+    if (ret == 0)
     {
         imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
+        return err;
     }
 
+    err.set_code(ret);
+    err.set_message("load image failed!");
     return err;
 }
 
