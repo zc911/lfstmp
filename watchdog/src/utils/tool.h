@@ -13,7 +13,7 @@
 
 
 void printHex(void *data, const int len, const char *title);
-
+int fszie(FILE *fp);
 void generateKey(unsigned char *key, int len);
 
 #endif /* TOOL_H_ */

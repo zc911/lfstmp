@@ -13,18 +13,19 @@ const unsigned int AES_KEY_LEN = 32;
 const unsigned int AES_IV_LEN = 16;
 
 typedef struct {
-     unsigned char cpuId[256];
+     unsigned char cpuInfo[640];
      unsigned char biosUUID[256];
      unsigned char mac[256];
-     unsigned char gpuId[1024];
+     unsigned char gpuInfo[640];
 } HardwareInfo;
 
+void getCpuInfo(unsigned char *cpuVersion, int &len, int &cpuNum);
 void getCpuId(unsigned char *cpuId, int &len);
 void getBiosUUID(unsigned char *uuid, int &len);
 void getMac(unsigned char *mac, int &len);
 void getGpuId(unsigned char *gpuId, int &len, int &gpuNum);
 void getHardwareInfo(HardwareInfo &hardwareInfo);
-
+void getGpuInfo(unsigned char *gpuinfo, int &len,int &gpuNum);
 int compare(const unsigned char *a, const int lenA, const unsigned char *b,
             const int lenB);
 int fingerprint(HardwareInfo *info, unsigned char *figerprint);
