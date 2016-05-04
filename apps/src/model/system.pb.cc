@@ -441,61 +441,64 @@ void protobuf_AddDesc_system_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
+  ::dg::model::protobuf_AddDesc_common_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014system.proto\022\010dg.model\"\r\n\013PingRequest\""
-    "\037\n\014PingResponse\022\017\n\007Message\030\001 \001(\t\"\025\n\023Syst"
-    "emStatusRequest\"\215\002\n\024SystemStatusResponse"
-    "\022\020\n\010ModelVer\030\001 \001(\t\022\021\n\tEngineVer\030\002 \001(\t\022\022\n"
-    "\nServiceVer\030\003 \001(\t\022\020\n\010CpuUsage\030\004 \001(\t\022\020\n\010A"
-    "vailMem\030\005 \001(\t\022\020\n\010TotalMem\030\006 \001(\t\022\021\n\tAvail"
-    "Disk\030\007 \001(\t\022\021\n\tTotalDisk\030\010 \001(\t\022\021\n\tNetIOSe"
-    "nd\030\t \001(\t\022\021\n\tNetIORecv\030\n \001(\t\022\020\n\010GpuUsage\030"
-    "\013 \001(\t\022\023\n\013GpuAvailMem\030\014 \001(\t\022\023\n\013GpuTotalMe"
-    "m\030\r \001(\t\"\302\002\n\030InstanceConfigureRequest\0222\n\017"
-    "RecImageVConfig\030\001 \001(\0132\031.dg.model.RecImag"
-    "eVConfig\0222\n\017RecImageFConfig\030\002 \001(\0132\031.dg.m"
-    "odel.RecImageFConfig\0222\n\017RecVideoVConfig\030"
-    "\003 \001(\0132\031.dg.model.RecVideoVConfig\0222\n\017RecV"
-    "ideoFConfig\030\004 \001(\0132\031.dg.model.RecVideoFCo"
-    "nfig\022*\n\013RankVConfig\030\005 \001(\0132\025.dg.model.Ran"
-    "kVConfig\022*\n\013RankFConfig\030\006 \001(\0132\025.dg.model"
-    ".RankFConfig\"\025\n\023GetInstancesRequest\"e\n\031I"
-    "nstanceConfigureResponse\022\016\n\006Status\030\001 \001(\t"
-    "\022\017\n\007Message\030\002 \001(\t\022\'\n\007Results\030\003 \003(\0132\026.dg."
-    "model.EngineStatus\"@\n\rStorageConfig\022\017\n\007A"
-    "ddress\030\001 \001(\t\022\020\n\010RepoInfo\030\002 \001(\t\022\014\n\004Tags\030\003"
-    " \003(\t\"\210\001\n\016InstanceConfig\022$\n\004Type\030\001 \001(\0162\026."
-    "dg.model.InstanceType\022\r\n\005Count\030\002 \001(\005\022\021\n\t"
-    "Functions\030\003 \003(\r\022.\n\rStorageConfig\030\004 \001(\0132\027"
-    ".dg.model.StorageConfig\">\n\017RecImageVConf"
-    "ig\022+\n\tInstances\030\001 \001(\0132\030.dg.model.Instanc"
-    "eConfig\">\n\017RecImageFConfig\022+\n\tInstances\030"
-    "\001 \001(\0132\030.dg.model.InstanceConfig\"\240\001\n\017RecV"
-    "ideoVConfig\022+\n\tInstances\030\001 \001(\0132\030.dg.mode"
-    "l.InstanceConfig\022\022\n\nBufferSize\030\002 \001(\005\022\026\n\016"
-    "DetectInterval\030\003 \001(\005\022\030\n\020ClassifyInterval"
-    "\030\004 \001(\005\022\032\n\022ClassifyBufferSize\030\005 \001(\005\"\226\001\n\017R"
-    "ecVideoFConfig\022+\n\tInstances\030\001 \001(\0132\030.dg.m"
-    "odel.InstanceConfig\022\022\n\nBufferSize\030\002 \001(\005\022"
-    "\027\n\017DetectThreshold\030\003 \001(\002\022\023\n\013DetectWidth\030"
-    "\004 \001(\005\022\024\n\014DetectHeight\030\005 \001(\005\":\n\013RankVConf"
-    "ig\022+\n\tInstances\030\001 \001(\0132\030.dg.model.Instanc"
-    "eConfig\":\n\013RankFConfig\022+\n\tInstances\030\001 \001("
-    "\0132\030.dg.model.InstanceConfig\"3\n\014EngineSta"
-    "tus\022\021\n\tInstances\030\001 \001(\005\022\020\n\010RpcPorts\030\002 \003(\005"
-    "*\257\001\n\014InstanceType\022\032\n\026CFG_TYPE_VEHICLE_IM"
-    "AGE\020\000\022\032\n\026CFG_TYPE_VEHICLE_VIDEO\020\001\022\033\n\027CFG"
-    "_TYPE_VEHICLE_RANKER\020\002\022\027\n\023CFG_TYPE_FACE_"
-    "IMAGE\020\003\022\027\n\023CFG_TYPE_FACE_VIDEO\020\004\022\030\n\024CFG_"
-    "TYPE_FACE_RANKER\020\0052\312\002\n\rSystemService\0227\n\004"
-    "Ping\022\025.dg.model.PingRequest\032\026.dg.model.P"
-    "ingResponse\"\000\022O\n\014SystemStatus\022\035.dg.model"
-    ".SystemStatusRequest\032\036.dg.model.SystemSt"
-    "atusResponse\"\000\022T\n\014GetInstances\022\035.dg.mode"
-    "l.GetInstancesRequest\032#.dg.model.Instanc"
-    "eConfigureResponse\"\000\022Y\n\014ConfigEngine\022\".d"
-    "g.model.InstanceConfigureRequest\032#.dg.mo"
-    "del.InstanceConfigureResponse\"\000b\006proto3", 2159);
+    "\n\014system.proto\022\010dg.model\032\014common.proto\"\r"
+    "\n\013PingRequest\"\037\n\014PingResponse\022\017\n\007Message"
+    "\030\001 \001(\t\"\025\n\023SystemStatusRequest\"\215\002\n\024System"
+    "StatusResponse\022\020\n\010ModelVer\030\001 \001(\t\022\021\n\tEngi"
+    "neVer\030\002 \001(\t\022\022\n\nServiceVer\030\003 \001(\t\022\020\n\010CpuUs"
+    "age\030\004 \001(\t\022\020\n\010AvailMem\030\005 \001(\t\022\020\n\010TotalMem\030"
+    "\006 \001(\t\022\021\n\tAvailDisk\030\007 \001(\t\022\021\n\tTotalDisk\030\010 "
+    "\001(\t\022\021\n\tNetIOSend\030\t \001(\t\022\021\n\tNetIORecv\030\n \001("
+    "\t\022\020\n\010GpuUsage\030\013 \001(\t\022\023\n\013GpuAvailMem\030\014 \001(\t"
+    "\022\023\n\013GpuTotalMem\030\r \001(\t\"\302\002\n\030InstanceConfig"
+    "ureRequest\0222\n\017RecImageVConfig\030\001 \001(\0132\031.dg"
+    ".model.RecImageVConfig\0222\n\017RecImageFConfi"
+    "g\030\002 \001(\0132\031.dg.model.RecImageFConfig\0222\n\017Re"
+    "cVideoVConfig\030\003 \001(\0132\031.dg.model.RecVideoV"
+    "Config\0222\n\017RecVideoFConfig\030\004 \001(\0132\031.dg.mod"
+    "el.RecVideoFConfig\022*\n\013RankVConfig\030\005 \001(\0132"
+    "\025.dg.model.RankVConfig\022*\n\013RankFConfig\030\006 "
+    "\001(\0132\025.dg.model.RankFConfig\"\025\n\023GetInstanc"
+    "esRequest\"e\n\031InstanceConfigureResponse\022\016"
+    "\n\006Status\030\001 \001(\t\022\017\n\007Message\030\002 \001(\t\022\'\n\007Resul"
+    "ts\030\003 \003(\0132\026.dg.model.EngineStatus\"@\n\rStor"
+    "ageConfig\022\017\n\007Address\030\001 \001(\t\022\020\n\010RepoInfo\030\002"
+    " \001(\t\022\014\n\004Tags\030\003 \003(\t\"\246\001\n\016InstanceConfig\022$\n"
+    "\004Type\030\001 \001(\0162\026.dg.model.InstanceType\022\r\n\005C"
+    "ount\030\002 \001(\005\022/\n\tFunctions\030\003 \003(\0162\034.dg.model"
+    ".RecognizeFunctions\022.\n\rStorageConfig\030\004 \001"
+    "(\0132\027.dg.model.StorageConfig\">\n\017RecImageV"
+    "Config\022+\n\tInstances\030\001 \001(\0132\030.dg.model.Ins"
+    "tanceConfig\">\n\017RecImageFConfig\022+\n\tInstan"
+    "ces\030\001 \001(\0132\030.dg.model.InstanceConfig\"\240\001\n\017"
+    "RecVideoVConfig\022+\n\tInstances\030\001 \001(\0132\030.dg."
+    "model.InstanceConfig\022\022\n\nBufferSize\030\002 \001(\005"
+    "\022\026\n\016DetectInterval\030\003 \001(\005\022\030\n\020ClassifyInte"
+    "rval\030\004 \001(\005\022\032\n\022ClassifyBufferSize\030\005 \001(\005\"\226"
+    "\001\n\017RecVideoFConfig\022+\n\tInstances\030\001 \001(\0132\030."
+    "dg.model.InstanceConfig\022\022\n\nBufferSize\030\002 "
+    "\001(\005\022\027\n\017DetectThreshold\030\003 \001(\002\022\023\n\013DetectWi"
+    "dth\030\004 \001(\005\022\024\n\014DetectHeight\030\005 \001(\005\":\n\013RankV"
+    "Config\022+\n\tInstances\030\001 \001(\0132\030.dg.model.Ins"
+    "tanceConfig\":\n\013RankFConfig\022+\n\tInstances\030"
+    "\001 \001(\0132\030.dg.model.InstanceConfig\"3\n\014Engin"
+    "eStatus\022\021\n\tInstances\030\001 \001(\005\022\020\n\010RpcPorts\030\002"
+    " \003(\005*\257\001\n\014InstanceType\022\032\n\026CFG_TYPE_VEHICL"
+    "E_IMAGE\020\000\022\032\n\026CFG_TYPE_VEHICLE_VIDEO\020\001\022\033\n"
+    "\027CFG_TYPE_VEHICLE_RANKER\020\002\022\027\n\023CFG_TYPE_F"
+    "ACE_IMAGE\020\003\022\027\n\023CFG_TYPE_FACE_VIDEO\020\004\022\030\n\024"
+    "CFG_TYPE_FACE_RANKER\020\0052\312\002\n\rSystemService"
+    "\0227\n\004Ping\022\025.dg.model.PingRequest\032\026.dg.mod"
+    "el.PingResponse\"\000\022O\n\014SystemStatus\022\035.dg.m"
+    "odel.SystemStatusRequest\032\036.dg.model.Syst"
+    "emStatusResponse\"\000\022T\n\014GetInstances\022\035.dg."
+    "model.GetInstancesRequest\032#.dg.model.Ins"
+    "tanceConfigureResponse\"\000\022Y\n\014ConfigEngine"
+    "\022\".dg.model.InstanceConfigureRequest\032#.d"
+    "g.model.InstanceConfigureResponse\"\000b\006pro"
+    "to3", 2203);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "system.proto", &protobuf_RegisterTypes);
   PingRequest::default_instance_ = new PingRequest();
@@ -4477,17 +4480,27 @@ bool InstanceConfig::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated uint32 Functions = 3;
+      // repeated .dg.model.RecognizeFunctions Functions = 3;
       case 3: {
         if (tag == 26) {
          parse_Functions:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, this->mutable_functions())));
+          ::google::protobuf::uint32 length;
+          DO_(input->ReadVarint32(&length));
+          ::google::protobuf::io::CodedInputStream::Limit limit = input->PushLimit(length);
+          while (input->BytesUntilLimit() > 0) {
+            int value;
+            DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+            add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
+          }
+          input->PopLimit(limit);
         } else if (tag == 24) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 1, 26, input, this->mutable_functions())));
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
         } else {
           goto handle_unusual;
         }
@@ -4543,13 +4556,16 @@ void InstanceConfig::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->count(), output);
   }
 
-  // repeated uint32 Functions = 3;
+  // repeated .dg.model.RecognizeFunctions Functions = 3;
   if (this->functions_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    ::google::protobuf::internal::WireFormatLite::WriteTag(
+      3,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      output);
     output->WriteVarint32(_functions_cached_byte_size_);
   }
   for (int i = 0; i < this->functions_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32NoTag(
+    ::google::protobuf::internal::WireFormatLite::WriteEnumNoTag(
       this->functions(i), output);
   }
 
@@ -4576,18 +4592,17 @@ void InstanceConfig::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->count(), target);
   }
 
-  // repeated uint32 Functions = 3;
+  // repeated .dg.model.RecognizeFunctions Functions = 3;
   if (this->functions_size() > 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
       3,
       ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
       target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-      _functions_cached_byte_size_, target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(    _functions_cached_byte_size_, target);
   }
   for (int i = 0; i < this->functions_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteUInt32NoTagToArray(this->functions(i), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumNoTagToArray(
+      this->functions(i), target);
   }
 
   // optional .dg.model.StorageConfig StorageConfig = 4;
@@ -4624,12 +4639,12 @@ int InstanceConfig::ByteSize() const {
         *this->storageconfig_);
   }
 
-  // repeated uint32 Functions = 3;
+  // repeated .dg.model.RecognizeFunctions Functions = 3;
   {
     int data_size = 0;
     for (int i = 0; i < this->functions_size(); i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::
-        UInt32Size(this->functions(i));
+      data_size += ::google::protobuf::internal::WireFormatLite::EnumSize(
+        this->functions(i));
     }
     if (data_size > 0) {
       total_size += 1 +
@@ -4742,31 +4757,31 @@ void InstanceConfig::clear_count() {
   // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Count)
 }
 
-// repeated uint32 Functions = 3;
+// repeated .dg.model.RecognizeFunctions Functions = 3;
 int InstanceConfig::functions_size() const {
   return functions_.size();
 }
 void InstanceConfig::clear_functions() {
   functions_.Clear();
 }
- ::google::protobuf::uint32 InstanceConfig::functions(int index) const {
+ ::dg::model::RecognizeFunctions InstanceConfig::functions(int index) const {
   // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.Functions)
-  return functions_.Get(index);
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
- void InstanceConfig::set_functions(int index, ::google::protobuf::uint32 value) {
+ void InstanceConfig::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
   // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Functions)
 }
- void InstanceConfig::add_functions(::google::protobuf::uint32 value) {
+ void InstanceConfig::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
   // @@protoc_insertion_point(field_add:dg.model.InstanceConfig.Functions)
 }
- const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+ const ::google::protobuf::RepeatedField<int>&
 InstanceConfig::functions() const {
   // @@protoc_insertion_point(field_list:dg.model.InstanceConfig.Functions)
   return functions_;
 }
- ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+ ::google::protobuf::RepeatedField<int>*
 InstanceConfig::mutable_functions() {
   // @@protoc_insertion_point(field_mutable_list:dg.model.InstanceConfig.Functions)
   return &functions_;

@@ -28,7 +28,6 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/map.h>
 #include <google/protobuf/map_field_inl.h>
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "common.pb.h"
 #include "system.pb.h"
@@ -58,37 +57,6 @@ class WitnessResponse;
 class WitnessResponseContext;
 class WitnessResult;
 
-enum WitnessFunction {
-  RECFUNC_NONE = 0,
-  RECFUNC_VEHICLE = 1,
-  RECFUNC_VEHICLE_DETECT = 2,
-  RECFUNC_VEHICLE_TRACK = 3,
-  RECFUNC_VEHICLE_STYLE = 4,
-  RECFUNC_VEHICLE_COLOR = 5,
-  RECFUNC_VEHICLE_MARKER = 6,
-  RECFUNC_VEHICLE_PLATE = 7,
-  RECFUNC_VEHICLE_FEATURE_VECTOR = 8,
-  RECFUNC_FACE = 9,
-  RECFUNC_FACE_DETECTOR = 10,
-  RECFUNC_FACE_FEATURE_VECTOR = 11,
-  WitnessFunction_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  WitnessFunction_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool WitnessFunction_IsValid(int value);
-const WitnessFunction WitnessFunction_MIN = RECFUNC_NONE;
-const WitnessFunction WitnessFunction_MAX = RECFUNC_FACE_FEATURE_VECTOR;
-const int WitnessFunction_ARRAYSIZE = WitnessFunction_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* WitnessFunction_descriptor();
-inline const ::std::string& WitnessFunction_Name(WitnessFunction value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    WitnessFunction_descriptor(), value);
-}
-inline bool WitnessFunction_Parse(
-    const ::std::string& name, WitnessFunction* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<WitnessFunction>(
-    WitnessFunction_descriptor(), name, value);
-}
 // ===================================================================
 
 class WitnessRequest : public ::google::protobuf::Message {
@@ -529,13 +497,13 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::std::string* release_sessionid();
   void set_allocated_sessionid(::std::string* sessionid);
 
-  // repeated .dg.model.WitnessFunction Functions = 4;
+  // repeated .dg.model.RecognizeFunctions Functions = 4;
   int functions_size() const;
   void clear_functions();
   static const int kFunctionsFieldNumber = 4;
-  ::dg::model::WitnessFunction functions(int index) const;
-  void set_functions(int index, ::dg::model::WitnessFunction value);
-  void add_functions(::dg::model::WitnessFunction value);
+  ::dg::model::RecognizeFunctions functions(int index) const;
+  void set_functions(int index, ::dg::model::RecognizeFunctions value);
+  void add_functions(::dg::model::RecognizeFunctions value);
   const ::google::protobuf::RepeatedField<int>& functions() const;
   ::google::protobuf::RepeatedField<int>* mutable_functions();
 
@@ -1077,21 +1045,9 @@ class RecognizedVehicle : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >&
       symbolitems() const;
 
-  // repeated .dg.model.VehicleModel Candidates = 6;
-  int candidates_size() const;
-  void clear_candidates();
-  static const int kCandidatesFieldNumber = 6;
-  const ::dg::model::VehicleModel& candidates(int index) const;
-  ::dg::model::VehicleModel* mutable_candidates(int index);
-  ::dg::model::VehicleModel* add_candidates();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >*
-      mutable_candidates();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >&
-      candidates() const;
-
-  // optional string Features = 7;
+  // optional string Features = 6;
   void clear_features();
-  static const int kFeaturesFieldNumber = 7;
+  static const int kFeaturesFieldNumber = 6;
   const ::std::string& features() const;
   void set_features(const ::std::string& value);
   void set_features(const char* value);
@@ -1100,10 +1056,10 @@ class RecognizedVehicle : public ::google::protobuf::Message {
   ::std::string* release_features();
   void set_allocated_features(::std::string* features);
 
-  // optional .dg.model.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 7;
   bool has_scene() const;
   void clear_scene();
-  static const int kSceneFieldNumber = 8;
+  static const int kSceneFieldNumber = 7;
   const ::dg::model::Scene& scene() const;
   ::dg::model::Scene* mutable_scene();
   ::dg::model::Scene* release_scene();
@@ -1119,7 +1075,6 @@ class RecognizedVehicle : public ::google::protobuf::Message {
   ::dg::model::Color* color_;
   ::dg::model::LicensePlate* licenseplate_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem > symbolitems_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel > candidates_;
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::dg::model::Scene* scene_;
   mutable int _cached_size_;
@@ -2166,22 +2121,22 @@ inline void WitnessRequestContext::set_allocated_sessionid(::std::string* sessio
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
 }
 
-// repeated .dg.model.WitnessFunction Functions = 4;
+// repeated .dg.model.RecognizeFunctions Functions = 4;
 inline int WitnessRequestContext::functions_size() const {
   return functions_.size();
 }
 inline void WitnessRequestContext::clear_functions() {
   functions_.Clear();
 }
-inline ::dg::model::WitnessFunction WitnessRequestContext::functions(int index) const {
+inline ::dg::model::RecognizeFunctions WitnessRequestContext::functions(int index) const {
   // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Functions)
-  return static_cast< ::dg::model::WitnessFunction >(functions_.Get(index));
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
-inline void WitnessRequestContext::set_functions(int index, ::dg::model::WitnessFunction value) {
+inline void WitnessRequestContext::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Functions)
 }
-inline void WitnessRequestContext::add_functions(::dg::model::WitnessFunction value) {
+inline void WitnessRequestContext::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
   // @@protoc_insertion_point(field_add:dg.model.WitnessRequestContext.Functions)
 }
@@ -2957,37 +2912,7 @@ RecognizedVehicle::symbolitems() const {
   return symbolitems_;
 }
 
-// repeated .dg.model.VehicleModel Candidates = 6;
-inline int RecognizedVehicle::candidates_size() const {
-  return candidates_.size();
-}
-inline void RecognizedVehicle::clear_candidates() {
-  candidates_.Clear();
-}
-inline const ::dg::model::VehicleModel& RecognizedVehicle::candidates(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Get(index);
-}
-inline ::dg::model::VehicleModel* RecognizedVehicle::mutable_candidates(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Mutable(index);
-}
-inline ::dg::model::VehicleModel* RecognizedVehicle::add_candidates() {
-  // @@protoc_insertion_point(field_add:dg.model.RecognizedVehicle.Candidates)
-  return candidates_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >*
-RecognizedVehicle::mutable_candidates() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.RecognizedVehicle.Candidates)
-  return &candidates_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleModel >&
-RecognizedVehicle::candidates() const {
-  // @@protoc_insertion_point(field_list:dg.model.RecognizedVehicle.Candidates)
-  return candidates_;
-}
-
-// optional string Features = 7;
+// optional string Features = 6;
 inline void RecognizedVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3030,7 +2955,7 @@ inline void RecognizedVehicle::set_allocated_features(::std::string* features) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Features)
 }
 
-// optional .dg.model.Scene Scene = 8;
+// optional .dg.model.Scene Scene = 7;
 inline bool RecognizedVehicle::has_scene() const {
   return !_is_default_instance_ && scene_ != NULL;
 }
@@ -3892,20 +3817,6 @@ inline void Symbol::set_confidence(float value) {
 
 }  // namespace model
 }  // namespace dg
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::dg::model::WitnessFunction> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::WitnessFunction>() {
-  return ::dg::model::WitnessFunction_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
