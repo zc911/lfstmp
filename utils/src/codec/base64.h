@@ -64,7 +64,7 @@ public:
     }
 
     template<typename T>
-    static string Encode(vector<T> input_data)
+    static string Encode(const vector<T> input_data)
     {
         stringstream ss_in, ss_out;
         for(int i = 0; i < input_data.size(); i ++)

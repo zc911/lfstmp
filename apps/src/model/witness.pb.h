@@ -28,13 +28,13 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/map.h>
 #include <google/protobuf/map_field_inl.h>
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "common.pb.h"
 #include "system.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace model {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_witness_2eproto();
@@ -57,28 +57,6 @@ class WitnessResponse;
 class WitnessResponseContext;
 class WitnessResult;
 
-enum WitnessFunction {
-  REC_FUNC_DEFAULT = 0,
-  REC_FUNC_DETECTION = 1,
-  REC_FUNC_FEATURE = 2,
-  WitnessFunction_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  WitnessFunction_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool WitnessFunction_IsValid(int value);
-const WitnessFunction WitnessFunction_MIN = REC_FUNC_DEFAULT;
-const WitnessFunction WitnessFunction_MAX = REC_FUNC_FEATURE;
-const int WitnessFunction_ARRAYSIZE = WitnessFunction_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* WitnessFunction_descriptor();
-inline const ::std::string& WitnessFunction_Name(WitnessFunction value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    WitnessFunction_descriptor(), value);
-}
-inline bool WitnessFunction_Parse(
-    const ::std::string& name, WitnessFunction* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<WitnessFunction>(
-    WitnessFunction_descriptor(), name, value);
-}
 // ===================================================================
 
 class WitnessRequest : public ::google::protobuf::Message {
@@ -137,31 +115,31 @@ class WitnessRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.WitnessRequestContext Context = 1;
+  // optional .dg.model.WitnessRequestContext Context = 1;
   bool has_context() const;
   void clear_context();
   static const int kContextFieldNumber = 1;
-  const ::dg::WitnessRequestContext& context() const;
-  ::dg::WitnessRequestContext* mutable_context();
-  ::dg::WitnessRequestContext* release_context();
-  void set_allocated_context(::dg::WitnessRequestContext* context);
+  const ::dg::model::WitnessRequestContext& context() const;
+  ::dg::model::WitnessRequestContext* mutable_context();
+  ::dg::model::WitnessRequestContext* release_context();
+  void set_allocated_context(::dg::model::WitnessRequestContext* context);
 
-  // optional .dg.WitnessImage Image = 2;
+  // optional .dg.model.WitnessImage Image = 2;
   bool has_image() const;
   void clear_image();
   static const int kImageFieldNumber = 2;
-  const ::dg::WitnessImage& image() const;
-  ::dg::WitnessImage* mutable_image();
-  ::dg::WitnessImage* release_image();
-  void set_allocated_image(::dg::WitnessImage* image);
+  const ::dg::model::WitnessImage& image() const;
+  ::dg::model::WitnessImage* mutable_image();
+  ::dg::model::WitnessImage* release_image();
+  void set_allocated_image(::dg::model::WitnessImage* image);
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::WitnessRequestContext* context_;
-  ::dg::WitnessImage* image_;
+  ::dg::model::WitnessRequestContext* context_;
+  ::dg::model::WitnessImage* image_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -228,34 +206,34 @@ class WitnessBatchRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.WitnessRequestContext Context = 1;
+  // optional .dg.model.WitnessRequestContext Context = 1;
   bool has_context() const;
   void clear_context();
   static const int kContextFieldNumber = 1;
-  const ::dg::WitnessRequestContext& context() const;
-  ::dg::WitnessRequestContext* mutable_context();
-  ::dg::WitnessRequestContext* release_context();
-  void set_allocated_context(::dg::WitnessRequestContext* context);
+  const ::dg::model::WitnessRequestContext& context() const;
+  ::dg::model::WitnessRequestContext* mutable_context();
+  ::dg::model::WitnessRequestContext* release_context();
+  void set_allocated_context(::dg::model::WitnessRequestContext* context);
 
-  // repeated .dg.WitnessImage Images = 2;
+  // repeated .dg.model.WitnessImage Images = 2;
   int images_size() const;
   void clear_images();
   static const int kImagesFieldNumber = 2;
-  const ::dg::WitnessImage& images(int index) const;
-  ::dg::WitnessImage* mutable_images(int index);
-  ::dg::WitnessImage* add_images();
-  ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >*
+  const ::dg::model::WitnessImage& images(int index) const;
+  ::dg::model::WitnessImage* mutable_images(int index);
+  ::dg::model::WitnessImage* add_images();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >*
       mutable_images();
-  const ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >&
       images() const;
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessBatchRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessBatchRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::WitnessRequestContext* context_;
-  ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage > images_;
+  ::dg::model::WitnessRequestContext* context_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage > images_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -322,31 +300,31 @@ class WitnessResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.WitnessResponseContext Context = 1;
+  // optional .dg.model.WitnessResponseContext Context = 1;
   bool has_context() const;
   void clear_context();
   static const int kContextFieldNumber = 1;
-  const ::dg::WitnessResponseContext& context() const;
-  ::dg::WitnessResponseContext* mutable_context();
-  ::dg::WitnessResponseContext* release_context();
-  void set_allocated_context(::dg::WitnessResponseContext* context);
+  const ::dg::model::WitnessResponseContext& context() const;
+  ::dg::model::WitnessResponseContext* mutable_context();
+  ::dg::model::WitnessResponseContext* release_context();
+  void set_allocated_context(::dg::model::WitnessResponseContext* context);
 
-  // optional .dg.WitnessResult Result = 2;
+  // optional .dg.model.WitnessResult Result = 2;
   bool has_result() const;
   void clear_result();
   static const int kResultFieldNumber = 2;
-  const ::dg::WitnessResult& result() const;
-  ::dg::WitnessResult* mutable_result();
-  ::dg::WitnessResult* release_result();
-  void set_allocated_result(::dg::WitnessResult* result);
+  const ::dg::model::WitnessResult& result() const;
+  ::dg::model::WitnessResult* mutable_result();
+  ::dg::model::WitnessResult* release_result();
+  void set_allocated_result(::dg::model::WitnessResult* result);
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::WitnessResponseContext* context_;
-  ::dg::WitnessResult* result_;
+  ::dg::model::WitnessResponseContext* context_;
+  ::dg::model::WitnessResult* result_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -413,34 +391,34 @@ class WitnessBatchResponse : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.WitnessResponseContext Context = 1;
+  // optional .dg.model.WitnessResponseContext Context = 1;
   bool has_context() const;
   void clear_context();
   static const int kContextFieldNumber = 1;
-  const ::dg::WitnessResponseContext& context() const;
-  ::dg::WitnessResponseContext* mutable_context();
-  ::dg::WitnessResponseContext* release_context();
-  void set_allocated_context(::dg::WitnessResponseContext* context);
+  const ::dg::model::WitnessResponseContext& context() const;
+  ::dg::model::WitnessResponseContext* mutable_context();
+  ::dg::model::WitnessResponseContext* release_context();
+  void set_allocated_context(::dg::model::WitnessResponseContext* context);
 
-  // repeated .dg.WitnessResult Results = 2;
+  // repeated .dg.model.WitnessResult Results = 2;
   int results_size() const;
   void clear_results();
   static const int kResultsFieldNumber = 2;
-  const ::dg::WitnessResult& results(int index) const;
-  ::dg::WitnessResult* mutable_results(int index);
-  ::dg::WitnessResult* add_results();
-  ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >*
+  const ::dg::model::WitnessResult& results(int index) const;
+  ::dg::model::WitnessResult* mutable_results(int index);
+  ::dg::model::WitnessResult* add_results();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >*
       mutable_results();
-  const ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >&
       results() const;
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessBatchResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessBatchResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::WitnessResponseContext* context_;
-  ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult > results_;
+  ::dg::model::WitnessResponseContext* context_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult > results_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -519,30 +497,30 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::std::string* release_sessionid();
   void set_allocated_sessionid(::std::string* sessionid);
 
-  // repeated .dg.WitnessFunction Functions = 4;
+  // repeated .dg.model.RecognizeFunctions Functions = 4;
   int functions_size() const;
   void clear_functions();
   static const int kFunctionsFieldNumber = 4;
-  ::dg::WitnessFunction functions(int index) const;
-  void set_functions(int index, ::dg::WitnessFunction value);
-  void add_functions(::dg::WitnessFunction value);
+  ::dg::model::RecognizeFunctions functions(int index) const;
+  void set_functions(int index, ::dg::model::RecognizeFunctions value);
+  void add_functions(::dg::model::RecognizeFunctions value);
   const ::google::protobuf::RepeatedField<int>& functions() const;
   ::google::protobuf::RepeatedField<int>* mutable_functions();
 
-  // optional .dg.RecognizeType Type = 5;
+  // optional .dg.model.RecognizeType Type = 5;
   void clear_type();
   static const int kTypeFieldNumber = 5;
-  ::dg::RecognizeType type() const;
-  void set_type(::dg::RecognizeType value);
+  ::dg::model::RecognizeType type() const;
+  void set_type(::dg::model::RecognizeType value);
 
-  // optional .dg.StorageConfig Storage = 6;
+  // optional .dg.model.StorageConfig Storage = 6;
   bool has_storage() const;
   void clear_storage();
   static const int kStorageFieldNumber = 6;
-  const ::dg::StorageConfig& storage() const;
-  ::dg::StorageConfig* mutable_storage();
-  ::dg::StorageConfig* release_storage();
-  void set_allocated_storage(::dg::StorageConfig* storage);
+  const ::dg::model::StorageConfig& storage() const;
+  ::dg::model::StorageConfig* mutable_storage();
+  ::dg::model::StorageConfig* release_storage();
+  void set_allocated_storage(::dg::model::StorageConfig* storage);
 
   // map<string, string> Params = 7;
   int params_size() const;
@@ -553,7 +531,7 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::google::protobuf::Map< ::std::string, ::std::string >*
       mutable_params();
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessRequestContext)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessRequestContext)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -561,7 +539,7 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr sessionid_;
   ::google::protobuf::RepeatedField<int> functions_;
   mutable int _functions_cached_byte_size_;
-  ::dg::StorageConfig* storage_;
+  ::dg::model::StorageConfig* storage_;
   typedef ::google::protobuf::internal::MapEntryLite<
       ::std::string, ::std::string,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
@@ -640,14 +618,14 @@ class WitnessImage : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.Image Data = 1;
+  // optional .dg.model.Image Data = 1;
   bool has_data() const;
   void clear_data();
   static const int kDataFieldNumber = 1;
-  const ::dg::Image& data() const;
-  ::dg::Image* mutable_data();
-  ::dg::Image* release_data();
-  void set_allocated_data(::dg::Image* data);
+  const ::dg::model::Image& data() const;
+  ::dg::model::Image* mutable_data();
+  ::dg::model::Image* release_data();
+  void set_allocated_data(::dg::model::Image* data);
 
   // optional int32 SensorId = 2;
   void clear_sensorid();
@@ -666,12 +644,12 @@ class WitnessImage : public ::google::protobuf::Message {
   ::std::string* release_sensorname();
   void set_allocated_sensorname(::std::string* sensorname);
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessImage)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessImage)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Image* data_;
+  ::dg::model::Image* data_;
   ::google::protobuf::internal::ArenaStringPtr sensorname_;
   ::google::protobuf::int32 sensorid_;
   mutable int _cached_size_;
@@ -774,34 +752,34 @@ class WitnessResponseContext : public ::google::protobuf::Message {
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // optional .dg.Time RequestTs = 4;
+  // optional .dg.model.Time RequestTs = 4;
   bool has_requestts() const;
   void clear_requestts();
   static const int kRequestTsFieldNumber = 4;
-  const ::dg::Time& requestts() const;
-  ::dg::Time* mutable_requestts();
-  ::dg::Time* release_requestts();
-  void set_allocated_requestts(::dg::Time* requestts);
+  const ::dg::model::Time& requestts() const;
+  ::dg::model::Time* mutable_requestts();
+  ::dg::model::Time* release_requestts();
+  void set_allocated_requestts(::dg::model::Time* requestts);
 
-  // optional .dg.Time ResponseTs = 5;
+  // optional .dg.model.Time ResponseTs = 5;
   bool has_responsets() const;
   void clear_responsets();
   static const int kResponseTsFieldNumber = 5;
-  const ::dg::Time& responsets() const;
-  ::dg::Time* mutable_responsets();
-  ::dg::Time* release_responsets();
-  void set_allocated_responsets(::dg::Time* responsets);
+  const ::dg::model::Time& responsets() const;
+  ::dg::model::Time* mutable_responsets();
+  ::dg::model::Time* release_responsets();
+  void set_allocated_responsets(::dg::model::Time* responsets);
 
-  // map<string, .dg.Time> DebugTs = 6;
+  // map<string, .dg.model.Time> DebugTs = 6;
   int debugts_size() const;
   void clear_debugts();
   static const int kDebugTsFieldNumber = 6;
-  const ::google::protobuf::Map< ::std::string, ::dg::Time >&
+  const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
       debugts() const;
-  ::google::protobuf::Map< ::std::string, ::dg::Time >*
+  ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
       mutable_debugts();
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessResponseContext)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessResponseContext)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -809,16 +787,16 @@ class WitnessResponseContext : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr sessionid_;
   ::google::protobuf::internal::ArenaStringPtr status_;
   ::google::protobuf::internal::ArenaStringPtr message_;
-  ::dg::Time* requestts_;
-  ::dg::Time* responsets_;
+  ::dg::model::Time* requestts_;
+  ::dg::model::Time* responsets_;
   typedef ::google::protobuf::internal::MapEntryLite<
-      ::std::string, ::dg::Time,
+      ::std::string, ::dg::model::Time,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 >
       WitnessResponseContext_DebugTsEntry;
   ::google::protobuf::internal::MapField<
-      ::std::string, ::dg::Time,
+      ::std::string, ::dg::model::Time,
       ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
       ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
       0 > debugts_;
@@ -910,49 +888,49 @@ class WitnessResult : public ::google::protobuf::Message {
   ::std::string* release_innermessage();
   void set_allocated_innermessage(::std::string* innermessage);
 
-  // optional .dg.WitnessImage Image = 3;
+  // optional .dg.model.WitnessImage Image = 3;
   bool has_image() const;
   void clear_image();
   static const int kImageFieldNumber = 3;
-  const ::dg::WitnessImage& image() const;
-  ::dg::WitnessImage* mutable_image();
-  ::dg::WitnessImage* release_image();
-  void set_allocated_image(::dg::WitnessImage* image);
+  const ::dg::model::WitnessImage& image() const;
+  ::dg::model::WitnessImage* mutable_image();
+  ::dg::model::WitnessImage* release_image();
+  void set_allocated_image(::dg::model::WitnessImage* image);
 
-  // repeated .dg.RecognizedVehicle Vehicles = 4;
+  // repeated .dg.model.RecognizedVehicle Vehicles = 4;
   int vehicles_size() const;
   void clear_vehicles();
   static const int kVehiclesFieldNumber = 4;
-  const ::dg::RecognizedVehicle& vehicles(int index) const;
-  ::dg::RecognizedVehicle* mutable_vehicles(int index);
-  ::dg::RecognizedVehicle* add_vehicles();
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >*
+  const ::dg::model::RecognizedVehicle& vehicles(int index) const;
+  ::dg::model::RecognizedVehicle* mutable_vehicles(int index);
+  ::dg::model::RecognizedVehicle* add_vehicles();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >*
       mutable_vehicles();
-  const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >&
       vehicles() const;
 
-  // repeated .dg.RecognizedFace Faces = 5;
+  // repeated .dg.model.RecognizedFace Faces = 5;
   int faces_size() const;
   void clear_faces();
   static const int kFacesFieldNumber = 5;
-  const ::dg::RecognizedFace& faces(int index) const;
-  ::dg::RecognizedFace* mutable_faces(int index);
-  ::dg::RecognizedFace* add_faces();
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >*
+  const ::dg::model::RecognizedFace& faces(int index) const;
+  ::dg::model::RecognizedFace* mutable_faces(int index);
+  ::dg::model::RecognizedFace* add_faces();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >*
       mutable_faces();
-  const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >&
       faces() const;
 
-  // @@protoc_insertion_point(class_scope:dg.WitnessResult)
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessResult)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr innerstatus_;
   ::google::protobuf::internal::ArenaStringPtr innermessage_;
-  ::dg::WitnessImage* image_;
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle > vehicles_;
-  ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace > faces_;
+  ::dg::model::WitnessImage* image_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle > vehicles_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace > faces_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1019,69 +997,57 @@ class RecognizedVehicle : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.VehicleModel Model = 1;
+  // optional .dg.model.VehicleModel Model = 1;
   bool has_model() const;
   void clear_model();
   static const int kModelFieldNumber = 1;
-  const ::dg::VehicleModel& model() const;
-  ::dg::VehicleModel* mutable_model();
-  ::dg::VehicleModel* release_model();
-  void set_allocated_model(::dg::VehicleModel* model);
+  const ::dg::model::VehicleModel& model() const;
+  ::dg::model::VehicleModel* mutable_model();
+  ::dg::model::VehicleModel* release_model();
+  void set_allocated_model(::dg::model::VehicleModel* model);
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 2;
-  const ::dg::Cutboard& cutboard() const;
-  ::dg::Cutboard* mutable_cutboard();
-  ::dg::Cutboard* release_cutboard();
-  void set_allocated_cutboard(::dg::Cutboard* cutboard);
+  const ::dg::model::Cutboard& cutboard() const;
+  ::dg::model::Cutboard* mutable_cutboard();
+  ::dg::model::Cutboard* release_cutboard();
+  void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
-  // optional .dg.Color Color = 3;
+  // optional .dg.model.Color Color = 3;
   bool has_color() const;
   void clear_color();
   static const int kColorFieldNumber = 3;
-  const ::dg::Color& color() const;
-  ::dg::Color* mutable_color();
-  ::dg::Color* release_color();
-  void set_allocated_color(::dg::Color* color);
+  const ::dg::model::Color& color() const;
+  ::dg::model::Color* mutable_color();
+  ::dg::model::Color* release_color();
+  void set_allocated_color(::dg::model::Color* color);
 
-  // optional .dg.LicensePlate LicensePlate = 4;
+  // optional .dg.model.LicensePlate LicensePlate = 4;
   bool has_licenseplate() const;
   void clear_licenseplate();
   static const int kLicensePlateFieldNumber = 4;
-  const ::dg::LicensePlate& licenseplate() const;
-  ::dg::LicensePlate* mutable_licenseplate();
-  ::dg::LicensePlate* release_licenseplate();
-  void set_allocated_licenseplate(::dg::LicensePlate* licenseplate);
+  const ::dg::model::LicensePlate& licenseplate() const;
+  ::dg::model::LicensePlate* mutable_licenseplate();
+  ::dg::model::LicensePlate* release_licenseplate();
+  void set_allocated_licenseplate(::dg::model::LicensePlate* licenseplate);
 
-  // repeated .dg.SymbolItem SymbolItems = 5;
+  // repeated .dg.model.SymbolItem SymbolItems = 5;
   int symbolitems_size() const;
   void clear_symbolitems();
   static const int kSymbolItemsFieldNumber = 5;
-  const ::dg::SymbolItem& symbolitems(int index) const;
-  ::dg::SymbolItem* mutable_symbolitems(int index);
-  ::dg::SymbolItem* add_symbolitems();
-  ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >*
+  const ::dg::model::SymbolItem& symbolitems(int index) const;
+  ::dg::model::SymbolItem* mutable_symbolitems(int index);
+  ::dg::model::SymbolItem* add_symbolitems();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >*
       mutable_symbolitems();
-  const ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >&
       symbolitems() const;
 
-  // repeated .dg.VehicleModel Candidates = 6;
-  int candidates_size() const;
-  void clear_candidates();
-  static const int kCandidatesFieldNumber = 6;
-  const ::dg::VehicleModel& candidates(int index) const;
-  ::dg::VehicleModel* mutable_candidates(int index);
-  ::dg::VehicleModel* add_candidates();
-  ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >*
-      mutable_candidates();
-  const ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >&
-      candidates() const;
-
-  // optional string Features = 7;
+  // optional string Features = 6;
   void clear_features();
-  static const int kFeaturesFieldNumber = 7;
+  static const int kFeaturesFieldNumber = 6;
   const ::std::string& features() const;
   void set_features(const ::std::string& value);
   void set_features(const char* value);
@@ -1090,28 +1056,27 @@ class RecognizedVehicle : public ::google::protobuf::Message {
   ::std::string* release_features();
   void set_allocated_features(::std::string* features);
 
-  // optional .dg.Scene Scene = 8;
+  // optional .dg.model.Scene Scene = 7;
   bool has_scene() const;
   void clear_scene();
-  static const int kSceneFieldNumber = 8;
-  const ::dg::Scene& scene() const;
-  ::dg::Scene* mutable_scene();
-  ::dg::Scene* release_scene();
-  void set_allocated_scene(::dg::Scene* scene);
+  static const int kSceneFieldNumber = 7;
+  const ::dg::model::Scene& scene() const;
+  ::dg::model::Scene* mutable_scene();
+  ::dg::model::Scene* release_scene();
+  void set_allocated_scene(::dg::model::Scene* scene);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizedVehicle)
+  // @@protoc_insertion_point(class_scope:dg.model.RecognizedVehicle)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::VehicleModel* model_;
-  ::dg::Cutboard* cutboard_;
-  ::dg::Color* color_;
-  ::dg::LicensePlate* licenseplate_;
-  ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem > symbolitems_;
-  ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel > candidates_;
+  ::dg::model::VehicleModel* model_;
+  ::dg::model::Cutboard* cutboard_;
+  ::dg::model::Color* color_;
+  ::dg::model::LicensePlate* licenseplate_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem > symbolitems_;
   ::google::protobuf::internal::ArenaStringPtr features_;
-  ::dg::Scene* scene_;
+  ::dg::model::Scene* scene_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1178,14 +1143,14 @@ class RecognizedFace : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.Cutboard Cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 1;
-  const ::dg::Cutboard& cutboard() const;
-  ::dg::Cutboard* mutable_cutboard();
-  ::dg::Cutboard* release_cutboard();
-  void set_allocated_cutboard(::dg::Cutboard* cutboard);
+  const ::dg::model::Cutboard& cutboard() const;
+  ::dg::model::Cutboard* mutable_cutboard();
+  ::dg::model::Cutboard* release_cutboard();
+  void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
   // optional float Confidence = 2;
   void clear_confidence();
@@ -1204,12 +1169,12 @@ class RecognizedFace : public ::google::protobuf::Message {
   ::std::string* release_features();
   void set_allocated_features(::std::string* features);
 
-  // @@protoc_insertion_point(class_scope:dg.RecognizedFace)
+  // @@protoc_insertion_point(class_scope:dg.model.RecognizedFace)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Cutboard* cutboard_;
+  ::dg::model::Cutboard* cutboard_;
   ::google::protobuf::internal::ArenaStringPtr features_;
   float confidence_;
   mutable int _cached_size_;
@@ -1358,7 +1323,7 @@ class VehicleModel : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.VehicleModel)
+  // @@protoc_insertion_point(class_scope:dg.model.VehicleModel)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1450,14 +1415,14 @@ class LicensePlate : public ::google::protobuf::Message {
   ::std::string* release_platenum();
   void set_allocated_platenum(::std::string* platenum);
 
-  // optional .dg.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 2;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 2;
-  const ::dg::Cutboard& cutboard() const;
-  ::dg::Cutboard* mutable_cutboard();
-  ::dg::Cutboard* release_cutboard();
-  void set_allocated_cutboard(::dg::Cutboard* cutboard);
+  const ::dg::model::Cutboard& cutboard() const;
+  ::dg::model::Cutboard* mutable_cutboard();
+  ::dg::model::Cutboard* release_cutboard();
+  void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
   // optional int32 ColorId = 3;
   void clear_colorid();
@@ -1499,13 +1464,13 @@ class LicensePlate : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.LicensePlate)
+  // @@protoc_insertion_point(class_scope:dg.model.LicensePlate)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr platenum_;
-  ::dg::Cutboard* cutboard_;
+  ::dg::model::Cutboard* cutboard_;
   ::google::protobuf::internal::ArenaStringPtr color_;
   ::google::protobuf::int32 colorid_;
   ::google::protobuf::int32 typeid__;
@@ -1594,25 +1559,25 @@ class SymbolItem : public ::google::protobuf::Message {
   ::std::string* release_symbolname();
   void set_allocated_symbolname(::std::string* symbolname);
 
-  // repeated .dg.Symbol Symbols = 3;
+  // repeated .dg.model.Symbol Symbols = 3;
   int symbols_size() const;
   void clear_symbols();
   static const int kSymbolsFieldNumber = 3;
-  const ::dg::Symbol& symbols(int index) const;
-  ::dg::Symbol* mutable_symbols(int index);
-  ::dg::Symbol* add_symbols();
-  ::google::protobuf::RepeatedPtrField< ::dg::Symbol >*
+  const ::dg::model::Symbol& symbols(int index) const;
+  ::dg::model::Symbol* mutable_symbols(int index);
+  ::dg::model::Symbol* add_symbols();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >*
       mutable_symbols();
-  const ::google::protobuf::RepeatedPtrField< ::dg::Symbol >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >&
       symbols() const;
 
-  // @@protoc_insertion_point(class_scope:dg.SymbolItem)
+  // @@protoc_insertion_point(class_scope:dg.model.SymbolItem)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr symbolname_;
-  ::google::protobuf::RepeatedPtrField< ::dg::Symbol > symbols_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol > symbols_;
   ::google::protobuf::int32 symbolid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
@@ -1703,7 +1668,7 @@ class Scene : public ::google::protobuf::Message {
   ::std::string* release_border();
   void set_allocated_border(::std::string* border);
 
-  // @@protoc_insertion_point(class_scope:dg.Scene)
+  // @@protoc_insertion_point(class_scope:dg.model.Scene)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1777,14 +1742,14 @@ class Symbol : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.Cutboard Cutboard = 3;
+  // optional .dg.model.Cutboard Cutboard = 3;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 3;
-  const ::dg::Cutboard& cutboard() const;
-  ::dg::Cutboard* mutable_cutboard();
-  ::dg::Cutboard* release_cutboard();
-  void set_allocated_cutboard(::dg::Cutboard* cutboard);
+  const ::dg::model::Cutboard& cutboard() const;
+  ::dg::model::Cutboard* mutable_cutboard();
+  ::dg::model::Cutboard* release_cutboard();
+  void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
   // optional float Confidence = 4;
   void clear_confidence();
@@ -1792,12 +1757,12 @@ class Symbol : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
-  // @@protoc_insertion_point(class_scope:dg.Symbol)
+  // @@protoc_insertion_point(class_scope:dg.model.Symbol)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::Cutboard* cutboard_;
+  ::dg::model::Cutboard* cutboard_;
   float confidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
@@ -1815,7 +1780,7 @@ class Symbol : public ::google::protobuf::Message {
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // WitnessRequest
 
-// optional .dg.WitnessRequestContext Context = 1;
+// optional .dg.model.WitnessRequestContext Context = 1;
 inline bool WitnessRequest::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1823,25 +1788,25 @@ inline void WitnessRequest::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-inline const ::dg::WitnessRequestContext& WitnessRequest::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequest.Context)
+inline const ::dg::model::WitnessRequestContext& WitnessRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequest.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::WitnessRequestContext* WitnessRequest::mutable_context() {
+inline ::dg::model::WitnessRequestContext* WitnessRequest::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessRequestContext;
+    context_ = new ::dg::model::WitnessRequestContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequest.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequest.Context)
   return context_;
 }
-inline ::dg::WitnessRequestContext* WitnessRequest::release_context() {
+inline ::dg::model::WitnessRequestContext* WitnessRequest::release_context() {
   
-  ::dg::WitnessRequestContext* temp = context_;
+  ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-inline void WitnessRequest::set_allocated_context(::dg::WitnessRequestContext* context) {
+inline void WitnessRequest::set_allocated_context(::dg::model::WitnessRequestContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1849,10 +1814,10 @@ inline void WitnessRequest::set_allocated_context(::dg::WitnessRequestContext* c
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequest.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Context)
 }
 
-// optional .dg.WitnessImage Image = 2;
+// optional .dg.model.WitnessImage Image = 2;
 inline bool WitnessRequest::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -1860,25 +1825,25 @@ inline void WitnessRequest::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-inline const ::dg::WitnessImage& WitnessRequest::image() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequest.Image)
+inline const ::dg::model::WitnessImage& WitnessRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequest.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-inline ::dg::WitnessImage* WitnessRequest::mutable_image() {
+inline ::dg::model::WitnessImage* WitnessRequest::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::WitnessImage;
+    image_ = new ::dg::model::WitnessImage;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequest.Image)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequest.Image)
   return image_;
 }
-inline ::dg::WitnessImage* WitnessRequest::release_image() {
+inline ::dg::model::WitnessImage* WitnessRequest::release_image() {
   
-  ::dg::WitnessImage* temp = image_;
+  ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
 }
-inline void WitnessRequest::set_allocated_image(::dg::WitnessImage* image) {
+inline void WitnessRequest::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -1886,14 +1851,14 @@ inline void WitnessRequest::set_allocated_image(::dg::WitnessImage* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequest.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Image)
 }
 
 // -------------------------------------------------------------------
 
 // WitnessBatchRequest
 
-// optional .dg.WitnessRequestContext Context = 1;
+// optional .dg.model.WitnessRequestContext Context = 1;
 inline bool WitnessBatchRequest::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1901,25 +1866,25 @@ inline void WitnessBatchRequest::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-inline const ::dg::WitnessRequestContext& WitnessBatchRequest::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchRequest.Context)
+inline const ::dg::model::WitnessRequestContext& WitnessBatchRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchRequest.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::WitnessRequestContext* WitnessBatchRequest::mutable_context() {
+inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessRequestContext;
+    context_ = new ::dg::model::WitnessRequestContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchRequest.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchRequest.Context)
   return context_;
 }
-inline ::dg::WitnessRequestContext* WitnessBatchRequest::release_context() {
+inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::release_context() {
   
-  ::dg::WitnessRequestContext* temp = context_;
+  ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-inline void WitnessBatchRequest::set_allocated_context(::dg::WitnessRequestContext* context) {
+inline void WitnessBatchRequest::set_allocated_context(::dg::model::WitnessRequestContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1927,36 +1892,36 @@ inline void WitnessBatchRequest::set_allocated_context(::dg::WitnessRequestConte
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessBatchRequest.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchRequest.Context)
 }
 
-// repeated .dg.WitnessImage Images = 2;
+// repeated .dg.model.WitnessImage Images = 2;
 inline int WitnessBatchRequest::images_size() const {
   return images_.size();
 }
 inline void WitnessBatchRequest::clear_images() {
   images_.Clear();
 }
-inline const ::dg::WitnessImage& WitnessBatchRequest::images(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchRequest.Images)
+inline const ::dg::model::WitnessImage& WitnessBatchRequest::images(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchRequest.Images)
   return images_.Get(index);
 }
-inline ::dg::WitnessImage* WitnessBatchRequest::mutable_images(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchRequest.Images)
+inline ::dg::model::WitnessImage* WitnessBatchRequest::mutable_images(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchRequest.Images)
   return images_.Mutable(index);
 }
-inline ::dg::WitnessImage* WitnessBatchRequest::add_images() {
-  // @@protoc_insertion_point(field_add:dg.WitnessBatchRequest.Images)
+inline ::dg::model::WitnessImage* WitnessBatchRequest::add_images() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessBatchRequest.Images)
   return images_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >*
 WitnessBatchRequest::mutable_images() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessBatchRequest.Images)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessBatchRequest.Images)
   return &images_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::WitnessImage >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessImage >&
 WitnessBatchRequest::images() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessBatchRequest.Images)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessBatchRequest.Images)
   return images_;
 }
 
@@ -1964,7 +1929,7 @@ WitnessBatchRequest::images() const {
 
 // WitnessResponse
 
-// optional .dg.WitnessResponseContext Context = 1;
+// optional .dg.model.WitnessResponseContext Context = 1;
 inline bool WitnessResponse::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -1972,25 +1937,25 @@ inline void WitnessResponse::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-inline const ::dg::WitnessResponseContext& WitnessResponse::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponse.Context)
+inline const ::dg::model::WitnessResponseContext& WitnessResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponse.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::WitnessResponseContext* WitnessResponse::mutable_context() {
+inline ::dg::model::WitnessResponseContext* WitnessResponse::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessResponseContext;
+    context_ = new ::dg::model::WitnessResponseContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponse.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponse.Context)
   return context_;
 }
-inline ::dg::WitnessResponseContext* WitnessResponse::release_context() {
+inline ::dg::model::WitnessResponseContext* WitnessResponse::release_context() {
   
-  ::dg::WitnessResponseContext* temp = context_;
+  ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-inline void WitnessResponse::set_allocated_context(::dg::WitnessResponseContext* context) {
+inline void WitnessResponse::set_allocated_context(::dg::model::WitnessResponseContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -1998,10 +1963,10 @@ inline void WitnessResponse::set_allocated_context(::dg::WitnessResponseContext*
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponse.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Context)
 }
 
-// optional .dg.WitnessResult Result = 2;
+// optional .dg.model.WitnessResult Result = 2;
 inline bool WitnessResponse::has_result() const {
   return !_is_default_instance_ && result_ != NULL;
 }
@@ -2009,25 +1974,25 @@ inline void WitnessResponse::clear_result() {
   if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
   result_ = NULL;
 }
-inline const ::dg::WitnessResult& WitnessResponse::result() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponse.Result)
+inline const ::dg::model::WitnessResult& WitnessResponse::result() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponse.Result)
   return result_ != NULL ? *result_ : *default_instance_->result_;
 }
-inline ::dg::WitnessResult* WitnessResponse::mutable_result() {
+inline ::dg::model::WitnessResult* WitnessResponse::mutable_result() {
   
   if (result_ == NULL) {
-    result_ = new ::dg::WitnessResult;
+    result_ = new ::dg::model::WitnessResult;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponse.Result)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponse.Result)
   return result_;
 }
-inline ::dg::WitnessResult* WitnessResponse::release_result() {
+inline ::dg::model::WitnessResult* WitnessResponse::release_result() {
   
-  ::dg::WitnessResult* temp = result_;
+  ::dg::model::WitnessResult* temp = result_;
   result_ = NULL;
   return temp;
 }
-inline void WitnessResponse::set_allocated_result(::dg::WitnessResult* result) {
+inline void WitnessResponse::set_allocated_result(::dg::model::WitnessResult* result) {
   delete result_;
   result_ = result;
   if (result) {
@@ -2035,14 +2000,14 @@ inline void WitnessResponse::set_allocated_result(::dg::WitnessResult* result) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponse.Result)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Result)
 }
 
 // -------------------------------------------------------------------
 
 // WitnessBatchResponse
 
-// optional .dg.WitnessResponseContext Context = 1;
+// optional .dg.model.WitnessResponseContext Context = 1;
 inline bool WitnessBatchResponse::has_context() const {
   return !_is_default_instance_ && context_ != NULL;
 }
@@ -2050,25 +2015,25 @@ inline void WitnessBatchResponse::clear_context() {
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
 }
-inline const ::dg::WitnessResponseContext& WitnessBatchResponse::context() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchResponse.Context)
+inline const ::dg::model::WitnessResponseContext& WitnessBatchResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchResponse.Context)
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::WitnessResponseContext* WitnessBatchResponse::mutable_context() {
+inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::mutable_context() {
   
   if (context_ == NULL) {
-    context_ = new ::dg::WitnessResponseContext;
+    context_ = new ::dg::model::WitnessResponseContext;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchResponse.Context)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchResponse.Context)
   return context_;
 }
-inline ::dg::WitnessResponseContext* WitnessBatchResponse::release_context() {
+inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::release_context() {
   
-  ::dg::WitnessResponseContext* temp = context_;
+  ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
 }
-inline void WitnessBatchResponse::set_allocated_context(::dg::WitnessResponseContext* context) {
+inline void WitnessBatchResponse::set_allocated_context(::dg::model::WitnessResponseContext* context) {
   delete context_;
   context_ = context;
   if (context) {
@@ -2076,36 +2041,36 @@ inline void WitnessBatchResponse::set_allocated_context(::dg::WitnessResponseCon
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessBatchResponse.Context)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchResponse.Context)
 }
 
-// repeated .dg.WitnessResult Results = 2;
+// repeated .dg.model.WitnessResult Results = 2;
 inline int WitnessBatchResponse::results_size() const {
   return results_.size();
 }
 inline void WitnessBatchResponse::clear_results() {
   results_.Clear();
 }
-inline const ::dg::WitnessResult& WitnessBatchResponse::results(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessBatchResponse.Results)
+inline const ::dg::model::WitnessResult& WitnessBatchResponse::results(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessBatchResponse.Results)
   return results_.Get(index);
 }
-inline ::dg::WitnessResult* WitnessBatchResponse::mutable_results(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessBatchResponse.Results)
+inline ::dg::model::WitnessResult* WitnessBatchResponse::mutable_results(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessBatchResponse.Results)
   return results_.Mutable(index);
 }
-inline ::dg::WitnessResult* WitnessBatchResponse::add_results() {
-  // @@protoc_insertion_point(field_add:dg.WitnessBatchResponse.Results)
+inline ::dg::model::WitnessResult* WitnessBatchResponse::add_results() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessBatchResponse.Results)
   return results_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >*
 WitnessBatchResponse::mutable_results() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessBatchResponse.Results)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessBatchResponse.Results)
   return &results_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::WitnessResult >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessResult >&
 WitnessBatchResponse::results() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessBatchResponse.Results)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessBatchResponse.Results)
   return results_;
 }
 
@@ -2118,28 +2083,28 @@ inline void WitnessRequestContext::clear_sessionid() {
   sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessRequestContext::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.SessionId)
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessRequestContext::set_sessionid(const ::std::string& value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.SessionId)
 }
 inline void WitnessRequestContext::set_sessionid(const char* value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.SessionId)
 }
 inline void WitnessRequestContext::set_sessionid(const char* value, size_t size) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.SessionId)
 }
 inline ::std::string* WitnessRequestContext::mutable_sessionid() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_sessionid() {
@@ -2153,54 +2118,54 @@ inline void WitnessRequestContext::set_allocated_sessionid(::std::string* sessio
     
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequestContext.SessionId)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
 }
 
-// repeated .dg.WitnessFunction Functions = 4;
+// repeated .dg.model.RecognizeFunctions Functions = 4;
 inline int WitnessRequestContext::functions_size() const {
   return functions_.size();
 }
 inline void WitnessRequestContext::clear_functions() {
   functions_.Clear();
 }
-inline ::dg::WitnessFunction WitnessRequestContext::functions(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Functions)
-  return static_cast< ::dg::WitnessFunction >(functions_.Get(index));
+inline ::dg::model::RecognizeFunctions WitnessRequestContext::functions(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Functions)
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
-inline void WitnessRequestContext::set_functions(int index, ::dg::WitnessFunction value) {
+inline void WitnessRequestContext::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Functions)
 }
-inline void WitnessRequestContext::add_functions(::dg::WitnessFunction value) {
+inline void WitnessRequestContext::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
-  // @@protoc_insertion_point(field_add:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_add:dg.model.WitnessRequestContext.Functions)
 }
 inline const ::google::protobuf::RepeatedField<int>&
 WitnessRequestContext::functions() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessRequestContext.Functions)
   return functions_;
 }
 inline ::google::protobuf::RepeatedField<int>*
 WitnessRequestContext::mutable_functions() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessRequestContext.Functions)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessRequestContext.Functions)
   return &functions_;
 }
 
-// optional .dg.RecognizeType Type = 5;
+// optional .dg.model.RecognizeType Type = 5;
 inline void WitnessRequestContext::clear_type() {
   type_ = 0;
 }
-inline ::dg::RecognizeType WitnessRequestContext::type() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Type)
-  return static_cast< ::dg::RecognizeType >(type_);
+inline ::dg::model::RecognizeType WitnessRequestContext::type() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Type)
+  return static_cast< ::dg::model::RecognizeType >(type_);
 }
-inline void WitnessRequestContext::set_type(::dg::RecognizeType value) {
+inline void WitnessRequestContext::set_type(::dg::model::RecognizeType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.WitnessRequestContext.Type)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Type)
 }
 
-// optional .dg.StorageConfig Storage = 6;
+// optional .dg.model.StorageConfig Storage = 6;
 inline bool WitnessRequestContext::has_storage() const {
   return !_is_default_instance_ && storage_ != NULL;
 }
@@ -2208,25 +2173,25 @@ inline void WitnessRequestContext::clear_storage() {
   if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
   storage_ = NULL;
 }
-inline const ::dg::StorageConfig& WitnessRequestContext::storage() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessRequestContext.Storage)
+inline const ::dg::model::StorageConfig& WitnessRequestContext::storage() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Storage)
   return storage_ != NULL ? *storage_ : *default_instance_->storage_;
 }
-inline ::dg::StorageConfig* WitnessRequestContext::mutable_storage() {
+inline ::dg::model::StorageConfig* WitnessRequestContext::mutable_storage() {
   
   if (storage_ == NULL) {
-    storage_ = new ::dg::StorageConfig;
+    storage_ = new ::dg::model::StorageConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessRequestContext.Storage)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.Storage)
   return storage_;
 }
-inline ::dg::StorageConfig* WitnessRequestContext::release_storage() {
+inline ::dg::model::StorageConfig* WitnessRequestContext::release_storage() {
   
-  ::dg::StorageConfig* temp = storage_;
+  ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
   return temp;
 }
-inline void WitnessRequestContext::set_allocated_storage(::dg::StorageConfig* storage) {
+inline void WitnessRequestContext::set_allocated_storage(::dg::model::StorageConfig* storage) {
   delete storage_;
   storage_ = storage;
   if (storage) {
@@ -2234,7 +2199,7 @@ inline void WitnessRequestContext::set_allocated_storage(::dg::StorageConfig* st
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessRequestContext.Storage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.Storage)
 }
 
 // map<string, string> Params = 7;
@@ -2246,12 +2211,12 @@ inline void WitnessRequestContext::clear_params() {
 }
 inline const ::google::protobuf::Map< ::std::string, ::std::string >&
 WitnessRequestContext::params() const {
-  // @@protoc_insertion_point(field_map:dg.WitnessRequestContext.Params)
+  // @@protoc_insertion_point(field_map:dg.model.WitnessRequestContext.Params)
   return params_.GetMap();
 }
 inline ::google::protobuf::Map< ::std::string, ::std::string >*
 WitnessRequestContext::mutable_params() {
-  // @@protoc_insertion_point(field_mutable_map:dg.WitnessRequestContext.Params)
+  // @@protoc_insertion_point(field_mutable_map:dg.model.WitnessRequestContext.Params)
   return params_.MutableMap();
 }
 
@@ -2259,7 +2224,7 @@ WitnessRequestContext::mutable_params() {
 
 // WitnessImage
 
-// optional .dg.Image Data = 1;
+// optional .dg.model.Image Data = 1;
 inline bool WitnessImage::has_data() const {
   return !_is_default_instance_ && data_ != NULL;
 }
@@ -2267,25 +2232,25 @@ inline void WitnessImage::clear_data() {
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
   data_ = NULL;
 }
-inline const ::dg::Image& WitnessImage::data() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.Data)
+inline const ::dg::model::Image& WitnessImage::data() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.Data)
   return data_ != NULL ? *data_ : *default_instance_->data_;
 }
-inline ::dg::Image* WitnessImage::mutable_data() {
+inline ::dg::model::Image* WitnessImage::mutable_data() {
   
   if (data_ == NULL) {
-    data_ = new ::dg::Image;
+    data_ = new ::dg::model::Image;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessImage.Data)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.Data)
   return data_;
 }
-inline ::dg::Image* WitnessImage::release_data() {
+inline ::dg::model::Image* WitnessImage::release_data() {
   
-  ::dg::Image* temp = data_;
+  ::dg::model::Image* temp = data_;
   data_ = NULL;
   return temp;
 }
-inline void WitnessImage::set_allocated_data(::dg::Image* data) {
+inline void WitnessImage::set_allocated_data(::dg::model::Image* data) {
   delete data_;
   data_ = data;
   if (data) {
@@ -2293,7 +2258,7 @@ inline void WitnessImage::set_allocated_data(::dg::Image* data) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessImage.Data)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.Data)
 }
 
 // optional int32 SensorId = 2;
@@ -2301,13 +2266,13 @@ inline void WitnessImage::clear_sensorid() {
   sensorid_ = 0;
 }
 inline ::google::protobuf::int32 WitnessImage::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.SensorId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorId)
   return sensorid_;
 }
 inline void WitnessImage::set_sensorid(::google::protobuf::int32 value) {
   
   sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.WitnessImage.SensorId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorId)
 }
 
 // optional string SensorName = 3;
@@ -2315,28 +2280,28 @@ inline void WitnessImage::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessImage::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessImage::set_sensorname(const ::std::string& value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorName)
 }
 inline void WitnessImage::set_sensorname(const char* value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessImage.SensorName)
 }
 inline void WitnessImage::set_sensorname(const char* value, size_t size) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessImage.SensorName)
 }
 inline ::std::string* WitnessImage::mutable_sensorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessImage::release_sensorname() {
@@ -2350,7 +2315,7 @@ inline void WitnessImage::set_allocated_sensorname(::std::string* sensorname) {
     
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
 }
 
 // -------------------------------------------------------------------
@@ -2362,28 +2327,28 @@ inline void WitnessResponseContext::clear_sessionid() {
   sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessResponseContext::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.SessionId)
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessResponseContext::set_sessionid(const ::std::string& value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.SessionId)
 }
 inline void WitnessResponseContext::set_sessionid(const char* value) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.SessionId)
 }
 inline void WitnessResponseContext::set_sessionid(const char* value, size_t size) {
   
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.SessionId)
 }
 inline ::std::string* WitnessResponseContext::mutable_sessionid() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_sessionid() {
@@ -2397,7 +2362,7 @@ inline void WitnessResponseContext::set_allocated_sessionid(::std::string* sessi
     
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.SessionId)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.SessionId)
 }
 
 // optional string Status = 2;
@@ -2405,28 +2370,28 @@ inline void WitnessResponseContext::clear_status() {
   status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessResponseContext::status() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.Status)
   return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessResponseContext::set_status(const ::std::string& value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Status)
 }
 inline void WitnessResponseContext::set_status(const char* value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Status)
 }
 inline void WitnessResponseContext::set_status(const char* value, size_t size) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Status)
 }
 inline ::std::string* WitnessResponseContext::mutable_status() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Status)
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_status() {
@@ -2440,7 +2405,7 @@ inline void WitnessResponseContext::set_allocated_status(::std::string* status) 
     
   }
   status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.Status)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Status)
 }
 
 // optional string Message = 3;
@@ -2448,28 +2413,28 @@ inline void WitnessResponseContext::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessResponseContext::message() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.Message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessResponseContext::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Message)
 }
 inline void WitnessResponseContext::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Message)
 }
 inline void WitnessResponseContext::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Message)
 }
 inline ::std::string* WitnessResponseContext::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_message() {
@@ -2483,10 +2448,10 @@ inline void WitnessResponseContext::set_allocated_message(::std::string* message
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.Message)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Message)
 }
 
-// optional .dg.Time RequestTs = 4;
+// optional .dg.model.Time RequestTs = 4;
 inline bool WitnessResponseContext::has_requestts() const {
   return !_is_default_instance_ && requestts_ != NULL;
 }
@@ -2494,25 +2459,25 @@ inline void WitnessResponseContext::clear_requestts() {
   if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
   requestts_ = NULL;
 }
-inline const ::dg::Time& WitnessResponseContext::requestts() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.RequestTs)
+inline const ::dg::model::Time& WitnessResponseContext::requestts() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.RequestTs)
   return requestts_ != NULL ? *requestts_ : *default_instance_->requestts_;
 }
-inline ::dg::Time* WitnessResponseContext::mutable_requestts() {
+inline ::dg::model::Time* WitnessResponseContext::mutable_requestts() {
   
   if (requestts_ == NULL) {
-    requestts_ = new ::dg::Time;
+    requestts_ = new ::dg::model::Time;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.RequestTs)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.RequestTs)
   return requestts_;
 }
-inline ::dg::Time* WitnessResponseContext::release_requestts() {
+inline ::dg::model::Time* WitnessResponseContext::release_requestts() {
   
-  ::dg::Time* temp = requestts_;
+  ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
   return temp;
 }
-inline void WitnessResponseContext::set_allocated_requestts(::dg::Time* requestts) {
+inline void WitnessResponseContext::set_allocated_requestts(::dg::model::Time* requestts) {
   delete requestts_;
   requestts_ = requestts;
   if (requestts) {
@@ -2520,10 +2485,10 @@ inline void WitnessResponseContext::set_allocated_requestts(::dg::Time* requestt
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.RequestTs)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.RequestTs)
 }
 
-// optional .dg.Time ResponseTs = 5;
+// optional .dg.model.Time ResponseTs = 5;
 inline bool WitnessResponseContext::has_responsets() const {
   return !_is_default_instance_ && responsets_ != NULL;
 }
@@ -2531,25 +2496,25 @@ inline void WitnessResponseContext::clear_responsets() {
   if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
   responsets_ = NULL;
 }
-inline const ::dg::Time& WitnessResponseContext::responsets() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResponseContext.ResponseTs)
+inline const ::dg::model::Time& WitnessResponseContext::responsets() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResponseContext.ResponseTs)
   return responsets_ != NULL ? *responsets_ : *default_instance_->responsets_;
 }
-inline ::dg::Time* WitnessResponseContext::mutable_responsets() {
+inline ::dg::model::Time* WitnessResponseContext::mutable_responsets() {
   
   if (responsets_ == NULL) {
-    responsets_ = new ::dg::Time;
+    responsets_ = new ::dg::model::Time;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResponseContext.ResponseTs)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.ResponseTs)
   return responsets_;
 }
-inline ::dg::Time* WitnessResponseContext::release_responsets() {
+inline ::dg::model::Time* WitnessResponseContext::release_responsets() {
   
-  ::dg::Time* temp = responsets_;
+  ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
   return temp;
 }
-inline void WitnessResponseContext::set_allocated_responsets(::dg::Time* responsets) {
+inline void WitnessResponseContext::set_allocated_responsets(::dg::model::Time* responsets) {
   delete responsets_;
   responsets_ = responsets;
   if (responsets) {
@@ -2557,24 +2522,24 @@ inline void WitnessResponseContext::set_allocated_responsets(::dg::Time* respons
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResponseContext.ResponseTs)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.ResponseTs)
 }
 
-// map<string, .dg.Time> DebugTs = 6;
+// map<string, .dg.model.Time> DebugTs = 6;
 inline int WitnessResponseContext::debugts_size() const {
   return debugts_.size();
 }
 inline void WitnessResponseContext::clear_debugts() {
   debugts_.Clear();
 }
-inline const ::google::protobuf::Map< ::std::string, ::dg::Time >&
+inline const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
 WitnessResponseContext::debugts() const {
-  // @@protoc_insertion_point(field_map:dg.WitnessResponseContext.DebugTs)
+  // @@protoc_insertion_point(field_map:dg.model.WitnessResponseContext.DebugTs)
   return debugts_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::dg::Time >*
+inline ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
 WitnessResponseContext::mutable_debugts() {
-  // @@protoc_insertion_point(field_mutable_map:dg.WitnessResponseContext.DebugTs)
+  // @@protoc_insertion_point(field_mutable_map:dg.model.WitnessResponseContext.DebugTs)
   return debugts_.MutableMap();
 }
 
@@ -2587,28 +2552,28 @@ inline void WitnessResult::clear_innerstatus() {
   innerstatus_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessResult::innerstatus() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.InnerStatus)
   return innerstatus_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessResult::set_innerstatus(const ::std::string& value) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerStatus)
 }
 inline void WitnessResult::set_innerstatus(const char* value) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerStatus)
 }
 inline void WitnessResult::set_innerstatus(const char* value, size_t size) {
   
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerStatus)
 }
 inline ::std::string* WitnessResult::mutable_innerstatus() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerStatus)
   return innerstatus_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innerstatus() {
@@ -2622,7 +2587,7 @@ inline void WitnessResult::set_allocated_innerstatus(::std::string* innerstatus)
     
   }
   innerstatus_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innerstatus);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.InnerStatus)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerStatus)
 }
 
 // optional string InnerMessage = 2;
@@ -2630,28 +2595,28 @@ inline void WitnessResult::clear_innermessage() {
   innermessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& WitnessResult::innermessage() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.InnerMessage)
   return innermessage_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void WitnessResult::set_innermessage(const ::std::string& value) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerMessage)
 }
 inline void WitnessResult::set_innermessage(const char* value) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerMessage)
 }
 inline void WitnessResult::set_innermessage(const char* value, size_t size) {
   
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerMessage)
 }
 inline ::std::string* WitnessResult::mutable_innermessage() {
   
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerMessage)
   return innermessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innermessage() {
@@ -2665,10 +2630,10 @@ inline void WitnessResult::set_allocated_innermessage(::std::string* innermessag
     
   }
   innermessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innermessage);
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.InnerMessage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerMessage)
 }
 
-// optional .dg.WitnessImage Image = 3;
+// optional .dg.model.WitnessImage Image = 3;
 inline bool WitnessResult::has_image() const {
   return !_is_default_instance_ && image_ != NULL;
 }
@@ -2676,25 +2641,25 @@ inline void WitnessResult::clear_image() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
 }
-inline const ::dg::WitnessImage& WitnessResult::image() const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Image)
+inline const ::dg::model::WitnessImage& WitnessResult::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Image)
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
-inline ::dg::WitnessImage* WitnessResult::mutable_image() {
+inline ::dg::model::WitnessImage* WitnessResult::mutable_image() {
   
   if (image_ == NULL) {
-    image_ = new ::dg::WitnessImage;
+    image_ = new ::dg::model::WitnessImage;
   }
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Image)
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Image)
   return image_;
 }
-inline ::dg::WitnessImage* WitnessResult::release_image() {
+inline ::dg::model::WitnessImage* WitnessResult::release_image() {
   
-  ::dg::WitnessImage* temp = image_;
+  ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
 }
-inline void WitnessResult::set_allocated_image(::dg::WitnessImage* image) {
+inline void WitnessResult::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
@@ -2702,66 +2667,66 @@ inline void WitnessResult::set_allocated_image(::dg::WitnessImage* image) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.WitnessResult.Image)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.Image)
 }
 
-// repeated .dg.RecognizedVehicle Vehicles = 4;
+// repeated .dg.model.RecognizedVehicle Vehicles = 4;
 inline int WitnessResult::vehicles_size() const {
   return vehicles_.size();
 }
 inline void WitnessResult::clear_vehicles() {
   vehicles_.Clear();
 }
-inline const ::dg::RecognizedVehicle& WitnessResult::vehicles(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Vehicles)
+inline const ::dg::model::RecognizedVehicle& WitnessResult::vehicles(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Vehicles)
   return vehicles_.Get(index);
 }
-inline ::dg::RecognizedVehicle* WitnessResult::mutable_vehicles(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Vehicles)
+inline ::dg::model::RecognizedVehicle* WitnessResult::mutable_vehicles(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Vehicles)
   return vehicles_.Mutable(index);
 }
-inline ::dg::RecognizedVehicle* WitnessResult::add_vehicles() {
-  // @@protoc_insertion_point(field_add:dg.WitnessResult.Vehicles)
+inline ::dg::model::RecognizedVehicle* WitnessResult::add_vehicles() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Vehicles)
   return vehicles_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >*
 WitnessResult::mutable_vehicles() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessResult.Vehicles)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Vehicles)
   return &vehicles_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedVehicle >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedVehicle >&
 WitnessResult::vehicles() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessResult.Vehicles)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Vehicles)
   return vehicles_;
 }
 
-// repeated .dg.RecognizedFace Faces = 5;
+// repeated .dg.model.RecognizedFace Faces = 5;
 inline int WitnessResult::faces_size() const {
   return faces_.size();
 }
 inline void WitnessResult::clear_faces() {
   faces_.Clear();
 }
-inline const ::dg::RecognizedFace& WitnessResult::faces(int index) const {
-  // @@protoc_insertion_point(field_get:dg.WitnessResult.Faces)
+inline const ::dg::model::RecognizedFace& WitnessResult::faces(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Faces)
   return faces_.Get(index);
 }
-inline ::dg::RecognizedFace* WitnessResult::mutable_faces(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.WitnessResult.Faces)
+inline ::dg::model::RecognizedFace* WitnessResult::mutable_faces(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Faces)
   return faces_.Mutable(index);
 }
-inline ::dg::RecognizedFace* WitnessResult::add_faces() {
-  // @@protoc_insertion_point(field_add:dg.WitnessResult.Faces)
+inline ::dg::model::RecognizedFace* WitnessResult::add_faces() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Faces)
   return faces_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >*
 WitnessResult::mutable_faces() {
-  // @@protoc_insertion_point(field_mutable_list:dg.WitnessResult.Faces)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Faces)
   return &faces_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::RecognizedFace >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecognizedFace >&
 WitnessResult::faces() const {
-  // @@protoc_insertion_point(field_list:dg.WitnessResult.Faces)
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Faces)
   return faces_;
 }
 
@@ -2769,7 +2734,7 @@ WitnessResult::faces() const {
 
 // RecognizedVehicle
 
-// optional .dg.VehicleModel Model = 1;
+// optional .dg.model.VehicleModel Model = 1;
 inline bool RecognizedVehicle::has_model() const {
   return !_is_default_instance_ && model_ != NULL;
 }
@@ -2777,25 +2742,25 @@ inline void RecognizedVehicle::clear_model() {
   if (GetArenaNoVirtual() == NULL && model_ != NULL) delete model_;
   model_ = NULL;
 }
-inline const ::dg::VehicleModel& RecognizedVehicle::model() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Model)
+inline const ::dg::model::VehicleModel& RecognizedVehicle::model() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Model)
   return model_ != NULL ? *model_ : *default_instance_->model_;
 }
-inline ::dg::VehicleModel* RecognizedVehicle::mutable_model() {
+inline ::dg::model::VehicleModel* RecognizedVehicle::mutable_model() {
   
   if (model_ == NULL) {
-    model_ = new ::dg::VehicleModel;
+    model_ = new ::dg::model::VehicleModel;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Model)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Model)
   return model_;
 }
-inline ::dg::VehicleModel* RecognizedVehicle::release_model() {
+inline ::dg::model::VehicleModel* RecognizedVehicle::release_model() {
   
-  ::dg::VehicleModel* temp = model_;
+  ::dg::model::VehicleModel* temp = model_;
   model_ = NULL;
   return temp;
 }
-inline void RecognizedVehicle::set_allocated_model(::dg::VehicleModel* model) {
+inline void RecognizedVehicle::set_allocated_model(::dg::model::VehicleModel* model) {
   delete model_;
   model_ = model;
   if (model) {
@@ -2803,10 +2768,10 @@ inline void RecognizedVehicle::set_allocated_model(::dg::VehicleModel* model) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Model)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Model)
 }
 
-// optional .dg.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 2;
 inline bool RecognizedVehicle::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -2814,25 +2779,25 @@ inline void RecognizedVehicle::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-inline const ::dg::Cutboard& RecognizedVehicle::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Cutboard)
+inline const ::dg::model::Cutboard& RecognizedVehicle::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-inline ::dg::Cutboard* RecognizedVehicle::mutable_cutboard() {
+inline ::dg::model::Cutboard* RecognizedVehicle::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Cutboard)
   return cutboard_;
 }
-inline ::dg::Cutboard* RecognizedVehicle::release_cutboard() {
+inline ::dg::model::Cutboard* RecognizedVehicle::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-inline void RecognizedVehicle::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+inline void RecognizedVehicle::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -2840,10 +2805,10 @@ inline void RecognizedVehicle::set_allocated_cutboard(::dg::Cutboard* cutboard) 
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Cutboard)
 }
 
-// optional .dg.Color Color = 3;
+// optional .dg.model.Color Color = 3;
 inline bool RecognizedVehicle::has_color() const {
   return !_is_default_instance_ && color_ != NULL;
 }
@@ -2851,25 +2816,25 @@ inline void RecognizedVehicle::clear_color() {
   if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
   color_ = NULL;
 }
-inline const ::dg::Color& RecognizedVehicle::color() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Color)
+inline const ::dg::model::Color& RecognizedVehicle::color() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Color)
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
-inline ::dg::Color* RecognizedVehicle::mutable_color() {
+inline ::dg::model::Color* RecognizedVehicle::mutable_color() {
   
   if (color_ == NULL) {
-    color_ = new ::dg::Color;
+    color_ = new ::dg::model::Color;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Color)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Color)
   return color_;
 }
-inline ::dg::Color* RecognizedVehicle::release_color() {
+inline ::dg::model::Color* RecognizedVehicle::release_color() {
   
-  ::dg::Color* temp = color_;
+  ::dg::model::Color* temp = color_;
   color_ = NULL;
   return temp;
 }
-inline void RecognizedVehicle::set_allocated_color(::dg::Color* color) {
+inline void RecognizedVehicle::set_allocated_color(::dg::model::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
@@ -2877,10 +2842,10 @@ inline void RecognizedVehicle::set_allocated_color(::dg::Color* color) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Color)
 }
 
-// optional .dg.LicensePlate LicensePlate = 4;
+// optional .dg.model.LicensePlate LicensePlate = 4;
 inline bool RecognizedVehicle::has_licenseplate() const {
   return !_is_default_instance_ && licenseplate_ != NULL;
 }
@@ -2888,25 +2853,25 @@ inline void RecognizedVehicle::clear_licenseplate() {
   if (GetArenaNoVirtual() == NULL && licenseplate_ != NULL) delete licenseplate_;
   licenseplate_ = NULL;
 }
-inline const ::dg::LicensePlate& RecognizedVehicle::licenseplate() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.LicensePlate)
+inline const ::dg::model::LicensePlate& RecognizedVehicle::licenseplate() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.LicensePlate)
   return licenseplate_ != NULL ? *licenseplate_ : *default_instance_->licenseplate_;
 }
-inline ::dg::LicensePlate* RecognizedVehicle::mutable_licenseplate() {
+inline ::dg::model::LicensePlate* RecognizedVehicle::mutable_licenseplate() {
   
   if (licenseplate_ == NULL) {
-    licenseplate_ = new ::dg::LicensePlate;
+    licenseplate_ = new ::dg::model::LicensePlate;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.LicensePlate)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.LicensePlate)
   return licenseplate_;
 }
-inline ::dg::LicensePlate* RecognizedVehicle::release_licenseplate() {
+inline ::dg::model::LicensePlate* RecognizedVehicle::release_licenseplate() {
   
-  ::dg::LicensePlate* temp = licenseplate_;
+  ::dg::model::LicensePlate* temp = licenseplate_;
   licenseplate_ = NULL;
   return temp;
 }
-inline void RecognizedVehicle::set_allocated_licenseplate(::dg::LicensePlate* licenseplate) {
+inline void RecognizedVehicle::set_allocated_licenseplate(::dg::model::LicensePlate* licenseplate) {
   delete licenseplate_;
   licenseplate_ = licenseplate;
   if (licenseplate) {
@@ -2914,96 +2879,66 @@ inline void RecognizedVehicle::set_allocated_licenseplate(::dg::LicensePlate* li
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.LicensePlate)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.LicensePlate)
 }
 
-// repeated .dg.SymbolItem SymbolItems = 5;
+// repeated .dg.model.SymbolItem SymbolItems = 5;
 inline int RecognizedVehicle::symbolitems_size() const {
   return symbolitems_.size();
 }
 inline void RecognizedVehicle::clear_symbolitems() {
   symbolitems_.Clear();
 }
-inline const ::dg::SymbolItem& RecognizedVehicle::symbolitems(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.SymbolItems)
+inline const ::dg::model::SymbolItem& RecognizedVehicle::symbolitems(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Get(index);
 }
-inline ::dg::SymbolItem* RecognizedVehicle::mutable_symbolitems(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.SymbolItems)
+inline ::dg::model::SymbolItem* RecognizedVehicle::mutable_symbolitems(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Mutable(index);
 }
-inline ::dg::SymbolItem* RecognizedVehicle::add_symbolitems() {
-  // @@protoc_insertion_point(field_add:dg.RecognizedVehicle.SymbolItems)
+inline ::dg::model::SymbolItem* RecognizedVehicle::add_symbolitems() {
+  // @@protoc_insertion_point(field_add:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >*
 RecognizedVehicle::mutable_symbolitems() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizedVehicle.SymbolItems)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecognizedVehicle.SymbolItems)
   return &symbolitems_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::SymbolItem >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::SymbolItem >&
 RecognizedVehicle::symbolitems() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizedVehicle.SymbolItems)
+  // @@protoc_insertion_point(field_list:dg.model.RecognizedVehicle.SymbolItems)
   return symbolitems_;
 }
 
-// repeated .dg.VehicleModel Candidates = 6;
-inline int RecognizedVehicle::candidates_size() const {
-  return candidates_.size();
-}
-inline void RecognizedVehicle::clear_candidates() {
-  candidates_.Clear();
-}
-inline const ::dg::VehicleModel& RecognizedVehicle::candidates(int index) const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Candidates)
-  return candidates_.Get(index);
-}
-inline ::dg::VehicleModel* RecognizedVehicle::mutable_candidates(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Candidates)
-  return candidates_.Mutable(index);
-}
-inline ::dg::VehicleModel* RecognizedVehicle::add_candidates() {
-  // @@protoc_insertion_point(field_add:dg.RecognizedVehicle.Candidates)
-  return candidates_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >*
-RecognizedVehicle::mutable_candidates() {
-  // @@protoc_insertion_point(field_mutable_list:dg.RecognizedVehicle.Candidates)
-  return &candidates_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::VehicleModel >&
-RecognizedVehicle::candidates() const {
-  // @@protoc_insertion_point(field_list:dg.RecognizedVehicle.Candidates)
-  return candidates_;
-}
-
-// optional string Features = 7;
+// optional string Features = 6;
 inline void RecognizedVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& RecognizedVehicle::features() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void RecognizedVehicle::set_features(const ::std::string& value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedVehicle.Features)
 }
 inline void RecognizedVehicle::set_features(const char* value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_char:dg.model.RecognizedVehicle.Features)
 }
 inline void RecognizedVehicle::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecognizedVehicle.Features)
 }
 inline ::std::string* RecognizedVehicle::mutable_features() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecognizedVehicle::release_features() {
@@ -3017,10 +2952,10 @@ inline void RecognizedVehicle::set_allocated_features(::std::string* features) {
     
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Features)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Features)
 }
 
-// optional .dg.Scene Scene = 8;
+// optional .dg.model.Scene Scene = 7;
 inline bool RecognizedVehicle::has_scene() const {
   return !_is_default_instance_ && scene_ != NULL;
 }
@@ -3028,25 +2963,25 @@ inline void RecognizedVehicle::clear_scene() {
   if (GetArenaNoVirtual() == NULL && scene_ != NULL) delete scene_;
   scene_ = NULL;
 }
-inline const ::dg::Scene& RecognizedVehicle::scene() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedVehicle.Scene)
+inline const ::dg::model::Scene& RecognizedVehicle::scene() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedVehicle.Scene)
   return scene_ != NULL ? *scene_ : *default_instance_->scene_;
 }
-inline ::dg::Scene* RecognizedVehicle::mutable_scene() {
+inline ::dg::model::Scene* RecognizedVehicle::mutable_scene() {
   
   if (scene_ == NULL) {
-    scene_ = new ::dg::Scene;
+    scene_ = new ::dg::model::Scene;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedVehicle.Scene)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedVehicle.Scene)
   return scene_;
 }
-inline ::dg::Scene* RecognizedVehicle::release_scene() {
+inline ::dg::model::Scene* RecognizedVehicle::release_scene() {
   
-  ::dg::Scene* temp = scene_;
+  ::dg::model::Scene* temp = scene_;
   scene_ = NULL;
   return temp;
 }
-inline void RecognizedVehicle::set_allocated_scene(::dg::Scene* scene) {
+inline void RecognizedVehicle::set_allocated_scene(::dg::model::Scene* scene) {
   delete scene_;
   scene_ = scene;
   if (scene) {
@@ -3054,14 +2989,14 @@ inline void RecognizedVehicle::set_allocated_scene(::dg::Scene* scene) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedVehicle.Scene)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedVehicle.Scene)
 }
 
 // -------------------------------------------------------------------
 
 // RecognizedFace
 
-// optional .dg.Cutboard Cutboard = 1;
+// optional .dg.model.Cutboard Cutboard = 1;
 inline bool RecognizedFace::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -3069,25 +3004,25 @@ inline void RecognizedFace::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-inline const ::dg::Cutboard& RecognizedFace::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Cutboard)
+inline const ::dg::model::Cutboard& RecognizedFace::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-inline ::dg::Cutboard* RecognizedFace::mutable_cutboard() {
+inline ::dg::model::Cutboard* RecognizedFace::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedFace.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedFace.Cutboard)
   return cutboard_;
 }
-inline ::dg::Cutboard* RecognizedFace::release_cutboard() {
+inline ::dg::model::Cutboard* RecognizedFace::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-inline void RecognizedFace::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+inline void RecognizedFace::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -3095,7 +3030,7 @@ inline void RecognizedFace::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedFace.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedFace.Cutboard)
 }
 
 // optional float Confidence = 2;
@@ -3103,13 +3038,13 @@ inline void RecognizedFace::clear_confidence() {
   confidence_ = 0;
 }
 inline float RecognizedFace::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Confidence)
   return confidence_;
 }
 inline void RecognizedFace::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecognizedFace.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedFace.Confidence)
 }
 
 // optional string Features = 3;
@@ -3117,28 +3052,28 @@ inline void RecognizedFace::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& RecognizedFace::features() const {
-  // @@protoc_insertion_point(field_get:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_get:dg.model.RecognizedFace.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void RecognizedFace::set_features(const ::std::string& value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set:dg.model.RecognizedFace.Features)
 }
 inline void RecognizedFace::set_features(const char* value) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_char:dg.model.RecognizedFace.Features)
 }
 inline void RecognizedFace::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecognizedFace.Features)
 }
 inline ::std::string* RecognizedFace::mutable_features() {
   
-  // @@protoc_insertion_point(field_mutable:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecognizedFace.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecognizedFace::release_features() {
@@ -3152,7 +3087,7 @@ inline void RecognizedFace::set_allocated_features(::std::string* features) {
     
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
-  // @@protoc_insertion_point(field_set_allocated:dg.RecognizedFace.Features)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecognizedFace.Features)
 }
 
 // -------------------------------------------------------------------
@@ -3164,13 +3099,13 @@ inline void VehicleModel::clear_typeid_() {
   typeid__ = 0;
 }
 inline ::google::protobuf::int32 VehicleModel::typeid_() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.TypeId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.TypeId)
   return typeid__;
 }
 inline void VehicleModel::set_typeid_(::google::protobuf::int32 value) {
   
   typeid__ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.TypeId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.TypeId)
 }
 
 // optional int32 BrandId = 2;
@@ -3178,13 +3113,13 @@ inline void VehicleModel::clear_brandid() {
   brandid_ = 0;
 }
 inline ::google::protobuf::int32 VehicleModel::brandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.BrandId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.BrandId)
   return brandid_;
 }
 inline void VehicleModel::set_brandid(::google::protobuf::int32 value) {
   
   brandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.BrandId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.BrandId)
 }
 
 // optional int32 SubBrandId = 3;
@@ -3192,13 +3127,13 @@ inline void VehicleModel::clear_subbrandid() {
   subbrandid_ = 0;
 }
 inline ::google::protobuf::int32 VehicleModel::subbrandid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.SubBrandId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.SubBrandId)
   return subbrandid_;
 }
 inline void VehicleModel::set_subbrandid(::google::protobuf::int32 value) {
   
   subbrandid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.SubBrandId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.SubBrandId)
 }
 
 // optional int32 ModelYearId = 4;
@@ -3206,13 +3141,13 @@ inline void VehicleModel::clear_modelyearid() {
   modelyearid_ = 0;
 }
 inline ::google::protobuf::int32 VehicleModel::modelyearid() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.ModelYearId)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.ModelYearId)
   return modelyearid_;
 }
 inline void VehicleModel::set_modelyearid(::google::protobuf::int32 value) {
   
   modelyearid_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.ModelYearId)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.ModelYearId)
 }
 
 // optional string Type = 5;
@@ -3220,28 +3155,28 @@ inline void VehicleModel::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VehicleModel::type() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Type)
   return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VehicleModel::set_type(const ::std::string& value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Type)
 }
 inline void VehicleModel::set_type(const char* value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.Type)
 }
 inline void VehicleModel::set_type(const char* value, size_t size) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.Type)
 }
 inline ::std::string* VehicleModel::mutable_type() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.Type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModel::release_type() {
@@ -3255,7 +3190,7 @@ inline void VehicleModel::set_allocated_type(::std::string* type) {
     
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.Type)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.Type)
 }
 
 // optional string Brand = 6;
@@ -3263,28 +3198,28 @@ inline void VehicleModel::clear_brand() {
   brand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VehicleModel::brand() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Brand)
   return brand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VehicleModel::set_brand(const ::std::string& value) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Brand)
 }
 inline void VehicleModel::set_brand(const char* value) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.Brand)
 }
 inline void VehicleModel::set_brand(const char* value, size_t size) {
   
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.Brand)
 }
 inline ::std::string* VehicleModel::mutable_brand() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.Brand)
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModel::release_brand() {
@@ -3298,7 +3233,7 @@ inline void VehicleModel::set_allocated_brand(::std::string* brand) {
     
   }
   brand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), brand);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.Brand)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.Brand)
 }
 
 // optional string SubBrand = 7;
@@ -3306,28 +3241,28 @@ inline void VehicleModel::clear_subbrand() {
   subbrand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VehicleModel::subbrand() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.SubBrand)
   return subbrand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VehicleModel::set_subbrand(const ::std::string& value) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.SubBrand)
 }
 inline void VehicleModel::set_subbrand(const char* value) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.SubBrand)
 }
 inline void VehicleModel::set_subbrand(const char* value, size_t size) {
   
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.SubBrand)
 }
 inline ::std::string* VehicleModel::mutable_subbrand() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.SubBrand)
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModel::release_subbrand() {
@@ -3341,7 +3276,7 @@ inline void VehicleModel::set_allocated_subbrand(::std::string* subbrand) {
     
   }
   subbrand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subbrand);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.SubBrand)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.SubBrand)
 }
 
 // optional string ModelYear = 8;
@@ -3349,28 +3284,28 @@ inline void VehicleModel::clear_modelyear() {
   modelyear_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VehicleModel::modelyear() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.ModelYear)
   return modelyear_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VehicleModel::set_modelyear(const ::std::string& value) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.ModelYear)
 }
 inline void VehicleModel::set_modelyear(const char* value) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_char:dg.model.VehicleModel.ModelYear)
 }
 inline void VehicleModel::set_modelyear(const char* value, size_t size) {
   
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModel.ModelYear)
 }
 inline ::std::string* VehicleModel::mutable_modelyear() {
   
-  // @@protoc_insertion_point(field_mutable:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleModel.ModelYear)
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModel::release_modelyear() {
@@ -3384,7 +3319,7 @@ inline void VehicleModel::set_allocated_modelyear(::std::string* modelyear) {
     
   }
   modelyear_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelyear);
-  // @@protoc_insertion_point(field_set_allocated:dg.VehicleModel.ModelYear)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModel.ModelYear)
 }
 
 // optional int32 IsHead = 9;
@@ -3392,13 +3327,13 @@ inline void VehicleModel::clear_ishead() {
   ishead_ = 0;
 }
 inline ::google::protobuf::int32 VehicleModel::ishead() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.IsHead)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.IsHead)
   return ishead_;
 }
 inline void VehicleModel::set_ishead(::google::protobuf::int32 value) {
   
   ishead_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.IsHead)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.IsHead)
 }
 
 // optional float Confidence = 10;
@@ -3406,13 +3341,13 @@ inline void VehicleModel::clear_confidence() {
   confidence_ = 0;
 }
 inline float VehicleModel::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.VehicleModel.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.VehicleModel.Confidence)
   return confidence_;
 }
 inline void VehicleModel::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.VehicleModel.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Confidence)
 }
 
 // -------------------------------------------------------------------
@@ -3424,28 +3359,28 @@ inline void LicensePlate::clear_platenum() {
   platenum_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& LicensePlate::platenum() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.PlateNum)
   return platenum_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void LicensePlate::set_platenum(const ::std::string& value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.PlateNum)
 }
 inline void LicensePlate::set_platenum(const char* value) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.PlateNum)
 }
 inline void LicensePlate::set_platenum(const char* value, size_t size) {
   
   platenum_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.PlateNum)
 }
 inline ::std::string* LicensePlate::mutable_platenum() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.PlateNum)
   return platenum_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_platenum() {
@@ -3459,10 +3394,10 @@ inline void LicensePlate::set_allocated_platenum(::std::string* platenum) {
     
   }
   platenum_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), platenum);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.PlateNum)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.PlateNum)
 }
 
-// optional .dg.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 2;
 inline bool LicensePlate::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -3470,25 +3405,25 @@ inline void LicensePlate::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-inline const ::dg::Cutboard& LicensePlate::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Cutboard)
+inline const ::dg::model::Cutboard& LicensePlate::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-inline ::dg::Cutboard* LicensePlate::mutable_cutboard() {
+inline ::dg::model::Cutboard* LicensePlate::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Cutboard)
   return cutboard_;
 }
-inline ::dg::Cutboard* LicensePlate::release_cutboard() {
+inline ::dg::model::Cutboard* LicensePlate::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-inline void LicensePlate::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+inline void LicensePlate::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -3496,7 +3431,7 @@ inline void LicensePlate::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Cutboard)
 }
 
 // optional int32 ColorId = 3;
@@ -3504,13 +3439,13 @@ inline void LicensePlate::clear_colorid() {
   colorid_ = 0;
 }
 inline ::google::protobuf::int32 LicensePlate::colorid() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.ColorId)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.ColorId)
   return colorid_;
 }
 inline void LicensePlate::set_colorid(::google::protobuf::int32 value) {
   
   colorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.ColorId)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.ColorId)
 }
 
 // optional string Color = 4;
@@ -3518,28 +3453,28 @@ inline void LicensePlate::clear_color() {
   color_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& LicensePlate::color() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Color)
   return color_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void LicensePlate::set_color(const ::std::string& value) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Color)
 }
 inline void LicensePlate::set_color(const char* value) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.Color)
 }
 inline void LicensePlate::set_color(const char* value, size_t size) {
   
   color_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.Color)
 }
 inline ::std::string* LicensePlate::mutable_color() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Color)
   return color_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_color() {
@@ -3553,7 +3488,7 @@ inline void LicensePlate::set_allocated_color(::std::string* color) {
     
   }
   color_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), color);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Color)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Color)
 }
 
 // optional int32 TypeId = 5;
@@ -3561,13 +3496,13 @@ inline void LicensePlate::clear_typeid_() {
   typeid__ = 0;
 }
 inline ::google::protobuf::int32 LicensePlate::typeid_() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.TypeId)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.TypeId)
   return typeid__;
 }
 inline void LicensePlate::set_typeid_(::google::protobuf::int32 value) {
   
   typeid__ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.TypeId)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.TypeId)
 }
 
 // optional string Type = 6;
@@ -3575,28 +3510,28 @@ inline void LicensePlate::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& LicensePlate::type() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Type)
   return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void LicensePlate::set_type(const ::std::string& value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Type)
 }
 inline void LicensePlate::set_type(const char* value) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.Type)
 }
 inline void LicensePlate::set_type(const char* value, size_t size) {
   
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.Type)
 }
 inline ::std::string* LicensePlate::mutable_type() {
   
-  // @@protoc_insertion_point(field_mutable:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.Type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_type() {
@@ -3610,7 +3545,7 @@ inline void LicensePlate::set_allocated_type(::std::string* type) {
     
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:dg.LicensePlate.Type)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Type)
 }
 
 // optional float Confidence = 7;
@@ -3618,13 +3553,13 @@ inline void LicensePlate::clear_confidence() {
   confidence_ = 0;
 }
 inline float LicensePlate::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.LicensePlate.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Confidence)
   return confidence_;
 }
 inline void LicensePlate::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.LicensePlate.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Confidence)
 }
 
 // -------------------------------------------------------------------
@@ -3636,13 +3571,13 @@ inline void SymbolItem::clear_symbolid() {
   symbolid_ = 0;
 }
 inline ::google::protobuf::int32 SymbolItem::symbolid() const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.SymbolId)
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.SymbolId)
   return symbolid_;
 }
 inline void SymbolItem::set_symbolid(::google::protobuf::int32 value) {
   
   symbolid_ = value;
-  // @@protoc_insertion_point(field_set:dg.SymbolItem.SymbolId)
+  // @@protoc_insertion_point(field_set:dg.model.SymbolItem.SymbolId)
 }
 
 // optional string SymbolName = 2;
@@ -3650,28 +3585,28 @@ inline void SymbolItem::clear_symbolname() {
   symbolname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SymbolItem::symbolname() const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.SymbolName)
   return symbolname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SymbolItem::set_symbolname(const ::std::string& value) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set:dg.model.SymbolItem.SymbolName)
 }
 inline void SymbolItem::set_symbolname(const char* value) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_char:dg.model.SymbolItem.SymbolName)
 }
 inline void SymbolItem::set_symbolname(const char* value, size_t size) {
   
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SymbolItem.SymbolName)
 }
 inline ::std::string* SymbolItem::mutable_symbolname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_mutable:dg.model.SymbolItem.SymbolName)
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SymbolItem::release_symbolname() {
@@ -3685,36 +3620,36 @@ inline void SymbolItem::set_allocated_symbolname(::std::string* symbolname) {
     
   }
   symbolname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolname);
-  // @@protoc_insertion_point(field_set_allocated:dg.SymbolItem.SymbolName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SymbolItem.SymbolName)
 }
 
-// repeated .dg.Symbol Symbols = 3;
+// repeated .dg.model.Symbol Symbols = 3;
 inline int SymbolItem::symbols_size() const {
   return symbols_.size();
 }
 inline void SymbolItem::clear_symbols() {
   symbols_.Clear();
 }
-inline const ::dg::Symbol& SymbolItem::symbols(int index) const {
-  // @@protoc_insertion_point(field_get:dg.SymbolItem.Symbols)
+inline const ::dg::model::Symbol& SymbolItem::symbols(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.SymbolItem.Symbols)
   return symbols_.Get(index);
 }
-inline ::dg::Symbol* SymbolItem::mutable_symbols(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.SymbolItem.Symbols)
+inline ::dg::model::Symbol* SymbolItem::mutable_symbols(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.SymbolItem.Symbols)
   return symbols_.Mutable(index);
 }
-inline ::dg::Symbol* SymbolItem::add_symbols() {
-  // @@protoc_insertion_point(field_add:dg.SymbolItem.Symbols)
+inline ::dg::model::Symbol* SymbolItem::add_symbols() {
+  // @@protoc_insertion_point(field_add:dg.model.SymbolItem.Symbols)
   return symbols_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::Symbol >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >*
 SymbolItem::mutable_symbols() {
-  // @@protoc_insertion_point(field_mutable_list:dg.SymbolItem.Symbols)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.SymbolItem.Symbols)
   return &symbols_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::Symbol >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Symbol >&
 SymbolItem::symbols() const {
-  // @@protoc_insertion_point(field_list:dg.SymbolItem.Symbols)
+  // @@protoc_insertion_point(field_list:dg.model.SymbolItem.Symbols)
   return symbols_;
 }
 
@@ -3727,13 +3662,13 @@ inline void Scene::clear_ishead() {
   ishead_ = 0;
 }
 inline ::google::protobuf::int32 Scene::ishead() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.IsHead)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.IsHead)
   return ishead_;
 }
 inline void Scene::set_ishead(::google::protobuf::int32 value) {
   
   ishead_ = value;
-  // @@protoc_insertion_point(field_set:dg.Scene.IsHead)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.IsHead)
 }
 
 // optional int32 IsDay = 2;
@@ -3741,13 +3676,13 @@ inline void Scene::clear_isday() {
   isday_ = 0;
 }
 inline ::google::protobuf::int32 Scene::isday() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.IsDay)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.IsDay)
   return isday_;
 }
 inline void Scene::set_isday(::google::protobuf::int32 value) {
   
   isday_ = value;
-  // @@protoc_insertion_point(field_set:dg.Scene.IsDay)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.IsDay)
 }
 
 // optional string Border = 3;
@@ -3755,28 +3690,28 @@ inline void Scene::clear_border() {
   border_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& Scene::border() const {
-  // @@protoc_insertion_point(field_get:dg.Scene.Border)
+  // @@protoc_insertion_point(field_get:dg.model.Scene.Border)
   return border_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void Scene::set_border(const ::std::string& value) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set:dg.model.Scene.Border)
 }
 inline void Scene::set_border(const char* value) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_char:dg.model.Scene.Border)
 }
 inline void Scene::set_border(const char* value, size_t size) {
   
   border_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.Scene.Border)
 }
 inline ::std::string* Scene::mutable_border() {
   
-  // @@protoc_insertion_point(field_mutable:dg.Scene.Border)
+  // @@protoc_insertion_point(field_mutable:dg.model.Scene.Border)
   return border_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Scene::release_border() {
@@ -3790,14 +3725,14 @@ inline void Scene::set_allocated_border(::std::string* border) {
     
   }
   border_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), border);
-  // @@protoc_insertion_point(field_set_allocated:dg.Scene.Border)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Scene.Border)
 }
 
 // -------------------------------------------------------------------
 
 // Symbol
 
-// optional .dg.Cutboard Cutboard = 3;
+// optional .dg.model.Cutboard Cutboard = 3;
 inline bool Symbol::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -3805,25 +3740,25 @@ inline void Symbol::clear_cutboard() {
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
 }
-inline const ::dg::Cutboard& Symbol::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.Symbol.Cutboard)
+inline const ::dg::model::Cutboard& Symbol::cutboard() const {
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
-inline ::dg::Cutboard* Symbol::mutable_cutboard() {
+inline ::dg::model::Cutboard* Symbol::mutable_cutboard() {
   
   if (cutboard_ == NULL) {
-    cutboard_ = new ::dg::Cutboard;
+    cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.Symbol.Cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.Cutboard)
   return cutboard_;
 }
-inline ::dg::Cutboard* Symbol::release_cutboard() {
+inline ::dg::model::Cutboard* Symbol::release_cutboard() {
   
-  ::dg::Cutboard* temp = cutboard_;
+  ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
 }
-inline void Symbol::set_allocated_cutboard(::dg::Cutboard* cutboard) {
+inline void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
@@ -3831,7 +3766,7 @@ inline void Symbol::set_allocated_cutboard(::dg::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.Symbol.Cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.Cutboard)
 }
 
 // optional float Confidence = 4;
@@ -3839,13 +3774,13 @@ inline void Symbol::clear_confidence() {
   confidence_ = 0;
 }
 inline float Symbol::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.Symbol.Confidence)
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Confidence)
   return confidence_;
 }
 inline void Symbol::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.Symbol.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.Symbol.Confidence)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3880,21 +3815,8 @@ inline void Symbol::set_confidence(float value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace dg
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::dg::WitnessFunction> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::WitnessFunction>() {
-  return ::dg::WitnessFunction_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 
