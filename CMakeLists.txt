@@ -77,6 +77,9 @@ message(STATUS "JsonCpp libs: ${JSONCPP_LIBRARIES}")
 find_library(GLOG_LIBRARIES NAMES glog)
 message(STATUS "Glog libs: ${GLOG_LIBRARIES}")
 
+find_library(CURL_LIBRARY NAMES curl)
+message(STATUS "Curl libs: ${CURL_LIBRARY}")
+
 find_package(OpenCV REQUIRED)
 message(STATUS "opencv libs: ${OpenCV_LIBS}")
 
@@ -88,15 +91,14 @@ INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/src)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/include/dgmedia-1.4.0)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/include/dlib-18.18.0)
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/utils/src)
-#INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/ranker/src)
-INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/engine/bin/Debug/dist/include)
 
-find_library(MATRIX_LIB matrix PATHS ${PROJECT_SOURCE_DIR}/engine/bin/Debug/dist/lib)
-find_library(MATRIX_CUDA_LIB matrix_cuda PATHS ${PROJECT_SOURCE_DIR}/engine/bin/Debug/dist/lib)
-set(MATRIX_LIBS ${MATRIX_LIB} ${MATRIX_CUDA_LIB})
+
+FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS ${PROJECT_SOURCE_DIR}/engine/lib/thplateid/Linux-x86_64)
+find_library(MATRIX_LIB matrix PATHS ${PROJECT_SOURCE_DIR}/apps/lib/engine/Linux-x86_64)
+find_library(MATRIX_CUDA_LIB matrix_cuda PATHS ${PROJECT_SOURCE_DIR}/apps/lib/engine/Linux-x86_64)
+set(MATRIX_LIBS ${MATRIX_LIB} ${MATRIX_CUDA_LIB} ${LIB_THPLATEID})
 message(STATUS "matrix library: ${MATRIX_LIBS}")
 
 ADD_SUBDIRECTORY(utils)
 #ADD_SUBDIRECTORY(engine)
-#ADD_SUBDIRECTORY(wrapper)
 ADD_SUBDIRECTORY(apps)

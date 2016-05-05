@@ -13,51 +13,58 @@
  
 #include "image_service.h"
 #include "codec/base64.h"
+#include "io/uri_reader.h"
 
 namespace dg 
 {
 
-::dg::MatrixError ImageService::ParseImage(const ::dg::Image& imgDes, ::cv::Mat& imgMat)
+MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat)
 {
-    ::dg::MatrixError err;
-    if (imgDes.uri().size() == 0 && imgDes.bindata().size() == 0)
-    {
-        err.set_code(-1);
-        err.set_message("image URI or Data is required!");
-        return err;
-    }
-
-    vector<uchar> imgBin;
     if (imgDes.uri().size() > 0)
     {
-        imgBin = getImageFromUri(imgDes.uri());
+        return getImageFromUri(imgDes.uri(), imgMat);
     }
-    else 
+    else if(imgDes.bindata().size() > 0)
     {
-        imgBin = getImageFromData(imgDes.bindata());
+        return getImageFromData(imgDes.bindata(), imgMat);
     }
 
-    if (imgBin.size() == 0)
-    {
-        err.set_code(-1);
-        err.set_message("received empty image");
-        return err;
-    }
-
-    imgMat = cv::imdecode(cv::Mat(imgBin), 1);
+    MatrixError err;
+    err.set_code(-1);
+    err.set_message("image URI or Data is required!");
     return err;
 }
 
-vector<uchar> ImageService::getImageFromData(const string img64)
+MatrixError ImageService::getImageFromData(const string img64, ::cv::Mat& imgMat)
 {
+    MatrixError err;
     vector<uchar> bin;
     Base64::Decode(img64, bin);
-    return bin;
+    if (bin.size() >= 0)
+    {
+        imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
+        return err;
+    }
+
+    err.set_code(-1);
+    err.set_message("received empty image");
+    return err;
 }
 
-vector<uchar> ImageService::getImageFromUri(const string uri)
+MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat)
 {
-    return vector<uchar>();
+    MatrixError err;
+    vector<uchar> bin;
+    int ret = UriReader::Read(uri, bin);
+    if (ret == 0)
+    {
+        imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
+        return err;
+    }
+
+    err.set_code(ret);
+    err.set_message("load image failed!");
+    return err;
 }
 
 }

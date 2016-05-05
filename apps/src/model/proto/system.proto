@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package dg;
+package dg.model;
 
-//import "common.proto";
+import "common.proto";
 
 service SystemService { 
     rpc Ping(PingRequest) returns (PingResponse) {}
@@ -27,28 +27,28 @@ message SystemStatusRequest {
 }
 
 message SystemStatusResponse {
-    string ModelVer = 1;
-    string EngineVer = 2;
-    string ServiceVer = 3;
-    string CpuUsage = 4;
-    string AvailMem = 5;
-    string TotalMem = 6;
-    string AvailDisk = 7;
-    string TotalDisk = 8;
-    string NetIOSend = 9;
-    string NetIORecv = 10;
-    string GpuUsage = 11;
-    string GpuAvailMem = 12;
-    string GpuTotalMem = 13;
+    string ModelVer = 1;    //模型版本
+    string EngineVer = 2;   //引擎版本
+    string ServiceVer = 3;  //服务版本
+    string CpuUsage = 4;    //CPU使用率
+    string AvailMem = 5;    //可用内存
+    string TotalMem = 6;    //全部内存
+    string AvailDisk = 7;   //可用磁盘
+    string TotalDisk = 8;   //全部磁盘
+    string NetIOSend = 9;   //网络发送速度
+    string NetIORecv = 10;  //网络接收速度
+    string GpuUsage = 11;   //GPU使用率
+    string GpuAvailMem = 12;//可用显存
+    string GpuTotalMem = 13;//全部显存
 }
 
 message InstanceConfigureRequest {
-    RecImageVConfig RecImageVConfig = 1;
-    RecImageFConfig RecImageFConfig = 2;
-    RecVideoVConfig RecVideoVConfig = 3;
-    RecVideoFConfig RecVideoFConfig = 4;
-    RankVConfig RankVConfig = 5;
-    RankFConfig RankFConfig = 6;
+    RecImageVConfig RecImageVConfig = 1; //开启车的图片识别模块配置
+    RecImageFConfig RecImageFConfig = 2; //开启人的图片识别模块配置
+    RecVideoVConfig RecVideoVConfig = 3; //开启车的视频识别模块配置
+    RecVideoFConfig RecVideoFConfig = 4; //开启人的视频识别模块配置
+    RankVConfig RankVConfig = 5; //开启车的比对模块配置
+    RankFConfig RankFConfig = 6; //开启人的比对模块配置
 }
 
 message GetInstancesRequest {
@@ -62,9 +62,9 @@ message InstanceConfigureResponse {
 }
 
 message StorageConfig {
-    string Address = 1;
-    string RepoInfo = 2;
-    repeated string Tags = 3;
+    string Address = 1;         //结构化信息输出地址
+    string RepoInfo = 2;        //结构化信息的库标识
+    repeated string Tags = 3;   //设定数据的信息标签
 }
 
 enum InstanceType {
@@ -77,10 +77,10 @@ enum InstanceType {
 }
 
 message InstanceConfig {
-    InstanceType Type = 1;
-    int32 Count = 2;
-    repeated uint32 Functions = 3; //default enabled functions
-    StorageConfig StorageConfig = 4; //default storage configure
+    InstanceType Type = 1; //Instance类型 enum InstanceType
+    int32 Count = 2;//启用的Engine数量
+    repeated RecognizeFunctions Functions = 3; //默认开启的功能 enum RecognizeFunctions
+    StorageConfig StorageConfig = 4; //默认结构化存储地址
 }
 
 message RecImageVConfig {
