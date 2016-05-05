@@ -37,9 +37,18 @@ struct InnFaceFeature {
 class FaceFeatureExtractor
 {
 public:
-	FaceFeatureExtractor(const string& model_file, const string& trained_file,
-			const bool use_gpu, const int batch_size, const string &align_model,
-			const string &avg_face);
+    typedef struct {
+
+        bool is_model_encrypt = false;
+        int batch_size = 1;
+        bool use_gpu = true;
+        int gpu_id=0;
+        string align_model;
+        string align_deploy;
+        string deploy_file;
+        string model_file;
+    } FaceFeatureExtractorConfig;
+	FaceFeatureExtractor(const FaceFeatureExtractorConfig& config);
 
 	virtual ~FaceFeatureExtractor();
 	std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
@@ -51,12 +60,13 @@ private:
 
 private:
 	std::shared_ptr<Net<float> > net_;
+    bool device_setted_;
 	cv::Size input_geometry_;
 	int num_channels_;
 	int batch_size_;
 	string layer_name_;
-	bool useGPU_;
-
+	bool use_gpu_;
+	int gpu_id_;
 	dlib::shape_predictor sp_;
 	std::vector<dlib::point> avg_face_points_;
 	dlib::frontal_face_detector detector_;
