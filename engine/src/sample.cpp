@@ -107,8 +107,7 @@ static void* process(void* p) {
 }
 
 int main() {
-
-    config = Config::GetInstance();
+    config = new Config();
     config->Load("config.json");
 
     engine1 = new WitnessEngine(*config);
