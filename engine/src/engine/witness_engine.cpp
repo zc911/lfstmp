@@ -133,10 +133,16 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO)<< "Init face processor pipeline. " << endl;
-        // face_processor_ = new FaceDetectProcessor("","",true, 1, 0.7, 800, 450);
+
+        face_processor_ = new FaceDetectProcessor("models/face/detect/test.prototxt",
+                "models/face/detect/googlenet_face_iter_100000.caffemodel", true, 1, 0.7, 640);
+
         if(enable_face_feature_vector_) {
-            //LOG(INFO) << "Enable face feature vector processor." << endl;
-            //face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("","", true, 1, "",""));
+            LOG(INFO) << "Enable face feature vector processor." << endl;
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("models/face/feature/lcnn.prototxt",
+                            "models/face/feature/lcnn.caffemodel", true, 1,
+                            "models/face/feature/shape_predictor_68_face_landmarks.dat",
+                            "models/face/feature/avgface.jpg"));
         }
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }

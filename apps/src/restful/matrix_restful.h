@@ -45,46 +45,6 @@ public:
 
 private:
     MatrixAppsService service_;
-
-    // virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response) override
-    // {
-    //     return service_.Ping(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status SystemStatus(grpc::ServerContext* context, const SystemStatusRequest *request, SystemStatusResponse *response) override
-    // {
-    //     return service_.SystemStatus(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status GetInstances(grpc::ServerContext* context, const GetInstancesRequest *request, InstanceConfigureResponse *response) override
-    // {
-    //     return service_.GetInstances(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status ConfigEngine(grpc::ServerContext* context, const InstanceConfigureRequest *request, InstanceConfigureResponse *response) override
-    // {
-    //     return service_.ConfigEngine(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status Recognize(grpc::ServerContext* context, const WitnessRequest* request, WitnessResponse* response) override
-    // {
-    //     return service_.Recognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status BatchRecognize(grpc::ServerContext* context, const WitnessBatchRequest* request, WitnessBatchResponse* response) override
-    // {
-    //     return service_.BatchRecognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status VideoRecognize(grpc::ServerContext* context, const SkynetRequest* request, SkynetResponse* response) override
-    // {
-    //     return service_.VideoRecognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
-
-    // virtual grpc::Status GetRankedVector(grpc::ServerContext* context, const FeatureRankingRequest* request, FeatureRankingResponse* response) override
-    // {
-    //     return service_.GetRankedVector(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
-    // }
 };
 
 }

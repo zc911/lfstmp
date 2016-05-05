@@ -27,13 +27,14 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
         Vehicle *v = (Vehicle*) objs_[i];
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
-        DLOG(INFO)<<"plate number "<<pred.plate_num<<endl;
         v->set_plate(pred);
+        cout << "PLATE:" << pred.plate_num << endl;
     }
     Proceed(frameBatch);
 }
 
 void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    images_.clear();
     images_ = this->vehicles_mat(frameBatch);
 }
 bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
@@ -71,6 +72,7 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
 }
 vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
+    objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_PLATE);
 
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
@@ -78,7 +80,6 @@ vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
-
             Vehicle *v = (Vehicle*) obj;
 
             DLOG(INFO)<< "Put vehicle images to be plate recognized: " << obj->id() << endl;

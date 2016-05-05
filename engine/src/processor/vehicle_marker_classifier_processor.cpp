@@ -48,16 +48,21 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
     }
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
-    DLOG(INFO)<<"marker pred result"<<endl;
+    DLOG(INFO)<<"marker pred result: " << pred.size() <<endl;
     for (int i = 0; i < pred.size(); i++) {
         Vehicle *v = (Vehicle*) objs_[i];
         v->set_markers(pred[i]);
+
     }
+    objs_.clear();
     Proceed(frameBatch);
 
 }
 
 void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    objs_.clear();
+    resized_images_.clear();
+    images_.clear();
 
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_MARKER);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();

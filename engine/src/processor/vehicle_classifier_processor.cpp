@@ -52,6 +52,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 }
 
 void VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    images_.clear();
     images_ = vehicles_resized_mat(frameBatch);
 }
 bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
@@ -61,6 +62,7 @@ bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
 vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
         FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
+    objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_STYLE);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {

@@ -1,12 +1,14 @@
 
-#include_directories( ${COMMON_INCLUDES} )
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-
 file(GLOB_RECURSE SRC_FILES *.cpp *.c)
 
-add_library(${PROJECT_NAME_PREFIX} ${SRC_FILES})
-target_link_libraries(${PROJECT_NAME_PREFIX} ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(${PROJECT_NAME_PREFIX} ${FREETYPE_LIBRARIES})
-target_link_libraries(${PROJECT_NAME_PREFIX} ${JSONCPP_LIBRARIES})
-target_link_libraries(${PROJECT_NAME_PREFIX} ${GLOG_LIBRARIES})
-target_link_libraries(${PROJECT_NAME_PREFIX} ${OpenCV_LIBS})
+add_library(${PROJECT_NAME} ${SRC_FILES})
+target_link_libraries(${PROJECT_NAME} ${LIBS})
+
+
+install(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION ${PROJECT_SOURCE_DIR}/dist/${PLATFORM}/lib)
+
+install(DIRECTORY io codec DESTINATION ${PROJECT_SOURCE_DIR}/dist/${PLATFORM}/include FILES_MATCHING PATTERN "*.h")
+
+file(GLOB INC_FILES *.h *.hpp)
+install(FILES ${INC_FILES} DESTINATION ${PROJECT_SOURCE_DIR}/dist/${PLATFORM}/include)
+

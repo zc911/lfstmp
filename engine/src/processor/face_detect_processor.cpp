@@ -14,19 +14,17 @@ namespace dg {
 FaceDetectProcessor::FaceDetectProcessor(string model_file, string trained_file,
                                          const bool use_gpu,
                                          const int batch_size, float threshold,
-                                         int width, int height) {
+                                         unsigned int scale) {
     //Initialize face detection caffe model and arguments
-    std::cout << "Strart loading fece detector model" << std::endl;
+    DLOG(INFO)<< "Start loading face detector model" << std::endl;
     model_file_ = model_file;
     trained_file_ = trained_file;
     det_thresh_ = threshold;
-    resolution_.width = width;
-    resolution_.height = height;
 
     //Initialize face detector
     detector_ = new FaceDetector(model_file_, trained_file_, use_gpu,
-                                 batch_size, resolution_, det_thresh_);
-    std::cout << "Fece detector has been initialized" << std::endl;
+            batch_size, scale, det_thresh_);
+    DLOG(INFO) << "Face detector has been initialized" << std::endl;
 }
 
 FaceDetectProcessor::~FaceDetectProcessor() {
@@ -43,6 +41,24 @@ void FaceDetectProcessor::Update(Frame *frame) {
         Face *face = new Face(bbox_id, detection, detection.confidence);
         frame->put_object(face);
     }
+    Proceed(frame);
+}
+
+// TODO change to "real" batch
+void FaceDetectProcessor::Update(FrameBatch *frameBatch) {
+    for (int i = 0; i < frameBatch->frames().size(); ++i) {
+        Frame *frame = frameBatch->frames()[i];
+        vector<Mat> imgs;
+        imgs.push_back(frame->payload()->data());
+        vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+
+        for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
+            Detection detection = boxes_in[0][bbox_id];
+            Face *face = new Face(bbox_id, detection, detection.confidence);
+            frame->put_object(face);
+        }
+    }
+    Proceed(frameBatch);
 }
 
 } /* namespace dg */

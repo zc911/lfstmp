@@ -11,7 +11,6 @@
 
 #include "ranker_service.h"
 #include "codec/base64.h"
-#include "ranker_service.h"
 #include "image_service.h"
  
 
@@ -101,6 +100,12 @@ bool RankerAppsService::getRankedFaceVector(const FeatureRankingRequest* request
     string prefix = requestPrefix(request);
     LOG(INFO) << prefix << "started";
     response->set_reqid(request->reqid());
+
+    if (!request->has_image())
+    {
+        LOG(ERROR) << prefix << "image descriptor does not exist";
+        return false;
+    }
 
     Mat image;
     MatrixError err = ImageService::ParseImage(request->image(), image);

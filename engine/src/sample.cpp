@@ -1,4 +1,7 @@
+#include <stdio.h>
+#include <pthread.h>
 #include <iostream>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "model/ringbuffer.h"
@@ -8,6 +11,11 @@
 #include "config.h"
 using namespace dg;
 
+// int main(int argc, char **argv)
+// {
+// 	return 0;
+// }
+
 static void PrintFrame(Frame &frame) {
     cout << "=====FRAME INFO=====" << endl;
     cout << "Frame ID: " << frame.id() << endl;
@@ -15,7 +23,7 @@ static void PrintFrame(Frame &frame) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
         ObjectType type = obj->type();
-        if (type >= OBJECT_CAR && type << OBJECT_TRICYCLE) {
+        if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE) {
             Vehicle *v = (Vehicle*) obj;
             cout << "Vehicle class id: " << v->class_id() << ", Conf: "
                  << v->confidence() << endl;
@@ -36,8 +44,11 @@ static void PrintFrame(Frame &frame) {
 
             cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
                  << "... Len: " << v->feature().Serialize().size() << endl;
-        } else {
-            cout << "Type not support now. " << endl;
+        } else if (type == OBJECT_FACE) {
+            Face *f = (Face*) obj;
+            cout << "Face Detection: " << f->detection() << endl;
+            cout << "Face Vector: " << f->feature().Serialize().substr(0, 32)
+                 << "... Len:" << f->feature().Serialize().size() << endl;
         }
     }
 }
@@ -48,35 +59,106 @@ static void PrintFrame(FrameBatch &frameBatch) {
     }
 }
 
+static Config *config;
+static SimpleEngine *engine1;
+//static SimpleEngine *engine2;
+//static SimpleEngine *engine3;
+//static SimpleEngine *engine4;
+//static SimpleEngine *engine5;
+//static SimpleEngine *engine6;
+
+static void* process(void* p) {
+    SimpleEngine *engine = (SimpleEngine*) p;
+    if (1) {
+        FrameBatch *fb = new FrameBatch(1111, 2);
+        for (int i = 0; i < 2; ++i) {
+
+            char index[1];
+            index[0] = '0' + i;
+         //   string file = "faces" + string(index) + ".jpg";
+            string file = "test.jpg";
+
+            cv::Mat image = cv::imread(file.c_str());
+
+            if (image.empty()) {
+                cout << "Read image file failed: " << file << endl;
+                return 0;
+            }
+
+            Frame *f = new Frame((i + 1) * 100, image);
+            Operation op;
+            op.Set(OPERATION_VEHICLE);
+            op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+                    | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+                    | OPERATION_VEHICLE_FEATURE_VECTOR
+                    | OPERATION_VEHICLE_PLATE);
+            op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+                    | OPERATION_FACE_FEATURE_VECTOR);
+
+            f->set_operation(op);
+            fb->add_frame(f);
+
+        }
+        engine->Process(fb);
+        PrintFrame(*fb);
+        delete fb;
+    }
+    return NULL;
+}
+
 int main() {
 
-    Config *config = Config::GetInstance();
+    config = Config::GetInstance();
     config->Load("config.json");
-    SimpleEngine *engine = new WitnessEngine(*config);
-    FrameBatch *fb = new FrameBatch(1111, 4);
 
-    for (int i = 0; i < 4; ++i) {
-        Frame *f = new Frame((i + 1) * 100);
-        char index[1];
-        index[0] = '0' + i;
-      //  string file = "test" + string(index) + ".jpg";
-        string file = "test0.jpg";
+    engine1 = new WitnessEngine(*config);
+//    engine2 = new WitnessEngine(*config);
+//    engine3 = new WitnessEngine(*config);
+//    engine4 = new WitnessEngine(*config);
+//    engine5 = new WitnessEngine(*config);
+//    engine6 = new WitnessEngine(*config);
 
-        cv::Mat image = cv::imread(file.c_str());
-        Payload *payload = new Payload((i + 1) * 100, image);
+    pthread_t t1, t2, t3, t4, t5, t6;
+    pthread_create(&t1, NULL, process, (void*) engine1);
+    //sleep(1);
+    // pthread_create(&t2, NULL, process, (void*) engine2);
+//    sleep(1);
+//    pthread_create(&t3, NULL, process, (void*) engine3);
+//    sleep(1);
+//    pthread_create(&t4, NULL, process, (void*) engine4);
+//    sleep(1);
+//    pthread_create(&t5, NULL, process, (void*) engine5);
+//    sleep(1);
+//    pthread_create(&t6, NULL, process, (void*) engine6);
 
-        Operation op;
-        op.Set(OPERATION_VEHICLE);
-        op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-                | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_VEHICLE_PLATE);
-        f->set_operation(op);
-        f->set_payload(payload);
-        fb->add_frame(f);
+    while (1) {
+        sleep(1111111);
     }
+//    for (;;) {
+//        FrameBatch *fb = new FrameBatch(1111, 4);
+//        for (int i = 0; i < 4; ++i) {
+//
+//            char index[1];
+//            index[0] = '0' + i;
+//            string file = "test" + string(index) + ".jpg";
+//            cv::Mat image = cv::imread(file.c_str());
+//            Frame *f = new Frame((i + 1) * 100, image);
+//            Operation op;
+//            op.Set(OPERATION_VEHICLE);
+//            op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+//                    | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+//                    | OPERATION_VEHICLE_FEATURE_VECTOR
+//                    | OPERATION_VEHICLE_PLATE);
+//            f->set_operation(op);
+//            fb->add_frame(f);
+//        }
+//
+//        engine->Process(fb);
+//        PrintFrame(*fb);
+//        delete fb;
+//    }
 
-    engine->Process(fb);
-    PrintFrame(*fb);
     DLOG(INFO)<< "FINISHED" << endl;
 
 }
+
