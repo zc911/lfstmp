@@ -1,5 +1,5 @@
 #include "witness_engine.h"
-#include "engine_config_value.h"
+
 namespace dg {
 
 WitnessEngine::WitnessEngine(const Config &config) {
@@ -69,12 +69,17 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 }
 
 void WitnessEngine::init(const Config &config) {
-
+    Config data_config;
+    if (!initDataConfig(config, data_config)) {
+        LOG(ERROR)<<"can not init data config"<<endl;
+        DLOG(ERROR)<<"can not init data config"<<endl;
+        return;
+    }
     initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
         VehicleMultiTypeDetector::VehicleMultiTypeConfig dConfig;
-        createVehicleMutiTypeDetectorConfig(config,dConfig);
+        createVehicleMutiTypeDetectorConfig(config,data_config,dConfig);
         vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);
         Processor *last = vehicle_processor_;
 
@@ -82,7 +87,7 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
             DLOG(INFO)<<"begin  "<<endl;
             vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-            createVehicleConfig(config,configs);
+            createVehicleConfig(config,data_config,configs);
             cout<<configs[0].deploy_file<<endl;
 
             Processor *p = new VehicleClassifierProcessor(configs);
@@ -93,7 +98,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_color_) {
             LOG(INFO)<< "Enable vehicle color classification processor." << endl;
             vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-             createVehicleColorConfig(config,configs);
+            createVehicleColorConfig(config,data_config,configs);
 
             Processor *p = new VehicleColorProcessor(configs);
             last->SetNextProcessor(p);
@@ -103,7 +108,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_plate_) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
             PlateRecognizer::PlateConfig pConfig;
-            createVehiclePlateConfig(config,pConfig);
+            createVehiclePlateConfig(config,data_config,pConfig);
             Processor *p = new PlateRecognizerProcessor(pConfig);
             last->SetNextProcessor(p);
             last = p;
@@ -112,9 +117,9 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_marker_) {
             LOG(INFO)<< "Enable vehicle marker processor." << endl;
             MarkerCaffeClassifier::MarkerConfig mConfig;
-            createMarkersConfig(config,mConfig);
+            createMarkersConfig(config,data_config,mConfig);
             WindowCaffeDetector::WindowCaffeConfig wConfig;
-            createWindowConfig(config,wConfig);
+            createWindowConfig(config,data_config,wConfig);
 
             Processor *p = new VehicleMarkerClassifierProcessor(wConfig,mConfig);
             last->SetNextProcessor(p);
@@ -133,141 +138,30 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO)<< "Init face processor pipeline. " << endl;
-
-        face_processor_ = new FaceDetectProcessor("models/face/detect/test.prototxt",
-                "models/face/detect/googlenet_face_iter_100000.caffemodel", true, 1, 0.7, 640);
+        FaceDetector::FaceDetectorConfig fdconfig;
+        createFaceDetectorConfig(config,data_config,fdconfig);
+        face_processor_ = new FaceDetectProcessor(fdconfig);
 
         if(enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
-            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("models/face/feature/lcnn.prototxt",
-                            "models/face/feature/lcnn.caffemodel", true, 1,
-                            "models/face/feature/shape_predictor_68_face_landmarks.dat",
-                            "models/face/feature/avgface.jpg"));
+            FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
+            createFaceExtractorConfig(config,data_config,feconfig);
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
         }
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
     is_init_ = true;
 }
-void WitnessEngine::createVehicleConfig(
-        const Config &cconfig,
-        vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs) {
-    string model_path = (string) cconfig.Value(FILE_STYLE_MODEL_PATH);
-    string trained_model = (string) cconfig.Value(FILE_STYLE_TRAINED_MODEL);
-    string deploy_model = (string) cconfig.Value(FILE_STYLE_DEPLOY_MODEL);
-    int batch_size = (int) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
-    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    for (int i = 0; i < 8; i++) {
-        VehicleCaffeClassifier::VehicleCaffeConfig config;
-        config.model_file = model_path + to_string(i) + trained_model
-                + to_string(i) + "_iter_70000.caffemodel";
-        config.deploy_file = model_path + to_string(i) + deploy_model;
-
-        config.is_model_encrypt = is_encrypted;
-        config.batch_size = batch_size;
-
-        configs.push_back(config);
-    }
+int WitnessEngine::initDataConfig(const Config &config, Config &data_config) {
+    string data_config_path = (string) config.Value(DATAPATH);
+    string json_data = ReadStringFromFile(data_config_path, "r");
+#ifndef DEBUG
+    //TODO: decrypted from file
+#endif
+    data_config.LoadString(json_data);
+    return 1;
 }
-void WitnessEngine::createVehicleColorConfig(
-        const Config &cconfig,vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
-    string model_path = (string) cconfig.Value(FILE_COLOR_MODEL_PATH);
-    string trained_model = (string) cconfig.Value(FILE_COLOR_TRAINED_MODEL);
-    string deploy_model = (string) cconfig.Value(FILE_COLOR_DEPLOY_MODEL);
-    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    int batch_size = (int) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
 
-    for (int i = 0; i < 1; i++) {
-        VehicleCaffeClassifier::VehicleCaffeConfig config;
-        config.model_file = model_path + trained_model;
-        config.deploy_file = model_path + deploy_model;
-        config.is_model_encrypt = is_encrypted;
-        config.batch_size = batch_size;
-
-        configs.push_back(config);
-    }
-}
-void WitnessEngine::createVehiclePlateConfig(
-        const Config &cconfig,PlateRecognizer::PlateConfig & pConfig) {
-    pConfig.LocalProvince = (const string&) cconfig.Value(
-            ADVANCED_PLATE_LOCAL_PROVINCE);
-    pConfig.OCR = (int) cconfig.Value(ADVANCED_PLATE_OCR);
-    pConfig.PlateLocate = (int) cconfig.Value(ADVANCED_PLATE_LOCATE);
-    pConfig.isSharpen = (bool) cconfig.Value(ADVANCED_PLATE_ENBALE_SHARPEN);
-}
-void WitnessEngine::createVehicleMutiTypeDetectorConfig(
-        const Config &cconfig,
-        VehicleMultiTypeDetector::VehicleMultiTypeConfig & config) {
-    string model_path = (string) cconfig.Value(FILE_DETECTION_MODEL_PATH);
-    string trained_model = (string) cconfig.Value(FILE_DETECTION_TRAINED_MODEL);
-    string deploy_model = (string) cconfig.Value(FILE_DETECTION_DEPLOY_MODEL);
-    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
-
-    config.model_file = model_path + trained_model;
-    config.deploy_file = model_path + deploy_model;
-    config.is_model_encrypt = is_encrypted;
-    config.batch_size = batch_size;
-
-}
-void WitnessEngine::createMarkersConfig(
-        const Config &cconfig,MarkerCaffeClassifier::MarkerConfig &mConfig) {
-
-
-    int mot_confidence = (int) cconfig.Value(ADVANCED_MARKER_MOT_CONFIDENCE);
-    int belt_confidence = (int) cconfig.Value(ADVANCED_MARKER_BETLT_CONFIDENCE);
-    int global_confidence = (int) cconfig.Value(
-            ADVANCED_MARKER_GLOBAL_CONFIDENCE);
-    int accessories_confidence = (int) cconfig.Value(
-            ADVANCED_MARKER_ACCESSORIES_CONFIDENCE);
-    int others_confidence = (int) cconfig.Value(
-            ADVANCED_MARKER_OTHERS_CONFIDENCE);
-    int tissuebox_confidence = (int) cconfig.Value(
-            ADVANCED_MARKER_TISSUEBOX_CONFIDENCE);
-    int sunvisor_confidence = (int) cconfig.Value(
-            ADVANCED_MARKER_SUNVISOR_CONFIDENCE);
-    int batch_size = (int) cconfig.Value(ADVANCED_MARKER_BATCH_SIZE);
-    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::MOT, mot_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Belt,
-                                  belt_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Global,
-                                  global_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Accessories,
-                                  accessories_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::Others,
-                                  others_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::TissueBox,
-                                  tissuebox_confidence));
-    mConfig.marker_confidence.insert(
-            make_pair<int, float>(MarkerCaffeClassifier::SunVisor,
-                                  sunvisor_confidence));
-    mConfig.model_file = (string) cconfig.Value(FILE_MARKER_MODEL_PATH)
-            + (string) cconfig.Value(FILE_MARKER_TRAINED_MODEL);
-    mConfig.deploy_file = (string) cconfig.Value(FILE_MARKER_MODEL_PATH)
-            + (string) cconfig.Value(FILE_MARKER_DEPLOY_MODEL);
-
-    mConfig.is_model_encrypt = is_encrypted;
-    mConfig.batch_size = batch_size;
-}
-void WitnessEngine::createWindowConfig(
-        const Config &cconfig,WindowCaffeDetector::WindowCaffeConfig &wConfig) {
-    int batch_size = (int) cconfig.Value(ADVANCED_WINDOW_BATCH_SIZE);
-    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-
-    wConfig.model_file = (string) cconfig.Value(FILE_WINDOW_MODEL_PATH)
-            + (string) cconfig.Value(FILE_WINDOW_TRAINED_MODEL);
-    wConfig.deploy_file = (string) cconfig.Value(FILE_WINDOW_MODEL_PATH)
-            + (string) cconfig.Value(FILE_WINDOW_DEPLOY_MODEL);
-    wConfig.is_model_encrypt = is_encrypted;
-    wConfig.batch_size = batch_size;
-}
 
 }
