@@ -48,7 +48,7 @@ class Score {
 
 class RankFeature {
  public:
-    virtual string Serialize() {
+    virtual string Serialize() const {
     }
     ;
     virtual bool Deserialize(string featureStr) {
@@ -78,7 +78,7 @@ public:
     cv::Mat descriptor_;
     cv::Mat position_;
 
-    virtual string Serialize() override;
+    virtual string Serialize() const override;
     virtual bool Deserialize(string featureStr) override;
 };
 
@@ -87,7 +87,7 @@ class FaceRankFeature final : public RankFeature {
 public:
     std::vector<float> descriptor_;
 
-    virtual string Serialize() override;
+    virtual string Serialize() const override;
     virtual bool Deserialize(string featureStr) override;
 };
 
