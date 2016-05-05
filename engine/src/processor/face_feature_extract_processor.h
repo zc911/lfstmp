@@ -12,7 +12,7 @@
 #include "alg/face_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
-#include "processor.h"
+#include "processor/processor.h"
 
 namespace dg {
 
@@ -25,17 +25,15 @@ class FaceFeatureExtractProcessor : public Processor {
     virtual ~FaceFeatureExtractProcessor();
 
     void Update(Frame *frame);
-    virtual void Update(FrameBatch *frameBatch) {
-    }
-    ;
+    virtual void Update(FrameBatch *frameBatch);
 
-    virtual void beforeUpdate(FrameBatch *frameBatch) {
+    virtual bool checkOperation(Frame *frame) {
+        return true;
     }
-    ;
+
     virtual bool checkStatus(Frame *frame) {
         return true;
     }
-    ;
 
  private:
     FaceFeatureExtractor *extractor_;
