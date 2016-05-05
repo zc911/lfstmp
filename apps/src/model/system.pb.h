@@ -28,9 +28,11 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace dg {
+namespace model {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_system_2eproto();
@@ -137,7 +139,7 @@ class PingRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.PingRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.PingRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -219,7 +221,7 @@ class PingResponse : public ::google::protobuf::Message {
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // @@protoc_insertion_point(class_scope:dg.PingResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.PingResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -291,7 +293,7 @@ class SystemStatusRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.SystemStatusRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.SystemStatusRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -505,7 +507,7 @@ class SystemStatusResponse : public ::google::protobuf::Message {
   ::std::string* release_gputotalmem();
   void set_allocated_gputotalmem(::std::string* gputotalmem);
 
-  // @@protoc_insertion_point(class_scope:dg.SystemStatusResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.SystemStatusResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -589,71 +591,71 @@ class InstanceConfigureRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.RecImageVConfig RecImageVConfig = 1;
+  // optional .dg.model.RecImageVConfig RecImageVConfig = 1;
   bool has_recimagevconfig() const;
   void clear_recimagevconfig();
   static const int kRecImageVConfigFieldNumber = 1;
-  const ::dg::RecImageVConfig& recimagevconfig() const;
-  ::dg::RecImageVConfig* mutable_recimagevconfig();
-  ::dg::RecImageVConfig* release_recimagevconfig();
-  void set_allocated_recimagevconfig(::dg::RecImageVConfig* recimagevconfig);
+  const ::dg::model::RecImageVConfig& recimagevconfig() const;
+  ::dg::model::RecImageVConfig* mutable_recimagevconfig();
+  ::dg::model::RecImageVConfig* release_recimagevconfig();
+  void set_allocated_recimagevconfig(::dg::model::RecImageVConfig* recimagevconfig);
 
-  // optional .dg.RecImageFConfig RecImageFConfig = 2;
+  // optional .dg.model.RecImageFConfig RecImageFConfig = 2;
   bool has_recimagefconfig() const;
   void clear_recimagefconfig();
   static const int kRecImageFConfigFieldNumber = 2;
-  const ::dg::RecImageFConfig& recimagefconfig() const;
-  ::dg::RecImageFConfig* mutable_recimagefconfig();
-  ::dg::RecImageFConfig* release_recimagefconfig();
-  void set_allocated_recimagefconfig(::dg::RecImageFConfig* recimagefconfig);
+  const ::dg::model::RecImageFConfig& recimagefconfig() const;
+  ::dg::model::RecImageFConfig* mutable_recimagefconfig();
+  ::dg::model::RecImageFConfig* release_recimagefconfig();
+  void set_allocated_recimagefconfig(::dg::model::RecImageFConfig* recimagefconfig);
 
-  // optional .dg.RecVideoVConfig RecVideoVConfig = 3;
+  // optional .dg.model.RecVideoVConfig RecVideoVConfig = 3;
   bool has_recvideovconfig() const;
   void clear_recvideovconfig();
   static const int kRecVideoVConfigFieldNumber = 3;
-  const ::dg::RecVideoVConfig& recvideovconfig() const;
-  ::dg::RecVideoVConfig* mutable_recvideovconfig();
-  ::dg::RecVideoVConfig* release_recvideovconfig();
-  void set_allocated_recvideovconfig(::dg::RecVideoVConfig* recvideovconfig);
+  const ::dg::model::RecVideoVConfig& recvideovconfig() const;
+  ::dg::model::RecVideoVConfig* mutable_recvideovconfig();
+  ::dg::model::RecVideoVConfig* release_recvideovconfig();
+  void set_allocated_recvideovconfig(::dg::model::RecVideoVConfig* recvideovconfig);
 
-  // optional .dg.RecVideoFConfig RecVideoFConfig = 4;
+  // optional .dg.model.RecVideoFConfig RecVideoFConfig = 4;
   bool has_recvideofconfig() const;
   void clear_recvideofconfig();
   static const int kRecVideoFConfigFieldNumber = 4;
-  const ::dg::RecVideoFConfig& recvideofconfig() const;
-  ::dg::RecVideoFConfig* mutable_recvideofconfig();
-  ::dg::RecVideoFConfig* release_recvideofconfig();
-  void set_allocated_recvideofconfig(::dg::RecVideoFConfig* recvideofconfig);
+  const ::dg::model::RecVideoFConfig& recvideofconfig() const;
+  ::dg::model::RecVideoFConfig* mutable_recvideofconfig();
+  ::dg::model::RecVideoFConfig* release_recvideofconfig();
+  void set_allocated_recvideofconfig(::dg::model::RecVideoFConfig* recvideofconfig);
 
-  // optional .dg.RankVConfig RankVConfig = 5;
+  // optional .dg.model.RankVConfig RankVConfig = 5;
   bool has_rankvconfig() const;
   void clear_rankvconfig();
   static const int kRankVConfigFieldNumber = 5;
-  const ::dg::RankVConfig& rankvconfig() const;
-  ::dg::RankVConfig* mutable_rankvconfig();
-  ::dg::RankVConfig* release_rankvconfig();
-  void set_allocated_rankvconfig(::dg::RankVConfig* rankvconfig);
+  const ::dg::model::RankVConfig& rankvconfig() const;
+  ::dg::model::RankVConfig* mutable_rankvconfig();
+  ::dg::model::RankVConfig* release_rankvconfig();
+  void set_allocated_rankvconfig(::dg::model::RankVConfig* rankvconfig);
 
-  // optional .dg.RankFConfig RankFConfig = 6;
+  // optional .dg.model.RankFConfig RankFConfig = 6;
   bool has_rankfconfig() const;
   void clear_rankfconfig();
   static const int kRankFConfigFieldNumber = 6;
-  const ::dg::RankFConfig& rankfconfig() const;
-  ::dg::RankFConfig* mutable_rankfconfig();
-  ::dg::RankFConfig* release_rankfconfig();
-  void set_allocated_rankfconfig(::dg::RankFConfig* rankfconfig);
+  const ::dg::model::RankFConfig& rankfconfig() const;
+  ::dg::model::RankFConfig* mutable_rankfconfig();
+  ::dg::model::RankFConfig* release_rankfconfig();
+  void set_allocated_rankfconfig(::dg::model::RankFConfig* rankfconfig);
 
-  // @@protoc_insertion_point(class_scope:dg.InstanceConfigureRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.InstanceConfigureRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::RecImageVConfig* recimagevconfig_;
-  ::dg::RecImageFConfig* recimagefconfig_;
-  ::dg::RecVideoVConfig* recvideovconfig_;
-  ::dg::RecVideoFConfig* recvideofconfig_;
-  ::dg::RankVConfig* rankvconfig_;
-  ::dg::RankFConfig* rankfconfig_;
+  ::dg::model::RecImageVConfig* recimagevconfig_;
+  ::dg::model::RecImageFConfig* recimagefconfig_;
+  ::dg::model::RecVideoVConfig* recvideovconfig_;
+  ::dg::model::RecVideoFConfig* recvideofconfig_;
+  ::dg::model::RankVConfig* rankvconfig_;
+  ::dg::model::RankFConfig* rankfconfig_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -720,7 +722,7 @@ class GetInstancesRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.GetInstancesRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.GetInstancesRequest)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -813,26 +815,26 @@ class InstanceConfigureResponse : public ::google::protobuf::Message {
   ::std::string* release_message();
   void set_allocated_message(::std::string* message);
 
-  // repeated .dg.EngineStatus Results = 3;
+  // repeated .dg.model.EngineStatus Results = 3;
   int results_size() const;
   void clear_results();
   static const int kResultsFieldNumber = 3;
-  const ::dg::EngineStatus& results(int index) const;
-  ::dg::EngineStatus* mutable_results(int index);
-  ::dg::EngineStatus* add_results();
-  ::google::protobuf::RepeatedPtrField< ::dg::EngineStatus >*
+  const ::dg::model::EngineStatus& results(int index) const;
+  ::dg::model::EngineStatus* mutable_results(int index);
+  ::dg::model::EngineStatus* add_results();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::EngineStatus >*
       mutable_results();
-  const ::google::protobuf::RepeatedPtrField< ::dg::EngineStatus >&
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::EngineStatus >&
       results() const;
 
-  // @@protoc_insertion_point(class_scope:dg.InstanceConfigureResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.InstanceConfigureResponse)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr status_;
   ::google::protobuf::internal::ArenaStringPtr message_;
-  ::google::protobuf::RepeatedPtrField< ::dg::EngineStatus > results_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::EngineStatus > results_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -937,7 +939,7 @@ class StorageConfig : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::std::string>& tags() const;
   ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_tags();
 
-  // @@protoc_insertion_point(class_scope:dg.StorageConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.StorageConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1011,11 +1013,11 @@ class InstanceConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceType Type = 1;
+  // optional .dg.model.InstanceType Type = 1;
   void clear_type();
   static const int kTypeFieldNumber = 1;
-  ::dg::InstanceType type() const;
-  void set_type(::dg::InstanceType value);
+  ::dg::model::InstanceType type() const;
+  void set_type(::dg::model::InstanceType value);
 
   // optional int32 Count = 2;
   void clear_count();
@@ -1023,37 +1025,35 @@ class InstanceConfig : public ::google::protobuf::Message {
   ::google::protobuf::int32 count() const;
   void set_count(::google::protobuf::int32 value);
 
-  // repeated uint32 Functions = 3;
+  // repeated .dg.model.RecognizeFunctions Functions = 3;
   int functions_size() const;
   void clear_functions();
   static const int kFunctionsFieldNumber = 3;
-  ::google::protobuf::uint32 functions(int index) const;
-  void set_functions(int index, ::google::protobuf::uint32 value);
-  void add_functions(::google::protobuf::uint32 value);
-  const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
-      functions() const;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
-      mutable_functions();
+  ::dg::model::RecognizeFunctions functions(int index) const;
+  void set_functions(int index, ::dg::model::RecognizeFunctions value);
+  void add_functions(::dg::model::RecognizeFunctions value);
+  const ::google::protobuf::RepeatedField<int>& functions() const;
+  ::google::protobuf::RepeatedField<int>* mutable_functions();
 
-  // optional .dg.StorageConfig StorageConfig = 4;
+  // optional .dg.model.StorageConfig StorageConfig = 4;
   bool has_storageconfig() const;
   void clear_storageconfig();
   static const int kStorageConfigFieldNumber = 4;
-  const ::dg::StorageConfig& storageconfig() const;
-  ::dg::StorageConfig* mutable_storageconfig();
-  ::dg::StorageConfig* release_storageconfig();
-  void set_allocated_storageconfig(::dg::StorageConfig* storageconfig);
+  const ::dg::model::StorageConfig& storageconfig() const;
+  ::dg::model::StorageConfig* mutable_storageconfig();
+  ::dg::model::StorageConfig* release_storageconfig();
+  void set_allocated_storageconfig(::dg::model::StorageConfig* storageconfig);
 
-  // @@protoc_insertion_point(class_scope:dg.InstanceConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.InstanceConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   int type_;
   ::google::protobuf::int32 count_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > functions_;
+  ::google::protobuf::RepeatedField<int> functions_;
   mutable int _functions_cached_byte_size_;
-  ::dg::StorageConfig* storageconfig_;
+  ::dg::model::StorageConfig* storageconfig_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -1120,21 +1120,21 @@ class RecImageVConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
-  // @@protoc_insertion_point(class_scope:dg.RecImageVConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RecImageVConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -1201,21 +1201,21 @@ class RecImageFConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
-  // @@protoc_insertion_point(class_scope:dg.RecImageFConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RecImageFConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -1282,14 +1282,14 @@ class RecVideoVConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
   // optional int32 BufferSize = 2;
   void clear_buffersize();
@@ -1315,12 +1315,12 @@ class RecVideoVConfig : public ::google::protobuf::Message {
   ::google::protobuf::int32 classifybuffersize() const;
   void set_classifybuffersize(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:dg.RecVideoVConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RecVideoVConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   ::google::protobuf::int32 buffersize_;
   ::google::protobuf::int32 detectinterval_;
   ::google::protobuf::int32 classifyinterval_;
@@ -1391,14 +1391,14 @@ class RecVideoFConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
   // optional int32 BufferSize = 2;
   void clear_buffersize();
@@ -1424,12 +1424,12 @@ class RecVideoFConfig : public ::google::protobuf::Message {
   ::google::protobuf::int32 detectheight() const;
   void set_detectheight(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:dg.RecVideoFConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RecVideoFConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   ::google::protobuf::int32 buffersize_;
   float detectthreshold_;
   ::google::protobuf::int32 detectwidth_;
@@ -1500,21 +1500,21 @@ class RankVConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
-  // @@protoc_insertion_point(class_scope:dg.RankVConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RankVConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -1581,21 +1581,21 @@ class RankFConfig : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.InstanceConfig Instances = 1;
+  // optional .dg.model.InstanceConfig Instances = 1;
   bool has_instances() const;
   void clear_instances();
   static const int kInstancesFieldNumber = 1;
-  const ::dg::InstanceConfig& instances() const;
-  ::dg::InstanceConfig* mutable_instances();
-  ::dg::InstanceConfig* release_instances();
-  void set_allocated_instances(::dg::InstanceConfig* instances);
+  const ::dg::model::InstanceConfig& instances() const;
+  ::dg::model::InstanceConfig* mutable_instances();
+  ::dg::model::InstanceConfig* release_instances();
+  void set_allocated_instances(::dg::model::InstanceConfig* instances);
 
-  // @@protoc_insertion_point(class_scope:dg.RankFConfig)
+  // @@protoc_insertion_point(class_scope:dg.model.RankFConfig)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::InstanceConfig* instances_;
+  ::dg::model::InstanceConfig* instances_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_system_2eproto();
   friend void protobuf_AssignDesc_system_2eproto();
@@ -1680,7 +1680,7 @@ class EngineStatus : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
       mutable_rpcports();
 
-  // @@protoc_insertion_point(class_scope:dg.EngineStatus)
+  // @@protoc_insertion_point(class_scope:dg.model.EngineStatus)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -1713,28 +1713,28 @@ inline void PingResponse::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& PingResponse::message() const {
-  // @@protoc_insertion_point(field_get:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_get:dg.model.PingResponse.Message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void PingResponse::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_set:dg.model.PingResponse.Message)
 }
 inline void PingResponse::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_set_char:dg.model.PingResponse.Message)
 }
 inline void PingResponse::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.PingResponse.Message)
 }
 inline ::std::string* PingResponse::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_mutable:dg.model.PingResponse.Message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* PingResponse::release_message() {
@@ -1748,7 +1748,7 @@ inline void PingResponse::set_allocated_message(::std::string* message) {
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:dg.PingResponse.Message)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PingResponse.Message)
 }
 
 // -------------------------------------------------------------------
@@ -1764,28 +1764,28 @@ inline void SystemStatusResponse::clear_modelver() {
   modelver_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::modelver() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.ModelVer)
   return modelver_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_modelver(const ::std::string& value) {
   
   modelver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.ModelVer)
 }
 inline void SystemStatusResponse::set_modelver(const char* value) {
   
   modelver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.ModelVer)
 }
 inline void SystemStatusResponse::set_modelver(const char* value, size_t size) {
   
   modelver_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.ModelVer)
 }
 inline ::std::string* SystemStatusResponse::mutable_modelver() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.ModelVer)
   return modelver_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_modelver() {
@@ -1799,7 +1799,7 @@ inline void SystemStatusResponse::set_allocated_modelver(::std::string* modelver
     
   }
   modelver_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelver);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.ModelVer)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.ModelVer)
 }
 
 // optional string EngineVer = 2;
@@ -1807,28 +1807,28 @@ inline void SystemStatusResponse::clear_enginever() {
   enginever_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::enginever() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.EngineVer)
   return enginever_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_enginever(const ::std::string& value) {
   
   enginever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.EngineVer)
 }
 inline void SystemStatusResponse::set_enginever(const char* value) {
   
   enginever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.EngineVer)
 }
 inline void SystemStatusResponse::set_enginever(const char* value, size_t size) {
   
   enginever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.EngineVer)
 }
 inline ::std::string* SystemStatusResponse::mutable_enginever() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.EngineVer)
   return enginever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_enginever() {
@@ -1842,7 +1842,7 @@ inline void SystemStatusResponse::set_allocated_enginever(::std::string* enginev
     
   }
   enginever_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), enginever);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.EngineVer)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.EngineVer)
 }
 
 // optional string ServiceVer = 3;
@@ -1850,28 +1850,28 @@ inline void SystemStatusResponse::clear_servicever() {
   servicever_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::servicever() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.ServiceVer)
   return servicever_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_servicever(const ::std::string& value) {
   
   servicever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.ServiceVer)
 }
 inline void SystemStatusResponse::set_servicever(const char* value) {
   
   servicever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.ServiceVer)
 }
 inline void SystemStatusResponse::set_servicever(const char* value, size_t size) {
   
   servicever_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.ServiceVer)
 }
 inline ::std::string* SystemStatusResponse::mutable_servicever() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.ServiceVer)
   return servicever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_servicever() {
@@ -1885,7 +1885,7 @@ inline void SystemStatusResponse::set_allocated_servicever(::std::string* servic
     
   }
   servicever_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), servicever);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.ServiceVer)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.ServiceVer)
 }
 
 // optional string CpuUsage = 4;
@@ -1893,28 +1893,28 @@ inline void SystemStatusResponse::clear_cpuusage() {
   cpuusage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::cpuusage() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.CpuUsage)
   return cpuusage_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_cpuusage(const ::std::string& value) {
   
   cpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.CpuUsage)
 }
 inline void SystemStatusResponse::set_cpuusage(const char* value) {
   
   cpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.CpuUsage)
 }
 inline void SystemStatusResponse::set_cpuusage(const char* value, size_t size) {
   
   cpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.CpuUsage)
 }
 inline ::std::string* SystemStatusResponse::mutable_cpuusage() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.CpuUsage)
   return cpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_cpuusage() {
@@ -1928,7 +1928,7 @@ inline void SystemStatusResponse::set_allocated_cpuusage(::std::string* cpuusage
     
   }
   cpuusage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), cpuusage);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.CpuUsage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.CpuUsage)
 }
 
 // optional string AvailMem = 5;
@@ -1936,28 +1936,28 @@ inline void SystemStatusResponse::clear_availmem() {
   availmem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::availmem() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.AvailMem)
   return availmem_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_availmem(const ::std::string& value) {
   
   availmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.AvailMem)
 }
 inline void SystemStatusResponse::set_availmem(const char* value) {
   
   availmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.AvailMem)
 }
 inline void SystemStatusResponse::set_availmem(const char* value, size_t size) {
   
   availmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.AvailMem)
 }
 inline ::std::string* SystemStatusResponse::mutable_availmem() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.AvailMem)
   return availmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_availmem() {
@@ -1971,7 +1971,7 @@ inline void SystemStatusResponse::set_allocated_availmem(::std::string* availmem
     
   }
   availmem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), availmem);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.AvailMem)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.AvailMem)
 }
 
 // optional string TotalMem = 6;
@@ -1979,28 +1979,28 @@ inline void SystemStatusResponse::clear_totalmem() {
   totalmem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::totalmem() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.TotalMem)
   return totalmem_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_totalmem(const ::std::string& value) {
   
   totalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.TotalMem)
 }
 inline void SystemStatusResponse::set_totalmem(const char* value) {
   
   totalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.TotalMem)
 }
 inline void SystemStatusResponse::set_totalmem(const char* value, size_t size) {
   
   totalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.TotalMem)
 }
 inline ::std::string* SystemStatusResponse::mutable_totalmem() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.TotalMem)
   return totalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_totalmem() {
@@ -2014,7 +2014,7 @@ inline void SystemStatusResponse::set_allocated_totalmem(::std::string* totalmem
     
   }
   totalmem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totalmem);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.TotalMem)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.TotalMem)
 }
 
 // optional string AvailDisk = 7;
@@ -2022,28 +2022,28 @@ inline void SystemStatusResponse::clear_availdisk() {
   availdisk_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::availdisk() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.AvailDisk)
   return availdisk_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_availdisk(const ::std::string& value) {
   
   availdisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.AvailDisk)
 }
 inline void SystemStatusResponse::set_availdisk(const char* value) {
   
   availdisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.AvailDisk)
 }
 inline void SystemStatusResponse::set_availdisk(const char* value, size_t size) {
   
   availdisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.AvailDisk)
 }
 inline ::std::string* SystemStatusResponse::mutable_availdisk() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.AvailDisk)
   return availdisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_availdisk() {
@@ -2057,7 +2057,7 @@ inline void SystemStatusResponse::set_allocated_availdisk(::std::string* availdi
     
   }
   availdisk_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), availdisk);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.AvailDisk)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.AvailDisk)
 }
 
 // optional string TotalDisk = 8;
@@ -2065,28 +2065,28 @@ inline void SystemStatusResponse::clear_totaldisk() {
   totaldisk_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::totaldisk() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.TotalDisk)
   return totaldisk_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_totaldisk(const ::std::string& value) {
   
   totaldisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.TotalDisk)
 }
 inline void SystemStatusResponse::set_totaldisk(const char* value) {
   
   totaldisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.TotalDisk)
 }
 inline void SystemStatusResponse::set_totaldisk(const char* value, size_t size) {
   
   totaldisk_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.TotalDisk)
 }
 inline ::std::string* SystemStatusResponse::mutable_totaldisk() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.TotalDisk)
   return totaldisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_totaldisk() {
@@ -2100,7 +2100,7 @@ inline void SystemStatusResponse::set_allocated_totaldisk(::std::string* totaldi
     
   }
   totaldisk_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), totaldisk);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.TotalDisk)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.TotalDisk)
 }
 
 // optional string NetIOSend = 9;
@@ -2108,28 +2108,28 @@ inline void SystemStatusResponse::clear_netiosend() {
   netiosend_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::netiosend() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.NetIOSend)
   return netiosend_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_netiosend(const ::std::string& value) {
   
   netiosend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.NetIOSend)
 }
 inline void SystemStatusResponse::set_netiosend(const char* value) {
   
   netiosend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.NetIOSend)
 }
 inline void SystemStatusResponse::set_netiosend(const char* value, size_t size) {
   
   netiosend_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.NetIOSend)
 }
 inline ::std::string* SystemStatusResponse::mutable_netiosend() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.NetIOSend)
   return netiosend_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_netiosend() {
@@ -2143,7 +2143,7 @@ inline void SystemStatusResponse::set_allocated_netiosend(::std::string* netiose
     
   }
   netiosend_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), netiosend);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.NetIOSend)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.NetIOSend)
 }
 
 // optional string NetIORecv = 10;
@@ -2151,28 +2151,28 @@ inline void SystemStatusResponse::clear_netiorecv() {
   netiorecv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::netiorecv() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.NetIORecv)
   return netiorecv_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_netiorecv(const ::std::string& value) {
   
   netiorecv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.NetIORecv)
 }
 inline void SystemStatusResponse::set_netiorecv(const char* value) {
   
   netiorecv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.NetIORecv)
 }
 inline void SystemStatusResponse::set_netiorecv(const char* value, size_t size) {
   
   netiorecv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.NetIORecv)
 }
 inline ::std::string* SystemStatusResponse::mutable_netiorecv() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.NetIORecv)
   return netiorecv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_netiorecv() {
@@ -2186,7 +2186,7 @@ inline void SystemStatusResponse::set_allocated_netiorecv(::std::string* netiore
     
   }
   netiorecv_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), netiorecv);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.NetIORecv)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.NetIORecv)
 }
 
 // optional string GpuUsage = 11;
@@ -2194,28 +2194,28 @@ inline void SystemStatusResponse::clear_gpuusage() {
   gpuusage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::gpuusage() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.GpuUsage)
   return gpuusage_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_gpuusage(const ::std::string& value) {
   
   gpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.GpuUsage)
 }
 inline void SystemStatusResponse::set_gpuusage(const char* value) {
   
   gpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.GpuUsage)
 }
 inline void SystemStatusResponse::set_gpuusage(const char* value, size_t size) {
   
   gpuusage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.GpuUsage)
 }
 inline ::std::string* SystemStatusResponse::mutable_gpuusage() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.GpuUsage)
   return gpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gpuusage() {
@@ -2229,7 +2229,7 @@ inline void SystemStatusResponse::set_allocated_gpuusage(::std::string* gpuusage
     
   }
   gpuusage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gpuusage);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.GpuUsage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.GpuUsage)
 }
 
 // optional string GpuAvailMem = 12;
@@ -2237,28 +2237,28 @@ inline void SystemStatusResponse::clear_gpuavailmem() {
   gpuavailmem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::gpuavailmem() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.GpuAvailMem)
   return gpuavailmem_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_gpuavailmem(const ::std::string& value) {
   
   gpuavailmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.GpuAvailMem)
 }
 inline void SystemStatusResponse::set_gpuavailmem(const char* value) {
   
   gpuavailmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.GpuAvailMem)
 }
 inline void SystemStatusResponse::set_gpuavailmem(const char* value, size_t size) {
   
   gpuavailmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.GpuAvailMem)
 }
 inline ::std::string* SystemStatusResponse::mutable_gpuavailmem() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.GpuAvailMem)
   return gpuavailmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gpuavailmem() {
@@ -2272,7 +2272,7 @@ inline void SystemStatusResponse::set_allocated_gpuavailmem(::std::string* gpuav
     
   }
   gpuavailmem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gpuavailmem);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.GpuAvailMem)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.GpuAvailMem)
 }
 
 // optional string GpuTotalMem = 13;
@@ -2280,28 +2280,28 @@ inline void SystemStatusResponse::clear_gputotalmem() {
   gputotalmem_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& SystemStatusResponse::gputotalmem() const {
-  // @@protoc_insertion_point(field_get:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_get:dg.model.SystemStatusResponse.GpuTotalMem)
   return gputotalmem_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void SystemStatusResponse::set_gputotalmem(const ::std::string& value) {
   
   gputotalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_set:dg.model.SystemStatusResponse.GpuTotalMem)
 }
 inline void SystemStatusResponse::set_gputotalmem(const char* value) {
   
   gputotalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_set_char:dg.model.SystemStatusResponse.GpuTotalMem)
 }
 inline void SystemStatusResponse::set_gputotalmem(const char* value, size_t size) {
   
   gputotalmem_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SystemStatusResponse.GpuTotalMem)
 }
 inline ::std::string* SystemStatusResponse::mutable_gputotalmem() {
   
-  // @@protoc_insertion_point(field_mutable:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_mutable:dg.model.SystemStatusResponse.GpuTotalMem)
   return gputotalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gputotalmem() {
@@ -2315,14 +2315,14 @@ inline void SystemStatusResponse::set_allocated_gputotalmem(::std::string* gputo
     
   }
   gputotalmem_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), gputotalmem);
-  // @@protoc_insertion_point(field_set_allocated:dg.SystemStatusResponse.GpuTotalMem)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SystemStatusResponse.GpuTotalMem)
 }
 
 // -------------------------------------------------------------------
 
 // InstanceConfigureRequest
 
-// optional .dg.RecImageVConfig RecImageVConfig = 1;
+// optional .dg.model.RecImageVConfig RecImageVConfig = 1;
 inline bool InstanceConfigureRequest::has_recimagevconfig() const {
   return !_is_default_instance_ && recimagevconfig_ != NULL;
 }
@@ -2330,25 +2330,25 @@ inline void InstanceConfigureRequest::clear_recimagevconfig() {
   if (GetArenaNoVirtual() == NULL && recimagevconfig_ != NULL) delete recimagevconfig_;
   recimagevconfig_ = NULL;
 }
-inline const ::dg::RecImageVConfig& InstanceConfigureRequest::recimagevconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RecImageVConfig)
+inline const ::dg::model::RecImageVConfig& InstanceConfigureRequest::recimagevconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RecImageVConfig)
   return recimagevconfig_ != NULL ? *recimagevconfig_ : *default_instance_->recimagevconfig_;
 }
-inline ::dg::RecImageVConfig* InstanceConfigureRequest::mutable_recimagevconfig() {
+inline ::dg::model::RecImageVConfig* InstanceConfigureRequest::mutable_recimagevconfig() {
   
   if (recimagevconfig_ == NULL) {
-    recimagevconfig_ = new ::dg::RecImageVConfig;
+    recimagevconfig_ = new ::dg::model::RecImageVConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RecImageVConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RecImageVConfig)
   return recimagevconfig_;
 }
-inline ::dg::RecImageVConfig* InstanceConfigureRequest::release_recimagevconfig() {
+inline ::dg::model::RecImageVConfig* InstanceConfigureRequest::release_recimagevconfig() {
   
-  ::dg::RecImageVConfig* temp = recimagevconfig_;
+  ::dg::model::RecImageVConfig* temp = recimagevconfig_;
   recimagevconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_recimagevconfig(::dg::RecImageVConfig* recimagevconfig) {
+inline void InstanceConfigureRequest::set_allocated_recimagevconfig(::dg::model::RecImageVConfig* recimagevconfig) {
   delete recimagevconfig_;
   recimagevconfig_ = recimagevconfig;
   if (recimagevconfig) {
@@ -2356,10 +2356,10 @@ inline void InstanceConfigureRequest::set_allocated_recimagevconfig(::dg::RecIma
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RecImageVConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RecImageVConfig)
 }
 
-// optional .dg.RecImageFConfig RecImageFConfig = 2;
+// optional .dg.model.RecImageFConfig RecImageFConfig = 2;
 inline bool InstanceConfigureRequest::has_recimagefconfig() const {
   return !_is_default_instance_ && recimagefconfig_ != NULL;
 }
@@ -2367,25 +2367,25 @@ inline void InstanceConfigureRequest::clear_recimagefconfig() {
   if (GetArenaNoVirtual() == NULL && recimagefconfig_ != NULL) delete recimagefconfig_;
   recimagefconfig_ = NULL;
 }
-inline const ::dg::RecImageFConfig& InstanceConfigureRequest::recimagefconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RecImageFConfig)
+inline const ::dg::model::RecImageFConfig& InstanceConfigureRequest::recimagefconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RecImageFConfig)
   return recimagefconfig_ != NULL ? *recimagefconfig_ : *default_instance_->recimagefconfig_;
 }
-inline ::dg::RecImageFConfig* InstanceConfigureRequest::mutable_recimagefconfig() {
+inline ::dg::model::RecImageFConfig* InstanceConfigureRequest::mutable_recimagefconfig() {
   
   if (recimagefconfig_ == NULL) {
-    recimagefconfig_ = new ::dg::RecImageFConfig;
+    recimagefconfig_ = new ::dg::model::RecImageFConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RecImageFConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RecImageFConfig)
   return recimagefconfig_;
 }
-inline ::dg::RecImageFConfig* InstanceConfigureRequest::release_recimagefconfig() {
+inline ::dg::model::RecImageFConfig* InstanceConfigureRequest::release_recimagefconfig() {
   
-  ::dg::RecImageFConfig* temp = recimagefconfig_;
+  ::dg::model::RecImageFConfig* temp = recimagefconfig_;
   recimagefconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_recimagefconfig(::dg::RecImageFConfig* recimagefconfig) {
+inline void InstanceConfigureRequest::set_allocated_recimagefconfig(::dg::model::RecImageFConfig* recimagefconfig) {
   delete recimagefconfig_;
   recimagefconfig_ = recimagefconfig;
   if (recimagefconfig) {
@@ -2393,10 +2393,10 @@ inline void InstanceConfigureRequest::set_allocated_recimagefconfig(::dg::RecIma
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RecImageFConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RecImageFConfig)
 }
 
-// optional .dg.RecVideoVConfig RecVideoVConfig = 3;
+// optional .dg.model.RecVideoVConfig RecVideoVConfig = 3;
 inline bool InstanceConfigureRequest::has_recvideovconfig() const {
   return !_is_default_instance_ && recvideovconfig_ != NULL;
 }
@@ -2404,25 +2404,25 @@ inline void InstanceConfigureRequest::clear_recvideovconfig() {
   if (GetArenaNoVirtual() == NULL && recvideovconfig_ != NULL) delete recvideovconfig_;
   recvideovconfig_ = NULL;
 }
-inline const ::dg::RecVideoVConfig& InstanceConfigureRequest::recvideovconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RecVideoVConfig)
+inline const ::dg::model::RecVideoVConfig& InstanceConfigureRequest::recvideovconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RecVideoVConfig)
   return recvideovconfig_ != NULL ? *recvideovconfig_ : *default_instance_->recvideovconfig_;
 }
-inline ::dg::RecVideoVConfig* InstanceConfigureRequest::mutable_recvideovconfig() {
+inline ::dg::model::RecVideoVConfig* InstanceConfigureRequest::mutable_recvideovconfig() {
   
   if (recvideovconfig_ == NULL) {
-    recvideovconfig_ = new ::dg::RecVideoVConfig;
+    recvideovconfig_ = new ::dg::model::RecVideoVConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RecVideoVConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RecVideoVConfig)
   return recvideovconfig_;
 }
-inline ::dg::RecVideoVConfig* InstanceConfigureRequest::release_recvideovconfig() {
+inline ::dg::model::RecVideoVConfig* InstanceConfigureRequest::release_recvideovconfig() {
   
-  ::dg::RecVideoVConfig* temp = recvideovconfig_;
+  ::dg::model::RecVideoVConfig* temp = recvideovconfig_;
   recvideovconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_recvideovconfig(::dg::RecVideoVConfig* recvideovconfig) {
+inline void InstanceConfigureRequest::set_allocated_recvideovconfig(::dg::model::RecVideoVConfig* recvideovconfig) {
   delete recvideovconfig_;
   recvideovconfig_ = recvideovconfig;
   if (recvideovconfig) {
@@ -2430,10 +2430,10 @@ inline void InstanceConfigureRequest::set_allocated_recvideovconfig(::dg::RecVid
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RecVideoVConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RecVideoVConfig)
 }
 
-// optional .dg.RecVideoFConfig RecVideoFConfig = 4;
+// optional .dg.model.RecVideoFConfig RecVideoFConfig = 4;
 inline bool InstanceConfigureRequest::has_recvideofconfig() const {
   return !_is_default_instance_ && recvideofconfig_ != NULL;
 }
@@ -2441,25 +2441,25 @@ inline void InstanceConfigureRequest::clear_recvideofconfig() {
   if (GetArenaNoVirtual() == NULL && recvideofconfig_ != NULL) delete recvideofconfig_;
   recvideofconfig_ = NULL;
 }
-inline const ::dg::RecVideoFConfig& InstanceConfigureRequest::recvideofconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RecVideoFConfig)
+inline const ::dg::model::RecVideoFConfig& InstanceConfigureRequest::recvideofconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RecVideoFConfig)
   return recvideofconfig_ != NULL ? *recvideofconfig_ : *default_instance_->recvideofconfig_;
 }
-inline ::dg::RecVideoFConfig* InstanceConfigureRequest::mutable_recvideofconfig() {
+inline ::dg::model::RecVideoFConfig* InstanceConfigureRequest::mutable_recvideofconfig() {
   
   if (recvideofconfig_ == NULL) {
-    recvideofconfig_ = new ::dg::RecVideoFConfig;
+    recvideofconfig_ = new ::dg::model::RecVideoFConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RecVideoFConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RecVideoFConfig)
   return recvideofconfig_;
 }
-inline ::dg::RecVideoFConfig* InstanceConfigureRequest::release_recvideofconfig() {
+inline ::dg::model::RecVideoFConfig* InstanceConfigureRequest::release_recvideofconfig() {
   
-  ::dg::RecVideoFConfig* temp = recvideofconfig_;
+  ::dg::model::RecVideoFConfig* temp = recvideofconfig_;
   recvideofconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_recvideofconfig(::dg::RecVideoFConfig* recvideofconfig) {
+inline void InstanceConfigureRequest::set_allocated_recvideofconfig(::dg::model::RecVideoFConfig* recvideofconfig) {
   delete recvideofconfig_;
   recvideofconfig_ = recvideofconfig;
   if (recvideofconfig) {
@@ -2467,10 +2467,10 @@ inline void InstanceConfigureRequest::set_allocated_recvideofconfig(::dg::RecVid
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RecVideoFConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RecVideoFConfig)
 }
 
-// optional .dg.RankVConfig RankVConfig = 5;
+// optional .dg.model.RankVConfig RankVConfig = 5;
 inline bool InstanceConfigureRequest::has_rankvconfig() const {
   return !_is_default_instance_ && rankvconfig_ != NULL;
 }
@@ -2478,25 +2478,25 @@ inline void InstanceConfigureRequest::clear_rankvconfig() {
   if (GetArenaNoVirtual() == NULL && rankvconfig_ != NULL) delete rankvconfig_;
   rankvconfig_ = NULL;
 }
-inline const ::dg::RankVConfig& InstanceConfigureRequest::rankvconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RankVConfig)
+inline const ::dg::model::RankVConfig& InstanceConfigureRequest::rankvconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RankVConfig)
   return rankvconfig_ != NULL ? *rankvconfig_ : *default_instance_->rankvconfig_;
 }
-inline ::dg::RankVConfig* InstanceConfigureRequest::mutable_rankvconfig() {
+inline ::dg::model::RankVConfig* InstanceConfigureRequest::mutable_rankvconfig() {
   
   if (rankvconfig_ == NULL) {
-    rankvconfig_ = new ::dg::RankVConfig;
+    rankvconfig_ = new ::dg::model::RankVConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RankVConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RankVConfig)
   return rankvconfig_;
 }
-inline ::dg::RankVConfig* InstanceConfigureRequest::release_rankvconfig() {
+inline ::dg::model::RankVConfig* InstanceConfigureRequest::release_rankvconfig() {
   
-  ::dg::RankVConfig* temp = rankvconfig_;
+  ::dg::model::RankVConfig* temp = rankvconfig_;
   rankvconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_rankvconfig(::dg::RankVConfig* rankvconfig) {
+inline void InstanceConfigureRequest::set_allocated_rankvconfig(::dg::model::RankVConfig* rankvconfig) {
   delete rankvconfig_;
   rankvconfig_ = rankvconfig;
   if (rankvconfig) {
@@ -2504,10 +2504,10 @@ inline void InstanceConfigureRequest::set_allocated_rankvconfig(::dg::RankVConfi
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RankVConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RankVConfig)
 }
 
-// optional .dg.RankFConfig RankFConfig = 6;
+// optional .dg.model.RankFConfig RankFConfig = 6;
 inline bool InstanceConfigureRequest::has_rankfconfig() const {
   return !_is_default_instance_ && rankfconfig_ != NULL;
 }
@@ -2515,25 +2515,25 @@ inline void InstanceConfigureRequest::clear_rankfconfig() {
   if (GetArenaNoVirtual() == NULL && rankfconfig_ != NULL) delete rankfconfig_;
   rankfconfig_ = NULL;
 }
-inline const ::dg::RankFConfig& InstanceConfigureRequest::rankfconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureRequest.RankFConfig)
+inline const ::dg::model::RankFConfig& InstanceConfigureRequest::rankfconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureRequest.RankFConfig)
   return rankfconfig_ != NULL ? *rankfconfig_ : *default_instance_->rankfconfig_;
 }
-inline ::dg::RankFConfig* InstanceConfigureRequest::mutable_rankfconfig() {
+inline ::dg::model::RankFConfig* InstanceConfigureRequest::mutable_rankfconfig() {
   
   if (rankfconfig_ == NULL) {
-    rankfconfig_ = new ::dg::RankFConfig;
+    rankfconfig_ = new ::dg::model::RankFConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureRequest.RankFConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureRequest.RankFConfig)
   return rankfconfig_;
 }
-inline ::dg::RankFConfig* InstanceConfigureRequest::release_rankfconfig() {
+inline ::dg::model::RankFConfig* InstanceConfigureRequest::release_rankfconfig() {
   
-  ::dg::RankFConfig* temp = rankfconfig_;
+  ::dg::model::RankFConfig* temp = rankfconfig_;
   rankfconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfigureRequest::set_allocated_rankfconfig(::dg::RankFConfig* rankfconfig) {
+inline void InstanceConfigureRequest::set_allocated_rankfconfig(::dg::model::RankFConfig* rankfconfig) {
   delete rankfconfig_;
   rankfconfig_ = rankfconfig;
   if (rankfconfig) {
@@ -2541,7 +2541,7 @@ inline void InstanceConfigureRequest::set_allocated_rankfconfig(::dg::RankFConfi
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureRequest.RankFConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureRequest.RankFConfig)
 }
 
 // -------------------------------------------------------------------
@@ -2557,28 +2557,28 @@ inline void InstanceConfigureResponse::clear_status() {
   status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& InstanceConfigureResponse::status() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureResponse.Status)
   return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void InstanceConfigureResponse::set_status(const ::std::string& value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_set:dg.model.InstanceConfigureResponse.Status)
 }
 inline void InstanceConfigureResponse::set_status(const char* value) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_set_char:dg.model.InstanceConfigureResponse.Status)
 }
 inline void InstanceConfigureResponse::set_status(const char* value, size_t size) {
   
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.InstanceConfigureResponse.Status)
 }
 inline ::std::string* InstanceConfigureResponse::mutable_status() {
   
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureResponse.Status)
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InstanceConfigureResponse::release_status() {
@@ -2592,7 +2592,7 @@ inline void InstanceConfigureResponse::set_allocated_status(::std::string* statu
     
   }
   status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureResponse.Status)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureResponse.Status)
 }
 
 // optional string Message = 2;
@@ -2600,28 +2600,28 @@ inline void InstanceConfigureResponse::clear_message() {
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& InstanceConfigureResponse::message() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureResponse.Message)
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void InstanceConfigureResponse::set_message(const ::std::string& value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_set:dg.model.InstanceConfigureResponse.Message)
 }
 inline void InstanceConfigureResponse::set_message(const char* value) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_set_char:dg.model.InstanceConfigureResponse.Message)
 }
 inline void InstanceConfigureResponse::set_message(const char* value, size_t size) {
   
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.InstanceConfigureResponse.Message)
 }
 inline ::std::string* InstanceConfigureResponse::mutable_message() {
   
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureResponse.Message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InstanceConfigureResponse::release_message() {
@@ -2635,36 +2635,36 @@ inline void InstanceConfigureResponse::set_allocated_message(::std::string* mess
     
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfigureResponse.Message)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfigureResponse.Message)
 }
 
-// repeated .dg.EngineStatus Results = 3;
+// repeated .dg.model.EngineStatus Results = 3;
 inline int InstanceConfigureResponse::results_size() const {
   return results_.size();
 }
 inline void InstanceConfigureResponse::clear_results() {
   results_.Clear();
 }
-inline const ::dg::EngineStatus& InstanceConfigureResponse::results(int index) const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfigureResponse.Results)
+inline const ::dg::model::EngineStatus& InstanceConfigureResponse::results(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfigureResponse.Results)
   return results_.Get(index);
 }
-inline ::dg::EngineStatus* InstanceConfigureResponse::mutable_results(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfigureResponse.Results)
+inline ::dg::model::EngineStatus* InstanceConfigureResponse::mutable_results(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfigureResponse.Results)
   return results_.Mutable(index);
 }
-inline ::dg::EngineStatus* InstanceConfigureResponse::add_results() {
-  // @@protoc_insertion_point(field_add:dg.InstanceConfigureResponse.Results)
+inline ::dg::model::EngineStatus* InstanceConfigureResponse::add_results() {
+  // @@protoc_insertion_point(field_add:dg.model.InstanceConfigureResponse.Results)
   return results_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::EngineStatus >*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::EngineStatus >*
 InstanceConfigureResponse::mutable_results() {
-  // @@protoc_insertion_point(field_mutable_list:dg.InstanceConfigureResponse.Results)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.InstanceConfigureResponse.Results)
   return &results_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::EngineStatus >&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::EngineStatus >&
 InstanceConfigureResponse::results() const {
-  // @@protoc_insertion_point(field_list:dg.InstanceConfigureResponse.Results)
+  // @@protoc_insertion_point(field_list:dg.model.InstanceConfigureResponse.Results)
   return results_;
 }
 
@@ -2677,28 +2677,28 @@ inline void StorageConfig::clear_address() {
   address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& StorageConfig::address() const {
-  // @@protoc_insertion_point(field_get:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Address)
   return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void StorageConfig::set_address(const ::std::string& value) {
   
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Address)
 }
 inline void StorageConfig::set_address(const char* value) {
   
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Address)
 }
 inline void StorageConfig::set_address(const char* value, size_t size) {
   
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Address)
 }
 inline ::std::string* StorageConfig::mutable_address() {
   
-  // @@protoc_insertion_point(field_mutable:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Address)
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* StorageConfig::release_address() {
@@ -2712,7 +2712,7 @@ inline void StorageConfig::set_allocated_address(::std::string* address) {
     
   }
   address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:dg.StorageConfig.Address)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
 }
 
 // optional string RepoInfo = 2;
@@ -2720,28 +2720,28 @@ inline void StorageConfig::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& StorageConfig::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void StorageConfig::set_repoinfo(const ::std::string& value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.RepoInfo)
 }
 inline void StorageConfig::set_repoinfo(const char* value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.RepoInfo)
 }
 inline void StorageConfig::set_repoinfo(const char* value, size_t size) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.RepoInfo)
 }
 inline ::std::string* StorageConfig::mutable_repoinfo() {
   
-  // @@protoc_insertion_point(field_mutable:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* StorageConfig::release_repoinfo() {
@@ -2755,7 +2755,7 @@ inline void StorageConfig::set_allocated_repoinfo(::std::string* repoinfo) {
     
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.StorageConfig.RepoInfo)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.RepoInfo)
 }
 
 // repeated string Tags = 3;
@@ -2766,49 +2766,49 @@ inline void StorageConfig::clear_tags() {
   tags_.Clear();
 }
 inline const ::std::string& StorageConfig::tags(int index) const {
-  // @@protoc_insertion_point(field_get:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Tags)
   return tags_.Get(index);
 }
 inline ::std::string* StorageConfig::mutable_tags(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Tags)
   return tags_.Mutable(index);
 }
 inline void StorageConfig::set_tags(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Tags)
   tags_.Mutable(index)->assign(value);
 }
 inline void StorageConfig::set_tags(int index, const char* value) {
   tags_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Tags)
 }
 inline void StorageConfig::set_tags(int index, const char* value, size_t size) {
   tags_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
 }
 inline ::std::string* StorageConfig::add_tags() {
   return tags_.Add();
 }
 inline void StorageConfig::add_tags(const ::std::string& value) {
   tags_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Tags)
 }
 inline void StorageConfig::add_tags(const char* value) {
   tags_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_add_char:dg.model.StorageConfig.Tags)
 }
 inline void StorageConfig::add_tags(const char* value, size_t size) {
   tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_add_pointer:dg.model.StorageConfig.Tags)
 }
 inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
 StorageConfig::tags() const {
-  // @@protoc_insertion_point(field_list:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Tags)
   return tags_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::std::string>*
 StorageConfig::mutable_tags() {
-  // @@protoc_insertion_point(field_mutable_list:dg.StorageConfig.Tags)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
   return &tags_;
 }
 
@@ -2816,18 +2816,18 @@ StorageConfig::mutable_tags() {
 
 // InstanceConfig
 
-// optional .dg.InstanceType Type = 1;
+// optional .dg.model.InstanceType Type = 1;
 inline void InstanceConfig::clear_type() {
   type_ = 0;
 }
-inline ::dg::InstanceType InstanceConfig::type() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfig.Type)
-  return static_cast< ::dg::InstanceType >(type_);
+inline ::dg::model::InstanceType InstanceConfig::type() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.Type)
+  return static_cast< ::dg::model::InstanceType >(type_);
 }
-inline void InstanceConfig::set_type(::dg::InstanceType value) {
+inline void InstanceConfig::set_type(::dg::model::InstanceType value) {
   
   type_ = value;
-  // @@protoc_insertion_point(field_set:dg.InstanceConfig.Type)
+  // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Type)
 }
 
 // optional int32 Count = 2;
@@ -2835,46 +2835,46 @@ inline void InstanceConfig::clear_count() {
   count_ = 0;
 }
 inline ::google::protobuf::int32 InstanceConfig::count() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfig.Count)
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.Count)
   return count_;
 }
 inline void InstanceConfig::set_count(::google::protobuf::int32 value) {
   
   count_ = value;
-  // @@protoc_insertion_point(field_set:dg.InstanceConfig.Count)
+  // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Count)
 }
 
-// repeated uint32 Functions = 3;
+// repeated .dg.model.RecognizeFunctions Functions = 3;
 inline int InstanceConfig::functions_size() const {
   return functions_.size();
 }
 inline void InstanceConfig::clear_functions() {
   functions_.Clear();
 }
-inline ::google::protobuf::uint32 InstanceConfig::functions(int index) const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfig.Functions)
-  return functions_.Get(index);
+inline ::dg::model::RecognizeFunctions InstanceConfig::functions(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.Functions)
+  return static_cast< ::dg::model::RecognizeFunctions >(functions_.Get(index));
 }
-inline void InstanceConfig::set_functions(int index, ::google::protobuf::uint32 value) {
+inline void InstanceConfig::set_functions(int index, ::dg::model::RecognizeFunctions value) {
   functions_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dg.InstanceConfig.Functions)
+  // @@protoc_insertion_point(field_set:dg.model.InstanceConfig.Functions)
 }
-inline void InstanceConfig::add_functions(::google::protobuf::uint32 value) {
+inline void InstanceConfig::add_functions(::dg::model::RecognizeFunctions value) {
   functions_.Add(value);
-  // @@protoc_insertion_point(field_add:dg.InstanceConfig.Functions)
+  // @@protoc_insertion_point(field_add:dg.model.InstanceConfig.Functions)
 }
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+inline const ::google::protobuf::RepeatedField<int>&
 InstanceConfig::functions() const {
-  // @@protoc_insertion_point(field_list:dg.InstanceConfig.Functions)
+  // @@protoc_insertion_point(field_list:dg.model.InstanceConfig.Functions)
   return functions_;
 }
-inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+inline ::google::protobuf::RepeatedField<int>*
 InstanceConfig::mutable_functions() {
-  // @@protoc_insertion_point(field_mutable_list:dg.InstanceConfig.Functions)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.InstanceConfig.Functions)
   return &functions_;
 }
 
-// optional .dg.StorageConfig StorageConfig = 4;
+// optional .dg.model.StorageConfig StorageConfig = 4;
 inline bool InstanceConfig::has_storageconfig() const {
   return !_is_default_instance_ && storageconfig_ != NULL;
 }
@@ -2882,25 +2882,25 @@ inline void InstanceConfig::clear_storageconfig() {
   if (GetArenaNoVirtual() == NULL && storageconfig_ != NULL) delete storageconfig_;
   storageconfig_ = NULL;
 }
-inline const ::dg::StorageConfig& InstanceConfig::storageconfig() const {
-  // @@protoc_insertion_point(field_get:dg.InstanceConfig.StorageConfig)
+inline const ::dg::model::StorageConfig& InstanceConfig::storageconfig() const {
+  // @@protoc_insertion_point(field_get:dg.model.InstanceConfig.StorageConfig)
   return storageconfig_ != NULL ? *storageconfig_ : *default_instance_->storageconfig_;
 }
-inline ::dg::StorageConfig* InstanceConfig::mutable_storageconfig() {
+inline ::dg::model::StorageConfig* InstanceConfig::mutable_storageconfig() {
   
   if (storageconfig_ == NULL) {
-    storageconfig_ = new ::dg::StorageConfig;
+    storageconfig_ = new ::dg::model::StorageConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.InstanceConfig.StorageConfig)
+  // @@protoc_insertion_point(field_mutable:dg.model.InstanceConfig.StorageConfig)
   return storageconfig_;
 }
-inline ::dg::StorageConfig* InstanceConfig::release_storageconfig() {
+inline ::dg::model::StorageConfig* InstanceConfig::release_storageconfig() {
   
-  ::dg::StorageConfig* temp = storageconfig_;
+  ::dg::model::StorageConfig* temp = storageconfig_;
   storageconfig_ = NULL;
   return temp;
 }
-inline void InstanceConfig::set_allocated_storageconfig(::dg::StorageConfig* storageconfig) {
+inline void InstanceConfig::set_allocated_storageconfig(::dg::model::StorageConfig* storageconfig) {
   delete storageconfig_;
   storageconfig_ = storageconfig;
   if (storageconfig) {
@@ -2908,14 +2908,14 @@ inline void InstanceConfig::set_allocated_storageconfig(::dg::StorageConfig* sto
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.InstanceConfig.StorageConfig)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.InstanceConfig.StorageConfig)
 }
 
 // -------------------------------------------------------------------
 
 // RecImageVConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RecImageVConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -2923,25 +2923,25 @@ inline void RecImageVConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RecImageVConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RecImageVConfig.Instances)
+inline const ::dg::model::InstanceConfig& RecImageVConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecImageVConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RecImageVConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RecImageVConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecImageVConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecImageVConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RecImageVConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RecImageVConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RecImageVConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RecImageVConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -2949,14 +2949,14 @@ inline void RecImageVConfig::set_allocated_instances(::dg::InstanceConfig* insta
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecImageVConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecImageVConfig.Instances)
 }
 
 // -------------------------------------------------------------------
 
 // RecImageFConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RecImageFConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -2964,25 +2964,25 @@ inline void RecImageFConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RecImageFConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RecImageFConfig.Instances)
+inline const ::dg::model::InstanceConfig& RecImageFConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecImageFConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RecImageFConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RecImageFConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecImageFConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecImageFConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RecImageFConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RecImageFConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RecImageFConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RecImageFConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -2990,14 +2990,14 @@ inline void RecImageFConfig::set_allocated_instances(::dg::InstanceConfig* insta
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecImageFConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecImageFConfig.Instances)
 }
 
 // -------------------------------------------------------------------
 
 // RecVideoVConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RecVideoVConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -3005,25 +3005,25 @@ inline void RecVideoVConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RecVideoVConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoVConfig.Instances)
+inline const ::dg::model::InstanceConfig& RecVideoVConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoVConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RecVideoVConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RecVideoVConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecVideoVConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVideoVConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RecVideoVConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RecVideoVConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RecVideoVConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RecVideoVConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -3031,7 +3031,7 @@ inline void RecVideoVConfig::set_allocated_instances(::dg::InstanceConfig* insta
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecVideoVConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecVideoVConfig.Instances)
 }
 
 // optional int32 BufferSize = 2;
@@ -3039,13 +3039,13 @@ inline void RecVideoVConfig::clear_buffersize() {
   buffersize_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoVConfig::buffersize() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoVConfig.BufferSize)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoVConfig.BufferSize)
   return buffersize_;
 }
 inline void RecVideoVConfig::set_buffersize(::google::protobuf::int32 value) {
   
   buffersize_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoVConfig.BufferSize)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoVConfig.BufferSize)
 }
 
 // optional int32 DetectInterval = 3;
@@ -3053,13 +3053,13 @@ inline void RecVideoVConfig::clear_detectinterval() {
   detectinterval_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoVConfig::detectinterval() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoVConfig.DetectInterval)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoVConfig.DetectInterval)
   return detectinterval_;
 }
 inline void RecVideoVConfig::set_detectinterval(::google::protobuf::int32 value) {
   
   detectinterval_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoVConfig.DetectInterval)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoVConfig.DetectInterval)
 }
 
 // optional int32 ClassifyInterval = 4;
@@ -3067,13 +3067,13 @@ inline void RecVideoVConfig::clear_classifyinterval() {
   classifyinterval_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoVConfig::classifyinterval() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoVConfig.ClassifyInterval)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoVConfig.ClassifyInterval)
   return classifyinterval_;
 }
 inline void RecVideoVConfig::set_classifyinterval(::google::protobuf::int32 value) {
   
   classifyinterval_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoVConfig.ClassifyInterval)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoVConfig.ClassifyInterval)
 }
 
 // optional int32 ClassifyBufferSize = 5;
@@ -3081,20 +3081,20 @@ inline void RecVideoVConfig::clear_classifybuffersize() {
   classifybuffersize_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoVConfig::classifybuffersize() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoVConfig.ClassifyBufferSize)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoVConfig.ClassifyBufferSize)
   return classifybuffersize_;
 }
 inline void RecVideoVConfig::set_classifybuffersize(::google::protobuf::int32 value) {
   
   classifybuffersize_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoVConfig.ClassifyBufferSize)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoVConfig.ClassifyBufferSize)
 }
 
 // -------------------------------------------------------------------
 
 // RecVideoFConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RecVideoFConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -3102,25 +3102,25 @@ inline void RecVideoFConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RecVideoFConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoFConfig.Instances)
+inline const ::dg::model::InstanceConfig& RecVideoFConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoFConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RecVideoFConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RecVideoFConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RecVideoFConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVideoFConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RecVideoFConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RecVideoFConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RecVideoFConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RecVideoFConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -3128,7 +3128,7 @@ inline void RecVideoFConfig::set_allocated_instances(::dg::InstanceConfig* insta
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RecVideoFConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecVideoFConfig.Instances)
 }
 
 // optional int32 BufferSize = 2;
@@ -3136,13 +3136,13 @@ inline void RecVideoFConfig::clear_buffersize() {
   buffersize_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoFConfig::buffersize() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoFConfig.BufferSize)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoFConfig.BufferSize)
   return buffersize_;
 }
 inline void RecVideoFConfig::set_buffersize(::google::protobuf::int32 value) {
   
   buffersize_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoFConfig.BufferSize)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoFConfig.BufferSize)
 }
 
 // optional float DetectThreshold = 3;
@@ -3150,13 +3150,13 @@ inline void RecVideoFConfig::clear_detectthreshold() {
   detectthreshold_ = 0;
 }
 inline float RecVideoFConfig::detectthreshold() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoFConfig.DetectThreshold)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoFConfig.DetectThreshold)
   return detectthreshold_;
 }
 inline void RecVideoFConfig::set_detectthreshold(float value) {
   
   detectthreshold_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoFConfig.DetectThreshold)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoFConfig.DetectThreshold)
 }
 
 // optional int32 DetectWidth = 4;
@@ -3164,13 +3164,13 @@ inline void RecVideoFConfig::clear_detectwidth() {
   detectwidth_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoFConfig::detectwidth() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoFConfig.DetectWidth)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoFConfig.DetectWidth)
   return detectwidth_;
 }
 inline void RecVideoFConfig::set_detectwidth(::google::protobuf::int32 value) {
   
   detectwidth_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoFConfig.DetectWidth)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoFConfig.DetectWidth)
 }
 
 // optional int32 DetectHeight = 5;
@@ -3178,20 +3178,20 @@ inline void RecVideoFConfig::clear_detectheight() {
   detectheight_ = 0;
 }
 inline ::google::protobuf::int32 RecVideoFConfig::detectheight() const {
-  // @@protoc_insertion_point(field_get:dg.RecVideoFConfig.DetectHeight)
+  // @@protoc_insertion_point(field_get:dg.model.RecVideoFConfig.DetectHeight)
   return detectheight_;
 }
 inline void RecVideoFConfig::set_detectheight(::google::protobuf::int32 value) {
   
   detectheight_ = value;
-  // @@protoc_insertion_point(field_set:dg.RecVideoFConfig.DetectHeight)
+  // @@protoc_insertion_point(field_set:dg.model.RecVideoFConfig.DetectHeight)
 }
 
 // -------------------------------------------------------------------
 
 // RankVConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RankVConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -3199,25 +3199,25 @@ inline void RankVConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RankVConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RankVConfig.Instances)
+inline const ::dg::model::InstanceConfig& RankVConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankVConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RankVConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RankVConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RankVConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RankVConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RankVConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RankVConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RankVConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RankVConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -3225,14 +3225,14 @@ inline void RankVConfig::set_allocated_instances(::dg::InstanceConfig* instances
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RankVConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankVConfig.Instances)
 }
 
 // -------------------------------------------------------------------
 
 // RankFConfig
 
-// optional .dg.InstanceConfig Instances = 1;
+// optional .dg.model.InstanceConfig Instances = 1;
 inline bool RankFConfig::has_instances() const {
   return !_is_default_instance_ && instances_ != NULL;
 }
@@ -3240,25 +3240,25 @@ inline void RankFConfig::clear_instances() {
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
-inline const ::dg::InstanceConfig& RankFConfig::instances() const {
-  // @@protoc_insertion_point(field_get:dg.RankFConfig.Instances)
+inline const ::dg::model::InstanceConfig& RankFConfig::instances() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFConfig.Instances)
   return instances_ != NULL ? *instances_ : *default_instance_->instances_;
 }
-inline ::dg::InstanceConfig* RankFConfig::mutable_instances() {
+inline ::dg::model::InstanceConfig* RankFConfig::mutable_instances() {
   
   if (instances_ == NULL) {
-    instances_ = new ::dg::InstanceConfig;
+    instances_ = new ::dg::model::InstanceConfig;
   }
-  // @@protoc_insertion_point(field_mutable:dg.RankFConfig.Instances)
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFConfig.Instances)
   return instances_;
 }
-inline ::dg::InstanceConfig* RankFConfig::release_instances() {
+inline ::dg::model::InstanceConfig* RankFConfig::release_instances() {
   
-  ::dg::InstanceConfig* temp = instances_;
+  ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
   return temp;
 }
-inline void RankFConfig::set_allocated_instances(::dg::InstanceConfig* instances) {
+inline void RankFConfig::set_allocated_instances(::dg::model::InstanceConfig* instances) {
   delete instances_;
   instances_ = instances;
   if (instances) {
@@ -3266,7 +3266,7 @@ inline void RankFConfig::set_allocated_instances(::dg::InstanceConfig* instances
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.RankFConfig.Instances)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFConfig.Instances)
 }
 
 // -------------------------------------------------------------------
@@ -3278,13 +3278,13 @@ inline void EngineStatus::clear_instances() {
   instances_ = 0;
 }
 inline ::google::protobuf::int32 EngineStatus::instances() const {
-  // @@protoc_insertion_point(field_get:dg.EngineStatus.Instances)
+  // @@protoc_insertion_point(field_get:dg.model.EngineStatus.Instances)
   return instances_;
 }
 inline void EngineStatus::set_instances(::google::protobuf::int32 value) {
   
   instances_ = value;
-  // @@protoc_insertion_point(field_set:dg.EngineStatus.Instances)
+  // @@protoc_insertion_point(field_set:dg.model.EngineStatus.Instances)
 }
 
 // repeated int32 RpcPorts = 2;
@@ -3295,25 +3295,25 @@ inline void EngineStatus::clear_rpcports() {
   rpcports_.Clear();
 }
 inline ::google::protobuf::int32 EngineStatus::rpcports(int index) const {
-  // @@protoc_insertion_point(field_get:dg.EngineStatus.RpcPorts)
+  // @@protoc_insertion_point(field_get:dg.model.EngineStatus.RpcPorts)
   return rpcports_.Get(index);
 }
 inline void EngineStatus::set_rpcports(int index, ::google::protobuf::int32 value) {
   rpcports_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dg.EngineStatus.RpcPorts)
+  // @@protoc_insertion_point(field_set:dg.model.EngineStatus.RpcPorts)
 }
 inline void EngineStatus::add_rpcports(::google::protobuf::int32 value) {
   rpcports_.Add(value);
-  // @@protoc_insertion_point(field_add:dg.EngineStatus.RpcPorts)
+  // @@protoc_insertion_point(field_add:dg.model.EngineStatus.RpcPorts)
 }
 inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 EngineStatus::rpcports() const {
-  // @@protoc_insertion_point(field_list:dg.EngineStatus.RpcPorts)
+  // @@protoc_insertion_point(field_list:dg.model.EngineStatus.RpcPorts)
   return rpcports_;
 }
 inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 EngineStatus::mutable_rpcports() {
-  // @@protoc_insertion_point(field_mutable_list:dg.EngineStatus.RpcPorts)
+  // @@protoc_insertion_point(field_mutable_list:dg.model.EngineStatus.RpcPorts)
   return &rpcports_;
 }
 
@@ -3351,16 +3351,17 @@ EngineStatus::mutable_rpcports() {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace model
 }  // namespace dg
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::dg::InstanceType> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::dg::model::InstanceType> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::InstanceType>() {
-  return ::dg::InstanceType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::InstanceType>() {
+  return ::dg::model::InstanceType_descriptor();
 }
 
 }  // namespace protobuf
