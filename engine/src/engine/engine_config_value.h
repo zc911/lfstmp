@@ -39,11 +39,15 @@ static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
 static const string DEBUG_ENABLE = "Debug/Enable";
 
+
 static const string ADVANCED_DETECTION_RESCALE = "Advanced/Detection/Rescale";
 static const string ADVANCED_DETECTION_BATCH_SIZE =
         "Advanced/Detection/BatchSize";
+
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/Color/BatchSize";
+
 static const string ADVANCED_STYLE_BATCH_SIZE = "Advanced/Style/BatchSize";
+
 static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 
 static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
@@ -55,12 +59,19 @@ static const string ADVANCED_MARKER_OTHERS_CONFIDENCE = "Advanced/Marker/OthersC
 static const string ADVANCED_MARKER_TISSUEBOX_CONFIDENCE = "Advanced/Marker/TissueBoxConfidence";
 static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE = "Advanced/Marker/SunVisorConfidence";
 
+static const string ADVANCED_FACE_DETECT_BATCH_SIZE = "Advanced/FaceDetect/BatchSize";
+static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
+static const string ADVANCED_FACE_DETECT_CONFIDENCE = "Advanced/FaceDetect/Confidence";
+
+static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE = "Advanced/FaceExtract/BatchSize";
 
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
         "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
 static const string ADVANCED_PLATE_LOCATE = "Advanced/Plate/Locate";
 static const string ADVANCED_PLATE_ENBALE_SHARPEN = "Advanced/Plate/EnableSharp";
+
+static const string DATAPATH = "DataPath";
 
 static const string FILE_COLOR_MODEL_PATH = "File/Color/ModelPath";
 static const string FILE_COLOR_TRAINED_MODEL = "File/Color/TrainedModel";
@@ -82,6 +93,15 @@ static const string FILE_WINDOW_MODEL_PATH = "File/Window/ModelPath";
 static const string FILE_WINDOW_TRAINED_MODEL = "File/Window/TrainedModel";
 static const string FILE_WINDOW_DEPLOY_MODEL = "File/Window/DeployModel";
 
+static const string FILE_FACE_DETECT_MODEL_PATH = "File/FaceDetect/ModelPath";
+static const string FILE_FACE_DETECT_TRAINED_MODEL = "File/FaceDetect/TrainedModel";
+static const string FILE_FACE_DETECT_DEPLOY_MODEL = "File/FaceDetect/DeployModel";
+
+static const string FILE_FACE_EXTRACT_MODEL_PATH = "File/FaceExtract/ModelPath";
+static const string FILE_FACE_EXTRACT_TRAINED_MODEL = "File/FaceExtract/TrainedModel";
+static const string FILE_FACE_EXTRACT_DEPLOY_MODEL = "File/FaceExtract/DeployModel";
+static const string FILE_FACE_EXTRACT_ALIGN_MODEL = "File/FaceExtract/AlignModel";
+static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
 }
 
 #endif /* ENGINE_CONFIG_VALUE_H_ */

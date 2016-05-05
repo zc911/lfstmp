@@ -11,29 +11,29 @@
 namespace dg
 {
 
-FaceFeatureExtractor::FaceFeatureExtractor(const string& model_file,
-		const string& trained_file, const bool use_gpu, const int batch_size,
-		const string &align_model, const string &avg_face) :
-		batch_size_(batch_size), detector_(dlib::get_frontal_face_detector())
+FaceFeatureExtractor::FaceFeatureExtractor(const FaceFeatureExtractorConfig& config) :
+        device_setted_(false),batch_size_(config.batch_size), detector_(dlib::get_frontal_face_detector())
 {
-	if (use_gpu)
+    use_gpu_=config.use_gpu;
+    gpu_id_=config.gpu_id;
+	if (use_gpu_)
 	{
 		Caffe::set_mode(Caffe::GPU);
-		Caffe::SetDevice(0);
-		useGPU_ = true;
+		Caffe::SetDevice(config.gpu_id);
+		use_gpu_ = true;
 	}
 	else
 	{
 		Caffe::set_mode(Caffe::CPU);
-		useGPU_ = false;
+		use_gpu_ = false;
 	}
 
 	layer_name_ = "eltwise6";
 
-	LOG(INFO)<< "loading model file: " << model_file;
-	net_.reset(new Net<float>(model_file, TEST));
-	LOG(INFO)<< "loading trained file : " << trained_file;
-	net_->CopyTrainedLayersFrom(trained_file);
+	LOG(INFO)<< "loading model file: " << config.model_file;
+	net_.reset(new Net<float>(config.model_file, TEST));
+	LOG(INFO)<< "loading trained file : " << config.deploy_file;
+	net_->CopyTrainedLayersFrom(config.deploy_file);
 
 	Blob<float>* input_layer = net_->input_blobs()[0];
 	do
@@ -47,8 +47,8 @@ FaceFeatureExtractor::FaceFeatureExtractor(const string& model_file,
 	CHECK(num_channels_ == 1) << "Input layer should be gray scale.";
 	input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
-	dlib::deserialize(align_model) >> sp_;
-	cv::Mat avg_face_img = cv::imread(avg_face);
+	dlib::deserialize(config.align_model) >> sp_;
+	cv::Mat avg_face_img = cv::imread(config.align_deploy);
 	dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
 
 	std::vector<dlib::rectangle> avg_face_bbox = detector_(avg_face_image);
@@ -103,6 +103,10 @@ std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs)
 std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
 		const std::vector<Mat> &imgs)
 {
+    if (!device_setted_) {
+        Caffe::SetDevice(gpu_id_);
+        device_setted_ = true;
+    }
 	std::vector<Mat> align_imgs = Align(imgs);
 	std::vector<FaceRankFeature> features;
 	Blob<float>* input_blob = net_->input_blobs()[0];
@@ -137,7 +141,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
 	}
 
 	net_->ForwardPrefilled();
-	if (useGPU_)
+	if (use_gpu_)
 	{
 		cudaDeviceSynchronize();
 	}
