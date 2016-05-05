@@ -13,7 +13,6 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
           marker_config_(markerconfig),
           means_( { 128, 128, 128 }),
           rescale_(1) {
-    device_setted_ = false;
 
     if (marker_config_.use_gpu) {
         Caffe::SetDevice(marker_config_.gpu_id);

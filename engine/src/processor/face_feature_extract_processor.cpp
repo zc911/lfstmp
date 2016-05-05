@@ -10,12 +10,8 @@
 
 namespace dg {
 
-FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-        const string& model_file, const string& trained_file,
-        const bool use_gpu, const int batch_size, const string &align_model,
-        const string &avg_face) {
-    extractor_ = new FaceFeatureExtractor(model_file, trained_file, use_gpu,
-                                          batch_size, align_model, avg_face);
+FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
+    extractor_ = new FaceFeatureExtractor(config);
 }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
