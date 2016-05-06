@@ -21,7 +21,7 @@
 #include "processor/car_feature_extract_processor.h"
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
-
+#include "config_filter.h"
 namespace dg {
 
 class WitnessEngine : public SimpleEngine {
@@ -34,31 +34,31 @@ class WitnessEngine : public SimpleEngine {
  private:
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
-    int initDataConfig(const Config &config, Config &data_config);
-    void createVehicleConfig(
-            const Config &cconfig, const Config &data_config,
-            vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs);
-
-    void createVehicleColorConfig(
-            const Config &config, const Config &dataconfig,
-            vector<VehicleCaffeClassifier::VehicleCaffeConfig> &);
-    void createMarkersConfig(const Config &config, const Config &data_config,
-                             MarkerCaffeClassifier::MarkerConfig &);
-    void createVehicleMutiTypeDetectorConfig(
-            const Config &cconfig, const Config &data_config,
-            VehicleMultiTypeDetector::VehicleMultiTypeConfig & config);
-    void createWindowConfig(const Config &config, const Config &data_config,
-                            WindowCaffeDetector::WindowCaffeConfig &);
-
-    void createVehiclePlateConfig(const Config &config,
-                                  const Config &data_config,
-                                  PlateRecognizer::PlateConfig &);
-    void createFaceDetectorConfig(const Config &cconfig,
-                                  const Config &data_config,
-                                  FaceDetector::FaceDetectorConfig & config);
-    void createFaceExtractorConfig(const Config &cconfig,
-                                  const Config &data_config,
-                                  FaceFeatureExtractor::FaceFeatureExtractorConfig & config);
+   // int initDataConfig(const Config &config, Config &data_config);
+//    void createVehicleConfig(
+//            const Config &cconfig, const Config &data_config,
+//            vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs);
+//
+//    void createVehicleColorConfig(
+//            const Config &config, const Config &dataconfig,
+//            vector<VehicleCaffeClassifier::VehicleCaffeConfig> &);
+//    void createMarkersConfig(const Config &config, const Config &data_config,
+//                             MarkerCaffeClassifier::MarkerConfig &);
+//    void createVehicleMutiTypeDetectorConfig(
+//            const Config &cconfig, const Config &data_config,
+//            VehicleMultiTypeDetector::VehicleMultiTypeConfig & config);
+//    void createWindowConfig(const Config &config, const Config &data_config,
+//                            WindowCaffeDetector::WindowCaffeConfig &);
+//
+//    void createVehiclePlateConfig(const Config &config,
+//                                  const Config &data_config,
+//                                  PlateRecognizer::PlateConfig &);
+//    void createFaceDetectorConfig(const Config &cconfig,
+//                                  const Config &data_config,
+//                                  FaceDetector::FaceDetectorConfig & config);
+//    void createFaceExtractorConfig(const Config &cconfig,
+//                                  const Config &data_config,
+//                                  FaceFeatureExtractor::FaceFeatureExtractorConfig & config);
     Processor *vehicle_processor_;
     Processor *face_processor_;
 
