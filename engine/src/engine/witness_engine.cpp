@@ -69,8 +69,9 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 }
 
 void WitnessEngine::init(const Config &config) {
-    Config data_config;
-    if (!initDataConfig(config, data_config)) {
+
+    ConfigFilter *configFilter = ConfigFilter::GetInstance();
+    if (!configFilter->initDataConfig(config)) {
         LOG(ERROR)<<"can not init data config"<<endl;
         DLOG(ERROR)<<"can not init data config"<<endl;
         return;
@@ -79,7 +80,7 @@ void WitnessEngine::init(const Config &config) {
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
         VehicleMultiTypeDetector::VehicleMultiTypeConfig dConfig;
-        createVehicleMutiTypeDetectorConfig(config,data_config,dConfig);
+        configFilter->createVehicleMutiTypeDetectorConfig(config, dConfig);
         vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);
         Processor *last = vehicle_processor_;
 
@@ -87,7 +88,7 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
             DLOG(INFO)<<"begin  "<<endl;
             vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-            createVehicleConfig(config,data_config,configs);
+            configFilter->createVehicleConfig(config, configs);
             cout<<configs[0].deploy_file<<endl;
 
             Processor *p = new VehicleClassifierProcessor(configs);
@@ -98,7 +99,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_color_) {
             LOG(INFO)<< "Enable vehicle color classification processor." << endl;
             vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-            createVehicleColorConfig(config,data_config,configs);
+            configFilter->createVehicleColorConfig(config, configs);
 
             Processor *p = new VehicleColorProcessor(configs);
             last->SetNextProcessor(p);
@@ -108,7 +109,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_plate_) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
             PlateRecognizer::PlateConfig pConfig;
-            createVehiclePlateConfig(config,data_config,pConfig);
+            configFilter->createVehiclePlateConfig(config, pConfig);
             Processor *p = new PlateRecognizerProcessor(pConfig);
             last->SetNextProcessor(p);
             last = p;
@@ -117,9 +118,9 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_marker_) {
             LOG(INFO)<< "Enable vehicle marker processor." << endl;
             MarkerCaffeClassifier::MarkerConfig mConfig;
-            createMarkersConfig(config,data_config,mConfig);
+            configFilter->createMarkersConfig(config, mConfig);
             WindowCaffeDetector::WindowCaffeConfig wConfig;
-            createWindowConfig(config,data_config,wConfig);
+            configFilter->createWindowConfig(config, wConfig);
 
             Processor *p = new VehicleMarkerClassifierProcessor(wConfig,mConfig);
             last->SetNextProcessor(p);
@@ -139,28 +140,19 @@ void WitnessEngine::init(const Config &config) {
     if (enable_face_) {
         LOG(INFO)<< "Init face processor pipeline. " << endl;
         FaceDetector::FaceDetectorConfig fdconfig;
-        createFaceDetectorConfig(config,data_config,fdconfig);
+        configFilter->createFaceDetectorConfig(config, fdconfig);
         face_processor_ = new FaceDetectProcessor(fdconfig);
 
         if(enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-            createFaceExtractorConfig(config,data_config,feconfig);
+            configFilter->createFaceExtractorConfig(config, feconfig);
             face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
         }
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
     is_init_ = true;
-}
-int WitnessEngine::initDataConfig(const Config &config, Config &data_config) {
-    string data_config_path = (string) config.Value(DATAPATH);
-    string json_data = ReadStringFromFile(data_config_path, "r");
-#ifndef DEBUG
-    //TODO: decrypted from file
-#endif
-    data_config.LoadString(json_data);
-    return 1;
 }
 
 
