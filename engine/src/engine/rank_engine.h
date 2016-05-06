@@ -21,6 +21,8 @@
 #include "processor/car_rank_processor.h"
 #include "processor/face_rank_processor.h"
 
+#include "config_filter.h"
+
 namespace dg {
 
 class RankEngine {
@@ -43,12 +45,13 @@ class CarRankEngine : public RankEngine {
 class FaceRankEngine : public RankEngine {
 
  public:
-    FaceRankEngine();
+    FaceRankEngine(const Config &config);
     virtual ~FaceRankEngine();
     vector<Score> Rank(const Mat& image, const Rect& hotspot,
                        const vector<FaceRankFeature>& candidates);
 
  private:
+    void init(const Config &config);
     Identification id_;
     Processor *detector_;
     Processor *extractor_;
