@@ -20,13 +20,10 @@ const string INI_FILE_POSTFIX = ".txt";
 class Config {
 
  public:
-    static Config* GetInstance() {
-        if (!instance_)
-            instance_ = new Config;
-        return instance_;
-    }
+    Config();
 
     bool Load(string const& configFile);
+    bool LoadString(string const& data);
     AnyConversion const& Value(string const& key) const;
     AnyConversion const& Value(const char *keyFormat, int index) const;
     void AddEntry(string key, AnyConversion value);
@@ -34,10 +31,9 @@ class Config {
     void DumpValues();
 
  private:
-    Config();
+    bool loadJson(string const& configFile);
 
     bool loadText(string const& configFile);
-    bool loadJson(string const& configFile);
     string convertTextToJson(string const& configFile);
     bool isControlFlag(string const& str);
     string trim(string const& source, char const* delims = " \t\r\n");
