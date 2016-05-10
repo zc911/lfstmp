@@ -1,5 +1,11 @@
 #include "rank_engine.h"
 
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
+#include "processor/car_rank_processor.h"
+#include "processor/face_rank_processor.h"
+#include "processor/config_filter.h"
+
 namespace dg {
 
 CarRankEngine::CarRankEngine()
