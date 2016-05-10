@@ -13,8 +13,7 @@
 #include <grpc++/grpc++.h>
 #include "services/matrix_service.h"
 
-namespace dg 
-{
+namespace dg {
 
 class GrpcMatrixServiceImpl final : public MatrixService::Service
 {
@@ -68,4 +67,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_GRPC_MATRIX_H_
+#endif //MATRIX_APPS_GRPC_MATRIX_H_
