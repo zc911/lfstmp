@@ -13,15 +13,14 @@
 #include "restful.h"
 #include "services/witness_service.h"
 
-namespace dg
-{
+namespace dg {
 
 class RestWitnessServiceImpl final : public RestfulService
 {
 public:
     RestWitnessServiceImpl(const Config *config)
-               : RestfulService()
-               , service_(config) 
+    : RestfulService()
+    , service_(config)
     {
     }
     virtual ~RestWitnessServiceImpl() {}
