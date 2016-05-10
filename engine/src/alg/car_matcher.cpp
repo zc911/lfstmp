@@ -75,7 +75,6 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
     return score;
 }
 
-
 void CarMatcher::calcNewBox(const CarRankFeature &des1,
                             const CarRankFeature &des2, const Rect &box,
                             Rect &box1, Rect &box2) {

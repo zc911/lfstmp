@@ -2,7 +2,8 @@
 
 namespace dg {
 
-VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(const VehicleMultiTypeDetector::VehicleMultiTypeConfig &config)
+VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
+        const VehicleMultiTypeDetector::VehicleMultiTypeConfig &config)
         : Processor() {
 
     detector_ = new VehicleMultiTypeDetector(config);
