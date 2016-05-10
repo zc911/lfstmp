@@ -8,7 +8,4 @@
 #ifndef SECURITY_H_
 #define SECURITY_H_
 
-
-
-
 #endif /* SECURITY_H_ */

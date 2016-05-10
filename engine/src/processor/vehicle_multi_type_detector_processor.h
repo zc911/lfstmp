@@ -15,18 +15,11 @@
 
 namespace dg {
 
-const static string MODEL_FILE =
-        "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-const static string DEPLOY_FILE = "models/detector/test.prototxt";
-const static string MODEL_FILE_EN =
-        "models/detector/googlenet_faster_rcnn_iter_350000.caffemodel";
-const static string DEPLOY_FILE_EN = "models/detector/test.prototxt";
-
 class VehicleMultiTypeDetectorProcessor : public Processor {
  public:
 
-    VehicleMultiTypeDetectorProcessor(int batch_size, int gpu_id, int rescale,
-                                      bool is_model_encrypt);
+    VehicleMultiTypeDetectorProcessor(
+            const VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
 
     ~VehicleMultiTypeDetectorProcessor();
 

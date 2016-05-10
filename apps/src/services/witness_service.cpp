@@ -43,73 +43,76 @@ WitnessAppsService::~WitnessAppsService() {
 }
 
 void WitnessAppsService::init(void) {
-    string vModelFile  = (string) config_->Value(ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
-    string vColorFile  = (string) config_->Value(ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
-    string vSymbolFile = (string) config_->Value(ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
-    string pColorFile  = (string) config_->Value(ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
-    string pTypeFile   = (string) config_->Value(ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
- 
+    string vModelFile = (string) config_->Value(
+            ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
+    string vColorFile = (string) config_->Value(
+            ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
+    string vSymbolFile = (string) config_->Value(
+            ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
+    string pColorFile = (string) config_->Value(
+            ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
+    string pTypeFile = (string) config_->Value(
+            ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
+
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
-    init_string_map(vSymbolFile, "=", symbol_repo_); 
+    init_string_map(vSymbolFile, "=", symbol_repo_);
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
 }
 
-int WitnessAppsService::parseInt(string str)
-{
+int WitnessAppsService::parseInt(string str) {
     return std::stoi(trimString(str), nullptr, 10);
 }
 
-string WitnessAppsService::trimString(string str)
-{
-    str.erase(0, str.find_first_not_of(" \n\r\t")); //prefixing spaces
-    str.erase(str.find_last_not_of(" \n\r\t")+1);   //surfixing spaces
+string WitnessAppsService::trimString(string str) {
+    str.erase(0, str.find_first_not_of(" \n\r\t"));  //prefixing spaces
+    str.erase(str.find_last_not_of(" \n\r\t") + 1);   //surfixing spaces
     return str;
 }
 
-void WitnessAppsService::init_string_map(string filename, string sep, vector<string>& array) {
+void WitnessAppsService::init_string_map(string filename, string sep,
+                                         vector<string>& array) {
     ifstream input(filename);
 
     int max = 0;
     vector<std::pair<int, string>> pairs;
-    for(string line; std::getline(input, line); )
-    {
+    for (string line; std::getline(input, line);) {
         vector<string> tokens;
         boost::iter_split(tokens, line, boost::first_finder(sep));
         assert(tokens.size() == 2);
 
         int index = parseInt(tokens[0]);
-        if (index > max) max = index;
+        if (index > max)
+            max = index;
 
         pairs.push_back(std::pair<int, string>(index, trimString(tokens[1])));
     }
 
     array.resize(max + 1);
-    for(int i = 0; i <= max; i ++)
-    {
+    for (int i = 0; i <= max; i++) {
         array[i] = unknown_string_;
     }
 
-    for(const std::pair<int, string>& p : pairs)
-    {
+    for (const std::pair<int, string>& p : pairs) {
         array[p.first] = p.second;
     }
 }
 
-void WitnessAppsService::init_vehicle_map(string filename, string sep, vector<VehicleModel>& array) {
+void WitnessAppsService::init_vehicle_map(string filename, string sep,
+                                          vector<VehicleModel>& array) {
     ifstream input(filename);
 
     int max = 0;
     vector<std::pair<int, VehicleModel>> pairs;
-    for(string line; std::getline(input, line); )
-    {
+    for (string line; std::getline(input, line);) {
         vector<string> tokens;
         boost::iter_split(tokens, line, boost::first_finder(sep));
         assert(tokens.size() == 10);
 
         int index = parseInt(tokens[0]);
-        if (index > max) max = index;
+        if (index > max)
+            max = index;
 
         VehicleModel m;
         m.set_typeid_(parseInt(tokens[1]));
@@ -127,31 +130,27 @@ void WitnessAppsService::init_vehicle_map(string filename, string sep, vector<Ve
     }
 
     array.resize(max + 1);
-    for(int i = 0; i <= max; i ++)
-    {
+    for (int i = 0; i <= max; i++) {
         array[i].CopyFrom(unknown_vehicle_);
     }
 
-    for(const std::pair<int, VehicleModel>& p : pairs)
-    {
+    for (const std::pair<int, VehicleModel>& p : pairs) {
         array[p.first].CopyFrom(p.second);
     }
 }
 
-const string& WitnessAppsService::lookup_string(const vector<string>& array, int index)
-{
-    if (index < 0 || index > array.size())
-    {
+const string& WitnessAppsService::lookup_string(const vector<string>& array,
+                                                int index) {
+    if (index < 0 || index > array.size()) {
         return unknown_string_;
     }
 
     return array[index];
 }
 
-const VehicleModel& WitnessAppsService::lookup_vehicle(const vector<VehicleModel>& array, int index)
-{
-    if (index < 0 || index > array.size())
-    {
+const VehicleModel& WitnessAppsService::lookup_vehicle(
+        const vector<VehicleModel>& array, int index) {
+    if (index < 0 || index > array.size()) {
         return unknown_vehicle_;
     }
 
@@ -252,7 +251,8 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects,
 
     int isize = symbol_repo_.size();
     int* indexes = new int[isize];
-    for (int i = 0; i < isize; i++) indexes[i] = -1;
+    for (int i = 0; i < isize; i++)
+        indexes[i] = -1;
     for (const Object *object : objects) {
         LOG(INFO)<< "recognized marker: " << object->id() << ", type: " << object->type();
         if (object->type() != OBJECT_MARKER)
@@ -288,13 +288,13 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects,
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj, RecognizedVehicle *vrec)
-{
+MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
+                                                     RecognizedVehicle *vrec) {
     MatrixError err;
     vrec->set_features(vobj->feature().Serialize());
 
     const Detection &d = vobj->detection();
-    LOG(INFO) << "detected object: " << vobj->class_id();
+    LOG(INFO)<< "detected object: " << vobj->class_id();
     copyCutboard(d.box, vrec->mutable_cutboard());
 
     err = fillModel(vobj->class_id(), vrec->mutable_model());
@@ -317,8 +317,8 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj, Recogn
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj, RecognizedFace *frec)
-{
+MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
+                                                  RecognizedFace *frec) {
     MatrixError err;
     frec->set_confidence((float) fobj->confidence());
     frec->set_features(fobj->feature().Serialize());
@@ -418,9 +418,9 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
-    LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
-    LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
-    LOG(INFO) << "=======" << endl;
+    LOG(INFO)<< "recognized objects: " << frame->objects().size() << endl;
+    LOG(INFO)<< "Finish processing: " << sessionid << "..." << endl;
+    LOG(INFO)<< "=======" << endl;
     return true;
 }
 

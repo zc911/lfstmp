@@ -8,19 +8,16 @@
 #include "marker_caffe_classifier.h"
 
 namespace dg {
-MarkerCaffeClassifier::MarkerCaffeClassifier(CaffeConfig &config,
-                                             MarkerConfig &markerconfig)
+MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
         : device_setted_(false),
-          caffe_config_(config),
           marker_config_(markerconfig),
           means_( { 128, 128, 128 }),
           rescale_(1) {
-    device_setted_ = false;
 
-    if (caffe_config_.use_gpu) {
-        Caffe::SetDevice(caffe_config_.gpu_id);
+    if (marker_config_.use_gpu) {
+        Caffe::SetDevice(marker_config_.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        LOG(INFO)<< "Use device " << caffe_config_.gpu_id << endl;
+        LOG(INFO)<< "Use device " << marker_config_.gpu_id << endl;
 
     } else {
         LOG(WARNING) << "Use CPU only" << endl;
@@ -29,15 +26,15 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(CaffeConfig &config,
 
     /* Load the network. */
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+            new Net<float>(markerconfig.deploy_file, TEST, markerconfig.is_model_encrypt));
+    net_->CopyTrainedLayersFrom(marker_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
-            << "Input layer should have 1 or 3 channels.";
+    << "Input layer should have 1 or 3 channels.";
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
     setupMarker();
@@ -149,10 +146,10 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
         Mat img = imgs[i];
         int max_size = max(img.rows, img.cols);
         int min_size = min(img.rows, img.cols);
-        float enlarge_ratio = caffe_config_.target_min_size / min_size;
+        float enlarge_ratio = marker_config_.target_min_size / min_size;
 
-        if (max_size * enlarge_ratio > caffe_config_.target_max_size) {
-            enlarge_ratio = caffe_config_.target_max_size / max_size;
+        if (max_size * enlarge_ratio > marker_config_.target_max_size) {
+            enlarge_ratio = marker_config_.target_max_size / max_size;
         }
         int target_row = img.rows * enlarge_ratio;
         int target_col = img.cols * enlarge_ratio;
@@ -187,13 +184,13 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyAutoBatch(
         vector<Mat> imgs) {
     vector<vector<Detection> > prediction;
     vector<Mat> images = imgs;
-    for (auto batch_images : PrepareBatch(images, caffe_config_.batch_size)) {
+    for (auto batch_images : PrepareBatch(images, marker_config_.batch_size)) {
         vector<vector<Detection> > pred = ClassifyBatch(batch_images);
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }
-    int padding_size = (caffe_config_.batch_size
-            - imgs.size() % caffe_config_.batch_size)
-            % caffe_config_.batch_size;
+    int padding_size = (marker_config_.batch_size
+            - imgs.size() % marker_config_.batch_size)
+            % marker_config_.batch_size;
     prediction.erase(prediction.end() - padding_size, prediction.end());
     return prediction;
 }
@@ -367,7 +364,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
     unsigned long long tt;
 
     if (!device_setted_) {
-        Caffe::SetDevice(caffe_config_.gpu_id);
+        Caffe::SetDevice(marker_config_.gpu_id);
         device_setted_ = true;
     }
 
@@ -385,7 +382,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
 
     }
 
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
+    input_layer->Reshape(marker_config_.batch_size, num_channels_,
                          input_geometry_.height, input_geometry_.width);
     /* Forward dimension change to all layers. */
     net_->Reshape();
@@ -424,7 +421,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
 
     net_->ForwardPrefilled();
 
-    if (caffe_config_.use_gpu) {
+    if (marker_config_.use_gpu) {
         cudaDeviceSynchronize();
     }
 
