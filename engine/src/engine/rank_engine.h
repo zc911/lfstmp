@@ -11,17 +11,10 @@
 #define MATRIX_ENGINE_RANK_ENGINE_H_
 
 #include <glog/logging.h>
-
+#include "processor/processor.h"
 #include "model/model.h"
 #include "model/rank_feature.h"
-#include "processor/processor.h"
-#include "processor/face_detect_processor.h"
-#include "processor/face_feature_extract_processor.h"
-
-#include "processor/car_rank_processor.h"
-#include "processor/face_rank_processor.h"
-
-#include "config_filter.h"
+#include "config.h"
 
 namespace dg {
 
