@@ -12,20 +12,18 @@
 
 #include "config.h"
 #include "model/skynet.grpc.pb.h"
-namespace dg
-{
+namespace dg {
 using namespace ::dg::model;
 
-class SkynetAppsService
-{
+class SkynetAppsService {
 
-public:
+ public:
     SkynetAppsService(const Config *config);
     virtual ~SkynetAppsService();
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
-    
-private:
+
+ private:
     const Config *config_;
 
 };

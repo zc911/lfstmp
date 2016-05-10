@@ -13,30 +13,32 @@
 #include "config.h"
 #include "model/system.grpc.pb.h"
 
-namespace dg
-{
+namespace dg {
 using namespace ::dg::model;
 
-class SystemAppsService
-{
+class SystemAppsService {
 
-public:
+ public:
     SystemAppsService(const Config *config);
     virtual ~SystemAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
 
-    bool SystemStatus(const SystemStatusRequest *request, SystemStatusResponse *response);
+    bool SystemStatus(const SystemStatusRequest *request,
+                      SystemStatusResponse *response);
 
-    bool GetInstances(const GetInstancesRequest *request, InstanceConfigureResponse *response);
+    bool GetInstances(const GetInstancesRequest *request,
+                      InstanceConfigureResponse *response);
 
-    bool ConfigEngine(const InstanceConfigureRequest *request, InstanceConfigureResponse *response);
-    
-private:
+    bool ConfigEngine(const InstanceConfigureRequest *request,
+                      InstanceConfigureResponse *response);
+
+ private:
     const Config *config_;
 
 };
-};
+}
+;
 
 }
 
