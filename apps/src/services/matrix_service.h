@@ -13,33 +13,36 @@
 #include "config.h"
 #include "model/matrix.grpc.pb.h"
 
-namespace dg
-{
+namespace dg {
 using namespace ::dg::model;
 
-class MatrixAppsService
-{
-public:
+class MatrixAppsService {
+ public:
     MatrixAppsService(const Config *config);
     virtual ~MatrixAppsService();
 
     bool Ping(const PingRequest *request, PingResponse *response);
 
-    bool SystemStatus(const SystemStatusRequest *request, SystemStatusResponse *response);
+    bool SystemStatus(const SystemStatusRequest *request,
+                      SystemStatusResponse *response);
 
-    bool GetInstances(const GetInstancesRequest *request, InstanceConfigureResponse *response);
+    bool GetInstances(const GetInstancesRequest *request,
+                      InstanceConfigureResponse *response);
 
-    bool ConfigEngine(const InstanceConfigureRequest *request, InstanceConfigureResponse *response);
+    bool ConfigEngine(const InstanceConfigureRequest *request,
+                      InstanceConfigureResponse *response);
 
     bool Recognize(const WitnessRequest *request, WitnessResponse *response);
 
-    bool BatchRecognize(const WitnessBatchRequest *request, WitnessBatchResponse *response);
+    bool BatchRecognize(const WitnessBatchRequest *request,
+                        WitnessBatchResponse *response);
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
 
-    bool GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
+    bool GetRankedVector(const FeatureRankingRequest* request,
+                         FeatureRankingResponse* response);
 
-private:
+ private:
     const Config *config_;
 
 };

@@ -26,8 +26,10 @@ class ConfigValue {
 const string ConfigValue::VEHICLE_MODEL_MAPPING_FILE = "Render/Vehicle/Model";
 const string ConfigValue::VEHICLE_COLOR_MAPPING_FILE = "Render/Vehicle/Color";
 const string ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE = "Render/Vehicle/Symbol";
-const string ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE = "Render/Vehicle/Plate/Color";
-const string ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE = "Render/Vehicle/Plate/Type";
+const string ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE =
+        "Render/Vehicle/Plate/Color";
+const string ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE =
+        "Render/Vehicle/Plate/Type";
 
 }
 
