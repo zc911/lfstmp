@@ -13,8 +13,7 @@
 #include <grpc++/grpc++.h>
 #include "services/skynet_service.h"
 
-namespace dg 
-{
+namespace dg {
 
 class GrpcSkynetServiceImpl final : public SkynetService::Service
 {
@@ -33,4 +32,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_GRPC_SKYNET_H_
+#endif //MATRIX_APPS_GRPC_SKYNET_H_
