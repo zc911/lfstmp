@@ -28,12 +28,12 @@ FIND_PACKAGE(CUDA REQUIRED)
 
 FIND_PACKAGE(Boost COMPONENTS regex system filesystem coroutine context REQUIRED)
 
-FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS /lib/caffe/${PLATFORM})
+FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS lib/caffe/${PLATFORM})
 FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS ${CUDA_LIB_PATH})
 FIND_LIBRARY(LIB_PBJSON NAMES pbjson PATHS lib/pbjson/${PLATFORM})
 FIND_LIBRARY(LIB_MATRIX_UTILS NAMES matrix_util PATHS ../utils/dist/${PLATFORM}/lib)
 find_library(LIB_MATRIX matrix PATHS lib/matrix_engine/${PLATFORM})
-find_library(LIB_MATRIX_CUDA matrix_cuda PATHS ../engine/bin/Debug/dist/lib)
+find_library(LIB_MATRIX_CUDA matrix_cuda PATHS lib/matrix_engine/${PLATFORM})
 
 #FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS ../engine/lib/thplateid/${PLATFORM})
 
