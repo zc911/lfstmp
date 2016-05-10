@@ -2,7 +2,6 @@
 
 namespace dg {
 
-
 VehicleClassifierProcessor::VehicleClassifierProcessor(
         const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 

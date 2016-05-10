@@ -18,7 +18,6 @@ using namespace std;
 using namespace cv;
 namespace dg {
 
-
 /**
  * The basic classifier interface which defines the functions
  * a real classifier must implement.
@@ -30,7 +29,8 @@ class Classifier {
     virtual ~Classifier() {
     }
     virtual int ClassifyBatch(
-            const vector<cv::Mat> &imgs,vector<vector<Prediction> > & predict_results) = 0;
+            const vector<cv::Mat> &imgs,
+            vector<vector<Prediction> > & predict_results) = 0;
 };
 }
 #endif /* CLASSIFIER_H_ */

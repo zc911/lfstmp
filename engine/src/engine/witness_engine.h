@@ -34,7 +34,7 @@ class WitnessEngine : public SimpleEngine {
  private:
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
-   // int initDataConfig(const Config &config, Config &data_config);
+    // int initDataConfig(const Config &config, Config &data_config);
 //    void createVehicleConfig(
 //            const Config &cconfig, const Config &data_config,
 //            vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs);

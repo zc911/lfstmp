@@ -15,12 +15,11 @@
 using namespace cv;
 using namespace dg;
 
-string CarRankFeature::Serialize() const
-{
+string CarRankFeature::Serialize() const {
     float version = 1.0;
     vector<uchar> data;
     ConvertToByte(version, data);
-    
+
     const Mat &des = descriptor_;
     const Mat &pos = position_;
     ConvertToByte((int) (des.dataend - des.datastart), data);
@@ -30,8 +29,7 @@ string CarRankFeature::Serialize() const
     return Base64::Encode(data);
 }
 
-bool CarRankFeature::Deserialize(string featureStr)
-{
+bool CarRankFeature::Deserialize(string featureStr) {
     float version;
     int des_size, pos_size;
 
@@ -39,7 +37,7 @@ bool CarRankFeature::Deserialize(string featureStr)
     data.clear();
     Base64::Decode(featureStr, data);
 
-    vector<uchar>::iterator it = data.begin();    
+    vector<uchar>::iterator it = data.begin();
     vector<uchar> version_v(it, it + sizeof(version));
 
     it += sizeof(version);
@@ -69,13 +67,11 @@ bool CarRankFeature::Deserialize(string featureStr)
     return true;
 }
 
-string FaceRankFeature::Serialize() const
-{
+string FaceRankFeature::Serialize() const {
     return Base64::Encode(descriptor_);
 }
 
-bool FaceRankFeature::Deserialize(string featureStr)
-{
+bool FaceRankFeature::Deserialize(string featureStr) {
     descriptor_.clear();
     Base64::Decode(featureStr, descriptor_);
     return true;

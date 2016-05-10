@@ -39,7 +39,6 @@ static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
 static const string DEBUG_ENABLE = "Debug/Enable";
 
-
 static const string ADVANCED_DETECTION_RESCALE = "Advanced/Detection/Rescale";
 static const string ADVANCED_DETECTION_BATCH_SIZE =
         "Advanced/Detection/BatchSize";
@@ -51,19 +50,29 @@ static const string ADVANCED_STYLE_BATCH_SIZE = "Advanced/Style/BatchSize";
 static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 
 static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
-static const string ADVANCED_MARKER_MOT_CONFIDENCE = "Advanced/Marker/MOTConfidence";
-static const string ADVANCED_MARKER_BETLT_CONFIDENCE = "Advanced/Marker/BeltConfidence";
-static const string ADVANCED_MARKER_GLOBAL_CONFIDENCE = "Advanced/Marker/GlobalConfidence";
-static const string ADVANCED_MARKER_ACCESSORIES_CONFIDENCE = "Advanced/Marker/AccessoriesConfidence";
-static const string ADVANCED_MARKER_OTHERS_CONFIDENCE = "Advanced/Marker/OthersConfidence";
-static const string ADVANCED_MARKER_TISSUEBOX_CONFIDENCE = "Advanced/Marker/TissueBoxConfidence";
-static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE = "Advanced/Marker/SunVisorConfidence";
+static const string ADVANCED_MARKER_MOT_CONFIDENCE =
+        "Advanced/Marker/MOTConfidence";
+static const string ADVANCED_MARKER_BETLT_CONFIDENCE =
+        "Advanced/Marker/BeltConfidence";
+static const string ADVANCED_MARKER_GLOBAL_CONFIDENCE =
+        "Advanced/Marker/GlobalConfidence";
+static const string ADVANCED_MARKER_ACCESSORIES_CONFIDENCE =
+        "Advanced/Marker/AccessoriesConfidence";
+static const string ADVANCED_MARKER_OTHERS_CONFIDENCE =
+        "Advanced/Marker/OthersConfidence";
+static const string ADVANCED_MARKER_TISSUEBOX_CONFIDENCE =
+        "Advanced/Marker/TissueBoxConfidence";
+static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
+        "Advanced/Marker/SunVisorConfidence";
 
-static const string ADVANCED_FACE_DETECT_BATCH_SIZE = "Advanced/FaceDetect/BatchSize";
+static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
+        "Advanced/FaceDetect/BatchSize";
 static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
-static const string ADVANCED_FACE_DETECT_CONFIDENCE = "Advanced/FaceDetect/Confidence";
+static const string ADVANCED_FACE_DETECT_CONFIDENCE =
+        "Advanced/FaceDetect/Confidence";
 
-static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE = "Advanced/FaceExtract/BatchSize";
+static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
+        "Advanced/FaceExtract/BatchSize";
 
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
         "Advanced/Plate/LocalProvince";
@@ -94,13 +103,18 @@ static const string FILE_WINDOW_TRAINED_MODEL = "File/Window/TrainedModel";
 static const string FILE_WINDOW_DEPLOY_MODEL = "File/Window/DeployModel";
 
 static const string FILE_FACE_DETECT_MODEL_PATH = "File/FaceDetect/ModelPath";
-static const string FILE_FACE_DETECT_TRAINED_MODEL = "File/FaceDetect/TrainedModel";
-static const string FILE_FACE_DETECT_DEPLOY_MODEL = "File/FaceDetect/DeployModel";
+static const string FILE_FACE_DETECT_TRAINED_MODEL =
+        "File/FaceDetect/TrainedModel";
+static const string FILE_FACE_DETECT_DEPLOY_MODEL =
+        "File/FaceDetect/DeployModel";
 
 static const string FILE_FACE_EXTRACT_MODEL_PATH = "File/FaceExtract/ModelPath";
-static const string FILE_FACE_EXTRACT_TRAINED_MODEL = "File/FaceExtract/TrainedModel";
-static const string FILE_FACE_EXTRACT_DEPLOY_MODEL = "File/FaceExtract/DeployModel";
-static const string FILE_FACE_EXTRACT_ALIGN_MODEL = "File/FaceExtract/AlignModel";
+static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
+        "File/FaceExtract/TrainedModel";
+static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
+        "File/FaceExtract/DeployModel";
+static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
+        "File/FaceExtract/AlignModel";
 static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
 }
 
