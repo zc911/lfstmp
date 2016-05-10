@@ -21,10 +21,10 @@ namespace dg {
 
 class Detector {
  public:
-     Detector() {
-     }
-     virtual ~Detector() {
-     }
+    Detector() {
+    }
+    virtual ~Detector() {
+    }
 };
 }
 #endif /* DETECTOR_H_ */

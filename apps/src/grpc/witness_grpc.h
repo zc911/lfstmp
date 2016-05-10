@@ -13,10 +13,9 @@
 #include <grpc++/grpc++.h>
 #include "services/witness_service.h"
 
-namespace dg 
-{
+namespace dg {
 
-class GrpcWitnessServiceImpl final : public WitnessService::Service 
+class GrpcWitnessServiceImpl final : public WitnessService::Service
 {
 public:
     GrpcWitnessServiceImpl(const Config *config) : service_(config) {}

@@ -9,7 +9,9 @@
 #define SRC_ALG_PLATE_RECOGNIZER_H_
 #include <thplateid/TH_PlateID.h>
 #include <glog/logging.h>
-
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "model/model.h"
 using namespace std;
 using namespace cv;
@@ -24,6 +26,7 @@ class PlateRecognizer {
         int MaxWidth = 400;
         int PlateLocate = 5;
         int OCR = 1;
+        bool isSharpen;
     } PlateConfig;
 
     PlateRecognizer(const PlateConfig &config);

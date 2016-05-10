@@ -16,7 +16,7 @@ namespace dg {
 class PlateRecognizerProcessor : public Processor {
  public:
 
-    PlateRecognizerProcessor();
+    PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig);
 
     ~PlateRecognizerProcessor();
     virtual void Update(Frame *frame) {
@@ -30,11 +30,11 @@ class PlateRecognizerProcessor : public Processor {
  protected:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
     vector<Mat> vehicles_mat(FrameBatch *frameBatch);
-
  private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
     vector<Mat> images_;
+    bool enable_sharpen_;
 
 };
 

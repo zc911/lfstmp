@@ -13,15 +13,14 @@
 #include "restful.h"
 #include "services/ranker_service.h"
 
-namespace dg
-{
+namespace dg {
 
 class RestRankerServiceImpl final : public RestfulService
 {
 public:
-    RestRankerServiceImpl(const Config *config) 
-              : RestfulService()
-              , service_(config) 
+    RestRankerServiceImpl(const Config *config)
+    : RestfulService()
+    , service_(config)
     {
     }
     virtual ~RestRankerServiceImpl() {}

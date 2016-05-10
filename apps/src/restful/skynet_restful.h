@@ -13,8 +13,7 @@
 #include "restful.h"
 #include "services/skynet_service.h"
 
-namespace dg
-{
+namespace dg {
 
 class RestSkynetServiceImpl final : public RestfulService
 {

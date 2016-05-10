@@ -14,19 +14,19 @@
 
 #include "model/common.pb.h"
 
-namespace dg 
-{
+namespace dg {
 
 using namespace ::dg::model;
 
-class ImageService
-{
-public:
+class ImageService {
+ public:
     static MatrixError ParseImage(const Image& image, ::cv::Mat& imgMat);
 
-private:
-    static MatrixError getImageFromUri(const std::string uri, ::cv::Mat& imgMat);
-    static MatrixError getImageFromData(const std::string img64, ::cv::Mat& imgMat);
+ private:
+    static MatrixError getImageFromUri(const std::string uri,
+                                       ::cv::Mat& imgMat);
+    static MatrixError getImageFromData(const std::string img64,
+                                        ::cv::Mat& imgMat);
 };
 
 }
