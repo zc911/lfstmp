@@ -10,22 +10,17 @@
 #include <vector>
 #include <glog/logging.h>
 #include <opencv2/highgui/highgui.hpp>
- 
+
 #include "image_service.h"
 #include "codec/base64.h"
 #include "io/uri_reader.h"
 
-namespace dg 
-{
+namespace dg {
 
-MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat)
-{
-    if (imgDes.uri().size() > 0)
-    {
+MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat) {
+    if (imgDes.uri().size() > 0) {
         return getImageFromUri(imgDes.uri(), imgMat);
-    }
-    else if(imgDes.bindata().size() > 0)
-    {
+    } else if (imgDes.bindata().size() > 0) {
         return getImageFromData(imgDes.bindata(), imgMat);
     }
 
@@ -35,13 +30,12 @@ MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat)
     return err;
 }
 
-MatrixError ImageService::getImageFromData(const string img64, ::cv::Mat& imgMat)
-{
+MatrixError ImageService::getImageFromData(const string img64,
+                                           ::cv::Mat& imgMat) {
     MatrixError err;
     vector<uchar> bin;
     Base64::Decode(img64, bin);
-    if (bin.size() >= 0)
-    {
+    if (bin.size() >= 0) {
         imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
         return err;
     }
@@ -51,13 +45,11 @@ MatrixError ImageService::getImageFromData(const string img64, ::cv::Mat& imgMat
     return err;
 }
 
-MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat)
-{
+MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat) {
     MatrixError err;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin);
-    if (ret == 0)
-    {
+    if (ret == 0) {
         imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
         return err;
     }

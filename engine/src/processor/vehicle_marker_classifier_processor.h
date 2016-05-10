@@ -16,7 +16,9 @@ namespace dg {
 
 class VehicleMarkerClassifierProcessor : public Processor {
  public:
-    VehicleMarkerClassifierProcessor();
+    VehicleMarkerClassifierProcessor(
+            WindowCaffeDetector::WindowCaffeConfig & wConfig,
+            MarkerCaffeClassifier::MarkerConfig &mConfig);
 
     ~VehicleMarkerClassifierProcessor();
 

@@ -6,7 +6,8 @@ static bool mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
-VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
+VehicleMultiTypeDetector::VehicleMultiTypeDetector(
+        const VehicleMultiTypeConfig &config)
         : config_(config) {
 
     if (config.use_gpu) {
@@ -17,7 +18,9 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const CaffeConfig &config)
     }
 
     batch_size_ = config.batch_size;
-    scale_ = config.rescale;
+    scale_ = config.target_min_size;
+    cout << "SELKJa" << config.deploy_file << " " << config.model_file << " "
+         << batch_size_ << endl;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -63,6 +66,7 @@ vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
     vector<Detection> result;
     images.push_back(img);
     forward(images, tmp_outputs);
+
     getDetection(tmp_outputs, tmp_result);
     for (int i = 0; i < tmp_result.size(); ++i) {
         Bbox bbox = tmp_result[i];
@@ -129,17 +133,6 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
         net_->Reshape();
 
         CheckChannel(img, num_channels_, sample);
-
-//        if (img.channels() == 3 && num_channels_ == 1)
-//            cvtColor(img, sample, CV_BGR2GRAY);
-//        else if (img.channels() == 4 && num_channels_ == 1)
-//            cvtColor(img, sample, CV_BGRA2GRAY);
-//        else if (img.channels() == 4 && num_channels_ == 3)
-//            cvtColor(img, sample, CV_RGBA2BGR);
-//        else if (img.channels() == 1 && num_channels_ == 3)
-//            cvtColor(img, sample, CV_GRAY2BGR);
-//        else
-//            sample = img;
 
         float* input_data = input_layer->mutable_cpu_data();
 

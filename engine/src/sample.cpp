@@ -75,12 +75,16 @@ static void* process(void* p) {
 
             char index[1];
             index[0] = '0' + i;
-            string file = "faces" + string(index) + ".jpg";
+            //   string file = "faces" + string(index) + ".jpg";
+            string file = "test.jpg";
+
             cv::Mat image = cv::imread(file.c_str());
+
             if (image.empty()) {
                 cout << "Read image file failed: " << file << endl;
                 return 0;
             }
+
             Frame *f = new Frame((i + 1) * 100, image);
             Operation op;
             op.Set(OPERATION_VEHICLE);
@@ -90,10 +94,11 @@ static void* process(void* p) {
                     | OPERATION_VEHICLE_PLATE);
             op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
                     | OPERATION_FACE_FEATURE_VECTOR);
+
             f->set_operation(op);
             fb->add_frame(f);
-        }
 
+        }
         engine->Process(fb);
         PrintFrame(*fb);
         delete fb;
@@ -102,9 +107,9 @@ static void* process(void* p) {
 }
 
 int main() {
-
-    config = Config::GetInstance();
+    config = new Config();
     config->Load("config.json");
+
     engine1 = new WitnessEngine(*config);
 //    engine2 = new WitnessEngine(*config);
 //    engine3 = new WitnessEngine(*config);
