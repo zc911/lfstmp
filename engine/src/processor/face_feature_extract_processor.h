@@ -18,7 +18,8 @@ namespace dg {
 
 class FaceFeatureExtractProcessor : public Processor {
  public:
-    FaceFeatureExtractProcessor(const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+    FaceFeatureExtractProcessor(
+            const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
     virtual ~FaceFeatureExtractProcessor();
 
     void Update(Frame *frame);

@@ -21,7 +21,7 @@ class FaceDetector {
         int batch_size = 1;
         int scale = 400;
         int gpu_id = 0;
-        float confidence=0.8;
+        float confidence = 0.8;
         bool use_gpu = true;
         string deploy_file;
         string model_file;
