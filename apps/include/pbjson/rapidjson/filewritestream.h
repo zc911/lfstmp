@@ -22,17 +22,21 @@ RAPIDJSON_NAMESPACE_BEGIN
 
 //! Wrapper of C file stream for input using fread().
 /*!
-    \note implements Stream concept
-*/
+ \note implements Stream concept
+ */
 class FileWriteStream {
-public:
+ public:
     typedef char Ch;    //!< Character type. Only support char.
 
-    FileWriteStream(std::FILE* fp, char* buffer, size_t bufferSize) : fp_(fp), buffer_(buffer), bufferEnd_(buffer + bufferSize), current_(buffer_) { 
+    FileWriteStream(std::FILE* fp, char* buffer, size_t bufferSize)
+            : fp_(fp),
+              buffer_(buffer),
+              bufferEnd_(buffer + bufferSize),
+              current_(buffer_) {
         RAPIDJSON_ASSERT(fp_ != 0);
     }
 
-    void Put(char c) { 
+    void Put(char c) {
         if (current_ >= bufferEnd_)
             Flush();
 
@@ -63,13 +67,28 @@ public:
     }
 
     // Not implemented
-    char Peek() const { RAPIDJSON_ASSERT(false); return 0; }
-    char Take() { RAPIDJSON_ASSERT(false); return 0; }
-    size_t Tell() const { RAPIDJSON_ASSERT(false); return 0; }
-    char* PutBegin() { RAPIDJSON_ASSERT(false); return 0; }
-    size_t PutEnd(char*) { RAPIDJSON_ASSERT(false); return 0; }
+    char Peek() const {
+        RAPIDJSON_ASSERT(false);
+        return 0;
+    }
+    char Take() {
+        RAPIDJSON_ASSERT(false);
+        return 0;
+    }
+    size_t Tell() const {
+        RAPIDJSON_ASSERT(false);
+        return 0;
+    }
+    char* PutBegin() {
+        RAPIDJSON_ASSERT(false);
+        return 0;
+    }
+    size_t PutEnd(char*) {
+        RAPIDJSON_ASSERT(false);
+        return 0;
+    }
 
-private:
+ private:
     // Prohibit copy constructor & assignment operator.
     FileWriteStream(const FileWriteStream&);
     FileWriteStream& operator=(const FileWriteStream&);

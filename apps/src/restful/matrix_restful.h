@@ -13,8 +13,7 @@
 #include "restful.h"
 #include "services/matrix_service.h"
 
-namespace dg
-{
+namespace dg {
 
 class RestMatrixServiceImpl final : public RestfulService
 {
@@ -49,4 +48,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_RESTFUL_MATRIX_H_
+#endif //MATRIX_APPS_RESTFUL_MATRIX_H_

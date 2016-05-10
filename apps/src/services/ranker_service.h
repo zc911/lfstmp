@@ -18,52 +18,52 @@
 using namespace cv;
 using namespace std;
 
-namespace dg 
-{
+namespace dg {
 using namespace ::dg::model;
 
-class RankerAppsService
-{
-public:
+class RankerAppsService {
+ public:
     RankerAppsService(const Config *config);
     virtual ~RankerAppsService();
 
-    bool GetRankedVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
+    bool GetRankedVector(const FeatureRankingRequest* request,
+                         FeatureRankingResponse* response);
 
-private:
+ private:
     const Config *config_;
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
 
-    bool getRankedCarVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
+    bool getRankedCarVector(const FeatureRankingRequest* request,
+                            FeatureRankingResponse* response);
 
+    bool getRankedFaceVector(const FeatureRankingRequest* request,
+                             FeatureRankingResponse* response);
 
-    bool getRankedFaceVector(const FeatureRankingRequest* request, FeatureRankingResponse* response);
-
-    static void sortAndFillResponse(const FeatureRankingRequest* request, vector<Score>& scores, FeatureRankingResponse* response);
+    static void sortAndFillResponse(const FeatureRankingRequest* request,
+                                    vector<Score>& scores,
+                                    FeatureRankingResponse* response);
 
     static string requestPrefix(const FeatureRankingRequest* request);
 
-    static Rect getHotspot(const FeatureRankingRequest* request, const Mat& image);
+    static Rect getHotspot(const FeatureRankingRequest* request,
+                           const Mat& image);
 
     static int getLimit(const FeatureRankingRequest* request);
 
-    template <typename F>
-    static MatrixError extractFeatures(const FeatureRankingRequest* request, vector<F>& features)
-    {
+    template<typename F>
+    static MatrixError extractFeatures(const FeatureRankingRequest* request,
+                                       vector<F>& features) {
         MatrixError err;
-        if (request->candidates_size() <= 0)
-        {
+        if (request->candidates_size() <= 0) {
             err.set_code(-1);
             err.set_message("no candidates in request context");
             return err;
         }
 
-        for(int i = 0; i < request->candidates_size(); i ++)
-        {
+        for (int i = 0; i < request->candidates_size(); i++) {
             string featureStr = request->candidates(i).feature();
-            if (featureStr.size() <= 0)
-            {
+            if (featureStr.size() <= 0) {
                 err.set_code(-1);
                 err.set_message("invalid candidate");
                 return err;
@@ -80,4 +80,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_RANKER_SERVICE_H_
+#endif //MATRIX_APPS_RANKER_SERVICE_H_
