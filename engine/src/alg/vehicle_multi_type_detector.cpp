@@ -6,7 +6,8 @@ static bool mycmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
-VehicleMultiTypeDetector::VehicleMultiTypeDetector(const VehicleMultiTypeConfig &config)
+VehicleMultiTypeDetector::VehicleMultiTypeDetector(
+        const VehicleMultiTypeConfig &config)
         : config_(config) {
 
     if (config.use_gpu) {
@@ -18,7 +19,8 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(const VehicleMultiTypeConfig 
 
     batch_size_ = config.batch_size;
     scale_ = config.target_min_size;
-    cout<<"SELKJa"<<config.deploy_file<<" "<<config.model_file<<" "<<batch_size_<<endl;
+    cout << "SELKJa" << config.deploy_file << " " << config.model_file << " "
+         << batch_size_ << endl;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -131,7 +133,6 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
         net_->Reshape();
 
         CheckChannel(img, num_channels_, sample);
-
 
         float* input_data = input_layer->mutable_cpu_data();
 

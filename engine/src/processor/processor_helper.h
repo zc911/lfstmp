@@ -8,9 +8,9 @@
 #ifndef SRC_PROCESSOR_PROCESSOR_HELPER_H_
 #define SRC_PROCESSOR_PROCESSOR_HELPER_H_
 #include "processor.h"
-namespace dg{
-static int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &dst,
-         int factor) {
+namespace dg {
+static int vote(vector<vector<Prediction> > &src,
+                vector<vector<Prediction> > &dst, int factor) {
     if (src.size() > dst.size()) {
         for (int i = 0; i < src.size(); i++) {
             vector<Prediction> tmpSrc = src[i];
@@ -39,7 +39,5 @@ static int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &d
     return 1;
 }
 }
-
-
 
 #endif /* SRC_PROCESSOR_PROCESSOR_HELPER_H_ */

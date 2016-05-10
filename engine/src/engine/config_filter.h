@@ -58,8 +58,6 @@ class ConfigFilter {
     ConfigFilter();
     static ConfigFilter* instance_;
 
-
-
     Config data_config_;
 };
 

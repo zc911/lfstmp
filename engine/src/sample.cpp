@@ -75,7 +75,7 @@ static void* process(void* p) {
 
             char index[1];
             index[0] = '0' + i;
-         //   string file = "faces" + string(index) + ".jpg";
+            //   string file = "faces" + string(index) + ".jpg";
             string file = "test.jpg";
 
             cv::Mat image = cv::imread(file.c_str());

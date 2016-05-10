@@ -15,7 +15,6 @@
 #include "../alg/classifier.h"
 #include "caffe/caffe.hpp"
 
-
 using namespace std;
 
 namespace dg {
