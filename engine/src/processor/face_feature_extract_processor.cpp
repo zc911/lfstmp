@@ -10,7 +10,8 @@
 
 namespace dg {
 
-FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
+FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
+        const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
     extractor_ = new FaceFeatureExtractor(config);
 }
 

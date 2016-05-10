@@ -16,7 +16,8 @@ namespace dg {
 class VehicleClassifierProcessor : public Processor {
  public:
 
-    VehicleClassifierProcessor(const vector< VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+    VehicleClassifierProcessor(
+            const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
 
     ~VehicleClassifierProcessor();
 

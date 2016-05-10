@@ -16,7 +16,8 @@ namespace dg {
 
 class VehicleColorProcessor : public Processor {
  public:
-    VehicleColorProcessor(const vector< VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+    VehicleColorProcessor(
+            const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     ~VehicleColorProcessor();
 
     virtual void Update(Frame *frame) {

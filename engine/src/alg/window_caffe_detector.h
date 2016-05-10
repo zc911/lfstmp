@@ -35,26 +35,25 @@ class WindowCaffeDetector {
         string deploy_file;
         string model_file;
     } WindowCaffeConfig;
-     WindowCaffeDetector(WindowCaffeConfig &config);
-     virtual ~WindowCaffeDetector();
+    WindowCaffeDetector(WindowCaffeConfig &config);
+    virtual ~WindowCaffeDetector();
 
-
-     virtual vector<Detection>  DetectBatch(const vector<cv::Mat> &img,const vector<cv::Mat> &resized_img);
+    virtual vector<Detection> DetectBatch(const vector<cv::Mat> &img,
+                                          const vector<cv::Mat> &resized_img);
  protected:
-     vector<Detection> Detect(vector<Mat> resized_imgs,
-                         vector<Mat> imgs);
-     std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
-     void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
+    vector<Detection> Detect(vector<Mat> resized_imgs, vector<Mat> imgs);
+    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
 
-     void PreprocessBatch(const vector<Mat> imgs,
-                          vector<vector<Mat> >* input_batch);
+    void PreprocessBatch(const vector<Mat> imgs,
+                         vector<vector<Mat> >* input_batch);
  private:
-     boost::shared_ptr<caffe::Net<float> > net_;
-     int num_channels_;
-     cv::Size input_geometry_;
-     bool device_setted_;
-     WindowCaffeConfig caffe_config_;
-     int rescale_;
+    boost::shared_ptr<caffe::Net<float> > net_;
+    int num_channels_;
+    cv::Size input_geometry_;
+    bool device_setted_;
+    WindowCaffeConfig caffe_config_;
+    int rescale_;
 
 };
 

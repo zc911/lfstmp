@@ -79,6 +79,7 @@ void WitnessEngine::init(const Config &config) {
     initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
+
         VehicleMultiTypeDetector::VehicleMultiTypeConfig dConfig;
         configFilter->createVehicleMutiTypeDetectorConfig(config, dConfig);
         vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);
@@ -86,10 +87,8 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
-            DLOG(INFO)<<"begin  "<<endl;
             vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
             configFilter->createVehicleConfig(config, configs);
-            cout<<configs[0].deploy_file<<endl;
 
             Processor *p = new VehicleClassifierProcessor(configs);
             last->SetNextProcessor(p);
@@ -154,6 +153,5 @@ void WitnessEngine::init(const Config &config) {
 
     is_init_ = true;
 }
-
 
 }
