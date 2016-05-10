@@ -6,14 +6,12 @@ bool mycmp(Detection b1, Detection b2) {
     return b1.confidence > b2.confidence;
 }
 
-FaceDetector::FaceDetector(const string& model_file, const string& trained_file,
-                           const bool use_gpu, const int batch_size,
-                           unsigned int scale, const float conf_thres)
-        : scale_(scale),
-          batch_size_(batch_size),
-          conf_thres_(conf_thres) {
-
-    if (use_gpu) {
+FaceDetector::FaceDetector(const FaceDetectorConfig &config)
+        : scale_(config.scale),
+          batch_size_(config.batch_size),
+          conf_thres_(config.confidence) {
+    use_gpu_ = config.use_gpu;
+    if (use_gpu_) {
         Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(0);
         use_gpu_ = true;
@@ -22,10 +20,11 @@ FaceDetector::FaceDetector(const string& model_file, const string& trained_file,
         use_gpu_ = false;
     }
 
-    LOG(INFO)<< "loading model file: " << model_file;
-    net_.reset(new Net<float>(model_file, TEST));
-    LOG(INFO)<< "loading trained file : " << trained_file;
-    net_->CopyTrainedLayersFrom(trained_file);
+    LOG(INFO)<< "loading model file: " << config.model_file;
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+    LOG(INFO)<< "loading trained file : " << config.deploy_file;
+    net_->CopyTrainedLayersFrom(config.deploy_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];

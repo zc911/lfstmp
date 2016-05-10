@@ -11,19 +11,13 @@
 
 namespace dg {
 
-FaceDetectProcessor::FaceDetectProcessor(string model_file, string trained_file,
-                                         const bool use_gpu,
-                                         const int batch_size, float threshold,
-                                         unsigned int scale) {
+FaceDetectProcessor::FaceDetectProcessor(
+        FaceDetector::FaceDetectorConfig config) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO)<< "Start loading face detector model" << std::endl;
-    model_file_ = model_file;
-    trained_file_ = trained_file;
-    det_thresh_ = threshold;
 
     //Initialize face detector
-    detector_ = new FaceDetector(model_file_, trained_file_, use_gpu,
-            batch_size, scale, det_thresh_);
+    detector_ = new FaceDetector(config);
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
 }
 

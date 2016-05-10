@@ -1,5 +1,11 @@
 #include "rank_engine.h"
 
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
+#include "processor/car_rank_processor.h"
+#include "processor/face_rank_processor.h"
+#include "processor/config_filter.h"
+
 namespace dg {
 
 CarRankEngine::CarRankEngine()
@@ -22,21 +28,29 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
     return f.result_;
 }
 
-FaceRankEngine::FaceRankEngine()
+FaceRankEngine::FaceRankEngine(const Config &config)
         : id_(0) {
-    detector_ = new FaceDetectProcessor(
-            "models/face/detect/test.prototxt",
-            "models/face/detect/googlenet_face_iter_100000.caffemodel", true, 1,
-            0.7, 640);
-
-    extractor_ = new FaceFeatureExtractProcessor(
-            "models/face/feature/lcnn.prototxt",
-            "models/face/feature/lcnn.caffemodel", true, 1,
-            "models/face/feature/shape_predictor_68_face_landmarks.dat",
-            "models/face/feature/avgface.jpg");
-    ranker_ = new FaceRankProcessor();
+    init(config);
 }
+void FaceRankEngine::init(const Config &config) {
 
+    ConfigFilter *configFilter = ConfigFilter::GetInstance();
+    if (!configFilter->initDataConfig(config)) {
+        LOG(ERROR)<<"can not init data config"<<endl;
+        DLOG(ERROR)<<"can not init data config"<<endl;
+        return;
+    }
+    FaceDetector::FaceDetectorConfig fdconfig;
+    configFilter->createFaceDetectorConfig(config, fdconfig);
+    detector_ = new FaceDetectProcessor(fdconfig);
+
+    FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
+    configFilter->createFaceExtractorConfig(config, feconfig);
+    extractor_ = new FaceFeatureExtractProcessor(feconfig);
+
+    ranker_ = new FaceRankProcessor();
+
+}
 FaceRankEngine::~FaceRankEngine() {
     delete detector_;
     delete extractor_;
