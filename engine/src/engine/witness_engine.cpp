@@ -1,5 +1,13 @@
 #include "witness_engine.h"
-
+#include "processor/vehicle_multi_type_detector_processor.h"
+#include "processor/vehicle_classifier_processor.h"
+#include "processor/vehicle_color_processor.h"
+#include "processor/vehicle_marker_classifier_processor.h"
+#include "processor/vehicle_plate_recognizer_processor.h"
+#include "processor/car_feature_extract_processor.h"
+#include "processor/face_detect_processor.h"
+#include "processor/face_feature_extract_processor.h"
+#include "processor/config_filter.h"
 namespace dg {
 
 WitnessEngine::WitnessEngine(const Config &config) {
