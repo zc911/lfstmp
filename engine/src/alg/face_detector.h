@@ -15,9 +15,18 @@ namespace dg {
 
 class FaceDetector {
  public:
-    FaceDetector(const string& model_file, const string& trained_file,
-                 const bool use_gpu, const int batch_size, unsigned int scale,
-                 const float conf_thres);
+    typedef struct {
+
+        bool is_model_encrypt = false;
+        int batch_size = 1;
+        int scale = 400;
+        int gpu_id = 0;
+        float confidence = 0.8;
+        bool use_gpu = true;
+        string deploy_file;
+        string model_file;
+    } FaceDetectorConfig;
+    FaceDetector(const FaceDetectorConfig &config);
 
     virtual ~FaceDetector();
     vector<vector<Detection>> Detect(vector<Mat> imgs);

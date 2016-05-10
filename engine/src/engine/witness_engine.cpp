@@ -1,6 +1,4 @@
 #include "witness_engine.h"
-
-#include "engine_config_value.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
@@ -9,7 +7,7 @@
 #include "processor/car_feature_extract_processor.h"
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
-
+#include "processor/config_filter.h"
 namespace dg {
 
 WitnessEngine::WitnessEngine(const Config &config) {
@@ -75,47 +73,66 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
     enable_face_feature_vector_ = (bool) config.Value(
             FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+
 }
 
 void WitnessEngine::init(const Config &config) {
 
+    ConfigFilter *configFilter = ConfigFilter::GetInstance();
+    if (!configFilter->initDataConfig(config)) {
+        LOG(ERROR)<<"can not init data config"<<endl;
+        DLOG(ERROR)<<"can not init data config"<<endl;
+        return;
+    }
     initFeatureOptions(config);
     if (enable_vehicle_) {
         LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
 
-        vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(1, 0, 600,false);
+        VehicleMultiTypeDetector::VehicleMultiTypeConfig dConfig;
+        configFilter->createVehicleMutiTypeDetectorConfig(config, dConfig);
+        vehicle_processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);
         Processor *last = vehicle_processor_;
 
         if (enable_vehicle_type_) {
             LOG(INFO)<< "Enable vehicle type classification processor." << endl;
-            DLOG(INFO)<<"begin  "<<endl;
+            vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+            configFilter->createVehicleConfig(config, configs);
 
-            Processor *p = new VehicleClassifierProcessor();
+            Processor *p = new VehicleClassifierProcessor(configs);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_color_) {
             LOG(INFO)<< "Enable vehicle color classification processor." << endl;
-            Processor *p = new VehicleColorProcessor();
+            vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+            configFilter->createVehicleColorConfig(config, configs);
+
+            Processor *p = new VehicleColorProcessor(configs);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_plate_) {
             LOG(INFO)<< "Enable vehicle plate processor." << endl;
-            Processor *p = new PlateRecognizerProcessor();
+            PlateRecognizer::PlateConfig pConfig;
+            configFilter->createVehiclePlateConfig(config, pConfig);
+            Processor *p = new PlateRecognizerProcessor(pConfig);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_marker_) {
             LOG(INFO)<< "Enable vehicle marker processor." << endl;
-            Processor *p = new VehicleMarkerClassifierProcessor();
+            MarkerCaffeClassifier::MarkerConfig mConfig;
+            configFilter->createMarkersConfig(config, mConfig);
+            WindowCaffeDetector::WindowCaffeConfig wConfig;
+            configFilter->createWindowConfig(config, wConfig);
+
+            Processor *p = new VehicleMarkerClassifierProcessor(wConfig,mConfig);
             last->SetNextProcessor(p);
             last = p;
         }
-
         if (enable_vehicle_feature_vector_) {
             LOG(INFO)<< "Enable vehicle feature vector processor." << endl;
             Processor *p = new CarFeatureExtractProcessor();
@@ -129,16 +146,15 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO)<< "Init face processor pipeline. " << endl;
-
-        face_processor_ = new FaceDetectProcessor("models/face/detect/test.prototxt",
-                "models/face/detect/googlenet_face_iter_100000.caffemodel", true, 1, 0.7, 640);
+        FaceDetector::FaceDetectorConfig fdconfig;
+        configFilter->createFaceDetectorConfig(config, fdconfig);
+        face_processor_ = new FaceDetectProcessor(fdconfig);
 
         if(enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
-            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor("models/face/feature/lcnn.prototxt",
-                            "models/face/feature/lcnn.caffemodel", true, 1,
-                            "models/face/feature/shape_predictor_68_face_landmarks.dat",
-                            "models/face/feature/avgface.jpg"));
+            FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
+            configFilter->createFaceExtractorConfig(config, feconfig);
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
         }
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }

@@ -23,8 +23,18 @@ namespace dg {
 
 class VehicleMultiTypeDetector {
  public:
+    typedef struct {
 
-    VehicleMultiTypeDetector(const CaffeConfig &config);
+        bool is_model_encrypt = false;
+        int batch_size = 1;
+        int target_min_size = 600;
+        int target_max_size = 1000;
+        int gpu_id = 0;
+        bool use_gpu = true;
+        string deploy_file;
+        string model_file;
+    } VehicleMultiTypeConfig;
+    VehicleMultiTypeDetector(const VehicleMultiTypeConfig &config);
     ~VehicleMultiTypeDetector();
 
     vector<Detection> Detect(const cv::Mat &img);
@@ -42,7 +52,7 @@ class VehicleMultiTypeDetector {
                               vector<struct Bbox> &vbbox);
 
     boost::shared_ptr<caffe::Net<float> > net_;
-    CaffeConfig config_;
+    VehicleMultiTypeConfig config_;
     int num_channels_;
     int batch_size_;
     vector<float> pixel_means_;
