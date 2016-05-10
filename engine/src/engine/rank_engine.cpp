@@ -26,7 +26,7 @@ FaceRankEngine::FaceRankEngine(const Config &config)
         : id_(0) {
     init(config);
 }
-void FaceRankEngine::init(const Config &config){
+void FaceRankEngine::init(const Config &config) {
 
     ConfigFilter *configFilter = ConfigFilter::GetInstance();
     if (!configFilter->initDataConfig(config)) {
@@ -40,7 +40,7 @@ void FaceRankEngine::init(const Config &config){
 
     FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
     configFilter->createFaceExtractorConfig(config, feconfig);
-    extractor_=new FaceFeatureExtractProcessor(feconfig);
+    extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
     ranker_ = new FaceRankProcessor();
 

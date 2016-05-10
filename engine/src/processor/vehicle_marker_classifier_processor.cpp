@@ -13,7 +13,7 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
         MarkerCaffeClassifier::MarkerConfig &mConfig)
         : Processor() {
 
-    classifier_ = new MarkerCaffeClassifier( mConfig);
+    classifier_ = new MarkerCaffeClassifier(mConfig);
 
     detector_ = new WindowCaffeDetector(wConfig);
 

@@ -9,7 +9,7 @@
 
 namespace dg {
 
-ConfigFilter* ConfigFilter::instance_=NULL;
+ConfigFilter* ConfigFilter::instance_ = NULL;
 
 ConfigFilter::ConfigFilter() {
 }
