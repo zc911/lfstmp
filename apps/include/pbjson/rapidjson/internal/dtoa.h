@@ -31,10 +31,11 @@ RAPIDJSON_DIAG_PUSH
 RAPIDJSON_DIAG_OFF(effc++)
 #endif
 
-inline void GrisuRound(char* buffer, int len, uint64_t delta, uint64_t rest, uint64_t ten_kappa, uint64_t wp_w) {
-    while (rest < wp_w && delta - rest >= ten_kappa &&
-           (rest + ten_kappa < wp_w ||  /// closer
-            wp_w - rest > rest + ten_kappa - wp_w)) {
+inline void GrisuRound(char* buffer, int len, uint64_t delta, uint64_t rest,
+                       uint64_t ten_kappa, uint64_t wp_w) {
+    while (rest < wp_w && delta - rest >= ten_kappa
+            && (rest + ten_kappa < wp_w ||  /// closer
+                    wp_w - rest > rest + ten_kappa - wp_w)) {
         buffer[len - 1]--;
         rest += ten_kappa;
     }
@@ -42,42 +43,80 @@ inline void GrisuRound(char* buffer, int len, uint64_t delta, uint64_t rest, uin
 
 inline unsigned CountDecimalDigit32(uint32_t n) {
     // Simple pure C++ implementation was faster than __builtin_clz version in this situation.
-    if (n < 10) return 1;
-    if (n < 100) return 2;
-    if (n < 1000) return 3;
-    if (n < 10000) return 4;
-    if (n < 100000) return 5;
-    if (n < 1000000) return 6;
-    if (n < 10000000) return 7;
-    if (n < 100000000) return 8;
+    if (n < 10)
+        return 1;
+    if (n < 100)
+        return 2;
+    if (n < 1000)
+        return 3;
+    if (n < 10000)
+        return 4;
+    if (n < 100000)
+        return 5;
+    if (n < 1000000)
+        return 6;
+    if (n < 10000000)
+        return 7;
+    if (n < 100000000)
+        return 8;
     // Will not reach 10 digits in DigitGen()
     //if (n < 1000000000) return 9;
     //return 10;
     return 9;
 }
 
-inline void DigitGen(const DiyFp& W, const DiyFp& Mp, uint64_t delta, char* buffer, int* len, int* K) {
-    static const uint32_t kPow10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000 };
+inline void DigitGen(const DiyFp& W, const DiyFp& Mp, uint64_t delta,
+                     char* buffer, int* len, int* K) {
+    static const uint32_t kPow10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000,
+            10000000, 100000000, 1000000000 };
     const DiyFp one(uint64_t(1) << -Mp.e, Mp.e);
     const DiyFp wp_w = Mp - W;
     uint32_t p1 = static_cast<uint32_t>(Mp.f >> -one.e);
     uint64_t p2 = Mp.f & (one.f - 1);
-    int kappa = CountDecimalDigit32(p1); // kappa in [0, 9]
+    int kappa = CountDecimalDigit32(p1);  // kappa in [0, 9]
     *len = 0;
 
     while (kappa > 0) {
         uint32_t d = 0;
         switch (kappa) {
-            case  9: d = p1 /  100000000; p1 %=  100000000; break;
-            case  8: d = p1 /   10000000; p1 %=   10000000; break;
-            case  7: d = p1 /    1000000; p1 %=    1000000; break;
-            case  6: d = p1 /     100000; p1 %=     100000; break;
-            case  5: d = p1 /      10000; p1 %=      10000; break;
-            case  4: d = p1 /       1000; p1 %=       1000; break;
-            case  3: d = p1 /        100; p1 %=        100; break;
-            case  2: d = p1 /         10; p1 %=         10; break;
-            case  1: d = p1;              p1 =           0; break;
-            default:;
+            case 9:
+                d = p1 / 100000000;
+                p1 %= 100000000;
+                break;
+            case 8:
+                d = p1 / 10000000;
+                p1 %= 10000000;
+                break;
+            case 7:
+                d = p1 / 1000000;
+                p1 %= 1000000;
+                break;
+            case 6:
+                d = p1 / 100000;
+                p1 %= 100000;
+                break;
+            case 5:
+                d = p1 / 10000;
+                p1 %= 10000;
+                break;
+            case 4:
+                d = p1 / 1000;
+                p1 %= 1000;
+                break;
+            case 3:
+                d = p1 / 100;
+                p1 %= 100;
+                break;
+            case 2:
+                d = p1 / 10;
+                p1 %= 10;
+                break;
+            case 1:
+                d = p1;
+                p1 = 0;
+                break;
+            default:
+                ;
         }
         if (d || *len)
             buffer[(*len)++] = static_cast<char>('0' + static_cast<char>(d));
@@ -85,7 +124,8 @@ inline void DigitGen(const DiyFp& W, const DiyFp& Mp, uint64_t delta, char* buff
         uint64_t tmp = (static_cast<uint64_t>(p1) << -one.e) + p2;
         if (tmp <= delta) {
             *K += kappa;
-            GrisuRound(buffer, *len, delta, tmp, static_cast<uint64_t>(kPow10[kappa]) << -one.e, wp_w.f);
+            GrisuRound(buffer, *len, delta, tmp,
+                       static_cast<uint64_t>(kPow10[kappa]) << -one.e, wp_w.f);
             return;
         }
     }
@@ -133,13 +173,11 @@ inline char* WriteExponent(int K, char* buffer) {
         const char* d = GetDigitsLut() + K * 2;
         *buffer++ = d[0];
         *buffer++ = d[1];
-    }
-    else if (K >= 10) {
+    } else if (K >= 10) {
         const char* d = GetDigitsLut() + K * 2;
         *buffer++ = d[0];
         *buffer++ = d[1];
-    }
-    else
+    } else
         *buffer++ = static_cast<char>('0' + static_cast<char>(K));
 
     return buffer;
@@ -155,14 +193,12 @@ inline char* Prettify(char* buffer, int length, int k) {
         buffer[kk] = '.';
         buffer[kk + 1] = '0';
         return &buffer[kk + 2];
-    }
-    else if (0 < kk && kk <= 21) {
+    } else if (0 < kk && kk <= 21) {
         // 1234e-2 -> 12.34
         std::memmove(&buffer[kk + 1], &buffer[kk], length - kk);
         buffer[kk] = '.';
         return &buffer[length + 1];
-    }
-    else if (-6 < kk && kk <= 0) {
+    } else if (-6 < kk && kk <= 0) {
         // 1234e-6 -> 0.001234
         const int offset = 2 - kk;
         std::memmove(&buffer[offset], &buffer[0], length);
@@ -171,13 +207,11 @@ inline char* Prettify(char* buffer, int length, int k) {
         for (int i = 2; i < offset; i++)
             buffer[i] = '0';
         return &buffer[length + offset];
-    }
-    else if (length == 1) {
+    } else if (length == 1) {
         // 1e30
         buffer[1] = 'e';
         return WriteExponent(kk - 1, &buffer[2]);
-    }
-    else {
+    } else {
         // 1234e30 -> 1.234e33
         std::memmove(&buffer[2], &buffer[1], length - 1);
         buffer[1] = '.';
@@ -195,8 +229,7 @@ inline char* dtoa(double value, char* buffer) {
         buffer[1] = '.';
         buffer[2] = '0';
         return &buffer[3];
-    }
-    else {
+    } else {
         if (value < 0) {
             *buffer++ = '-';
             value = -value;
@@ -211,7 +244,8 @@ inline char* dtoa(double value, char* buffer) {
 RAPIDJSON_DIAG_POP
 #endif
 
-} // namespace internal
+}
+  // namespace internal
 RAPIDJSON_NAMESPACE_END
 
 #endif // RAPIDJSON_DTOA_

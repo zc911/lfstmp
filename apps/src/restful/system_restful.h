@@ -13,15 +13,14 @@
 #include "restful.h"
 #include "services/system_service.h"
 
-namespace dg
-{
+namespace dg {
 
 class RestSystemServiceImpl final : public RestfulService
 {
 public:
-    RestSystemServiceImpl(const Config *config) 
-              : RestfulService()
-              , service_(config) 
+    RestSystemServiceImpl(const Config *config)
+    : RestfulService()
+    , service_(config)
     {
     }
     virtual ~RestSystemServiceImpl() {}

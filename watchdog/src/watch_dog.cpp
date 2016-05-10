@@ -13,6 +13,8 @@
 #include <pthread.h>
 #include <glog/logging.h>
 #include <openssl/aes.h>
+#include <openssl/rsa.h>
+#include <time.h>
 #include "common.h"
 #include "dog.h"
 
@@ -150,9 +152,17 @@ int GetFeatureSet(FeatureSet &fs) {
     }
 }
 
-int CheckFeature(Feature f) {
+int CheckFeature(Feature f,bool isRunning) {
+    if(isRunning){
+        time_t seconds;
+        seconds=time(NULL);
+        int minutes = (seconds%3600)/60;
+
+        if(minutes%CHECK_INTERVAL!=0){
+            return ERR_FEATURE_ON;
+        }
+    }
     FeatureSet fs;
     readFeaturesFromDog(0, fs);
     return CheckFeature(f, fs);
 }
-

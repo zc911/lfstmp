@@ -18,9 +18,7 @@ namespace dg {
 
 class FaceDetectProcessor : public Processor {
  public:
-    FaceDetectProcessor(string model_file, string trained_file,
-                        const bool use_gpu, const int batch_size,
-                        float threshold, unsigned int scale);
+    FaceDetectProcessor(FaceDetector::FaceDetectorConfig config);
     virtual ~FaceDetectProcessor();
 
     void Update(Frame *frame);
@@ -35,10 +33,6 @@ class FaceDetectProcessor : public Processor {
     }
 
  private:
-    string model_file_;
-    string trained_file_;
-    float det_thresh_;
-    Size resolution_;
     FaceDetector *detector_;
 };
 

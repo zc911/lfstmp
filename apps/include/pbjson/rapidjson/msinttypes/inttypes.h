@@ -37,7 +37,6 @@
 #ifndef _MSC_VER // [
 #error "Use this header only with Microsoft Visual C++ compilers!"
 #endif // _MSC_VER ]
-
 #ifndef _MSC_INTTYPES_H_ // [
 #define _MSC_INTTYPES_H_
 
@@ -55,14 +54,13 @@
 // 7.8 Format conversion of integer types
 
 typedef struct {
-   intmax_t quot;
-   intmax_t rem;
+    intmax_t quot;
+    intmax_t rem;
 } imaxdiv_t;
 
 // 7.8.1 Macros for format specifiers
 
 #if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) // [   See footnote 185 at page 198
-
 // The fprintf macros for signed integers are:
 #define PRId8       "d"
 #define PRIi8       "i"
@@ -200,7 +198,6 @@ typedef struct {
 #  define SCNdPTR     "ld"
 #  define SCNiPTR     "li"
 #endif  // _WIN64 ]
-
 // The fscanf macros for unsigned integers are:
 #define SCNo8       "o"
 #define SCNu8       "u"
@@ -270,9 +267,7 @@ typedef struct {
 #  define SCNxPTR     "lx"
 #  define SCNXPTR     "lX"
 #endif  // _WIN64 ]
-
 #endif // __STDC_FORMAT_MACROS ]
-
 // 7.8.2 Functions for greatest-width integer types
 
 // 7.8.2.1 The imaxabs function
@@ -287,20 +282,19 @@ static
 #else // STATIC_IMAXDIV ][
 _inline
 #endif // STATIC_IMAXDIV ]
-imaxdiv_t __cdecl imaxdiv(intmax_t numer, intmax_t denom)
-{
-   imaxdiv_t result;
+imaxdiv_t __cdecl imaxdiv(intmax_t numer, intmax_t denom) {
+    imaxdiv_t result;
 
-   result.quot = numer / denom;
-   result.rem = numer % denom;
+    result.quot = numer / denom;
+    result.rem = numer % denom;
 
-   if (numer < 0 && result.rem > 0) {
-      // did division wrong; must fix up
-      ++result.quot;
-      result.rem -= denom;
-   }
+    if (numer < 0 && result.rem > 0) {
+        // did division wrong; must fix up
+        ++result.quot;
+        result.rem -= denom;
+    }
 
-   return result;
+    return result;
 }
 
 // 7.8.2.3 The strtoimax and strtoumax functions
@@ -312,5 +306,4 @@ imaxdiv_t __cdecl imaxdiv(intmax_t numer, intmax_t denom)
 #define wcstoumax _wcstoui64
 
 #endif // _MSC_VER >= 1800
-
 #endif // _MSC_INTTYPES_H_ ]

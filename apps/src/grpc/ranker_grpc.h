@@ -13,8 +13,7 @@
 #include <grpc++/grpc++.h>
 #include "services/ranker_service.h"
 
-namespace dg 
-{
+namespace dg {
 
 class GrpcRankerServiceImpl final : public SimilarityService::Service
 {
@@ -33,4 +32,4 @@ private:
 
 }
 
- #endif //MATRIX_APPS_GRPC_RANKER_H_
+#endif //MATRIX_APPS_GRPC_RANKER_H_

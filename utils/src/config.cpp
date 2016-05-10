@@ -4,9 +4,8 @@
 #include <sstream>
 #include <string.h>
 #include "glog/logging.h"
-
+using namespace std;
 namespace dg {
-Config* Config::instance_ = NULL;
 AnyConversion EmptyAnyConversion("");
 
 Config::Config() {
@@ -58,6 +57,16 @@ AnyConversion const& Config::Value(const char *keyFormat, int index) const {
     char key[256];
     sprintf(key, keyFormat, index);
     return Value(string(key));
+}
+bool Config::LoadString(string const& data){
+    Json::Value root;
+    Json::Reader reader;
+    bool parse_success = reader.parse(data, root, false);
+    if (!parse_success) {
+        return false;
+    }
+    parseJsonNode(root, "");
+    return true;
 }
 
 bool Config::loadText(string const& configFile) {

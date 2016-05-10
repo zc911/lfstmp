@@ -27,6 +27,7 @@
 #define ERR_FEATURE_OFF 0x42
 
 #define MONITOR_INTERVAL 60
+#define CHECK_INTERVAL 30
 
 using namespace std;
 
@@ -37,7 +38,12 @@ enum Feature {
     FEATURE_CAR_STYLE = 4,
     FEATURE_CAR_COLOR = 8,
     FEATURE_CAR_PLATE = 16,
-    FEATURE_CAR_MARKER = 32
+    FEATURE_CAR_MARKER = 32,
+    FEATURE_CAR_RANKER = 64,
+    FEATURE_CAR_EXTRACTOR=128,
+    FEATURE_FACE_EXTRACTOR=256,
+    FEATURE_FACE_RANKER=512
+
 };
 
 typedef uint32_t FeatureSet;
@@ -77,7 +83,7 @@ int CheckFeature(Feature f, FeatureSet fs);
  * Check Feature f is ON or OFF.
  * Call of this function will lead to data reading from dog.
  */
-int CheckFeature(Feature f);
+int CheckFeature(Feature f,bool isRunning);
 
 /**
  * This function will encrypt data using key stored within dog.
