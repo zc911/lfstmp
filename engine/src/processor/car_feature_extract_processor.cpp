@@ -20,29 +20,36 @@ CarFeatureExtractProcessor::~CarFeatureExtractProcessor() {
 void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
-        if (obj->type() == OBJECT_CAR) {
-            Vehicle *v = (Vehicle*) obj;
-            v->image();
-            CarRankFeature feature;
-            extractor_->ExtractDescriptor(v->image(), feature);
-            v->set_feature(feature);
-        }
+        Vehicle *v = static_cast<Vehicle*>(obj);
+        CarRankFeature feature;
+        extractor_->ExtractDescriptor(v->image(), feature);
+        v->set_feature(feature);
     }
-}
-void CarFeatureExtractProcessor::Update(Frame *frame) {
-    DLOG(INFO)<< "Start feature extract. " << endl;
-    extract(frame->objects());
-    DLOG(INFO)<< "End feature extract. " << endl;
-    processNext(frame);
 }
 
-void CarFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
+bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     DLOG(INFO)<< "Start feature extract(Batch). " << endl;
-    for (int i = 0; i < frameBatch->frames().size(); ++i) {
-        extract(frameBatch->frames()[i]->objects());
-    }
+    extract(vehicle_to_processed_);
+    vehicle_to_processed_.clear();
     DLOG(INFO)<< "End feature extract(Batch). " << endl;
-    processNext(frameBatch);
+    return true;
+}
+
+bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
+    vehicle_to_processed_.clear();
+    vehicle_to_processed_ = frameBatch->CollectObjects(
+            OPERATION_VEHICLE_FEATURE_VECTOR);
+
+    for (vector<Object*>::iterator itr = vehicle_to_processed_.begin();
+            itr != vehicle_to_processed_.end();) {
+        if ((*itr)->type() != OBJECT_CAR) {
+            itr = vehicle_to_processed_.erase(itr);
+        } else {
+            itr++;
+        }
+    }
+    return true;
 }
 
 } /* namespace dg */

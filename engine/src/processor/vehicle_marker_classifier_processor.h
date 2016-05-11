@@ -22,14 +22,14 @@ class VehicleMarkerClassifierProcessor : public Processor {
 
     ~VehicleMarkerClassifierProcessor();
 
-    virtual void Update(Frame *frame) {
+ protected:
+    virtual bool process(Frame *frame) {
+        return false;
     }
 
-    virtual void Update(FrameBatch *frameBatch);
+    virtual bool process(FrameBatch *frameBatch);
 
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-    virtual bool checkStatus(Frame *frame);
- protected:
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
 
  private:
     MarkerCaffeClassifier *classifier_;

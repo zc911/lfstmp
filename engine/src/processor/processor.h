@@ -57,8 +57,8 @@ class Processor {
 
 protected:
     /// The interfaces derived class must to implement
-    virtual bool beforeUpdate(Frame *frame) = 0;
-    virtual bool beforeUpdate(FrameBatch *frameBatch) = 0;
+    virtual bool beforeUpdate(Frame *frame) {return true;}
+    virtual bool beforeUpdate(FrameBatch *frameBatch) {return true;};
 
     virtual bool process(Frame *frame) = 0;
     virtual bool process(FrameBatch *frame) = 0;
@@ -72,7 +72,7 @@ private:
 /// Each processor must invoke Proceed to drive the engine running.
     void processNext(Frame *frame) {
         if (next_ != NULL) {
-            next_->process(frame);
+            next_->Update(frame);
         }
     }
 /// This method will invoke the next processor chained to the
@@ -80,7 +80,7 @@ private:
 /// Each processor must invoke Proceed to drive the engine running.
     void processNext(FrameBatch *frameBatch) {
         if (next_ != NULL) {
-            next_->process(frameBatch);
+            next_->Update(frameBatch);
         }
     }
 
