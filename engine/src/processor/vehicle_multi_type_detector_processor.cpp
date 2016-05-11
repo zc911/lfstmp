@@ -7,6 +7,7 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
         : Processor() {
 
     detector_ = new VehicleMultiTypeDetector(config);
+    base_id_ = 0;
 }
 
 // TODO complete construction
@@ -24,11 +25,17 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
         if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
 
             DLOG(INFO)<<"frame :"<<frame->id()<<" doesn't need to be detected"<<endl;
+            continue;
         }
 
         DLOG(INFO)<< "Start detect frame: " << frame->id() << endl;
         Mat data = frame->payload()->data();
-        DLOG(INFO)<<data.cols<<"data"<<endl;
+
+        if (data.rows == 0 || data.cols == 0) {
+            LOG(ERROR)<< "Frame data is NULL: " << frame->id() << endl;
+            continue;
+        }
+
         vector<Detection> detections = detector_->Detect(data);
         int id = 0;
         for (vector<Detection>::iterator itr = detections.begin();
@@ -41,7 +48,7 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
                 Mat roi = Mat(data, detection.box);
                 v->set_image(roi);
-                v->set_id(id++);
+                v->set_id(base_id_ + id++);
                 obj = static_cast<Object*>(v);
             } else {
 
