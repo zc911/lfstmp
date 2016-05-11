@@ -27,7 +27,6 @@ int RingBuffer::TryPut(unsigned int width, unsigned int height,
             delete f;
             f = NULL;
         } else {
-            cout << "skip put frame" << endl;
             return -1;
         }
     }
