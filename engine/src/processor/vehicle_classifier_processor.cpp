@@ -21,19 +21,21 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
         delete classifiers_[i];
     }
     classifiers_.clear();
+    objs_.clear();
+    images_.clear();
 }
 
-void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
+bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
     DLOG(INFO)<<"Start vehicle classify frame: "<< endl;
 
-    beforeUpdate(frameBatch);
     vector<vector<Prediction> > result;
-    for_each(classifiers_.begin(),classifiers_.end(),[&](VehicleCaffeClassifier *elem) {
-                auto tmpPred=elem->ClassifyAutoBatch(images_);
-                vote(tmpPred,result,classifiers_.size());
 
+    for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
+                auto tmpPred=elem->ClassifyAutoBatch(images_);
+                vote(tmpPred, result, classifiers_.size());
             });
+
     //set results
     for(int i=0;i<objs_.size();i++) {
         if(result[i].size()<0) {
@@ -46,37 +48,33 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
         v->set_confidence(max.second);
     }
 
-    processNext(frameBatch);
-
-}
-
-void VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    images_.clear();
-    images_ = vehicles_resized_mat(frameBatch);
-}
-bool VehicleClassifierProcessor::checkStatus(Frame *frame) {
     return true;
 }
 
-vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
-        FrameBatch *frameBatch) {
-    vector<cv::Mat> vehicleMat;
+bool VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    vehiclesResizedMat(frameBatch);
+    return true;
+}
+
+void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
+
+    images_.clear();
     objs_.clear();
     objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_STYLE);
-    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-            ++itr) {
+    vector<Object *>::iterator itr = objs_.begin();
+    while (itr != objs_.end()) {
         Object *obj = *itr;
         //collect car objects
         if (obj->type() == OBJECT_CAR) {
             Vehicle *v = (Vehicle*) obj;
             DLOG(INFO)<< "Put vehicle images to be type classified: " << obj->id() << endl;
-            vehicleMat.push_back(v->resized_image());
-
+            images_.push_back(v->resized_image());
+            ++itr;
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
-    return vehicleMat;
 }
+
 }

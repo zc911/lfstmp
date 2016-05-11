@@ -23,8 +23,9 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
     LOG(INFO)<< "loading model file: " << config.model_file;
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-    LOG(INFO)<< "loading trained file : " << config.deploy_file;
-    net_->CopyTrainedLayersFrom(config.deploy_file);
+    LOG(INFO)<< "loading trained file : " << config.model_file;
+    net_->CopyTrainedLayersFrom(config.model_file);
+
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
@@ -53,6 +54,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
     shape.push_back(scale_);
     input_layer->Reshape(shape);
     net_->Reshape();
+
 }
 
 FaceDetector::~FaceDetector() {
