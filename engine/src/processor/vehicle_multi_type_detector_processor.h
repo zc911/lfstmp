@@ -23,17 +23,17 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
 
     ~VehicleMultiTypeDetectorProcessor();
 
-    virtual void Update(Frame *frame) {
+ protected:
 
+    virtual bool process(Frame *frame) {
+        return false;
     }
 
-    void Update(FrameBatch *frameBatch);
-
-    void beforeUpdate(FrameBatch *frameBatch);
-    bool checkStatus(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch);
 
  private:
     VehicleMultiTypeDetector *detector_;
+    int base_id_;
 
 };
 

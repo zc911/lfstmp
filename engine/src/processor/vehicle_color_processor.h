@@ -20,19 +20,16 @@ class VehicleColorProcessor : public Processor {
             const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     ~VehicleColorProcessor();
 
-    virtual void Update(Frame *frame) {
-
-    }
-
-    virtual void Update(FrameBatch *frameBatch);
-
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-
-    virtual bool checkStatus(Frame *frame);
-
  protected:
-    vector<Mat> vehicles_resized_mat(FrameBatch *frameBatch);
+    virtual bool process(Frame *frame) {
+        return false;
+    }
+    virtual bool process(FrameBatch *frameBatch);
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+
  private:
+    void vehiclesResizedMat(FrameBatch *frameBatch);
+
     vector<VehicleCaffeClassifier*> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;

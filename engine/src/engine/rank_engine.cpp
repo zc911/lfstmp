@@ -24,7 +24,7 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
     vector<Rect> hotspots;
     hotspots.push_back(hotspot);
     CarRankFrame f(id_++, image, hotspots, candidates);
-    processor_->process(&f);
+    processor_->Update(&f);
     return f.result_;
 }
 
@@ -61,8 +61,8 @@ vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
                                    const vector<FaceRankFeature>& candidates) {
 
     Frame *frame = new Frame(0, image);
-    detector_->process(frame);
-    extractor_->process(frame);
+    detector_->Update(frame);
+    extractor_->Update(frame);
 
     Face *face = (Face *) frame->get_object(0);
     FaceRankFeature feature = face->feature();
@@ -71,7 +71,7 @@ vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
 
     FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
                                                        candidates);
-    ranker_->process(face_rank_frame);
+    ranker_->Update(face_rank_frame);
 
     vector<Score> result = face_rank_frame->result_;
     delete frame;

@@ -21,19 +21,19 @@ class PlateRecognizerProcessor : public Processor {
     ~PlateRecognizerProcessor();
 
  protected:
-    // fake implements
+
     virtual bool process(Frame *frame) {
         return false;
     }
-
     virtual bool process(FrameBatch *frameBatch);
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-    virtual bool checkStatus(Frame *frame);
+    virtual bool beforeUpdate(Frame *frame) {
+        return false;
+    }
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
 
  private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
-    vector<Mat> vehiclesMat(FrameBatch *frameBatch);
-
+    void filterVehicle(FrameBatch *frameBatch);
  private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
