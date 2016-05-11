@@ -29,7 +29,7 @@ class PlateRecognizerProcessor : public Processor {
 
  protected:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
-    vector<Mat> vehicles_mat(FrameBatch *frameBatch);
+    void filterVehicle(FrameBatch *frameBatch);
  private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
