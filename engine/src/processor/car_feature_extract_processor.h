@@ -29,12 +29,12 @@ class CarFeatureExtractProcessor : public Processor {
     virtual bool checkStatus(Frame *frame) {
         return true;
     }
-    virtual void beforeUpdate(FrameBatch *frameBatch) {
-
-    }
+    virtual void beforeUpdate(FrameBatch *frameBatch);
  private:
     CarFeatureExtractor *extractor_;
     void extract(vector<Object*> &objs);
+
+    vector<Object*> vehicle_to_processed_;
 };
 
 } /* namespace dg */

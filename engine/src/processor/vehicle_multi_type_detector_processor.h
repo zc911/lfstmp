@@ -34,6 +34,7 @@ class VehicleMultiTypeDetectorProcessor : public Processor {
 
  private:
     VehicleMultiTypeDetector *detector_;
+    int base_id_;
 
 };
 

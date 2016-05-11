@@ -23,7 +23,7 @@ class FaceDetectProcessor : public Processor {
 
     void Update(Frame *frame);
     void Update(FrameBatch *frameBatch);
-
+    void beforeUpdate(FrameBatch *frameBatch);
     bool checkOperation(Frame *frame) {
         return true;
     }
@@ -34,6 +34,7 @@ class FaceDetectProcessor : public Processor {
 
  private:
     FaceDetector *detector_;
+    int base_id_;
 };
 
 } /* namespace dg */
