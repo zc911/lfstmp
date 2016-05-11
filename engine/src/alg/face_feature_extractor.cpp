@@ -28,10 +28,10 @@ FaceFeatureExtractor::FaceFeatureExtractor(
 
     layer_name_ = "eltwise6";
 
-    LOG(INFO)<< "loading model file: " << config.model_file;
-    net_.reset(new Net<float>(config.model_file, TEST));
-    LOG(INFO)<< "loading trained file : " << config.deploy_file;
-    net_->CopyTrainedLayersFrom(config.deploy_file);
+    LOG(INFO)<< "loading model file: " << config.deploy_file;
+    net_.reset(new Net<float>(config.deploy_file, TEST));
+    LOG(INFO)<< "loading trained file : " << config.model_file;
+    net_->CopyTrainedLayersFrom(config.model_file);
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     do {

@@ -19,8 +19,6 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
 
     batch_size_ = config.batch_size;
     scale_ = config.target_min_size;
-    cout << "SELKJa" << config.deploy_file << " " << config.model_file << " "
-         << batch_size_ << endl;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -245,13 +243,6 @@ void VehicleMultiTypeDetector::bboxTransformInvClip(
 
     vbbox.resize(roi->shape()[0]);
     for (int i = 0; i < roi->shape()[0]; i++) {
-        if (i == 0) {
-            cout << "0 " << roi_cpu[0] << endl;
-            cout << "1 " << roi_cpu[1] << endl;
-            cout << "2 " << roi_cpu[2] << endl;
-            cout << "3 " << roi_cpu[3] << endl;
-            cout << "4 " << roi_cpu[4] << endl;
-        }
         int cls_id = 0;
         float prob = 0;
         for (int li = 0; li < 5; li++) {

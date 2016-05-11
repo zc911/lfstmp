@@ -29,11 +29,12 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
 
     beforeUpdate(frameBatch);
     vector<vector<Prediction> > result;
-    for_each(classifiers_.begin(),classifiers_.end(),[&](VehicleCaffeClassifier *elem) {
-                auto tmpPred=elem->ClassifyAutoBatch(images_);
-                vote(tmpPred,result,classifiers_.size());
 
+    for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
+                auto tmpPred=elem->ClassifyAutoBatch(images_);
+                vote(tmpPred, result, classifiers_.size());
             });
+
     //set results
     for(int i=0;i<objs_.size();i++) {
         if(result[i].size()<0) {
@@ -63,15 +64,15 @@ vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
     vector<cv::Mat> vehicleMat;
     objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_STYLE);
-    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-            ++itr) {
+    vector<Object *>::iterator itr = objs_.begin();
+    while (itr != objs_.end()) {
         Object *obj = *itr;
         //collect car objects
         if (obj->type() == OBJECT_CAR) {
             Vehicle *v = (Vehicle*) obj;
             DLOG(INFO)<< "Put vehicle images to be type classified: " << obj->id() << endl;
             vehicleMat.push_back(v->resized_image());
-
+            ++itr;
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
