@@ -16,6 +16,12 @@ using namespace cv;
 using namespace dg;
 
 string CarRankFeature::Serialize() const {
+
+    if (descriptor_.cols == 0 || position_.cols == 0 || descriptor_.rows == 0
+            || position_.rows == 0) {
+        return "";
+    }
+
     float version = 1.0;
     vector<uchar> data;
     ConvertToByte(version, data);

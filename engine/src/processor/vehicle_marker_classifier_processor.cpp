@@ -65,8 +65,8 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     images_.clear();
 
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_MARKER);
-    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-            ++itr) {
+    vector<Object *>::iterator itr = objs_.begin();
+    while (itr != objs_.end()) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
@@ -76,6 +76,7 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             DLOG(INFO)<< "Put vehicle images to be marker classified: " << obj->id() << endl;
             resized_images_.push_back(v->resized_image());
             images_.push_back(v->image());
+            ++itr;
 
         } else {
             itr = objs_.erase(itr);
