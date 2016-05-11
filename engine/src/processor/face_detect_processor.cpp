@@ -35,7 +35,7 @@ void FaceDetectProcessor::Update(Frame *frame) {
         Face *face = new Face(bbox_id, detection, detection.confidence);
         frame->put_object(face);
     }
-    Proceed(frame);
+    processNext(frame);
 }
 
 // TODO change to "real" batch
@@ -52,7 +52,7 @@ void FaceDetectProcessor::Update(FrameBatch *frameBatch) {
             frame->put_object(face);
         }
     }
-    Proceed(frameBatch);
+    processNext(frameBatch);
 }
 
 } /* namespace dg */

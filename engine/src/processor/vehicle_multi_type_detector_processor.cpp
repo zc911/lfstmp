@@ -54,7 +54,7 @@ void VehicleMultiTypeDetectorProcessor::Update(FrameBatch *frameBatch) {
         }
         DLOG(INFO)<< frame->objects().size() << " cars are detected in frame "<<frame->id() << endl;
     }
-    Proceed(frameBatch);
+    processNext(frameBatch);
 
 }
 
