@@ -54,7 +54,7 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
         v->set_color(color);
     }
 
-    Proceed(frameBatch);
+    processNext(frameBatch);
 
 }
 
@@ -71,7 +71,7 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
         FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
     objs_.clear();
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_COLOR);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_COLOR);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
         Object *obj = *itr;
