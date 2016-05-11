@@ -158,8 +158,8 @@ class Vehicle : public Object {
  public:
 
     typedef struct {
-        Identification class_id;
-        Confidence confidence;
+        Identification class_id = -1;
+        Confidence confidence = 0;
     } Color;
 
     typedef struct {
@@ -201,16 +201,12 @@ class Vehicle : public Object {
         resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
     }
     void set_markers(const vector<Detection> &markers) {
-        cout << "-----------" << markers.size() << endl;
 
         for (auto detection : markers) {
             Marker *m = new Marker(OBJECT_MARKER_0);
             m->set_detection(detection);
             m->set_class_id(detection.id);
             m->set_confidence(detection.confidence);
-            if (!m) {
-                cout << "m is null" << endl;
-            }
             this->AddChild(m);
             DLOG(INFO)<<"set markers "<<detection.id<<endl;
         }
@@ -281,8 +277,16 @@ class Face : public Object {
         feature_ = feature;
     }
 
- private:
+    const cv::Mat& image() const {
+        return image_;
+    }
 
+    void set_image(const cv::Mat& image) {
+        image_ = image;
+    }
+
+ private:
+    cv::Mat image_;
     FaceRankFeature feature_;
 };
 
@@ -292,6 +296,7 @@ typedef struct {
     MessageStatus status;
     MetaData *video_meta_data;
     Object *object;
+
 } Message;
 
 }

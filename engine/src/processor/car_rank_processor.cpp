@@ -7,7 +7,7 @@ CarRankProcessor::CarRankProcessor()
 CarRankProcessor::~CarRankProcessor() {
 }
 
-void CarRankProcessor::Update(Frame *frame) {
+bool CarRankProcessor::process(Frame *frame) {
 
     LOG(INFO)<< "start process frame: " << frame->id() << endl;
 
@@ -17,10 +17,7 @@ void CarRankProcessor::Update(Frame *frame) {
 
     frame->set_status(FRAME_STATUS_FINISHED);
     LOG(INFO) << "end process frame: " << frame->id() << endl;
-}
-
-bool CarRankProcessor::checkStatus(Frame *frame) {
-    return frame->status() == FRAME_STATUS_FINISHED ? false : true;
+    return true;
 }
 
 vector<Score> CarRankProcessor::rank(const Mat& image, const Rect& hotspot,
@@ -38,24 +35,17 @@ vector<Score> CarRankProcessor::rank(const Mat& image, const Rect& hotspot,
     hotspot_resized.width *= resize_rto;
     hotspot_resized.height *= resize_rto;
 
-//        hotspot_resized.x = 1.0 * (hotspot_resized.x - offset) / resize_rto;
-//        hotspot_resized.y = 1.0 * (hotspot_resized.y - offset) / resize_rto;
-//        hotspot_resized.width = 1.0 * hotspot_resized.width / resize_rto;
-//        hotspot_resized.height = 1.0 * hotspot_resized.height / resize_rto;
     LOG(INFO)<< "hotspot resized: " << hotspot_resized;
 
-    t_profiler_matching_.Reset();
     vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized,
                                                        candidates);
     t_profiler_str_ = "TotalMatching";
-    t_profiler_matching_.Update(t_profiler_str_);
 
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
         topx[i] = Score(i, score[i]);
     }
 
-    LOG(INFO)<< "Ranking finished, " <<t_profiler_matching_.getSmoothedTimeProfileString();
     return topx;
 }
 }
