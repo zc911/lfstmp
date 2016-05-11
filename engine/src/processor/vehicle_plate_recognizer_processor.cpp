@@ -19,27 +19,28 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
         delete recognizer_;
     images_.clear();
 }
+
 bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
     DLOG(INFO)<<"Start plate recognize processor "<< endl;
 
-    beforeUpdate(frameBatch);
+    if(images_.size() != objs_.size()) {
+        LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
+        return false;
+    }
 
-    for(int i=0;i<images_.size();i++) {
+    for(int i = 0; i < images_.size(); i++) {
         Vehicle *v = (Vehicle*) objs_[i];
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
     }
-    processNext(frameBatch);
-}
-
-void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    images_.clear();
-    images_ = this->vehiclesMat(frameBatch);
-}
-bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
     return true;
 }
+
+bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    filterVehicle(frameBatch);
+}
+
 void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
                                             cv::Mat &result) {
     Mat tmp;
@@ -55,7 +56,7 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
         tmp = image;
     }
 
-    //创建并初始化滤波模板
+//创建并初始化滤波模板
     cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
     kernel.at<float>(1, 1) = 5.0;
     kernel.at<float>(0, 1) = -1.0;
@@ -65,16 +66,15 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
 
     result.create(image.size(), image.type());
 
-    //对图像进行滤波
+//对图像进行滤波
     cv::filter2D(image, result, image.depth(), kernel);
 }
-vector<Mat> PlateRecognizerProcessor::vehiclesMat(FrameBatch *frameBatch) {
-    vector<cv::Mat> vehicleMat;
+void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
     objs_.clear();
+    images_.clear();
     objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
-
-    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-            ++itr) {
+    vector<Object *>::iterator itr = objs_.begin();
+    while (itr != objs_.end()) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
@@ -84,17 +84,18 @@ vector<Mat> PlateRecognizerProcessor::vehiclesMat(FrameBatch *frameBatch) {
             if (enable_sharpen_) {
                 Mat result;
                 sharpenImage(v->image(), result);
-                vehicleMat.push_back(result);
+                images_.push_back(result);
             } else {
-                vehicleMat.push_back(v->image());
+                images_.push_back(v->image());
             }
+            itr++;
 
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
-    return vehicleMat;
+
 }
 
 }
