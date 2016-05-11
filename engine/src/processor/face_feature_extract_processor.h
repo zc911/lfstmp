@@ -24,7 +24,7 @@ class FaceFeatureExtractProcessor : public Processor {
 
     void Update(Frame *frame);
     virtual void Update(FrameBatch *frameBatch);
-
+    virtual void beforeUpdate(FrameBatch *frameBatch);
     virtual bool checkOperation(Frame *frame) {
         return true;
     }
@@ -35,6 +35,7 @@ class FaceFeatureExtractProcessor : public Processor {
 
  private:
     FaceFeatureExtractor *extractor_;
+    vector<Object*> to_processed_;
 };
 
 } /* namespace dg */
