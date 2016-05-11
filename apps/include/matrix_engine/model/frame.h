@@ -218,7 +218,7 @@ class FrameBatch {
     unsigned int batch_size() const {
         return batch_size_;
     }
-    vector<Object*> collect_objects() {
+    vector<Object*> CollectObjects() {
 
         vector<Object *> objects;
         for (auto * frame : frames_) {
@@ -228,7 +228,7 @@ class FrameBatch {
         }
         return objects;
     }
-    vector<Object*> collect_objects(uint64_t operation) {
+    vector<Object*> CollectObjects(uint64_t operation) {
 
         vector<Object *> objects;
         for (auto * frame : frames_) {

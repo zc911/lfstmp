@@ -33,7 +33,7 @@ void CarFeatureExtractProcessor::Update(Frame *frame) {
     DLOG(INFO)<< "Start feature extract. " << endl;
     extract(frame->objects());
     DLOG(INFO)<< "End feature extract. " << endl;
-    Proceed(frame);
+    processNext(frame);
 }
 
 void CarFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
@@ -42,7 +42,7 @@ void CarFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
         extract(frameBatch->frames()[i]->objects());
     }
     DLOG(INFO)<< "End feature extract(Batch). " << endl;
-    Proceed(frameBatch);
+    processNext(frameBatch);
 }
 
 } /* namespace dg */

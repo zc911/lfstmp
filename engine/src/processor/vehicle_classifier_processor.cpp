@@ -46,7 +46,7 @@ void VehicleClassifierProcessor::Update(FrameBatch *frameBatch) {
         v->set_confidence(max.second);
     }
 
-    Proceed(frameBatch);
+    processNext(frameBatch);
 
 }
 
@@ -62,7 +62,7 @@ vector<Mat> VehicleClassifierProcessor::vehicles_resized_mat(
         FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
     objs_.clear();
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_STYLE);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_STYLE);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
         Object *obj = *itr;
