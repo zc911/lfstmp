@@ -23,7 +23,10 @@ static void PrintFrame(Frame &frame) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
         ObjectType type = obj->type();
+        cout << endl;
         if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE) {
+            cout << "=0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ "
+                 << endl;
             Vehicle *v = (Vehicle*) obj;
             cout << "Vehicle class id: " << v->class_id() << ", Conf: "
                  << v->confidence() << endl;
@@ -45,6 +48,7 @@ static void PrintFrame(Frame &frame) {
             cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
                  << "... Len: " << v->feature().Serialize().size() << endl;
         } else if (type == OBJECT_FACE) {
+            cout << "=.= =.= =.= =.= =.= =.= =.= =.= =.= =.= =.= =.=" << endl;
             Face *f = (Face*) obj;
             cout << "Face Detection: " << f->detection() << endl;
             cout << "Face Vector: " << f->feature().Serialize().substr(0, 32)
@@ -71,7 +75,7 @@ static void* process(void* p) {
     SimpleEngine *engine = (SimpleEngine*) p;
     if (1) {
         FrameBatch *fb = new FrameBatch(1111, 2);
-        for (int i = 0; i < 2; ++i) {
+        for (int i = 0; i < 1; ++i) {
 
             char index[1];
             index[0] = '0' + i;

@@ -38,10 +38,6 @@ vector<Score> CarRankProcessor::rank(const Mat& image, const Rect& hotspot,
     hotspot_resized.width *= resize_rto;
     hotspot_resized.height *= resize_rto;
 
-//        hotspot_resized.x = 1.0 * (hotspot_resized.x - offset) / resize_rto;
-//        hotspot_resized.y = 1.0 * (hotspot_resized.y - offset) / resize_rto;
-//        hotspot_resized.width = 1.0 * hotspot_resized.width / resize_rto;
-//        hotspot_resized.height = 1.0 * hotspot_resized.height / resize_rto;
     LOG(INFO)<< "hotspot resized: " << hotspot_resized;
 
     t_profiler_matching_.Reset();
