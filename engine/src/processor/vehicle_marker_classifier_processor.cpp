@@ -55,7 +55,7 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
     }
     objs_.clear();
-    Proceed(frameBatch);
+    processNext(frameBatch);
 
 }
 
@@ -64,7 +64,7 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     resized_images_.clear();
     images_.clear();
 
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_MARKER);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER);
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {
         Object *obj = *itr;

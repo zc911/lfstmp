@@ -43,7 +43,7 @@ void FaceFeatureExtractProcessor::Update(Frame *frame) {
 
     }
 
-    Proceed(frame);
+    processNext(frame);
 }
 
 void FaceFeatureExtractProcessor::Update(FrameBatch *frameBatch) {

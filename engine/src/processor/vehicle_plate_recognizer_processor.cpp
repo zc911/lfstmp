@@ -17,8 +17,9 @@ PlateRecognizerProcessor::PlateRecognizerProcessor(
 PlateRecognizerProcessor::~PlateRecognizerProcessor() {
     if (recognizer_)
         delete recognizer_;
+    images_.clear();
 }
-void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
+bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
     DLOG(INFO)<<"Start plate recognize processor "<< endl;
 
     beforeUpdate(frameBatch);
@@ -28,14 +29,13 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
-        cout << "PLATE:" << pred.plate_num << endl;
     }
-    Proceed(frameBatch);
+    processNext(frameBatch);
 }
 
 void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
     images_.clear();
-    images_ = this->vehicles_mat(frameBatch);
+    images_ = this->vehiclesMat(frameBatch);
 }
 bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
     return true;
@@ -68,10 +68,10 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
     //对图像进行滤波
     cv::filter2D(image, result, image.depth(), kernel);
 }
-vector<Mat> PlateRecognizerProcessor::vehicles_mat(FrameBatch *frameBatch) {
+vector<Mat> PlateRecognizerProcessor::vehiclesMat(FrameBatch *frameBatch) {
     vector<cv::Mat> vehicleMat;
     objs_.clear();
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_PLATE);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
 
     for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
             ++itr) {

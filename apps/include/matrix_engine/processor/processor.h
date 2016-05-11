@@ -37,11 +37,11 @@ class Processor {
     }
 
     /// Update the input Frame.
-    virtual void Update(Frame *frame) = 0;
+    virtual void process(Frame *frame) = 0;
 
     /// Update the input FrameBatch.
     /// A FrameBatch is a package of one or more Frame.
-    virtual void Update(FrameBatch *frameBatch) = 0;
+    virtual void process(FrameBatch *frameBatch) = 0;
 
     virtual void beforeUpdate(FrameBatch *frameBatch) {};
     virtual bool checkStatus(Frame *frame) = 0;
@@ -49,17 +49,17 @@ class Processor {
     /// This method will invoke the next processor chained to the
     /// current processor.
     /// Each processor must invoke Proceed to drive the engine running.
-    virtual void Proceed(Frame *frame) {
+    virtual void processNext(Frame *frame) {
         if (next_ != NULL) {
-            next_->Update(frame);
+            next_->process(frame);
         }
     }
     /// This method will invoke the next processor chained to the
     /// current processor.
     /// Each processor must invoke Proceed to drive the engine running.
-    virtual void Proceed(FrameBatch *frameBatch) {
+    virtual void processNext(FrameBatch *frameBatch) {
         if (next_ != NULL) {
-            next_->Update(frameBatch);
+            next_->process(frameBatch);
         }
     }
 
