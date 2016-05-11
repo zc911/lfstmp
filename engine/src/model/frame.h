@@ -103,6 +103,7 @@ class Frame {
         objects_.push_back(obj);
     }
 
+
     Object* get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
                 itr != objects_.end(); ++itr) {
