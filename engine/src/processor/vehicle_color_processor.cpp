@@ -72,8 +72,8 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
     vector<cv::Mat> vehicleMat;
     objs_.clear();
     objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_COLOR);
-    for (vector<Object *>::iterator itr = objs_.begin(); itr != objs_.end();
-            ++itr) {
+    vector<Object*>::iterator itr = objs_.begin();
+    while (itr != objs_.end()) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
@@ -82,7 +82,7 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
 
             DLOG(INFO)<< "Put vehicle images to be color classified: " << obj->id() << endl;
             vehicleMat.push_back(v->resized_image());
-
+            ++itr;
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;

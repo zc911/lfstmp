@@ -55,6 +55,8 @@ void ConfigFilter::createFaceExtractorConfig(
 
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;
+    config.align_deploy = model_path + align_deploy;
+    config.align_model = model_path + align_model;
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.gpu_id = gpu_id;
