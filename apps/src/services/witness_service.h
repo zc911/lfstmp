@@ -22,9 +22,9 @@ class WitnessAppsService {
     WitnessAppsService(const Config *config);
     virtual ~WitnessAppsService();
 
-    bool Recognize(const WitnessRequest *request, WitnessResponse *response);
+    MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
-    bool BatchRecognize(const WitnessBatchRequest *request,
+    MatrixError BatchRecognize(const WitnessBatchRequest *request,
                         WitnessBatchResponse *response);
 
  private:
