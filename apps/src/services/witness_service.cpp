@@ -453,6 +453,7 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
             return err;
         }
 
+
         Identification curr_id = id_++;  //TODO: make thread safe
         Frame *frame = new Frame(curr_id, image);
         frame->set_operation(getOperation(batchRequest->context()));
