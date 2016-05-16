@@ -55,7 +55,7 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat) {
     }
 
     err.set_code(ret);
-    err.set_message("load image failed!");
+    err.set_message("load image failed: " + uri);
     return err;
 }
 
