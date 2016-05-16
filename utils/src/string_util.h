@@ -50,6 +50,15 @@ static string encode2base64(char *data, int size) {
     return encoded.str();
 }
 
+static void trimLR(string &s) {
+
+    if (!s.empty() && (s[0] == ' ' || s[s.length() - 1] == ' ')) {
+        s.erase(0, s.find_first_not_of(" "));
+        s.erase(s.find_last_not_of(" ") + 1);
+    }
+
+}
+
 //static string encode2JPEGInBase64(cv::Mat &data) {
 //    vector < uchar > buff;
 //    cv::imencode(".jpg", data, buff);
