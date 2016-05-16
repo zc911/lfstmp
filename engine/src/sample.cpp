@@ -74,7 +74,7 @@ static SimpleEngine *engine1;
 static void* process(void* p) {
     SimpleEngine *engine = (SimpleEngine*) p;
     if (1) {
-        FrameBatch *fb = new FrameBatch(1111, 2);
+        FrameBatch *fb = new FrameBatch(1111);
         for (int i = 0; i < 1; ++i) {
 
             char index[1];
@@ -100,7 +100,7 @@ static void* process(void* p) {
                     | OPERATION_FACE_FEATURE_VECTOR);
 
             f->set_operation(op);
-            fb->add_frame(f);
+            fb->AddFrame(f);
 
         }
         engine->Process(fb);
@@ -153,7 +153,7 @@ int main() {
 //                    | OPERATION_VEHICLE_FEATURE_VECTOR
 //                    | OPERATION_VEHICLE_PLATE);
 //            f->set_operation(op);
-//            fb->add_frame(f);
+//            fb->AddFrame(f);
 //        }
 //
 //        engine->Process(fb);
