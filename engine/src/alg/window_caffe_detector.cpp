@@ -213,7 +213,7 @@ void WindowCaffeDetector::WrapBatchInputLayer(
 }
 
 WindowCaffeDetector::~WindowCaffeDetector() {
-    // TODO Auto-generated destructor stub
+    device_setted_ = false;
 }
 
 }

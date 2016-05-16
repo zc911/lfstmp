@@ -54,7 +54,7 @@ class WitnessServiceImpl : public WitnessService::Service
         Payload *payload = new Payload(request->sessionid(), image);
         frame->set_payload(payload);
         FrameBatch *framebatch = new FrameBatch(request->sessionid()*10,1);
-        framebatch->add_frame(frame);
+        framebatch->AddFrame(frame);
         engine_->Process(framebatch);
 
         cout << "Finish processing: " << request->sessionid() << "..." << endl;
