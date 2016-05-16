@@ -216,9 +216,11 @@ class FrameBatch {
     vector<Frame *> frames() {
         return frames_;
     }
+
     unsigned int batch_size() const {
         return batch_size_;
     }
+
     vector<Object*> CollectObjects() {
 
         vector<Object *> objects;
@@ -229,6 +231,7 @@ class FrameBatch {
         }
         return objects;
     }
+
     vector<Object*> CollectObjects(uint64_t operation) {
 
         vector<Object *> objects;
