@@ -12,7 +12,8 @@
 
 #include <opencv2/core/core.hpp>
 #include "config.h"
-#include "model/ranker.grpc.pb.h" //from apps
+#include "../model/common.pb.h"
+#include "../model/ranker.grpc.pb.h" //from apps
 #include "engine/rank_engine.h"
 
 using namespace cv;
@@ -26,7 +27,7 @@ class RankerAppsService {
     RankerAppsService(const Config *config);
     virtual ~RankerAppsService();
 
-    bool GetRankedVector(const FeatureRankingRequest* request,
+    MatrixError GetRankedVector(const FeatureRankingRequest* request,
                          FeatureRankingResponse* response);
 
  private:
@@ -34,10 +35,10 @@ class RankerAppsService {
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
 
-    bool getRankedCarVector(const FeatureRankingRequest* request,
+    MatrixError getRankedCarVector(const FeatureRankingRequest* request,
                             FeatureRankingResponse* response);
 
-    bool getRankedFaceVector(const FeatureRankingRequest* request,
+    MatrixError getRankedFaceVector(const FeatureRankingRequest* request,
                              FeatureRankingResponse* response);
 
     static void sortAndFillResponse(const FeatureRankingRequest* request,

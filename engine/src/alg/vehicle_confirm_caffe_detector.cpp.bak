@@ -39,7 +39,7 @@ VehicleConfirmCaffeDetector::VehicleConfirmCaffeDetector(CaffeConfig &config)
 }
 
 VehicleConfirmCaffeDetector::~VehicleConfirmCaffeDetector() {
-     // TODO Auto-generated destructor stub
+     device_setted_ = false;
 }
 
 vector<vector<Detection> > VehicleConfirmCaffeDetector::Confirm(

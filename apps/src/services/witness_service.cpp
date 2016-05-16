@@ -352,16 +352,19 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     return err;
 }
 
-bool WitnessAppsService::Recognize(const WitnessRequest *request,
-                                   WitnessResponse *response) {
+MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
+                                          WitnessResponse *response) {
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
     const string &sessionid = request->context().sessionid();
+    MatrixError err;
 
     if (!request->has_image() || !request->image().has_data()) {
         LOG(ERROR) << "image descriptor does not exist";
-        return false;
+        err.set_code(-1);
+        err.set_message("image descriptor does not exist");
+        return err;
     }
 
     LOG(INFO) << "Get Recognize request: " << sessionid
@@ -369,18 +372,18 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     LOG(INFO) << "Start processing: " << sessionid << "...";
 
     Mat image;
-    MatrixError err = ImageService::ParseImage(request->image().data(), image);
+    err = ImageService::ParseImage(request->image().data(), image);
     if (err.code() != 0) {
         LOG(ERROR) << "parse image failed, " << err.message();
-        return false;
+        return err;
     }
 
     Identification curr_id = id_++;  //TODO: make thread safe
     Frame *frame = new Frame(curr_id, image);
     frame->set_operation(getOperation(request->context()));
 
-    FrameBatch framebatch(curr_id * 10, 1);
-    framebatch.add_frame(frame);
+    FrameBatch framebatch(curr_id * 10);
+    framebatch.AddFrame(frame);
     engine_.Process(&framebatch);
 
     //fill response
@@ -399,7 +402,7 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     err = getRecognizeResult(frame, result);
     if (err.code() != 0) {
         LOG(ERROR) << "get result from frame failed, " << err.message();
-        return false;
+        return err;
     }
 
     WitnessImage *ret_image = result->mutable_image();
@@ -415,14 +418,17 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
     LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
     LOG(INFO) << "=======" << endl;
-    return true;
+
+    return err;
+
 }
 
-bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
-                                        WitnessBatchResponse *batchResponse) {
+MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
+                                               WitnessBatchResponse *batchResponse) {
 
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
+    MatrixError err;
 
     const string &sessionid = batchRequest->context().sessionid();
 
@@ -437,33 +443,25 @@ bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
     LOG(INFO) << "Start processing: " << sessionid << "...";
 
     Identification curr_id = id_++;
-    FrameBatch framebatch(curr_id * 10, 8);
-    MatrixError err;
+    FrameBatch framebatch(curr_id * 10);
     while (itr != images.end()) {
         Mat image;
 
         err = ImageService::ParseImage(itr->data(), image);
         if (err.code() != 0) {
-            LOG(ERROR) << "parse image failed, "  << err.message();
-            return false;
+            LOG(ERROR) << "parse image failed, " << err.message();
+            return err;
         }
 
         Identification curr_id = id_++;  //TODO: make thread safe
         Frame *frame = new Frame(curr_id, image);
         frame->set_operation(getOperation(batchRequest->context()));
 
-        if (!framebatch.add_frame(frame)) {
-            LOG(ERROR) << "Input exceeds the max batch size. " << endl;
-            break;
-        }
+        framebatch.AddFrame(frame);
         itr++;
     }
 
-//    if (!request->has_image() || !request->image().has_data()) {
-//        LOG(ERROR)<< "image descriptor does not exist";
-//        return false;
-//    }
-
+    DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
 
     engine_.Process(&framebatch);
 
@@ -487,7 +485,7 @@ bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
         err = getRecognizeResult(frame, result);
         if (err.code() != 0) {
             LOG(ERROR) << "get result from frame failed, " << err.message();
-            return false;
+            return err;
         }
 
     }
@@ -496,7 +494,9 @@ bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
     if (frames.size() != batchResponse->results().size()) {
         LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
             << batchResponse->results().size() << endl;
-        return false;
+        err.set_code(-1);
+        err.set_message("Input frame size not equal to results size.");
+        return err;
     }
 
 
@@ -506,7 +506,7 @@ bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
 
     LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
     LOG(INFO) << "=======" << endl;
-    return true;
+    return err;
 }
 
 }
