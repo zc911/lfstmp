@@ -11,7 +11,7 @@
 #define MATRIX_APPS_WITNESS_SERVICE_H_
 
 #include "config.h"
-#include "model/witness.grpc.pb.h"
+#include "../model/witness.grpc.pb.h"
 #include "engine/witness_engine.h"
 
 namespace dg {
