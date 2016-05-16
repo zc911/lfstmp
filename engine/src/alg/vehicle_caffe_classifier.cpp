@@ -27,14 +27,19 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
     }
 
     net_.reset(
-            new Net<float>(caffe_config_.deploy_file, TEST, config.is_model_encrypt));
+            new Net<float>(caffe_config_.deploy_file, TEST,
+                           config.is_model_encrypt));
     net_->CopyTrainedLayersFrom(caffe_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
 
     Blob<float>* input_layer = net_->input_blobs()[0];
-    num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+    num_channels_ = input_layer->channels();
     means_ = cv::Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
+    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
+                         input_geometry_.height, input_geometry_.width);
+    /* Forward dimension change to all layers. */
+    net_->Reshape();
 
 }
 
@@ -87,11 +92,6 @@ vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
         device_setted_ = true;
     }
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
-                         input_geometry_.height, input_geometry_.width);
-    /* Forward dimension change to all layers. */
-    net_->Reshape();
     std::vector<std::vector<cv::Mat> > input_batch;
     WrapBatchInputLayer(&input_batch);
     PreprocessBatch(imgs, &input_batch);
@@ -149,6 +149,7 @@ void VehicleCaffeClassifier::PreprocessBatch(
             cv::cvtColor(img, sample, CV_GRAY2BGR);
         else
             sample = img;
+
         cv::Mat sample_resized;
         if (sample.size() != input_geometry_)
             cv::resize(sample, sample_resized, input_geometry_);
