@@ -17,7 +17,7 @@
 
 namespace dg {
 
-MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat) {
+MatrixError ImageService::ParseImage(const Image &imgDes, ::cv::Mat &imgMat) {
     if (imgDes.uri().size() > 0) {
         return getImageFromUri(imgDes.uri(), imgMat);
     } else if (imgDes.bindata().size() > 0) {
@@ -30,33 +30,44 @@ MatrixError ImageService::ParseImage(const Image& imgDes, ::cv::Mat& imgMat) {
     return err;
 }
 
-MatrixError ImageService::getImageFromData(const string img64,
-                                           ::cv::Mat& imgMat) {
-    MatrixError err;
-    vector<uchar> bin;
-    Base64::Decode(img64, bin);
-    if (bin.size() >= 0) {
-        imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
-        return err;
+static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
+    if (data.size() >= 0) {
+        try {
+            imgMat = ::cv::imdecode(::cv::Mat(data), 1);
+        }
+        catch (exception &e) {
+            LOG(ERROR) << "decode image failed: " << e.what() << endl;
+        }
     }
-
-    err.set_code(-1);
-    err.set_message("received empty image");
-    return err;
 }
 
-MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat& imgMat) {
-    MatrixError err;
+MatrixError ImageService::getImageFromData(const string img64,
+                                           ::cv::Mat &imgMat) {
+    MatrixError ok;
+    vector<uchar> bin;
+    Base64::Decode(img64, bin);
+    decodeDataToMat(bin, imgMat);
+
+    if ((imgMat.rows & imgMat.cols) == 0) {
+        LOG(ERROR) << "Image is empty from BASE64" << endl;
+    }
+    return ok;
+}
+
+MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat) {
+    // whatever read, just return ok to let the batch proceed.
+    MatrixError ok;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin);
     if (ret == 0) {
-        imgMat = ::cv::imdecode(::cv::Mat(bin), 1);
-        return err;
+        decodeDataToMat(bin, imgMat);
     }
 
-    err.set_code(ret);
-    err.set_message("load image failed: " + uri);
-    return err;
+    if ((imgMat.rows & imgMat.cols) == 0) {
+        LOG(ERROR) << "Image is empty: " << uri << endl;
+    }
+    return ok;
+
 }
 
 }
