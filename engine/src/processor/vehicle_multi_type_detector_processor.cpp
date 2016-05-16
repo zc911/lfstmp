@@ -42,6 +42,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             Detection detection = *itr;
             Object *obj = NULL;
 
+            // TODO other detection type?
             if (detection.id == DETECTION_CAR) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
                 Mat roi = Mat(data, detection.box);
