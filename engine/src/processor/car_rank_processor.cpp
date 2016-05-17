@@ -24,10 +24,7 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
                                      const vector<CarRankFeature> &candidates) {
     CarRankFeature des;
 
-    cout << "Image size: " << image.rows << ", " << image.cols << endl;
-
     car_feature_extractor_.ExtractDescriptor(image, des);
-
 
     LOG(INFO) << "image feature w(" << des.width_ << "), h(" << des.height_ << ")";
 
