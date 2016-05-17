@@ -19,15 +19,19 @@ class PlateRecognizerProcessor : public Processor {
     PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig);
 
     ~PlateRecognizerProcessor();
-    virtual void Update(Frame *frame) {
-
-    }
-
-    virtual void Update(FrameBatch *frameBatch);
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-    virtual bool checkStatus(Frame *frame);
 
  protected:
+
+    virtual bool process(Frame *frame) {
+        return false;
+    }
+    virtual bool process(FrameBatch *frameBatch);
+    virtual bool beforeUpdate(Frame *frame) {
+        return false;
+    }
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+
+ private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
     void filterVehicle(FrameBatch *frameBatch);
  private:

@@ -12,8 +12,43 @@
 		"EnableAsyn" : true
 	},
 	"Advanced" : {
-		"DetectionRescale" : 400,
-		"DetectionBatchSize": 1
+		"Detection" : {
+			"Rescale" : 400,
+			"BatchSize": 1
+		},
+		"Color" :{
+			"BatchSize": 1
+		},
+		"Style" :{
+			"BatchSize": 1
+		},
+		"Plate" : {
+			"LocalProvince" : "",
+			"OCR" : 1,
+			"Locate" : 5,
+			"EnableSharp":true
+		},
+		"Marker" : {
+			"MOTConfidence" : 0.6,
+			"BeltConfidence" : 0.8,
+			"GlobalConfidence" : 0.8,
+			"AccessoriesConfidence" : 0.8,
+			"OthersConfidence" : 0.8,
+			"TissueBoxConfidence" : 0.8,
+			"SunVisorConfidence" : 0.8,
+			"BatchSize" : 1
+		},
+		"Window" : {
+			"BatchSize":1
+		},
+		"FaceDetect" : {
+			"BatchSize":1,
+			"Confidence":0.7,
+			"scale":640
+		},
+		"FaceExtract" :{
+			"BatchSize":1
+		}
 	},
 	"Log" : {
 		"Dir": "",
@@ -31,7 +66,7 @@
 			"EnableFeatureVector" : true
 		},
 		"Face": {
-			"Enable" : true,
+			"Enable" : false,
 			"EnableDetection": true,
 			"EnableFeatureVector": true
 		}
@@ -39,5 +74,7 @@
 	"Debug" : {
 		"Enable" : true,
 		"Encrypt" : false
-	}
+	},
+	"DataPath":"data_config.json"
+
 }

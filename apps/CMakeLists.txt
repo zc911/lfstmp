@@ -11,9 +11,9 @@ SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDL
 
 SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
-INCLUDE_DIRECTORIES(src include ../utils/dist/${PLATFORM}/include ../engine/src include/pbjson include/Simple-Web-Server ../engine/include/dgcaffe ../engine/include/dlib-18.18.0 ../engine/include/dgmedia-1.4.0 /usr/local/cuda/include /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/include/libxml2 /usr/include/freetype2)
-SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
+INCLUDE_DIRECTORIES(include src include/matrix_engine ../utils/dist/${PLATFORM}/include)
 
+SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 IF(${PLATFORM} STREQUAL "Linux-armv7l")
     INCLUDE_DIRECTORIES(include/caffe-6.5)
     SET(CUDA_LIB_PATH "/usr/local/cuda/lib")
@@ -35,8 +35,8 @@ FIND_LIBRARY(LIB_MATRIX_UTILS NAMES matrix_util PATHS ../utils/dist/${PLATFORM}/
 find_library(LIB_MATRIX matrix PATHS lib/matrix_engine/${PLATFORM})
 find_library(LIB_MATRIX_CUDA matrix_cuda PATHS lib/matrix_engine/${PLATFORM})
 
-FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS ../engine/lib/thplateid/${PLATFORM})
-FIND_LIBRARY(LIB_DLIB dlib PATHS ../engine/lib/dlib/${PLATFORM})
+FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS lib/thplateid/${PLATFORM})
+FIND_LIBRARY(LIB_DLIB dlib PATHS lib/dlib/${PLATFORM})
 
 LIST(APPEND LIBS ${LIB_MATRIX} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DLIB})
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
