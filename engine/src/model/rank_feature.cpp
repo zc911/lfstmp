@@ -18,7 +18,7 @@ using namespace dg;
 string CarRankFeature::Serialize() const {
 
     if (descriptor_.cols == 0 || position_.cols == 0 || descriptor_.rows == 0
-            || position_.rows == 0) {
+        || position_.rows == 0) {
         return "";
     }
 
@@ -29,7 +29,7 @@ string CarRankFeature::Serialize() const {
     const Mat &des = descriptor_;
     const Mat &pos = position_;
     ConvertToByte((int) (des.dataend - des.datastart), data);
-    ConvertToByte((int) (pos.dataend - pos.dataend), data);
+    ConvertToByte((int) (pos.dataend - pos.datastart), data);
     copy(des.datastart, des.dataend, back_inserter(data));
     copy(pos.datastart, pos.dataend, back_inserter(data));
     return Base64::Encode(data);
@@ -62,8 +62,8 @@ bool CarRankFeature::Deserialize(string featureStr) {
     it += des_size;
     vector<uchar> pos_v(it, it + pos_size);
 
-    Mat des(des_size / 32, 32, 0, des_v.data());
-    Mat pos(pos_size / (2 * sizeof(ushort)), 2, 2, pos_v.data());
+    Mat des(des_size / 32, 32, CV_8UC1, des_v.data());
+    Mat pos(pos_size / (2 * sizeof(ushort)), 2, CV_16UC1, pos_v.data());
     des.copyTo(descriptor_);
     pos.copyTo(position_);
 
@@ -74,6 +74,9 @@ bool CarRankFeature::Deserialize(string featureStr) {
 }
 
 string FaceRankFeature::Serialize() const {
+    if (descriptor_.size() == 0) {
+        return "";
+    }
     return Base64::Encode(descriptor_);
 }
 
