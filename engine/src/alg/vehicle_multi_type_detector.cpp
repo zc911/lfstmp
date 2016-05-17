@@ -17,8 +17,9 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
         Caffe::set_mode(Caffe::CPU);
     }
 
-    batch_size_ = config.batch_size;
-    scale_ = config.target_min_size;
+    // currently, this detector only support batch size = 1
+    batch_size_ = config_.batch_size = 1;
+    scale_ = config_.target_min_size;
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -106,21 +107,6 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
         Mat img = imgs[i];
 
         float resize_ratio = ReScaleImage(img, scale_);
-
-//        float resize_ratio = 1;
-//        Size resize_r_c;
-
-//        if (img.rows > scale_ && img.cols > scale_) {
-//            if (img.rows < img.cols) {
-//                resize_ratio = float(scale_) / img.rows;
-//                resize_r_c = Size(img.cols * resize_ratio, scale_);
-//                resize(img, img, resize_r_c);
-//            } else {
-//                resize_ratio = float(scale_) / img.cols;
-//                resize_r_c = Size(scale_, img.rows * resize_ratio);
-//                resize(img, img, resize_r_c);
-//            }
-//        }
 
         vector<int> shape;
         shape.push_back(batch_size_);

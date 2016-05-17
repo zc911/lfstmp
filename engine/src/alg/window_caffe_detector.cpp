@@ -22,9 +22,6 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
         LOG(WARNING) << "Use CPU only" << endl;
         Caffe::set_mode(Caffe::CPU);
     }
-    /* Set batchsize */
-
-    /* Load the network. */
 
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
@@ -34,9 +31,11 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
 
     Blob<float>* input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    CHECK(num_channels_ == 3 || num_channels_ == 1)
-    << "Input layer should have 1 or 3 channels.";
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+
+    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
+            input_geometry_.height, input_geometry_.width);
+    net_->Reshape();
 
 }
 vector<Detection> WindowCaffeDetector::DetectBatch(
@@ -171,12 +170,6 @@ vector<Blob<float>*> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
         device_setted_ = true;
     }
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
-
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
-                         input_geometry_.height, input_geometry_.width);
-    /* Forward dimension change to all layers. */
-    net_->Reshape();
     std::vector<std::vector<cv::Mat> > input_batch;
 
     WrapBatchInputLayer(&input_batch);
@@ -220,7 +213,7 @@ void WindowCaffeDetector::WrapBatchInputLayer(
 }
 
 WindowCaffeDetector::~WindowCaffeDetector() {
-    // TODO Auto-generated destructor stub
+    device_setted_ = false;
 }
 
 }

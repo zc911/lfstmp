@@ -22,7 +22,9 @@ class Processor {
 
     }
     virtual ~Processor() {
-
+        if (next_)
+            delete next_;
+        next_ = NULL;
     }
 
     Processor* SetNextProcessor(Processor *proc) {
@@ -36,28 +38,47 @@ class Processor {
         return next_;
     }
 
-    /// Update the input Frame.
-    virtual void Update(Frame *frame) = 0;
+/// Update the input Frame.
+    virtual void Update(Frame *frame) {
+        if(beforeUpdate(frame)) {
+            process(frame);
+        }
+        processNext(frame);
+    }
 
-    /// Update the input FrameBatch.
-    /// A FrameBatch is a package of one or more Frame.
-    virtual void Update(FrameBatch *frameBatch) = 0;
+/// Update the input FrameBatch.
+/// A FrameBatch is a package of one or more Frame.
+    virtual void Update(FrameBatch *frameBatch) {
+        if(beforeUpdate(frameBatch)) {
+            process(frameBatch);
+        }
+        processNext(frameBatch);
+    }
 
-    virtual void beforeUpdate(FrameBatch *frameBatch) {};
-    virtual bool checkStatus(Frame *frame) = 0;
+protected:
+    /// The interfaces derived class must to implement
+    virtual bool beforeUpdate(Frame *frame) {return true;}
+    virtual bool beforeUpdate(FrameBatch *frameBatch) {return true;};
 
-    /// This method will invoke the next processor chained to the
-    /// current processor.
-    /// Each processor must invoke Proceed to drive the engine running.
-    virtual void Proceed(Frame *frame) {
+    virtual bool process(Frame *frame) = 0;
+    virtual bool process(FrameBatch *frame) = 0;
+
+    virtual bool checkStatus(Frame *frame) {return true;};
+    virtual bool checkStatus(FrameBatch *frameBatch) {return true;};
+
+private:
+/// This method will invoke the next processor chained to the
+/// current processor.
+/// Each processor must invoke Proceed to drive the engine running.
+    void processNext(Frame *frame) {
         if (next_ != NULL) {
             next_->Update(frame);
         }
     }
-    /// This method will invoke the next processor chained to the
-    /// current processor.
-    /// Each processor must invoke Proceed to drive the engine running.
-    virtual void Proceed(FrameBatch *frameBatch) {
+/// This method will invoke the next processor chained to the
+/// current processor.
+/// Each processor must invoke Proceed to drive the engine running.
+    void processNext(FrameBatch *frameBatch) {
         if (next_ != NULL) {
             next_->Update(frameBatch);
         }

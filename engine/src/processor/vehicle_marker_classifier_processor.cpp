@@ -14,7 +14,6 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
         : Processor() {
 
     classifier_ = new MarkerCaffeClassifier(mConfig);
-
     detector_ = new WindowCaffeDetector(wConfig);
 
 }
@@ -22,19 +21,17 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
     if (classifier_)
         delete classifier_;
+
+    images_.clear();
+    resized_images_.clear();
 }
 
-void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
-    DLOG(INFO)<<"start marker processor"<<endl;
-
-    DLOG(INFO)<<"start window detection"<<endl;
-
-    beforeUpdate(frameBatch);
+bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
+    DLOG(INFO)<<"Start marker and window processor"<<endl;
 
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
             images_);
 
-    DLOG(INFO)<<"window crops result"<<endl;
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle*) objs_[i];
         v->set_window(crops[i]);
@@ -55,16 +52,15 @@ void VehicleMarkerClassifierProcessor::Update(FrameBatch *frameBatch) {
 
     }
     objs_.clear();
-    Proceed(frameBatch);
-
+    return true;
 }
 
-void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     resized_images_.clear();
     images_.clear();
 
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_MARKER);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;
@@ -83,9 +79,8 @@ void VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
+    return true;
 
 }
-bool VehicleMarkerClassifierProcessor::checkStatus(Frame *frame) {
-    return true;
-}
+
 }
