@@ -8,24 +8,22 @@
  * ==========================================================================*/
 #include "processor/face_rank_processor.h"
 
-namespace dg
-{
+namespace dg {
 
-FaceRankProcessor::FaceRankProcessor()
-{
-	ranker_ = new FaceRanker();
+FaceRankProcessor::FaceRankProcessor() {
+    ranker_ = new FaceRanker();
 }
 
-FaceRankProcessor::~FaceRankProcessor()
-{
-	delete ranker_;
+FaceRankProcessor::~FaceRankProcessor() {
+    if (ranker_)
+        delete ranker_;
 }
 
-void FaceRankProcessor::Update(Frame *frame)
-{
-	FaceRankFrame *fframe = (FaceRankFrame *)frame;
-	fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
-			fframe->candidates_);
+bool FaceRankProcessor::process(Frame *frame) {
+    FaceRankFrame *fframe = (FaceRankFrame *) frame;
+    fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
+                                    fframe->candidates_);
+    return true;
 }
 
 } /* namespace dg */

@@ -14,14 +14,14 @@
 
 #include "witness_service.h"
 #include "image_service.h"
-#include "config/config_val.h"
+#include "../config/config_val.h"
 
 namespace dg {
 
 WitnessAppsService::WitnessAppsService(const Config *config)
-        : config_(config),
-          engine_(*config),
-          id_(0) {
+    : config_(config),
+      engine_(*config),
+      id_(0) {
 
     unknown_string_ = "UNKNOWN";
     unknown_vehicle_.set_typeid_(-1);
@@ -44,15 +44,15 @@ WitnessAppsService::~WitnessAppsService() {
 
 void WitnessAppsService::init(void) {
     string vModelFile = (string) config_->Value(
-            ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
+        ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
     string vColorFile = (string) config_->Value(
-            ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
+        ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
     string vSymbolFile = (string) config_->Value(
-            ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
+        ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
     string pColorFile = (string) config_->Value(
-            ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
+        ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
     string pTypeFile = (string) config_->Value(
-            ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
+        ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
@@ -72,7 +72,7 @@ string WitnessAppsService::trimString(string str) {
 }
 
 void WitnessAppsService::init_string_map(string filename, string sep,
-                                         vector<string>& array) {
+                                         vector<string> &array) {
     ifstream input(filename);
 
     int max = 0;
@@ -94,13 +94,13 @@ void WitnessAppsService::init_string_map(string filename, string sep,
         array[i] = unknown_string_;
     }
 
-    for (const std::pair<int, string>& p : pairs) {
+    for (const std::pair<int, string> &p : pairs) {
         array[p.first] = p.second;
     }
 }
 
 void WitnessAppsService::init_vehicle_map(string filename, string sep,
-                                          vector<VehicleModel>& array) {
+                                          vector<VehicleModel> &array) {
     ifstream input(filename);
 
     int max = 0;
@@ -134,12 +134,12 @@ void WitnessAppsService::init_vehicle_map(string filename, string sep,
         array[i].CopyFrom(unknown_vehicle_);
     }
 
-    for (const std::pair<int, VehicleModel>& p : pairs) {
+    for (const std::pair<int, VehicleModel> &p : pairs) {
         array[p.first].CopyFrom(p.second);
     }
 }
 
-const string& WitnessAppsService::lookup_string(const vector<string>& array,
+const string &WitnessAppsService::lookup_string(const vector<string> &array,
                                                 int index) {
     if (index < 0 || index > array.size()) {
         return unknown_string_;
@@ -148,8 +148,8 @@ const string& WitnessAppsService::lookup_string(const vector<string>& array,
     return array[index];
 }
 
-const VehicleModel& WitnessAppsService::lookup_vehicle(
-        const vector<VehicleModel>& array, int index) {
+const VehicleModel &WitnessAppsService::lookup_vehicle(
+    const vector<VehicleModel> &array, int index) {
     if (index < 0 || index > array.size()) {
         return unknown_vehicle_;
     }
@@ -157,7 +157,7 @@ const VehicleModel& WitnessAppsService::lookup_vehicle(
     return array[index];
 }
 
-Operation WitnessAppsService::getOperation(const WitnessRequestContext& ctx) {
+Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     Operation op;
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
@@ -215,7 +215,7 @@ void WitnessAppsService::copyCutboard(const Box &b, Cutboard *cb) {
 MatrixError WitnessAppsService::fillModel(Identification id,
                                           VehicleModel *model) {
     MatrixError err;
-    const VehicleModel& m = lookup_vehicle(vehicle_repo_, id);
+    const VehicleModel &m = lookup_vehicle(vehicle_repo_, id);
     model->CopyFrom(m);
     return err;
 }
@@ -245,37 +245,33 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
     return err;
 }
 
-MatrixError WitnessAppsService::fillSymbols(const vector<Object*>& objects,
+MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
                                             RecognizedVehicle *vrec) {
     MatrixError err;
 
     int isize = symbol_repo_.size();
-    int* indexes = new int[isize];
+    int *indexes = new int[isize];
     for (int i = 0; i < isize; i++)
         indexes[i] = -1;
     for (const Object *object : objects) {
-        LOG(INFO)<< "recognized marker: " << object->id() << ", type: " << object->type();
-        if (object->type() != OBJECT_MARKER)
-        {
+        LOG(INFO) << "recognized marker: " << object->id() << ", type: " << object->type();
+        if (object->type() != OBJECT_MARKER) {
             LOG(WARNING) << "unknown marker type: " << object->type();
             continue;
         }
 
-        Marker *m = (Marker *)object;
+        Marker *m = (Marker *) object;
         Identification mid = m->class_id();
-        if (mid >= 0 && mid < isize)
-        {
+        if (mid >= 0 && mid < isize) {
             SymbolItem *item = NULL;
-            if (indexes[mid] < 0)
-            {
+            if (indexes[mid] < 0) {
                 indexes[mid] = vrec->symbolitems_size();
                 item = vrec->add_symbolitems();
                 item->set_symbolid(mid);
                 item->set_symbolname(lookup_string(symbol_repo_, mid));
             }
-            else
-            {
-                item = vrec->mutable_symbolitems( indexes[mid] );
+            else {
+                item = vrec->mutable_symbolitems(indexes[mid]);
             }
 
             Symbol *s = item->add_symbols();
@@ -294,7 +290,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     vrec->set_features(vobj->feature().Serialize());
 
     const Detection &d = vobj->detection();
-    LOG(INFO)<< "detected object: " << vobj->class_id();
+    LOG(INFO) << "detected object: " << vobj->class_id();
     copyCutboard(d.box, vrec->mutable_cutboard());
 
     err = fillModel(vobj->class_id(), vrec->mutable_model());
@@ -324,7 +320,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     frec->set_features(fobj->feature().Serialize());
 
     const Detection &d = fobj->detection();
-    LOG(INFO)<< "detection id: " << d.id << ", deleted? " << d.deleted;
+    LOG(INFO) << "detection id: " << d.id << ", deleted? " << d.deleted;
     copyCutboard(d.box, frec->mutable_cutboard());
     return err;
 }
@@ -334,23 +330,21 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     MatrixError err;
 
     for (const Object *object : frame->objects()) {
-        LOG(INFO)<< "recognized object: " << object->id() << ", type: " << object->type();
-        switch(object->type())
-        {
+        LOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
+        switch (object->type()) {
             case OBJECT_CAR:
-            err = getRecognizedVehicle((Vehicle *)object, result->add_vehicles());
-            break;
+                err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+                break;
 
             case OBJECT_FACE:
-            err = getRecognizedFace((Face *)object, result->add_faces());
-            break;
+                err = getRecognizedFace((Face *) object, result->add_faces());
+                break;
 
             default:
-            LOG(WARNING) << "unknown object type: " << object->type();
+                LOG(WARNING) << "unknown object type: " << object->type();
         }
 
-        if (err.code() < 0)
-        {
+        if (err.code() < 0) {
             break;
         }
     }
@@ -358,39 +352,42 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     return err;
 }
 
-bool WitnessAppsService::Recognize(const WitnessRequest *request,
-                                   WitnessResponse *response) {
+MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
+                                          WitnessResponse *response) {
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
-    const string& sessionid = request->context().sessionid();
+    const string &sessionid = request->context().sessionid();
+    MatrixError err;
 
     if (!request->has_image() || !request->image().has_data()) {
-        LOG(ERROR)<< "image descriptor does not exist";
-        return false;
+        LOG(ERROR) << "image descriptor does not exist";
+        err.set_code(-1);
+        err.set_message("image descriptor does not exist");
+        return err;
     }
 
-    LOG(INFO)<< "Get Recognize request: " << sessionid
-    << ", Image URI:" << request->image().data().uri();
-    LOG(INFO)<< "Start processing: " << sessionid << "...";
+    LOG(INFO) << "Get Recognize request: " << sessionid
+        << ", Image URI:" << request->image().data().uri();
+    LOG(INFO) << "Start processing: " << sessionid << "...";
 
     Mat image;
-    MatrixError err = ImageService::ParseImage(request->image().data(), image);
+    err = ImageService::ParseImage(request->image().data(), image);
     if (err.code() != 0) {
-        LOG(ERROR)<< "parse image failed, " << err.message();
-        return false;
+        LOG(ERROR) << "parse image failed, " << err.message();
+        return err;
     }
 
     Identification curr_id = id_++;  //TODO: make thread safe
     Frame *frame = new Frame(curr_id, image);
     frame->set_operation(getOperation(request->context()));
 
-    FrameBatch framebatch(curr_id * 10, 1);
-    framebatch.add_frame(frame);
+    FrameBatch framebatch(curr_id * 10);
+    framebatch.AddFrame(frame);
     engine_.Process(&framebatch);
 
     //fill response
-    WitnessResponseContext* ctx = response->mutable_context();
+    WitnessResponseContext *ctx = response->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
@@ -398,14 +395,14 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->set_message("SUCCESS");
 
     //debug information of this request
-    ::google::protobuf::Map<::std::string, ::dg::Time>& debugTs = *ctx
-            ->mutable_debugts();
+    ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
+        ->mutable_debugts();
 
     WitnessResult *result = response->mutable_result();
     err = getRecognizeResult(frame, result);
     if (err.code() != 0) {
-        LOG(ERROR)<< "get result from frame failed, " << err.message();
-        return false;
+        LOG(ERROR) << "get result from frame failed, " << err.message();
+        return err;
     }
 
     WitnessImage *ret_image = result->mutable_image();
@@ -418,16 +415,99 @@ bool WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
-    LOG(INFO)<< "recognized objects: " << frame->objects().size() << endl;
-    LOG(INFO)<< "Finish processing: " << sessionid << "..." << endl;
-    LOG(INFO)<< "=======" << endl;
-    return true;
+    LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
+    LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
+    LOG(INFO) << "=======" << endl;
+
+    return err;
+
 }
 
-bool WitnessAppsService::BatchRecognize(const WitnessBatchRequest *request,
-                                        WitnessBatchResponse *response) {
+MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
+                                               WitnessBatchResponse *batchResponse) {
 
-    return true;
+    struct timeval curr_time;
+    gettimeofday(&curr_time, NULL);
+    MatrixError err;
+
+    const string &sessionid = batchRequest->context().sessionid();
+
+    const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
+        batchRequest->images();
+
+    ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
+        images.begin();
+
+
+    LOG(INFO) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
+    LOG(INFO) << "Start processing: " << sessionid << "...";
+
+    Identification curr_id = id_++;
+    FrameBatch framebatch(curr_id * 10);
+    while (itr != images.end()) {
+        Mat image;
+
+        err = ImageService::ParseImage(itr->data(), image);
+        if (err.code() != 0) {
+            LOG(ERROR) << "parse image failed, " << err.message();
+            return err;
+        }
+
+
+        Identification curr_id = id_++;  //TODO: make thread safe
+        Frame *frame = new Frame(curr_id, image);
+        frame->set_operation(getOperation(batchRequest->context()));
+
+        framebatch.AddFrame(frame);
+        itr++;
+    }
+
+    DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
+
+    engine_.Process(&framebatch);
+
+    //fill response
+    WitnessResponseContext *ctx = batchResponse->mutable_context();
+    ctx->set_sessionid(sessionid);
+    ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
+    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
+    ctx->set_status("200");
+    ctx->set_message("SUCCESS");
+
+    //debug information of this request
+    ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
+        ->mutable_debugts();
+
+
+    vector<Frame *> frames = framebatch.frames();
+    for (int i = 0; i < frames.size(); ++i) {
+        Frame *frame = frames[i];
+        ::dg::model::WitnessResult *result = batchResponse->add_results();
+        err = getRecognizeResult(frame, result);
+        if (err.code() != 0) {
+            LOG(ERROR) << "get result from frame failed, " << err.message();
+            return err;
+        }
+
+    }
+
+
+    if (frames.size() != batchResponse->results().size()) {
+        LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
+            << batchResponse->results().size() << endl;
+        err.set_code(-1);
+        err.set_message("Input frame size not equal to results size.");
+        return err;
+    }
+
+
+    gettimeofday(&curr_time, NULL);
+    ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+
+    LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
+    LOG(INFO) << "=======" << endl;
+    return err;
 }
 
 }

@@ -12,7 +12,7 @@
 
 #include <opencv2/core/core.hpp>
 
-#include "model/common.pb.h"
+#include "../model/common.pb.h"
 
 namespace dg {
 

@@ -20,14 +20,10 @@ class FaceRankProcessor : public Processor {
  public:
     FaceRankProcessor();
     virtual ~FaceRankProcessor();
-
-    virtual void Update(Frame *frame);
-    virtual void Update(FrameBatch *frameBatch) {
-
-    }
-
-    virtual bool checkStatus(Frame *frame) {
-        return true;
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch) {
+        return false;
     }
 
  private:
