@@ -144,7 +144,6 @@ void RankerAppsService::sortAndFillResponse(
     for (Score &s : scores) {
         response->add_ids(request->candidates(s.index_).id());
         response->add_scores(s.score_);
-        LOG(INFO) << "id: " << request->candidates(s.index_).id() << ", score: " << s.score_;
     }
 }
 
