@@ -56,14 +56,28 @@ bool CarRankFeature::Deserialize(string featureStr) {
     ConvertToValue(&des_size, des_size_v);
     ConvertToValue(&pos_size, pos_size_v);
 
+    DLOG(INFO) << "Feature version: " << version << endl;
+    DLOG(INFO) << "Des size: " << des_size << ", and Pos size: " << pos_size << endl;
+
+    // this shit check validates the input data
+    if (des_size <= 0 || pos_size <= 0 || des_size % CAR_FEATURE_ORB_COLS_MAX != 0 || pos_size % 2 != 0
+        || des_size % CAR_FEATURE_ORB_COLS_MAX > CAR_FEATURE_ORB_ROWS_MAX || des_size > CAR_FEATURE_DES_MAX_SIZE
+        || it + des_size >= data.end() || it + pos_size >= data.end() || it + des_size + pos_size >= data.end()) {
+
+        LOG(ERROR) << "Feature version:" << version << endl;
+        LOG(ERROR) << "Des size: " << des_size << ", and Pos size: " << pos_size << endl;
+        LOG(ERROR) << "Feature string invalid" << endl;
+        return false;
+    }
+
     it += sizeof(pos_size);
     vector<uchar> des_v(it, it + des_size);
-
     it += des_size;
+
     vector<uchar> pos_v(it, it + pos_size);
 
     Mat des(des_size / 32, 32, CV_8UC1, des_v.data());
-    Mat pos(pos_size / (2 * sizeof(ushort)), 2, CV_16UC1, pos_v.data());
+    Mat pos(pos_size / 2, 2, CV_16UC1, pos_v.data());
     des.copyTo(descriptor_);
     pos.copyTo(position_);
 

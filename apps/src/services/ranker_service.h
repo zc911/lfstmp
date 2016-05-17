@@ -23,38 +23,38 @@ namespace dg {
 using namespace ::dg::model;
 
 class RankerAppsService {
- public:
+public:
     RankerAppsService(const Config *config);
     virtual ~RankerAppsService();
 
-    MatrixError GetRankedVector(const FeatureRankingRequest* request,
-                         FeatureRankingResponse* response);
+    MatrixError GetRankedVector(const FeatureRankingRequest *request,
+                                FeatureRankingResponse *response);
 
- private:
+private:
     const Config *config_;
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
 
-    MatrixError getRankedCarVector(const FeatureRankingRequest* request,
-                            FeatureRankingResponse* response);
+    MatrixError getRankedCarVector(const FeatureRankingRequest *request,
+                                   FeatureRankingResponse *response);
 
-    MatrixError getRankedFaceVector(const FeatureRankingRequest* request,
-                             FeatureRankingResponse* response);
+    MatrixError getRankedFaceVector(const FeatureRankingRequest *request,
+                                    FeatureRankingResponse *response);
 
-    static void sortAndFillResponse(const FeatureRankingRequest* request,
-                                    vector<Score>& scores,
-                                    FeatureRankingResponse* response);
+    static void sortAndFillResponse(const FeatureRankingRequest *request,
+                                    vector<Score> &scores,
+                                    FeatureRankingResponse *response);
 
-    static string requestPrefix(const FeatureRankingRequest* request);
+    static string requestPrefix(const FeatureRankingRequest *request);
 
-    static Rect getHotspot(const FeatureRankingRequest* request,
-                           const Mat& image);
+    static Rect getHotspot(const FeatureRankingRequest *request,
+                           const Mat &image);
 
-    static int getLimit(const FeatureRankingRequest* request);
+    static int getLimit(const FeatureRankingRequest *request);
 
     template<typename F>
-    static MatrixError extractFeatures(const FeatureRankingRequest* request,
-                                       vector<F>& features) {
+    static MatrixError extractFeatures(const FeatureRankingRequest *request,
+                                       vector<F> &features) {
         MatrixError err;
         if (request->candidates_size() <= 0) {
             err.set_code(-1);
@@ -71,7 +71,10 @@ class RankerAppsService {
             }
 
             F feature;
-            feature.Deserialize(featureStr);
+            if (!feature.Deserialize(featureStr)) {
+                LOG(ERROR) << "Invalid feature string, id: " << request->candidates(i).id() << endl;
+            }
+
             features.push_back(feature);
         }
 
