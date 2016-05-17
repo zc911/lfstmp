@@ -25,13 +25,15 @@ VehicleColorProcessor::~VehicleColorProcessor() {
     for (int i = 0; i < classifiers_.size(); i++) {
         delete classifiers_[i];
     }
+    objs_.clear();
     classifiers_.clear();
+    images_.clear();
 }
 
-void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
+bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
+
     DLOG(INFO)<<"Start detect frame: "<< endl;
 
-    beforeUpdate(frameBatch);
     vector<vector<Prediction> > result;
     for_each(classifiers_.begin(),classifiers_.end(),[&](VehicleCaffeClassifier *elem) {
                 auto tmpPred=elem->ClassifyAutoBatch(images_);
@@ -40,7 +42,6 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
             });
 
     //set results
-
     for(int i=0;i<objs_.size();i++) {
         Vehicle *v = (Vehicle*) objs_[i];
         Vehicle::Color color;
@@ -54,26 +55,22 @@ void VehicleColorProcessor::Update(FrameBatch *frameBatch) {
         v->set_color(color);
     }
 
-    Proceed(frameBatch);
-
-}
-
-void VehicleColorProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    images_.clear();
-    images_ = this->vehicles_resized_mat(frameBatch);
-}
-
-bool VehicleColorProcessor::checkStatus(Frame *frame) {
     return true;
 }
 
-vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
-        FrameBatch *frameBatch) {
-    vector<cv::Mat> vehicleMat;
+bool VehicleColorProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    vehiclesResizedMat(frameBatch);
+    return true;
+}
+
+void VehicleColorProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
+
+    images_.clear();
     objs_.clear();
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_COLOR);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_COLOR);
     vector<Object*>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
+
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
@@ -81,14 +78,13 @@ vector<Mat> VehicleColorProcessor::vehicles_resized_mat(
             Vehicle *v = (Vehicle*) obj;
 
             DLOG(INFO)<< "Put vehicle images to be color classified: " << obj->id() << endl;
-            vehicleMat.push_back(v->resized_image());
+            images_.push_back(v->resized_image());
             ++itr;
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
-    return vehicleMat;
 }
 
 }

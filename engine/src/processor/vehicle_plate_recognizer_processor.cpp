@@ -17,15 +17,15 @@ PlateRecognizerProcessor::PlateRecognizerProcessor(
 PlateRecognizerProcessor::~PlateRecognizerProcessor() {
     if (recognizer_)
         delete recognizer_;
+    images_.clear();
 }
-void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
-    DLOG(INFO)<<"Start plate recognize processor "<< endl;
 
-    beforeUpdate(frameBatch);
+bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
+    DLOG(INFO)<<"Start plate recognize processor "<< endl;
 
     if(images_.size() != objs_.size()) {
         LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
-        return;
+        return false;
     }
 
     for(int i = 0; i < images_.size(); i++) {
@@ -34,17 +34,13 @@ void PlateRecognizerProcessor::Update(FrameBatch *frameBatch) {
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
     }
-    images_.clear();
-    objs_.clear();
-    Proceed(frameBatch);
-}
-
-void PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    filterVehicle(frameBatch);
-}
-bool PlateRecognizerProcessor::checkStatus(Frame *frame) {
     return true;
 }
+
+bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
+    filterVehicle(frameBatch);
+}
+
 void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
                                             cv::Mat &result) {
     Mat tmp;
@@ -60,7 +56,7 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
         tmp = image;
     }
 
-    //创建并初始化滤波模板
+//创建并初始化滤波模板
     cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
     kernel.at<float>(1, 1) = 5.0;
     kernel.at<float>(0, 1) = -1.0;
@@ -70,13 +66,13 @@ void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
 
     result.create(image.size(), image.type());
 
-    //对图像进行滤波
+//对图像进行滤波
     cv::filter2D(image, result, image.depth(), kernel);
 }
 void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
-    objs_ = frameBatch->collect_objects(OPERATION_VEHICLE_PLATE);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;
