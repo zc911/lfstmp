@@ -15,21 +15,19 @@
 
 namespace dg {
 
-class RestWitnessServiceImpl final : public RestfulService
-{
+class RestWitnessServiceImpl final: public RestfulService {
 public:
     RestWitnessServiceImpl(const Config *config)
-    : RestfulService()
-    , service_(config)
-    {
+        : RestfulService(), service_(config) {
     }
-    virtual ~RestWitnessServiceImpl() {}
+    virtual ~RestWitnessServiceImpl() { }
 
-    virtual void Bind(HttpServer& server) override
-    {
+    virtual void Bind(HttpServer &server) override {
 
-        BindFunction<WitnessRequest, WitnessResponse> recBinder = std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2);
-        BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder = std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<WitnessRequest, WitnessResponse> recBinder =
+            std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2);
+        BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder =
+            std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
 
         bind(server, "^/rec/image$", "POST", recBinder);
         bind(server, "^/rec/image/batch$", "POST", batchRecBinder);

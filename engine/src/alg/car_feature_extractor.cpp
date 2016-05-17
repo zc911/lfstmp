@@ -1,11 +1,5 @@
 #include "car_feature_extractor.h"
-#include <vector>
-#include <opencv2/core/core.hpp>
-#include <opencv2/features2d/features2d.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
-#include "model/rank_feature.h"
-
 using namespace std;
 
 namespace dg {
@@ -25,21 +19,24 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
     calcNewSize(des.height_, des.width_, new_size);
 
     if (img.channels() != 3)
-        LOG(WARNING)<< "Color image is required.";
+        LOG(WARNING) << "Color image is required.";
     if ((img.rows < 10) || (img.cols < 10))
-        LOG(WARNING)<< "Image needs to be larger than 10*10 to extract enough feature.";
+        LOG(WARNING) << "Image needs to be larger than 10*10 to extract enough feature.";
 
     resize(img, resize_img, new_size);
+
     vector<cv::KeyPoint> key_point;
     cv::Mat descriptor;
 
     orb_(resize_img, cv::Mat(), key_point, descriptor);
+
+
     if (key_point.size() < 50)
-        LOG(WARNING)<< "Not enough feature extracted.";
+        LOG(WARNING) << "Not enough feature extracted.";
 
     descriptor.copyTo(des.descriptor_);
-    des.position_ = cv::Mat::zeros(key_point.size(), 2, CV_16UC1);
 
+    des.position_ = cv::Mat::zeros(key_point.size(), 2, CV_16UC1);
     for (int i = 0; i < key_point.size(); i++) {
         des.position_.at<ushort>(i, 0) = ((ushort) key_point[i].pt.x);
         des.position_.at<ushort>(i, 1) = ((ushort) key_point[i].pt.y);
