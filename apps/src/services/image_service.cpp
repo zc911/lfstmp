@@ -63,7 +63,7 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat) {
         decodeDataToMat(bin, imgMat);
     }
 
-    if ((imgMat.rows & imgMat.cols) == 0) {
+    if (imgMat.rows  == 0 || imgMat.cols == 0) {
         LOG(ERROR) << "Image is empty: " << uri << endl;
     }
     return ok;
