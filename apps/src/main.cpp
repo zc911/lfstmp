@@ -13,7 +13,7 @@
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
 
-#include "server_http.hpp"
+#include "Simple-Web-Server/server_http.hpp"
 
 using namespace std;
 using namespace dg;

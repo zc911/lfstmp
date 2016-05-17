@@ -22,16 +22,10 @@ class FaceFeatureExtractProcessor : public Processor {
             const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
     virtual ~FaceFeatureExtractProcessor();
 
-    void Update(Frame *frame);
-    virtual void Update(FrameBatch *frameBatch);
-    virtual void beforeUpdate(FrameBatch *frameBatch);
-    virtual bool checkOperation(Frame *frame) {
-        return true;
-    }
-
-    virtual bool checkStatus(Frame *frame) {
-        return true;
-    }
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch);
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
 
  private:
     FaceFeatureExtractor *extractor_;

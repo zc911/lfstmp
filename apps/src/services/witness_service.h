@@ -11,8 +11,9 @@
 #define MATRIX_APPS_WITNESS_SERVICE_H_
 
 #include "config.h"
+#include "matrix_engine/model/model.h"
+#include "matrix_engine/engine/witness_engine.h"
 #include "model/witness.grpc.pb.h"
-#include "engine/witness_engine.h"
 
 namespace dg {
 using namespace ::dg::model;
@@ -22,9 +23,9 @@ class WitnessAppsService {
     WitnessAppsService(const Config *config);
     virtual ~WitnessAppsService();
 
-    bool Recognize(const WitnessRequest *request, WitnessResponse *response);
+    MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
-    bool BatchRecognize(const WitnessBatchRequest *request,
+    MatrixError BatchRecognize(const WitnessBatchRequest *request,
                         WitnessBatchResponse *response);
 
  private:

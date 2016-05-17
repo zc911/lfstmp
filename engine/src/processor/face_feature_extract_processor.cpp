@@ -16,10 +16,12 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
-    delete extractor_;
+    if (extractor_)
+        delete extractor_;
+    to_processed_.clear();
 }
 
-void FaceFeatureExtractProcessor::Update(Frame *frame) {
+bool FaceFeatureExtractProcessor::process(Frame *frame) {
     int size = frame->objects().size();
 
     for (int i = 0; i < size; ++i) {
@@ -42,12 +44,10 @@ void FaceFeatureExtractProcessor::Update(Frame *frame) {
         }
 
     }
-
-    Proceed(frame);
+    return true;
 }
 
-void FaceFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
-    beforeUpdate(frameBatch);
+bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
     for (int i = 0; i < to_processed_.size(); ++i) {
         Object * obj = to_processed_[i];
@@ -59,11 +59,13 @@ void FaceFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
         FaceRankFeature feature = features[0];
         face->set_feature(feature);
     }
+
+    return true;
 }
 
-void FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
-    to_processed_ = frameBatch->collect_objects(OPERATION_FACE_FEATURE_VECTOR);
+    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object*>::iterator itr = to_processed_.begin();
             itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
@@ -71,8 +73,8 @@ void FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
         } else {
             itr++;
         }
-
     }
+    return true;
 }
 
 } /* namespace dg */

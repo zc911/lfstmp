@@ -27,19 +27,14 @@ class CarRankProcessor : public Processor {
     CarRankProcessor();
     virtual ~CarRankProcessor();
 
-    virtual void Update(Frame *frame)
-    override;
-
-    virtual void Update(FrameBatch *frameBatch) override
-    {
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch) {
+        return false;
     }
-
-    virtual bool checkStatus(Frame *frame)
-    override;
 
  private:
     string t_profiler_str_;
-    TimingProfiler t_profiler_matching_;
     CarMatcher car_matcher_;
     CarFeatureExtractor car_feature_extractor_;
 
