@@ -16,7 +16,6 @@ namespace dg {
 class FaceDetector {
  public:
     typedef struct {
-
         bool is_model_encrypt = false;
         int batch_size = 1;
         int scale = 400;

@@ -9,5 +9,6 @@ dgcaffe/.build_release/
 dgcaffe/build
 apps/lib
 apps/dist/
+.idea
 engine/.idea
 apps/.idea
