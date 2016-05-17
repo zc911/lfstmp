@@ -23,19 +23,21 @@ FaceDetectProcessor::FaceDetectProcessor(
 }
 
 FaceDetectProcessor::~FaceDetectProcessor() {
-    delete detector_;
+    if (detector_)
+        delete detector_;
 }
 
-void FaceDetectProcessor::Update(Frame *frame) {
+bool FaceDetectProcessor::process(Frame *frame) {
+
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
         DLOG(INFO)<< "Frame " << frame->id() << "does not need face detect" << endl;
-        return;
+        return false;
     }
     Mat data = frame->payload()->data();
 
     if (data.rows == 0 || data.cols == 0) {
         LOG(ERROR)<< "Frame data is NULL: " << frame->id() << endl;
-        return;
+        return false;
     }
 
     vector<Mat> imgs;
@@ -51,11 +53,10 @@ void FaceDetectProcessor::Update(Frame *frame) {
         face->set_image(image);
         frame->put_object(face);
     }
-    Proceed(frame);
 }
 
 // TODO change to "real" batch
-void FaceDetectProcessor::Update(FrameBatch *frameBatch) {
+bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
@@ -86,11 +87,8 @@ void FaceDetectProcessor::Update(FrameBatch *frameBatch) {
             frame->put_object(face);
         }
     }
-    Proceed(frameBatch);
-}
 
-void FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
-
+    return true;
 }
 
 } /* namespace dg */

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/car_feature_extract_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_classifier_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_marker_classifier_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_detect_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/car_rank_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/config_filter.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_rank_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_detect_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_color_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_color_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_plate_recognizer_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/config_filter.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_classifier_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_multi_type_detector_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/car_rank_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_feature_extract_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_feature_extract_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_marker_classifier_processor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_plate_recognizer_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/vehicle_multi_type_detector_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/face_rank_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/processor/car_feature_extract_processor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/sample.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vis/display.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/vis/display.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/model/rank_feature.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/model/rank_feature.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/model/ringbuffer.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/model/ringbuffer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/witness_engine.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/rank_engine.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/rank_engine.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/engine/witness_engine.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/car_feature_extractor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/car_matcher.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_detector.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/marker_caffe_classifier.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/car_matcher.cu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_detector.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/plate_recognizer.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/marker_caffe_classifier.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/window_caffe_detector.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/vehicle_multi_type_detector.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_ranker.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/plate_recognizer.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/vehicle_caffe_classifier.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/car_feature_extractor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_feature_extractor.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_ranker.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/vehicle_multi_type_detector.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/face_feature_extractor.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/vehicle_caffe_classifier.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/car_matcher.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/alg/window_caffe_detector.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../utils/src/anyconversion.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../utils/src/anyconversion.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../utils/src/config.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../utils/src/config.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../utils/src/cvx_text.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../utils/src/cvx_text.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../utils/src/timing_profiler.cpp">
+      <sourceFolder url="file://$MODULE_DIR$/../utils/src/timing_profiler.cpp" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glib-2.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+          <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/cuda/include" />
+          <root url="file://$MODULE_DIR$/../utils/src" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/include" />
+          <root url="file:///usr/lib/x86_64-linux-gnu/glib-2.0/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed" />
+          <root url="file:///usr/local/include" />
+          <root url="file:///usr/local/cuda/include" />
+          <root url="file://$MODULE_DIR$/../utils/src" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/../utils/src/config.cpp" />
+          <root url="file://$MODULE_DIR$/../utils/src/cvx_text.cpp" />
+          <root url="file://$MODULE_DIR$/../utils/src/anyconversion.cpp" />
+          <root url="file://$MODULE_DIR$/../utils/src/timing_profiler.cpp" />
+        </excluded>
+      </library>
+    </orderEntry>
+  </component>
+</module>

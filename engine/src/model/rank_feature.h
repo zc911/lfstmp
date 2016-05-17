@@ -18,8 +18,12 @@ using namespace std;
 
 namespace dg {
 
+const int CAR_FEATURE_ORB_ROWS_MAX = 256;
+const int CAR_FEATURE_ORB_COLS_MAX = 32;
+const int CAR_FEATURE_DES_MAX_SIZE = CAR_FEATURE_ORB_ROWS_MAX * CAR_FEATURE_ORB_COLS_MAX;
+
 class Score {
- public:
+public:
     int index_;
     float score_;
 
@@ -27,35 +31,33 @@ class Score {
     }
 
     Score(int index, float score)
-            : index_(index),
-              score_(score) {
+        : index_(index),
+          score_(score) {
     }
 
-    Score(const Score& s)
-            : index_(s.index_),
-              score_(s.score_) {
+    Score(const Score &s)
+        : index_(s.index_),
+          score_(s.score_) {
     }
 
     virtual ~Score() {
     }
 
     //sortable: score[desc] >> index[asc]
-    bool operator<(const Score& right) const {
+    bool operator<(const Score &right) const {
         return score_ != right.score_ ?
-                (score_ > right.score_) : (index_ < right.index_);
+               (score_ > right.score_) : (index_ < right.index_);
     }
 };
 
 class RankFeature {
- public:
+public:
     virtual string Serialize() const {
-    }
-    ;
+    };
     virtual bool Deserialize(string featureStr) {
-    }
-    ;
+    };
 
- protected:
+protected:
     template<typename T>
     static void ConvertToByte(T value, vector<uchar> &data) {
         uchar *ptr = (uchar *) (&value);
@@ -71,7 +73,7 @@ class RankFeature {
     }
 };
 
-class CarRankFeature final : public RankFeature {
+class CarRankFeature final: public RankFeature {
 public:
     int width_;
     int height_;
@@ -82,7 +84,7 @@ public:
     virtual bool Deserialize(string featureStr) override;
 };
 
-class FaceRankFeature final : public RankFeature {
+class FaceRankFeature final: public RankFeature {
 public:
     std::vector<float> descriptor_;
 

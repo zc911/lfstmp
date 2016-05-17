@@ -26,25 +26,19 @@ void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
         v->set_feature(feature);
     }
 }
-void CarFeatureExtractProcessor::Update(Frame *frame) {
-    DLOG(INFO)<< "Start feature extract. " << endl;
-    extract(vehicle_to_processed_);
-    DLOG(INFO)<< "End feature extract. " << endl;
-    Proceed(frame);
-}
 
-void CarFeatureExtractProcessor::Update(FrameBatch *frameBatch) {
+bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     DLOG(INFO)<< "Start feature extract(Batch). " << endl;
-    beforeUpdate(frameBatch);
     extract(vehicle_to_processed_);
     vehicle_to_processed_.clear();
     DLOG(INFO)<< "End feature extract(Batch). " << endl;
-    Proceed(frameBatch);
+    return true;
 }
 
-void CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
     vehicle_to_processed_.clear();
-    vehicle_to_processed_ = frameBatch->collect_objects(
+    vehicle_to_processed_ = frameBatch->CollectObjects(
             OPERATION_VEHICLE_FEATURE_VECTOR);
 
     for (vector<Object*>::iterator itr = vehicle_to_processed_.begin();
@@ -55,6 +49,7 @@ void CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
             itr++;
         }
     }
+    return true;
 }
 
 } /* namespace dg */
