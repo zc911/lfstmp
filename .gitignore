@@ -9,6 +9,7 @@ dgcaffe/.build_release/
 dgcaffe/build
 apps/lib
 apps/dist/
-.idea
+.idea/
 engine/.idea
 apps/.idea
+apps/tools/log
