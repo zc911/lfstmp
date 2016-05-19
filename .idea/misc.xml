@@ -8,7 +8,9 @@
     <libraryRoots>
       <file path="$PROJECT_DIR$/apps" />
     </libraryRoots>
-    <excludeRoots />
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/engine/.idea" />
+    </excludeRoots>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
