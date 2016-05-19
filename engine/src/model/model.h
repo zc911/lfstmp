@@ -208,7 +208,6 @@ class Vehicle : public Object {
             m->set_class_id(detection.id);
             m->set_confidence(detection.confidence);
             this->AddChild(m);
-            DLOG(INFO)<<"set markers "<<detection.id<<endl;
         }
     }
 
