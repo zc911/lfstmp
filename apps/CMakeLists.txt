@@ -44,5 +44,5 @@ LIST(APPEND LIBS glog gflags protobuf leveldb grpc++ grpc jsoncpp b64 snappy lmd
 
 
 ADD_SUBDIRECTORY(src)
-#ADD_SUBDIRECTORY(tools)
+ADD_SUBDIRECTORY(tools)
 
