@@ -384,7 +384,11 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
+    rec_lock_.lock();
     engine_.Process(&framebatch);
+    rec_lock_.unlock();
+
+
 
     //fill response
     WitnessResponseContext *ctx = response->mutable_context();
@@ -464,8 +468,9 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     }
 
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
-
+    rec_lock_.lock();
     engine_.Process(&framebatch);
+    rec_lock_.unlock();
 
     //fill response
     WitnessResponseContext *ctx = batchResponse->mutable_context();
