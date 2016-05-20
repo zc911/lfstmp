@@ -1,7 +1,6 @@
 #include <time.h>
 #include <iostream>
 #include <memory>
-#include <string>
 #include <vector>
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
@@ -24,7 +23,19 @@ static void SetFunctions(WitnessRequestContext *ctx) {
     ctx->mutable_functions()->Add(5);
     ctx->mutable_functions()->Add(6);
     ctx->mutable_functions()->Add(7);
-    ctx->mutable_functions()->Add(8);
+//    ctx->mutable_functions()->Add(8);
+}
+
+static void Print(const WitnessBatchResponse &resp) {
+    cout << "=================" << endl;
+    cout << "SessionId:" << resp.context().sessionid() << endl;
+    for (int i = 0; i < resp.results().size(); ++i) {
+        const WitnessResult &r = resp.results().Get(i);
+        rapidjson::Value *value = pbjson::pb2jsonobject(&r);
+        string s;
+        pbjson::json2string(value, s);
+        cout << s << endl;
+    }
 }
 
 class WitnessClient {
@@ -70,7 +81,7 @@ public:
 
         if (status.ok()) {
             cout << "Batch Rec finished: " << resp.context().sessionid() << endl;
-            cout << pbjson::pb2jsonobject(&resp)->GetString() << endl;
+            Print(resp);
         } else {
             cout << "Batch Rec error: " << status.error_message() << endl;
         }
@@ -138,9 +149,10 @@ public:
 
         // Act upon the status of the actual RPC.
         if (status.ok()) {
-            cout << "Rec finished: " << reply.context().sessionid() << endl;
+            cout << "Rec(Asyn) finished: " << reply.context().sessionid() << endl;
+            cout << pbjson::pb2jsonobject(&reply)->GetString() << endl;
         } else {
-            cout << "Rec error: " << status.error_message() << endl;
+            cout << "Rec(Asyn) error: " << status.error_message() << endl;
         }
 
     }
@@ -196,9 +208,10 @@ public:
 
         // Act upon the status of the actual RPC.
         if (status.ok()) {
-            cout << "Rec finished: " << reply.context().sessionid() << endl;
+            cout << "Batch Rec(Asyn) finished: " << reply.context().sessionid() << endl;
+            Print(reply);
         } else {
-            cout << "Rec error: " << status.error_message() << endl;
+            cout << "Batch Rec(Asyn) error: " << status.error_message() << endl;
         }
 
     }
@@ -210,7 +223,7 @@ private:
 };
 
 static string RandomSessionId() {
-    srand(time(NULL));
+    srand((uint) time(NULL));
     int id = rand();
     for (int i = 0; i < 10; ++i) {
         id = (id << 7) | rand();
