@@ -7,8 +7,8 @@ static bool mycmp(struct Bbox b1, struct Bbox b2) {
 }
 
 VehicleMultiTypeDetector::VehicleMultiTypeDetector(
-        const VehicleMultiTypeConfig &config)
-        : config_(config) {
+    const VehicleMultiTypeConfig &config)
+    : config_(config) {
 
     if (config.use_gpu) {
         Caffe::set_mode(Caffe::GPU);
@@ -21,14 +21,17 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     batch_size_ = config_.batch_size = 1;
     scale_ = config_.target_min_size;
 
+//    net_.reset(
+//            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+        new Net<float>(config.deploy_file, TEST));
 
     net_->CopyTrainedLayersFrom(config.model_file);
-    CHECK_EQ(net_->num_inputs(), 2)<< "Network should have exactly two input.";
+    CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
-    Blob<float>* im_info_layer = net_->input_blobs()[1];
+    Blob<float> *input_layer = net_->input_blobs()[0];
+    Blob<float> *im_info_layer = net_->input_blobs()[1];
 
     vector<int> shape = input_layer->shape();
     shape[0] = batch_size_;
@@ -40,7 +43,7 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
 
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
-            << "Input layer should have 1 or 3 channels.";
+    << "Input layer should have 1 or 3 channels.";
     pixel_means_.push_back(102.9801);
     pixel_means_.push_back(115.9465);
     pixel_means_.push_back(122.7717);
@@ -60,7 +63,7 @@ VehicleMultiTypeDetector::~VehicleMultiTypeDetector() {
 vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
 
     vector<Mat> images;
-    vector<Blob<float>*> tmp_outputs;
+    vector<Blob<float> *> tmp_outputs;
     vector<struct Bbox> tmp_result;
     vector<Detection> result;
     images.push_back(img);
@@ -81,7 +84,7 @@ vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
 }
 
 vector<vector<Detection>> VehicleMultiTypeDetector::DetectBatch(
-        const vector<cv::Mat> &img) {
+    const vector<cv::Mat> &img) {
     vector<vector<Detection>> results;
 
     for (int i = 0; i < img.size(); ++i) {
@@ -94,11 +97,11 @@ vector<vector<Detection>> VehicleMultiTypeDetector::DetectBatch(
 
 // predict single frame forward function
 void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
-                                       vector<Blob<float>*> &outputs) {
+                                       vector<Blob<float> *> &outputs) {
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
-    Blob<float>* im_info_layer = net_->input_blobs()[1];
-    float* im_info = im_info_layer->mutable_cpu_data();
+    Blob<float> *input_layer = net_->input_blobs()[0];
+    Blob<float> *im_info_layer = net_->input_blobs()[1];
+    float *im_info = im_info_layer->mutable_cpu_data();
 
     int cnt = 0;
 
@@ -118,13 +121,13 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
 
         CheckChannel(img, num_channels_, sample);
 
-        float* input_data = input_layer->mutable_cpu_data();
+        float *input_data = input_layer->mutable_cpu_data();
 
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {
                 for (int j = 0; j < sample.cols; j++) {
                     input_data[cnt] = float(sample.at<uchar>(i, j * 3 + k))
-                            - pixel_means_[k];
+                        - pixel_means_[k];
                     cnt += 1;
                 }
             }
@@ -141,19 +144,19 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
     }
 
     outputs.resize(0);
-    Blob<float>* output_rois = net_->blob_by_name(layer_name_rois_).get();
-    Blob<float>* output_score = net_->blob_by_name(layer_name_score_).get();
-    Blob<float>* output_bbox = net_->blob_by_name(layer_name_bbox_).get();
+    Blob<float> *output_rois = net_->blob_by_name(layer_name_rois_).get();
+    Blob<float> *output_score = net_->blob_by_name(layer_name_score_).get();
+    Blob<float> *output_bbox = net_->blob_by_name(layer_name_bbox_).get();
     outputs.push_back(output_rois);
     outputs.push_back(output_score);
     outputs.push_back(output_bbox);
 }
 
-void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
+void VehicleMultiTypeDetector::getDetection(vector<Blob<float> *> &outputs,
                                             vector<struct Bbox> &final_vbbox) {
-    Blob<float>* roi = outputs[0];
-    Blob<float>* cls = outputs[1];
-    Blob<float>* reg = outputs[2];
+    Blob<float> *roi = outputs[0];
+    Blob<float> *cls = outputs[1];
+    Blob<float> *reg = outputs[2];
 
     assert(roi->shape()[1] == 5);
     assert(cls->num() == reg->num());
@@ -164,8 +167,8 @@ void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
 
     vector<struct Bbox> vbbox;
 
-    Blob<float>* im_info_layer = net_->input_blobs()[1];
-    const float* im_info = im_info_layer->cpu_data();
+    Blob<float> *im_info_layer = net_->input_blobs()[1];
+    const float *im_info = im_info_layer->cpu_data();
     bboxTransformInvClip(roi, cls, reg, im_info_layer, vbbox);
     float resize_ratio = im_info[2];
 
@@ -195,7 +198,7 @@ void VehicleMultiTypeDetector::getDetection(vector<Blob<float>*>& outputs,
     }
 }
 
-void VehicleMultiTypeDetector::nms(vector<struct Bbox>& p, float threshold) {
+void VehicleMultiTypeDetector::nms(vector<struct Bbox> &p, float threshold) {
 
     sort(p.begin(), p.end(), mycmp);
     int cnt = 0;
@@ -209,8 +212,8 @@ void VehicleMultiTypeDetector::nms(vector<struct Bbox>& p, float threshold) {
             if (!p[j].deleted && p[i].cls_id == p[j].cls_id) {
                 cv::Rect intersect = p[i].rect & p[j].rect;
                 float iou = intersect.area() * 1.0
-                        / (p[i].rect.area() + p[j].rect.area()
-                                - intersect.area());
+                    / (p[i].rect.area() + p[j].rect.area()
+                        - intersect.area());
                 if (iou > threshold) {
                     p[j].deleted = true;
                 }
@@ -220,12 +223,12 @@ void VehicleMultiTypeDetector::nms(vector<struct Bbox>& p, float threshold) {
 }
 
 void VehicleMultiTypeDetector::bboxTransformInvClip(
-        Blob<float>* roi, Blob<float>* cls, Blob<float>* reg,
-        Blob<float>* im_info_layer, vector<struct Bbox> &vbbox) {
-    const float* roi_cpu = roi->cpu_data();
-    const float* cls_cpu = cls->cpu_data();
-    const float* reg_cpu = reg->cpu_data();
-    const float* im_info = im_info_layer->cpu_data();
+    Blob<float> *roi, Blob<float> *cls, Blob<float> *reg,
+    Blob<float> *im_info_layer, vector<struct Bbox> &vbbox) {
+    const float *roi_cpu = roi->cpu_data();
+    const float *cls_cpu = cls->cpu_data();
+    const float *reg_cpu = reg->cpu_data();
+    const float *im_info = im_info_layer->cpu_data();
 
     vbbox.resize(roi->shape()[0]);
     for (int i = 0; i < roi->shape()[0]; i++) {
@@ -240,8 +243,8 @@ void VehicleMultiTypeDetector::bboxTransformInvClip(
         int width, height, ctr_x, ctr_y;
         float dx, dy, dw, dh, pred_ctr_x, pred_ctr_y, pred_w, pred_h;
 
-        const float* cur_reg = reg_cpu + i * 20 + 4 * cls_id;
-        const float* cur_roi = roi_cpu + i * 5 + 1;
+        const float *cur_reg = reg_cpu + i * 20 + 4 * cls_id;
+        const float *cur_roi = roi_cpu + i * 5 + 1;
         width = cur_roi[2] - cur_roi[0] + 1.0;
         height = cur_roi[3] - cur_roi[1] + 1.0;
         ctr_x = cur_roi[0] + 0.5 * width;
@@ -265,7 +268,7 @@ void VehicleMultiTypeDetector::bboxTransformInvClip(
         }
         bbox.rect = Rect(pred_ctr_x - 0.5 * pred_w, pred_ctr_y - 0.5 * pred_h,
                          pred_w, pred_h)
-                & Rect(0, 0, im_info[1] - 1, im_info[0] - 1);
+            & Rect(0, 0, im_info[1] - 1, im_info[0] - 1);
         bbox.deleted = false;
     }
 }
