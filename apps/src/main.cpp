@@ -87,14 +87,18 @@ int main(int argc, char *argv[]) {
     google::ParseCommandLineFlags(&argc, &argv, true);
 
     int userPort = 0;
-    if (argc == 2) {
+    if (argc >= 2) {
         userPort = atoi(argv[1]);
+    }
+    string configFile = "config.json";
+    if(argc >= 3){
+        configFile = argv[2];
     }
 
     Config *config = new Config();
 
 
-    config->Load("config.json");
+    config->Load(configFile);
 
 
     string protocolType = (string) config->Value("ProtocolType");
