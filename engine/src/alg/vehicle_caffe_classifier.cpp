@@ -10,29 +10,33 @@
 namespace dg {
 
 VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
-        : device_setted_(false),
-          caffe_config_(config),
-          rescale_(100) {
+    : device_setted_(false),
+      caffe_config_(config),
+      rescale_(100) {
 
     device_setted_ = false;
 
     if (caffe_config_.use_gpu) {
         Caffe::SetDevice(caffe_config_.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        LOG(INFO)<< "Use device " << caffe_config_.gpu_id << endl;
+        LOG(INFO) << "Use device " << caffe_config_.gpu_id << endl;
 
     } else {
         LOG(WARNING) << "Use CPU only" << endl;
         Caffe::set_mode(Caffe::CPU);
     }
 
-    net_.reset(
-            new Net<float>(caffe_config_.deploy_file, TEST,
-                           config.is_model_encrypt));
-    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
-    CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
+//    net_.reset(
+//            new Net<float>(caffe_config_.deploy_file, TEST,
+//                           config.is_model_encrypt));
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    net_.reset(
+        new Net<float>(caffe_config_.deploy_file, TEST));
+
+    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+
+    Blob<float> *input_layer = net_->input_blobs()[0];
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
     num_channels_ = input_layer->channels();
     means_ = cv::Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
@@ -47,7 +51,7 @@ VehicleCaffeClassifier::~VehicleCaffeClassifier() {
 }
 
 vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(
-        const vector<Mat> &imgs) {
+    const vector<Mat> &imgs) {
     vector<vector<Prediction> > prediction;
     vector<Mat> images = imgs;
     for (auto batch_images : PrepareBatch(images, caffe_config_.batch_size)) {
@@ -56,18 +60,18 @@ vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }
     int padding_size = (caffe_config_.batch_size
-            - imgs.size() % caffe_config_.batch_size)
-            % caffe_config_.batch_size;
+        - imgs.size() % caffe_config_.batch_size)
+        % caffe_config_.batch_size;
     prediction.erase(prediction.end() - padding_size, prediction.end());
     return prediction;
 }
 
 vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyBatch(
-        const vector<Mat> &imgs) {
-    vector<Blob<float>*> output_layer = PredictBatch(imgs);
+    const vector<Mat> &imgs) {
+    vector<Blob<float> *> output_layer = PredictBatch(imgs);
     int class_num_ = output_layer[0]->channels();
-    const float* begin = output_layer[0]->cpu_data();
-    const float* end = begin + output_layer[0]->channels() * imgs.size();
+    const float *begin = output_layer[0]->cpu_data();
+    const float *end = begin + output_layer[0]->channels() * imgs.size();
     vector<float> output_batch = std::vector<float>(begin, end);
     std::vector<std::vector<Prediction> > predictions;
 
@@ -84,8 +88,8 @@ vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyBatch(
     return predictions;
 }
 
-vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
-        const vector<Mat> imgs) {
+vector<Blob<float> *> VehicleCaffeClassifier::PredictBatch(
+    const vector<Mat> imgs) {
 
     if (!device_setted_) {
         Caffe::SetDevice(caffe_config_.gpu_id);
@@ -101,9 +105,9 @@ vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
     }
 
     /* Copy the output layer to a std::vector */
-    vector<Blob<float>*> outputs;
+    vector<Blob<float> *> outputs;
     for (int i = 0; i < net_->num_outputs(); i++) {
-        Blob<float>* output_layer = net_->output_blobs()[i];
+        Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
 
@@ -112,13 +116,13 @@ vector<Blob<float>*> VehicleCaffeClassifier::PredictBatch(
 }
 
 void VehicleCaffeClassifier::WrapBatchInputLayer(
-        std::vector<std::vector<cv::Mat> > *input_batch) {
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    std::vector<std::vector<cv::Mat> > *input_batch) {
+    Blob<float> *input_layer = net_->input_blobs()[0];
 
     int width = input_layer->width();
     int height = input_layer->height();
     int num = input_layer->num();
-    float* input_data = input_layer->mutable_cpu_data();
+    float *input_data = input_layer->mutable_cpu_data();
     for (int j = 0; j < num; j++) {
         vector<cv::Mat> input_channels;
         for (int i = 0; i < input_layer->channels(); ++i) {
@@ -132,8 +136,8 @@ void VehicleCaffeClassifier::WrapBatchInputLayer(
 }
 
 void VehicleCaffeClassifier::PreprocessBatch(
-        const vector<cv::Mat> imgs,
-        std::vector<std::vector<cv::Mat> >* input_batch) {
+    const vector<cv::Mat> imgs,
+    std::vector<std::vector<cv::Mat> > *input_batch) {
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat img = imgs[i];
         std::vector<cv::Mat> *input_channels = &(input_batch->at(i));

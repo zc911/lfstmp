@@ -22,7 +22,8 @@ typedef struct {
     int rescale = 1;
     int gpu_id = 0;
     bool use_gpu = true;
-    float means[3] = { 0, 0, 0 };
+    float means[3] = {0, 0, 0};
+    float threshold = 0.0;
     string deploy_file;
     string model_file;
 
