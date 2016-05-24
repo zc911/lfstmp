@@ -1,23 +1,28 @@
 # Matrix Apps
 ### Version 0.1.2
-2016-05-23
+2016-05-24
 
 ```
-gRpc interface works
+A new and better detection model without pycaffe
 ```
 
 ### Modules version
 | *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
 |:--------------:|:-------------:|:---------------:|:------------:|
-| 0.1.1 | 0.1.1 | * | * |
+| 0.1.2 | 0.1.2 | * | * |
 
 ### Features
+- A new and better detection model without pycaffe which supports batch size mode.
 - gRpc interface works
+- Read port and config file path from command line
+
+### Bug Fix
+- DEEPVIDEO-303 配置文件中设置GpuId不为0时访问api会挂掉
 
 
 ### How to Install/Update
 ```
-$ wget http://192.168.2.119/matrix/install.sh
+$ wget -O install.sh http://192.168.2.119/matrix/install.sh
 $ chmod +x install.sh
 $ ./install.sh 
 ```
