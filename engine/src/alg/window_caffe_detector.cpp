@@ -23,8 +23,12 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
 
+//    net_.reset(
+//            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+        new Net<float>(config.deploy_file, TEST));
+
     net_->CopyTrainedLayersFrom(config.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";

@@ -7,9 +7,9 @@ bool mycmp(Detection b1, Detection b2) {
 }
 
 FaceDetector::FaceDetector(const FaceDetectorConfig &config)
-        : scale_(config.scale),
-          batch_size_(config.batch_size),
-          conf_thres_(config.confidence) {
+    : scale_(config.scale),
+      batch_size_(config.batch_size),
+      conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
     if (use_gpu_) {
         Caffe::set_mode(Caffe::GPU);
@@ -20,19 +20,22 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
         use_gpu_ = false;
     }
 
-    LOG(INFO)<< "loading model file: " << config.model_file;
+    LOG(INFO) << "loading model file: " << config.model_file;
+//    net_.reset(
+//            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-    LOG(INFO)<< "loading trained file : " << config.model_file;
+        new Net<float>(config.deploy_file, TEST));
+    LOG(INFO) << "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 
-    CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
+    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
 
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
-            << "Input layer should have 1 or 3 channels.";
+    << "Input layer should have 1 or 3 channels.";
     pixel_means_.push_back(102.9801);
     pixel_means_.push_back(115.9465);
     pixel_means_.push_back(122.7717);
@@ -62,8 +65,8 @@ FaceDetector::~FaceDetector() {
 }
 
 void FaceDetector::Forward(const vector<cv::Mat> &imgs,
-                           vector<Blob<float>*> &outputs) {
-    Blob<float>* input_layer = net_->input_blobs()[0];
+                           vector<Blob<float> *> &outputs) {
+    Blob<float> *input_layer = net_->input_blobs()[0];
 
     int max_width = 0;
     int max_height = 0;
@@ -109,7 +112,7 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
 //            sample = resized;
 
         Mat sample = samples[i];
-        float* input_data = input_layer->mutable_cpu_data();
+        float *input_data = input_layer->mutable_cpu_data();
         size_t image_off = i * sample.channels() * sample.rows * sample.cols;
         for (int k = 0; k < sample.channels(); ++k) {
             size_t channel_off = k * sample.rows * sample.cols;
@@ -117,8 +120,8 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
                 size_t row_off = row * sample.cols;
                 for (int col = 0; col < sample.cols; ++col) {
                     input_data[image_off + channel_off + row_off + col] = float(
-                            sample.at<uchar>(row, col * 3 + k))
-                            - pixel_means_[k];
+                        sample.at<uchar>(row, col * 3 + k))
+                        - pixel_means_[k];
                 }
             }
         }
@@ -131,13 +134,13 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
     }
 
     outputs.resize(0);
-    Blob<float>* output_cls = net_->blob_by_name(layer_name_cls_).get();
-    Blob<float>* output_reg = net_->blob_by_name(layer_name_reg_).get();
+    Blob<float> *output_cls = net_->blob_by_name(layer_name_cls_).get();
+    Blob<float> *output_reg = net_->blob_by_name(layer_name_reg_).get();
     outputs.push_back(output_cls);
     outputs.push_back(output_reg);
 }
 
-void FaceDetector::NMS(vector<Detection>& p, float threshold) {
+void FaceDetector::NMS(vector<Detection> &p, float threshold) {
     sort(p.begin(), p.end(), mycmp);
     for (size_t i = 0; i < p.size(); ++i) {
         if (p[i].deleted)
@@ -156,7 +159,7 @@ void FaceDetector::NMS(vector<Detection>& p, float threshold) {
 }
 
 vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
-    vector<Blob<float>*> outputs;
+    vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
 
     vector<vector<Detection>> boxes;
@@ -164,10 +167,10 @@ vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
     return boxes;
 }
 
-void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
+void FaceDetector::GetDetection(vector<Blob<float> *> &outputs,
                                 vector<vector<Detection> > &final_vbbox) {
-    Blob<float>* cls = outputs[0];
-    Blob<float>* reg = outputs[1];
+    Blob<float> *cls = outputs[0];
+    Blob<float> *reg = outputs[1];
     final_vbbox.clear();
     final_vbbox.resize(0);
     final_vbbox.resize(cls->num());
@@ -180,8 +183,8 @@ void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
     assert(cls->width() == reg->width());
 
     vector<Detection> vbbox;
-    const float* cls_cpu = cls->cpu_data();
-    const float* reg_cpu = reg->cpu_data();
+    const float *cls_cpu = cls->cpu_data();
+    const float *reg_cpu = reg->cpu_data();
 
     vector<float> gt_ww, gt_hh;
     gt_ww.resize(scale_num);
@@ -203,7 +206,7 @@ void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
             for (int h = 0; h < cls->height(); ++h) {
                 for (int w = 0; w < cls->width(); ++w) {
                     float confidence;
-                    float rect[4] = { };
+                    float rect[4] = {};
                     {
                         float x0 = cls_cpu[cls_index];
                         float x1 = cls_cpu[cls_index + skip];
@@ -218,15 +221,15 @@ void FaceDetector::GetDetection(vector<Blob<float>*>& outputs,
                         }
 
                         float shift_x = w * sliding_window_stride_
-                                + sliding_window_stride_ / 2.f - 1;
+                            + sliding_window_stride_ / 2.f - 1;
                         float shift_y = h * sliding_window_stride_
-                                + sliding_window_stride_ / 2.f - 1;
+                            + sliding_window_stride_ / 2.f - 1;
                         rect[2] = exp(rect[2]) * gt_ww[scale_idx];
                         rect[3] = exp(rect[3]) * gt_hh[scale_idx];
                         rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f
-                                + shift_x;
+                            + shift_x;
                         rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f
-                                + shift_y;
+                            + shift_y;
 
                         Detection bbox;
                         bbox.confidence = confidence;
