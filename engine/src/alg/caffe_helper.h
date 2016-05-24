@@ -72,12 +72,12 @@ static Prediction MaxPrediction(vector<Prediction> &pre) {
     return *max;
 }
 
-static bool PairCompare(const std::pair<float, int>& lhs,
-                        const std::pair<float, int>& rhs) {
+static bool PairCompare(const std::pair<float, int> &lhs,
+                        const std::pair<float, int> &rhs) {
     return lhs.first > rhs.first;
 }
 
-static std::vector<int> Argmax(const std::vector<float>& v, int N) {
+static std::vector<int> Argmax(const std::vector<float> &v, int N) {
     std::vector<std::pair<float, int> > pairs;
     for (size_t i = 0; i < v.size(); ++i)
         pairs.push_back(std::make_pair(v[i], i));
@@ -94,7 +94,7 @@ static bool detectionCmp(Detection b1, Detection b2) {
     return b1.confidence > b2.confidence;
 }
 
-static void detectionNMS(vector<Detection>& p, float threshold) {
+static void detectionNMS(vector<Detection> &p, float threshold) {
     sort(p.begin(), p.end(), detectionCmp);
     int cnt = 0;
     for (int i = 0; i < p.size(); i++) {
@@ -105,18 +105,18 @@ static void detectionNMS(vector<Detection>& p, float threshold) {
             if (!p[j].deleted) {
                 cv::Rect intersect = p[i].box & p[j].box;
                 float iou =
-                        intersect.area() * 1.0
-                                / (p[i].box.area() + p[j].box.area()
-                                        - intersect.area());
+                    intersect.area() * 1.0
+                        / (p[i].box.area() + p[j].box.area()
+                            - intersect.area());
                 if (iou > threshold) {
                     p[j].deleted = true;
                 }
                 if (intersect.x >= p[i].box.x - 0.2
-                        && intersect.y >= p[i].box.y - 0.2
-                        && (intersect.x + intersect.width)
-                                <= (p[i].box.x + p[i].box.width + 0.2)
-                        && (intersect.y + intersect.height)
-                                <= (p[i].box.y + p[i].box.height + 0.2)) {
+                    && intersect.y >= p[i].box.y - 0.2
+                    && (intersect.x + intersect.width)
+                        <= (p[i].box.x + p[i].box.width + 0.2)
+                    && (intersect.y + intersect.height)
+                        <= (p[i].box.y + p[i].box.height + 0.2)) {
                     p[j].deleted = true;
 
                 }
@@ -129,7 +129,7 @@ static bool BboxCmp(struct Bbox b1, struct Bbox b2) {
     return b1.confidence > b2.confidence;
 }
 
-static void NMS(vector<struct Bbox>& p, float threshold) {
+static void NMS(vector<struct Bbox> &p, float threshold) {
     sort(p.begin(), p.end(), BboxCmp);
     for (size_t i = 0; i < p.size(); ++i) {
         if (p[i].deleted)
@@ -179,6 +179,19 @@ static void CheckChannel(Mat &img, unsigned char tarChannel, Mat &newImage) {
         cvtColor(img, newImage, CV_GRAY2BGR);
     else
         newImage = img;
+}
+
+static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
+    if (img.channels() == 3 && num_channels_ == 1)
+        cv::cvtColor(img, sample, CV_BGR2GRAY);
+    else if (img.channels() == 4 && num_channels_ == 1)
+        cv::cvtColor(img, sample, CV_BGRA2GRAY);
+    else if (img.channels() == 4 && num_channels_ == 3)
+        cv::cvtColor(img, sample, CV_BGRA2BGR);
+    else if (img.channels() == 1 && num_channels_ == 3)
+        cv::cvtColor(img, sample, CV_GRAY2BGR);
+    else
+        sample = img;
 }
 
 }
