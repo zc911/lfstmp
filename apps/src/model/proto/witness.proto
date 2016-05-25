@@ -19,22 +19,22 @@ service WitnessService {
 }
 
 enum IndexType {
-    INDEX_CAR_TYPE = 0;
-    INDEX_CAR_MAIN_BRAND = 1;
-    INDEX_CAR_SUB_BRAND = 2;
-    INDEX_CAR_YEAR_MODEL = 3;
-    INDEX_CAR_COLOR = 4;
-    INDEX_CAR_MARKER = 5;
-    INDEX_CAR_PLATE_TYPE = 6;
-    INDEX_CAR_PLATE_COLOR = 7;
+    INDEX_CAR_TYPE = 1;
+    INDEX_CAR_MAIN_BRAND = 2;
+    INDEX_CAR_SUB_BRAND = 3;
+    INDEX_CAR_YEAR_MODEL = 4;
+    INDEX_CAR_COLOR = 5;
+    INDEX_CAR_MARKER = 6;
+    INDEX_CAR_PLATE_TYPE = 7;
+    INDEX_CAR_PLATE_COLOR = 8;
 }
 
 message IndexRequest {
-    IndexType indexType = 0;
+    IndexType indexType = 1;
 }
 
 message IndexResponse {
-    map<int32, string> Index = 0;
+    map<int32, string> Index = 1;
 }
 
 message WitnessRequest {
