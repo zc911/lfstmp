@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if [ "$source" == "" ]; then source="http://192.168.2.21:80"; fi
+if [ "$source" == "" ]; then source="http://192.168.2.119:80"; fi
 
 # change apt source
-wget -O sources.list "$source/apt/sources.list" && mv sources.list /etc/apt/sources.list
+$wget -O sources.list "$source/apt/sources.list" && mv sources.list /etc/apt/sources.list
 
-wget -O install_cuda.sh "$source/cuda/install.sh" && chmod +x install_cuda.sh
-wget -O install_libs.sh "$source/libs/install.sh" && chmod +x install_libs.sh
+#wget -O install_cuda.sh "$source/cuda/install.sh" && chmod +x install_cuda.sh
+#wget -O install_libs.sh "$source/libs/install.sh" && chmod +x install_libs.sh
 
 wget -O dog_tool "$source/libs/dog_tool" && chmod +x dog_tool
 wget -O pull.sh "$source/matrix/pull.sh" && chmod +x pull.sh
@@ -20,7 +20,7 @@ echo "install dependency libs ..."
 ./install_libs.sh
 
 echo "install matrix ..."
-./pull.sh "matrix_apps" "0.1.1"
+./pull.sh "matrix_apps" "latest"
 
 echo "remove temp data "
 rm -rf install_cuda.sh install_libs.sh

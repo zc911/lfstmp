@@ -32,6 +32,7 @@ class WitnessEngine : public SimpleEngine {
     bool is_init_;
 
     bool enable_vehicle_;
+    bool enable_vehicle_detect_;
     bool enable_vehicle_type_;
     bool enable_vehicle_color_;
     bool enable_vehicle_plate_;

@@ -254,7 +254,7 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
     for (int i = 0; i < isize; i++)
         indexes[i] = -1;
     for (const Object *object : objects) {
-        LOG(INFO) << "recognized marker: " << object->id() << ", type: " << object->type();
+
         if (object->type() != OBJECT_MARKER) {
             LOG(WARNING) << "unknown marker type: " << object->type();
             continue;
@@ -290,7 +290,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     vrec->set_features(vobj->feature().Serialize());
 
     const Detection &d = vobj->detection();
-    LOG(INFO) << "detected object: " << vobj->class_id();
+    DLOG(INFO) << "Detected object: " << vobj->class_id();
     copyCutboard(d.box, vrec->mutable_cutboard());
 
     err = fillModel(vobj->class_id(), vrec->mutable_model());
@@ -384,7 +384,11 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
+    rec_lock_.lock();
     engine_.Process(&framebatch);
+    rec_lock_.unlock();
+
+
 
     //fill response
     WitnessResponseContext *ctx = response->mutable_context();
@@ -405,10 +409,11 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         return err;
     }
 
-    WitnessImage *ret_image = result->mutable_image();
-    ret_image->CopyFrom(request->image());
-    ret_image->mutable_data()->set_width(image.cols);
-    ret_image->mutable_data()->set_height(image.rows);
+    // return back the image data
+//    WitnessImage *ret_image = result->mutable_image();
+//    ret_image->CopyFrom(request->image());
+//    ret_image->mutable_data()->set_width(image.cols);
+//    ret_image->mutable_data()->set_height(image.rows);
     //if ReturnsImage, compress image into data.bindata
 
     gettimeofday(&curr_time, NULL);
@@ -463,8 +468,9 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     }
 
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
-
+    rec_lock_.lock();
     engine_.Process(&framebatch);
+    rec_lock_.unlock();
 
     //fill response
     WitnessResponseContext *ctx = batchResponse->mutable_context();
