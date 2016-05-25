@@ -55,27 +55,27 @@ typedef struct Detection {
         box.width = box.width / scale;
         box.height = box.height / scale;
     }
-    friend ostream& operator<<(std::ostream& os, const Detection& det) {
+    friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-                  << det.box.y << "," << det.box.width << "," << det.box.height
-                  << "] Conf: " << det.confidence;
+            << det.box.y << "," << det.box.width << "," << det.box.height
+            << "] Conf: " << det.confidence;
     }
 
 } Detection;
 
 class Object {
- public:
+public:
     Object(ObjectType type)
-            : id_(0),
-              type_(type),
-              confidence_(0) {
+        : id_(0),
+          type_(type),
+          confidence_(0) {
         children_.clear();
 
     }
     virtual ~Object() {
         // here we only take care of children but not parent
         for (int i = 0; i < children_.size(); ++i) {
-            Object * obj = children_[i];
+            Object *obj = children_[i];
             if (obj) {
                 delete obj;
                 obj = NULL;
@@ -84,7 +84,7 @@ class Object {
         children_.clear();
     }
 
-    const vector<Object*>& children() const {
+    const vector<Object *> &children() const {
         return children_;
     }
 
@@ -92,11 +92,11 @@ class Object {
         children_.push_back(child);
     }
 
-    const Detection& detection() const {
+    const Detection &detection() const {
         return detection_;
     }
 
-    void set_detection(const Detection& detection) {
+    void set_detection(const Detection &detection) {
         detection_ = detection;
     }
 
@@ -124,7 +124,7 @@ class Object {
         type_ = type;
     }
 
- protected:
+protected:
     Identification id_;
     Confidence confidence_;
     ObjectType type_;
@@ -132,11 +132,11 @@ class Object {
     vector<Object *> children_;
 
 };
-class Marker : public Object {
- public:
+class Marker: public Object {
+public:
     Marker(ObjectType type)
-            : Object(type),
-              class_id_(-1) {
+        : Object(type),
+          class_id_(-1) {
     }
     ~Marker() {
 
@@ -149,13 +149,28 @@ class Marker : public Object {
         class_id_ = id;
     }
 
- private:
+private:
     Identification class_id_;
 
 };
 
-class Vehicle : public Object {
- public:
+class Pedestrain: public Object {
+public:
+    Pedestrain() : Object(OBJECT_PEDESTRIAN) {
+
+    }
+    cv::Mat &image() {
+        return image_;
+    }
+    void set_image(const cv::Mat &image) {
+        image_ = image;
+    }
+private:
+    cv::Mat image_;
+};
+
+class Vehicle: public Object {
+public:
 
     typedef struct {
         Identification class_id = -1;
@@ -171,31 +186,31 @@ class Vehicle : public Object {
     } Plate;
 
     Vehicle(ObjectType type)
-            : Object(type),
-              class_id_(-1) {
+        : Object(type),
+          class_id_(-1) {
     }
 
-    const Color& color() const {
+    const Color &color() const {
         return color_;
     }
 
-    void set_color(const Color& color) {
+    void set_color(const Color &color) {
         color_ = color;
     }
-    const Detection & window() const {
+    const Detection &window() const {
         return window_;
     }
-    void set_window(const Detection & detection) {
+    void set_window(const Detection &detection) {
         window_ = detection;
     }
 
-    const cv::Mat& image() const {
+    const cv::Mat &image() const {
         return image_;
     }
-    const cv::Mat& resized_image() const {
+    const cv::Mat &resized_image() const {
         return resized_image_;
     }
-    void set_image(const cv::Mat& image) {
+    void set_image(const cv::Mat &image) {
         image_ = image;
         cv::resize(image_, resized_image_, cv::Size(256, 256));
         resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
@@ -208,15 +223,14 @@ class Vehicle : public Object {
             m->set_class_id(detection.id);
             m->set_confidence(detection.confidence);
             this->AddChild(m);
-            DLOG(INFO)<<"set markers "<<detection.id<<endl;
         }
     }
 
-    const Plate& plate() const {
+    const Plate &plate() const {
         return plate_;
     }
 
-    void set_plate(const Plate& plate) {
+    void set_plate(const Plate &plate) {
         plate_ = plate;
     }
 
@@ -227,11 +241,11 @@ class Vehicle : public Object {
     void set_class_id(Identification classId) {
         class_id_ = classId;
     }
-    const CarRankFeature& feature() const {
+    const CarRankFeature &feature() const {
         return feature_;
     }
 
-    void set_feature(const CarRankFeature& feature) {
+    void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
 private:
@@ -246,16 +260,16 @@ private:
 
 };
 
-class Face : public Object {
+class Face: public Object {
 
- public:
+public:
     Face()
-            : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE) {
 
     }
 
     Face(Identification id, Detection detection, Confidence confidence)
-            : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE) {
         id_ = id;
         confidence_ = confidence;
         detection_ = detection;
@@ -263,7 +277,7 @@ class Face : public Object {
 
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-            : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE) {
         id_ = id;
         confidence_ = confidence;
         detection_.box = Box(x, y, width, height);
@@ -277,15 +291,15 @@ class Face : public Object {
         feature_ = feature;
     }
 
-    const cv::Mat& image() const {
+    const cv::Mat &image() const {
         return image_;
     }
 
-    void set_image(const cv::Mat& image) {
+    void set_image(const cv::Mat &image) {
         image_ = image;
     }
 
- private:
+private:
     cv::Mat image_;
     FaceRankFeature feature_;
 };

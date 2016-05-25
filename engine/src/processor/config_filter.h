@@ -24,39 +24,42 @@
 namespace dg {
 class ConfigFilter {
 
- public:
+public:
 
-    static ConfigFilter* GetInstance() {
+    static ConfigFilter *GetInstance() {
         if (!instance_)
             instance_ = new ConfigFilter;
         return instance_;
     }
 
+    void createVehicleCaffeDetectorConfig(
+        const Config &cconfig,
+        VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
     void createFaceDetectorConfig(const Config &cconfig,
-                                  FaceDetector::FaceDetectorConfig & config);
+                                  FaceDetector::FaceDetectorConfig &config);
     void createFaceExtractorConfig(
-            const Config &cconfig,
-            FaceFeatureExtractor::FaceFeatureExtractorConfig & config);
+        const Config &cconfig,
+        FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
     void createVehicleConfig(
-            const Config &cconfig,
-            vector<VehicleCaffeClassifier::VehicleCaffeConfig> & configs);
+        const Config &cconfig,
+        vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     void createVehicleColorConfig(
-            const Config &cconfig,
-            vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+        const Config &cconfig,
+        vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     void createVehiclePlateConfig(const Config &cconfig,
-                                  PlateRecognizer::PlateConfig & pConfig);
-    void createVehicleMutiTypeDetectorConfig(
-            const Config &cconfig,
-            VehicleMultiTypeDetector::VehicleMultiTypeConfig & config);
+                                  PlateRecognizer::PlateConfig &pConfig);
+//    void createVehicleMutiTypeDetectorConfig(
+//        const Config &cconfig,
+//        VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
     void createMarkersConfig(const Config &cconfig,
                              MarkerCaffeClassifier::MarkerConfig &mConfig);
     void createWindowConfig(const Config &cconfig,
                             WindowCaffeDetector::WindowCaffeConfig &wConfig);
     int initDataConfig(const Config &config);
 
- private:
+private:
     ConfigFilter();
-    static ConfigFilter* instance_;
+    static ConfigFilter *instance_;
 
     Config data_config_;
 };

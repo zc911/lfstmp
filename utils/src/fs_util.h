@@ -43,7 +43,6 @@ static int WriteToFile(string filePath, char* data, unsigned int size) {
 static string ReadStringFromFile(string filePath,string mode){
     long length=FileSize(filePath);
     FILE *file = fopen(filePath.c_str(),mode.c_str());
-    printf("length %d %s \n",length,filePath.c_str());
     if(file == NULL){
 
         return "";
