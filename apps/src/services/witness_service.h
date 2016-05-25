@@ -10,6 +10,7 @@
 #ifndef MATRIX_APPS_WITNESS_SERVICE_H_
 #define MATRIX_APPS_WITNESS_SERVICE_H_
 
+#include <mutex>
 #include "config.h"
 #include "matrix_engine/model/model.h"
 #include "matrix_engine/engine/witness_engine.h"
@@ -19,16 +20,16 @@ namespace dg {
 using namespace ::dg::model;
 
 class WitnessAppsService {
- public:
+public:
     WitnessAppsService(const Config *config);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
-                        WitnessBatchResponse *response);
+                               WitnessBatchResponse *response);
 
- private:
+private:
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
@@ -42,23 +43,28 @@ class WitnessAppsService {
     vector<string> plate_color_repo_;
     vector<string> plate_type_repo_;
 
+    // library caffe is not thread safe(even crash some times) which means
+    // only one frame/frameBatch could be processed at one time.
+    // So we use a lock to keep the processing thread safe.
+    std::mutex rec_lock_;
+
     void init(void);
-    void init_string_map(string filename, string sep, vector<string>& array);
+    void init_string_map(string filename, string sep, vector<string> &array);
     void init_vehicle_map(string filename, string sep,
-                          vector<VehicleModel>& array);
-    const string& lookup_string(const vector<string>& array, int index);
-    const VehicleModel& lookup_vehicle(const vector<VehicleModel>& array,
+                          vector<VehicleModel> &array);
+    const string &lookup_string(const vector<string> &array, int index);
+    const VehicleModel &lookup_vehicle(const vector<VehicleModel> &array,
                                        int index);
 
     static string trimString(string str);
     static int parseInt(string str);
-    static Operation getOperation(const WitnessRequestContext& ctx);
+    static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Box &b, Cutboard *cb);
 
     MatrixError fillModel(Identification id, VehicleModel *model);
     MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
     MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
-    MatrixError fillSymbols(const vector<Object*>& objects,
+    MatrixError fillSymbols(const vector<Object *> &objects,
                             RecognizedVehicle *vrec);
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
                                      RecognizedVehicle *vrec);

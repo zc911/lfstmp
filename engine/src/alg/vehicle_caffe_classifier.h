@@ -13,11 +13,12 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
-#include <caffe/caffe.hpp>
+#include "caffe/caffe.hpp"
 #include "model/model.h"
 #include "detector.h"
 #include "caffe_helper.h"
 #include "caffe_config.h"
+
 using namespace std;
 using namespace caffe;
 using namespace cv;

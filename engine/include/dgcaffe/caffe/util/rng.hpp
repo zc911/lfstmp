@@ -7,7 +7,7 @@
 #include "boost/random/mersenne_twister.hpp"
 #include "boost/random/uniform_int.hpp"
 
-#include "caffe/common.hpp"
+#include "../common.hpp"
 
 namespace caffe {
 
