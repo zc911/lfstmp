@@ -34,6 +34,7 @@ class VehicleMultiTypeDetector {
         string deploy_file;
         string model_file;
     } VehicleMultiTypeConfig;
+
     VehicleMultiTypeDetector(const VehicleMultiTypeConfig &config);
     ~VehicleMultiTypeDetector();
 
