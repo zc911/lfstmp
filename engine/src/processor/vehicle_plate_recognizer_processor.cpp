@@ -9,9 +9,9 @@
 namespace dg {
 
 PlateRecognizerProcessor::PlateRecognizerProcessor(
-        const PlateRecognizer::PlateConfig &pConfig) {
+    const PlateRecognizer::PlateConfig &pConfig) {
     enable_sharpen_ = pConfig.isSharpen;
-    recognizer_ = new PlateRecognizer(pConfig);
+    recognizer_ = &PlateRecognizer::GetInstance(pConfig);
 }
 
 PlateRecognizerProcessor::~PlateRecognizerProcessor() {
@@ -21,15 +21,15 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
 }
 
 bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
-    DLOG(INFO)<<"Start plate recognize processor "<< endl;
+    DLOG(INFO) << "Start plate recognize processor " << endl;
 
-    if(images_.size() != objs_.size()) {
+    if (images_.size() != objs_.size()) {
         LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
         return false;
     }
 
-    for(int i = 0; i < images_.size(); i++) {
-        Vehicle *v = (Vehicle*) objs_[i];
+    for (int i = 0; i < images_.size(); i++) {
+        Vehicle *v = (Vehicle *) objs_[i];
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
@@ -78,9 +78,9 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
-            Vehicle *v = (Vehicle*) obj;
+            Vehicle *v = (Vehicle *) obj;
 
-            DLOG(INFO)<< "Put vehicle images to be plate recognized: " << obj->id() << endl;
+            DLOG(INFO) << "Put vehicle images to be plate recognized: " << obj->id() << endl;
             if (enable_sharpen_) {
                 Mat result;
                 sharpenImage(v->image(), result);
@@ -92,7 +92,7 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
 
         } else {
             itr = objs_.erase(itr);
-            DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
 
