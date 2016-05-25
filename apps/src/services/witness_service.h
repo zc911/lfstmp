@@ -21,15 +21,16 @@ using namespace ::dg::model;
 
 class WitnessAppsService {
 public:
-    WitnessAppsService(const Config *config);
+    WitnessAppsService(const Config *config, string name);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
-
+    string name_;
 private:
+
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
