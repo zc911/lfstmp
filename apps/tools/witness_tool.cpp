@@ -59,6 +59,7 @@ public:
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             cout << pbjson::pb2jsonobject(&resp)->GetString() << endl;
+            resp.release_result();
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
