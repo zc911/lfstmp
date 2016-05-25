@@ -18,11 +18,11 @@
 
 namespace dg {
 
-WitnessAppsService::WitnessAppsService(const Config *config)
+WitnessAppsService::WitnessAppsService(const Config *config, string name)
     : config_(config),
       engine_(*config),
       id_(0) {
-
+    name_ = name;
     unknown_string_ = "UNKNOWN";
     unknown_vehicle_.set_typeid_(-1);
     unknown_vehicle_.set_type("UNKNOWN");
@@ -354,6 +354,8 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
 
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
+
+    cout << "Recognize using " << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
@@ -431,6 +433,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
                                                WitnessBatchResponse *batchResponse) {
 
+    cout << "Batch recognize using " << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
