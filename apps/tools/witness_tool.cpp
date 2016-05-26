@@ -38,6 +38,18 @@ static void Print(const WitnessBatchResponse &resp) {
     }
 }
 
+static void Print(const WitnessResponse &resp) {
+    cout << "=================" << endl;
+    cout << "SessionId:" << resp.context().sessionid() << endl;
+//    for (int i = 0; i < resp.results().size(); ++i) {
+    const WitnessResult &r = resp.result();
+    rapidjson::Value *value = pbjson::pb2jsonobject(&r);
+    string s;
+    pbjson::json2string(value, s);
+    cout << s << endl;
+//    }
+}
+
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
@@ -58,8 +70,7 @@ public:
 
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
-            cout << pbjson::pb2jsonobject(&resp)->GetString() << endl;
-            resp.release_result();
+            Print(resp);
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
@@ -235,8 +246,8 @@ static string RandomSessionId() {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
-        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] IP:PORT"
+    if (argc != 5) {
+        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT"
             << endl;
         return 0;
     }
@@ -244,39 +255,65 @@ int main(int argc, char *argv[]) {
     string image_file_path = string(argv[1]);
 
     char address[1024];
-    sprintf(address, "%s", argv[3]);
+    sprintf(address, "%s", argv[4]);
+
 
     bool asyn = false;
     if (string(argv[2]) == "A") {
         asyn = true;
     }
 
-    vector<string> images;
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
+    bool batch = false;
+    if (string(argv[3]) == "B") {
+        batch = true;
+    }
+
 
     if (asyn) {
         WitnessClientAsyn client(
             grpc::CreateChannel(string(address),
                                 grpc::InsecureChannelCredentials()));
         string id = RandomSessionId();
-        cout << "Rec asyn: " << id << endl;
-        client.RecognizeBatch(images, id);
+
+        if (batch) {
+            cout << "Batch Rec asyn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id);
+        } else {
+            cout << "Rec asyn: " << id << endl;
+            client.Recognize(image_file_path, id);
+        }
 
     } else {
         WitnessClient client(
             grpc::CreateChannel(string(address),
                                 grpc::InsecureChannelCredentials()));
         string id = RandomSessionId();
-        cout << "Rec: " << id << endl;
 
-        client.RecognizeBatch(images, id);
+        if (batch) {
+            cout << "Batch Rec syn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id);
+        } else {
+            cout << "Rec syn: " << id << endl;
+            client.Recognize(image_file_path, id);
+        }
     }
 
 }
