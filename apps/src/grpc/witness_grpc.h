@@ -68,12 +68,13 @@ public:
         // server) and the completion queue "cq" used for asynchronous communication
         // with the gRPC runtime.
         CallData(WitnessService::AsyncService *service, WitnessAppsService *witness_apps,
-                 ServerCompletionQueue *cq);
+                 ServerCompletionQueue *cq, bool batchMode);
 
         void Proceed(WitnessAppsService *witness_apps);
 
     private:
 
+        bool batch_mode_;
         // The means of communication with the gRPC runtime for an asynchronous
         // server.
         WitnessService::AsyncService *service_;
@@ -86,12 +87,17 @@ public:
         ServerContext ctx_;
 
         // What we get from the client.
-        WitnessBatchRequest request_;
+        WitnessBatchRequest batch_request_;
         // What we send back to the client.
-        WitnessBatchResponse reply_;
+        WitnessBatchResponse batch_reply_;
+
+        WitnessRequest request_;
+        WitnessResponse reply_;
 
         // The means to get back to the client.
-        ServerAsyncResponseWriter<WitnessBatchResponse> responder_;
+        ServerAsyncResponseWriter<WitnessResponse> responder_;
+        ServerAsyncResponseWriter<WitnessBatchResponse> batch_responder_;
+
 
         // Let's implement a tiny state machine with the following states.
         enum CallStatus {
