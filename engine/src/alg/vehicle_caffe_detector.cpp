@@ -126,8 +126,12 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
         device_setted_ = true;
     }
 
+    if(img.size() < batch_size_){
+
+    }
+
     // make sure batch size is times of the batch size
-    if (img.size() % batch_size_) {
+    if (img.size() % batch_size_ != 0) {
         int batchShort = batch_size_ - (img.size() % batch_size_);
         for (int i = 0; i < batchShort; ++i) {
             DLOG(INFO) << "Input images size less than batch size" << endl;
