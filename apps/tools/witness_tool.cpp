@@ -260,7 +260,7 @@ void callA(string address, string image_file_path, bool batch) {
     WitnessClientAsyn client(
         grpc::CreateChannel(string(address),
                             grpc::InsecureChannelCredentials()));
-    while (1) {
+//    while (1) {
         string id = RandomSessionId();
         if (batch) {
             cout << "Batch Rec asyn: " << id << endl;
@@ -279,14 +279,14 @@ void callA(string address, string image_file_path, bool batch) {
             cout << "Rec asyn: " << id << endl;
             client.Recognize(image_file_path, id);
         }
-    }
+//    }
 }
 
 void callS(string address, string image_file_path, bool batch) {
     WitnessClient client(
         grpc::CreateChannel(string(address),
                             grpc::InsecureChannelCredentials()));
-    while (1) {
+//    while (1) {
         string id = RandomSessionId();
         if (batch) {
             cout << "Batch Rec syn: " << id << endl;
@@ -304,7 +304,7 @@ void callS(string address, string image_file_path, bool batch) {
             cout << "Rec syn: " << id << endl;
             client.Recognize(image_file_path, id);
         }
-    }
+//    }
 }
 
 int main(int argc, char *argv[]) {
