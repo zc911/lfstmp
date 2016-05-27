@@ -4,6 +4,8 @@
 
 #include "witness_grpc.h"
 #include <sys/time.h>
+#include "debug_util.h"
+
 namespace dg {
 
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(const Config *config) : witness_apps_(config, "aaa") {
@@ -35,17 +37,10 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
     return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 
-GrpcWitnessServiceAsynImpl::GrpcWitnessServiceAsynImpl(const Config *config) {
-
-    witness_apps_1_ = new WitnessAppsService(config, "apps1");
-    witness_apps_2_ = new WitnessAppsService(config, "apps2");
-    witness_apps_3_ = new WitnessAppsService(config, "apps3");
-    witness_apps_4_ = new WitnessAppsService(config, "apps4");
-    // witness_apps_5_ = new WitnessAppsService(config, "apps5");
+GrpcWitnessServiceAsynImpl::GrpcWitnessServiceAsynImpl(Config *config) : config_(config) {
 
     addr_ = (string) config->Value("System/Ip") + ":"
         + (string) config->Value("System/Port");
-//    which_apps_ = 0;
 }
 
 GrpcWitnessServiceAsynImpl::~GrpcWitnessServiceAsynImpl() {
@@ -70,15 +65,33 @@ void GrpcWitnessServiceAsynImpl::Run() {
     server_ = builder.BuildAndStart();
 
     // Proceed to the server's main loop.
+    thread *oneThread;
+    int gpuNum = (int) config_->Value("System/GpuNum");
 
-    thread t1(&GrpcWitnessServiceAsynImpl::HandleRpcs, this, witness_apps_1_);
-    thread t2(&GrpcWitnessServiceAsynImpl::HandleRpcs, this, witness_apps_2_);
-    thread t3(&GrpcWitnessServiceAsynImpl::HandleRpcs, this, witness_apps_3_);
-    thread t4(&GrpcWitnessServiceAsynImpl::HandleRpcs, this, witness_apps_4_);
-    t1.join();
-    t2.join();
-    t3.join();
-    t4.join();
+    if (gpuNum <= 0) {
+        LOG(FATAL) << "Gpu number invalid, check the machine or config file" << endl;
+        return;
+    }
+    int threadsPerGpu = (int) config_->Value("System/ThreadsPerGpu");
+    if (threadsPerGpu <= 0) {
+        LOG(FATAL) << "ThreadsPerGpu invalid, check the config file" << endl;
+        return;
+    }
+
+    for (int i = 0; i < gpuNum; ++i) {
+        int gpuId = i;
+        config_->AddEntry("System/GpuId", AnyConversion(gpuId));
+
+        for (int j = 0; j < threadsPerGpu; ++j) {
+            cout << "Start a Witness service thread on GPU: " << (int) config_->Value("System/GpuId") << endl;
+            WitnessAppsService *witness_apps =
+                new WitnessAppsService(config_, "apps" + std::to_string(gpuId) + "_" + std::to_string(j));
+            oneThread = new std::thread(&GrpcWitnessServiceAsynImpl::HandleRpcs, this, witness_apps);
+        }
+    }
+
+    oneThread->join();
+
 }
 
 // Class encompasing the state and logic needed to serve a request.
@@ -123,16 +136,18 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
 
         // The actual processing.
         cout << "======================" << endl;
-
+        struct timeval start, end;
         if (request_.has_context() || request_.has_image()) {
             cout << "Get Recognize request: " << request_.context().sessionid() << endl;
             cout << "Start processing(Asyn): " << request_.context().sessionid()
                 << "..." << endl;
 
 
+            gettimeofday(&start, NULL);
             if (witness_apps)
                 witness_apps->Recognize(&request_, &reply_);
-
+            gettimeofday(&end, NULL);
+            cout << "Rec cost: " << TimeCostInMs(start, end) << endl;
             cout << "Finish processing(Asyn): " << request_.context().sessionid()
                 << "..." << endl;
 
@@ -148,9 +163,11 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
             cout << "Start processing(Asyn): " << batch_request_.context().sessionid()
                 << "..." << endl;
 
+            gettimeofday(&start, NULL);
             if (witness_apps)
                 witness_apps->BatchRecognize(&batch_request_, &batch_reply_);
-
+            gettimeofday(&end, NULL);
+            cout << "Batch rec cost: " << TimeCostInMs(start, end) << endl;
             cout << "Finish batch processing(Asyn): " << batch_request_.context().sessionid()
                 << "..." << endl;
 

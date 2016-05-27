@@ -2,6 +2,7 @@
 // Created by chenzhen on 5/24/16.
 //
 
+#include <ftadvanc.h>
 #include "vehicle_caffe_detector.h"
 #include "caffe_helper.h"
 
@@ -126,18 +127,6 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
         device_setted_ = true;
     }
 
-    if(img.size() < batch_size_){
-
-    }
-
-    // make sure batch size is times of the batch size
-    if (img.size() % batch_size_ != 0) {
-        int batchShort = batch_size_ - (img.size() % batch_size_);
-        for (int i = 0; i < batchShort; ++i) {
-            DLOG(INFO) << "Input images size less than batch size" << endl;
-            img.push_back(cv::Mat(1, 1, CV_8UC3));
-        }
-    }
 
     detect_results.clear();
     vector<cv::Mat> toPredict;
@@ -149,15 +138,54 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
             Fullfil(toPredict, outputs, detect_results);
             toPredict.clear();
         }
-
     }
+
+    if (toPredict.size() > 0) {
+        vector<Blob<float> *> outputs = PredictBatch(toPredict);
+        Fullfil(toPredict, outputs, detect_results);
+    }
+
+//    // make sure batch size is times of the batch size
+//    if (img.size() % batch_size_ != 0) {
+//        int batchShort = batch_size_ - (img.size() % batch_size_);
+//        for (int i = 0; i < batchShort; ++i) {
+//            DLOG(INFO) << "Input images size less than batch size" << endl;
+//            img.push_back(cv::Mat(1, 1, CV_8UC3));
+//        }
+//    }
+//
+//    detect_results.clear();
+//    vector<cv::Mat> toPredict;
+//    for (int i = 0; i < img.size(); ++i) {
+//        cv::Mat image = img[i];
+//        toPredict.push_back(image);
+//        if (toPredict.size() == batch_size_) {
+//            vector<Blob<float> *> outputs = PredictBatch(toPredict);
+//            Fullfil(toPredict, outputs, detect_results);
+//            toPredict.clear();
+//        }
+//
+//    }
 
 }
 
 std::vector<Blob<float> *> VehicleCaffeDetector::PredictBatch(const vector<Mat> &imgs) {
 
+    vector<Blob<float> *> outputs;
+
     Blob<float> *input_layer = net_->input_blobs()[0];
     float *input_data = input_layer->mutable_cpu_data();
+
+    if (imgs.size() <= batch_size_) {
+        input_layer->Reshape(imgs.size(), num_channels_,
+                             input_geometry_.height,
+                             input_geometry_.width);
+        net_->Reshape();
+    } else {
+        LOG(ERROR) << "Input images size is more than batch size!" << endl;
+        return outputs;
+    }
+
     int cnt = 0;
     DLOG(INFO) << "Start predict batch, size: " << imgs.size() << endl;
     for (int i = 0; i < imgs.size(); i++) {
@@ -188,8 +216,6 @@ std::vector<Blob<float> *> VehicleCaffeDetector::PredictBatch(const vector<Mat> 
         cudaDeviceSynchronize();
     }
 
-
-    vector<Blob<float> *> outputs;
     for (int i = 0; i < net_->num_outputs(); i++) {
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
