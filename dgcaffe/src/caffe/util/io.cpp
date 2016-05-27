@@ -1,15 +1,25 @@
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/foreach.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/xml_parser.hpp>
 #include <fcntl.h>
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 #include <google/protobuf/text_format.h>
+#ifdef USE_OPENCV
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/highgui/highgui_c.h>
 #include <opencv2/imgproc/imgproc.hpp>
+#endif  // USE_OPENCV
 #include <stdint.h>
 
 #include <algorithm>
 #include <fstream>  // NOLINT(readability/streams)
+#include <map>
 #include <string>
 #include <vector>
 
@@ -21,9 +31,9 @@ const int kProtoReadBytesLimit = INT_MAX;  // Max size of 2 GB minus 1 byte.
 
 namespace caffe {
 
+using namespace boost::property_tree;  // NOLINT(build/namespaces)
 using google::protobuf::io::FileInputStream;
 using google::protobuf::io::FileOutputStream;
-using google::protobuf::io::ArrayInputStream;
 using google::protobuf::io::ZeroCopyInputStream;
 using google::protobuf::io::CodedInputStream;
 using google::protobuf::io::ZeroCopyOutputStream;
@@ -37,11 +47,6 @@ bool ReadProtoFromTextFile(const char* filename, Message* proto) {
   bool success = google::protobuf::TextFormat::Parse(input, proto);
   delete input;
   close(fd);
-  return success;
-}
-
-bool ReadProtoFromTextMemory(const string & input, Message* proto) {
-  bool success = google::protobuf::TextFormat::ParseFromString(input, proto);
   return success;
 }
 
@@ -68,25 +73,15 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
   return success;
 }
 
-bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto) {
-  ZeroCopyInputStream* raw_input = new ArrayInputStream(buffer, len);
-  CodedInputStream* coded_input = new CodedInputStream(raw_input);
-  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
-
-  bool success = proto->ParseFromCodedStream(coded_input);
-
-  delete coded_input;
-  delete raw_input;
-  return success;
-}
-
 void WriteProtoToBinaryFile(const Message& proto, const char* filename) {
   fstream output(filename, ios::out | ios::trunc | ios::binary);
   CHECK(proto.SerializeToOstream(&output));
 }
 
-cv::Mat ReadImageToCVMat(const string& filename,
-    const int height, const int width, const bool is_color) {
+#ifdef USE_OPENCV
+cv::Mat ReadImageToCVMat(const string& filename, const int height,
+    const int width, const int min_dim, const int max_dim,
+    const bool is_color) {
   cv::Mat cv_img;
   int cv_read_flag = (is_color ? CV_LOAD_IMAGE_COLOR :
     CV_LOAD_IMAGE_GRAYSCALE);
@@ -95,12 +90,41 @@ cv::Mat ReadImageToCVMat(const string& filename,
     LOG(ERROR) << "Could not open or find file " << filename;
     return cv_img_origin;
   }
-  if (height > 0 && width > 0) {
+  if (min_dim > 0 || max_dim > 0) {
+    int num_rows = cv_img_origin.rows;
+    int num_cols = cv_img_origin.cols;
+    int min_num = std::min(num_rows, num_cols);
+    int max_num = std::max(num_rows, num_cols);
+    float scale_factor = 1;
+    if (min_dim > 0 && min_num < min_dim) {
+      scale_factor = static_cast<float>(min_dim) / min_num;
+    }
+    if (max_dim > 0 && static_cast<int>(scale_factor * max_num) > max_dim) {
+      // Make sure the maximum dimension is less than max_dim.
+      scale_factor = static_cast<float>(max_dim) / max_num;
+    }
+    if (scale_factor == 1) {
+      cv_img = cv_img_origin;
+    } else {
+      cv::resize(cv_img_origin, cv_img, cv::Size(0, 0),
+                 scale_factor, scale_factor);
+    }
+  } else if (height > 0 && width > 0) {
     cv::resize(cv_img_origin, cv_img, cv::Size(width, height));
   } else {
     cv_img = cv_img_origin;
   }
   return cv_img;
+}
+
+cv::Mat ReadImageToCVMat(const string& filename, const int height,
+    const int width, const int min_dim, const int max_dim) {
+  return ReadImageToCVMat(filename, height, width, min_dim, max_dim, true);
+}
+
+cv::Mat ReadImageToCVMat(const string& filename,
+    const int height, const int width, const bool is_color) {
+  return ReadImageToCVMat(filename, height, width, 0, 0, is_color);
 }
 
 cv::Mat ReadImageToCVMat(const string& filename,
@@ -116,6 +140,7 @@ cv::Mat ReadImageToCVMat(const string& filename,
 cv::Mat ReadImageToCVMat(const string& filename) {
   return ReadImageToCVMat(filename, 0, 0, true);
 }
+
 // Do the file extension and encoding match?
 static bool matchExt(const std::string & fn,
                      std::string en) {
@@ -129,21 +154,19 @@ static bool matchExt(const std::string & fn,
     return true;
   return false;
 }
+
 bool ReadImageToDatum(const string& filename, const int label,
-    const int height, const int width, const bool is_color,
-    const std::string & encoding, Datum* datum) {
-  cv::Mat cv_img = ReadImageToCVMat(filename, height, width, is_color);
+    const int height, const int width, const int min_dim, const int max_dim,
+    const bool is_color, const std::string & encoding, Datum* datum) {
+  cv::Mat cv_img = ReadImageToCVMat(filename, height, width, min_dim, max_dim,
+                                    is_color);
   if (cv_img.data) {
     if (encoding.size()) {
       if ( (cv_img.channels() == 3) == is_color && !height && !width &&
           matchExt(filename, encoding) )
         return ReadFileToDatum(filename, label, datum);
-      std::vector<uchar> buf;
-      cv::imencode("."+encoding, cv_img, buf);
-      datum->set_data(std::string(reinterpret_cast<char*>(&buf[0]),
-                      buf.size()));
+      EncodeCVMatToDatum(cv_img, encoding, datum);
       datum->set_label(label);
-      datum->set_encoded(true);
       return true;
     }
     CVMatToDatum(cv_img, datum);
@@ -153,6 +176,18 @@ bool ReadImageToDatum(const string& filename, const int label,
     return false;
   }
 }
+
+void GetImageSize(const string& filename, int* height, int* width) {
+  cv::Mat cv_img = cv::imread(filename);
+  if (!cv_img.data) {
+    LOG(ERROR) << "Could not open or find file " << filename;
+    return;
+  }
+  *height = cv_img.rows;
+  *width = cv_img.cols;
+}
+
+#endif  // USE_OPENCV
 
 bool ReadFileToDatum(const string& filename, const int label,
     Datum* datum) {
@@ -174,6 +209,371 @@ bool ReadFileToDatum(const string& filename, const int label,
   }
 }
 
+bool ReadRichImageToAnnotatedDatum(const string& filename,
+    const string& labelfile, const int height, const int width,
+    const int min_dim, const int max_dim, const bool is_color,
+    const string& encoding, const AnnotatedDatum_AnnotationType type,
+    const string& labeltype, const std::map<string, int>& name_to_label,
+    AnnotatedDatum* anno_datum) {
+  // Read image to datum.
+  bool status = ReadImageToDatum(filename, -1, height, width,
+                                 min_dim, max_dim, is_color, encoding,
+                                 anno_datum->mutable_datum());
+  if (status == false) {
+    return status;
+  }
+  anno_datum->clear_annotation_group();
+  if (!boost::filesystem::exists(labelfile)) {
+    return true;
+  }
+  switch (type) {
+    case AnnotatedDatum_AnnotationType_BBOX:
+      int ori_height, ori_width;
+      GetImageSize(filename, &ori_height, &ori_width);
+      if (labeltype == "xml") {
+        return ReadXMLToAnnotatedDatum(labelfile, ori_height, ori_width,
+                                       name_to_label, anno_datum);
+      } else if (labeltype == "json") {
+        return ReadJSONToAnnotatedDatum(labelfile, ori_height, ori_width,
+                                        name_to_label, anno_datum);
+      } else {
+        LOG(FATAL) << "Unknown label file type.";
+        return false;
+      }
+      break;
+    default:
+      LOG(FATAL) << "Unknown annotation type.";
+      return false;
+  }
+}
+
+// Parse VOC/ILSVRC detection annotation.
+bool ReadXMLToAnnotatedDatum(const string& labelfile, const int img_height,
+    const int img_width, const std::map<string, int>& name_to_label,
+    AnnotatedDatum* anno_datum) {
+  ptree pt;
+  read_xml(labelfile, pt);
+
+  // Parse annotation.
+  int width = 0, height = 0;
+  try {
+    height = pt.get<int>("annotation.size.height");
+    width = pt.get<int>("annotation.size.width");
+  } catch (const ptree_error &e) {
+    LOG(WARNING) << "When parsing " << labelfile << ": " << e.what();
+    height = img_height;
+    width = img_width;
+  }
+  LOG_IF(WARNING, height != img_height) << labelfile <<
+      " inconsistent image height.";
+  LOG_IF(WARNING, width != img_width) << labelfile <<
+      " inconsistent image width.";
+  CHECK(width != 0 && height != 0) << labelfile <<
+      " no valid image width/height.";
+  int instance_id = 0;
+  BOOST_FOREACH(ptree::value_type &v1, pt.get_child("annotation")) {
+    ptree pt1 = v1.second;
+    if (v1.first == "object") {
+      Annotation* anno = NULL;
+      bool difficult = false;
+      ptree object = v1.second;
+      BOOST_FOREACH(ptree::value_type &v2, object.get_child("")) {
+        ptree pt2 = v2.second;
+        if (v2.first == "name") {
+          string name = pt2.data();
+          if (name_to_label.find(name) == name_to_label.end()) {
+            LOG(FATAL) << "Unknown name: " << name;
+          }
+          int label = name_to_label.find(name)->second;
+          bool found_group = false;
+          for (int g = 0; g < anno_datum->annotation_group_size(); ++g) {
+            AnnotationGroup* anno_group =
+                anno_datum->mutable_annotation_group(g);
+            if (label == anno_group->group_label()) {
+              if (anno_group->annotation_size() == 0) {
+                instance_id = 0;
+              } else {
+                instance_id = anno_group->annotation(
+                    anno_group->annotation_size() - 1).instance_id() + 1;
+              }
+              anno = anno_group->add_annotation();
+              found_group = true;
+            }
+          }
+          if (!found_group) {
+            // If there is no such annotation_group, create a new one.
+            AnnotationGroup* anno_group = anno_datum->add_annotation_group();
+            anno_group->set_group_label(label);
+            anno = anno_group->add_annotation();
+            instance_id = 0;
+          }
+          anno->set_instance_id(instance_id++);
+        } else if (v2.first == "difficult") {
+          difficult = pt2.data() == "1";
+        } else if (v2.first == "bndbox") {
+          int xmin = pt2.get("xmin", 0);
+          int ymin = pt2.get("ymin", 0);
+          int xmax = pt2.get("xmax", 0);
+          int ymax = pt2.get("ymax", 0);
+          CHECK_NOTNULL(anno);
+          LOG_IF(WARNING, xmin > width) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, ymin > height) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, xmax > width) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, ymax > height) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, xmin < 0) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, ymin < 0) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, xmax < 0) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, ymax < 0) << labelfile <<
+              " bounding box exceeds image boundary.";
+          LOG_IF(WARNING, xmin > xmax) << labelfile <<
+              " bounding box irregular.";
+          LOG_IF(WARNING, ymin > ymax) << labelfile <<
+              " bounding box irregular.";
+          // Store the normalized bounding box.
+          NormalizedBBox* bbox = anno->mutable_bbox();
+          bbox->set_xmin(static_cast<float>(xmin) / width);
+          bbox->set_ymin(static_cast<float>(ymin) / height);
+          bbox->set_xmax(static_cast<float>(xmax) / width);
+          bbox->set_ymax(static_cast<float>(ymax) / height);
+          bbox->set_difficult(difficult);
+        }
+      }
+    }
+  }
+  return true;
+}
+
+// Parse MSCOCO detection annotation.
+bool ReadJSONToAnnotatedDatum(const string& labelfile, const int img_height,
+    const int img_width, const std::map<string, int>& name_to_label,
+    AnnotatedDatum* anno_datum) {
+  ptree pt;
+  read_json(labelfile, pt);
+
+  // Get image info.
+  int width = 0, height = 0;
+  try {
+    height = pt.get<int>("image.height");
+    width = pt.get<int>("image.width");
+  } catch (const ptree_error &e) {
+    LOG(WARNING) << "When parsing " << labelfile << ": " << e.what();
+    height = img_height;
+    width = img_width;
+  }
+  LOG_IF(WARNING, height != img_height) << labelfile <<
+      " inconsistent image height.";
+  LOG_IF(WARNING, width != img_width) << labelfile <<
+      " inconsistent image width.";
+  CHECK(width != 0 && height != 0) << labelfile <<
+      " no valid image width/height.";
+
+  // Get annotation info.
+  int instance_id = 0;
+  BOOST_FOREACH(ptree::value_type& v1, pt.get_child("annotation")) {
+    Annotation* anno = NULL;
+    bool iscrowd = false;
+    ptree object = v1.second;
+    // Get category_id.
+    string name = object.get<string>("category_id");
+    if (name_to_label.find(name) == name_to_label.end()) {
+      LOG(FATAL) << "Unknown name: " << name;
+    }
+    int label = name_to_label.find(name)->second;
+    bool found_group = false;
+    for (int g = 0; g < anno_datum->annotation_group_size(); ++g) {
+      AnnotationGroup* anno_group =
+          anno_datum->mutable_annotation_group(g);
+      if (label == anno_group->group_label()) {
+        if (anno_group->annotation_size() == 0) {
+          instance_id = 0;
+        } else {
+          instance_id = anno_group->annotation(
+              anno_group->annotation_size() - 1).instance_id() + 1;
+        }
+        anno = anno_group->add_annotation();
+        found_group = true;
+      }
+    }
+    if (!found_group) {
+      // If there is no such annotation_group, create a new one.
+      AnnotationGroup* anno_group = anno_datum->add_annotation_group();
+      anno_group->set_group_label(label);
+      anno = anno_group->add_annotation();
+      instance_id = 0;
+    }
+    anno->set_instance_id(instance_id++);
+
+    // Get iscrowd.
+    iscrowd = object.get<int>("iscrowd", 0);
+
+    // Get bbox.
+    vector<float> bbox_items;
+    BOOST_FOREACH(ptree::value_type& v2, object.get_child("bbox")) {
+      bbox_items.push_back(v2.second.get_value<float>());
+    }
+    CHECK_EQ(bbox_items.size(), 4);
+    float xmin = bbox_items[0];
+    float ymin = bbox_items[1];
+    float xmax = bbox_items[0] + bbox_items[2];
+    float ymax = bbox_items[1] + bbox_items[3];
+    CHECK_NOTNULL(anno);
+    LOG_IF(WARNING, xmin > width) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, ymin > height) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, xmax > width) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, ymax > height) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, xmin < 0) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, ymin < 0) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, xmax < 0) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, ymax < 0) << labelfile <<
+        " bounding box exceeds image boundary.";
+    LOG_IF(WARNING, xmin > xmax) << labelfile <<
+        " bounding box irregular.";
+    LOG_IF(WARNING, ymin > ymax) << labelfile <<
+        " bounding box irregular.";
+    // Store the normalized bounding box.
+    NormalizedBBox* bbox = anno->mutable_bbox();
+    bbox->set_xmin(xmin / width);
+    bbox->set_ymin(ymin / height);
+    bbox->set_xmax(xmax / width);
+    bbox->set_ymax(ymax / height);
+    bbox->set_difficult(iscrowd);
+  }
+  return true;
+}
+
+bool ReadLabelFileToLabelMap(const string& filename, bool include_background,
+    const string& delimiter, LabelMap* map) {
+  // cleanup
+  map->Clear();
+
+  std::ifstream file(filename.c_str());
+  string line;
+  // Every line can have [1, 3] number of fields.
+  // The delimiter between fields can be one of " :;".
+  // The order of the fields are:
+  //  name [label] [display_name]
+  //  ...
+  int field_size = -1;
+  int label = 0;
+  LabelMapItem* map_item;
+  // Add background (none_of_the_above) class.
+  if (include_background) {
+    map_item = map->add_item();
+    map_item->set_name("none_of_the_above");
+    map_item->set_label(label++);
+    map_item->set_display_name("background");
+  }
+  while (std::getline(file, line)) {
+    vector<string> fields;
+    fields.clear();
+    boost::split(fields, line, boost::is_any_of(delimiter));
+    if (field_size == -1) {
+      field_size = fields.size();
+    } else {
+      CHECK_EQ(field_size, fields.size())
+          << "Inconsistent number of fields per line.";
+    }
+    map_item = map->add_item();
+    map_item->set_name(fields[0]);
+    switch (field_size) {
+      case 1:
+        map_item->set_label(label++);
+        map_item->set_display_name(fields[0]);
+        break;
+      case 2:
+        label = std::atoi(fields[1].c_str());
+        map_item->set_label(label);
+        map_item->set_display_name(fields[0]);
+        break;
+      case 3:
+        label = std::atoi(fields[1].c_str());
+        map_item->set_label(label);
+        map_item->set_display_name(fields[2]);
+        break;
+      default:
+        LOG(FATAL) << "The number of fields should be [1, 3].";
+        break;
+    }
+  }
+  return true;
+}
+
+bool MapNameToLabel(const LabelMap& map, const bool strict_check,
+    std::map<string, int>* name_to_label) {
+  // cleanup
+  name_to_label->clear();
+
+  for (int i = 0; i < map.item_size(); ++i) {
+    const string& name = map.item(i).name();
+    const int label = map.item(i).label();
+    if (strict_check) {
+      if (!name_to_label->insert(std::make_pair(name, label)).second) {
+        LOG(FATAL) << "There are many duplicates of name: " << name;
+        return false;
+      }
+    } else {
+      (*name_to_label)[name] = label;
+    }
+  }
+  return true;
+}
+
+bool MapLabelToName(const LabelMap& map, const bool strict_check,
+    std::map<int, string>* label_to_name) {
+  // cleanup
+  label_to_name->clear();
+
+  for (int i = 0; i < map.item_size(); ++i) {
+    const string& name = map.item(i).name();
+    const int label = map.item(i).label();
+    if (strict_check) {
+      if (!label_to_name->insert(std::make_pair(label, name)).second) {
+        LOG(FATAL) << "There are many duplicates of label: " << label;
+        return false;
+      }
+    } else {
+      (*label_to_name)[label] = name;
+    }
+  }
+  return true;
+}
+
+bool MapLabelToDisplayName(const LabelMap& map, const bool strict_check,
+    std::map<int, string>* label_to_display_name) {
+  // cleanup
+  label_to_display_name->clear();
+
+  for (int i = 0; i < map.item_size(); ++i) {
+    const string& display_name = map.item(i).display_name();
+    const int label = map.item(i).label();
+    if (strict_check) {
+      if (!label_to_display_name->insert(
+              std::make_pair(label, display_name)).second) {
+        LOG(FATAL) << "There are many duplicates of label: " << label;
+        return false;
+      }
+    } else {
+      (*label_to_display_name)[label] = display_name;
+    }
+  }
+  return true;
+}
+
+#ifdef USE_OPENCV
 cv::Mat DecodeDatumToCVMatNative(const Datum& datum) {
   cv::Mat cv_img;
   CHECK(datum.encoded()) << "Datum not encoded";
@@ -220,6 +620,15 @@ bool DecodeDatum(Datum* datum, bool is_color) {
   }
 }
 
+void EncodeCVMatToDatum(const cv::Mat& cv_img, const string& encoding,
+                        Datum* datum) {
+  std::vector<uchar> buf;
+  cv::imencode("."+encoding, cv_img, buf);
+  datum->set_data(std::string(reinterpret_cast<char*>(&buf[0]),
+                              buf.size()));
+  datum->set_encoded(true);
+}
+
 void CVMatToDatum(const cv::Mat& cv_img, Datum* datum) {
   CHECK(cv_img.depth() == CV_8U) << "Image data type must be unsigned byte";
   datum->set_channels(cv_img.channels());
@@ -245,80 +654,5 @@ void CVMatToDatum(const cv::Mat& cv_img, Datum* datum) {
   }
   datum->set_data(buffer);
 }
-
-// Verifies format of data stored in HDF5 file and reshapes blob accordingly.
-template <typename Dtype>
-void hdf5_load_nd_dataset_helper(
-    hid_t file_id, const char* dataset_name_, int min_dim, int max_dim,
-    Blob<Dtype>* blob) {
-  // Verify that the dataset exists.
-  CHECK(H5LTfind_dataset(file_id, dataset_name_))
-      << "Failed to find HDF5 dataset " << dataset_name_;
-  // Verify that the number of dimensions is in the accepted range.
-  herr_t status;
-  int ndims;
-  status = H5LTget_dataset_ndims(file_id, dataset_name_, &ndims);
-  CHECK_GE(status, 0) << "Failed to get dataset ndims for " << dataset_name_;
-  CHECK_GE(ndims, min_dim);
-  CHECK_LE(ndims, max_dim);
-
-  // Verify that the data format is what we expect: float or double.
-  std::vector<hsize_t> dims(ndims);
-  H5T_class_t class_;
-  status = H5LTget_dataset_info(
-      file_id, dataset_name_, dims.data(), &class_, NULL);
-  CHECK_GE(status, 0) << "Failed to get dataset info for " << dataset_name_;
-  CHECK_EQ(class_, H5T_FLOAT) << "Expected float or double data";
-
-  vector<int> blob_dims(dims.size());
-  for (int i = 0; i < dims.size(); ++i) {
-    blob_dims[i] = dims[i];
-  }
-  blob->Reshape(blob_dims);
-}
-
-template <>
-void hdf5_load_nd_dataset<float>(hid_t file_id, const char* dataset_name_,
-        int min_dim, int max_dim, Blob<float>* blob) {
-  hdf5_load_nd_dataset_helper(file_id, dataset_name_, min_dim, max_dim, blob);
-  herr_t status = H5LTread_dataset_float(
-    file_id, dataset_name_, blob->mutable_cpu_data());
-  CHECK_GE(status, 0) << "Failed to read float dataset " << dataset_name_;
-}
-
-template <>
-void hdf5_load_nd_dataset<double>(hid_t file_id, const char* dataset_name_,
-        int min_dim, int max_dim, Blob<double>* blob) {
-  hdf5_load_nd_dataset_helper(file_id, dataset_name_, min_dim, max_dim, blob);
-  herr_t status = H5LTread_dataset_double(
-    file_id, dataset_name_, blob->mutable_cpu_data());
-  CHECK_GE(status, 0) << "Failed to read double dataset " << dataset_name_;
-}
-
-template <>
-void hdf5_save_nd_dataset<float>(
-    const hid_t file_id, const string& dataset_name, const Blob<float>& blob) {
-  hsize_t dims[HDF5_NUM_DIMS];
-  dims[0] = blob.num();
-  dims[1] = blob.channels();
-  dims[2] = blob.height();
-  dims[3] = blob.width();
-  herr_t status = H5LTmake_dataset_float(
-      file_id, dataset_name.c_str(), HDF5_NUM_DIMS, dims, blob.cpu_data());
-  CHECK_GE(status, 0) << "Failed to make float dataset " << dataset_name;
-}
-
-template <>
-void hdf5_save_nd_dataset<double>(
-    const hid_t file_id, const string& dataset_name, const Blob<double>& blob) {
-  hsize_t dims[HDF5_NUM_DIMS];
-  dims[0] = blob.num();
-  dims[1] = blob.channels();
-  dims[2] = blob.height();
-  dims[3] = blob.width();
-  herr_t status = H5LTmake_dataset_double(
-      file_id, dataset_name.c_str(), HDF5_NUM_DIMS, dims, blob.cpu_data());
-  CHECK_GE(status, 0) << "Failed to make double dataset " << dataset_name;
-}
-
+#endif  // USE_OPENCV
 }  // namespace caffe
