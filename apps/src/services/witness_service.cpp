@@ -11,7 +11,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
 #include <sys/time.h>
-
+#include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
 #include "../config/config_val.h"
@@ -355,7 +355,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
 
-    cout << "Recognize using " << name_ << endl;
+    cout << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
@@ -373,12 +373,16 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         << ", Image URI:" << request->image().data().uri();
     LOG(INFO) << "Start processing: " << sessionid << "...";
 
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     Mat image;
     err = ImageService::ParseImage(request->image().data(), image);
     if (err.code() != 0) {
         LOG(ERROR) << "parse image failed, " << err.message();
         return err;
     }
+    gettimeofday(&end, NULL);
+    cout << "Parse Image cost: " << TimeCostInMs(start, end) << endl;
 
     Identification curr_id = id_++;  //TODO: make thread safe
     Frame *frame = new Frame(curr_id, image);
@@ -386,11 +390,14 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
+    gettimeofday(&start, NULL);
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();
+    gettimeofday(&end, NULL);
+    cout << "Rec Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
-
+    gettimeofday(&start, NULL);
 
     //fill response
     WitnessResponseContext *ctx = response->mutable_context();
@@ -410,6 +417,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         LOG(ERROR) << "get result from frame failed, " << err.message();
         return err;
     }
+
+    gettimeofday(&end, NULL);
+    cout << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
     // return back the image data
 //    WitnessImage *ret_image = result->mutable_image();
@@ -450,6 +460,9 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     LOG(INFO) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
     LOG(INFO) << "Start processing: " << sessionid << "...";
 
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     Identification curr_id = id_++;
     FrameBatch framebatch(curr_id * 10);
     while (itr != images.end()) {
@@ -470,11 +483,18 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
         itr++;
     }
 
+    gettimeofday(&end, NULL);
+    cout << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
+
+    gettimeofday(&start, NULL);
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();
+    gettimeofday(&end, NULL);
+    cout << "Rec batch Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
+    gettimeofday(&start, NULL);
     //fill response
     WitnessResponseContext *ctx = batchResponse->mutable_context();
     ctx->set_sessionid(sessionid);
@@ -508,6 +528,8 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
         err.set_message("Input frame size not equal to results size.");
         return err;
     }
+    gettimeofday(&end, NULL);
+    cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
 
 
     gettimeofday(&curr_time, NULL);
