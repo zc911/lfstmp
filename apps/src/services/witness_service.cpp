@@ -453,9 +453,6 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
         batchRequest->images();
 
-    ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
-        images.begin();
-
 
     LOG(INFO) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
     LOG(INFO) << "Start processing: " << sessionid << "...";
@@ -465,23 +462,41 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
 
     Identification curr_id = id_++;
     FrameBatch framebatch(curr_id * 10);
+    vector<cv::Mat> imgMats;
+    vector<Image> imgDesc;
+
+    ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
+        images.begin();
     while (itr != images.end()) {
-        Mat image;
-
-        err = ImageService::ParseImage(itr->data(), image);
-        if (err.code() != 0) {
-            LOG(ERROR) << "parse image failed, " << err.message();
-            return err;
-        }
+        imgDesc.push_back(const_cast<Image &>(itr->data()));
+        itr++;
+    }
 
 
+    ImageService::ParseImage(imgDesc, imgMats, false);
+
+    cout << "Image data size: " << imgMats.size() << endl;
+    for(int i = 0; i < imgMats.size(); ++i) {
+        cv::Mat image = imgMats[i];
         Identification curr_id = id_++;  //TODO: make thread safe
         Frame *frame = new Frame(curr_id, image);
         frame->set_operation(getOperation(batchRequest->context()));
 
         framebatch.AddFrame(frame);
-        itr++;
     }
+
+//    Mat image;
+//
+//    err = ImageService::ParseImage(itr->data(), image);
+//    if (err.code() != 0) {
+//        LOG(ERROR) << "parse image failed, " << err.message();
+//        return err;
+//    }
+
+
+
+//    itr++;
+//}
 
     gettimeofday(&end, NULL);
     cout << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
@@ -495,7 +510,7 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     cout << "Rec batch Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
     gettimeofday(&start, NULL);
-    //fill response
+//fill response
     WitnessResponseContext *ctx = batchResponse->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
@@ -503,13 +518,14 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
-    //debug information of this request
+//debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
         ->mutable_debugts();
 
 
     vector<Frame *> frames = framebatch.frames();
-    for (int i = 0; i < frames.size(); ++i) {
+    for (
+        int i = 0; i < frames.size(); ++i) {
         Frame *frame = frames[i];
         ::dg::model::WitnessResult *result = batchResponse->add_results();
         err = getRecognizeResult(frame, result);
@@ -518,27 +534,27 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
             return err;
         }
 
-    }
+
+        if (frames.
+            size() != batchResponse->results().size()) {
+            LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
+                << batchResponse->results().size() << endl;
+            err.set_code(-1);
+            err.set_message("Input frame size not equal to results size.");
+            return err;
+        }
+        gettimeofday(&end, NULL);
+        cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
 
 
-    if (frames.size() != batchResponse->results().size()) {
-        LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
-            << batchResponse->results().size() << endl;
-        err.set_code(-1);
-        err.set_message("Input frame size not equal to results size.");
+        gettimeofday(&curr_time, NULL);
+        ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
+        ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+
+        LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
+        LOG(INFO) << "=======" << endl;
         return err;
     }
-    gettimeofday(&end, NULL);
-    cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
 
-
-    gettimeofday(&curr_time, NULL);
-    ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-
-    LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
-    LOG(INFO) << "=======" << endl;
-    return err;
 }
-
 }
