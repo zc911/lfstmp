@@ -26,10 +26,6 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
 
-//    net_.reset(
-//            new Net<float>(caffe_config_.deploy_file, TEST,
-//                           config.is_model_encrypt));
-
     net_.reset(
         new Net<float>(caffe_config_.deploy_file, TEST));
 
@@ -50,8 +46,8 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
 VehicleCaffeClassifier::~VehicleCaffeClassifier() {
 }
 
-vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(
-    const vector<Mat> &imgs) {
+vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(const vector<Mat> &imgs) {
+
     vector<vector<Prediction> > prediction;
     vector<Mat> images = imgs;
     for (auto batch_images : PrepareBatch(images, caffe_config_.batch_size)) {

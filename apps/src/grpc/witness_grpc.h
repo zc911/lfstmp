@@ -54,7 +54,7 @@ private:
 class GrpcWitnessServiceAsynImpl final: public IGrpcWitnessService, public WitnessService::Service {
 
 public:
-    GrpcWitnessServiceAsynImpl(const Config *config);
+    GrpcWitnessServiceAsynImpl( Config *config);
     ~GrpcWitnessServiceAsynImpl();
 
     // There is no shutdown handling in this code.
@@ -114,11 +114,12 @@ public:
 
 //    Config *config_;
     string addr_;
-    WitnessAppsService *witness_apps_1_;
-    WitnessAppsService *witness_apps_2_;
-    WitnessAppsService *witness_apps_3_;
-    WitnessAppsService *witness_apps_4_;
-    WitnessAppsService *witness_apps_5_;
+    Config *config_;
+//    WitnessAppsService *witness_apps_1_;
+//    WitnessAppsService *witness_apps_2_;
+//    WitnessAppsService *witness_apps_3_;
+//    WitnessAppsService *witness_apps_4_;
+//    WitnessAppsService *witness_apps_5_;
     std::unique_ptr<ServerCompletionQueue> cq_;
     WitnessService::AsyncService service_;
     std::unique_ptr<Server> server_;
