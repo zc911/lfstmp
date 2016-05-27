@@ -1,7 +1,9 @@
 #include <time.h>
+#include <thread>
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <sys/time.h>
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
@@ -50,6 +52,10 @@ static void Print(const WitnessResponse &resp) {
 //    }
 }
 
+static void PrintCost(string s, struct timeval &start, struct timeval &end) {
+    cout << s << (end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000 << endl;
+}
+
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
@@ -65,12 +71,15 @@ public:
 
         WitnessResponse resp;
         ClientContext context;
-
+        struct timeval start, end;
+        gettimeofday(&start, NULL);
         Status status = stub_->Recognize(&context, req, &resp);
+        gettimeofday(&end, NULL);
 
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
+            PrintCost("Rec cost:", start, end);
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
@@ -88,12 +97,14 @@ public:
 
         WitnessBatchResponse resp;
         ClientContext context;
-
+        struct timeval start, end;
+        gettimeofday(&start, NULL);
         Status status = stub_->BatchRecognize(&context, req, &resp);
-
+        gettimeofday(&end, NULL);
         if (status.ok()) {
             cout << "Batch Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
+            PrintCost("Batch rec cost: ", start, end);
         } else {
             cout << "Batch Rec error: " << status.error_message() << endl;
         }
@@ -245,9 +256,60 @@ static string RandomSessionId() {
     return std::to_string(id);
 }
 
+void callA(string address, string image_file_path, bool batch) {
+    WitnessClientAsyn client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    while (1) {
+        string id = RandomSessionId();
+        if (batch) {
+            cout << "Batch Rec asyn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id);
+
+        } else {
+            cout << "Rec asyn: " << id << endl;
+            client.Recognize(image_file_path, id);
+        }
+    }
+}
+
+void callS(string address, string image_file_path, bool batch) {
+    WitnessClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    while (1) {
+        string id = RandomSessionId();
+        if (batch) {
+            cout << "Batch Rec syn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id);
+        } else {
+            cout << "Rec syn: " << id << endl;
+            client.Recognize(image_file_path, id);
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
-    if (argc != 5) {
-        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT"
+    if (argc != 6) {
+        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT THREAD_NUM"
             << endl;
         return 0;
     }
@@ -268,52 +330,20 @@ int main(int argc, char *argv[]) {
         batch = true;
     }
 
+    int threadNum = 1;
+    threadNum = atoi(argv[5]);
 
     if (asyn) {
-        WitnessClientAsyn client(
-            grpc::CreateChannel(string(address),
-                                grpc::InsecureChannelCredentials()));
-        string id = RandomSessionId();
-
-        if (batch) {
-            cout << "Batch Rec asyn: " << id << endl;
-            vector<string> images;
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            client.RecognizeBatch(images, id);
-        } else {
-            cout << "Rec asyn: " << id << endl;
-            client.Recognize(image_file_path, id);
-        }
+        callA(address, image_file_path, batch);
 
     } else {
-        WitnessClient client(
-            grpc::CreateChannel(string(address),
-                                grpc::InsecureChannelCredentials()));
-        string id = RandomSessionId();
+        thread t(callS, address, image_file_path, batch);
+        t.join();
+    }
 
-        if (batch) {
-            cout << "Batch Rec syn: " << id << endl;
-            vector<string> images;
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            images.push_back(image_file_path);
-            client.RecognizeBatch(images, id);
-        } else {
-            cout << "Rec syn: " << id << endl;
-            client.Recognize(image_file_path, id);
-        }
+    cout << "Wait..." << endl;
+    while (1) {
+        std::this_thread::sleep_for(std::chrono::minutes(100000));
     }
 
 }
