@@ -15,6 +15,7 @@
 #include "witness_service.h"
 #include "image_service.h"
 #include "../config/config_val.h"
+#include "string_util.h"
 
 namespace dg {
 
@@ -352,6 +353,62 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     return err;
 }
 
+MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
+    MatrixError err;
+    if (wImage.data().uri().size() == 0 && wImage.data().bindata().size() == 0) {
+        LOG(ERROR) << "image uri and bindata are empty both";
+        err.set_code(-1);
+        err.set_message("image uri and bindata are empty both");
+        return err;
+    }
+    if (wImage.data().uri().size() > 0) {
+        string pre = findPrefix(wImage.data().uri(), ':');
+        if (pre != "http" && pre != "https" && pre != "ftp" && pre != "file") {
+            LOG(ERROR) << "Invalid URI: " << wImage.data().uri() << endl;
+            err.set_code(-1);
+            err.set_message("Invalid Image URI");
+            return err;
+        }
+    }
+
+    return err;
+}
+
+MatrixError WitnessAppsService::checkRequest(const WitnessRequest &request) {
+    MatrixError err;
+    if (!request.has_image() || !request.image().has_data()) {
+        LOG(ERROR) << "image descriptor does not exist";
+        err.set_code(-1);
+        err.set_message("image descriptor does not exist");
+        return err;
+    }
+    err = checkWitnessImage(request.image());
+    if (err.code() != 0) {
+        return err;
+    }
+    return err;
+}
+
+MatrixError WitnessAppsService::checkRequest(const WitnessBatchRequest &requests) {
+    MatrixError err;
+    int size = requests.images().size();
+    if (size == 0) {
+        err.set_code(-1);
+        err.set_message("Not data within batch requests");
+        return err;
+    }
+
+    for (int i = 0; i < size; ++i) {
+        WitnessImage image = requests.images(i);
+        err = checkWitnessImage(image);
+        if (err.code() != 0) {
+            return err;
+        }
+    }
+
+    return err;
+}
+
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
 
@@ -360,14 +417,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
 
     const string &sessionid = request->context().sessionid();
-    MatrixError err;
-
-    if (!request->has_image() || !request->image().has_data()) {
-        LOG(ERROR) << "image descriptor does not exist";
-        err.set_code(-1);
-        err.set_message("image descriptor does not exist");
+    MatrixError err = checkRequest(*request);
+    if (err.code() != 0) {
+        LOG(WARNING) << "Checkout request failed" << endl;
         return err;
     }
+
 
     LOG(INFO) << "Get Recognize request: " << sessionid
         << ", Image URI:" << request->image().data().uri();
@@ -457,6 +512,12 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     LOG(INFO) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
     LOG(INFO) << "Start processing: " << sessionid << "...";
 
+    err = checkRequest(*batchRequest);
+    if (err.code() != 0) {
+        LOG(WARNING) << "Check request failed: " << sessionid << endl;
+        return err;
+    }
+
     struct timeval start, end;
     gettimeofday(&start, NULL);
 
@@ -473,10 +534,9 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     }
 
 
-    ImageService::ParseImage(imgDesc, imgMats, false);
+    ImageService::ParseImage(imgDesc, imgMats, 10, true);
 
-    cout << "Image data size: " << imgMats.size() << endl;
-    for(int i = 0; i < imgMats.size(); ++i) {
+    for (int i = 0; i < imgMats.size(); ++i) {
         cv::Mat image = imgMats[i];
         Identification curr_id = id_++;  //TODO: make thread safe
         Frame *frame = new Frame(curr_id, image);
@@ -485,18 +545,6 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
         framebatch.AddFrame(frame);
     }
 
-//    Mat image;
-//
-//    err = ImageService::ParseImage(itr->data(), image);
-//    if (err.code() != 0) {
-//        LOG(ERROR) << "parse image failed, " << err.message();
-//        return err;
-//    }
-
-
-
-//    itr++;
-//}
 
     gettimeofday(&end, NULL);
     cout << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
@@ -524,8 +572,7 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
 
 
     vector<Frame *> frames = framebatch.frames();
-    for (
-        int i = 0; i < frames.size(); ++i) {
+    for (int i = 0; i < frames.size(); ++i) {
         Frame *frame = frames[i];
         ::dg::model::WitnessResult *result = batchResponse->add_results();
         err = getRecognizeResult(frame, result);
@@ -533,28 +580,29 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
             LOG(ERROR) << "get result from frame failed, " << err.message();
             return err;
         }
+    }
 
 
-        if (frames.
-            size() != batchResponse->results().size()) {
-            LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
-                << batchResponse->results().size() << endl;
-            err.set_code(-1);
-            err.set_message("Input frame size not equal to results size.");
-            return err;
-        }
-        gettimeofday(&end, NULL);
-        cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
-
-
-        gettimeofday(&curr_time, NULL);
-        ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-        ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-
-        LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
-        LOG(INFO) << "=======" << endl;
+    if (frames.size() != batchResponse->results().size()) {
+        LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
+            << batchResponse->results().size() << endl;
+        err.set_code(-1);
+        err.set_message("Input frame size not equal to results size.");
         return err;
     }
 
+    gettimeofday(&end, NULL);
+    cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
+
+
+    gettimeofday(&curr_time, NULL);
+    ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+
+    LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
+    LOG(INFO) << "=======" << endl;
+    return err;
 }
+
 }
+
