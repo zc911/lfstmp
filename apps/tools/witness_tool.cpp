@@ -7,6 +7,8 @@
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
+#include "codec/base64.h"
+#include "string_util.h"
 
 using namespace std;
 using grpc::Channel;
@@ -43,13 +45,11 @@ static void Print(const WitnessBatchResponse &resp) {
 static void Print(const WitnessResponse &resp) {
     cout << "=================" << endl;
     cout << "SessionId:" << resp.context().sessionid() << endl;
-//    for (int i = 0; i < resp.results().size(); ++i) {
     const WitnessResult &r = resp.result();
     rapidjson::Value *value = pbjson::pb2jsonobject(&r);
     string s;
     pbjson::json2string(value, s);
     cout << s << endl;
-//    }
 }
 
 static void PrintCost(string s, struct timeval &start, struct timeval &end) {
@@ -62,12 +62,17 @@ public:
         : stub_(WitnessService::NewStub(channel)) {
     }
 
-    void Recognize(const string file_path, const string session_id) {
+    void Recognize(const string file_path, const string session_id, bool uri = true) {
         WitnessRequest req;
         WitnessRequestContext *ctx = req.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
-        req.mutable_image()->mutable_data()->set_uri(file_path);
+        if (uri)
+            req.mutable_image()->mutable_data()->set_uri(file_path);
+        else {
+            string s = encode2base64(file_path.c_str());
+             req.mutable_image()->mutable_data()->set_bindata(s);
+        }
 
         WitnessResponse resp;
         ClientContext context;
@@ -86,13 +91,18 @@ public:
 
     }
 
-    void RecognizeBatch(vector<string> &file_paths, const string session_id) {
+    void RecognizeBatch(vector<string> &file_paths, const string session_id, bool uri = true) {
         WitnessBatchRequest req;
         WitnessRequestContext *ctx = req.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
         for (vector<string>::iterator itr = file_paths.begin(); itr != file_paths.end(); ++itr) {
-            req.add_images()->mutable_data()->set_uri(*itr);
+            if (uri)
+                req.add_images()->mutable_data()->set_uri(*itr);
+            else {
+                string s = encode2base64((*itr).c_str());
+                req.add_images()->mutable_data()->set_bindata(s);
+            }
         }
 
         WitnessBatchResponse resp;
@@ -260,7 +270,7 @@ void callA(string address, string image_file_path, bool batch) {
     WitnessClientAsyn client(
         grpc::CreateChannel(string(address),
                             grpc::InsecureChannelCredentials()));
-//    while (1) {
+    while (1) {
         string id = RandomSessionId();
         if (batch) {
             cout << "Batch Rec asyn: " << id << endl;
@@ -279,14 +289,14 @@ void callA(string address, string image_file_path, bool batch) {
             cout << "Rec asyn: " << id << endl;
             client.Recognize(image_file_path, id);
         }
-//    }
+    }
 }
 
-void callS(string address, string image_file_path, bool batch) {
+void callS(string address, string image_file_path, bool batch, bool uri) {
     WitnessClient client(
         grpc::CreateChannel(string(address),
                             grpc::InsecureChannelCredentials()));
-//    while (1) {
+    while (1) {
         string id = RandomSessionId();
         if (batch) {
             cout << "Batch Rec syn: " << id << endl;
@@ -299,12 +309,12 @@ void callS(string address, string image_file_path, bool batch) {
             images.push_back(image_file_path);
             images.push_back(image_file_path);
             images.push_back(image_file_path);
-            client.RecognizeBatch(images, id);
+            client.RecognizeBatch(images, id, uri);
         } else {
             cout << "Rec syn: " << id << endl;
-            client.Recognize(image_file_path, id);
+            client.Recognize(image_file_path, id, uri);
         }
-//    }
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -337,7 +347,7 @@ int main(int argc, char *argv[]) {
         callA(address, image_file_path, batch);
 
     } else {
-        thread t(callS, address, image_file_path, batch);
+        thread t(callS, address, image_file_path, batch, true);
         t.join();
     }
 

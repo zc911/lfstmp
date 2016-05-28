@@ -4,14 +4,14 @@
 		"Model": "1.9"
 	},
 	"ProtocolType": "rpc",
+	//"ProtocolType": "restful",
 	"InstanceType": "witness",
 	//"InstanceType" : "ranker",
 	"System": {
 		"Ip": "0.0.0.0",
 		"Port": 6500,
 		"GpuNum": 1,
-		"ThreadsPerGpu": 1,
-		//"GpuId": 0,
+		"ThreadsPerGpu": 4,
 		"EnableAsyn": true
 	},
 	"Feature": {
@@ -22,7 +22,7 @@
 			"EnableColor": true,
 			"EnablePlate": true,
 			"EnablePlateEnhanced": false,
-			"EnableMarker": false,
+			"EnableMarker": true,
 			"EnableFeatureVector": false
 		},
 		"Face": {
