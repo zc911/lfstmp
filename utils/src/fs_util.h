@@ -29,8 +29,8 @@ static long FileSize(const string &file) {
     is.close();
     return length;
 }
-static int WriteToFile(string filePath, char* data, unsigned int size) {
-    FILE* file = fopen(filePath.c_str(), "wr");
+static int WriteToFile(string filePath, char *data, unsigned int size) {
+    FILE *file = fopen(filePath.c_str(), "wr");
     if (file == NULL) {
         return -1;
     }
@@ -40,18 +40,32 @@ static int WriteToFile(string filePath, char* data, unsigned int size) {
     fclose(file);
     return 1;
 }
-static string ReadStringFromFile(string filePath,string mode){
-    long length=FileSize(filePath);
-    FILE *file = fopen(filePath.c_str(),mode.c_str());
-    if(file == NULL){
 
+static void ReadFromFile(string filePath, char *data, int &length, string mode) {
+    length = FileSize(filePath);
+    FILE *file = fopen(filePath.c_str(), mode.c_str());
+    if (file == NULL) {
+        return;
+    }
+    cout << "File len: " << length << endl;
+    data = new char[length];
+
+    length = fread(data, sizeof(char), length, file);
+    fclose(file);
+    return;
+}
+
+static string ReadStringFromFile(string filePath, string mode) {
+    long length = FileSize(filePath);
+    FILE *file = fopen(filePath.c_str(), mode.c_str());
+    if (file == NULL) {
         return "";
     }
     char data[length];
-    memset(data,0,length);
+    memset(data, 0, length);
 
-    length = fread(data,sizeof(char),length,file);
-    data[length]=0;
+    length = fread(data, sizeof(char), length, file);
+    data[length] = 0;
     fclose(file);
     string result(data);
     return result;
