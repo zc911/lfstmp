@@ -34,6 +34,7 @@ namespace caffe {
 using namespace boost::property_tree;  // NOLINT(build/namespaces)
 using google::protobuf::io::FileInputStream;
 using google::protobuf::io::FileOutputStream;
+using google::protobuf::io::ArrayInputStream;
 using google::protobuf::io::ZeroCopyInputStream;
 using google::protobuf::io::CodedInputStream;
 using google::protobuf::io::ZeroCopyOutputStream;
@@ -70,6 +71,23 @@ bool ReadProtoFromBinaryFile(const char* filename, Message* proto) {
   delete coded_input;
   delete raw_input;
   close(fd);
+  return success;
+}
+
+bool ReadProtoFromTextMemory(const string & input, Message* proto) {
+  bool success = google::protobuf::TextFormat::ParseFromString(input, proto);
+  return success;
+}
+
+bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto) {
+  ZeroCopyInputStream* raw_input = new ArrayInputStream(buffer, len);
+  CodedInputStream* coded_input = new CodedInputStream(raw_input);
+  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
+
+  bool success = proto->ParseFromCodedStream(coded_input);
+
+  delete coded_input;
+  delete raw_input;
   return success;
 }
 
