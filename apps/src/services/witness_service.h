@@ -62,6 +62,9 @@ private:
     static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Box &b, Cutboard *cb);
 
+    MatrixError checkRequest(const WitnessRequest &request);
+    MatrixError checkRequest(const WitnessBatchRequest &requests);
+    MatrixError checkWitnessImage(const WitnessImage &wImage);
     MatrixError fillModel(Identification id, VehicleModel *model);
     MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
     MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);

@@ -24,11 +24,12 @@ const int IMAGE_SERVICE_THREAD_NUM = 8;
 class ImageService {
 public:
     static MatrixError ParseImage(const ::dg::model::Image &image, ::cv::Mat &imgMat);
-    static MatrixError ParseImage(vector<Image> &imgs, vector<cv::Mat> &imgMats, bool concurrent = true);
+    static MatrixError
+        ParseImage(vector<Image> &imgs, vector<cv::Mat> &imgMats, unsigned int timeout, bool concurrent = true);
 
 private:
     static MatrixError getImageFromUri(const std::string uri,
-                                       ::cv::Mat &imgMat);
+                                       ::cv::Mat &imgMat, unsigned int timeout = 10);
     static MatrixError getImageFromData(const std::string img64,
                                         ::cv::Mat &imgMat);
 
