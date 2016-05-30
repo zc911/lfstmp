@@ -83,7 +83,8 @@ vector<Detection> VehicleMultiTypeDetector::Detect(const cv::Mat &img) {
 
 }
 
-vector<vector<Detection>> VehicleMultiTypeDetector::DetectBatch(
+vector<vector<Detection> > VehicleMultiTypeDetector::DetectBatch(
+
     const vector<cv::Mat> &img) {
     vector<vector<Detection>> results;
 

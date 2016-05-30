@@ -7,10 +7,11 @@
 
 #ifndef PROCESSOR_H_
 #define PROCESSOR_H_
-
+#include <sys/file.h>
 #include "model/basic.h"
 #include "model/model.h"
 #include "model/frame.h"
+
 
 namespace dg {
 /// The basic processor interface. It defines the
@@ -18,7 +19,7 @@ namespace dg {
 class Processor {
  public:
     Processor()
-            : next_(0) {
+            : next_(0),performance_(0) {
 
     }
     virtual ~Processor() {
@@ -66,6 +67,7 @@ protected:
     virtual bool checkStatus(Frame *frame) {return true;};
     virtual bool checkStatus(FrameBatch *frameBatch) {return true;};
 
+
 private:
 /// This method will invoke the next processor chained to the
 /// current processor.
@@ -83,9 +85,11 @@ private:
             next_->Update(frameBatch);
         }
     }
+    virtual bool RecordFeaturePerformance()=0;
 
 protected:
     Processor *next_;
+    unsigned long long performance_;
 
 };}
 #endif /* PROCESSOR_H_ */

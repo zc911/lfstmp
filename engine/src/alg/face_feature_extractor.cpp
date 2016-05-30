@@ -53,6 +53,7 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     dlib::full_object_detection shape = sp_(avg_face_image, avg_face_bbox[0]);
     Detection2Points(shape, avg_face_points_);
 
+
 }
 
 void FaceFeatureExtractor::Detection2Points(

@@ -34,13 +34,17 @@ FIND_LIBRARY(LIB_PBJSON NAMES pbjson PATHS lib/pbjson/${PLATFORM})
 FIND_LIBRARY(LIB_MATRIX_UTILS NAMES matrix_util PATHS ../utils/dist/${PLATFORM}/lib)
 find_library(LIB_MATRIX matrix PATHS lib/matrix_engine/${PLATFORM})
 find_library(LIB_MATRIX_CUDA matrix_cuda PATHS lib/matrix_engine/${PLATFORM})
-
+FIND_LIBRARY(LIB_MXNET mxnet PATHS lib/mxnet/${PLATFORM})
 FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS lib/thplateid/${PLATFORM})
 FIND_LIBRARY(LIB_DLIB dlib PATHS lib/dlib/${PLATFORM})
+FIND_LIBRARY(LIB_HASP hasp PATHS lib/watchdog/${PLATFORM})
+FIND_LIBRARY(LIB_WATCHDOG watchdog PATHS lib/watchdog/${PLATFORM})
 
-LIST(APPEND LIBS ${LIB_MATRIX} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DLIB})
-LIST(APPEND LIBS ${LIB_TBB} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
-LIST(APPEND LIBS glog gflags protobuf leveldb grpc++ grpc jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid freetype hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)
+LIST(APPEND LIBS ${LIB_MATRIX} ${LIB_WATCHDOG} ${LIB_HASP} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DLIB})
+LIST(APPEND LIBS ${LIB_TBB} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_MXNET} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
+LIST(APPEND LIBS glog gflags protobuf leveldb grpc++ grpc jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
+freetype hdf5_hl hdf5 m crypto opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10
+gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)
 
 
 ADD_SUBDIRECTORY(src)
