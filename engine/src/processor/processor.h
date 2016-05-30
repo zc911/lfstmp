@@ -11,7 +11,8 @@
 #include "model/basic.h"
 #include "model/model.h"
 #include "model/frame.h"
-#include "processor_helper.h"
+
+
 namespace dg {
 /// The basic processor interface. It defines the
 /// interfaces each derived processor must to implement.

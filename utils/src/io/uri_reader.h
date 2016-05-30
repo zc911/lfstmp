@@ -21,7 +21,7 @@ public:
     UriReader();
     virtual ~UriReader();
 
-    static int Read(const std::string uri, std::vector<uchar>& buffer);
+    static int Read(const std::string uri, std::vector<uchar>& buffer, unsigned int timeout);
 
 private:
     static UriReader reader_; //used for global initialize only

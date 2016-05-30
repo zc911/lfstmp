@@ -28,7 +28,7 @@ size_t write_callback(void *buffer, size_t size, size_t nmemb, void *stream) {
     return size * nmemb;
 }
 
-int UriReader::Read(const std::string uri, std::vector<uchar> &buffer) {
+int UriReader::Read(const std::string uri, std::vector<uchar> &buffer, unsigned int timeout) {
     CURL *curl_handle = curl_easy_init();
     if (!curl_handle) {
         return -1;
@@ -42,6 +42,7 @@ int UriReader::Read(const std::string uri, std::vector<uchar> &buffer) {
     curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 0L); //0L for no verbose
     curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L); //oL for progress
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_callback);
+    curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, timeout);
     curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &buffer);
     CURLcode res = curl_easy_perform(curl_handle);
 
