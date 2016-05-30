@@ -61,7 +61,7 @@ private:
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
-    static void copyCutboard(const Box &b, Cutboard *cb);
+    static void copyCutboard(const Detection &d, Cutboard *cb);
 
     MatrixError checkRequest(const WitnessRequest &request);
     MatrixError checkRequest(const WitnessBatchRequest &requests);

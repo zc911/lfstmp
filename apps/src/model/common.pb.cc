@@ -165,13 +165,14 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, _is_default_instance_));
   Cutboard_descriptor_ = file->message_type(6);
-  static const int Cutboard_offsets_[6] = {
+  static const int Cutboard_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, y_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, width_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, height_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, reswidth_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, resheight_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, confidence_),
   };
   Cutboard_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -274,30 +275,31 @@ void protobuf_AddDesc_common_2eproto() {
     "tadata\022$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cutb"
     "oard\022\034\n\003Img\030\003 \001(\0132\017.dg.model.Image\":\n\005Co"
     "lor\022\n\n\002Id\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tC"
-    "olorName\030\003 \001(\t\"d\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n"
+    "olorName\030\003 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n"
     "\001Y\030\002 \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022"
-    "\020\n\010ResWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\",\n\r"
-    "FeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature\030\002 \001"
-    "(\t*`\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020"
-    "\000\022\024\n\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE"
-    "\020\002\022\020\n\014REC_TYPE_ALL\020\003*\321\002\n\022RecognizeFuncti"
-    "ons\022\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE"
-    "\020\001\022\032\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUN"
-    "C_VEHICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STY"
-    "LE\020\004\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFU"
-    "NC_VEHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_P"
-    "LATE\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR"
-    "\020\010\022\020\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DET"
-    "ECTOR\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013"
-    "*\242\002\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OB"
-    "J_TYPE_CAR\020\001\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\002\022\024\n"
-    "\020OBJ_TYPE_BICYCLE\020\003\022\025\n\021OBJ_TYPE_TRICYCLE"
-    "\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHIC"
-    "LE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020"
-    "\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ"
-    "_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_F"
-    "ACE_VECTOR\020\200\030*5\n\013DataFmtType\022\016\n\nUNKNOWNF"
-    "MT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002b\006proto3", 1436);
+    "\020\n\010ResWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\n"
+    "Confidence\030\007 \001(\002\",\n\rFeatureVector\022\n\n\002Id\030"
+    "\001 \001(\003\022\017\n\007Feature\030\002 \001(\t*`\n\rRecognizeType\022"
+    "\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n\020REC_TYPE_VEHICL"
+    "E\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020\n\014REC_TYPE_ALL\020\003"
+    "*\321\002\n\022RecognizeFunctions\022\020\n\014RECFUNC_NONE\020"
+    "\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032\n\026RECFUNC_VEHICL"
+    "E_DETECT\020\002\022\031\n\025RECFUNC_VEHICLE_TRACK\020\003\022\031\n"
+    "\025RECFUNC_VEHICLE_STYLE\020\004\022\031\n\025RECFUNC_VEHI"
+    "CLE_COLOR\020\005\022\032\n\026RECFUNC_VEHICLE_MARKER\020\006\022"
+    "\031\n\025RECFUNC_VEHICLE_PLATE\020\007\022\"\n\036RECFUNC_VE"
+    "HICLE_FEATURE_VECTOR\020\010\022\020\n\014RECFUNC_FACE\020\t"
+    "\022\031\n\025RECFUNC_FACE_DETECTOR\020\n\022\037\n\033RECFUNC_F"
+    "ACE_FEATURE_VECTOR\020\013*\242\002\n\007ObjType\022\024\n\020OBJ_"
+    "TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\027\n\023OBJ_"
+    "TYPE_PEDESTRIAN\020\002\022\024\n\020OBJ_TYPE_BICYCLE\020\003\022"
+    "\025\n\021OBJ_TYPE_TRICYCLE\020\004\022\022\n\rOBJ_TYPE_FACE\020"
+    "\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_"
+    "TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICY"
+    "CLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VEC"
+    "TOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030*5\n\013Dat"
+    "aFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PR"
+    "OTOBUF\020\002b\006proto3", 1456);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -2955,6 +2957,7 @@ const int Cutboard::kWidthFieldNumber;
 const int Cutboard::kHeightFieldNumber;
 const int Cutboard::kResWidthFieldNumber;
 const int Cutboard::kResHeightFieldNumber;
+const int Cutboard::kConfidenceFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Cutboard::Cutboard()
@@ -2984,6 +2987,7 @@ void Cutboard::SharedCtor() {
   height_ = 0u;
   reswidth_ = 0u;
   resheight_ = 0u;
+  confidence_ = 0;
 }
 
 Cutboard::~Cutboard() {
@@ -3030,7 +3034,7 @@ void Cutboard::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(x_, resheight_);
+  ZR_(x_, confidence_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -3132,6 +3136,21 @@ bool Cutboard::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(61)) goto parse_Confidence;
+        break;
+      }
+
+      // optional float Confidence = 7;
+      case 7: {
+        if (tag == 61) {
+         parse_Confidence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &confidence_)));
+
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3190,6 +3209,11 @@ void Cutboard::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(6, this->resheight(), output);
   }
 
+  // optional float Confidence = 7;
+  if (this->confidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->confidence(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.Cutboard)
 }
 
@@ -3224,6 +3248,11 @@ void Cutboard::SerializeWithCachedSizes(
   // optional uint32 ResHeight = 6;
   if (this->resheight() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(6, this->resheight(), target);
+  }
+
+  // optional float Confidence = 7;
+  if (this->confidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->confidence(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.Cutboard)
@@ -3275,6 +3304,11 @@ int Cutboard::ByteSize() const {
         this->resheight());
   }
 
+  // optional float Confidence = 7;
+  if (this->confidence() != 0) {
+    total_size += 1 + 4;
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -3313,6 +3347,9 @@ void Cutboard::MergeFrom(const Cutboard& from) {
   if (from.resheight() != 0) {
     set_resheight(from.resheight());
   }
+  if (from.confidence() != 0) {
+    set_confidence(from.confidence());
+  }
 }
 
 void Cutboard::CopyFrom(const ::google::protobuf::Message& from) {
@@ -3343,6 +3380,7 @@ void Cutboard::InternalSwap(Cutboard* other) {
   std::swap(height_, other->height_);
   std::swap(reswidth_, other->reswidth_);
   std::swap(resheight_, other->resheight_);
+  std::swap(confidence_, other->confidence_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -3440,6 +3478,20 @@ void Cutboard::clear_resheight() {
   
   resheight_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.ResHeight)
+}
+
+// optional float Confidence = 7;
+void Cutboard::clear_confidence() {
+  confidence_ = 0;
+}
+ float Cutboard::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.Cutboard.Confidence)
+  return confidence_;
+}
+ void Cutboard::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.Cutboard.Confidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
