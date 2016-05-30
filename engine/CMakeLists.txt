@@ -35,12 +35,12 @@ FIND_LIBRARY(LIB_DLIB NAMES dlib PATHS lib/dlib/${PLATFORM})
 FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS lib/caffe/${PLATFORM})
 FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS ${CUDA_LIB_PATH})
 FIND_LIBRARY(LIB_THPLATEID NAMES thplateid PATHS lib/thplateid/${PLATFORM})
-FIND_LIBRARY(LIB_WATCHDOG NAMES watchdog PATHS lib/watchdog/${PLATFORM})
+FIND_LIBRARY(LIB_HASP NAMES hasp PATHS lib/watchdog/${PLATFORM})
+FIND_LIBRARY(LIB_WATCHDOG NAMES watchdog hasp PATHS lib/watchdog/${PLATFORM})
 FIND_LIBRARY(LIB_MXNET NAMES mxnet PATHS lib/mxnet/${PLATFORM})
 
-
-LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG})
-LIST(APPEND LIBS pthread glog gflags protobuf leveldb grpc++ grpc jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl )
+LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG} ${LIB_HASP})
+LIST(APPEND LIBS pthread glog gflags protobuf leveldb grpc++ grpc jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl )
 
 
 ADD_SUBDIRECTORY(src)
