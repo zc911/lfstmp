@@ -7,6 +7,7 @@
 #include "model/ringbuffer.h"
 #include "engine/simple_engine.h"
 #include "engine/witness_engine.h"
+#include "util/thread_pool.h"
 #include "vis/display.h"
 #include "config.h"
 using namespace dg;
@@ -74,13 +75,13 @@ static SimpleEngine *engine1;
 static void* process(void* p) {
     SimpleEngine *engine = (SimpleEngine*) p;
     if (1) {
-        FrameBatch *fb = new FrameBatch(1111);
+        FrameBatch *fb = new FrameBatch(1);
         for (int i = 0; i < 1; ++i) {
 
             char index[1];
             index[0] = '0' + i;
             //   string file = "faces" + string(index) + ".jpg";
-            string file = "test.jpg";
+            string file = "test0.jpg";
 
             cv::Mat image = cv::imread(file.c_str());
 
@@ -88,7 +89,6 @@ static void* process(void* p) {
                 cout << "Read image file failed: " << file << endl;
                 return 0;
             }
-
             Frame *f = new Frame((i + 1) * 100, image);
             Operation op;
             op.Set(OPERATION_VEHICLE);
@@ -101,7 +101,6 @@ static void* process(void* p) {
 
             f->set_operation(op);
             fb->AddFrame(f);
-
         }
         engine->Process(fb);
         PrintFrame(*fb);
@@ -111,6 +110,8 @@ static void* process(void* p) {
 }
 
 int main() {
+
+
     config = new Config();
     config->Load("config.json");
 
