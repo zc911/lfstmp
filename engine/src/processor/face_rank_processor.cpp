@@ -7,7 +7,7 @@
  * Description : 
  * ==========================================================================*/
 #include "processor/face_rank_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 FaceRankProcessor::FaceRankProcessor() {
@@ -28,14 +28,13 @@ bool FaceRankProcessor::process(Frame *frame) {
 }
 bool FaceRankProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_RANK,performance_);
+    return RecordPerformance(FEATURE_FACE_RANK, performance_);
 
 }
 bool FaceRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if DEBUG
-//#if RELEASE
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
+#if RELEASE
+    if (performance_ > 20000) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }
