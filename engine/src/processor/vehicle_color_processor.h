@@ -27,8 +27,13 @@ class VehicleColorProcessor : public Processor {
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
- private:
+
+
+    virtual bool RecordFeaturePerformance();
+
+ protected:
     void vehiclesResizedMat(FrameBatch *frameBatch);
+ private:
 
     vector<VehicleCaffeClassifier*> classifiers_;
     vector<Object *> objs_;

@@ -1,0 +1,86 @@
+{
+	"Version" : {
+		"Code" : "1.0.0",
+		"Model" : "1.9"
+	},
+	"InstanceType": "witness",
+	"System" : {
+		"Ip" : "0.0.0.0",
+		"Port" : 6500,
+		"GpuId" : 0,
+		"EnableAsyn" : true
+	},
+	"Advanced" : {
+		"Detection" : {
+			"Rescale" : 400,
+			"BatchSize": 1
+		},
+		"Color" :{
+			"BatchSize": 1,
+			"ModelNum":1
+		},
+		"Style" :{
+			"BatchSize": 1,
+			"ModelNum":8
+		},
+		"Plate" : {
+			"LocalProvince" : "",
+			"OCR" : 1,
+			"Locate" : 5,
+			"EnableSharp":true
+		},
+		"PlateMxnet":{
+			"BatchSize":30
+			
+		},
+		"Marker" : {
+			"MOTConfidence" : 0.6,		
+			"BeltConfidence" : 0.8,		
+			"GlobalConfidence" : 0.8,		
+			"AccessoriesConfidence" : 0.8,		
+			"OthersConfidence" : 0.8,		
+			"TissueBoxConfidence" : 0.8,	
+			"SunVisorConfidence" : 0.8,
+			"BatchSize" : 1			
+		},
+		"Window" : {
+			"BatchSize":1		
+		},
+		"FaceDetect" : {
+			"BatchSize":1,
+			"Confidence":0.7,
+			"scale":640		
+		},
+		"FaceExtract" :{
+			"BatchSize":1
+		}		
+	},
+	"Log" : {
+		"Dir": "",
+		"Level": ""
+	},
+	"Feature":{
+		"Vehicle": {
+			"Enable" : true,
+			"EnableDetection": false,
+			"EnableType" : false,
+			"EnableColor" : false,
+			"EnablePlate" : false,
+			"EnablePlateEnhanced" : false,
+			"EnableGpuPlate" : true,
+			"EnableMarker" : false,
+			"EnableFeatureVector" : false
+		},
+		"Face": {
+			"Enable" : false,
+			"EnableDetection": true,
+			"EnableFeatureVector": true
+		}
+	},
+	"Debug" : {
+		"Enable" : true,
+		"Encrypt" : false
+	},
+	"DataPath":"witness_data_config.json"
+
+}
