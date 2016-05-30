@@ -5,11 +5,11 @@
  *      Author: jiajiachen
  */
 #include "vehicle_plate_recognizer_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 PlateRecognizerProcessor::PlateRecognizerProcessor(
-        const PlateRecognizer::PlateConfig &pConfig) {
+    const PlateRecognizer::PlateConfig &pConfig) {
     enable_sharpen_ = pConfig.isSharpen;
     recognizer_ = new PlateRecognizer(pConfig);
 }
@@ -54,7 +54,7 @@ bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
         }
     }
 #endif
-     this->filterVehicle(frameBatch);
+    this->filterVehicle(frameBatch);
     performance_ += frameBatch->batch_size();
     return true;
 }

@@ -19,22 +19,23 @@ service WitnessService {
 }
 
 enum IndexType {
-    INDEX_CAR_TYPE = 0;
-    INDEX_CAR_MAIN_BRAND = 1;
-    INDEX_CAR_SUB_BRAND = 2;
-    INDEX_CAR_YEAR_MODEL = 3;
-    INDEX_CAR_COLOR = 4;
-    INDEX_CAR_MARKER = 5;
-    INDEX_CAR_PLATE_TYPE = 6;
-    INDEX_CAR_PLATE_COLOR = 7;
+    INDEX_DEFAULT = 0;
+    INDEX_CAR_TYPE = 1;
+    INDEX_CAR_MAIN_BRAND = 2;
+    INDEX_CAR_SUB_BRAND = 3;
+    INDEX_CAR_YEAR_MODEL = 4;
+    INDEX_CAR_COLOR = 5;
+    INDEX_CAR_MARKER = 6;
+    INDEX_CAR_PLATE_TYPE = 7;
+    INDEX_CAR_PLATE_COLOR = 8;
 }
 
 message IndexRequest {
-    IndexType indexType = 0;
+    IndexType indexType = 1;
 }
 
 message IndexResponse {
-    map<int32, string> Index = 0;
+    map<int32, string> Index = 1;
 }
 
 message WitnessRequest {
@@ -88,6 +89,14 @@ message WitnessResult {
     WitnessImage Image = 3; //响应的图片信息
     repeated RecognizedVehicle Vehicles = 4; //识别的车辆列表
     repeated RecognizedFace Faces = 5; //识别的人脸列表
+    repeated RecognizedPedestrain Pedestrains = 6; //识别的行人列表
+
+}
+
+message RecognizedPedestrain {
+    Cutboard Cutboard = 1; //行人位置框
+    float Confidence = 2; //行人识别置信度
+    string Features = 3; //行人特征值(Base64)
 }
 
 message RecognizedVehicle {
@@ -98,6 +107,8 @@ message RecognizedVehicle {
     repeated SymbolItem SymbolItems = 5; //标志物列表
     string Features = 6; //车辆特征值(Base64)
     Scene Scene = 7; //车辆场景信息， DEPRECATED !!!
+    ObjType VehicleType = 8;
+    string VehicleTypeName = 9;
 }
 
 message RecognizedFace {

@@ -7,7 +7,7 @@
  * Description : 
  * ==========================================================================*/
 #include "processor/face_feature_extract_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
@@ -72,7 +72,7 @@ bool FaceFeatureExtractProcessor::RecordFeaturePerformance() {
 
 }
 bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if DEBUG
+#if NDEBUG
 //#if RELEASE
     if(performance_>20000) {
         if(!RecordFeaturePerformance()) {

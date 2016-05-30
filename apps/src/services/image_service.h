@@ -13,20 +13,27 @@
 #include <opencv2/core/core.hpp>
 
 #include "../model/common.pb.h"
+#include "simple_thread_pool.h"
 
 namespace dg {
 
 using namespace ::dg::model;
 
-class ImageService {
- public:
-    static MatrixError ParseImage(const Image& image, ::cv::Mat& imgMat);
+const int IMAGE_SERVICE_THREAD_NUM = 8;
 
- private:
+class ImageService {
+public:
+    static MatrixError ParseImage(const ::dg::model::Image &image, ::cv::Mat &imgMat);
+    static MatrixError
+        ParseImage(vector<Image> &imgs, vector<cv::Mat> &imgMats, unsigned int timeout, bool concurrent = true);
+
+private:
     static MatrixError getImageFromUri(const std::string uri,
-                                       ::cv::Mat& imgMat);
+                                       ::cv::Mat &imgMat, unsigned int timeout = 10);
     static MatrixError getImageFromData(const std::string img64,
-                                        ::cv::Mat& imgMat);
+                                        ::cv::Mat &imgMat);
+
+    static ThreadPool *pool;
 };
 
 }

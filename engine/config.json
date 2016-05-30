@@ -31,7 +31,6 @@
 		},
 		"PlateMxnet":{
 			"BatchSize":30
-			
 		},
 		"Marker" : {
 			"MOTConfidence" : 0.6,		
