@@ -181,7 +181,7 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO) << "Enable vehicle plate processor." << endl;
             PlateRecognizer::PlateConfig pConfig;
             configFilter->createVehiclePlateConfig(config, pConfig);
-            Processor *p = new PlateRecognizerProcessor(pConfig);
+            Processor *p = PlateRecognizerProcessor::Instance(pConfig);
             if (last == NULL) {
                 vehicle_processor_ = p;
             } else {
