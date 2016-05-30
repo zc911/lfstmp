@@ -1,10 +1,14 @@
 #include <time.h>
+#include <thread>
 #include <iostream>
 #include <memory>
 #include <vector>
+#include <sys/time.h>
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
+#include "codec/base64.h"
+#include "string_util.h"
 
 using namespace std;
 using grpc::Channel;
@@ -38,50 +42,79 @@ static void Print(const WitnessBatchResponse &resp) {
     }
 }
 
+static void Print(const WitnessResponse &resp) {
+    cout << "=================" << endl;
+    cout << "SessionId:" << resp.context().sessionid() << endl;
+    const WitnessResult &r = resp.result();
+    rapidjson::Value *value = pbjson::pb2jsonobject(&r);
+    string s;
+    pbjson::json2string(value, s);
+    cout << s << endl;
+}
+
+static void PrintCost(string s, struct timeval &start, struct timeval &end) {
+    cout << s << (end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000 << endl;
+}
+
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
         : stub_(WitnessService::NewStub(channel)) {
     }
 
-    void Recognize(const string file_path, const string session_id) {
+    void Recognize(const string file_path, const string session_id, bool uri = true) {
         WitnessRequest req;
         WitnessRequestContext *ctx = req.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
-        req.mutable_image()->mutable_data()->set_uri(file_path);
+        if (uri)
+            req.mutable_image()->mutable_data()->set_uri(file_path);
+        else {
+            string s = encode2base64(file_path.c_str());
+             req.mutable_image()->mutable_data()->set_bindata(s);
+        }
 
         WitnessResponse resp;
         ClientContext context;
-
+        struct timeval start, end;
+        gettimeofday(&start, NULL);
         Status status = stub_->Recognize(&context, req, &resp);
+        gettimeofday(&end, NULL);
 
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
-            cout << pbjson::pb2jsonobject(&resp)->GetString() << endl;
+            Print(resp);
+            PrintCost("Rec cost:", start, end);
         } else {
             cout << "Rec error: " << status.error_message() << endl;
         }
 
     }
 
-    void RecognizeBatch(vector<string> &file_paths, const string session_id) {
+    void RecognizeBatch(vector<string> &file_paths, const string session_id, bool uri = true) {
         WitnessBatchRequest req;
         WitnessRequestContext *ctx = req.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
         for (vector<string>::iterator itr = file_paths.begin(); itr != file_paths.end(); ++itr) {
-            req.add_images()->mutable_data()->set_uri(*itr);
+            if (uri)
+                req.add_images()->mutable_data()->set_uri(*itr);
+            else {
+                string s = encode2base64((*itr).c_str());
+                req.add_images()->mutable_data()->set_bindata(s);
+            }
         }
 
         WitnessBatchResponse resp;
         ClientContext context;
-
+        struct timeval start, end;
+        gettimeofday(&start, NULL);
         Status status = stub_->BatchRecognize(&context, req, &resp);
-
+        gettimeofday(&end, NULL);
         if (status.ok()) {
             cout << "Batch Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
+            PrintCost("Batch rec cost: ", start, end);
         } else {
             cout << "Batch Rec error: " << status.error_message() << endl;
         }
@@ -233,9 +266,60 @@ static string RandomSessionId() {
     return std::to_string(id);
 }
 
+void callA(string address, string image_file_path, bool batch) {
+    WitnessClientAsyn client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    while (1) {
+        string id = RandomSessionId();
+        if (batch) {
+            cout << "Batch Rec asyn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id);
+
+        } else {
+            cout << "Rec asyn: " << id << endl;
+            client.Recognize(image_file_path, id);
+        }
+    }
+}
+
+void callS(string address, string image_file_path, bool batch, bool uri) {
+    WitnessClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    while (1) {
+        string id = RandomSessionId();
+        if (batch) {
+            cout << "Batch Rec syn: " << id << endl;
+            vector<string> images;
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            images.push_back(image_file_path);
+            client.RecognizeBatch(images, id, uri);
+        } else {
+            cout << "Rec syn: " << id << endl;
+            client.Recognize(image_file_path, id, uri);
+        }
+    }
+}
+
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
-        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] IP:PORT"
+    if (argc != 6) {
+        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT THREAD_NUM"
             << endl;
         return 0;
     }
@@ -243,39 +327,33 @@ int main(int argc, char *argv[]) {
     string image_file_path = string(argv[1]);
 
     char address[1024];
-    sprintf(address, "%s", argv[3]);
+    sprintf(address, "%s", argv[4]);
+
 
     bool asyn = false;
     if (string(argv[2]) == "A") {
         asyn = true;
     }
 
-    vector<string> images;
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
-    images.push_back(image_file_path);
+    bool batch = false;
+    if (string(argv[3]) == "B") {
+        batch = true;
+    }
+
+    int threadNum = 1;
+    threadNum = atoi(argv[5]);
 
     if (asyn) {
-        WitnessClientAsyn client(
-            grpc::CreateChannel(string(address),
-                                grpc::InsecureChannelCredentials()));
-        string id = RandomSessionId();
-        cout << "Rec asyn: " << id << endl;
-        client.RecognizeBatch(images, id);
+        callA(address, image_file_path, batch);
 
     } else {
-        WitnessClient client(
-            grpc::CreateChannel(string(address),
-                                grpc::InsecureChannelCredentials()));
-        string id = RandomSessionId();
-        cout << "Rec: " << id << endl;
+        thread t(callS, address, image_file_path, batch, true);
+        t.join();
+    }
 
-        client.RecognizeBatch(images, id);
+    cout << "Wait..." << endl;
+    while (1) {
+        std::this_thread::sleep_for(std::chrono::minutes(100000));
     }
 
 }

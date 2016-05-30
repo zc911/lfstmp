@@ -6,7 +6,7 @@
  */
 
 #include "plate_recognize_mxnet_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
         "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J",
@@ -91,8 +91,7 @@ bool PlateRecognizeMxnetProcessor::RecordFeaturePerformance() {
 }
 
 bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if DEBUG
-//#if RELEASE
+#if RELEASE
     if(performance_>20000) {
         if(!RecordFeaturePerformance()) {
             return false;

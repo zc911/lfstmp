@@ -6,6 +6,8 @@
  */
 
 #include "vehicle_marker_classifier_processor.h"
+#include "processor_helper.h"
+
 namespace dg {
 
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
@@ -57,8 +59,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
 bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if DEBUG
-//#if RELEASE
+#if RELEASE
     if(performance_>20000) {
         if(!RecordFeaturePerformance()) {
             return false;

@@ -39,17 +39,21 @@ void protobuf_AddDesc_matrix_2eproto();
 void protobuf_AssignDesc_matrix_2eproto();
 void protobuf_ShutdownFile_matrix_2eproto();
 
-// ===================================================================
 
 // ===================================================================
+
+
+// ===================================================================
+
 
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+
 // @@protoc_insertion_point(namespace_scope)
 
-}// namespace model
+}  // namespace model
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)

@@ -30,74 +30,71 @@ PlateRecognizer::PlateRecognizer(const PlateConfig &config) {
     c_Config.bUTF8 = 1;
 
     int nRet = TH_InitPlateIDSDK(&c_Config);
-    LOG(INFO)<<"nREt: "<<nRet<<endl;
+    LOG(INFO) << "nREt: " << nRet << endl;
     if (nRet != 0) {
-        LOG(INFO)<<("nRet = %d, try sudo ./program\n", nRet)<<endl;
+        LOG(INFO) << ("nRet = %d, try sudo ./program\n", nRet) << endl;
         exit(-1);
     }
     nRet = TH_SetProvinceOrder((char *) config.LocalProvince.c_str(),
                                &c_Config);
     nRet = TH_SetRecogThreshold(5, 2, &c_Config);
-    LOG(INFO)<<"TH_SetRecogThreshold "<<nRet<<endl;
+    LOG(INFO) << "TH_SetRecogThreshold " << nRet << endl;
     nRet = TH_SetImageFormat(ImageFormatBGR, 0, 0, &c_Config);
-    LOG(INFO)<<"TH_SetImageFormat "<<nRet<<endl;
-int threads=1;
-stop=false;
-    for(size_t i = 0;i<threads;++i)
+    LOG(INFO) << "TH_SetImageFormat " << nRet << endl;
+    int threads = 1;
+    stop = false;
+    for (size_t i = 0; i < threads; ++i)
         workers.emplace_back(
-            [this]
-            {
-                for(;;)
-                {
-                    std::function<void()> task;
+            [this] {
+              for (; ;) {
+                  std::function<void()> task;
 
-                    {
-                        std::unique_lock<std::mutex> lock(this->queue_mutex);
-                        this->condition.wait(lock,
-                            [this]{ return this->stop || !this->tasks.empty(); });
-                        if(this->stop && this->tasks.empty())
-                            return;
-                        task = std::move(this->tasks.front());
-                        this->tasks.pop();
-                    }
+                  {
+                      std::unique_lock<std::mutex> lock(this->queue_mutex);
+                      this->condition.wait(lock,
+                                           [this] { return this->stop || !this->tasks.empty(); });
+                      if (this->stop && this->tasks.empty())
+                          return;
+                      task = std::move(this->tasks.front());
+                      this->tasks.pop();
+                  }
 
-                    task();
-                }
+                  task();
+              }
             }
         );
-  //  tp_.SetSize(1);
+    //  tp_.SetSize(1);
 }
 
 PlateRecognizer::~PlateRecognizer() {
     delete mem1;
     delete mem2;
     {
-         std::unique_lock<std::mutex> lock(queue_mutex);
-         stop = true;
-     }
-     condition.notify_all();
-     for(std::thread &worker: workers)
-         worker.join();
+        std::unique_lock<std::mutex> lock(queue_mutex);
+        stop = true;
+    }
+    condition.notify_all();
+    for (std::thread &worker: workers)
+        worker.join();
 }
 template<class F, class... Args>
-auto PlateRecognizer::enqueue(F&& f, Args&&... args)
-    -> std::future<typename std::result_of<F(Args...)>::type>
-{
+auto PlateRecognizer::enqueue(F &&f, Args &&... args)
+-> std::future<typename std::result_of<F(Args...)>::type> {
     using return_type = typename std::result_of<F(Args...)>::type;
 
-    auto task = std::make_shared< std::packaged_task<return_type()> >(
-            std::bind(std::forward<F>(f), std::forward<Args>(args)...)
-        );
+    auto task = std::make_shared<std::packaged_task<return_type()> >(
+        std::bind(std::forward<F>(f), std::forward<Args>(args)...)
+    );
 
     std::future<return_type> res = task->get_future();
     {
         std::unique_lock<std::mutex> lock(queue_mutex);
 
         // don't allow enqueueing after stopping the pool
-        if(stop)
+        if (stop)
             throw std::runtime_error("enqueue on stopped ThreadPool");
 
-        tasks.emplace([task](){ (*task)(); });
+        tasks.emplace([task]() { (*task)(); });
     }
     condition.notify_one();
     return res;
@@ -114,7 +111,7 @@ int PlateRecognizer::recognizeImage(const Mat &img) {
         sample = img;
 
     if (sample.channels() != 3) {
-        LOG(INFO)<<"Sample color error"<<sample.channels()<<endl;
+        LOG(INFO) << "Sample color error" << sample.channels() << endl;
     }
 
     // TODO resize if image too large
@@ -141,11 +138,11 @@ int PlateRecognizer::recognizeImage(const Mat &img) {
     delete[] pImg;
 
     if (nRet != 0) {
-        LOG(WARNING)<<"Plate recognizer error : "<<nRet<<endl;
+        LOG(WARNING) << "Plate recognizer error : " << nRet << endl;
     }
     return nRet;
 }
-int r(const Mat &img,TH_PlateIDResult &result,TH_PlateIDCfg *c_Config) {
+int r(const Mat &img, TH_PlateIDResult &result, TH_PlateIDCfg *c_Config) {
     Mat sample;
 
     if (img.channels() == 4)
@@ -156,7 +153,7 @@ int r(const Mat &img,TH_PlateIDResult &result,TH_PlateIDCfg *c_Config) {
         sample = img;
 
     if (sample.channels() != 3) {
-        LOG(INFO)<<"Sample color error"<<sample.channels()<<endl;
+        LOG(INFO) << "Sample color error" << sample.channels() << endl;
     }
 
     // TODO resize if image too large
@@ -182,13 +179,13 @@ int r(const Mat &img,TH_PlateIDResult &result,TH_PlateIDCfg *c_Config) {
     delete[] pImg;
 
     if (nRet != 0) {
-        LOG(WARNING)<<"Plate recognizer error : "<<nRet<<endl;
+        LOG(WARNING) << "Plate recognizer error : " << nRet << endl;
     }
     return nRet;
 }
 Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
     if (nRet != 0) {
-        LOG(INFO)<<"plate recognizer error : "<<nRet<<endl;
+        LOG(INFO) << "plate recognizer error : " << nRet << endl;
     }
 
     recognizeImage(img);
@@ -200,42 +197,42 @@ Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
     plate.confidence = result.nConfidence / 100.0;
 
     Box cutboard;
-    cutboard.x=result.rcLocation.left;
-    cutboard.y=result.rcLocation.top;
-    cutboard.width=result.rcLocation.right-result.rcLocation.left;
-    cutboard.height=result.rcLocation.bottom-result.rcLocation.top;
-    plate.box=cutboard;
+    cutboard.x = result.rcLocation.left;
+    cutboard.y = result.rcLocation.top;
+    cutboard.width = result.rcLocation.right - result.rcLocation.left;
+    cutboard.height = result.rcLocation.bottom - result.rcLocation.top;
+    plate.box = cutboard;
     return plate;
 }
 
 vector<Vehicle::Plate> PlateRecognizer::RecognizeBatch(
-        const vector<Mat> &imgs) {
+    const vector<Mat> &imgs) {
 
     vector<Vehicle::Plate> vRecognizeResult;
 
-    TH_PlateIDCfg *config=&c_Config;
+    TH_PlateIDCfg *config = &c_Config;
     int imagesize = imgs.size();
-    int batchsize=1;
+    int batchsize = 1;
 
-    for (int i = 0; i < (ceil((float)imagesize / (float)batchsize) * batchsize); i +=
-            batchsize){
-        vector<future<int> >ress;
+    for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
+                                                                                       batchsize) {
+        vector<future<int> > ress;
         TH_PlateIDResult result;
-        vector<TH_PlateIDResult*> results;
+        vector<TH_PlateIDResult *> results;
         for (int j = 0; j < batchsize; j++) {
             if (i * batchsize + j < imagesize) {
                 Mat img = imgs[i * batchsize + j];
                 results.push_back(&result);
-                ress.emplace_back(this->enqueue([img,&result,config]() {return r(img,result,config);}));
+                ress.emplace_back(this->enqueue([img, &result, config]() { return r(img, result, config); }));
             }
         }
-        for(auto && res: ress){
+        for (auto &&res: ress) {
 
             res.get();
 
         }
-        for(int i=0;i<results.size();i++){
-            TH_PlateIDResult *tmp=results[i];
+        for (int i = 0; i < results.size(); i++) {
+            TH_PlateIDResult *tmp = results[i];
             Vehicle::Plate plate;
             plate.plate_num = tmp->license;
             plate.color_id = tmp->nColor;
@@ -243,10 +240,10 @@ vector<Vehicle::Plate> PlateRecognizer::RecognizeBatch(
             plate.confidence = tmp->nConfidence / 100.0;
 
             Box cutboard;
-            cutboard.x=tmp->rcLocation.left;
-            cutboard.y=tmp->rcLocation.top;
-            cutboard.width=tmp->rcLocation.right-tmp->rcLocation.left;
-            cutboard.height=tmp->rcLocation.bottom-tmp->rcLocation.top;
+            cutboard.x = tmp->rcLocation.left;
+            cutboard.y = tmp->rcLocation.top;
+            cutboard.width = tmp->rcLocation.right - tmp->rcLocation.left;
+            cutboard.height = tmp->rcLocation.bottom - tmp->rcLocation.top;
             vRecognizeResult.push_back(plate);
         }
 
