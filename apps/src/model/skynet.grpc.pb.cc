@@ -17,64 +17,45 @@ namespace dg {
 namespace model {
 
 static const char* SkynetService_method_names[] = {
-        "/dg.model.SkynetService/VideoRecognize", };
+  "/dg.model.SkynetService/VideoRecognize",
+};
 
-std::unique_ptr<SkynetService::Stub> SkynetService::NewStub(
-        const std::shared_ptr<::grpc::ChannelInterface>& channel,
-        const ::grpc::StubOptions& options) {
-    std::unique_ptr<SkynetService::Stub> stub(new SkynetService::Stub(channel));
-    return stub;
+std::unique_ptr< SkynetService::Stub> SkynetService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
+  std::unique_ptr< SkynetService::Stub> stub(new SkynetService::Stub(channel));
+  return stub;
 }
 
-SkynetService::Stub::Stub(
-        const std::shared_ptr<::grpc::ChannelInterface>& channel)
-        : channel_(channel),
-          rpcmethod_VideoRecognize_(SkynetService_method_names[0],
-                                    ::grpc::RpcMethod::NORMAL_RPC, channel) {
+SkynetService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
+  : channel_(channel), rpcmethod_VideoRecognize_(SkynetService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  {}
+
+::grpc::Status SkynetService::Stub::VideoRecognize(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::dg::model::SkynetResponse* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_VideoRecognize_, context, request, response);
 }
 
-::grpc::Status SkynetService::Stub::VideoRecognize(
-        ::grpc::ClientContext* context,
-        const ::dg::model::SkynetRequest& request,
-        ::dg::model::SkynetResponse* response) {
-    return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_VideoRecognize_,
-                                     context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader<::dg::model::SkynetResponse>* SkynetService::Stub::AsyncVideoRecognizeRaw(
-        ::grpc::ClientContext* context,
-        const ::dg::model::SkynetRequest& request,
-        ::grpc::CompletionQueue* cq) {
-    return new ::grpc::ClientAsyncResponseReader<::dg::model::SkynetResponse>(
-            channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>* SkynetService::Stub::AsyncVideoRecognizeRaw(::grpc::ClientContext* context, const ::dg::model::SkynetRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::SkynetResponse>(channel_.get(), cq, rpcmethod_VideoRecognize_, context, request);
 }
 
 SkynetService::Service::Service() {
-    (void) SkynetService_method_names;
-    AddMethod(
-            new ::grpc::RpcServiceMethod(
-                    SkynetService_method_names[0],
-                    ::grpc::RpcMethod::NORMAL_RPC,
-                    new ::grpc::RpcMethodHandler<SkynetService::Service,
-                            ::dg::model::SkynetRequest,
-                            ::dg::model::SkynetResponse>(
-                            std::mem_fn(
-                                    &SkynetService::Service::VideoRecognize),
-                            this)));
+  (void)SkynetService_method_names;
+  AddMethod(new ::grpc::RpcServiceMethod(
+      SkynetService_method_names[0],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< SkynetService::Service, ::dg::model::SkynetRequest, ::dg::model::SkynetResponse>(
+          std::mem_fn(&SkynetService::Service::VideoRecognize), this)));
 }
 
 SkynetService::Service::~Service() {
 }
 
-::grpc::Status SkynetService::Service::VideoRecognize(
-        ::grpc::ServerContext* context,
-        const ::dg::model::SkynetRequest* request,
-        ::dg::model::SkynetResponse* response) {
-    (void) context;
-    (void) request;
-    (void) response;
-    return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+::grpc::Status SkynetService::Service::VideoRecognize(::grpc::ServerContext* context, const ::dg::model::SkynetRequest* request, ::dg::model::SkynetResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
+
 
 }  // namespace dg
 }  // namespace model
