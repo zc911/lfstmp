@@ -45,261 +45,251 @@ class FeatureRankingResponse;
 
 class FeatureRankingRequest : public ::google::protobuf::Message {
  public:
-    FeatureRankingRequest();
-    virtual ~FeatureRankingRequest();
+  FeatureRankingRequest();
+  virtual ~FeatureRankingRequest();
 
-    FeatureRankingRequest(const FeatureRankingRequest& from);
+  FeatureRankingRequest(const FeatureRankingRequest& from);
 
-    inline FeatureRankingRequest& operator=(const FeatureRankingRequest& from) {
-        CopyFrom(from);
-        return *this;
-    }
+  inline FeatureRankingRequest& operator=(const FeatureRankingRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
 
-    static const ::google::protobuf::Descriptor* descriptor();
-    static const FeatureRankingRequest& default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FeatureRankingRequest& default_instance();
 
-    void Swap(FeatureRankingRequest* other);
+  void Swap(FeatureRankingRequest* other);
 
-    // implements Message ----------------------------------------------
+  // implements Message ----------------------------------------------
 
-    inline FeatureRankingRequest* New() const {
-        return New(NULL);
-    }
+  inline FeatureRankingRequest* New() const { return New(NULL); }
 
-    FeatureRankingRequest* New(::google::protobuf::Arena* arena) const;
-    void CopyFrom(const ::google::protobuf::Message& from);
-    void MergeFrom(const ::google::protobuf::Message& from);
-    void CopyFrom(const FeatureRankingRequest& from);
-    void MergeFrom(const FeatureRankingRequest& from);
-    void Clear();
-    bool IsInitialized() const;
+  FeatureRankingRequest* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FeatureRankingRequest& from);
+  void MergeFrom(const FeatureRankingRequest& from);
+  void Clear();
+  bool IsInitialized() const;
 
-    int ByteSize() const;
-    bool MergePartialFromCodedStream(
-            ::google::protobuf::io::CodedInputStream* input);
-    void SerializeWithCachedSizes(
-            ::google::protobuf::io::CodedOutputStream* output) const;
-    ::google::protobuf::uint8* SerializeWithCachedSizesToArray(
-            ::google::protobuf::uint8* output) const;
-    int GetCachedSize() const {
-        return _cached_size_;
-    }
- private:
-    void SharedCtor();
-    void SharedDtor();
-    void SetCachedSize(int size) const;
-    void InternalSwap(FeatureRankingRequest* other);
- private:
-    inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-        return _internal_metadata_.arena();
-    }
-    inline void* MaybeArenaPtr() const {
-        return _internal_metadata_.raw_arena_ptr();
-    }
- public:
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FeatureRankingRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
 
-    ::google::protobuf::Metadata GetMetadata() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
-    // nested types ----------------------------------------------------
+  // nested types ----------------------------------------------------
 
-    // accessors -------------------------------------------------------
+  // accessors -------------------------------------------------------
 
-    // optional int64 ReqId = 1;
-    void clear_reqid();
-    static const int kReqIdFieldNumber = 1;
-    ::google::protobuf::int64 reqid() const;
-    void set_reqid(::google::protobuf::int64 value);
+  // optional int64 ReqId = 1;
+  void clear_reqid();
+  static const int kReqIdFieldNumber = 1;
+  ::google::protobuf::int64 reqid() const;
+  void set_reqid(::google::protobuf::int64 value);
 
-    // optional .dg.model.RecognizeType Type = 2;
-    void clear_type();
-    static const int kTypeFieldNumber = 2;
-    ::dg::model::RecognizeType type() const;
-    void set_type(::dg::model::RecognizeType value);
+  // optional .dg.model.RecognizeType Type = 2;
+  void clear_type();
+  static const int kTypeFieldNumber = 2;
+  ::dg::model::RecognizeType type() const;
+  void set_type(::dg::model::RecognizeType value);
 
-    // optional .dg.model.Image Image = 3;
-    bool has_image() const;
-    void clear_image();
-    static const int kImageFieldNumber = 3;
-    const ::dg::model::Image& image() const;
-    ::dg::model::Image* mutable_image();
-    ::dg::model::Image* release_image();
-    void set_allocated_image(::dg::model::Image* image);
+  // optional .dg.model.Image Image = 3;
+  bool has_image() const;
+  void clear_image();
+  static const int kImageFieldNumber = 3;
+  const ::dg::model::Image& image() const;
+  ::dg::model::Image* mutable_image();
+  ::dg::model::Image* release_image();
+  void set_allocated_image(::dg::model::Image* image);
 
-    // repeated .dg.model.Cutboard InterestedAreas = 4;
-    int interestedareas_size() const;
-    void clear_interestedareas();
-    static const int kInterestedAreasFieldNumber = 4;
-    const ::dg::model::Cutboard& interestedareas(int index) const;
-    ::dg::model::Cutboard* mutable_interestedareas(int index);
-    ::dg::model::Cutboard* add_interestedareas();
-    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>*
-    mutable_interestedareas();
-    const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>&
-    interestedareas() const;
+  // repeated .dg.model.Cutboard InterestedAreas = 4;
+  int interestedareas_size() const;
+  void clear_interestedareas();
+  static const int kInterestedAreasFieldNumber = 4;
+  const ::dg::model::Cutboard& interestedareas(int index) const;
+  ::dg::model::Cutboard* mutable_interestedareas(int index);
+  ::dg::model::Cutboard* add_interestedareas();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+      mutable_interestedareas();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+      interestedareas() const;
 
-    // repeated .dg.model.Cutboard DisabledAreas = 5;
-    int disabledareas_size() const;
-    void clear_disabledareas();
-    static const int kDisabledAreasFieldNumber = 5;
-    const ::dg::model::Cutboard& disabledareas(int index) const;
-    ::dg::model::Cutboard* mutable_disabledareas(int index);
-    ::dg::model::Cutboard* add_disabledareas();
-    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>*
-    mutable_disabledareas();
-    const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>&
-    disabledareas() const;
+  // repeated .dg.model.Cutboard DisabledAreas = 5;
+  int disabledareas_size() const;
+  void clear_disabledareas();
+  static const int kDisabledAreasFieldNumber = 5;
+  const ::dg::model::Cutboard& disabledareas(int index) const;
+  ::dg::model::Cutboard* mutable_disabledareas(int index);
+  ::dg::model::Cutboard* add_disabledareas();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+      mutable_disabledareas();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+      disabledareas() const;
 
-    // repeated .dg.model.FeatureVector Candidates = 6;
-    int candidates_size() const;
-    void clear_candidates();
-    static const int kCandidatesFieldNumber = 6;
-    const ::dg::model::FeatureVector& candidates(int index) const;
-    ::dg::model::FeatureVector* mutable_candidates(int index);
-    ::dg::model::FeatureVector* add_candidates();
-    ::google::protobuf::RepeatedPtrField<::dg::model::FeatureVector>*
-    mutable_candidates();
-    const ::google::protobuf::RepeatedPtrField<::dg::model::FeatureVector>&
-    candidates() const;
+  // repeated .dg.model.FeatureVector Candidates = 6;
+  int candidates_size() const;
+  void clear_candidates();
+  static const int kCandidatesFieldNumber = 6;
+  const ::dg::model::FeatureVector& candidates(int index) const;
+  ::dg::model::FeatureVector* mutable_candidates(int index);
+  ::dg::model::FeatureVector* add_candidates();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >*
+      mutable_candidates();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >&
+      candidates() const;
 
-    // optional int32 Limit = 7;
-    void clear_limit();
-    static const int kLimitFieldNumber = 7;
-    ::google::protobuf::int32 limit() const;
-    void set_limit(::google::protobuf::int32 value);
+  // optional int32 Limit = 7;
+  void clear_limit();
+  static const int kLimitFieldNumber = 7;
+  ::google::protobuf::int32 limit() const;
+  void set_limit(::google::protobuf::int32 value);
 
-    // @@protoc_insertion_point(class_scope:dg.model.FeatureRankingRequest)
+  // @@protoc_insertion_point(class_scope:dg.model.FeatureRankingRequest)
  private:
 
-    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    bool _is_default_instance_;
-    ::google::protobuf::int64 reqid_;
-    ::dg::model::Image* image_;
-    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> interestedareas_;
-    int type_;
-    ::google::protobuf::int32 limit_;
-    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> disabledareas_;
-    ::google::protobuf::RepeatedPtrField<::dg::model::FeatureVector> candidates_;
-    mutable int _cached_size_;
-    friend void protobuf_AddDesc_ranker_2eproto();
-    friend void protobuf_AssignDesc_ranker_2eproto();
-    friend void protobuf_ShutdownFile_ranker_2eproto();
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 reqid_;
+  ::dg::model::Image* image_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard > interestedareas_;
+  int type_;
+  ::google::protobuf::int32 limit_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard > disabledareas_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector > candidates_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
 
-    void InitAsDefaultInstance();
-    static FeatureRankingRequest* default_instance_;
+  void InitAsDefaultInstance();
+  static FeatureRankingRequest* default_instance_;
 };
 // -------------------------------------------------------------------
 
 class FeatureRankingResponse : public ::google::protobuf::Message {
  public:
-    FeatureRankingResponse();
-    virtual ~FeatureRankingResponse();
+  FeatureRankingResponse();
+  virtual ~FeatureRankingResponse();
 
-    FeatureRankingResponse(const FeatureRankingResponse& from);
+  FeatureRankingResponse(const FeatureRankingResponse& from);
 
-    inline FeatureRankingResponse& operator=(
-            const FeatureRankingResponse& from) {
-        CopyFrom(from);
-        return *this;
-    }
+  inline FeatureRankingResponse& operator=(const FeatureRankingResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
 
-    static const ::google::protobuf::Descriptor* descriptor();
-    static const FeatureRankingResponse& default_instance();
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const FeatureRankingResponse& default_instance();
 
-    void Swap(FeatureRankingResponse* other);
+  void Swap(FeatureRankingResponse* other);
 
-    // implements Message ----------------------------------------------
+  // implements Message ----------------------------------------------
 
-    inline FeatureRankingResponse* New() const {
-        return New(NULL);
-    }
+  inline FeatureRankingResponse* New() const { return New(NULL); }
 
-    FeatureRankingResponse* New(::google::protobuf::Arena* arena) const;
-    void CopyFrom(const ::google::protobuf::Message& from);
-    void MergeFrom(const ::google::protobuf::Message& from);
-    void CopyFrom(const FeatureRankingResponse& from);
-    void MergeFrom(const FeatureRankingResponse& from);
-    void Clear();
-    bool IsInitialized() const;
+  FeatureRankingResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const FeatureRankingResponse& from);
+  void MergeFrom(const FeatureRankingResponse& from);
+  void Clear();
+  bool IsInitialized() const;
 
-    int ByteSize() const;
-    bool MergePartialFromCodedStream(
-            ::google::protobuf::io::CodedInputStream* input);
-    void SerializeWithCachedSizes(
-            ::google::protobuf::io::CodedOutputStream* output) const;
-    ::google::protobuf::uint8* SerializeWithCachedSizesToArray(
-            ::google::protobuf::uint8* output) const;
-    int GetCachedSize() const {
-        return _cached_size_;
-    }
- private:
-    void SharedCtor();
-    void SharedDtor();
-    void SetCachedSize(int size) const;
-    void InternalSwap(FeatureRankingResponse* other);
- private:
-    inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-        return _internal_metadata_.arena();
-    }
-    inline void* MaybeArenaPtr() const {
-        return _internal_metadata_.raw_arena_ptr();
-    }
- public:
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FeatureRankingResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
 
-    ::google::protobuf::Metadata GetMetadata() const;
+  ::google::protobuf::Metadata GetMetadata() const;
 
-    // nested types ----------------------------------------------------
+  // nested types ----------------------------------------------------
 
-    // accessors -------------------------------------------------------
+  // accessors -------------------------------------------------------
 
-    // optional int64 ReqId = 1;
-    void clear_reqid();
-    static const int kReqIdFieldNumber = 1;
-    ::google::protobuf::int64 reqid() const;
-    void set_reqid(::google::protobuf::int64 value);
+  // optional int64 ReqId = 1;
+  void clear_reqid();
+  static const int kReqIdFieldNumber = 1;
+  ::google::protobuf::int64 reqid() const;
+  void set_reqid(::google::protobuf::int64 value);
 
-    // repeated int64 Ids = 2;
-    int ids_size() const;
-    void clear_ids();
-    static const int kIdsFieldNumber = 2;
-    ::google::protobuf::int64 ids(int index) const;
-    void set_ids(int index, ::google::protobuf::int64 value);
-    void add_ids(::google::protobuf::int64 value);
-    const ::google::protobuf::RepeatedField<::google::protobuf::int64>&
-    ids() const;
-    ::google::protobuf::RepeatedField<::google::protobuf::int64>*
-    mutable_ids();
+  // repeated int64 Ids = 2;
+  int ids_size() const;
+  void clear_ids();
+  static const int kIdsFieldNumber = 2;
+  ::google::protobuf::int64 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int64 value);
+  void add_ids(::google::protobuf::int64 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      ids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_ids();
 
-    // repeated float Scores = 3;
-    int scores_size() const;
-    void clear_scores();
-    static const int kScoresFieldNumber = 3;
-    float scores(int index) const;
-    void set_scores(int index, float value);
-    void add_scores(float value);
-    const ::google::protobuf::RepeatedField<float>&
-    scores() const;
-    ::google::protobuf::RepeatedField<float>*
-    mutable_scores();
+  // repeated float Scores = 3;
+  int scores_size() const;
+  void clear_scores();
+  static const int kScoresFieldNumber = 3;
+  float scores(int index) const;
+  void set_scores(int index, float value);
+  void add_scores(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      scores() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_scores();
 
-    // @@protoc_insertion_point(class_scope:dg.model.FeatureRankingResponse)
+  // @@protoc_insertion_point(class_scope:dg.model.FeatureRankingResponse)
  private:
 
-    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-    bool _is_default_instance_;
-    ::google::protobuf::int64 reqid_;
-    ::google::protobuf::RepeatedField<::google::protobuf::int64> ids_;
-    mutable int _ids_cached_byte_size_;
-    ::google::protobuf::RepeatedField<float> scores_;
-    mutable int _scores_cached_byte_size_;
-    mutable int _cached_size_;
-    friend void protobuf_AddDesc_ranker_2eproto();
-    friend void protobuf_AssignDesc_ranker_2eproto();
-    friend void protobuf_ShutdownFile_ranker_2eproto();
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 reqid_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
+  mutable int _ids_cached_byte_size_;
+  ::google::protobuf::RepeatedField< float > scores_;
+  mutable int _scores_cached_byte_size_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
 
-    void InitAsDefaultInstance();
-    static FeatureRankingResponse* default_instance_;
+  void InitAsDefaultInstance();
+  static FeatureRankingResponse* default_instance_;
 };
 // ===================================================================
+
 
 // ===================================================================
 
@@ -308,179 +298,171 @@ class FeatureRankingResponse : public ::google::protobuf::Message {
 
 // optional int64 ReqId = 1;
 inline void FeatureRankingRequest::clear_reqid() {
-    reqid_ = GOOGLE_LONGLONG(0);
+  reqid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 FeatureRankingRequest::reqid() const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.ReqId)
-    return reqid_;
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.ReqId)
+  return reqid_;
 }
 inline void FeatureRankingRequest::set_reqid(::google::protobuf::int64 value) {
-
-    reqid_ = value;
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.ReqId)
+  
+  reqid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.ReqId)
 }
 
 // optional .dg.model.RecognizeType Type = 2;
 inline void FeatureRankingRequest::clear_type() {
-    type_ = 0;
+  type_ = 0;
 }
 inline ::dg::model::RecognizeType FeatureRankingRequest::type() const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Type)
-    return static_cast<::dg::model::RecognizeType>(type_);
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Type)
+  return static_cast< ::dg::model::RecognizeType >(type_);
 }
 inline void FeatureRankingRequest::set_type(::dg::model::RecognizeType value) {
-
-    type_ = value;
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.Type)
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.Type)
 }
 
 // optional .dg.model.Image Image = 3;
 inline bool FeatureRankingRequest::has_image() const {
-    return !_is_default_instance_ && image_ != NULL;
+  return !_is_default_instance_ && image_ != NULL;
 }
 inline void FeatureRankingRequest::clear_image() {
-    if (GetArenaNoVirtual() == NULL && image_ != NULL)
-        delete image_;
-    image_ = NULL;
+  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+  image_ = NULL;
 }
 inline const ::dg::model::Image& FeatureRankingRequest::image() const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Image)
-    return image_ != NULL ? *image_ : *default_instance_->image_;
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Image)
+  return image_ != NULL ? *image_ : *default_instance_->image_;
 }
 inline ::dg::model::Image* FeatureRankingRequest::mutable_image() {
-
-    if (image_ == NULL) {
-        image_ = new ::dg::model::Image;
-    }
-    // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.Image)
-    return image_;
+  
+  if (image_ == NULL) {
+    image_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.Image)
+  return image_;
 }
 inline ::dg::model::Image* FeatureRankingRequest::release_image() {
-
-    ::dg::model::Image* temp = image_;
-    image_ = NULL;
-    return temp;
+  
+  ::dg::model::Image* temp = image_;
+  image_ = NULL;
+  return temp;
 }
-inline void FeatureRankingRequest::set_allocated_image(
-        ::dg::model::Image* image) {
-    delete image_;
-    image_ = image;
-    if (image) {
-
-    } else {
-
-    }
-    // @@protoc_insertion_point(field_set_allocated:dg.model.FeatureRankingRequest.Image)
+inline void FeatureRankingRequest::set_allocated_image(::dg::model::Image* image) {
+  delete image_;
+  image_ = image;
+  if (image) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.FeatureRankingRequest.Image)
 }
 
 // repeated .dg.model.Cutboard InterestedAreas = 4;
 inline int FeatureRankingRequest::interestedareas_size() const {
-    return interestedareas_.size();
+  return interestedareas_.size();
 }
 inline void FeatureRankingRequest::clear_interestedareas() {
-    interestedareas_.Clear();
+  interestedareas_.Clear();
 }
-inline const ::dg::model::Cutboard& FeatureRankingRequest::interestedareas(
-        int index) const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.InterestedAreas)
-    return interestedareas_.Get(index);
+inline const ::dg::model::Cutboard& FeatureRankingRequest::interestedareas(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.InterestedAreas)
+  return interestedareas_.Get(index);
 }
-inline ::dg::model::Cutboard* FeatureRankingRequest::mutable_interestedareas(
-        int index) {
-    // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.InterestedAreas)
-    return interestedareas_.Mutable(index);
+inline ::dg::model::Cutboard* FeatureRankingRequest::mutable_interestedareas(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.InterestedAreas)
+  return interestedareas_.Mutable(index);
 }
 inline ::dg::model::Cutboard* FeatureRankingRequest::add_interestedareas() {
-    // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.InterestedAreas)
-    return interestedareas_.Add();
+  // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.InterestedAreas)
+  return interestedareas_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
 FeatureRankingRequest::mutable_interestedareas() {
-    // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.InterestedAreas)
-    return &interestedareas_;
+  // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.InterestedAreas)
+  return &interestedareas_;
 }
-inline const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
 FeatureRankingRequest::interestedareas() const {
-    // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.InterestedAreas)
-    return interestedareas_;
+  // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.InterestedAreas)
+  return interestedareas_;
 }
 
 // repeated .dg.model.Cutboard DisabledAreas = 5;
 inline int FeatureRankingRequest::disabledareas_size() const {
-    return disabledareas_.size();
+  return disabledareas_.size();
 }
 inline void FeatureRankingRequest::clear_disabledareas() {
-    disabledareas_.Clear();
+  disabledareas_.Clear();
 }
-inline const ::dg::model::Cutboard& FeatureRankingRequest::disabledareas(
-        int index) const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.DisabledAreas)
-    return disabledareas_.Get(index);
+inline const ::dg::model::Cutboard& FeatureRankingRequest::disabledareas(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.DisabledAreas)
+  return disabledareas_.Get(index);
 }
-inline ::dg::model::Cutboard* FeatureRankingRequest::mutable_disabledareas(
-        int index) {
-    // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.DisabledAreas)
-    return disabledareas_.Mutable(index);
+inline ::dg::model::Cutboard* FeatureRankingRequest::mutable_disabledareas(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.DisabledAreas)
+  return disabledareas_.Mutable(index);
 }
 inline ::dg::model::Cutboard* FeatureRankingRequest::add_disabledareas() {
-    // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.DisabledAreas)
-    return disabledareas_.Add();
+  // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.DisabledAreas)
+  return disabledareas_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
 FeatureRankingRequest::mutable_disabledareas() {
-    // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.DisabledAreas)
-    return &disabledareas_;
+  // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.DisabledAreas)
+  return &disabledareas_;
 }
-inline const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard>&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
 FeatureRankingRequest::disabledareas() const {
-    // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.DisabledAreas)
-    return disabledareas_;
+  // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.DisabledAreas)
+  return disabledareas_;
 }
 
 // repeated .dg.model.FeatureVector Candidates = 6;
 inline int FeatureRankingRequest::candidates_size() const {
-    return candidates_.size();
+  return candidates_.size();
 }
 inline void FeatureRankingRequest::clear_candidates() {
-    candidates_.Clear();
+  candidates_.Clear();
 }
-inline const ::dg::model::FeatureVector& FeatureRankingRequest::candidates(
-        int index) const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Candidates)
-    return candidates_.Get(index);
+inline const ::dg::model::FeatureVector& FeatureRankingRequest::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Candidates)
+  return candidates_.Get(index);
 }
-inline ::dg::model::FeatureVector* FeatureRankingRequest::mutable_candidates(
-        int index) {
-    // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.Candidates)
-    return candidates_.Mutable(index);
+inline ::dg::model::FeatureVector* FeatureRankingRequest::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.FeatureRankingRequest.Candidates)
+  return candidates_.Mutable(index);
 }
 inline ::dg::model::FeatureVector* FeatureRankingRequest::add_candidates() {
-    // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.Candidates)
-    return candidates_.Add();
+  // @@protoc_insertion_point(field_add:dg.model.FeatureRankingRequest.Candidates)
+  return candidates_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField<::dg::model::FeatureVector>*
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >*
 FeatureRankingRequest::mutable_candidates() {
-    // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.Candidates)
-    return &candidates_;
+  // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingRequest.Candidates)
+  return &candidates_;
 }
-inline const ::google::protobuf::RepeatedPtrField<::dg::model::FeatureVector>&
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >&
 FeatureRankingRequest::candidates() const {
-    // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.Candidates)
-    return candidates_;
+  // @@protoc_insertion_point(field_list:dg.model.FeatureRankingRequest.Candidates)
+  return candidates_;
 }
 
 // optional int32 Limit = 7;
 inline void FeatureRankingRequest::clear_limit() {
-    limit_ = 0;
+  limit_ = 0;
 }
 inline ::google::protobuf::int32 FeatureRankingRequest::limit() const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Limit)
-    return limit_;
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingRequest.Limit)
+  return limit_;
 }
 inline void FeatureRankingRequest::set_limit(::google::protobuf::int32 value) {
-
-    limit_ = value;
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.Limit)
+  
+  limit_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingRequest.Limit)
 }
 
 // -------------------------------------------------------------------
@@ -489,85 +471,85 @@ inline void FeatureRankingRequest::set_limit(::google::protobuf::int32 value) {
 
 // optional int64 ReqId = 1;
 inline void FeatureRankingResponse::clear_reqid() {
-    reqid_ = GOOGLE_LONGLONG(0);
+  reqid_ = GOOGLE_LONGLONG(0);
 }
 inline ::google::protobuf::int64 FeatureRankingResponse::reqid() const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.ReqId)
-    return reqid_;
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.ReqId)
+  return reqid_;
 }
 inline void FeatureRankingResponse::set_reqid(::google::protobuf::int64 value) {
-
-    reqid_ = value;
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.ReqId)
+  
+  reqid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.ReqId)
 }
 
 // repeated int64 Ids = 2;
 inline int FeatureRankingResponse::ids_size() const {
-    return ids_.size();
+  return ids_.size();
 }
 inline void FeatureRankingResponse::clear_ids() {
-    ids_.Clear();
+  ids_.Clear();
 }
 inline ::google::protobuf::int64 FeatureRankingResponse::ids(int index) const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.Ids)
-    return ids_.Get(index);
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.Ids)
+  return ids_.Get(index);
 }
-inline void FeatureRankingResponse::set_ids(int index,
-                                            ::google::protobuf::int64 value) {
-    ids_.Set(index, value);
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.Ids)
+inline void FeatureRankingResponse::set_ids(int index, ::google::protobuf::int64 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.Ids)
 }
 inline void FeatureRankingResponse::add_ids(::google::protobuf::int64 value) {
-    ids_.Add(value);
-    // @@protoc_insertion_point(field_add:dg.model.FeatureRankingResponse.Ids)
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.FeatureRankingResponse.Ids)
 }
-inline const ::google::protobuf::RepeatedField<::google::protobuf::int64>&
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
 FeatureRankingResponse::ids() const {
-    // @@protoc_insertion_point(field_list:dg.model.FeatureRankingResponse.Ids)
-    return ids_;
+  // @@protoc_insertion_point(field_list:dg.model.FeatureRankingResponse.Ids)
+  return ids_;
 }
-inline ::google::protobuf::RepeatedField<::google::protobuf::int64>*
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
 FeatureRankingResponse::mutable_ids() {
-    // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingResponse.Ids)
-    return &ids_;
+  // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingResponse.Ids)
+  return &ids_;
 }
 
 // repeated float Scores = 3;
 inline int FeatureRankingResponse::scores_size() const {
-    return scores_.size();
+  return scores_.size();
 }
 inline void FeatureRankingResponse::clear_scores() {
-    scores_.Clear();
+  scores_.Clear();
 }
 inline float FeatureRankingResponse::scores(int index) const {
-    // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.Scores)
-    return scores_.Get(index);
+  // @@protoc_insertion_point(field_get:dg.model.FeatureRankingResponse.Scores)
+  return scores_.Get(index);
 }
 inline void FeatureRankingResponse::set_scores(int index, float value) {
-    scores_.Set(index, value);
-    // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.Scores)
+  scores_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.FeatureRankingResponse.Scores)
 }
 inline void FeatureRankingResponse::add_scores(float value) {
-    scores_.Add(value);
-    // @@protoc_insertion_point(field_add:dg.model.FeatureRankingResponse.Scores)
+  scores_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.FeatureRankingResponse.Scores)
 }
-inline const ::google::protobuf::RepeatedField<float>&
+inline const ::google::protobuf::RepeatedField< float >&
 FeatureRankingResponse::scores() const {
-    // @@protoc_insertion_point(field_list:dg.model.FeatureRankingResponse.Scores)
-    return scores_;
+  // @@protoc_insertion_point(field_list:dg.model.FeatureRankingResponse.Scores)
+  return scores_;
 }
-inline ::google::protobuf::RepeatedField<float>*
+inline ::google::protobuf::RepeatedField< float >*
 FeatureRankingResponse::mutable_scores() {
-    // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingResponse.Scores)
-    return &scores_;
+  // @@protoc_insertion_point(field_mutable_list:dg.model.FeatureRankingResponse.Scores)
+  return &scores_;
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
 // -------------------------------------------------------------------
 
+
 // @@protoc_insertion_point(namespace_scope)
 
-}// namespace model
+}  // namespace model
 }  // namespace dg
 
 // @@protoc_insertion_point(global_scope)
