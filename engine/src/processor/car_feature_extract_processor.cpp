@@ -6,7 +6,7 @@
  */
 
 #include "car_feature_extract_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 CarFeatureExtractProcessor::CarFeatureExtractProcessor() {
@@ -28,6 +28,7 @@ void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
 }
 
 bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
+
     DLOG(INFO)<< "Start feature extract(Batch). " << endl;
     extract(vehicle_to_processed_);
     vehicle_to_processed_.clear();
@@ -36,6 +37,13 @@ bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
 
     vehicle_to_processed_.clear();
     vehicle_to_processed_ = frameBatch->CollectObjects(
@@ -51,6 +59,10 @@ bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
     return true;
 }
+bool CarFeatureExtractProcessor::RecordFeaturePerformance() {
 
+    return RecordPerformance(FEATURE_CAR_EXTRACT,performance_);
+
+}
 } /* namespace dg */
 

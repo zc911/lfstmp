@@ -8,7 +8,7 @@
  * ==========================================================================*/
 
 #include "processor/face_detect_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
@@ -40,6 +40,7 @@ bool FaceDetectProcessor::process(Frame *frame) {
         return false;
     }
 
+
     vector<Mat> imgs;
     imgs.push_back(data);
     vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
@@ -57,6 +58,7 @@ bool FaceDetectProcessor::process(Frame *frame) {
 
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
+
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
@@ -90,5 +92,20 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
     return true;
 }
+bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
+#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
 
+    return true;
+}
+bool FaceDetectProcessor::RecordFeaturePerformance() {
+
+    return RecordPerformance(FEATURE_FACE_DETECTION,performance_);
+
+}
 } /* namespace dg */
