@@ -47,13 +47,12 @@ WitnessEngine::~WitnessEngine() {
 }
 
 
-
 void WitnessEngine::Process(FrameBatch *frames) {
-    LOG(INFO)<<"begin process"<<endl;
+    LOG(INFO) << "begin process" << endl;
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (!enable_vehicle_detect_
-                || !frames->CheckFrameBatchOperation(
-                        OPERATION_VEHICLE_DETECT)) {
+            || !frames->CheckFrameBatchOperation(
+                OPERATION_VEHICLE_DETECT)) {
             Identification baseid = 0;
             for (auto frame : frames->frames()) {
                 Vehicle *v = new Vehicle(OBJECT_CAR);
@@ -61,7 +60,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 v->set_image(tmp);
                 v->set_id(baseid);
                 baseid++;
-                Object *obj = static_cast<Object*>(v);
+                Object *obj = static_cast<Object *>(v);
 
                 if (obj) {
                     Detection d;
@@ -84,24 +83,24 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
-    DLOG(INFO)<< "begin " << enable_vehicle_ << endl;
+    DLOG(INFO) << "begin " << enable_vehicle_ << endl;
 
     enable_vehicle_detect_ = (bool) config.Value(
-            FEATURE_VEHICLE_ENABLE_DETECTION);
+        FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-            FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-            FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
 
     enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
     enable_face_feature_vector_ = (bool) config.Value(
-            FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
 
 }
 
@@ -112,7 +111,7 @@ void WitnessEngine::init(const Config &config) {
 
     ConfigFilter *configFilter = ConfigFilter::GetInstance();
     if (!configFilter->initDataConfig(config)) {
-        LOG(ERROR)<< "can not init data config" << endl;
+        LOG(ERROR) << "can not init data config" << endl;
         DLOG(ERROR) << "can not init data config" << endl;
         return;
     }
@@ -120,36 +119,34 @@ void WitnessEngine::init(const Config &config) {
     initFeatureOptions(config);
 
     if (enable_vehicle_) {
-        LOG(INFO)<< "Init vehicle processor pipeline. " << endl;
-        Processor *last=NULL;
+        LOG(INFO) << "Init vehicle processor pipeline. " << endl;
+        Processor *last = NULL;
 
         if (enable_vehicle_detect_) {
 
             VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
             configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
-            if(last==NULL) {
-                last=vehicle_processor_=p;
-
+            if (last == NULL) {
+                vehicle_processor_ = p;
             } else {
                 last->SetNextProcessor(p);
-                last=p;
             }
             last = p;
         }
 
 
-        if(enable_vehicle_plate_gpu_) {
+        if (enable_vehicle_plate_gpu_) {
             LPDRConfig_S pstConfig;
-            configFilter->createPlateMxnetConfig(config,&pstConfig);
+            configFilter->createPlateMxnetConfig(config, &pstConfig);
 
             Processor *p = new PlateRecognizeMxnetProcessor(&pstConfig);
-            if(last==NULL) {
-                last=vehicle_processor_=p;
+            if (last == NULL) {
+                vehicle_processor_ = p;
             } else {
                 last->SetNextProcessor(p);
-                last=p;
             }
+            last = p;
         }
 
         if (enable_vehicle_type_) {
@@ -208,6 +205,7 @@ void WitnessEngine::init(const Config &config) {
             }
             last = p;
         }
+
         if (enable_vehicle_feature_vector_) {
             LOG(INFO) << "Enable vehicle feature vector processor." << endl;
             Processor *p = new CarFeatureExtractProcessor();
@@ -224,7 +222,7 @@ void WitnessEngine::init(const Config &config) {
     }
 
     if (enable_face_) {
-        LOG(INFO)<< "Init face processor pipeline. " << endl;
+        LOG(INFO) << "Init face processor pipeline. " << endl;
         FaceDetector::FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
         face_processor_ = new FaceDetectProcessor(fdconfig);

@@ -857,6 +857,12 @@ class Cutboard : public ::google::protobuf::Message {
   ::google::protobuf::uint32 resheight() const;
   void set_resheight(::google::protobuf::uint32 value);
 
+  // optional float Confidence = 7;
+  void clear_confidence();
+  static const int kConfidenceFieldNumber = 7;
+  float confidence() const;
+  void set_confidence(float value);
+
   // @@protoc_insertion_point(class_scope:dg.model.Cutboard)
  private:
 
@@ -868,6 +874,7 @@ class Cutboard : public ::google::protobuf::Message {
   ::google::protobuf::uint32 height_;
   ::google::protobuf::uint32 reswidth_;
   ::google::protobuf::uint32 resheight_;
+  float confidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -1632,6 +1639,20 @@ inline void Cutboard::set_resheight(::google::protobuf::uint32 value) {
   
   resheight_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.ResHeight)
+}
+
+// optional float Confidence = 7;
+inline void Cutboard::clear_confidence() {
+  confidence_ = 0;
+}
+inline float Cutboard::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.Cutboard.Confidence)
+  return confidence_;
+}
+inline void Cutboard::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.Cutboard.Confidence)
 }
 
 // -------------------------------------------------------------------
