@@ -54,12 +54,14 @@ void WitnessAppsService::init(void) {
         ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
     string pTypeFile = (string) config_->Value(
         ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
+    string pVtypeFile = (string) config_->Value(ConfigValue::VEHICLE_TYPE_MAPPING_FILE);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
     init_string_map(vSymbolFile, "=", symbol_repo_);
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
+    init_string_map(pVtypeFile, "=", vehicle_type_repo_);
 }
 
 int WitnessAppsService::parseInt(string str) {
@@ -213,11 +215,21 @@ void WitnessAppsService::copyCutboard(const Box &b, Cutboard *cb) {
     cb->set_height(b.height);
 }
 
-MatrixError WitnessAppsService::fillModel(Identification id,
-                                          VehicleModel *model) {
+MatrixError WitnessAppsService::fillModel(const Vehicle &vobj,
+                                          RecognizedVehicle *vrec) {
     MatrixError err;
-    const VehicleModel &m = lookup_vehicle(vehicle_repo_, id);
-    model->CopyFrom(m);
+    string type = lookup_string(vehicle_type_repo_, vobj.type());
+    vrec->set_vehicletypename(type);
+    if (vobj.type() == OBJECT_CAR) {
+        const VehicleModel &m = lookup_vehicle(vehicle_repo_, vobj.class_id());
+        VehicleModel *model = vrec->mutable_model();
+        model->CopyFrom(m);
+        vrec->set_vehicletype(OBJ_TYPE_CAR);
+    } else if (vobj.type() == OBJECT_BICYCLE) {
+        vrec->set_vehicletype(OBJ_TYPE_BICYCLE);
+    } else if (vobj.type() == OBJECT_TRICYCLE) {
+        vrec->set_vehicletype(OBJ_TYPE_TRICYCLE);
+    }
     return err;
 }
 
@@ -294,7 +306,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     DLOG(INFO) << "Detected object: " << vobj->class_id();
     copyCutboard(d.box, vrec->mutable_cutboard());
 
-    err = fillModel(vobj->class_id(), vrec->mutable_model());
+    err = fillModel(*vobj, vrec);
     vrec->mutable_model()->set_confidence(vobj->confidence());
     if (err.code() < 0)
         return err;
@@ -326,6 +338,14 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     return err;
 }
 
+MatrixError WitnessAppsService::getRecognizedPedestrain(const Pedestrain *pedestrain, RecognizedPedestrain *result) {
+    MatrixError err;
+    const Detection &d = pedestrain->detection();
+    result->set_confidence(d.confidence);
+    copyCutboard(d.box, result->mutable_cutboard());
+    return err;
+}
+
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                                                    WitnessResult *result) {
     MatrixError err;
@@ -334,15 +354,19 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
         LOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
             case OBJECT_CAR:
+            case OBJECT_BICYCLE:
+            case OBJECT_TRICYCLE:
                 err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
                 break;
-
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
-
+            case OBJECT_PEDESTRIAN:
+                err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrains());
+                break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
+                break;
         }
 
         if (err.code() < 0) {
@@ -467,6 +491,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         ->mutable_debugts();
 
     WitnessResult *result = response->mutable_result();
+    result->mutable_image()->mutable_data()->set_uri(request->image().data().uri());
     err = getRecognizeResult(frame, result);
     if (err.code() != 0) {
         LOG(ERROR) << "get result from frame failed, " << err.message();
@@ -575,6 +600,8 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     for (int i = 0; i < frames.size(); ++i) {
         Frame *frame = frames[i];
         ::dg::model::WitnessResult *result = batchResponse->add_results();
+        string uri = imgDesc[i].uri();
+        result->mutable_image()->mutable_data()->set_uri(uri);
         err = getRecognizeResult(frame, result);
         if (err.code() != 0) {
             LOG(ERROR) << "get result from frame failed, " << err.message();
