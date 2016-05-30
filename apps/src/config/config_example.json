@@ -21,6 +21,7 @@
 			"EnableType": true,
 			"EnableColor": true,
 			"EnablePlate": true,
+			"EnableGpuPlate" : true,
 			"EnablePlateEnhanced": false,
 			"EnableMarker": true,
 			"EnableFeatureVector": false
@@ -47,6 +48,9 @@
 			"OCR": 1,
 			"Locate": 5,
 			"EnableSharp": true
+		},
+		"PlateMxnet":{
+			"BatchSize":30
 		},
 		"Marker": {
 			"MOTConfidence": 0.6,

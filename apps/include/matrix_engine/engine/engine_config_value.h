@@ -24,7 +24,9 @@ static const string FEATURE_VEHICLE_ENABLE_TYPE = "Feature/Vehicle/EnableType";
 static const string FEATURE_VEHICLE_ENABLE_COLOR = "Feature/Vehicle/EnableColor";
 static const string FEATURE_VEHICLE_ENABLE_PLATE = "Feature/Vehicle/EnablePlate";
 static const string FEATURE_VEHICLE_ENABLE_PLATE_ENHANCED =
-        "Feature/Vehicle/EnablePlateEnhance";
+        "Feature/Vehicle/EnablePlateEnhanced";
+static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE =
+        "Feature/Vehicle/EnableGpuPlate";
 static const string FEATURE_VEHICLE_ENABLE_MARKER =
         "Feature/Vehicle/EnableMarker";
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
@@ -44,8 +46,10 @@ static const string ADVANCED_DETECTION_BATCH_SIZE =
         "Advanced/Detection/BatchSize";
 
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/Color/BatchSize";
+static const string ADVANCED_COLOR_MODEL_NUM = "Advanced/Color/ModelNum";
 
 static const string ADVANCED_STYLE_BATCH_SIZE = "Advanced/Style/BatchSize";
+static const string ADVANCED_STYLE_MODEL_NUM = "Advanced/Style/ModelNum";
 
 static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 
@@ -116,6 +120,21 @@ static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
 static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
         "File/FaceExtract/AlignModel";
 static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
+
+static const string FILE_PLATE_MODEL_PATH = "File/Plate/ModelPath";
+static const string FILE_PLATE_FCN_SYMBOL = "File/Plate/FcnSymbol";
+static const string FILE_PLATE_FCN_PARAM = "File/Plate/FcnParam";
+static const string FILE_PLATE_RPN_SYMBOL = "File/Plate/RpnSymbol";
+static const string FILE_PLATE_RPN_PARAM = "File/Plate/RpnParam";
+static const string FILE_PLATE_POLYREG_SYMBOL = "File/Plate/PolyRegSymbol";
+static const string FILE_PLATE_POLYREG_PARAM = "File/Plate/PolyRegParam";
+static const string FILE_PLATE_ROIP_SYMBOL = "File/Plate/RoipSymbol";
+static const string FILE_PLATE_ROIP_PARAM = "File/Plate/RoipParam";
+static const string FILE_PLATE_CHRECOG_SYMBOL = "File/Plate/ChrecogSymbol";
+static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
+
+static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
+
 }
 
 #endif /* ENGINE_CONFIG_VALUE_H_ */

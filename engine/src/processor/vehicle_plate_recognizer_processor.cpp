@@ -5,15 +5,14 @@
  *      Author: jiajiachen
  */
 #include "vehicle_plate_recognizer_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 PlateRecognizerProcessor::PlateRecognizerProcessor(
     const PlateRecognizer::PlateConfig &pConfig) {
     enable_sharpen_ = pConfig.isSharpen;
-    recognizer_ = &PlateRecognizer::GetInstance(pConfig);
+    recognizer_ = new PlateRecognizer(pConfig);
 }
-
 PlateRecognizerProcessor::~PlateRecognizerProcessor() {
     if (recognizer_)
         delete recognizer_;
@@ -21,24 +20,43 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
 }
 
 bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
-    DLOG(INFO) << "Start plate recognize processor " << endl;
 
-    if (images_.size() != objs_.size()) {
+    DLOG(INFO)<<"Start plate recognize processor "<< endl;
+
+    if(images_.size() != objs_.size()) {
         LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
         return false;
     }
-
-    for (int i = 0; i < images_.size(); i++) {
-        Vehicle *v = (Vehicle *) objs_[i];
+/*
+    for(int i = 0; i < images_.size(); i++) {
+        Vehicle *v = (Vehicle*) objs_[i];
         Mat tmp = images_[i];
         Vehicle::Plate pred = recognizer_->Recognize(tmp);
         v->set_plate(pred);
+
+    }*/
+    vector<Vehicle::Plate > results=recognizer_->RecognizeBatch(images_);
+    for(int i=0;i<images_.size();i++){
+        Vehicle *v = (Vehicle*) objs_[i];
+        Mat tmp = images_[i];
+        v->set_plate(results[i]);
     }
     return true;
 }
 
 bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
     filterVehicle(frameBatch);
+#if DEBUG
+//#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
+    this->filterVehicle(frameBatch);
+    performance_ += frameBatch->batch_size();
+    return true;
 }
 
 void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
@@ -78,24 +96,28 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
-            Vehicle *v = (Vehicle *) obj;
+            Vehicle *v = (Vehicle*) obj;
 
-            DLOG(INFO) << "Put vehicle images to be plate recognized: " << obj->id() << endl;
+            DLOG(INFO)<< "Put vehicle images to be plate recognized: " << obj->id() << endl;
             if (enable_sharpen_) {
                 Mat result;
                 sharpenImage(v->image(), result);
                 images_.push_back(result);
             } else {
                 images_.push_back(v->image());
+
             }
             itr++;
 
         } else {
             itr = objs_.erase(itr);
-            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;
+            DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
 
+}
+bool PlateRecognizerProcessor::RecordFeaturePerformance() {
+    return RecordPerformance(FEATURE_CAR_PLATE, performance_);
 }
 
 }

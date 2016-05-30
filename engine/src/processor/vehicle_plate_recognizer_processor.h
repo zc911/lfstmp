@@ -10,7 +10,6 @@
 
 #include "processor/processor.h"
 #include "alg/plate_recognizer.h"
-
 namespace dg {
 
 class PlateRecognizerProcessor : public Processor {
@@ -26,10 +25,9 @@ class PlateRecognizerProcessor : public Processor {
         return false;
     }
     virtual bool process(FrameBatch *frameBatch);
-    virtual bool beforeUpdate(Frame *frame) {
-        return false;
-    }
+
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual bool RecordFeaturePerformance();
 
  private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);

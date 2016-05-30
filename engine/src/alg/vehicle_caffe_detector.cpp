@@ -24,7 +24,8 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     }
 
     batch_size_ = config.batch_size;
-
+    cout << config.deploy_file << endl;
+    cout << config.model_file << endl;
     net_.reset(new Net<float>(config.deploy_file, TEST));
     net_->CopyTrainedLayersFrom(config.model_file);
 

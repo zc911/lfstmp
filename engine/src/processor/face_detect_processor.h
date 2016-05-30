@@ -25,6 +25,10 @@ class FaceDetectProcessor : public Processor {
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
+    virtual bool RecordFeaturePerformance();
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+
+
  private:
     FaceDetector *detector_;
     int base_id_;
