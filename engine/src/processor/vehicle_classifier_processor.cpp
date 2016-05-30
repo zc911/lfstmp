@@ -1,15 +1,14 @@
 #include "vehicle_classifier_processor.h"
-#include "processor_helper.h"
 
 namespace dg {
 
 VehicleClassifierProcessor::VehicleClassifierProcessor(
-        const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 
     for (int i = 0; i < configs.size(); i++) {
 
         VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(
-                configs[i]);
+            configs[i]);
 
         classifiers_.push_back(classifier);
 
@@ -28,22 +27,22 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 
 bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    DLOG(INFO)<<"Start vehicle classify frame: "<< endl;
+    DLOG(INFO) << "Start vehicle classify frame: " << endl;
 
     vector<vector<Prediction> > result;
 
     for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
-                auto tmpPred=elem->ClassifyAutoBatch(images_);
-                vote(tmpPred, result, classifiers_.size());
-            });
+      auto tmpPred = elem->ClassifyAutoBatch(images_);
+      vote(tmpPred, result, classifiers_.size());
+    });
 
     //set results
-    for(int i=0;i<objs_.size();i++) {
-        if(result[i].size()<0) {
+    for (int i = 0; i < objs_.size(); i++) {
+        if (result[i].size() < 0) {
             continue;
         }
         vector<Prediction> pre = result[i];
-        Vehicle *v = (Vehicle*) objs_[i];
+        Vehicle *v = (Vehicle *) objs_[i];
         Prediction max = MaxPrediction(result[i]);
         v->set_class_id(max.first);
         v->set_confidence(max.second);
@@ -76,20 +75,20 @@ void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
         Object *obj = *itr;
         //collect car objects
         if (obj->type() == OBJECT_CAR) {
-            Vehicle *v = (Vehicle*) obj;
-            DLOG(INFO)<< "Put vehicle images to be type classified: " << obj->id() << endl;
+            Vehicle *v = (Vehicle *) obj;
+            DLOG(INFO) << "Put vehicle images to be type classified: " << obj->id() << endl;
             images_.push_back(v->resized_image());
             ++itr;
         } else {
             itr = objs_.erase(itr);
-            DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
 }
 
 bool VehicleClassifierProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_STYLE,performance_);
+    return RecordPerformance(FEATURE_CAR_STYLE, performance_);
 
 }
 

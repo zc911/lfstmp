@@ -208,11 +208,12 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     return op;
 }
 
-void WitnessAppsService::copyCutboard(const Box &b, Cutboard *cb) {
-    cb->set_x(b.x);
-    cb->set_y(b.y);
-    cb->set_width(b.width);
-    cb->set_height(b.height);
+void WitnessAppsService::copyCutboard(const Detection &b, Cutboard *cb) {
+    cb->set_x(b.box.x);
+    cb->set_y(b.box.y);
+    cb->set_width(b.box.width);
+    cb->set_height(b.box.height);
+    cb->set_confidence(b.confidence);
 }
 
 MatrixError WitnessAppsService::fillModel(const Vehicle &vobj,
@@ -248,7 +249,9 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
                                           LicensePlate *rplate) {
     MatrixError err;
     rplate->set_platenum(plate.plate_num);
-    copyCutboard(plate.box, rplate->mutable_cutboard());
+    Detection d;
+    d.box = plate.box;
+    copyCutboard(d, rplate->mutable_cutboard());
     rplate->set_colorid(plate.color_id);
     rplate->set_color(lookup_string(plate_color_repo_, plate.color_id));
     rplate->set_typeid_(plate.plate_type);
@@ -289,7 +292,7 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
 
             Symbol *s = item->add_symbols();
             s->set_confidence(m->detection().confidence);
-            copyCutboard(m->detection().box, s->mutable_cutboard());
+            copyCutboard(m->detection(), s->mutable_cutboard());
         }
     }
     delete indexes;
@@ -303,8 +306,10 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     vrec->set_features(vobj->feature().Serialize());
 
     const Detection &d = vobj->detection();
+
     DLOG(INFO) << "Detected object: " << vobj->class_id();
-    copyCutboard(d.box, vrec->mutable_cutboard());
+    copyCutboard(d, vrec->mutable_cutboard());
+
 
     err = fillModel(*vobj, vrec);
     vrec->mutable_model()->set_confidence(vobj->confidence());
@@ -334,7 +339,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
 
     const Detection &d = fobj->detection();
     LOG(INFO) << "detection id: " << d.id << ", deleted? " << d.deleted;
-    copyCutboard(d.box, frec->mutable_cutboard());
+    copyCutboard(d, frec->mutable_cutboard());
     return err;
 }
 
@@ -342,7 +347,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrain(const Pedestrain *pedest
     MatrixError err;
     const Detection &d = pedestrain->detection();
     result->set_confidence(d.confidence);
-    copyCutboard(d.box, result->mutable_cutboard());
+    copyCutboard(d, result->mutable_cutboard());
     return err;
 }
 
