@@ -22,6 +22,7 @@ FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
 }
 
 bool FaceFeatureExtractProcessor::process(Frame *frame) {
+
     int size = frame->objects().size();
 
     for (int i = 0; i < size; ++i) {
@@ -49,6 +50,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
 bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
+
     for (int i = 0; i < to_processed_.size(); ++i) {
         Object * obj = to_processed_[i];
         Face *face = static_cast<Face*>(obj);
@@ -63,7 +65,21 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     return true;
 }
 
+
+bool FaceFeatureExtractProcessor::RecordFeaturePerformance() {
+
+    return RecordPerformance(FEATURE_FACE_EXTRACT,performance_);
+
+}
 bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
+#if DEBUG
+//#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object*>::iterator itr = to_processed_.begin();
@@ -76,5 +92,4 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
     return true;
 }
-
 } /* namespace dg */

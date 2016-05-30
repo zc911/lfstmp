@@ -55,6 +55,8 @@ public:
                              MarkerCaffeClassifier::MarkerConfig &mConfig);
     void createWindowConfig(const Config &cconfig,
                             WindowCaffeDetector::WindowCaffeConfig &wConfig);
+    void createPlateMxnetConfig(const Config &cconfig,
+                                _LPDRConfig *pConfig);
     int initDataConfig(const Config &config);
 
 private:
