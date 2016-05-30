@@ -3,7 +3,7 @@
 2016-05-28
 
 ```
-Multiple thread(GRPC only)
+Multiple threads(GRPC only)
 ```
 
 ### Modules version
