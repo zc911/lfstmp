@@ -22,9 +22,9 @@ namespace dg {
 typedef enum {
     OBJECT_UNKNOWN = 0,
     OBJECT_CAR = 1,
-    OBJECT_BICYCLE = 2,
+    OBJECT_PEDESTRIAN = 2,
+    OBJECT_BICYCLE = 3,
     OBJECT_TRICYCLE = 4,
-    OBJECT_PEDESTRIAN = 8,
     OBJECT_MARKER = 16,
     OBJECT_MARKER_0 = 16,
     OBJECT_MARKER_1 = 16,
@@ -38,8 +38,8 @@ typedef enum {
 enum DetectionTypeId {
     DETECTION_UNKNOWN = 0,
     DETECTION_CAR = 1,
-    DETECTION_PERSON = 2,
-    DETECTION_BIKE = 3,
+    DETECTION_PEDESTRIAN = 2,
+    DETECTION_BICYCLE = 3,
     DETECTION_TRICYCLE = 4
 };
 

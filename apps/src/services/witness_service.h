@@ -21,15 +21,16 @@ using namespace ::dg::model;
 
 class WitnessAppsService {
 public:
-    WitnessAppsService(const Config *config);
+    WitnessAppsService(const Config *config, string name);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
-
+    string name_;
 private:
+
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
@@ -38,6 +39,7 @@ private:
     string unknown_string_;
     VehicleModel unknown_vehicle_;
     vector<VehicleModel> vehicle_repo_;
+    vector<string> vehicle_type_repo_;
     vector<string> color_repo_;
     vector<string> symbol_repo_;
     vector<string> plate_color_repo_;
@@ -59,9 +61,12 @@ private:
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
-    static void copyCutboard(const Box &b, Cutboard *cb);
+    static void copyCutboard(const Detection &d, Cutboard *cb);
 
-    MatrixError fillModel(Identification id, VehicleModel *model);
+    MatrixError checkRequest(const WitnessRequest &request);
+    MatrixError checkRequest(const WitnessBatchRequest &requests);
+    MatrixError checkWitnessImage(const WitnessImage &wImage);
+    MatrixError fillModel(const Vehicle &vobj, RecognizedVehicle *vrec);
     MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
     MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
     MatrixError fillSymbols(const vector<Object *> &objects,
@@ -70,6 +75,8 @@ private:
                                      RecognizedVehicle *vrec);
     MatrixError getRecognizedFace(const Face *fobj, RecognizedFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
+    MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecognizedPedestrain *result);
+
 };
 
 }

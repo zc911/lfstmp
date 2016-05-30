@@ -14,6 +14,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <b64/encode.h>
 #include <boost/locale/encoding_utf.hpp>
+#include "fs_util.h"
 
 using namespace std;
 using namespace cv;
@@ -48,6 +49,18 @@ static string encode2base64(char *data, int size) {
     stringstream encoded;
     base64Encoder.encode(ss, encoded);
     return encoded.str();
+}
+static string encode2base64(const char *filePath) {
+    int length = FileSize(string(filePath));
+    FILE *file = fopen(filePath, "rb");
+    if (file == NULL) {
+        return "";
+    }
+    char data[length];
+
+    length = fread(data, sizeof(char), length, file);
+    fclose(file);
+    return encode2base64(data, length);
 }
 
 static void trimLR(string &s) {

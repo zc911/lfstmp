@@ -8,7 +8,7 @@
  * ==========================================================================*/
 
 #include "processor/face_detect_processor.h"
-
+#include "processor_helper.h"
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
@@ -93,8 +93,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     return true;
 }
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if DEBUG
-//#if RELEASE
+#if RELEASE
     if(performance_>20000) {
         if(!RecordFeaturePerformance()) {
             return false;
