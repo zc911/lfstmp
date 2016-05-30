@@ -26,6 +26,8 @@ class CarFeatureExtractProcessor : public Processor {
     }
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual bool RecordFeaturePerformance();
+
 
  private:
     void extract(vector<Object*> &objs);

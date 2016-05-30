@@ -33,7 +33,12 @@ protected:
 
     virtual bool process(FrameBatch *frameBatch);
 
-private:
+
+    bool beforeUpdate(FrameBatch *frameBatch);
+    virtual bool RecordFeaturePerformance();
+
+ private:
+
     VehicleCaffeDetector *detector_;
     int base_id_;
 
