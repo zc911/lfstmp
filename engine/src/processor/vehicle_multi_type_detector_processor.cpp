@@ -18,9 +18,9 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 }
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
-
+LOG(INFO)<<"start detector"<<endl;
     vector<Mat> images;
-    vector<vector<Detection>> detect_results;
+    vector<vector<Detection> > detect_results;
 
     for (int i = 0; i < frameBatch->frames().size(); i++) {
         Frame *frame = frameBatch->frames()[i];
@@ -69,6 +69,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             } else if (d.id != DETECTION_UNKNOWN) {
                 ObjectType objectType;
 
+
                 if (d.id == DETECTION_CAR)
                     objectType = OBJECT_CAR;
                 else if (d.id == DETECTION_BIKE)
@@ -79,7 +80,9 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                     objectType = OBJECT_UNKNOWN;
 
                 Vehicle *v = new Vehicle(objectType);
-                Mat roi = Mat(frame->payload()->data(), d.box);
+                Mat roi = CutImage(frame->payload()->data(), d.box);
+
+
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
                 }
@@ -124,6 +127,27 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 //    }
 //    DLOG(INFO) << frame->objects().size() << " cars are detected in frame " << frame->id() << endl;
     return true;
+}
+
+
+bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
+#if DEBUG
+//#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
+
+    return true;
+}
+
+bool VehicleMultiTypeDetectorProcessor::RecordFeaturePerformance() {
+
+    return RecordPerformance(FEATURE_CAR_DETECTION, performance_);
+
 }
 
 }

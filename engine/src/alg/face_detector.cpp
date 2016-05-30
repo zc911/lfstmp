@@ -20,9 +20,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
         use_gpu_ = false;
     }
 
-    LOG(INFO) << "loading model file: " << config.model_file;
-//    net_.reset(
-//            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+    LOG(INFO)<< "loading model file: " << config.deploy_file;
 
     net_.reset(
         new Net<float>(config.deploy_file, TEST));

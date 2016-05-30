@@ -30,6 +30,9 @@ class VehicleMarkerClassifierProcessor : public Processor {
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual bool RecordFeaturePerformance();
+
+
 
  private:
     MarkerCaffeClassifier *classifier_;

@@ -56,6 +56,15 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
+#if DEBUG
+//#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
     objs_.clear();
     resized_images_.clear();
     images_.clear();
@@ -79,8 +88,14 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
+
     return true;
 
 }
 
+bool VehicleMarkerClassifierProcessor::RecordFeaturePerformance() {
+
+    return RecordPerformance(FEATURE_CAR_MARK,performance_);
+
+}
 }
