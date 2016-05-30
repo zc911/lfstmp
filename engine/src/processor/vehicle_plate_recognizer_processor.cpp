@@ -11,7 +11,7 @@ namespace dg {
 PlateRecognizerProcessor::PlateRecognizerProcessor(
     const PlateRecognizer::PlateConfig &pConfig) {
     enable_sharpen_ = pConfig.isSharpen;
-    recognizer_ = new PlateRecognizer(pConfig);
+    recognizer_ = PlateRecognizer::Instance(pConfig);
 }
 PlateRecognizerProcessor::~PlateRecognizerProcessor() {
     if (recognizer_)
@@ -19,10 +19,6 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
     images_.clear();
 }
 
-PlateRecognizerProcessor *PlateRecognizerProcessor::Instance(const PlateRecognizer::PlateConfig &pConfig) {
-    static PlateRecognizerProcessor* instance = new PlateRecognizerProcessor(pConfig);
-    return instance;
-}
 bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
 
     DLOG(INFO) << "Start plate recognize processor " << endl;
@@ -31,14 +27,7 @@ bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
         LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
         return false;
     }
-/*
-    for(int i = 0; i < images_.size(); i++) {
-        Vehicle *v = (Vehicle*) objs_[i];
-        Mat tmp = images_[i];
-        Vehicle::Plate pred = recognizer_->Recognize(tmp);
-        v->set_plate(pred);
 
-    }*/
     vector<Vehicle::Plate> results = recognizer_->RecognizeBatch(images_);
     for (int i = 0; i < images_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
@@ -51,8 +40,8 @@ bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
 bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
     filterVehicle(frameBatch);
 #if RELEASE
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > 20000) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }
