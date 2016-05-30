@@ -19,6 +19,7 @@ service WitnessService {
 }
 
 enum IndexType {
+    INDEX_DEFAULT = 0;
     INDEX_CAR_TYPE = 1;
     INDEX_CAR_MAIN_BRAND = 2;
     INDEX_CAR_SUB_BRAND = 3;
@@ -88,6 +89,14 @@ message WitnessResult {
     WitnessImage Image = 3; //响应的图片信息
     repeated RecognizedVehicle Vehicles = 4; //识别的车辆列表
     repeated RecognizedFace Faces = 5; //识别的人脸列表
+    repeated RecognizedPedestrain Pedestrains = 6; //识别的行人列表
+
+}
+
+message RecognizedPedestrain {
+    Cutboard Cutboard = 1; //行人位置框
+    float Confidence = 2; //行人识别置信度
+    string Features = 3; //行人特征值(Base64)
 }
 
 message RecognizedVehicle {
@@ -98,6 +107,8 @@ message RecognizedVehicle {
     repeated SymbolItem SymbolItems = 5; //标志物列表
     string Features = 6; //车辆特征值(Base64)
     Scene Scene = 7; //车辆场景信息， DEPRECATED !!!
+    ObjType VehicleType = 8;
+    string VehicleTypeName = 9;
 }
 
 message RecognizedFace {

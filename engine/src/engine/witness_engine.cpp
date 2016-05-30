@@ -46,6 +46,7 @@ WitnessEngine::~WitnessEngine() {
 }
 
 void WitnessEngine::Process(FrameBatch *frame) {
+
     if (frame->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (vehicle_processor_)
             vehicle_processor_->Update(frame);
