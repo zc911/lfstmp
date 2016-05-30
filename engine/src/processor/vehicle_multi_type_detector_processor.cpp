@@ -1,5 +1,5 @@
-#include <model/model.h>
 #include "vehicle_multi_type_detector_processor.h"
+#include "model/model.h"
 
 namespace dg {
 
@@ -59,7 +59,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         for (int j = 0; j < imageDetection.size(); ++j) {
             Detection d = imageDetection[j];
             Object *obj = NULL;
-            if (d.id == DETECTION_PERSON) {
+            if (d.id == DETECTION_PEDESTRIAN) {
                 // if is pedestrain
                 Pedestrain *p = new Pedestrain();
                 p->set_detection(d);
@@ -71,7 +71,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
                 if (d.id == DETECTION_CAR)
                     objectType = OBJECT_CAR;
-                else if (d.id == DETECTION_BIKE)
+                else if (d.id == DETECTION_BICYCLE)
                     objectType = OBJECT_BICYCLE;
                 else if (d.id == DETECTION_TRICYCLE)
                     objectType = OBJECT_TRICYCLE;
