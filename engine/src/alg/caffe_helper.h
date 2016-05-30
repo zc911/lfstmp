@@ -194,6 +194,7 @@ static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
         sample = img;
 }
 
+
 }
 
 #endif /* SRC_ALG_CAFFE_HELPER_H_ */

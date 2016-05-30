@@ -71,8 +71,8 @@ void ConfigFilter::createVehicleConfig(
     int batch_size = (int) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-
-    for (int i = 0; i < 8; i++) {
+    int model_num = (int) cconfig.Value(ADVANCED_STYLE_MODEL_NUM);
+    for (int i = 0; i < model_num; i++) {
         VehicleCaffeClassifier::VehicleCaffeConfig config;
         config.model_file = model_path + to_string(i) + trained_model
             + to_string(i) + "_iter_70000.caffemodel";
@@ -94,9 +94,11 @@ void ConfigFilter::createVehicleColorConfig(
         FILE_COLOR_TRAINED_MODEL);
     string deploy_model = (string) data_config_.Value(FILE_COLOR_DEPLOY_MODEL);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    int batch_size = (int) cconfig.Value(ADVANCED_STYLE_BATCH_SIZE);
+    int batch_size = (int) cconfig.Value(ADVANCED_COLOR_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-    for (int i = 0; i < 1; i++) {
+    int model_num = (int) cconfig.Value(ADVANCED_COLOR_MODEL_NUM);
+
+    for (int i = 0; i < model_num; i++) {
         VehicleCaffeClassifier::VehicleCaffeConfig config;
         config.model_file = model_path + trained_model;
         config.deploy_file = model_path + deploy_model;
@@ -222,7 +224,38 @@ void ConfigFilter::createWindowConfig(
     wConfig.gpu_id = gpu_id;
 
 }
+void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
+    pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
+    cout<<"test "<<(string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+                    + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL)<<endl;
+    pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
 
+    pConfig->rpnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_RPN_SYMBOL);
+    pConfig->rpnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_RPN_PARAM);
+
+    pConfig->roipSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_ROIP_SYMBOL);
+    pConfig->roipParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_ROIP_PARAM);
+
+    pConfig->pregSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_POLYREG_SYMBOL);
+    pConfig->pregParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_POLYREG_PARAM);
+
+    pConfig->chrecogSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_CHRECOG_SYMBOL);
+    pConfig->chrecogParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+            + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
+
+    int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
+
+    pConfig->batchsize=batch_size;
+}
 int ConfigFilter::initDataConfig(const Config &config) {
     string data_config_path = (string) config.Value(DATAPATH);
     string json_data = ReadStringFromFile(data_config_path, "r");

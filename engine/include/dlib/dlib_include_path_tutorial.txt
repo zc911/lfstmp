@@ -1,4 +1,4 @@
-#error "Don't put the dlib folder in your include path"
+
 /*
   You are getting this error because you have added the dlib folder to your
   compiler's include search path.  
