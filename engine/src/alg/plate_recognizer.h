@@ -32,7 +32,7 @@ public:
         bool isSharpen;
     } PlateConfig;
 
-    PlateRecognizer(const PlateConfig &config);
+    static PlateRecognizer* Instance(const PlateConfig &config);
 
     virtual ~PlateRecognizer();
     template<class F, class... Args>
@@ -51,6 +51,7 @@ protected:
     TH_PlateIDResult result;
     int nRet = 0;
 private:
+    PlateRecognizer(const PlateConfig &config);
     int recognizeImage(const Mat &img);
     // need to keep track of threads so we can join them
     std::vector< std::thread > workers;
