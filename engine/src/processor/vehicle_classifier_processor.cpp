@@ -1,4 +1,5 @@
 #include "vehicle_classifier_processor.h"
+#include "processor_helper.h"
 
 namespace dg {
 
@@ -52,6 +53,15 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
+
+#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
+    images_.clear();
     vehiclesResizedMat(frameBatch);
     return true;
 }
@@ -75,6 +85,12 @@ void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
             DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
+}
+
+bool VehicleClassifierProcessor::RecordFeaturePerformance() {
+
+    return RecordPerformance(FEATURE_CAR_STYLE,performance_);
+
 }
 
 }
