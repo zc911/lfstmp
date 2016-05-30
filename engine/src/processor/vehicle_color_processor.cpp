@@ -53,12 +53,21 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
         color.confidence = max.second;
         v->set_color(color);
     }
-
     return true;
+
 }
 
 bool VehicleColorProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    vehiclesResizedMat(frameBatch);
+
+#if DEBUG
+//#if RELEASE
+    if(performance_>20000) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
+#endif
+    this->vehiclesResizedMat(frameBatch);
     return true;
 }
 
@@ -85,6 +94,10 @@ void VehicleColorProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
         }
     }
 }
+bool VehicleColorProcessor::RecordFeaturePerformance() {
 
+    return RecordPerformance(FEATURE_CAR_COLOR, performance_);
+
+}
 }
 

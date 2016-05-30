@@ -32,6 +32,10 @@ class CarRankProcessor : public Processor {
     virtual bool process(FrameBatch *frameBatch) {
         return false;
     }
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+
+
+    virtual bool RecordFeaturePerformance();
 
  private:
     string t_profiler_str_;
