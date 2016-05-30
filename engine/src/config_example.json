@@ -61,6 +61,7 @@
 			"EnableType" : true,
 			"EnableColor" : true,
 			"EnablePlate" : true,
+			"EnableGpuPlate": false,
 			"EnablePlateEnhanced" : false,
 			"EnableMarker" : true,
 			"EnableFeatureVector" : true

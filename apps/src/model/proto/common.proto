@@ -69,6 +69,7 @@ message Cutboard {
 	uint32 Height = 4;
 	uint32 ResWidth = 5;
 	uint32 ResHeight = 6;
+	float Confidence = 7;
 }
 
 enum ObjType {
