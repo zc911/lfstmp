@@ -25,6 +25,9 @@ class FaceFeatureExtractProcessor : public Processor {
  protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
+
+    virtual bool RecordFeaturePerformance();
+
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
  private:
