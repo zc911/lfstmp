@@ -53,13 +53,7 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
 bool VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
-            return false;
-        }
-    }
-#endif
+
     images_.clear();
     vehiclesResizedMat(frameBatch);
     return true;
