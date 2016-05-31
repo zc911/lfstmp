@@ -77,6 +77,12 @@ PlateRecognizer::~PlateRecognizer() {
     for (std::thread &worker: workers)
         worker.join();
 }
+
+PlateRecognizer *PlateRecognizer::Instance(const PlateConfig &config) {
+    static PlateRecognizer *instance = new PlateRecognizer(config);
+    return instance;
+}
+
 template<class F, class... Args>
 auto PlateRecognizer::enqueue(F &&f, Args &&... args)
 -> std::future<typename std::result_of<F(Args...)>::type> {
@@ -100,48 +106,7 @@ auto PlateRecognizer::enqueue(F &&f, Args &&... args)
     return res;
 }
 
-int PlateRecognizer::recognizeImage(const Mat &img) {
-    Mat sample;
 
-    if (img.channels() == 4)
-        cvtColor(img, sample, CV_BGRA2BGR);
-    else if (img.channels() == 1)
-        cvtColor(img, sample, CV_GRAY2BGR);
-    else
-        sample = img;
-
-    if (sample.channels() != 3) {
-        LOG(INFO) << "Sample color error" << sample.channels() << endl;
-    }
-
-    // TODO resize if image too large
-//    if ((sample.rows > 1000) || (sample.cols > 1000)) {
-//        return -1;
-//    }
-
-    unsigned char *pImg = new unsigned char[sample.rows * sample.cols * 3];
-
-    int cnt = 0;
-    for (int i = 0; i < sample.rows; i++) {
-        for (int j = 0; j < sample.cols; j++) {
-            for (int c = 0; c < sample.channels(); c++) {
-                pImg[cnt++] = sample.at<uchar>(i, j * 3 + c);
-            }
-        }
-    }
-
-    int nResultNum = 1;
-
-    int nRet = TH_RecogImage(pImg, sample.cols, sample.rows, &result,
-                             &nResultNum, NULL, &c_Config);
-
-    delete[] pImg;
-
-    if (nRet != 0) {
-        LOG(WARNING) << "Plate recognizer error : " << nRet << endl;
-    }
-    return nRet;
-}
 int r(const Mat &img, TH_PlateIDResult &result, TH_PlateIDCfg *c_Config) {
     Mat sample;
 
@@ -182,27 +147,6 @@ int r(const Mat &img, TH_PlateIDResult &result, TH_PlateIDCfg *c_Config) {
         LOG(WARNING) << "Plate recognizer error : " << nRet << endl;
     }
     return nRet;
-}
-Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
-    if (nRet != 0) {
-        LOG(INFO) << "plate recognizer error : " << nRet << endl;
-    }
-
-    recognizeImage(img);
-
-    Vehicle::Plate plate;
-    plate.plate_num = result.license;
-    plate.color_id = result.nColor;
-    plate.plate_type = result.nType;
-    plate.confidence = result.nConfidence / 100.0;
-
-    Box cutboard;
-    cutboard.x = result.rcLocation.left;
-    cutboard.y = result.rcLocation.top;
-    cutboard.width = result.rcLocation.right - result.rcLocation.left;
-    cutboard.height = result.rcLocation.bottom - result.rcLocation.top;
-    plate.box = cutboard;
-    return plate;
 }
 
 vector<Vehicle::Plate> PlateRecognizer::RecognizeBatch(
@@ -257,5 +201,71 @@ void PlateRecognizer::Init(void *config) {
     TH_GetKeyMaxThread(&nthreads);
 
 }
+
+int PlateRecognizer::recognizeImage(const Mat &img) {
+    Mat sample;
+
+    if (img.channels() == 4)
+        cvtColor(img, sample, CV_BGRA2BGR);
+    else if (img.channels() == 1)
+        cvtColor(img, sample, CV_GRAY2BGR);
+    else
+        sample = img;
+
+    if (sample.channels() != 3) {
+        LOG(INFO) << "Sample color error" << sample.channels() << endl;
+    }
+
+    // TODO resize if image too large
+//    if ((sample.rows > 1000) || (sample.cols > 1000)) {
+//        return -1;
+//    }
+
+    unsigned char *pImg = new unsigned char[sample.rows * sample.cols * 3];
+
+    int cnt = 0;
+    for (int i = 0; i < sample.rows; i++) {
+        for (int j = 0; j < sample.cols; j++) {
+            for (int c = 0; c < sample.channels(); c++) {
+                pImg[cnt++] = sample.at<uchar>(i, j * 3 + c);
+            }
+        }
+    }
+
+    int nResultNum = 1;
+
+    int nRet = TH_RecogImage(pImg, sample.cols, sample.rows, &result,
+                             &nResultNum, NULL, &c_Config);
+
+    delete[] pImg;
+
+    if (nRet != 0) {
+        LOG(WARNING) << "Plate recognizer error : " << nRet << endl;
+    }
+    return nRet;
+}
+
+Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
+    if (nRet != 0) {
+        LOG(INFO) << "plate recognizer error : " << nRet << endl;
+    }
+
+    recognizeImage(img);
+
+    Vehicle::Plate plate;
+    plate.plate_num = result.license;
+    plate.color_id = result.nColor;
+    plate.plate_type = result.nType;
+    plate.confidence = result.nConfidence / 100.0;
+
+    Box cutboard;
+    cutboard.x = result.rcLocation.left;
+    cutboard.y = result.rcLocation.top;
+    cutboard.width = result.rcLocation.right - result.rcLocation.left;
+    cutboard.height = result.rcLocation.bottom - result.rcLocation.top;
+    plate.box = cutboard;
+    return plate;
+}
+
 
 } /* namespace dg */
