@@ -25,11 +25,8 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
     }
 
     /* Load the network. */
-//    net_.reset(
-//            new Net<float>(markerconfig.deploy_file, TEST, markerconfig.is_model_encrypt));
-
     net_.reset(
-        new Net<float>(markerconfig.deploy_file, TEST));
+            new Net<float>(markerconfig.deploy_file, TEST));
     net_->CopyTrainedLayersFrom(marker_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
@@ -443,3 +440,4 @@ MarkerCaffeClassifier::~MarkerCaffeClassifier() {
 
 }
 }
+
