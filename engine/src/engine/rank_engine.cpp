@@ -8,8 +8,8 @@
 
 namespace dg {
 
-CarRankEngine::CarRankEngine()
-        : id_(0) {
+CarRankEngine::CarRankEngine(const Config &config)
+        :RankEngine(config) , id_(0){
     processor_ = new CarRankProcessor();
 }
 
@@ -29,7 +29,7 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
 }
 
 FaceRankEngine::FaceRankEngine(const Config &config)
-        : id_(0) {
+        : RankEngine(config) ,id_(0) {
     init(config);
 }
 void FaceRankEngine::init(const Config &config) {
@@ -49,8 +49,9 @@ void FaceRankEngine::init(const Config &config) {
     extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
     ranker_ = new FaceRankProcessor();
-
 }
+
+
 FaceRankEngine::~FaceRankEngine() {
     delete detector_;
     delete extractor_;

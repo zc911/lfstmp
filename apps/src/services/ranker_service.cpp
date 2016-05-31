@@ -17,9 +17,11 @@ namespace dg {
 
 RankerAppsService::RankerAppsService(const Config *config)
     : config_(config),
-      car_ranker_(),
+      car_ranker_(*config),
       face_ranker_(*config) {
 
+    int limits=car_ranker_.GetMaxCandidatesSize();
+    LOG(INFO)<<"Limits "<<limits<<endl;
 }
 
 RankerAppsService::~RankerAppsService() {
@@ -81,8 +83,10 @@ MatrixError RankerAppsService::getRankedCarVector(const FeatureRankingRequest *r
 
     Rect hotspot = getHotspot(request, image);
 
+    int limits=car_ranker_.GetMaxCandidatesSize();
     vector<CarRankFeature> features;
-    err = extractFeatures(request, features);
+    err = extractFeatures(request, features,limits);
+
     if (err.code() != 0) {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
@@ -94,7 +98,6 @@ MatrixError RankerAppsService::getRankedCarVector(const FeatureRankingRequest *r
     sortAndFillResponse(request, scores, response);
     return err;
 }
-
 MatrixError RankerAppsService::getRankedFaceVector(
     const FeatureRankingRequest *request,
     FeatureRankingResponse *response) {
@@ -119,8 +122,9 @@ MatrixError RankerAppsService::getRankedFaceVector(
 
     Rect hotspot = getHotspot(request, image);
 
+    int limits=car_ranker_.GetMaxCandidatesSize();
     vector<FaceRankFeature> features;
-    err = extractFeatures(request, features);
+    err = extractFeatures(request, features,limits);
     if (err.code() != 0) {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
