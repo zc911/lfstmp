@@ -15,7 +15,6 @@
 #include "../model/common.pb.h"
 #include "../model/ranker.grpc.pb.h" //from apps
 #include "engine/rank_engine.h"
-
 using namespace cv;
 using namespace std;
 
@@ -54,14 +53,18 @@ private:
 
     template<typename F>
     static MatrixError extractFeatures(const FeatureRankingRequest *request,
-                                       vector<F> &features) {
+                                       vector<F> &features,int limits) {
         MatrixError err;
         if (request->candidates_size() <= 0) {
             err.set_code(-1);
             err.set_message("no candidates in request context");
             return err;
         }
-
+        if(request->candidates_size()>limits){
+            err.set_code(-1);
+            err.set_message("candidates are too many");
+            return err;
+        }
         for (int i = 0; i < request->candidates_size(); i++) {
             string featureStr = request->candidates(i).feature();
             if (featureStr.size() <= 0) {
