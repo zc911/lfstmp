@@ -134,6 +134,7 @@ static const string FILE_PLATE_CHRECOG_SYMBOL = "File/Plate/ChrecogSymbol";
 static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
 
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
+static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
 
 }
 
