@@ -42,6 +42,7 @@ void serveGrpc(Config *config, int userPort = 0) {
         grpc::Service *service = NULL;
         service = new GrpcRankerServiceImpl(config);
         grpc::ServerBuilder builder;
+        builder.SetMaxMessageSize(1024*1024*1024);
         builder.AddListeningPort(address, grpc::InsecureServerCredentials());
         builder.RegisterService(service);
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
