@@ -23,6 +23,7 @@
 #include "Simple-Web-Server/server_http.hpp" //from Simple-Web-Server
 #include "../model/common.pb.h"
 #include "debug_util.h"
+#include "services/engine_service.h"
 
 using namespace std;
 using namespace ::dg::model;
@@ -33,7 +34,6 @@ using BindFunction = std::function<MatrixError(const request_type *, response_ty
 
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 
-//template<class request_type, class response_type>
 class RestfulService {
 public:
     RestfulService(string protocol = "HTTP/1.1", string mime_type =
@@ -45,33 +45,34 @@ public:
     virtual ~RestfulService() {
     }
 
-//    template<class request_type, class response_type>
-//    template<class F, class... Args>
-//    using return_type = typename std::result_of<F(Args...)>::type;
     class CallData {
     public:
-        bool Wait() {
-            std::unique_lock<std::mutex> lock(m);
-            cond.wait(lock);
-            return true;
+        CallData() {
+            finished = false;
         }
-        void Finish() {
+        MatrixError Wait() {
+            std::unique_lock<std::mutex> lock(m);
+            cond.wait(lock, [this]() { return this->finished; });
+            return result;
+        }
+
+        void Run() {
+            result = func();
+            finished = true;
             cond.notify_all();
         }
-        void operator()(WitnessAppsService *apps) {
-//            std::bind(func, apps);
-            Finish();
-        }
+
     private:
         friend class RestfulService;
-        WitnessAppsService *apps;
+        bool finished;
+        MatrixError result;
+        void *apps;
         std::function<MatrixError()> func;
         std::mutex m;
         std::condition_variable cond;
 
     };
 
-//    template<class request_type, class response_type>
     void StartThread(WitnessAppsService *apps) {
 
         workers_.emplace_back([this, apps] {
@@ -92,10 +93,11 @@ public:
                   lock.unlock();
               }
               cout << "Process in thread: " << std::this_thread::get_id() << endl;
-              task->apps = apps;
-              MatrixError err = task->func();
-              task->Finish();
-//              (*task)();
+              // assign the current engine instance to task
+              task->apps = (void *) apps;
+              // task first binds the engine instance to the specific member methods
+              // and then invoke the binded function
+              task->Run();
               cout << "finish batch rec: " << endl;
           }
         });
@@ -107,10 +109,10 @@ public:
     auto enqueue(CallData *data) {
         {
             std::unique_lock<std::mutex> lock(queue_mutex_);
-//            if (stop_) {
-//                cout << "is stop" << endl;
-//                return 1;
-//            }
+            if (stop_) {
+                cout << "is stop" << endl;
+                return 1;
+            }
             tasks_.push(data);
         }
         condition_.notify_one();
@@ -132,10 +134,7 @@ protected:
     void bindFunc(HttpServer &server,
                   string endpoint,
                   string method,
-                  MatrixError(*func)(apps_type *, const request_type *, response_type *)
-    ) {
-
-//              std::function<MatrixError(const request_type *, response_type *)> func) {
+                  MatrixError(*func)(apps_type *, const request_type *, response_type *)) {
 
         server.resource[endpoint][method] =
             [this, func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
@@ -156,21 +155,19 @@ protected:
                       return;
                   }
                   CallData data;
-                  std::function<MatrixError(apps_type*, const request_type*, response_type*)> bf = func;
-                  data.func = [bf, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-                    return (bind(bf, data.apps, placeholders::_1, placeholders::_2))(&protobufRequestMessage,
-                                                                                       &protobufResponseMessage);
+                  data.func = [func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
+                    return (bind(func,(apps_type *) data.apps, placeholders::_1, placeholders::_2))(&protobufRequestMessage,
+                                                    &protobufResponseMessage);
                   };
+
                   this->enqueue(&data);
 
-                  if (data.Wait()) {
-                      cout << "Finish" << endl;
-                  }
+                  MatrixError error = data.Wait();
 
-//                  if (error.code() != 0) {
-//                      responseText(response, 500, error.message());
-//                      return;
-//                  }
+                  if (error.code() != 0) {
+                      responseText(response, 500, error.message());
+                      return;
+                  }
 
                   content = "";
                   pbjson::pb2json(&protobufResponseMessage, content);
