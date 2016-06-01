@@ -15,16 +15,30 @@
 #include "model/model.h"
 #include "model/rank_feature.h"
 #include "config.h"
+#include "engine_config_value.h"
+#define RANKER_MAXIMUM 10000
 
 namespace dg {
 
 class RankEngine {
+    public:
+    RankEngine(const Config &config){
+        SetMaxCandidatesSize(config);
+    }
+    virtual ~RankEngine(){};
+    void SetMaxCandidatesSize(const Config &config){
+        max_candidates_size_=min(RANKER_MAXIMUM,(int)config.Value(ADVANCED_RANKER_MAXIMUM));
+    }
+    int GetMaxCandidatesSize(){
+        return max_candidates_size_;
+    }
+    int max_candidates_size_;
 
 };
 
 class CarRankEngine : public RankEngine {
  public:
-    CarRankEngine();
+    CarRankEngine(const Config &config);
     virtual ~CarRankEngine();
 
     vector<Score> Rank(const Mat& image, const Rect& hotspot,
@@ -42,7 +56,6 @@ class FaceRankEngine : public RankEngine {
     virtual ~FaceRankEngine();
     vector<Score> Rank(const Mat& image, const Rect& hotspot,
                        const vector<FaceRankFeature>& candidates);
-
  private:
     void init(const Config &config);
     Identification id_;
