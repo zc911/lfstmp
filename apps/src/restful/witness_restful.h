@@ -15,12 +15,13 @@
 
 namespace dg {
 
+typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
+typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
 
 class RestWitnessServiceImpl final: public RestfulService {
 public:
     RestWitnessServiceImpl(const Config *config)
         : RestfulService() {
-//        , service_1_(config, "restService1"), service_2_(config, "restService1")
     }
     virtual ~RestWitnessServiceImpl() { }
 
@@ -36,39 +37,21 @@ public:
             BindFunction<WitnessRequest, WitnessResponse> recBinder =
                 std::bind(&WitnessAppsService::Recognize, apps, std::placeholders::_1, std::placeholders::_2);
 
-//            BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder =
-//                std::bind(&WitnessAppsService::BatchRecognize, apps, std::placeholders::_1, std::placeholders::_2);
 
-//            bind(server, "^/rec/image$", "POST", recBinder);
-//            std::function<MatrixError(const WitnessBatchRequest *, WitnessBatchResponse *)>
-//                f = &WitnessAppsService::BatchRecognize;
-
-            typedef MatrixError (*FUNC)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
-            FUNC func = (FUNC) &WitnessAppsService::BatchRecognize;
+            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
+            BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
 
             bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
-                                                                "^/rec/image/batch$",
-                                                                "POST", func);
+                                                                                    "^/rec/image/batch$",
+                                                                                    "POST", batch_func);
+            bindFunc(server, "^/rec/image$", "POST", rec_func);
 
             StartThread(apps);
 
         }
-//        InitServer(server, config);
-//        BindFunction<WitnessRequest, WitnessResponse> recBinder =
-//            std::bind(&WitnessAppsService::Recognize, &service_1_, std::placeholders::_1, std::placeholders::_2);
-//        BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder =
-//            std::bind(&WitnessAppsService::BatchRecognize, &service_1_, std::placeholders::_1, std::placeholders::_2);
-
-//        bind(server, "^/rec/image$", "POST", recBinder);
-//        bind(server, "^/rec/image/batch$", "POST", batchRecBinder);
-//    }
     }
 
     virtual void Bind(HttpServer &server) { };
-//private:
-//    WitnessAppsService service_1_;
-//
-//    WitnessAppsService service_2_;
 };
 }
 
