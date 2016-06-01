@@ -163,18 +163,14 @@ public:
     Payload *payload() {
         return payload_;
     }
-    void add_roi(Rect rect){
 
-    }
-    void add_roi(Margin margin){
-
-    }
     void set_roi(vector<Rect> &rois){
         rois_=rois;
     }
-    void set_roi(vector<Margin> &rois){
-     //   rois_=rois;
+    const vector<Rect> & get_rois(){
+        return rois_;
     }
+
 protected:
     Identification id_;
     Timestamp timestamp_;
