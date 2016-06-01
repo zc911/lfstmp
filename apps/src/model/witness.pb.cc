@@ -41,6 +41,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* WitnessBatchResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   WitnessBatchResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* WitnessRelativeROI_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  WitnessRelativeROI_reflection_ = NULL;
+const ::google::protobuf::Descriptor* WitnessMarginROI_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  WitnessMarginROI_reflection_ = NULL;
 const ::google::protobuf::Descriptor* WitnessRequestContext_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   WitnessRequestContext_reflection_ = NULL;
@@ -185,7 +191,43 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessBatchResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _is_default_instance_));
-  WitnessRequestContext_descriptor_ = file->message_type(6);
+  WitnessRelativeROI_descriptor_ = file->message_type(6);
+  static const int WitnessRelativeROI_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posx_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posy_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, width_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, height_),
+  };
+  WitnessRelativeROI_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      WitnessRelativeROI_descriptor_,
+      WitnessRelativeROI::default_instance_,
+      WitnessRelativeROI_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(WitnessRelativeROI),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _is_default_instance_));
+  WitnessMarginROI_descriptor_ = file->message_type(7);
+  static const int WitnessMarginROI_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, left_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, top_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, right_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, bottom_),
+  };
+  WitnessMarginROI_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      WitnessMarginROI_descriptor_,
+      WitnessMarginROI::default_instance_,
+      WitnessMarginROI_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(WitnessMarginROI),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _is_default_instance_));
+  WitnessRequestContext_descriptor_ = file->message_type(8);
   static const int WitnessRequestContext_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, functions_),
@@ -205,11 +247,13 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _is_default_instance_));
   WitnessRequestContext_ParamsEntry_descriptor_ = WitnessRequestContext_descriptor_->nested_type(0);
-  WitnessImage_descriptor_ = file->message_type(7);
-  static const int WitnessImage_offsets_[3] = {
+  WitnessImage_descriptor_ = file->message_type(9);
+  static const int WitnessImage_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, sensorid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, sensorname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, relativeroi_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, marginroi_),
   };
   WitnessImage_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -222,7 +266,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessImage),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _is_default_instance_));
-  WitnessResponseContext_descriptor_ = file->message_type(8);
+  WitnessResponseContext_descriptor_ = file->message_type(10);
   static const int WitnessResponseContext_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, status_),
@@ -243,7 +287,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
   WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
-  WitnessResult_descriptor_ = file->message_type(9);
+  WitnessResult_descriptor_ = file->message_type(11);
   static const int WitnessResult_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
@@ -263,7 +307,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessResult),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
-  RecognizedPedestrain_descriptor_ = file->message_type(10);
+  RecognizedPedestrain_descriptor_ = file->message_type(12);
   static const int RecognizedPedestrain_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedPedestrain, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedPedestrain, confidence_),
@@ -280,7 +324,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(RecognizedPedestrain),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedPedestrain, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedPedestrain, _is_default_instance_));
-  RecognizedVehicle_descriptor_ = file->message_type(11);
+  RecognizedVehicle_descriptor_ = file->message_type(13);
   static const int RecognizedVehicle_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, model_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, cutboard_),
@@ -303,7 +347,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(RecognizedVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedVehicle, _is_default_instance_));
-  RecognizedFace_descriptor_ = file->message_type(12);
+  RecognizedFace_descriptor_ = file->message_type(14);
   static const int RecognizedFace_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedFace, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedFace, confidence_),
@@ -320,7 +364,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(RecognizedFace),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedFace, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecognizedFace, _is_default_instance_));
-  VehicleModel_descriptor_ = file->message_type(13);
+  VehicleModel_descriptor_ = file->message_type(15);
   static const int VehicleModel_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, typeid__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, brandid_),
@@ -344,7 +388,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(VehicleModel),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(14);
+  LicensePlate_descriptor_ = file->message_type(16);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platenum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, cutboard_),
@@ -365,7 +409,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  SymbolItem_descriptor_ = file->message_type(15);
+  SymbolItem_descriptor_ = file->message_type(17);
   static const int SymbolItem_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, symbolname_),
@@ -382,7 +426,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(SymbolItem),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, _is_default_instance_));
-  Scene_descriptor_ = file->message_type(16);
+  Scene_descriptor_ = file->message_type(18);
   static const int Scene_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, ishead_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, isday_),
@@ -399,7 +443,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(Scene),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(17);
+  Symbol_descriptor_ = file->message_type(19);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -449,6 +493,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       WitnessResponse_descriptor_, &WitnessResponse::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       WitnessBatchResponse_descriptor_, &WitnessBatchResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      WitnessRelativeROI_descriptor_, &WitnessRelativeROI::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      WitnessMarginROI_descriptor_, &WitnessMarginROI::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       WitnessRequestContext_descriptor_, &WitnessRequestContext::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -508,6 +556,10 @@ void protobuf_ShutdownFile_witness_2eproto() {
   delete WitnessResponse_reflection_;
   delete WitnessBatchResponse::default_instance_;
   delete WitnessBatchResponse_reflection_;
+  delete WitnessRelativeROI::default_instance_;
+  delete WitnessRelativeROI_reflection_;
+  delete WitnessMarginROI::default_instance_;
+  delete WitnessMarginROI_reflection_;
   delete WitnessRequestContext::default_instance_;
   delete WitnessRequestContext_reflection_;
   delete WitnessImage::default_instance_;
@@ -559,68 +611,75 @@ void protobuf_AddDesc_witness_2eproto() {
     "ult\030\002 \001(\0132\027.dg.model.WitnessResult\"s\n\024Wi"
     "tnessBatchResponse\0221\n\007Context\030\001 \001(\0132 .dg"
     ".model.WitnessResponseContext\022(\n\007Results"
-    "\030\002 \003(\0132\027.dg.model.WitnessResult\"\230\002\n\025Witn"
-    "essRequestContext\022\021\n\tSessionId\030\001 \001(\t\022/\n\t"
-    "Functions\030\004 \003(\0162\034.dg.model.RecognizeFunc"
-    "tions\022%\n\004Type\030\005 \001(\0162\027.dg.model.Recognize"
-    "Type\022(\n\007Storage\030\006 \001(\0132\027.dg.model.Storage"
-    "Config\022;\n\006Params\030\007 \003(\0132+.dg.model.Witnes"
-    "sRequestContext.ParamsEntry\032-\n\013ParamsEnt"
-    "ry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"S\n\014Wi"
+    "\030\002 \003(\0132\027.dg.model.WitnessResult\"O\n\022Witne"
+    "ssRelativeROI\022\014\n\004PosX\030\001 \001(\005\022\014\n\004PosY\030\002 \001("
+    "\005\022\r\n\005Width\030\003 \001(\005\022\016\n\006Height\030\004 \001(\005\"L\n\020Witn"
+    "essMarginROI\022\014\n\004Left\030\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022"
+    "\r\n\005Right\030\003 \001(\005\022\016\n\006Bottom\030\004 \001(\005\"\230\002\n\025Witne"
+    "ssRequestContext\022\021\n\tSessionId\030\001 \001(\t\022/\n\tF"
+    "unctions\030\004 \003(\0162\034.dg.model.RecognizeFunct"
+    "ions\022%\n\004Type\030\005 \001(\0162\027.dg.model.RecognizeT"
+    "ype\022(\n\007Storage\030\006 \001(\0132\027.dg.model.StorageC"
+    "onfig\022;\n\006Params\030\007 \003(\0132+.dg.model.Witness"
+    "RequestContext.ParamsEntry\032-\n\013ParamsEntr"
+    "y\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\265\001\n\014Wi"
     "tnessImage\022\035\n\004Data\030\001 \001(\0132\017.dg.model.Imag"
-    "e\022\020\n\010SensorId\030\002 \001(\005\022\022\n\nSensorName\030\003 \001(\t\""
-    "\223\002\n\026WitnessResponseContext\022\021\n\tSessionId\030"
-    "\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!"
-    "\n\tRequestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nRes"
-    "ponseTs\030\005 \001(\0132\016.dg.model.Time\022>\n\007DebugTs"
-    "\030\006 \003(\0132-.dg.model.WitnessResponseContext"
-    ".DebugTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001"
-    "(\t\022\035\n\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\"\356\001"
-    "\n\rWitnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014"
-    "InnerMessage\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.m"
-    "odel.WitnessImage\022-\n\010Vehicles\030\004 \003(\0132\033.dg"
-    ".model.RecognizedVehicle\022\'\n\005Faces\030\005 \003(\0132"
-    "\030.dg.model.RecognizedFace\0223\n\013Pedestrains"
-    "\030\006 \003(\0132\036.dg.model.RecognizedPedestrain\"b"
-    "\n\024RecognizedPedestrain\022$\n\010Cutboard\030\001 \001(\013"
-    "2\022.dg.model.Cutboard\022\022\n\nConfidence\030\002 \001(\002"
-    "\022\020\n\010Features\030\003 \001(\t\"\314\002\n\021RecognizedVehicle"
-    "\022%\n\005Model\030\001 \001(\0132\026.dg.model.VehicleModel\022"
-    "$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cutboard\022\036\n"
-    "\005Color\030\003 \001(\0132\017.dg.model.Color\022,\n\014License"
-    "Plate\030\004 \001(\0132\026.dg.model.LicensePlate\022)\n\013S"
-    "ymbolItems\030\005 \003(\0132\024.dg.model.SymbolItem\022\020"
-    "\n\010Features\030\006 \001(\t\022\036\n\005Scene\030\007 \001(\0132\017.dg.mod"
-    "el.Scene\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model"
-    ".ObjType\022\027\n\017VehicleTypeName\030\t \001(\t\"\\\n\016Rec"
-    "ognizedFace\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model"
-    ".Cutboard\022\022\n\nConfidence\030\002 \001(\002\022\020\n\010Feature"
-    "s\030\003 \001(\t\"\276\001\n\014VehicleModel\022\016\n\006TypeId\030\001 \001(\005"
-    "\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n"
-    "\013ModelYearId\030\004 \001(\005\022\014\n\004Type\030\005 \001(\t\022\r\n\005Bran"
-    "d\030\006 \001(\t\022\020\n\010SubBrand\030\007 \001(\t\022\021\n\tModelYear\030\010"
-    " \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022\n\nConfidence\030\n \001(\002"
-    "\"\230\001\n\014LicensePlate\022\020\n\010PlateNum\030\001 \001(\t\022$\n\010C"
-    "utboard\030\002 \001(\0132\022.dg.model.Cutboard\022\017\n\007Col"
-    "orId\030\003 \001(\005\022\r\n\005Color\030\004 \001(\t\022\016\n\006TypeId\030\005 \001("
-    "\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nConfidence\030\007 \001(\002\"U\n\nS"
-    "ymbolItem\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolNam"
-    "e\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symb"
-    "ol\"6\n\005Scene\022\016\n\006IsHead\030\001 \001(\005\022\r\n\005IsDay\030\002 \001"
-    "(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006Symbol\022$\n\010Cutboard"
-    "\030\003 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfidence"
-    "\030\004 \001(\002*\337\001\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022"
-    "\022\n\016INDEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_MAIN_BR"
-    "AND\020\002\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n\024INDEX_"
-    "CAR_YEAR_MODEL\020\004\022\023\n\017INDEX_CAR_COLOR\020\005\022\024\n"
-    "\020INDEX_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_PLATE_T"
-    "YPE\020\007\022\031\n\025INDEX_CAR_PLATE_COLOR\020\0102\346\001\n\016Wit"
-    "nessService\022B\n\tRecognize\022\030.dg.model.Witn"
-    "essRequest\032\031.dg.model.WitnessResponse\"\000\022"
-    "Q\n\016BatchRecognize\022\035.dg.model.WitnessBatc"
-    "hRequest\032\036.dg.model.WitnessBatchResponse"
-    "\"\000\022=\n\010GetIndex\022\026.dg.model.IndexRequest\032\027"
-    ".dg.model.IndexResponse\"\000b\006proto3", 3113);
+    "e\022\020\n\010SensorId\030\002 \001(\005\022\022\n\nSensorName\030\003 \001(\t\022"
+    "1\n\013RelativeRoi\030\004 \003(\0132\034.dg.model.WitnessR"
+    "elativeROI\022-\n\tMarginRoi\030\005 \003(\0132\032.dg.model"
+    ".WitnessMarginROI\"\223\002\n\026WitnessResponseCon"
+    "text\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022"
+    "\017\n\007Message\030\003 \001(\t\022!\n\tRequestTs\030\004 \001(\0132\016.dg"
+    ".model.Time\022\"\n\nResponseTs\030\005 \001(\0132\016.dg.mod"
+    "el.Time\022>\n\007DebugTs\030\006 \003(\0132-.dg.model.Witn"
+    "essResponseContext.DebugTsEntry\032>\n\014Debug"
+    "TsEntry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg"
+    ".model.Time:\0028\001\"\356\001\n\rWitnessResult\022\023\n\013Inn"
+    "erStatus\030\001 \001(\t\022\024\n\014InnerMessage\030\002 \001(\t\022%\n\005"
+    "Image\030\003 \001(\0132\026.dg.model.WitnessImage\022-\n\010V"
+    "ehicles\030\004 \003(\0132\033.dg.model.RecognizedVehic"
+    "le\022\'\n\005Faces\030\005 \003(\0132\030.dg.model.RecognizedF"
+    "ace\0223\n\013Pedestrains\030\006 \003(\0132\036.dg.model.Reco"
+    "gnizedPedestrain\"b\n\024RecognizedPedestrain"
+    "\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022"
+    "\n\nConfidence\030\002 \001(\002\022\020\n\010Features\030\003 \001(\t\"\314\002\n"
+    "\021RecognizedVehicle\022%\n\005Model\030\001 \001(\0132\026.dg.m"
+    "odel.VehicleModel\022$\n\010Cutboard\030\002 \001(\0132\022.dg"
+    ".model.Cutboard\022\036\n\005Color\030\003 \001(\0132\017.dg.mode"
+    "l.Color\022,\n\014LicensePlate\030\004 \001(\0132\026.dg.model"
+    ".LicensePlate\022)\n\013SymbolItems\030\005 \003(\0132\024.dg."
+    "model.SymbolItem\022\020\n\010Features\030\006 \001(\t\022\036\n\005Sc"
+    "ene\030\007 \001(\0132\017.dg.model.Scene\022&\n\013VehicleTyp"
+    "e\030\010 \001(\0162\021.dg.model.ObjType\022\027\n\017VehicleTyp"
+    "eName\030\t \001(\t\"\\\n\016RecognizedFace\022$\n\010Cutboar"
+    "d\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfidenc"
+    "e\030\002 \001(\002\022\020\n\010Features\030\003 \001(\t\"\276\001\n\014VehicleMod"
+    "el\022\016\n\006TypeId\030\001 \001(\005\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nS"
+    "ubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\014\n\004"
+    "Type\030\005 \001(\t\022\r\n\005Brand\030\006 \001(\t\022\020\n\010SubBrand\030\007 "
+    "\001(\t\022\021\n\tModelYear\030\010 \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022"
+    "\n\nConfidence\030\n \001(\002\"\230\001\n\014LicensePlate\022\020\n\010P"
+    "lateNum\030\001 \001(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.mod"
+    "el.Cutboard\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 "
+    "\001(\t\022\016\n\006TypeId\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nCon"
+    "fidence\030\007 \001(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030"
+    "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
+    "(\0132\020.dg.model.Symbol\"6\n\005Scene\022\016\n\006IsHead\030"
+    "\001 \001(\005\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006"
+    "Symbol\022$\n\010Cutboard\030\003 \001(\0132\022.dg.model.Cutb"
+    "oard\022\022\n\nConfidence\030\004 \001(\002*\337\001\n\tIndexType\022\021"
+    "\n\rINDEX_DEFAULT\020\000\022\022\n\016INDEX_CAR_TYPE\020\001\022\030\n"
+    "\024INDEX_CAR_MAIN_BRAND\020\002\022\027\n\023INDEX_CAR_SUB"
+    "_BRAND\020\003\022\030\n\024INDEX_CAR_YEAR_MODEL\020\004\022\023\n\017IN"
+    "DEX_CAR_COLOR\020\005\022\024\n\020INDEX_CAR_MARKER\020\006\022\030\n"
+    "\024INDEX_CAR_PLATE_TYPE\020\007\022\031\n\025INDEX_CAR_PLA"
+    "TE_COLOR\020\0102\346\001\n\016WitnessService\022B\n\tRecogni"
+    "ze\022\030.dg.model.WitnessRequest\032\031.dg.model."
+    "WitnessResponse\"\000\022Q\n\016BatchRecognize\022\035.dg"
+    ".model.WitnessBatchRequest\032\036.dg.model.Wi"
+    "tnessBatchResponse\"\000\022=\n\010GetIndex\022\026.dg.mo"
+    "del.IndexRequest\032\027.dg.model.IndexRespons"
+    "e\"\000b\006proto3", 3371);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -629,6 +688,8 @@ void protobuf_AddDesc_witness_2eproto() {
   WitnessBatchRequest::default_instance_ = new WitnessBatchRequest();
   WitnessResponse::default_instance_ = new WitnessResponse();
   WitnessBatchResponse::default_instance_ = new WitnessBatchResponse();
+  WitnessRelativeROI::default_instance_ = new WitnessRelativeROI();
+  WitnessMarginROI::default_instance_ = new WitnessMarginROI();
   WitnessRequestContext::default_instance_ = new WitnessRequestContext();
   WitnessImage::default_instance_ = new WitnessImage();
   WitnessResponseContext::default_instance_ = new WitnessResponseContext();
@@ -647,6 +708,8 @@ void protobuf_AddDesc_witness_2eproto() {
   WitnessBatchRequest::default_instance_->InitAsDefaultInstance();
   WitnessResponse::default_instance_->InitAsDefaultInstance();
   WitnessBatchResponse::default_instance_->InitAsDefaultInstance();
+  WitnessRelativeROI::default_instance_->InitAsDefaultInstance();
+  WitnessMarginROI::default_instance_->InitAsDefaultInstance();
   WitnessRequestContext::default_instance_->InitAsDefaultInstance();
   WitnessImage::default_instance_->InitAsDefaultInstance();
   WitnessResponseContext::default_instance_->InitAsDefaultInstance();
@@ -2516,6 +2579,794 @@ WitnessBatchResponse::results() const {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int WitnessRelativeROI::kPosXFieldNumber;
+const int WitnessRelativeROI::kPosYFieldNumber;
+const int WitnessRelativeROI::kWidthFieldNumber;
+const int WitnessRelativeROI::kHeightFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+WitnessRelativeROI::WitnessRelativeROI()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.WitnessRelativeROI)
+}
+
+void WitnessRelativeROI::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+WitnessRelativeROI::WitnessRelativeROI(const WitnessRelativeROI& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRelativeROI)
+}
+
+void WitnessRelativeROI::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  posx_ = 0;
+  posy_ = 0;
+  width_ = 0;
+  height_ = 0;
+}
+
+WitnessRelativeROI::~WitnessRelativeROI() {
+  // @@protoc_insertion_point(destructor:dg.model.WitnessRelativeROI)
+  SharedDtor();
+}
+
+void WitnessRelativeROI::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void WitnessRelativeROI::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* WitnessRelativeROI::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return WitnessRelativeROI_descriptor_;
+}
+
+const WitnessRelativeROI& WitnessRelativeROI::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+WitnessRelativeROI* WitnessRelativeROI::default_instance_ = NULL;
+
+WitnessRelativeROI* WitnessRelativeROI::New(::google::protobuf::Arena* arena) const {
+  WitnessRelativeROI* n = new WitnessRelativeROI;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void WitnessRelativeROI::Clear() {
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<WitnessRelativeROI*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(posx_, height_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool WitnessRelativeROI::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessRelativeROI)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 PosX = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &posx_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_PosY;
+        break;
+      }
+
+      // optional int32 PosY = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_PosY:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &posy_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_Width;
+        break;
+      }
+
+      // optional int32 Width = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_Width:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &width_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_Height;
+        break;
+      }
+
+      // optional int32 Height = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_Height:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &height_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessRelativeROI)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRelativeROI)
+  return false;
+#undef DO_
+}
+
+void WitnessRelativeROI::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRelativeROI)
+  // optional int32 PosX = 1;
+  if (this->posx() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->posx(), output);
+  }
+
+  // optional int32 PosY = 2;
+  if (this->posy() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->posy(), output);
+  }
+
+  // optional int32 Width = 3;
+  if (this->width() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->width(), output);
+  }
+
+  // optional int32 Height = 4;
+  if (this->height() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->height(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRelativeROI)
+}
+
+::google::protobuf::uint8* WitnessRelativeROI::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRelativeROI)
+  // optional int32 PosX = 1;
+  if (this->posx() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->posx(), target);
+  }
+
+  // optional int32 PosY = 2;
+  if (this->posy() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->posy(), target);
+  }
+
+  // optional int32 Width = 3;
+  if (this->width() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->width(), target);
+  }
+
+  // optional int32 Height = 4;
+  if (this->height() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->height(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRelativeROI)
+  return target;
+}
+
+int WitnessRelativeROI::ByteSize() const {
+  int total_size = 0;
+
+  // optional int32 PosX = 1;
+  if (this->posx() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->posx());
+  }
+
+  // optional int32 PosY = 2;
+  if (this->posy() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->posy());
+  }
+
+  // optional int32 Width = 3;
+  if (this->width() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->width());
+  }
+
+  // optional int32 Height = 4;
+  if (this->height() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->height());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void WitnessRelativeROI::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const WitnessRelativeROI* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRelativeROI>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void WitnessRelativeROI::MergeFrom(const WitnessRelativeROI& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.posx() != 0) {
+    set_posx(from.posx());
+  }
+  if (from.posy() != 0) {
+    set_posy(from.posy());
+  }
+  if (from.width() != 0) {
+    set_width(from.width());
+  }
+  if (from.height() != 0) {
+    set_height(from.height());
+  }
+}
+
+void WitnessRelativeROI::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WitnessRelativeROI::CopyFrom(const WitnessRelativeROI& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WitnessRelativeROI::IsInitialized() const {
+
+  return true;
+}
+
+void WitnessRelativeROI::Swap(WitnessRelativeROI* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void WitnessRelativeROI::InternalSwap(WitnessRelativeROI* other) {
+  std::swap(posx_, other->posx_);
+  std::swap(posy_, other->posy_);
+  std::swap(width_, other->width_);
+  std::swap(height_, other->height_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata WitnessRelativeROI::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = WitnessRelativeROI_descriptor_;
+  metadata.reflection = WitnessRelativeROI_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// WitnessRelativeROI
+
+// optional int32 PosX = 1;
+void WitnessRelativeROI::clear_posx() {
+  posx_ = 0;
+}
+ ::google::protobuf::int32 WitnessRelativeROI::posx() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.PosX)
+  return posx_;
+}
+ void WitnessRelativeROI::set_posx(::google::protobuf::int32 value) {
+  
+  posx_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosX)
+}
+
+// optional int32 PosY = 2;
+void WitnessRelativeROI::clear_posy() {
+  posy_ = 0;
+}
+ ::google::protobuf::int32 WitnessRelativeROI::posy() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.PosY)
+  return posy_;
+}
+ void WitnessRelativeROI::set_posy(::google::protobuf::int32 value) {
+  
+  posy_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosY)
+}
+
+// optional int32 Width = 3;
+void WitnessRelativeROI::clear_width() {
+  width_ = 0;
+}
+ ::google::protobuf::int32 WitnessRelativeROI::width() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.Width)
+  return width_;
+}
+ void WitnessRelativeROI::set_width(::google::protobuf::int32 value) {
+  
+  width_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Width)
+}
+
+// optional int32 Height = 4;
+void WitnessRelativeROI::clear_height() {
+  height_ = 0;
+}
+ ::google::protobuf::int32 WitnessRelativeROI::height() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.Height)
+  return height_;
+}
+ void WitnessRelativeROI::set_height(::google::protobuf::int32 value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Height)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int WitnessMarginROI::kLeftFieldNumber;
+const int WitnessMarginROI::kTopFieldNumber;
+const int WitnessMarginROI::kRightFieldNumber;
+const int WitnessMarginROI::kBottomFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+WitnessMarginROI::WitnessMarginROI()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.WitnessMarginROI)
+}
+
+void WitnessMarginROI::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+WitnessMarginROI::WitnessMarginROI(const WitnessMarginROI& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessMarginROI)
+}
+
+void WitnessMarginROI::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  left_ = 0;
+  top_ = 0;
+  right_ = 0;
+  bottom_ = 0;
+}
+
+WitnessMarginROI::~WitnessMarginROI() {
+  // @@protoc_insertion_point(destructor:dg.model.WitnessMarginROI)
+  SharedDtor();
+}
+
+void WitnessMarginROI::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void WitnessMarginROI::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* WitnessMarginROI::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return WitnessMarginROI_descriptor_;
+}
+
+const WitnessMarginROI& WitnessMarginROI::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+WitnessMarginROI* WitnessMarginROI::default_instance_ = NULL;
+
+WitnessMarginROI* WitnessMarginROI::New(::google::protobuf::Arena* arena) const {
+  WitnessMarginROI* n = new WitnessMarginROI;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void WitnessMarginROI::Clear() {
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<WitnessMarginROI*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(left_, bottom_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool WitnessMarginROI::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.WitnessMarginROI)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 Left = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &left_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_Top;
+        break;
+      }
+
+      // optional int32 Top = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_Top:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &top_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_Right;
+        break;
+      }
+
+      // optional int32 Right = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_Right:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &right_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_Bottom;
+        break;
+      }
+
+      // optional int32 Bottom = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_Bottom:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &bottom_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.WitnessMarginROI)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.WitnessMarginROI)
+  return false;
+#undef DO_
+}
+
+void WitnessMarginROI::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.WitnessMarginROI)
+  // optional int32 Left = 1;
+  if (this->left() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->left(), output);
+  }
+
+  // optional int32 Top = 2;
+  if (this->top() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->top(), output);
+  }
+
+  // optional int32 Right = 3;
+  if (this->right() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->right(), output);
+  }
+
+  // optional int32 Bottom = 4;
+  if (this->bottom() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->bottom(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.WitnessMarginROI)
+}
+
+::google::protobuf::uint8* WitnessMarginROI::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessMarginROI)
+  // optional int32 Left = 1;
+  if (this->left() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->left(), target);
+  }
+
+  // optional int32 Top = 2;
+  if (this->top() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->top(), target);
+  }
+
+  // optional int32 Right = 3;
+  if (this->right() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->right(), target);
+  }
+
+  // optional int32 Bottom = 4;
+  if (this->bottom() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->bottom(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessMarginROI)
+  return target;
+}
+
+int WitnessMarginROI::ByteSize() const {
+  int total_size = 0;
+
+  // optional int32 Left = 1;
+  if (this->left() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->left());
+  }
+
+  // optional int32 Top = 2;
+  if (this->top() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->top());
+  }
+
+  // optional int32 Right = 3;
+  if (this->right() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->right());
+  }
+
+  // optional int32 Bottom = 4;
+  if (this->bottom() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->bottom());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void WitnessMarginROI::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const WitnessMarginROI* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessMarginROI>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void WitnessMarginROI::MergeFrom(const WitnessMarginROI& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.left() != 0) {
+    set_left(from.left());
+  }
+  if (from.top() != 0) {
+    set_top(from.top());
+  }
+  if (from.right() != 0) {
+    set_right(from.right());
+  }
+  if (from.bottom() != 0) {
+    set_bottom(from.bottom());
+  }
+}
+
+void WitnessMarginROI::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void WitnessMarginROI::CopyFrom(const WitnessMarginROI& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool WitnessMarginROI::IsInitialized() const {
+
+  return true;
+}
+
+void WitnessMarginROI::Swap(WitnessMarginROI* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void WitnessMarginROI::InternalSwap(WitnessMarginROI* other) {
+  std::swap(left_, other->left_);
+  std::swap(top_, other->top_);
+  std::swap(right_, other->right_);
+  std::swap(bottom_, other->bottom_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata WitnessMarginROI::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = WitnessMarginROI_descriptor_;
+  metadata.reflection = WitnessMarginROI_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// WitnessMarginROI
+
+// optional int32 Left = 1;
+void WitnessMarginROI::clear_left() {
+  left_ = 0;
+}
+ ::google::protobuf::int32 WitnessMarginROI::left() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Left)
+  return left_;
+}
+ void WitnessMarginROI::set_left(::google::protobuf::int32 value) {
+  
+  left_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Left)
+}
+
+// optional int32 Top = 2;
+void WitnessMarginROI::clear_top() {
+  top_ = 0;
+}
+ ::google::protobuf::int32 WitnessMarginROI::top() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Top)
+  return top_;
+}
+ void WitnessMarginROI::set_top(::google::protobuf::int32 value) {
+  
+  top_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Top)
+}
+
+// optional int32 Right = 3;
+void WitnessMarginROI::clear_right() {
+  right_ = 0;
+}
+ ::google::protobuf::int32 WitnessMarginROI::right() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Right)
+  return right_;
+}
+ void WitnessMarginROI::set_right(::google::protobuf::int32 value) {
+  
+  right_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Right)
+}
+
+// optional int32 Bottom = 4;
+void WitnessMarginROI::clear_bottom() {
+  bottom_ = 0;
+}
+ ::google::protobuf::int32 WitnessMarginROI::bottom() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Bottom)
+  return bottom_;
+}
+ void WitnessMarginROI::set_bottom(::google::protobuf::int32 value) {
+  
+  bottom_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Bottom)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int WitnessRequestContext::kSessionIdFieldNumber;
 const int WitnessRequestContext::kFunctionsFieldNumber;
 const int WitnessRequestContext::kTypeFieldNumber;
@@ -3138,6 +3989,8 @@ WitnessRequestContext::mutable_params() {
 const int WitnessImage::kDataFieldNumber;
 const int WitnessImage::kSensorIdFieldNumber;
 const int WitnessImage::kSensorNameFieldNumber;
+const int WitnessImage::kRelativeRoiFieldNumber;
+const int WitnessImage::kMarginRoiFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessImage::WitnessImage()
@@ -3210,6 +4063,8 @@ void WitnessImage::Clear() {
   data_ = NULL;
   sensorid_ = 0;
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  relativeroi_.Clear();
+  marginroi_.Clear();
 }
 
 bool WitnessImage::MergePartialFromCodedStream(
@@ -3262,6 +4117,39 @@ bool WitnessImage::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_RelativeRoi;
+        break;
+      }
+
+      // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_RelativeRoi:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_RelativeRoi:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_relativeroi()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_loop_RelativeRoi;
+        if (input->ExpectTag(42)) goto parse_loop_MarginRoi;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+      case 5: {
+        if (tag == 42) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_MarginRoi:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_marginroi()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_loop_MarginRoi;
+        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3311,6 +4199,18 @@ void WitnessImage::SerializeWithCachedSizes(
       3, this->sensorname(), output);
   }
 
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->relativeroi(i), output);
+  }
+
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->marginroi(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.WitnessImage)
 }
 
@@ -3338,6 +4238,20 @@ void WitnessImage::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->sensorname(), target);
+  }
+
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->relativeroi(i), target);
+  }
+
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->marginroi(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessImage)
@@ -3368,6 +4282,22 @@ int WitnessImage::ByteSize() const {
         this->sensorname());
   }
 
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  total_size += 1 * this->relativeroi_size();
+  for (int i = 0; i < this->relativeroi_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->relativeroi(i));
+  }
+
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  total_size += 1 * this->marginroi_size();
+  for (int i = 0; i < this->marginroi_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->marginroi(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -3388,6 +4318,8 @@ void WitnessImage::MergeFrom(const ::google::protobuf::Message& from) {
 
 void WitnessImage::MergeFrom(const WitnessImage& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  relativeroi_.MergeFrom(from.relativeroi_);
+  marginroi_.MergeFrom(from.marginroi_);
   if (from.has_data()) {
     mutable_data()->::dg::model::Image::MergeFrom(from.data());
   }
@@ -3425,6 +4357,8 @@ void WitnessImage::InternalSwap(WitnessImage* other) {
   std::swap(data_, other->data_);
   std::swap(sensorid_, other->sensorid_);
   sensorname_.Swap(&other->sensorname_);
+  relativeroi_.UnsafeArenaSwap(&other->relativeroi_);
+  marginroi_.UnsafeArenaSwap(&other->marginroi_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -3532,6 +4466,66 @@ void WitnessImage::clear_sensorname() {
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
+}
+
+// repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+int WitnessImage::relativeroi_size() const {
+  return relativeroi_.size();
+}
+void WitnessImage::clear_relativeroi() {
+  relativeroi_.Clear();
+}
+const ::dg::model::WitnessRelativeROI& WitnessImage::relativeroi(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Get(index);
+}
+::dg::model::WitnessRelativeROI* WitnessImage::mutable_relativeroi(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Mutable(index);
+}
+::dg::model::WitnessRelativeROI* WitnessImage::add_relativeroi() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >*
+WitnessImage::mutable_relativeroi() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessImage.RelativeRoi)
+  return &relativeroi_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >&
+WitnessImage::relativeroi() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_;
+}
+
+// repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+int WitnessImage::marginroi_size() const {
+  return marginroi_.size();
+}
+void WitnessImage::clear_marginroi() {
+  marginroi_.Clear();
+}
+const ::dg::model::WitnessMarginROI& WitnessImage::marginroi(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Get(index);
+}
+::dg::model::WitnessMarginROI* WitnessImage::mutable_marginroi(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Mutable(index);
+}
+::dg::model::WitnessMarginROI* WitnessImage::add_marginroi() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >*
+WitnessImage::mutable_marginroi() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessImage.MarginRoi)
+  return &marginroi_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >&
+WitnessImage::marginroi() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessImage.MarginRoi)
+  return marginroi_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
