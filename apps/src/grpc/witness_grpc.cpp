@@ -126,6 +126,8 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
             service_->RequestRecognize(&ctx_, &request_, &responder_, cq_,
                                        cq_, this);
 
+        cout << "Change from CREATE to PROCESS:  " << this << "mode:" << batch_mode_ << endl;
+
     } else if (status_ == PROCESS) {
         // Spawn a new CallData instance to serve new clients while we process
         // the one for this CallData. The instance will deallocate itself as
@@ -156,9 +158,7 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
             // the event.
             status_ = FINISH;
             responder_.Finish(reply_, Status::OK, this);
-        }
-
-        if (batch_request_.has_context() || batch_request_.images_size() > 0) {
+        } else if (batch_request_.has_context() || batch_request_.images_size() > 0) {
             cout << "Get Batch Recognize request: " << batch_request_.context().sessionid() << endl;
             cout << "Start processing(Asyn): " << batch_request_.context().sessionid()
                 << "..." << endl;
@@ -176,6 +176,8 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
             // the event.
             status_ = FINISH;
             batch_responder_.Finish(batch_reply_, Status::OK, this);
+        }else{
+            cout << "Bad call data " << endl;
         }
 
     } else {
@@ -202,6 +204,7 @@ void GrpcWitnessServiceAsynImpl::HandleRpcs(WitnessAppsService *witness_apps_) {
         // event is uniquely identified by its tag, which in this case is the
         // memory address of a CallData instance.
         cq_->Next(&tag, &ok);
+        cout << "Get call data from queue: "<< tag << endl;
         if (!ok) {
             cout << "Invalid tag:  " << tag << endl;
             continue;
