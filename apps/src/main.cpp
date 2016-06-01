@@ -58,26 +58,31 @@ void serveHttp(const Config *config, int userPort = 0) {
     string instType = (string) config->Value("InstanceType");
     cout << "Instance type: " << instType << endl;
 
-    RestfulService *service = NULL;
-    if (instType == "witness") {
-        service = new RestWitnessServiceImpl(config);
-    } else if (instType == "ranker") {
-        service = new RestRankerServiceImpl(config);
-    } else {
-        cout << "unknown instance type: " << instType << endl;
-        return;
-    }
-
     int port = (int) config->Value("System/Port");
     if (userPort) {
         port = userPort;
     }
 
-    SimpleWeb::Server<SimpleWeb::HTTP> server(port, 1);  //at port with 1 thread
-    service->Bind(server);
+//    RestfulService *service = NULL;
+    if (instType == "witness") {
+        RestWitnessServiceImpl *service = new RestWitnessServiceImpl(config);
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, 5);  //at port with 1 thread
+        service->Bind(server, const_cast<Config&>(*config));
+        cout << "Server(RESTFUL) listening on " << port << endl;
+        server.start();
 
-    cout << "Server(RESTFUL) listening on " << port << endl;
-    server.start();
+    } else if (instType == "ranker") {
+//        service = new RestRankerServiceImpl(config);
+    } else {
+        cout << "unknown instance type: " << instType << endl;
+        return;
+    }
+
+
+
+
+
+
 }
 
 int main(int argc, char *argv[]) {
