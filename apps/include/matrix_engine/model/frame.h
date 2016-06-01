@@ -22,7 +22,12 @@ namespace dg {
 typedef enum {
 
 } FrameType;
-
+typedef struct{
+    int left;
+    int top;
+    int right;
+    int bottom;
+}Margin;
 enum FrameStatus {
     FRAME_STATUS_INIT = 0,
     FRAME_STATUS_DETECTED = 1,
@@ -102,7 +107,7 @@ public:
         }
         objects_.push_back(obj);
     }
-
+ //-   void set_roi()
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
@@ -159,6 +164,13 @@ public:
         return payload_;
     }
 
+    void set_roi(vector<Rect> &rois){
+        rois_=rois;
+    }
+    const vector<Rect> & get_rois(){
+        return rois_;
+    }
+
 protected:
     Identification id_;
     Timestamp timestamp_;
@@ -167,6 +179,7 @@ protected:
     Payload *payload_;
     vector<Object *> objects_;
     string error_msg_;
+    vector<Rect> rois_;
 };
 
 class RenderableFrame: public Frame {
