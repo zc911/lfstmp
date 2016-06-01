@@ -29,6 +29,7 @@ size_t write_callback(void *buffer, size_t size, size_t nmemb, void *stream) {
 }
 
 int UriReader::Read(const std::string uri, std::vector<uchar> &buffer, unsigned int timeout) {
+
     CURL *curl_handle = curl_easy_init();
     if (!curl_handle) {
         return -1;
