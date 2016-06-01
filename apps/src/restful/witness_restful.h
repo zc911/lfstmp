@@ -33,8 +33,8 @@ public:
             cout << "init apps " << i << endl;
             WitnessAppsService *apps = new WitnessAppsService(&config, "apps_" + to_string(i));
 
-//            BindFunction<WitnessRequest, WitnessResponse> recBinder =
-//                std::bind(&WitnessAppsService::Recognize, apps, std::placeholders::_1, std::placeholders::_2);
+            BindFunction<WitnessRequest, WitnessResponse> recBinder =
+                std::bind(&WitnessAppsService::Recognize, apps, std::placeholders::_1, std::placeholders::_2);
 
 //            BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder =
 //                std::bind(&WitnessAppsService::BatchRecognize, apps, std::placeholders::_1, std::placeholders::_2);
@@ -43,12 +43,12 @@ public:
 //            std::function<MatrixError(const WitnessBatchRequest *, WitnessBatchResponse *)>
 //                f = &WitnessAppsService::BatchRecognize;
 
-            typedef MatrixError (*FUNC)(const WitnessBatchRequest *, WitnessBatchResponse *);
-            FUNC func = (FUNC) &WitnessAppsService::BatchRecognize;
+//            typedef MatrixError (*FUNC)(const WitnessBatchRequest *, WitnessBatchResponse *);
+//            FUNC func = (FUNC) &WitnessAppsService::BatchRecognize;
 
             bindFunc<WitnessBatchRequest, WitnessBatchResponse>(server,
                                                                 "^/rec/image/batch$",
-                                                                "POST", func);
+                                                                "POST", &WitnessAppsService::BatchRecognize);
 
             StartThread(apps);
 
