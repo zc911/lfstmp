@@ -19,17 +19,40 @@
 namespace dg {
 
 ThreadPool *ImageService::pool = new ThreadPool(8);
-
 MatrixError ImageService::ParseImage(const Image &imgDes, ::cv::Mat &imgMat) {
     if (imgDes.uri().size() > 0) {
         return getImageFromUri(imgDes.uri(), imgMat);
     } else if (imgDes.bindata().size() > 0) {
         return getImageFromData(imgDes.bindata(), imgMat);
-    }
-
+     }
     MatrixError err;
     err.set_code(-1);
     err.set_message("image URI or Data is required!");
+    return err;
+}
+
+MatrixError ImageService::ParseImage(const WitnessImage &imgDes, ROIImages &imgroi) {
+    Mat imgMat;
+    MatrixError err;
+
+    if (imgDes.data().uri().size() > 0) {
+         err=getImageFromUri(imgDes.data().uri(), imgMat);
+    } else if (imgDes.data().bindata().size() > 0) {
+        err=getImageFromData(imgDes.data().bindata(), imgMat);
+    }else{
+        err.set_code(-1);
+        err.set_message("image URI or Data is required!");
+        return err;
+
+    }
+    std::vector<cv::Rect> rois;
+    if (imgDes.relativeroi().size() > 0) {
+        err=getRelativeROIs(imgDes.relativeroi(), rois);
+    } else {
+        err=getMarginROIs(imgDes.marginroi(),rois,imgMat);
+    }
+    imgroi.data=imgMat;
+    imgroi.rois=rois;
     return err;
 }
 
@@ -96,16 +119,8 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
 
         for (int i = 0; i < imgs.size(); ++i) {
             WitnessImage img = imgs[i];
-            cv::Mat mat;
             ROIImages roiimage;
-            ParseImage(img.data(), mat);
-            std::vector<cv::Rect> rois;
-            if (img.relativeroi().size() > 0) {
-                getRelativeROIs(img.relativeroi(), rois);
-            } else {
-
-            }
-
+            ParseImage(img, roiimage);
             roiimages.push_back(roiimage);
         }
         return err;
