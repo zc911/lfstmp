@@ -459,8 +459,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     struct timeval start, end;
     gettimeofday(&start, NULL);
-    Mat image;
-    err = ImageService::ParseImage(request->image().data(), image);
+    ROIImages roiimages;
+
+    err = ImageService::ParseImage(request->image(), roiimages);
     if (err.code() != 0) {
         LOG(ERROR) << "parse image failed, " << err.message();
         return err;
@@ -469,8 +470,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     cout << "Parse Image cost: " << TimeCostInMs(start, end) << endl;
 
     Identification curr_id = id_++;  //TODO: make thread safe
-    Frame *frame = new Frame(curr_id, image);
+    Frame *frame = new Frame(curr_id, roiimages.data);
     frame->set_operation(getOperation(request->context()));
+    frame->set_roi(roiimages.rois);
 
     FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
