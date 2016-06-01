@@ -553,24 +553,29 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
 
     Identification curr_id = id_++;
     FrameBatch framebatch(curr_id * 10);
-    vector<cv::Mat> imgMats;
-    vector<Image> imgDesc;
+    vector<WitnessImage> imgDesc;
+    vector<ROIImages> roiimages;
+    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> > roisr;
+    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> > roism;
 
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
         images.begin();
     while (itr != images.end()) {
-        imgDesc.push_back(const_cast<Image &>(itr->data()));
+        imgDesc.push_back(const_cast<WitnessImage &>(*itr));
+   //     roisr.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> &>(itr->relativeroi()));
+    //    roism.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> &>(itr->marginroi()));
         itr++;
     }
 
 
-    ImageService::ParseImage(imgDesc, imgMats, 10, true);
+    ImageService::ParseImage(imgDesc, roiimages, 10, true);
 
-    for (int i = 0; i < imgMats.size(); ++i) {
-        cv::Mat image = imgMats[i];
+    for (int i = 0; i < roiimages.size(); ++i) {
+        ROIImages image = roiimages[i];
         Identification curr_id = id_++;  //TODO: make thread safe
-        Frame *frame = new Frame(curr_id, image);
+        Frame *frame = new Frame(curr_id, image.data);
         frame->set_operation(getOperation(batchRequest->context()));
+        frame->set_roi(image.rois);
 
         framebatch.AddFrame(frame);
     }
@@ -605,7 +610,7 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     for (int i = 0; i < frames.size(); ++i) {
         Frame *frame = frames[i];
         ::dg::model::WitnessResult *result = batchResponse->add_results();
-        string uri = imgDesc[i].uri();
+        string uri = imgDesc[i].data().uri();
         result->mutable_image()->mutable_data()->set_uri(uri);
         err = getRecognizeResult(frame, result);
         if (err.code() != 0) {

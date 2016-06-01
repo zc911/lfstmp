@@ -55,6 +55,8 @@ class VehicleModel;
 class WitnessBatchRequest;
 class WitnessBatchResponse;
 class WitnessImage;
+class WitnessMarginROI;
+class WitnessRelativeROI;
 class WitnessRequest;
 class WitnessRequestContext;
 class WitnessResponse;
@@ -631,6 +633,204 @@ class WitnessBatchResponse : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class WitnessRelativeROI : public ::google::protobuf::Message {
+ public:
+  WitnessRelativeROI();
+  virtual ~WitnessRelativeROI();
+
+  WitnessRelativeROI(const WitnessRelativeROI& from);
+
+  inline WitnessRelativeROI& operator=(const WitnessRelativeROI& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const WitnessRelativeROI& default_instance();
+
+  void Swap(WitnessRelativeROI* other);
+
+  // implements Message ----------------------------------------------
+
+  inline WitnessRelativeROI* New() const { return New(NULL); }
+
+  WitnessRelativeROI* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const WitnessRelativeROI& from);
+  void MergeFrom(const WitnessRelativeROI& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(WitnessRelativeROI* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 PosX = 1;
+  void clear_posx();
+  static const int kPosXFieldNumber = 1;
+  ::google::protobuf::int32 posx() const;
+  void set_posx(::google::protobuf::int32 value);
+
+  // optional int32 PosY = 2;
+  void clear_posy();
+  static const int kPosYFieldNumber = 2;
+  ::google::protobuf::int32 posy() const;
+  void set_posy(::google::protobuf::int32 value);
+
+  // optional int32 Width = 3;
+  void clear_width();
+  static const int kWidthFieldNumber = 3;
+  ::google::protobuf::int32 width() const;
+  void set_width(::google::protobuf::int32 value);
+
+  // optional int32 Height = 4;
+  void clear_height();
+  static const int kHeightFieldNumber = 4;
+  ::google::protobuf::int32 height() const;
+  void set_height(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessRelativeROI)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 posx_;
+  ::google::protobuf::int32 posy_;
+  ::google::protobuf::int32 width_;
+  ::google::protobuf::int32 height_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static WitnessRelativeROI* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class WitnessMarginROI : public ::google::protobuf::Message {
+ public:
+  WitnessMarginROI();
+  virtual ~WitnessMarginROI();
+
+  WitnessMarginROI(const WitnessMarginROI& from);
+
+  inline WitnessMarginROI& operator=(const WitnessMarginROI& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const WitnessMarginROI& default_instance();
+
+  void Swap(WitnessMarginROI* other);
+
+  // implements Message ----------------------------------------------
+
+  inline WitnessMarginROI* New() const { return New(NULL); }
+
+  WitnessMarginROI* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const WitnessMarginROI& from);
+  void MergeFrom(const WitnessMarginROI& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(WitnessMarginROI* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 Left = 1;
+  void clear_left();
+  static const int kLeftFieldNumber = 1;
+  ::google::protobuf::int32 left() const;
+  void set_left(::google::protobuf::int32 value);
+
+  // optional int32 Top = 2;
+  void clear_top();
+  static const int kTopFieldNumber = 2;
+  ::google::protobuf::int32 top() const;
+  void set_top(::google::protobuf::int32 value);
+
+  // optional int32 Right = 3;
+  void clear_right();
+  static const int kRightFieldNumber = 3;
+  ::google::protobuf::int32 right() const;
+  void set_right(::google::protobuf::int32 value);
+
+  // optional int32 Bottom = 4;
+  void clear_bottom();
+  static const int kBottomFieldNumber = 4;
+  ::google::protobuf::int32 bottom() const;
+  void set_bottom(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.WitnessMarginROI)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 left_;
+  ::google::protobuf::int32 top_;
+  ::google::protobuf::int32 right_;
+  ::google::protobuf::int32 bottom_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static WitnessMarginROI* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class WitnessRequestContext : public ::google::protobuf::Message {
  public:
   WitnessRequestContext();
@@ -846,6 +1046,30 @@ class WitnessImage : public ::google::protobuf::Message {
   ::std::string* release_sensorname();
   void set_allocated_sensorname(::std::string* sensorname);
 
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  int relativeroi_size() const;
+  void clear_relativeroi();
+  static const int kRelativeRoiFieldNumber = 4;
+  const ::dg::model::WitnessRelativeROI& relativeroi(int index) const;
+  ::dg::model::WitnessRelativeROI* mutable_relativeroi(int index);
+  ::dg::model::WitnessRelativeROI* add_relativeroi();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >*
+      mutable_relativeroi();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >&
+      relativeroi() const;
+
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  int marginroi_size() const;
+  void clear_marginroi();
+  static const int kMarginRoiFieldNumber = 5;
+  const ::dg::model::WitnessMarginROI& marginroi(int index) const;
+  ::dg::model::WitnessMarginROI* mutable_marginroi(int index);
+  ::dg::model::WitnessMarginROI* add_marginroi();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >*
+      mutable_marginroi();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >&
+      marginroi() const;
+
   // @@protoc_insertion_point(class_scope:dg.model.WitnessImage)
  private:
 
@@ -853,6 +1077,8 @@ class WitnessImage : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::dg::model::Image* data_;
   ::google::protobuf::internal::ArenaStringPtr sensorname_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI > relativeroi_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI > marginroi_;
   ::google::protobuf::int32 sensorid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
@@ -2450,6 +2676,126 @@ WitnessBatchResponse::results() const {
 
 // -------------------------------------------------------------------
 
+// WitnessRelativeROI
+
+// optional int32 PosX = 1;
+inline void WitnessRelativeROI::clear_posx() {
+  posx_ = 0;
+}
+inline ::google::protobuf::int32 WitnessRelativeROI::posx() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.PosX)
+  return posx_;
+}
+inline void WitnessRelativeROI::set_posx(::google::protobuf::int32 value) {
+  
+  posx_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosX)
+}
+
+// optional int32 PosY = 2;
+inline void WitnessRelativeROI::clear_posy() {
+  posy_ = 0;
+}
+inline ::google::protobuf::int32 WitnessRelativeROI::posy() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.PosY)
+  return posy_;
+}
+inline void WitnessRelativeROI::set_posy(::google::protobuf::int32 value) {
+  
+  posy_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosY)
+}
+
+// optional int32 Width = 3;
+inline void WitnessRelativeROI::clear_width() {
+  width_ = 0;
+}
+inline ::google::protobuf::int32 WitnessRelativeROI::width() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.Width)
+  return width_;
+}
+inline void WitnessRelativeROI::set_width(::google::protobuf::int32 value) {
+  
+  width_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Width)
+}
+
+// optional int32 Height = 4;
+inline void WitnessRelativeROI::clear_height() {
+  height_ = 0;
+}
+inline ::google::protobuf::int32 WitnessRelativeROI::height() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRelativeROI.Height)
+  return height_;
+}
+inline void WitnessRelativeROI::set_height(::google::protobuf::int32 value) {
+  
+  height_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Height)
+}
+
+// -------------------------------------------------------------------
+
+// WitnessMarginROI
+
+// optional int32 Left = 1;
+inline void WitnessMarginROI::clear_left() {
+  left_ = 0;
+}
+inline ::google::protobuf::int32 WitnessMarginROI::left() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Left)
+  return left_;
+}
+inline void WitnessMarginROI::set_left(::google::protobuf::int32 value) {
+  
+  left_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Left)
+}
+
+// optional int32 Top = 2;
+inline void WitnessMarginROI::clear_top() {
+  top_ = 0;
+}
+inline ::google::protobuf::int32 WitnessMarginROI::top() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Top)
+  return top_;
+}
+inline void WitnessMarginROI::set_top(::google::protobuf::int32 value) {
+  
+  top_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Top)
+}
+
+// optional int32 Right = 3;
+inline void WitnessMarginROI::clear_right() {
+  right_ = 0;
+}
+inline ::google::protobuf::int32 WitnessMarginROI::right() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Right)
+  return right_;
+}
+inline void WitnessMarginROI::set_right(::google::protobuf::int32 value) {
+  
+  right_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Right)
+}
+
+// optional int32 Bottom = 4;
+inline void WitnessMarginROI::clear_bottom() {
+  bottom_ = 0;
+}
+inline ::google::protobuf::int32 WitnessMarginROI::bottom() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessMarginROI.Bottom)
+  return bottom_;
+}
+inline void WitnessMarginROI::set_bottom(::google::protobuf::int32 value) {
+  
+  bottom_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Bottom)
+}
+
+// -------------------------------------------------------------------
+
 // WitnessRequestContext
 
 // optional string SessionId = 1;
@@ -2690,6 +3036,66 @@ inline void WitnessImage::set_allocated_sensorname(::std::string* sensorname) {
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
+}
+
+// repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+inline int WitnessImage::relativeroi_size() const {
+  return relativeroi_.size();
+}
+inline void WitnessImage::clear_relativeroi() {
+  relativeroi_.Clear();
+}
+inline const ::dg::model::WitnessRelativeROI& WitnessImage::relativeroi(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Get(index);
+}
+inline ::dg::model::WitnessRelativeROI* WitnessImage::mutable_relativeroi(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Mutable(index);
+}
+inline ::dg::model::WitnessRelativeROI* WitnessImage::add_relativeroi() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >*
+WitnessImage::mutable_relativeroi() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessImage.RelativeRoi)
+  return &relativeroi_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >&
+WitnessImage::relativeroi() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessImage.RelativeRoi)
+  return relativeroi_;
+}
+
+// repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+inline int WitnessImage::marginroi_size() const {
+  return marginroi_.size();
+}
+inline void WitnessImage::clear_marginroi() {
+  marginroi_.Clear();
+}
+inline const ::dg::model::WitnessMarginROI& WitnessImage::marginroi(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Get(index);
+}
+inline ::dg::model::WitnessMarginROI* WitnessImage::mutable_marginroi(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Mutable(index);
+}
+inline ::dg::model::WitnessMarginROI* WitnessImage::add_marginroi() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessImage.MarginRoi)
+  return marginroi_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >*
+WitnessImage::mutable_marginroi() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessImage.MarginRoi)
+  return &marginroi_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI >&
+WitnessImage::marginroi() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessImage.MarginRoi)
+  return marginroi_;
 }
 
 // -------------------------------------------------------------------
@@ -4343,6 +4749,10 @@ inline void Symbol::set_confidence(float value) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
