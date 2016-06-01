@@ -43,12 +43,12 @@ public:
 //            std::function<MatrixError(const WitnessBatchRequest *, WitnessBatchResponse *)>
 //                f = &WitnessAppsService::BatchRecognize;
 
-//            typedef MatrixError (*FUNC)(const WitnessBatchRequest *, WitnessBatchResponse *);
-//            FUNC func = (FUNC) &WitnessAppsService::BatchRecognize;
+            typedef MatrixError (*FUNC)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
+            FUNC func = (FUNC) &WitnessAppsService::BatchRecognize;
 
-            bindFunc<WitnessBatchRequest, WitnessBatchResponse>(server,
+            bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
                                                                 "^/rec/image/batch$",
-                                                                "POST", &WitnessAppsService::BatchRecognize);
+                                                                "POST", func);
 
             StartThread(apps);
 
