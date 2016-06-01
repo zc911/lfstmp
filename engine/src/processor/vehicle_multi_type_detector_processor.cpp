@@ -58,6 +58,8 @@ LOG(INFO)<<"start detector"<<endl;
 
         for (int j = 0; j < imageDetection.size(); ++j) {
             Detection d = imageDetection[j];
+            if(!roiFilter(frame->get_rois(),d.box))
+                continue;
             Object *obj = NULL;
             if (d.id == DETECTION_PEDESTRIAN) {
                 // if is pedestrain
