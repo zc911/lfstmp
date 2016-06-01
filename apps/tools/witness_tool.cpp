@@ -51,7 +51,14 @@ static void Print(const WitnessResponse &resp) {
     pbjson::json2string(value, s);
     cout << s << endl;
 }
-
+static void Print(const WitnessRequest &req) {
+    cout << "=================" << endl;
+    cout << "SessionId:" << req.context().sessionid() << endl;
+    rapidjson::Value *value = pbjson::pb2jsonobject(&req);
+    string s;
+    pbjson::json2string(value, s);
+    cout << s << endl;
+}
 static void PrintCost(string s, struct timeval &start, struct timeval &end) {
     cout << s << (end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000 << endl;
 }
@@ -65,23 +72,24 @@ public:
     void Recognize(const string file_path, const string session_id, bool uri = true) {
         WitnessRequest req;
         WitnessRequestContext *ctx = req.mutable_context();
+
         ctx->set_sessionid(session_id);
+        WitnessImage *witnessimage =req.mutable_image();
         SetFunctions(ctx);
         if (uri){
-            req.mutable_image()->mutable_data()->set_uri(file_path);
+            witnessimage->mutable_data()->set_uri(file_path);
 
-
-            WitnessRelativeROI * roi = req.mutable_image()->add_relativeroi();
-            roi->set_posx(0);
-            roi->set_posy(0);
-            roi->set_width(1000);
-            roi->set_height(1000);
         }else {
             string s = encode2base64(file_path.c_str());
-             req.mutable_image()->mutable_data()->set_bindata(s);
+            witnessimage->mutable_data()->set_bindata(s);
         }
-
+        WitnessRelativeROI * roi = witnessimage->add_relativeroi();
+        roi->set_posx(0);
+        roi->set_posy(0);
+        roi->set_width(100);
+        roi->set_height(100);
         WitnessResponse resp;
+        Print(req);
         ClientContext context;
         struct timeval start, end;
         gettimeofday(&start, NULL);
@@ -91,6 +99,7 @@ public:
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
+
             PrintCost("Rec cost:", start, end);
         } else {
             cout << "Rec error: " << status.error_message() << endl;
@@ -104,12 +113,22 @@ public:
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
         for (vector<string>::iterator itr = file_paths.begin(); itr != file_paths.end(); ++itr) {
-            if (uri)
-                req.add_images()->mutable_data()->set_uri(*itr);
+            WitnessImage *image = req.add_images();
+
+            if (uri){
+                image->mutable_data()->set_uri(*itr);
+
+            }
             else {
                 string s = encode2base64((*itr).c_str());
-                req.add_images()->mutable_data()->set_bindata(s);
+                image->mutable_data()->set_bindata(s);
             }
+            WitnessRelativeROI * roi = image->add_relativeroi();
+            roi->set_posx(0);
+            roi->set_posy(0);
+            roi->set_width(100);
+            roi->set_height(100);
+
         }
 
         WitnessBatchResponse resp;
