@@ -106,8 +106,8 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
                    &pstConfig->stFCNN);
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;
-    pstConfig->stFCNN.adwShape[2] = 2600;
-    pstConfig->stFCNN.adwShape[3] = 2600;
+    pstConfig->stFCNN.adwShape[2] = 400;
+    pstConfig->stFCNN.adwShape[3] = 400;
 
     readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
                    &pstConfig->stRPN);
