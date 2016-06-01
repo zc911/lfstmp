@@ -13,26 +13,40 @@
 #include <opencv2/core/core.hpp>
 
 #include "../model/common.pb.h"
+#include "../model/witness.pb.h"
+#include "matrix_engine/model/frame.h"
+
 #include "simple_thread_pool.h"
 
 namespace dg {
-
+typedef struct {
+    cv::Mat data;
+    std::vector<cv::Rect> rois;
+} ROIImages;
 using namespace ::dg::model;
 
 const int IMAGE_SERVICE_THREAD_NUM = 8;
 
 class ImageService {
-public:
-    static MatrixError ParseImage(const ::dg::model::Image &image, ::cv::Mat &imgMat);
-    static MatrixError
-        ParseImage(vector<Image> &imgs, vector<cv::Mat> &imgMats, unsigned int timeout, bool concurrent = true);
+ public:
+    static MatrixError ParseImage(const ::dg::model::Image &image,
+                                  ::cv::Mat &imgMat);
+     MatrixError
+    static ParseImage(vector<WitnessImage> &imgs, vector<ROIImages> &imgMats,
+               unsigned int timeout, bool concurrent = true);
 
-private:
-    static MatrixError getImageFromUri(const std::string uri,
-                                       ::cv::Mat &imgMat, unsigned int timeout = 10);
+ private:
+    static MatrixError getImageFromUri(const std::string uri, ::cv::Mat &imgMat,
+                                       unsigned int timeout = 10);
     static MatrixError getImageFromData(const std::string img64,
                                         ::cv::Mat &imgMat);
-
+    static  MatrixError getRelativeROIs(
+            ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >,
+            std::vector<cv::Rect> &rois);
+    static MatrixError getMarginROIs(
+            ::google::protobuf::RepeatedPtrField<
+                    ::dg::model::WitnessMarginROI>,
+            std::vector<cv::Rect> &rois,const cv::Mat &img);
     static ThreadPool *pool;
 };
 

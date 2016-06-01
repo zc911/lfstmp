@@ -67,9 +67,16 @@ public:
         WitnessRequestContext *ctx = req.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
-        if (uri)
+        if (uri){
             req.mutable_image()->mutable_data()->set_uri(file_path);
-        else {
+
+
+            WitnessRelativeROI * roi = req.mutable_image()->add_relativeroi();
+            roi->set_posx(0);
+            roi->set_posy(0);
+            roi->set_width(1000);
+            roi->set_height(1000);
+        }else {
             string s = encode2base64(file_path.c_str());
              req.mutable_image()->mutable_data()->set_bindata(s);
         }
@@ -199,6 +206,7 @@ public:
 
         for (vector<string>::iterator itr = file_paths.begin(); itr != file_paths.end(); ++itr) {
             request.add_images()->mutable_data()->set_uri(*itr);
+
         }
 
         // Container for the data we expect from the server.
