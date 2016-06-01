@@ -19,6 +19,8 @@
 namespace dg {
 using namespace ::dg::model;
 
+
+
 class WitnessAppsService {
 public:
     WitnessAppsService(const Config *config, string name);
@@ -63,6 +65,7 @@ private:
     static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Detection &d, Cutboard *cb);
 
+
     MatrixError checkRequest(const WitnessRequest &request);
     MatrixError checkRequest(const WitnessBatchRequest &requests);
     MatrixError checkWitnessImage(const WitnessImage &wImage);
@@ -76,6 +79,7 @@ private:
     MatrixError getRecognizedFace(const Face *fobj, RecognizedFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
     MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecognizedPedestrain *result);
+
 
 };
 

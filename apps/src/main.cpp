@@ -5,6 +5,7 @@
 #include <grpc++/grpc++.h>
 
 #define BOOST_SPIRIT_THREADSAFE
+#include <curl/curl.h>
 #include "config.h"
 
 #include "grpc/witness_grpc.h"
@@ -42,6 +43,7 @@ void serveGrpc(Config *config, int userPort = 0) {
         grpc::Service *service = NULL;
         service = new GrpcRankerServiceImpl(config);
         grpc::ServerBuilder builder;
+        builder.SetMaxMessageSize(1024*1024*1024);
         builder.AddListeningPort(address, grpc::InsecureServerCredentials());
         builder.RegisterService(service);
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
@@ -90,6 +92,9 @@ int main(int argc, char *argv[]) {
     google::InitGoogleLogging(argv[0]);
 
     google::ParseCommandLineFlags(&argc, &argv, true);
+    // init curl in the main thread
+    // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
+    curl_global_init(CURL_GLOBAL_ALL);
 
     int userPort = 0;
     if (argc >= 2) {
