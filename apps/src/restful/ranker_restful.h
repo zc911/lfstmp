@@ -15,26 +15,26 @@
 
 namespace dg {
 
-class RestRankerServiceImpl final : public RestfulService
-{
-public:
-    RestRankerServiceImpl(const Config *config)
-    : RestfulService()
-    , service_(config)
-    {
-    }
-    virtual ~RestRankerServiceImpl() {}
-
-    virtual void Bind(HttpServer& server) override
-    {
-        BindFunction<FeatureRankingRequest, FeatureRankingResponse> rankBinder = std::bind(&RankerAppsService::GetRankedVector, &service_, std::placeholders::_1, std::placeholders::_2);
-
-        bind(server, "^/rank$", "POST", rankBinder);
-    }
-
-private:
-    RankerAppsService service_;
-};
+//class RestRankerServiceImpl final : public RestfulService<FeatureRankingRequest, FeatureRankingResponse>
+//{
+//public:
+//    RestRankerServiceImpl(const Config *config)
+//    : RestfulService()
+//    , service_(config)
+//    {
+//    }
+//    virtual ~RestRankerServiceImpl() {}
+//
+//    virtual void Bind(HttpServer& server) override
+//    {
+//        BindFunction<FeatureRankingRequest, FeatureRankingResponse> rankBinder = std::bind(&RankerAppsService::GetRankedVector, &service_, std::placeholders::_1, std::placeholders::_2);
+//
+//        bind(server, "^/rank$", "POST", rankBinder);
+//    }
+//
+//private:
+//    RankerAppsService service_;
+//};
 
 }
 
