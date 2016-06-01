@@ -67,7 +67,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
         roiimages.resize(imgs.size());
         for (int i = 0; i < imgs.size(); ++i) {
             pool->enqueue(
-                [&roiimages, &finishCount, &countmt, &waitmt, &cv](WitnessImage &img,
+                [&roiimages, &finishCount, &countmt, &cv](WitnessImage &img,
                                                                    int size,
                                                                    unsigned int timeout,
                                                                    int index) {
@@ -97,7 +97,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
 
                   if (finishCount == size) {
                       {
-                          std::unique_lock<mutex> waitlc(waitmt);
+//                          std::unique_lock<mutex> waitlc(waitmt);
                           cv.notify_all();
                       }
                   }
