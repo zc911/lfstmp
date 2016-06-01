@@ -46,6 +46,8 @@ public:
     }
 
 //    template<class request_type, class response_type>
+//    template<class F, class... Args>
+//    using return_type = typename std::result_of<F(Args...)>::type;
     class CallData {
     public:
         bool Wait() {
@@ -57,8 +59,7 @@ public:
             cond.notify_all();
         }
         void operator()(WitnessAppsService *apps) {
-//            std::function<MatrixError()> f = std::bind(func, apps);
-//            f(apps);
+//            std::bind(func, apps);
             Finish();
         }
     private:
@@ -90,27 +91,26 @@ public:
                   this->tasks_.pop();
                   lock.unlock();
               }
+              cout << "Process in thread: " << std::this_thread::get_id() << endl;
               task->apps = apps;
               MatrixError err = task->func();
-//              task->Finish();
+              task->Finish();
 //              (*task)();
               cout << "finish batch rec: " << endl;
           }
         });
+        stop_ = false;
 
     }
 
 
-//    template<class F, ponse_type>
     auto enqueue(CallData *data) {
-
-
         {
             std::unique_lock<std::mutex> lock(queue_mutex_);
-            if (stop_) {
-                cout << "is stop" << endl;
-                return 1;
-            }
+//            if (stop_) {
+//                cout << "is stop" << endl;
+//                return 1;
+//            }
             tasks_.push(data);
         }
         condition_.notify_one();
@@ -132,7 +132,7 @@ protected:
     void bindFunc(HttpServer &server,
                   string endpoint,
                   string method,
-                  MatrixError(*func)(const request_type *, response_type *)
+                  MatrixError(*func)(apps_type *, const request_type *, response_type *)
     ) {
 
 //              std::function<MatrixError(const request_type *, response_type *)> func) {
@@ -155,18 +155,12 @@ protected:
                       responseText(response, 400, "parameter conversion failed: " + err);
                       return;
                   }
-//                  MatrixError error = (&protobufRequestMessage, &protobufResponseMessage);
                   CallData data;
-                  typedef MatrixError(apps_type::*MemFunc)(const request_type *, response_type *);
-                  MemFunc memFunc = (MemFunc) func;
-                  data.func = [memFunc, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-
-                    return (bind(memFunc, data.apps, placeholders::_1, placeholders::_2))(&protobufRequestMessage,
+                  std::function<MatrixError(apps_type*, const request_type*, response_type*)> bf = func;
+                  data.func = [bf, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
+                    return (bind(bf, data.apps, placeholders::_1, placeholders::_2))(&protobufRequestMessage,
                                                                                        &protobufResponseMessage);
                   };
-//                  data.req = &protobufRequestMessage;
-//                  data.resp = &protobufResponseMessage;
-//                  this->tasks_.emplace();
                   this->enqueue(&data);
 
                   if (data.Wait()) {
