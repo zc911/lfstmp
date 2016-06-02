@@ -15,43 +15,55 @@
 
 namespace dg {
 
-typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
+typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 
 class RestWitnessServiceImpl final: public RestfulService {
 public:
-    RestWitnessServiceImpl(const Config *config)
-        : RestfulService() {
+    RestWitnessServiceImpl(Config config,
+                           string addr,
+                           MatrixEnginesPool<WitnessAppsService> *engine_pool)
+        : RestfulService(engine_pool), config_(config) {
+
     }
+
     virtual ~RestWitnessServiceImpl() { }
 
-    void Bind(HttpServer &server, Config &config) {
+    void Bind(HttpServer &server) {
 
+        RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
+        bindFunc<WitnessAppsService, WitnessRequest, WitnessResponse>(server, "^/rec/image$",
+                                                                      "POST", rec_func);
+        BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
+        bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
+                                                                                "/rec/image/batch$",
+                                                                                "POST",
+                                                                                batch_func);
 
-        int threadNum = (int) config.Value("System/ThreadsPerGpu");
-
-        for (int i = 0; i < threadNum; ++i) {
-            cout << "init apps " << i << endl;
-            WitnessAppsService *apps = new WitnessAppsService(&config, "apps_" + to_string(i));
-
-            BindFunction<WitnessRequest, WitnessResponse> recBinder =
-                std::bind(&WitnessAppsService::Recognize, apps, std::placeholders::_1, std::placeholders::_2);
-
-
-            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
-            BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
-
-            bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
-                                                                                    "^/rec/image/batch$",
-                                                                                    "POST", batch_func);
-            bindFunc(server, "^/rec/image$", "POST", rec_func);
-
-            StartThread(apps);
-
-        }
     }
 
-    virtual void Bind(HttpServer &server) { };
+    void Run() {
+        int port = (int) config_.Value("System/Port");
+        int gpuNum = (int) config_.Value("System/GpuNum");
+        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+
+        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
+        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
+
+        int threadNum = gpuNum * threadsPerGpu;
+
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
+        Bind(server);
+        if(engine_pool_ == NULL){
+            LOG(ERROR) << "Engine pool not initialized" << endl;
+        }
+        engine_pool_->Run();
+        cout << "Server(RESTFUL) listening on " << port << endl;
+        server.start();
+    }
+
+private:
+    Config config_;
 };
 }
 
