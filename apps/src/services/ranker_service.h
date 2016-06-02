@@ -39,7 +39,12 @@ private:
 
     MatrixError getRankedFaceVector(const FeatureRankingRequest *request,
                                     FeatureRankingResponse *response);
-
+    MatrixError getRankedAllVector(const FeatureRankingRequest *request,
+                                    FeatureRankingResponse *response);
+    MatrixError getCarScoredVector(vector<Score> &scores,const FeatureRankingRequest *request,
+                                    FeatureRankingResponse *response);
+    MatrixError getFaceScoredVector(vector<Score> &scores,const FeatureRankingRequest *request,
+                                    FeatureRankingResponse *response);
     static void sortAndFillResponse(const FeatureRankingRequest *request,
                                     vector<Score> &scores,
                                     FeatureRankingResponse *response);
