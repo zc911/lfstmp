@@ -25,14 +25,7 @@ void GrpcWitnessServiceImpl::Run() {
     builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
     builder.RegisterService(this);
     unique_ptr<grpc::Server> server(builder.BuildAndStart());
-
-    int threadNum = (int) config_->Value("System/ThreadsPerGpu");
-    threadNum = threadNum == 0 ? 3 : threadNum;
-    cout << "start thread : " << threadNum << endl;
-    for (int i = 0; i < 3; ++i) {
-        WitnessAppsService *engine = new WitnessAppsService(config_, "apps_" + to_string(i));
-        engine_pool_->StartThread(engine);
-    }
+    engine_pool_->Run();
     server->Wait();
 }
 

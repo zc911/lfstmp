@@ -59,33 +59,51 @@ private:
 template<typename E>
 class MatrixEnginesPool {
 public:
-    void StartThread(E *engine) {
-        workers_.emplace_back([this, engine] {
-          for (; ;) {
-              CallData *task;
-              {
 
-                  std::unique_lock<std::mutex> lock(queue_mutex_);
-                  condition_.wait(lock, [this] {
-                    return (this->stop_ || !this->tasks_.empty());
-                  });
+    MatrixEnginesPool(Config *config) : config_(config) {
 
-                  if (this->stop_ || this->tasks_.empty())
-                      return;
+    }
 
-                  task = this->tasks_.front();
-                  this->tasks_.pop();
-                  lock.unlock();
+    void Run() {
+        if (!stop_) {
+            LOG(ERROR) << "The engine pool already runing" << endl;
+            return;
+        }
+
+        int threadNum = (int) config_->Value("System/ThreadsPerGpu");
+        threadNum = threadNum == 0 ? 3 : threadNum;
+        cout << "start thread : " << threadNum << endl;
+        for (int i = 0; i < threadNum; ++i) {
+            WitnessAppsService *engine = new WitnessAppsService(config_, "apps_" + to_string(i));
+            workers_.emplace_back([this, engine] {
+              for (; ;) {
+                  CallData *task;
+                  {
+
+                      std::unique_lock<std::mutex> lock(queue_mutex_);
+                      condition_.wait(lock, [this] {
+                        return (this->stop_ || !this->tasks_.empty());
+                      });
+
+                      if (this->stop_ || this->tasks_.empty())
+                          return;
+
+                      task = this->tasks_.front();
+                      this->tasks_.pop();
+                      lock.unlock();
+                  }
+                  cout << "Process in thread: " << std::this_thread::get_id() << endl;
+                  // assign the current engine instance to task
+                  task->apps_ = (void *) engine;
+                  // task first binds the engine instance to the specific member methods
+                  // and then invoke the binded function
+                  task->Run();
+                  cout << "finish process: " << endl;
               }
-              cout << "Process in thread: " << std::this_thread::get_id() << endl;
-              // assign the current engine instance to task
-              task->apps_ = (void *) engine;
-              // task first binds the engine instance to the specific member methods
-              // and then invoke the binded function
-              task->Run();
-              cout << "finish process: " << endl;
-          }
-        });
+            });
+        }
+
+
         stop_ = false;
     }
     int enqueue(CallData *data) {
@@ -101,6 +119,7 @@ public:
         return 1;
     }
 private:
+    Config *config_;
     queue<CallData *> tasks_;
     vector<std::thread> workers_;
     std::mutex queue_mutex_;
