@@ -22,37 +22,42 @@ using namespace ::dg::model;
 
 class CallData {
 public:
-    CallData() {
-        finished = false;
+    CallData() : finished_(false) {
     }
+
     MatrixError Wait() {
-        std::unique_lock<std::mutex> lock(m);
-        cond.wait(lock, [this]() { return this->finished; });
-        return result;
+        std::unique_lock<std::mutex> lock(m_);
+        cond_.wait(lock, [this]() { return this->finished_; });
+        return result_;
+    }
+
+
+    void Finish() {
+        finished_ = true;
+        cond_.notify_all();
+    }
+
+
+    void Error(string msg) {
+        result_.set_code(-1);
+        result_.set_message(msg);
+        Finish();
     }
 
     void Run() {
-        result = func();
-        finished = true;
-        cond.notify_all();
+        result_ = func();
+        Finish();
     }
 
-    void *apps() {
-        return this->apps_;
-    }
-
-    void registApps(void *a) {
-        this->apps_ = a;
-    }
 
     std::function<MatrixError()> func;
-    void *apps_;
-private:
-    bool finished;
-    MatrixError result;
+    void *apps;
 
-    std::mutex m;
-    std::condition_variable cond;
+private:
+    volatile bool finished_;
+    MatrixError result_;
+    std::mutex m_;
+    std::condition_variable cond_;
 
 };
 
@@ -70,54 +75,69 @@ public:
             return;
         }
 
-        int threadNum = (int) config_->Value("System/ThreadsPerGpu");
-        threadNum = threadNum == 0 ? 3 : threadNum;
-        cout << "start thread : " << threadNum << endl;
-        for (int i = 0; i < threadNum; ++i) {
-            WitnessAppsService *engine = new WitnessAppsService(config_, "apps_" + to_string(i));
-            workers_.emplace_back([this, engine] {
-              for (; ;) {
-                  CallData *task;
-                  {
+        int gpuNum = (int) config_->Value("System/GpuNum");
+        gpuNum = gpuNum == 0 ? 1 : gpuNum;
 
-                      std::unique_lock<std::mutex> lock(queue_mutex_);
-                      condition_.wait(lock, [this] {
-                        return (this->stop_ || !this->tasks_.empty());
-                      });
+        for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
-                      if (this->stop_ || this->tasks_.empty())
-                          return;
+            config_->AddEntry("System/GpuId", AnyConversion(gpuId));
+            int threadNum = (int) config_->Value("System/ThreadsPerGpu");
+            threadNum = threadNum == 0 ? 1 : threadNum;
 
-                      task = this->tasks_.front();
-                      this->tasks_.pop();
-                      lock.unlock();
+            for (int i = 0; i < threadNum; ++i) {
+                string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
+                WitnessAppsService
+                    *engine = new WitnessAppsService(config_, name);
+                cout << "Start thread: " << name << endl;
+
+                workers_.emplace_back([this, engine] {
+                  for (; ;) {
+                      CallData *task;
+                      {
+
+                          std::unique_lock<std::mutex> lock(queue_mutex_);
+                          condition_.wait(lock, [this] {
+                            return (this->stop_ || !this->tasks_.empty());
+                          });
+
+                          if (this->stop_ || this->tasks_.empty()) {
+                              continue;
+                          }
+
+                          task = this->tasks_.front();
+                          this->tasks_.pop();
+                          lock.unlock();
+                      }
+                      cout << "Process in thread: " << std::this_thread::get_id() << endl;
+                      // assign the current engine instance to task
+                      task->apps = (void *) engine;
+                      // task first binds the engine instance to the specific member methods
+                      // and then invoke the binded function
+                      task->Run();
+                      cout << "finish process: " << endl;
                   }
-                  cout << "Process in thread: " << std::this_thread::get_id() << endl;
-                  // assign the current engine instance to task
-                  task->apps_ = (void *) engine;
-                  // task first binds the engine instance to the specific member methods
-                  // and then invoke the binded function
-                  task->Run();
-                  cout << "finish process: " << endl;
-              }
-            });
+                });
+            }
+
         }
 
-
+        cout << "Engine pool worker number: " << workers_.size() << endl;
         stop_ = false;
     }
-    int enqueue(CallData *data) {
+
+    bool enqueue(CallData *data) {
         {
             std::unique_lock<std::mutex> lock(queue_mutex_);
             if (stop_) {
-                cout << "is stop" << endl;
-                return 1;
+                data->Error("Engine pool not running");
+                return false;
             }
             tasks_.push(data);
         }
         condition_.notify_one();
-        return 1;
+        return true;
     }
+
 private:
     Config *config_;
     queue<CallData *> tasks_;
