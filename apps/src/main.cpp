@@ -13,6 +13,7 @@
 
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
+#include "services/engine_pool.h"
 
 #include "Simple-Web-Server/server_http.hpp"
 
@@ -34,11 +35,16 @@ void serveGrpc(Config *config, int userPort = 0) {
     string instType = (string) config->Value("InstanceType");
     cout << "Instance type: " << instType << endl;
     string address = getServerAddress(config, userPort);
-
+    MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>();
     if (instType == "witness") {
-        GrpcWitnessServiceAsynImpl *service = new GrpcWitnessServiceAsynImpl(config);
-        cout << "Server(RRPC AYSN) listening on " << address << endl;
+//        GrpcWitnessServiceAsynImpl *service = new GrpcWitnessServiceAsynImpl(config);
+//        cout << "Server(RRPC AYSN) listening on " << address << endl;
+//        service->Run();
+
+
+        GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(config, engine_pool);
         service->Run();
+
     } else if (instType == "ranker") {
         grpc::Service *service = NULL;
         service = new GrpcRankerServiceImpl(config);

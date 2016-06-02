@@ -8,9 +8,15 @@
 
 namespace dg {
 
-GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(const Config *config) : witness_apps_(config, "aaa") {
+GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config *config, MatrixEnginesPool<WitnessAppsService> *engine_pool) {
+
     addr_ = (string) config->Value("System/Ip") + ":"
         + (string) config->Value("System/Port");
+    config_ = config;
+
+    engine_pool_ = engine_pool;
+
+
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() { }
 
@@ -18,23 +24,69 @@ void GrpcWitnessServiceImpl::Run() {
     grpc::ServerBuilder builder;
     builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
     builder.RegisterService(this);
-    unique_ptr <grpc::Server> server(builder.BuildAndStart());
+    unique_ptr<grpc::Server> server(builder.BuildAndStart());
+
+    int threadNum = (int) config_->Value("System/ThreadsPerGpu");
+    threadNum = threadNum == 0 ? 3 : threadNum;
+    cout << "start thread : " << threadNum << endl;
+    for (int i = 0; i < 3; ++i) {
+        WitnessAppsService *engine = new WitnessAppsService(config_, "apps_" + to_string(i));
+        engine_pool_->StartThread(engine);
+    }
     server->Wait();
 }
 
 grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
                                                const WitnessRequest *request,
                                                WitnessResponse *response) {
-    MatrixError err = witness_apps_.Recognize(request, response);
-    return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+//    MatrixError err = witness_apps_.Recognize(request, response);
+//    return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
+    cout << "Get rec request" << endl;
+    CallData data;
+//    function<MatrixError()> func =
+//        bind(&WitnessAppsService::Recognize, (WitnessAppsService *) data.apps(), std::move(request), std::move(response));
+//
+//    data.func = func;
+
+    data.func = [request, response, &data]() -> MatrixError {
+      return (bind(&WitnessAppsService::Recognize,
+                   (WitnessAppsService *) data.apps(),
+                   placeholders::_1,
+                   placeholders::_2))(request,
+                                      response);
+    };
+
+    engine_pool_->enqueue(&data);
+
+    MatrixError error = data.Wait();
+
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 
 grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context,
                                                     const WitnessBatchRequest *request,
                                                     WitnessBatchResponse *response) {
-    std::thread::id threadId = std::this_thread::get_id();
-    MatrixError err = witness_apps_.BatchRecognize(request, response);
-    return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    cout << "Get batch rec request" << endl;
+    CallData data;
+//    function<MatrixError()> func =
+//        bind(&WitnessAppsService::Recognize, (WitnessAppsService *) data.apps(), std::move(request), std::move(response));
+//
+//    data.func = func;
+
+    data.func = [request, response, &data]() -> MatrixError {
+      return (bind(&WitnessAppsService::BatchRecognize,
+                   (WitnessAppsService *) data.apps(),
+                   placeholders::_1,
+                   placeholders::_2))(request,
+                                      response);
+    };
+
+    engine_pool_->enqueue(&data);
+
+    MatrixError error = data.Wait();
+
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 
 GrpcWitnessServiceAsynImpl::GrpcWitnessServiceAsynImpl(Config *config) : config_(config) {
@@ -176,7 +228,7 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
             // the event.
             status_ = FINISH;
             batch_responder_.Finish(batch_reply_, Status::OK, this);
-        }else{
+        } else {
             cout << "Bad call data " << endl;
         }
 
@@ -204,7 +256,7 @@ void GrpcWitnessServiceAsynImpl::HandleRpcs(WitnessAppsService *witness_apps_) {
         // event is uniquely identified by its tag, which in this case is the
         // memory address of a CallData instance.
         cq_->Next(&tag, &ok);
-        cout << "Get call data from queue: "<< tag << endl;
+        cout << "Get call data from queue: " << tag << endl;
         if (!ok) {
             cout << "Invalid tag:  " << tag << endl;
             continue;
