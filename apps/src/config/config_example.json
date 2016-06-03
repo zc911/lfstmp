@@ -1,16 +1,18 @@
 {
-	"Version": { "Code": "1.0.0",
+	"Version": {
+		"Code": "1.0.0",
 		"Model": "1.9"
 	},
+	"ProtocolType": "rpc|restful",
 	//"ProtocolType": "rpc",
-	"ProtocolType": "restful",
+	//"ProtocolType": "restful",
 	"InstanceType": "witness",
 	//"InstanceType" : "ranker",
 	"System": {
 		"Ip": "0.0.0.0",
-		"Port": 6500,
+		"Port": 6502,
 		"GpuNum": 1,
-		"ThreadsPerGpu": 4,
+		"ThreadsPerGpu": 2,
 		"EnableAsyn": true
 	},
 	"Feature": {
@@ -19,11 +21,11 @@
 			"EnableDetection": true,
 			"EnableType": true,
 			"EnableColor": true,
-			"EnablePlate": false,
-			"EnableGpuPlate" : false,
-			"EnablePlateEnhanced": false,
+			"EnablePlate": true,
+			"EnableGpuPlate": false,
+			"EnablePlateEnhanced": true,
 			"EnableMarker": true,
-			"EnableFeatureVector": false
+			"EnableFeatureVector": true
 		},
 		"Face": {
 			"Enable": false,
@@ -38,20 +40,20 @@
 		},
 		"Color": {
 			"BatchSize": 8,
-			"ModelNum": 1
+			"ModelNum": 2
 		},
 		"Style": {
 			"BatchSize": 8,
-			"ModelNum": 1
+			"ModelNum": 2
 		},
 		"Plate": {
 			"LocalProvince": "",
 			"OCR": 1,
 			"Locate": 5,
-			"EnableSharp": true
+			"EnableSharp": false
 		},
-		"PlateMxnet":{
-			"BatchSize":30
+		"PlateMxnet": {
+			"BatchSize": 30
 		},
 		"Marker": {
 			"MOTConfidence": 0.6,
