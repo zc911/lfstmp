@@ -12,14 +12,24 @@
 #include "ranker_service.h"
 #include "codec/base64.h"
 #include "image_service.h"
-
 namespace dg {
 
 RankerAppsService::RankerAppsService(const Config *config)
         : config_(config),
           car_ranker_(*config),
           face_ranker_(*config) {
-
+    int type =(int)config->Value("Ranker/DefaultType");
+    switch(type){
+        case dg::REC_TYPE_VEHICLE:
+            getRankedDefaultVector=&RankerAppsService::getRankedCarVector;
+            break;
+        case dg::REC_TYPE_FACE:
+            getRankedDefaultVector=&RankerAppsService::getRankedFaceVector;
+            break;
+        case dg::REC_TYPE_ALL:
+            getRankedDefaultVector=&RankerAppsService::getRankedAllVector;
+            break;
+    }
 }
 
 RankerAppsService::~RankerAppsService() {
@@ -40,7 +50,7 @@ MatrixError RankerAppsService::GetRankedVector(
             case dg::REC_TYPE_ALL:
                 return getRankedAllVector(request, response);
             case dg::REC_TYPE_DEFAULT:
-                return getRankedFaceVector(request, response);
+                return (this->*getRankedDefaultVector)(request, response);
 
             default:
                 LOG(ERROR)<< "bad request(" << request->reqid() << "), unknown action";
