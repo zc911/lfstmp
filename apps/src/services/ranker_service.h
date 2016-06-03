@@ -33,7 +33,8 @@ private:
     const Config *config_;
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
-
+    MatrixError (RankerAppsService::*getRankedDefaultVector)(const FeatureRankingRequest *,
+                                   FeatureRankingResponse *);
     MatrixError getRankedCarVector(const FeatureRankingRequest *request,
                                    FeatureRankingResponse *response);
 
