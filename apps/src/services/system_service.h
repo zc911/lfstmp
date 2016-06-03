@@ -22,15 +22,15 @@ class SystemAppsService {
     SystemAppsService(const Config *config);
     virtual ~SystemAppsService();
 
-    bool Ping(const PingRequest *request, PingResponse *response);
+    MatrixError Ping(const PingRequest *request, PingResponse *response);
 
-    bool SystemStatus(const SystemStatusRequest *request,
+    MatrixError SystemStatus(const SystemStatusRequest *request,
                       SystemStatusResponse *response);
 
-    bool GetInstances(const GetInstancesRequest *request,
+    MatrixError GetInstances(const GetInstancesRequest *request,
                       InstanceConfigureResponse *response);
 
-    bool ConfigEngine(const InstanceConfigureRequest *request,
+    MatrixError ConfigEngine(const InstanceConfigureRequest *request,
                       InstanceConfigureResponse *response);
 
  private:
