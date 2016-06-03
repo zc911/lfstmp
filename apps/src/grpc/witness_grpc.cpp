@@ -11,24 +11,11 @@ namespace dg {
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
                                                string addr,
                                                MatrixEnginesPool<WitnessAppsService> *engine_pool)
-    : config_(config),
-      addr_(addr),
-      engine_pool_(engine_pool) {
+    : BasicGrpcService(config, addr, engine_pool) {
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() { }
 
-void GrpcWitnessServiceImpl::Run() {
-    engine_pool_->Run();
-
-    grpc::ServerBuilder builder;
-    builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
-    builder.RegisterService(this);
-    unique_ptr<grpc::Server> server(builder.BuildAndStart());
-
-    cout << "Server(GRPC) listening on " << (int)config_.Value("System/Port") << endl;
-    server->Wait();
-}
 
 grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
                                                const WitnessRequest *request,

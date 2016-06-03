@@ -15,21 +15,21 @@
 
 namespace dg {
 
-RankerAppsService::RankerAppsService(const Config *config)
-    : config_(config),
-      car_ranker_(*config),
-      face_ranker_(*config) {
+RankerAppsService::RankerAppsService(const Config *config, string name)
+        : name_(name),
+          config_(config),
+          car_ranker_(*config),
+          face_ranker_(*config) {
 
-    int limits=car_ranker_.GetMaxCandidatesSize();
-    LOG(INFO)<<"Limits "<<limits<<endl;
 }
 
 RankerAppsService::~RankerAppsService() {
 
 }
 
-MatrixError RankerAppsService::GetRankedVector(const FeatureRankingRequest *request,
-                                               FeatureRankingResponse *response) {
+MatrixError RankerAppsService::GetRankedVector(
+        const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
     MatrixError err;
     try {
 
@@ -39,75 +39,84 @@ MatrixError RankerAppsService::GetRankedVector(const FeatureRankingRequest *requ
             case dg::REC_TYPE_FACE:
                 return getRankedFaceVector(request, response);
             case dg::REC_TYPE_ALL:
-                LOG(WARNING) << "bad request(" << request->reqid() << "), all type not supported";
-                err.set_code(-1);
-                err.set_message("bad request all type not supported");
-                return err;
+                return getRankedAllVector(request, response);
             case dg::REC_TYPE_DEFAULT:
+                return getRankedFaceVector(request, response);
+
             default:
-                LOG(ERROR) << "bad request(" << request->reqid() << "), unknown action";
+                LOG(ERROR)<< "bad request(" << request->reqid() << "), unknown action";
                 err.set_code(-1);
                 err.set_message("bad request, unknown action");
                 return err;
+            }
+        }
+        catch (const std::exception &e) {
+            LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
+            err.set_code(-1);
+            err.set_message(e.what());
+            return err;
         }
     }
-    catch (const std::exception &e) {
-        LOG(WARNING) << "bad request(" << request->reqid() << "), " << e.what() << endl;
-        err.set_code(-1);
-        err.set_message(e.what());
+MatrixError RankerAppsService::getRankedAllVector(
+        const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
+    vector<Score> faceScores;
+    vector<Score> carScores;
+    MatrixError err;
+    err = getFaceScoredVector(faceScores, request, response);
+    if (err.code() != 0) {
         return err;
+    }
+
+    err = getCarScoredVector(carScores, request, response);
+    if (err.code() != 0) {
+        return err;
+    }
+
+    int limit = getLimit(request);
+    if (faceScores.size() > 0) {
+        partial_sort(faceScores.begin(), faceScores.begin() + limit,
+                     faceScores.end());
+        faceScores.resize(limit);
+    }
+    if (carScores.size() > 0) {
+
+        partial_sort(carScores.begin(), carScores.begin() + limit,
+                     carScores.end());
+        carScores.resize(limit);
+    }
+    for (Score &s : faceScores) {
+        response->add_ids(request->candidates(s.index_).id());
+        response->add_scores(s.score_);
+    }
+    for (Score &s : carScores) {
+        response->add_ids(request->candidates(s.index_).id());
+        response->add_scores(s.score_);
     }
 }
-
-MatrixError RankerAppsService::getRankedCarVector(const FeatureRankingRequest *request,
-                                                  FeatureRankingResponse *response) {
-    string prefix = requestPrefix(request);
-    LOG(INFO) << prefix << "started";
-    response->set_reqid(request->reqid());
-
+MatrixError RankerAppsService::getRankedCarVector(
+        const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
+    vector<Score> scores;
     MatrixError err;
 
-    if (!request->has_image()) {
-        LOG(ERROR) << prefix << "image descriptor does not exist";
-        err.set_code(-1);
-        err.set_message("image descriptor does not exist");
-        return err;
-    }
-
-    Mat image;
-    err = ImageService::ParseImage(request->image(), image);
-    if (err.code() != 0) {
-        LOG(ERROR) << prefix << "parse image failed, " << err.message();
-        return err;
-    }
-
-    Rect hotspot = getHotspot(request, image);
-
-    int limits=car_ranker_.GetMaxCandidatesSize();
-    vector<CarRankFeature> features;
-    err = extractFeatures(request, features,limits);
-
-    if (err.code() != 0) {
-        LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
-        return err;
-    }
-
-    vector<Score> scores = car_ranker_.Rank(image, hotspot, features);
+    err = getCarScoredVector(scores, request, response);
 
     //sort & fill
     sortAndFillResponse(request, scores, response);
     return err;
 }
-MatrixError RankerAppsService::getRankedFaceVector(
-    const FeatureRankingRequest *request,
-    FeatureRankingResponse *response) {
+MatrixError RankerAppsService::getCarScoredVector(
+        vector<Score> &scores, const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
     string prefix = requestPrefix(request);
-    LOG(INFO) << prefix << "started";
+    LOG(INFO)<< prefix << "started";
     response->set_reqid(request->reqid());
 
     MatrixError err;
+
     if (!request->has_image()) {
-        LOG(ERROR) << prefix << "image descriptor does not exist";
+        LOG(ERROR)<< prefix << "image descriptor does not exist";
         err.set_code(-1);
         err.set_message("image descriptor does not exist");
         return err;
@@ -116,30 +125,76 @@ MatrixError RankerAppsService::getRankedFaceVector(
     Mat image;
     err = ImageService::ParseImage(request->image(), image);
     if (err.code() != 0) {
-        LOG(ERROR) << prefix << "parse image failed, " << err.message();
+        LOG(ERROR)<< prefix << "parse image failed, " << err.message();
         return err;
     }
 
     Rect hotspot = getHotspot(request, image);
 
-    int limits=car_ranker_.GetMaxCandidatesSize();
-    vector<FaceRankFeature> features;
-    err = extractFeatures(request, features,limits);
+    int limits = car_ranker_.GetMaxCandidatesSize();
+    vector<CarRankFeature> features;
+    err = extractFeatures(request, features, limits);
+
     if (err.code() != 0) {
-        LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
+        LOG(ERROR)<< prefix << "parse candidates failed, " << err.message();
+        return err;
+    }
+    scores = car_ranker_.Rank(image, hotspot, features);
+    return err;
+}
+MatrixError RankerAppsService::getFaceScoredVector(
+        vector<Score> &scores, const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
+    string prefix = requestPrefix(request);
+    LOG(INFO)<< prefix << "started";
+    response->set_reqid(request->reqid());
+
+    MatrixError err;
+    if (!request->has_image()) {
+        LOG(ERROR)<< prefix << "image descriptor does not exist";
+        err.set_code(-1);
+        err.set_message("image descriptor does not exist");
         return err;
     }
 
-    vector<Score> scores = face_ranker_.Rank(image, hotspot, features);
+    Mat image;
+    err = ImageService::ParseImage(request->image(), image);
+    if (err.code() != 0) {
+        LOG(ERROR)<< prefix << "parse image failed, " << err.message();
+        return err;
+    }
 
+    Rect hotspot = getHotspot(request, image);
+
+    int limits = face_ranker_.GetMaxCandidatesSize();
+    vector<FaceRankFeature> features;
+    err = extractFeatures(request, features, limits);
+    if (err.code() != 0) {
+        LOG(ERROR)<< prefix << "parse candidates failed, " << err.message();
+        return err;
+    }
+
+    scores = face_ranker_.Rank(image, hotspot, features);
+    return err;
+}
+MatrixError RankerAppsService::getRankedFaceVector(
+        const FeatureRankingRequest *request,
+        FeatureRankingResponse *response) {
+    MatrixError err;
+
+    vector<Score> scores;
+    err = getFaceScoredVector(scores, request, response);
     //sort & fill
     sortAndFillResponse(request, scores, response);
     return err;
 }
 
 void RankerAppsService::sortAndFillResponse(
-    const FeatureRankingRequest *request, vector<Score> &scores,
-    FeatureRankingResponse *response) {
+        const FeatureRankingRequest *request, vector<Score> &scores,
+        FeatureRankingResponse *response) {
+    if (scores.size() == 0) {
+        return;
+    }
     int limit = getLimit(request);
 
     partial_sort(scores.begin(), scores.begin() + limit, scores.end());

@@ -16,6 +16,7 @@
 #include "../model/common.pb.h"
 #include "services/witness_service.h"
 #include "services/engine_pool.h"
+#include "basic_grpc.h"
 
 using namespace ::dg::model;
 using grpc::Server;
@@ -27,23 +28,21 @@ using grpc::Status;
 
 namespace dg {
 
-class IGrpcWitnessService {
-public:
-    IGrpcWitnessService() { };
-    virtual ~IGrpcWitnessService() { };
-    virtual void Run() = 0;
-};
+//class IGrpcWitnessService {
+//public:
+//    IGrpcWitnessService() { };
+//    virtual ~IGrpcWitnessService() { };
+//    virtual void Run() = 0;
+//};
 
-class GrpcWitnessServiceImpl final: public IGrpcWitnessService, public WitnessService::Service {
+class GrpcWitnessServiceImpl final: public BasicGrpcService<WitnessAppsService>, public WitnessService::Service {
 public:
     GrpcWitnessServiceImpl(Config config, string addr, MatrixEnginesPool<WitnessAppsService> *engine_pool);
     virtual ~GrpcWitnessServiceImpl();
-    void Run();
+    virtual ::grpc::Service *service() {
+        return this;
+    };
 private:
-    Config config_;
-    string addr_;
-    MatrixEnginesPool<WitnessAppsService> *engine_pool_;
-
     virtual grpc::Status Recognize(grpc::ServerContext *context,
                                    const WitnessRequest *request,
                                    WitnessResponse *response);

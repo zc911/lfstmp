@@ -27,13 +27,16 @@ template<class request_type, class response_type>
 using BindFunction = std::function<MatrixError(const request_type *, response_type *)>;
 
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
+
+template<class EngineType>
 class RestfulService {
 public:
-    RestfulService(MatrixEnginesPool<WitnessAppsService> *engine_pool,
+    RestfulService(MatrixEnginesPool<EngineType> *engine_pool, Config config,
                    string protocol = "HTTP/1.1",
                    string mime_type =
                    "application/json; charset=utf-8")
         : engine_pool_(engine_pool),
+          config_(config),
           protocol_(protocol),
           mime_type_(mime_type) {
     }
@@ -41,13 +44,34 @@ public:
     virtual ~RestfulService() {
     }
 
+    void Run() {
+        int port = (int) config_.Value("System/Port");
+        int gpuNum = (int) config_.Value("System/GpuNum");
+        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+
+        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
+        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
+
+        int threadNum = gpuNum * threadsPerGpu;
+
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
+        Bind(server);
+        if (engine_pool_ == NULL) {
+            LOG(ERROR) << "Engine pool not initialized" << endl;
+        }
+        engine_pool_->Run();
+        cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
+        server.start();
+    }
+
+
     virtual void Bind(HttpServer &server) = 0;
 
 protected:
-
+    Config config_;
     string protocol_;
     string mime_type_;
-    MatrixEnginesPool<WitnessAppsService> *engine_pool_;
+    MatrixEnginesPool<EngineType> *engine_pool_;
 
     static void responseText(HttpServer::Response &response, int code,
                              const string &text) {
@@ -90,7 +114,7 @@ protected:
                                                     &protobufResponseMessage);
                   };
 
-                  if(engine_pool_ == NULL){
+                  if (engine_pool_ == NULL) {
                       LOG(ERROR) << "Engine pool not initailized. " << endl;
                       return;
                   }

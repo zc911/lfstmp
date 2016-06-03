@@ -30,10 +30,6 @@ string getServerAddress(Config *config, int userPort = 0) {
     return (string) config->Value("System/Ip") + ":" + (string) config->Value("System/Port");
 }
 
-void serveGrpcWitness(GrpcWitnessServiceImpl *service){
-    service->Run();
-}
-
 
 void serveWitness(Config *config, int userPort = 0) {
     string protocolType = (string) config->Value("ProtocolType");
@@ -62,6 +58,20 @@ void serveWitness(Config *config, int userPort = 0) {
 
 }
 
+void serveRanker(Config *config, int userPort = 0){
+    string protocolType = (string) config->Value("ProtocolType");
+    cout << "Protocol type: " << protocolType << endl;
+    string address = getServerAddress(config, userPort);
+
+    MatrixEnginesPool<RankerAppsService> *engine_pool = new MatrixEnginesPool<RankerAppsService>(config);
+    engine_pool->Run();
+
+    if (protocolType == "restful") {
+        RestRankerServiceImpl *service = new RestRankerServiceImpl(*config, address, engine_pool);
+        service->Run();
+    }
+}
+
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
@@ -88,7 +98,7 @@ int main(int argc, char *argv[]) {
     if (instType == "witness") {
         serveWitness(config, userPort);
     } else if (instType == "ranker") {
-
+        serveRanker(config, userPort);
     } else {
         cout << "Instance type invalid, should be either witness or ranker." << endl;
         return -1;

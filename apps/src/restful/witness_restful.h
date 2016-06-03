@@ -18,12 +18,12 @@ namespace dg {
 typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
 typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 
-class RestWitnessServiceImpl final: public RestfulService {
+class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService> {
 public:
     RestWitnessServiceImpl(Config config,
                            string addr,
                            MatrixEnginesPool<WitnessAppsService> *engine_pool)
-        : RestfulService(engine_pool), config_(config) {
+        : RestfulService(engine_pool, config) {
 
     }
 
@@ -42,28 +42,28 @@ public:
 
     }
 
-    void Run() {
-        int port = (int) config_.Value("System/Port");
-        int gpuNum = (int) config_.Value("System/GpuNum");
-        gpuNum = gpuNum == 0 ? 1 : gpuNum;
-
-        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
-        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
-
-        int threadNum = gpuNum * threadsPerGpu;
-
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
-        Bind(server);
-        if(engine_pool_ == NULL){
-            LOG(ERROR) << "Engine pool not initialized" << endl;
-        }
-        engine_pool_->Run();
-        cout << "Server(RESTFUL) listening on " << port << endl;
-        server.start();
-    }
-
-private:
-    Config config_;
+//    void Run() {
+//        int port = (int) config_.Value("System/Port");
+//        int gpuNum = (int) config_.Value("System/GpuNum");
+//        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+//
+//        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
+//        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
+//
+//        int threadNum = gpuNum * threadsPerGpu;
+//
+//        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
+//        Bind(server);
+//        if(engine_pool_ == NULL){
+//            LOG(ERROR) << "Witness Engine pool not initialized" << endl;
+//        }
+//        engine_pool_->Run();
+//        cout << "Witness Server(RESTFUL) listening on " << port << endl;
+//        server.start();
+//    }
+//
+//private:
+//    Config config_;
 };
 }
 
