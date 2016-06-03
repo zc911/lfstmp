@@ -46,19 +46,22 @@ void serveWitness(Config *config, int userPort = 0) {
     } else if (protocolType == "rpc") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
         service->Run();
-    } else if(protocolType == "restful|rpc" || protocolType == "rpc|restful"){
+    } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
         std::thread t1(&GrpcWitnessServiceImpl::Run, service);
-        string address2 = getServerAddress(config, (int)config->Value("System/Port") + 1);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
         RestWitnessServiceImpl *service2 = new RestWitnessServiceImpl(*config, address2, engine_pool);
         std::thread t2(&RestWitnessServiceImpl::Run, service2);
         t1.join();
         t2.join();
+    } else {
+        cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
+        exit(-1);
     }
 
 }
 
-void serveRanker(Config *config, int userPort = 0){
+void serveRanker(Config *config, int userPort = 0) {
     string protocolType = (string) config->Value("ProtocolType");
     cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
@@ -69,6 +72,20 @@ void serveRanker(Config *config, int userPort = 0){
     if (protocolType == "restful") {
         RestRankerServiceImpl *service = new RestRankerServiceImpl(*config, address, engine_pool);
         service->Run();
+    } else if (protocolType == "rpc") {
+        GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
+        service->Run();
+    } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+        GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
+        std::thread t1(&GrpcRankerServiceImpl::Run, service);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        RestRankerServiceImpl *service2 = new RestRankerServiceImpl(*config, address2, engine_pool);
+        std::thread t2(&RestRankerServiceImpl::Run, service2);
+        t1.join();
+        t2.join();
+    } else {
+        cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
+        exit(-1);
     }
 }
 
@@ -100,20 +117,9 @@ int main(int argc, char *argv[]) {
     } else if (instType == "ranker") {
         serveRanker(config, userPort);
     } else {
-        cout << "Instance type invalid, should be either witness or ranker." << endl;
+        cout << "Invalid instance type , should be either witness or ranker." << endl;
         return -1;
     }
-
-
-//    string protocolType = (string) config->Value("ProtocolType");
-//    cout << "Protocol type: " << protocolType << endl;
-//    if (protocolType == "rpc") {
-//        serveGrpc(config, userPort);
-//    } else if (protocolType == "restful") {
-//        serveHttp(config, userPort);
-//    } else {
-//        cout << "unknown protocol type: " << protocolType << endl;
-//    }
 
     return 0;
 }
