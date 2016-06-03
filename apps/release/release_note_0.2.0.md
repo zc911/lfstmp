@@ -1,6 +1,6 @@
 # Matrix Apps
 ### Version 0.2.0
-2016-05-30
+2016-05-03
 
 ```
 GRPC and Restful works at the same time
@@ -12,12 +12,22 @@ GRPC and Restful works at the same time
 | 0.1.5 | 0.1.3 | * | * |
 
 ### Features
-- Mofidy the grpc reponse message proto file
-- Merge Mxnet plate model(not works now)
-- Wentong plate sdk with a thread pool
-- Fix the bugs which found when integrated with VSD
+- Grpc and Restful service are able to works at the same time. The port number of Grpc service
+is $PORT(6502) and that of Restful service is $PORT+1(6503)
+- Modify Grpc asyn queue from offical to ours (EnginePool)
+- Both Grpc and Restful using the same engine pool
+- Implements ranker candidates limits
+- DEEPVIDEO-305 Matrix - ROI支持(Intreast Areas)
+- DEEPVIDEO-306 Matrix - Ranker limitation
+- Fix lots of bugs and code improvements
 
 ### Bug Fix
+- Fix DEEPVIDEO-297 recognize接口中Type字段无效
+- Fix DEEPVIDEO-299 ranker接口中type为0和3的时候提示错误
+- Fix DEEPVIDEO-300 ranker接口中type为2的时候服务挂掉，无法测试人脸ranker
+- Fix DEEPVIDEO-313 uri方式压测gRPC matrix BatchRecognize接口，10-20秒后core dumped
+- Fix DEEPVIDEO-315 rpc压测witness接口偶现core
+- Fix DEEPVIDEO-316 压测gRPC matrix BatchRecognize接口，cudnn_conv_layer.cu处core dumped
 
 ### How to Install/Update
 ```
@@ -33,20 +43,22 @@ $ sudo ./matrix_app
 
 ### Config File
 ```json
+
 {
   "Version": {
     "Code": "1.0.0",
     "Model": "1.9"
   },
+//  "ProtocolType": "rpc|restful",
   "ProtocolType": "rpc",
-  //  "ProtocolType": "restful",
+//"ProtocolType": "restful",
   "InstanceType": "witness",
-  //"InstanceType" : "ranker",
+//"InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
-    "Port": 6502,
+    "Port": 6502, 
     "GpuNum": 1,
-    "ThreadsPerGpu": 5,
+    "ThreadsPerGpu": 7,
     "EnableAsyn": true
   },
   "Feature": {
@@ -55,11 +67,11 @@ $ sudo ./matrix_app
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
-      "EnablePlate": true,
+      "EnablePlate": true, 
       "EnableGpuPlate": false,
-      "EnablePlateEnhanced": false,
-      "EnableMarker": false,
-      "EnableFeatureVector": false
+      "EnablePlateEnhanced": true,
+      "EnableMarker": true, 
+      "EnableFeatureVector": true 
     },
     "Face": {
       "Enable": false,
@@ -109,6 +121,9 @@ $ sudo ./matrix_app
     },
     "FaceExtract": {
       "BatchSize": 1
+    },
+    "Ranker":{
+      "Maximum": 1000
     }
   },
   "Log": {
@@ -133,5 +148,6 @@ $ sudo ./matrix_app
   },
   "DataPath": "data_config.json"
 }
+
 
 ```
