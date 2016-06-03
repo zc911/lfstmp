@@ -15,8 +15,9 @@
 
 namespace dg {
 
-RankerAppsService::RankerAppsService(const Config *config)
-        : config_(config),
+RankerAppsService::RankerAppsService(const Config *config, string name)
+        : name_(name),
+          config_(config),
           car_ranker_(*config),
           face_ranker_(*config) {
 

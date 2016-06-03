@@ -14,7 +14,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include "caffe/caffe.hpp"
+#include "dgcaffe/caffe/caffe.hpp"
 #include "model/basic.h"
 #include "detector.h"
 #include "caffe_config.h"
