@@ -61,7 +61,7 @@ private:
 
 };
 
-template<typename E>
+template<typename EngineType>
 class MatrixEnginesPool {
 public:
 
@@ -86,8 +86,7 @@ public:
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
-                WitnessAppsService
-                    *engine = new WitnessAppsService(config_, name);
+                EngineType *engine = new EngineType(config_, name);
                 cout << "Start thread: " << name << endl;
 
                 workers_.emplace_back([this, engine] {

@@ -9,7 +9,8 @@
 namespace dg {
 
 CarRankEngine::CarRankEngine(const Config &config)
-        :RankEngine(config) , id_(0){
+        : RankEngine(config),
+          id_(0) {
     processor_ = new CarRankProcessor();
 }
 
@@ -29,7 +30,8 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
 }
 
 FaceRankEngine::FaceRankEngine(const Config &config)
-        : RankEngine(config) ,id_(0) {
+        : RankEngine(config),
+          id_(0) {
     init(config);
 }
 void FaceRankEngine::init(const Config &config) {
@@ -51,7 +53,6 @@ void FaceRankEngine::init(const Config &config) {
     ranker_ = new FaceRankProcessor();
 }
 
-
 FaceRankEngine::~FaceRankEngine() {
     delete detector_;
     delete extractor_;
@@ -62,22 +63,35 @@ vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
                                    const vector<FaceRankFeature>& candidates) {
 
     Frame *frame = new Frame(0, image);
+
+    Operation op;
+
+    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+            | OPERATION_FACE_FEATURE_VECTOR);
+
+    frame->set_operation(op);
+
     detector_->Update(frame);
     extractor_->Update(frame);
 
     Face *face = (Face *) frame->get_object(0);
-    FaceRankFeature feature = face->feature();
-    vector<Rect> hotspots;
-    hotspots.push_back(hotspot);
+    vector<Score> result;
+    if (face != NULL) {
 
-    FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
-                                                       candidates);
-    ranker_->Update(face_rank_frame);
+        FaceRankFeature feature = face->feature();
+        vector<Rect> hotspots;
+        hotspots.push_back(hotspot);
 
-    vector<Score> result = face_rank_frame->result_;
+        FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
+                                                           candidates);
+
+        ranker_->Update(face_rank_frame);
+
+        result = face_rank_frame->result_;
+        delete face_rank_frame;
+
+    }
     delete frame;
-    delete face_rank_frame;
-
     return result;
 }
 

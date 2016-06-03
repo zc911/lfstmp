@@ -43,9 +43,11 @@ bool FaceDetectProcessor::process(Frame *frame) {
 
     vector<Mat> imgs;
     imgs.push_back(data);
-    vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+
+    vector<vector<Detection> > boxes_in = detector_->Detect(imgs);
 
     for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
+
         Detection detection = boxes_in[0][bbox_id];
         Face *face = new Face(base_id_ + bbox_id, detection,
                 detection.confidence);
