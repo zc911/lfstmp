@@ -159,7 +159,6 @@ void FaceDetector::NMS(vector<Detection> &p, float threshold) {
 vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
     vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
-
     vector<vector<Detection>> boxes;
     GetDetection(outputs, boxes);
     return boxes;
