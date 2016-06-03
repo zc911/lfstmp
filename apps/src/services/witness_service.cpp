@@ -557,15 +557,11 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     FrameBatch framebatch(curr_id * 10);
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
-    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> > roisr;
-    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> > roism;
 
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
         images.begin();
     while (itr != images.end()) {
         imgDesc.push_back(const_cast<WitnessImage &>(*itr));
-   //     roisr.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> &>(itr->relativeroi()));
-    //    roism.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> &>(itr->marginroi()));
         itr++;
     }
 

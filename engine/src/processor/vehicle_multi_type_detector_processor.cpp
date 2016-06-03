@@ -1,5 +1,4 @@
 #include "vehicle_multi_type_detector_processor.h"
-#include "model/model.h"
 #include "processor_helper.h"
 namespace dg {
 
@@ -18,7 +17,8 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 }
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
-LOG(INFO)<<"start detector"<<endl;
+    LOG(INFO) << "start detector" << endl;
+    vector<int> frameIds;
     vector<Mat> images;
     vector<vector<Detection> > detect_results;
 
@@ -38,27 +38,38 @@ LOG(INFO)<<"start detector"<<endl;
             LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
             continue;
         }
-
+        frameIds.push_back(i);
         images.push_back(frame->payload()->data());
+    }
+
+    if (images.size() == 0) {
+        return true;
+    }
+
+    if (frameIds.size() != images.size()) {
+        LOG(ERROR) << "Frame id size not equals to images size" << endl;
+        return false;
     }
 
     detector_->DetectBatch(images, detect_results);
 
-    if (detect_results.size() < frameBatch->frames().size()) {
+    if (detect_results.size() < images.size()) {
         LOG(ERROR) << "Detection results size not equals to frame batch size: " << detect_results.size() << "-"
             << frameBatch->frames().size() << endl;
         return false;
     }
+
     int id = 0;
+    for (int i = 0; i < frameIds.size(); ++i) {
 
-    for (int i = 0; i < frameBatch->frames().size(); ++i) {
-
-        Frame *frame = frameBatch->frames()[i];
+        int frameId = frameIds[i];
         vector<Detection> &imageDetection = detect_results[i];
+
+        Frame *frame = frameBatch->frames()[frameId];
 
         for (int j = 0; j < imageDetection.size(); ++j) {
             Detection d = imageDetection[j];
-            if(!roiFilter(frame->get_rois(),d.box))
+            if (!roiFilter(frame->get_rois(), d.box))
                 continue;
             Object *obj = NULL;
             if (d.id == DETECTION_PEDESTRIAN) {
