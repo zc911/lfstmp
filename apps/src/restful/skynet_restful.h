@@ -15,22 +15,22 @@
 
 namespace dg {
 
-class RestSkynetServiceImpl final : public RestfulService
-{
-public:
-    RestSkynetServiceImpl(const Config *config) : service_(config) {}
-    virtual ~RestSkynetServiceImpl() {}
-
-    virtual void Bind(HttpServer& server) override
-    {
-        BindFunction<SkynetRequest, SkynetResponse> recVideoBinder = std::bind(&SkynetAppsService::VideoRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
-
-        bind(server, "^/rec/video$", "POST", recVideoBinder);
-    }
-
-private:
-    SkynetAppsService service_;
-};
+//class RestSkynetServiceImpl final : public RestfulService<>
+//{
+//public:
+//    RestSkynetServiceImpl(const Config *config) : service_(config) {}
+//    virtual ~RestSkynetServiceImpl() {}
+//
+//    virtual void Bind(HttpServer& server) override
+//    {
+//        BindFunction<SkynetRequest, SkynetResponse> recVideoBinder = std::bind(&SkynetAppsService::VideoRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
+//
+//        bind(server, "^/rec/video$", "POST", recVideoBinder);
+//    }
+//
+//private:
+//    SkynetAppsService service_;
+//};
 }
 
 #endif //MATRIX_APPS_RESTFUL_SKYNET_H_
