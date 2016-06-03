@@ -30,9 +30,8 @@ public:
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
-    string name_;
 private:
-
+    string name_;
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
