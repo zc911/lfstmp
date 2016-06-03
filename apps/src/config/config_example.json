@@ -73,6 +73,9 @@
 		},
 		"FaceExtract": {
 			"BatchSize": 1
+		},
+		"Ranker":{
+			"Maximum": 1000
 		}
 	},
 	"Log": {
