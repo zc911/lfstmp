@@ -131,8 +131,9 @@ protected:
                   content = "";
                   pbjson::pb2json(&protobufResponseMessage, content);
                   responseText(response, 200, content);
+
                   gettimeofday(&end, NULL);
-                  cout << "[RESTFUL] Request cost: " << TimeCostInMs(start, end) << endl;
+                  cout << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
               }
               catch (exception &e) {
                   responseText(response, 500, e.what());

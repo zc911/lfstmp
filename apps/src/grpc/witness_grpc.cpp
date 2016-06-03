@@ -21,10 +21,14 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
                                                const WitnessRequest *request,
                                                WitnessResponse *response) {
 
-    cout << "[GRPC] ========================" << endl;
-    cout << "[GRPC] Get rec request, thread id: " << this_thread::get_id() << endl;
-    CallData data;
 
+    cout << "[GRPC] ========================" << endl;
+    cout << "[GRPC] Get rec request, session id: " << request->context().sessionid() << endl;
+
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
+
+    CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::Recognize,
                    (WitnessAppsService *) data.apps,
@@ -35,6 +39,11 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
 
     engine_pool_->enqueue(&data);
     MatrixError error = data.Wait();
+
+    gettimeofday(&finish, NULL);
+    cout << "[GRPC] Rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
+        << endl;
+
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 
@@ -43,9 +52,11 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
                                                     WitnessBatchResponse *response) {
 
     cout << "[GRPC] ========================" << endl;
-    cout << "[GRPC] Get batch rec request, thread id: " << this_thread::get_id() << endl;
-    CallData data;
+    cout << "[GRPC] Get batch rec request, session id: " << request->context().sessionid() << endl;
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
 
+    CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::BatchRecognize,
                    (WitnessAppsService *) data.apps,
@@ -56,6 +67,10 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
 
     engine_pool_->enqueue(&data);
     MatrixError error = data.Wait();
+
+    gettimeofday(&finish, NULL);
+    cout << "[GRPC] Batch rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
+        << endl;
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 

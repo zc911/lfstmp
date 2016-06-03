@@ -182,7 +182,7 @@ static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
         try {
             imgMat = ::cv::imdecode(::cv::Mat(data), 1);
         } catch (exception &e) {
-            LOG(ERROR) << "decode image failed: " << e.what() << endl;
+            LOG(WARNING) << "decode image failed: " << e.what() << endl;
         }
     }
 }
@@ -195,7 +195,7 @@ MatrixError ImageService::getImageFromData(const string img64,
     decodeDataToMat(bin, imgMat);
 
     if ((imgMat.rows & imgMat.cols) == 0) {
-        LOG(ERROR) << "Image is empty from BASE64" << endl;
+        LOG(WARNING) << "Image is empty from BASE64" << endl;
     }
     return ok;
 }

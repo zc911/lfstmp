@@ -41,7 +41,7 @@ public:
     virtual ::grpc::Service *service() = 0;
 
     void Run() {
-        
+
         engine_pool_->Run();
 
         grpc::ServerBuilder builder;
