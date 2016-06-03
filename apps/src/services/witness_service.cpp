@@ -20,9 +20,9 @@
 namespace dg {
 
 WitnessAppsService::WitnessAppsService(const Config *config, string name)
-    : config_(config),
-      engine_(*config),
-      id_(0) {
+        : config_(config),
+          engine_(*config),
+          id_(0) {
     name_ = name;
     unknown_string_ = "UNKNOWN";
     unknown_vehicle_.set_typeid_(-1);
@@ -45,16 +45,17 @@ WitnessAppsService::~WitnessAppsService() {
 
 void WitnessAppsService::init(void) {
     string vModelFile = (string) config_->Value(
-        ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
+            ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
     string vColorFile = (string) config_->Value(
-        ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
+            ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
     string vSymbolFile = (string) config_->Value(
-        ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
+            ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
     string pColorFile = (string) config_->Value(
-        ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
+            ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
     string pTypeFile = (string) config_->Value(
-        ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
-    string pVtypeFile = (string) config_->Value(ConfigValue::VEHICLE_TYPE_MAPPING_FILE);
+            ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
+    string pVtypeFile = (string) config_->Value(
+            ConfigValue::VEHICLE_TYPE_MAPPING_FILE);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
@@ -152,7 +153,7 @@ const string &WitnessAppsService::lookup_string(const vector<string> &array,
 }
 
 const VehicleModel &WitnessAppsService::lookup_vehicle(
-    const vector<VehicleModel> &array, int index) {
+        const vector<VehicleModel> &array, int index) {
     if (index < 0 || index > array.size()) {
         return unknown_vehicle_;
     }
@@ -162,13 +163,15 @@ const VehicleModel &WitnessAppsService::lookup_vehicle(
 
 Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     Operation op;
+    int type = ctx.type();
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
             case RECFUNC_NONE:
                 op.Set(OPERATION_NONE);
                 break;
             case RECFUNC_VEHICLE:
-                op.Set(OPERATION_VEHICLE);
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE);
                 break;
             case RECFUNC_VEHICLE_DETECT:
                 op.Set(OPERATION_VEHICLE_DETECT);
@@ -192,7 +195,8 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                 op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
                 break;
             case RECFUNC_FACE:
-                op.Set(OPERATION_FACE);
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL)|| (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE);
                 break;
             case RECFUNC_FACE_DETECTOR:
                 op.Set(OPERATION_FACE_DETECTOR);
@@ -272,7 +276,7 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
     for (const Object *object : objects) {
 
         if (object->type() != OBJECT_MARKER) {
-            LOG(WARNING) << "unknown marker type: " << object->type();
+            LOG(WARNING)<< "unknown marker type: " << object->type();
             continue;
         }
 
@@ -307,9 +311,8 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
 
     const Detection &d = vobj->detection();
 
-    DLOG(INFO) << "Detected object: " << vobj->class_id();
+    DLOG(INFO)<< "Detected object: " << vobj->class_id();
     copyCutboard(d, vrec->mutable_cutboard());
-
 
     err = fillModel(*vobj, vrec);
     vrec->mutable_model()->set_confidence(vobj->confidence());
@@ -338,12 +341,13 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     frec->set_features(fobj->feature().Serialize());
 
     const Detection &d = fobj->detection();
-    LOG(INFO) << "detection id: " << d.id << ", deleted? " << d.deleted;
+    LOG(INFO)<< "detection id: " << d.id << ", deleted? " << d.deleted;
     copyCutboard(d, frec->mutable_cutboard());
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedPedestrain(const Pedestrain *pedestrain, RecognizedPedestrain *result) {
+MatrixError WitnessAppsService::getRecognizedPedestrain(
+        const Pedestrain *pedestrain, RecognizedPedestrain *result) {
     MatrixError err;
     const Detection &d = pedestrain->detection();
     result->set_confidence(d.confidence);
@@ -356,22 +360,22 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     MatrixError err;
 
     for (const Object *object : frame->objects()) {
-        LOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
+        LOG(INFO)<< "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
             case OBJECT_CAR:
             case OBJECT_BICYCLE:
             case OBJECT_TRICYCLE:
-                err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
-                break;
+            err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+            break;
             case OBJECT_FACE:
-                err = getRecognizedFace((Face *) object, result->add_faces());
-                break;
+            err = getRecognizedFace((Face *) object, result->add_faces());
+            break;
             case OBJECT_PEDESTRIAN:
-                err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrains());
-                break;
+            err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrains());
+            break;
             default:
-                LOG(WARNING) << "unknown object type: " << object->type();
-                break;
+            LOG(WARNING) << "unknown object type: " << object->type();
+            break;
         }
 
         if (err.code() < 0) {
@@ -384,8 +388,9 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
 
 MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
     MatrixError err;
-    if (wImage.data().uri().size() == 0 && wImage.data().bindata().size() == 0) {
-        LOG(ERROR) << "image uri and bindata are empty both";
+    if (wImage.data().uri().size() == 0
+            && wImage.data().bindata().size() == 0) {
+        LOG(ERROR)<< "image uri and bindata are empty both";
         err.set_code(-1);
         err.set_message("image uri and bindata are empty both");
         return err;
@@ -393,7 +398,7 @@ MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
     if (wImage.data().uri().size() > 0) {
         string pre = findPrefix(wImage.data().uri(), ':');
         if (pre != "http" && pre != "https" && pre != "ftp" && pre != "file") {
-            LOG(ERROR) << "Invalid URI: " << wImage.data().uri() << endl;
+            LOG(ERROR)<< "Invalid URI: " << wImage.data().uri() << endl;
             err.set_code(-1);
             err.set_message("Invalid Image URI");
             return err;
@@ -406,7 +411,7 @@ MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
 MatrixError WitnessAppsService::checkRequest(const WitnessRequest &request) {
     MatrixError err;
     if (!request.has_image() || !request.image().has_data()) {
-        LOG(ERROR) << "image descriptor does not exist";
+        LOG(ERROR)<< "image descriptor does not exist";
         err.set_code(-1);
         err.set_message("image descriptor does not exist");
         return err;
@@ -418,7 +423,8 @@ MatrixError WitnessAppsService::checkRequest(const WitnessRequest &request) {
     return err;
 }
 
-MatrixError WitnessAppsService::checkRequest(const WitnessBatchRequest &requests) {
+MatrixError WitnessAppsService::checkRequest(
+        const WitnessBatchRequest &requests) {
     MatrixError err;
     int size = requests.images().size();
     if (size == 0) {
@@ -448,14 +454,13 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
     if (err.code() != 0) {
-        LOG(WARNING) << "Checkout request failed" << endl;
+        LOG(WARNING)<< "Checkout request failed" << endl;
         return err;
     }
 
-
-    LOG(INFO) << "Get Recognize request: " << sessionid
-        << ", Image URI:" << request->image().data().uri();
-    LOG(INFO) << "Start processing: " << sessionid << "...";
+    LOG(INFO)<< "Get Recognize request: " << sessionid
+    << ", Image URI:" << request->image().data().uri();
+    LOG(INFO)<< "Start processing: " << sessionid << "...";
 
     struct timeval start, end;
     gettimeofday(&start, NULL);
@@ -463,7 +468,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     err = ImageService::ParseImage(request->image(), roiimages);
     if (err.code() != 0) {
-        LOG(ERROR) << "parse image failed, " << err.message();
+        LOG(ERROR)<< "parse image failed, " << err.message();
         return err;
     }
     gettimeofday(&end, NULL);
@@ -495,13 +500,14 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-        ->mutable_debugts();
+            ->mutable_debugts();
 
     WitnessResult *result = response->mutable_result();
-    result->mutable_image()->mutable_data()->set_uri(request->image().data().uri());
+    result->mutable_image()->mutable_data()->set_uri(
+            request->image().data().uri());
     err = getRecognizeResult(frame, result);
     if (err.code() != 0) {
-        LOG(ERROR) << "get result from frame failed, " << err.message();
+        LOG(ERROR)<< "get result from frame failed, " << err.message();
         return err;
     }
 
@@ -519,16 +525,17 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
-    LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
-    LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
-    LOG(INFO) << "=======" << endl;
+    LOG(INFO)<< "recognized objects: " << frame->objects().size() << endl;
+    LOG(INFO)<< "Finish processing: " << sessionid << "..." << endl;
+    LOG(INFO)<< "=======" << endl;
 
     return err;
 
 }
 
-MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchRequest,
-                                               WitnessBatchResponse *batchResponse) {
+MatrixError WitnessAppsService::BatchRecognize(
+        const WitnessBatchRequest *batchRequest,
+        WitnessBatchResponse *batchResponse) {
 
     cout << "Batch recognize using " << name_ << endl;
     struct timeval curr_time;
@@ -538,15 +545,14 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     const string &sessionid = batchRequest->context().sessionid();
 
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
-        batchRequest->images();
+            batchRequest->images();
 
-
-    LOG(INFO) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
-    LOG(INFO) << "Start processing: " << sessionid << "...";
+    LOG(INFO)<< "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
+    LOG(INFO)<< "Start processing: " << sessionid << "...";
 
     err = checkRequest(*batchRequest);
     if (err.code() != 0) {
-        LOG(WARNING) << "Check request failed: " << sessionid << endl;
+        LOG(WARNING)<< "Check request failed: " << sessionid << endl;
         return err;
     }
 
@@ -557,18 +563,21 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     FrameBatch framebatch(curr_id * 10);
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
-    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> > roisr;
-    vector<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> > roism;
+    vector<
+            ::google::protobuf::RepeatedPtrField<
+                    const ::dg::model::WitnessRelativeROI> > roisr;
+    vector<
+            ::google::protobuf::RepeatedPtrField<
+                    const ::dg::model::WitnessMarginROI> > roism;
 
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
-        images.begin();
+            images.begin();
     while (itr != images.end()) {
         imgDesc.push_back(const_cast<WitnessImage &>(*itr));
-   //     roisr.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> &>(itr->relativeroi()));
-    //    roism.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> &>(itr->marginroi()));
+        //     roisr.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessRelativeROI> &>(itr->relativeroi()));
+        //    roism.push_back(const_cast<::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessMarginROI> &>(itr->marginroi()));
         itr++;
     }
-
 
     ImageService::ParseImage(imgDesc, roiimages, 10, true);
 
@@ -582,12 +591,11 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
         framebatch.AddFrame(frame);
     }
 
-
     gettimeofday(&end, NULL);
     cout << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
 
     gettimeofday(&start, NULL);
-    DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
+    DLOG(INFO)<< "Request batch size: " << framebatch.batch_size() << endl;
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();
@@ -605,8 +613,7 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
 
 //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-        ->mutable_debugts();
-
+            ->mutable_debugts();
 
     vector<Frame *> frames = framebatch.frames();
     for (int i = 0; i < frames.size(); ++i) {
@@ -616,15 +623,14 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
         result->mutable_image()->mutable_data()->set_uri(uri);
         err = getRecognizeResult(frame, result);
         if (err.code() != 0) {
-            LOG(ERROR) << "get result from frame failed, " << err.message();
+            LOG(ERROR)<< "get result from frame failed, " << err.message();
             return err;
         }
     }
 
-
     if (frames.size() != batchResponse->results().size()) {
-        LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
-            << batchResponse->results().size() << endl;
+        LOG(ERROR)<< "Input frame size not equal to results size." << frames.size() << "-"
+        << batchResponse->results().size() << endl;
         err.set_code(-1);
         err.set_message("Input frame size not equal to results size.");
         return err;
@@ -633,13 +639,12 @@ MatrixError WitnessAppsService::BatchRecognize(const WitnessBatchRequest *batchR
     gettimeofday(&end, NULL);
     cout << "Parse batch results cost: " << TimeCostInMs(start, end) << endl;
 
-
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
-    LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
-    LOG(INFO) << "=======" << endl;
+    LOG(INFO)<< "Finish batch processing: " << sessionid << "..." << endl;
+    LOG(INFO)<< "=======" << endl;
     return err;
 }
 
