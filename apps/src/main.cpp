@@ -5,6 +5,7 @@
 #include <grpc++/grpc++.h>
 
 #define BOOST_SPIRIT_THREADSAFE
+#include <curl/curl.h>
 #include "config.h"
 
 #include "grpc/witness_grpc.h"
@@ -12,6 +13,7 @@
 
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
+#include "services/engine_pool.h"
 
 #include "Simple-Web-Server/server_http.hpp"
 
@@ -25,60 +27,66 @@ string getServerAddress(Config *config, int userPort = 0) {
         config->AddEntry("System/Port", AnyConversion(userPort));
     }
 
-    return (string) config->Value("System/Ip") + ":"
-        + (string) config->Value("System/Port");
+    return (string) config->Value("System/Ip") + ":" + (string) config->Value("System/Port");
 }
 
-void serveGrpc(Config *config, int userPort = 0) {
-    string instType = (string) config->Value("InstanceType");
-    cout << "Instance type: " << instType << endl;
+
+void serveWitness(Config *config, int userPort = 0) {
+    string protocolType = (string) config->Value("ProtocolType");
+    cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
 
-    if (instType == "witness") {
-        GrpcWitnessServiceAsynImpl *service = new GrpcWitnessServiceAsynImpl(config);
-        cout << "Server(RRPC AYSN) listening on " << address << endl;
+
+    MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
+    engine_pool->Run();
+
+    if (protocolType == "restful") {
+        RestWitnessServiceImpl *service = new RestWitnessServiceImpl(*config, address, engine_pool);
         service->Run();
-    } else if (instType == "ranker") {
-        grpc::Service *service = NULL;
-        service = new GrpcRankerServiceImpl(config);
-        grpc::ServerBuilder builder;
-        builder.SetMaxMessageSize(1024*1024*1024);
-        builder.AddListeningPort(address, grpc::InsecureServerCredentials());
-        builder.RegisterService(service);
-        unique_ptr<grpc::Server> server(builder.BuildAndStart());
-        cout << "Server(GRPC) listening on " << address << endl;
-        server->Wait();
+    } else if (protocolType == "rpc") {
+        GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
+        service->Run();
+    } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+        GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
+        std::thread t1(&GrpcWitnessServiceImpl::Run, service);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        RestWitnessServiceImpl *service2 = new RestWitnessServiceImpl(*config, address2, engine_pool);
+        std::thread t2(&RestWitnessServiceImpl::Run, service2);
+        t1.join();
+        t2.join();
     } else {
-        cout << "unknown instance type: " << instType << endl;
-        return;
+        cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
+        exit(-1);
     }
 
 }
 
-void serveHttp(const Config *config, int userPort = 0) {
-    string instType = (string) config->Value("InstanceType");
-    cout << "Instance type: " << instType << endl;
+void serveRanker(Config *config, int userPort = 0) {
+    string protocolType = (string) config->Value("ProtocolType");
+    cout << "Protocol type: " << protocolType << endl;
+    string address = getServerAddress(config, userPort);
 
-    RestfulService *service = NULL;
-    if (instType == "witness") {
-        service = new RestWitnessServiceImpl(config);
-    } else if (instType == "ranker") {
-        service = new RestRankerServiceImpl(config);
+    MatrixEnginesPool<RankerAppsService> *engine_pool = new MatrixEnginesPool<RankerAppsService>(config);
+    engine_pool->Run();
+
+    if (protocolType == "restful") {
+        RestRankerServiceImpl *service = new RestRankerServiceImpl(*config, address, engine_pool);
+        service->Run();
+    } else if (protocolType == "rpc") {
+        GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
+        service->Run();
+    } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+        GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
+        std::thread t1(&GrpcRankerServiceImpl::Run, service);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        RestRankerServiceImpl *service2 = new RestRankerServiceImpl(*config, address2, engine_pool);
+        std::thread t2(&RestRankerServiceImpl::Run, service2);
+        t1.join();
+        t2.join();
     } else {
-        cout << "unknown instance type: " << instType << endl;
-        return;
+        cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
+        exit(-1);
     }
-
-    int port = (int) config->Value("System/Port");
-    if (userPort) {
-        port = userPort;
-    }
-
-    SimpleWeb::Server<SimpleWeb::HTTP> server(port, 1);  //at port with 1 thread
-    service->Bind(server);
-
-    cout << "Server(RESTFUL) listening on " << port << endl;
-    server.start();
 }
 
 int main(int argc, char *argv[]) {
@@ -86,30 +94,31 @@ int main(int argc, char *argv[]) {
     google::InitGoogleLogging(argv[0]);
 
     google::ParseCommandLineFlags(&argc, &argv, true);
+    // init curl in the main thread
+    // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
+    curl_global_init(CURL_GLOBAL_ALL);
 
     int userPort = 0;
     if (argc >= 2) {
         userPort = atoi(argv[1]);
     }
     string configFile = "config.json";
-    if(argc >= 3){
+    if (argc >= 3) {
         configFile = argv[2];
     }
 
     Config *config = new Config();
-
-
     config->Load(configFile);
 
+    string instType = (string) config->Value("InstanceType");
 
-    string protocolType = (string) config->Value("ProtocolType");
-    cout << "Protocol type: " << protocolType << endl;
-    if (protocolType == "rpc") {
-        serveGrpc(config, userPort);
-    } else if (protocolType == "restful") {
-        serveHttp(config, userPort);
+    if (instType == "witness") {
+        serveWitness(config, userPort);
+    } else if (instType == "ranker") {
+        serveRanker(config, userPort);
     } else {
-        cout << "unknown protocol type: " << protocolType << endl;
+        cout << "Invalid instance type , should be either witness or ranker." << endl;
+        return -1;
     }
 
     return 0;

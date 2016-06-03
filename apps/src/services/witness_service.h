@@ -15,13 +15,13 @@
 #include "matrix_engine/model/model.h"
 #include "matrix_engine/engine/witness_engine.h"
 #include "model/witness.grpc.pb.h"
-
+#include "engine_service.h"
 namespace dg {
 using namespace ::dg::model;
 
 
 
-class WitnessAppsService {
+class WitnessAppsService : public EngineService {
 public:
     WitnessAppsService(const Config *config, string name);
     virtual ~WitnessAppsService();
@@ -30,9 +30,8 @@ public:
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
-    string name_;
 private:
-
+    string name_;
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
