@@ -106,13 +106,13 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
                    &pstConfig->stFCNN);
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;
-    pstConfig->stFCNN.adwShape[2] = 400;
-    pstConfig->stFCNN.adwShape[3] = 400;
+    pstConfig->stFCNN.adwShape[2] = 400;  //standard width
+    pstConfig->stFCNN.adwShape[3] = 400;  //standard height
 
     readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
                    &pstConfig->stRPN);
     pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
-    pstConfig->stRPN.adwShape[1] = 16;
+    pstConfig->stRPN.adwShape[1] = 4;//number of plates per car;
     pstConfig->stRPN.adwShape[2] = 1;
     pstConfig->stRPN.adwShape[3] = 100;
     pstConfig->stRPN.adwShape[4] = 300;
