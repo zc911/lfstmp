@@ -86,8 +86,8 @@ public:
         WitnessRelativeROI * roi = witnessimage->add_relativeroi();
         roi->set_posx(0);
         roi->set_posy(0);
-        roi->set_width(100);
-        roi->set_height(100);
+        roi->set_width(100000);
+        roi->set_height(100000);
         WitnessResponse resp;
         Print(req);
         ClientContext context;
@@ -123,11 +123,11 @@ public:
                 string s = encode2base64((*itr).c_str());
                 image->mutable_data()->set_bindata(s);
             }
-            WitnessRelativeROI * roi = image->add_relativeroi();
-            roi->set_posx(0);
-            roi->set_posy(0);
-            roi->set_width(100);
-            roi->set_height(100);
+//            WitnessRelativeROI * roi = image->add_relativeroi();
+//            roi->set_posx(0);
+//            roi->set_posy(0);
+//            roi->set_width(100000);
+//            roi->set_height(100000);
 
         }
 
