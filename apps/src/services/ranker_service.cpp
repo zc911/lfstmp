@@ -18,7 +18,9 @@ RankerAppsService::RankerAppsService(const Config *config)
         : config_(config),
           car_ranker_(*config),
           face_ranker_(*config) {
-    int type =(int)config->Value("Ranker/DefaultType");
+    config_=config;
+
+    int type =(int)config->Value(RANKER_DEFAULT_TYPE);
     switch(type){
         case dg::REC_TYPE_VEHICLE:
             getRankedDefaultVector=&RankerAppsService::getRankedCarVector;

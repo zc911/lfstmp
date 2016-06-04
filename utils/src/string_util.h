@@ -71,6 +71,14 @@ static void trimLR(string &s) {
     }
 
 }
+static void splitSpace(vector<string> &strs,string src){
+    std::istringstream iss(src);
+    do{
+        std::string sub;
+        iss>>sub;
+        strs.push_back(sub);
+    }while(iss);
+}
 
 //static string encode2JPEGInBase64(cv::Mat &data) {
 //    vector < uchar > buff;
