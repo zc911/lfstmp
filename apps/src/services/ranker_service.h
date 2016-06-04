@@ -12,6 +12,7 @@
 
 #include <opencv2/core/core.hpp>
 #include "config.h"
+#include "config/config_val.h"
 #include "../model/common.pb.h"
 #include "../model/ranker.grpc.pb.h" //from apps
 #include "engine/rank_engine.h"
