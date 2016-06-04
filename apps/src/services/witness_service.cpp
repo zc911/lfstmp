@@ -44,18 +44,12 @@ WitnessAppsService::~WitnessAppsService() {
 }
 
 void WitnessAppsService::init(void) {
-    string vModelFile = (string) config_->Value(
-            ConfigValue::VEHICLE_MODEL_MAPPING_FILE);
-    string vColorFile = (string) config_->Value(
-            ConfigValue::VEHICLE_COLOR_MAPPING_FILE);
-    string vSymbolFile = (string) config_->Value(
-            ConfigValue::VEHICLE_SYMBOL_MAPPING_FILE);
-    string pColorFile = (string) config_->Value(
-            ConfigValue::VEHICLE_PLATE_COLOR_MAPPING_FILE);
-    string pTypeFile = (string) config_->Value(
-            ConfigValue::VEHICLE_PLATE_TYPE_MAPPING_FILE);
-    string pVtypeFile = (string) config_->Value(
-            ConfigValue::VEHICLE_TYPE_MAPPING_FILE);
+    string vModelFile = (string) config_->Value(VEHICLE_MODEL_MAPPING_FILE);
+    string vColorFile = (string) config_->Value(VEHICLE_COLOR_MAPPING_FILE);
+    string vSymbolFile = (string) config_->Value(VEHICLE_SYMBOL_MAPPING_FILE);
+    string pColorFile = (string) config_->Value(VEHICLE_PLATE_COLOR_MAPPING_FILE);
+    string pTypeFile = (string) config_->Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
+    string pVtypeFile = (string) config_->Value(VEHICLE_TYPE_MAPPING_FILE);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
