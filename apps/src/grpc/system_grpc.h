@@ -6,7 +6,7 @@
  * Created on  : 04/15/2016
  * Description : 
  * ==========================================================================*/
-
+/*
 #ifndef MATRIX_APPS_GRPC_RANKER_H_
 #define MATRIX_APPS_GRPC_RANKER_H_
 
@@ -48,3 +48,4 @@ private:
 }
 
 #endif //MATRIX_APPS_GRPC_RANKER_H_
+*/
