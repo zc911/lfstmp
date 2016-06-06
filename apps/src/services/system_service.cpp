@@ -10,6 +10,9 @@
 namespace dg {
 SystemAppsService::SystemAppsService(const Config *config) {
     config_=config;
+    std::thread network_th_(networkInfo,&rx_,&tx_);
+    network_th_.detach();
+
 }
 SystemAppsService::~SystemAppsService() {
 
@@ -32,6 +35,9 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
     std::string msgDiskTotal;
     std::string msgGpuMemUsage;
     std::string msgGpuMemTotal;
+    std::string msgNetworkRecv;
+    std::string msgNetworkSend;
+
     string modelversion=(string)config_->Value(VERSION_MODEL);
     response->set_modelver(modelversion);
     string serviceversion=(string)config_->Value(SERVICE_MODEL);
@@ -87,7 +93,20 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
         err.set_message("Can't get avaliable memory");
         return err;
     }
-
+    if (getNetworkInfo(msgNetworkRecv,"RX")) {
+        response->set_netiorecv(msgNetworkRecv);
+    } else {
+        err.set_code(-1);
+        err.set_message("Can't get avaliable memory");
+        return err;
+    }
+    if (getNetworkInfo(msgNetworkSend,"TX")) {
+        response->set_netiosend(msgNetworkSend);
+    } else {
+        err.set_code(-1);
+        err.set_message("Can't get avaliable memory");
+        return err;
+    }
     return err;
 
 }
