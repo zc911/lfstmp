@@ -10,9 +10,7 @@
 namespace dg {
 SystemAppsService::SystemAppsService(const Config *config) {
     config_=config;
-    std::thread network_th_(networkInfo,&rx_,&tx_);
-    network_th_.detach();
-
+    initNetworkThread();
 }
 SystemAppsService::~SystemAppsService() {
 
@@ -22,6 +20,10 @@ MatrixError SystemAppsService::Ping(const PingRequest *request,
     MatrixError err;
     response->set_message("Normal");
     return err;
+}
+void SystemAppsService::initNetworkThread(){
+    std::thread network_th_(networkInfo,&rx_,&tx_);
+    network_th_.detach();
 }
 
 MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
@@ -110,6 +112,7 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
     return err;
 
 }
+
 
 MatrixError SystemAppsService::GetInstances(
         const GetInstancesRequest *request,
