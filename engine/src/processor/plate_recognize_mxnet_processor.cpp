@@ -15,11 +15,10 @@ const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
         "鲁", "新", "苏", "浙", "赣", "鄂", "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤",
         "青", "藏", "川", "宁", "琼", "使", "领", "试", "学", "临", "时", "警", "港", "O",
         "挂", "澳", "#" };
+
 PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(
         LPDRConfig_S *stConfig)
         : h_LPDR_Handle_(0) {
-    setConfig(stConfig);
-    LPDR_Create(&h_LPDR_Handle_, stConfig);
 }
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
