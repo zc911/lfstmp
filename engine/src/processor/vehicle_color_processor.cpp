@@ -34,7 +34,7 @@ VehicleColorProcessor::~VehicleColorProcessor() {
 
 bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
 
-    DLOG(INFO) << "Start detect frame: " << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start color process" << endl;
 
     vector<vector<Prediction> > result;
     for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
@@ -86,7 +86,6 @@ void VehicleColorProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
 
             Vehicle *v = (Vehicle *) obj;
 
-            DLOG(INFO) << "Put vehicle images to be color classified: " << obj->id() << endl;
             images_.push_back(v->resized_image());
             ++itr;
         } else {
