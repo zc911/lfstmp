@@ -29,6 +29,14 @@ static const string RANKER_DEFAULT_TYPE = "Ranker/DefaultType";
 static const string VERSION_MODEL = "Version/Model";
 static const string SERVICE_MODEL = "Version/Code";
 
+static const string RENDER_VEHICLE_TYPE = "Render/Vehicle/Type";
+static const string RENDER_VEHICLE_MODEL = "Render/Vehicle/Model";
+static const string RENDER_VEHICLE_COLOR = "Render/Vehicle/Color";
+static const string RENDER_VEHICLE_SYMBOL = "Render/Vehicle/Symbol";
+static const string RENDER_VEHICLE_PLATE_COLOR = "Render/Vehicle/Plate/Color";
+static const string RENDER_VEHICLE_PLATE_TYPE = "Render/Vehicle/Plate/Type";
+
+
 }
 
 #endif /* CONFIG_VAL_H_ */

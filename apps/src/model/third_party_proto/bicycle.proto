@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package model;
+
+import "common.proto";
+
+//message BicycleFeature {
+//	bytes Feature = 1;
+//}
+
+message Bicycle {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+	bytes Feature = 4;
+	Color Color = 5;
+}
+
+message Bicycles {
+	repeated Bicycle Bicycle = 1;
+}

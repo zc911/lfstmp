@@ -31,13 +31,11 @@ public:
         BindFunction<PingRequest, PingResponse> pingBinder = std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
         BindFunction<SystemStatusRequest, SystemStatusResponse> statusBinder = std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
    //     BindFunction<InstanceConfigureRequest, InstanceConfigureResponse> getInstBinder = std::bind(&SystemAppsService::GetInstances, &service_system_, std::placeholders::_1, std::placeholders::_2);
-    //    BindFunction<GetInstancesRequest, InstanceConfigureResponse> configBinder = std::bind(&SystemAppsService::ConfigEngine, &service_, std::placeholders::_1, std::placeholders::_2);
 
         bind(server, "^/rank$", "POST", rankBinder);
         bind(server, "^/ping$", "GET", pingBinder);
         bind(server, "^/info$", "GET", statusBinder);
   //      bind(server, "^/instances$", "GET", getInstBinder);
-    //    bind(server, "^/config$", "POST", configBinder);
     }
 
 private:
