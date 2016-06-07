@@ -145,6 +145,15 @@ message VehicleModel {
     int32 IsHead = 9; //车头 or 车尾
     float Confidence = 10; //车模识别置信度
 }
+message IndexModel{
+    RecognizedVehicle Vehicle=1;
+    RecognizedFace Face=2;
+    RecognizedPedestrain Pedestrain=3;
+    string RepoInfo=4;
+    int32 SensorId=5;
+
+}
+
 
 message LicensePlate {
     string PlateNum = 1; //车牌号

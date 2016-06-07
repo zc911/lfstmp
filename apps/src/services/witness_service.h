@@ -15,12 +15,10 @@
 #include "matrix_engine/model/model.h"
 #include "matrix_engine/engine/witness_engine.h"
 #include "model/witness.grpc.pb.h"
-
+#include "string_util.h"
+#include "../config/config_val.h"
 namespace dg {
 using namespace ::dg::model;
-
-
-
 class WitnessAppsService {
 public:
     WitnessAppsService(const Config *config, string name);
@@ -30,9 +28,39 @@ public:
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
+    MatrixError Index(const IndexRequest *request,
+                           IndexResponse *response);
     string name_;
 private:
 
+  /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
+
+        FILE *fp = fopen(filename.c_str(),"r");
+        char msg[1000];
+        while(fgets(msg,sizeof(msg),fp)!=NULL){
+            splitForMap(collect,msg,'=');
+        }
+    }
+    void readCarModelFile(std::string filename){
+        FILE *fp = fopen(filename.c_str(),"r");
+        char msg[1000];
+        while(fgets(msg,sizeof(msg),fp)!=NULL){
+            vector<string> line;
+            split(msg,line,',');
+            if(line.size()!=10)
+                continue;
+            car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
+            car_sub_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[7]));
+            year_model_collect_.insert(pair<int,string>(atoi(line[0]),line[9]));
+            if(line[3]==0){
+                car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"head"));
+            }else{
+                car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"end"));
+            }
+            car_style_collect_.insert(pair<int,string>(atoi(line[0]),line[2]));
+        }
+
+    }*/
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
