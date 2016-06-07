@@ -79,7 +79,29 @@ static void splitSpace(vector<string> &strs,string src){
         strs.push_back(sub);
     }while(iss);
 }
-
+static void splitForMap(map<int,string> &collect,string src,char c){
+    std::stringstream ss(src);
+    std::string item="";
+    std::getline(ss,item,c);
+    if(item==""){
+       return;
+    }
+    int key = atoi(item.c_str());
+    std::getline(ss,item,c);
+    if(item==""){
+        return;
+    }
+    collect.insert(pair<int,string>(key,item));
+}
+static void split(string src,vector<string> &collect,char c){
+    std::stringstream ss(src);
+    std::string item;
+    do{
+        getline(ss,item,c);
+        if(item!="")
+            collect.push_back(item);
+    }while(item!="");
+}
 //static string encode2JPEGInBase64(cv::Mat &data) {
 //    vector < uchar > buff;
 //    cv::imencode(".jpg", data, buff);
