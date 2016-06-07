@@ -27,7 +27,9 @@ private:
     virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response) override
     {
         return service_.Ping(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
+
     }
+
 
     virtual grpc::Status SystemStatus(grpc::ServerContext* context, const SystemStatusRequest *request, SystemStatusResponse *response) override
     {

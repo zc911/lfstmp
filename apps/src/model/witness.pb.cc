@@ -73,6 +73,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* VehicleModel_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   VehicleModel_reflection_ = NULL;
+const ::google::protobuf::Descriptor* IndexModel_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  IndexModel_reflection_ = NULL;
 const ::google::protobuf::Descriptor* LicensePlate_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   LicensePlate_reflection_ = NULL;
@@ -388,7 +391,26 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(VehicleModel),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModel, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(16);
+  IndexModel_descriptor_ = file->message_type(16);
+  static const int IndexModel_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, vehicle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, face_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, pedestrain_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, repoinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, sensorid_),
+  };
+  IndexModel_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      IndexModel_descriptor_,
+      IndexModel::default_instance_,
+      IndexModel_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(IndexModel),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexModel, _is_default_instance_));
+  LicensePlate_descriptor_ = file->message_type(17);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platenum_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, cutboard_),
@@ -409,7 +431,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  SymbolItem_descriptor_ = file->message_type(17);
+  SymbolItem_descriptor_ = file->message_type(18);
   static const int SymbolItem_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, symbolname_),
@@ -426,7 +448,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(SymbolItem),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SymbolItem, _is_default_instance_));
-  Scene_descriptor_ = file->message_type(18);
+  Scene_descriptor_ = file->message_type(19);
   static const int Scene_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, ishead_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, isday_),
@@ -443,7 +465,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(Scene),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Scene, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(19);
+  Symbol_descriptor_ = file->message_type(20);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -532,6 +554,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       VehicleModel_descriptor_, &VehicleModel::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      IndexModel_descriptor_, &IndexModel::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       LicensePlate_descriptor_, &LicensePlate::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       SymbolItem_descriptor_, &SymbolItem::default_instance());
@@ -576,6 +600,8 @@ void protobuf_ShutdownFile_witness_2eproto() {
   delete RecognizedFace_reflection_;
   delete VehicleModel::default_instance_;
   delete VehicleModel_reflection_;
+  delete IndexModel::default_instance_;
+  delete IndexModel_reflection_;
   delete LicensePlate::default_instance_;
   delete LicensePlate_reflection_;
   delete SymbolItem::default_instance_;
@@ -658,28 +684,32 @@ void protobuf_AddDesc_witness_2eproto() {
     "ubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\014\n\004"
     "Type\030\005 \001(\t\022\r\n\005Brand\030\006 \001(\t\022\020\n\010SubBrand\030\007 "
     "\001(\t\022\021\n\tModelYear\030\010 \001(\t\022\016\n\006IsHead\030\t \001(\005\022\022"
-    "\n\nConfidence\030\n \001(\002\"\230\001\n\014LicensePlate\022\020\n\010P"
-    "lateNum\030\001 \001(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.mod"
-    "el.Cutboard\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 "
-    "\001(\t\022\016\n\006TypeId\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nCon"
-    "fidence\030\007 \001(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030"
-    "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
-    "(\0132\020.dg.model.Symbol\"6\n\005Scene\022\016\n\006IsHead\030"
-    "\001 \001(\005\022\r\n\005IsDay\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006"
-    "Symbol\022$\n\010Cutboard\030\003 \001(\0132\022.dg.model.Cutb"
-    "oard\022\022\n\nConfidence\030\004 \001(\002*\337\001\n\tIndexType\022\021"
-    "\n\rINDEX_DEFAULT\020\000\022\022\n\016INDEX_CAR_TYPE\020\001\022\030\n"
-    "\024INDEX_CAR_MAIN_BRAND\020\002\022\027\n\023INDEX_CAR_SUB"
-    "_BRAND\020\003\022\030\n\024INDEX_CAR_YEAR_MODEL\020\004\022\023\n\017IN"
-    "DEX_CAR_COLOR\020\005\022\024\n\020INDEX_CAR_MARKER\020\006\022\030\n"
-    "\024INDEX_CAR_PLATE_TYPE\020\007\022\031\n\025INDEX_CAR_PLA"
-    "TE_COLOR\020\0102\346\001\n\016WitnessService\022B\n\tRecogni"
-    "ze\022\030.dg.model.WitnessRequest\032\031.dg.model."
-    "WitnessResponse\"\000\022Q\n\016BatchRecognize\022\035.dg"
-    ".model.WitnessBatchRequest\032\036.dg.model.Wi"
-    "tnessBatchResponse\"\000\022=\n\010GetIndex\022\026.dg.mo"
-    "del.IndexRequest\032\027.dg.model.IndexRespons"
-    "e\"\000b\006proto3", 3371);
+    "\n\nConfidence\030\n \001(\002\"\272\001\n\nIndexModel\022,\n\007Veh"
+    "icle\030\001 \001(\0132\033.dg.model.RecognizedVehicle\022"
+    "&\n\004Face\030\002 \001(\0132\030.dg.model.RecognizedFace\022"
+    "2\n\nPedestrain\030\003 \001(\0132\036.dg.model.Recognize"
+    "dPedestrain\022\020\n\010RepoInfo\030\004 \001(\t\022\020\n\010SensorI"
+    "d\030\005 \001(\005\"\230\001\n\014LicensePlate\022\020\n\010PlateNum\030\001 \001"
+    "(\t\022$\n\010Cutboard\030\002 \001(\0132\022.dg.model.Cutboard"
+    "\022\017\n\007ColorId\030\003 \001(\005\022\r\n\005Color\030\004 \001(\t\022\016\n\006Type"
+    "Id\030\005 \001(\005\022\014\n\004Type\030\006 \001(\t\022\022\n\nConfidence\030\007 \001"
+    "(\002\"U\n\nSymbolItem\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSy"
+    "mbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.mod"
+    "el.Symbol\"6\n\005Scene\022\016\n\006IsHead\030\001 \001(\005\022\r\n\005Is"
+    "Day\030\002 \001(\005\022\016\n\006Border\030\003 \001(\t\"B\n\006Symbol\022$\n\010C"
+    "utboard\030\003 \001(\0132\022.dg.model.Cutboard\022\022\n\nCon"
+    "fidence\030\004 \001(\002*\337\001\n\tIndexType\022\021\n\rINDEX_DEF"
+    "AULT\020\000\022\022\n\016INDEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_"
+    "MAIN_BRAND\020\002\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n"
+    "\024INDEX_CAR_YEAR_MODEL\020\004\022\023\n\017INDEX_CAR_COL"
+    "OR\020\005\022\024\n\020INDEX_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_"
+    "PLATE_TYPE\020\007\022\031\n\025INDEX_CAR_PLATE_COLOR\020\0102"
+    "\346\001\n\016WitnessService\022B\n\tRecognize\022\030.dg.mod"
+    "el.WitnessRequest\032\031.dg.model.WitnessResp"
+    "onse\"\000\022Q\n\016BatchRecognize\022\035.dg.model.Witn"
+    "essBatchRequest\032\036.dg.model.WitnessBatchR"
+    "esponse\"\000\022=\n\010GetIndex\022\026.dg.model.IndexRe"
+    "quest\032\027.dg.model.IndexResponse\"\000b\006proto3", 3560);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -698,6 +728,7 @@ void protobuf_AddDesc_witness_2eproto() {
   RecognizedVehicle::default_instance_ = new RecognizedVehicle();
   RecognizedFace::default_instance_ = new RecognizedFace();
   VehicleModel::default_instance_ = new VehicleModel();
+  IndexModel::default_instance_ = new IndexModel();
   LicensePlate::default_instance_ = new LicensePlate();
   SymbolItem::default_instance_ = new SymbolItem();
   Scene::default_instance_ = new Scene();
@@ -718,6 +749,7 @@ void protobuf_AddDesc_witness_2eproto() {
   RecognizedVehicle::default_instance_->InitAsDefaultInstance();
   RecognizedFace::default_instance_->InitAsDefaultInstance();
   VehicleModel::default_instance_->InitAsDefaultInstance();
+  IndexModel::default_instance_->InitAsDefaultInstance();
   LicensePlate::default_instance_->InitAsDefaultInstance();
   SymbolItem::default_instance_->InitAsDefaultInstance();
   Scene::default_instance_->InitAsDefaultInstance();
@@ -8493,6 +8525,570 @@ void VehicleModel::clear_confidence() {
   
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModel.Confidence)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int IndexModel::kVehicleFieldNumber;
+const int IndexModel::kFaceFieldNumber;
+const int IndexModel::kPedestrainFieldNumber;
+const int IndexModel::kRepoInfoFieldNumber;
+const int IndexModel::kSensorIdFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+IndexModel::IndexModel()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.IndexModel)
+}
+
+void IndexModel::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  vehicle_ = const_cast< ::dg::model::RecognizedVehicle*>(&::dg::model::RecognizedVehicle::default_instance());
+  face_ = const_cast< ::dg::model::RecognizedFace*>(&::dg::model::RecognizedFace::default_instance());
+  pedestrain_ = const_cast< ::dg::model::RecognizedPedestrain*>(&::dg::model::RecognizedPedestrain::default_instance());
+}
+
+IndexModel::IndexModel(const IndexModel& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.IndexModel)
+}
+
+void IndexModel::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  vehicle_ = NULL;
+  face_ = NULL;
+  pedestrain_ = NULL;
+  repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sensorid_ = 0;
+}
+
+IndexModel::~IndexModel() {
+  // @@protoc_insertion_point(destructor:dg.model.IndexModel)
+  SharedDtor();
+}
+
+void IndexModel::SharedDtor() {
+  repoinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+    delete vehicle_;
+    delete face_;
+    delete pedestrain_;
+  }
+}
+
+void IndexModel::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* IndexModel::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return IndexModel_descriptor_;
+}
+
+const IndexModel& IndexModel::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+IndexModel* IndexModel::default_instance_ = NULL;
+
+IndexModel* IndexModel::New(::google::protobuf::Arena* arena) const {
+  IndexModel* n = new IndexModel;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void IndexModel::Clear() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
+  if (GetArenaNoVirtual() == NULL && face_ != NULL) delete face_;
+  face_ = NULL;
+  if (GetArenaNoVirtual() == NULL && pedestrain_ != NULL) delete pedestrain_;
+  pedestrain_ = NULL;
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sensorid_ = 0;
+}
+
+bool IndexModel::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.IndexModel)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.RecognizedVehicle Vehicle = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_vehicle()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Face;
+        break;
+      }
+
+      // optional .dg.model.RecognizedFace Face = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Face:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_face()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Pedestrain;
+        break;
+      }
+
+      // optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Pedestrain:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pedestrain()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_RepoInfo;
+        break;
+      }
+
+      // optional string RepoInfo = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_RepoInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_repoinfo()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->repoinfo().data(), this->repoinfo().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.IndexModel.RepoInfo"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_SensorId;
+        break;
+      }
+
+      // optional int32 SensorId = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_SensorId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &sensorid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.IndexModel)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.IndexModel)
+  return false;
+#undef DO_
+}
+
+void IndexModel::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.IndexModel)
+  // optional .dg.model.RecognizedVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->vehicle_, output);
+  }
+
+  // optional .dg.model.RecognizedFace Face = 2;
+  if (this->has_face()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->face_, output);
+  }
+
+  // optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+  if (this->has_pedestrain()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->pedestrain_, output);
+  }
+
+  // optional string RepoInfo = 4;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.IndexModel.RepoInfo");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->repoinfo(), output);
+  }
+
+  // optional int32 SensorId = 5;
+  if (this->sensorid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->sensorid(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.IndexModel)
+}
+
+::google::protobuf::uint8* IndexModel::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexModel)
+  // optional .dg.model.RecognizedVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->vehicle_, target);
+  }
+
+  // optional .dg.model.RecognizedFace Face = 2;
+  if (this->has_face()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->face_, target);
+  }
+
+  // optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+  if (this->has_pedestrain()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->pedestrain_, target);
+  }
+
+  // optional string RepoInfo = 4;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.IndexModel.RepoInfo");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->repoinfo(), target);
+  }
+
+  // optional int32 SensorId = 5;
+  if (this->sensorid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->sensorid(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexModel)
+  return target;
+}
+
+int IndexModel::ByteSize() const {
+  int total_size = 0;
+
+  // optional .dg.model.RecognizedVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->vehicle_);
+  }
+
+  // optional .dg.model.RecognizedFace Face = 2;
+  if (this->has_face()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->face_);
+  }
+
+  // optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+  if (this->has_pedestrain()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->pedestrain_);
+  }
+
+  // optional string RepoInfo = 4;
+  if (this->repoinfo().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->repoinfo());
+  }
+
+  // optional int32 SensorId = 5;
+  if (this->sensorid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sensorid());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IndexModel::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const IndexModel* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const IndexModel>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void IndexModel::MergeFrom(const IndexModel& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.has_vehicle()) {
+    mutable_vehicle()->::dg::model::RecognizedVehicle::MergeFrom(from.vehicle());
+  }
+  if (from.has_face()) {
+    mutable_face()->::dg::model::RecognizedFace::MergeFrom(from.face());
+  }
+  if (from.has_pedestrain()) {
+    mutable_pedestrain()->::dg::model::RecognizedPedestrain::MergeFrom(from.pedestrain());
+  }
+  if (from.repoinfo().size() > 0) {
+
+    repoinfo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.repoinfo_);
+  }
+  if (from.sensorid() != 0) {
+    set_sensorid(from.sensorid());
+  }
+}
+
+void IndexModel::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void IndexModel::CopyFrom(const IndexModel& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IndexModel::IsInitialized() const {
+
+  return true;
+}
+
+void IndexModel::Swap(IndexModel* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void IndexModel::InternalSwap(IndexModel* other) {
+  std::swap(vehicle_, other->vehicle_);
+  std::swap(face_, other->face_);
+  std::swap(pedestrain_, other->pedestrain_);
+  repoinfo_.Swap(&other->repoinfo_);
+  std::swap(sensorid_, other->sensorid_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata IndexModel::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = IndexModel_descriptor_;
+  metadata.reflection = IndexModel_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// IndexModel
+
+// optional .dg.model.RecognizedVehicle Vehicle = 1;
+bool IndexModel::has_vehicle() const {
+  return !_is_default_instance_ && vehicle_ != NULL;
+}
+void IndexModel::clear_vehicle() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
+}
+const ::dg::model::RecognizedVehicle& IndexModel::vehicle() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Vehicle)
+  return vehicle_ != NULL ? *vehicle_ : *default_instance_->vehicle_;
+}
+::dg::model::RecognizedVehicle* IndexModel::mutable_vehicle() {
+  
+  if (vehicle_ == NULL) {
+    vehicle_ = new ::dg::model::RecognizedVehicle;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Vehicle)
+  return vehicle_;
+}
+::dg::model::RecognizedVehicle* IndexModel::release_vehicle() {
+  
+  ::dg::model::RecognizedVehicle* temp = vehicle_;
+  vehicle_ = NULL;
+  return temp;
+}
+void IndexModel::set_allocated_vehicle(::dg::model::RecognizedVehicle* vehicle) {
+  delete vehicle_;
+  vehicle_ = vehicle;
+  if (vehicle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Vehicle)
+}
+
+// optional .dg.model.RecognizedFace Face = 2;
+bool IndexModel::has_face() const {
+  return !_is_default_instance_ && face_ != NULL;
+}
+void IndexModel::clear_face() {
+  if (GetArenaNoVirtual() == NULL && face_ != NULL) delete face_;
+  face_ = NULL;
+}
+const ::dg::model::RecognizedFace& IndexModel::face() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Face)
+  return face_ != NULL ? *face_ : *default_instance_->face_;
+}
+::dg::model::RecognizedFace* IndexModel::mutable_face() {
+  
+  if (face_ == NULL) {
+    face_ = new ::dg::model::RecognizedFace;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Face)
+  return face_;
+}
+::dg::model::RecognizedFace* IndexModel::release_face() {
+  
+  ::dg::model::RecognizedFace* temp = face_;
+  face_ = NULL;
+  return temp;
+}
+void IndexModel::set_allocated_face(::dg::model::RecognizedFace* face) {
+  delete face_;
+  face_ = face;
+  if (face) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Face)
+}
+
+// optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+bool IndexModel::has_pedestrain() const {
+  return !_is_default_instance_ && pedestrain_ != NULL;
+}
+void IndexModel::clear_pedestrain() {
+  if (GetArenaNoVirtual() == NULL && pedestrain_ != NULL) delete pedestrain_;
+  pedestrain_ = NULL;
+}
+const ::dg::model::RecognizedPedestrain& IndexModel::pedestrain() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Pedestrain)
+  return pedestrain_ != NULL ? *pedestrain_ : *default_instance_->pedestrain_;
+}
+::dg::model::RecognizedPedestrain* IndexModel::mutable_pedestrain() {
+  
+  if (pedestrain_ == NULL) {
+    pedestrain_ = new ::dg::model::RecognizedPedestrain;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Pedestrain)
+  return pedestrain_;
+}
+::dg::model::RecognizedPedestrain* IndexModel::release_pedestrain() {
+  
+  ::dg::model::RecognizedPedestrain* temp = pedestrain_;
+  pedestrain_ = NULL;
+  return temp;
+}
+void IndexModel::set_allocated_pedestrain(::dg::model::RecognizedPedestrain* pedestrain) {
+  delete pedestrain_;
+  pedestrain_ = pedestrain;
+  if (pedestrain) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Pedestrain)
+}
+
+// optional string RepoInfo = 4;
+void IndexModel::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& IndexModel::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.RepoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void IndexModel::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.IndexModel.RepoInfo)
+}
+ void IndexModel::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.IndexModel.RepoInfo)
+}
+ void IndexModel::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.IndexModel.RepoInfo)
+}
+ ::std::string* IndexModel::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.RepoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* IndexModel::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void IndexModel::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.RepoInfo)
+}
+
+// optional int32 SensorId = 5;
+void IndexModel::clear_sensorid() {
+  sensorid_ = 0;
+}
+ ::google::protobuf::int32 IndexModel::sensorid() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.SensorId)
+  return sensorid_;
+}
+ void IndexModel::set_sensorid(::google::protobuf::int32 value) {
+  
+  sensorid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.IndexModel.SensorId)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
