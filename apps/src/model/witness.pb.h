@@ -42,6 +42,7 @@ void protobuf_AddDesc_witness_2eproto();
 void protobuf_AssignDesc_witness_2eproto();
 void protobuf_ShutdownFile_witness_2eproto();
 
+class IndexModel;
 class IndexRequest;
 class IndexResponse;
 class LicensePlate;
@@ -1905,6 +1906,126 @@ class VehicleModel : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static VehicleModel* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IndexModel : public ::google::protobuf::Message {
+ public:
+  IndexModel();
+  virtual ~IndexModel();
+
+  IndexModel(const IndexModel& from);
+
+  inline IndexModel& operator=(const IndexModel& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const IndexModel& default_instance();
+
+  void Swap(IndexModel* other);
+
+  // implements Message ----------------------------------------------
+
+  inline IndexModel* New() const { return New(NULL); }
+
+  IndexModel* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const IndexModel& from);
+  void MergeFrom(const IndexModel& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(IndexModel* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.RecognizedVehicle Vehicle = 1;
+  bool has_vehicle() const;
+  void clear_vehicle();
+  static const int kVehicleFieldNumber = 1;
+  const ::dg::model::RecognizedVehicle& vehicle() const;
+  ::dg::model::RecognizedVehicle* mutable_vehicle();
+  ::dg::model::RecognizedVehicle* release_vehicle();
+  void set_allocated_vehicle(::dg::model::RecognizedVehicle* vehicle);
+
+  // optional .dg.model.RecognizedFace Face = 2;
+  bool has_face() const;
+  void clear_face();
+  static const int kFaceFieldNumber = 2;
+  const ::dg::model::RecognizedFace& face() const;
+  ::dg::model::RecognizedFace* mutable_face();
+  ::dg::model::RecognizedFace* release_face();
+  void set_allocated_face(::dg::model::RecognizedFace* face);
+
+  // optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+  bool has_pedestrain() const;
+  void clear_pedestrain();
+  static const int kPedestrainFieldNumber = 3;
+  const ::dg::model::RecognizedPedestrain& pedestrain() const;
+  ::dg::model::RecognizedPedestrain* mutable_pedestrain();
+  ::dg::model::RecognizedPedestrain* release_pedestrain();
+  void set_allocated_pedestrain(::dg::model::RecognizedPedestrain* pedestrain);
+
+  // optional string RepoInfo = 4;
+  void clear_repoinfo();
+  static const int kRepoInfoFieldNumber = 4;
+  const ::std::string& repoinfo() const;
+  void set_repoinfo(const ::std::string& value);
+  void set_repoinfo(const char* value);
+  void set_repoinfo(const char* value, size_t size);
+  ::std::string* mutable_repoinfo();
+  ::std::string* release_repoinfo();
+  void set_allocated_repoinfo(::std::string* repoinfo);
+
+  // optional int32 SensorId = 5;
+  void clear_sensorid();
+  static const int kSensorIdFieldNumber = 5;
+  ::google::protobuf::int32 sensorid() const;
+  void set_sensorid(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.IndexModel)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::RecognizedVehicle* vehicle_;
+  ::dg::model::RecognizedFace* face_;
+  ::dg::model::RecognizedPedestrain* pedestrain_;
+  ::google::protobuf::internal::ArenaStringPtr repoinfo_;
+  ::google::protobuf::int32 sensorid_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static IndexModel* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4317,6 +4438,178 @@ inline void VehicleModel::set_confidence(float value) {
 
 // -------------------------------------------------------------------
 
+// IndexModel
+
+// optional .dg.model.RecognizedVehicle Vehicle = 1;
+inline bool IndexModel::has_vehicle() const {
+  return !_is_default_instance_ && vehicle_ != NULL;
+}
+inline void IndexModel::clear_vehicle() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
+}
+inline const ::dg::model::RecognizedVehicle& IndexModel::vehicle() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Vehicle)
+  return vehicle_ != NULL ? *vehicle_ : *default_instance_->vehicle_;
+}
+inline ::dg::model::RecognizedVehicle* IndexModel::mutable_vehicle() {
+  
+  if (vehicle_ == NULL) {
+    vehicle_ = new ::dg::model::RecognizedVehicle;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Vehicle)
+  return vehicle_;
+}
+inline ::dg::model::RecognizedVehicle* IndexModel::release_vehicle() {
+  
+  ::dg::model::RecognizedVehicle* temp = vehicle_;
+  vehicle_ = NULL;
+  return temp;
+}
+inline void IndexModel::set_allocated_vehicle(::dg::model::RecognizedVehicle* vehicle) {
+  delete vehicle_;
+  vehicle_ = vehicle;
+  if (vehicle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Vehicle)
+}
+
+// optional .dg.model.RecognizedFace Face = 2;
+inline bool IndexModel::has_face() const {
+  return !_is_default_instance_ && face_ != NULL;
+}
+inline void IndexModel::clear_face() {
+  if (GetArenaNoVirtual() == NULL && face_ != NULL) delete face_;
+  face_ = NULL;
+}
+inline const ::dg::model::RecognizedFace& IndexModel::face() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Face)
+  return face_ != NULL ? *face_ : *default_instance_->face_;
+}
+inline ::dg::model::RecognizedFace* IndexModel::mutable_face() {
+  
+  if (face_ == NULL) {
+    face_ = new ::dg::model::RecognizedFace;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Face)
+  return face_;
+}
+inline ::dg::model::RecognizedFace* IndexModel::release_face() {
+  
+  ::dg::model::RecognizedFace* temp = face_;
+  face_ = NULL;
+  return temp;
+}
+inline void IndexModel::set_allocated_face(::dg::model::RecognizedFace* face) {
+  delete face_;
+  face_ = face;
+  if (face) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Face)
+}
+
+// optional .dg.model.RecognizedPedestrain Pedestrain = 3;
+inline bool IndexModel::has_pedestrain() const {
+  return !_is_default_instance_ && pedestrain_ != NULL;
+}
+inline void IndexModel::clear_pedestrain() {
+  if (GetArenaNoVirtual() == NULL && pedestrain_ != NULL) delete pedestrain_;
+  pedestrain_ = NULL;
+}
+inline const ::dg::model::RecognizedPedestrain& IndexModel::pedestrain() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Pedestrain)
+  return pedestrain_ != NULL ? *pedestrain_ : *default_instance_->pedestrain_;
+}
+inline ::dg::model::RecognizedPedestrain* IndexModel::mutable_pedestrain() {
+  
+  if (pedestrain_ == NULL) {
+    pedestrain_ = new ::dg::model::RecognizedPedestrain;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Pedestrain)
+  return pedestrain_;
+}
+inline ::dg::model::RecognizedPedestrain* IndexModel::release_pedestrain() {
+  
+  ::dg::model::RecognizedPedestrain* temp = pedestrain_;
+  pedestrain_ = NULL;
+  return temp;
+}
+inline void IndexModel::set_allocated_pedestrain(::dg::model::RecognizedPedestrain* pedestrain) {
+  delete pedestrain_;
+  pedestrain_ = pedestrain;
+  if (pedestrain) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Pedestrain)
+}
+
+// optional string RepoInfo = 4;
+inline void IndexModel::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& IndexModel::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.RepoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void IndexModel::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.IndexModel.RepoInfo)
+}
+inline void IndexModel::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.IndexModel.RepoInfo)
+}
+inline void IndexModel::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.IndexModel.RepoInfo)
+}
+inline ::std::string* IndexModel::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.RepoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* IndexModel::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void IndexModel::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.RepoInfo)
+}
+
+// optional int32 SensorId = 5;
+inline void IndexModel::clear_sensorid() {
+  sensorid_ = 0;
+}
+inline ::google::protobuf::int32 IndexModel::sensorid() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexModel.SensorId)
+  return sensorid_;
+}
+inline void IndexModel::set_sensorid(::google::protobuf::int32 value) {
+  
+  sensorid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.IndexModel.SensorId)
+}
+
+// -------------------------------------------------------------------
+
 // LicensePlate
 
 // optional string PlateNum = 1;
@@ -4749,6 +5042,8 @@ inline void Symbol::set_confidence(float value) {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

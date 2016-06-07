@@ -20,6 +20,7 @@ void GrpcWitnessServiceImpl::Run() {
     builder.RegisterService(this);
     unique_ptr <grpc::Server> server(builder.BuildAndStart());
     server->Wait();
+
 }
 
 grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,

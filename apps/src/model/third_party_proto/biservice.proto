@@ -1,0 +1,233 @@
+syntax = "proto3";
+
+package model;
+
+import "search.proto";
+import "vehicle.proto";
+import "bicycle.proto";
+import "tricycle.proto";
+import "pedestrian.proto";
+import "face.proto";
+import "common.proto";
+import "insert.proto";
+
+enum Lang {
+	UNKNOWN_LANG = 0;
+	EN_US = 1;
+	ZH_CN = 2;
+}
+
+enum MappingType {
+	UNKNOWN_MAPPING = 0;
+	BIZ = 1;
+	BRAND = 2;
+	SUBBRAND = 3;
+	MODELYEAR = 4;
+	MODELTYPE = 5;
+	COLOR = 6;
+	PLATETYPE = 7;
+	SIDES = 8;
+}
+
+message Text {
+	string Text = 1;
+	Lang Lang = 2;
+}
+
+message TextArray {
+	repeated string Text = 1;
+	Lang Lang = 2;
+}
+
+message IdTextMapping {
+	MappingType Type = 1;
+	map<int64, TextArray> Mapping = 2;
+}
+
+message IdTextMappingChange {
+	int32 MappingChanged = 1;
+}
+
+message ImageRepo {
+	int32 Id = 1;
+	string Name = 2;
+	// TODO
+}
+
+message ImageRepos {
+	repeated ImageRepo ImageRepo = 1;
+}
+
+message ExternalData {
+	// TODO
+}
+
+// ## Business Intelligence APIs
+service BusinessIntelligenceService {
+	// ### Metadata init APIs
+	
+	// UpdateIdTextMapping updates Id mapping table of mapping.Type with mapping.Mapping.
+	// Errors:
+	//   40101 "Id/Text array lengthes are not matching"
+	//   40102 "Duplicated Ids"
+	// rpc UpdateIdTextMapping(IdTextMapping) returns (IdTextMappingChange) {}
+
+	// ### Search APIs
+
+	// SeaarchVehicle searches vehicles based on the given query.
+	// Errors:
+	rpc SearchVehicle(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchInvalidPlate searches vehicles based on the given query and validate the results with DMV's database.
+	// Errors:
+	//    40202: No DMV database found.
+	rpc SearchInvalidPlate(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchMultiSpatialTemporalAppearences searches vehicles in multiple spatial/temporal queries and get the intersection of the results.
+	// Errors:
+	rpc SearchMultiSpatialTemporalAppearences(VehicleQueries) returns (VehicleResult) {}
+
+	// SearchMultiAppearences searches vehicles in a single spatial/temporal queries and get the multiple appearence of the same vehicles.
+	// Errors:
+	rpc SearchMultiAppearences(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchSimilarPlate searches vehicles that possess the similar plate with the plates in the given query.
+	// Errors:
+	//   40201: Required parameters missing.
+	//   40203: Invalid plate format.
+	rpc SearchSimilarPlate(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchFirstAppearence searches vehicles that appeared in the given query and didn't appear for at least query.SilencePeriod before the appearence.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc SearchFirstAppearence(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchFrequentAppearence searches vehicles that have more than MaxAppearenceTimes records within query.AppearencePeriod in the given query scope.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc SearchFrequentAppearence(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchFollowers searches vehicles that have followers for more than query.FollowingPeriod in the given query scope.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc SearchFollowers(VehicleQuery) returns (VehicleResult) {}
+
+	// SearchFollowers searches vehicles with customized query.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc SearchCustomizedQuery(CustomizedQuery) returns (VehicleResult) {}
+
+	// AddCustomizedQuery adds customized query.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc AddCustomizedQuery(CustomizedQuery) returns (NullMessage) {}
+
+	// RemoveCustomizedQuery removes customized query.
+	// Errors:
+	//   40201: Required parameters missing.
+	//   40204: No given query found.
+	rpc RemoveCustomizedQuery(CustomizedQuery) returns (NullMessage) {}
+
+	// GetCustomizedQuery gets customized query.
+	// Errors:
+	//   40201: Required parameters missing.
+	//   40204: No given query found.
+	rpc GetCustomizedQuery(CustomizedQuery) returns (CustomizedQuery) {}
+
+	// SetCustomizedQuery sets customized query.
+	// Errors:
+	//   40201: Required parameters missing.
+	//   40204: No given query found.
+	rpc SetCustomizedQuery(CustomizedQuery) returns (CustomizedQuery) {}
+
+	// GetCustomizedQueryList gets all customized queries.
+	// Errors:
+	//   40201: Required parameters missing.
+	rpc GetCustomizedQueryList(NullMessage) returns (CustomizedQueries) {}
+
+	// ### Index APIs
+
+	// Index stores generic entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc Index(GenericObj) returns (NullMessage) {}
+
+	// IndexBatch stores generic entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatch(GenericObjs) returns (NullMessage) {}
+
+	// IndexVehicle stores vehicle entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexVehicle(Vehicle) returns (NullMessage) {}
+
+	// IndexBatchVehicle stores batch vehicle entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatchVehicle(Vehicles) returns (NullMessage) {}
+
+	// IndexBicycle stores bicycle entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBicycle(Bicycle) returns (NullMessage) {}
+
+	// IndexBatchBicycle stores batch bicycle entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatchBicycle(Bicycles) returns (NullMessage) {}
+
+	// IndexTricycle stores tricycle entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexTricycle(Tricycle) returns (NullMessage) {}
+
+	// IndexBatchTricycle stores batch tricycle entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatchTricycle(Tricycles) returns (NullMessage) {}
+
+	// IndexPedestrian stores pedestrian entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexPedestrian(Pedestrian) returns (NullMessage) {}
+
+	// IndexBatchPedestrian stores batch pedestrian entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatchPedestrian(Pedestrians) returns (NullMessage) {}
+
+	// IndexFace stores face entity.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexFace(Face) returns (NullMessage) {}
+
+	// IndexBatchFace stores batch face entities.
+	// Errors:
+	//   40301: Invalid entity.
+	rpc IndexBatchFace(Faces) returns (NullMessage) {}
+
+//*	// ImportImageRepo stores external image repository.
+//*	// Errors:
+//*	//   40302: Invalid repo.
+//*	rpc ImportImageRepo(ImageRepo) returns (NullMessage) {}
+
+//*	// RemoveImageRepo removes external image repository.
+//*	// Errors:
+//*	//   40303: Repo doesn't exist.
+//*	rpc RemoveImageRepo(ImageRepo) returns (NullMessage) {}
+
+//*	// ModifyImageRepo modifies external image repository.
+//*	// Errors:
+//*	//   40303: Repo doesn't exist.
+//*	rpc ModifyImageRepo(ImageRepo) returns (NullMessage) {}
+
+//*	// GetAllImageRepo lists all external image repositories.
+//*	// Errors:
+//*	rpc GetAllImageRepo(NullMessage) returns (ImageRepos) {}
+
+	// ImportExternalData imports external data like DMV's data.
+	// Errors:
+	//   40304: Invalid external data.
+	// rpc ImportExternalData(ExternalData) returns (NullMessage) {}
+}
