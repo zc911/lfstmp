@@ -1,6 +1,6 @@
 file(GLOB_RECURSE SRC_FILES *.cpp *.c *.cc)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES} grpc/spring_grpc.h)
 message(${LIBS})
 target_link_libraries(${PROJECT_NAME} ${LIBS})
 

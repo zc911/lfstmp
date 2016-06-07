@@ -19,9 +19,8 @@
 #include <boost/algorithm/string.hpp>
 #include "config/config_val.h"
 #include "config.h"
-#include "string_util.h"
 #include "model/system.grpc.pb.h"
-
+#include "string_util.h"
 namespace dg {
 using namespace ::dg::model;
 static void networkInfo(int *rx, int *tx) {
@@ -91,12 +90,7 @@ class SystemAppsService {
 
     MatrixError ConfigEngine(const InstanceConfigureRequest *request,
                              InstanceConfigureResponse *response);
-//    MatrixError GetColorMapping(const InstanceConfigureRequest *request,
-//                             InstanceConfigureResponse *response);
-//    MatrixError GetVehicleMapping(const InstanceConfigureRequest *request,
-//                             InstanceConfigureResponse *response);
-//    MatrixError GetMarkerMapping(const InstanceConfigureRequest *request,
-//                             InstanceConfigureResponse *response);
+
     static int getCpuUsage(std::string &msg) {
         char id[300];
         FILE *out = popen("top -bn1 |grep 'Cpu(s)'", "r");
@@ -203,6 +197,7 @@ class SystemAppsService {
         return 1;
 
     }
+
     int getNetworkInfo(std::string &msg,std::string cmd){
         if(cmd=="RX"){
             msg = to_string(rx_)+" kB/s";
@@ -213,6 +208,7 @@ class SystemAppsService {
         return 1;
     }
  private:
+    void initNetworkThread();
     const Config *config_;
     int rx_ = 0;
     int tx_ = 0;

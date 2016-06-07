@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package model;
+
+import "common.proto";
+
+//message FaceFeature {
+//	repeated float FloatVector = 1;
+//	repeated bool BoolVector = 2;
+//}
+
+message Face {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+	bytes Feature = 4;
+}
+
+message Faces {
+	repeated Face Face = 1;
+}
