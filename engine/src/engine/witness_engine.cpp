@@ -1,4 +1,5 @@
 #include "witness_engine.h"
+#include "log/log_val.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
@@ -48,7 +49,9 @@ WitnessEngine::~WitnessEngine() {
 
 
 void WitnessEngine::Process(FrameBatch *frames) {
-    LOG(INFO) << "begin process" << endl;
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
+
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (!enable_vehicle_detect_
             || !frames->CheckFrameBatchOperation(

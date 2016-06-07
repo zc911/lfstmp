@@ -21,7 +21,7 @@ PlateRecognizerProcessor::~PlateRecognizerProcessor() {
 
 bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
 
-    DLOG(INFO) << "Start plate recognize processor " << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start plate recognize processor " << endl;
 
     if (images_.size() != objs_.size()) {
         LOG(ERROR) << "Image size not equal to vehicle size. " << endl;
@@ -31,7 +31,6 @@ bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
     vector<Vehicle::Plate> results = recognizer_->RecognizeBatch(images_);
     for (int i = 0; i < images_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
-        Mat tmp = images_[i];
         v->set_plate(results[i]);
     }
     return true;
@@ -90,7 +89,6 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
         if (obj->type() == OBJECT_CAR) {
             Vehicle *v = (Vehicle *) obj;
 
-            DLOG(INFO) << "Put vehicle images to be plate recognized: " << obj->id() << endl;
             if (enable_sharpen_) {
                 Mat result;
                 sharpenImage(v->image(), result);

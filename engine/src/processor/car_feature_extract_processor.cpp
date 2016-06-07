@@ -7,6 +7,7 @@
 
 #include "car_feature_extract_processor.h"
 #include "processor_helper.h"
+#include "log/log_val.h"
 namespace dg {
 
 CarFeatureExtractProcessor::CarFeatureExtractProcessor() {
@@ -29,10 +30,9 @@ void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
 
 bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
-    DLOG(INFO)<< "Start feature extract(Batch). " << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start feature extract(Batch). " << endl;
     extract(vehicle_to_processed_);
     vehicle_to_processed_.clear();
-    DLOG(INFO)<< "End feature extract(Batch). " << endl;
     return true;
 }
 

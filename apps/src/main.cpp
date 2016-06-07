@@ -5,7 +5,9 @@
 #include <grpc++/grpc++.h>
 
 #define BOOST_SPIRIT_THREADSAFE
+#include <gflags/gflags.h>
 #include <curl/curl.h>
+
 #include "config.h"
 
 #include "grpc/witness_grpc.h"
@@ -15,7 +17,6 @@
 #include "restful/ranker_restful.h"
 #include "services/engine_pool.h"
 
-#include "Simple-Web-Server/server_http.hpp"
 
 using namespace std;
 using namespace dg;
@@ -23,7 +24,7 @@ using namespace dg;
 
 string getServerAddress(Config *config, int userPort = 0) {
     if (userPort != 0) {
-        cout << "Use command line port instead of config file value: " << endl;
+        cout << "Use command line port instead of config file value" << endl;
         config->AddEntry("System/Port", AnyConversion(userPort));
     }
 
@@ -89,33 +90,31 @@ void serveRanker(Config *config, int userPort = 0) {
     }
 }
 
+
+DEFINE_int32(port, 0, "Service port number, will overwite the value defined in config file");
+DEFINE_string(config, "config.json", "Config file path");
+
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
 
-    google::ParseCommandLineFlags(&argc, &argv, true);
+    google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
+    google::SetVersionString("0.2.1");
+    google::ParseCommandLineFlags(&argc, &argv, false);
+
     // init curl in the main thread
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
     curl_global_init(CURL_GLOBAL_ALL);
 
-    int userPort = 0;
-    if (argc >= 2) {
-        userPort = atoi(argv[1]);
-    }
-    string configFile = "config.json";
-    if (argc >= 3) {
-        configFile = argv[2];
-    }
-
     Config *config = new Config();
-    config->Load(configFile);
+    config->Load(FLAGS_config);
 
     string instType = (string) config->Value("InstanceType");
 
     if (instType == "witness") {
-        serveWitness(config, userPort);
+        serveWitness(config, FLAGS_port);
     } else if (instType == "ranker") {
-        serveRanker(config, userPort);
+        serveRanker(config, FLAGS_port);
     } else {
         cout << "Invalid instance type , should be either witness or ranker." << endl;
         return -1;

@@ -14,6 +14,7 @@
 #include <future>
 #include <functional>
 #include "../model/common.pb.h"
+#include "log/log_val.h"
 
 namespace dg {
 
@@ -65,8 +66,21 @@ template<typename EngineType>
 class MatrixEnginesPool {
 public:
 
+    typedef struct {
+        int status = 0;
+    } WorkerStatus;
+
     MatrixEnginesPool(Config *config) : config_(config) {
 
+    }
+
+    void PrintStastics() {
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Worker number in total: " << workers_.size() << endl;
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Task in queue: " << tasks_.size() << endl;
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
+        VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
     }
 
     void Run() {
@@ -107,15 +121,16 @@ public:
                           this->tasks_.pop();
                           lock.unlock();
                       }
-                      cout << "Process in thread: " << std::this_thread::get_id() << endl;
                       // assign the current engine instance to task
                       task->apps = (void *) engine;
                       // task first binds the engine instance to the specific member methods
                       // and then invoke the binded function
                       task->Run();
-                      cout << "finish process: " << endl;
                   }
                 });
+
+//                WorkerStatus ws{status = 0};
+//                worker_status_.push_back(ws);
             }
 
         }
@@ -137,9 +152,11 @@ public:
         return true;
     }
 
+
 private:
     Config *config_;
     queue<CallData *> tasks_;
+    vector<WorkerStatus> worker_status_;
     vector<std::thread> workers_;
     std::mutex queue_mutex_;
     std::condition_variable condition_;

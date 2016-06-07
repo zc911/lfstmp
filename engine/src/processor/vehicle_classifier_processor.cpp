@@ -27,7 +27,7 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 
 bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    DLOG(INFO) << "Start vehicle classify frame: " << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << endl;
 
     vector<vector<Prediction> > result;
 
@@ -70,7 +70,6 @@ void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
         //collect car objects
         if (obj->type() == OBJECT_CAR) {
             Vehicle *v = (Vehicle *) obj;
-            DLOG(INFO) << "Put vehicle images to be type classified: " << obj->id() << endl;
             images_.push_back(v->resized_image());
             ++itr;
         } else {

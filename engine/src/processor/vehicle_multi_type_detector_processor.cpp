@@ -17,7 +17,9 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 }
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
-    LOG(INFO) << "start detector" << endl;
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start detector" << endl;
+
     vector<int> frameIds;
     vector<Mat> images;
     vector<vector<Detection> > detect_results;
@@ -31,7 +33,6 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             continue;
         }
 
-        DLOG(INFO) << "Start detect frame: " << frame->id() << endl;
         Mat data = frame->payload()->data();
 
         if (data.rows == 0 || data.cols == 0) {
@@ -112,33 +113,6 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         }
     }
 
-
-//    vector<Detection> detections = detector_->DetectBatch(data);
-//    int id = 0;
-//    for (vector<Detection>::iterator itr = detections.begin();
-//         itr != detections.end(); ++itr) {
-//        Detection detection = *itr;
-//        Object *obj = NULL;
-//
-//        // TODO other detection type?
-//        if (detection.id == DETECTION_CAR) {
-//            Vehicle *v = new Vehicle(OBJECT_CAR);
-//            Mat roi = Mat(data, detection.box);
-//            if (roi.rows == 0 || roi.cols == 0) {
-//                continue;
-//            }
-//            v->set_image(roi);
-//            v->set_id(base_id_ + id++);
-//            obj = static_cast<Object *>(v);
-//        }
-//
-//        if (obj) {
-//            obj->set_detection(detection);
-//            frame->put_object(obj);
-//        }
-//
-//    }
-//    DLOG(INFO) << frame->objects().size() << " cars are detected in frame " << frame->id() << endl;
     return true;
 }
 
