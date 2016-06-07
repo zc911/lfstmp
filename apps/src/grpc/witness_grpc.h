@@ -28,12 +28,6 @@ using grpc::Status;
 
 namespace dg {
 
-//class IGrpcWitnessService {
-//public:
-//    IGrpcWitnessService() { };
-//    virtual ~IGrpcWitnessService() { };
-//    virtual void Run() = 0;
-//};
 
 class GrpcWitnessServiceImpl final: public BasicGrpcService<WitnessAppsService>, public WitnessService::Service {
 public:
