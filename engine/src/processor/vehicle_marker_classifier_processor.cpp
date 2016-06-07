@@ -11,9 +11,9 @@
 namespace dg {
 
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
-        WindowCaffeDetector::WindowCaffeConfig & wConfig,
-        MarkerCaffeClassifier::MarkerConfig &mConfig)
-        : Processor() {
+    WindowCaffeDetector::WindowCaffeConfig &wConfig,
+    MarkerCaffeClassifier::MarkerConfig &mConfig)
+    : Processor() {
 
     classifier_ = new MarkerCaffeClassifier(mConfig);
     detector_ = new WindowCaffeDetector(wConfig);
@@ -29,13 +29,14 @@ VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
 }
 
 bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
-    DLOG(INFO)<<"Start marker and window processor"<<endl;
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << endl;
 
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
-            images_);
+                                                     images_);
 
     for (int i = 0; i < objs_.size(); i++) {
-        Vehicle *v = (Vehicle*) objs_[i];
+        Vehicle *v = (Vehicle *) objs_[i];
         v->set_window(crops[i]);
     }
 
@@ -47,9 +48,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     }
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
-    DLOG(INFO)<<"marker pred result: " << pred.size() <<endl;
     for (int i = 0; i < pred.size(); i++) {
-        Vehicle *v = (Vehicle*) objs_[i];
+        Vehicle *v = (Vehicle *) objs_[i];
         v->set_markers(pred[i]);
 
     }
@@ -77,16 +77,15 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
         if (obj->type() == OBJECT_CAR) {
 
-            Vehicle *v = (Vehicle*) obj;
+            Vehicle *v = (Vehicle *) obj;
 
-            DLOG(INFO)<< "Put vehicle images to be marker classified: " << obj->id() << endl;
             resized_images_.push_back(v->resized_image());
             images_.push_back(v->image());
             ++itr;
 
         } else {
             itr = objs_.erase(itr);
-            DLOG(INFO)<< "This is not a type of vehicle: " << obj->id() << endl;
+            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
 
@@ -96,7 +95,7 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 bool VehicleMarkerClassifierProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_MARK,performance_);
+    return RecordPerformance(FEATURE_CAR_MARK, performance_);
 
 }
 }
