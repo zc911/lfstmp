@@ -11,7 +11,7 @@
 #include "model/basic.h"
 #include "model/model.h"
 #include "model/frame.h"
-
+#include "log/log_val.h"
 
 namespace dg {
 /// The basic processor interface. It defines the
