@@ -141,7 +141,6 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
 
     if (toPredict.size() > 0) {
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
-        cout << "detection outputs size: " << outputs.size() << " and img size: " << img.size() << endl;
         Fullfil(toPredict, outputs, detect_results);
     }
 
