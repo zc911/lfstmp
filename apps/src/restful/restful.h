@@ -18,6 +18,7 @@
 #include "../model/common.pb.h"
 
 #include "services/engine_service.h"
+#include "log/log_val.h"
 
 using namespace std;
 using namespace ::dg::model;
@@ -90,8 +91,8 @@ protected:
         server.resource[endpoint][method] =
             [this, func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
 
-              cout << "[RESTFUL] ========================" << endl;
-              cout << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
+              VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
+              VLOG(VLOG_SERVICE) << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
               struct timeval start, end;
               gettimeofday(&start, NULL);
 
@@ -133,7 +134,8 @@ protected:
                   responseText(response, 200, content);
 
                   gettimeofday(&end, NULL);
-                  cout << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
+                  VLOG(VLOG_PROCESS_COST) << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
+                  VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
               }
               catch (exception &e) {
                   responseText(response, 500, e.what());
