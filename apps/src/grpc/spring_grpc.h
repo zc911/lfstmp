@@ -25,15 +25,10 @@ public:
     string Index(GenericObj &request,
                       NullMessage *reply){
         ClientContext context;
-        LOG(INFO)<<"TEST CLIENT"<<endl;
         Status status = stub_->Index(&context,request,reply);
-        LOG(INFO)<<"TEST CLIENT"<<endl;
         if (status.ok()) {
-            cout<<"sdkjf"<<endl;
-            LOG(INFO)<<"TEST CLIENT"<<endl;
             return "reply successed";
         } else {
-            LOG(INFO)<<"TEST CLIENT"<<endl;
             return "reply failed";
         }
     }

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package dg.model;
 
-import "common.proto";
+import "localcommon.proto";
 
 service SystemService { 
     rpc Ping(PingRequest) returns (PingResponse) {}

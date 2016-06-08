@@ -69,8 +69,8 @@ private:
 
     //repo list
     string unknown_string_;
-    VehicleModel unknown_vehicle_;
-    vector<VehicleModel> vehicle_repo_;
+    VehicleModelType unknown_vehicle_;
+    vector<VehicleModelType> vehicle_repo_;
     vector<string> vehicle_type_repo_;
     vector<string> color_repo_;
     vector<string> symbol_repo_;
@@ -85,9 +85,9 @@ private:
     void init(void);
     void init_string_map(string filename, string sep, vector<string> &array);
     void init_vehicle_map(string filename, string sep,
-                          vector<VehicleModel> &array);
+                          vector<VehicleModelType> &array);
     const string &lookup_string(const vector<string> &array, int index);
-    const VehicleModel &lookup_vehicle(const vector<VehicleModel> &array,
+    const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                        int index);
 
     static string trimString(string str);
@@ -99,16 +99,16 @@ private:
     MatrixError checkRequest(const WitnessRequest &request);
     MatrixError checkRequest(const WitnessBatchRequest &requests);
     MatrixError checkWitnessImage(const WitnessImage &wImage);
-    MatrixError fillModel(const Vehicle &vobj, RecognizedVehicle *vrec);
+    MatrixError fillModel(const Vehicle &vobj, RecVehicle *vrec);
     MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
     MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
     MatrixError fillSymbols(const vector<Object *> &objects,
-                            RecognizedVehicle *vrec);
+                            RecVehicle *vrec);
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
-                                     RecognizedVehicle *vrec);
-    MatrixError getRecognizedFace(const Face *fobj, RecognizedFace *frec);
+                                     RecVehicle *vrec);
+    MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
-    MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecognizedPedestrain *result);
+    MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecPedestrian *result);
 
 
 };
