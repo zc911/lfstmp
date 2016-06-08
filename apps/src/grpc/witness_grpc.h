@@ -15,7 +15,6 @@
 #include <grpc++/grpc++.h>
 #include "../model/common.pb.h"
 #include "services/witness_service.h"
-
 using namespace ::dg::model;
 using grpc::Server;
 using grpc::ServerAsyncResponseWriter;
@@ -123,7 +122,6 @@ public:
     std::unique_ptr<ServerCompletionQueue> cq_;
     WitnessService::AsyncService service_;
     std::unique_ptr<Server> server_;
-
     volatile int which_apps_;
 };
 

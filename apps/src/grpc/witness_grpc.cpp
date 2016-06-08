@@ -12,7 +12,8 @@ GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(const Config *config) : witness_a
     addr_ = (string) config->Value("System/Ip") + ":"
         + (string) config->Value("System/Port");
 }
-GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() { }
+GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
+}
 
 void GrpcWitnessServiceImpl::Run() {
     grpc::ServerBuilder builder;
@@ -145,8 +146,10 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
 
 
             gettimeofday(&start, NULL);
-            if (witness_apps)
+            if (witness_apps){
                 witness_apps->Recognize(&request_, &reply_);
+
+            }
             gettimeofday(&end, NULL);
             cout << "Rec cost: " << TimeCostInMs(start, end) << endl;
             cout << "Finish processing(Asyn): " << request_.context().sessionid()
@@ -165,8 +168,11 @@ void GrpcWitnessServiceAsynImpl::CallData::Proceed(WitnessAppsService *witness_a
                 << "..." << endl;
 
             gettimeofday(&start, NULL);
-            if (witness_apps)
+            if (witness_apps){
                 witness_apps->BatchRecognize(&batch_request_, &batch_reply_);
+
+            }
+            cout<<"~~!!!!!!!!!!!!!!!!!"<<endl;
             gettimeofday(&end, NULL);
             cout << "Batch rec cost: " << TimeCostInMs(start, end) << endl;
             cout << "Finish batch processing(Asyn): " << batch_request_.context().sessionid()
