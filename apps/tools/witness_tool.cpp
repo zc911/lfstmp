@@ -46,6 +46,7 @@ static void Print(const WitnessResponse &resp) {
     cout << "=================" << endl;
     cout << "SessionId:" << resp.context().sessionid() << endl;
     const WitnessResult &r = resp.result();
+    cout<<r.vehicles_size()<<" vehicle size"<<endl;
     rapidjson::Value *value = pbjson::pb2jsonobject(&r);
     string s;
     pbjson::json2string(value, s);
@@ -86,8 +87,8 @@ public:
         WitnessRelativeROI * roi = witnessimage->add_relativeroi();
         roi->set_posx(0);
         roi->set_posy(0);
-        roi->set_width(100);
-        roi->set_height(100);
+        roi->set_width(1000);
+        roi->set_height(1000);
         WitnessResponse resp;
         Print(req);
         ClientContext context;
