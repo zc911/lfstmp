@@ -3,6 +3,7 @@ syntax = "proto3";
 package dg.model;
 
 import "common.proto";
+import "localcommon.proto";
 import "system.proto";
 
 service SkynetService { 

@@ -110,20 +110,21 @@ void protobuf_AddDesc_ranker_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::dg::model::protobuf_AddDesc_common_2eproto();
+  ::dg::model::protobuf_AddDesc_localcommon_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014ranker.proto\022\010dg.model\032\014common.proto\"\201"
-    "\002\n\025FeatureRankingRequest\022\r\n\005ReqId\030\001 \001(\003\022"
-    "%\n\004Type\030\002 \001(\0162\027.dg.model.RecognizeType\022\036"
-    "\n\005Image\030\003 \001(\0132\017.dg.model.Image\022+\n\017Intere"
-    "stedAreas\030\004 \003(\0132\022.dg.model.Cutboard\022)\n\rD"
-    "isabledAreas\030\005 \003(\0132\022.dg.model.Cutboard\022+"
-    "\n\nCandidates\030\006 \003(\0132\027.dg.model.FeatureVec"
-    "tor\022\r\n\005Limit\030\007 \001(\005\"D\n\026FeatureRankingResp"
-    "onse\022\r\n\005ReqId\030\001 \001(\003\022\013\n\003Ids\030\002 \003(\003\022\016\n\006Scor"
-    "es\030\003 \003(\0022k\n\021SimilarityService\022V\n\017GetRank"
-    "edVector\022\037.dg.model.FeatureRankingReques"
-    "t\032 .dg.model.FeatureRankingResponse\"\000b\006p"
-    "roto3", 485);
+    "\n\014ranker.proto\022\010dg.model\032\014common.proto\032\021"
+    "localcommon.proto\"\201\002\n\025FeatureRankingRequ"
+    "est\022\r\n\005ReqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027.dg.mo"
+    "del.RecognizeType\022\036\n\005Image\030\003 \001(\0132\017.dg.mo"
+    "del.Image\022+\n\017InterestedAreas\030\004 \003(\0132\022.dg."
+    "model.Cutboard\022)\n\rDisabledAreas\030\005 \003(\0132\022."
+    "dg.model.Cutboard\022+\n\nCandidates\030\006 \003(\0132\027."
+    "dg.model.FeatureVector\022\r\n\005Limit\030\007 \001(\005\"D\n"
+    "\026FeatureRankingResponse\022\r\n\005ReqId\030\001 \001(\003\022\013"
+    "\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022k\n\021Similarit"
+    "yService\022V\n\017GetRankedVector\022\037.dg.model.F"
+    "eatureRankingRequest\032 .dg.model.FeatureR"
+    "ankingResponse\"\000b\006proto3", 504);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ranker.proto", &protobuf_RegisterTypes);
   FeatureRankingRequest::default_instance_ = new FeatureRankingRequest();
