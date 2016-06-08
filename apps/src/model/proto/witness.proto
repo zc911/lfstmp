@@ -4,6 +4,7 @@ package dg.model;
 
 import "common.proto";
 import "system.proto";
+import "localcommon.proto";
 
 service WitnessService {
 
@@ -103,82 +104,20 @@ message WitnessResult {
     string InnerStatus = 1; //响应的内部状态
     string InnerMessage = 2; //响应的内部信息
     WitnessImage Image = 3; //响应的图片信息
-    repeated RecognizedVehicle Vehicles = 4; //识别的车辆列表
-    repeated RecognizedFace Faces = 5; //识别的人脸列表
-    repeated RecognizedPedestrain Pedestrains = 6; //识别的行人列表
+    repeated RecVehicle Vehicles = 4; //识别的车辆列表
+    repeated RecFace Faces = 5; //识别的人脸列表
+    repeated RecPedestrian Pedestrians = 6; //识别的行人列表
 
 }
 
-message RecognizedPedestrain {
-    Cutboard Cutboard = 1; //行人位置框
-    float Confidence = 2; //行人识别置信度
-    string Features = 3; //行人特征值(Base64)
-}
-
-message RecognizedVehicle {
-    VehicleModel Model = 1; //车辆模型信息
-    Cutboard Cutboard = 2; //车辆位置框
-    Color Color = 3; //识别的车辆颜色
-    LicensePlate LicensePlate = 4; //车牌信息
-    repeated SymbolItem SymbolItems = 5; //标志物列表
-    string Features = 6; //车辆特征值(Base64)
-    Scene Scene = 7; //车辆场景信息， DEPRECATED !!!
-    ObjType VehicleType = 8;
-    string VehicleTypeName = 9;
-}
-
-message RecognizedFace {
-    Cutboard Cutboard = 1; //人脸位置框
-    float Confidence = 2; //人脸识别置信度
-    string Features = 3; //人脸特征值(Base64)
-}
-
-message VehicleModel {
-    int32 TypeId = 1; //车模类型Id
-    int32 BrandId = 2; //车模主品牌Id
-    int32 SubBrandId = 3; //车模子品牌Id
-    int32 ModelYearId = 4; //车模年款Id
-    string Type = 5; //车模类型名称
-    string Brand = 6; //车模主品牌名称
-    string SubBrand = 7; //车模子品牌名称
-    string ModelYear = 8; //车模年款名称
-    int32 IsHead = 9; //车头 or 车尾
-    float Confidence = 10; //车模识别置信度
-}
 message IndexModel{
-    RecognizedVehicle Vehicle=1;
-    RecognizedFace Face=2;
-    RecognizedPedestrain Pedestrain=3;
+    RecVehicle Vehicle=1;
+    RecFace Face=2;
+    RecPedestrian Pedestrian=3;
     string RepoInfo=4;
     int32 SensorId=5;
 
 }
 
 
-message LicensePlate {
-    string PlateNum = 1; //车牌号
-    Cutboard Cutboard = 2; //车牌框
-    int32 ColorId = 3; //车牌颜色ModelId
-    string Color = 4; //车牌颜色
-    int32 TypeId = 5; //车牌类型ModelId
-    string Type = 6; //车牌类型
-    float Confidence = 7; //车牌识别置信度
-}
 
-message SymbolItem {
-    int32 SymbolId = 1; //标志物ModelId
-    string SymbolName = 2; //标志物名称
-    repeated Symbol Symbols = 3; //标志物列表
-}
-
-//DEPRECATED !!!
-message Scene {
-    int32 IsHead = 1;
-    int32 IsDay = 2;
-    string Border = 3;
-}
-
-message Symbol {
-    Cutboard Cutboard = 3; //标志物框
-    float Confidence = 4; //标志物识别置信度
-}
