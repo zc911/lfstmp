@@ -17,6 +17,7 @@
 #include "model/witness.grpc.pb.h"
 #include "string_util.h"
 #include "../config/config_val.h"
+#include "grpc/spring_grpc.h"
 namespace dg {
 using namespace ::dg::model;
 class WitnessAppsService {
@@ -32,6 +33,7 @@ public:
                            IndexResponse *response);
     string name_;
 private:
+    SpringGrpcClient *client_;
 
   /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
 
