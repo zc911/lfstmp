@@ -10,4 +10,5 @@ protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} ranker.pro
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} system.proto
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} skynet.proto
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} matrix.proto
+protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} spring.proto
 
