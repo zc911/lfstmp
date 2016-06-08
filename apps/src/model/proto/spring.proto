@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package dg.model;
+import "common.proto";
+
+
+
+message ExternalData {
+    // TODO
+}
+
+// ## Business Intelligence APIs
+service SpringService {
+    // ### Index APIs
+
+    // Index stores generic entity.
+    // Errors:
+    //   40301: Invalid entity.
+    rpc Index(GenericObj) returns (NullMessage) {}
+
+    // IndexBatch stores generic entities.
+    // Errors:
+    //   40301: Invalid entity.
+    rpc IndexBatch(GenericObjs) returns (NullMessage) {}
+
+    // IndexVehicle stores vehicle entity.
+    // Errors:
+    //   40301: Invalid entity.
+}
+message GenericObj {
+    ObjType Type = 1;
+    DataFmtType FmtType = 2;
+    string StrData = 3; // Json representation of specific obj. Use string for two reasons: the readbility; don't need to overhead of converting to base64 in http api.
+    bytes BinData = 4; // Protobuf representation of specific obj.
+}
+
+message GenericObjs {
+    repeated GenericObj GenericObj = 1;
+}
