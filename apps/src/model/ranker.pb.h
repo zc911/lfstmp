@@ -28,6 +28,7 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "common.pb.h"
+#include "localcommon.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace dg {
