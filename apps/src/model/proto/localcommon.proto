@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package dg.model;
+enum RecognizeType {
+    REC_TYPE_DEFAULT = 0;
+REC_TYPE_VEHICLE = 1;
+REC_TYPE_FACE = 2;
+REC_TYPE_ALL = 3;
+}
+
+enum RecognizeFunctions {
+    RECFUNC_NONE = 0;
+RECFUNC_VEHICLE = 1;
+RECFUNC_VEHICLE_DETECT = 2;
+RECFUNC_VEHICLE_TRACK = 3;
+RECFUNC_VEHICLE_STYLE = 4;
+RECFUNC_VEHICLE_COLOR = 5;
+RECFUNC_VEHICLE_MARKER = 6;
+RECFUNC_VEHICLE_PLATE = 7;
+RECFUNC_VEHICLE_FEATURE_VECTOR = 8;
+RECFUNC_FACE = 9;
+RECFUNC_FACE_DETECTOR = 10;
+RECFUNC_FACE_FEATURE_VECTOR = 11;
+}
+
+message Time {
+    int64 Seconds = 1;
+    int64 NanoSecs = 2;
+}
+message MatrixError {
+    int32 Code = 1;
+    string Message = 2;
+}

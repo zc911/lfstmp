@@ -11,6 +11,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
 #include <sys/time.h>
+#include <matrix_engine/model/model.h>
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
@@ -57,7 +58,7 @@ void WitnessAppsService::init(void) {
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
     client_=new SpringGrpcClient(
-        grpc::CreateChannel("192.168.5.8:9992",
+        grpc::CreateChannel("192.168.5.66:9992",
                             grpc::InsecureChannelCredentials()));
 
 
@@ -102,11 +103,11 @@ void WitnessAppsService::init_string_map(string filename, string sep,
 }
 
 void WitnessAppsService::init_vehicle_map(string filename, string sep,
-                                          vector<VehicleModel> &array) {
+                                          vector<VehicleModelType> &array) {
     ifstream input(filename);
 
     int max = 0;
-    vector<std::pair<int, VehicleModel>> pairs;
+    vector<std::pair<int, VehicleModelType>> pairs;
     for (string line; std::getline(input, line);) {
         vector<string> tokens;
         boost::iter_split(tokens, line, boost::first_finder(sep));
@@ -116,7 +117,7 @@ void WitnessAppsService::init_vehicle_map(string filename, string sep,
         if (index > max)
             max = index;
 
-        VehicleModel m;
+        VehicleModelType m;
         m.set_typeid_(parseInt(tokens[1]));
         m.set_type(trimString(tokens[2]));
         m.set_ishead(parseInt(tokens[3]));
@@ -128,7 +129,7 @@ void WitnessAppsService::init_vehicle_map(string filename, string sep,
         m.set_modelyear(trimString(tokens[9]));
         m.set_confidence(-1.0);
 
-        pairs.push_back(std::pair<int, VehicleModel>(index, m));
+        pairs.push_back(std::pair<int, VehicleModelType>(index, m));
     }
 
     array.resize(max + 1);
@@ -136,7 +137,7 @@ void WitnessAppsService::init_vehicle_map(string filename, string sep,
         array[i].CopyFrom(unknown_vehicle_);
     }
 
-    for (const std::pair<int, VehicleModel> &p : pairs) {
+    for (const std::pair<int, VehicleModelType> &p : pairs) {
         array[p.first].CopyFrom(p.second);
     }
 }
@@ -150,8 +151,8 @@ const string &WitnessAppsService::lookup_string(const vector<string> &array,
     return array[index];
 }
 
-const VehicleModel &WitnessAppsService::lookup_vehicle(
-    const vector<VehicleModel> &array, int index) {
+const VehicleModelType &WitnessAppsService::lookup_vehicle(
+    const vector<VehicleModelType> &array, int index) {
     if (index < 0 || index > array.size()) {
         return unknown_vehicle_;
     }
@@ -219,13 +220,13 @@ void WitnessAppsService::copyCutboard(const Detection &b, Cutboard *cb) {
 }
 
 MatrixError WitnessAppsService::fillModel(const Vehicle &vobj,
-                                          RecognizedVehicle *vrec) {
+                                          RecVehicle *vrec) {
     MatrixError err;
     string type = lookup_string(vehicle_type_repo_, vobj.type());
     vrec->set_vehicletypename(type);
     if (vobj.type() == OBJECT_CAR) {
-        const VehicleModel &m = lookup_vehicle(vehicle_repo_, vobj.class_id());
-        VehicleModel *model = vrec->mutable_model();
+        const VehicleModelType &m = lookup_vehicle(vehicle_repo_, vobj.class_id());
+        VehicleModelType *model = vrec->mutable_modeltype();
         model->CopyFrom(m);
         vrec->set_vehicletype(OBJ_TYPE_CAR);
     } else if (vobj.type() == OBJECT_BICYCLE) {
@@ -240,7 +241,7 @@ MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color,
                                           Color *rcolor) {
     MatrixError err;
 
-    rcolor->set_id(color.class_id);
+    rcolor->set_colorid(color.class_id);
     rcolor->set_colorname(lookup_string(color_repo_, color.class_id));
     rcolor->set_confidence(color.confidence);
 
@@ -250,21 +251,22 @@ MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color,
 MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
                                           LicensePlate *rplate) {
     MatrixError err;
-    rplate->set_platenum(plate.plate_num);
+    rplate->set_platetext(plate.plate_num);
     Detection d;
     d.box = plate.box;
     copyCutboard(d, rplate->mutable_cutboard());
-    rplate->set_colorid(plate.color_id);
-    rplate->set_color(lookup_string(plate_color_repo_, plate.color_id));
+    rplate->mutable_color()->set_colorid(plate.color_id);
+    rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
+
     rplate->set_typeid_(plate.plate_type);
-    rplate->set_type(lookup_string(plate_type_repo_, plate.plate_type));
+    rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
     rplate->set_confidence(plate.confidence);
 
     return err;
 }
 
 MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
-                                            RecognizedVehicle *vrec) {
+                                           RecVehicle *vrec) {
     MatrixError err;
 
     int isize = symbol_repo_.size();
@@ -281,15 +283,15 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
         Marker *m = (Marker *) object;
         Identification mid = m->class_id();
         if (mid >= 0 && mid < isize) {
-            SymbolItem *item = NULL;
+            VehicleSymbol *item = NULL;
             if (indexes[mid] < 0) {
-                indexes[mid] = vrec->symbolitems_size();
-                item = vrec->add_symbolitems();
+                indexes[mid] = vrec->symbols_size();
+                item = vrec->add_symbols();
                 item->set_symbolid(mid);
                 item->set_symbolname(lookup_string(symbol_repo_, mid));
             }
             else {
-                item = vrec->mutable_symbolitems(indexes[mid]);
+                item = vrec->mutable_symbols(indexes[mid]);
             }
 
             Symbol *s = item->add_symbols();
@@ -303,17 +305,16 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
 }
 
 MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
-                                                     RecognizedVehicle *vrec) {
+                                                     RecVehicle *vrec) {
     MatrixError err;
     vrec->set_features(vobj->feature().Serialize());
 
     const Detection &d = vobj->detection();
 
-    DLOG(INFO) << "Detected object: " << vobj->class_id();
-    copyCutboard(d, vrec->mutable_cutboard());
+    copyCutboard(d, vrec->mutable_img()->mutable_cutboard());
 
     err = fillModel(*vobj, vrec);
-    vrec->mutable_model()->set_confidence(vobj->confidence());
+    vrec->mutable_modeltype()->set_confidence(vobj->confidence());
     if (err.code() < 0)
         return err;
 
@@ -321,7 +322,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     if (err.code() < 0)
         return err;
 
-    err = fillPlate(vobj->plate(), vrec->mutable_licenseplate());
+    err = fillPlate(vobj->plate(),vrec->mutable_plate());
     if (err.code() < 0)
         return err;
 
@@ -333,23 +334,23 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
 }
 
 MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
-                                                  RecognizedFace *frec) {
+                                                  RecFace *frec) {
     MatrixError err;
     frec->set_confidence((float) fobj->confidence());
     frec->set_features(fobj->feature().Serialize());
 
     const Detection &d = fobj->detection();
     LOG(INFO) << "detection id: " << d.id << ", deleted? " << d.deleted;
-    copyCutboard(d, frec->mutable_cutboard());
+    copyCutboard(d, frec->mutable_img()->mutable_cutboard());
     return err;
 }
 
 MatrixError WitnessAppsService::getRecognizedPedestrain(
-    const Pedestrain *pedestrain, RecognizedPedestrain *result) {
+    const Pedestrain *pedestrain, RecPedestrian *result) {
     MatrixError err;
     const Detection &d = pedestrain->detection();
     result->set_confidence(d.confidence);
-    copyCutboard(d, result->mutable_cutboard());
+    copyCutboard(d, result->mutable_img()->mutable_cutboard());
     return err;
 }
 
@@ -369,7 +370,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
             case OBJECT_PEDESTRIAN:
-                err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrains());
+                err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrians());
                 break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
@@ -499,7 +500,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
         ->mutable_debugts();
-
     WitnessResult *result = response->mutable_result();
     result->mutable_image()->mutable_data()->set_uri(
         request->image().data().uri());
