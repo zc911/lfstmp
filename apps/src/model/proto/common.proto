@@ -96,3 +96,5 @@ message FeatureVector {
 	int64 Id = 1; 		//特征的关键字
 	string Feature = 2;	//特征值
 }
+message NullMessage {
+}

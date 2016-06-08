@@ -56,6 +56,11 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
+    client_=new SpringGrpcClient(
+        grpc::CreateChannel("192.168.5.8:9992",
+                            grpc::InsecureChannelCredentials()));
+
+
 }
 
 int WitnessAppsService::parseInt(string str) {
@@ -517,6 +522,13 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+    GenericObj client_request;
+    client_request.set_type(OBJ_TYPE_FACE);
+    client_request.set_strdata("sdfe");
+    client_request.set_bindata("sdfe");
+    client_request.set_fmttype(PROTOBUF);
+    NullMessage reply;
+    client_->Index(client_request, &reply);
 
     LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
     LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
@@ -638,6 +650,10 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
     LOG(INFO) << "=======" << endl;
+    GenericObj client_request;
+    client_request.set_type(OBJ_TYPE_FACE);
+    NullMessage reply;
+    client_->Index(client_request, &reply);
     return err;
 }
 MatrixError WitnessAppsService::Index(const IndexRequest *request,
@@ -648,6 +664,7 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
         case INDEX_CAR_TYPE:
             for(int i=0;i<vehicle_repo_.size();i++){
                 string value=vehicle_repo_[i].brand();
+                basic_string<char> a;
                 (*response->mutable_index())[i]=value;
             }
             break;
