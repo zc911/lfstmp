@@ -46,6 +46,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* FeatureVector_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   FeatureVector_reflection_ = NULL;
+const ::google::protobuf::Descriptor* NullMessage_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  NullMessage_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
@@ -201,6 +204,20 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(FeatureVector),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _is_default_instance_));
+  NullMessage_descriptor_ = file->message_type(8);
+  static const int NullMessage_offsets_[1] = {
+  };
+  NullMessage_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      NullMessage_descriptor_,
+      NullMessage::default_instance_,
+      NullMessage_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(NullMessage),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NullMessage, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NullMessage, _is_default_instance_));
   RecognizeType_descriptor_ = file->enum_type(0);
   RecognizeFunctions_descriptor_ = file->enum_type(1);
   ObjType_descriptor_ = file->enum_type(2);
@@ -233,6 +250,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Cutboard_descriptor_, &Cutboard::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       FeatureVector_descriptor_, &FeatureVector::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      NullMessage_descriptor_, &NullMessage::default_instance());
 }
 
 }  // namespace
@@ -254,6 +273,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete Cutboard_reflection_;
   delete FeatureVector::default_instance_;
   delete FeatureVector_reflection_;
+  delete NullMessage::default_instance_;
+  delete NullMessage_reflection_;
 }
 
 void protobuf_AddDesc_common_2eproto() {
@@ -279,27 +300,27 @@ void protobuf_AddDesc_common_2eproto() {
     "\001Y\030\002 \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022"
     "\020\n\010ResWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\n"
     "Confidence\030\007 \001(\002\",\n\rFeatureVector\022\n\n\002Id\030"
-    "\001 \001(\003\022\017\n\007Feature\030\002 \001(\t*`\n\rRecognizeType\022"
-    "\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n\020REC_TYPE_VEHICL"
-    "E\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020\n\014REC_TYPE_ALL\020\003"
-    "*\321\002\n\022RecognizeFunctions\022\020\n\014RECFUNC_NONE\020"
-    "\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032\n\026RECFUNC_VEHICL"
-    "E_DETECT\020\002\022\031\n\025RECFUNC_VEHICLE_TRACK\020\003\022\031\n"
-    "\025RECFUNC_VEHICLE_STYLE\020\004\022\031\n\025RECFUNC_VEHI"
-    "CLE_COLOR\020\005\022\032\n\026RECFUNC_VEHICLE_MARKER\020\006\022"
-    "\031\n\025RECFUNC_VEHICLE_PLATE\020\007\022\"\n\036RECFUNC_VE"
-    "HICLE_FEATURE_VECTOR\020\010\022\020\n\014RECFUNC_FACE\020\t"
-    "\022\031\n\025RECFUNC_FACE_DETECTOR\020\n\022\037\n\033RECFUNC_F"
-    "ACE_FEATURE_VECTOR\020\013*\242\002\n\007ObjType\022\024\n\020OBJ_"
-    "TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\027\n\023OBJ_"
-    "TYPE_PEDESTRIAN\020\002\022\024\n\020OBJ_TYPE_BICYCLE\020\003\022"
-    "\025\n\021OBJ_TYPE_TRICYCLE\020\004\022\022\n\rOBJ_TYPE_FACE\020"
-    "\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_"
-    "TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICY"
-    "CLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VEC"
-    "TOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030*5\n\013Dat"
-    "aFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PR"
-    "OTOBUF\020\002b\006proto3", 1456);
+    "\001 \001(\003\022\017\n\007Feature\030\002 \001(\t\"\r\n\013NullMessage*`\n"
+    "\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n\020"
+    "REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020\n"
+    "\014REC_TYPE_ALL\020\003*\321\002\n\022RecognizeFunctions\022\020"
+    "\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032\n"
+    "\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VEH"
+    "ICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004\022"
+    "\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_VE"
+    "HICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE\020"
+    "\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020\n"
+    "\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTOR"
+    "\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013*\242\002\n\007"
+    "ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYP"
+    "E_CAR\020\001\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\002\022\024\n\020OBJ_"
+    "TYPE_BICYCLE\020\003\022\025\n\021OBJ_TYPE_TRICYCLE\020\004\022\022\n"
+    "\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VE"
+    "CTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020\022\035\n"
+    "\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE"
+    "_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_V"
+    "ECTOR\020\200\030*5\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022"
+    "\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002b\006proto3", 1471);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -310,6 +331,7 @@ void protobuf_AddDesc_common_2eproto() {
   Color::default_instance_ = new Color();
   Cutboard::default_instance_ = new Cutboard();
   FeatureVector::default_instance_ = new FeatureVector();
+  NullMessage::default_instance_ = new NullMessage();
   Time::default_instance_->InitAsDefaultInstance();
   MatrixError::default_instance_->InitAsDefaultInstance();
   VideoMetadata::default_instance_->InitAsDefaultInstance();
@@ -318,6 +340,7 @@ void protobuf_AddDesc_common_2eproto() {
   Color::default_instance_->InitAsDefaultInstance();
   Cutboard::default_instance_->InitAsDefaultInstance();
   FeatureVector::default_instance_->InitAsDefaultInstance();
+  NullMessage::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_common_2eproto);
 }
 
@@ -3817,6 +3840,175 @@ void FeatureVector::clear_feature() {
   feature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feature);
   // @@protoc_insertion_point(field_set_allocated:dg.model.FeatureVector.Feature)
 }
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+NullMessage::NullMessage()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.NullMessage)
+}
+
+void NullMessage::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+NullMessage::NullMessage(const NullMessage& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.NullMessage)
+}
+
+void NullMessage::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+NullMessage::~NullMessage() {
+  // @@protoc_insertion_point(destructor:dg.model.NullMessage)
+  SharedDtor();
+}
+
+void NullMessage::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void NullMessage::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* NullMessage::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NullMessage_descriptor_;
+}
+
+const NullMessage& NullMessage::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+NullMessage* NullMessage::default_instance_ = NULL;
+
+NullMessage* NullMessage::New(::google::protobuf::Arena* arena) const {
+  NullMessage* n = new NullMessage;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void NullMessage::Clear() {
+}
+
+bool NullMessage::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.NullMessage)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.NullMessage)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.NullMessage)
+  return false;
+#undef DO_
+}
+
+void NullMessage::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.NullMessage)
+  // @@protoc_insertion_point(serialize_end:dg.model.NullMessage)
+}
+
+::google::protobuf::uint8* NullMessage::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.NullMessage)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.NullMessage)
+  return target;
+}
+
+int NullMessage::ByteSize() const {
+  int total_size = 0;
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void NullMessage::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const NullMessage* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const NullMessage>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void NullMessage::MergeFrom(const NullMessage& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+}
+
+void NullMessage::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void NullMessage::CopyFrom(const NullMessage& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NullMessage::IsInitialized() const {
+
+  return true;
+}
+
+void NullMessage::Swap(NullMessage* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void NullMessage::InternalSwap(NullMessage* other) {
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata NullMessage::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = NullMessage_descriptor_;
+  metadata.reflection = NullMessage_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// NullMessage
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
