@@ -89,11 +89,14 @@ private:
     const string &lookup_string(const vector<string> &array, int index);
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                        int index);
+    void sendtodeepdata(const WitnessRequest *request,
+                        WitnessResponse *response));
 
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Detection &d, Cutboard *cb);
+
 
 
     MatrixError checkRequest(const WitnessRequest &request);
