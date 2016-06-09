@@ -35,6 +35,8 @@ static const string RENDER_VEHICLE_COLOR = "Render/Vehicle/Color";
 static const string RENDER_VEHICLE_SYMBOL = "Render/Vehicle/Symbol";
 static const string RENDER_VEHICLE_PLATE_COLOR = "Render/Vehicle/Plate/Color";
 static const string RENDER_VEHICLE_PLATE_TYPE = "Render/Vehicle/Plate/Type";
+static const string STORAGE_ADDRESS = "Storage/Address";
+static const string STORAGE_ENABLED = "Storage/Enabled";
 
 
 }

@@ -50,6 +50,8 @@ void WitnessAppsService::init(void) {
     string pColorFile = (string) config_->Value(VEHICLE_PLATE_COLOR_MAPPING_FILE);
     string pTypeFile = (string) config_->Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
     string pVtypeFile = (string) config_->Value(VEHICLE_TYPE_MAPPING_FILE);
+    bool storageEnabled=(bool) config_->Value(STORAGE_ENABLED);
+    string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
@@ -57,9 +59,14 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
-    client_=new SpringGrpcClient(
-        grpc::CreateChannel("192.168.5.66:9992",
-                            grpc::InsecureChannelCredentials()));
+    if(storageEnabled){
+        client_=new SpringGrpcClient(
+            grpc::CreateChannel(storageAddress,
+                                grpc::InsecureChannelCredentials()));
+        std::thread spring_th_(&SpringGrpcClient::AsyncCompleteRpc,client_);
+        spring_th_.detach();
+
+    }
 
 
 }
@@ -442,7 +449,16 @@ MatrixError WitnessAppsService::checkRequest(
 
     return err;
 }
+void WitnessAppsService::sendtodeepdata(FrameBatch &framebatch,
+                    WitnessResponse *response){
+GenericObj client_request;
+client_request.set_type(response.);
+client_request.set_strdata("sdfe");
+client_request.set_bindata("sdfe");
+client_request.set_fmttype(PROTOBUF);
+NullMessage reply;
 
+}
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
 
@@ -522,13 +538,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-    GenericObj client_request;
-    client_request.set_type(OBJ_TYPE_FACE);
-    client_request.set_strdata("sdfe");
-    client_request.set_bindata("sdfe");
-    client_request.set_fmttype(PROTOBUF);
-    NullMessage reply;
-    client_->Index(client_request, &reply);
 
     LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
     LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
