@@ -16,6 +16,7 @@
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
 #include "services/engine_pool.h"
+#include "watchdog/watch_dog.h"
 
 
 using namespace std;
@@ -97,7 +98,12 @@ DEFINE_string(config, "config.json", "Config file path");
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
+StartDogMonitor();
+    if(CheckHardware()){
+        return -1;
+    }
 
+cout<<"after start dog"<<endl;
     google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
     google::SetVersionString("0.2.1");
     google::ParseCommandLineFlags(&argc, &argv, false);
