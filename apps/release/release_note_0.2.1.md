@@ -1,23 +1,32 @@
 # Matrix Apps
-### Version 0.2.0
-2016-05-30
+### Version 0.2.1
+2016-06-07
 
 ```
-GRPC and Restful works at the same time
+VLOG policy and GFlag
 ```
 
 ### Modules version
 | *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
 |:--------------:|:-------------:|:---------------:|:------------:|
-| 0.1.5 | 0.1.3 | * | * |
+| 0.1.6 | 0.1.3 | * | * |
 
 ### Features
-- Mofidy the grpc reponse message proto file
-- Merge Mxnet plate model(not works now)
-- Wentong plate sdk with a thread pool
-- Fix the bugs which found when integrated with VSD
+- Update grpc to 0.14.1
+- Release grpc and protobuf libraries together with the binary
+- Move all dependency libraries to libs folder
+- Define VLOG policy:
+```
+# define VLOG_SERVICE  0
+# define VLOG_PROCESS_COST  2 
+# define VLOG_RUNTIME_DEBUG  8 
+```
+- Use GFlags as the command line parser, define two flags:
+```
+ -port=$PORT 
+ -config=$CONFIG_FILE_PATH 
+```
 
-### Bug Fix
 
 ### How to Install/Update
 ```
@@ -28,7 +37,10 @@ $ ./install.sh
 
 ### How to Run
 ```
-$ sudo ./matrix_app
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
 ```
 
 ### Config File
@@ -38,15 +50,16 @@ $ sudo ./matrix_app
     "Code": "1.0.0",
     "Model": "1.9"
   },
-  "ProtocolType": "rpc",
-  //  "ProtocolType": "restful",
+  "ProtocolType": "rpc|restful",
+//  "ProtocolType": "rpc",
+//"ProtocolType": "restful",
   "InstanceType": "witness",
-  //"InstanceType" : "ranker",
+//"InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6502,
     "GpuNum": 1,
-    "ThreadsPerGpu": 5,
+    "ThreadsPerGpu": 1,
     "EnableAsyn": true
   },
   "Feature": {
@@ -55,11 +68,11 @@ $ sudo ./matrix_app
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
-      "EnablePlate": true,
+      "EnablePlate": true, 
       "EnableGpuPlate": false,
-      "EnablePlateEnhanced": false,
-      "EnableMarker": false,
-      "EnableFeatureVector": false
+      "EnablePlateEnhanced": true,
+      "EnableMarker": true, 
+      "EnableFeatureVector": true 
     },
     "Face": {
       "Enable": false,
@@ -109,6 +122,9 @@ $ sudo ./matrix_app
     },
     "FaceExtract": {
       "BatchSize": 1
+    },
+    "Ranker":{
+      "Maximum": 1000
     }
   },
   "Log": {

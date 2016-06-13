@@ -15,26 +15,55 @@
 
 namespace dg {
 
-class RestWitnessServiceImpl final: public RestfulService {
+typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
+typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
+
+class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService> {
 public:
-    RestWitnessServiceImpl(const Config *config)
-        : RestfulService(), service_(config, "aaa") {
+    RestWitnessServiceImpl(Config config,
+                           string addr,
+                           MatrixEnginesPool<WitnessAppsService> *engine_pool)
+        : RestfulService(engine_pool, config) {
+
     }
+
     virtual ~RestWitnessServiceImpl() { }
 
-    virtual void Bind(HttpServer &server) override {
+    void Bind(HttpServer &server) {
 
-        BindFunction<WitnessRequest, WitnessResponse> recBinder =
-            std::bind(&WitnessAppsService::Recognize, &service_, std::placeholders::_1, std::placeholders::_2);
-        BindFunction<WitnessBatchRequest, WitnessBatchResponse> batchRecBinder =
-            std::bind(&WitnessAppsService::BatchRecognize, &service_, std::placeholders::_1, std::placeholders::_2);
+        RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
+        bindFunc<WitnessAppsService, WitnessRequest, WitnessResponse>(server, "^/rec/image$",
+                                                                      "POST", rec_func);
+        BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
+        bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
+                                                                                "/rec/image/batch$",
+                                                                                "POST",
+                                                                                batch_func);
 
-        bind(server, "^/rec/image$", "POST", recBinder);
-        bind(server, "^/rec/image/batch$", "POST", batchRecBinder);
     }
 
-private:
-    WitnessAppsService service_;
+//    void Run() {
+//        int port = (int) config_.Value("System/Port");
+//        int gpuNum = (int) config_.Value("System/GpuNum");
+//        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+//
+//        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
+//        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
+//
+//        int threadNum = gpuNum * threadsPerGpu;
+//
+//        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
+//        Bind(server);
+//        if(engine_pool_ == NULL){
+//            LOG(ERROR) << "Witness Engine pool not initialized" << endl;
+//        }
+//        engine_pool_->Run();
+//        cout << "Witness Server(RESTFUL) listening on " << port << endl;
+//        server.start();
+//    }
+//
+//private:
+//    Config config_;
 };
 }
 
