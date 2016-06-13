@@ -8,11 +8,12 @@
 #include "system_service.h"
 
 namespace dg {
-SystemAppsService::SystemAppsService(const Config *config,string name) {
-    config_=config;
-    name_=name;
+SystemAppsService::SystemAppsService(const Config *config, string name) {
+    config_ = config;
+    name_ = name;
     initNetworkThread();
-    string modelversion=(string)config_->Value(VERSION_MODEL);
+    modelversion_ = (string) config_->Value(VERSION_MODEL);
+    serviceversion_ = (string) config_->Value(SERVICE_MODEL);
 }
 SystemAppsService::~SystemAppsService() {
 
@@ -23,8 +24,8 @@ MatrixError SystemAppsService::Ping(const PingRequest *request,
     response->set_message("Normal");
     return err;
 }
-void SystemAppsService::initNetworkThread(){
-    std::thread network_th_(networkInfo,&rx_,&tx_);
+void SystemAppsService::initNetworkThread() {
+    std::thread network_th_(networkInfo, &rx_, &tx_);
     network_th_.detach();
 }
 
@@ -41,12 +42,9 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
     std::string msgGpuMemTotal;
     std::string msgNetworkRecv;
     std::string msgNetworkSend;
-    string modelversion=(string)config_->Value(VERSION_MODEL);
-    cout<<modelversion<<endl;
-    response->set_modelver(modelversion);
-    string serviceversion=(string)config_->Value(SERVICE_MODEL);
-    response->set_servicever(serviceversion);
 
+    response->set_modelver(modelversion_);
+    response->set_servicever(serviceversion_);
     if (getCpuUsage(msgCpuUsage)) {
         response->set_cpuusage(msgCpuUsage);
     } else {
@@ -76,7 +74,7 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
         return err;
     }
     if (getDiskInfo(msgDiskUsed, "Used")) {
-        int total = atoi(msgDiskUsed.c_str())+atoi(msgDiskAvailable.c_str());
+        int total = atoi(msgDiskUsed.c_str()) + atoi(msgDiskAvailable.c_str());
         response->set_totaldisk(to_string(total));
     } else {
         err.set_code(-1);
@@ -97,14 +95,14 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
         err.set_message("Can't get avaliable memory");
         return err;
     }
-    if (getNetworkInfo(msgNetworkRecv,"RX")) {
+    if (getNetworkInfo(msgNetworkRecv, "RX")) {
         response->set_netiorecv(msgNetworkRecv);
     } else {
         err.set_code(-1);
         err.set_message("Can't get avaliable memory");
         return err;
     }
-    if (getNetworkInfo(msgNetworkSend,"TX")) {
+    if (getNetworkInfo(msgNetworkSend, "TX")) {
         response->set_netiosend(msgNetworkSend);
     } else {
         err.set_code(-1);
@@ -117,15 +115,15 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
 
 
 MatrixError SystemAppsService::GetInstances(
-        const GetInstancesRequest *request,
-        InstanceConfigureResponse *response) {
+    const GetInstancesRequest *request,
+    InstanceConfigureResponse *response) {
     MatrixError err;
     return err;
 }
 
 MatrixError SystemAppsService::ConfigEngine(
-        const InstanceConfigureRequest *request,
-        InstanceConfigureResponse *response) {
+    const InstanceConfigureRequest *request,
+    InstanceConfigureResponse *response) {
     MatrixError err;
     return err;
 }
