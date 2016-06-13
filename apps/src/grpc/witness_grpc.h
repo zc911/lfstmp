@@ -41,6 +41,9 @@ private:
     virtual grpc::Status Recognize(grpc::ServerContext *context,
                                    const WitnessRequest *request,
                                    WitnessResponse *response);
+    virtual grpc::Status Index(grpc::ServerContext *context,
+                                   const IndexRequest *request,
+                                   IndexResponse *response);
 
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,

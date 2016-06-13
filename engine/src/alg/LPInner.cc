@@ -383,6 +383,8 @@ int doNormContrastBB_f(float *pfImage, int dwH, int dwW, LPRect bb)
   for (dwRI = 0; dwRI < dwW * dwH; dwRI++)
   {
     fVal = (pfImage[dwRI] - fMin) / (fMax - fMin);
+    if (fVal < 0.f) fVal = 0.f;
+    if (fVal > 1.f) fVal = 1.f;
     pfImage[dwRI] = fVal;
   }
   
@@ -483,6 +485,53 @@ int doRotate_8UC3(uchar *pubyImage, int dwW, int dwH, float fAngle)
   
   return 0;
 }
+
+
+int getBinThresholdIterByHist_uchar(uchar *pubyData, int dwLen)
+{
+  int dwPI;
+  int adwMeans[2] = {0, 0};
+  int dwThreshold0, dwThreshold1;
+  int adwHist[256];
+  
+  memset(adwHist, 0, 256 * sizeof(int));
+  for (dwPI = 0; dwPI < dwLen; dwPI++)
+  {
+    adwHist[pubyData[dwPI]]++;
+  }
+  dwThreshold0 = getMeanByHist(adwHist, 256);
+  for (dwPI = 0; dwPI < 16; dwPI++)
+  {
+    adwMeans[0] = getMeanByHist(adwHist, dwThreshold0);
+    adwMeans[1] = getMeanByHist(adwHist + dwThreshold0, 256 - dwThreshold0) + dwThreshold0;
+    dwThreshold1 = (adwMeans[0] + adwMeans[1]) / 2;
+    if (abs(dwThreshold1 - dwThreshold0) < 2.0) break;
+  }
+
+  return dwThreshold1;
+}
+
+
+int getMeanByHist(int *pdwHist, int dwLen)
+{
+  int dwMean = 0;
+  int dwNum = 0;
+  for (int dwPI = 0; dwPI < dwLen; dwPI++)
+  {
+    dwMean += pdwHist[dwPI] * dwPI;
+    dwNum += pdwHist[dwPI];
+  }
+  dwMean /= dwNum;
+  
+  return dwMean;
+}
+
+
+
+
+
+
+
 
 
 
