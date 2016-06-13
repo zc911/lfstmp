@@ -33,7 +33,6 @@ public:
                            IndexResponse *response);
     string name_;
 private:
-    SpringGrpcClient *client_;
 
   /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
 
@@ -89,8 +88,6 @@ private:
     const string &lookup_string(const vector<string> &array, int index);
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                        int index);
-    void sendtodeepdata(const WitnessRequest *request,
-                        WitnessResponse *response));
 
     static string trimString(string str);
     static int parseInt(string str);

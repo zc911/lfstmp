@@ -47,7 +47,11 @@ static void Print(const WitnessResponse &resp) {
     cout << "SessionId:" << resp.context().sessionid() << endl;
     const WitnessResult &r = resp.result();
     cout<<r.vehicles_size()<<" vehicle size"<<endl;
-    rapidjson::Value *value = pbjson::pb2jsonobject(&r);
+    for(int i=0;i<r.vehicles_size();i++)
+    cout<<r.vehicles(i).plate().platetext()<<endl;
+    const RecVehicle &rv = r.vehicles(0);
+    const WitnessResponseContext  &req=resp.context();
+    rapidjson::Value *value = pbjson::pb2jsonobject(&req);
     string s;
     pbjson::json2string(value, s);
     cout << s << endl;
