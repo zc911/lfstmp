@@ -541,7 +541,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 client_request_obj.set_type(OBJ_TYPE_CAR);
                 RecVehicle rv;
                 rv.CopyFrom(r.vehicles(i));
-                rv.mutable_img()->mutable_img()->set_bindata((char *) frame->payload()->data().data);
+               // rv.mutable_img()->mutable_img()->set_bindata((char *) frame->payload()->data().data);
                 client_request_obj.set_bindata(&rv, rv.ByteSize());
                 thread t(storage, frame, &client_request_obj, storageAddress);
                 t.join();
@@ -675,7 +675,8 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
             for (int i = 0; i < vehicle_repo_.size(); i++) {
-                string value = vehicle_repo_[i].model();
+                cout<<vehicle_type_repo_[i].data()<<endl;
+                string value = vehicle_type_repo_[i].data();
                 (*response->mutable_index())[i] = value;
             }
             break;
@@ -710,7 +711,7 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
             }
             break;
         case INDEX_CAR_COLOR:
-            for (int i = 0; i < vehicle_repo_.size(); i++) {
+            for (int i = 0; i < color_repo_.size(); i++) {
                 string value = color_repo_[i].data();
                 (*response->mutable_index())[i] = value;
             }
