@@ -99,6 +99,11 @@ int doRotate_f(float *pfImage, int dwW, int dwH, float fAngle);
 
 int doRotate_8UC3(uchar *pubyImage, int dwW, int dwH, float fAngle);
 
+int getMeanByHist(int *pdwHist, int dwLen);
+
+int getBinThresholdIterByHist_uchar(uchar *pubyData, int dwLen);
+
+
 #endif
 
 
