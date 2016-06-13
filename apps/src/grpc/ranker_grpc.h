@@ -14,40 +14,42 @@
 #include "../model/common.pb.h"
 #include "services/ranker_service.h"
 #include "services/system_service.h"
+#include "basic_grpc.h"
 
 using namespace ::dg::model;
 namespace dg {
 
-class GrpcRankerServiceImpl final: public SimilarityService::Service {
+class GrpcRankerServiceImpl final: public BasicGrpcService<RankerAppsService>, public SimilarityService::Service {
 public:
-    GrpcRankerServiceImpl(const Config *config) : service_ranker_(config),service_system_(config) { }
-    virtual ~GrpcRankerServiceImpl() { }
 
-private:
-    RankerAppsService service_ranker_;
-    SystemAppsService service_system_;
+    GrpcRankerServiceImpl(Config config, string addr, MatrixEnginesPool<RankerAppsService> *engine_pool)
+        : BasicGrpcService(config, addr, engine_pool) { }
+
+    virtual ~GrpcRankerServiceImpl() { }
+    virtual ::grpc::Service *service() {
+        return this;
+    };
+
     virtual grpc::Status GetRankedVector(grpc::ServerContext *context,
                                          const FeatureRankingRequest *request,
                                          FeatureRankingResponse *response) override {
-        MatrixError err = service_ranker_.GetRankedVector(request, response);
-        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-    }
-    virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response)
-    {
-        MatrixError err = service_system_.Ping(request, response);
-        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-    }
 
-    virtual grpc::Status SystemStatus(grpc::ServerContext* context, const SystemStatusRequest *request, SystemStatusResponse *response)
-    {
-        MatrixError err = service_system_.SystemStatus(request, response);
-        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-    }
+        cout << "[GRPC] ========================" << endl;
+        cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
+        CallData data;
 
-    virtual grpc::Status GetInstances(grpc::ServerContext* context, const GetInstancesRequest *request, InstanceConfigureResponse *response)
-    {
-        MatrixError err = service_system_.GetInstances(request, response);
-        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+        data.func = [request, response, &data]() -> MatrixError {
+          return (bind(&RankerAppsService::GetRankedVector,
+                       (RankerAppsService *) data.apps,
+                       placeholders::_1,
+                       placeholders::_2))(request,
+                                          response);
+        };
+
+        engine_pool_->enqueue(&data);
+        MatrixError error = data.Wait();
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
     }
 
 };

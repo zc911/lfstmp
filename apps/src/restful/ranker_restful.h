@@ -15,33 +15,45 @@
 
 namespace dg {
 
-class RestRankerServiceImpl final : public RestfulService
-{
+
+typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
+typedef MatrixError (*PingFunc)(SystemAppsService *, const PingRequest *, PingResponse *);
+//typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
+
+
+class RestRankerServiceImpl final: public RestfulService<RankerAppsService> {
+
 public:
-    RestRankerServiceImpl(const Config *config)
-    : RestfulService()
-    , service_ranker_(config),service_system_(config)
-    {
-    }
-    virtual ~RestRankerServiceImpl() {}
 
-    virtual void Bind(HttpServer& server) override
-    {
-        BindFunction<FeatureRankingRequest, FeatureRankingResponse> rankBinder = std::bind(&RankerAppsService::GetRankedVector, &service_ranker_, std::placeholders::_1, std::placeholders::_2);
-        BindFunction<PingRequest, PingResponse> pingBinder = std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        BindFunction<SystemStatusRequest, SystemStatusResponse> statusBinder = std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
-   //     BindFunction<InstanceConfigureRequest, InstanceConfigureResponse> getInstBinder = std::bind(&SystemAppsService::GetInstances, &service_system_, std::placeholders::_1, std::placeholders::_2);
-
-        bind(server, "^/rank$", "POST", rankBinder);
-        bind(server, "^/ping$", "GET", pingBinder);
-        bind(server, "^/info$", "GET", statusBinder);
-  //      bind(server, "^/instances$", "GET", getInstBinder);
+    RestRankerServiceImpl(Config config,
+                          string addr,
+                          MatrixEnginesPool <RankerAppsService> *engine_pool)
+        : RestfulService(engine_pool, config), service_system_(&config, "system"), config_(config) {
     }
+
+    virtual ~RestRankerServiceImpl() { }
+
+    void Bind(HttpServer &server) {
+
+        RankFunc rank_func = (RankFunc) &RankerAppsService::GetRankedVector;
+        bindFunc<RankerAppsService, FeatureRankingRequest, FeatureRankingResponse>(server,
+                                                                                   "^/rank$",
+                                                                                   "POST",
+                                                                                   rank_func);
+        std::function<MatrixError(const SystemStatusRequest *, SystemStatusResponse *)> statusBinder =
+            std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
+        bind1(server, "^/info$", "GET", statusBinder);
+        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
+            std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
+        bind1(server, "^/ping$", "GET", pingBinder);
+
+    }
+
 
 private:
-    RankerAppsService service_ranker_;
     SystemAppsService service_system_;
 
+    Config config_;
 };
 
 }

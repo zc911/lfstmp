@@ -12,9 +12,9 @@
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
-        FaceDetector::FaceDetectorConfig config) {
+    FaceDetector::FaceDetectorConfig config) {
     //Initialize face detection caffe model and arguments
-    DLOG(INFO)<< "Start loading face detector model" << std::endl;
+    DLOG(INFO) << "Start loading face detector model" << std::endl;
 
     //Initialize face detector
     detector_ = new FaceDetector(config);
@@ -30,13 +30,13 @@ FaceDetectProcessor::~FaceDetectProcessor() {
 bool FaceDetectProcessor::process(Frame *frame) {
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
-        DLOG(INFO)<< "Frame " << frame->id() << "does not need face detect" << endl;
+        VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
         return false;
     }
     Mat data = frame->payload()->data();
 
     if (data.rows == 0 || data.cols == 0) {
-        LOG(ERROR)<< "Frame data is NULL: " << frame->id() << endl;
+        LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
         return false;
     }
 
@@ -50,7 +50,7 @@ bool FaceDetectProcessor::process(Frame *frame) {
 
         Detection detection = boxes_in[0][bbox_id];
         Face *face = new Face(base_id_ + bbox_id, detection,
-                detection.confidence);
+                              detection.confidence);
         cv::Mat data = frame->payload()->data();
         cv::Mat image = data(detection.box);
         face->set_image(image);
@@ -65,15 +65,15 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
         Frame *frame = frameBatch->frames()[i];
         if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
-            DLOG(INFO)<< "Frame " << frame->id() << "does not need face detect"
-            << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
+                << endl;
             continue;
         }
 
         Mat data = frame->payload()->data();
 
         if (data.rows == 0 || data.cols == 0) {
-            LOG(ERROR)<< "Frame data is NULL: " << frame->id() << endl;
+            LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
             continue;
         }
 
@@ -107,7 +107,7 @@ bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 bool FaceDetectProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_DETECTION,performance_);
+    return RecordPerformance(FEATURE_FACE_DETECTION, performance_);
 
 }
 } /* namespace dg */
