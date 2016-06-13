@@ -17,6 +17,7 @@ namespace dg {
 
 typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
 typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
+typedef MatrixError (*RecIndexFunc)(WitnessAppsService *, const IndexRequest *, IndexResponse *);
 
 class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService> {
 public:
@@ -34,6 +35,9 @@ public:
         RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
         bindFunc<WitnessAppsService, WitnessRequest, WitnessResponse>(server, "^/rec/image$",
                                                                       "POST", rec_func);
+        RecIndexFunc rec_index_func = (RecIndexFunc) &WitnessAppsService::Index;
+        bindFunc<WitnessAppsService, IndexRequest, IndexResponse>(server, "^/rec/index$",
+                                                                      "POST", rec_index_func);
         BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
         bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
                                                                                 "/rec/image/batch$",
