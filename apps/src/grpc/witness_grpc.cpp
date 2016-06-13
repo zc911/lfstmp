@@ -6,7 +6,7 @@
 #include <sys/time.h>
 #include "debug_util.h"
 #include "log/log_val.h"
-
+#include "pbjson/pbjson.hpp"
 namespace dg {
 
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
@@ -42,13 +42,44 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     MatrixError error = data.Wait();
 
     gettimeofday(&finish, NULL);
+  //  rapidjson::Value *value = pbjson::pb2jsonobject(response);
+  //  string s;
+ //   pbjson::json2string(value, s);
+ //   cout << s << endl;
     VLOG(VLOG_SERVICE) << "[GRPC] Rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
         << endl;
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
+grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
+                                               const IndexRequest *request,
+                                               IndexResponse *response) {
 
+
+
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
+
+    CallData data;
+    data.func = [request, response, &data]() -> MatrixError {
+      return (bind(&WitnessAppsService::Index,
+                   (WitnessAppsService *) data.apps,
+                   placeholders::_1,
+                   placeholders::_2))(request,
+                                      response);
+    };
+
+    engine_pool_->enqueue(&data);
+    MatrixError error = data.Wait();
+
+    gettimeofday(&finish, NULL);
+    //  rapidjson::Value *value = pbjson::pb2jsonobject(response);
+    //  string s;
+    //   pbjson::json2string(value, s);
+
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+}
 grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context,
                                                     const WitnessBatchRequest *request,
                                                     WitnessBatchResponse *response) {
