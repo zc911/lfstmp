@@ -211,6 +211,8 @@ class SystemAppsService {
     void initNetworkThread();
     const Config *config_;
     string name_;
+    string modelversion_;
+    string serviceversion_;
     int rx_ = 0;
     int tx_ = 0;
 
