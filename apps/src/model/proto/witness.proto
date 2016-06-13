@@ -42,21 +42,25 @@ message IndexResponse {
 message WitnessRequest {
     WitnessRequestContext Context = 1;
     WitnessImage Image = 2;
+    StorageConfig Storage = 3;
 }
 
 message WitnessBatchRequest {
     WitnessRequestContext Context = 1;
     repeated WitnessImage Images = 2;
+    StorageConfig Storage = 3;
 }
 
 message WitnessResponse {
     WitnessResponseContext Context = 1;
     WitnessResult Result = 2;
+    StorageConfig Storage = 3;
 }
 
 message WitnessBatchResponse {
     WitnessResponseContext Context = 1;
     repeated WitnessResult Results = 2;
+    StorageConfig Storage = 3;
 }
 
 message WitnessRelativeROI{
@@ -85,10 +89,9 @@ message WitnessRequestContext {
 
 message WitnessImage {
     Image Data = 1;
-    int32 SensorId = 2;
-    string SensorName = 3;
-    repeated WitnessRelativeROI RelativeRoi= 4;
-    repeated WitnessMarginROI MarginRoi = 5;
+    VideoMetadata =2;
+    repeated WitnessRelativeROI RelativeRoi= 3;
+    repeated WitnessMarginROI MarginRoi = 4;
 }
 
 message WitnessResponseContext {

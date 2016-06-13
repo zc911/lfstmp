@@ -37,3 +37,4 @@ message GenericObj {
 message GenericObjs {
     repeated GenericObj GenericObj = 1;
 }
+
