@@ -18,9 +18,13 @@
 #include "string_util.h"
 #include "../config/config_val.h"
 #include "grpc/spring_grpc.h"
+#include "engine_service.h"
 namespace dg {
 using namespace ::dg::model;
-class WitnessAppsService {
+
+
+
+class WitnessAppsService : public EngineService {
 public:
     WitnessAppsService(const Config *config, string name);
     virtual ~WitnessAppsService();

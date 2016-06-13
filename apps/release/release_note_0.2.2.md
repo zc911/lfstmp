@@ -1,23 +1,20 @@
 # Matrix Apps
-### Version 0.2.0
-2016-05-30
+### Version 0.2.2
+2016-06-09
 
 ```
-GRPC and Restful works at the same time
+Monitor watchdog and check hardware
 ```
 
 ### Modules version
 | *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
 |:--------------:|:-------------:|:---------------:|:------------:|
-| 0.1.5 | 0.1.3 | * | * |
+| 0.1.6 | 0.1.3 | * | * |
 
 ### Features
-- Mofidy the grpc reponse message proto file
-- Merge Mxnet plate model(not works now)
-- Wentong plate sdk with a thread pool
-- Fix the bugs which found when integrated with VSD
+- Add hardware check
+- Add watchdog monitor
 
-### Bug Fix
 
 ### How to Install/Update
 ```
@@ -28,7 +25,10 @@ $ ./install.sh
 
 ### How to Run
 ```
-$ sudo ./matrix_app
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
 ```
 
 ### Config File
@@ -38,15 +38,16 @@ $ sudo ./matrix_app
     "Code": "1.0.0",
     "Model": "1.9"
   },
-  "ProtocolType": "rpc",
-  //  "ProtocolType": "restful",
+  "ProtocolType": "rpc|restful",
+//  "ProtocolType": "rpc",
+//"ProtocolType": "restful",
   "InstanceType": "witness",
-  //"InstanceType" : "ranker",
+//"InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6502,
     "GpuNum": 1,
-    "ThreadsPerGpu": 5,
+    "ThreadsPerGpu": 1,
     "EnableAsyn": true
   },
   "Feature": {
@@ -55,11 +56,11 @@ $ sudo ./matrix_app
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
-      "EnablePlate": true,
+      "EnablePlate": true, 
       "EnableGpuPlate": false,
-      "EnablePlateEnhanced": false,
-      "EnableMarker": false,
-      "EnableFeatureVector": false
+      "EnablePlateEnhanced": true,
+      "EnableMarker": true, 
+      "EnableFeatureVector": true 
     },
     "Face": {
       "Enable": false,
@@ -109,6 +110,9 @@ $ sudo ./matrix_app
     },
     "FaceExtract": {
       "BatchSize": 1
+    },
+    "Ranker":{
+      "Maximum": 1000
     }
   },
   "Log": {
