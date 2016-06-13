@@ -24,18 +24,32 @@ public:
     SpringGrpcClient(std::shared_ptr<Channel> channel)
         : stub_(SpringService::NewStub(channel)) {
     }
+
     string Index(GenericObj &request,
                       NullMessage *reply){
-        AsyncClientCall *call = new AsyncClientCall;
-        call->response_reader=stub_->AsyncIndex(&call->context,request,&cq_);
-        call->response_reader->Finish(&call->reply,&call->status,(void *)call);
+    ClientContext context;
+        CompletionQueue cq;
+        Status status;
+        std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
+            stub_->AsyncIndex(&context,request,&cq));
+        rpc->Finish(reply,&status,(void*)1);
+        void *got_tag;
+        bool ok=false;
+        cq.Next(&got_tag,&ok);
+        if(status.ok()){
+            return "grpc success";
+        }else{
+            return "grpc failed";
+        }
+
     }
     void AsyncCompleteRpc(){
         void *got_tag;
         bool ok=false;
         while(cq_.Next(&got_tag,&ok)){
             AsyncClientCall *call = static_cast<AsyncClientCall*>(got_tag);
-            GPR_ASSERT(ok);
+          //  GPR_ASSERT(ok);
+            cout<<"Weg"<<endl;
             if(call->status.ok())
                 std::cout<<"receivced"<<std::endl;
             else
