@@ -8,14 +8,17 @@
  * ==========================================================================*/
 
 #include <fstream>
+#include "pbjson/pbjson.hpp"
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
 #include <sys/time.h>
 #include <matrix_engine/model/model.h>
+#include <google/protobuf/text_format.h>
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
 #include "string_util.h"
+
 
 namespace dg {
 
@@ -50,8 +53,6 @@ void WitnessAppsService::init(void) {
     string pColorFile = (string) config_->Value(VEHICLE_PLATE_COLOR_MAPPING_FILE);
     string pTypeFile = (string) config_->Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
     string pVtypeFile = (string) config_->Value(VEHICLE_TYPE_MAPPING_FILE);
-    bool storageEnabled=(bool) config_->Value(STORAGE_ENABLED);
-    string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
 
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
@@ -59,15 +60,6 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
-    if(storageEnabled){
-        client_=new SpringGrpcClient(
-            grpc::CreateChannel(storageAddress,
-                                grpc::InsecureChannelCredentials()));
-        std::thread spring_th_(&SpringGrpcClient::AsyncCompleteRpc,client_);
-        spring_th_.detach();
-
-    }
-
 
 }
 
@@ -273,7 +265,7 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
 }
 
 MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
-                                           RecVehicle *vrec) {
+                                            RecVehicle *vrec) {
     MatrixError err;
 
     int isize = symbol_repo_.size();
@@ -329,7 +321,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     if (err.code() < 0)
         return err;
 
-    err = fillPlate(vobj->plate(),vrec->mutable_plate());
+    err = fillPlate(vobj->plate(), vrec->mutable_plate());
     if (err.code() < 0)
         return err;
 
@@ -449,14 +441,13 @@ MatrixError WitnessAppsService::checkRequest(
 
     return err;
 }
-void WitnessAppsService::sendtodeepdata(FrameBatch &framebatch,
-                    WitnessResponse *response){
-GenericObj client_request;
-client_request.set_type(response.);
-client_request.set_strdata("sdfe");
-client_request.set_bindata("sdfe");
-client_request.set_fmttype(PROTOBUF);
-NullMessage reply;
+void storage(Frame *frame,GenericObj *client_request_obj, string storageAddress
+) {
+    SpringGrpcClient client(
+        grpc::CreateChannel(storageAddress,
+                            grpc::InsecureChannelCredentials()));
+    NullMessage reply;
+    client.Index(*client_request_obj, &reply);
 
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
@@ -538,6 +529,25 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
+    if(storageEnabled) {
+        string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        const WitnessResult &r = response->result();
+        if (r.vehicles_size() != 0) {
+
+            for (int i = 0; i < r.vehicles_size(); i++) {
+                GenericObj client_request_obj;
+                client_request_obj.set_fmttype(PROTOBUF);
+                client_request_obj.set_type(OBJ_TYPE_CAR);
+                RecVehicle rv;
+                rv.CopyFrom(r.vehicles(i));
+                rv.mutable_img()->mutable_img()->set_bindata((char *) frame->payload()->data().data);
+                client_request_obj.set_bindata(&rv, rv.ByteSize());
+                thread t(storage, frame, &client_request_obj, storageAddress);
+                t.join();
+            }
+        }
+    }
 
     LOG(INFO) << "recognized objects: " << frame->objects().size() << endl;
     LOG(INFO) << "Finish processing: " << sessionid << "..." << endl;
@@ -659,37 +669,60 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     LOG(INFO) << "Finish batch processing: " << sessionid << "..." << endl;
     LOG(INFO) << "=======" << endl;
-    GenericObj client_request;
-    client_request.set_type(OBJ_TYPE_FACE);
-    NullMessage reply;
-    client_->Index(client_request, &reply);
     return err;
 }
 MatrixError WitnessAppsService::Index(const IndexRequest *request,
                                       IndexResponse *response) {
     MatrixError err;
 
-    switch(request->indextype()){
+    switch (request->indextype()) {
         case INDEX_CAR_TYPE:
-            for(int i=0;i<vehicle_repo_.size();i++){
-                string value=vehicle_repo_[i].brand();
-                basic_string<char> a;
-                (*response->mutable_index())[i]=value;
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                string value = vehicle_repo_[i].model();
+                (*response->mutable_index())[i] = value;
             }
             break;
         case INDEX_CAR_MAIN_BRAND:
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                string value = vehicle_repo_[i].brand();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_SUB_BRAND:
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                string value = vehicle_repo_[i].subbrand();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_YEAR_MODEL:
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                string value = vehicle_repo_[i].modelyear();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_PLATE_COLOR:
+            for (int i = 0; i < plate_color_repo_.size(); i++) {
+                string value = plate_color_repo_[i].data();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_PLATE_TYPE:
+            for (int i = 0; i < plate_type_repo_.size(); i++) {
+                string value = plate_type_repo_[i].data();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_COLOR:
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                string value = color_repo_[i].data();
+                (*response->mutable_index())[i] = value;
+            }
             break;
         case INDEX_CAR_MARKER:
+            for (int i = 0; i < symbol_repo_.size(); i++) {
+                string value = symbol_repo_[i].data();
+                (*response->mutable_index())[i] = value;
+            }
             break;
     }
 
