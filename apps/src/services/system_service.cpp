@@ -8,9 +8,11 @@
 #include "system_service.h"
 
 namespace dg {
-SystemAppsService::SystemAppsService(const Config *config) {
+SystemAppsService::SystemAppsService(const Config *config,string name) {
     config_=config;
+    name_=name;
     initNetworkThread();
+    string modelversion=(string)config_->Value(VERSION_MODEL);
 }
 SystemAppsService::~SystemAppsService() {
 
@@ -39,8 +41,8 @@ MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
     std::string msgGpuMemTotal;
     std::string msgNetworkRecv;
     std::string msgNetworkSend;
-
     string modelversion=(string)config_->Value(VERSION_MODEL);
+    cout<<modelversion<<endl;
     response->set_modelver(modelversion);
     string serviceversion=(string)config_->Value(SERVICE_MODEL);
     response->set_servicever(serviceversion);
