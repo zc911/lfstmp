@@ -13,18 +13,23 @@
 #include "alg/LPDetectRecog.hpp"
 
 namespace dg {
-static bool roiFilter(const vector<Rect> &mask, Rect src){
-    for(int i=0;i<mask.size();i++){
-        Rect tmp = src&mask[i];
-        if(tmp.width*tmp.height>0.5*src.width*src.height){
+
+static bool roiFilter(const vector<Rect> &mask, Rect src) {
+    if(mask.size() == 0)
+        return true;
+
+    for (int i = 0; i < mask.size(); i++) {
+        Rect tmp = src & mask[i];
+        if (tmp.width * tmp.height > 0.5 * src.width * src.height) {
             return true;
-        }else{
+        } else {
             continue;
         }
 
     }
     return false;
 }
+
 static int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &dst,
                 int factor) {
     if (src.size() > dst.size()) {
