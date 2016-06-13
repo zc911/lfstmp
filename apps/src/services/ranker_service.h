@@ -24,13 +24,14 @@ using namespace ::dg::model;
 
 class RankerAppsService {
 public:
-    RankerAppsService(const Config *config);
+    RankerAppsService(const Config *config, string name);
     virtual ~RankerAppsService();
 
     MatrixError GetRankedVector(const FeatureRankingRequest *request,
                                 FeatureRankingResponse *response);
 
 private:
+    string name_;
     const Config *config_;
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
@@ -42,10 +43,10 @@ private:
     MatrixError getRankedFaceVector(const FeatureRankingRequest *request,
                                     FeatureRankingResponse *response);
     MatrixError getRankedAllVector(const FeatureRankingRequest *request,
-                                    FeatureRankingResponse *response);
-    MatrixError getCarScoredVector(vector<Score> &scores,const FeatureRankingRequest *request,
-                                    FeatureRankingResponse *response);
-    MatrixError getFaceScoredVector(vector<Score> &scores,const FeatureRankingRequest *request,
+                                   FeatureRankingResponse *response);
+    MatrixError getCarScoredVector(vector<Score> &scores, const FeatureRankingRequest *request,
+                                   FeatureRankingResponse *response);
+    MatrixError getFaceScoredVector(vector<Score> &scores, const FeatureRankingRequest *request,
                                     FeatureRankingResponse *response);
     static void sortAndFillResponse(const FeatureRankingRequest *request,
                                     vector<Score> &scores,
@@ -60,16 +61,16 @@ private:
 
     template<typename F>
     static MatrixError extractFeatures(const FeatureRankingRequest *request,
-                                       vector<F> &features,int limits) {
+                                       vector<F> &features, int limits) {
         MatrixError err;
         if (request->candidates_size() <= 0) {
             err.set_code(-1);
             err.set_message("no candidates in request context");
             return err;
         }
-        if(request->candidates_size()>limits){
+        if (request->candidates_size() > limits) {
             err.set_code(-1);
-            err.set_message("candidates are too many");
+            err.set_message("too many candidates");
             return err;
         }
         for (int i = 0; i < request->candidates_size(); i++) {
@@ -83,6 +84,9 @@ private:
             F feature;
             if (!feature.Deserialize(featureStr)) {
                 LOG(ERROR) << "Invalid feature string, id: " << request->candidates(i).id() << endl;
+                err.set_code(-1);
+                err.set_message("invalid candidate feature");
+                return err;
             }
 
             features.push_back(feature);
