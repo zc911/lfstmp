@@ -8,6 +8,8 @@ message VideoMetadata {
 	int32 SensorId = 3;
 	string SensorName = 4;
 	string SensorUrl = 5;
+	int32 repoId =6;
+	string repoInfo=7;
 }
 
 message Cutboard {

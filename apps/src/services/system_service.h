@@ -77,7 +77,7 @@ static void networkInfo(int *rx, int *tx) {
 class SystemAppsService {
 
  public:
-    SystemAppsService(const Config *config);
+    SystemAppsService(const Config *config,string name);
     virtual ~SystemAppsService();
 
     MatrixError Ping(const PingRequest *request, PingResponse *response);
@@ -210,6 +210,7 @@ class SystemAppsService {
  private:
     void initNetworkThread();
     const Config *config_;
+    string name_;
     int rx_ = 0;
     int tx_ = 0;
 
