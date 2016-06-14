@@ -12,7 +12,7 @@ namespace dg {
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
                                                string addr,
                                                MatrixEnginesPool<WitnessAppsService> *engine_pool)
-    : BasicGrpcService(config, addr, engine_pool) {
+    : BasicGrpcService(config, addr, engine_pool){
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
