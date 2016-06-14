@@ -224,6 +224,7 @@ MatrixError WitnessAppsService::fillModel(const Vehicle &vobj,
     MatrixError err;
     string type = lookup_string(vehicle_type_repo_, vobj.type());
     vrec->set_vehicletypename(type);
+
     if (vobj.type() == OBJECT_CAR) {
         const VehicleModelType &m = lookup_vehicle(vehicle_repo_, vobj.class_id());
         VehicleModelType *model = vrec->mutable_modeltype();
@@ -257,7 +258,7 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
     copyCutboard(d, rplate->mutable_cutboard());
     rplate->mutable_color()->set_colorid(plate.color_id);
     rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
-
+    rplate->mutable_color()->set_confidence(plate.confidence);
     rplate->set_typeid_(plate.plate_type);
     rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
     rplate->set_confidence(plate.confidence);
@@ -309,10 +310,10 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     MatrixError err;
     vrec->set_features(vobj->feature().Serialize());
 
+
     const Detection &d = vobj->detection();
 
     copyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-
     err = fillModel(*vobj, vrec);
     vrec->mutable_modeltype()->set_confidence(vobj->confidence());
     if (err.code() < 0)
@@ -511,6 +512,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     result->mutable_image()->mutable_data()->set_uri(
         request->image().data().uri());
     err = getRecognizeResult(frame, result);
+
     if (err.code() != 0) {
         LOG(ERROR) << "get result from frame failed, " << err.message();
         return err;
@@ -539,8 +541,10 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 GenericObj client_request_obj;
                 client_request_obj.set_fmttype(PROTOBUF);
                 client_request_obj.set_type(OBJ_TYPE_CAR);
+                client_request_obj.mutable_storage()->CopyFrom(request->context().storage());
                 RecVehicle rv;
                 rv.CopyFrom(r.vehicles(i));
+                rv.mutable_img()->mutable_metadata()->CopyFrom(r.image().witnessmetadata());
                // rv.mutable_img()->mutable_img()->set_bindata((char *) frame->payload()->data().data);
                 client_request_obj.set_bindata(&rv, rv.ByteSize());
                 thread t(storage, frame, &client_request_obj, storageAddress);

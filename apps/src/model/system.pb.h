@@ -29,6 +29,7 @@
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "localcommon.pb.h"
+#include "common.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace dg {
@@ -52,7 +53,6 @@ class RecImageFConfig;
 class RecImageVConfig;
 class RecVideoFConfig;
 class RecVideoVConfig;
-class StorageConfig;
 class SystemStatusRequest;
 class SystemStatusResponse;
 
@@ -842,118 +842,6 @@ class InstanceConfigureResponse : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static InstanceConfigureResponse* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class StorageConfig : public ::google::protobuf::Message {
- public:
-  StorageConfig();
-  virtual ~StorageConfig();
-
-  StorageConfig(const StorageConfig& from);
-
-  inline StorageConfig& operator=(const StorageConfig& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const StorageConfig& default_instance();
-
-  void Swap(StorageConfig* other);
-
-  // implements Message ----------------------------------------------
-
-  inline StorageConfig* New() const { return New(NULL); }
-
-  StorageConfig* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const StorageConfig& from);
-  void MergeFrom(const StorageConfig& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(StorageConfig* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string Address = 1;
-  void clear_address();
-  static const int kAddressFieldNumber = 1;
-  const ::std::string& address() const;
-  void set_address(const ::std::string& value);
-  void set_address(const char* value);
-  void set_address(const char* value, size_t size);
-  ::std::string* mutable_address();
-  ::std::string* release_address();
-  void set_allocated_address(::std::string* address);
-
-  // optional string RepoInfo = 2;
-  void clear_repoinfo();
-  static const int kRepoInfoFieldNumber = 2;
-  const ::std::string& repoinfo() const;
-  void set_repoinfo(const ::std::string& value);
-  void set_repoinfo(const char* value);
-  void set_repoinfo(const char* value, size_t size);
-  ::std::string* mutable_repoinfo();
-  ::std::string* release_repoinfo();
-  void set_allocated_repoinfo(::std::string* repoinfo);
-
-  // repeated string Tags = 3;
-  int tags_size() const;
-  void clear_tags();
-  static const int kTagsFieldNumber = 3;
-  const ::std::string& tags(int index) const;
-  ::std::string* mutable_tags(int index);
-  void set_tags(int index, const ::std::string& value);
-  void set_tags(int index, const char* value);
-  void set_tags(int index, const char* value, size_t size);
-  ::std::string* add_tags();
-  void add_tags(const ::std::string& value);
-  void add_tags(const char* value);
-  void add_tags(const char* value, size_t size);
-  const ::google::protobuf::RepeatedPtrField< ::std::string>& tags() const;
-  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_tags();
-
-  // @@protoc_insertion_point(class_scope:dg.model.StorageConfig)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr address_;
-  ::google::protobuf::internal::ArenaStringPtr repoinfo_;
-  ::google::protobuf::RepeatedPtrField< ::std::string> tags_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_system_2eproto();
-  friend void protobuf_AssignDesc_system_2eproto();
-  friend void protobuf_ShutdownFile_system_2eproto();
-
-  void InitAsDefaultInstance();
-  static StorageConfig* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2670,150 +2558,6 @@ InstanceConfigureResponse::results() const {
 
 // -------------------------------------------------------------------
 
-// StorageConfig
-
-// optional string Address = 1;
-inline void StorageConfig::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& StorageConfig::address() const {
-  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StorageConfig::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Address)
-}
-inline void StorageConfig::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Address)
-}
-inline void StorageConfig::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Address)
-}
-inline ::std::string* StorageConfig::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* StorageConfig::release_address() {
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StorageConfig::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
-}
-
-// optional string RepoInfo = 2;
-inline void StorageConfig::clear_repoinfo() {
-  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& StorageConfig::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.RepoInfo)
-  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StorageConfig::set_repoinfo(const ::std::string& value) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.RepoInfo)
-}
-inline void StorageConfig::set_repoinfo(const char* value) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.RepoInfo)
-}
-inline void StorageConfig::set_repoinfo(const char* value, size_t size) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.RepoInfo)
-}
-inline ::std::string* StorageConfig::mutable_repoinfo() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.RepoInfo)
-  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* StorageConfig::release_repoinfo() {
-  
-  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void StorageConfig::set_allocated_repoinfo(::std::string* repoinfo) {
-  if (repoinfo != NULL) {
-    
-  } else {
-    
-  }
-  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.RepoInfo)
-}
-
-// repeated string Tags = 3;
-inline int StorageConfig::tags_size() const {
-  return tags_.size();
-}
-inline void StorageConfig::clear_tags() {
-  tags_.Clear();
-}
-inline const ::std::string& StorageConfig::tags(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Tags)
-  return tags_.Get(index);
-}
-inline ::std::string* StorageConfig::mutable_tags(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Tags)
-  return tags_.Mutable(index);
-}
-inline void StorageConfig::set_tags(int index, const ::std::string& value) {
-  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Tags)
-  tags_.Mutable(index)->assign(value);
-}
-inline void StorageConfig::set_tags(int index, const char* value) {
-  tags_.Mutable(index)->assign(value);
-  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Tags)
-}
-inline void StorageConfig::set_tags(int index, const char* value, size_t size) {
-  tags_.Mutable(index)->assign(
-    reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
-}
-inline ::std::string* StorageConfig::add_tags() {
-  return tags_.Add();
-}
-inline void StorageConfig::add_tags(const ::std::string& value) {
-  tags_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Tags)
-}
-inline void StorageConfig::add_tags(const char* value) {
-  tags_.Add()->assign(value);
-  // @@protoc_insertion_point(field_add_char:dg.model.StorageConfig.Tags)
-}
-inline void StorageConfig::add_tags(const char* value, size_t size) {
-  tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_add_pointer:dg.model.StorageConfig.Tags)
-}
-inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
-StorageConfig::tags() const {
-  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Tags)
-  return tags_;
-}
-inline ::google::protobuf::RepeatedPtrField< ::std::string>*
-StorageConfig::mutable_tags() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
-  return &tags_;
-}
-
-// -------------------------------------------------------------------
-
 // InstanceConfig
 
 // optional .dg.model.InstanceType Type = 1;
@@ -3318,8 +3062,6 @@ EngineStatus::mutable_rpcports() {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
