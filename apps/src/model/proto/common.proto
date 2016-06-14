@@ -131,9 +131,14 @@ message Symbol{
 
 message RecPedestrian {
 	int64 Id = 1;
-	VideoMetadata Metadata = 2;
 	CutboardImage Img = 3;
 	bytes Feature = 4;
 	Color Color = 5;
 	float Confidence =6;
+}
+
+message StorageConfig {
+	string Address = 1;         //结构化信息输出地址
+	string RepoInfo = 2;        //结构化信息的库标识
+	repeated string Tags = 3;   //设定数据的信息标签
 }
