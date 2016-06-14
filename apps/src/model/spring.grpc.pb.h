@@ -17,6 +17,7 @@
 
 namespace grpc {
 class CompletionQueue;
+class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -25,15 +26,22 @@ class ServerContext;
 namespace dg {
 namespace model {
 
+// ## Business Intelligence APIs
 class SpringService GRPC_FINAL {
  public:
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    // Index stores generic entity.
+    // Errors:
+    //   40301: Invalid entity.
     virtual ::grpc::Status Index(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::dg::model::NullMessage* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndex(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexRaw(context, request, cq));
     }
+    // IndexBatch stores generic entities.
+    // Errors:
+    //   40301: Invalid entity.
     virtual ::grpc::Status IndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::dg::model::NullMessage* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexBatchRaw(context, request, cq));
@@ -67,13 +75,19 @@ class SpringService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
+    // Index stores generic entity.
+    // Errors:
+    //   40301: Invalid entity.
     virtual ::grpc::Status Index(::grpc::ServerContext* context, const ::dg::model::GenericObj* request, ::dg::model::NullMessage* response);
+    // IndexBatch stores generic entities.
+    // Errors:
+    //   40301: Invalid entity.
     virtual ::grpc::Status IndexBatch(::grpc::ServerContext* context, const ::dg::model::GenericObjs* request, ::dg::model::NullMessage* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_Index : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_Index() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -93,7 +107,7 @@ class SpringService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_IndexBatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_IndexBatch() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -114,7 +128,7 @@ class SpringService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Index : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_Index() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -131,7 +145,7 @@ class SpringService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_IndexBatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_IndexBatch() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -146,6 +160,7 @@ class SpringService GRPC_FINAL {
     }
   };
 };
+// ### Index APIs
 
 }  // namespace model
 }  // namespace dg
