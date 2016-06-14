@@ -12,6 +12,7 @@
 
 #include "restful.h"
 #include "services/witness_service.h"
+#include "services/system_service.h"
 
 namespace dg {
 
@@ -24,7 +25,7 @@ public:
     RestWitnessServiceImpl(Config config,
                            string addr,
                            MatrixEnginesPool<WitnessAppsService> *engine_pool)
-        : RestfulService(engine_pool, config) {
+        : RestfulService(engine_pool, config),service_system_(&config,"witness system"){
 
     }
 
@@ -37,12 +38,18 @@ public:
                                                                       "POST", rec_func);
         RecIndexFunc rec_index_func = (RecIndexFunc) &WitnessAppsService::Index;
         bindFunc<WitnessAppsService, IndexRequest, IndexResponse>(server, "^/rec/index$",
-                                                                      "POST", rec_index_func);
+                                                                  "POST", rec_index_func);
         BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
         bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
                                                                                 "/rec/image/batch$",
                                                                                 "POST",
                                                                                 batch_func);
+        std::function<MatrixError(const SystemStatusRequest *, SystemStatusResponse *)> statusBinder =
+            std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
+        bind1(server, "^/info$", "GET", statusBinder);
+        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
+            std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
+        bind1(server, "^/ping$", "GET", pingBinder);
 
     }
 
@@ -66,8 +73,8 @@ public:
 //        server.start();
 //    }
 //
-//private:
-//    Config config_;
+private:
+    SystemAppsService service_system_;
 };
 }
 

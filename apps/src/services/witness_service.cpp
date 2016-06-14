@@ -443,11 +443,11 @@ MatrixError WitnessAppsService::checkRequest(
 }
 void storage(Frame *frame,GenericObj *client_request_obj, string storageAddress
 ) {
-    SpringGrpcClient client(
+ /*   SpringGrpcClient client(
         grpc::CreateChannel(storageAddress,
                             grpc::InsecureChannelCredentials()));
     NullMessage reply;
-    client.Index(*client_request_obj, &reply);
+    client.Index(*client_request_obj, &reply);*/
 
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,

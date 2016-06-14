@@ -17,6 +17,7 @@
 #include "restful/ranker_restful.h"
 #include "services/engine_pool.h"
 #include "watchdog/watch_dog.h"
+#include "grpc/system_grpc.h"
 
 
 using namespace std;
@@ -46,8 +47,16 @@ void serveWitness(Config *config, int userPort = 0) {
         RestWitnessServiceImpl *service = new RestWitnessServiceImpl(*config, address, engine_pool);
         service->Run();
     } else if (protocolType == "rpc") {
+        cout<<"hello"<<endl;
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
-        service->Run();
+        std::thread t1(&GrpcWitnessServiceImpl::Run,service);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
+        engine_pool1->Run();
+        GrpcSystemServiceImpl *system_service=new GrpcSystemServiceImpl(*config,address2,engine_pool1);
+        std::thread t2(&GrpcSystemServiceImpl::Run,system_service);
+        t1.join();
+        t2.join();
     } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
         std::thread t1(&GrpcWitnessServiceImpl::Run, service);
@@ -69,14 +78,23 @@ void serveRanker(Config *config, int userPort = 0) {
     string address = getServerAddress(config, userPort);
 
     MatrixEnginesPool<RankerAppsService> *engine_pool = new MatrixEnginesPool<RankerAppsService>(config);
+    cout<<"finish prgc"<<endl;
     engine_pool->Run();
+    cout<<"finish prsdfgc"<<endl;
 
     if (protocolType == "restful") {
         RestRankerServiceImpl *service = new RestRankerServiceImpl(*config, address, engine_pool);
         service->Run();
     } else if (protocolType == "rpc") {
         GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
-        service->Run();
+        std::thread t1(&GrpcRankerServiceImpl::Run,service);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
+        engine_pool1->Run();
+        GrpcSystemServiceImpl *system_service=new GrpcSystemServiceImpl(*config,address2,engine_pool1);
+        std::thread t2(&GrpcSystemServiceImpl::Run,system_service);
+        t1.join();
+        t2.join();
     } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
         GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
         std::thread t1(&GrpcRankerServiceImpl::Run, service);
