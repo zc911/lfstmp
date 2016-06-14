@@ -48,6 +48,7 @@ class NullMessage;
 class RecFace;
 class RecPedestrian;
 class RecVehicle;
+class StorageConfig;
 class Symbol;
 class VehicleModelType;
 class VehicleSymbol;
@@ -210,6 +211,23 @@ class VideoMetadata : public ::google::protobuf::Message {
   ::std::string* release_sensorurl();
   void set_allocated_sensorurl(::std::string* sensorurl);
 
+  // optional int32 repoId = 6;
+  void clear_repoid();
+  static const int kRepoIdFieldNumber = 6;
+  ::google::protobuf::int32 repoid() const;
+  void set_repoid(::google::protobuf::int32 value);
+
+  // optional string repoInfo = 7;
+  void clear_repoinfo();
+  static const int kRepoInfoFieldNumber = 7;
+  const ::std::string& repoinfo() const;
+  void set_repoinfo(const ::std::string& value);
+  void set_repoinfo(const char* value);
+  void set_repoinfo(const char* value, size_t size);
+  ::std::string* mutable_repoinfo();
+  ::std::string* release_repoinfo();
+  void set_allocated_repoinfo(::std::string* repoinfo);
+
   // @@protoc_insertion_point(class_scope:dg.model.VideoMetadata)
  private:
 
@@ -220,6 +238,8 @@ class VideoMetadata : public ::google::protobuf::Message {
   ::google::protobuf::int32 sensorid_;
   ::google::protobuf::internal::ArenaStringPtr sensorname_;
   ::google::protobuf::internal::ArenaStringPtr sensorurl_;
+  ::google::protobuf::internal::ArenaStringPtr repoinfo_;
+  ::google::protobuf::int32 repoid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -1661,15 +1681,6 @@ class RecPedestrian : public ::google::protobuf::Message {
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // optional .dg.model.VideoMetadata Metadata = 2;
-  bool has_metadata() const;
-  void clear_metadata();
-  static const int kMetadataFieldNumber = 2;
-  const ::dg::model::VideoMetadata& metadata() const;
-  ::dg::model::VideoMetadata* mutable_metadata();
-  ::dg::model::VideoMetadata* release_metadata();
-  void set_allocated_metadata(::dg::model::VideoMetadata* metadata);
-
   // optional .dg.model.CutboardImage Img = 3;
   bool has_img() const;
   void clear_img();
@@ -1711,7 +1722,6 @@ class RecPedestrian : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 id_;
-  ::dg::model::VideoMetadata* metadata_;
   ::dg::model::CutboardImage* img_;
   ::google::protobuf::internal::ArenaStringPtr feature_;
   ::dg::model::Color* color_;
@@ -1723,6 +1733,118 @@ class RecPedestrian : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static RecPedestrian* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class StorageConfig : public ::google::protobuf::Message {
+ public:
+  StorageConfig();
+  virtual ~StorageConfig();
+
+  StorageConfig(const StorageConfig& from);
+
+  inline StorageConfig& operator=(const StorageConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const StorageConfig& default_instance();
+
+  void Swap(StorageConfig* other);
+
+  // implements Message ----------------------------------------------
+
+  inline StorageConfig* New() const { return New(NULL); }
+
+  StorageConfig* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const StorageConfig& from);
+  void MergeFrom(const StorageConfig& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StorageConfig* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string Address = 1;
+  void clear_address();
+  static const int kAddressFieldNumber = 1;
+  const ::std::string& address() const;
+  void set_address(const ::std::string& value);
+  void set_address(const char* value);
+  void set_address(const char* value, size_t size);
+  ::std::string* mutable_address();
+  ::std::string* release_address();
+  void set_allocated_address(::std::string* address);
+
+  // optional string RepoInfo = 2;
+  void clear_repoinfo();
+  static const int kRepoInfoFieldNumber = 2;
+  const ::std::string& repoinfo() const;
+  void set_repoinfo(const ::std::string& value);
+  void set_repoinfo(const char* value);
+  void set_repoinfo(const char* value, size_t size);
+  ::std::string* mutable_repoinfo();
+  ::std::string* release_repoinfo();
+  void set_allocated_repoinfo(::std::string* repoinfo);
+
+  // repeated string Tags = 3;
+  int tags_size() const;
+  void clear_tags();
+  static const int kTagsFieldNumber = 3;
+  const ::std::string& tags(int index) const;
+  ::std::string* mutable_tags(int index);
+  void set_tags(int index, const ::std::string& value);
+  void set_tags(int index, const char* value);
+  void set_tags(int index, const char* value, size_t size);
+  ::std::string* add_tags();
+  void add_tags(const ::std::string& value);
+  void add_tags(const char* value);
+  void add_tags(const char* value, size_t size);
+  const ::google::protobuf::RepeatedPtrField< ::std::string>& tags() const;
+  ::google::protobuf::RepeatedPtrField< ::std::string>* mutable_tags();
+
+  // @@protoc_insertion_point(class_scope:dg.model.StorageConfig)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::internal::ArenaStringPtr repoinfo_;
+  ::google::protobuf::RepeatedPtrField< ::std::string> tags_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static StorageConfig* default_instance_;
 };
 // ===================================================================
 
@@ -1858,6 +1980,63 @@ inline void VideoMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
+}
+
+// optional int32 repoId = 6;
+inline void VideoMetadata::clear_repoid() {
+  repoid_ = 0;
+}
+inline ::google::protobuf::int32 VideoMetadata::repoid() const {
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoId)
+  return repoid_;
+}
+inline void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
+  
+  repoid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoId)
+}
+
+// optional string repoInfo = 7;
+inline void VideoMetadata::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& VideoMetadata::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void VideoMetadata::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoInfo)
+}
+inline void VideoMetadata::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.repoInfo)
+}
+inline void VideoMetadata::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.repoInfo)
+}
+inline ::std::string* VideoMetadata::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.repoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* VideoMetadata::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void VideoMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.repoInfo)
 }
 
 // -------------------------------------------------------------------
@@ -3459,43 +3638,6 @@ inline void RecPedestrian::set_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Id)
 }
 
-// optional .dg.model.VideoMetadata Metadata = 2;
-inline bool RecPedestrian::has_metadata() const {
-  return !_is_default_instance_ && metadata_ != NULL;
-}
-inline void RecPedestrian::clear_metadata() {
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
-}
-inline const ::dg::model::VideoMetadata& RecPedestrian::metadata() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Metadata)
-  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
-}
-inline ::dg::model::VideoMetadata* RecPedestrian::mutable_metadata() {
-  
-  if (metadata_ == NULL) {
-    metadata_ = new ::dg::model::VideoMetadata;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.RecPedestrian.Metadata)
-  return metadata_;
-}
-inline ::dg::model::VideoMetadata* RecPedestrian::release_metadata() {
-  
-  ::dg::model::VideoMetadata* temp = metadata_;
-  metadata_ = NULL;
-  return temp;
-}
-inline void RecPedestrian::set_allocated_metadata(::dg::model::VideoMetadata* metadata) {
-  delete metadata_;
-  metadata_ = metadata;
-  if (metadata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.Metadata)
-}
-
 // optional .dg.model.CutboardImage Img = 3;
 inline bool RecPedestrian::has_img() const {
   return !_is_default_instance_ && img_ != NULL;
@@ -3627,7 +3769,153 @@ inline void RecPedestrian::set_confidence(float value) {
   // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Confidence)
 }
 
+// -------------------------------------------------------------------
+
+// StorageConfig
+
+// optional string Address = 1;
+inline void StorageConfig::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& StorageConfig::address() const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void StorageConfig::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Address)
+}
+inline void StorageConfig::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Address)
+}
+inline void StorageConfig::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Address)
+}
+inline ::std::string* StorageConfig::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* StorageConfig::release_address() {
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void StorageConfig::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
+}
+
+// optional string RepoInfo = 2;
+inline void StorageConfig::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& StorageConfig::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.RepoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void StorageConfig::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.RepoInfo)
+}
+inline void StorageConfig::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.RepoInfo)
+}
+inline void StorageConfig::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.RepoInfo)
+}
+inline ::std::string* StorageConfig::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.RepoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* StorageConfig::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void StorageConfig::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.RepoInfo)
+}
+
+// repeated string Tags = 3;
+inline int StorageConfig::tags_size() const {
+  return tags_.size();
+}
+inline void StorageConfig::clear_tags() {
+  tags_.Clear();
+}
+inline const ::std::string& StorageConfig::tags(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Tags)
+  return tags_.Get(index);
+}
+inline ::std::string* StorageConfig::mutable_tags(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Tags)
+  return tags_.Mutable(index);
+}
+inline void StorageConfig::set_tags(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Tags)
+  tags_.Mutable(index)->assign(value);
+}
+inline void StorageConfig::set_tags(int index, const char* value) {
+  tags_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Tags)
+}
+inline void StorageConfig::set_tags(int index, const char* value, size_t size) {
+  tags_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
+}
+inline ::std::string* StorageConfig::add_tags() {
+  return tags_.Add();
+}
+inline void StorageConfig::add_tags(const ::std::string& value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Tags)
+}
+inline void StorageConfig::add_tags(const char* value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:dg.model.StorageConfig.Tags)
+}
+inline void StorageConfig::add_tags(const char* value, size_t size) {
+  tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:dg.model.StorageConfig.Tags)
+}
+inline const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StorageConfig::tags() const {
+  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Tags)
+  return tags_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::std::string>*
+StorageConfig::mutable_tags() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
+  return &tags_;
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -227,10 +227,9 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _is_default_instance_));
   WitnessRequestContext_ParamsEntry_descriptor_ = WitnessRequestContext_descriptor_->nested_type(0);
   WitnessImage_descriptor_ = file->message_type(9);
-  static const int WitnessImage_offsets_[5] = {
+  static const int WitnessImage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, sensorid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, sensorname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, witnessmetadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, relativeroi_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, marginroi_),
   };
@@ -411,71 +410,70 @@ void protobuf_AddDesc_witness_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::dg::model::protobuf_AddDesc_common_2eproto();
-  ::dg::model::protobuf_AddDesc_system_2eproto();
   ::dg::model::protobuf_AddDesc_localcommon_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\rwitness.proto\022\010dg.model\032\014common.proto\032"
-    "\014system.proto\032\021localcommon.proto\"6\n\014Inde"
-    "xRequest\022&\n\tindexType\030\001 \001(\0162\023.dg.model.I"
-    "ndexType\"p\n\rIndexResponse\0221\n\005Index\030\001 \003(\013"
-    "2\".dg.model.IndexResponse.IndexEntry\032,\n\n"
-    "IndexEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\t:\002"
-    "8\001\"i\n\016WitnessRequest\0220\n\007Context\030\001 \001(\0132\037."
-    "dg.model.WitnessRequestContext\022%\n\005Image\030"
-    "\002 \001(\0132\026.dg.model.WitnessImage\"o\n\023Witness"
-    "BatchRequest\0220\n\007Context\030\001 \001(\0132\037.dg.model"
-    ".WitnessRequestContext\022&\n\006Images\030\002 \003(\0132\026"
-    ".dg.model.WitnessImage\"m\n\017WitnessRespons"
-    "e\0221\n\007Context\030\001 \001(\0132 .dg.model.WitnessRes"
-    "ponseContext\022\'\n\006Result\030\002 \001(\0132\027.dg.model."
-    "WitnessResult\"s\n\024WitnessBatchResponse\0221\n"
-    "\007Context\030\001 \001(\0132 .dg.model.WitnessRespons"
-    "eContext\022(\n\007Results\030\002 \003(\0132\027.dg.model.Wit"
-    "nessResult\"O\n\022WitnessRelativeROI\022\014\n\004PosX"
-    "\030\001 \001(\005\022\014\n\004PosY\030\002 \001(\005\022\r\n\005Width\030\003 \001(\005\022\016\n\006H"
-    "eight\030\004 \001(\005\"L\n\020WitnessMarginROI\022\014\n\004Left\030"
-    "\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022\r\n\005Right\030\003 \001(\005\022\016\n\006Bot"
-    "tom\030\004 \001(\005\"\230\002\n\025WitnessRequestContext\022\021\n\tS"
-    "essionId\030\001 \001(\t\022/\n\tFunctions\030\004 \003(\0162\034.dg.m"
-    "odel.RecognizeFunctions\022%\n\004Type\030\005 \001(\0162\027."
-    "dg.model.RecognizeType\022(\n\007Storage\030\006 \001(\0132"
-    "\027.dg.model.StorageConfig\022;\n\006Params\030\007 \003(\013"
-    "2+.dg.model.WitnessRequestContext.Params"
-    "Entry\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005val"
-    "ue\030\002 \001(\t:\0028\001\"\265\001\n\014WitnessImage\022\035\n\004Data\030\001 "
-    "\001(\0132\017.dg.model.Image\022\020\n\010SensorId\030\002 \001(\005\022\022"
-    "\n\nSensorName\030\003 \001(\t\0221\n\013RelativeRoi\030\004 \003(\0132"
-    "\034.dg.model.WitnessRelativeROI\022-\n\tMarginR"
-    "oi\030\005 \003(\0132\032.dg.model.WitnessMarginROI\"\223\002\n"
-    "\026WitnessResponseContext\022\021\n\tSessionId\030\001 \001"
-    "(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tR"
-    "equestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nRespon"
-    "seTs\030\005 \001(\0132\016.dg.model.Time\022>\n\007DebugTs\030\006 "
-    "\003(\0132-.dg.model.WitnessResponseContext.De"
-    "bugTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022"
-    "\035\n\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\"\331\001\n\rW"
-    "itnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014Inn"
-    "erMessage\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.mode"
-    "l.WitnessImage\022&\n\010Vehicles\030\004 \003(\0132\024.dg.mo"
-    "del.RecVehicle\022 \n\005Faces\030\005 \003(\0132\021.dg.model"
-    ".RecFace\022,\n\013Pedestrians\030\006 \003(\0132\027.dg.model"
-    ".RecPedestrian\"\245\001\n\nIndexModel\022%\n\007Vehicle"
-    "\030\001 \001(\0132\024.dg.model.RecVehicle\022\037\n\004Face\030\002 \001"
-    "(\0132\021.dg.model.RecFace\022+\n\nPedestrian\030\003 \001("
-    "\0132\027.dg.model.RecPedestrian\022\020\n\010RepoInfo\030\004"
-    " \001(\t\022\020\n\010SensorId\030\005 \001(\005*\337\001\n\tIndexType\022\021\n\r"
-    "INDEX_DEFAULT\020\000\022\022\n\016INDEX_CAR_TYPE\020\001\022\030\n\024I"
-    "NDEX_CAR_MAIN_BRAND\020\002\022\027\n\023INDEX_CAR_SUB_B"
-    "RAND\020\003\022\030\n\024INDEX_CAR_YEAR_MODEL\020\004\022\023\n\017INDE"
-    "X_CAR_COLOR\020\005\022\024\n\020INDEX_CAR_MARKER\020\006\022\030\n\024I"
-    "NDEX_CAR_PLATE_TYPE\020\007\022\031\n\025INDEX_CAR_PLATE"
-    "_COLOR\020\0102\346\001\n\016WitnessService\022B\n\tRecognize"
-    "\022\030.dg.model.WitnessRequest\032\031.dg.model.Wi"
-    "tnessResponse\"\000\022Q\n\016BatchRecognize\022\035.dg.m"
-    "odel.WitnessBatchRequest\032\036.dg.model.Witn"
-    "essBatchResponse\"\000\022=\n\010GetIndex\022\026.dg.mode"
-    "l.IndexRequest\032\027.dg.model.IndexResponse\""
-    "\000b\006proto3", 2449);
+    "\021localcommon.proto\"6\n\014IndexRequest\022&\n\tin"
+    "dexType\030\001 \001(\0162\023.dg.model.IndexType\"p\n\rIn"
+    "dexResponse\0221\n\005Index\030\001 \003(\0132\".dg.model.In"
+    "dexResponse.IndexEntry\032,\n\nIndexEntry\022\013\n\003"
+    "key\030\001 \001(\005\022\r\n\005value\030\002 \001(\t:\0028\001\"i\n\016WitnessR"
+    "equest\0220\n\007Context\030\001 \001(\0132\037.dg.model.Witne"
+    "ssRequestContext\022%\n\005Image\030\002 \001(\0132\026.dg.mod"
+    "el.WitnessImage\"o\n\023WitnessBatchRequest\0220"
+    "\n\007Context\030\001 \001(\0132\037.dg.model.WitnessReques"
+    "tContext\022&\n\006Images\030\002 \003(\0132\026.dg.model.Witn"
+    "essImage\"m\n\017WitnessResponse\0221\n\007Context\030\001"
+    " \001(\0132 .dg.model.WitnessResponseContext\022\'"
+    "\n\006Result\030\002 \001(\0132\027.dg.model.WitnessResult\""
+    "s\n\024WitnessBatchResponse\0221\n\007Context\030\001 \001(\013"
+    "2 .dg.model.WitnessResponseContext\022(\n\007Re"
+    "sults\030\002 \003(\0132\027.dg.model.WitnessResult\"O\n\022"
+    "WitnessRelativeROI\022\014\n\004PosX\030\001 \001(\005\022\014\n\004PosY"
+    "\030\002 \001(\005\022\r\n\005Width\030\003 \001(\005\022\016\n\006Height\030\004 \001(\005\"L\n"
+    "\020WitnessMarginROI\022\014\n\004Left\030\001 \001(\005\022\013\n\003Top\030\002"
+    " \001(\005\022\r\n\005Right\030\003 \001(\005\022\016\n\006Bottom\030\004 \001(\005\"\230\002\n\025"
+    "WitnessRequestContext\022\021\n\tSessionId\030\001 \001(\t"
+    "\022/\n\tFunctions\030\004 \003(\0162\034.dg.model.Recognize"
+    "Functions\022%\n\004Type\030\005 \001(\0162\027.dg.model.Recog"
+    "nizeType\022(\n\007Storage\030\006 \001(\0132\027.dg.model.Sto"
+    "rageConfig\022;\n\006Params\030\007 \003(\0132+.dg.model.Wi"
+    "tnessRequestContext.ParamsEntry\032-\n\013Param"
+    "sEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\301"
+    "\001\n\014WitnessImage\022\035\n\004Data\030\001 \001(\0132\017.dg.model"
+    ".Image\0220\n\017WitnessMetaData\030\002 \001(\0132\027.dg.mod"
+    "el.VideoMetadata\0221\n\013RelativeRoi\030\003 \003(\0132\034."
+    "dg.model.WitnessRelativeROI\022-\n\tMarginRoi"
+    "\030\004 \003(\0132\032.dg.model.WitnessMarginROI\"\223\002\n\026W"
+    "itnessResponseContext\022\021\n\tSessionId\030\001 \001(\t"
+    "\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tReq"
+    "uestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nResponse"
+    "Ts\030\005 \001(\0132\016.dg.model.Time\022>\n\007DebugTs\030\006 \003("
+    "\0132-.dg.model.WitnessResponseContext.Debu"
+    "gTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022\035\n"
+    "\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\"\331\001\n\rWit"
+    "nessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024\n\014Inner"
+    "Message\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg.model."
+    "WitnessImage\022&\n\010Vehicles\030\004 \003(\0132\024.dg.mode"
+    "l.RecVehicle\022 \n\005Faces\030\005 \003(\0132\021.dg.model.R"
+    "ecFace\022,\n\013Pedestrians\030\006 \003(\0132\027.dg.model.R"
+    "ecPedestrian\"\245\001\n\nIndexModel\022%\n\007Vehicle\030\001"
+    " \001(\0132\024.dg.model.RecVehicle\022\037\n\004Face\030\002 \001(\013"
+    "2\021.dg.model.RecFace\022+\n\nPedestrian\030\003 \001(\0132"
+    "\027.dg.model.RecPedestrian\022\020\n\010RepoInfo\030\004 \001"
+    "(\t\022\020\n\010SensorId\030\005 \001(\005*\337\001\n\tIndexType\022\021\n\rIN"
+    "DEX_DEFAULT\020\000\022\022\n\016INDEX_CAR_TYPE\020\001\022\030\n\024IND"
+    "EX_CAR_MAIN_BRAND\020\002\022\027\n\023INDEX_CAR_SUB_BRA"
+    "ND\020\003\022\030\n\024INDEX_CAR_YEAR_MODEL\020\004\022\023\n\017INDEX_"
+    "CAR_COLOR\020\005\022\024\n\020INDEX_CAR_MARKER\020\006\022\030\n\024IND"
+    "EX_CAR_PLATE_TYPE\020\007\022\031\n\025INDEX_CAR_PLATE_C"
+    "OLOR\020\0102\346\001\n\016WitnessService\022B\n\tRecognize\022\030"
+    ".dg.model.WitnessRequest\032\031.dg.model.Witn"
+    "essResponse\"\000\022Q\n\016BatchRecognize\022\035.dg.mod"
+    "el.WitnessBatchRequest\032\036.dg.model.Witnes"
+    "sBatchResponse\"\000\022=\n\010GetIndex\022\026.dg.model."
+    "IndexRequest\032\027.dg.model.IndexResponse\"\000b"
+    "\006proto3", 2447);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -3769,8 +3767,7 @@ WitnessRequestContext::mutable_params() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int WitnessImage::kDataFieldNumber;
-const int WitnessImage::kSensorIdFieldNumber;
-const int WitnessImage::kSensorNameFieldNumber;
+const int WitnessImage::kWitnessMetaDataFieldNumber;
 const int WitnessImage::kRelativeRoiFieldNumber;
 const int WitnessImage::kMarginRoiFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -3784,6 +3781,7 @@ WitnessImage::WitnessImage()
 void WitnessImage::InitAsDefaultInstance() {
   _is_default_instance_ = true;
   data_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
+  witnessmetadata_ = const_cast< ::dg::model::VideoMetadata*>(&::dg::model::VideoMetadata::default_instance());
 }
 
 WitnessImage::WitnessImage(const WitnessImage& from)
@@ -3796,11 +3794,9 @@ WitnessImage::WitnessImage(const WitnessImage& from)
 
 void WitnessImage::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   data_ = NULL;
-  sensorid_ = 0;
-  sensorname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  witnessmetadata_ = NULL;
 }
 
 WitnessImage::~WitnessImage() {
@@ -3809,9 +3805,9 @@ WitnessImage::~WitnessImage() {
 }
 
 void WitnessImage::SharedDtor() {
-  sensorname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
     delete data_;
+    delete witnessmetadata_;
   }
 }
 
@@ -3843,8 +3839,8 @@ WitnessImage* WitnessImage::New(::google::protobuf::Arena* arena) const {
 void WitnessImage::Clear() {
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
   data_ = NULL;
-  sensorid_ = 0;
-  sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && witnessmetadata_ != NULL) delete witnessmetadata_;
+  witnessmetadata_ = NULL;
   relativeroi_.Clear();
   marginroi_.Clear();
 }
@@ -3867,45 +3863,26 @@ bool WitnessImage::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_SensorId;
+        if (input->ExpectTag(18)) goto parse_WitnessMetaData;
         break;
       }
 
-      // optional int32 SensorId = 2;
+      // optional .dg.model.VideoMetadata WitnessMetaData = 2;
       case 2: {
-        if (tag == 16) {
-         parse_SensorId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &sensorid_)));
-
+        if (tag == 18) {
+         parse_WitnessMetaData:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_witnessmetadata()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_SensorName;
+        if (input->ExpectTag(26)) goto parse_RelativeRoi;
         break;
       }
 
-      // optional string SensorName = 3;
+      // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
       case 3: {
         if (tag == 26) {
-         parse_SensorName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sensorname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sensorname().data(), this->sensorname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessImage.SensorName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_RelativeRoi;
-        break;
-      }
-
-      // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
-      case 4: {
-        if (tag == 34) {
          parse_RelativeRoi:
           DO_(input->IncrementRecursionDepth());
          parse_loop_RelativeRoi:
@@ -3914,15 +3891,15 @@ bool WitnessImage::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_loop_RelativeRoi;
-        if (input->ExpectTag(42)) goto parse_loop_MarginRoi;
+        if (input->ExpectTag(26)) goto parse_loop_RelativeRoi;
+        if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
-      case 5: {
-        if (tag == 42) {
+      // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
+      case 4: {
+        if (tag == 34) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_MarginRoi:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -3930,7 +3907,7 @@ bool WitnessImage::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_loop_MarginRoi;
+        if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -3966,31 +3943,22 @@ void WitnessImage::SerializeWithCachedSizes(
       1, *this->data_, output);
   }
 
-  // optional int32 SensorId = 2;
-  if (this->sensorid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->sensorid(), output);
+  // optional .dg.model.VideoMetadata WitnessMetaData = 2;
+  if (this->has_witnessmetadata()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->witnessmetadata_, output);
   }
 
-  // optional string SensorName = 3;
-  if (this->sensorname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sensorname().data(), this->sensorname().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessImage.SensorName");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->sensorname(), output);
-  }
-
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
   for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->relativeroi(i), output);
+      3, this->relativeroi(i), output);
   }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
   for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->marginroi(i), output);
+      4, this->marginroi(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.WitnessImage)
@@ -4006,34 +3974,25 @@ void WitnessImage::SerializeWithCachedSizes(
         1, *this->data_, target);
   }
 
-  // optional int32 SensorId = 2;
-  if (this->sensorid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->sensorid(), target);
+  // optional .dg.model.VideoMetadata WitnessMetaData = 2;
+  if (this->has_witnessmetadata()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->witnessmetadata_, target);
   }
 
-  // optional string SensorName = 3;
-  if (this->sensorname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sensorname().data(), this->sensorname().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessImage.SensorName");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->sensorname(), target);
-  }
-
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
   for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        4, this->relativeroi(i), target);
+        3, this->relativeroi(i), target);
   }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
   for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        5, this->marginroi(i), target);
+        4, this->marginroi(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessImage)
@@ -4050,21 +4009,14 @@ int WitnessImage::ByteSize() const {
         *this->data_);
   }
 
-  // optional int32 SensorId = 2;
-  if (this->sensorid() != 0) {
+  // optional .dg.model.VideoMetadata WitnessMetaData = 2;
+  if (this->has_witnessmetadata()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->sensorid());
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->witnessmetadata_);
   }
 
-  // optional string SensorName = 3;
-  if (this->sensorname().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sensorname());
-  }
-
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
   total_size += 1 * this->relativeroi_size();
   for (int i = 0; i < this->relativeroi_size(); i++) {
     total_size +=
@@ -4072,7 +4024,7 @@ int WitnessImage::ByteSize() const {
         this->relativeroi(i));
   }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
   total_size += 1 * this->marginroi_size();
   for (int i = 0; i < this->marginroi_size(); i++) {
     total_size +=
@@ -4105,12 +4057,8 @@ void WitnessImage::MergeFrom(const WitnessImage& from) {
   if (from.has_data()) {
     mutable_data()->::dg::model::Image::MergeFrom(from.data());
   }
-  if (from.sensorid() != 0) {
-    set_sensorid(from.sensorid());
-  }
-  if (from.sensorname().size() > 0) {
-
-    sensorname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sensorname_);
+  if (from.has_witnessmetadata()) {
+    mutable_witnessmetadata()->::dg::model::VideoMetadata::MergeFrom(from.witnessmetadata());
   }
 }
 
@@ -4137,8 +4085,7 @@ void WitnessImage::Swap(WitnessImage* other) {
 }
 void WitnessImage::InternalSwap(WitnessImage* other) {
   std::swap(data_, other->data_);
-  std::swap(sensorid_, other->sensorid_);
-  sensorname_.Swap(&other->sensorname_);
+  std::swap(witnessmetadata_, other->witnessmetadata_);
   relativeroi_.UnsafeArenaSwap(&other->relativeroi_);
   marginroi_.UnsafeArenaSwap(&other->marginroi_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -4193,64 +4140,44 @@ void WitnessImage::set_allocated_data(::dg::model::Image* data) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.Data)
 }
 
-// optional int32 SensorId = 2;
-void WitnessImage::clear_sensorid() {
-  sensorid_ = 0;
+// optional .dg.model.VideoMetadata WitnessMetaData = 2;
+bool WitnessImage::has_witnessmetadata() const {
+  return !_is_default_instance_ && witnessmetadata_ != NULL;
 }
- ::google::protobuf::int32 WitnessImage::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorId)
-  return sensorid_;
+void WitnessImage::clear_witnessmetadata() {
+  if (GetArenaNoVirtual() == NULL && witnessmetadata_ != NULL) delete witnessmetadata_;
+  witnessmetadata_ = NULL;
 }
- void WitnessImage::set_sensorid(::google::protobuf::int32 value) {
+const ::dg::model::VideoMetadata& WitnessImage::witnessmetadata() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.WitnessMetaData)
+  return witnessmetadata_ != NULL ? *witnessmetadata_ : *default_instance_->witnessmetadata_;
+}
+::dg::model::VideoMetadata* WitnessImage::mutable_witnessmetadata() {
   
-  sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorId)
+  if (witnessmetadata_ == NULL) {
+    witnessmetadata_ = new ::dg::model::VideoMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.WitnessMetaData)
+  return witnessmetadata_;
 }
-
-// optional string SensorName = 3;
-void WitnessImage::clear_sensorname() {
-  sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& WitnessImage::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorName)
-  return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void WitnessImage::set_sensorname(const ::std::string& value) {
+::dg::model::VideoMetadata* WitnessImage::release_witnessmetadata() {
   
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorName)
+  ::dg::model::VideoMetadata* temp = witnessmetadata_;
+  witnessmetadata_ = NULL;
+  return temp;
 }
- void WitnessImage::set_sensorname(const char* value) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.WitnessImage.SensorName)
-}
- void WitnessImage::set_sensorname(const char* value, size_t size) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessImage.SensorName)
-}
- ::std::string* WitnessImage::mutable_sensorname() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.SensorName)
-  return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* WitnessImage::release_sensorname() {
-  
-  return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void WitnessImage::set_allocated_sensorname(::std::string* sensorname) {
-  if (sensorname != NULL) {
+void WitnessImage::set_allocated_witnessmetadata(::dg::model::VideoMetadata* witnessmetadata) {
+  delete witnessmetadata_;
+  witnessmetadata_ = witnessmetadata;
+  if (witnessmetadata) {
     
   } else {
     
   }
-  sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.WitnessMetaData)
 }
 
-// repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+// repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
 int WitnessImage::relativeroi_size() const {
   return relativeroi_.size();
 }
@@ -4280,7 +4207,7 @@ WitnessImage::relativeroi() const {
   return relativeroi_;
 }
 
-// repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+// repeated .dg.model.WitnessMarginROI MarginRoi = 4;
 int WitnessImage::marginroi_size() const {
   return marginroi_.size();
 }
