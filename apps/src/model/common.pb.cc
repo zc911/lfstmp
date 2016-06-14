@@ -64,6 +64,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* RecPedestrian_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RecPedestrian_reflection_ = NULL;
+const ::google::protobuf::Descriptor* StorageConfig_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  StorageConfig_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 
@@ -77,12 +80,14 @@ void protobuf_AssignDesc_common_2eproto() {
       "common.proto");
   GOOGLE_CHECK(file != NULL);
   VideoMetadata_descriptor_ = file->message_type(0);
-  static const int VideoMetadata_offsets_[5] = {
+  static const int VideoMetadata_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, timestamp_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, duration_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorurl_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, repoid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, repoinfo_),
   };
   VideoMetadata_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -320,9 +325,8 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
   RecPedestrian_descriptor_ = file->message_type(13);
-  static const int RecPedestrian_offsets_[6] = {
+  static const int RecPedestrian_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, id_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, img_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, feature_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, color_),
@@ -339,6 +343,23 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecPedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _is_default_instance_));
+  StorageConfig_descriptor_ = file->message_type(14);
+  static const int StorageConfig_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, repoinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, tags_),
+  };
+  StorageConfig_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      StorageConfig_descriptor_,
+      StorageConfig::default_instance_,
+      StorageConfig_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(StorageConfig),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
   ObjType_descriptor_ = file->enum_type(0);
   DataFmtType_descriptor_ = file->enum_type(1);
 }
@@ -381,6 +402,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Symbol_descriptor_, &Symbol::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecPedestrian_descriptor_, &RecPedestrian::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      StorageConfig_descriptor_, &StorageConfig::default_instance());
 }
 
 }  // namespace
@@ -414,6 +437,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete Symbol_reflection_;
   delete RecPedestrian::default_instance_;
   delete RecPedestrian_reflection_;
+  delete StorageConfig::default_instance_;
+  delete StorageConfig_reflection_;
 }
 
 void protobuf_AddDesc_common_2eproto() {
@@ -423,63 +448,64 @@ void protobuf_AddDesc_common_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014common.proto\022\010dg.model\"m\n\rVideoMetadat"
-    "a\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022\020"
-    "\n\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n\t"
-    "SensorUrl\030\005 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t"
-    "\n\001Y\030\002 \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r"
-    "\022\020\n\010ResWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n"
-    "\nConfidence\030\007 \001(\002\"~\n\rCutboardImage\022)\n\010Me"
-    "tadata\030\001 \001(\0132\027.dg.model.VideoMetadata\022$\n"
-    "\010Cutboard\030\002 \001(\0132\022.dg.model.Cutboard\022\034\n\003I"
-    "mg\030\003 \001(\0132\017.dg.model.Image\"\?\n\005Color\022\017\n\007Co"
-    "lorId\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColor"
-    "Name\030\003 \001(\t\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022"
-    "\017\n\007Feature\030\002 \001(\t\"\r\n\013NullMessage\"P\n\005Image"
-    "\022\n\n\002Id\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 "
-    "\001(\005\022\013\n\003URI\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007Rec"
-    "Face\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model"
-    ".CutboardImage\022\020\n\010Features\030\003 \001(\014\022\022\n\nConf"
-    "idence\030\004 \001(\002\"\261\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022"
-    "-\n\tModelType\030\002 \001(\0132\032.dg.model.VehicleMod"
-    "elType\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%"
-    "\n\005Plate\030\005 \001(\0132\026.dg.model.LicensePlate\022$\n"
-    "\003Img\030\006 \001(\0132\027.dg.model.CutboardImage\022(\n\007S"
-    "ymbols\030\007 \003(\0132\027.dg.model.VehicleSymbol\022\020\n"
-    "\010Features\030\010 \001(\014\022&\n\013VehicleType\030\t \001(\0162\021.d"
-    "g.model.ObjType\022\027\n\017VehicleTypeName\030\n \001(\t"
-    "\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007Bra"
-    "ndId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelY"
-    "earId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030"
-    "\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021"
-    "\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Mod"
-    "el\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlat"
-    "e\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg"
-    ".model.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName"
-    "\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006"
-    " \001(\0132\022.dg.model.Cutboard\"X\n\rVehicleSymbo"
-    "l\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\004 \001(\t\022"
-    "!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Sy"
-    "mbol\022$\n\010cutboard\030\003 \001(\0132\022.dg.model.Cutboa"
-    "rd\022\022\n\nConfidence\030\004 \001(\002\"\261\001\n\rRecPedestrian"
-    "\022\n\n\002Id\030\001 \001(\003\022)\n\010Metadata\030\002 \001(\0132\027.dg.mode"
-    "l.VideoMetadata\022$\n\003Img\030\003 \001(\0132\027.dg.model."
-    "CutboardImage\022\017\n\007Feature\030\004 \001(\014\022\036\n\005Color\030"
-    "\005 \001(\0132\017.dg.model.Color\022\022\n\nConfidence\030\006 \001"
-    "(\002*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014"
-    "OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021"
-    "OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRI"
-    "AN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEH"
-    "ICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTO"
-    "R\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032O"
-    "BJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE"
-    "_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTB"
-    "OARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022"
-    "\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_"
-    "TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_"
-    "FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNO"
-    "WNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003"
-    "\022\007\n\003PDF\020\004b\006proto3", 2257);
+    "\n\014common.proto\022\010dg.model\"\217\001\n\rVideoMetada"
+    "ta\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022"
+    "\020\n\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n"
+    "\tSensorUrl\030\005 \001(\t\022\016\n\006repoId\030\006 \001(\005\022\020\n\010repo"
+    "Info\030\007 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002"
+    " \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010R"
+    "esWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConf"
+    "idence\030\007 \001(\002\"~\n\rCutboardImage\022)\n\010Metadat"
+    "a\030\001 \001(\0132\027.dg.model.VideoMetadata\022$\n\010Cutb"
+    "oard\030\002 \001(\0132\022.dg.model.Cutboard\022\034\n\003Img\030\003 "
+    "\001(\0132\017.dg.model.Image\"\?\n\005Color\022\017\n\007ColorId"
+    "\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColorName\030"
+    "\003 \001(\t\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Fe"
+    "ature\030\002 \001(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002I"
+    "d\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013"
+    "\n\003URI\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022"
+    "\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cutb"
+    "oardImage\022\020\n\010Features\030\003 \001(\014\022\022\n\nConfidenc"
+    "e\030\004 \001(\002\"\261\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tMo"
+    "delType\030\002 \001(\0132\032.dg.model.VehicleModelTyp"
+    "e\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Pla"
+    "te\030\005 \001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030"
+    "\006 \001(\0132\027.dg.model.CutboardImage\022(\n\007Symbol"
+    "s\030\007 \003(\0132\027.dg.model.VehicleSymbol\022\020\n\010Feat"
+    "ures\030\010 \001(\014\022&\n\013VehicleType\030\t \001(\0162\021.dg.mod"
+    "el.ObjType\022\027\n\017VehicleTypeName\030\n \001(\t\"\335\001\n\020"
+    "VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030"
+    "\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId"
+    "\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t"
+    "\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tMod"
+    "elYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 "
+    "\001(\t\022\016\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlate\022\021\n\t"
+    "PlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.mode"
+    "l.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001("
+    "\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132"
+    "\022.dg.model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010"
+    "SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\004 \001(\t\022!\n\007Sy"
+    "mbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022"
+    "$\n\010cutboard\030\003 \001(\0132\022.dg.model.Cutboard\022\022\n"
+    "\nConfidence\030\004 \001(\002\"\206\001\n\rRecPedestrian\022\n\n\002I"
+    "d\030\001 \001(\003\022$\n\003Img\030\003 \001(\0132\027.dg.model.Cutboard"
+    "Image\022\017\n\007Feature\030\004 \001(\014\022\036\n\005Color\030\005 \001(\0132\017."
+    "dg.model.Color\022\022\n\nConfidence\030\006 \001(\002\"@\n\rSt"
+    "orageConfig\022\017\n\007Address\030\001 \001(\t\022\020\n\010RepoInfo"
+    "\030\002 \001(\t\022\014\n\004Tags\030\003 \003(\t*\303\003\n\007ObjType\022\024\n\020OBJ_"
+    "TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_"
+    "TYPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n"
+    "\023OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020"
+    "\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_"
+    "TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICY"
+    "CLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VEC"
+    "TOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ"
+    "_TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BI"
+    "CYCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_C"
+    "UTBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOA"
+    "RD\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013Da"
+    "taFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010P"
+    "ROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004b\006proto3", 2315);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   VideoMetadata::default_instance_ = new VideoMetadata();
@@ -496,6 +522,7 @@ void protobuf_AddDesc_common_2eproto() {
   VehicleSymbol::default_instance_ = new VehicleSymbol();
   Symbol::default_instance_ = new Symbol();
   RecPedestrian::default_instance_ = new RecPedestrian();
+  StorageConfig::default_instance_ = new StorageConfig();
   VideoMetadata::default_instance_->InitAsDefaultInstance();
   Cutboard::default_instance_->InitAsDefaultInstance();
   CutboardImage::default_instance_->InitAsDefaultInstance();
@@ -510,6 +537,7 @@ void protobuf_AddDesc_common_2eproto() {
   VehicleSymbol::default_instance_->InitAsDefaultInstance();
   Symbol::default_instance_->InitAsDefaultInstance();
   RecPedestrian::default_instance_->InitAsDefaultInstance();
+  StorageConfig::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_common_2eproto);
 }
 
@@ -583,6 +611,8 @@ const int VideoMetadata::kDurationFieldNumber;
 const int VideoMetadata::kSensorIdFieldNumber;
 const int VideoMetadata::kSensorNameFieldNumber;
 const int VideoMetadata::kSensorUrlFieldNumber;
+const int VideoMetadata::kRepoIdFieldNumber;
+const int VideoMetadata::kRepoInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 VideoMetadata::VideoMetadata()
@@ -612,6 +642,8 @@ void VideoMetadata::SharedCtor() {
   sensorid_ = 0;
   sensorname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoid_ = 0;
+  repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 VideoMetadata::~VideoMetadata() {
@@ -622,6 +654,7 @@ VideoMetadata::~VideoMetadata() {
 void VideoMetadata::SharedDtor() {
   sensorname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -663,6 +696,8 @@ void VideoMetadata::Clear() {
   ZR_(timestamp_, sensorid_);
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoid_ = 0;
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -753,6 +788,38 @@ bool VideoMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(48)) goto parse_repoId;
+        break;
+      }
+
+      // optional int32 repoId = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_repoId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &repoid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_repoInfo;
+        break;
+      }
+
+      // optional string repoInfo = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_repoInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_repoinfo()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->repoinfo().data(), this->repoinfo().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.VideoMetadata.repoInfo"));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -816,6 +883,21 @@ void VideoMetadata::SerializeWithCachedSizes(
       5, this->sensorurl(), output);
   }
 
+  // optional int32 repoId = 6;
+  if (this->repoid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->repoid(), output);
+  }
+
+  // optional string repoInfo = 7;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VideoMetadata.repoInfo");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      7, this->repoinfo(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.VideoMetadata)
 }
 
@@ -857,6 +939,22 @@ void VideoMetadata::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->sensorurl(), target);
+  }
+
+  // optional int32 repoId = 6;
+  if (this->repoid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->repoid(), target);
+  }
+
+  // optional string repoInfo = 7;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VideoMetadata.repoInfo");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        7, this->repoinfo(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.VideoMetadata)
@@ -901,6 +999,20 @@ int VideoMetadata::ByteSize() const {
         this->sensorurl());
   }
 
+  // optional int32 repoId = 6;
+  if (this->repoid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->repoid());
+  }
+
+  // optional string repoInfo = 7;
+  if (this->repoinfo().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->repoinfo());
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -938,6 +1050,13 @@ void VideoMetadata::MergeFrom(const VideoMetadata& from) {
 
     sensorurl_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sensorurl_);
   }
+  if (from.repoid() != 0) {
+    set_repoid(from.repoid());
+  }
+  if (from.repoinfo().size() > 0) {
+
+    repoinfo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.repoinfo_);
+  }
 }
 
 void VideoMetadata::CopyFrom(const ::google::protobuf::Message& from) {
@@ -967,6 +1086,8 @@ void VideoMetadata::InternalSwap(VideoMetadata* other) {
   std::swap(sensorid_, other->sensorid_);
   sensorname_.Swap(&other->sensorname_);
   sensorurl_.Swap(&other->sensorurl_);
+  std::swap(repoid_, other->repoid_);
+  repoinfo_.Swap(&other->repoinfo_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1108,6 +1229,63 @@ void VideoMetadata::clear_sensorurl() {
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
+}
+
+// optional int32 repoId = 6;
+void VideoMetadata::clear_repoid() {
+  repoid_ = 0;
+}
+ ::google::protobuf::int32 VideoMetadata::repoid() const {
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoId)
+  return repoid_;
+}
+ void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
+  
+  repoid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoId)
+}
+
+// optional string repoInfo = 7;
+void VideoMetadata::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& VideoMetadata::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VideoMetadata::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoInfo)
+}
+ void VideoMetadata::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.repoInfo)
+}
+ void VideoMetadata::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.repoInfo)
+}
+ ::std::string* VideoMetadata::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.repoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* VideoMetadata::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VideoMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.repoInfo)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7215,7 +7393,6 @@ void Symbol::clear_confidence() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RecPedestrian::kIdFieldNumber;
-const int RecPedestrian::kMetadataFieldNumber;
 const int RecPedestrian::kImgFieldNumber;
 const int RecPedestrian::kFeatureFieldNumber;
 const int RecPedestrian::kColorFieldNumber;
@@ -7230,7 +7407,6 @@ RecPedestrian::RecPedestrian()
 
 void RecPedestrian::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  metadata_ = const_cast< ::dg::model::VideoMetadata*>(&::dg::model::VideoMetadata::default_instance());
   img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
   color_ = const_cast< ::dg::model::Color*>(&::dg::model::Color::default_instance());
 }
@@ -7248,7 +7424,6 @@ void RecPedestrian::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
-  metadata_ = NULL;
   img_ = NULL;
   feature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   color_ = NULL;
@@ -7263,7 +7438,6 @@ RecPedestrian::~RecPedestrian() {
 void RecPedestrian::SharedDtor() {
   feature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
-    delete metadata_;
     delete img_;
     delete color_;
   }
@@ -7296,8 +7470,6 @@ RecPedestrian* RecPedestrian::New(::google::protobuf::Arena* arena) const {
 
 void RecPedestrian::Clear() {
   id_ = GOOGLE_LONGLONG(0);
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
   img_ = NULL;
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -7323,19 +7495,6 @@ bool RecPedestrian::MergePartialFromCodedStream(
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &id_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Metadata;
-        break;
-      }
-
-      // optional .dg.model.VideoMetadata Metadata = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Metadata:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_metadata()));
         } else {
           goto handle_unusual;
         }
@@ -7426,12 +7585,6 @@ void RecPedestrian::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
   }
 
-  // optional .dg.model.VideoMetadata Metadata = 2;
-  if (this->has_metadata()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->metadata_, output);
-  }
-
   // optional .dg.model.CutboardImage Img = 3;
   if (this->has_img()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
@@ -7464,13 +7617,6 @@ void RecPedestrian::SerializeWithCachedSizes(
   // optional int64 Id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
-  }
-
-  // optional .dg.model.VideoMetadata Metadata = 2;
-  if (this->has_metadata()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->metadata_, target);
   }
 
   // optional .dg.model.CutboardImage Img = 3;
@@ -7511,13 +7657,6 @@ int RecPedestrian::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->id());
-  }
-
-  // optional .dg.model.VideoMetadata Metadata = 2;
-  if (this->has_metadata()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->metadata_);
   }
 
   // optional .dg.model.CutboardImage Img = 3;
@@ -7569,9 +7708,6 @@ void RecPedestrian::MergeFrom(const RecPedestrian& from) {
   if (from.id() != 0) {
     set_id(from.id());
   }
-  if (from.has_metadata()) {
-    mutable_metadata()->::dg::model::VideoMetadata::MergeFrom(from.metadata());
-  }
   if (from.has_img()) {
     mutable_img()->::dg::model::CutboardImage::MergeFrom(from.img());
   }
@@ -7610,7 +7746,6 @@ void RecPedestrian::Swap(RecPedestrian* other) {
 }
 void RecPedestrian::InternalSwap(RecPedestrian* other) {
   std::swap(id_, other->id_);
-  std::swap(metadata_, other->metadata_);
   std::swap(img_, other->img_);
   feature_.Swap(&other->feature_);
   std::swap(color_, other->color_);
@@ -7642,43 +7777,6 @@ void RecPedestrian::clear_id() {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Id)
-}
-
-// optional .dg.model.VideoMetadata Metadata = 2;
-bool RecPedestrian::has_metadata() const {
-  return !_is_default_instance_ && metadata_ != NULL;
-}
-void RecPedestrian::clear_metadata() {
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
-}
-const ::dg::model::VideoMetadata& RecPedestrian::metadata() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Metadata)
-  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
-}
-::dg::model::VideoMetadata* RecPedestrian::mutable_metadata() {
-  
-  if (metadata_ == NULL) {
-    metadata_ = new ::dg::model::VideoMetadata;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.RecPedestrian.Metadata)
-  return metadata_;
-}
-::dg::model::VideoMetadata* RecPedestrian::release_metadata() {
-  
-  ::dg::model::VideoMetadata* temp = metadata_;
-  metadata_ = NULL;
-  return temp;
-}
-void RecPedestrian::set_allocated_metadata(::dg::model::VideoMetadata* metadata) {
-  delete metadata_;
-  metadata_ = metadata;
-  if (metadata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.Metadata)
 }
 
 // optional .dg.model.CutboardImage Img = 3;
@@ -7810,6 +7908,478 @@ void RecPedestrian::clear_confidence() {
   
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Confidence)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int StorageConfig::kAddressFieldNumber;
+const int StorageConfig::kRepoInfoFieldNumber;
+const int StorageConfig::kTagsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+StorageConfig::StorageConfig()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.StorageConfig)
+}
+
+void StorageConfig::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+StorageConfig::StorageConfig(const StorageConfig& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.StorageConfig)
+}
+
+void StorageConfig::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+StorageConfig::~StorageConfig() {
+  // @@protoc_insertion_point(destructor:dg.model.StorageConfig)
+  SharedDtor();
+}
+
+void StorageConfig::SharedDtor() {
+  address_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void StorageConfig::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* StorageConfig::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return StorageConfig_descriptor_;
+}
+
+const StorageConfig& StorageConfig::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+StorageConfig* StorageConfig::default_instance_ = NULL;
+
+StorageConfig* StorageConfig::New(::google::protobuf::Arena* arena) const {
+  StorageConfig* n = new StorageConfig;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void StorageConfig::Clear() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  tags_.Clear();
+}
+
+bool StorageConfig::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.StorageConfig)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string Address = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_address()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->address().data(), this->address().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.StorageConfig.Address"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_RepoInfo;
+        break;
+      }
+
+      // optional string RepoInfo = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_RepoInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_repoinfo()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->repoinfo().data(), this->repoinfo().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.StorageConfig.RepoInfo"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Tags;
+        break;
+      }
+
+      // repeated string Tags = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Tags:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->add_tags()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->tags(this->tags_size() - 1).data(),
+            this->tags(this->tags_size() - 1).length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.StorageConfig.Tags"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Tags;
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.StorageConfig)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.StorageConfig)
+  return false;
+#undef DO_
+}
+
+void StorageConfig::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.StorageConfig)
+  // optional string Address = 1;
+  if (this->address().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.Address");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->address(), output);
+  }
+
+  // optional string RepoInfo = 2;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.RepoInfo");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->repoinfo(), output);
+  }
+
+  // repeated string Tags = 3;
+  for (int i = 0; i < this->tags_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->tags(i).data(), this->tags(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.Tags");
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      3, this->tags(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.StorageConfig)
+}
+
+::google::protobuf::uint8* StorageConfig::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.StorageConfig)
+  // optional string Address = 1;
+  if (this->address().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->address().data(), this->address().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.Address");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->address(), target);
+  }
+
+  // optional string RepoInfo = 2;
+  if (this->repoinfo().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->repoinfo().data(), this->repoinfo().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.RepoInfo");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->repoinfo(), target);
+  }
+
+  // repeated string Tags = 3;
+  for (int i = 0; i < this->tags_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->tags(i).data(), this->tags(i).length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.StorageConfig.Tags");
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteStringToArray(3, this->tags(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.StorageConfig)
+  return target;
+}
+
+int StorageConfig::ByteSize() const {
+  int total_size = 0;
+
+  // optional string Address = 1;
+  if (this->address().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->address());
+  }
+
+  // optional string RepoInfo = 2;
+  if (this->repoinfo().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->repoinfo());
+  }
+
+  // repeated string Tags = 3;
+  total_size += 1 * this->tags_size();
+  for (int i = 0; i < this->tags_size(); i++) {
+    total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
+      this->tags(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void StorageConfig::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const StorageConfig* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const StorageConfig>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void StorageConfig::MergeFrom(const StorageConfig& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  tags_.MergeFrom(from.tags_);
+  if (from.address().size() > 0) {
+
+    address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
+  }
+  if (from.repoinfo().size() > 0) {
+
+    repoinfo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.repoinfo_);
+  }
+}
+
+void StorageConfig::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void StorageConfig::CopyFrom(const StorageConfig& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool StorageConfig::IsInitialized() const {
+
+  return true;
+}
+
+void StorageConfig::Swap(StorageConfig* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void StorageConfig::InternalSwap(StorageConfig* other) {
+  address_.Swap(&other->address_);
+  repoinfo_.Swap(&other->repoinfo_);
+  tags_.UnsafeArenaSwap(&other->tags_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata StorageConfig::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = StorageConfig_descriptor_;
+  metadata.reflection = StorageConfig_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// StorageConfig
+
+// optional string Address = 1;
+void StorageConfig::clear_address() {
+  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& StorageConfig::address() const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Address)
+  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void StorageConfig::set_address(const ::std::string& value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Address)
+}
+ void StorageConfig::set_address(const char* value) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Address)
+}
+ void StorageConfig::set_address(const char* value, size_t size) {
+  
+  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Address)
+}
+ ::std::string* StorageConfig::mutable_address() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Address)
+  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* StorageConfig::release_address() {
+  
+  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void StorageConfig::set_allocated_address(::std::string* address) {
+  if (address != NULL) {
+    
+  } else {
+    
+  }
+  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
+}
+
+// optional string RepoInfo = 2;
+void StorageConfig::clear_repoinfo() {
+  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& StorageConfig::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.RepoInfo)
+  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void StorageConfig::set_repoinfo(const ::std::string& value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.RepoInfo)
+}
+ void StorageConfig::set_repoinfo(const char* value) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.RepoInfo)
+}
+ void StorageConfig::set_repoinfo(const char* value, size_t size) {
+  
+  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.RepoInfo)
+}
+ ::std::string* StorageConfig::mutable_repoinfo() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.RepoInfo)
+  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* StorageConfig::release_repoinfo() {
+  
+  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void StorageConfig::set_allocated_repoinfo(::std::string* repoinfo) {
+  if (repoinfo != NULL) {
+    
+  } else {
+    
+  }
+  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.RepoInfo)
+}
+
+// repeated string Tags = 3;
+int StorageConfig::tags_size() const {
+  return tags_.size();
+}
+void StorageConfig::clear_tags() {
+  tags_.Clear();
+}
+ const ::std::string& StorageConfig::tags(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Tags)
+  return tags_.Get(index);
+}
+ ::std::string* StorageConfig::mutable_tags(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Tags)
+  return tags_.Mutable(index);
+}
+ void StorageConfig::set_tags(int index, const ::std::string& value) {
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Tags)
+  tags_.Mutable(index)->assign(value);
+}
+ void StorageConfig::set_tags(int index, const char* value) {
+  tags_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Tags)
+}
+ void StorageConfig::set_tags(int index, const char* value, size_t size) {
+  tags_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
+}
+ ::std::string* StorageConfig::add_tags() {
+  return tags_.Add();
+}
+ void StorageConfig::add_tags(const ::std::string& value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Tags)
+}
+ void StorageConfig::add_tags(const char* value) {
+  tags_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:dg.model.StorageConfig.Tags)
+}
+ void StorageConfig::add_tags(const char* value, size_t size) {
+  tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:dg.model.StorageConfig.Tags)
+}
+ const ::google::protobuf::RepeatedPtrField< ::std::string>&
+StorageConfig::tags() const {
+  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Tags)
+  return tags_;
+}
+ ::google::protobuf::RepeatedPtrField< ::std::string>*
+StorageConfig::mutable_tags() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
+  return &tags_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

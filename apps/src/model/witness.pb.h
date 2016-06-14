@@ -31,7 +31,6 @@
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "common.pb.h"
-#include "system.pb.h"
 #include "localcommon.pb.h"
 // @@protoc_insertion_point(includes)
 
@@ -1023,27 +1022,19 @@ class WitnessImage : public ::google::protobuf::Message {
   ::dg::model::Image* release_data();
   void set_allocated_data(::dg::model::Image* data);
 
-  // optional int32 SensorId = 2;
-  void clear_sensorid();
-  static const int kSensorIdFieldNumber = 2;
-  ::google::protobuf::int32 sensorid() const;
-  void set_sensorid(::google::protobuf::int32 value);
+  // optional .dg.model.VideoMetadata WitnessMetaData = 2;
+  bool has_witnessmetadata() const;
+  void clear_witnessmetadata();
+  static const int kWitnessMetaDataFieldNumber = 2;
+  const ::dg::model::VideoMetadata& witnessmetadata() const;
+  ::dg::model::VideoMetadata* mutable_witnessmetadata();
+  ::dg::model::VideoMetadata* release_witnessmetadata();
+  void set_allocated_witnessmetadata(::dg::model::VideoMetadata* witnessmetadata);
 
-  // optional string SensorName = 3;
-  void clear_sensorname();
-  static const int kSensorNameFieldNumber = 3;
-  const ::std::string& sensorname() const;
-  void set_sensorname(const ::std::string& value);
-  void set_sensorname(const char* value);
-  void set_sensorname(const char* value, size_t size);
-  ::std::string* mutable_sensorname();
-  ::std::string* release_sensorname();
-  void set_allocated_sensorname(::std::string* sensorname);
-
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
   int relativeroi_size() const;
   void clear_relativeroi();
-  static const int kRelativeRoiFieldNumber = 4;
+  static const int kRelativeRoiFieldNumber = 3;
   const ::dg::model::WitnessRelativeROI& relativeroi(int index) const;
   ::dg::model::WitnessRelativeROI* mutable_relativeroi(int index);
   ::dg::model::WitnessRelativeROI* add_relativeroi();
@@ -1052,10 +1043,10 @@ class WitnessImage : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI >&
       relativeroi() const;
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
   int marginroi_size() const;
   void clear_marginroi();
-  static const int kMarginRoiFieldNumber = 5;
+  static const int kMarginRoiFieldNumber = 4;
   const ::dg::model::WitnessMarginROI& marginroi(int index) const;
   ::dg::model::WitnessMarginROI* mutable_marginroi(int index);
   ::dg::model::WitnessMarginROI* add_marginroi();
@@ -1070,10 +1061,9 @@ class WitnessImage : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::dg::model::Image* data_;
-  ::google::protobuf::internal::ArenaStringPtr sensorname_;
+  ::dg::model::VideoMetadata* witnessmetadata_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessRelativeROI > relativeroi_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::WitnessMarginROI > marginroi_;
-  ::google::protobuf::int32 sensorid_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -2143,64 +2133,44 @@ inline void WitnessImage::set_allocated_data(::dg::model::Image* data) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.Data)
 }
 
-// optional int32 SensorId = 2;
-inline void WitnessImage::clear_sensorid() {
-  sensorid_ = 0;
+// optional .dg.model.VideoMetadata WitnessMetaData = 2;
+inline bool WitnessImage::has_witnessmetadata() const {
+  return !_is_default_instance_ && witnessmetadata_ != NULL;
 }
-inline ::google::protobuf::int32 WitnessImage::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorId)
-  return sensorid_;
+inline void WitnessImage::clear_witnessmetadata() {
+  if (GetArenaNoVirtual() == NULL && witnessmetadata_ != NULL) delete witnessmetadata_;
+  witnessmetadata_ = NULL;
 }
-inline void WitnessImage::set_sensorid(::google::protobuf::int32 value) {
+inline const ::dg::model::VideoMetadata& WitnessImage::witnessmetadata() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.WitnessMetaData)
+  return witnessmetadata_ != NULL ? *witnessmetadata_ : *default_instance_->witnessmetadata_;
+}
+inline ::dg::model::VideoMetadata* WitnessImage::mutable_witnessmetadata() {
   
-  sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorId)
+  if (witnessmetadata_ == NULL) {
+    witnessmetadata_ = new ::dg::model::VideoMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.WitnessMetaData)
+  return witnessmetadata_;
 }
-
-// optional string SensorName = 3;
-inline void WitnessImage::clear_sensorname() {
-  sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& WitnessImage::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessImage.SensorName)
-  return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void WitnessImage::set_sensorname(const ::std::string& value) {
+inline ::dg::model::VideoMetadata* WitnessImage::release_witnessmetadata() {
   
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.WitnessImage.SensorName)
+  ::dg::model::VideoMetadata* temp = witnessmetadata_;
+  witnessmetadata_ = NULL;
+  return temp;
 }
-inline void WitnessImage::set_sensorname(const char* value) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.WitnessImage.SensorName)
-}
-inline void WitnessImage::set_sensorname(const char* value, size_t size) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessImage.SensorName)
-}
-inline ::std::string* WitnessImage::mutable_sensorname() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessImage.SensorName)
-  return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* WitnessImage::release_sensorname() {
-  
-  return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void WitnessImage::set_allocated_sensorname(::std::string* sensorname) {
-  if (sensorname != NULL) {
+inline void WitnessImage::set_allocated_witnessmetadata(::dg::model::VideoMetadata* witnessmetadata) {
+  delete witnessmetadata_;
+  witnessmetadata_ = witnessmetadata;
+  if (witnessmetadata) {
     
   } else {
     
   }
-  sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.WitnessMetaData)
 }
 
-// repeated .dg.model.WitnessRelativeROI RelativeRoi = 4;
+// repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
 inline int WitnessImage::relativeroi_size() const {
   return relativeroi_.size();
 }
@@ -2230,7 +2200,7 @@ WitnessImage::relativeroi() const {
   return relativeroi_;
 }
 
-// repeated .dg.model.WitnessMarginROI MarginRoi = 5;
+// repeated .dg.model.WitnessMarginROI MarginRoi = 4;
 inline int WitnessImage::marginroi_size() const {
   return marginroi_.size();
 }
