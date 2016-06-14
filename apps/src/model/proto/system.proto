@@ -3,7 +3,7 @@ syntax = "proto3";
 package dg.model;
 
 import "localcommon.proto";
-
+import "common.proto";
 service SystemService { 
     rpc Ping(PingRequest) returns (PingResponse) {}
 
@@ -61,11 +61,6 @@ message InstanceConfigureResponse {
     repeated EngineStatus Results = 3; 
 }
 
-message StorageConfig {
-    string Address = 1;         //结构化信息输出地址
-    string RepoInfo = 2;        //结构化信息的库标识
-    repeated string Tags = 3;   //设定数据的信息标签
-}
 
 enum InstanceType {
     CFG_TYPE_VEHICLE_IMAGE = 0;
