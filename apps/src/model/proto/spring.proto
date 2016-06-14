@@ -32,6 +32,7 @@ message GenericObj {
     DataFmtType FmtType = 2;
     string StrData = 3; // Json representation of specific obj. Use string for two reasons: the readbility; don't need to overhead of converting to base64 in http api.
     bytes BinData = 4; // Protobuf representation of specific obj.
+    StorageConfig Storage = 5;
 }
 
 message GenericObjs {
