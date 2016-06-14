@@ -8,6 +8,7 @@
 #include <grpc++/grpc++.h>
 #include "../model/witness.grpc.pb.h"
 #include "../model/spring.grpc.pb.h"
+#include "../services/engine_pool.h"
 using namespace std;
 using namespace ::dg::model;
 using ::dg::model::SpringService;
@@ -19,46 +20,50 @@ using grpc::CompletionQueue;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-class SpringGrpcClient{
+namespace dg {
+template<class EngineType>
+class SpringGrpcClient {
 public:
-    SpringGrpcClient(std::shared_ptr<Channel> channel)
-        : stub_(SpringService::NewStub(channel)) {
+    SpringGrpcClient(Config config,
+                     string addr,
+                     StoragePool <EngineType> *storage_pool)
+        : storage_pool_(storage_pool),address_(addr),config_(&config){
     }
 
     string Index(GenericObj &request,
-                      NullMessage *reply){
-    ClientContext context;
+                 NullMessage *reply) {
+        ClientContext context;
         CompletionQueue cq;
         Status status;
         std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
-            stub_->AsyncIndex(&context,request,&cq));
-        rpc->Finish(reply,&status,(void*)1);
+            stub_->AsyncIndex(&context, request, &cq));
+        rpc->Finish(reply, &status, (void *) 1);
         void *got_tag;
-        bool ok=false;
-        cq.Next(&got_tag,&ok);
-        if(status.ok()){
+        bool ok = false;
+        cq.Next(&got_tag, &ok);
+        if (status.ok()) {
             return "grpc success";
-        }else{
+        } else {
             return "grpc failed";
         }
 
     }
-    void AsyncCompleteRpc(){
+    void AsyncCompleteRpc() {
         void *got_tag;
-        bool ok=false;
-        while(cq_.Next(&got_tag,&ok)){
-            AsyncClientCall *call = static_cast<AsyncClientCall*>(got_tag);
-          //  GPR_ASSERT(ok);
-            cout<<"Weg"<<endl;
-            if(call->status.ok())
-                std::cout<<"receivced"<<std::endl;
+        bool ok = false;
+        while (cq_.Next(&got_tag, &ok)) {
+            AsyncClientCall *call = static_cast<AsyncClientCall *>(got_tag);
+            //  GPR_ASSERT(ok);
+            cout << "Weg" << endl;
+            if (call->status.ok())
+                std::cout << "receivced" << std::endl;
             else
-                std::cout<<"rpc failed"<<std::endl;
+                std::cout << "rpc failed" << std::endl;
             delete call;
         }
     }
 private:
-    struct AsyncClientCall{
+    struct AsyncClientCall {
         NullMessage reply;
         ClientContext context;
         Status status;
@@ -66,5 +71,9 @@ private:
     };
     std::unique_ptr<SpringService::Stub> stub_;
     CompletionQueue cq_;
+    StoragePool<EngineType> *storage_pool_;
+    string address_;
+    Config *config_;
 };
+}
 #endif //MATRIX_APPS_SPRING_GRPC_H
