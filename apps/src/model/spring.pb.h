@@ -205,6 +205,15 @@ class GenericObj : public ::google::protobuf::Message {
   ::std::string* release_bindata();
   void set_allocated_bindata(::std::string* bindata);
 
+  // optional .dg.model.StorageConfig Storage = 5;
+  bool has_storage() const;
+  void clear_storage();
+  static const int kStorageFieldNumber = 5;
+  const ::dg::model::StorageConfig& storage() const;
+  ::dg::model::StorageConfig* mutable_storage();
+  ::dg::model::StorageConfig* release_storage();
+  void set_allocated_storage(::dg::model::StorageConfig* storage);
+
   // @@protoc_insertion_point(class_scope:dg.model.GenericObj)
  private:
 
@@ -214,6 +223,7 @@ class GenericObj : public ::google::protobuf::Message {
   int fmttype_;
   ::google::protobuf::internal::ArenaStringPtr strdata_;
   ::google::protobuf::internal::ArenaStringPtr bindata_;
+  ::dg::model::StorageConfig* storage_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_spring_2eproto();
   friend void protobuf_AssignDesc_spring_2eproto();
@@ -430,6 +440,43 @@ inline void GenericObj::set_allocated_bindata(::std::string* bindata) {
   }
   bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
   // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.BinData)
+}
+
+// optional .dg.model.StorageConfig Storage = 5;
+inline bool GenericObj::has_storage() const {
+  return !_is_default_instance_ && storage_ != NULL;
+}
+inline void GenericObj::clear_storage() {
+  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+  storage_ = NULL;
+}
+inline const ::dg::model::StorageConfig& GenericObj::storage() const {
+  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Storage)
+  return storage_ != NULL ? *storage_ : *default_instance_->storage_;
+}
+inline ::dg::model::StorageConfig* GenericObj::mutable_storage() {
+  
+  if (storage_ == NULL) {
+    storage_ = new ::dg::model::StorageConfig;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.Storage)
+  return storage_;
+}
+inline ::dg::model::StorageConfig* GenericObj::release_storage() {
+  
+  ::dg::model::StorageConfig* temp = storage_;
+  storage_ = NULL;
+  return temp;
+}
+inline void GenericObj::set_allocated_storage(::dg::model::StorageConfig* storage) {
+  delete storage_;
+  storage_ = storage;
+  if (storage) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.Storage)
 }
 
 // -------------------------------------------------------------------
