@@ -56,11 +56,12 @@ void protobuf_AssignDesc_spring_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExternalData, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExternalData, _is_default_instance_));
   GenericObj_descriptor_ = file->message_type(1);
-  static const int GenericObj_offsets_[4] = {
+  static const int GenericObj_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, fmttype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, strdata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, bindata_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, storage_),
   };
   GenericObj_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -128,15 +129,16 @@ void protobuf_AddDesc_spring_2eproto() {
   ::dg::model::protobuf_AddDesc_common_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014spring.proto\022\010dg.model\032\014common.proto\"\016"
-    "\n\014ExternalData\"w\n\nGenericObj\022\037\n\004Type\030\001 \001"
-    "(\0162\021.dg.model.ObjType\022&\n\007FmtType\030\002 \001(\0162\025"
-    ".dg.model.DataFmtType\022\017\n\007StrData\030\003 \001(\t\022\017"
-    "\n\007BinData\030\004 \001(\014\"7\n\013GenericObjs\022(\n\nGeneri"
-    "cObj\030\001 \003(\0132\024.dg.model.GenericObj2\205\001\n\rSpr"
-    "ingService\0226\n\005Index\022\024.dg.model.GenericOb"
-    "j\032\025.dg.model.NullMessage\"\000\022<\n\nIndexBatch"
-    "\022\025.dg.model.GenericObjs\032\025.dg.model.NullM"
-    "essage\"\000b\006proto3", 376);
+    "\n\014ExternalData\"\241\001\n\nGenericObj\022\037\n\004Type\030\001 "
+    "\001(\0162\021.dg.model.ObjType\022&\n\007FmtType\030\002 \001(\0162"
+    "\025.dg.model.DataFmtType\022\017\n\007StrData\030\003 \001(\t\022"
+    "\017\n\007BinData\030\004 \001(\014\022(\n\007Storage\030\005 \001(\0132\027.dg.m"
+    "odel.StorageConfig\"7\n\013GenericObjs\022(\n\nGen"
+    "ericObj\030\001 \003(\0132\024.dg.model.GenericObj2\205\001\n\r"
+    "SpringService\0226\n\005Index\022\024.dg.model.Generi"
+    "cObj\032\025.dg.model.NullMessage\"\000\022<\n\nIndexBa"
+    "tch\022\025.dg.model.GenericObjs\032\025.dg.model.Nu"
+    "llMessage\"\000b\006proto3", 419);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spring.proto", &protobuf_RegisterTypes);
   ExternalData::default_instance_ = new ExternalData();
@@ -341,6 +343,7 @@ const int GenericObj::kTypeFieldNumber;
 const int GenericObj::kFmtTypeFieldNumber;
 const int GenericObj::kStrDataFieldNumber;
 const int GenericObj::kBinDataFieldNumber;
+const int GenericObj::kStorageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 GenericObj::GenericObj()
@@ -351,6 +354,7 @@ GenericObj::GenericObj()
 
 void GenericObj::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  storage_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
 }
 
 GenericObj::GenericObj(const GenericObj& from)
@@ -369,6 +373,7 @@ void GenericObj::SharedCtor() {
   fmttype_ = 0;
   strdata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bindata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  storage_ = NULL;
 }
 
 GenericObj::~GenericObj() {
@@ -380,6 +385,7 @@ void GenericObj::SharedDtor() {
   strdata_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bindata_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
+    delete storage_;
   }
 }
 
@@ -420,6 +426,8 @@ void GenericObj::Clear() {
   ZR_(type_, fmttype_);
   strdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+  storage_ = NULL;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -493,6 +501,19 @@ bool GenericObj::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(42)) goto parse_Storage;
+        break;
+      }
+
+      // optional .dg.model.StorageConfig Storage = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_Storage:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_storage()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -549,6 +570,12 @@ void GenericObj::SerializeWithCachedSizes(
       4, this->bindata(), output);
   }
 
+  // optional .dg.model.StorageConfig Storage = 5;
+  if (this->has_storage()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *this->storage_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.GenericObj)
 }
 
@@ -585,6 +612,13 @@ void GenericObj::SerializeWithCachedSizes(
         4, this->bindata(), target);
   }
 
+  // optional .dg.model.StorageConfig Storage = 5;
+  if (this->has_storage()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, *this->storage_, target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.GenericObj)
   return target;
 }
@@ -616,6 +650,13 @@ int GenericObj::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->bindata());
+  }
+
+  // optional .dg.model.StorageConfig Storage = 5;
+  if (this->has_storage()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->storage_);
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -652,6 +693,9 @@ void GenericObj::MergeFrom(const GenericObj& from) {
 
     bindata_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bindata_);
   }
+  if (from.has_storage()) {
+    mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
+  }
 }
 
 void GenericObj::CopyFrom(const ::google::protobuf::Message& from) {
@@ -680,6 +724,7 @@ void GenericObj::InternalSwap(GenericObj* other) {
   std::swap(fmttype_, other->fmttype_);
   strdata_.Swap(&other->strdata_);
   bindata_.Swap(&other->bindata_);
+  std::swap(storage_, other->storage_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -807,6 +852,43 @@ void GenericObj::clear_bindata() {
   }
   bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
   // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.BinData)
+}
+
+// optional .dg.model.StorageConfig Storage = 5;
+bool GenericObj::has_storage() const {
+  return !_is_default_instance_ && storage_ != NULL;
+}
+void GenericObj::clear_storage() {
+  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+  storage_ = NULL;
+}
+const ::dg::model::StorageConfig& GenericObj::storage() const {
+  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Storage)
+  return storage_ != NULL ? *storage_ : *default_instance_->storage_;
+}
+::dg::model::StorageConfig* GenericObj::mutable_storage() {
+  
+  if (storage_ == NULL) {
+    storage_ = new ::dg::model::StorageConfig;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.Storage)
+  return storage_;
+}
+::dg::model::StorageConfig* GenericObj::release_storage() {
+  
+  ::dg::model::StorageConfig* temp = storage_;
+  storage_ = NULL;
+  return temp;
+}
+void GenericObj::set_allocated_storage(::dg::model::StorageConfig* storage) {
+  delete storage_;
+  storage_ = storage;
+  if (storage) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.Storage)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

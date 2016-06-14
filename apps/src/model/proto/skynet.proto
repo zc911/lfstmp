@@ -4,7 +4,6 @@ package dg.model;
 
 import "common.proto";
 import "localcommon.proto";
-import "system.proto";
 
 service SkynetService { 
     rpc VideoRecognize(SkynetRequest) returns (SkynetResponse) {}

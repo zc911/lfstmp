@@ -17,6 +17,7 @@
 
 namespace grpc {
 class CompletionQueue;
+class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -145,7 +146,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_Ping : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_Ping() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -165,7 +166,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_SystemStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_SystemStatus() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -185,7 +186,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_GetInstances : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetInstances() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -205,7 +206,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_ConfigEngine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_ConfigEngine() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -225,7 +226,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_Recognize() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -245,7 +246,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -265,7 +266,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_VideoRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_VideoRecognize() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -285,7 +286,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_GetRankedVector : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetRankedVector() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -306,7 +307,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Ping : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_Ping() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -323,7 +324,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_SystemStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_SystemStatus() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -340,7 +341,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_GetInstances : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetInstances() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -357,7 +358,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_ConfigEngine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_ConfigEngine() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -374,7 +375,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_Recognize() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -391,7 +392,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -408,7 +409,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_VideoRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_VideoRecognize() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -425,7 +426,7 @@ class MatrixService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_GetRankedVector : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetRankedVector() {
       ::grpc::Service::MarkMethodGeneric(7);
