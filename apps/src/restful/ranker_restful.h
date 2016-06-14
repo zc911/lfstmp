@@ -17,7 +17,6 @@ namespace dg {
 
 
 typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
-typedef MatrixError (*PingFunc)(SystemAppsService *, const PingRequest *, PingResponse *);
 //typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 
 
