@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
+#include "model/system.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
 #include "codec/base64.h"
 #include "string_util.h"
@@ -46,11 +47,11 @@ static void Print(const WitnessResponse &resp) {
     cout << "=================" << endl;
     cout << "SessionId:" << resp.context().sessionid() << endl;
     const WitnessResult &r = resp.result();
-    cout<<r.vehicles_size()<<" vehicle size"<<endl;
-    for(int i=0;i<r.vehicles_size();i++)
-    cout<<r.vehicles(i).plate().platetext()<<endl;
-    WitnessResponse resp1 ;
-    const WitnessResponseContext  &req=resp.context();
+    cout << r.vehicles_size() << " vehicle size" << endl;
+    for (int i = 0; i < r.vehicles_size(); i++)
+        cout << r.vehicles(i).plate().platetext() << endl;
+    WitnessResponse resp1;
+    const WitnessResponseContext &req = resp.context();
     rapidjson::Value *value = pbjson::pb2jsonobject(&resp1);
     string s;
     pbjson::json2string(value, s);
@@ -67,7 +68,27 @@ static void Print(const WitnessRequest &req) {
 static void PrintCost(string s, struct timeval &start, struct timeval &end) {
     cout << s << (end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000 << endl;
 }
+class SystemClient {
+public:
+    SystemClient(std::shared_ptr<Channel> channel) : stub_(SystemService::NewStub(channel)) {
 
+    }
+    void Ping() {
+        cout<<"hello ping"<<endl;
+        PingRequest req;
+        PingResponse resp;
+        ClientContext context;
+        Status status = stub_->Ping(&context, req, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << resp.message() << endl;
+        } else {
+            cout << " pint error" << endl;
+        }
+    }
+private:
+    std::unique_ptr<SystemService::Stub> stub_;
+
+};
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
@@ -79,16 +100,16 @@ public:
         WitnessRequestContext *ctx = req.mutable_context();
 
         ctx->set_sessionid(session_id);
-        WitnessImage *witnessimage =req.mutable_image();
+        WitnessImage *witnessimage = req.mutable_image();
         SetFunctions(ctx);
-        if (uri){
+        if (uri) {
             witnessimage->mutable_data()->set_uri(file_path);
 
-        }else {
+        } else {
             string s = encode2base64(file_path.c_str());
             witnessimage->mutable_data()->set_bindata(s);
         }
-        WitnessRelativeROI * roi = witnessimage->add_relativeroi();
+        WitnessRelativeROI *roi = witnessimage->add_relativeroi();
         roi->set_posx(0);
         roi->set_posy(0);
         roi->set_width(1000);
@@ -120,7 +141,7 @@ public:
         for (vector<string>::iterator itr = file_paths.begin(); itr != file_paths.end(); ++itr) {
             WitnessImage *image = req.add_images();
 
-            if (uri){
+            if (uri) {
                 image->mutable_data()->set_uri(*itr);
 
             }
@@ -324,6 +345,12 @@ void callA(string address, string image_file_path, bool batch) {
     }
 }
 
+void callP(string address) {
+    SystemClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    client.Ping();
+}
 void callS(string address, string image_file_path, bool batch, bool uri) {
     WitnessClient client(
         grpc::CreateChannel(string(address),
@@ -348,9 +375,8 @@ void callS(string address, string image_file_path, bool batch, bool uri) {
         }
     }
 }
-
 int main(int argc, char *argv[]) {
-    if (argc != 6) {
+    if (argc != 7) {
         cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT THREAD_NUM"
             << endl;
         return 0;
@@ -359,7 +385,7 @@ int main(int argc, char *argv[]) {
     string image_file_path = string(argv[1]);
 
     char address[1024];
-    sprintf(address, "%s", argv[4]);
+    sprintf(address, "%s", argv[5]);
 
 
     bool asyn = false;
@@ -371,16 +397,36 @@ int main(int argc, char *argv[]) {
     if (string(argv[3]) == "B") {
         batch = true;
     }
+    int status;
+    if (string(argv[4]) == "P") {
+        status = 0;
+    } else if (string(argv[4]) == "I") {
+        status = 1;
+    } else if (string(argv[4]) == "R") {
+        status = 2;
+    }
 
     int threadNum = 1;
-    threadNum = atoi(argv[5]);
+    threadNum = atoi(argv[6]);
 
     if (asyn) {
         callA(address, image_file_path, batch);
 
     } else {
-        thread t(callS, address, image_file_path, batch, true);
-        t.join();
+        switch (status) {
+            case 0:{
+                thread t(callP, address);
+                t.join();}
+                break;
+            case 1:{
+                thread t(callS, address, image_file_path, batch, true);
+                t.join();}
+                break;
+            case 2:{
+                thread t(callS, address, image_file_path, batch, true);
+                t.join();}
+                break;
+        }
     }
 
     cout << "Wait..." << endl;

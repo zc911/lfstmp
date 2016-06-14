@@ -161,6 +161,85 @@ private:
     bool stop_;
 
 };
+template<typename EngineType>
+class StoragePool {
+public:
+
+    typedef struct {
+        int status = 0;
+    } WorkerStatus;
+
+    StoragePool(Config *config) : config_(config) {
+
+    }
+
+
+    void Run() {
+        if (!stop_) {
+            LOG(ERROR) << "The engine pool already runing" << endl;
+            return;
+        }
+        int threadNum=1;
+        for (int i = 0; i < threadNum; ++i) {
+            EngineType *engine = new EngineType(config_, name);
+
+            workers_.emplace_back([this, engine] {
+              for (; ;) {
+                  CallData *task;
+                  {
+
+                      std::unique_lock<std::mutex> lock(queue_mutex_);
+                      condition_.wait(lock, [this] {
+                        return (this->stop_ || !this->tasks_.empty());
+                      });
+
+                      if (this->stop_ || this->tasks_.empty()) {
+                          continue;
+                      }
+
+                      task = this->tasks_.front();
+                      this->tasks_.pop();
+                      lock.unlock();
+                  }
+                  // assign the current engine instance to task
+                  task->apps = (void *) engine;
+                  // task first binds the engine instance to the specific member methods
+                  // and then invoke the binded function
+                  task->Run();
+              }
+            });
+
+
+        }
+
+        cout << "Engine pool worker number: " << workers_.size() << endl;
+        stop_ = false;
+    }
+
+    bool enqueue(CallData *data) {
+        {
+            std::unique_lock<std::mutex> lock(queue_mutex_);
+            if (stop_) {
+                data->Error("Engine pool not running");
+                return false;
+            }
+            tasks_.push(data);
+        }
+        condition_.notify_one();
+        return true;
+    }
+
+
+private:
+    Config *config_;
+    queue<CallData *> tasks_;
+    //  vector<WorkerStatus> worker_status_;
+    vector<std::thread> workers_;
+    std::mutex queue_mutex_;
+    std::condition_variable condition_;
+    bool stop_;
+
+};
 
 }
 

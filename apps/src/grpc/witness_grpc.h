@@ -15,7 +15,7 @@
 #include <grpc++/grpc++.h>
 #include "../model/common.pb.h"
 #include "services/witness_service.h"
-
+#include "services/system_service.h"
 #include "services/engine_pool.h"
 #include "basic_grpc.h"
 
@@ -48,6 +48,8 @@ private:
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,
                                         WitnessBatchResponse *response);
+    //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
+  //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
 };
 
 //class GrpcWitnessServiceAsynImpl final: public IGrpcWitnessService, public WitnessService::Service {
