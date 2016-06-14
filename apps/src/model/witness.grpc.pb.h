@@ -17,6 +17,7 @@
 
 namespace grpc {
 class CompletionQueue;
+class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -85,7 +86,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_Recognize() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -105,7 +106,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -125,7 +126,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_GetIndex : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetIndex() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -146,7 +147,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Recognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_Recognize() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -163,7 +164,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_BatchRecognize : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_BatchRecognize() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -180,7 +181,7 @@ class WitnessService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_GetIndex : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetIndex() {
       ::grpc::Service::MarkMethodGeneric(2);

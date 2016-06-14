@@ -17,6 +17,7 @@
 
 namespace grpc {
 class CompletionQueue;
+class Channel;
 class RpcService;
 class ServerCompletionQueue;
 class ServerContext;
@@ -97,7 +98,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_Ping : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_Ping() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -117,7 +118,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_SystemStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_SystemStatus() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -137,7 +138,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_GetInstances : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetInstances() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -157,7 +158,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithAsyncMethod_ConfigEngine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_ConfigEngine() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -178,7 +179,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_Ping : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_Ping() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -195,7 +196,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_SystemStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_SystemStatus() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -212,7 +213,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_GetInstances : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetInstances() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -229,7 +230,7 @@ class SystemService GRPC_FINAL {
   template <class BaseClass>
   class WithGenericMethod_ConfigEngine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_ConfigEngine() {
       ::grpc::Service::MarkMethodGeneric(3);
