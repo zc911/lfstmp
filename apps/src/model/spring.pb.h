@@ -116,6 +116,15 @@ class VehicleObj : public ::google::protobuf::Message {
   ::dg::model::StorageConfig* release_storageinfo();
   void set_allocated_storageinfo(::dg::model::StorageConfig* storageinfo);
 
+  // optional .dg.model.Image Img = 3;
+  bool has_img() const;
+  void clear_img();
+  static const int kImgFieldNumber = 3;
+  const ::dg::model::Image& img() const;
+  ::dg::model::Image* mutable_img();
+  ::dg::model::Image* release_img();
+  void set_allocated_img(::dg::model::Image* img);
+
   // @@protoc_insertion_point(class_scope:dg.model.VehicleObj)
  private:
 
@@ -123,6 +132,7 @@ class VehicleObj : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::dg::model::RecVehicle* vehicle_;
   ::dg::model::StorageConfig* storageinfo_;
+  ::dg::model::Image* img_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_spring_2eproto();
   friend void protobuf_AssignDesc_spring_2eproto();
@@ -211,6 +221,43 @@ inline void VehicleObj::set_allocated_storageinfo(::dg::model::StorageConfig* st
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.StorageInfo)
+}
+
+// optional .dg.model.Image Img = 3;
+inline bool VehicleObj::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+inline void VehicleObj::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+inline const ::dg::model::Image& VehicleObj::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+inline ::dg::model::Image* VehicleObj::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Img)
+  return img_;
+}
+inline ::dg::model::Image* VehicleObj::release_img() {
+  
+  ::dg::model::Image* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+inline void VehicleObj::set_allocated_img(::dg::model::Image* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Img)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

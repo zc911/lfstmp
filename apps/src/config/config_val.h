@@ -37,6 +37,7 @@ static const string RENDER_VEHICLE_PLATE_COLOR = "Render/Vehicle/Plate/Color";
 static const string RENDER_VEHICLE_PLATE_TYPE = "Render/Vehicle/Plate/Type";
 static const string STORAGE_ADDRESS = "Storage/Address";
 static const string STORAGE_ENABLED = "Storage/Enabled";
+static const string STORAGE_DB_TYPE = "Storage/DBType";
 
 
 }
