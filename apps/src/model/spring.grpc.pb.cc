@@ -17,8 +17,7 @@ namespace dg {
 namespace model {
 
 static const char* SpringService_method_names[] = {
-  "/dg.model.SpringService/Index",
-  "/dg.model.SpringService/IndexBatch",
+  "/dg.model.SpringService/IndexVehicle",
 };
 
 std::unique_ptr< SpringService::Stub> SpringService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -27,24 +26,15 @@ std::unique_ptr< SpringService::Stub> SpringService::NewStub(const std::shared_p
 }
 
 SpringService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_Index_(SpringService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_IndexBatch_(SpringService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_IndexVehicle_(SpringService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
-::grpc::Status SpringService::Stub::Index(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::dg::model::NullMessage* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Index_, context, request, response);
+::grpc::Status SpringService::Stub::IndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::dg::model::NullMessage* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_IndexVehicle_, context, request, response);
 }
 
-::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* SpringService::Stub::AsyncIndexRaw(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>(channel_.get(), cq, rpcmethod_Index_, context, request);
-}
-
-::grpc::Status SpringService::Stub::IndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::dg::model::NullMessage* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_IndexBatch_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* SpringService::Stub::AsyncIndexBatchRaw(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>(channel_.get(), cq, rpcmethod_IndexBatch_, context, request);
+::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* SpringService::Stub::AsyncIndexVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>(channel_.get(), cq, rpcmethod_IndexVehicle_, context, request);
 }
 
 SpringService::Service::Service() {
@@ -52,26 +42,14 @@ SpringService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       SpringService_method_names[0],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< SpringService::Service, ::dg::model::GenericObj, ::dg::model::NullMessage>(
-          std::mem_fn(&SpringService::Service::Index), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      SpringService_method_names[1],
-      ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< SpringService::Service, ::dg::model::GenericObjs, ::dg::model::NullMessage>(
-          std::mem_fn(&SpringService::Service::IndexBatch), this)));
+      new ::grpc::RpcMethodHandler< SpringService::Service, ::dg::model::VehicleObj, ::dg::model::NullMessage>(
+          std::mem_fn(&SpringService::Service::IndexVehicle), this)));
 }
 
 SpringService::Service::~Service() {
 }
 
-::grpc::Status SpringService::Service::Index(::grpc::ServerContext* context, const ::dg::model::GenericObj* request, ::dg::model::NullMessage* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status SpringService::Service::IndexBatch(::grpc::ServerContext* context, const ::dg::model::GenericObjs* request, ::dg::model::NullMessage* response) {
+::grpc::Status SpringService::Service::IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) {
   (void) context;
   (void) request;
   (void) response;
