@@ -39,7 +39,7 @@ WitnessAppsService::WitnessAppsService(const Config *config, string name)
     unknown_vehicle_.set_modelyearid(-1);
     unknown_vehicle_.set_modelyear("UNKNOWN");
     unknown_vehicle_.set_confidence(-1.0);
-
+    cout<<"sdlgk"<<endl;
     init();
 }
 
@@ -163,6 +163,7 @@ const VehicleModelType &WitnessAppsService::lookup_vehicle(
 Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     Operation op;
     int type = ctx.type();
+    cout<<OPERATION_VEHICLE<<endl;
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
             case RECFUNC_NONE:
@@ -171,26 +172,34 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             case RECFUNC_VEHICLE:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                     op.Set(OPERATION_VEHICLE);
+
                 break;
             case RECFUNC_VEHICLE_DETECT:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_DETECT);
                 break;
             case RECFUNC_VEHICLE_TRACK:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_TRACK);
                 break;
             case RECFUNC_VEHICLE_STYLE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_STYLE);
                 break;
             case RECFUNC_VEHICLE_COLOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_COLOR);
                 break;
             case RECFUNC_VEHICLE_MARKER:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_MARKER);
                 break;
             case RECFUNC_VEHICLE_PLATE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_PLATE);
                 break;
             case RECFUNC_VEHICLE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
                 break;
             case RECFUNC_FACE:
@@ -198,9 +207,11 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                     op.Set(OPERATION_FACE);
                 break;
             case RECFUNC_FACE_DETECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
                 op.Set(OPERATION_FACE_DETECTOR);
                 break;
             case RECFUNC_FACE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
                 op.Set(OPERATION_FACE_FEATURE_VECTOR);
                 break;
             default:
@@ -344,7 +355,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     copyCutboard(d, frec->mutable_img()->mutable_cutboard());
     return err;
 }
-
+/*
 MatrixError WitnessAppsService::getRecognizedPedestrain(
     const Pedestrain *pedestrain, RecPedestrian *result) {
     MatrixError err;
@@ -353,7 +364,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrain(
     copyCutboard(d, result->mutable_img()->mutable_cutboard());
     return err;
 }
-
+*/
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                                                    WitnessResult *result) {
     MatrixError err;
@@ -369,9 +380,9 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
-            case OBJECT_PEDESTRIAN:
-                err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrians());
-                break;
+        //    case OBJECT_PEDESTRIAN:
+        //        err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrians());
+        //        break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
                 break;
@@ -442,13 +453,9 @@ MatrixError WitnessAppsService::checkRequest(
 
     return err;
 }
-void storage(Frame *frame,GenericObj *client_request_obj, string storageAddress
+void storage(Frame *frame,VehicleObj *client_request_obj, string storageAddress
 ) {
- /*   SpringGrpcClient client(
-        grpc::CreateChannel(storageAddress,
-                            grpc::InsecureChannelCredentials()));
-    NullMessage reply;
-    client.Index(*client_request_obj, &reply);*/
+ /*   */
 
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
@@ -536,19 +543,13 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
-
             for (int i = 0; i < r.vehicles_size(); i++) {
-                GenericObj client_request_obj;
-                client_request_obj.set_fmttype(PROTOBUF);
-                client_request_obj.set_type(OBJ_TYPE_CAR);
-                client_request_obj.mutable_storage()->CopyFrom(request->context().storage());
-                RecVehicle rv;
-                rv.CopyFrom(r.vehicles(i));
-                rv.mutable_img()->mutable_metadata()->CopyFrom(r.image().witnessmetadata());
-               // rv.mutable_img()->mutable_img()->set_bindata((char *) frame->payload()->data().data);
-                client_request_obj.set_bindata(&rv, rv.ByteSize());
-                thread t(storage, frame, &client_request_obj, storageAddress);
-                t.join();
+                unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+                shared_ptr<VehicleObj> client_request_obj(new VehicleObj) ;
+                client_request_obj->mutable_storageinfo()->set_address("192.168.2.119:9004");
+                client_request_obj->mutable_vehicle()->CopyFrom(r.vehicles(i));
+                WitnessBucket::Instance().Push(client_request_obj);
+                lock.unlock();
             }
         }
     }

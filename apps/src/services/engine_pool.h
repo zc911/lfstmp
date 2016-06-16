@@ -71,7 +71,7 @@ public:
     } WorkerStatus;
 
     MatrixEnginesPool(Config *config) : config_(config) {
-
+        stop_=true;
     }
 
     void PrintStastics() {
@@ -100,6 +100,7 @@ public:
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
+                cout<<"hello  "<<name<<endl;
                 EngineType *engine = new EngineType(config_, name);
                 cout << "Start thread: " << name << endl;
 
@@ -161,15 +162,11 @@ private:
     bool stop_;
 
 };
-template<typename EngineType>
-class StoragePool {
+template<typename MessageType>
+class MessagePool {
 public:
 
-    typedef struct {
-        int status = 0;
-    } WorkerStatus;
-
-    StoragePool(Config *config) : config_(config) {
+    MessagePool(Config *config) : config_(config) {
 
     }
 
@@ -181,7 +178,7 @@ public:
         }
         int threadNum=1;
         for (int i = 0; i < threadNum; ++i) {
-            EngineType *engine = new EngineType(config_, name);
+            MessageType *engine = new MessageType(config_);
 
             workers_.emplace_back([this, engine] {
               for (; ;) {

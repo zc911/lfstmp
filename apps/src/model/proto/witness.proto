@@ -31,7 +31,7 @@ enum IndexType {
 }
 
 message IndexRequest {
-    IndexType indexType = 1;
+    IndexType IndexType = 1;
 }
 
 message IndexResponse {
@@ -73,8 +73,8 @@ message WitnessMarginROI{
 
 message WitnessRequestContext {
     string SessionId = 1; //请求Session
-    //string UserName = 2;     //用户名信息，需要开启验证功能
-    //string Token = 3;        //Token验证，需要开启验证功能
+    string UserName = 2;     //用户名信息，需要开启验证功能
+    string Token = 3;        //Token验证，需要开启验证功能
     repeated RecognizeFunctions Functions = 4; //功能列表
     RecognizeType Type = 5; //识别类型 enum RecognizeType
     StorageConfig Storage = 6; //Engine结果存储的信息
@@ -104,16 +104,6 @@ message WitnessResult {
     WitnessImage Image = 3; //响应的图片信息
     repeated RecVehicle Vehicles = 4; //识别的车辆列表
     repeated RecFace Faces = 5; //识别的人脸列表
-    repeated RecPedestrian Pedestrians = 6; //识别的行人列表
-
-}
-
-message IndexModel{
-    RecVehicle Vehicle=1;
-    RecFace Face=2;
-    RecPedestrian Pedestrian=3;
-    string RepoInfo=4;
-    int32 SensorId=5;
 
 }
 
