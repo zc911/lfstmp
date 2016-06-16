@@ -18,11 +18,11 @@
 #include "services/engine_pool.h"
 #include "watchdog/watch_dog.h"
 #include "grpc/system_grpc.h"
-
+#include "services/witness_bucket.h"
 
 using namespace std;
 using namespace dg;
-
+WitnessBucket WitnessBucket::instance_;
 
 string getServerAddress(Config *config, int userPort = 0) {
     if (userPort != 0) {
@@ -39,6 +39,11 @@ void serveWitness(Config *config, int userPort = 0) {
     cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
 
+    MessagePool<StorageRequest> *msg_pool = new MessagePool<StorageRequest>(config);
+    WitnessBucket::Instance().SetMaxSize(100);
+    msg_pool->Run();
+    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config,msg_pool);
+    std::thread test(&SpringGrpcClientImpl::Run,client);
 
     MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
     engine_pool->Run();
@@ -47,7 +52,6 @@ void serveWitness(Config *config, int userPort = 0) {
         RestWitnessServiceImpl *service = new RestWitnessServiceImpl(*config, address, engine_pool);
         service->Run();
     } else if (protocolType == "rpc") {
-        cout<<"hello"<<endl;
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
         std::thread t1(&GrpcWitnessServiceImpl::Run,service);
         string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
@@ -69,6 +73,7 @@ void serveWitness(Config *config, int userPort = 0) {
         cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
         exit(-1);
     }
+    test.join();
 
 }
 
@@ -78,10 +83,7 @@ void serveRanker(Config *config, int userPort = 0) {
     string address = getServerAddress(config, userPort);
 
     MatrixEnginesPool<RankerAppsService> *engine_pool = new MatrixEnginesPool<RankerAppsService>(config);
-    cout<<"finish prgc"<<endl;
     engine_pool->Run();
-    cout<<"finish prsdfgc"<<endl;
-
     if (protocolType == "restful") {
         RestRankerServiceImpl *service = new RestRankerServiceImpl(*config, address, engine_pool);
         service->Run();
