@@ -19,6 +19,7 @@
 #include "../config/config_val.h"
 #include "grpc/spring_grpc.h"
 #include "engine_service.h"
+#include "witness_bucket.h"
 namespace dg {
 using namespace ::dg::model;
 
@@ -112,7 +113,7 @@ private:
                                      RecVehicle *vrec);
     MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
-    MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecPedestrian *result);
+ //   MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecPedestrian *result);
 
 
 };

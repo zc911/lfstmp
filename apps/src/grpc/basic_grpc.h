@@ -60,6 +60,21 @@ protected:
     string addr_;
     MatrixEnginesPool <EngineType> *engine_pool_;
 };
+template<class MessageType>
+class BasicGrpcClient {
+public:
+    BasicGrpcClient(Config config, MessagePool <MessageType> *message_pool)
+        : config_(config), message_pool_(message_pool) { }
+    virtual ~BasicGrpcClient() {
+
+    }
+    virtual void Run() {
+        message_pool_->Run();
+    }
+protected:
+    Config config_;
+    MessagePool <MessageType> *message_pool_;
+};
 }
 
 #endif //PROJECT_BASIC_GRPC_H

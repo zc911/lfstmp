@@ -42,7 +42,6 @@ void protobuf_AddDesc_witness_2eproto();
 void protobuf_AssignDesc_witness_2eproto();
 void protobuf_ShutdownFile_witness_2eproto();
 
-class IndexModel;
 class IndexRequest;
 class IndexResponse;
 class WitnessBatchRequest;
@@ -142,7 +141,7 @@ class IndexRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.model.IndexType indexType = 1;
+  // optional .dg.model.IndexType IndexType = 1;
   void clear_indextype();
   static const int kIndexTypeFieldNumber = 1;
   ::dg::model::IndexType indextype() const;
@@ -892,6 +891,28 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::std::string* release_sessionid();
   void set_allocated_sessionid(::std::string* sessionid);
 
+  // optional string UserName = 2;
+  void clear_username();
+  static const int kUserNameFieldNumber = 2;
+  const ::std::string& username() const;
+  void set_username(const ::std::string& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  ::std::string* mutable_username();
+  ::std::string* release_username();
+  void set_allocated_username(::std::string* username);
+
+  // optional string Token = 3;
+  void clear_token();
+  static const int kTokenFieldNumber = 3;
+  const ::std::string& token() const;
+  void set_token(const ::std::string& value);
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  ::std::string* mutable_token();
+  ::std::string* release_token();
+  void set_allocated_token(::std::string* token);
+
   // repeated .dg.model.RecognizeFunctions Functions = 4;
   int functions_size() const;
   void clear_functions();
@@ -932,6 +953,8 @@ class WitnessRequestContext : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr sessionid_;
+  ::google::protobuf::internal::ArenaStringPtr username_;
+  ::google::protobuf::internal::ArenaStringPtr token_;
   ::google::protobuf::RepeatedField<int> functions_;
   mutable int _functions_cached_byte_size_;
   ::dg::model::StorageConfig* storage_;
@@ -1333,18 +1356,6 @@ class WitnessResult : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >&
       faces() const;
 
-  // repeated .dg.model.RecPedestrian Pedestrians = 6;
-  int pedestrians_size() const;
-  void clear_pedestrians();
-  static const int kPedestriansFieldNumber = 6;
-  const ::dg::model::RecPedestrian& pedestrians(int index) const;
-  ::dg::model::RecPedestrian* mutable_pedestrians(int index);
-  ::dg::model::RecPedestrian* add_pedestrians();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >*
-      mutable_pedestrians();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
-      pedestrians() const;
-
   // @@protoc_insertion_point(class_scope:dg.model.WitnessResult)
  private:
 
@@ -1355,7 +1366,6 @@ class WitnessResult : public ::google::protobuf::Message {
   ::dg::model::WitnessImage* image_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle > vehicles_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace > faces_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian > pedestrians_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -1363,126 +1373,6 @@ class WitnessResult : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static WitnessResult* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class IndexModel : public ::google::protobuf::Message {
- public:
-  IndexModel();
-  virtual ~IndexModel();
-
-  IndexModel(const IndexModel& from);
-
-  inline IndexModel& operator=(const IndexModel& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const IndexModel& default_instance();
-
-  void Swap(IndexModel* other);
-
-  // implements Message ----------------------------------------------
-
-  inline IndexModel* New() const { return New(NULL); }
-
-  IndexModel* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const IndexModel& from);
-  void MergeFrom(const IndexModel& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(IndexModel* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional .dg.model.RecVehicle Vehicle = 1;
-  bool has_vehicle() const;
-  void clear_vehicle();
-  static const int kVehicleFieldNumber = 1;
-  const ::dg::model::RecVehicle& vehicle() const;
-  ::dg::model::RecVehicle* mutable_vehicle();
-  ::dg::model::RecVehicle* release_vehicle();
-  void set_allocated_vehicle(::dg::model::RecVehicle* vehicle);
-
-  // optional .dg.model.RecFace Face = 2;
-  bool has_face() const;
-  void clear_face();
-  static const int kFaceFieldNumber = 2;
-  const ::dg::model::RecFace& face() const;
-  ::dg::model::RecFace* mutable_face();
-  ::dg::model::RecFace* release_face();
-  void set_allocated_face(::dg::model::RecFace* face);
-
-  // optional .dg.model.RecPedestrian Pedestrian = 3;
-  bool has_pedestrian() const;
-  void clear_pedestrian();
-  static const int kPedestrianFieldNumber = 3;
-  const ::dg::model::RecPedestrian& pedestrian() const;
-  ::dg::model::RecPedestrian* mutable_pedestrian();
-  ::dg::model::RecPedestrian* release_pedestrian();
-  void set_allocated_pedestrian(::dg::model::RecPedestrian* pedestrian);
-
-  // optional string RepoInfo = 4;
-  void clear_repoinfo();
-  static const int kRepoInfoFieldNumber = 4;
-  const ::std::string& repoinfo() const;
-  void set_repoinfo(const ::std::string& value);
-  void set_repoinfo(const char* value);
-  void set_repoinfo(const char* value, size_t size);
-  ::std::string* mutable_repoinfo();
-  ::std::string* release_repoinfo();
-  void set_allocated_repoinfo(::std::string* repoinfo);
-
-  // optional int32 SensorId = 5;
-  void clear_sensorid();
-  static const int kSensorIdFieldNumber = 5;
-  ::google::protobuf::int32 sensorid() const;
-  void set_sensorid(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:dg.model.IndexModel)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::dg::model::RecVehicle* vehicle_;
-  ::dg::model::RecFace* face_;
-  ::dg::model::RecPedestrian* pedestrian_;
-  ::google::protobuf::internal::ArenaStringPtr repoinfo_;
-  ::google::protobuf::int32 sensorid_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_witness_2eproto();
-  friend void protobuf_AssignDesc_witness_2eproto();
-  friend void protobuf_ShutdownFile_witness_2eproto();
-
-  void InitAsDefaultInstance();
-  static IndexModel* default_instance_;
 };
 // ===================================================================
 
@@ -1492,18 +1382,18 @@ class IndexModel : public ::google::protobuf::Message {
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
 // IndexRequest
 
-// optional .dg.model.IndexType indexType = 1;
+// optional .dg.model.IndexType IndexType = 1;
 inline void IndexRequest::clear_indextype() {
   indextype_ = 0;
 }
 inline ::dg::model::IndexType IndexRequest::indextype() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexRequest.indexType)
+  // @@protoc_insertion_point(field_get:dg.model.IndexRequest.IndexType)
   return static_cast< ::dg::model::IndexType >(indextype_);
 }
 inline void IndexRequest::set_indextype(::dg::model::IndexType value) {
   
   indextype_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.IndexRequest.indexType)
+  // @@protoc_insertion_point(field_set:dg.model.IndexRequest.IndexType)
 }
 
 // -------------------------------------------------------------------
@@ -1991,6 +1881,92 @@ inline void WitnessRequestContext::set_allocated_sessionid(::std::string* sessio
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
+}
+
+// optional string UserName = 2;
+inline void WitnessRequestContext::clear_username() {
+  username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& WitnessRequestContext::username() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.UserName)
+  return username_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void WitnessRequestContext::set_username(const ::std::string& value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.UserName)
+}
+inline void WitnessRequestContext::set_username(const char* value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.UserName)
+}
+inline void WitnessRequestContext::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.UserName)
+}
+inline ::std::string* WitnessRequestContext::mutable_username() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.UserName)
+  return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* WitnessRequestContext::release_username() {
+  
+  return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void WitnessRequestContext::set_allocated_username(::std::string* username) {
+  if (username != NULL) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.UserName)
+}
+
+// optional string Token = 3;
+inline void WitnessRequestContext::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& WitnessRequestContext::token() const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessRequestContext.Token)
+  return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void WitnessRequestContext::set_token(const ::std::string& value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Token)
+}
+inline void WitnessRequestContext::set_token(const char* value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.Token)
+}
+inline void WitnessRequestContext::set_token(const char* value, size_t size) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.Token)
+}
+inline ::std::string* WitnessRequestContext::mutable_token() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.Token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* WitnessRequestContext::release_token() {
+  
+  return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void WitnessRequestContext::set_allocated_token(::std::string* token) {
+  if (token != NULL) {
+    
+  } else {
+    
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.Token)
 }
 
 // repeated .dg.model.RecognizeFunctions Functions = 4;
@@ -2642,211 +2618,7 @@ WitnessResult::faces() const {
   return faces_;
 }
 
-// repeated .dg.model.RecPedestrian Pedestrians = 6;
-inline int WitnessResult::pedestrians_size() const {
-  return pedestrians_.size();
-}
-inline void WitnessResult::clear_pedestrians() {
-  pedestrians_.Clear();
-}
-inline const ::dg::model::RecPedestrian& WitnessResult::pedestrians(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Pedestrians)
-  return pedestrians_.Get(index);
-}
-inline ::dg::model::RecPedestrian* WitnessResult::mutable_pedestrians(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Pedestrians)
-  return pedestrians_.Mutable(index);
-}
-inline ::dg::model::RecPedestrian* WitnessResult::add_pedestrians() {
-  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Pedestrians)
-  return pedestrians_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >*
-WitnessResult::mutable_pedestrians() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Pedestrians)
-  return &pedestrians_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
-WitnessResult::pedestrians() const {
-  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Pedestrians)
-  return pedestrians_;
-}
-
-// -------------------------------------------------------------------
-
-// IndexModel
-
-// optional .dg.model.RecVehicle Vehicle = 1;
-inline bool IndexModel::has_vehicle() const {
-  return !_is_default_instance_ && vehicle_ != NULL;
-}
-inline void IndexModel::clear_vehicle() {
-  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
-  vehicle_ = NULL;
-}
-inline const ::dg::model::RecVehicle& IndexModel::vehicle() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Vehicle)
-  return vehicle_ != NULL ? *vehicle_ : *default_instance_->vehicle_;
-}
-inline ::dg::model::RecVehicle* IndexModel::mutable_vehicle() {
-  
-  if (vehicle_ == NULL) {
-    vehicle_ = new ::dg::model::RecVehicle;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Vehicle)
-  return vehicle_;
-}
-inline ::dg::model::RecVehicle* IndexModel::release_vehicle() {
-  
-  ::dg::model::RecVehicle* temp = vehicle_;
-  vehicle_ = NULL;
-  return temp;
-}
-inline void IndexModel::set_allocated_vehicle(::dg::model::RecVehicle* vehicle) {
-  delete vehicle_;
-  vehicle_ = vehicle;
-  if (vehicle) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Vehicle)
-}
-
-// optional .dg.model.RecFace Face = 2;
-inline bool IndexModel::has_face() const {
-  return !_is_default_instance_ && face_ != NULL;
-}
-inline void IndexModel::clear_face() {
-  if (GetArenaNoVirtual() == NULL && face_ != NULL) delete face_;
-  face_ = NULL;
-}
-inline const ::dg::model::RecFace& IndexModel::face() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Face)
-  return face_ != NULL ? *face_ : *default_instance_->face_;
-}
-inline ::dg::model::RecFace* IndexModel::mutable_face() {
-  
-  if (face_ == NULL) {
-    face_ = new ::dg::model::RecFace;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Face)
-  return face_;
-}
-inline ::dg::model::RecFace* IndexModel::release_face() {
-  
-  ::dg::model::RecFace* temp = face_;
-  face_ = NULL;
-  return temp;
-}
-inline void IndexModel::set_allocated_face(::dg::model::RecFace* face) {
-  delete face_;
-  face_ = face;
-  if (face) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Face)
-}
-
-// optional .dg.model.RecPedestrian Pedestrian = 3;
-inline bool IndexModel::has_pedestrian() const {
-  return !_is_default_instance_ && pedestrian_ != NULL;
-}
-inline void IndexModel::clear_pedestrian() {
-  if (GetArenaNoVirtual() == NULL && pedestrian_ != NULL) delete pedestrian_;
-  pedestrian_ = NULL;
-}
-inline const ::dg::model::RecPedestrian& IndexModel::pedestrian() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexModel.Pedestrian)
-  return pedestrian_ != NULL ? *pedestrian_ : *default_instance_->pedestrian_;
-}
-inline ::dg::model::RecPedestrian* IndexModel::mutable_pedestrian() {
-  
-  if (pedestrian_ == NULL) {
-    pedestrian_ = new ::dg::model::RecPedestrian;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.Pedestrian)
-  return pedestrian_;
-}
-inline ::dg::model::RecPedestrian* IndexModel::release_pedestrian() {
-  
-  ::dg::model::RecPedestrian* temp = pedestrian_;
-  pedestrian_ = NULL;
-  return temp;
-}
-inline void IndexModel::set_allocated_pedestrian(::dg::model::RecPedestrian* pedestrian) {
-  delete pedestrian_;
-  pedestrian_ = pedestrian;
-  if (pedestrian) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.Pedestrian)
-}
-
-// optional string RepoInfo = 4;
-inline void IndexModel::clear_repoinfo() {
-  repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& IndexModel::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexModel.RepoInfo)
-  return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void IndexModel::set_repoinfo(const ::std::string& value) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.IndexModel.RepoInfo)
-}
-inline void IndexModel::set_repoinfo(const char* value) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.IndexModel.RepoInfo)
-}
-inline void IndexModel::set_repoinfo(const char* value, size_t size) {
-  
-  repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.IndexModel.RepoInfo)
-}
-inline ::std::string* IndexModel::mutable_repoinfo() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.IndexModel.RepoInfo)
-  return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* IndexModel::release_repoinfo() {
-  
-  return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void IndexModel::set_allocated_repoinfo(::std::string* repoinfo) {
-  if (repoinfo != NULL) {
-    
-  } else {
-    
-  }
-  repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexModel.RepoInfo)
-}
-
-// optional int32 SensorId = 5;
-inline void IndexModel::clear_sensorid() {
-  sensorid_ = 0;
-}
-inline ::google::protobuf::int32 IndexModel::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.IndexModel.SensorId)
-  return sensorid_;
-}
-inline void IndexModel::set_sensorid(::google::protobuf::int32 value) {
-  
-  sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.IndexModel.SensorId)
-}
-
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
