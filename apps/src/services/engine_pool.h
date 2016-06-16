@@ -100,7 +100,6 @@ public:
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
-                cout<<"hello  "<<name<<endl;
                 EngineType *engine = new EngineType(config_, name);
                 cout << "Start thread: " << name << endl;
 
