@@ -14,6 +14,7 @@ service SpringService {
 message VehicleObj {
     RecVehicle Vehicle=1;
     StorageConfig StorageInfo=2;
+    Image Img=3;
 }
 
 
