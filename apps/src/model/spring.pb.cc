@@ -87,9 +87,10 @@ void protobuf_AddDesc_spring_2eproto() {
     "\n\nVehicleObj\022%\n\007Vehicle\030\001 \001(\0132\024.dg.model"
     ".RecVehicle\022,\n\013StorageInfo\030\002 \001(\0132\027.dg.mo"
     "del.StorageConfig\022\034\n\003Img\030\003 \001(\0132\017.dg.mode"
-    "l.Image2N\n\rSpringService\022=\n\014IndexVehicle"
-    "\022\024.dg.model.VehicleObj\032\025.dg.model.NullMe"
-    "ssage\"\000b\006proto3", 255);
+    "l.Image2\215\001\n\rSpringService\022=\n\014IndexVehicl"
+    "e\022\024.dg.model.VehicleObj\032\025.dg.model.NullM"
+    "essage\"\000\022=\n\014BingoVehicle\022\024.dg.model.Vehi"
+    "cleObj\032\025.dg.model.NullMessage\"\000b\006proto3", 319);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spring.proto", &protobuf_RegisterTypes);
   VehicleObj::default_instance_ = new VehicleObj();

@@ -37,8 +37,13 @@ class SpringService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexVehicleRaw(context, request, cq));
     }
+    virtual ::grpc::Status BingoVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::dg::model::NullMessage* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncBingoVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncBingoVehicleRaw(context, request, cq));
+    }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>* AsyncIndexVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>* AsyncBingoVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
@@ -47,11 +52,17 @@ class SpringService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>> AsyncIndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>>(AsyncIndexVehicleRaw(context, request, cq));
     }
+    ::grpc::Status BingoVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::dg::model::NullMessage* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>> AsyncBingoVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>>(AsyncBingoVehicleRaw(context, request, cq));
+    }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* AsyncIndexVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* AsyncBingoVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_IndexVehicle_;
+    const ::grpc::RpcMethod rpcmethod_BingoVehicle_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -61,6 +72,7 @@ class SpringService GRPC_FINAL {
     virtual ~Service();
     // ### Index APIs
     virtual ::grpc::Status IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response);
+    virtual ::grpc::Status BingoVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_IndexVehicle : public BaseClass {
@@ -82,7 +94,27 @@ class SpringService GRPC_FINAL {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_IndexVehicle<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_BingoVehicle : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_BingoVehicle() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_BingoVehicle() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BingoVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestBingoVehicle(::grpc::ServerContext* context, ::dg::model::VehicleObj* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::NullMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_IndexVehicle<WithAsyncMethod_BingoVehicle<Service > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_IndexVehicle : public BaseClass {
    private:
@@ -96,6 +128,23 @@ class SpringService GRPC_FINAL {
     }
     // disable synchronous version of this method
     ::grpc::Status IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_BingoVehicle : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_BingoVehicle() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_BingoVehicle() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status BingoVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

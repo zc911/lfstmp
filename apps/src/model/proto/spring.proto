@@ -9,6 +9,7 @@ import "common.proto";
 service SpringService {
     // ### Index APIs
     rpc IndexVehicle(VehicleObj) returns (NullMessage) {}
+    rpc BingoVehicle(VehicleObj) returns(NullMessage){}
 
 }
 message VehicleObj {
