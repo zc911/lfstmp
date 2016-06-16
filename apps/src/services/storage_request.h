@@ -7,6 +7,7 @@
 #include "model/spring.grpc.pb.h"
 #include "model/localcommon.pb.h"
 #include "witness_bucket.h"
+#include "pbjson/pbjson.hpp"
 using ::dg::model::SpringService;
 using grpc::Channel;
 using grpc::ClientContext;
@@ -24,6 +25,7 @@ public:
     }
     MatrixError storage() {
         unique_lock<mutex> lock(WitnessBucket::Instance().mt_pop);
+        VLOG(VLOG_SERVICE)<<"========START REQUEST==========="<<endl;
         MatrixError err;
         shared_ptr<VehicleObj> v = WitnessBucket::Instance().Pop();
         string storageAddress = v->storageinfo().address();
@@ -45,7 +47,7 @@ public:
             lock.unlock();
             return err;
         } else {
-            VLOG(VLOG_SERVICE) << "send to storage failed" << endl;
+            VLOG(VLOG_SERVICE) << "send to storage failed "<<status.error_code() << endl;
             lock.unlock();
             return err;
         }
