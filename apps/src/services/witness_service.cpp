@@ -541,12 +541,31 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
     if(storageEnabled) {
         string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
+        DBType dbType;
+        switch(dbTypeInt){
+            case 0:
+                dbType=KAFKA;
+                break;
+            default:
+                dbType=KAFKA;
+                break;
+        }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             for (int i = 0; i < r.vehicles_size(); i++) {
                 unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
                 shared_ptr<VehicleObj> client_request_obj(new VehicleObj) ;
-                client_request_obj->mutable_storageinfo()->set_address("192.168.2.119:9004");
+                Cutboard c = r.vehicles(i).img().cutboard();
+                Mat roi(frame->payload()->data(),Rect(c.x(),c.y(),c.width(),c.height()));
+                client_request_obj->mutable_vehicle()->mutable_img()->mutable_img()->set_bindata(string((char *)roi.data));
+                if(!request->context().has_storage()){
+                    client_request_obj->mutable_storageinfo()->set_address(storageAddress);
+                    client_request_obj->mutable_storageinfo()->set_type(dbType);
+                }else{
+                    client_request_obj->mutable_storageinfo()->CopyFrom(request->context().storage());
+                }
+                client_request_obj->mutable_img()->set_uri(request->image().data().uri());
                 client_request_obj->mutable_vehicle()->CopyFrom(r.vehicles(i));
                 WitnessBucket::Instance().Push(client_request_obj);
                 lock.unlock();
@@ -669,6 +688,50 @@ MatrixError WitnessAppsService::BatchRecognize(
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+
+
+    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
+    if(storageEnabled) {
+        string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
+        DBType dbType;
+        switch(dbTypeInt){
+            case 0:
+                dbType=KAFKA;
+                break;
+            default:
+                dbType=KAFKA;
+                break;
+        }
+        for(int k=0;k<batchResponse->results_size();k++) {
+            const WitnessResult &r = batchResponse->results(k);
+            if (r.vehicles_size() != 0) {
+                for (int i = 0; i < r.vehicles_size(); i++) {
+                    unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+                    shared_ptr<VehicleObj> client_request_obj(new VehicleObj);
+                    Cutboard c = r.vehicles(i).img().cutboard();
+                    Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
+                    client_request_obj->mutable_vehicle()->mutable_img()->mutable_img()->set_bindata(string((char *) roi.data));
+                    if (batchRequest->context().storage().address()=="") {
+                        StorageConfig *storageconfig=client_request_obj->mutable_storageinfo();
+                        storageconfig->set_address(storageAddress);
+                        storageconfig->set_type(dbType);
+                    } else {
+                        client_request_obj->mutable_storageinfo()->CopyFrom(batchRequest->context().storage());
+                    }
+                    client_request_obj->mutable_img()->set_uri(batchRequest->images(k).data().uri());
+                    client_request_obj->mutable_vehicle()->CopyFrom(r.vehicles(i));
+                    WitnessBucket::Instance().Push(client_request_obj);
+                 //   string s;
+                 //   google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
+                 //   VLOG(VLOG_SERVICE)<<s<<endl;
+                    lock.unlock();
+                }
+            }
+        }
+    }
+
+
 
     VLOG(VLOG_SERVICE) << "Finish batch processing: " << sessionid << "..." << endl;
     return err;

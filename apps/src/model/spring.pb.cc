@@ -36,9 +36,10 @@ void protobuf_AssignDesc_spring_2eproto() {
       "spring.proto");
   GOOGLE_CHECK(file != NULL);
   VehicleObj_descriptor_ = file->message_type(0);
-  static const int VehicleObj_offsets_[2] = {
+  static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, vehicle_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, storageinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
   };
   VehicleObj_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -82,12 +83,13 @@ void protobuf_AddDesc_spring_2eproto() {
 
   ::dg::model::protobuf_AddDesc_common_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014spring.proto\022\010dg.model\032\014common.proto\"a"
+    "\n\014spring.proto\022\010dg.model\032\014common.proto\"\177"
     "\n\nVehicleObj\022%\n\007Vehicle\030\001 \001(\0132\024.dg.model"
     ".RecVehicle\022,\n\013StorageInfo\030\002 \001(\0132\027.dg.mo"
-    "del.StorageConfig2N\n\rSpringService\022=\n\014In"
-    "dexVehicle\022\024.dg.model.VehicleObj\032\025.dg.mo"
-    "del.NullMessage\"\000b\006proto3", 225);
+    "del.StorageConfig\022\034\n\003Img\030\003 \001(\0132\017.dg.mode"
+    "l.Image2N\n\rSpringService\022=\n\014IndexVehicle"
+    "\022\024.dg.model.VehicleObj\032\025.dg.model.NullMe"
+    "ssage\"\000b\006proto3", 255);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spring.proto", &protobuf_RegisterTypes);
   VehicleObj::default_instance_ = new VehicleObj();
@@ -117,6 +119,7 @@ static void MergeFromFail(int line) {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int VehicleObj::kVehicleFieldNumber;
 const int VehicleObj::kStorageInfoFieldNumber;
+const int VehicleObj::kImgFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 VehicleObj::VehicleObj()
@@ -129,6 +132,7 @@ void VehicleObj::InitAsDefaultInstance() {
   _is_default_instance_ = true;
   vehicle_ = const_cast< ::dg::model::RecVehicle*>(&::dg::model::RecVehicle::default_instance());
   storageinfo_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
+  img_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
 }
 
 VehicleObj::VehicleObj(const VehicleObj& from)
@@ -144,6 +148,7 @@ void VehicleObj::SharedCtor() {
   _cached_size_ = 0;
   vehicle_ = NULL;
   storageinfo_ = NULL;
+  img_ = NULL;
 }
 
 VehicleObj::~VehicleObj() {
@@ -155,6 +160,7 @@ void VehicleObj::SharedDtor() {
   if (this != default_instance_) {
     delete vehicle_;
     delete storageinfo_;
+    delete img_;
   }
 }
 
@@ -188,6 +194,8 @@ void VehicleObj::Clear() {
   vehicle_ = NULL;
   if (GetArenaNoVirtual() == NULL && storageinfo_ != NULL) delete storageinfo_;
   storageinfo_ = NULL;
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
 }
 
 bool VehicleObj::MergePartialFromCodedStream(
@@ -218,6 +226,19 @@ bool VehicleObj::MergePartialFromCodedStream(
          parse_StorageInfo:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_storageinfo()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Img;
+        break;
+      }
+
+      // optional .dg.model.Image Img = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Img:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_img()));
         } else {
           goto handle_unusual;
         }
@@ -261,6 +282,12 @@ void VehicleObj::SerializeWithCachedSizes(
       2, *this->storageinfo_, output);
   }
 
+  // optional .dg.model.Image Img = 3;
+  if (this->has_img()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->img_, output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.VehicleObj)
 }
 
@@ -279,6 +306,13 @@ void VehicleObj::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
         2, *this->storageinfo_, target);
+  }
+
+  // optional .dg.model.Image Img = 3;
+  if (this->has_img()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->img_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleObj)
@@ -300,6 +334,13 @@ int VehicleObj::ByteSize() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->storageinfo_);
+  }
+
+  // optional .dg.model.Image Img = 3;
+  if (this->has_img()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->img_);
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -328,6 +369,9 @@ void VehicleObj::MergeFrom(const VehicleObj& from) {
   if (from.has_storageinfo()) {
     mutable_storageinfo()->::dg::model::StorageConfig::MergeFrom(from.storageinfo());
   }
+  if (from.has_img()) {
+    mutable_img()->::dg::model::Image::MergeFrom(from.img());
+  }
 }
 
 void VehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
@@ -354,6 +398,7 @@ void VehicleObj::Swap(VehicleObj* other) {
 void VehicleObj::InternalSwap(VehicleObj* other) {
   std::swap(vehicle_, other->vehicle_);
   std::swap(storageinfo_, other->storageinfo_);
+  std::swap(img_, other->img_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -441,6 +486,43 @@ void VehicleObj::set_allocated_storageinfo(::dg::model::StorageConfig* storagein
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.StorageInfo)
+}
+
+// optional .dg.model.Image Img = 3;
+bool VehicleObj::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+void VehicleObj::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+const ::dg::model::Image& VehicleObj::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+::dg::model::Image* VehicleObj::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Img)
+  return img_;
+}
+::dg::model::Image* VehicleObj::release_img() {
+  
+  ::dg::model::Image* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+void VehicleObj::set_allocated_img(::dg::model::Image* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Img)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
