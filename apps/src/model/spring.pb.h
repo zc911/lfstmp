@@ -38,38 +38,36 @@ void protobuf_AddDesc_spring_2eproto();
 void protobuf_AssignDesc_spring_2eproto();
 void protobuf_ShutdownFile_spring_2eproto();
 
-class ExternalData;
-class GenericObj;
-class GenericObjs;
+class VehicleObj;
 
 // ===================================================================
 
-class ExternalData : public ::google::protobuf::Message {
+class VehicleObj : public ::google::protobuf::Message {
  public:
-  ExternalData();
-  virtual ~ExternalData();
+  VehicleObj();
+  virtual ~VehicleObj();
 
-  ExternalData(const ExternalData& from);
+  VehicleObj(const VehicleObj& from);
 
-  inline ExternalData& operator=(const ExternalData& from) {
+  inline VehicleObj& operator=(const VehicleObj& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const ExternalData& default_instance();
+  static const VehicleObj& default_instance();
 
-  void Swap(ExternalData* other);
+  void Swap(VehicleObj* other);
 
   // implements Message ----------------------------------------------
 
-  inline ExternalData* New() const { return New(NULL); }
+  inline VehicleObj* New() const { return New(NULL); }
 
-  ExternalData* New(::google::protobuf::Arena* arena) const;
+  VehicleObj* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const ExternalData& from);
-  void MergeFrom(const ExternalData& from);
+  void CopyFrom(const VehicleObj& from);
+  void MergeFrom(const VehicleObj& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -84,7 +82,7 @@ class ExternalData : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(ExternalData* other);
+  void InternalSwap(VehicleObj* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -100,221 +98,38 @@ class ExternalData : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.model.ExternalData)
+  // optional .dg.model.RecVehicle Vehicle = 1;
+  bool has_vehicle() const;
+  void clear_vehicle();
+  static const int kVehicleFieldNumber = 1;
+  const ::dg::model::RecVehicle& vehicle() const;
+  ::dg::model::RecVehicle* mutable_vehicle();
+  ::dg::model::RecVehicle* release_vehicle();
+  void set_allocated_vehicle(::dg::model::RecVehicle* vehicle);
+
+  // optional .dg.model.StorageConfig StorageInfo = 2;
+  bool has_storageinfo() const;
+  void clear_storageinfo();
+  static const int kStorageInfoFieldNumber = 2;
+  const ::dg::model::StorageConfig& storageinfo() const;
+  ::dg::model::StorageConfig* mutable_storageinfo();
+  ::dg::model::StorageConfig* release_storageinfo();
+  void set_allocated_storageinfo(::dg::model::StorageConfig* storageinfo);
+
+  // @@protoc_insertion_point(class_scope:dg.model.VehicleObj)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
+  ::dg::model::RecVehicle* vehicle_;
+  ::dg::model::StorageConfig* storageinfo_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_spring_2eproto();
   friend void protobuf_AssignDesc_spring_2eproto();
   friend void protobuf_ShutdownFile_spring_2eproto();
 
   void InitAsDefaultInstance();
-  static ExternalData* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class GenericObj : public ::google::protobuf::Message {
- public:
-  GenericObj();
-  virtual ~GenericObj();
-
-  GenericObj(const GenericObj& from);
-
-  inline GenericObj& operator=(const GenericObj& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const GenericObj& default_instance();
-
-  void Swap(GenericObj* other);
-
-  // implements Message ----------------------------------------------
-
-  inline GenericObj* New() const { return New(NULL); }
-
-  GenericObj* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const GenericObj& from);
-  void MergeFrom(const GenericObj& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GenericObj* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional .dg.model.ObjType Type = 1;
-  void clear_type();
-  static const int kTypeFieldNumber = 1;
-  ::dg::model::ObjType type() const;
-  void set_type(::dg::model::ObjType value);
-
-  // optional .dg.model.DataFmtType FmtType = 2;
-  void clear_fmttype();
-  static const int kFmtTypeFieldNumber = 2;
-  ::dg::model::DataFmtType fmttype() const;
-  void set_fmttype(::dg::model::DataFmtType value);
-
-  // optional string StrData = 3;
-  void clear_strdata();
-  static const int kStrDataFieldNumber = 3;
-  const ::std::string& strdata() const;
-  void set_strdata(const ::std::string& value);
-  void set_strdata(const char* value);
-  void set_strdata(const char* value, size_t size);
-  ::std::string* mutable_strdata();
-  ::std::string* release_strdata();
-  void set_allocated_strdata(::std::string* strdata);
-
-  // optional bytes BinData = 4;
-  void clear_bindata();
-  static const int kBinDataFieldNumber = 4;
-  const ::std::string& bindata() const;
-  void set_bindata(const ::std::string& value);
-  void set_bindata(const char* value);
-  void set_bindata(const void* value, size_t size);
-  ::std::string* mutable_bindata();
-  ::std::string* release_bindata();
-  void set_allocated_bindata(::std::string* bindata);
-
-  // optional .dg.model.StorageConfig Storage = 5;
-  bool has_storage() const;
-  void clear_storage();
-  static const int kStorageFieldNumber = 5;
-  const ::dg::model::StorageConfig& storage() const;
-  ::dg::model::StorageConfig* mutable_storage();
-  ::dg::model::StorageConfig* release_storage();
-  void set_allocated_storage(::dg::model::StorageConfig* storage);
-
-  // @@protoc_insertion_point(class_scope:dg.model.GenericObj)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  int type_;
-  int fmttype_;
-  ::google::protobuf::internal::ArenaStringPtr strdata_;
-  ::google::protobuf::internal::ArenaStringPtr bindata_;
-  ::dg::model::StorageConfig* storage_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_spring_2eproto();
-  friend void protobuf_AssignDesc_spring_2eproto();
-  friend void protobuf_ShutdownFile_spring_2eproto();
-
-  void InitAsDefaultInstance();
-  static GenericObj* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class GenericObjs : public ::google::protobuf::Message {
- public:
-  GenericObjs();
-  virtual ~GenericObjs();
-
-  GenericObjs(const GenericObjs& from);
-
-  inline GenericObjs& operator=(const GenericObjs& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const GenericObjs& default_instance();
-
-  void Swap(GenericObjs* other);
-
-  // implements Message ----------------------------------------------
-
-  inline GenericObjs* New() const { return New(NULL); }
-
-  GenericObjs* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const GenericObjs& from);
-  void MergeFrom(const GenericObjs& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(GenericObjs* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // repeated .dg.model.GenericObj GenericObj = 1;
-  int genericobj_size() const;
-  void clear_genericobj();
-  static const int kGenericObjFieldNumber = 1;
-  const ::dg::model::GenericObj& genericobj(int index) const;
-  ::dg::model::GenericObj* mutable_genericobj(int index);
-  ::dg::model::GenericObj* add_genericobj();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >*
-      mutable_genericobj();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >&
-      genericobj() const;
-
-  // @@protoc_insertion_point(class_scope:dg.model.GenericObjs)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj > genericobj_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_spring_2eproto();
-  friend void protobuf_AssignDesc_spring_2eproto();
-  friend void protobuf_ShutdownFile_spring_2eproto();
-
-  void InitAsDefaultInstance();
-  static GenericObjs* default_instance_;
+  static VehicleObj* default_instance_;
 };
 // ===================================================================
 
@@ -322,202 +137,83 @@ class GenericObjs : public ::google::protobuf::Message {
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// ExternalData
+// VehicleObj
 
-// -------------------------------------------------------------------
-
-// GenericObj
-
-// optional .dg.model.ObjType Type = 1;
-inline void GenericObj::clear_type() {
-  type_ = 0;
+// optional .dg.model.RecVehicle Vehicle = 1;
+inline bool VehicleObj::has_vehicle() const {
+  return !_is_default_instance_ && vehicle_ != NULL;
 }
-inline ::dg::model::ObjType GenericObj::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Type)
-  return static_cast< ::dg::model::ObjType >(type_);
+inline void VehicleObj::clear_vehicle() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
 }
-inline void GenericObj::set_type(::dg::model::ObjType value) {
+inline const ::dg::model::RecVehicle& VehicleObj::vehicle() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Vehicle)
+  return vehicle_ != NULL ? *vehicle_ : *default_instance_->vehicle_;
+}
+inline ::dg::model::RecVehicle* VehicleObj::mutable_vehicle() {
   
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.Type)
-}
-
-// optional .dg.model.DataFmtType FmtType = 2;
-inline void GenericObj::clear_fmttype() {
-  fmttype_ = 0;
-}
-inline ::dg::model::DataFmtType GenericObj::fmttype() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.FmtType)
-  return static_cast< ::dg::model::DataFmtType >(fmttype_);
-}
-inline void GenericObj::set_fmttype(::dg::model::DataFmtType value) {
-  
-  fmttype_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.FmtType)
-}
-
-// optional string StrData = 3;
-inline void GenericObj::clear_strdata() {
-  strdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& GenericObj::strdata() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.StrData)
-  return strdata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void GenericObj::set_strdata(const ::std::string& value) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.StrData)
-}
-inline void GenericObj::set_strdata(const char* value) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.GenericObj.StrData)
-}
-inline void GenericObj::set_strdata(const char* value, size_t size) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.GenericObj.StrData)
-}
-inline ::std::string* GenericObj::mutable_strdata() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.StrData)
-  return strdata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* GenericObj::release_strdata() {
-  
-  return strdata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void GenericObj::set_allocated_strdata(::std::string* strdata) {
-  if (strdata != NULL) {
-    
-  } else {
-    
+  if (vehicle_ == NULL) {
+    vehicle_ = new ::dg::model::RecVehicle;
   }
-  strdata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), strdata);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.StrData)
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Vehicle)
+  return vehicle_;
 }
-
-// optional bytes BinData = 4;
-inline void GenericObj::clear_bindata() {
-  bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& GenericObj::bindata() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.BinData)
-  return bindata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void GenericObj::set_bindata(const ::std::string& value) {
+inline ::dg::model::RecVehicle* VehicleObj::release_vehicle() {
   
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.BinData)
-}
-inline void GenericObj::set_bindata(const char* value) {
-  
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.GenericObj.BinData)
-}
-inline void GenericObj::set_bindata(const void* value, size_t size) {
-  
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.GenericObj.BinData)
-}
-inline ::std::string* GenericObj::mutable_bindata() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.BinData)
-  return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* GenericObj::release_bindata() {
-  
-  return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void GenericObj::set_allocated_bindata(::std::string* bindata) {
-  if (bindata != NULL) {
-    
-  } else {
-    
-  }
-  bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.BinData)
-}
-
-// optional .dg.model.StorageConfig Storage = 5;
-inline bool GenericObj::has_storage() const {
-  return !_is_default_instance_ && storage_ != NULL;
-}
-inline void GenericObj::clear_storage() {
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
-}
-inline const ::dg::model::StorageConfig& GenericObj::storage() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Storage)
-  return storage_ != NULL ? *storage_ : *default_instance_->storage_;
-}
-inline ::dg::model::StorageConfig* GenericObj::mutable_storage() {
-  
-  if (storage_ == NULL) {
-    storage_ = new ::dg::model::StorageConfig;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.Storage)
-  return storage_;
-}
-inline ::dg::model::StorageConfig* GenericObj::release_storage() {
-  
-  ::dg::model::StorageConfig* temp = storage_;
-  storage_ = NULL;
+  ::dg::model::RecVehicle* temp = vehicle_;
+  vehicle_ = NULL;
   return temp;
 }
-inline void GenericObj::set_allocated_storage(::dg::model::StorageConfig* storage) {
-  delete storage_;
-  storage_ = storage;
-  if (storage) {
+inline void VehicleObj::set_allocated_vehicle(::dg::model::RecVehicle* vehicle) {
+  delete vehicle_;
+  vehicle_ = vehicle;
+  if (vehicle) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.Storage)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Vehicle)
 }
 
-// -------------------------------------------------------------------
-
-// GenericObjs
-
-// repeated .dg.model.GenericObj GenericObj = 1;
-inline int GenericObjs::genericobj_size() const {
-  return genericobj_.size();
+// optional .dg.model.StorageConfig StorageInfo = 2;
+inline bool VehicleObj::has_storageinfo() const {
+  return !_is_default_instance_ && storageinfo_ != NULL;
 }
-inline void GenericObjs::clear_genericobj() {
-  genericobj_.Clear();
+inline void VehicleObj::clear_storageinfo() {
+  if (GetArenaNoVirtual() == NULL && storageinfo_ != NULL) delete storageinfo_;
+  storageinfo_ = NULL;
 }
-inline const ::dg::model::GenericObj& GenericObjs::genericobj(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Get(index);
+inline const ::dg::model::StorageConfig& VehicleObj::storageinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.StorageInfo)
+  return storageinfo_ != NULL ? *storageinfo_ : *default_instance_->storageinfo_;
 }
-inline ::dg::model::GenericObj* GenericObjs::mutable_genericobj(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Mutable(index);
+inline ::dg::model::StorageConfig* VehicleObj::mutable_storageinfo() {
+  
+  if (storageinfo_ == NULL) {
+    storageinfo_ = new ::dg::model::StorageConfig;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.StorageInfo)
+  return storageinfo_;
 }
-inline ::dg::model::GenericObj* GenericObjs::add_genericobj() {
-  // @@protoc_insertion_point(field_add:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Add();
+inline ::dg::model::StorageConfig* VehicleObj::release_storageinfo() {
+  
+  ::dg::model::StorageConfig* temp = storageinfo_;
+  storageinfo_ = NULL;
+  return temp;
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >*
-GenericObjs::mutable_genericobj() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.GenericObjs.GenericObj)
-  return &genericobj_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >&
-GenericObjs::genericobj() const {
-  // @@protoc_insertion_point(field_list:dg.model.GenericObjs.GenericObj)
-  return genericobj_;
+inline void VehicleObj::set_allocated_storageinfo(::dg::model::StorageConfig* storageinfo) {
+  delete storageinfo_;
+  storageinfo_ = storageinfo;
+  if (storageinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.StorageInfo)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 

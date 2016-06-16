@@ -53,10 +53,10 @@ OBJ_TYPE_FACE_CUTBOARD = 5120;
 
 enum DataFmtType {
 	UNKNOWNFMT = 0;
-JSON = 1;
-PROTOBUF = 2;
-CSV = 3;
-PDF = 4;
+	JSON = 1;
+	PROTOBUF = 2;
+	CSV = 3;
+	PDF = 4;
 }
 
 
@@ -89,12 +89,12 @@ message RecVehicle {
 	int64 Id = 1;
 	VehicleModelType ModelType = 2;
 	Color Color = 3;
-	LicensePlate Plate = 5;
-	CutboardImage Img = 6;
-	repeated VehicleSymbol Symbols = 7;
-	bytes Features = 8;
-	ObjType VehicleType=9;
-	string VehicleTypeName=10;
+	LicensePlate Plate = 4;
+	CutboardImage Img = 5;
+	repeated VehicleSymbol Symbols = 6;
+	bytes Features = 7;
+	ObjType VehicleType=8;
+	string VehicleTypeName=9;
 }
 
 message VehicleModelType {
@@ -121,24 +121,18 @@ message LicensePlate {
 }
 message VehicleSymbol {
 	int32 SymbolId = 1;
-	string SymbolName = 4;
+	string SymbolName = 2;
 	repeated Symbol Symbols=3;
 }
 message Symbol{
-	Cutboard cutboard =3;
-	float Confidence=4;
+	Cutboard cutboard =1;
+	float Confidence=2;
 }
-
-message RecPedestrian {
-	int64 Id = 1;
-	CutboardImage Img = 3;
-	bytes Feature = 4;
-	Color Color = 5;
-	float Confidence =6;
+enum DBType{
+	KAFKA =0;
 }
-
 message StorageConfig {
-	string Address = 1;         //结构化信息输出地址
-	string RepoInfo = 2;        //结构化信息的库标识
+	string Address = 1;         //结构化信息输出地址 ip:port
+	DBType Type= 2;			//
 	repeated string Tags = 3;   //设定数据的信息标签
 }
