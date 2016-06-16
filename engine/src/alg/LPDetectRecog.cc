@@ -17,8 +17,16 @@ const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5",
           "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
           "青", "藏", "川", "宁", "琼", "使", "领", "试", \
           "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};
-
-
+/*const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
+          "A", "B", "C", "D", "E", "F", "G", "H", "J", \
+          "K", "L", "M", "N", "P", "Q", "R", "S", "T",\
+          "U", "V", "W", "X", "Y", "Z", "I", "_Jing1_", "_Jin1_",\
+          "_Hu4_", "_Yu2_", "_Ji4_", "_Yu4_", "_Yun2_", "Liao2_", "_Hei1_", "_Xiang1_", \
+          "_Wan3_", "_Min3_", "_Lu3_", "_Xin1_", "_Su1_", "_Zhe4_", "_Gan4_", "_E4_", \
+          "_Gui4_", "_Gan1_", "_Jin4", "_Meng3_", "_Shan3_", "_Ji2_", "_Gui4_", "_Yue4_", \
+          "_Qing1_", "_Zang4_", "_Chuan1_", "_Ning2_", "_Qiong2_", "_Shi3_", "_Ling3_", "_Shi4_", \
+          "_Xue2_", "_Lin2_", "_Shi2_", "_Jing3_", "_Gang3_", "O", "_Gua2_", "_Ao4_", "#"};
+*/
 struct InputInfoRecog_S
 {
   float *pfImage_0;

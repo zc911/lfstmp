@@ -33,7 +33,7 @@ class PlateRecognizeMxnetProcessor : public Processor {
     vector<Object *> objs_;
     LPDR_ImageSet_S stImgSet_;
     vector<Mat> images_;
-
+    int batch_size_;
 };
 
 } /* namespace dg */
