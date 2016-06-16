@@ -5,6 +5,7 @@
  *      Author: jiajaichen
  */
 
+#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
 #include "processor_helper.h"
 namespace dg {
@@ -19,6 +20,8 @@ const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
 PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(
         LPDRConfig_S *stConfig)
         : h_LPDR_Handle_(0) {
+        setConfig(stConfig);
+    LPDR_Create(&h_LPDR_Handle_, stConfig);
 }
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
@@ -33,7 +36,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
     struct timeval start, end;
     gettimeofday(&start, NULL);
 #endif
-    int batchsize = stImgSet_.dwImageNum;
+    int batchsize = batch_size_;
     int imagesize = images_.size();
     for (int i = 0; i < (ceil((float)imagesize / (float)batchsize) * batchsize); i +=
             batchsize) {
@@ -66,6 +69,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
                 }
                 plate.color_id = pstLP->dwColor;
+                plate.plate_type=pstLP->dwType;
                 plate.confidence = pstLP->fAllScore;
                 plate.plate_num = platenum;
 
@@ -143,7 +147,7 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
 
     pstConfig->dwDevType = 2;
     pstConfig->dwDevID = 0;
-    stImgSet_.dwImageNum = pstConfig->batchsize;
+    batch_size_ = pstConfig->batchsize;
 }
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();
