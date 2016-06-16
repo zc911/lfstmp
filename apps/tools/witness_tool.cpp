@@ -6,6 +6,7 @@
 #include <sys/time.h>
 #include <grpc++/grpc++.h>
 #include "model/witness.grpc.pb.h"
+#include "model/spring.grpc.pb.h"
 #include "model/system.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
 #include "codec/base64.h"
@@ -52,7 +53,7 @@ static void Print(const WitnessResponse &resp) {
         cout << r.vehicles(i).plate().platetext() << endl;
     WitnessResponse resp1;
     const WitnessResponseContext &req = resp.context();
-    rapidjson::Value *value = pbjson::pb2jsonobject(&resp1);
+    rapidjson::Value *value = pbjson::pb2jsonobject(&resp);
     string s;
     pbjson::json2string(value, s);
     cout << s << endl;
@@ -89,6 +90,46 @@ private:
     std::unique_ptr<SystemService::Stub> stub_;
 
 };
+class SpringClient {
+public:
+    SpringClient(std::shared_ptr<Channel> channel) : stub_(SpringService::NewStub(channel)) {
+
+    }
+    void IndexVehicle() {
+        VehicleObj v;
+        NullMessage resp;
+        ClientContext context;
+        RecVehicle *vehicle=v.mutable_vehicle();
+        vehicle->mutable_modeltype()->set_brandid(23);
+        vehicle->mutable_color()->set_colorname("1234");
+        vehicle->mutable_plate()->set_platetext("djhf");
+   //     vehicle->set_vehicletypename("34");
+        v.mutable_img()->set_id("slkdjg");
+      //  plate.set_platetext("123456");
+      //  vehicle->mutable_plate()->set_platetext(test);
+     //   rapidjson::Value *value = pbjson::pb2jsonobject(&v);
+        string s;
+     //   pbjson::json2string(value, s);
+        v.SerializeToString(&s);
+
+        for(int i=0;i<s.size();i++){
+            cout<<(int)s[i]<<" ";
+        }
+        cout<<endl;
+         //  string s;
+        //   google::protobuf::TextFormat::PrintToString(v,&s);
+        //   cout<<s<<endl;
+        Status status = stub_->IndexVehicle(&context, v, &resp);
+        if (status.ok()) {
+            cout << "ping finish: "<< endl;
+        } else {
+            cout << " pint error"<<status.error_code() << endl;
+        }
+    }
+private:
+    std::unique_ptr<SpringService::Stub> stub_;
+
+};
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
@@ -102,6 +143,7 @@ public:
         ctx->set_sessionid(session_id);
         WitnessImage *witnessimage = req.mutable_image();
         SetFunctions(ctx);
+        ctx->set_type(REC_TYPE_VEHICLE);
         if (uri) {
             witnessimage->mutable_data()->set_uri(file_path);
 
@@ -191,6 +233,7 @@ public:
         WitnessRequestContext *ctx = request.mutable_context();
         ctx->set_sessionid(session_id);
         SetFunctions(ctx);
+        ctx->set_type(REC_TYPE_VEHICLE);
 
         request.mutable_image()->mutable_data()->set_uri(file_path);
 
@@ -374,6 +417,10 @@ void callS(string address, string image_file_path, bool batch, bool uri) {
             client.Recognize(image_file_path, id, uri);
         }
     }
+}
+void callSP(string address){
+    SpringClient client(grpc::CreateChannel(string(address),grpc::InsecureChannelCredentials()));
+    client.IndexVehicle();
 }
 int main(int argc, char *argv[]) {
     if (argc != 7) {

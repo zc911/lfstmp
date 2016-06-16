@@ -39,7 +39,6 @@ WitnessAppsService::WitnessAppsService(const Config *config, string name)
     unknown_vehicle_.set_modelyearid(-1);
     unknown_vehicle_.set_modelyear("UNKNOWN");
     unknown_vehicle_.set_confidence(-1.0);
-    cout<<"sdlgk"<<endl;
     init();
 }
 
@@ -163,7 +162,6 @@ const VehicleModelType &WitnessAppsService::lookup_vehicle(
 Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     Operation op;
     int type = ctx.type();
-    cout<<OPERATION_VEHICLE<<endl;
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
             case RECFUNC_NONE:
