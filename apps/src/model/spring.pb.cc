@@ -22,15 +22,9 @@ namespace model {
 
 namespace {
 
-const ::google::protobuf::Descriptor* ExternalData_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* VehicleObj_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  ExternalData_reflection_ = NULL;
-const ::google::protobuf::Descriptor* GenericObj_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  GenericObj_reflection_ = NULL;
-const ::google::protobuf::Descriptor* GenericObjs_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  GenericObjs_reflection_ = NULL;
+  VehicleObj_reflection_ = NULL;
 
 }  // namespace
 
@@ -41,54 +35,22 @@ void protobuf_AssignDesc_spring_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "spring.proto");
   GOOGLE_CHECK(file != NULL);
-  ExternalData_descriptor_ = file->message_type(0);
-  static const int ExternalData_offsets_[1] = {
+  VehicleObj_descriptor_ = file->message_type(0);
+  static const int VehicleObj_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, vehicle_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, storageinfo_),
   };
-  ExternalData_reflection_ =
+  VehicleObj_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      ExternalData_descriptor_,
-      ExternalData::default_instance_,
-      ExternalData_offsets_,
+      VehicleObj_descriptor_,
+      VehicleObj::default_instance_,
+      VehicleObj_offsets_,
       -1,
       -1,
       -1,
-      sizeof(ExternalData),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExternalData, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExternalData, _is_default_instance_));
-  GenericObj_descriptor_ = file->message_type(1);
-  static const int GenericObj_offsets_[5] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, fmttype_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, strdata_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, bindata_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, storage_),
-  };
-  GenericObj_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      GenericObj_descriptor_,
-      GenericObj::default_instance_,
-      GenericObj_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(GenericObj),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObj, _is_default_instance_));
-  GenericObjs_descriptor_ = file->message_type(2);
-  static const int GenericObjs_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObjs, genericobj_),
-  };
-  GenericObjs_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      GenericObjs_descriptor_,
-      GenericObjs::default_instance_,
-      GenericObjs_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(GenericObjs),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObjs, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GenericObjs, _is_default_instance_));
+      sizeof(VehicleObj),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _is_default_instance_));
 }
 
 namespace {
@@ -102,22 +64,14 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      ExternalData_descriptor_, &ExternalData::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GenericObj_descriptor_, &GenericObj::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      GenericObjs_descriptor_, &GenericObjs::default_instance());
+      VehicleObj_descriptor_, &VehicleObj::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_spring_2eproto() {
-  delete ExternalData::default_instance_;
-  delete ExternalData_reflection_;
-  delete GenericObj::default_instance_;
-  delete GenericObj_reflection_;
-  delete GenericObjs::default_instance_;
-  delete GenericObjs_reflection_;
+  delete VehicleObj::default_instance_;
+  delete VehicleObj_reflection_;
 }
 
 void protobuf_AddDesc_spring_2eproto() {
@@ -128,25 +82,16 @@ void protobuf_AddDesc_spring_2eproto() {
 
   ::dg::model::protobuf_AddDesc_common_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014spring.proto\022\010dg.model\032\014common.proto\"\016"
-    "\n\014ExternalData\"\241\001\n\nGenericObj\022\037\n\004Type\030\001 "
-    "\001(\0162\021.dg.model.ObjType\022&\n\007FmtType\030\002 \001(\0162"
-    "\025.dg.model.DataFmtType\022\017\n\007StrData\030\003 \001(\t\022"
-    "\017\n\007BinData\030\004 \001(\014\022(\n\007Storage\030\005 \001(\0132\027.dg.m"
-    "odel.StorageConfig\"7\n\013GenericObjs\022(\n\nGen"
-    "ericObj\030\001 \003(\0132\024.dg.model.GenericObj2\205\001\n\r"
-    "SpringService\0226\n\005Index\022\024.dg.model.Generi"
-    "cObj\032\025.dg.model.NullMessage\"\000\022<\n\nIndexBa"
-    "tch\022\025.dg.model.GenericObjs\032\025.dg.model.Nu"
-    "llMessage\"\000b\006proto3", 419);
+    "\n\014spring.proto\022\010dg.model\032\014common.proto\"a"
+    "\n\nVehicleObj\022%\n\007Vehicle\030\001 \001(\0132\024.dg.model"
+    ".RecVehicle\022,\n\013StorageInfo\030\002 \001(\0132\027.dg.mo"
+    "del.StorageConfig2N\n\rSpringService\022=\n\014In"
+    "dexVehicle\022\024.dg.model.VehicleObj\032\025.dg.mo"
+    "del.NullMessage\"\000b\006proto3", 225);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "spring.proto", &protobuf_RegisterTypes);
-  ExternalData::default_instance_ = new ExternalData();
-  GenericObj::default_instance_ = new GenericObj();
-  GenericObjs::default_instance_ = new GenericObjs();
-  ExternalData::default_instance_->InitAsDefaultInstance();
-  GenericObj::default_instance_->InitAsDefaultInstance();
-  GenericObjs::default_instance_->InitAsDefaultInstance();
+  VehicleObj::default_instance_ = new VehicleObj();
+  VehicleObj::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_spring_2eproto);
 }
 
@@ -170,819 +115,112 @@ static void MergeFromFail(int line) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int VehicleObj::kVehicleFieldNumber;
+const int VehicleObj::kStorageInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-ExternalData::ExternalData()
+VehicleObj::VehicleObj()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.ExternalData)
+  // @@protoc_insertion_point(constructor:dg.model.VehicleObj)
 }
 
-void ExternalData::InitAsDefaultInstance() {
+void VehicleObj::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  vehicle_ = const_cast< ::dg::model::RecVehicle*>(&::dg::model::RecVehicle::default_instance());
+  storageinfo_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
 }
 
-ExternalData::ExternalData(const ExternalData& from)
+VehicleObj::VehicleObj(const VehicleObj& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.ExternalData)
+  // @@protoc_insertion_point(copy_constructor:dg.model.VehicleObj)
 }
 
-void ExternalData::SharedCtor() {
+void VehicleObj::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
+  vehicle_ = NULL;
+  storageinfo_ = NULL;
 }
 
-ExternalData::~ExternalData() {
-  // @@protoc_insertion_point(destructor:dg.model.ExternalData)
+VehicleObj::~VehicleObj() {
+  // @@protoc_insertion_point(destructor:dg.model.VehicleObj)
   SharedDtor();
 }
 
-void ExternalData::SharedDtor() {
+void VehicleObj::SharedDtor() {
   if (this != default_instance_) {
+    delete vehicle_;
+    delete storageinfo_;
   }
 }
 
-void ExternalData::SetCachedSize(int size) const {
+void VehicleObj::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* ExternalData::descriptor() {
+const ::google::protobuf::Descriptor* VehicleObj::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return ExternalData_descriptor_;
+  return VehicleObj_descriptor_;
 }
 
-const ExternalData& ExternalData::default_instance() {
+const VehicleObj& VehicleObj::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_spring_2eproto();
   return *default_instance_;
 }
 
-ExternalData* ExternalData::default_instance_ = NULL;
+VehicleObj* VehicleObj::default_instance_ = NULL;
 
-ExternalData* ExternalData::New(::google::protobuf::Arena* arena) const {
-  ExternalData* n = new ExternalData;
+VehicleObj* VehicleObj::New(::google::protobuf::Arena* arena) const {
+  VehicleObj* n = new VehicleObj;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void ExternalData::Clear() {
+void VehicleObj::Clear() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
+  if (GetArenaNoVirtual() == NULL && storageinfo_ != NULL) delete storageinfo_;
+  storageinfo_ = NULL;
 }
 
-bool ExternalData::MergePartialFromCodedStream(
+bool VehicleObj::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.ExternalData)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
-    }
-    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.ExternalData)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.ExternalData)
-  return false;
-#undef DO_
-}
-
-void ExternalData::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.ExternalData)
-  // @@protoc_insertion_point(serialize_end:dg.model.ExternalData)
-}
-
-::google::protobuf::uint8* ExternalData::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.ExternalData)
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.ExternalData)
-  return target;
-}
-
-int ExternalData::ByteSize() const {
-  int total_size = 0;
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void ExternalData::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const ExternalData* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const ExternalData>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void ExternalData::MergeFrom(const ExternalData& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-}
-
-void ExternalData::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void ExternalData::CopyFrom(const ExternalData& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ExternalData::IsInitialized() const {
-
-  return true;
-}
-
-void ExternalData::Swap(ExternalData* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void ExternalData::InternalSwap(ExternalData* other) {
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata ExternalData::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = ExternalData_descriptor_;
-  metadata.reflection = ExternalData_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// ExternalData
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int GenericObj::kTypeFieldNumber;
-const int GenericObj::kFmtTypeFieldNumber;
-const int GenericObj::kStrDataFieldNumber;
-const int GenericObj::kBinDataFieldNumber;
-const int GenericObj::kStorageFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-GenericObj::GenericObj()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.GenericObj)
-}
-
-void GenericObj::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  storage_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
-}
-
-GenericObj::GenericObj(const GenericObj& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.GenericObj)
-}
-
-void GenericObj::SharedCtor() {
-    _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  type_ = 0;
-  fmttype_ = 0;
-  strdata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  bindata_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  storage_ = NULL;
-}
-
-GenericObj::~GenericObj() {
-  // @@protoc_insertion_point(destructor:dg.model.GenericObj)
-  SharedDtor();
-}
-
-void GenericObj::SharedDtor() {
-  strdata_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  bindata_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-    delete storage_;
-  }
-}
-
-void GenericObj::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* GenericObj::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GenericObj_descriptor_;
-}
-
-const GenericObj& GenericObj::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_spring_2eproto();
-  return *default_instance_;
-}
-
-GenericObj* GenericObj::default_instance_ = NULL;
-
-GenericObj* GenericObj::New(::google::protobuf::Arena* arena) const {
-  GenericObj* n = new GenericObj;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void GenericObj::Clear() {
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<GenericObj*>(16)->f)
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(type_, fmttype_);
-  strdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
-
-#undef ZR_HELPER_
-#undef ZR_
-
-}
-
-bool GenericObj::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.GenericObj)
+  // @@protoc_insertion_point(parse_start:dg.model.VehicleObj)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.ObjType Type = 1;
-      case 1: {
-        if (tag == 8) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_type(static_cast< ::dg::model::ObjType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_FmtType;
-        break;
-      }
-
-      // optional .dg.model.DataFmtType FmtType = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_FmtType:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_fmttype(static_cast< ::dg::model::DataFmtType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_StrData;
-        break;
-      }
-
-      // optional string StrData = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_StrData:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_strdata()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->strdata().data(), this->strdata().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.GenericObj.StrData"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_BinData;
-        break;
-      }
-
-      // optional bytes BinData = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_BinData:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
-                input, this->mutable_bindata()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_Storage;
-        break;
-      }
-
-      // optional .dg.model.StorageConfig Storage = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_Storage:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_storage()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.GenericObj)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.GenericObj)
-  return false;
-#undef DO_
-}
-
-void GenericObj::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.GenericObj)
-  // optional .dg.model.ObjType Type = 1;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->type(), output);
-  }
-
-  // optional .dg.model.DataFmtType FmtType = 2;
-  if (this->fmttype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->fmttype(), output);
-  }
-
-  // optional string StrData = 3;
-  if (this->strdata().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->strdata().data(), this->strdata().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.GenericObj.StrData");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->strdata(), output);
-  }
-
-  // optional bytes BinData = 4;
-  if (this->bindata().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
-      4, this->bindata(), output);
-  }
-
-  // optional .dg.model.StorageConfig Storage = 5;
-  if (this->has_storage()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, *this->storage_, output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:dg.model.GenericObj)
-}
-
-::google::protobuf::uint8* GenericObj::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.GenericObj)
-  // optional .dg.model.ObjType Type = 1;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->type(), target);
-  }
-
-  // optional .dg.model.DataFmtType FmtType = 2;
-  if (this->fmttype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->fmttype(), target);
-  }
-
-  // optional string StrData = 3;
-  if (this->strdata().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->strdata().data(), this->strdata().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.GenericObj.StrData");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->strdata(), target);
-  }
-
-  // optional bytes BinData = 4;
-  if (this->bindata().size() > 0) {
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
-        4, this->bindata(), target);
-  }
-
-  // optional .dg.model.StorageConfig Storage = 5;
-  if (this->has_storage()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, *this->storage_, target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.GenericObj)
-  return target;
-}
-
-int GenericObj::ByteSize() const {
-  int total_size = 0;
-
-  // optional .dg.model.ObjType Type = 1;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
-  }
-
-  // optional .dg.model.DataFmtType FmtType = 2;
-  if (this->fmttype() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->fmttype());
-  }
-
-  // optional string StrData = 3;
-  if (this->strdata().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->strdata());
-  }
-
-  // optional bytes BinData = 4;
-  if (this->bindata().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->bindata());
-  }
-
-  // optional .dg.model.StorageConfig Storage = 5;
-  if (this->has_storage()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->storage_);
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void GenericObj::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const GenericObj* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const GenericObj>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void GenericObj::MergeFrom(const GenericObj& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.type() != 0) {
-    set_type(from.type());
-  }
-  if (from.fmttype() != 0) {
-    set_fmttype(from.fmttype());
-  }
-  if (from.strdata().size() > 0) {
-
-    strdata_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.strdata_);
-  }
-  if (from.bindata().size() > 0) {
-
-    bindata_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.bindata_);
-  }
-  if (from.has_storage()) {
-    mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
-  }
-}
-
-void GenericObj::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void GenericObj::CopyFrom(const GenericObj& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool GenericObj::IsInitialized() const {
-
-  return true;
-}
-
-void GenericObj::Swap(GenericObj* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void GenericObj::InternalSwap(GenericObj* other) {
-  std::swap(type_, other->type_);
-  std::swap(fmttype_, other->fmttype_);
-  strdata_.Swap(&other->strdata_);
-  bindata_.Swap(&other->bindata_);
-  std::swap(storage_, other->storage_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata GenericObj::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = GenericObj_descriptor_;
-  metadata.reflection = GenericObj_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// GenericObj
-
-// optional .dg.model.ObjType Type = 1;
-void GenericObj::clear_type() {
-  type_ = 0;
-}
- ::dg::model::ObjType GenericObj::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Type)
-  return static_cast< ::dg::model::ObjType >(type_);
-}
- void GenericObj::set_type(::dg::model::ObjType value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.Type)
-}
-
-// optional .dg.model.DataFmtType FmtType = 2;
-void GenericObj::clear_fmttype() {
-  fmttype_ = 0;
-}
- ::dg::model::DataFmtType GenericObj::fmttype() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.FmtType)
-  return static_cast< ::dg::model::DataFmtType >(fmttype_);
-}
- void GenericObj::set_fmttype(::dg::model::DataFmtType value) {
-  
-  fmttype_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.FmtType)
-}
-
-// optional string StrData = 3;
-void GenericObj::clear_strdata() {
-  strdata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& GenericObj::strdata() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.StrData)
-  return strdata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void GenericObj::set_strdata(const ::std::string& value) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.StrData)
-}
- void GenericObj::set_strdata(const char* value) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.GenericObj.StrData)
-}
- void GenericObj::set_strdata(const char* value, size_t size) {
-  
-  strdata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.GenericObj.StrData)
-}
- ::std::string* GenericObj::mutable_strdata() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.StrData)
-  return strdata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* GenericObj::release_strdata() {
-  
-  return strdata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void GenericObj::set_allocated_strdata(::std::string* strdata) {
-  if (strdata != NULL) {
-    
-  } else {
-    
-  }
-  strdata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), strdata);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.StrData)
-}
-
-// optional bytes BinData = 4;
-void GenericObj::clear_bindata() {
-  bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- const ::std::string& GenericObj::bindata() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.BinData)
-  return bindata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void GenericObj::set_bindata(const ::std::string& value) {
-  
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.GenericObj.BinData)
-}
- void GenericObj::set_bindata(const char* value) {
-  
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.GenericObj.BinData)
-}
- void GenericObj::set_bindata(const void* value, size_t size) {
-  
-  bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.GenericObj.BinData)
-}
- ::std::string* GenericObj::mutable_bindata() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.BinData)
-  return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* GenericObj::release_bindata() {
-  
-  return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void GenericObj::set_allocated_bindata(::std::string* bindata) {
-  if (bindata != NULL) {
-    
-  } else {
-    
-  }
-  bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.BinData)
-}
-
-// optional .dg.model.StorageConfig Storage = 5;
-bool GenericObj::has_storage() const {
-  return !_is_default_instance_ && storage_ != NULL;
-}
-void GenericObj::clear_storage() {
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
-}
-const ::dg::model::StorageConfig& GenericObj::storage() const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObj.Storage)
-  return storage_ != NULL ? *storage_ : *default_instance_->storage_;
-}
-::dg::model::StorageConfig* GenericObj::mutable_storage() {
-  
-  if (storage_ == NULL) {
-    storage_ = new ::dg::model::StorageConfig;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObj.Storage)
-  return storage_;
-}
-::dg::model::StorageConfig* GenericObj::release_storage() {
-  
-  ::dg::model::StorageConfig* temp = storage_;
-  storage_ = NULL;
-  return temp;
-}
-void GenericObj::set_allocated_storage(::dg::model::StorageConfig* storage) {
-  delete storage_;
-  storage_ = storage;
-  if (storage) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.GenericObj.Storage)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int GenericObjs::kGenericObjFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-GenericObjs::GenericObjs()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.GenericObjs)
-}
-
-void GenericObjs::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-}
-
-GenericObjs::GenericObjs(const GenericObjs& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.GenericObjs)
-}
-
-void GenericObjs::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
-}
-
-GenericObjs::~GenericObjs() {
-  // @@protoc_insertion_point(destructor:dg.model.GenericObjs)
-  SharedDtor();
-}
-
-void GenericObjs::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void GenericObjs::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* GenericObjs::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GenericObjs_descriptor_;
-}
-
-const GenericObjs& GenericObjs::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_spring_2eproto();
-  return *default_instance_;
-}
-
-GenericObjs* GenericObjs::default_instance_ = NULL;
-
-GenericObjs* GenericObjs::New(::google::protobuf::Arena* arena) const {
-  GenericObjs* n = new GenericObjs;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void GenericObjs::Clear() {
-  genericobj_.Clear();
-}
-
-bool GenericObjs::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.GenericObjs)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .dg.model.GenericObj GenericObj = 1;
+      // optional .dg.model.RecVehicle Vehicle = 1;
       case 1: {
         if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_GenericObj:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_genericobj()));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_vehicle()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_GenericObj;
-        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_StorageInfo;
+        break;
+      }
+
+      // optional .dg.model.StorageConfig StorageInfo = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_StorageInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_storageinfo()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1000,49 +238,68 @@ bool GenericObjs::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.model.GenericObjs)
+  // @@protoc_insertion_point(parse_success:dg.model.VehicleObj)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.GenericObjs)
+  // @@protoc_insertion_point(parse_failure:dg.model.VehicleObj)
   return false;
 #undef DO_
 }
 
-void GenericObjs::SerializeWithCachedSizes(
+void VehicleObj::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.GenericObjs)
-  // repeated .dg.model.GenericObj GenericObj = 1;
-  for (unsigned int i = 0, n = this->genericobj_size(); i < n; i++) {
+  // @@protoc_insertion_point(serialize_start:dg.model.VehicleObj)
+  // optional .dg.model.RecVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->genericobj(i), output);
+      1, *this->vehicle_, output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.GenericObjs)
+  // optional .dg.model.StorageConfig StorageInfo = 2;
+  if (this->has_storageinfo()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->storageinfo_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.VehicleObj)
 }
 
-::google::protobuf::uint8* GenericObjs::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* VehicleObj::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.GenericObjs)
-  // repeated .dg.model.GenericObj GenericObj = 1;
-  for (unsigned int i = 0, n = this->genericobj_size(); i < n; i++) {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleObj)
+  // optional .dg.model.RecVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->genericobj(i), target);
+        1, *this->vehicle_, target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.GenericObjs)
+  // optional .dg.model.StorageConfig StorageInfo = 2;
+  if (this->has_storageinfo()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->storageinfo_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleObj)
   return target;
 }
 
-int GenericObjs::ByteSize() const {
+int VehicleObj::ByteSize() const {
   int total_size = 0;
 
-  // repeated .dg.model.GenericObj GenericObj = 1;
-  total_size += 1 * this->genericobj_size();
-  for (int i = 0; i < this->genericobj_size(); i++) {
-    total_size +=
+  // optional .dg.model.RecVehicle Vehicle = 1;
+  if (this->has_vehicle()) {
+    total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->genericobj(i));
+        *this->vehicle_);
+  }
+
+  // optional .dg.model.StorageConfig StorageInfo = 2;
+  if (this->has_storageinfo()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->storageinfo_);
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1051,10 +308,10 @@ int GenericObjs::ByteSize() const {
   return total_size;
 }
 
-void GenericObjs::MergeFrom(const ::google::protobuf::Message& from) {
+void VehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const GenericObjs* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const GenericObjs>(
+  const VehicleObj* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const VehicleObj>(
           &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1063,77 +320,127 @@ void GenericObjs::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void GenericObjs::MergeFrom(const GenericObjs& from) {
+void VehicleObj::MergeFrom(const VehicleObj& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  genericobj_.MergeFrom(from.genericobj_);
+  if (from.has_vehicle()) {
+    mutable_vehicle()->::dg::model::RecVehicle::MergeFrom(from.vehicle());
+  }
+  if (from.has_storageinfo()) {
+    mutable_storageinfo()->::dg::model::StorageConfig::MergeFrom(from.storageinfo());
+  }
 }
 
-void GenericObjs::CopyFrom(const ::google::protobuf::Message& from) {
+void VehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void GenericObjs::CopyFrom(const GenericObjs& from) {
+void VehicleObj::CopyFrom(const VehicleObj& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GenericObjs::IsInitialized() const {
+bool VehicleObj::IsInitialized() const {
 
   return true;
 }
 
-void GenericObjs::Swap(GenericObjs* other) {
+void VehicleObj::Swap(VehicleObj* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void GenericObjs::InternalSwap(GenericObjs* other) {
-  genericobj_.UnsafeArenaSwap(&other->genericobj_);
+void VehicleObj::InternalSwap(VehicleObj* other) {
+  std::swap(vehicle_, other->vehicle_);
+  std::swap(storageinfo_, other->storageinfo_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata GenericObjs::GetMetadata() const {
+::google::protobuf::Metadata VehicleObj::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = GenericObjs_descriptor_;
-  metadata.reflection = GenericObjs_reflection_;
+  metadata.descriptor = VehicleObj_descriptor_;
+  metadata.reflection = VehicleObj_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// GenericObjs
+// VehicleObj
 
-// repeated .dg.model.GenericObj GenericObj = 1;
-int GenericObjs::genericobj_size() const {
-  return genericobj_.size();
+// optional .dg.model.RecVehicle Vehicle = 1;
+bool VehicleObj::has_vehicle() const {
+  return !_is_default_instance_ && vehicle_ != NULL;
 }
-void GenericObjs::clear_genericobj() {
-  genericobj_.Clear();
+void VehicleObj::clear_vehicle() {
+  if (GetArenaNoVirtual() == NULL && vehicle_ != NULL) delete vehicle_;
+  vehicle_ = NULL;
 }
-const ::dg::model::GenericObj& GenericObjs::genericobj(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Get(index);
+const ::dg::model::RecVehicle& VehicleObj::vehicle() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Vehicle)
+  return vehicle_ != NULL ? *vehicle_ : *default_instance_->vehicle_;
 }
-::dg::model::GenericObj* GenericObjs::mutable_genericobj(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Mutable(index);
+::dg::model::RecVehicle* VehicleObj::mutable_vehicle() {
+  
+  if (vehicle_ == NULL) {
+    vehicle_ = new ::dg::model::RecVehicle;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Vehicle)
+  return vehicle_;
 }
-::dg::model::GenericObj* GenericObjs::add_genericobj() {
-  // @@protoc_insertion_point(field_add:dg.model.GenericObjs.GenericObj)
-  return genericobj_.Add();
+::dg::model::RecVehicle* VehicleObj::release_vehicle() {
+  
+  ::dg::model::RecVehicle* temp = vehicle_;
+  vehicle_ = NULL;
+  return temp;
 }
-::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >*
-GenericObjs::mutable_genericobj() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.GenericObjs.GenericObj)
-  return &genericobj_;
+void VehicleObj::set_allocated_vehicle(::dg::model::RecVehicle* vehicle) {
+  delete vehicle_;
+  vehicle_ = vehicle;
+  if (vehicle) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Vehicle)
 }
-const ::google::protobuf::RepeatedPtrField< ::dg::model::GenericObj >&
-GenericObjs::genericobj() const {
-  // @@protoc_insertion_point(field_list:dg.model.GenericObjs.GenericObj)
-  return genericobj_;
+
+// optional .dg.model.StorageConfig StorageInfo = 2;
+bool VehicleObj::has_storageinfo() const {
+  return !_is_default_instance_ && storageinfo_ != NULL;
+}
+void VehicleObj::clear_storageinfo() {
+  if (GetArenaNoVirtual() == NULL && storageinfo_ != NULL) delete storageinfo_;
+  storageinfo_ = NULL;
+}
+const ::dg::model::StorageConfig& VehicleObj::storageinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.StorageInfo)
+  return storageinfo_ != NULL ? *storageinfo_ : *default_instance_->storageinfo_;
+}
+::dg::model::StorageConfig* VehicleObj::mutable_storageinfo() {
+  
+  if (storageinfo_ == NULL) {
+    storageinfo_ = new ::dg::model::StorageConfig;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.StorageInfo)
+  return storageinfo_;
+}
+::dg::model::StorageConfig* VehicleObj::release_storageinfo() {
+  
+  ::dg::model::StorageConfig* temp = storageinfo_;
+  storageinfo_ = NULL;
+  return temp;
+}
+void VehicleObj::set_allocated_storageinfo(::dg::model::StorageConfig* storageinfo) {
+  delete storageinfo_;
+  storageinfo_ = storageinfo;
+  if (storageinfo) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.StorageInfo)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

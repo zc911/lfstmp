@@ -32,42 +32,26 @@ class SpringService GRPC_FINAL {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    // Index stores generic entity.
-    // Errors:
-    //   40301: Invalid entity.
-    virtual ::grpc::Status Index(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::dg::model::NullMessage* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndex(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexRaw(context, request, cq));
-    }
-    // IndexBatch stores generic entities.
-    // Errors:
-    //   40301: Invalid entity.
-    virtual ::grpc::Status IndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::dg::model::NullMessage* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexBatchRaw(context, request, cq));
+    // ### Index APIs
+    virtual ::grpc::Status IndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::dg::model::NullMessage* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>> AsyncIndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>>(AsyncIndexVehicleRaw(context, request, cq));
     }
   private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>* AsyncIndexRaw(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>* AsyncIndexBatchRaw(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::NullMessage>* AsyncIndexVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
-    ::grpc::Status Index(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::dg::model::NullMessage* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>> AsyncIndex(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>>(AsyncIndexRaw(context, request, cq));
-    }
-    ::grpc::Status IndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::dg::model::NullMessage* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>> AsyncIndexBatch(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>>(AsyncIndexBatchRaw(context, request, cq));
+    ::grpc::Status IndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::dg::model::NullMessage* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>> AsyncIndexVehicle(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>>(AsyncIndexVehicleRaw(context, request, cq));
     }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* AsyncIndexRaw(::grpc::ClientContext* context, const ::dg::model::GenericObj& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* AsyncIndexBatchRaw(::grpc::ClientContext* context, const ::dg::model::GenericObjs& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    const ::grpc::RpcMethod rpcmethod_Index_;
-    const ::grpc::RpcMethod rpcmethod_IndexBatch_;
+    ::grpc::ClientAsyncResponseReader< ::dg::model::NullMessage>* AsyncIndexVehicleRaw(::grpc::ClientContext* context, const ::dg::model::VehicleObj& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    const ::grpc::RpcMethod rpcmethod_IndexVehicle_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -75,92 +59,48 @@ class SpringService GRPC_FINAL {
    public:
     Service();
     virtual ~Service();
-    // Index stores generic entity.
-    // Errors:
-    //   40301: Invalid entity.
-    virtual ::grpc::Status Index(::grpc::ServerContext* context, const ::dg::model::GenericObj* request, ::dg::model::NullMessage* response);
-    // IndexBatch stores generic entities.
-    // Errors:
-    //   40301: Invalid entity.
-    virtual ::grpc::Status IndexBatch(::grpc::ServerContext* context, const ::dg::model::GenericObjs* request, ::dg::model::NullMessage* response);
+    // ### Index APIs
+    virtual ::grpc::Status IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response);
   };
   template <class BaseClass>
-  class WithAsyncMethod_Index : public BaseClass {
+  class WithAsyncMethod_IndexVehicle : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithAsyncMethod_Index() {
+    WithAsyncMethod_IndexVehicle() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_Index() GRPC_OVERRIDE {
+    ~WithAsyncMethod_IndexVehicle() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Index(::grpc::ServerContext* context, const ::dg::model::GenericObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestIndex(::grpc::ServerContext* context, ::dg::model::GenericObj* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::NullMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestIndexVehicle(::grpc::ServerContext* context, ::dg::model::VehicleObj* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::NullMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
+  typedef WithAsyncMethod_IndexVehicle<Service > AsyncService;
   template <class BaseClass>
-  class WithAsyncMethod_IndexBatch : public BaseClass {
+  class WithGenericMethod_IndexVehicle : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
-    WithAsyncMethod_IndexBatch() {
-      ::grpc::Service::MarkMethodAsync(1);
-    }
-    ~WithAsyncMethod_IndexBatch() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status IndexBatch(::grpc::ServerContext* context, const ::dg::model::GenericObjs* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestIndexBatch(::grpc::ServerContext* context, ::dg::model::GenericObjs* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::NullMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  typedef WithAsyncMethod_Index<WithAsyncMethod_IndexBatch<Service > > AsyncService;
-  template <class BaseClass>
-  class WithGenericMethod_Index : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
-   public:
-    WithGenericMethod_Index() {
+    WithGenericMethod_IndexVehicle() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_Index() GRPC_OVERRIDE {
+    ~WithGenericMethod_IndexVehicle() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Index(::grpc::ServerContext* context, const ::dg::model::GenericObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
-  class WithGenericMethod_IndexBatch : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
-   public:
-    WithGenericMethod_IndexBatch() {
-      ::grpc::Service::MarkMethodGeneric(1);
-    }
-    ~WithGenericMethod_IndexBatch() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status IndexBatch(::grpc::ServerContext* context, const ::dg::model::GenericObjs* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
+    ::grpc::Status IndexVehicle(::grpc::ServerContext* context, const ::dg::model::VehicleObj* request, ::dg::model::NullMessage* response) GRPC_FINAL GRPC_OVERRIDE {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
 };
-// ### Index APIs
 
 }  // namespace model
 }  // namespace dg

@@ -93,8 +93,6 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                       ++finishCount;
                   }
                   countmt.unlock();
-
-
                   if (finishCount == size) {
                       {
 //                          std::unique_lock<mutex> waitlc(waitmt);
