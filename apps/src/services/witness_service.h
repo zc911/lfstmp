@@ -114,7 +114,7 @@ private:
     MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
  //   MatrixError getRecognizedPedestrain(const Pedestrain *pedestrain, RecPedestrian *result);
-
+//    void getStorageData(Frame *frame,shared_ptr<VehicleObj> &result);
 
 };
 
