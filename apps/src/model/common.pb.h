@@ -1606,7 +1606,7 @@ class Symbol : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.model.Cutboard cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   bool has_cutboard() const;
   void clear_cutboard();
   static const int kCutboardFieldNumber = 1;
@@ -3466,7 +3466,7 @@ VehicleSymbol::symbols() const {
 
 // Symbol
 
-// optional .dg.model.Cutboard cutboard = 1;
+// optional .dg.model.Cutboard Cutboard = 1;
 inline bool Symbol::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -3475,7 +3475,7 @@ inline void Symbol::clear_cutboard() {
   cutboard_ = NULL;
 }
 inline const ::dg::model::Cutboard& Symbol::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
 inline ::dg::model::Cutboard* Symbol::mutable_cutboard() {
@@ -3483,7 +3483,7 @@ inline ::dg::model::Cutboard* Symbol::mutable_cutboard() {
   if (cutboard_ == NULL) {
     cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.Cutboard)
   return cutboard_;
 }
 inline ::dg::model::Cutboard* Symbol::release_cutboard() {
@@ -3500,7 +3500,7 @@ inline void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.Cutboard)
 }
 
 // optional float Confidence = 2;

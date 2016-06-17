@@ -516,6 +516,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     WitnessResult *result = response->mutable_result();
     result->mutable_image()->mutable_data()->set_uri(
         request->image().data().uri());
+    result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
+    result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
+
     err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {
@@ -665,6 +668,8 @@ MatrixError WitnessAppsService::BatchRecognize(
         ::dg::model::WitnessResult *result = batchResponse->add_results();
         string uri = imgDesc[i].data().uri();
         result->mutable_image()->mutable_data()->set_uri(uri);
+        result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
+        result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
         err = getRecognizeResult(frame, result);
         if (err.code() != 0) {
             LOG(ERROR) << "get result from frame failed, " << err.message();

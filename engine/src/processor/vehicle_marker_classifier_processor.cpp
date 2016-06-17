@@ -45,12 +45,22 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         Mat img = resized_images_[i](crops[i].box);
         images.push_back(img);
 
+
     }
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
     for (int i = 0; i < pred.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
-        v->set_markers(pred[i]);
+        vector<Detection> markers_cutborad;
+        for(int j=0;j<pred[i].size();j++){
+            Detection d(pred[i][j]);
+            d.box.x=crops[i].box.x+pred[i][j].box.x+v->detection().box.x;
+            d.box.y=crops[i].box.y+pred[i][j].box.y+v->detection().box.y;
+            d.box.width=pred[i][j].box.width;
+            d.box.height=pred[i][j].box.height;
+            markers_cutborad.push_back(d);
+        }
+        v->set_markers(markers_cutborad);
 
     }
     objs_.clear();
