@@ -462,7 +462,7 @@ void protobuf_AddDesc_common_2eproto() {
     "\022.dg.model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010"
     "SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Sy"
     "mbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022"
-    "$\n\010cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n"
+    "$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n"
     "\nConfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Ad"
     "dress\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBT"
     "ype\022\014\n\004Tags\030\003 \003(\t*\303\003\n\007ObjType\022\024\n\020OBJ_TYP"
@@ -7155,7 +7155,7 @@ bool Symbol::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.Cutboard cutboard = 1;
+      // optional .dg.model.Cutboard Cutboard = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
@@ -7206,7 +7206,7 @@ failure:
 void Symbol::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.Symbol)
-  // optional .dg.model.Cutboard cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       1, *this->cutboard_, output);
@@ -7223,7 +7223,7 @@ void Symbol::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Symbol::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.Symbol)
-  // optional .dg.model.Cutboard cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
@@ -7242,7 +7242,7 @@ void Symbol::SerializeWithCachedSizes(
 int Symbol::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.model.Cutboard cutboard = 1;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -7321,7 +7321,7 @@ void Symbol::InternalSwap(Symbol* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Symbol
 
-// optional .dg.model.Cutboard cutboard = 1;
+// optional .dg.model.Cutboard Cutboard = 1;
 bool Symbol::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -7330,7 +7330,7 @@ void Symbol::clear_cutboard() {
   cutboard_ = NULL;
 }
 const ::dg::model::Cutboard& Symbol::cutboard() const {
-  // @@protoc_insertion_point(field_get:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_get:dg.model.Symbol.Cutboard)
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
 ::dg::model::Cutboard* Symbol::mutable_cutboard() {
@@ -7338,7 +7338,7 @@ const ::dg::model::Cutboard& Symbol::cutboard() const {
   if (cutboard_ == NULL) {
     cutboard_ = new ::dg::model::Cutboard;
   }
-  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_mutable:dg.model.Symbol.Cutboard)
   return cutboard_;
 }
 ::dg::model::Cutboard* Symbol::release_cutboard() {
@@ -7355,7 +7355,7 @@ void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.cutboard)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.Cutboard)
 }
 
 // optional float Confidence = 2;

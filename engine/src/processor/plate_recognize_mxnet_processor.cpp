@@ -5,18 +5,26 @@
  *      Author: jiajaichen
  */
 
-#include <matrix_engine/model/model.h>
+//#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
 #include "processor_helper.h"
 namespace dg {
-const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
+/*const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
         "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J",
         "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
-        "Z", "I", "京", "津", "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", "皖", "闽",
-        "鲁", "新", "苏", "浙", "赣", "鄂", "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤",
+        "Z", "I", "\u4eac", "\u6d25", "\u6caa", "\u6e1d", "\u5180", "\u8c6b", "\u4e91", "\u8fdb", "\u9ed1", "\u6e58", "皖", "闽",
+        "鲁", "新", "苏", "浙", "赣", "鄂", "桂", "甘", "晋", "蒙", "\u9655", "吉", "贵", "粤",
         "青", "藏", "川", "宁", "琼", "使", "领", "试", "学", "临", "时", "警", "港", "O",
-        "挂", "澳", "#" };
-
+        "挂", "澳", "#" };*/
+const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
+          "A", "B", "C", "D", "E", "F", "G", "H", "J", \
+          "K", "L", "M", "N", "P", "Q", "R", "S", "T",\
+          "U", "V", "W", "X", "Y", "Z", "I", "京", "津",\
+          "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
+          "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
+          "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
+          "青", "藏", "川", "宁", "琼", "使", "领", "试", \
+          "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};
 PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(
         LPDRConfig_S *stConfig)
         : h_LPDR_Handle_(0) {
@@ -67,6 +75,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 string platenum;
                 for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
+                    cout<<paInv_chardict[pstLP->adwLPNumber[dwK]]<<endl;
                 }
                 plate.color_id = pstLP->dwColor;
                 plate.plate_type=pstLP->dwType;
