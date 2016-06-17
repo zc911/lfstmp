@@ -8,8 +8,8 @@ message VideoMetadata {
 	int32 SensorId = 3;
 	string SensorName = 4;
 	string SensorUrl = 5;
-	int32 repoId =6;
-	string repoInfo=7;
+	int32 RepoId =6;
+	string RepoInfo=7;
 }
 
 message Cutboard {
@@ -125,7 +125,7 @@ message VehicleSymbol {
 	repeated Symbol Symbols=3;
 }
 message Symbol{
-	Cutboard cutboard =1;
+	Cutboard Cutboard =1;
 	float Confidence=2;
 }
 enum DBType{
