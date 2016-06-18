@@ -42,8 +42,8 @@ void serveWitness(Config *config, int userPort = 0) {
     MessagePool<StorageRequest> *msg_pool = new MessagePool<StorageRequest>(config);
     WitnessBucket::Instance().SetMaxSize(100);
     msg_pool->Run();
-    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config,msg_pool);
-    std::thread test(&SpringGrpcClientImpl::Run,client);
+    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config, msg_pool);
+    std::thread test(&SpringGrpcClientImpl::Run, client);
 
     MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
     engine_pool->Run();
@@ -53,12 +53,12 @@ void serveWitness(Config *config, int userPort = 0) {
         service->Run();
     } else if (protocolType == "rpc") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
-        std::thread t1(&GrpcWitnessServiceImpl::Run,service);
+        std::thread t1(&GrpcWitnessServiceImpl::Run, service);
         string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
         MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
         engine_pool1->Run();
-        GrpcSystemServiceImpl *system_service=new GrpcSystemServiceImpl(*config,address2,engine_pool1);
-        std::thread t2(&GrpcSystemServiceImpl::Run,system_service);
+        GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(*config, address2, engine_pool1);
+        std::thread t2(&GrpcSystemServiceImpl::Run, system_service);
         t1.join();
         t2.join();
     } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
@@ -89,12 +89,12 @@ void serveRanker(Config *config, int userPort = 0) {
         service->Run();
     } else if (protocolType == "rpc") {
         GrpcRankerServiceImpl *service = new GrpcRankerServiceImpl(*config, address, engine_pool);
-        std::thread t1(&GrpcRankerServiceImpl::Run,service);
+        std::thread t1(&GrpcRankerServiceImpl::Run, service);
         string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
         MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
         engine_pool1->Run();
-        GrpcSystemServiceImpl *system_service=new GrpcSystemServiceImpl(*config,address2,engine_pool1);
-        std::thread t2(&GrpcSystemServiceImpl::Run,system_service);
+        GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(*config, address2, engine_pool1);
+        std::thread t2(&GrpcSystemServiceImpl::Run, system_service);
         t1.join();
         t2.join();
     } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
@@ -118,14 +118,13 @@ DEFINE_string(config, "config.json", "Config file path");
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
-//StartDogMonitor();
-  //  if(CheckHardware()){
-  //      return -1;
-  //  }
+    StartDogMonitor();
+    if (CheckHardware()) {
+        return -1;
+    }
 
-cout<<"after start dog"<<endl;
     google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
-    google::SetVersionString("0.2.1");
+    google::SetVersionString("0.2.4");
     google::ParseCommandLineFlags(&argc, &argv, false);
 
     // init curl in the main thread
