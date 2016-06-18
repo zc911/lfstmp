@@ -50,16 +50,23 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
     for (int i = 0; i < pred.size(); i++) {
+        Mat img=frameBatch->frames()[i]->payload()->data();
         Vehicle *v = (Vehicle *) objs_[i];
         vector<Detection> markers_cutborad;
+        Mat test = frameBatch->frames()[i]->payload()->data();
+        float enlarge_ratio = config_.target_min_size / min_size;
         for(int j=0;j<pred[i].size();j++){
             Detection d(pred[i][j]);
-            d.box.x=crops[i].box.x+pred[i][j].box.x+v->detection().box.x;
-            d.box.y=crops[i].box.y+pred[i][j].box.y+v->detection().box.y;
-            d.box.width=pred[i][j].box.width;
-            d.box.height=pred[i][j].box.height;
+
+            d.box.x=(crops[i].box.x+pred[i][j].box.x)*enlarge_ratio+v->detection().box.x;
+            d.box.y=(crops[i].box.y+pred[i][j].box.y)*enlarge_ratio+v->detection().box.y;
+            d.box.width=pred[i][j].box.width*enlarge_ratio;
+            d.box.height=pred[i][j].box.height*enlarge_ratio;
             markers_cutborad.push_back(d);
+            rectangle(img,d.box,Scalar(0,255,255));
         }
+        string name="ads"+to_string(i)+".jpg";
+        imwrite(name.c_str(),img);
         v->set_markers(markers_cutborad);
 
     }
