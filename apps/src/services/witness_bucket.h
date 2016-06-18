@@ -5,11 +5,13 @@
 #ifndef PROJECT_WITNESS_BUCKET_H
 #define PROJECT_WITNESS_BUCKET_H
 #include "model/spring.grpc.pb.h"
+#include "model/witness.grpc.pb.h"
 #include "glog/logging.h"
 #include "log/log_val.h"
 using namespace std;
 using namespace ::dg::model;
 using ::dg::model::SpringService;
+using ::dg::model::WitnessService;
 namespace dg {
 class WitnessBucket {
 public:
@@ -20,7 +22,7 @@ public:
     void SetMaxSize(int num) {
         max_size_ = num;
     }
-    void Push(shared_ptr<VehicleObj> item) {
+    void Push(shared_ptr<WitnessVehicleObj> item) {
         unique_lock<mutex> lock(mtx);
         while (max_size_ == tasks.size())
             not_full.wait(lock);
@@ -29,12 +31,12 @@ public:
         not_empty.notify_all();
         lock.unlock();
     }
-    shared_ptr<VehicleObj> Pop() {
+    shared_ptr<WitnessVehicleObj> Pop() {
         unique_lock<mutex> lock(mtx);
         while (tasks.size() == 0) {
             not_empty.wait(lock);
         }
-        shared_ptr<VehicleObj> task = tasks.front();
+        shared_ptr<WitnessVehicleObj> task = tasks.front();
         tasks.pop();
         not_full.notify_all();
         lock.unlock();
@@ -52,7 +54,7 @@ private:
     WitnessBucket() { };
     WitnessBucket(const WitnessBucket &) { };
     WitnessBucket &operator=(const WitnessBucket &) { };
-    queue<shared_ptr<VehicleObj> > tasks;
+    queue<shared_ptr<WitnessVehicleObj> > tasks;
     int max_size_ = 10;
     int current_ = 0;
     static WitnessBucket instance_;

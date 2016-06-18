@@ -60,6 +60,12 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorFile, "=", plate_color_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
+    model_mapping_data_ = ReadStringFromFile(vModelFile,"r");
+    color_mapping_data_ = ReadStringFromFile(vColorFile,"r");
+    symbol_mapping_data_ = ReadStringFromFile(vSymbolFile,"r");
+    plate_color_mapping_data_=ReadStringFromFile(pColorFile,"r");
+    plate_type_mapping_data_=ReadStringFromFile(pTypeFile,"r");
+    vehicle_type_mapping_data_=ReadStringFromFile(pVtypeFile,"r");
 
 }
 
@@ -353,6 +359,44 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     copyCutboard(d, frec->mutable_img()->mutable_cutboard());
     return err;
 }
+MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
+                                         IndexTxtResponse *response){
+    MatrixError err;
+    string data;
+    switch (request->indextype()) {
+        case INDEX_CAR_TYPE:
+            data=model_mapping_data_;
+            break;
+        case INDEX_CAR_MAIN_BRAND:
+            data=model_mapping_data_;
+            break;
+        case INDEX_CAR_SUB_BRAND:
+            data=model_mapping_data_;
+            break;
+        case INDEX_CAR_YEAR_MODEL:
+            data=model_mapping_data_;
+            break;
+        case INDEX_CAR_PLATE_COLOR:
+            data=plate_color_mapping_data_;
+            break;
+        case INDEX_CAR_PLATE_TYPE:
+            data=plate_type_mapping_data_;
+            break;
+        case INDEX_CAR_COLOR:
+            data=color_mapping_data_;
+            break;
+        case INDEX_CAR_MARKER:
+            data=symbol_mapping_data_;
+            break;
+    }
+    response->set_context(data);
+
+
+
+
+
+    return err;
+}
 /*
 MatrixError WitnessAppsService::getRecognizedPedestrain(
     const Pedestrain *pedestrain, RecPedestrian *result) {
@@ -541,7 +585,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
     bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
     if(storageEnabled) {
-        string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        string storageAddress;
+        if(request->context().has_storage()){
+            storageAddress = (string)request->context().storage().address();
+        }else{
+            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        }
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
         switch(dbTypeInt){
@@ -554,23 +603,21 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
+            unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+            shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj) ;
             for (int i = 0; i < r.vehicles_size(); i++) {
-                unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
-                shared_ptr<VehicleObj> client_request_obj(new VehicleObj) ;
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(),Rect(c.x(),c.y(),c.width(),c.height()));
-                client_request_obj->mutable_vehicle()->mutable_img()->mutable_img()->set_bindata(string((char *)roi.data));
-                if(!request->context().has_storage()){
-                    client_request_obj->mutable_storageinfo()->set_address(storageAddress);
-                    client_request_obj->mutable_storageinfo()->set_type(dbType);
-                }else{
-                    client_request_obj->mutable_storageinfo()->CopyFrom(request->context().storage());
-                }
-                client_request_obj->mutable_img()->set_uri(request->image().data().uri());
-                client_request_obj->mutable_vehicle()->CopyFrom(r.vehicles(i));
-                WitnessBucket::Instance().Push(client_request_obj);
-                lock.unlock();
+                RecVehicle *v=client_request_obj->mutable_vehicleresult()->add_vehicle();
+                v->mutable_img()->mutable_img()->set_bindata(string((char *)roi.data));
+                v->CopyFrom(r.vehicles(i));
+                //   string s;
+                //   google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
+                //   VLOG(VLOG_SERVICE)<<s<<endl;
             }
+            client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(request->image().data().uri());
+            WitnessBucket::Instance().Push(client_request_obj);
+            lock.unlock();
         }
     }
 
@@ -695,7 +742,12 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
     if(storageEnabled) {
-        string storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        string storageAddress;
+        if(batchRequest->context().has_storage()){
+            storageAddress = (string)batchRequest->context().storage().address();
+        }else{
+            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+        }
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
         switch(dbTypeInt){
@@ -709,27 +761,18 @@ MatrixError WitnessAppsService::BatchRecognize(
         for(int k=0;k<batchResponse->results_size();k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
+                unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+                shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
                 for (int i = 0; i < r.vehicles_size(); i++) {
-                    unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
-                    shared_ptr<VehicleObj> client_request_obj(new VehicleObj);
                     Cutboard c = r.vehicles(i).img().cutboard();
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
-                    client_request_obj->mutable_vehicle()->mutable_img()->mutable_img()->set_bindata(string((char *) roi.data));
-                    if (batchRequest->context().storage().address()=="") {
-                        StorageConfig *storageconfig=client_request_obj->mutable_storageinfo();
-                        storageconfig->set_address(storageAddress);
-                        storageconfig->set_type(dbType);
-                    } else {
-                        client_request_obj->mutable_storageinfo()->CopyFrom(batchRequest->context().storage());
-                    }
-                    client_request_obj->mutable_img()->set_uri(batchRequest->images(k).data().uri());
-                    client_request_obj->mutable_vehicle()->CopyFrom(r.vehicles(i));
-                    WitnessBucket::Instance().Push(client_request_obj);
-                 //   string s;
-                 //   google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
-                 //   VLOG(VLOG_SERVICE)<<s<<endl;
-                    lock.unlock();
+                    RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
+                    v->mutable_img()->mutable_img()->set_bindata(string((char *) roi.data));
+                    client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
+                    v->CopyFrom(r.vehicles(i));
                 }
+                WitnessBucket::Instance().Push(client_request_obj);
+                lock.unlock();
             }
         }
     }

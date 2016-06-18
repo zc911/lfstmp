@@ -20,6 +20,7 @@ static const char* WitnessService_method_names[] = {
   "/dg.model.WitnessService/Recognize",
   "/dg.model.WitnessService/BatchRecognize",
   "/dg.model.WitnessService/GetIndex",
+  "/dg.model.WitnessService/GetIndexTxt",
 };
 
 std::unique_ptr< WitnessService::Stub> WitnessService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -31,6 +32,7 @@ WitnessService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   : channel_(channel), rpcmethod_Recognize_(WitnessService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_BatchRecognize_(WitnessService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetIndex_(WitnessService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetIndexTxt_(WitnessService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status WitnessService::Stub::Recognize(::grpc::ClientContext* context, const ::dg::model::WitnessRequest& request, ::dg::model::WitnessResponse* response) {
@@ -57,6 +59,14 @@ WitnessService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& cha
   return new ::grpc::ClientAsyncResponseReader< ::dg::model::IndexResponse>(channel_.get(), cq, rpcmethod_GetIndex_, context, request);
 }
 
+::grpc::Status WitnessService::Stub::GetIndexTxt(::grpc::ClientContext* context, const ::dg::model::IndexTxtRequest& request, ::dg::model::IndexTxtResponse* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetIndexTxt_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::dg::model::IndexTxtResponse>* WitnessService::Stub::AsyncGetIndexTxtRaw(::grpc::ClientContext* context, const ::dg::model::IndexTxtRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::IndexTxtResponse>(channel_.get(), cq, rpcmethod_GetIndexTxt_, context, request);
+}
+
 WitnessService::Service::Service() {
   (void)WitnessService_method_names;
   AddMethod(new ::grpc::RpcServiceMethod(
@@ -74,6 +84,11 @@ WitnessService::Service::Service() {
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::model::IndexRequest, ::dg::model::IndexResponse>(
           std::mem_fn(&WitnessService::Service::GetIndex), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      WitnessService_method_names[3],
+      ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< WitnessService::Service, ::dg::model::IndexTxtRequest, ::dg::model::IndexTxtResponse>(
+          std::mem_fn(&WitnessService::Service::GetIndexTxt), this)));
 }
 
 WitnessService::Service::~Service() {
@@ -94,6 +109,13 @@ WitnessService::Service::~Service() {
 }
 
 ::grpc::Status WitnessService::Service::GetIndex(::grpc::ServerContext* context, const ::dg::model::IndexRequest* request, ::dg::model::IndexResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status WitnessService::Service::GetIndexTxt(::grpc::ServerContext* context, const ::dg::model::IndexTxtRequest* request, ::dg::model::IndexTxtResponse* response) {
   (void) context;
   (void) request;
   (void) response;
