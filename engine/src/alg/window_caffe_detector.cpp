@@ -42,8 +42,8 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     net_->Reshape();
 
 }
-vector<Detection> WindowCaffeDetector::DetectBatch(
-        const vector<cv::Mat> &imgs, const vector<cv::Mat> &resized_imgs) {
+vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resized_imgs,
+        const vector<cv::Mat> &imgs){
     vector<Detection> crops;
     int padding_size = (caffe_config_.batch_size
             - imgs.size() % caffe_config_.batch_size)
@@ -68,7 +68,6 @@ vector<Detection> WindowCaffeDetector::DetectBatch(
 vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
                                               vector<Mat> imgs) {
     vector<Blob<float>*> window_outputs = PredictBatch(resized_imgs);
-
     Blob<float>* window_reg = window_outputs[0];
     const float* begin = window_reg->cpu_data();
     const float* end = begin

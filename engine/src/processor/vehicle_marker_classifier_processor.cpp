@@ -5,6 +5,7 @@
  *      Author: jiajaichen
  */
 
+#include <alg/marker_caffe_classifier.h>
 #include "vehicle_marker_classifier_processor.h"
 #include "processor_helper.h"
 
@@ -17,6 +18,10 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 
     classifier_ = new MarkerCaffeClassifier(mConfig);
     detector_ = new WindowCaffeDetector(wConfig);
+    window_target_min_=wConfig.target_min_size;
+    window_target_max_=wConfig.target_max_size;
+    marker_target_min_=mConfig.target_min_size;
+    marker_target_max_=mConfig.target_max_size;
 
 }
 
@@ -34,7 +39,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                                      images_);
-
+    imwrite("test1.jpg",images_[0]);
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
         v->set_window(crops[i]);
@@ -42,10 +47,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<Mat> images;
     for (int i = 0; i < crops.size(); i++) {
-        Mat img = resized_images_[i](crops[i].box);
+        Mat img = images_[i](crops[i].box);
         images.push_back(img);
-
-
     }
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
@@ -54,19 +57,15 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         Vehicle *v = (Vehicle *) objs_[i];
         vector<Detection> markers_cutborad;
         Mat test = frameBatch->frames()[i]->payload()->data();
-        float enlarge_ratio = config_.target_min_size / min_size;
         for(int j=0;j<pred[i].size();j++){
             Detection d(pred[i][j]);
 
-            d.box.x=(crops[i].box.x+pred[i][j].box.x)*enlarge_ratio+v->detection().box.x;
-            d.box.y=(crops[i].box.y+pred[i][j].box.y)*enlarge_ratio+v->detection().box.y;
-            d.box.width=pred[i][j].box.width*enlarge_ratio;
-            d.box.height=pred[i][j].box.height*enlarge_ratio;
+            d.box.x=(crops[i].box.x+pred[i][j].box.x)+v->detection().box.x;
+            d.box.y=(crops[i].box.y+pred[i][j].box.y)+v->detection().box.y;
+            d.box.width=pred[i][j].box.width;
+            d.box.height=pred[i][j].box.height;
             markers_cutborad.push_back(d);
-            rectangle(img,d.box,Scalar(0,255,255));
         }
-        string name="ads"+to_string(i)+".jpg";
-        imwrite(name.c_str(),img);
         v->set_markers(markers_cutborad);
 
     }

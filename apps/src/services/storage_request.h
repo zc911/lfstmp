@@ -6,6 +6,7 @@
 #define PROJECT_STORAGE_REQUEST_H
 #include "model/spring.grpc.pb.h"
 #include "model/localcommon.pb.h"
+#include "model/witness.grpc.pb.h"
 #include "witness_bucket.h"
 #include "pbjson/pbjson.hpp"
 using ::dg::model::SpringService;
@@ -27,8 +28,9 @@ public:
         unique_lock<mutex> lock(WitnessBucket::Instance().mt_pop);
         VLOG(VLOG_SERVICE)<<"========START REQUEST==========="<<endl;
         MatrixError err;
-        shared_ptr<VehicleObj> v = WitnessBucket::Instance().Pop();
-        string storageAddress = v->storageinfo().address();
+        shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
+        string storageAddress = wv->storage().address();
+        const VehicleObj &v = wv->vehicleresult();
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
                                                                 grpc::InsecureChannelCredentials());
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
@@ -37,7 +39,7 @@ public:
         CompletionQueue cq;
         Status status;
         std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
-            stub_->AsyncIndexVehicle(&context, *v.get(), &cq));
+            stub_->AsyncIndexVehicle(&context, v, &cq));
         rpc->Finish(&reply, &status, (void *) 1);
         void *got_tag;
         bool ok = false;
