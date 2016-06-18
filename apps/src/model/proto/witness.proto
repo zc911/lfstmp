@@ -16,6 +16,9 @@ service WitnessService {
     rpc GetIndex (IndexRequest) returns (IndexResponse) {
 
     }
+    rpc GetIndexTxt (IndexTxtRequest) returns (IndexTxtResponse) {
+
+    }
 }
 
 enum IndexType {
@@ -33,7 +36,12 @@ enum IndexType {
 message IndexRequest {
     IndexType IndexType = 1;
 }
-
+message IndexTxtRequest{
+    IndexType IndexType = 1;
+}
+message IndexTxtResponse{
+    string Context=1;
+}
 message IndexResponse {
     map<int32, string> Index = 1;
 }
@@ -84,7 +92,7 @@ message WitnessRequestContext {
 
 message WitnessImage {
     Image Data = 1;
-    VideoMetadata WitnessMetaData =2;
+    SrcMetadata WitnessMetaData =2;
     repeated WitnessRelativeROI RelativeRoi= 3;
     repeated WitnessMarginROI MarginRoi = 4;
 }
@@ -105,6 +113,10 @@ message WitnessResult {
     repeated RecVehicle Vehicles = 4; //识别的车辆列表
     repeated RecFace Faces = 5; //识别的人脸列表
 
+}
+message WitnessVehicleObj{
+    VehicleObj VehicleResult=1;
+    StorageConfig Storage=2;
 }
 
 

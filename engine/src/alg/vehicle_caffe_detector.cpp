@@ -31,7 +31,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-    cout<<batch_size_<<" "<<num_channels_<< " "<<input_geometry_.height<<endl;
     input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
@@ -186,7 +185,6 @@ std::vector<Blob<float> *> VehicleCaffeDetector::PredictBatch(const vector<Mat> 
         LOG(ERROR) << "Input images size is more than batch size!" << endl;
         return outputs;
     }
-    cout<<imgs.size()<<" input_geometry_height "<<input_geometry_.height<<endl;
     int cnt = 0;
     DLOG(INFO) << "Start predict batch, size: " << imgs.size() << endl;
     for (int i = 0; i < imgs.size(); i++) {
