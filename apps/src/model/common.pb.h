@@ -230,13 +230,13 @@ class VideoMetadata : public ::google::protobuf::Message {
   ::std::string* release_sensorurl();
   void set_allocated_sensorurl(::std::string* sensorurl);
 
-  // optional int32 repoId = 6;
+  // optional int32 RepoId = 6;
   void clear_repoid();
   static const int kRepoIdFieldNumber = 6;
   ::google::protobuf::int32 repoid() const;
   void set_repoid(::google::protobuf::int32 value);
 
-  // optional string repoInfo = 7;
+  // optional string RepoInfo = 7;
   void clear_repoinfo();
   static const int kRepoInfoFieldNumber = 7;
   const ::std::string& repoinfo() const;
@@ -940,13 +940,13 @@ class RecFace : public ::google::protobuf::Message {
   ::dg::model::CutboardImage* release_img();
   void set_allocated_img(::dg::model::CutboardImage* img);
 
-  // optional bytes Features = 3;
+  // optional string Features = 3;
   void clear_features();
   static const int kFeaturesFieldNumber = 3;
   const ::std::string& features() const;
   void set_features(const ::std::string& value);
   void set_features(const char* value);
-  void set_features(const void* value, size_t size);
+  void set_features(const char* value, size_t size);
   ::std::string* mutable_features();
   ::std::string* release_features();
   void set_allocated_features(::std::string* features);
@@ -1086,13 +1086,13 @@ class RecVehicle : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleSymbol >&
       symbols() const;
 
-  // optional bytes Features = 7;
+  // optional string Features = 7;
   void clear_features();
   static const int kFeaturesFieldNumber = 7;
   const ::std::string& features() const;
   void set_features(const ::std::string& value);
   void set_features(const char* value);
-  void set_features(const void* value, size_t size);
+  void set_features(const char* value, size_t size);
   ::std::string* mutable_features();
   ::std::string* release_features();
   void set_allocated_features(::std::string* features);
@@ -1879,47 +1879,47 @@ inline void VideoMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
 }
 
-// optional int32 repoId = 6;
+// optional int32 RepoId = 6;
 inline void VideoMetadata::clear_repoid() {
   repoid_ = 0;
 }
 inline ::google::protobuf::int32 VideoMetadata::repoid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoId)
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoId)
   return repoid_;
 }
 inline void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
   
   repoid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoId)
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoId)
 }
 
-// optional string repoInfo = 7;
+// optional string RepoInfo = 7;
 inline void VideoMetadata::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& VideoMetadata::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void VideoMetadata::set_repoinfo(const ::std::string& value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoInfo)
 }
 inline void VideoMetadata::set_repoinfo(const char* value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.RepoInfo)
 }
 inline void VideoMetadata::set_repoinfo(const char* value, size_t size) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.RepoInfo)
 }
 inline ::std::string* VideoMetadata::mutable_repoinfo() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VideoMetadata::release_repoinfo() {
@@ -1933,7 +1933,7 @@ inline void VideoMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
     
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.RepoInfo)
 }
 
 // -------------------------------------------------------------------
@@ -2509,7 +2509,7 @@ inline void RecFace::set_allocated_img(::dg::model::CutboardImage* img) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Img)
 }
 
-// optional bytes Features = 3;
+// optional string Features = 3;
 inline void RecFace::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2527,7 +2527,7 @@ inline void RecFace::set_features(const char* value) {
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecFace.Features)
 }
-inline void RecFace::set_features(const void* value, size_t size) {
+inline void RecFace::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -2762,7 +2762,7 @@ RecVehicle::symbols() const {
   return symbols_;
 }
 
-// optional bytes Features = 7;
+// optional string Features = 7;
 inline void RecVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2780,7 +2780,7 @@ inline void RecVehicle::set_features(const char* value) {
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecVehicle.Features)
 }
-inline void RecVehicle::set_features(const void* value, size_t size) {
+inline void RecVehicle::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
