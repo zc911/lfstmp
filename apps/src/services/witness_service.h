@@ -36,37 +36,59 @@ public:
                                WitnessBatchResponse *response);
     MatrixError Index(const IndexRequest *request,
                            IndexResponse *response);
+    MatrixError IndexTxt(const IndexTxtRequest *request,
+                      IndexTxtResponse *response);
     string name_;
 private:
 
-  /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
+    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
 
-        FILE *fp = fopen(filename.c_str(),"r");
-        char msg[1000];
-        while(fgets(msg,sizeof(msg),fp)!=NULL){
-            splitForMap(collect,msg,'=');
-        }
-    }
-    void readCarModelFile(std::string filename){
-        FILE *fp = fopen(filename.c_str(),"r");
-        char msg[1000];
-        while(fgets(msg,sizeof(msg),fp)!=NULL){
-            vector<string> line;
-            split(msg,line,',');
-            if(line.size()!=10)
-                continue;
-            car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
-            car_sub_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[7]));
-            year_model_collect_.insert(pair<int,string>(atoi(line[0]),line[9]));
-            if(line[3]==0){
-                car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"head"));
-            }else{
-                car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"end"));
-            }
-            car_style_collect_.insert(pair<int,string>(atoi(line[0]),line[2]));
-        }
+          FILE *fp = fopen(filename.c_str(),"r");
+          char msg[1000];
+          while(fgets(msg,sizeof(msg),fp)!=NULL){
+              splitForMap(collect,msg,'=');
+          }
+      }
+      void readCarModelFile(std::string filename){
+          FILE *fp = fopen(filename.c_str(),"r");
+          char msg[1000];
+          while(fgets(msg,sizeof(msg),fp)!=NULL){
+              vector<string> line;
+              split(msg,line,',');
+              if(line.size()!=10)
+                  continue;
+              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
+      string name_;
+  private:
 
-    }*/
+    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
+
+          FILE *fp = fopen(filename.c_str(),"r");
+          char msg[1000];
+          while(fgets(msg,sizeof(msg),fp)!=NULL){
+              splitForMap(collect,msg,'=');
+          }
+      }
+      void readCarModelFile(std::string filename){
+          FILE *fp = fopen(filename.c_str(),"r");
+          char msg[1000];
+          while(fgets(msg,sizeof(msg),fp)!=NULL){
+              vector<string> line;
+              split(msg,line,',');
+              if(line.size()!=10)
+                  continue;
+              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
+              car_sub_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[7]));
+              year_model_collect_.insert(pair<int,string>(atoi(line[0]),line[9]));
+              if(line[3]==0){
+                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"head"));
+              }else{
+                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"end"));
+              }
+              car_style_collect_.insert(pair<int,string>(atoi(line[0]),line[2]));
+          }
+
+      }*/
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
@@ -80,6 +102,12 @@ private:
     vector<string> symbol_repo_;
     vector<string> plate_color_repo_;
     vector<string> plate_type_repo_;
+    string model_mapping_data_;
+    string color_mapping_data_;
+    string symbol_mapping_data_;
+    string plate_color_mapping_data_;
+    string plate_type_mapping_data_;
+    string vehicle_type_mapping_data_;
 
     // library caffe is not thread safe(even crash some times) which means
     // only one frame/frameBatch could be processed at one time.

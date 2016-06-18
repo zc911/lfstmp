@@ -44,6 +44,9 @@ private:
     virtual grpc::Status Index(grpc::ServerContext *context,
                                    const IndexRequest *request,
                                    IndexResponse *response);
+    virtual grpc::Status IndexTxt(grpc::ServerContext *context,
+                               const IndexTxtRequest *request,
+                               IndexTxtResponse *response);
 
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,

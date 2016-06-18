@@ -47,11 +47,12 @@ class LicensePlate;
 class NullMessage;
 class RecFace;
 class RecVehicle;
+class SrcMetadata;
 class StorageConfig;
 class Symbol;
 class VehicleModelType;
+class VehicleObj;
 class VehicleSymbol;
-class VideoMetadata;
 
 enum ObjType {
   OBJ_TYPE_UNKNOWN = 0,
@@ -134,32 +135,32 @@ inline bool DBType_Parse(
 }
 // ===================================================================
 
-class VideoMetadata : public ::google::protobuf::Message {
+class SrcMetadata : public ::google::protobuf::Message {
  public:
-  VideoMetadata();
-  virtual ~VideoMetadata();
+  SrcMetadata();
+  virtual ~SrcMetadata();
 
-  VideoMetadata(const VideoMetadata& from);
+  SrcMetadata(const SrcMetadata& from);
 
-  inline VideoMetadata& operator=(const VideoMetadata& from) {
+  inline SrcMetadata& operator=(const SrcMetadata& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const VideoMetadata& default_instance();
+  static const SrcMetadata& default_instance();
 
-  void Swap(VideoMetadata* other);
+  void Swap(SrcMetadata* other);
 
   // implements Message ----------------------------------------------
 
-  inline VideoMetadata* New() const { return New(NULL); }
+  inline SrcMetadata* New() const { return New(NULL); }
 
-  VideoMetadata* New(::google::protobuf::Arena* arena) const;
+  SrcMetadata* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const VideoMetadata& from);
-  void MergeFrom(const VideoMetadata& from);
+  void CopyFrom(const SrcMetadata& from);
+  void MergeFrom(const SrcMetadata& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -174,7 +175,7 @@ class VideoMetadata : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(VideoMetadata* other);
+  void InternalSwap(SrcMetadata* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -247,7 +248,7 @@ class VideoMetadata : public ::google::protobuf::Message {
   ::std::string* release_repoinfo();
   void set_allocated_repoinfo(::std::string* repoinfo);
 
-  // @@protoc_insertion_point(class_scope:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(class_scope:dg.model.SrcMetadata)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -265,7 +266,7 @@ class VideoMetadata : public ::google::protobuf::Message {
   friend void protobuf_ShutdownFile_common_2eproto();
 
   void InitAsDefaultInstance();
-  static VideoMetadata* default_instance_;
+  static SrcMetadata* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -445,28 +446,19 @@ class CutboardImage : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.model.VideoMetadata Metadata = 1;
-  bool has_metadata() const;
-  void clear_metadata();
-  static const int kMetadataFieldNumber = 1;
-  const ::dg::model::VideoMetadata& metadata() const;
-  ::dg::model::VideoMetadata* mutable_metadata();
-  ::dg::model::VideoMetadata* release_metadata();
-  void set_allocated_metadata(::dg::model::VideoMetadata* metadata);
-
-  // optional .dg.model.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 1;
   bool has_cutboard() const;
   void clear_cutboard();
-  static const int kCutboardFieldNumber = 2;
+  static const int kCutboardFieldNumber = 1;
   const ::dg::model::Cutboard& cutboard() const;
   ::dg::model::Cutboard* mutable_cutboard();
   ::dg::model::Cutboard* release_cutboard();
   void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
-  // optional .dg.model.Image Img = 3;
+  // optional .dg.model.Image Img = 2;
   bool has_img() const;
   void clear_img();
-  static const int kImgFieldNumber = 3;
+  static const int kImgFieldNumber = 2;
   const ::dg::model::Image& img() const;
   ::dg::model::Image* mutable_img();
   ::dg::model::Image* release_img();
@@ -477,7 +469,6 @@ class CutboardImage : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::dg::model::VideoMetadata* metadata_;
   ::dg::model::Cutboard* cutboard_;
   ::dg::model::Image* img_;
   mutable int _cached_size_;
@@ -1743,197 +1734,301 @@ class StorageConfig : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static StorageConfig* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class VehicleObj : public ::google::protobuf::Message {
+ public:
+  VehicleObj();
+  virtual ~VehicleObj();
+
+  VehicleObj(const VehicleObj& from);
+
+  inline VehicleObj& operator=(const VehicleObj& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const VehicleObj& default_instance();
+
+  void Swap(VehicleObj* other);
+
+  // implements Message ----------------------------------------------
+
+  inline VehicleObj* New() const { return New(NULL); }
+
+  VehicleObj* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const VehicleObj& from);
+  void MergeFrom(const VehicleObj& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(VehicleObj* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.SrcMetadata Metadata = 1;
+  bool has_metadata() const;
+  void clear_metadata();
+  static const int kMetadataFieldNumber = 1;
+  const ::dg::model::SrcMetadata& metadata() const;
+  ::dg::model::SrcMetadata* mutable_metadata();
+  ::dg::model::SrcMetadata* release_metadata();
+  void set_allocated_metadata(::dg::model::SrcMetadata* metadata);
+
+  // optional .dg.model.Image Img = 2;
+  bool has_img() const;
+  void clear_img();
+  static const int kImgFieldNumber = 2;
+  const ::dg::model::Image& img() const;
+  ::dg::model::Image* mutable_img();
+  ::dg::model::Image* release_img();
+  void set_allocated_img(::dg::model::Image* img);
+
+  // repeated .dg.model.RecVehicle Vehicle = 3;
+  int vehicle_size() const;
+  void clear_vehicle();
+  static const int kVehicleFieldNumber = 3;
+  const ::dg::model::RecVehicle& vehicle(int index) const;
+  ::dg::model::RecVehicle* mutable_vehicle(int index);
+  ::dg::model::RecVehicle* add_vehicle();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >*
+      mutable_vehicle();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >&
+      vehicle() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.VehicleObj)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::SrcMetadata* metadata_;
+  ::dg::model::Image* img_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle > vehicle_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static VehicleObj* default_instance_;
+};
 // ===================================================================
 
 
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// VideoMetadata
+// SrcMetadata
 
 // optional int64 Timestamp = 1;
-inline void VideoMetadata::clear_timestamp() {
+inline void SrcMetadata::clear_timestamp() {
   timestamp_ = GOOGLE_LONGLONG(0);
 }
-inline ::google::protobuf::int64 VideoMetadata::timestamp() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.Timestamp)
+inline ::google::protobuf::int64 SrcMetadata::timestamp() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Timestamp)
   return timestamp_;
 }
-inline void VideoMetadata::set_timestamp(::google::protobuf::int64 value) {
+inline void SrcMetadata::set_timestamp(::google::protobuf::int64 value) {
   
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.Timestamp)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Timestamp)
 }
 
 // optional int32 Duration = 2;
-inline void VideoMetadata::clear_duration() {
+inline void SrcMetadata::clear_duration() {
   duration_ = 0;
 }
-inline ::google::protobuf::int32 VideoMetadata::duration() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.Duration)
+inline ::google::protobuf::int32 SrcMetadata::duration() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Duration)
   return duration_;
 }
-inline void VideoMetadata::set_duration(::google::protobuf::int32 value) {
+inline void SrcMetadata::set_duration(::google::protobuf::int32 value) {
   
   duration_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.Duration)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Duration)
 }
 
 // optional int32 SensorId = 3;
-inline void VideoMetadata::clear_sensorid() {
+inline void SrcMetadata::clear_sensorid() {
   sensorid_ = 0;
 }
-inline ::google::protobuf::int32 VideoMetadata::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorId)
+inline ::google::protobuf::int32 SrcMetadata::sensorid() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorId)
   return sensorid_;
 }
-inline void VideoMetadata::set_sensorid(::google::protobuf::int32 value) {
+inline void SrcMetadata::set_sensorid(::google::protobuf::int32 value) {
   
   sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorId)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorId)
 }
 
 // optional string SensorName = 4;
-inline void VideoMetadata::clear_sensorname() {
+inline void SrcMetadata::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& VideoMetadata::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorName)
+inline const ::std::string& SrcMetadata::sensorname() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_sensorname(const ::std::string& value) {
+inline void SrcMetadata::set_sensorname(const ::std::string& value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorName)
 }
-inline void VideoMetadata::set_sensorname(const char* value) {
+inline void SrcMetadata::set_sensorname(const char* value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorName)
 }
-inline void VideoMetadata::set_sensorname(const char* value, size_t size) {
+inline void SrcMetadata::set_sensorname(const char* value, size_t size) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorName)
 }
-inline ::std::string* VideoMetadata::mutable_sensorname() {
+inline ::std::string* SrcMetadata::mutable_sensorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* VideoMetadata::release_sensorname() {
+inline ::std::string* SrcMetadata::release_sensorname() {
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_allocated_sensorname(::std::string* sensorname) {
+inline void SrcMetadata::set_allocated_sensorname(::std::string* sensorname) {
   if (sensorname != NULL) {
     
   } else {
     
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorName)
 }
 
 // optional string SensorUrl = 5;
-inline void VideoMetadata::clear_sensorurl() {
+inline void SrcMetadata::clear_sensorurl() {
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& VideoMetadata::sensorurl() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorUrl)
+inline const ::std::string& SrcMetadata::sensorurl() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_sensorurl(const ::std::string& value) {
+inline void SrcMetadata::set_sensorurl(const ::std::string& value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorUrl)
 }
-inline void VideoMetadata::set_sensorurl(const char* value) {
+inline void SrcMetadata::set_sensorurl(const char* value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorUrl)
 }
-inline void VideoMetadata::set_sensorurl(const char* value, size_t size) {
+inline void SrcMetadata::set_sensorurl(const char* value, size_t size) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorUrl)
 }
-inline ::std::string* VideoMetadata::mutable_sensorurl() {
+inline ::std::string* SrcMetadata::mutable_sensorurl() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* VideoMetadata::release_sensorurl() {
+inline ::std::string* SrcMetadata::release_sensorurl() {
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
+inline void SrcMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
   if (sensorurl != NULL) {
     
   } else {
     
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorUrl)
 }
 
 // optional int32 RepoId = 6;
-inline void VideoMetadata::clear_repoid() {
+inline void SrcMetadata::clear_repoid() {
   repoid_ = 0;
 }
-inline ::google::protobuf::int32 VideoMetadata::repoid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoId)
+inline ::google::protobuf::int32 SrcMetadata::repoid() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoId)
   return repoid_;
 }
-inline void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
+inline void SrcMetadata::set_repoid(::google::protobuf::int32 value) {
   
   repoid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoId)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoId)
 }
 
 // optional string RepoInfo = 7;
-inline void VideoMetadata::clear_repoinfo() {
+inline void SrcMetadata::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& VideoMetadata::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoInfo)
+inline const ::std::string& SrcMetadata::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_repoinfo(const ::std::string& value) {
+inline void SrcMetadata::set_repoinfo(const ::std::string& value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoInfo)
 }
-inline void VideoMetadata::set_repoinfo(const char* value) {
+inline void SrcMetadata::set_repoinfo(const char* value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.RepoInfo)
 }
-inline void VideoMetadata::set_repoinfo(const char* value, size_t size) {
+inline void SrcMetadata::set_repoinfo(const char* value, size_t size) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.RepoInfo)
 }
-inline ::std::string* VideoMetadata::mutable_repoinfo() {
+inline ::std::string* SrcMetadata::mutable_repoinfo() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* VideoMetadata::release_repoinfo() {
+inline ::std::string* SrcMetadata::release_repoinfo() {
   
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void VideoMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
+inline void SrcMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
   if (repoinfo != NULL) {
     
   } else {
     
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.RepoInfo)
 }
 
 // -------------------------------------------------------------------
@@ -2042,44 +2137,7 @@ inline void Cutboard::set_confidence(float value) {
 
 // CutboardImage
 
-// optional .dg.model.VideoMetadata Metadata = 1;
-inline bool CutboardImage::has_metadata() const {
-  return !_is_default_instance_ && metadata_ != NULL;
-}
-inline void CutboardImage::clear_metadata() {
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
-}
-inline const ::dg::model::VideoMetadata& CutboardImage::metadata() const {
-  // @@protoc_insertion_point(field_get:dg.model.CutboardImage.Metadata)
-  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
-}
-inline ::dg::model::VideoMetadata* CutboardImage::mutable_metadata() {
-  
-  if (metadata_ == NULL) {
-    metadata_ = new ::dg::model::VideoMetadata;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.CutboardImage.Metadata)
-  return metadata_;
-}
-inline ::dg::model::VideoMetadata* CutboardImage::release_metadata() {
-  
-  ::dg::model::VideoMetadata* temp = metadata_;
-  metadata_ = NULL;
-  return temp;
-}
-inline void CutboardImage::set_allocated_metadata(::dg::model::VideoMetadata* metadata) {
-  delete metadata_;
-  metadata_ = metadata;
-  if (metadata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Metadata)
-}
-
-// optional .dg.model.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 1;
 inline bool CutboardImage::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -2116,7 +2174,7 @@ inline void CutboardImage::set_allocated_cutboard(::dg::model::Cutboard* cutboar
   // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Cutboard)
 }
 
-// optional .dg.model.Image Img = 3;
+// optional .dg.model.Image Img = 2;
 inline bool CutboardImage::has_img() const {
   return !_is_default_instance_ && img_ != NULL;
 }
@@ -3632,7 +3690,117 @@ StorageConfig::mutable_tags() {
   return &tags_;
 }
 
+// -------------------------------------------------------------------
+
+// VehicleObj
+
+// optional .dg.model.SrcMetadata Metadata = 1;
+inline bool VehicleObj::has_metadata() const {
+  return !_is_default_instance_ && metadata_ != NULL;
+}
+inline void VehicleObj::clear_metadata() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+}
+inline const ::dg::model::SrcMetadata& VehicleObj::metadata() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Metadata)
+  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
+}
+inline ::dg::model::SrcMetadata* VehicleObj::mutable_metadata() {
+  
+  if (metadata_ == NULL) {
+    metadata_ = new ::dg::model::SrcMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Metadata)
+  return metadata_;
+}
+inline ::dg::model::SrcMetadata* VehicleObj::release_metadata() {
+  
+  ::dg::model::SrcMetadata* temp = metadata_;
+  metadata_ = NULL;
+  return temp;
+}
+inline void VehicleObj::set_allocated_metadata(::dg::model::SrcMetadata* metadata) {
+  delete metadata_;
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Metadata)
+}
+
+// optional .dg.model.Image Img = 2;
+inline bool VehicleObj::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+inline void VehicleObj::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+inline const ::dg::model::Image& VehicleObj::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+inline ::dg::model::Image* VehicleObj::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Img)
+  return img_;
+}
+inline ::dg::model::Image* VehicleObj::release_img() {
+  
+  ::dg::model::Image* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+inline void VehicleObj::set_allocated_img(::dg::model::Image* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Img)
+}
+
+// repeated .dg.model.RecVehicle Vehicle = 3;
+inline int VehicleObj::vehicle_size() const {
+  return vehicle_.size();
+}
+inline void VehicleObj::clear_vehicle() {
+  vehicle_.Clear();
+}
+inline const ::dg::model::RecVehicle& VehicleObj::vehicle(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Get(index);
+}
+inline ::dg::model::RecVehicle* VehicleObj::mutable_vehicle(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Mutable(index);
+}
+inline ::dg::model::RecVehicle* VehicleObj::add_vehicle() {
+  // @@protoc_insertion_point(field_add:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >*
+VehicleObj::mutable_vehicle() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.VehicleObj.Vehicle)
+  return &vehicle_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >&
+VehicleObj::vehicle() const {
+  // @@protoc_insertion_point(field_list:dg.model.VehicleObj.Vehicle)
+  return vehicle_;
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
