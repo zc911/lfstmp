@@ -40,7 +40,10 @@ class VehicleMarkerClassifierProcessor : public Processor {
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;
-
+    int window_target_min;
+    int window_target_max;
+    int marker_target_min;
+    int marker_target_m;
 }
 ;
 
