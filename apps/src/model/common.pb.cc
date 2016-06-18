@@ -22,9 +22,9 @@ namespace model {
 
 namespace {
 
-const ::google::protobuf::Descriptor* VideoMetadata_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* SrcMetadata_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  VideoMetadata_reflection_ = NULL;
+  SrcMetadata_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Cutboard_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Cutboard_reflection_ = NULL;
@@ -64,6 +64,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* StorageConfig_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   StorageConfig_reflection_ = NULL;
+const ::google::protobuf::Descriptor* VehicleObj_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  VehicleObj_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DBType_descriptor_ = NULL;
@@ -77,27 +80,27 @@ void protobuf_AssignDesc_common_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "common.proto");
   GOOGLE_CHECK(file != NULL);
-  VideoMetadata_descriptor_ = file->message_type(0);
-  static const int VideoMetadata_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, timestamp_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, duration_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorname_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, sensorurl_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, repoid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, repoinfo_),
+  SrcMetadata_descriptor_ = file->message_type(0);
+  static const int SrcMetadata_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, timestamp_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, duration_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorurl_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoinfo_),
   };
-  VideoMetadata_reflection_ =
+  SrcMetadata_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      VideoMetadata_descriptor_,
-      VideoMetadata::default_instance_,
-      VideoMetadata_offsets_,
+      SrcMetadata_descriptor_,
+      SrcMetadata::default_instance_,
+      SrcMetadata_offsets_,
       -1,
       -1,
       -1,
-      sizeof(VideoMetadata),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, _is_default_instance_));
+      sizeof(SrcMetadata),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, _is_default_instance_));
   Cutboard_descriptor_ = file->message_type(1);
   static const int Cutboard_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, x_),
@@ -120,8 +123,7 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, _is_default_instance_));
   CutboardImage_descriptor_ = file->message_type(2);
-  static const int CutboardImage_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, metadata_),
+  static const int CutboardImage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, img_),
   };
@@ -339,6 +341,23 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
+  VehicleObj_descriptor_ = file->message_type(14);
+  static const int VehicleObj_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, vehicle_),
+  };
+  VehicleObj_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      VehicleObj_descriptor_,
+      VehicleObj::default_instance_,
+      VehicleObj_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(VehicleObj),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _is_default_instance_));
   ObjType_descriptor_ = file->enum_type(0);
   DataFmtType_descriptor_ = file->enum_type(1);
   DBType_descriptor_ = file->enum_type(2);
@@ -355,7 +374,7 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VideoMetadata_descriptor_, &VideoMetadata::default_instance());
+      SrcMetadata_descriptor_, &SrcMetadata::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Cutboard_descriptor_, &Cutboard::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -382,13 +401,15 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Symbol_descriptor_, &Symbol::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       StorageConfig_descriptor_, &StorageConfig::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      VehicleObj_descriptor_, &VehicleObj::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_common_2eproto() {
-  delete VideoMetadata::default_instance_;
-  delete VideoMetadata_reflection_;
+  delete SrcMetadata::default_instance_;
+  delete SrcMetadata_reflection_;
   delete Cutboard::default_instance_;
   delete Cutboard_reflection_;
   delete CutboardImage::default_instance_;
@@ -415,6 +436,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete Symbol_reflection_;
   delete StorageConfig::default_instance_;
   delete StorageConfig_reflection_;
+  delete VehicleObj::default_instance_;
+  delete VehicleObj_reflection_;
 }
 
 void protobuf_AddDesc_common_2eproto() {
@@ -424,65 +447,67 @@ void protobuf_AddDesc_common_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014common.proto\022\010dg.model\"\217\001\n\rVideoMetada"
-    "ta\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022"
-    "\020\n\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n"
-    "\tSensorUrl\030\005 \001(\t\022\016\n\006RepoId\030\006 \001(\005\022\020\n\010Repo"
-    "Info\030\007 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002"
-    " \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010R"
-    "esWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConf"
-    "idence\030\007 \001(\002\"~\n\rCutboardImage\022)\n\010Metadat"
-    "a\030\001 \001(\0132\027.dg.model.VideoMetadata\022$\n\010Cutb"
-    "oard\030\002 \001(\0132\022.dg.model.Cutboard\022\034\n\003Img\030\003 "
-    "\001(\0132\017.dg.model.Image\"\?\n\005Color\022\017\n\007ColorId"
-    "\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColorName\030"
-    "\003 \001(\t\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Fe"
-    "ature\030\002 \001(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002I"
-    "d\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013"
-    "\n\003URI\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022"
-    "\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cutb"
-    "oardImage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidenc"
-    "e\030\004 \001(\002\"\261\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tMo"
-    "delType\030\002 \001(\0132\032.dg.model.VehicleModelTyp"
-    "e\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Pla"
-    "te\030\004 \001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030"
-    "\005 \001(\0132\027.dg.model.CutboardImage\022(\n\007Symbol"
-    "s\030\006 \003(\0132\027.dg.model.VehicleSymbol\022\020\n\010Feat"
-    "ures\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.mod"
-    "el.ObjType\022\027\n\017VehicleTypeName\030\t \001(\t\"\335\001\n\020"
-    "VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030"
-    "\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId"
-    "\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t"
-    "\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tMod"
-    "elYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 "
-    "\001(\t\022\016\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlate\022\021\n\t"
-    "PlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.mode"
-    "l.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001("
-    "\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132"
-    "\022.dg.model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010"
-    "SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Sy"
-    "mbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022"
-    "$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n"
-    "\nConfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Ad"
-    "dress\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBT"
-    "ype\022\014\n\004Tags\030\003 \003(\t*\303\003\n\007ObjType\022\024\n\020OBJ_TYP"
-    "E_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYP"
-    "E_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OB"
-    "J_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022"
-    "\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYP"
-    "E_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE"
-    "_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR"
-    "\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TY"
-    "PE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYC"
-    "LE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTB"
-    "OARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020"
-    "\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataF"
-    "mtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROT"
-    "OBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KA"
-    "FKA\020\000b\006proto3", 2213);
+    "\n\014common.proto\022\010dg.model\"\215\001\n\013SrcMetadata"
+    "\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022\020\n"
+    "\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n\tS"
+    "ensorUrl\030\005 \001(\t\022\016\n\006RepoId\030\006 \001(\005\022\020\n\010RepoIn"
+    "fo\030\007 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001"
+    "(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010Res"
+    "Width\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConfid"
+    "ence\030\007 \001(\002\"S\n\rCutboardImage\022$\n\010Cutboard\030"
+    "\001 \001(\0132\022.dg.model.Cutboard\022\034\n\003Img\030\002 \001(\0132\017"
+    ".dg.model.Image\"\?\n\005Color\022\017\n\007ColorId\030\001 \001("
+    "\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColorName\030\003 \001(\t"
+    "\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature"
+    "\030\002 \001(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002Id\030\001 \001"
+    "(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013\n\003URI"
+    "\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022\n\n\002Id"
+    "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
+    "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
+    "(\002\"\261\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelTy"
+    "pe\030\002 \001(\0132\032.dg.model.VehicleModelType\022\036\n\005"
+    "Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 "
+    "\001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030\005 \001(\013"
+    "2\027.dg.model.CutboardImage\022(\n\007Symbols\030\006 \003"
+    "(\0132\027.dg.model.VehicleSymbol\022\020\n\010Features\030"
+    "\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model.Ob"
+    "jType\022\027\n\017VehicleTypeName\030\t \001(\t\"\335\001\n\020Vehic"
+    "leModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005"
+    "\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001("
+    "\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005B"
+    "rand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYea"
+    "r\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016"
+    "\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlate\022\021\n\tPlate"
+    "Text\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Col"
+    "or\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\n"
+    "Confidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg."
+    "model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010Symbo"
+    "lId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols"
+    "\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cu"
+    "tboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConf"
+    "idence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address"
+    "\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014"
+    "\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001"
+    " \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\013"
+    "2\017.dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg."
+    "model.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE"
+    "_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE"
+    "_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ"
+    "_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034"
+    "\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE"
+    "_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_"
+    "VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020"
+    "\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYP"
+    "E_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCL"
+    "E_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBO"
+    "ARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203"
+    " \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFm"
+    "tType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTO"
+    "BUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAF"
+    "KA\020\000b\006proto3", 2292);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
-  VideoMetadata::default_instance_ = new VideoMetadata();
+  SrcMetadata::default_instance_ = new SrcMetadata();
   Cutboard::default_instance_ = new Cutboard();
   CutboardImage::default_instance_ = new CutboardImage();
   Color::default_instance_ = new Color();
@@ -496,7 +521,8 @@ void protobuf_AddDesc_common_2eproto() {
   VehicleSymbol::default_instance_ = new VehicleSymbol();
   Symbol::default_instance_ = new Symbol();
   StorageConfig::default_instance_ = new StorageConfig();
-  VideoMetadata::default_instance_->InitAsDefaultInstance();
+  VehicleObj::default_instance_ = new VehicleObj();
+  SrcMetadata::default_instance_->InitAsDefaultInstance();
   Cutboard::default_instance_->InitAsDefaultInstance();
   CutboardImage::default_instance_->InitAsDefaultInstance();
   Color::default_instance_->InitAsDefaultInstance();
@@ -510,6 +536,7 @@ void protobuf_AddDesc_common_2eproto() {
   VehicleSymbol::default_instance_->InitAsDefaultInstance();
   Symbol::default_instance_->InitAsDefaultInstance();
   StorageConfig::default_instance_->InitAsDefaultInstance();
+  VehicleObj::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_common_2eproto);
 }
 
@@ -591,34 +618,34 @@ static void MergeFromFail(int line) {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int VideoMetadata::kTimestampFieldNumber;
-const int VideoMetadata::kDurationFieldNumber;
-const int VideoMetadata::kSensorIdFieldNumber;
-const int VideoMetadata::kSensorNameFieldNumber;
-const int VideoMetadata::kSensorUrlFieldNumber;
-const int VideoMetadata::kRepoIdFieldNumber;
-const int VideoMetadata::kRepoInfoFieldNumber;
+const int SrcMetadata::kTimestampFieldNumber;
+const int SrcMetadata::kDurationFieldNumber;
+const int SrcMetadata::kSensorIdFieldNumber;
+const int SrcMetadata::kSensorNameFieldNumber;
+const int SrcMetadata::kSensorUrlFieldNumber;
+const int SrcMetadata::kRepoIdFieldNumber;
+const int SrcMetadata::kRepoInfoFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
-VideoMetadata::VideoMetadata()
+SrcMetadata::SrcMetadata()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(constructor:dg.model.SrcMetadata)
 }
 
-void VideoMetadata::InitAsDefaultInstance() {
+void SrcMetadata::InitAsDefaultInstance() {
   _is_default_instance_ = true;
 }
 
-VideoMetadata::VideoMetadata(const VideoMetadata& from)
+SrcMetadata::SrcMetadata(const SrcMetadata& from)
   : ::google::protobuf::Message(),
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(copy_constructor:dg.model.SrcMetadata)
 }
 
-void VideoMetadata::SharedCtor() {
+void SrcMetadata::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
@@ -631,12 +658,12 @@ void VideoMetadata::SharedCtor() {
   repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
-VideoMetadata::~VideoMetadata() {
-  // @@protoc_insertion_point(destructor:dg.model.VideoMetadata)
+SrcMetadata::~SrcMetadata() {
+  // @@protoc_insertion_point(destructor:dg.model.SrcMetadata)
   SharedDtor();
 }
 
-void VideoMetadata::SharedDtor() {
+void SrcMetadata::SharedDtor() {
   sensorname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   repoinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -644,34 +671,34 @@ void VideoMetadata::SharedDtor() {
   }
 }
 
-void VideoMetadata::SetCachedSize(int size) const {
+void SrcMetadata::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* VideoMetadata::descriptor() {
+const ::google::protobuf::Descriptor* SrcMetadata::descriptor() {
   protobuf_AssignDescriptorsOnce();
-  return VideoMetadata_descriptor_;
+  return SrcMetadata_descriptor_;
 }
 
-const VideoMetadata& VideoMetadata::default_instance() {
+const SrcMetadata& SrcMetadata::default_instance() {
   if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
   return *default_instance_;
 }
 
-VideoMetadata* VideoMetadata::default_instance_ = NULL;
+SrcMetadata* SrcMetadata::default_instance_ = NULL;
 
-VideoMetadata* VideoMetadata::New(::google::protobuf::Arena* arena) const {
-  VideoMetadata* n = new VideoMetadata;
+SrcMetadata* SrcMetadata::New(::google::protobuf::Arena* arena) const {
+  SrcMetadata* n = new SrcMetadata;
   if (arena != NULL) {
     arena->Own(n);
   }
   return n;
 }
 
-void VideoMetadata::Clear() {
+void SrcMetadata::Clear() {
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<VideoMetadata*>(16)->f)
+  &reinterpret_cast<SrcMetadata*>(16)->f)
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -689,11 +716,11 @@ void VideoMetadata::Clear() {
 
 }
 
-bool VideoMetadata::MergePartialFromCodedStream(
+bool SrcMetadata::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(parse_start:dg.model.SrcMetadata)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -752,7 +779,7 @@ bool VideoMetadata::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sensorname().data(), this->sensorname().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VideoMetadata.SensorName"));
+            "dg.model.SrcMetadata.SensorName"));
         } else {
           goto handle_unusual;
         }
@@ -769,7 +796,7 @@ bool VideoMetadata::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->sensorurl().data(), this->sensorurl().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VideoMetadata.SensorUrl"));
+            "dg.model.SrcMetadata.SensorUrl"));
         } else {
           goto handle_unusual;
         }
@@ -801,7 +828,7 @@ bool VideoMetadata::MergePartialFromCodedStream(
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->repoinfo().data(), this->repoinfo().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VideoMetadata.RepoInfo"));
+            "dg.model.SrcMetadata.RepoInfo"));
         } else {
           goto handle_unusual;
         }
@@ -822,17 +849,17 @@ bool VideoMetadata::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(parse_success:dg.model.SrcMetadata)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(parse_failure:dg.model.SrcMetadata)
   return false;
 #undef DO_
 }
 
-void VideoMetadata::SerializeWithCachedSizes(
+void SrcMetadata::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(serialize_start:dg.model.SrcMetadata)
   // optional int64 Timestamp = 1;
   if (this->timestamp() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->timestamp(), output);
@@ -853,7 +880,7 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorname().data(), this->sensorname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.SensorName");
+      "dg.model.SrcMetadata.SensorName");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->sensorname(), output);
   }
@@ -863,7 +890,7 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorurl().data(), this->sensorurl().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.SensorUrl");
+      "dg.model.SrcMetadata.SensorUrl");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       5, this->sensorurl(), output);
   }
@@ -878,17 +905,17 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->repoinfo().data(), this->repoinfo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.RepoInfo");
+      "dg.model.SrcMetadata.RepoInfo");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->repoinfo(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(serialize_end:dg.model.SrcMetadata)
 }
 
-::google::protobuf::uint8* VideoMetadata::SerializeWithCachedSizesToArray(
+::google::protobuf::uint8* SrcMetadata::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.SrcMetadata)
   // optional int64 Timestamp = 1;
   if (this->timestamp() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->timestamp(), target);
@@ -909,7 +936,7 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorname().data(), this->sensorname().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.SensorName");
+      "dg.model.SrcMetadata.SensorName");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         4, this->sensorname(), target);
@@ -920,7 +947,7 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->sensorurl().data(), this->sensorurl().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.SensorUrl");
+      "dg.model.SrcMetadata.SensorUrl");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         5, this->sensorurl(), target);
@@ -936,17 +963,17 @@ void VideoMetadata::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->repoinfo().data(), this->repoinfo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.RepoInfo");
+      "dg.model.SrcMetadata.RepoInfo");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->repoinfo(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VideoMetadata)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.SrcMetadata)
   return target;
 }
 
-int VideoMetadata::ByteSize() const {
+int SrcMetadata::ByteSize() const {
   int total_size = 0;
 
   // optional int64 Timestamp = 1;
@@ -1004,10 +1031,10 @@ int VideoMetadata::ByteSize() const {
   return total_size;
 }
 
-void VideoMetadata::MergeFrom(const ::google::protobuf::Message& from) {
+void SrcMetadata::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const VideoMetadata* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const VideoMetadata>(
+  const SrcMetadata* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const SrcMetadata>(
           &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
@@ -1016,7 +1043,7 @@ void VideoMetadata::MergeFrom(const ::google::protobuf::Message& from) {
   }
 }
 
-void VideoMetadata::MergeFrom(const VideoMetadata& from) {
+void SrcMetadata::MergeFrom(const SrcMetadata& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.timestamp() != 0) {
     set_timestamp(from.timestamp());
@@ -1044,28 +1071,28 @@ void VideoMetadata::MergeFrom(const VideoMetadata& from) {
   }
 }
 
-void VideoMetadata::CopyFrom(const ::google::protobuf::Message& from) {
+void SrcMetadata::CopyFrom(const ::google::protobuf::Message& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-void VideoMetadata::CopyFrom(const VideoMetadata& from) {
+void SrcMetadata::CopyFrom(const SrcMetadata& from) {
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool VideoMetadata::IsInitialized() const {
+bool SrcMetadata::IsInitialized() const {
 
   return true;
 }
 
-void VideoMetadata::Swap(VideoMetadata* other) {
+void SrcMetadata::Swap(SrcMetadata* other) {
   if (other == this) return;
   InternalSwap(other);
 }
-void VideoMetadata::InternalSwap(VideoMetadata* other) {
+void SrcMetadata::InternalSwap(SrcMetadata* other) {
   std::swap(timestamp_, other->timestamp_);
   std::swap(duration_, other->duration_);
   std::swap(sensorid_, other->sensorid_);
@@ -1077,200 +1104,200 @@ void VideoMetadata::InternalSwap(VideoMetadata* other) {
   std::swap(_cached_size_, other->_cached_size_);
 }
 
-::google::protobuf::Metadata VideoMetadata::GetMetadata() const {
+::google::protobuf::Metadata SrcMetadata::GetMetadata() const {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::Metadata metadata;
-  metadata.descriptor = VideoMetadata_descriptor_;
-  metadata.reflection = VideoMetadata_reflection_;
+  metadata.descriptor = SrcMetadata_descriptor_;
+  metadata.reflection = SrcMetadata_reflection_;
   return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// VideoMetadata
+// SrcMetadata
 
 // optional int64 Timestamp = 1;
-void VideoMetadata::clear_timestamp() {
+void SrcMetadata::clear_timestamp() {
   timestamp_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 VideoMetadata::timestamp() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.Timestamp)
+ ::google::protobuf::int64 SrcMetadata::timestamp() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Timestamp)
   return timestamp_;
 }
- void VideoMetadata::set_timestamp(::google::protobuf::int64 value) {
+ void SrcMetadata::set_timestamp(::google::protobuf::int64 value) {
   
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.Timestamp)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Timestamp)
 }
 
 // optional int32 Duration = 2;
-void VideoMetadata::clear_duration() {
+void SrcMetadata::clear_duration() {
   duration_ = 0;
 }
- ::google::protobuf::int32 VideoMetadata::duration() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.Duration)
+ ::google::protobuf::int32 SrcMetadata::duration() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Duration)
   return duration_;
 }
- void VideoMetadata::set_duration(::google::protobuf::int32 value) {
+ void SrcMetadata::set_duration(::google::protobuf::int32 value) {
   
   duration_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.Duration)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Duration)
 }
 
 // optional int32 SensorId = 3;
-void VideoMetadata::clear_sensorid() {
+void SrcMetadata::clear_sensorid() {
   sensorid_ = 0;
 }
- ::google::protobuf::int32 VideoMetadata::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorId)
+ ::google::protobuf::int32 SrcMetadata::sensorid() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorId)
   return sensorid_;
 }
- void VideoMetadata::set_sensorid(::google::protobuf::int32 value) {
+ void SrcMetadata::set_sensorid(::google::protobuf::int32 value) {
   
   sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorId)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorId)
 }
 
 // optional string SensorName = 4;
-void VideoMetadata::clear_sensorname() {
+void SrcMetadata::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VideoMetadata::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorName)
+ const ::std::string& SrcMetadata::sensorname() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_sensorname(const ::std::string& value) {
+ void SrcMetadata::set_sensorname(const ::std::string& value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorName)
 }
- void VideoMetadata::set_sensorname(const char* value) {
+ void SrcMetadata::set_sensorname(const char* value) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorName)
 }
- void VideoMetadata::set_sensorname(const char* value, size_t size) {
+ void SrcMetadata::set_sensorname(const char* value, size_t size) {
   
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorName)
 }
- ::std::string* VideoMetadata::mutable_sensorname() {
+ ::std::string* SrcMetadata::mutable_sensorname() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VideoMetadata::release_sensorname() {
+ ::std::string* SrcMetadata::release_sensorname() {
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_allocated_sensorname(::std::string* sensorname) {
+ void SrcMetadata::set_allocated_sensorname(::std::string* sensorname) {
   if (sensorname != NULL) {
     
   } else {
     
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorName)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorName)
 }
 
 // optional string SensorUrl = 5;
-void VideoMetadata::clear_sensorurl() {
+void SrcMetadata::clear_sensorurl() {
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VideoMetadata::sensorurl() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.SensorUrl)
+ const ::std::string& SrcMetadata::sensorurl() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_sensorurl(const ::std::string& value) {
+ void SrcMetadata::set_sensorurl(const ::std::string& value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorUrl)
 }
- void VideoMetadata::set_sensorurl(const char* value) {
+ void SrcMetadata::set_sensorurl(const char* value) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorUrl)
 }
- void VideoMetadata::set_sensorurl(const char* value, size_t size) {
+ void SrcMetadata::set_sensorurl(const char* value, size_t size) {
   
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorUrl)
 }
- ::std::string* VideoMetadata::mutable_sensorurl() {
+ ::std::string* SrcMetadata::mutable_sensorurl() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VideoMetadata::release_sensorurl() {
+ ::std::string* SrcMetadata::release_sensorurl() {
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
+ void SrcMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
   if (sensorurl != NULL) {
     
   } else {
     
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorUrl)
 }
 
 // optional int32 RepoId = 6;
-void VideoMetadata::clear_repoid() {
+void SrcMetadata::clear_repoid() {
   repoid_ = 0;
 }
- ::google::protobuf::int32 VideoMetadata::repoid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoId)
+ ::google::protobuf::int32 SrcMetadata::repoid() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoId)
   return repoid_;
 }
- void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
+ void SrcMetadata::set_repoid(::google::protobuf::int32 value) {
   
   repoid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoId)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoId)
 }
 
 // optional string RepoInfo = 7;
-void VideoMetadata::clear_repoinfo() {
+void SrcMetadata::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VideoMetadata::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoInfo)
+ const ::std::string& SrcMetadata::repoinfo() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_repoinfo(const ::std::string& value) {
+ void SrcMetadata::set_repoinfo(const ::std::string& value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoInfo)
 }
- void VideoMetadata::set_repoinfo(const char* value) {
+ void SrcMetadata::set_repoinfo(const char* value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.RepoInfo)
 }
- void VideoMetadata::set_repoinfo(const char* value, size_t size) {
+ void SrcMetadata::set_repoinfo(const char* value, size_t size) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.RepoInfo)
 }
- ::std::string* VideoMetadata::mutable_repoinfo() {
+ ::std::string* SrcMetadata::mutable_repoinfo() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VideoMetadata::release_repoinfo() {
+ ::std::string* SrcMetadata::release_repoinfo() {
   
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VideoMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
+ void SrcMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
   if (repoinfo != NULL) {
     
   } else {
     
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.RepoInfo)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.RepoInfo)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1826,7 +1853,6 @@ void Cutboard::clear_confidence() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int CutboardImage::kMetadataFieldNumber;
 const int CutboardImage::kCutboardFieldNumber;
 const int CutboardImage::kImgFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1839,7 +1865,6 @@ CutboardImage::CutboardImage()
 
 void CutboardImage::InitAsDefaultInstance() {
   _is_default_instance_ = true;
-  metadata_ = const_cast< ::dg::model::VideoMetadata*>(&::dg::model::VideoMetadata::default_instance());
   cutboard_ = const_cast< ::dg::model::Cutboard*>(&::dg::model::Cutboard::default_instance());
   img_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
 }
@@ -1855,7 +1880,6 @@ CutboardImage::CutboardImage(const CutboardImage& from)
 void CutboardImage::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
-  metadata_ = NULL;
   cutboard_ = NULL;
   img_ = NULL;
 }
@@ -1867,7 +1891,6 @@ CutboardImage::~CutboardImage() {
 
 void CutboardImage::SharedDtor() {
   if (this != default_instance_) {
-    delete metadata_;
     delete cutboard_;
     delete img_;
   }
@@ -1899,8 +1922,6 @@ CutboardImage* CutboardImage::New(::google::protobuf::Arena* arena) const {
 }
 
 void CutboardImage::Clear() {
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
@@ -1917,34 +1938,21 @@ bool CutboardImage::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.VideoMetadata Metadata = 1;
+      // optional .dg.model.Cutboard Cutboard = 1;
       case 1: {
         if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_metadata()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Cutboard;
-        break;
-      }
-
-      // optional .dg.model.Cutboard Cutboard = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Cutboard:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_cutboard()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_Img;
+        if (input->ExpectTag(18)) goto parse_Img;
         break;
       }
 
-      // optional .dg.model.Image Img = 3;
-      case 3: {
-        if (tag == 26) {
+      // optional .dg.model.Image Img = 2;
+      case 2: {
+        if (tag == 18) {
          parse_Img:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_img()));
@@ -1979,22 +1987,16 @@ failure:
 void CutboardImage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.CutboardImage)
-  // optional .dg.model.VideoMetadata Metadata = 1;
-  if (this->has_metadata()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->metadata_, output);
-  }
-
-  // optional .dg.model.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->cutboard_, output);
+      1, *this->cutboard_, output);
   }
 
-  // optional .dg.model.Image Img = 3;
+  // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->img_, output);
+      2, *this->img_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.CutboardImage)
@@ -2003,25 +2005,18 @@ void CutboardImage::SerializeWithCachedSizes(
 ::google::protobuf::uint8* CutboardImage::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.CutboardImage)
-  // optional .dg.model.VideoMetadata Metadata = 1;
-  if (this->has_metadata()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->metadata_, target);
-  }
-
-  // optional .dg.model.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, *this->cutboard_, target);
+        1, *this->cutboard_, target);
   }
 
-  // optional .dg.model.Image Img = 3;
+  // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        3, *this->img_, target);
+        2, *this->img_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.CutboardImage)
@@ -2031,21 +2026,14 @@ void CutboardImage::SerializeWithCachedSizes(
 int CutboardImage::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.model.VideoMetadata Metadata = 1;
-  if (this->has_metadata()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->metadata_);
-  }
-
-  // optional .dg.model.Cutboard Cutboard = 2;
+  // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->cutboard_);
   }
 
-  // optional .dg.model.Image Img = 3;
+  // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
@@ -2072,9 +2060,6 @@ void CutboardImage::MergeFrom(const ::google::protobuf::Message& from) {
 
 void CutboardImage::MergeFrom(const CutboardImage& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.has_metadata()) {
-    mutable_metadata()->::dg::model::VideoMetadata::MergeFrom(from.metadata());
-  }
   if (from.has_cutboard()) {
     mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
   }
@@ -2105,7 +2090,6 @@ void CutboardImage::Swap(CutboardImage* other) {
   InternalSwap(other);
 }
 void CutboardImage::InternalSwap(CutboardImage* other) {
-  std::swap(metadata_, other->metadata_);
   std::swap(cutboard_, other->cutboard_);
   std::swap(img_, other->img_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2123,44 +2107,7 @@ void CutboardImage::InternalSwap(CutboardImage* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // CutboardImage
 
-// optional .dg.model.VideoMetadata Metadata = 1;
-bool CutboardImage::has_metadata() const {
-  return !_is_default_instance_ && metadata_ != NULL;
-}
-void CutboardImage::clear_metadata() {
-  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
-  metadata_ = NULL;
-}
-const ::dg::model::VideoMetadata& CutboardImage::metadata() const {
-  // @@protoc_insertion_point(field_get:dg.model.CutboardImage.Metadata)
-  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
-}
-::dg::model::VideoMetadata* CutboardImage::mutable_metadata() {
-  
-  if (metadata_ == NULL) {
-    metadata_ = new ::dg::model::VideoMetadata;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.CutboardImage.Metadata)
-  return metadata_;
-}
-::dg::model::VideoMetadata* CutboardImage::release_metadata() {
-  
-  ::dg::model::VideoMetadata* temp = metadata_;
-  metadata_ = NULL;
-  return temp;
-}
-void CutboardImage::set_allocated_metadata(::dg::model::VideoMetadata* metadata) {
-  delete metadata_;
-  metadata_ = metadata;
-  if (metadata) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Metadata)
-}
-
-// optional .dg.model.Cutboard Cutboard = 2;
+// optional .dg.model.Cutboard Cutboard = 1;
 bool CutboardImage::has_cutboard() const {
   return !_is_default_instance_ && cutboard_ != NULL;
 }
@@ -2197,7 +2144,7 @@ void CutboardImage::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Cutboard)
 }
 
-// optional .dg.model.Image Img = 3;
+// optional .dg.model.Image Img = 2;
 bool CutboardImage::has_img() const {
   return !_is_default_instance_ && img_ != NULL;
 }
@@ -7824,6 +7771,411 @@ StorageConfig::tags() const {
 StorageConfig::mutable_tags() {
   // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
   return &tags_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int VehicleObj::kMetadataFieldNumber;
+const int VehicleObj::kImgFieldNumber;
+const int VehicleObj::kVehicleFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+VehicleObj::VehicleObj()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.VehicleObj)
+}
+
+void VehicleObj::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  metadata_ = const_cast< ::dg::model::SrcMetadata*>(&::dg::model::SrcMetadata::default_instance());
+  img_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
+}
+
+VehicleObj::VehicleObj(const VehicleObj& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.VehicleObj)
+}
+
+void VehicleObj::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  metadata_ = NULL;
+  img_ = NULL;
+}
+
+VehicleObj::~VehicleObj() {
+  // @@protoc_insertion_point(destructor:dg.model.VehicleObj)
+  SharedDtor();
+}
+
+void VehicleObj::SharedDtor() {
+  if (this != default_instance_) {
+    delete metadata_;
+    delete img_;
+  }
+}
+
+void VehicleObj::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* VehicleObj::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return VehicleObj_descriptor_;
+}
+
+const VehicleObj& VehicleObj::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+VehicleObj* VehicleObj::default_instance_ = NULL;
+
+VehicleObj* VehicleObj::New(::google::protobuf::Arena* arena) const {
+  VehicleObj* n = new VehicleObj;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void VehicleObj::Clear() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+  vehicle_.Clear();
+}
+
+bool VehicleObj::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.VehicleObj)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.SrcMetadata Metadata = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_metadata()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Img;
+        break;
+      }
+
+      // optional .dg.model.Image Img = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Img:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_img()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Vehicle;
+        break;
+      }
+
+      // repeated .dg.model.RecVehicle Vehicle = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Vehicle:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Vehicle:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_vehicle()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_loop_Vehicle;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.VehicleObj)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.VehicleObj)
+  return false;
+#undef DO_
+}
+
+void VehicleObj::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.VehicleObj)
+  // optional .dg.model.SrcMetadata Metadata = 1;
+  if (this->has_metadata()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->metadata_, output);
+  }
+
+  // optional .dg.model.Image Img = 2;
+  if (this->has_img()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->img_, output);
+  }
+
+  // repeated .dg.model.RecVehicle Vehicle = 3;
+  for (unsigned int i = 0, n = this->vehicle_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->vehicle(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.VehicleObj)
+}
+
+::google::protobuf::uint8* VehicleObj::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleObj)
+  // optional .dg.model.SrcMetadata Metadata = 1;
+  if (this->has_metadata()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->metadata_, target);
+  }
+
+  // optional .dg.model.Image Img = 2;
+  if (this->has_img()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->img_, target);
+  }
+
+  // repeated .dg.model.RecVehicle Vehicle = 3;
+  for (unsigned int i = 0, n = this->vehicle_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->vehicle(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleObj)
+  return target;
+}
+
+int VehicleObj::ByteSize() const {
+  int total_size = 0;
+
+  // optional .dg.model.SrcMetadata Metadata = 1;
+  if (this->has_metadata()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->metadata_);
+  }
+
+  // optional .dg.model.Image Img = 2;
+  if (this->has_img()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->img_);
+  }
+
+  // repeated .dg.model.RecVehicle Vehicle = 3;
+  total_size += 1 * this->vehicle_size();
+  for (int i = 0; i < this->vehicle_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->vehicle(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void VehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const VehicleObj* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const VehicleObj>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void VehicleObj::MergeFrom(const VehicleObj& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  vehicle_.MergeFrom(from.vehicle_);
+  if (from.has_metadata()) {
+    mutable_metadata()->::dg::model::SrcMetadata::MergeFrom(from.metadata());
+  }
+  if (from.has_img()) {
+    mutable_img()->::dg::model::Image::MergeFrom(from.img());
+  }
+}
+
+void VehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VehicleObj::CopyFrom(const VehicleObj& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VehicleObj::IsInitialized() const {
+
+  return true;
+}
+
+void VehicleObj::Swap(VehicleObj* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void VehicleObj::InternalSwap(VehicleObj* other) {
+  std::swap(metadata_, other->metadata_);
+  std::swap(img_, other->img_);
+  vehicle_.UnsafeArenaSwap(&other->vehicle_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata VehicleObj::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = VehicleObj_descriptor_;
+  metadata.reflection = VehicleObj_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// VehicleObj
+
+// optional .dg.model.SrcMetadata Metadata = 1;
+bool VehicleObj::has_metadata() const {
+  return !_is_default_instance_ && metadata_ != NULL;
+}
+void VehicleObj::clear_metadata() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+}
+const ::dg::model::SrcMetadata& VehicleObj::metadata() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Metadata)
+  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
+}
+::dg::model::SrcMetadata* VehicleObj::mutable_metadata() {
+  
+  if (metadata_ == NULL) {
+    metadata_ = new ::dg::model::SrcMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Metadata)
+  return metadata_;
+}
+::dg::model::SrcMetadata* VehicleObj::release_metadata() {
+  
+  ::dg::model::SrcMetadata* temp = metadata_;
+  metadata_ = NULL;
+  return temp;
+}
+void VehicleObj::set_allocated_metadata(::dg::model::SrcMetadata* metadata) {
+  delete metadata_;
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Metadata)
+}
+
+// optional .dg.model.Image Img = 2;
+bool VehicleObj::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+void VehicleObj::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+const ::dg::model::Image& VehicleObj::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+::dg::model::Image* VehicleObj::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Img)
+  return img_;
+}
+::dg::model::Image* VehicleObj::release_img() {
+  
+  ::dg::model::Image* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+void VehicleObj::set_allocated_img(::dg::model::Image* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Img)
+}
+
+// repeated .dg.model.RecVehicle Vehicle = 3;
+int VehicleObj::vehicle_size() const {
+  return vehicle_.size();
+}
+void VehicleObj::clear_vehicle() {
+  vehicle_.Clear();
+}
+const ::dg::model::RecVehicle& VehicleObj::vehicle(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Get(index);
+}
+::dg::model::RecVehicle* VehicleObj::mutable_vehicle(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Mutable(index);
+}
+::dg::model::RecVehicle* VehicleObj::add_vehicle() {
+  // @@protoc_insertion_point(field_add:dg.model.VehicleObj.Vehicle)
+  return vehicle_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >*
+VehicleObj::mutable_vehicle() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.VehicleObj.Vehicle)
+  return &vehicle_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >&
+VehicleObj::vehicle() const {
+  // @@protoc_insertion_point(field_list:dg.model.VehicleObj.Vehicle)
+  return vehicle_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

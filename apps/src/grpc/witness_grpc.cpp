@@ -80,6 +80,34 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
+grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
+                                           const IndexTxtRequest *request,
+                                           IndexTxtResponse *response) {
+
+
+
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
+
+    CallData data;
+    data.func = [request, response, &data]() -> MatrixError {
+      return (bind(&WitnessAppsService::IndexTxt,
+                   (WitnessAppsService *) data.apps,
+                   placeholders::_1,
+                   placeholders::_2))(request,
+                                      response);
+    };
+
+    engine_pool_->enqueue(&data);
+    MatrixError error = data.Wait();
+
+    gettimeofday(&finish, NULL);
+    //  rapidjson::Value *value = pbjson::pb2jsonobject(response);
+    //  string s;
+    //   pbjson::json2string(value, s);
+
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+}
 grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context,
                                                     const WitnessBatchRequest *request,
                                                     WitnessBatchResponse *response) {

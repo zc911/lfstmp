@@ -99,7 +99,7 @@ public:
         VehicleObj v;
         NullMessage resp;
         ClientContext context;
-        RecVehicle *vehicle=v.mutable_vehicle();
+        RecVehicle *vehicle=v.add_vehicle();
         vehicle->mutable_modeltype()->set_brandid(23);
         vehicle->mutable_color()->set_colorname("1234");
         vehicle->mutable_plate()->set_platetext("djhf");
