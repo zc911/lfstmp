@@ -146,15 +146,14 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
         Mat img = imgs[i];
         int max_size = max(img.rows, img.cols);
         int min_size = min(img.rows, img.cols);
-        float enlarge_ratio = marker_config_.target_min_size / min_size;
+        float enlarge_ratio = (float)marker_config_.target_min_size / (float)min_size;
 
         if (max_size * enlarge_ratio > marker_config_.target_max_size) {
-            enlarge_ratio = marker_config_.target_max_size / max_size;
+            enlarge_ratio = (float)marker_config_.target_max_size / (float)max_size;
         }
         int target_row = img.rows * enlarge_ratio;
         int target_col = img.cols * enlarge_ratio;
         enlarge_ratios.push_back(enlarge_ratio);
-
         resize(img, img, Size(target_col, target_row));
 
         tiny_images.push_back(img);
