@@ -12,10 +12,6 @@ service SpringService {
     rpc BingoVehicle(VehicleObj) returns(NullMessage){}
 
 }
-message VehicleObj {
-    RecVehicle Vehicle=1;
-    StorageConfig StorageInfo=2;
-    Image Img=3;
-}
+
 
 

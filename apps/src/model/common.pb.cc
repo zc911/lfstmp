@@ -427,7 +427,7 @@ void protobuf_AddDesc_common_2eproto() {
     "\n\014common.proto\022\010dg.model\"\217\001\n\rVideoMetada"
     "ta\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022"
     "\020\n\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n"
-    "\tSensorUrl\030\005 \001(\t\022\016\n\006repoId\030\006 \001(\005\022\020\n\010repo"
+    "\tSensorUrl\030\005 \001(\t\022\016\n\006RepoId\030\006 \001(\005\022\020\n\010Repo"
     "Info\030\007 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002"
     " \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010R"
     "esWidth\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConf"
@@ -441,14 +441,14 @@ void protobuf_AddDesc_common_2eproto() {
     "d\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013"
     "\n\003URI\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022"
     "\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cutb"
-    "oardImage\022\020\n\010Features\030\003 \001(\014\022\022\n\nConfidenc"
+    "oardImage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidenc"
     "e\030\004 \001(\002\"\261\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tMo"
     "delType\030\002 \001(\0132\032.dg.model.VehicleModelTyp"
     "e\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Pla"
     "te\030\004 \001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030"
     "\005 \001(\0132\027.dg.model.CutboardImage\022(\n\007Symbol"
     "s\030\006 \003(\0132\027.dg.model.VehicleSymbol\022\020\n\010Feat"
-    "ures\030\007 \001(\014\022&\n\013VehicleType\030\010 \001(\0162\021.dg.mod"
+    "ures\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.mod"
     "el.ObjType\022\027\n\017VehicleTypeName\030\t \001(\t\"\335\001\n\020"
     "VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030"
     "\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId"
@@ -773,14 +773,14 @@ bool VideoMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(48)) goto parse_repoId;
+        if (input->ExpectTag(48)) goto parse_RepoId;
         break;
       }
 
-      // optional int32 repoId = 6;
+      // optional int32 RepoId = 6;
       case 6: {
         if (tag == 48) {
-         parse_repoId:
+         parse_RepoId:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &repoid_)));
@@ -788,20 +788,20 @@ bool VideoMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_repoInfo;
+        if (input->ExpectTag(58)) goto parse_RepoInfo;
         break;
       }
 
-      // optional string repoInfo = 7;
+      // optional string RepoInfo = 7;
       case 7: {
         if (tag == 58) {
-         parse_repoInfo:
+         parse_RepoInfo:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_repoinfo()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
             this->repoinfo().data(), this->repoinfo().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VideoMetadata.repoInfo"));
+            "dg.model.VideoMetadata.RepoInfo"));
         } else {
           goto handle_unusual;
         }
@@ -868,17 +868,17 @@ void VideoMetadata::SerializeWithCachedSizes(
       5, this->sensorurl(), output);
   }
 
-  // optional int32 repoId = 6;
+  // optional int32 RepoId = 6;
   if (this->repoid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->repoid(), output);
   }
 
-  // optional string repoInfo = 7;
+  // optional string RepoInfo = 7;
   if (this->repoinfo().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->repoinfo().data(), this->repoinfo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.repoInfo");
+      "dg.model.VideoMetadata.RepoInfo");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->repoinfo(), output);
   }
@@ -926,17 +926,17 @@ void VideoMetadata::SerializeWithCachedSizes(
         5, this->sensorurl(), target);
   }
 
-  // optional int32 repoId = 6;
+  // optional int32 RepoId = 6;
   if (this->repoid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->repoid(), target);
   }
 
-  // optional string repoInfo = 7;
+  // optional string RepoInfo = 7;
   if (this->repoinfo().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->repoinfo().data(), this->repoinfo().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.VideoMetadata.repoInfo");
+      "dg.model.VideoMetadata.RepoInfo");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->repoinfo(), target);
@@ -984,14 +984,14 @@ int VideoMetadata::ByteSize() const {
         this->sensorurl());
   }
 
-  // optional int32 repoId = 6;
+  // optional int32 RepoId = 6;
   if (this->repoid() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->repoid());
   }
 
-  // optional string repoInfo = 7;
+  // optional string RepoInfo = 7;
   if (this->repoinfo().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -1216,47 +1216,47 @@ void VideoMetadata::clear_sensorurl() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.SensorUrl)
 }
 
-// optional int32 repoId = 6;
+// optional int32 RepoId = 6;
 void VideoMetadata::clear_repoid() {
   repoid_ = 0;
 }
  ::google::protobuf::int32 VideoMetadata::repoid() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoId)
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoId)
   return repoid_;
 }
  void VideoMetadata::set_repoid(::google::protobuf::int32 value) {
   
   repoid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoId)
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoId)
 }
 
-// optional string repoInfo = 7;
+// optional string RepoInfo = 7;
 void VideoMetadata::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  const ::std::string& VideoMetadata::repoinfo() const {
-  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_get:dg.model.VideoMetadata.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void VideoMetadata::set_repoinfo(const ::std::string& value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set:dg.model.VideoMetadata.RepoInfo)
 }
  void VideoMetadata::set_repoinfo(const char* value) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_char:dg.model.VideoMetadata.RepoInfo)
 }
  void VideoMetadata::set_repoinfo(const char* value, size_t size) {
   
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VideoMetadata.RepoInfo)
 }
  ::std::string* VideoMetadata::mutable_repoinfo() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_mutable:dg.model.VideoMetadata.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VideoMetadata::release_repoinfo() {
@@ -1270,7 +1270,7 @@ void VideoMetadata::clear_repoinfo() {
     
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.repoInfo)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VideoMetadata.RepoInfo)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -3817,12 +3817,16 @@ bool RecFace::MergePartialFromCodedStream(
         break;
       }
 
-      // optional bytes Features = 3;
+      // optional string Features = 3;
       case 3: {
         if (tag == 26) {
          parse_Features:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_features()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->features().data(), this->features().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RecFace.Features"));
         } else {
           goto handle_unusual;
         }
@@ -3880,9 +3884,13 @@ void RecFace::SerializeWithCachedSizes(
       2, *this->img_, output);
   }
 
-  // optional bytes Features = 3;
+  // optional string Features = 3;
   if (this->features().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->features().data(), this->features().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecFace.Features");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->features(), output);
   }
 
@@ -3909,10 +3917,14 @@ void RecFace::SerializeWithCachedSizes(
         2, *this->img_, target);
   }
 
-  // optional bytes Features = 3;
+  // optional string Features = 3;
   if (this->features().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->features().data(), this->features().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecFace.Features");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         3, this->features(), target);
   }
 
@@ -3942,10 +3954,10 @@ int RecFace::ByteSize() const {
         *this->img_);
   }
 
-  // optional bytes Features = 3;
+  // optional string Features = 3;
   if (this->features().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
+      ::google::protobuf::internal::WireFormatLite::StringSize(
         this->features());
   }
 
@@ -4081,7 +4093,7 @@ void RecFace::set_allocated_img(::dg::model::CutboardImage* img) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Img)
 }
 
-// optional bytes Features = 3;
+// optional string Features = 3;
 void RecFace::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4099,7 +4111,7 @@ void RecFace::clear_features() {
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecFace.Features)
 }
- void RecFace::set_features(const void* value, size_t size) {
+ void RecFace::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
@@ -4340,12 +4352,16 @@ bool RecVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional bytes Features = 7;
+      // optional string Features = 7;
       case 7: {
         if (tag == 58) {
          parse_Features:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_features()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->features().data(), this->features().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RecVehicle.Features"));
         } else {
           goto handle_unusual;
         }
@@ -4445,9 +4461,13 @@ void RecVehicle::SerializeWithCachedSizes(
       6, this->symbols(i), output);
   }
 
-  // optional bytes Features = 7;
+  // optional string Features = 7;
   if (this->features().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->features().data(), this->features().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecVehicle.Features");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->features(), output);
   }
 
@@ -4513,10 +4533,14 @@ void RecVehicle::SerializeWithCachedSizes(
         6, this->symbols(i), target);
   }
 
-  // optional bytes Features = 7;
+  // optional string Features = 7;
   if (this->features().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->features().data(), this->features().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecVehicle.Features");
     target =
-      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         7, this->features(), target);
   }
 
@@ -4579,10 +4603,10 @@ int RecVehicle::ByteSize() const {
         *this->img_);
   }
 
-  // optional bytes Features = 7;
+  // optional string Features = 7;
   if (this->features().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
+      ::google::protobuf::internal::WireFormatLite::StringSize(
         this->features());
   }
 
@@ -4894,7 +4918,7 @@ RecVehicle::symbols() const {
   return symbols_;
 }
 
-// optional bytes Features = 7;
+// optional string Features = 7;
 void RecVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4912,7 +4936,7 @@ void RecVehicle::clear_features() {
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecVehicle.Features)
 }
- void RecVehicle::set_features(const void* value, size_t size) {
+ void RecVehicle::set_features(const char* value, size_t size) {
   
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));

@@ -154,7 +154,6 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
         int target_row = img.rows * enlarge_ratio;
         int target_col = img.cols * enlarge_ratio;
         enlarge_ratios.push_back(enlarge_ratio);
-        Mat tmp;
 
         resize(img, img, Size(target_col, target_row));
 
@@ -313,8 +312,8 @@ vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
                     break;
                 if (filter(box, origin_imgs[idx].rows, origin_imgs[idx].cols))
                     final_vbbox.push_back(box);
-
             }
+
         }
         final_vvbbox.push_back(final_vbbox);
     }
