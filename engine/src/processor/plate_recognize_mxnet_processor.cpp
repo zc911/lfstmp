@@ -75,7 +75,6 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 string platenum;
                 for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
-                    cout<<paInv_chardict[pstLP->adwLPNumber[dwK]]<<endl;
                 }
                 plate.color_id = pstLP->dwColor;
                 plate.plate_type=pstLP->dwType;

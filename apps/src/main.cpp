@@ -118,10 +118,10 @@ DEFINE_string(config, "config.json", "Config file path");
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
-//StartDogMonitor();
-  //  if(CheckHardware()){
-  //      return -1;
-  //  }
+StartDogMonitor();
+    if(CheckHardware()){
+       return -1;
+    }
 
 cout<<"after start dog"<<endl;
     google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
