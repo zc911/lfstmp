@@ -1,4 +1,3 @@
-#include <cstring>
 #include <vector>
 
 #include "gtest/gtest.h"
@@ -6,7 +5,11 @@
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
 #include "caffe/filler.hpp"
-#include "caffe/vision_layers.hpp"
+#include "caffe/layers/pooling_layer.hpp"
+
+#ifdef USE_CUDNN
+#include "caffe/layers/cudnn_pooling_layer.hpp"
+#endif
 
 #include "caffe/test/test_caffe_main.hpp"
 #include "caffe/test/test_gradient_check_util.hpp"
@@ -608,7 +611,7 @@ TYPED_TEST(PoolingLayerTest, TestGradientAvePadded) {
 
 #ifdef USE_CUDNN
 template <typename Dtype>
-class CuDNNPoolingLayerTest : public ::testing::Test {
+class CuDNNPoolingLayerTest : public GPUDeviceTest<Dtype> {
  protected:
   CuDNNPoolingLayerTest()
       : blob_bottom_(new Blob<Dtype>()),
@@ -963,7 +966,6 @@ class CuDNNPoolingLayerTest : public ::testing::Test {
 TYPED_TEST_CASE(CuDNNPoolingLayerTest, TestDtypes);
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestSetupCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   LayerParameter layer_param;
   PoolingParameter* pooling_param = layer_param.mutable_pooling_param();
   pooling_param->set_kernel_size(3);
@@ -977,7 +979,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestSetupCuDNN) {
 }
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestSetupPaddedCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   LayerParameter layer_param;
   PoolingParameter* pooling_param = layer_param.mutable_pooling_param();
   pooling_param->set_kernel_size(3);
@@ -994,7 +995,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestSetupPaddedCuDNN) {
 
 /*
 TYPED_TEST(CuDNNPoolingLayerTest, PrintBackwardCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   LayerParameter layer_param;
   layer_param.set_kernelsize(3);
   layer_param.set_stride(2);
@@ -1020,7 +1020,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, PrintBackwardCuDNN) {
 */
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   this->TestForwardSquare();
   this->TestForwardRectHigh();
   this->TestForwardRectWide();
@@ -1030,7 +1029,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxCuDNN) {
 // the corresponding backward test.
 /*
 TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxTopMaskCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   this->blob_top_vec_.push_back(this->blob_top_mask_);
   this->TestForwardSquare();
   this->TestForwardRectHigh();
@@ -1039,7 +1037,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxTopMaskCuDNN) {
 */
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestGradientMaxCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   for (int kernel_h = 3; kernel_h <= 4; kernel_h++) {
     for (int kernel_w = 3; kernel_w <= 4; kernel_w++) {
       LayerParameter layer_param;
@@ -1059,7 +1056,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestGradientMaxCuDNN) {
 }
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxPaddedCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   LayerParameter layer_param;
   PoolingParameter* pooling_param = layer_param.mutable_pooling_param();
   pooling_param->set_kernel_size(3);
@@ -1105,7 +1101,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestForwardMaxPaddedCuDNN) {
 
 /*
 TYPED_TEST(CuDNNPoolingLayerTest, TestGradientMaxTopMaskCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   for (int kernel_h = 3; kernel_h <= 4; kernel_h++) {
     for (int kernel_w = 3; kernel_w <= 4; kernel_w++) {
       LayerParameter layer_param;
@@ -1126,7 +1121,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestGradientMaxTopMaskCuDNN) {
 */
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestForwardAveCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   LayerParameter layer_param;
   PoolingParameter* pooling_param = layer_param.mutable_pooling_param();
   pooling_param->set_kernel_size(3);
@@ -1152,7 +1146,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestForwardAveCuDNN) {
 }
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestGradientAveCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   for (int kernel_h = 3; kernel_h <= 4; kernel_h++) {
     for (int kernel_w = 3; kernel_w <= 4; kernel_w++) {
       LayerParameter layer_param;
@@ -1170,7 +1163,6 @@ TYPED_TEST(CuDNNPoolingLayerTest, TestGradientAveCuDNN) {
 }
 
 TYPED_TEST(CuDNNPoolingLayerTest, TestGradientAvePaddedCuDNN) {
-  Caffe::set_mode(Caffe::GPU);
   for (int kernel_h = 3; kernel_h <= 4; kernel_h++) {
     for (int kernel_w = 3; kernel_w <= 4; kernel_w++) {
       LayerParameter layer_param;
