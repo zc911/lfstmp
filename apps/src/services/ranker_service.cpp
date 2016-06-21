@@ -122,7 +122,6 @@ MatrixError RankerAppsService::getCarScoredVector(
         vector<Score> &scores, const FeatureRankingRequest *request,
         FeatureRankingResponse *response) {
     string prefix = requestPrefix(request);
-    LOG(INFO)<< prefix << "started";
     response->set_reqid(request->reqid());
 
     MatrixError err;

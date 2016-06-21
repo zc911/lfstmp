@@ -22,6 +22,7 @@ CarRankEngine::~CarRankEngine() {
 
 vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
                                   const vector<CarRankFeature>& candidates) {
+
     vector<Rect> hotspots;
     hotspots.push_back(hotspot);
     CarRankFrame f(id_++, image, hotspots, candidates);
