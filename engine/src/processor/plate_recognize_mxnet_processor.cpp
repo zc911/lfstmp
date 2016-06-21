@@ -171,7 +171,6 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
         Object *obj = *itr;
 
         if (obj->type() == OBJECT_CAR) {
-
             Vehicle *v = (Vehicle*) obj;
             DLOG(INFO)<< "Put vehicle images to be color classified: " << obj->id() << endl;
             images_.push_back(v->image());

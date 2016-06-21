@@ -51,6 +51,7 @@ void WitnessAppsService::init(void) {
     string vColorFile = (string) config_->Value(VEHICLE_COLOR_MAPPING_FILE);
     string vSymbolFile = (string) config_->Value(VEHICLE_SYMBOL_MAPPING_FILE);
     string pColorFile = (string) config_->Value(VEHICLE_PLATE_COLOR_MAPPING_FILE);
+    string pColorGpuFile = (string) config_->Value(RENDER_VEHICLE_PLATE_GPU_COLOR);
     string pTypeFile = (string) config_->Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
     string pVtypeFile = (string) config_->Value(VEHICLE_TYPE_MAPPING_FILE);
 
@@ -58,6 +59,7 @@ void WitnessAppsService::init(void) {
     init_string_map(vColorFile, "=", color_repo_);
     init_string_map(vSymbolFile, "=", symbol_repo_);
     init_string_map(pColorFile, "=", plate_color_repo_);
+    init_string_map(pColorGpuFile, "=", plate_color_gpu_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
     model_mapping_data_ = ReadStringFromFile(vModelFile,"r");
@@ -66,6 +68,7 @@ void WitnessAppsService::init(void) {
     plate_color_mapping_data_=ReadStringFromFile(pColorFile,"r");
     plate_type_mapping_data_=ReadStringFromFile(pTypeFile,"r");
     vehicle_type_mapping_data_=ReadStringFromFile(pVtypeFile,"r");
+    plate_color_gpu_mapping_data_=ReadStringFromFile(pColorFile,"r");
 
 }
 
@@ -266,13 +269,20 @@ MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color,
 
 MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
                                           LicensePlate *rplate) {
+    bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
     MatrixError err;
     rplate->set_platetext(plate.plate_num);
     Detection d;
     d.box = plate.box;
     copyCutboard(d, rplate->mutable_cutboard());
     rplate->mutable_color()->set_colorid(plate.color_id);
-    rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
+    if(gpuplate){
+        rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
+
+    }else{
+
+        rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
+    }
     rplate->mutable_color()->set_confidence(plate.confidence);
     rplate->set_typeid_(plate.plate_type);
     rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
@@ -363,6 +373,7 @@ MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
                                          IndexTxtResponse *response){
     MatrixError err;
     string data;
+    bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
             data=model_mapping_data_;
@@ -377,7 +388,11 @@ MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
             data=model_mapping_data_;
             break;
         case INDEX_CAR_PLATE_COLOR:
-            data=plate_color_mapping_data_;
+            if(!gpuplate) {
+                data = plate_color_mapping_data_;
+            }else{
+                data=plate_color_gpu_mapping_data_;
+            }
             break;
         case INDEX_CAR_PLATE_TYPE:
             data=plate_type_mapping_data_;
@@ -605,17 +620,19 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         if (r.vehicles_size() != 0) {
             unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj) ;
+            client_request_obj->mutable_storage()->set_address(storageAddress);
             for (int i = 0; i < r.vehicles_size(); i++) {
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(),Rect(c.x(),c.y(),c.width(),c.height()));
                 RecVehicle *v=client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->mutable_img()->mutable_img()->set_bindata(string((char *)roi.data));
                 v->CopyFrom(r.vehicles(i));
-                //   string s;
-                //   google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
-                //   VLOG(VLOG_SERVICE)<<s<<endl;
             }
             client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(request->image().data().uri());
+            client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
+          //  string s;
+          //  google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
+          //  VLOG(VLOG_SERVICE)<<s<<endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
@@ -763,11 +780,13 @@ MatrixError WitnessAppsService::BatchRecognize(
             if (r.vehicles_size() != 0) {
                 unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
                 shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
+                client_request_obj->mutable_storage()->set_address(storageAddress);
                 for (int i = 0; i < r.vehicles_size(); i++) {
                     Cutboard c = r.vehicles(i).img().cutboard();
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                     v->mutable_img()->mutable_img()->set_bindata(string((char *) roi.data));
+                    client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(batchRequest->images(k).witnessmetadata());
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
                     v->CopyFrom(r.vehicles(i));
                 }
@@ -785,6 +804,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 MatrixError WitnessAppsService::Index(const IndexRequest *request,
                                       IndexResponse *response) {
     MatrixError err;
+    bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
 
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
@@ -813,9 +833,16 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
             }
             break;
         case INDEX_CAR_PLATE_COLOR:
-            for (int i = 0; i < plate_color_repo_.size(); i++) {
-                string value = plate_color_repo_[i].data();
-                (*response->mutable_index())[i] = value;
+            if(!gpuplate){
+                for (int i = 0; i < plate_color_repo_.size(); i++) {
+                    string value = plate_color_repo_[i].data();
+                    (*response->mutable_index())[i] = value;
+                }
+            }else{
+                for (int i = 0; i < plate_color_gpu_repo_.size(); i++) {
+                    string value = plate_color_gpu_repo_[i].data();
+                    (*response->mutable_index())[i] = value;
+                }
             }
             break;
         case INDEX_CAR_PLATE_TYPE:
