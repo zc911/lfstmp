@@ -102,12 +102,14 @@ private:
     vector<string> symbol_repo_;
     vector<string> plate_color_repo_;
     vector<string> plate_type_repo_;
+    vector<string> plate_color_gpu_repo_;
     string model_mapping_data_;
     string color_mapping_data_;
     string symbol_mapping_data_;
     string plate_color_mapping_data_;
     string plate_type_mapping_data_;
     string vehicle_type_mapping_data_;
+    string plate_color_gpu_mapping_data_;
 
     // library caffe is not thread safe(even crash some times) which means
     // only one frame/frameBatch could be processed at one time.
