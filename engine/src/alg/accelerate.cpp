@@ -16,7 +16,7 @@ Accelerate::Accelerate(){
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-    input_layer->Reshape(batch_size_, num_channels_,
+    input_layer->Reshape(1, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();
