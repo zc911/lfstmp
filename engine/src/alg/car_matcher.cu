@@ -221,7 +221,7 @@ vector<int> CarMatcher::computeMatchScoreGpu(
         max_mis_match_, selected_area_weight_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
-    for (int i = 0; i < all_des.size(); i++){
+    for (int i = 0; i < all_des.size(); i++)
         if (score_cuda_[i] < min_score_thr_)
             score_cuda_[i] = 0;
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());
