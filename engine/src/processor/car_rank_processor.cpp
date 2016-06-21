@@ -11,6 +11,7 @@ CarRankProcessor::~CarRankProcessor() {
 bool CarRankProcessor::process(Frame *frame) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start car ranker process" << frame->id() << endl;
+    cout << "Start car ranker process" << frame->id() << endl;
 
     //process frame
     CarRankFrame *cframe = (CarRankFrame *) frame;
@@ -36,7 +37,6 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     hotspot_resized.height *= resize_rto;
 
     VLOG(VLOG_RUNTIME_DEBUG) << "hotspot resized: " << hotspot_resized;
-
     vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized,
                                                        candidates);
 
@@ -45,6 +45,7 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
 
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
+        if(score[i])
         topx[i] = Score(i, score[i]);
     }
 
