@@ -19,6 +19,7 @@ using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 namespace dg {
+static int timeout=5;
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
@@ -36,6 +37,8 @@ public:
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
         NullMessage reply;
         ClientContext context;
+        std::chrono::system_clock::time_point deadline=std::chrono::system_clock::now()+std::chrono::seconds(timeout);
+        context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
         std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
