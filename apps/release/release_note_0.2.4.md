@@ -18,7 +18,8 @@ Monitor watchdog and check hardware
 - Implement System-status api
 - Integrate with deep-data
 - Modify proto
-
+### Bugs fixed
+-
 ### How to Install/Update
 ```
 $ wget -O install.sh http://192.168.2.119/matrix/install.sh

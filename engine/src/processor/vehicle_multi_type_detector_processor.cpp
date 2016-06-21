@@ -96,7 +96,6 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                 Vehicle *v = new Vehicle(objectType);
                 Mat roi = CutImage(frame->payload()->data(), d.box);
 
-
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
                 }

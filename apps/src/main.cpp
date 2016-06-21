@@ -44,9 +44,9 @@ void serveWitness(Config *config, int userPort = 0) {
     msg_pool->Run();
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config, msg_pool);
     std::thread test(&SpringGrpcClientImpl::Run, client);
-
     MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
     engine_pool->Run();
+    std::thread network_th_(networkInfo, &rx, &tx);
 
     if (protocolType == "restful") {
         RestWitnessServiceImpl *service = new RestWitnessServiceImpl(*config, address, engine_pool);
@@ -74,6 +74,7 @@ void serveWitness(Config *config, int userPort = 0) {
         exit(-1);
     }
     test.join();
+    network_th_.join();
 
 }
 
@@ -118,10 +119,10 @@ DEFINE_string(config, "config.json", "Config file path");
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
-    StartDogMonitor();
-    if (CheckHardware()) {
-        return -1;
-    }
+//    StartDogMonitor();
+//  if (CheckHardware()) {
+ //      return -1;
+ // }
 
     google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
     google::SetVersionString("0.2.4");

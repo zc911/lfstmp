@@ -36,14 +36,22 @@ VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
 bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << endl;
-
+    VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
+    float costtime, diff;
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                                      images_);
-    imwrite("test1.jpg",images_[0]);
+    gettimeofday(&end, NULL);
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+        / 1000.f;
+    printf("window cost: %.2fms\n", diff);
+
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
         v->set_window(crops[i]);
     }
+    gettimeofday(&start, NULL);
 
     vector<Mat> images;
     for (int i = 0; i < crops.size(); i++) {
@@ -53,10 +61,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<vector<Detection> > pred = classifier_->ClassifyAutoBatch(images);
     for (int i = 0; i < pred.size(); i++) {
-        Mat img=frameBatch->frames()[i]->payload()->data();
         Vehicle *v = (Vehicle *) objs_[i];
         vector<Detection> markers_cutborad;
-        Mat test = frameBatch->frames()[i]->payload()->data();
         for(int j=0;j<pred[i].size();j++){
             Detection d(pred[i][j]);
 
@@ -69,7 +75,12 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         v->set_markers(markers_cutborad);
 
     }
+    gettimeofday(&end, NULL);
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+        / 1000.f;
+    printf("mareker cost: %.2fms\n", diff);
     objs_.clear();
+
     return true;
 }
 
