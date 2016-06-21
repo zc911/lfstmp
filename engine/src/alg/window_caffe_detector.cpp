@@ -1,3 +1,4 @@
+
 /*
  * window_detector.cpp
  *
@@ -9,9 +10,9 @@
 namespace dg {
 
 WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
-        : device_setted_(false),
-          caffe_config_(config),
-          rescale_(100) {
+    : device_setted_(false),
+      caffe_config_(config),
+      rescale_(100) {
 
     if (config.use_gpu) {
         Caffe::SetDevice(config.gpu_id);
@@ -38,16 +39,16 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
-            input_geometry_.height, input_geometry_.width);
+                         input_geometry_.height, input_geometry_.width);
     net_->Reshape();
 
 }
 vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resized_imgs,
-        const vector<cv::Mat> &imgs){
+                                                   const vector<cv::Mat> &imgs){
     vector<Detection> crops;
     int padding_size = (caffe_config_.batch_size
-            - imgs.size() % caffe_config_.batch_size)
-            % caffe_config_.batch_size;
+        - imgs.size() % caffe_config_.batch_size)
+        % caffe_config_.batch_size;
     auto images = PrepareBatch(imgs, caffe_config_.batch_size);
     auto resized_images = PrepareBatch(resized_imgs, caffe_config_.batch_size);
 
@@ -71,7 +72,7 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
     Blob<float>* window_reg = window_outputs[0];
     const float* begin = window_reg->cpu_data();
     const float* end = begin
-            + window_outputs[0]->channels() * resized_imgs.size();
+        + window_outputs[0]->channels() * resized_imgs.size();
 
     vector<float> output_batch = std::vector<float>(begin, end);
     vector<Detection> crops;
@@ -89,9 +90,9 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
         float h_ratio = imgs[k].rows / 256.0;
         for (int i = 0; i < id.size(); i++) {
             float x =
-                    output_batch[id[i] * 2 + k * window_outputs[0]->channels()];
+                output_batch[id[i] * 2 + k * window_outputs[0]->channels()];
             float y = output_batch[id[i] * 2 + 1
-                    + k * window_outputs[0]->channels()];
+                + k * window_outputs[0]->channels()];
             x *= 240;
             y *= 240;
             x += 8;
@@ -109,7 +110,7 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
         rx += pad;
         ry += pad;
         Rect crop = Rect(lx, ly, rx - lx, ry - ly)
-                & Rect(0, 0, imgs[k].cols, imgs[k].rows);
+            & Rect(0, 0, imgs[k].cols, imgs[k].rows);
         Detection detection;
         detection.box = crop;
         crops.push_back(detection);
@@ -118,8 +119,8 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
     return crops;
 }
 void WindowCaffeDetector::PreprocessBatch(
-        const vector<cv::Mat> imgs,
-        std::vector<std::vector<cv::Mat> >* input_batch) {
+    const vector<cv::Mat> imgs,
+    std::vector<std::vector<cv::Mat> >* input_batch) {
     Mat means_ = cv::Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
 
     for (int i = 0; i < imgs.size(); i++) {
@@ -196,7 +197,7 @@ vector<Blob<float>*> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
 
 }
 void WindowCaffeDetector::WrapBatchInputLayer(
-        std::vector<std::vector<cv::Mat> > *input_batch) {
+    std::vector<std::vector<cv::Mat> > *input_batch) {
     Blob<float>* input_layer = net_->input_blobs()[0];
 
     int width = input_layer->width();

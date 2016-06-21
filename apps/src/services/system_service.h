@@ -22,6 +22,8 @@
 #include "model/system.grpc.pb.h"
 #include "string_util.h"
 namespace dg {
+static int rx = 0;
+static int tx = 0;
 using namespace ::dg::model;
 static void networkInfo(int *rx, int *tx) {
     char id[1000];
@@ -46,6 +48,7 @@ static void networkInfo(int *rx, int *tx) {
         fgets(id, sizeof(id), out);
         if (id[0] == ':')
             start_tx = atoi(id + 1);
+        fclose(out);
         sleep(1);
 
         uint64_t end_rx = 0;
@@ -63,6 +66,7 @@ static void networkInfo(int *rx, int *tx) {
             end_rx += atoi(id + 1);
         memset(id, 0, sizeof(id));
         fgets(id, sizeof(id), out);
+        fclose(out);
         if (id[0] == ':')
             end_tx += atoi(id + 1);
         gettimeofday(&n, NULL);
@@ -200,9 +204,9 @@ class SystemAppsService {
 
     int getNetworkInfo(std::string &msg,std::string cmd){
         if(cmd=="RX"){
-            msg = to_string(rx_)+" kB/s";
+            msg = to_string(rx)+" kB/s";
         }else if(cmd=="TX"){
-            msg = to_string(tx_)+" kB/s";
+            msg = to_string(tx)+" kB/s";
 
         }
         return 1;
@@ -213,8 +217,6 @@ class SystemAppsService {
     string name_;
     string modelversion_;
     string serviceversion_;
-    int rx_ = 0;
-    int tx_ = 0;
 
 };
 }
