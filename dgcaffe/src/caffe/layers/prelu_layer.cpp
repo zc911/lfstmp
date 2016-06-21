@@ -2,8 +2,9 @@
 #include <vector>
 
 #include "caffe/filler.hpp"
-#include "caffe/layer.hpp"
-#include "caffe/vision_layers.hpp"
+
+#include "caffe/layers/neuron_layer.hpp"
+#include "caffe/layers/prelu_layer.hpp"
 
 namespace caffe {
 
@@ -45,7 +46,8 @@ void PReLULayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
 
   // Propagate gradients to the parameters (as directed by backward pass).
   this->param_propagate_down_.resize(this->blobs_.size(), true);
-  multiplier_.Reshape(vector<int>(1, bottom[0]->count() / bottom[0]->num()));
+  multiplier_.Reshape(vector<int>(1, bottom[0]->count(1)));
+  backward_buff_.Reshape(vector<int>(1, bottom[0]->count(1)));
   caffe_set(multiplier_.count(), Dtype(1), multiplier_.mutable_cpu_data());
 }
 
@@ -112,7 +114,6 @@ void PReLULayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
   // keep top_diff unchanged.
   if (this->param_propagate_down_[0]) {
     Dtype* slope_diff = this->blobs_[0]->mutable_cpu_diff();
-    caffe_set(this->blobs_[0]->count(), Dtype(0), slope_diff);
     for (int i = 0; i < count; ++i) {
       int c = (i / dim) % channels / div_factor;
       slope_diff[c] += top_diff[i] * bottom_data[i] * (bottom_data[i] <= 0);
