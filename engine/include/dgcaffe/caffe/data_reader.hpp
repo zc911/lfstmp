@@ -5,10 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "common.hpp"
-#include "internal_thread.hpp"
-#include "util/blocking_queue.hpp"
-#include "util/db.hpp"
+#include "caffe/common.hpp"
+#include "caffe/internal_thread.hpp"
+#include "caffe/util/blocking_queue.hpp"
+#include "caffe/util/db.hpp"
 
 namespace caffe {
 

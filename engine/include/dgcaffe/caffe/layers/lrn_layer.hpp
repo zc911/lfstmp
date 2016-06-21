@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../layer.hpp"
-#include "../proto/caffe.pb.h"
+#include "caffe/blob.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/proto/caffe.pb.h"
 
-#include "eltwise_layer.hpp"
-#include "pooling_layer.hpp"
-#include "power_layer.hpp"
-#include "split_layer.hpp"
+#include "caffe/layers/eltwise_layer.hpp"
+#include "caffe/layers/pooling_layer.hpp"
+#include "caffe/layers/power_layer.hpp"
+#include "caffe/layers/split_layer.hpp"
 
 namespace caffe {
 

@@ -21,8 +21,8 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     batch_size_ = config_.batch_size = 1;
     scale_ = config_.target_min_size;
 
-//    net_.reset(
-//            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+   // net_.reset(
+   //         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 
     net_.reset(
         new Net<float>(config.deploy_file, TEST));

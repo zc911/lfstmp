@@ -3,11 +3,11 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../layer.hpp"
-#include "../proto/caffe.pb.h"
+#include "caffe/blob.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/proto/caffe.pb.h"
 
-#include "base_data_layer.hpp"
+#include "caffe/layers/base_data_layer.hpp"
 
 namespace caffe {
 

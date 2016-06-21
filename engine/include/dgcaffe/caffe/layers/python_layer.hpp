@@ -4,7 +4,7 @@
 #include <boost/python.hpp>
 #include <vector>
 
-#include "../layer.hpp"
+#include "caffe/layer.hpp"
 
 namespace bp = boost::python;
 
