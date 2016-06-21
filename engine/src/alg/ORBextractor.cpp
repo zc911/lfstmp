@@ -483,9 +483,10 @@ void ExtractorNode::DivideNode(ExtractorNode &n1, ExtractorNode &n2, ExtractorNo
 vector<cv::KeyPoint> ORBextractor::DistributeOctTree(const vector<cv::KeyPoint>& vToDistributeKeys, const int &minX,
                                        const int &maxX, const int &minY, const int &maxY, const int &N, const int &level)
 {   
-    // Compute how many initial nodes   
-    const int nIni = std::max(round(static_cast<double>(maxX-minX)/(maxY-minY)), 1.);
+    // Compute how many initial nodes
+    const int nIni = std::max(round(static_cast<double>(maxX-minX)/std::max(maxY-minY,1)), 1.);
     const float hX = static_cast<float>(maxX-minX)/nIni;
+
     list<ExtractorNode> lNodes;
 
     vector<ExtractorNode*> vpIniNodes;
