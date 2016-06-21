@@ -560,7 +560,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    VLOG(VLOG_SERVICE) << timestamp << endl;
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();
