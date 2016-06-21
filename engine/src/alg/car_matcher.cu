@@ -48,6 +48,13 @@ CarMatcher::CarMatcher() {
 }
 
 CarMatcher::~CarMatcher() {
+    CUDA_CALL(cudaFree(query_pos_cuda_));
+    CUDA_CALL(cudaFree(query_desc_cuda_));
+    CUDA_CALL(cudaFree(db_pos_cuda_));
+    CUDA_CALL(cudaFree(db_desc_cuda_));
+    CUDA_CALL(cudaFree(db_width_cuda_));
+    CUDA_CALL(cudaFree(db_height_cuda_));
+    CUDA_CALL(cudaFree(score_cuda_));
     CUDA_CALL(cudaStreamDestroy(stream_));
 }
 
@@ -177,16 +184,17 @@ vector<int> CarMatcher::computeMatchScoreGpu(
     }
     ushort query_width = des.width_;
     ushort query_height = des.height_;
+
     for (int i = 0; i < all_des.size(); i++) {
         score_cuda_[i] = 0;
-        db_width_cuda_[i] = des.width_;
-        db_height_cuda_[i] = des.height_;
+        db_width_cuda_[i] = all_des[i].width_;
+        db_height_cuda_[i] = all_des[i].height_;
         for (int j = 0; j < feature_num_; j++) {
-            if (j < des.position_.rows) {
-                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = des.position_.at<ushort>(j, 0);
-                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = des.position_.at<ushort>(j, 1);
+            if (j < all_des[i].position_.rows) {
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = all_des[i].position_.at<ushort>(j, 0);
+                db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = all_des[i].position_.at<ushort>(j, 1);
                 for (int k = 0; k < 32; k++)
-                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] = des.descriptor_.at<uchar>(j, k);
+                    db_desc_cuda_[i * feature_num_ * 32 + j * 32 + k] = all_des[i].descriptor_.at<uchar>(j, k);
             } else {
                 db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 0] = -1;
                 db_pos_cuda_[i * feature_num_ * 2 + j * 2 + 1] = -1;
@@ -195,7 +203,6 @@ vector<int> CarMatcher::computeMatchScoreGpu(
             }
         }
     }
-
     CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_pos_cuda_));
     CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_desc_cuda_));
     CUDA_CALL(cudaStreamAttachMemAsync(stream_, db_pos_cuda_));
@@ -207,15 +214,15 @@ vector<int> CarMatcher::computeMatchScoreGpu(
     dim3 grid, block;
     grid = dim3(all_des.size());
     block = dim3(FEATURE_NUM_CUDA);
-    compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda_, (uint*)query_desc_cuda_,
-        db_pos_cuda_, (uint*)db_desc_cuda_, query_width,
+    compute_match_score_kernel << < grid, block, 0, stream_ >> > (query_box, query_pos_cuda_, (uint *) query_desc_cuda_,
+        db_pos_cuda_, (uint *) db_desc_cuda_, query_width,
         query_height, db_width_cuda_, db_height_cuda_,
         max_resize_size_, feature_num_, min_remarkableness_,
         max_mis_match_, selected_area_weight_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
-    for (int i=0; i<all_des.size(); i++)
-        if (score_cuda_[i]<min_score_thr_)
+    for (int i = 0; i < all_des.size(); i++){
+        if (score_cuda_[i] < min_score_thr_)
             score_cuda_[i] = 0;
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());
 }
