@@ -5,8 +5,8 @@ using namespace std;
 namespace dg {
 
 CarFeatureExtractor::CarFeatureExtractor() {
-    orb_ = cv::ORB(CAR_FEATURE_ORB_ROWS_MAX);
     max_resize_size_ = 300;
+    orb_extractor_ = ORBextractor(CAR_FEATURE_ORB_ROWS_MAX, 1.2, 3, 20, 10);
 }
 
 void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
@@ -27,8 +27,8 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 
     vector<cv::KeyPoint> key_point;
     cv::Mat descriptor;
-
-    orb_(resize_img, cv::Mat(), key_point, descriptor);
+    orb_extractor_(resize_img, cv::Mat(), key_point, descriptor);
+  //  orb_(resize_img, cv::Mat(), key_point, descriptor);
 
     if (key_point.size() < 50)
         LOG(WARNING) << "Not enough feature extracted.";
