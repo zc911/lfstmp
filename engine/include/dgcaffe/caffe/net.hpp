@@ -24,8 +24,8 @@ template <typename Dtype>
 class Net {
  public:
   explicit Net(const NetParameter& param, const Net* root_net = NULL);
-  explicit Net(const string& param_file, Phase phase,
-      const Net* root_net = NULL);
+  explicit Net(const string& param_file, Phase phase, const Net* root_net = NULL);
+  explicit Net(const string& param_file, Phase phase, bool is_encrypt, const Net* root_net = NULL);
   virtual ~Net() {}
 
   /// @brief Initialize a network with a NetParameter.
@@ -307,6 +307,7 @@ class Net {
   bool debug_info_;
   /// The root net that actually holds the shared layers in data parallelism
   const Net* const root_net_;
+  bool is_encrypt_;
   DISABLE_COPY_AND_ASSIGN(Net);
 };
 

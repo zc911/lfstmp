@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../data_transformer.hpp"
-#include "../internal_thread.hpp"
-#include "../layer.hpp"
-#include "../proto/caffe.pb.h"
-#include "../util/blocking_queue.hpp"
+#include "caffe/blob.hpp"
+#include "caffe/data_transformer.hpp"
+#include "caffe/internal_thread.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/proto/caffe.pb.h"
+#include "caffe/util/blocking_queue.hpp"
 
 namespace caffe {
 
