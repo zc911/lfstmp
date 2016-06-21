@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../layer.hpp"
-#include "../proto/caffe.pb.h"
+#include "caffe/blob.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/proto/caffe.pb.h"
 
-#include "loss_layer.hpp"
-#include "softmax_layer.hpp"
+#include "caffe/layers/loss_layer.hpp"
+#include "caffe/layers/softmax_layer.hpp"
 
 namespace caffe {
 

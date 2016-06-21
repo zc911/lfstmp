@@ -5,9 +5,9 @@
 
 #include "google/protobuf/repeated_field.h"
 
-#include "blob.hpp"
-#include "common.hpp"
-#include "proto/caffe.pb.h"
+#include "caffe/blob.hpp"
+#include "caffe/common.hpp"
+#include "caffe/proto/caffe.pb.h"
 
 using google::protobuf::RepeatedPtrField;
 

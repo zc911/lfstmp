@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../layer.hpp"
-#include "../proto/caffe.pb.h"
+#include "caffe/blob.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/proto/caffe.pb.h"
 
-#include "neuron_layer.hpp"
-#include "tanh_layer.hpp"
+#include "caffe/layers/neuron_layer.hpp"
+#include "caffe/layers/tanh_layer.hpp"
 
 namespace caffe {
 
