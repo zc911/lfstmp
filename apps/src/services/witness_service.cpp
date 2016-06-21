@@ -8,18 +8,22 @@
  * ==========================================================================*/
 
 #include <fstream>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "pbjson/pbjson.hpp"
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
 #include <sys/time.h>
 #include <matrix_engine/model/model.h>
 #include <google/protobuf/text_format.h>
+#include "codec/base64.h"
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
 #include "string_util.h"
 #include "log/log_val.h"
-
+//
 
 namespace dg {
 
@@ -62,13 +66,13 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorGpuFile, "=", plate_color_gpu_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
-    model_mapping_data_ = ReadStringFromFile(vModelFile,"r");
-    color_mapping_data_ = ReadStringFromFile(vColorFile,"r");
-    symbol_mapping_data_ = ReadStringFromFile(vSymbolFile,"r");
-    plate_color_mapping_data_=ReadStringFromFile(pColorFile,"r");
-    plate_type_mapping_data_=ReadStringFromFile(pTypeFile,"r");
-    vehicle_type_mapping_data_=ReadStringFromFile(pVtypeFile,"r");
-    plate_color_gpu_mapping_data_=ReadStringFromFile(pColorFile,"r");
+    model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
+    color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
+    symbol_mapping_data_ = ReadStringFromFile(vSymbolFile, "r");
+    plate_color_mapping_data_ = ReadStringFromFile(pColorFile, "r");
+    plate_type_mapping_data_ = ReadStringFromFile(pTypeFile, "r");
+    vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
+    plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
 
 }
 
@@ -183,31 +187,31 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                 break;
             case RECFUNC_VEHICLE_DETECT:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_DETECT);
+                    op.Set(OPERATION_VEHICLE_DETECT);
                 break;
             case RECFUNC_VEHICLE_TRACK:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_TRACK);
+                    op.Set(OPERATION_VEHICLE_TRACK);
                 break;
             case RECFUNC_VEHICLE_STYLE:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_STYLE);
+                    op.Set(OPERATION_VEHICLE_STYLE);
                 break;
             case RECFUNC_VEHICLE_COLOR:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_COLOR);
+                    op.Set(OPERATION_VEHICLE_COLOR);
                 break;
             case RECFUNC_VEHICLE_MARKER:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_MARKER);
+                    op.Set(OPERATION_VEHICLE_MARKER);
                 break;
             case RECFUNC_VEHICLE_PLATE:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_PLATE);
+                    op.Set(OPERATION_VEHICLE_PLATE);
                 break;
             case RECFUNC_VEHICLE_FEATURE_VECTOR:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
+                    op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
                 break;
             case RECFUNC_FACE:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
@@ -215,11 +219,11 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                 break;
             case RECFUNC_FACE_DETECTOR:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_DETECTOR);
+                    op.Set(OPERATION_FACE_DETECTOR);
                 break;
             case RECFUNC_FACE_FEATURE_VECTOR:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_FEATURE_VECTOR);
+                    op.Set(OPERATION_FACE_FEATURE_VECTOR);
                 break;
             default:
                 break;
@@ -276,10 +280,10 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
     d.box = plate.box;
     copyCutboard(d, rplate->mutable_cutboard());
     rplate->mutable_color()->set_colorid(plate.color_id);
-    if(gpuplate){
+    if (gpuplate) {
         rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
 
-    }else{
+    } else {
 
         rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
     }
@@ -370,44 +374,41 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
     return err;
 }
 MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
-                                         IndexTxtResponse *response){
+                                         IndexTxtResponse *response) {
     MatrixError err;
     string data;
     bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
-            data=model_mapping_data_;
+            data = model_mapping_data_;
             break;
         case INDEX_CAR_MAIN_BRAND:
-            data=model_mapping_data_;
+            data = model_mapping_data_;
             break;
         case INDEX_CAR_SUB_BRAND:
-            data=model_mapping_data_;
+            data = model_mapping_data_;
             break;
         case INDEX_CAR_YEAR_MODEL:
-            data=model_mapping_data_;
+            data = model_mapping_data_;
             break;
         case INDEX_CAR_PLATE_COLOR:
-            if(!gpuplate) {
+            if (!gpuplate) {
                 data = plate_color_mapping_data_;
-            }else{
-                data=plate_color_gpu_mapping_data_;
+            } else {
+                data = plate_color_gpu_mapping_data_;
             }
             break;
         case INDEX_CAR_PLATE_TYPE:
-            data=plate_type_mapping_data_;
+            data = plate_type_mapping_data_;
             break;
         case INDEX_CAR_COLOR:
-            data=color_mapping_data_;
+            data = color_mapping_data_;
             break;
         case INDEX_CAR_MARKER:
-            data=symbol_mapping_data_;
+            data = symbol_mapping_data_;
             break;
     }
     response->set_context(data);
-
-
-
 
 
     return err;
@@ -437,9 +438,9 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
-        //    case OBJECT_PEDESTRIAN:
-        //        err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrians());
-        //        break;
+                //    case OBJECT_PEDESTRIAN:
+                //        err = getRecognizedPedestrain((Pedestrain *) object, result->add_pedestrians());
+                //        break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
                 break;
@@ -510,9 +511,9 @@ MatrixError WitnessAppsService::checkRequest(
 
     return err;
 }
-void storage(Frame *frame,VehicleObj *client_request_obj, string storageAddress
+void storage(Frame *frame, VehicleObj *client_request_obj, string storageAddress
 ) {
- /*   */
+    /*   */
 
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
@@ -522,6 +523,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
+    int timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
     if (err.code() != 0) {
@@ -553,6 +555,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
     gettimeofday(&start, NULL);
+    //fill srcmetadata
+
+    if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
+        timestamp = request->image().witnessmetadata().timestamp();
+    }
+    VLOG(VLOG_SERVICE) << timestamp << endl;
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();
@@ -599,40 +607,48 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
     bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if(storageEnabled) {
+    if (storageEnabled) {
         string storageAddress;
-        if(request->context().has_storage()){
-            storageAddress = (string)request->context().storage().address();
-        }else{
+        if (request->context().has_storage()) {
+            storageAddress = (string) request->context().storage().address();
+        } else {
             storageAddress = (string) config_->Value(STORAGE_ADDRESS);
         }
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
-        switch(dbTypeInt){
+        switch (dbTypeInt) {
             case 0:
-                dbType=KAFKA;
+                dbType = KAFKA;
                 break;
             default:
-                dbType=KAFKA;
+                dbType = KAFKA;
                 break;
         }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
-            shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj) ;
+            shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
             client_request_obj->mutable_storage()->set_address(storageAddress);
             for (int i = 0; i < r.vehicles_size(); i++) {
                 Cutboard c = r.vehicles(i).img().cutboard();
-                Mat roi(frame->payload()->data(),Rect(c.x(),c.y(),c.width(),c.height()));
-                RecVehicle *v=client_request_obj->mutable_vehicleresult()->add_vehicle();
-                v->mutable_img()->mutable_img()->set_bindata(string((char *)roi.data));
+                Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
+                RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
+                vector<uchar> data(roi.datastart, roi.dataend);
+                string imgdata = Base64::Encode(data);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 v->CopyFrom(r.vehicles(i));
             }
-            client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(request->image().data().uri());
-            client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
-          //  string s;
-          //  google::protobuf::TextFormat::PrintToString(*client_request_obj.get(),&s);
-          //  VLOG(VLOG_SERVICE)<<s<<endl;
+            VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
+            //origin img info
+            vehicleObj->mutable_img()->set_uri(request->image().data().uri());
+            vehicleObj->mutable_img()->set_height(frame->payload()->data().rows);
+            vehicleObj->mutable_img()->set_width(frame->payload()->data().cols);
+            //src metadata
+            vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
+            vehicleObj->mutable_metadata()->set_timestamp(timestamp);
+            //     string s;
+            //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
+            //         VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
@@ -758,24 +774,24 @@ MatrixError WitnessAppsService::BatchRecognize(
 
 
     bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if(storageEnabled) {
+    if (storageEnabled) {
         string storageAddress;
-        if(batchRequest->context().has_storage()){
-            storageAddress = (string)batchRequest->context().storage().address();
-        }else{
+        if (batchRequest->context().has_storage()) {
+            storageAddress = (string) batchRequest->context().storage().address();
+        } else {
             storageAddress = (string) config_->Value(STORAGE_ADDRESS);
         }
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
-        switch(dbTypeInt){
+        switch (dbTypeInt) {
             case 0:
-                dbType=KAFKA;
+                dbType = KAFKA;
                 break;
             default:
-                dbType=KAFKA;
+                dbType = KAFKA;
                 break;
         }
-        for(int k=0;k<batchResponse->results_size();k++) {
+        for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
                 unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
@@ -785,9 +801,14 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Cutboard c = r.vehicles(i).img().cutboard();
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
-                    v->mutable_img()->mutable_img()->set_bindata(string((char *) roi.data));
+                    vector<uchar> data(roi.datastart, roi.dataend);
+                    string imgdata = Base64::Encode(data);
+                    v->mutable_img()->mutable_img()->set_bindata(imgdata);
                     client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(batchRequest->images(k).witnessmetadata());
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
+
+                    client_request_obj->mutable_vehicleresult()->mutable_img()->set_height(framebatch.frames()[k]->payload()->data().rows);
+                    client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
                     v->CopyFrom(r.vehicles(i));
                 }
                 WitnessBucket::Instance().Push(client_request_obj);
@@ -795,7 +816,6 @@ MatrixError WitnessAppsService::BatchRecognize(
             }
         }
     }
-
 
 
     VLOG(VLOG_SERVICE) << "Finish batch processing: " << sessionid << "..." << endl;
@@ -809,8 +829,8 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
             for (int i = 0; i < vehicle_repo_.size(); i++) {
-                cout<<vehicle_type_repo_[i].data()<<endl;
-                string value = vehicle_type_repo_[i].data();
+                string value =
+                    vehicle_repo_[i].brand() + " " + vehicle_repo_[i].subbrand() + " " + vehicle_repo_[i].modelyear();
                 (*response->mutable_index())[i] = value;
             }
             break;
@@ -833,12 +853,12 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
             }
             break;
         case INDEX_CAR_PLATE_COLOR:
-            if(!gpuplate){
+            if (!gpuplate) {
                 for (int i = 0; i < plate_color_repo_.size(); i++) {
                     string value = plate_color_repo_[i].data();
                     (*response->mutable_index())[i] = value;
                 }
-            }else{
+            } else {
                 for (int i = 0; i < plate_color_gpu_repo_.size(); i++) {
                     string value = plate_color_gpu_repo_[i].data();
                     (*response->mutable_index())[i] = value;
