@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "../blob.hpp"
-#include "../data_reader.hpp"
-#include "../data_transformer.hpp"
-#include "../internal_thread.hpp"
-#include "../layer.hpp"
-#include "base_data_layer.hpp"
-#include "../proto/caffe.pb.h"
-#include "../util/db.hpp"
+#include "caffe/blob.hpp"
+#include "caffe/data_reader.hpp"
+#include "caffe/data_transformer.hpp"
+#include "caffe/internal_thread.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/layers/base_data_layer.hpp"
+#include "caffe/proto/caffe.pb.h"
+#include "caffe/util/db.hpp"
 
 namespace caffe {
 

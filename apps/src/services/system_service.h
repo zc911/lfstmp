@@ -156,7 +156,7 @@ class SystemAppsService {
         splitSpace(values, string(id));
 
         if (values.size() >= index) {
-            msg = values[index];
+            msg = values[index]+"kB";
         } else {
             return -1;
         }
