@@ -36,7 +36,17 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
     CHECK(num_channels_ == 3 || num_channels_ == 1)
     << "Input layer should have 1 or 3 channels.";
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+    input_layer->Reshape(markerconfig.batch_size, num_channels_,
+                         input_geometry_.height,
+                         input_geometry_.width);
 
+    //float* input_data = input_layer->mutable_cpu_data();
+    const vector< boost::shared_ptr<Layer<float> > >& layers = net_->layers();
+    const vector<vector<Blob<float>*> >& bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float>*> >& top_vecs = net_->top_vecs();
+    for(int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
     setupMarker();
 
 }
