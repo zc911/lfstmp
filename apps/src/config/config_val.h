@@ -34,10 +34,12 @@ static const string RENDER_VEHICLE_MODEL = "Render/Vehicle/Model";
 static const string RENDER_VEHICLE_COLOR = "Render/Vehicle/Color";
 static const string RENDER_VEHICLE_SYMBOL = "Render/Vehicle/Symbol";
 static const string RENDER_VEHICLE_PLATE_COLOR = "Render/Vehicle/Plate/Color";
+static const string RENDER_VEHICLE_PLATE_GPU_COLOR = "Render/Vehicle/Plate/ColorGpu";
 static const string RENDER_VEHICLE_PLATE_TYPE = "Render/Vehicle/Plate/Type";
 static const string STORAGE_ADDRESS = "Storage/Address";
 static const string STORAGE_ENABLED = "Storage/Enabled";
 static const string STORAGE_DB_TYPE = "Storage/DBType";
+static const string IS_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
 
 
 }
