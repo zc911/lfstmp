@@ -88,7 +88,7 @@ private:
     int max_mapping_offset_;
     int selected_area_weight_;
     int score_[100000];
-
+    int min_score_thr_;
 #if USE_CUDA
     cudaStream_t stream_;
 
