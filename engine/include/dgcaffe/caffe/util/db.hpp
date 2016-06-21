@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "../common.hpp"
-#include "../proto/caffe.pb.h"
+#include "caffe/common.hpp"
+#include "caffe/proto/caffe.pb.h"
 
 namespace caffe { namespace db {
 

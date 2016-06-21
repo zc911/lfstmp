@@ -6,7 +6,7 @@
 #include "hdf5.h"
 #include "hdf5_hl.h"
 
-#include "../blob.hpp"
+#include "caffe/blob.hpp"
 
 namespace caffe {
 
