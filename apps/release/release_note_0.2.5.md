@@ -1,15 +1,11 @@
 # Matrix Apps
-### Version 0.2.4
-2016-06-19
-
-```
-Monitor watchdog and check hardware
-```
+### Version 0.2.5
+2016-06-22
 
 ### Modules version
 | *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
 |:--------------:|:-------------:|:---------------:|:------------:|
-| 0.1.7 | 0.1.3 | * | * |
+| 0.1.8 | 0.1.3 | * | * |
 
 ### Features
 - Integrate with encrypted caffe
