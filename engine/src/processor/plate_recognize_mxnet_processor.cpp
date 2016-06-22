@@ -114,14 +114,14 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     readModuleFile(pstConfig->fcnnSymbolFile, pstConfig->fcnnParamFile,
-                   &pstConfig->stFCNN);
+                   &pstConfig->stFCNN,pstConfig->is_model_encrypt);
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;
     pstConfig->stFCNN.adwShape[2] = 400;  //standard width
     pstConfig->stFCNN.adwShape[3] = 400;  //standard height
 
     readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
-                   &pstConfig->stRPN);
+                   &pstConfig->stRPN,pstConfig->is_model_encrypt);
     pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
     pstConfig->stRPN.adwShape[1] = 4;//number of plates per car;
     pstConfig->stRPN.adwShape[2] = 1;
@@ -129,7 +129,7 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stRPN.adwShape[4] = 300;
 
     readModuleFile(pstConfig->roipSymbolFile, pstConfig->roipParamFile,
-                   &pstConfig->stROIP);
+                   &pstConfig->stROIP,pstConfig->is_model_encrypt);
     pstConfig->stROIP.adwShape[0] = pstConfig->stRPN.adwShape[0]
             * pstConfig->stRPN.adwShape[1];
     pstConfig->stROIP.adwShape[1] = 0;
@@ -140,14 +140,14 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stROIP.adwShape[6] = 5;
 
     readModuleFile(pstConfig->pregSymbolFile, pstConfig->pregParamFile,
-                   &pstConfig->stPREG);
+                   &pstConfig->stPREG,pstConfig->is_model_encrypt);
     pstConfig->stPREG.adwShape[0] = 1;
     pstConfig->stPREG.adwShape[1] = 1;
     pstConfig->stPREG.adwShape[2] = 64;
     pstConfig->stPREG.adwShape[3] = 64 * 3;
 
     readModuleFile(pstConfig->chrecogSymbolFile, pstConfig->chrecogParamFile,
-                   &pstConfig->stCHRECOG);
+                   &pstConfig->stCHRECOG,pstConfig->is_model_encrypt);
     pstConfig->stCHRECOG.adwShape[0] = 50;
     pstConfig->stCHRECOG.adwShape[1] = 1;
     pstConfig->stCHRECOG.adwShape[2] = 32;
@@ -159,7 +159,6 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
 }
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();
-
      images_.push_back(frameBatch->frames()[0]->payload()->data());
      return;*/
     images_.clear();
