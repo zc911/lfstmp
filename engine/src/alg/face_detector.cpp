@@ -1,5 +1,6 @@
 #include "alg/face_detector.h"
 #include "caffe_helper.h"
+#include "face_detector.h"
 namespace dg {
 
 bool mycmp(Detection b1, Detection b2) {
@@ -23,7 +24,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
     LOG(INFO)<< "loading model file: " << config.deploy_file;
 
     net_.reset(
-        new Net<float>(config.deploy_file, TEST));
+        new Net<float>(config.deploy_file, TEST,config.is_model_encrypt));
     LOG(INFO) << "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 
