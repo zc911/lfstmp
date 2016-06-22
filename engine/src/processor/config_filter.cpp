@@ -78,9 +78,9 @@ void ConfigFilter::createVehicleConfig(
 
     for (int i = 0; i < model_num; i++) {
         VehicleCaffeClassifier::VehicleCaffeConfig config;
-        config.model_file = model_path + to_string(i) + trained_model
-            + to_string(i) + "_iter_70000.caffemodel";
-        config.deploy_file = model_path + to_string(i) + deploy_model;
+        config.model_file = model_path +  trained_model
+            + to_string(i) + ".dat";
+        config.deploy_file = model_path + deploy_model+to_string(i)+".txt";
 
         config.is_model_encrypt = is_encrypted;
         config.batch_size = batch_size;
@@ -131,6 +131,7 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(
     string deploy_model = (string) data_config_.Value(
         FILE_DETECTION_DEPLOY_MODEL);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    cout<<is_encrypted<<"Sdg"<<endl;
     int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -257,6 +258,8 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pC
         + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
 
     int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    pConfig->is_model_encrypt=is_encrypted;
 
     pConfig->batchsize = batch_size;
 }
