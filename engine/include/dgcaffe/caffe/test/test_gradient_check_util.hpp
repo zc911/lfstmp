@@ -8,8 +8,8 @@
 #include <cmath>
 #include <vector>
 
-#include "../layer.hpp"
-#include "../net.hpp"
+#include "caffe/layer.hpp"
+#include "caffe/net.hpp"
 
 namespace caffe {
 
