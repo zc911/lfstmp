@@ -11,7 +11,7 @@
 #include "watch_dog.h"
 #include "c_api.h"
 #include "alg/LPDetectRecog.hpp"
-
+#include "fs_util.h"
 namespace dg {
 
 static bool roiFilter(const vector<Rect> &mask, Rect src) {
@@ -109,7 +109,7 @@ static int readTxtFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen) {
     return 0;
 }
 
-static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen) {
+static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
     char *pbyBuffer = 0;
     char byCh;
     int dwNowLen = 0;
@@ -125,17 +125,24 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
 
     *pdwBufflen = dwNowLen;
     pbyBuffer = (char *) calloc(dwNowLen, 1);
+    unsigned char *data = (unsigned char *) calloc(dwNowLen,1);
     *ppbyBuffer = pbyBuffer;
 
     dwNowLen = 0;
     fseek(pf, 0, SEEK_SET);
     while (!feof(pf)) {
         fread(&byCh, 1, 1, pf);
-        pbyBuffer[dwNowLen] = byCh;
+        data[dwNowLen] = byCh;
         dwNowLen++;
     };
 
     fclose(pf);
+    if(is_encrypt_enabled){
+        DecryptModel(data, dwNowLen, (unsigned char *)pbyBuffer);
+    }else{
+        memcpy(pbyBuffer,data,dwNowLen);
+    }
+    free(data);
 
     return 0;
 }
@@ -149,63 +156,64 @@ static Mat CutImage(const Mat &src, Box &box) {
 
     return dst;
 }
-static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen) {
+static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
     char *pbyBuffer = 0;
-    char byCh;
     int dwNowLen = 0;
-
-    FILE *pf = fopen(pbyFN, "r");
-
-    while (!feof(pf)) {
-        byCh = fgetc(pf);
-        dwNowLen++;
-    };
-    *pdwBufflen = dwNowLen;
+    dwNowLen=FileSize(pbyFN);
+    FILE *fp = fopen(pbyFN,"r");
+    unsigned char *buffer = (unsigned char *)calloc(dwNowLen,1);
+    size_t rds = fread(buffer,dwNowLen , 1, fp);
+    if (rds != dwNowLen)
+    {
+        LOG(WARNING) << "Model file size read error";
+    }
+    fclose(fp);
     pbyBuffer = (char *) calloc(dwNowLen, 1);
+    if(is_encrypt_enabled){
+        DecryptModel(buffer, dwNowLen, (unsigned char *)pbyBuffer);
+    }else{
+        memcpy(pbyBuffer,buffer,dwNowLen);
+    }
     *ppbyBuffer = pbyBuffer;
-
-    dwNowLen = 0;
-    fseek(pf, 0, SEEK_SET);
-    while (!feof(pf)) {
-        byCh = fgetc(pf);
-        pbyBuffer[dwNowLen] = byCh;
-        dwNowLen++;
-    };
-
-    fclose(pf);
-
     *pdwBufflen = dwNowLen;
 
     return 0;
 }
 
-static int readModuleFile(string symbol_file, string param_file, LPDRModel_S *pstModel) {
+static int readModuleFile(string symbol_file, string param_file, LPDRModel_S *pstModel,bool is_encrypt_enabled) {
     int dwSymLenDetect = 0;
 
-    readTxtFileAuto(symbol_file.c_str(), &pstModel->pbySym, &dwSymLenDetect);
+    readTxtFileAuto(symbol_file.c_str(), &pstModel->pbySym, &dwSymLenDetect,is_encrypt_enabled);
 
-    readBinFileAuto(param_file.c_str(), &pstModel->pbyParam, &pstModel->dwParamSize);
+    readBinFileAuto(param_file.c_str(), &pstModel->pbyParam, &pstModel->dwParamSize,is_encrypt_enabled);
 
     return 0;
 }
 
 
-static int readBinFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen) {
+static int readBinFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
     int dwBufferMax = *pdwBufflen;
     char byCh;
     int dwNowLen = 0;
 
     FILE *pf = fopen(pbyFN, "rb");
 
+    unsigned char *data = (unsigned char *) calloc(dwNowLen,1);
     while (!feof(pf)) {
         if (dwNowLen > dwBufferMax) {
             printf("no enough buffer!\n");
             break;
         }
         fread(&byCh, 1, 1, pf);
-        pbyBuffer[dwNowLen] = byCh;
+        data[dwNowLen] = byCh;
         dwNowLen++;
     };
+    if(is_encrypt_enabled){
+        DecryptModel(data, dwNowLen, (unsigned char *)pbyBuffer);
+    }else{
+        memcpy(pbyBuffer,data,dwNowLen);
+    }
+    free(data);
 
     fclose(pf);
 
