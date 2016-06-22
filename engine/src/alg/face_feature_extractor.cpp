@@ -7,6 +7,7 @@
  * Description : 
  * ==========================================================================*/
 #include "alg/face_feature_extractor.h"
+#include "face_feature_extractor.h"
 
 namespace dg {
 
@@ -29,7 +30,7 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     layer_name_ = "eltwise6";
 
     LOG(INFO)<< "loading model file: " << config.deploy_file;
-    net_.reset(new Net<float>(config.deploy_file, TEST));
+    net_.reset(new Net<float>(config.deploy_file, TEST,config.is_model_encrypt));
     LOG(INFO)<< "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 
