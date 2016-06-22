@@ -523,7 +523,8 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
-    int timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
+    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec*1000;
+    VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<timestamp<<endl;
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
     if (err.code() != 0) {
@@ -670,6 +671,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     gettimeofday(&curr_time, NULL);
     MatrixError err;
 
+    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec*1000;
     const string &sessionid = batchRequest->context().sessionid();
 
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
@@ -691,6 +693,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     FrameBatch framebatch(curr_id * 10);
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
+    vector<SrcMetadata> srcMetadatas;
     vector<
         ::google::protobuf::RepeatedPtrField<
             const ::dg::model::WitnessRelativeROI> > roisr;
@@ -701,6 +704,13 @@ MatrixError WitnessAppsService::BatchRecognize(
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
         images.begin();
     while (itr != images.end()) {
+        if (itr->has_witnessmetadata() && itr->witnessmetadata().timestamp() != 0) {
+            timestamp = itr->witnessmetadata().timestamp();
+        }
+        SrcMetadata metadata;
+        metadata.CopyFrom(itr->witnessmetadata());
+        metadata.set_timestamp(timestamp);
+        srcMetadatas.push_back(metadata);
         imgDesc.push_back(const_cast<WitnessImage &>(*itr));
         itr++;
     }
@@ -803,7 +813,7 @@ MatrixError WitnessAppsService::BatchRecognize(
                     vector<uchar> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
-                    client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(batchRequest->images(k).witnessmetadata());
+                    client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(srcMetadatas[k]);
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
 
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_height(framebatch.frames()[k]->payload()->data().rows);

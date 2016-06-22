@@ -2,10 +2,8 @@
 #include <cfloat>
 #include <vector>
 
-#include "caffe/layer.hpp"
-#include "caffe/layer_factory.hpp"
+#include "caffe/layers/softmax_loss_layer.hpp"
 #include "caffe/util/math_functions.hpp"
-#include "caffe/vision_layers.hpp"
 
 namespace caffe {
 
@@ -27,7 +25,14 @@ void SoftmaxWithLossLayer<Dtype>::LayerSetUp(
   if (has_ignore_label_) {
     ignore_label_ = this->layer_param_.loss_param().ignore_label();
   }
-  normalize_ = this->layer_param_.loss_param().normalize();
+  if (!this->layer_param_.loss_param().has_normalization() &&
+      this->layer_param_.loss_param().has_normalize()) {
+    normalization_ = this->layer_param_.loss_param().normalize() ?
+                     LossParameter_NormalizationMode_VALID :
+                     LossParameter_NormalizationMode_BATCH_SIZE;
+  } else {
+    normalization_ = this->layer_param_.loss_param().normalization();
+  }
 }
 
 template <typename Dtype>
@@ -73,11 +78,9 @@ void SoftmaxWithLossLayer<Dtype>::Forward_cpu(
       ++count;
     }
   }
-  if (normalize_) {
-    top[0]->mutable_cpu_data()[0] = loss / count;
-  } else {
-    top[0]->mutable_cpu_data()[0] = loss / outer_num_;
-  }
+  Dtype normalizer = LossLayer<Dtype>::GetNormalizer(
+      normalization_, outer_num_, inner_num_, count);
+  top[0]->mutable_cpu_data()[0] = loss / normalizer;
   if (top.size() == 2) {
     top[1]->ShareData(prob_);
   }
@@ -111,12 +114,10 @@ void SoftmaxWithLossLayer<Dtype>::Backward_cpu(const vector<Blob<Dtype>*>& top,
       }
     }
     // Scale gradient
-    const Dtype loss_weight = top[0]->cpu_diff()[0];
-    if (normalize_) {
-      caffe_scal(prob_.count(), loss_weight / count, bottom_diff);
-    } else {
-      caffe_scal(prob_.count(), loss_weight / outer_num_, bottom_diff);
-    }
+    Dtype normalizer = LossLayer<Dtype>::GetNormalizer(
+        normalization_, outer_num_, inner_num_, count);
+    Dtype loss_weight = top[0]->cpu_diff()[0] / normalizer;
+    caffe_scal(prob_.count(), loss_weight, bottom_diff);
   }
 }
 
