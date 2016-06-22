@@ -6,6 +6,7 @@
  */
 
 #include "marker_caffe_classifier.h"
+#include "caffe_config.h"
 
 namespace dg {
 MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
@@ -26,7 +27,7 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
 
     /* Load the network. */
     net_.reset(
-            new Net<float>(markerconfig.deploy_file, TEST));
+            new Net<float>(markerconfig.deploy_file,TEST,marker_config_.is_model_encrypt));
     net_->CopyTrainedLayersFrom(marker_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";

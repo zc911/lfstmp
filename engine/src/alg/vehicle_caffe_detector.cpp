@@ -24,7 +24,10 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     }
 
     batch_size_ = config.batch_size;
-    net_.reset(new Net<float>(config.deploy_file, TEST));
+  //  net_.reset(new Net<float>(config.deploy_file, TEST));
+
+    net_.reset(
+             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt, NULL));
     net_->CopyTrainedLayersFrom(config.model_file);
 
 

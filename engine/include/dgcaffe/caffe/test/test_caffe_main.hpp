@@ -9,7 +9,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "../common.hpp"
+#include "caffe/common.hpp"
 
 using std::cout;
 using std::endl;
