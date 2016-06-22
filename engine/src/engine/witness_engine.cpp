@@ -86,7 +86,6 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
-    DLOG(INFO) << "begin " << enable_vehicle_ << endl;
 
     enable_vehicle_detect_ = (bool) config.Value(
         FEATURE_VEHICLE_ENABLE_DETECTION);
@@ -120,7 +119,6 @@ void WitnessEngine::init(const Config &config) {
     }
 
     initFeatureOptions(config);
-
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
         Processor *last = NULL;

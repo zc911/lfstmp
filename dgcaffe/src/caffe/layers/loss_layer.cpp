@@ -1,12 +1,7 @@
 #include <algorithm>
-#include <cfloat>
-#include <cmath>
 #include <vector>
 
-#include "caffe/layer.hpp"
-#include "caffe/util/io.hpp"
-#include "caffe/util/math_functions.hpp"
-#include "caffe/vision_layers.hpp"
+#include "caffe/layers/loss_layer.hpp"
 
 namespace caffe {
 
@@ -26,6 +21,37 @@ void LossLayer<Dtype>::Reshape(
       << "The data and label should have the same number.";
   vector<int> loss_shape(0);  // Loss layers output a scalar; 0 axes.
   top[0]->Reshape(loss_shape);
+}
+
+template <typename Dtype>
+Dtype LossLayer<Dtype>::GetNormalizer(
+    const LossParameter_NormalizationMode normalization_mode,
+    const int outer_num, const int inner_num, const int valid_count) {
+  Dtype normalizer;
+  switch (normalization_mode) {
+    case LossParameter_NormalizationMode_FULL:
+      normalizer = Dtype(outer_num * inner_num);
+      break;
+    case LossParameter_NormalizationMode_VALID:
+      if (valid_count == -1) {
+        normalizer = Dtype(outer_num * inner_num);
+      } else {
+        normalizer = Dtype(valid_count);
+      }
+      break;
+    case LossParameter_NormalizationMode_BATCH_SIZE:
+      normalizer = Dtype(outer_num);
+      break;
+    case LossParameter_NormalizationMode_NONE:
+      normalizer = Dtype(1);
+      break;
+    default:
+      LOG(FATAL) << "Unknown normalization mode: "
+          << LossParameter_NormalizationMode_Name(normalization_mode);
+  }
+  // Some users will have no labels for some examples in order to 'turn off' a
+  // particular loss in a multi-task setup. The max prevents NaNs in that case.
+  return std::max(Dtype(1.0), normalizer);
 }
 
 INSTANTIATE_CLASS(LossLayer);
