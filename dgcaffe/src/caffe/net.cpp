@@ -52,7 +52,7 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt, const Ne
     long int size = ftell(fp);
     fseek(fp, 0L, SEEK_SET);
 
-    unsigned char *buffer = (unsigned char *)malloc(size);
+    unsigned char *buffer = (unsigned char *)calloc(size,1);
     size_t rds = fread(buffer, size, 1, fp);
     if (rds != size)
     {
@@ -60,7 +60,7 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt, const Ne
     }
     fclose(fp);
 
-    unsigned char *decrypt = (unsigned char *) malloc(size);
+    unsigned char *decrypt = (unsigned char *) calloc(size,1);
 
     DecryptModel(buffer, size, decrypt);
     string input = string((char *)decrypt) ;
