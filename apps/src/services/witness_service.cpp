@@ -633,10 +633,16 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
-                vector<uchar> data(roi.datastart, roi.dataend);
-                string imgdata = Base64::Encode(data);
-                v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 v->CopyFrom(r.vehicles(i));
+
+                char data[roi.rows*roi.cols*roi.channels()];
+                char imgdata[roi.rows*roi.cols*roi.channels()*2];
+                memset(imgdata,0,sizeof(imgdata));
+                memcpy(data,roi.data,roi.rows*roi.cols*roi.channels());
+                cout<<sizeof(data)<<endl;
+               // string imgdata = Base64::Encode();
+                Base64::Encode(data, roi.rows*roi.cols*roi.channels(), imgdata);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
             }
             VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
             //origin img info
@@ -646,9 +652,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             //src metadata
             vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
             vehicleObj->mutable_metadata()->set_timestamp(timestamp);
-            //     string s;
-            //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
-            //         VLOG(VLOG_SERVICE) << s << endl;
+           //      string s;
+        //           google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
+         //            VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
@@ -810,6 +816,7 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Cutboard c = r.vehicles(i).img().cutboard();
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
+                    v->CopyFrom(r.vehicles(i));
                     vector<uchar> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
@@ -818,7 +825,6 @@ MatrixError WitnessAppsService::BatchRecognize(
 
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_height(framebatch.frames()[k]->payload()->data().rows);
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
-                    v->CopyFrom(r.vehicles(i));
                 }
                 WitnessBucket::Instance().Push(client_request_obj);
                 lock.unlock();
