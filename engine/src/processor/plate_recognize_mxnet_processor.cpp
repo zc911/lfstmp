@@ -144,7 +144,7 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stPREG.adwShape[0] = 1;
     pstConfig->stPREG.adwShape[1] = 1;
     pstConfig->stPREG.adwShape[2] = 64;
-    pstConfig->stPREG.adwShape[3] = 64 * 3;
+    pstConfig->stPREG.adwShape[3] = 64 * 2;
 
     readModuleFile(pstConfig->chrecogSymbolFile, pstConfig->chrecogParamFile,
                    &pstConfig->stCHRECOG,pstConfig->is_model_encrypt);
