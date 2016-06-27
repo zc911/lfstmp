@@ -9,6 +9,7 @@
 #include "model/witness.grpc.pb.h"
 #include "witness_bucket.h"
 #include "pbjson/pbjson.hpp"
+#include <google/protobuf/text_format.h>
 using ::dg::model::SpringService;
 using grpc::Channel;
 using grpc::ClientContext;
