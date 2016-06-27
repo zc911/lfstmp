@@ -92,7 +92,7 @@ void ConfigFilter::createVehicleConfig(
 
 void ConfigFilter::createVehicleColorConfig(
     const Config &cconfig,
-    vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+    vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
     string model_path = (string) data_config_.Value(FILE_COLOR_MODEL_PATH);
     string trained_model = (string) data_config_.Value(
         FILE_COLOR_TRAINED_MODEL);
@@ -103,7 +103,7 @@ void ConfigFilter::createVehicleColorConfig(
     int model_num = (int) cconfig.Value(ADVANCED_COLOR_MODEL_NUM);
     model_num = model_num == 0 ? 1 : model_num;
     for (int i = 0; i < model_num; i++) {
-        VehicleCaffeClassifier::VehicleCaffeConfig config;
+        CaffeVehicleColorClassifier ::VehicleColorConfig config;
         config.model_file = model_path + trained_model;
         config.deploy_file = model_path + deploy_model;
         config.is_model_encrypt = is_encrypted;
@@ -131,7 +131,6 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(
     string deploy_model = (string) data_config_.Value(
         FILE_DETECTION_DEPLOY_MODEL);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    cout<<is_encrypted<<"Sdg"<<endl;
     int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -232,7 +231,6 @@ void ConfigFilter::createWindowConfig(
 void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
     pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
-    cout << "test " << (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL) << endl;
     pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
