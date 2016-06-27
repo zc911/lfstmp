@@ -3,3 +3,14 @@
 //
 
 #include "caffe_vehicle_color_classifier.h"
+namespace dg{
+CaffeVehicleColorClassifier::CaffeVehicleColorClassifier(const VehicleColorConfig &config){
+
+}
+CaffeVehicleColorClassifier::~CaffeVehicleColorClassifier(){
+
+}
+
+
+
+}
