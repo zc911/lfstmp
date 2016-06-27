@@ -45,7 +45,7 @@ public:
         vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     void createVehicleColorConfig(
         const Config &cconfig,
-        vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+        vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
     void createVehiclePlateConfig(const Config &cconfig,
                                   PlateRecognizer::PlateConfig &pConfig);
 //    void createVehicleMutiTypeDetectorConfig(

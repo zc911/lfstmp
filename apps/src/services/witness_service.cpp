@@ -27,6 +27,7 @@
 
 namespace dg {
 
+static int SHIFT_COLOR=1000;
 WitnessAppsService::WitnessAppsService(const Config *config, string name)
     : config_(config),
       engine_(*config),
@@ -74,6 +75,14 @@ void WitnessAppsService::init(void) {
     vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
     plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
 
+    //advanced color
+    int size=color_repo_.size();
+    for(int i=0;i<size;i++){
+        for(int j=i+1;j<size;j++){
+            string value=string(color_repo_[i])+color_repo_[j];
+            color_repo_.push_back(value);
+        }
+    }
 }
 
 int WitnessAppsService::parseInt(string str) {
