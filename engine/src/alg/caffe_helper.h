@@ -27,6 +27,31 @@ struct Bbox {
     bool deleted;
     int cls_id;
 };
+static void normalize_image(const Mat &input_img, Mat &result) {
+    Mat img;
+    resize(input_img, img, Size(227, 227));
+    result = Mat::zeros(img.rows, img.cols, CV_32FC3);
+    float max_val = 0;
+    float min_val = 255;
+    for (int i = 0; i < img.rows; i++) {
+        const uchar *data = img.ptr<uchar>(i);
+        for (int j = 0; j < img.cols * 3; j++) {
+            if (data[j] > max_val)
+                max_val = data[j];
+            if (data[j] < min_val)
+                min_val = data[j];
+        }
+    }
+    max_val = max_val - min_val;
+    if (max_val < 1)
+        max_val = 1;
+    for (int i = 0; i < img.rows; i++) {
+        const uchar *src_data = img.ptr<uchar>(i);
+        float *target_data = result.ptr<float>(i);
+        for (int j = 0; j < img.cols * 3; j++)
+            target_data[j] = (((float) src_data[j]) - min_val) / max_val - 0.5;
+    }
+}
 
 static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
                                          int batch_size) {
@@ -72,6 +97,15 @@ static Prediction MaxPrediction(vector<Prediction> &pre) {
     return *max;
 }
 
+static Prediction nthPrediction(vector<Prediction> &pre, int n) {
+    if (n > pre.size()) {
+        Prediction empty;
+        return empty;
+    }
+    nth_element(pre.begin(), pre.begin() + n, pre.end(),
+                PredictionLessCmp);
+    return pre.at(n);
+}
 static bool PairCompare(const std::pair<float, int> &lhs,
                         const std::pair<float, int> &rhs) {
     return lhs.first > rhs.first;
@@ -193,7 +227,6 @@ static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
     else
         sample = img;
 }
-
 
 }
 

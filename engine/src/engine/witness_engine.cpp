@@ -166,7 +166,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
-            vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
+            vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
             configFilter->createVehicleColorConfig(config, configs);
 
             Processor *p = new VehicleColorProcessor(configs);

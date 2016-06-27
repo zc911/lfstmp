@@ -139,7 +139,6 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
     vector<cv::Mat> toPredict;
     for (int i = 0; i < img.size(); ++i) {
         cv::Mat image = img[i];
-        cout<<image.cols<<" "<<image.rows<<endl;
         toPredict.push_back(image);
         if (toPredict.size() == batch_size_) {
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
