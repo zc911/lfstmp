@@ -231,7 +231,6 @@ void ConfigFilter::createWindowConfig(
 void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
     pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
-        + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL) << endl;
     pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
 
