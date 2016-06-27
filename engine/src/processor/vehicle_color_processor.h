@@ -11,6 +11,7 @@
 #include "processor/processor.h"
 #include "alg/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
+#include "alg/caffe_vehicle_color_classifier.h"
 
 namespace dg {
 
@@ -36,6 +37,7 @@ class VehicleColorProcessor : public Processor {
  private:
 
     vector<VehicleCaffeClassifier*> classifiers_;
+    CaffeVehicleColorClassifier * classifier_;
     vector<Object *> objs_;
     vector<Mat> images_;
 
