@@ -646,9 +646,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             //src metadata
             vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
             vehicleObj->mutable_metadata()->set_timestamp(timestamp);
-            //     string s;
-            //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
-            //         VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
