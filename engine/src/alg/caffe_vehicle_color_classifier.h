@@ -17,7 +17,7 @@
 #include "detector.h"
 #include "caffe_helper.h"
 #include "caffe_config.h"
-
+#include <numeric>
 using namespace std;
 using namespace caffe;
 using namespace cv;
@@ -38,7 +38,7 @@ public:
     } VehicleColorConfig;
     CaffeVehicleColorClassifier(const VehicleColorConfig &config);
     virtual ~CaffeVehicleColorClassifier();
-  /*  vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
+    vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
 protected:
     vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
@@ -54,7 +54,7 @@ protected:
     bool device_setted_;
     VehicleColorConfig caffe_config_;
     Mat means_;
-    int rescale_;*/
+    int rescale_;
 };
 
 }
