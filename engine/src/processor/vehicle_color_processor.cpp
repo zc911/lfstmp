@@ -21,6 +21,8 @@ VehicleColorProcessor::VehicleColorProcessor(
         classifiers_.push_back(classifier);
 
     }
+    CaffeVehicleColorClassifier::VehicleColorConfig config;
+    classifier_= new CaffeVehicleColorClassifier(config);
 }
 
 VehicleColorProcessor::~VehicleColorProcessor() {

@@ -8,7 +8,6 @@
 #ifndef SRC_ALG_VEHICLE_CAFFE_CLASSIFIER_H_
 #define SRC_ALG_VEHICLE_CAFFE_CLASSIFIER_H_
 #include <cassert>
-
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
