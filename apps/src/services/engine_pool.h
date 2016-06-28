@@ -15,7 +15,10 @@
 #include <functional>
 #include "../model/common.pb.h"
 #include "log/log_val.h"
-
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <engine/witness_engine.h>
 namespace dg {
 
 using namespace std;
