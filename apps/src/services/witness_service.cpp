@@ -83,6 +83,7 @@ void WitnessAppsService::init(void) {
             color_repo_.push_back(value);
         }
     }
+
 }
 
 int WitnessAppsService::parseInt(string str) {
@@ -531,9 +532,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
-
-    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec*1000;
-    VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<timestamp<<endl;
+    VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<curr_time.tv_sec<<" "<<curr_time.tv_usec<<endl;
+    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
+    VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<curr_time.tv_sec<<" "<<curr_time.tv_usec<<timestamp<<endl;
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
     if (err.code() != 0) {
