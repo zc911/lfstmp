@@ -51,10 +51,7 @@ WitnessEngine::~WitnessEngine() {
 void WitnessEngine::Process(FrameBatch *frames) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
-    if(!isWarmuped_&&((!enable_vehicle_)||(!enable_vehicle_detect_))){
-        vehicle_processor_=vehicle_processor_->GetNextProcessor();
-        isWarmuped_=true;
-    }
+
 
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (!enable_vehicle_detect_
@@ -85,6 +82,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
     if (frames->CheckFrameBatchOperation(OPERATION_FACE)) {
         if (face_processor_)
             face_processor_->Update(frames);
+    }
+    if(!isWarmuped_&&((!enable_vehicle_)||(!enable_vehicle_detect_))){
+        vehicle_processor_=vehicle_processor_->GetNextProcessor();
+        isWarmuped_=true;
     }
 }
 
@@ -123,9 +124,10 @@ void WitnessEngine::init(const Config &config) {
     }
 
     initFeatureOptions(config);
+
+    Processor *last = NULL;
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
-        Processor *last = NULL;
 
         if (enable_vehicle_detect_) {
 
@@ -140,7 +142,7 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }else{
             VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
-            configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
+            configFilter->createAccelerateConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -148,7 +150,7 @@ void WitnessEngine::init(const Config &config) {
                 last->SetNextProcessor(p);
             }
             last = p;
-
+            isWarmuped_=false;
         }
 
 
