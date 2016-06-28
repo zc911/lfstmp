@@ -153,7 +153,6 @@ public:
         return true;
     }
 
-
 private:
     Config *config_;
     queue<CallData *> tasks_;
