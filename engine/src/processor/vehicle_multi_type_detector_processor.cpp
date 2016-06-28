@@ -29,7 +29,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
         if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
 
-            DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
+           DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
             continue;
         }
 
