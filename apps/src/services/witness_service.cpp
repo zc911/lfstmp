@@ -523,7 +523,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
 
-    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec*1000;
+    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
     VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<timestamp<<endl;
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
@@ -639,7 +639,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 char imgdata[roi.rows*roi.cols*roi.channels()*2];
                 memset(imgdata,0,sizeof(imgdata));
                 memcpy(data,roi.data,roi.rows*roi.cols*roi.channels());
-                cout<<sizeof(data)<<endl;
                // string imgdata = Base64::Encode();
                 Base64::Encode(data, roi.rows*roi.cols*roi.channels(), imgdata);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);

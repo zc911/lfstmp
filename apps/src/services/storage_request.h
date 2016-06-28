@@ -32,7 +32,6 @@ public:
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
         string storageAddress = wv->storage().address();
         const VehicleObj &v = wv->vehicleresult();
-        cout<<v.ByteSize()<<endl;
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
                                                                 grpc::InsecureChannelCredentials());
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
