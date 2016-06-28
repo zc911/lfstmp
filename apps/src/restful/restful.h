@@ -148,6 +148,7 @@ public:
         ctx->mutable_functions()->Add(6);
         ctx->mutable_functions()->Add(7);
         ctx->set_type(REC_TYPE_VEHICLE);
+        ctx->mutable_storage()->set_address("127.0.0.1");
         for(int i=0;i<n;i++) {
             CallData data;
             typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
