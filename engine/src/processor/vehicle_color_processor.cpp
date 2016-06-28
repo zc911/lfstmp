@@ -11,11 +11,11 @@
 namespace dg {
 
 VehicleColorProcessor::VehicleColorProcessor(
-    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+    const vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
 
     for (int i = 0; i < configs.size(); i++) {
 
-        VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(
+        CaffeVehicleColorClassifier *classifier = new CaffeVehicleColorClassifier(
             configs[i]);
 
         classifiers_.push_back(classifier);
@@ -37,7 +37,7 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Start color process" << endl;
 
     vector<vector<Prediction> > result;
-    for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
+    for_each(classifiers_.begin(), classifiers_.end(), [&](CaffeVehicleColorClassifier *elem) {
       auto tmpPred = elem->ClassifyAutoBatch(images_);
       vote(tmpPred, result, classifiers_.size());
     });
@@ -49,8 +49,8 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
         if (result[i].size() < 0) {
             continue;
         }
-        Prediction max = MaxPrediction(result[i]);
-
+        Prediction max ;//= MaxPrediction(result[i]);
+        score_color(max,result[i]);
         color.class_id = max.first;
         color.confidence = max.second;
         v->set_color(color);

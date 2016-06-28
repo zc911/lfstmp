@@ -15,7 +15,7 @@
 #include "image_service.h"
 #include "codec/base64.h"
 #include "io/uri_reader.h"
-
+#include "fs_util.h"
 namespace dg {
 
 ThreadPool *ImageService::pool = new ThreadPool(8);
@@ -204,6 +204,8 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
     MatrixError ok;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin, timeout);
+   // string test=Base64::Encode(bin);
+  //  WriteToFile("warmup.dat",(char *)test.c_str(),test.length());
     if (ret == 0) {
         decodeDataToMat(bin, imgMat);
     } else {

@@ -92,7 +92,7 @@ void ConfigFilter::createVehicleConfig(
 
 void ConfigFilter::createVehicleColorConfig(
     const Config &cconfig,
-    vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+    vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
     string model_path = (string) data_config_.Value(FILE_COLOR_MODEL_PATH);
     string trained_model = (string) data_config_.Value(
         FILE_COLOR_TRAINED_MODEL);
@@ -103,7 +103,7 @@ void ConfigFilter::createVehicleColorConfig(
     int model_num = (int) cconfig.Value(ADVANCED_COLOR_MODEL_NUM);
     model_num = model_num == 0 ? 1 : model_num;
     for (int i = 0; i < model_num; i++) {
-        VehicleCaffeClassifier::VehicleCaffeConfig config;
+        CaffeVehicleColorClassifier ::VehicleColorConfig config;
         config.model_file = model_path + trained_model;
         config.deploy_file = model_path + deploy_model;
         config.is_model_encrypt = is_encrypted;
@@ -138,6 +138,24 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(
     config.deploy_file = model_path + deploy_model;
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
+    config.gpu_id = gpu_id;
+
+}
+void ConfigFilter::createAccelerateConfig(
+    const Config &cconfig,
+    VehicleCaffeDetector::VehicleCaffeDetectorConfig &config) {
+    string model_path = (string) data_config_.Value(FILE_ACCELERATE_MODEL_PATH);
+    string trained_model = (string) data_config_.Value(
+        FILE_ACCELERATE_TRAINED_MODEL);
+    string deploy_model = (string) data_config_.Value(
+        FILE_ACCELERATE_DEPLOY_MODEL);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+
+    config.model_file = model_path + trained_model;
+    config.deploy_file = model_path + deploy_model;
+    config.is_model_encrypt = is_encrypted;
+    config.batch_size = 1;
     config.gpu_id = gpu_id;
 
 }
