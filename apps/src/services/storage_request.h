@@ -35,6 +35,7 @@ public:
         const VehicleObj &v = wv->vehicleresult();
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
                                                                 grpc::InsecureChannelCredentials());
+        VLOG(VLOG_SERVICE)<<v.metadata().timestamp()<<endl;
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
         NullMessage reply;
         ClientContext context;
