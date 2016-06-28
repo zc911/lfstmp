@@ -35,6 +35,9 @@ public:
     void createVehicleCaffeDetectorConfig(
         const Config &cconfig,
         VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
+    void createAccelerateConfig(
+        const Config &cconfig,
+        VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
     void createFaceDetectorConfig(const Config &cconfig,
                                   FaceDetector::FaceDetectorConfig &config);
     void createFaceExtractorConfig(
@@ -58,7 +61,6 @@ public:
     void createPlateMxnetConfig(const Config &cconfig,
                                 _LPDRConfig *pConfig);
     int initDataConfig(const Config &config);
-
 private:
     ConfigFilter();
     static ConfigFilter *instance_;

@@ -135,13 +135,10 @@ public:
         server.start();
     }
     virtual void warmUp(int n){
-        Mat image = cv::imread("roi.jpg");
-        vector<uchar> idata(image.datastart, image.dataend);
-     //   string imgdata = Base64::Encode(idata);
+        string imgdata=ReadStringFromFile("warmup.dat","rb");
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
-     //   protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
-        protobufRequestMessage.mutable_image()->mutable_data()->set_uri("http://192.168.2.21:3002/warmup.png");
+        protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
         WitnessRequestContext *ctx = protobufRequestMessage.mutable_context();
         ctx->mutable_functions()->Add(1);
         ctx->mutable_functions()->Add(2);
@@ -170,6 +167,7 @@ public:
 
             MatrixError error = data.Wait();
         }
+
     }
 
     virtual void Bind(HttpServer &server) = 0;
