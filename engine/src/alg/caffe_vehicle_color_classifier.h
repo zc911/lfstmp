@@ -1,12 +1,12 @@
-/*
- * vehicle_caffe_classifier.h
- *
- *  Created on: Apr 21, 2016
- *      Author: jiajaichen
- */
+//
+// Created by jiajaichen on 16-6-27.
+//
 
-#ifndef SRC_ALG_VEHICLE_CAFFE_CLASSIFIER_H_
-#define SRC_ALG_VEHICLE_CAFFE_CLASSIFIER_H_
+#ifndef PROJECT_CAFFE_VEHICLE_COLOR_CLASSIFIER_H
+#define PROJECT_CAFFE_VEHICLE_COLOR_CLASSIFIER_H
+
+
+
 #include <cassert>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -17,14 +17,14 @@
 #include "detector.h"
 #include "caffe_helper.h"
 #include "caffe_config.h"
-
+#include <numeric>
 using namespace std;
 using namespace caffe;
 using namespace cv;
 namespace dg {
 
-class VehicleCaffeClassifier {
- public:
+class  CaffeVehicleColorClassifier{
+public:
     typedef struct {
 
         bool is_model_encrypt = false;
@@ -35,11 +35,11 @@ class VehicleCaffeClassifier {
         bool use_gpu = true;
         string deploy_file;
         string model_file;
-    } VehicleCaffeConfig;
-    VehicleCaffeClassifier(const VehicleCaffeConfig &config);
-    virtual ~VehicleCaffeClassifier();
+    } VehicleColorConfig;
+    CaffeVehicleColorClassifier(const VehicleColorConfig &config);
+    virtual ~CaffeVehicleColorClassifier();
     vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
- protected:
+protected:
     vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
     std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
@@ -47,16 +47,15 @@ class VehicleCaffeClassifier {
 
     void PreprocessBatch(const vector<Mat> imgs,
                          vector<vector<Mat> >* input_batch);
- private:
+
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;
     cv::Size input_geometry_;
     bool device_setted_;
-    VehicleCaffeConfig caffe_config_;
+    VehicleColorConfig caffe_config_;
     Mat means_;
     int rescale_;
 };
 
-} /* namespace dg */
-
-#endif /* SRC_ALG_VEHICLE_CAFFE_CLASSIFIER_H_ */
+}
+#endif //PROJECT_CAFFE_VEHICLE_COLOR_CLASSIFIER_H
