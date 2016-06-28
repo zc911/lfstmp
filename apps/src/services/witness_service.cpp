@@ -27,6 +27,7 @@
 
 namespace dg {
 
+static int SHIFT_COLOR=1000;
 WitnessAppsService::WitnessAppsService(const Config *config, string name)
     : config_(config),
       engine_(*config),
@@ -73,6 +74,15 @@ void WitnessAppsService::init(void) {
     plate_type_mapping_data_ = ReadStringFromFile(pTypeFile, "r");
     vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
     plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
+
+    //advanced color
+    int size=color_repo_.size();
+    for(int i=0;i<size;i++){
+        for(int j=i+1;j<size;j++){
+            string value=string(color_repo_[i])+color_repo_[j];
+            color_repo_.push_back(value);
+        }
+    }
 
 }
 
@@ -522,7 +532,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
-
     long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
     VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<timestamp<<endl;
     const string &sessionid = request->context().sessionid();
@@ -635,12 +644,8 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->CopyFrom(r.vehicles(i));
 
-                char data[roi.rows*roi.cols*roi.channels()];
-                char imgdata[roi.rows*roi.cols*roi.channels()*2];
-                memset(imgdata,0,sizeof(imgdata));
-                memcpy(data,roi.data,roi.rows*roi.cols*roi.channels());
-               // string imgdata = Base64::Encode();
-                Base64::Encode(data, roi.rows*roi.cols*roi.channels(), imgdata);
+                vector<char> data(roi.datastart,roi.dataend);
+                string imgdata = Base64::Encode(data);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);
             }
             VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
@@ -675,7 +680,6 @@ MatrixError WitnessAppsService::BatchRecognize(
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
-
     long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
     const string &sessionid = batchRequest->context().sessionid();
 
