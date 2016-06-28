@@ -677,8 +677,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
-
-    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec*1000;
+    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
     const string &sessionid = batchRequest->context().sessionid();
 
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
