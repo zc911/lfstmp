@@ -2,11 +2,11 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
     <generated>
-      <config projectName="matrix_all" targetName="matrix_cuda" />
-      <config projectName="matrix_all" targetName="matrix_main" />
-      <config projectName="matrix" targetName="matrix_util" />
       <config projectName="Matrix" targetName="Matrix" />
+      <config projectName="matrix_all" targetName="matrix_main" />
       <config projectName="matrix" targetName="matrix_apps" />
+      <config projectName="matrix_all" targetName="matrix_cuda" />
+      <config projectName="matrix" targetName="matrix_util" />
       <config projectName="matrix_all" targetName="matrix" />
     </generated>
   </component>
@@ -17,7 +17,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5778bac-9075-4afd-9763-c1665ffae7b0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp" afterPath="$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/src/services/storage_request.h" afterPath="$PROJECT_DIR$/apps/src/services/storage_request.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/src/services/witness_service.cpp" afterPath="$PROJECT_DIR$/apps/src/services/witness_service.cpp" />
+>>>>>>> Stashed changes
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" afterPath="$PROJECT_DIR$/apps/lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/src/services/witness_service.cpp" afterPath="$PROJECT_DIR$/apps/src/services/witness_service.cpp" />
+>>>>>>> Stashed changes
     </list>
     <ignored path="Matrix.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,63 +58,202 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="witness_service.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="witness_service.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3952">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+            <state relative-caret-position="13813">
               <caret line="727" column="5" selection-start-line="727" selection-start-column="5" selection-end-line="727" selection-end-column="5" />
+              <folding />
+=======
+            <state relative-caret-position="304">
+              <caret line="637" column="33" selection-start-line="637" selection-start-column="33" selection-end-line="637" selection-end-column="33" />
               <folding>
-                <marker date="1466060053065" expanded="false" signature="366:385" placeholder="..." />
+                <element signature="e#357#375#0" expanded="true" />
+              </folding>
+>>>>>>> Stashed changes
+=======
+            <state relative-caret-position="1158">
+              <caret line="678" column="0" selection-start-line="678" selection-start-column="0" selection-end-line="678" selection-end-column="0" />
+              <folding />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+      <file leaf-file-name="plate_recognize_mxnet_processor.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp">
+=======
+      <file leaf-file-name="witness.proto" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/src/model/proto/witness.proto">
+>>>>>>> Stashed changes
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-247">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+              <folding>
+                <element signature="e#39#61#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="plate_recognize_mxnet_processor.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp">
+      <file leaf-file-name="base64.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/dist/Linux-x86_64/include/codec/base64.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+            <state relative-caret-position="550">
+              <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="witness_engine.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/src/engine/witness_engine.cpp">
+<<<<<<< Updated upstream
+      <file leaf-file-name="vehicle_color_processor.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/processor/vehicle_color_processor.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
+            <state relative-caret-position="493">
+              <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vehicle_color_processor.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/processor/vehicle_color_processor.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="665">
+              <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+              <folding />
+=======
+      <file leaf-file-name="storage_request.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/src/services/storage_request.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="228">
+              <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+              <folding>
+                <element signature="e#112#145#0" expanded="true" />
+=======
+            <state relative-caret-position="1425">
               <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
-                <marker date="1466060053489" expanded="true" signature="8130:8132" placeholder="{...}" />
-                <marker date="1466060053489" expanded="true" signature="8130:8135" placeholder="{...}" />
+>>>>>>> Stashed changes
               </folding>
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="processor.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/src/processor/processor.h">
+<<<<<<< Updated upstream
+      <file leaf-file-name="caffe_vehicle_color_classifier.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-190">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="caffe_vehicle_color_classifier.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+            <state relative-caret-position="266">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="car_feature_extractor.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/alg/car_feature_extractor.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+            <state relative-caret-position="741">
               <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+>>>>>>> Stashed changes
               <folding>
-                <marker date="1466060053513" expanded="true" signature="482:556" placeholder="{...}" />
-                <marker date="1466060053513" expanded="true" signature="607:736" placeholder="{...}" />
-                <marker date="1466060053513" expanded="true" signature="772:801" placeholder="{...}" />
-                <marker date="1466060053513" expanded="true" signature="869:976" placeholder="{...}" />
-                <marker date="1466060053513" expanded="true" signature="1111:1233" placeholder="{...}" />
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
+=======
+      <file leaf-file-name="common.proto" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/src/model/proto/common.proto">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+              <folding />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="status.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/include/grpc++/impl/codegen/status.h">
+      <file leaf-file-name="caffe_vehicle_color.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+            <state relative-caret-position="1159">
               <caret line="61" column="6" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="6" />
+=======
+            <state relative-caret-position="475">
+              <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plate_recognize_mxnet_processor.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.h">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+            <state relative-caret-position="722">
+              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+=======
+            <state relative-caret-position="608">
+              <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+>>>>>>> Stashed changes
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="witness_service.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LPDetectRecog.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/src/alg/LPDetectRecog.cc">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+            <state relative-caret-position="2527">
+              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+=======
+            <state relative-caret-position="494">
+              <caret line="595" column="49" selection-start-line="595" selection-start-column="49" selection-end-line="595" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -104,18 +262,9 @@
       <file leaf-file-name="status_code_enum.h" pinned="false" current-in-tab="false">
         <entry file="file:///usr/local/include/grpc++/impl/codegen/status_code_enum.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1350">
-              <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.proto" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/src/model/proto/common.proto">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1565">
-              <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -137,6 +286,17 @@
         <option value="$PROJECT_DIR$/apps/src/main.cpp" />
         <option value="$PROJECT_DIR$/apps/src/restful/witness_restful.h" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+        <option value="$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.h" />
+=======
+        <option value="$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp" />
+        <option value="$PROJECT_DIR$/apps/src/services/storage_request.h" />
+        <option value="$PROJECT_DIR$/apps/src/services/witness_service.cpp" />
+>>>>>>> Stashed changes
+=======
+        <option value="$PROJECT_DIR$/apps/src/services/witness_service.cpp" />
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>
@@ -313,6 +473,49 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+<<<<<<< Updated upstream
+=======
+              <option name="myItemId" value="engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+>>>>>>> Stashed changes
               <option name="myItemId" value="apps" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -372,6 +575,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Matrix" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apps" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="restful" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -495,12 +720,43 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.Build All">
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" PASS_PARENT_ENVS_2="true" PROJECT_NAME="matrix" TARGET_NAME="matrix_apps" CONFIG_NAME="Debug" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="matrix" TARGET_NAME="matrix_apps" CONFIG_NAME="Debug">
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoRunFileConfiguration" factoryName="Go Single File">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -697,9 +953,12 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="91e12251-2af3-4d7b-aae7-bb011b665304" name="Default" comment="" />
+      <changelist id="d5778bac-9075-4afd-9763-c1665ffae7b0" name="Default" comment="" />
       <created>1463048717146</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -709,9 +968,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2111664" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21337755" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21337755" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> Stashed changes
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21337755" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+>>>>>>> Stashed changes
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28229168" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -731,6 +998,14 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -739,6 +1014,8 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< Updated upstream
+=======
     <entry file="file://$PROJECT_DIR$/utils/src/config.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
@@ -750,7 +1027,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
           <caret line="24" column="11" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,6 +1038,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/apps/src/services/image_service.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
@@ -773,7 +1050,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="284">
           <caret line="182" column="50" selection-start-line="182" selection-start-column="50" selection-end-line="182" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -781,7 +1057,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-400">
           <caret line="90" column="0" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -789,7 +1064,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
           <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,7 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
           <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,21 +1131,26 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/apps/src/model/proto/witness.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+<<<<<<< Updated upstream
           <folding>
-            <element signature="e#39#61#0" expanded="true" />
+            <element signature="e#39#61#0" expanded="false" />
           </folding>
+=======
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/apps/src/model/proto/system.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -883,16 +1161,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/src/processor/vehicle_color_processor.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/src/processor/processor.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-190">
+        <state relative-caret-position="741">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
             <marker date="1466060053513" expanded="true" signature="482:556" placeholder="{...}" />
@@ -906,19 +1177,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/engine/src/engine/witness_engine.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
+        <state relative-caret-position="1425">
           <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <marker date="1466060053489" expanded="true" signature="8130:8132" placeholder="{...}" />
-            <marker date="1466060053489" expanded="true" signature="8130:8135" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/apps/src/model/proto/common.proto">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1565">
+        <state relative-caret-position="2527">
           <caret line="133" column="0" selection-start-line="133" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
           <folding />
         </state>
@@ -926,7 +1196,7 @@
     </entry>
     <entry file="file:///usr/local/include/grpc++/impl/codegen/status.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
+        <state relative-caret-position="1159">
           <caret line="61" column="6" selection-start-line="61" selection-start-column="6" selection-end-line="61" selection-end-column="6" />
           <folding />
         </state>
@@ -934,12 +1204,14 @@
     </entry>
     <entry file="file:///usr/local/include/grpc++/impl/codegen/status_code_enum.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1350">
+        <state relative-caret-position="722">
           <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/apps/src/model/proto/spring.proto">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -947,20 +1219,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/src/services/storage_request.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="265">
           <caret line="727" column="34" selection-start-line="727" selection-start-column="34" selection-end-line="727" selection-end-column="34" />
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+          <folding />
+=======
           <folding>
-            <marker date="1466060053065" expanded="false" signature="366:385" placeholder="..." />
+            <element signature="e#357#375#0" expanded="true" />
           </folding>
+>>>>>>> Stashed changes
+=======
+          <folding />
         </state>
       </provider>
     </entry>
@@ -968,7 +1240,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
           <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -977,6 +1248,7 @@
         <state relative-caret-position="627">
           <caret line="34" column="29" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
           <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
@@ -1023,6 +1295,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/README.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="380">
@@ -1031,21 +1306,11 @@
           <second_editor />
         </state>
       </provider>
-      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/src/restful/witness_restful.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="18" column="7" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/src/model/common.pb.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="96" column="52" selection-start-line="96" selection-start-column="52" selection-end-line="96" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1063,16 +1328,18 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3952">
+        <state relative-caret-position="13813">
           <caret line="727" column="5" selection-start-line="727" selection-start-column="5" selection-end-line="727" selection-end-column="5" />
-          <folding>
-            <marker date="1466060053065" expanded="false" signature="366:385" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -1080,6 +1347,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/apps/include/matrix_engine/model/model.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="410">
@@ -1120,6 +1389,168 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/engine/src/processor/vehicle_color_processor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
+=======
+    <entry file="file://$PROJECT_DIR$/apps/src/model/common.pb.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="2481" column="18" selection-start-line="2481" selection-start-column="18" selection-end-line="2481" selection-end-column="18" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/engine/src/processor/vehicle_color_processor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+=======
+    <entry file="file:///usr/local/include/google/protobuf/arenastring.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="299" column="44" selection-start-line="299" selection-start-column="44" selection-end-line="299" selection-end-column="44" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="138" column="38" selection-start-line="138" selection-start-column="38" selection-end-line="138" selection-end-column="38" />
+>>>>>>> Stashed changes
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/engine/src/alg/car_feature_extractor.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+=======
+    <entry file="file:///usr/local/include/grpc++/impl/codegen/status.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="61" column="7" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/grpc++/impl/codegen/status_code_enum.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="46" column="17" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/dist/Linux-x86_64/include/codec/base64.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/src/model/proto/common.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/src/alg/LPDetectRecog.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="595" column="49" selection-start-line="595" selection-start-column="49" selection-end-line="595" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/src/model/proto/witness.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-247">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding>
+            <element signature="e#39#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/src/services/storage_request.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding>
+            <element signature="e#112#145#0" expanded="true" />
+>>>>>>> Stashed changes
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color_classifier.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="637" column="33" selection-start-line="637" selection-start-column="33" selection-end-line="637" selection-end-column="33" />
+          <folding>
+            <element signature="e#357#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/src/processor/plate_recognize_mxnet_processor.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="33" column="20" selection-start-line="33" selection-start-column="20" selection-end-line="33" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/src/alg/caffe_vehicle_color.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+>>>>>>> Stashed changes
+=======
+    <entry file="file://$PROJECT_DIR$/apps/src/services/witness_service.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1158">
+          <caret line="678" column="0" selection-start-line="678" selection-start-column="0" selection-end-line="678" selection-end-column="0" />
+>>>>>>> Stashed changes
+          <folding />
         </state>
       </provider>
     </entry>
