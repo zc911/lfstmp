@@ -219,7 +219,7 @@ void WitnessEngine::init(const Config &config) {
         }
 
         LOG(INFO) << "Init vehicle processor pipeline finished. " << endl;
-
+        last->SetNextProcessor(NULL);
     }
 
     if (enable_face_) {
@@ -238,6 +238,23 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
+  /*  Mat image = Mat::zeros(480,480,CV_8UC3);
+    Frame *f = new Frame(100, image);
+    Operation op;
+    op.Set(OPERATION_VEHICLE);
+    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+               | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+               | OPERATION_VEHICLE_FEATURE_VECTOR
+               | OPERATION_VEHICLE_PLATE);
+    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+               | OPERATION_FACE_FEATURE_VECTOR);
+
+    f->set_operation(op);
+    FrameBatch *fb = new FrameBatch(1);
+    fb->AddFrame(f);
+    this->Process(fb);
+    delete fb;*/
+   // vehicle_processor_=vehicle_processor_->GetNextProcessor();
     is_init_ = true;
 }
 
