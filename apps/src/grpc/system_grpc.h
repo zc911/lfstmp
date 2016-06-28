@@ -21,7 +21,6 @@ public:
 private:
 
     grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response){
-        cout<<"hellos "<<endl;
         struct timeval start, finish;
         gettimeofday(&start, NULL);
 
