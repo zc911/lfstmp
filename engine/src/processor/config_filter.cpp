@@ -141,6 +141,24 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(
     config.gpu_id = gpu_id;
 
 }
+void ConfigFilter::createAccelerateConfig(
+    const Config &cconfig,
+    VehicleCaffeDetector::VehicleCaffeDetectorConfig &config) {
+    string model_path = (string) data_config_.Value(FILE_ACCELERATE_MODEL_PATH);
+    string trained_model = (string) data_config_.Value(
+        FILE_ACCELERATE_TRAINED_MODEL);
+    string deploy_model = (string) data_config_.Value(
+        FILE_ACCELERATE_DEPLOY_MODEL);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+
+    config.model_file = model_path + trained_model;
+    config.deploy_file = model_path + deploy_model;
+    config.is_model_encrypt = is_encrypted;
+    config.batch_size = 1;
+    config.gpu_id = gpu_id;
+
+}
 
 //void ConfigFilter::createVehicleMutiTypeDetectorConfig(
 //    const Config &cconfig,
