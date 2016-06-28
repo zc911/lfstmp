@@ -11,7 +11,6 @@ CarRankProcessor::~CarRankProcessor() {
 bool CarRankProcessor::process(Frame *frame) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start car ranker process" << frame->id() << endl;
-    cout << "Start car ranker process" << frame->id() << endl;
 
     //process frame
     CarRankFrame *cframe = (CarRankFrame *) frame;
