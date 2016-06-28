@@ -131,7 +131,6 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(
     string deploy_model = (string) data_config_.Value(
         FILE_DETECTION_DEPLOY_MODEL);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    cout<<is_encrypted<<"Sdg"<<endl;
     int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -232,8 +231,6 @@ void ConfigFilter::createWindowConfig(
 void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
     pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
-    cout << "test " << (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-        + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL) << endl;
     pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
         + (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
 
