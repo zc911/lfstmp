@@ -18,7 +18,6 @@
 
 using namespace std;
 namespace dg {
-
 typedef enum {
     OBJECT_UNKNOWN = 0,
     OBJECT_CAR = 1,
