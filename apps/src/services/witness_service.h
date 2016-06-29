@@ -112,6 +112,7 @@ private:
     string vehicle_type_mapping_data_;
     string plate_color_gpu_mapping_data_;
 
+
     // library caffe is not thread safe(even crash some times) which means
     // only one frame/frameBatch could be processed at one time.
     // So we use a lock to keep the processing thread safe.

@@ -515,7 +515,7 @@ int getBinThresholdIterByHist_uchar(uchar *pubyData, int dwLen)
 int getMeanByHist(int *pdwHist, int dwLen)
 {
   int dwMean = 0;
-  int dwNum = 0;
+  int dwNum = 1;
   for (int dwPI = 0; dwPI < dwLen; dwPI++)
   {
     dwMean += pdwHist[dwPI] * dwPI;

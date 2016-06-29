@@ -39,10 +39,8 @@ void serveWitness(Config *config, int userPort = 0) {
     cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
 
-    MessagePool<StorageRequest> *msg_pool = new MessagePool<StorageRequest>(config);
     WitnessBucket::Instance().SetMaxSize(100);
-    msg_pool->Run();
-    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config, msg_pool);
+    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread test(&SpringGrpcClientImpl::Run, client);
     MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
     engine_pool->Run();
@@ -54,7 +52,7 @@ void serveWitness(Config *config, int userPort = 0) {
     } else if (protocolType == "rpc") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config, address, engine_pool);
         std::thread t1(&GrpcWitnessServiceImpl::Run, service);
-        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        string address2 = getServerAddress(config, (int) config->Value("System/Port") + 2);
         MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
         engine_pool1->Run();
         GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(*config, address2, engine_pool1);
@@ -67,8 +65,14 @@ void serveWitness(Config *config, int userPort = 0) {
         string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
         RestWitnessServiceImpl *service2 = new RestWitnessServiceImpl(*config, address2, engine_pool);
         std::thread t2(&RestWitnessServiceImpl::Run, service2);
+        string address3 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
+        engine_pool1->Run();
+        GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(*config, address3, engine_pool1);
+        std::thread t3(&GrpcSystemServiceImpl::Run, system_service);
         t1.join();
         t2.join();
+        t3.join();
     } else {
         cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
         exit(-1);
@@ -104,8 +108,14 @@ void serveRanker(Config *config, int userPort = 0) {
         string address2 = getServerAddress(config, (int) config->Value("System/Port") + 1);
         RestRankerServiceImpl *service2 = new RestRankerServiceImpl(*config, address2, engine_pool);
         std::thread t2(&RestRankerServiceImpl::Run, service2);
+        string address3 = getServerAddress(config, (int) config->Value("System/Port") + 1);
+        MatrixEnginesPool<SystemAppsService> *engine_pool1 = new MatrixEnginesPool<SystemAppsService>(config);
+        engine_pool1->Run();
+        GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(*config, address3, engine_pool1);
+        std::thread t3(&GrpcSystemServiceImpl::Run, system_service);
         t1.join();
         t2.join();
+        t3.join();
     } else {
         cout << "Invalid protocol, should be rpc, restful or rpc|restful" << endl;
         exit(-1);
