@@ -45,6 +45,7 @@ public:
         engine_pool_->Run();
 
         grpc::ServerBuilder builder;
+        builder.SetMaxMessageSize(1024*1024*1024);
         builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
         builder.RegisterService(service());
         unique_ptr<grpc::Server> server(builder.BuildAndStart());

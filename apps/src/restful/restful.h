@@ -131,7 +131,11 @@ public:
         }
         engine_pool_->Run();
         cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
-        warmUp(threadsPerGpu);
+        string instanceType = (string) config_.Value("InstanceType");
+        if (instanceType == "witness") {
+            cout<<"Sdge"<<endl;
+            warmUp(threadsPerGpu);
+        }
         server.start();
     }
     virtual void warmUp(int n){
