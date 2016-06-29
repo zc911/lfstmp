@@ -39,10 +39,8 @@ void serveWitness(Config *config, int userPort = 0) {
     cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
 
-    MessagePool<StorageRequest> *msg_pool = new MessagePool<StorageRequest>(config);
     WitnessBucket::Instance().SetMaxSize(100);
-    msg_pool->Run();
-    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config, msg_pool);
+    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread test(&SpringGrpcClientImpl::Run, client);
     MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<WitnessAppsService>(config);
     engine_pool->Run();

@@ -643,10 +643,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->CopyFrom(r.vehicles(i));
-
-                vector<char> data(roi.datastart,roi.dataend);
-                string imgdata = Base64::Encode(data);
-                v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                bool enablecutboard = (bool)config_->Value("EnableCutboard");
+                if(enablecutboard){
+                    vector<char> data(roi.datastart,roi.dataend);
+                    string imgdata = Base64::Encode(data);
+                    v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                }
             }
             VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
             //origin img info
@@ -657,8 +659,8 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
             vehicleObj->mutable_metadata()->set_timestamp(timestamp);
            //      string s;
-        //           google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
-         //            VLOG(VLOG_SERVICE) << s << endl;
+            //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
+             //        VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
@@ -820,9 +822,12 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                     v->CopyFrom(r.vehicles(i));
-                    vector<uchar> data(roi.datastart, roi.dataend);
-                    string imgdata = Base64::Encode(data);
-                    v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                    bool enablecutboard = (bool)config_->Value("EnableCutboard");
+                    if(enablecutboard){
+                        vector<uchar> data(roi.datastart, roi.dataend);
+                        string imgdata = Base64::Encode(data);
+                        v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                    }
                     client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(srcMetadatas[k]);
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
 
