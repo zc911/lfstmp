@@ -60,7 +60,6 @@ vector<vector<Prediction> > VehicleCaffeClassifier::ClassifyAutoBatch(const vect
     vector<vector<Prediction> > prediction;
     vector<Mat> images = imgs;
     for (auto batch_images : PrepareBatch(images, caffe_config_.batch_size)) {
-
         vector<vector<Prediction> > pred = ClassifyBatch(batch_images);
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }

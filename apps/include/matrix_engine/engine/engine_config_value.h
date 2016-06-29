@@ -98,6 +98,10 @@ static const string FILE_DETECTION_MODEL_PATH = "File/Detection/ModelPath";
 static const string FILE_DETECTION_TRAINED_MODEL = "File/Detection/TrainedModel";
 static const string FILE_DETECTION_DEPLOY_MODEL = "File/Detection/DeployModel";
 
+static const string FILE_ACCELERATE_MODEL_PATH = "File/Accelerate/ModelPath";
+static const string FILE_ACCELERATE_TRAINED_MODEL = "File/Accelerate/TrainedModel";
+static const string FILE_ACCELERATE_DEPLOY_MODEL = "File/Accelerate/DeployModel";
+
 static const string FILE_MARKER_MODEL_PATH = "File/Marker/ModelPath";
 static const string FILE_MARKER_TRAINED_MODEL = "File/Marker/TrainedModel";
 static const string FILE_MARKER_DEPLOY_MODEL = "File/Marker/DeployModel";

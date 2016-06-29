@@ -9,6 +9,7 @@
 #include "model/witness.grpc.pb.h"
 #include "witness_bucket.h"
 #include "pbjson/pbjson.hpp"
+#include <google/protobuf/text_format.h>
 using ::dg::model::SpringService;
 using grpc::Channel;
 using grpc::ClientContext;
@@ -34,6 +35,7 @@ public:
         const VehicleObj &v = wv->vehicleresult();
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
                                                                 grpc::InsecureChannelCredentials());
+        VLOG(VLOG_SERVICE)<<v.metadata().timestamp()<<endl;
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
         NullMessage reply;
         ClientContext context;
