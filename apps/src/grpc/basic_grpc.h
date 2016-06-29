@@ -51,10 +51,13 @@ public:
 
         cout << typeid(EngineType).name() << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
             << endl;
+        warmUp(config_.Value("System/ThreadsPerGpu"));
         server->Wait();
     }
 
+    virtual  void warmUp(int n){
 
+    }
 protected:
     Config config_;
     string addr_;
