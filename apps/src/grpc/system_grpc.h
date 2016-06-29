@@ -42,7 +42,7 @@ private:
 
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
     }
-    grpc::Status systemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response){
+    grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response){
         struct timeval start, finish;
         gettimeofday(&start, NULL);
 
