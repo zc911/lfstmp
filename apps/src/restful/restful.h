@@ -133,7 +133,6 @@ public:
         cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
         string instanceType = (string) config_.Value("InstanceType");
         if (instanceType == "witness") {
-            cout<<"Sdge"<<endl;
             warmUp(threadsPerGpu);
         }
         server.start();
