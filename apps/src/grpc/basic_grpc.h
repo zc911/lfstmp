@@ -46,6 +46,7 @@ public:
         warmUp(config_.Value("System/ThreadsPerGpu"));
         grpc::ServerBuilder builder;
         builder.SetMaxMessageSize(1024*1024*1024);
+
         builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
         builder.RegisterService(service());
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
@@ -53,8 +54,8 @@ public:
         cout << typeid(EngineType).name() << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
             << endl;
         bool EnabledDetection = (bool)config_.Value("Feature/Vehicle/EnableDetection");
-        cout<<EnabledDetection<<endl;
         if(!EnabledDetection)
+        warmUp(config_.Value("System/ThreadsPerGpu"));
         server->Wait();
     }
 
