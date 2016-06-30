@@ -129,10 +129,10 @@ DEFINE_string(config, "config.json", "Config file path");
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
- //   StartDogMonitor();
-//  if (CheckHardware()) {
-//      return -1;
-//  }
+    StartDogMonitor();
+  if (CheckHardware()) {
+      return -1;
+  }
 
     google::SetUsageMessage("Usage: " + string(argv[0]) + " [--port=6500] [--config=config.json]");
     google::SetVersionString("0.2.4");
