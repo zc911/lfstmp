@@ -19,7 +19,7 @@ using namespace std;
 namespace dg {
 
 const int CAR_FEATURE_ORB_ROWS_MAX = 256;
-const int CAR_FEATURE_ORB_COLS_MAX = 64;
+const int CAR_FEATURE_ORB_COLS_MAX = 32;
 const int CAR_FEATURE_DES_MAX_SIZE = CAR_FEATURE_ORB_ROWS_MAX * CAR_FEATURE_ORB_COLS_MAX;
 
 class Score {
