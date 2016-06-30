@@ -51,5 +51,5 @@ gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)
 
 
 ADD_SUBDIRECTORY(src)
-#ADD_SUBDIRECTORY(tools)
+ADD_SUBDIRECTORY(tools)
 

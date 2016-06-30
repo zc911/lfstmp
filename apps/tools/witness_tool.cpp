@@ -86,6 +86,18 @@ public:
             cout << " pint error" << endl;
         }
     }
+    void Info() {
+        cout<<"hello ping"<<endl;
+        SystemStatusRequest req;
+        SystemStatusResponse resp;
+        ClientContext context;
+        Status status = stub_->SystemStatus(&context, req, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << resp.gpuusage() << endl;
+        } else {
+            cout << " pint error" << endl;
+        }
+    }
 private:
     std::unique_ptr<SystemService::Stub> stub_;
 
@@ -394,6 +406,14 @@ void callP(string address) {
                             grpc::InsecureChannelCredentials()));
     client.Ping();
 }
+
+void callI(string address) {
+    SystemClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    client.Info();
+}
+
 void callS(string address, string image_file_path, bool batch, bool uri) {
     WitnessClient client(
         grpc::CreateChannel(string(address),
@@ -466,7 +486,7 @@ int main(int argc, char *argv[]) {
                 t.join();}
                 break;
             case 1:{
-                thread t(callS, address, image_file_path, batch, true);
+                thread t(callI, address);
                 t.join();}
                 break;
             case 2:{
