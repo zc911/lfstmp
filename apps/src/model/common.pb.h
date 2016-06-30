@@ -45,6 +45,7 @@ class FeatureVector;
 class Image;
 class LicensePlate;
 class NullMessage;
+class PeopleAttr;
 class RecFace;
 class RecVehicle;
 class SrcMetadata;
@@ -967,6 +968,96 @@ class RecFace : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class PeopleAttr : public ::google::protobuf::Message {
+ public:
+  PeopleAttr();
+  virtual ~PeopleAttr();
+
+  PeopleAttr(const PeopleAttr& from);
+
+  inline PeopleAttr& operator=(const PeopleAttr& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PeopleAttr& default_instance();
+
+  void Swap(PeopleAttr* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PeopleAttr* New() const { return New(NULL); }
+
+  PeopleAttr* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PeopleAttr& from);
+  void MergeFrom(const PeopleAttr& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PeopleAttr* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string Tagname = 1;
+  void clear_tagname();
+  static const int kTagnameFieldNumber = 1;
+  const ::std::string& tagname() const;
+  void set_tagname(const ::std::string& value);
+  void set_tagname(const char* value);
+  void set_tagname(const char* value, size_t size);
+  ::std::string* mutable_tagname();
+  ::std::string* release_tagname();
+  void set_allocated_tagname(::std::string* tagname);
+
+  // optional float Confidence = 2;
+  void clear_confidence();
+  static const int kConfidenceFieldNumber = 2;
+  float confidence() const;
+  void set_confidence(float value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.PeopleAttr)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr tagname_;
+  float confidence_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static PeopleAttr* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class RecVehicle : public ::google::protobuf::Message {
  public:
   RecVehicle();
@@ -1105,6 +1196,18 @@ class RecVehicle : public ::google::protobuf::Message {
   ::std::string* release_vehicletypename();
   void set_allocated_vehicletypename(::std::string* vehicletypename);
 
+  // repeated .dg.model.PeopleAttr PeopleAttrs = 10;
+  int peopleattrs_size() const;
+  void clear_peopleattrs();
+  static const int kPeopleAttrsFieldNumber = 10;
+  const ::dg::model::PeopleAttr& peopleattrs(int index) const;
+  ::dg::model::PeopleAttr* mutable_peopleattrs(int index);
+  ::dg::model::PeopleAttr* add_peopleattrs();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::PeopleAttr >*
+      mutable_peopleattrs();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::PeopleAttr >&
+      peopleattrs() const;
+
   // @@protoc_insertion_point(class_scope:dg.model.RecVehicle)
  private:
 
@@ -1118,6 +1221,7 @@ class RecVehicle : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleSymbol > symbols_;
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::google::protobuf::internal::ArenaStringPtr vehicletypename_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::PeopleAttr > peopleattrs_;
   int vehicletype_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
@@ -2626,6 +2730,67 @@ inline void RecFace::set_confidence(float value) {
 
 // -------------------------------------------------------------------
 
+// PeopleAttr
+
+// optional string Tagname = 1;
+inline void PeopleAttr::clear_tagname() {
+  tagname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PeopleAttr::tagname() const {
+  // @@protoc_insertion_point(field_get:dg.model.PeopleAttr.Tagname)
+  return tagname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PeopleAttr::set_tagname(const ::std::string& value) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.PeopleAttr.Tagname)
+}
+inline void PeopleAttr::set_tagname(const char* value) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.PeopleAttr.Tagname)
+}
+inline void PeopleAttr::set_tagname(const char* value, size_t size) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.PeopleAttr.Tagname)
+}
+inline ::std::string* PeopleAttr::mutable_tagname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.PeopleAttr.Tagname)
+  return tagname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PeopleAttr::release_tagname() {
+  
+  return tagname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PeopleAttr::set_allocated_tagname(::std::string* tagname) {
+  if (tagname != NULL) {
+    
+  } else {
+    
+  }
+  tagname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tagname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PeopleAttr.Tagname)
+}
+
+// optional float Confidence = 2;
+inline void PeopleAttr::clear_confidence() {
+  confidence_ = 0;
+}
+inline float PeopleAttr::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PeopleAttr.Confidence)
+  return confidence_;
+}
+inline void PeopleAttr::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PeopleAttr.Confidence)
+}
+
+// -------------------------------------------------------------------
+
 // RecVehicle
 
 // optional int64 Id = 1;
@@ -2918,6 +3083,36 @@ inline void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletype
   }
   vehicletypename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), vehicletypename);
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
+}
+
+// repeated .dg.model.PeopleAttr PeopleAttrs = 10;
+inline int RecVehicle::peopleattrs_size() const {
+  return peopleattrs_.size();
+}
+inline void RecVehicle::clear_peopleattrs() {
+  peopleattrs_.Clear();
+}
+inline const ::dg::model::PeopleAttr& RecVehicle::peopleattrs(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PeopleAttrs)
+  return peopleattrs_.Get(index);
+}
+inline ::dg::model::PeopleAttr* RecVehicle::mutable_peopleattrs(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PeopleAttrs)
+  return peopleattrs_.Mutable(index);
+}
+inline ::dg::model::PeopleAttr* RecVehicle::add_peopleattrs() {
+  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.PeopleAttrs)
+  return peopleattrs_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::PeopleAttr >*
+RecVehicle::mutable_peopleattrs() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.PeopleAttrs)
+  return &peopleattrs_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::PeopleAttr >&
+RecVehicle::peopleattrs() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.PeopleAttrs)
+  return peopleattrs_;
 }
 
 // -------------------------------------------------------------------
@@ -3799,6 +3994,8 @@ VehicleObj::vehicle() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -528,7 +528,6 @@ void storage(Frame *frame, VehicleObj *client_request_obj, string storageAddress
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
-
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
