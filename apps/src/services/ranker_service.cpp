@@ -210,7 +210,6 @@ void RankerAppsService::sortAndFillResponse(
 
     partial_sort(scores.begin(), scores.begin() + limit, scores.end());
     scores.resize(limit);
-
     for (Score &s : scores) {
         response->add_ids(request->candidates(s.index_).id());
         response->add_scores(s.score_);
