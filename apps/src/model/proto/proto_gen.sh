@@ -12,4 +12,4 @@ protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} system.pro
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} skynet.proto
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} matrix.proto
 protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} spring.proto
-
+protoc -I . --grpc_out=.. --plugin=protoc-gen-grpc=${grpc_cpp_plugin} localcommon.proto
