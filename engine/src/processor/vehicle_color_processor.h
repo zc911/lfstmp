@@ -42,6 +42,8 @@ class VehicleColorProcessor : public Processor {
         }
         float high_thr=color_high_thr_*tot_score+min.second;
         float low_thr=color_low_thr_*tot_score+min.second;
+        max.first=-1;
+        max.second=0;
         if(fth.second>high_thr){
             max=fth;
             return;
@@ -57,6 +59,7 @@ class VehicleColorProcessor : public Processor {
 
             max.first=preds.size()*(tmp_min+1)-(tmp_min)*(tmp_min+1)/2+tmp_max-tmp_min-1;
             max.second=1;
+            return;
         }
     }
  protected:

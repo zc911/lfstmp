@@ -163,11 +163,11 @@ public:
             string s = encode2base64(file_path.c_str());
             witnessimage->mutable_data()->set_bindata(s);
         }
-        WitnessRelativeROI *roi = witnessimage->add_relativeroi();
+   /*     WitnessRelativeROI *roi = witnessimage->add_relativeroi();
         roi->set_posx(0);
         roi->set_posy(0);
         roi->set_width(1000);
-        roi->set_height(1000);
+        roi->set_height(1000);*/
         WitnessResponse resp;
         Print(req);
         ClientContext context;
@@ -175,7 +175,8 @@ public:
         gettimeofday(&start, NULL);
         Status status = stub_->Recognize(&context, req, &resp);
         gettimeofday(&end, NULL);
-
+        for(int i=0;i<resp.result().vehicles_size();i++)
+        cout<<resp.result().vehicles(i).vehicletypename()<<endl;
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
