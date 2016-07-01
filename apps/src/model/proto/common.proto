@@ -84,7 +84,7 @@ message RecFace {
 	float Confidence = 4;
 }
 
-message PeopleAttr {
+message PedestrianAttr {
 	string Tagname = 1;
 	float Confidence = 2;
 }
@@ -99,7 +99,7 @@ message RecVehicle {
 	string Features = 7;
 	ObjType VehicleType = 8;
 	string VehicleTypeName = 9;
-	repeated PeopleAttr PeopleAttrs = 10;
+	repeated PedestrianAttr PedestrianAttrs = 10;
 }
 
 message VehicleModelType {
