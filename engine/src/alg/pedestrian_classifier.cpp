@@ -1,25 +1,25 @@
 /*============================================================================
- * File Name   : people_classifier.cpp
+ * File Name   : pedestrian_classifier.cpp
  * Author      : tongliu@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年6月30日 上午10:08:13
  * Description : 
  * ==========================================================================*/
-#include "people_classifier.h"
+#include "pedestrian_classifier.h"
 
 namespace dg
 {
 
-PeopleClassifier::PeopleClassifier(PeopleConfig &peopleconfig) :
+PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
 		height_(360), width_(205), crop_height_(350), crop_width_(180), pixel_scale_(
 				256), pixel_means_
 		{ 104, 117, 123 }
 {
 	/* Load the network. */
-	net_.reset(new Net<float>(peopleconfig.deploy_file, TEST, peopleconfig.is_model_encrypt));
-	net_->CopyTrainedLayersFrom(peopleconfig.model_file);
-	layer_name_ = peopleconfig.layer_name;
+	net_.reset(new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
+	net_->CopyTrainedLayersFrom(pconf.model_file);
+	layer_name_ = pconf.layer_name;
 
 	Blob<float>* input_blob = net_->input_blobs()[0];
 	batch_size_ = input_blob->num();
@@ -27,10 +27,10 @@ PeopleClassifier::PeopleClassifier(PeopleConfig &peopleconfig) :
 	CHECK(num_channels_ == 3) << "Input layer should have 3 channels.";
 	input_blob->Reshape(batch_size_, num_channels_, crop_height_, crop_width_);
 
-	if (peopleconfig.use_gpu)
+	if (pconf.use_gpu)
 	{
 		Caffe::set_mode(Caffe::GPU);
-		Caffe::SetDevice(peopleconfig.gpu_id);
+		Caffe::SetDevice(pconf.gpu_id);
 		use_gpu_ = true;
 	}
 	else
@@ -40,7 +40,7 @@ PeopleClassifier::PeopleClassifier(PeopleConfig &peopleconfig) :
 	}
 
 	// load attrib names
-	LoadTagnames(peopleconfig.tag_name_path);
+	LoadTagnames(pconf.tag_name_path);
 
 	//calculate crop rectangle coordinates
 	int offset_h = height_ - crop_height_;
@@ -50,11 +50,11 @@ PeopleClassifier::PeopleClassifier(PeopleConfig &peopleconfig) :
 	crop_rect_ = Rect(offset_w, offset_h, crop_width_, crop_height_);
 }
 
-PeopleClassifier::~PeopleClassifier()
+PedestrianClassifier::~PedestrianClassifier()
 {
 }
 
-void PeopleClassifier::LoadTagnames(const string &name_list)
+void PedestrianClassifier::LoadTagnames(const string &name_list)
 {
 	ifstream fp(name_list);
 	tagnames_.resize(0);
@@ -68,7 +68,7 @@ void PeopleClassifier::LoadTagnames(const string &name_list)
 	}
 }
 
-void PeopleClassifier::AttributePredict(const vector<Mat> &imgs,
+void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
 		vector<vector<float> > &results)
 {
 	Blob<float>* input_blob = net_->input_blobs()[0];
@@ -135,36 +135,28 @@ void PeopleClassifier::AttributePredict(const vector<Mat> &imgs,
 	}
 }
 
-std::vector<PeopleAttr> PeopleClassifier::BatchClassify(
-		const vector<string> &img_filenames)
+std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassifier::BatchClassify(
+		const vector<cv::Mat> &imgs)
 {
-	vector<Mat> images;
-	std::vector<PeopleAttr> attrs;
+	std::vector<vector<PedestrianClassifier::PedestrianAttribute>> attrc;
+	if(imgs.size() == 0)
+		return attrc;
 	vector<vector<float> > results;
-	for (size_t i = 0; i < img_filenames.size(); i++)
-	{
-		Mat image;
-		image = imread(img_filenames[i], -1);
-		if (image.empty())
-		{
-			cout << "Wrong Image: " << img_filenames[i] << endl;
-			continue;
-		}
-		images.push_back(image);
-	}
 
-	AttributePredict(images, results);
+	AttributePredict(imgs, results);
 	for (size_t idx = 0; idx < results.size(); idx++)
 	{
-		PeopleAttr attr;
+		std::vector<PedestrianClassifier::PedestrianAttribute> attrs;
 		for (size_t a_idx = 0; a_idx < 46; a_idx++)
 		{
+			PedestrianClassifier::PedestrianAttribute attr;
 			attr.tagname = tagnames_[a_idx];
 			attr.confidence = results[idx][a_idx];
 			attrs.push_back(attr);
 		}
+		attrc.push_back(attrs);
 	}
-	return attrs;
+	return attrc;
 }
 
 } /* namespace dg */

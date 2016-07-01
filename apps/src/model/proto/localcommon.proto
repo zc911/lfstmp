@@ -21,6 +21,7 @@ enum RecognizeFunctions {
     RECFUNC_FACE = 9;
     RECFUNC_FACE_DETECTOR = 10;
     RECFUNC_FACE_FEATURE_VECTOR = 11;
+    RECFUNC_VEHICLE_PEDESTRIAN_ATTR = 12;
 }
 
 message Time {
