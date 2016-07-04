@@ -9,9 +9,9 @@
 #define SRC_PROCESSOR_VEHICLE_COLOR_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/vehicle_caffe_classifier.h"
+#include "alg/classification/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
-#include "alg/caffe_vehicle_color_classifier.h"
+#include "alg/classification/caffe_vehicle_color_classifier.h"
 #include "model/basic.h"
 namespace dg {
 static int SHIFT_COLOR=1000;

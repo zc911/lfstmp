@@ -4,6 +4,7 @@
  *  Created on: Jan 5, 2016
  *      Author: haoquan
  */
+#include <string>
 #include <unistd.h>
 #include <string>
 #include <glog/logging.h>
@@ -13,7 +14,7 @@ using namespace cv;
 
 namespace dg {
 
-Displayer * Displayer::self_ = NULL;
+Displayer *Displayer::self_ = NULL;
 
 void Displayer::glutDisplayIt() {
     Displayer::self_->displayFrame();
@@ -27,19 +28,21 @@ void Displayer::glutIdleIt() {
     glutPostRedisplay();
 }
 
-Displayer::Displayer(RingBuffer* buffer, const string winName, int width,
+Displayer::Displayer(RingBuffer *buffer, const string winName, int width,
                      int height, int snapWidth, int snapHeight, const int fps) {
     win_name_ = winName;
-    width_ = width + snapWidth;
+    width_ = width;
+    snap_width_ = snapWidth;
+    snap_height_ = snapHeight;
     height_ = height;
     fps_ = fps;
-    frame_iterval_ = 1000 / fps;
+    frame_iterval_ = 1000 / (fps / 2);
     int argc = 1;
     char *argv[1];
-    argv[0] = "VSD";
+    argv[0] = "";
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-    glutInitWindowSize(width_, height_);
+    glutInitWindowSize(width_ + snap_width_, height_);
     glutCreateWindow(winName.c_str());
     glEnable(GL_TEXTURE_2D);
 
@@ -57,49 +60,26 @@ void Displayer::displayFrame() {
 
     glRasterPos3f(-1.0f, 1.0f, 0);
     glPixelZoom(1.0f, -1.0f);
-    Frame *f = ring_buffer_->Get(display_pointer_);
+    Frame *f = ring_buffer_->GetFrame(display_pointer_);
     if (f == NULL) {
+        DLOG(INFO) << "Frame is NULL" << endl;
         return;
     }
-    if (f->status() != FRAME_STATUS_DETECTED) {
+    if (!f->CheckStatus(FRAME_STATUS_ABLE_TO_DISPLAY) || f->CheckStatus(FRAME_STATUS_FINISHED)) {
+        DLOG(INFO) << "Can not display frame " << f->id() << ", status: " << f->status() << endl;
         return;
     }
     display_pointer_++;
+    Mat data = f->payload()->data();
+    Mat displayData;
+    if (data.cols != width_ || data.rows != height_) {
+        cv::resize(data, displayData, cv::Size(width_, height_));
+    }
     glDrawPixels(width_, height_, GL_BGRA, GL_UNSIGNED_BYTE,
-                 f->payload()->data().data);
+                 displayData.data);
 
     glutSwapBuffers();
     f->set_status(FRAME_STATUS_FINISHED);
-
-//
-//    if (f == NULL) {
-//        return;
-//    }
-//
-//    if ((f->GetStatus() & FRAME_STATUS_PROCESSED) == 0
-//            || (f->GetStatus() & FRAME_STATUS_DISPLAYED) > 0) {
-//
-//        DLOG(INFO)<< ">>>>> Can not display: " << f << "-" << f->FrameId() << "-" << f->GetStatus() << endl;
-//        usleep(frame_iterval_ * 1000);
-//        return;
-//    }
-//
-//    DLOG(INFO)<< ">>>>> Display frame: " << f <<"-" << f->FrameId() << "-" << f->GetStatus() << endl;
-//
-
-//
-//    DLOG(INFO)<< ">>>>> End display: " << f << "-" << f->FrameId() << "-" << f->GetStatus() << endl;
-//
-//    t_profiler_str_ = "Display";
-//    t_profiler_.update(t_profiler_str_);
-//    if (profile_time_)
-//        LOG(INFO)<< t_profiler_.getSmoothedTimeProfileString();
-//
-//    f->SetStatus(FRAME_STATUS_FINISHED, true);
-//    DLOG(INFO)<< "Display frame: " << f << "-" << f->FrameId() << "-" << f->GetStatus() << endl;
-//    display_pointer_++;
-//    if (display_pointer_ >= buffer_size_)
-//        display_pointer_ = 0;
 
 }
 

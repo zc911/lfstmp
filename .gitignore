@@ -13,3 +13,10 @@ apps/dist/
 engine/.idea
 apps/.idea
 apps/tools/log
+engine/lib
+apps/lib
+engine/.cproject
+apps/.cproject
+util/.cproject
+engine/.project
+apps/.project
