@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 FILE_SERVER="http://192.168.2.119/matrix/libs"
-LIBS_TAR="engine_libs.tar"
+LIBS_TAR="apps_libs.tar"
 
 if [ ! -d lib ]; then
     mkdir "lib"
