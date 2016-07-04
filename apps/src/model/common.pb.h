@@ -1024,16 +1024,11 @@ class PedestrianAttr : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string Tagname = 1;
-  void clear_tagname();
-  static const int kTagnameFieldNumber = 1;
-  const ::std::string& tagname() const;
-  void set_tagname(const ::std::string& value);
-  void set_tagname(const char* value);
-  void set_tagname(const char* value, size_t size);
-  ::std::string* mutable_tagname();
-  ::std::string* release_tagname();
-  void set_allocated_tagname(::std::string* tagname);
+  // optional int32 AttrId = 1;
+  void clear_attrid();
+  static const int kAttrIdFieldNumber = 1;
+  ::google::protobuf::int32 attrid() const;
+  void set_attrid(::google::protobuf::int32 value);
 
   // optional float Confidence = 2;
   void clear_confidence();
@@ -1046,7 +1041,7 @@ class PedestrianAttr : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr tagname_;
+  ::google::protobuf::int32 attrid_;
   float confidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
@@ -2732,47 +2727,18 @@ inline void RecFace::set_confidence(float value) {
 
 // PedestrianAttr
 
-// optional string Tagname = 1;
-inline void PedestrianAttr::clear_tagname() {
-  tagname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional int32 AttrId = 1;
+inline void PedestrianAttr::clear_attrid() {
+  attrid_ = 0;
 }
-inline const ::std::string& PedestrianAttr::tagname() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Tagname)
-  return tagname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::google::protobuf::int32 PedestrianAttr::attrid() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrId)
+  return attrid_;
 }
-inline void PedestrianAttr::set_tagname(const ::std::string& value) {
+inline void PedestrianAttr::set_attrid(::google::protobuf::int32 value) {
   
-  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Tagname)
-}
-inline void PedestrianAttr::set_tagname(const char* value) {
-  
-  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.Tagname)
-}
-inline void PedestrianAttr::set_tagname(const char* value, size_t size) {
-  
-  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.Tagname)
-}
-inline ::std::string* PedestrianAttr::mutable_tagname() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Tagname)
-  return tagname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* PedestrianAttr::release_tagname() {
-  
-  return tagname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void PedestrianAttr::set_allocated_tagname(::std::string* tagname) {
-  if (tagname != NULL) {
-    
-  } else {
-    
-  }
-  tagname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tagname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Tagname)
+  attrid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrId)
 }
 
 // optional float Confidence = 2;
