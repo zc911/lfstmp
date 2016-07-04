@@ -10,7 +10,7 @@
 #define FACE_DETECT_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/face_detector.h"
+#include "alg/detector/face_detector.h"
 #include "model/frame.h"
 #include "model/model.h"
 

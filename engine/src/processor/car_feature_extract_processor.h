@@ -8,19 +8,19 @@
 #ifndef CAR_FEATURE_EXTRACT_PROCESSOR_H_
 #define CAR_FEATURE_EXTRACT_PROCESSOR_H_
 
-#include "alg/car_feature_extractor.h"
+#include "alg/feature/car_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor.h"
 
 namespace dg {
 
-class CarFeatureExtractProcessor : public Processor {
- public:
+class CarFeatureExtractProcessor: public Processor {
+public:
     CarFeatureExtractProcessor();
     virtual ~CarFeatureExtractProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame) {
         return false;
     }
@@ -29,11 +29,11 @@ class CarFeatureExtractProcessor : public Processor {
     virtual bool RecordFeaturePerformance();
 
 
- private:
-    void extract(vector<Object*> &objs);
+private:
+    void extract(vector<Object *> &objs);
 
     CarFeatureExtractor *extractor_;
-    vector<Object*> vehicle_to_processed_;
+    vector<Object *> vehicle_to_processed_;
 };
 
 } /* namespace dg */

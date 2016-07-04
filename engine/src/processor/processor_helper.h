@@ -10,7 +10,7 @@
 #include "processor.h"
 #include "watch_dog.h"
 #include "c_api.h"
-#include "alg/LPDetectRecog.hpp"
+#include "alg/plate/LPDetectRecog.hpp"
 #include "fs_util.h"
 namespace dg {
 

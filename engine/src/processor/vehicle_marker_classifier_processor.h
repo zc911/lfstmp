@@ -9,8 +9,8 @@
 #define SRC_PROCESSOR_VEHICLE_MARKER_CLASSIFIER_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/marker_caffe_classifier.h"
-#include "alg/window_caffe_detector.h"
+#include "alg/classification/marker_caffe_classifier.h"
+#include "alg/detector/window_caffe_detector.h"
 
 namespace dg {
 
