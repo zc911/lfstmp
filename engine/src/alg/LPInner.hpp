@@ -10,6 +10,7 @@
 
 #define ANCHOR_NUM 34
 #define LP_SCORE_MAX 0.90f
+#define LP_ROIP_SCORE_MAX 0.80f
 
 typedef struct _LPDR_ImageInner_S {
     uchar *pubyData; //unsigned char data
@@ -62,7 +63,13 @@ int getSize(NDArrayHandle hout);
 int group_bbs(vector<LPRectInfo> &lprects, vector<LPRectInfo> &group, float fiouThd);
 
 
+int group_bbs_overlap(vector<LPRectInfo> &lprects, vector<LPRectInfo> &group, float fiouThd);
+
+
 float calc_IOU(LPRectInfo &rect0, LPRectInfo &rect1);
+
+
+int calc_overlap(LPRectInfo &rect0, LPRectInfo &rect1, float *pfOR0, float *pfOR1);
 
 
 int getBestLPRect(mx_uint imgh, mx_uint imgw, mx_uint adims[2], mx_uint ashapes[2][4],
@@ -102,6 +109,9 @@ int doRotate_8UC3(uchar *pubyImage, int dwW, int dwH, float fAngle);
 int getMeanByHist(int *pdwHist, int dwLen);
 
 int getBinThresholdIterByHist_uchar(uchar *pubyData, int dwLen);
+
+int cvtRGB2HSV_U8(uchar ubyR, uchar ubyG, uchar ubyB, float *pfH, float *pfS, float *pfV);
+
 
 
 #endif
