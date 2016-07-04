@@ -22,6 +22,7 @@ typedef float Confidence;
 typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
 typedef cv::Rect Box;
+
 enum ContentType {
     IMAGE_JPEG = 1,
     FILE_MP4 = 2,
@@ -37,7 +38,7 @@ enum MessageStatus {
 typedef uint64_t OperationValue;
 enum Operations
     : OperationValue {
-        OPERATION_NONE = 0,
+    OPERATION_NONE = 0,
     OPERATION_VEHICLE = 1 << 0,
     OPERATION_VEHICLE_DETECT = 1 << 1,
     OPERATION_VEHICLE_TRACK = 1 << 2,
@@ -50,8 +51,7 @@ enum Operations
     OPERATION_FACE_DETECTOR = 1 << 9,
     OPERATION_FACE_FEATURE_VECTOR = 1 << 10,
     OPERATION_MAX = 1 << 63
-}
-;
+};
 
 /**
  * This class defines the operations each request(Frame/FrameBatch) asked for.
@@ -62,7 +62,7 @@ typedef struct Operation {
     OperationValue operate;
 
     Operation()
-            : operate(OPERATION_NONE) {
+        : operate(OPERATION_NONE) {
 
     }
 
@@ -77,11 +77,11 @@ typedef struct Operation {
     void Set(Operations op) {
         operate = (operate | op);
         if (op >= OPERATION_VEHICLE_DETECT
-                && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+            && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
         if (op >= OPERATION_FACE_DETECTOR
-                && op <= OPERATION_FACE_FEATURE_VECTOR) {
+            && op <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
     }
@@ -89,11 +89,11 @@ typedef struct Operation {
     void Set(OperationValue opv) {
         operate = (operate | opv);
         if (opv >= OPERATION_VEHICLE_DETECT
-                && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+            && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
         if (opv >= OPERATION_FACE_DETECTOR
-                && opv <= OPERATION_FACE_FEATURE_VECTOR) {
+            && opv <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
     }
@@ -109,7 +109,7 @@ typedef struct {
     unsigned int chanel;
 } MetaData;
 
-typedef struct VideoMetaData : public MetaData {
+typedef struct VideoMetaData: public MetaData {
     unsigned int fps;
 } VideoMetaData;
 

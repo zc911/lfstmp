@@ -1,0 +1,129 @@
+/*
+ * track_processor.h
+ *
+ *  Created on: Dec 24, 2015
+ *      Author: haoquan
+ */
+
+#ifndef SRC_PROCESSOR_TRACK_PROCESSOR_H_
+#define SRC_PROCESSOR_TRACK_PROCESSOR_H_
+
+#include "model/model.h"
+#include "io/ringbuffer.h"
+#include "alg/tracking/binary_matching.h"
+#include "alg/tracking/stc_tracker.h"
+#include "processor/processor.h"
+#include "util/timing_profiler.h"
+//#include "planeview/planeview.h"
+
+extern int max(int i, int j);
+extern float max(float i, float j);
+extern int min(int i, int j);
+extern float min(float i, float j);
+extern float calc_size_rto(int i, int j);
+extern float length(float i, float j);
+
+class TrackProcessor : public Processor {
+
+ public:
+    TrackProcessor(RingBuffer *buffer, int detectionInterval);
+    ~TrackProcessor();
+    void Update(Frame *frame);
+ private:
+    // parameters
+    int height_;
+    int width_;
+    int detection_interval_;
+    float min_intersection;
+    int track_size_;
+    int min_box_size_;
+    int max_wh_rto_;
+    float max_size_rto_;
+    float max_wh_change_;
+    float delta_v_threshold_;
+    long long id_count_;
+    bool display_config_;
+    bool profile_time_;
+    bool use_plnview_constraint_;
+    bool is_inited_;
+    vector<Box> disable_area_;
+    Planeview planview_;
+    float tl_x_, tl_y_, br_x_, br_y_;
+    Size vehicle_pic_size_;
+    // local storage
+    BinaryMatching matching_;
+    vector<STC> stc_;
+    string t_profiler_str_;
+    timing_profiler t_profiler_;
+    float graph_[MAX_MATCHING_NUM][MAX_MATCHING_NUM];
+    int match_pair_[MAX_MATCHING_NUM];
+    bool is_det_matched_[MAX_MATCHING_NUM];
+    RingBuffer *ring_buffer_;
+    // poly fit to get spatial size of the car
+    int max_line_pnt_num_;
+    float *line_;
+    CvMemStorage* line_fit_storage_;
+    CvSeq* line_fit_point_seq_;
+    // main procedure
+    void process_key_frame(Frame *current_frame);
+    // main algorithm
+    void update_line(const vector<Detection> &detections);
+    int build_graph(const vector<Vehicle> &vehicles,
+                    vector<Detection> &detections);
+    void update_vehicle_location(Frame *current_frame,
+                                 const int &key_frame_offset);
+    void smooth_update_vehicle_location(const int &key_frame_offset,
+                                        const long long &v_id,
+                                        const Box &new_loc);
+    void add_new_vehicle(const Mat *rgb, const vector<Mat> &rgb_pyr,
+                         vector<Vehicle> &vehicles,
+                         const vector<Detection> &detections);
+    int find_pyr_level(vector<Mat> rgb_pyr, Box box);
+    void save_matched_low_score_tracker(vector<Vehicle> &vehicles);
+    void degrade_unmatched_new_detection(vector<Vehicle> &vehicles);
+    void delete_low_score_tracker(const vector<Vehicle> &vehicles);
+    void track_foreward(Frame *previous_frame, Frame *current_frame);
+    void track_backward(const int &st_frame_offset);
+    void activate_status(int offset);
+    void kill_tracker(const long long v_id);
+    // tools
+    bool is_valid_box(Box &b);
+    bool is_valid_rect(Rect &b, const float &wh_rto);
+    float calc_intersection(const Box &b1, const Box &b2);
+    int find_last_key_frame();
+    int find_vehicle(const vector<Vehicle> &vehicles, const long long v_id);
+    int find_stc_idx(const long long id);
+    void find_pln_bound(const float sample_img_pnt[4][3], float &tl_x,
+                        float &tl_y, float &br_x, float &br_y);
+    bool convert2pln_img_coord(float pln_pnt[3], const float &tl_x,
+                               const float &tl_y, const float &br_x,
+                               const float &br_y);
+    float calc_pln_dis(const Box b1, const Box b2, float &dx, float &dy);
+    void update_vehicle_pic(VehiclePic &vehicle_pic, const Mat *img, Box det);
+    void update_vehicle_pic(VehiclePic &vehicle_pic,
+                            const VehiclePic &pre_vehicle_pic, const Mat *img,
+                            Box det);
+    bool is_in_disable_area(Box &b);
+};
+
+class TrackProcessorRef : public ProcessorRef {
+ public:
+    TrackProcessorRef(RingBuffer *buffer, int detectionInterval) {
+        proc_ = new TrackProcessor(buffer, detectionInterval);
+    }
+    ~TrackProcessorRef() {
+    }
+
+    Frame* operator()(Frame* f) {
+//ProfilerRegisterThread();
+        DLOG(INFO)<< "Track frame start: " << f << "-" << f->FrameId() << "-"
+        << f->GetStatus() << endl;
+        proc_->Update(f);
+
+        DLOG(INFO) << "Track frame end: " << f << "-" << f->FrameId() << "-"
+        << f->GetStatus() << endl;
+        return f;
+    }
+
+};
+#endif /* SRC_PROCESSOR_TRACK_PROCESSOR_H_ */

@@ -5,7 +5,7 @@
  *      Author: jiajaichen
  */
 
-#include <alg/marker_caffe_classifier.h>
+#include <alg/classification/marker_caffe_classifier.h>
 #include "vehicle_marker_classifier_processor.h"
 #include "processor_helper.h"
 
