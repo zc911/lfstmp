@@ -11,7 +11,7 @@
 #include <vector>
 #include <glog/logging.h>
 #include "processor.h"
-#include "alg/vehicle_caffe_detector.h"
+#include "alg/detector/vehicle_caffe_detector.h"
 #include "util/debug_util.h"
 
 using namespace std;

@@ -9,7 +9,7 @@
 #define VEHICLE_CLASSIFIER_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/vehicle_caffe_classifier.h"
+#include "alg/classification/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
 namespace dg {
 

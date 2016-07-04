@@ -13,3 +13,6 @@ apps/dist/
 engine/.idea
 apps/.idea
 apps/tools/log
+engine/lib
+apps/lib
+
