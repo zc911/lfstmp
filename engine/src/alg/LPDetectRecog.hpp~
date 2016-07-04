@@ -117,6 +117,12 @@ typedef struct _LPDRConfig {
     string chrecogParamFile;
     int batchsize = 1;
     bool is_model_encrypt = false;
+    int imageSW;
+    int imageSH;
+    int numsPlates;
+    int plateSW;
+    int plateSH;
+    int numsProposal;
 } LPDRConfig_S;
 
 
@@ -132,43 +138,29 @@ typedef struct _LPDRInfo {
 } LPDRInfo_S;
 
 
-
-
-typedef struct _LPDRInfo {
-  int adwLPRect[4]; //top, left, right, bottom
-	int adwLPPolygon[8]; //pnt0(x,y), pnt1(x,y), pnt2(x,y), pnt3(x,y)
-	int adwLPNumber[MAX_LPCHAR_NUM]; //number name of char
-	float afScores[MAX_LPCHAR_NUM]; //score for eatch char
-	int dwLPLen; //chars number
-	float fAllScore; //LP score
-	int dwColor; //LP color
-	int dwType; //LP type, single line, or double line
-}LPDRInfo_S;
-
-
 typedef struct _LPDR_Output {
-	LPDRInfo_S astLPs[MAX_LP_NUM]; //LP set
-	int dwLPNum; //LP Number
-}LPDR_Output_S;
+    LPDRInfo_S astLPs[MAX_LP_NUM]; //LP set
+    int dwLPNum; //LP Number
+} LPDR_Output_S;
 
 
 typedef struct _LPDR_OutputSet {
-	LPDR_Output_S astLPSet[MAX_IMAGE_SET_MAXSIZE]; //LPs for each image
-	int dwImageNum; //image number
-}LPDR_OutputSet_S;
+    LPDR_Output_S astLPSet[MAX_IMAGE_SET_MAXSIZE]; //LPs for each image
+    int dwImageNum; //image number
+} LPDR_OutputSet_S;
 
 
 typedef struct _LPDR_Image {
     uchar *pubyData; // RGB or YUV data of Image
     int dwImgW; //image width
     int dwImgH; //image height
-}LPDR_Image_S;
+} LPDR_Image_S;
 
 
 typedef struct _LPDR_ImageSet {
     LPDR_Image_S astSet[MAX_IMAGE_SET_MAXSIZE]; //image set
     int dwImageNum; //image number
-}LPDR_ImageSet_S;
+} LPDR_ImageSet_S;
 
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig);
@@ -179,8 +171,6 @@ int LPDR_Release(LPDR_HANDLE handle);
 
 
 #endif
-
-
 
 
 

@@ -115,19 +115,18 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
 void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     readModuleFile(pstConfig->fcnnSymbolFile, pstConfig->fcnnParamFile,
                    &pstConfig->stFCNN,pstConfig->is_model_encrypt);
-
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
-    pstConfig->stFCNN.adwShape[1] = 1;
-    pstConfig->stFCNN.adwShape[2] = 400;  //standard width
-    pstConfig->stFCNN.adwShape[3] = 400;  //standard height
+    pstConfig->stFCNN.adwShape[1] = 1;    //channel
+    pstConfig->stFCNN.adwShape[2] = pstConfig->imageSW;  //standard width .
+    pstConfig->stFCNN.adwShape[3] = pstConfig->imageSH;  //standard height .
 
     readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
                    &pstConfig->stRPN,pstConfig->is_model_encrypt);
     pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
-    pstConfig->stRPN.adwShape[1] = 4;//number of plates per car;
+    pstConfig->stRPN.adwShape[1] = pstConfig->numsPlates;//number of plates per image; .
     pstConfig->stRPN.adwShape[2] = 1;
-    pstConfig->stRPN.adwShape[3] = 100;
-    pstConfig->stRPN.adwShape[4] = 300;
+    pstConfig->stRPN.adwShape[3] = pstConfig->plateSW;// .
+    pstConfig->stRPN.adwShape[4] = pstConfig->plateSH;// .
 
     readModuleFile(pstConfig->roipSymbolFile, pstConfig->roipParamFile,
                    &pstConfig->stROIP,pstConfig->is_model_encrypt);
@@ -137,7 +136,7 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stROIP.adwShape[2] = 0;
     pstConfig->stROIP.adwShape[3] = 0;
     pstConfig->stROIP.adwShape[4] = pstConfig->stROIP.adwShape[0];
-    pstConfig->stROIP.adwShape[5] = 20;
+    pstConfig->stROIP.adwShape[5] = pstConfig->numsProposal;//split to 20 small picture   proposal number of the image .
     pstConfig->stROIP.adwShape[6] = 5;
 
     readModuleFile(pstConfig->pregSymbolFile, pstConfig->pregParamFile,
@@ -154,8 +153,6 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stCHRECOG.adwShape[2] = 32;
     pstConfig->stCHRECOG.adwShape[3] = 32;
 
-    pstConfig->dwDevType = 2;
-    pstConfig->dwDevID = 0;
     batch_size_ = pstConfig->batchsize;
 }
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
