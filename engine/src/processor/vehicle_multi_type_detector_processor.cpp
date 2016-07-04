@@ -75,7 +75,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             Object *obj = NULL;
             if (d.id == DETECTION_PEDESTRIAN) {
                 // if is pedestrain
-                Pedestrain *p = new Pedestrain();
+                Pedestrian *p = new Pedestrian();
                 p->set_detection(d);
                 p->set_id(base_id_ + id++);
                 obj = static_cast<Object *>(p);

@@ -31,6 +31,8 @@ static const string FEATURE_VEHICLE_ENABLE_MARKER =
         "Feature/Vehicle/EnableMarker";
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
         "Feature/Vehicle/EnableFeatureVector";
+static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
+        "Feature/Vehicle/EnablePedistrianAttr";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =
@@ -105,6 +107,12 @@ static const string FILE_ACCELERATE_DEPLOY_MODEL = "File/Accelerate/DeployModel"
 static const string FILE_MARKER_MODEL_PATH = "File/Marker/ModelPath";
 static const string FILE_MARKER_TRAINED_MODEL = "File/Marker/TrainedModel";
 static const string FILE_MARKER_DEPLOY_MODEL = "File/Marker/DeployModel";
+
+static const string FILE_PEDESTRIAN_ATTR_MODEL_PATH = "File/PedestrianAttr/ModelPath";
+static const string FILE_PEDESTRIAN_ATTR_TRAINED_MODEL = "File/PedestrianAttr/TrainedModel";
+static const string FILE_PEDESTRIAN_ATTR_DEPLOY_MODEL = "File/PedestrianAttr/DeployModel";
+static const string FILE_PEDESTRIAN_ATTR_TAGNAME_MODEL = "File/PedestrianAttr/TagnameModel";
+static const string FILE_PEDESTRIAN_ATTR_LAYER_NAME = "File/PedestrianAttr/LayerName";
 
 static const string FILE_WINDOW_MODEL_PATH = "File/Window/ModelPath";
 static const string FILE_WINDOW_TRAINED_MODEL = "File/Window/TrainedModel";
