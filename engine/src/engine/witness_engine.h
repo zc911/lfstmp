@@ -42,6 +42,7 @@ class WitnessEngine : public SimpleEngine {
     bool enable_vehicle_plate_gpu_;
     bool enable_vehicle_marker_;
     bool enable_vehicle_feature_vector_;
+    bool enable_vehicle_pedestrian_attr_;
 
     bool enable_face_;
     bool enable_face_detect_;
