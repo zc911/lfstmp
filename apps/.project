@@ -3,6 +3,8 @@
 	<name>apps</name>
 	<comment></comment>
 	<projects>
+		<project>utils</project>
+		<project>engine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

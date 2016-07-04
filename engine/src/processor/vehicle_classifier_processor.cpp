@@ -81,7 +81,7 @@ void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
 
 bool VehicleClassifierProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_STYLE, performance_);
+    return RecordPerformance(FEATURE_CAR_PEDESTRIAN_ATTR, performance_);
 
 }
 
