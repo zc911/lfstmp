@@ -21,6 +21,7 @@ int LPRPN_Create(LPDRModel_S stRPN, int dwDevType, int dwDevID, LPDR_HANDLE *phR
   ret = MXSymbolCreateFromJSON(stRPN.pbySym, &hSymbol);
   
   pstModule->hSymbol = hSymbol;
+  assert(ret==0);
 #if DR_DBG&0
   cout << ret << endl;
 #endif
@@ -280,11 +281,11 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
       pdwRealWs[i] = dwRealW;
       pdwRealHs[i] = dwRealH;
 
-#if LPDR_DBG&0
+#if LPDR_DBG&1
         cv::Mat gimg(dwStdH, dwStdW, CV_32FC1, pfInputDataOne);
 //        cv::namedWindow("rpninput", 0);
         cv::imshow("rpninput", gimg);
-        cv::waitKey(10);
+        cv::waitKey(0);
 #endif
     }
   }

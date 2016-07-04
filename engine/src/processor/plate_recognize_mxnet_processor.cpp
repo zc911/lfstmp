@@ -115,6 +115,7 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
 void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     readModuleFile(pstConfig->fcnnSymbolFile, pstConfig->fcnnParamFile,
                    &pstConfig->stFCNN,pstConfig->is_model_encrypt);
+
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;
     pstConfig->stFCNN.adwShape[2] = 400;  //standard width

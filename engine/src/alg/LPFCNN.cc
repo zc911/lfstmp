@@ -15,10 +15,11 @@ int LPFCNN_Create(LPDRModel_S stFCNN, int dwDevType, int dwDevID, LPDR_HANDLE *p
 
   //load model
 //  cout << "fcnn 0\n";
-//  cout << strlen(stFCNN.pbySym) << endl;
+  cout << strlen(stFCNN.pbySym) << endl;
   ret = MXSymbolCreateFromJSON(stFCNN.pbySym, &hSymbol);
 //  cout << "fcnn 1\n";
   pstModule->hSymbol = hSymbol;
+  assert(ret==0);
 #if DR_DBG&0
   cout << ret << endl;
 #endif
@@ -322,19 +323,17 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
     dwImgWOri = pstImage->dwImgW;
     dwImgHOri = pstImage->dwImgH;
     
-    float fNeedW = dwCheckW * dwRealW / dwImgWOri * dwOutW / dwStdW;
-    float fNeedH = dwCheckH * dwRealH / dwImgHOri * dwOutH / dwStdH;
     for (dwJ = 0; dwJ < lprects.size(); dwJ++)
     {
       LPRectInfo *prect = &lprects[dwJ];
-  //    printf("%d:%.2f, %d, %d, %d, %d\n", dwI, prect->fScore, (int)prect->fCentX, (int)prect->fCentY, (int)prect->fWidth, (int)prect->fHeight);
-      prect->fWidth = fNeedW;
-      prect->fHeight = fNeedH;
+      prect->fWidth *= 3;
+      prect->fHeight *= 2;
     }
 
     vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];
 //    cout << "lpgroup size:" << lpgroup.size() << endl;
-    group_bbs(lprects, lpgroup, 0.5f);
+//    group_bbs(lprects, lpgroup, 0.5f);
+    group_bbs_overlap(lprects, lpgroup, 0.8f);
     
     float afBB[4];
     for (dwJ = 0; dwJ < lpgroup.size(); dwJ++)
@@ -343,8 +342,8 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
 
       prect->fCentX = prect->fCentX * dwStdW / dwOutW * dwImgWOri / dwRealW;
       prect->fCentY = prect->fCentY * dwStdH / dwOutH * dwImgHOri / dwRealH;
-      prect->fWidth = dwCheckW;
-      prect->fHeight = dwCheckH;
+      prect->fWidth = prect->fWidth * dwStdW / dwOutW * dwImgWOri / dwRealW;
+      prect->fHeight = prect->fHeight * dwStdH / dwOutH * dwImgHOri / dwRealH;
       
       afBB[0] = prect->fCentX - prect->fWidth/2;
       afBB[1] = prect->fCentY - prect->fHeight/2;

@@ -61,9 +61,41 @@ float calc_IOU(LPRectInfo &rect0, LPRectInfo &rect1) {
     iou = (r01 - l01 + 1) * (b01 - t01 + 1);
   }
 
-  iou = iou / (sz0 + sz1 - iou + 0.0);
+  iou = iou / (sz0 + sz1 - iou + 0.001f);
 
   return iou;
+}
+
+
+
+int calc_overlap(LPRectInfo &rect0, LPRectInfo &rect1, float *pfOR0, float *pfOR1) {
+	float iou = 0.0f;
+	float sz0 = rect0.fWidth * rect0.fHeight;
+	float sz1 = rect1.fWidth * rect1.fHeight;
+	
+	float l0 = rect0.fCentX - rect0.fWidth / 2;
+	float t0 = rect0.fCentY - rect0.fHeight / 2;
+	float r0 = rect0.fCentX + rect0.fWidth / 2;
+	float b0 = rect0.fCentY + rect0.fHeight / 2;
+
+	float l1 = rect1.fCentX - rect1.fWidth / 2;
+	float t1 = rect1.fCentY - rect1.fHeight / 2;
+	float r1 = rect1.fCentX + rect1.fWidth / 2;
+	float b1 = rect1.fCentY + rect1.fHeight / 2;
+
+	float l01 = max(l0, l1);
+	float t01 = max(t0, t1);
+	float r01 = min(r0, r1);
+	float b01 = min(b0, b1);
+
+	if (r01 > l01 && b01 > t01) {
+    iou = (r01 - l01 + 1) * (b01 - t01 + 1);
+  }
+
+  *pfOR0 = iou / (sz0 + 0.001f);
+  *pfOR1 = iou / (sz1 + 0.001f);
+
+  return 0;
 }
 
 
@@ -151,6 +183,103 @@ int group_bbs(vector<LPRectInfo> &lprects, vector<LPRectInfo> &group, float fiou
 
 	return 0;
 }
+
+
+
+int group_bbs_overlap(vector<LPRectInfo> &lprects, vector<LPRectInfo> &group, float fiouThd) {
+#define GBBSO_MAXNUM 2048
+	int rectnum = lprects.size();
+	int num = 0;
+	int adwMark[GBBSO_MAXNUM];
+	float afBB0[4], afBB1[4];
+
+	group.clear();
+//  cout << "rectnum:" << rectnum << endl;
+	sort(lprects.begin(), lprects.end(), compare);
+//	for (int i = 0; i < rectnum; i++) {
+//		cout << i << ":" << lprects[i].fScore << endl;
+//	}
+//	assert(rectnum <= GBBSO_MAXNUM);
+
+	vector<LPRectInfo> lprects_tmp0, lprects_tmp1;
+	LPRectInfo lprtmp;
+	for (int ri = 0; ri < rectnum; ri++) {
+		lprects_tmp0.push_back(lprects[ri]);
+	}
+
+	while (1) {
+	  if (num >= GBBSO_MAXNUM) {
+	    break;
+	  }
+		rectnum = lprects_tmp0.size();
+
+		if (rectnum == 0) break;
+
+		LPRectInfo lpr0 = lprects_tmp0[0];
+		LPRectInfo lpr = lprects_tmp0[0];
+		num = 1;
+		adwMark[num - 1] = 0;
+		lprects_tmp1.clear();
+		for (int ri = 1; ri < rectnum; ri++) {
+			lprtmp = lprects_tmp0[ri];
+//			cout << lpr0.fScore << "," << lpr0.fCentX << "," << lpr0.fCentY << "," << lpr0.fHeight << "," << lpr0.fWidth << endl;
+      float fratio0 = 0.0f, fratio1 = 0.0f;
+			calc_overlap(lpr0, lprtmp, &fratio0, &fratio1);
+//			cout << "====" << fratio << endl;
+			if (fratio0 > fiouThd || fratio1 > fiouThd) {
+				num++;
+				afBB0[0] = lpr.fCentX - lpr.fWidth / 2;
+				afBB0[1] = lpr.fCentY - lpr.fHeight / 2;
+				afBB0[2] = lpr.fCentX + lpr.fWidth / 2;
+				afBB0[3] = lpr.fCentY + lpr.fHeight / 2;
+				
+				afBB1[0] = lprtmp.fCentX - lprtmp.fWidth / 2;
+				afBB1[1] = lprtmp.fCentY - lprtmp.fHeight / 2;
+				afBB1[2] = lprtmp.fCentX + lprtmp.fWidth / 2;
+				afBB1[3] = lprtmp.fCentY + lprtmp.fHeight / 2;
+				
+				afBB0[0] = min(afBB0[0], afBB1[0]);
+				afBB0[1] = min(afBB0[1], afBB1[1]);
+				afBB0[2] = max(afBB0[2], afBB1[2]);
+				afBB0[3] = max(afBB0[3], afBB1[3]);
+				
+				lpr.fScore += lprtmp.fScore;
+				lpr.fHeight = afBB0[3] - afBB0[1] + 1;
+				lpr.fWidth = afBB0[2] - afBB0[0] + 1;
+				lpr.fCentX = afBB0[0] + lpr.fWidth / 2;
+				lpr.fCentY = afBB0[1] + lpr.fHeight / 2;
+				
+			}
+			else {
+				lprects_tmp1.push_back(lprtmp);
+			}
+		}
+
+//		cout << "out:" << lprects_tmp1.size() << endl;
+
+		lpr.fScore /= num;
+		
+//		cout << lpr.fScore << "," << lpr.fCentX << "," << lpr.fCentY << "," << lpr.fHeight << "," << lpr.fWidth << endl;
+		if (group.size() < MAX_GP_NUMBER) {
+			group.push_back(lpr);
+		}
+		else {
+			break;
+		}
+
+		lprects_tmp0.clear();
+		for (int ri = 0; ri < lprects_tmp1.size(); ri++) {
+			lprects_tmp0.push_back(lprects_tmp1[ri]);
+		}
+	}
+	
+	sort(group.begin(), group.end(), compare);
+	
+//	cout << "group:" << group.size() << endl;
+
+	return 0;
+}
+
 
 
 void imgResizeAddBlack(uchar *patch, int s32W_src, int s32H_src,
@@ -527,7 +656,54 @@ int getMeanByHist(int *pdwHist, int dwLen)
 }
 
 
+int cvtRGB2HSV_U8(uchar ubyR, uchar ubyG, uchar ubyB, float *pfH, float *pfS, float *pfV)
+{
+  //H: 0~360, S: 0~1, V: 0~1
+  int dwR = ubyR, dwG = ubyG, dwB = ubyB;
+  int dwMax, dwMin;
+  float fH = 0.f, fS = 0.f, fV = 0.f;
+  
+  dwMax = max(dwR, max(dwG, dwB));
+  dwMin = min(dwR, min(dwG, dwB));
+  
+  if (dwMax == dwMin)
+  {
+    fH = 0.f;
+  }
+  else if (dwMax == dwR && dwG >= dwB)
+  {
+    fH = 60.f * (dwG - dwB) / (dwMax - dwMin);
+  }
+  else if (dwMax == dwR && dwG < dwB)
+  {
+    fH = 60.f * (dwG - dwB) / (dwMax - dwMin) + 360.f;
+  }
+  else if (dwMax == dwG)
+  {
+    fH = 60.f * (dwB - dwR) / (dwMax - dwMin) + 120.f;
+  }
+  else if (dwMax == dwB)
+  {
+    fH = 60.f * (dwR - dwG) / (dwMax - dwMin) + 240.f;
+  }
+  
+  if (dwMax == 0)
+  {
+    fS = 0.f;
+  }
+  else
+  {
+    fS = 1.0f - dwMin * 1.0f / dwMax;
+  }
+  
+  fV = dwMax / 255.0f;
 
+  *pfH = fH;
+  *pfS = fS;
+  *pfV = fV;
+
+  return 0;
+}
 
 
 
