@@ -22,16 +22,21 @@ namespace dg {
 typedef enum {
 
 } FrameType;
-typedef struct{
+
+typedef struct {
     int left;
     int top;
     int right;
     int bottom;
-}Margin;
-enum FrameStatus {
-    FRAME_STATUS_INIT = 0,
-    FRAME_STATUS_DETECTED = 1,
-    FRAME_STATUS_FINISHED = 128
+} Margin;
+
+typedef uint64 FrameStatus;
+enum FrameStatusValue {
+    FRAME_STATUS_INIT = 1,
+    FRAME_STATUS_NEW = 2,
+    FRAME_STATUS_DETECTED = 4,
+    FRAME_STATUS_ABLE_TO_DISPLAY = 128,
+    FRAME_STATUS_FINISHED = 256
 };
 
 /// Frame represents a single request. A frame encapsulates a payload
@@ -57,6 +62,7 @@ public:
         : id_(id),
           timestamp_(0),
           status_(FRAME_STATUS_INIT) {
+
         payload_ = new Payload(id_, width, height, data);
     }
 
@@ -107,7 +113,7 @@ public:
         }
         objects_.push_back(obj);
     }
- //-   void set_roi()
+    //-   void set_roi()
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
@@ -136,8 +142,15 @@ public:
         return status_;
     }
 
-    void set_status(volatile FrameStatus status) {
-        status_ = status;
+    volatile bool CheckStatus(FrameStatus status) {
+        return status & status_;
+    }
+
+    void set_status(FrameStatus status, bool logicOr = true) {
+        if (logicOr)
+            status_ = (status | status_);
+        else
+            status_ = status;
     }
 
     Timestamp timestamp() const {
@@ -164,11 +177,24 @@ public:
         return payload_;
     }
 
-    void set_roi(vector<Rect> &rois){
-        rois_=rois;
+    void set_roi(vector<Rect> &rois) {
+        rois_ = rois;
     }
-    const vector<Rect> & get_rois(){
+    const vector<Rect> &get_rois() {
         return rois_;
+    }
+
+    void Reset() {
+        id_ = -1;
+        timestamp_ = 0;
+        status_ = FRAME_STATUS_INIT;
+        for (int i = 0; i < objects_.size(); ++i) {
+            Object *obj = objects_[i];
+            delete obj;
+        }
+        objects_.clear();
+        error_msg_.clear();
+        rois_.clear();
     }
 
 protected:

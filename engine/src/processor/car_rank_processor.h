@@ -15,8 +15,8 @@
 #include "processor.h"
 #include "model/frame.h"
 #include "model/rank_feature.h"
-#include "alg/car_matcher.h"
-#include "alg/car_feature_extractor.h"
+#include "alg/feature/car_matcher.h"
+#include "alg/feature/car_feature_extractor.h"
 
 #include "timing_profiler.h"
 

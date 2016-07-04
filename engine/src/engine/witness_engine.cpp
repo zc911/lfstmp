@@ -1,5 +1,4 @@
 #include "witness_engine.h"
-#include "log/log_val.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
@@ -83,9 +82,9 @@ void WitnessEngine::Process(FrameBatch *frames) {
         if (face_processor_)
             face_processor_->Update(frames);
     }
-    if(!isWarmuped_&&((!enable_vehicle_)||(!enable_vehicle_detect_))){
-        vehicle_processor_=vehicle_processor_->GetNextProcessor();
-        isWarmuped_=true;
+    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
+        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
+        isWarmuped_ = true;
     }
 }
 
@@ -140,7 +139,7 @@ void WitnessEngine::init(const Config &config) {
                 last->SetNextProcessor(p);
             }
             last = p;
-        }else{
+        } else {
             VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
             configFilter->createAccelerateConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
@@ -150,7 +149,7 @@ void WitnessEngine::init(const Config &config) {
                 last->SetNextProcessor(p);
             }
             last = p;
-            isWarmuped_=false;
+            isWarmuped_ = false;
         }
 
 
@@ -255,23 +254,23 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
-  /*  Mat image = Mat::zeros(480,480,CV_8UC3);
-    Frame *f = new Frame(100, image);
-    Operation op;
-    op.Set(OPERATION_VEHICLE);
-    op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-               | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-               | OPERATION_VEHICLE_FEATURE_VECTOR
-               | OPERATION_VEHICLE_PLATE);
-    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-               | OPERATION_FACE_FEATURE_VECTOR);
+    /*  Mat image = Mat::zeros(480,480,CV_8UC3);
+      Frame *f = new Frame(100, image);
+      Operation op;
+      op.Set(OPERATION_VEHICLE);
+      op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
+                 | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+                 | OPERATION_VEHICLE_FEATURE_VECTOR
+                 | OPERATION_VEHICLE_PLATE);
+      op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+                 | OPERATION_FACE_FEATURE_VECTOR);
 
-    f->set_operation(op);
-    FrameBatch *fb = new FrameBatch(1);
-    fb->AddFrame(f);
-    this->Process(fb);
-    delete fb;*/
-   // vehicle_processor_=vehicle_processor_->GetNextProcessor();
+      f->set_operation(op);
+      FrameBatch *fb = new FrameBatch(1);
+      fb->AddFrame(f);
+      this->Process(fb);
+      delete fb;*/
+    // vehicle_processor_=vehicle_processor_->GetNextProcessor();
     is_init_ = true;
 }
 

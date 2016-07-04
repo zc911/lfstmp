@@ -8,11 +8,10 @@
 #ifndef STREAM_TUBE_H_
 #define STREAM_TUBE_H_
 
-#include <pthread.h>
 #include <string>
+#include <pthread.h>
 #include "dgmedia.h"
-#include "model/frame.h"
-#include "model/ringbuffer.h"
+#include "ringbuffer.h"
 
 using namespace std;
 using namespace dgmedia;
@@ -30,12 +29,12 @@ const static char NET_PROTOCOL_SEPERATOR = ':';
  * the ring buffer.
  */
 class StreamTube {
- public:
+public:
     /**
      * Constructor
      */
-    StreamTube(RingBuffer *buffer, const string addr, const unsigned int fps,
-               const unsigned int width, const unsigned int height,
+    StreamTube(RingBuffer *buffer_, const string addr, const unsigned int fps,
+               const unsigned int width, const unsigned int height, int decoder_latency, string decoder_protocol,
                const bool repeat = true);
     ~StreamTube();
 
@@ -74,19 +73,23 @@ class StreamTube {
     static void eosReadched();
     static void onRuntimeErrorReached(Error error);
 
- private:
+private:
     int initDecoder();
- private:
+private:
     static RingBuffer *buffer_;
     static unsigned long long frame_id_;
-    string stream_addr_;
-    unsigned int width_;
-    unsigned int height_;
-    unsigned int fps_;
+    static unsigned long long data_id_;
 
+    string stream_addr_;
+    unsigned int max_width_;
+    unsigned int max_height_;
+    unsigned int fps_;
+    string decode_latency_ns_;
+    string decoder_protocol_hex_;
     bool repeat_;
     PersianPipeline *decoder_;
     pthread_t tid_;
 };
+
 }
 #endif /* STREAM_TUBE_H_ */

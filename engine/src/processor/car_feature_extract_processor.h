@@ -8,7 +8,7 @@
 #ifndef CAR_FEATURE_EXTRACT_PROCESSOR_H_
 #define CAR_FEATURE_EXTRACT_PROCESSOR_H_
 
-#include "alg/car_feature_extractor.h"
+#include "alg/feature/car_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor.h"
