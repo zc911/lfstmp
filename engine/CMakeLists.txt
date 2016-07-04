@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 PROJECT(matrix)
 
-
 IF (CMAKE_BUILD_TYPE)
 ELSE ()
     SET(CMAKE_BUILD_TYPE "Debug")
