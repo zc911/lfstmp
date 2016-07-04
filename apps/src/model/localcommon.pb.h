@@ -77,12 +77,13 @@ enum RecognizeFunctions {
   RECFUNC_FACE = 9,
   RECFUNC_FACE_DETECTOR = 10,
   RECFUNC_FACE_FEATURE_VECTOR = 11,
+  RECFUNC_VEHICLE_PEDESTRIAN_ATTR = 12,
   RecognizeFunctions_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   RecognizeFunctions_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool RecognizeFunctions_IsValid(int value);
 const RecognizeFunctions RecognizeFunctions_MIN = RECFUNC_NONE;
-const RecognizeFunctions RecognizeFunctions_MAX = RECFUNC_FACE_FEATURE_VECTOR;
+const RecognizeFunctions RecognizeFunctions_MAX = RECFUNC_VEHICLE_PEDESTRIAN_ATTR;
 const int RecognizeFunctions_ARRAYSIZE = RecognizeFunctions_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor();

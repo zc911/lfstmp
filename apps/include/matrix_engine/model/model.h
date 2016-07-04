@@ -153,10 +153,14 @@ private:
 
 };
 
-class Pedestrain: public Object {
+class Pedestrian: public Object {
 public:
-    Pedestrain() : Object(OBJECT_PEDESTRIAN) {
+	typedef struct {
+    	string tagname = "";
+    	Confidence confidence = 0;
+	} Attr;
 
+	Pedestrian() : Object(OBJECT_PEDESTRIAN) {
     }
     cv::Mat &image() {
         return image_;
@@ -164,8 +168,18 @@ public:
     void set_image(const cv::Mat &image) {
         image_ = image;
     }
+
+    const std::vector<Attr> &attrs() const {
+        return attrs_;
+    }
+
+    void set_attrs(const std::vector<Attr> &attrs) {
+    	attrs_ = attrs;
+    }
+
 private:
     cv::Mat image_;
+    std::vector<Attr> attrs_;
 };
 
 class Vehicle: public Object {

@@ -10,6 +10,7 @@
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
 #include "alg/feature/face_feature_extractor.h"
+#include "alg/face_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"

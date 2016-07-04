@@ -113,7 +113,7 @@ void protobuf_AddDesc_localcommon_2eproto() {
     "ixError\022\014\n\004Code\030\001 \001(\005\022\017\n\007Message\030\002 \001(\t*`"
     "\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n"
     "\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020"
-    "\n\014REC_TYPE_ALL\020\003*\321\002\n\022RecognizeFunctions\022"
+    "\n\014REC_TYPE_ALL\020\003*\366\002\n\022RecognizeFunctions\022"
     "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
     "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
     "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
@@ -121,8 +121,9 @@ void protobuf_AddDesc_localcommon_2eproto() {
     "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
     "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
     "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
-    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013b\006pr"
-    "oto3", 564);
+    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013\022#\n\037"
+    "RECFUNC_VEHICLE_PEDESTRIAN_ATTR\020\014b\006proto"
+    "3", 601);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "localcommon.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -172,6 +173,7 @@ bool RecognizeFunctions_IsValid(int value) {
     case 9:
     case 10:
     case 11:
+    case 12:
       return true;
     default:
       return false;
