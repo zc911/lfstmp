@@ -32,7 +32,7 @@ static const string FEATURE_VEHICLE_ENABLE_MARKER =
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
         "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
-        "Feature/Vehicle/EnablePedistrianAttr";
+        "Feature/Vehicle/EnablePedestrianAttr";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =

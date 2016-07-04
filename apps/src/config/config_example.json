@@ -25,7 +25,8 @@
 			"EnableGpuPlate": false,
 			"EnablePlateEnhanced": true,
 			"EnableMarker": true,
-			"EnableFeatureVector": true
+			"EnableFeatureVector": true,
+			"EnablePedestrianAttr": true
 		},
 		"Face": {
 			"Enable": false,

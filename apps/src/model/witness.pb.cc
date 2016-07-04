@@ -504,20 +504,21 @@ void protobuf_AddDesc_witness_2eproto() {
     "model.RecFace\"j\n\021WitnessVehicleObj\022+\n\rVe"
     "hicleResult\030\001 \001(\0132\024.dg.model.VehicleObj\022"
     "(\n\007Storage\030\002 \001(\0132\027.dg.model.StorageConfi"
-    "g*\337\001\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\022\n\016IN"
+    "g*\203\002\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\022\n\016IN"
     "DEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_MAIN_BRAND\020\002"
     "\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n\024INDEX_CAR_Y"
     "EAR_MODEL\020\004\022\023\n\017INDEX_CAR_COLOR\020\005\022\024\n\020INDE"
     "X_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_PLATE_TYPE\020\007"
-    "\022\031\n\025INDEX_CAR_PLATE_COLOR\020\0102\256\002\n\016WitnessS"
-    "ervice\022B\n\tRecognize\022\030.dg.model.WitnessRe"
-    "quest\032\031.dg.model.WitnessResponse\"\000\022Q\n\016Ba"
-    "tchRecognize\022\035.dg.model.WitnessBatchRequ"
-    "est\032\036.dg.model.WitnessBatchResponse\"\000\022=\n"
-    "\010GetIndex\022\026.dg.model.IndexRequest\032\027.dg.m"
-    "odel.IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg"
-    ".model.IndexTxtRequest\032\032.dg.model.IndexT"
-    "xtResponse\"\000b\006proto3", 2540);
+    "\022\031\n\025INDEX_CAR_PLATE_COLOR\020\010\022\"\n\036INDEX_CAR"
+    "_PEDESTRIAN_ATTR_TYPE\020\t2\256\002\n\016WitnessServi"
+    "ce\022B\n\tRecognize\022\030.dg.model.WitnessReques"
+    "t\032\031.dg.model.WitnessResponse\"\000\022Q\n\016BatchR"
+    "ecognize\022\035.dg.model.WitnessBatchRequest\032"
+    "\036.dg.model.WitnessBatchResponse\"\000\022=\n\010Get"
+    "Index\022\026.dg.model.IndexRequest\032\027.dg.model"
+    ".IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.mod"
+    "el.IndexTxtRequest\032\032.dg.model.IndexTxtRe"
+    "sponse\"\000b\006proto3", 2576);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -574,6 +575,7 @@ bool IndexType_IsValid(int value) {
     case 6:
     case 7:
     case 8:
+    case 9:
       return true;
     default:
       return false;
