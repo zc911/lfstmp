@@ -18,20 +18,22 @@ using namespace std;
 namespace dg {
 
 class Payload {
- public:
+public:
 
     // TODO init data_ as YUV and rbg_ as BGR format
     Payload(Identification id, unsigned int width, unsigned int height,
             unsigned char *data)
-            : id_(id) {
-        cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
-        tmp.copyTo(data_);
+        : id_(id) {
+        if (data != NULL) {
+            cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
+            tmp.copyTo(data_);
+        }
 
     }
 
     Payload(Identification id, cv::Mat data)
-            : id_(id),
-              data_(data) {
+        : id_(id),
+          data_(data) {
     }
 
     ~Payload() {
@@ -39,10 +41,29 @@ class Payload {
         rgb_.release();
     }
 
+    void Update(unsigned int width, unsigned int height, unsigned char *data) {
+
+        if (data == NULL) {
+            LOG(ERROR) << "Data is null, update payload failed" << endl;
+            return;
+        }
+        //data_.release();
+        if (data_.cols & data_.rows != 0) {
+            if (width != data_.cols || height != data_.rows) {
+                LOG(ERROR) << "Input data invalid resolution: " << width << "*" << height << endl;
+                return;
+            }
+        }
+
+        cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
+        tmp.copyTo(data_);
+    }
+
+
     cv::Mat data() {
         return data_;
     }
- private:
+private:
     Identification id_;
     cv::Mat data_;
     cv::Mat rgb_;

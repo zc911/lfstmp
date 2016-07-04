@@ -1,0 +1,868 @@
+/*
+ * track_processor.cpp
+ *
+ *  Created on: Dec 24, 2015
+ *      Author: haoquan
+ */
+
+#include <glog/logging.h>
+#include "processor/track_processor.h.bak"
+#include "util/utils.h"
+
+int max(int i, int j) {
+    if (i > j)
+        return i;
+    else
+        return j;
+}
+
+float max(float i, float j) {
+    if (i > j)
+        return i;
+    else
+        return j;
+}
+
+int min(int i, int j) {
+    if (i < j)
+        return i;
+    else
+        return j;
+}
+
+float min(float i, float j) {
+    if (i < j)
+        return i;
+    else
+        return j;
+}
+
+float calc_size_rto(int i, int j) {
+    return 1.0 * max(i, j) / max(min(i, j), 1);
+}
+
+float length(float i, float j) {
+    return sqrt(i * i + j * j);
+}
+
+
+TrackProcessor::TrackProcessor(RingBuffer *buffer, int detectionInterval) {
+    // set parameters
+    min_intersection = 50;
+    track_size_ = 20;
+    detection_interval_ = detectionInterval;
+    min_box_size_ = 5;
+    max_wh_rto_ = 10;
+    max_wh_change_ = 1.2;
+    delta_v_threshold_ = 0.15;
+    max_line_pnt_num_ = 200;
+    max_size_rto_ = 4;
+    vehicle_pic_size_.height = 100;
+    vehicle_pic_size_.width = 100;
+    display_config_ = false;
+
+    profile_time_ = false;
+    use_plnview_constraint_ = true;
+    is_inited_ = false;
+    // initialization
+    ring_buffer_ = buffer;
+    height_ = TRACK_BASE_SIZE_H;
+    width_ = TRACK_BASE_SIZE_W;
+    matching_ = BinaryMatching();
+    stc_.clear();
+    id_count_ = 0;
+    // initialize auto size adjustment
+    line_ = new float[4];
+    line_[0] = 0;
+    line_fit_storage_ = cvCreateMemStorage(0);
+    line_fit_point_seq_ = cvCreateSeq(CV_32FC2, sizeof(CvSeq),
+                                      sizeof(CvPoint2D32f), line_fit_storage_);
+    //config plane view
+    if (use_plnview_constraint_) {
+        planview_ = Planeview(2000, TRACK_BASE_SIZE_H, TRACK_BASE_SIZE_W, 0,
+                              10);
+        float sample_img_pnt[4][3] = { { 0, TRACK_BASE_SIZE_H * 0.15, 1 }, {
+                TRACK_BASE_SIZE_W, TRACK_BASE_SIZE_H * 0.15, 1 }, { 0,
+                TRACK_BASE_SIZE_H, 1 }, { TRACK_BASE_SIZE_W, TRACK_BASE_SIZE_H,
+                1 } };
+        find_pln_bound(sample_img_pnt, tl_x_, tl_y_, br_x_, br_y_);
+    }
+    disable_area_.clear();
+    Box disable_area1;
+    disable_area1.x = 0;
+    disable_area1.y = 0;
+    disable_area1.w = 320;
+    disable_area1.h = 20;
+    disable_area_.push_back(disable_area1);
+    Box disable_area2;
+    disable_area2.x = 0;
+    disable_area2.y = 220;
+    disable_area2.w = 320;
+    disable_area2.h = 20;
+    disable_area_.push_back(disable_area2);
+    Box disable_area3;
+    disable_area3.x = 0;
+    disable_area3.y = 0;
+    disable_area3.w = 20;
+    disable_area3.h = 240;
+    disable_area_.push_back(disable_area3);
+	Box disable_area4;
+	disable_area4.x = 245;
+	disable_area4.y = 30;
+	disable_area4.w = 50;
+	disable_area4.h = 20;
+	disable_area_.push_back(disable_area4);
+}
+
+TrackProcessor::~TrackProcessor() {
+    cvClearSeq(line_fit_point_seq_);
+    cvReleaseMemStorage(&line_fit_storage_);
+    delete line_;
+
+}
+
+void TrackProcessor::Update(Frame *frame) {
+    if (display_config_)
+        printf("init track update\n");
+    if (display_config_)
+        printf("Frame %d ---------------------------------------------\n",
+               ring_buffer_->NextTrackingFrameIndex());
+    Frame *previous_frame = ring_buffer_->GetFrameOffset(
+            ring_buffer_->NextTrackingFrameIndex(), -1);
+    Frame *current_frame = ring_buffer_->GetFrameOffset(
+            ring_buffer_->NextTrackingFrameIndex(), 0);
+    if (current_frame == NULL)
+        return;
+    if ((current_frame->GetStatus() & FRAME_STATUS_TRACKED) > 0) {
+        ring_buffer_->SetNextTrackingFrameIndex(
+                ring_buffer_->NextTrackingFrameIndex() + 1);
+        return;
+    }
+    if ((current_frame->GetStatus() & FRAME_STATUS_DETECTED) == 0)
+        return;
+    if (display_config_)
+        printf("track update\n");
+    t_profiler_.reset();
+    if (previous_frame != NULL)
+        track_foreward(previous_frame, current_frame);
+    t_profiler_str_ = "STC";
+    t_profiler_.update(t_profiler_str_);
+    if (display_config_) {
+        printf("after track forward **track:\n");
+        for (int v_idx = 0; v_idx < current_frame->Vehicles().size(); v_idx++)
+            printf("after track forward **%d %d %d %d\n",
+                   current_frame->Vehicles()[v_idx].box.x,
+                   current_frame->Vehicles()[v_idx].box.y,
+                   current_frame->Vehicles()[v_idx].box.w,
+                   current_frame->Vehicles()[v_idx].box.h);
+    }
+    if (current_frame->GetType() == FRAME_TYPE_KEY)
+        process_key_frame(current_frame);
+    t_profiler_str_ = "Matching";
+    t_profiler_.update(t_profiler_str_);
+    if (display_config_) {
+        if (previous_frame != NULL)
+            printf("previous V num %d\n", previous_frame->Vehicles().size());
+        printf("current V num %d\n", current_frame->Vehicles().size());
+        for (int v_idx = 0; v_idx < current_frame->Vehicles().size(); v_idx++)
+            printf("*V id = %lld, V score = %d\n",
+                   current_frame->Vehicles()[v_idx].id,
+                   current_frame->Vehicles()[v_idx].score);
+        for (int v_idx = 0; v_idx < stc_.size(); v_idx++)
+            printf("*V id = %lld\n", stc_[v_idx].id);
+    }
+    ring_buffer_->SetNextTrackingFrameIndex(
+            ring_buffer_->NextTrackingFrameIndex() + 1);
+    if (profile_time_)
+        LOG(INFO)<< t_profiler_.getSmoothedTimeProfileString();
+
+    }
+
+void TrackProcessor::process_key_frame(Frame *current_frame) {
+    for (int d_idx = 0;
+            d_idx
+                    < max(current_frame->Vehicles().size(),
+                          current_frame->Detections().size()); d_idx++)
+        is_det_matched_[d_idx] = false;
+    int key_frame_offset = find_last_key_frame();
+    if (line_fit_point_seq_->total <= max_line_pnt_num_)
+        update_line(current_frame->Detections());
+    int graph_size = build_graph(current_frame->Vehicles(),
+                                 current_frame->Detections());
+    matching_.match(graph_size, graph_, match_pair_);
+    if (display_config_) {
+        printf("matching pair : ");
+        for (int i = 0; i < graph_size; i++)
+            printf("%d ", match_pair_[i]);
+        printf("\n");
+    }
+    if (key_frame_offset < 0)
+        update_vehicle_location(current_frame, key_frame_offset);
+    if (display_config_) {
+        printf("**track:\n");
+        for (int v_idx = 0; v_idx < current_frame->Vehicles().size(); v_idx++)
+            printf("**%d %d %d %d\n", current_frame->Vehicles()[v_idx].box.x,
+                   current_frame->Vehicles()[v_idx].box.y,
+                   current_frame->Vehicles()[v_idx].box.w,
+                   current_frame->Vehicles()[v_idx].box.h);
+    }
+    save_matched_low_score_tracker(current_frame->Vehicles());
+    degrade_unmatched_new_detection(current_frame->Vehicles());
+    delete_low_score_tracker(current_frame->Vehicles());
+    add_new_vehicle(current_frame->RGB(), current_frame->RgbPyr(),
+                    current_frame->Vehicles(), current_frame->Detections());
+    if (key_frame_offset < 0) {
+        track_backward(key_frame_offset);
+        activate_status(key_frame_offset);
+    }
+
+}
+
+void TrackProcessor::update_line(const vector<Detection> &detections) {
+    for (int i = 0; i < detections.size(); i++)
+        if ((detections[i].box.x > 10) && (detections[i].box.y > 10)
+                && (detections[i].box.x + detections[i].box.w < width_ - 10)
+                && (detections[i].box.y + detections[i].box.h < height_ - 10)) {
+            float tmp[2];
+            tmp[0] = detections[i].box.y + detections[i].box.h / 2;
+            tmp[1] = (detections[i].box.w + detections[i].box.h) / 2;
+            CvPoint2D32f tmp2 = cvPoint2D32f(tmp[0], tmp[1]);
+            cvSeqPush(line_fit_point_seq_, &tmp2);
+        }
+    if (line_fit_point_seq_->total > 30) {
+        cvFitLine(line_fit_point_seq_, CV_DIST_L2, 0, 0.01, 0.01, line_);
+        if (display_config_)
+            printf("v=(%f,%f), (x,y)=(%f,%f)\n", line_[0], line_[1], line_[2],
+                   line_[3]);
+    }
+}
+
+void TrackProcessor::activate_status(int offset) {
+    if (ring_buffer_->NextTrackingFrameIndex() > detection_interval_)
+        is_inited_ = true;
+    offset--;
+    Frame *frame;
+    do {
+        if ((!is_inited_)
+                && ((int) ring_buffer_->NextTrackingFrameIndex() + offset < 0))
+            break;
+        frame = ring_buffer_->GetFrameOffset(
+                ring_buffer_->NextTrackingFrameIndex(), offset);
+        if ((frame != NULL) && ((frame->GetStatus() & FRAME_STATUS_RAW) > 0)) {
+            frame->SetStatus(FRAME_STATUS_TRACKED, true);
+            if (display_config_)
+                printf("set frame %lld as %d status\n", frame->FrameId(),
+                       frame->GetStatus());
+        }
+        offset--;
+    } while ((frame != NULL) && (frame->GetType() == FRAME_TYPE_COM)
+            && ((frame->GetStatus() & FRAME_STATUS_RAW) > 0));
+}
+
+void TrackProcessor::track_backward(const int &st_frame_offset) {
+    Frame *st_frame = ring_buffer_->GetFrameOffset(
+            ring_buffer_->NextTrackingFrameIndex(), st_frame_offset);
+    float dx = 0;
+    float dy = 0;
+    for (int v_idx = 0; v_idx < st_frame->Vehicles().size(); v_idx++)
+        if ((st_frame->Vehicles()[v_idx].is_new)
+                && (st_frame->Vehicles()[v_idx].score == HIGH_SCORE)
+                && (st_frame->Vehicles()[v_idx].stc != NULL)) {
+            long long v_id = st_frame->Vehicles()[v_idx].id;
+            long int v_uid = st_frame->Vehicles()[v_idx].uid;
+            STC *stc = st_frame->Vehicles()[v_idx].stc;
+            int offset = st_frame_offset - 1;
+            Frame *frame = ring_buffer_->GetFrameOffset(
+                    ring_buffer_->NextTrackingFrameIndex(), offset);
+            if (frame == NULL)
+                continue;
+            Rect box(st_frame->Vehicles()[v_idx].box.x,
+                     st_frame->Vehicles()[v_idx].box.y,
+                     st_frame->Vehicles()[v_idx].box.w,
+                     st_frame->Vehicles()[v_idx].box.h);
+            Box box_pre = st_frame->Vehicles()[v_idx].box;
+            float vx_pre = st_frame->Vehicles()[v_idx].vx;
+            float vy_pre = st_frame->Vehicles()[v_idx].vy;
+            while ((frame->GetType() == FRAME_TYPE_COM)
+                    && ((frame->GetStatus() & FRAME_STATUS_RAW) > 0)) {
+                if ((!is_inited_)
+                        && ((int) ring_buffer_->NextTrackingFrameIndex()
+                                + offset < 0))
+                    break;
+                stc->tracker.tracking(frame->RgbPyr()[stc->pyr_level], box);
+                if (!is_valid_rect(box, stc->wh_rto))
+                    break;
+                Vehicle new_vehicle;
+                new_vehicle.id = v_id;
+                new_vehicle.uid = v_uid;
+                new_vehicle.detection_id = st_frame->Vehicles()[v_idx]
+                        .detection_id;
+                new_vehicle.box.x = box.x;
+                new_vehicle.box.y = box.y;
+                new_vehicle.box.w = box.width;
+                new_vehicle.box.h = box.height;
+                new_vehicle.is_new = false;
+                new_vehicle.stc = NULL;
+                new_vehicle.score = st_frame->Vehicles()[v_idx].score;
+                if (use_plnview_constraint_) {
+                    calc_pln_dis(box_pre, new_vehicle.box, dx, dy);
+                    float dv = length(dx - vx_pre, dy - vy_pre);
+                    if ((dv > delta_v_threshold_ * 0.5)
+                            && ((vy_pre != -999) || (vy_pre != -999))) {
+                        if (display_config_)
+                            printf("pln constraint kill id %lld\n",
+                                   st_frame->Vehicles()[v_idx].id);
+                        break;
+                    }
+                    new_vehicle.vx = dx;
+                    new_vehicle.vy = dy;
+                } else {
+                    new_vehicle.vx = 0;
+                    new_vehicle.vy = 0;
+                }
+                frame->Vehicles().push_back(new_vehicle);
+                box_pre = new_vehicle.box;
+                vx_pre = dx;
+                vy_pre = dy;
+                offset--;
+                frame = ring_buffer_->GetFrameOffset(
+                        ring_buffer_->NextTrackingFrameIndex(), offset);
+                if (frame == NULL)
+                    break;
+            }
+            st_frame->Vehicles()[v_idx].is_new = false;
+            delete st_frame->Vehicles()[v_idx].stc;
+            st_frame->Vehicles()[v_idx].stc = NULL;
+        }
+}
+
+void TrackProcessor::save_matched_low_score_tracker(vector<Vehicle> &vehicles) {
+    for (int v_idx = 0; v_idx < vehicles.size(); v_idx++)
+        if ((vehicles[v_idx].score == LOW_SCORE) && (match_pair_[v_idx] >= 0)
+                && (graph_[v_idx + 1][match_pair_[v_idx] + 1] > 0))
+            vehicles[v_idx].score = HIGH_SCORE;
+}
+
+void TrackProcessor::degrade_unmatched_new_detection(
+        vector<Vehicle> &vehicles) {
+    for (int v_idx = 0; v_idx < vehicles.size(); v_idx++)
+        if ((vehicles[v_idx].is_new)
+                && ((match_pair_[v_idx] < 0)
+                        || (graph_[v_idx + 1][match_pair_[v_idx] + 1] == 0)))
+            vehicles[v_idx].score = KILL_THRESHOLD;
+}
+
+void TrackProcessor::delete_low_score_tracker(const vector<Vehicle> &vehicles) {
+    for (int v_idx = 0; v_idx < vehicles.size(); v_idx++) {
+        if (vehicles[v_idx].score == KILL_THRESHOLD) {
+            long long v_id = vehicles[v_idx].id;
+            kill_tracker(v_id);
+            int offset = -1;
+            Frame *frame = ring_buffer_->GetFrameOffset(
+                    ring_buffer_->NextTrackingFrameIndex(), offset);
+            if (frame == NULL)
+                continue;
+            int frame_vehicle_idx = find_vehicle(frame->Vehicles(), v_id);
+            while ((frame_vehicle_idx >= 0)
+                    && (frame->Vehicles()[frame_vehicle_idx].score != HIGH_SCORE)) {
+                frame->Vehicles()[frame_vehicle_idx].score == KILL_THRESHOLD;
+                offset--;
+                frame = ring_buffer_->GetFrameOffset(
+                        ring_buffer_->NextTrackingFrameIndex(), offset);
+                if (frame == NULL)
+                    break;
+                frame_vehicle_idx = find_vehicle(frame->Vehicles(), v_id);
+            }
+        }
+    }
+}
+
+void TrackProcessor::kill_tracker(const long long v_id) {
+    // kill the tracker
+    int stc_idx = find_stc_idx(v_id);
+    if (stc_idx < 0)
+        return;
+    vector<STC>::iterator stc_it = stc_.begin() + stc_idx;
+    stc_.erase(stc_it);
+}
+
+void TrackProcessor::track_foreward(Frame *previous_frame,
+                                    Frame *current_frame) {
+    float dx, dy;
+    for (int v_idx = 0; v_idx < previous_frame->Vehicles().size(); v_idx++) {
+        Rect box(previous_frame->Vehicles()[v_idx].box.x,
+                 previous_frame->Vehicles()[v_idx].box.y,
+                 previous_frame->Vehicles()[v_idx].box.w,
+                 previous_frame->Vehicles()[v_idx].box.h);
+        int stc_idx = find_stc_idx(previous_frame->Vehicles()[v_idx].id);
+        if (stc_idx < 0)
+            continue;
+        stc_[stc_idx].tracker.tracking(
+                current_frame->RgbPyr()[stc_[stc_idx].pyr_level], box);
+        Vehicle new_vehicle;
+        new_vehicle.id = previous_frame->Vehicles()[v_idx].id;
+        new_vehicle.uid = previous_frame->Vehicles()[v_idx].uid;
+        new_vehicle.detection_id = previous_frame->Vehicles()[v_idx]
+                .detection_id;
+        new_vehicle.box.x = box.x;
+        new_vehicle.box.y = box.y;
+        new_vehicle.box.w = box.width;
+        new_vehicle.box.h = box.height;
+        new_vehicle.is_new = false;
+        new_vehicle.stc = NULL;
+        update_vehicle_pic(new_vehicle.vehicle_pic,
+                           previous_frame->Vehicles()[v_idx].vehicle_pic,
+                           current_frame->RGB(), new_vehicle.box);
+        if (use_plnview_constraint_) {
+            if (display_config_)
+                printf("pre box %d %d %d %d, cur box %d %d %d %d\n",
+                       previous_frame->Vehicles()[v_idx].box.x,
+                       previous_frame->Vehicles()[v_idx].box.y,
+                       previous_frame->Vehicles()[v_idx].box.w,
+                       previous_frame->Vehicles()[v_idx].box.h,
+                       new_vehicle.box.x, new_vehicle.box.y, new_vehicle.box.w,
+                       new_vehicle.box.h);
+            calc_pln_dis(previous_frame->Vehicles()[v_idx].box, new_vehicle.box,
+                         dx, dy);
+            float dv = length(dx - previous_frame->Vehicles()[v_idx].vx,
+                              dy - previous_frame->Vehicles()[v_idx].vy);
+            if (display_config_)
+                printf("pln constraint %lld, dv %f, cur %f %f , pre %f %f\n",
+                       previous_frame->Vehicles()[v_idx].id, dv, dx, dy,
+                       previous_frame->Vehicles()[v_idx].vx,
+                       previous_frame->Vehicles()[v_idx].vy);
+            if ((dv > delta_v_threshold_)
+                    && ((previous_frame->Vehicles()[v_idx].vx != -999)
+                            || (previous_frame->Vehicles()[v_idx].vy != -999))) {
+                if (display_config_)
+                    printf("pln constraint kill id %lld, dv %f\n",
+                           previous_frame->Vehicles()[v_idx].id, dv);
+                new_vehicle.box.x = previous_frame->Vehicles()[v_idx].box.x;
+                new_vehicle.box.y = previous_frame->Vehicles()[v_idx].box.y;
+                new_vehicle.box.w = previous_frame->Vehicles()[v_idx].box.w;
+                new_vehicle.box.h = previous_frame->Vehicles()[v_idx].box.h;
+                new_vehicle.vx = 0;
+                new_vehicle.vy = 0;
+                new_vehicle.score = KILL_THRESHOLD;
+                current_frame->Vehicles().push_back(new_vehicle);
+                continue;
+            }
+            new_vehicle.vx = dx;
+            new_vehicle.vy = dy;
+        } else {
+            new_vehicle.vx = 0;
+            new_vehicle.vy = 0;
+        }
+        if (is_valid_rect(box, stc_[stc_idx].wh_rto))
+            new_vehicle.score = previous_frame->Vehicles()[v_idx].score;
+        else
+            new_vehicle.score = KILL_THRESHOLD;
+        current_frame->Vehicles().push_back(new_vehicle);
+    }
+}
+
+int TrackProcessor::find_stc_idx(const long long id) {
+    for (int stc_idx = 0; stc_idx < stc_.size(); stc_idx++)
+        if (stc_[stc_idx].id == id)
+            return stc_idx;
+    return -1;
+}
+
+void TrackProcessor::add_new_vehicle(const Mat *rgb, const vector<Mat> &rgb_pyr,
+                                     vector<Vehicle> &vehicles,
+                                     const vector<Detection> &detections) {
+
+    for (int d_idx = 0; d_idx < detections.size(); d_idx++) {
+        if (is_det_matched_[d_idx] == false) {
+            Box det = detections[d_idx].box;
+            int det_id = detections[d_idx].id;
+            if (!is_valid_box(det))
+                continue;
+            Vehicle new_vehicle;
+            new_vehicle.detection_id = det_id;
+            new_vehicle.box = det;
+            update_vehicle_pic(new_vehicle.vehicle_pic, rgb, det);
+            new_vehicle.id = id_count_++;
+            new_vehicle.uid = GenerateUid();
+            new_vehicle.is_new = true;
+            new_vehicle.score = HIGH_SCORE;
+            new_vehicle.vx = -999;
+            new_vehicle.vy = -999;
+            STC new_stc;
+            Rect box(det.x, det.y, det.w, det.h);
+            new_stc.id = new_vehicle.id;
+            new_stc.wh_rto = 1.0 * det.w / det.h;
+            new_stc.pyr_level = find_pyr_level(rgb_pyr, det);
+            float resize_rto = 1.0 * rgb_pyr[new_stc.pyr_level].cols
+                    / max(rgb_pyr[0].cols, 1);
+            //printf("$$ %d %d %d %d %d %d", rgb_pyr[new_stc.pyr_level].rows, rgb_pyr[new_stc.pyr_level].cols, box.x, box.y, box.width, box.height);
+            new_stc.tracker.init(rgb_pyr[new_stc.pyr_level], box, resize_rto,
+                                 line_);
+            stc_.push_back(new_stc);
+            STC *new_stc_cp = new STC();
+            new_stc_cp->id = new_stc.id;
+            new_stc_cp->wh_rto = new_stc.wh_rto;
+            new_stc_cp->pyr_level = new_stc.pyr_level;
+            //printf("$$ %d %d %d %d %d %d", rgb_pyr[new_stc_cp->pyr_level].rows, rgb_pyr[new_stc_cp->pyr_level].cols, box.x, box.y, box.width, box.height);
+            new_stc_cp->tracker.init(rgb_pyr[new_stc_cp->pyr_level], box,
+                                     resize_rto, line_);
+            new_vehicle.stc = new_stc_cp;
+
+            vehicles.push_back(new_vehicle);
+        }
+    }
+}
+
+int TrackProcessor::find_pyr_level(vector<Mat> rgb_pyr, Box box) {
+    int base_size = min(box.w, box.h);
+    int pyr_level = 0;
+    while ((pyr_level < rgb_pyr.size() - 1)
+            && (1.0 * base_size * rgb_pyr[pyr_level + 1].cols
+                    / max(rgb_pyr[0].cols, 1) > track_size_))
+        pyr_level++;
+    return pyr_level;
+}
+
+int TrackProcessor::build_graph(const vector<Vehicle> &vehicles,
+                                vector<Detection> &detections) {
+    float dx, dy;
+    int num = max(vehicles.size(), detections.size());
+    if (display_config_) {
+        printf("track:\n");
+        for (int v_idx = 0; v_idx < vehicles.size(); v_idx++)
+            printf("%d %d %d %d\n", vehicles[v_idx].box.x,
+                   vehicles[v_idx].box.y, vehicles[v_idx].box.w,
+                   vehicles[v_idx].box.h);
+        printf("detections:\n");
+        for (int v_idx = 0; v_idx < detections.size(); v_idx++)
+            printf("%d %d %d %d\n", detections[v_idx].box.x,
+                   detections[v_idx].box.y, detections[v_idx].box.w,
+                   detections[v_idx].box.h);
+    }
+    for (int v_idx = 0; v_idx < num; v_idx++)
+        for (int d_idx = 0; d_idx < num; d_idx++) {
+            if ((v_idx >= vehicles.size()) || (d_idx >= detections.size())) {
+                graph_[v_idx + 1][d_idx + 1] = 0;
+                continue;
+            }
+            float intersection = calc_intersection(vehicles[v_idx].box,
+                                                   detections[d_idx].box);
+            float min_area = min(
+                    vehicles[v_idx].box.w * vehicles[v_idx].box.h,
+                    detections[d_idx].box.w * detections[d_idx].box.h);
+            if (use_plnview_constraint_) {
+                calc_pln_dis(vehicles[v_idx].box, detections[d_idx].box, dx,
+                             dy);
+                if ((length(dx, dy) > delta_v_threshold_ * 2)
+                        && (intersection / min_area < 0.5)) {
+                    graph_[v_idx + 1][d_idx + 1] = 0;
+                    continue;
+                }
+            }
+            float size_rto = calc_size_rto(
+                    vehicles[v_idx].box.h * vehicles[v_idx].box.w,
+                    detections[d_idx].box.h * detections[d_idx].box.w);
+            if ((intersection > min_intersection) && (size_rto < max_size_rto_))
+                graph_[v_idx + 1][d_idx + 1] = intersection;
+            else
+                graph_[v_idx + 1][d_idx + 1] = 0;
+        }
+    if (display_config_) {
+        printf("graph:\n");
+        for (int v_idx = 0; v_idx < num; v_idx++) {
+            for (int d_idx = 0; d_idx < num; d_idx++)
+                printf("%f ", graph_[v_idx + 1][d_idx + 1]);
+            printf("\n");
+        }
+    }
+    return num;
+}
+
+float TrackProcessor::calc_intersection(const Box &b1, const Box &b2) {
+    int up_left_x = max(b1.x, b2.x);
+    int up_left_y = max(b1.y, b2.y);
+    int low_right_x = min(b1.x + b1.w, b2.x + b2.w);
+    int low_right_y = min(b1.y + b1.h, b2.y + b2.h);
+    if ((low_right_x < up_left_x) || (low_right_y < up_left_y))
+        return 0;
+    else
+        return ((low_right_x - up_left_x) * (low_right_y - up_left_y));
+}
+
+bool TrackProcessor::is_valid_box(Box &b) {
+    b.w = min(b.x + b.w, width_ - 1);
+    b.h = min(b.y + b.h, height_ - 1);
+    b.x = max(b.x, 0);
+    b.y = max(b.y, 0);
+    b.w = b.w - b.x;
+    b.h = b.h - b.y;
+    if ((b.w < min_box_size_) || (b.h < min_box_size_)
+            || calc_size_rto(b.w, b.h) > max_wh_rto_)
+        return false;
+    if (is_in_disable_area(b))
+        return false;
+    return true;
+}
+
+bool TrackProcessor::is_valid_rect(Rect &b, const float &wh_rto) {
+    b.width = min(b.x + b.width, width_ - 1);
+    b.height = min(b.y + b.height, height_ - 1);
+    b.x = max(b.x, 0);
+    b.y = max(b.y, 0);
+    b.width = b.width - b.x;
+    b.height = b.height - b.y;
+    float current_wh_rto = 1.0 * b.width / b.height;
+    if ((current_wh_rto > wh_rto * max_wh_change_)
+            || (current_wh_rto < wh_rto / max_wh_change_))
+        return false;
+    if ((b.width < min_box_size_) || (b.height < min_box_size_)
+            || (calc_size_rto(b.width, b.height) > max_wh_rto_))
+        return false;
+    Box b_box;
+    b_box.x = b.x;
+    b_box.y = b.y;
+    b_box.w = b.width;
+    b_box.h = b.height;
+    if (is_in_disable_area(b_box))
+        return false;
+    return true;
+}
+
+bool TrackProcessor::is_in_disable_area(Box &b) {
+    for (int i = 0; i < disable_area_.size(); i++) {
+        float b_size = b.w * b.h;
+        float disable_area_size = disable_area_[i].w * disable_area_[i].h;
+        if (calc_intersection(b, disable_area_[i])
+                / max(1.0, min(b_size, disable_area_size)) > 0.1)
+            return true;
+    }
+    return false;
+}
+
+int TrackProcessor::find_last_key_frame() {
+    int idx = -1;
+    Frame *frame = ring_buffer_->GetFrameOffset(
+            ring_buffer_->NextTrackingFrameIndex(), idx);
+    while ((frame != NULL) && (frame->GetType() == FRAME_TYPE_COM)) {
+        idx--;
+        frame = ring_buffer_->GetFrameOffset(
+                ring_buffer_->NextTrackingFrameIndex(), idx);
+    }
+    if (frame == NULL)
+        return 0;
+    else
+        return idx;
+}
+
+void TrackProcessor::update_vehicle_location(Frame *current_frame,
+                                             const int &key_frame_offset) {
+    for (int v_idx = 0; v_idx < current_frame->Vehicles().size(); v_idx++) {
+        if ((match_pair_[v_idx] >= 0)
+                && (graph_[v_idx + 1][match_pair_[v_idx] + 1] > 0)) {
+            smooth_update_vehicle_location(
+                    key_frame_offset, current_frame->Vehicles()[v_idx].id,
+                    current_frame->Detections()[match_pair_[v_idx]].box);
+            current_frame->Vehicles()[v_idx].score = HIGH_SCORE;
+            is_det_matched_[match_pair_[v_idx]] = true;
+            int stc_idx = find_stc_idx(current_frame->Vehicles()[v_idx].id);
+            Rect box(current_frame->Detections()[match_pair_[v_idx]].box.x,
+                     current_frame->Detections()[match_pair_[v_idx]].box.y,
+                     current_frame->Detections()[match_pair_[v_idx]].box.w,
+                     current_frame->Detections()[match_pair_[v_idx]].box.h);
+            stc_[stc_idx].pyr_level = find_pyr_level(
+                    current_frame->RgbPyr(),
+                    current_frame->Detections()[match_pair_[v_idx]].box);
+            float resize_rto = 1.0
+                    * current_frame->RgbPyr()[stc_[stc_idx].pyr_level].cols
+                    / max(current_frame->RgbPyr()[0].cols, 1);
+            stc_[stc_idx].wh_rto = 1.0 * box.width / box.height;
+            stc_[stc_idx].tracker.init(
+                    current_frame->RgbPyr()[stc_[stc_idx].pyr_level], box,
+                    resize_rto, line_);
+        } else if (current_frame->Vehicles()[v_idx].score == HIGH_SCORE)
+            current_frame->Vehicles()[v_idx].score = LOW_SCORE;
+        else
+            current_frame->Vehicles()[v_idx].score = KILL_THRESHOLD;
+    }
+}
+
+void TrackProcessor::smooth_update_vehicle_location(const int &key_frame_offset,
+                                                    const long long &v_id,
+                                                    const Box &new_loc) {
+    Frame *pre_frame = ring_buffer_->GetFrameOffset(
+            ring_buffer_->NextTrackingFrameIndex(), key_frame_offset);
+    int pre_v_idx = find_vehicle(pre_frame->Vehicles(), v_id);
+    float up_left_offset_x = 1.0
+            * (new_loc.x - pre_frame->Vehicles()[pre_v_idx].box.x)
+            / abs(key_frame_offset);
+    float up_left_offset_y = 1.0
+            * (new_loc.y - pre_frame->Vehicles()[pre_v_idx].box.y)
+            / abs(key_frame_offset);
+    float low_right_offset_x = 1.0
+            * (new_loc.x + new_loc.w - pre_frame->Vehicles()[pre_v_idx].box.x
+                    - pre_frame->Vehicles()[pre_v_idx].box.w)
+            / abs(key_frame_offset);
+    float low_right_offset_y = 1.0
+            * (new_loc.y + new_loc.h - pre_frame->Vehicles()[pre_v_idx].box.y
+                    - pre_frame->Vehicles()[pre_v_idx].box.h)
+            / abs(key_frame_offset);
+    for (int frame_offset = 0; frame_offset > key_frame_offset;
+            frame_offset--) {
+        int times = frame_offset - key_frame_offset;
+        Frame *frame = ring_buffer_->GetFrameOffset(
+                ring_buffer_->NextTrackingFrameIndex(), frame_offset);
+        if (frame == NULL)
+            continue;
+        int v_idx = find_vehicle(frame->Vehicles(), v_id);
+        if (v_idx >= 0) {
+            frame->Vehicles()[v_idx].box.w = pre_frame->Vehicles()[pre_v_idx]
+                    .box.x + pre_frame->Vehicles()[pre_v_idx].box.w
+                    + low_right_offset_x * times;
+            frame->Vehicles()[v_idx].box.h = pre_frame->Vehicles()[pre_v_idx]
+                    .box.y + pre_frame->Vehicles()[pre_v_idx].box.h
+                    + low_right_offset_y * times;
+            frame->Vehicles()[v_idx].box.x = pre_frame->Vehicles()[pre_v_idx]
+                    .box.x + up_left_offset_x * times;
+            frame->Vehicles()[v_idx].box.y = pre_frame->Vehicles()[pre_v_idx]
+                    .box.y + up_left_offset_y * times;
+            frame->Vehicles()[v_idx].box.w = frame->Vehicles()[v_idx].box.w
+                    - frame->Vehicles()[v_idx].box.x;
+            frame->Vehicles()[v_idx].box.h = frame->Vehicles()[v_idx].box.h
+                    - frame->Vehicles()[v_idx].box.y;
+            VehiclePic pre_vehicle_pic;
+            pre_vehicle_pic.area_size = frame->Vehicles()[v_idx].vehicle_pic
+                    .area_size;
+            pre_vehicle_pic.is_valid = frame->Vehicles()[v_idx].vehicle_pic
+                    .is_valid;
+            frame->Vehicles()[v_idx].vehicle_pic.pic.copyTo(
+                    pre_vehicle_pic.pic);
+            update_vehicle_pic(frame->Vehicles()[v_idx].vehicle_pic,
+                               pre_vehicle_pic, frame->RGB(),
+                               frame->Vehicles()[v_idx].box);
+        }
+    }
+}
+
+int TrackProcessor::find_vehicle(const vector<Vehicle> &vehicles,
+                                 const long long v_id) {
+    for (int v_idx = 0; v_idx < vehicles.size(); v_idx++)
+        if (vehicles[v_idx].id == v_id)
+            return v_idx;
+    return -1;
+}
+
+void TrackProcessor::find_pln_bound(const float sample_img_pnt[4][3],
+                                    float &tl_x, float &tl_y, float &br_x,
+                                    float &br_y) {
+    tl_x = 9999;
+    tl_y = 9999;
+    br_x = 0;
+    br_y = 0;
+    float pln_pnt[3];
+    for (int i = 0; i < 4; i++) {
+        planview_.img_coord2pln_coord(sample_img_pnt[i], pln_pnt);
+        tl_x = min(tl_x, pln_pnt[0]);
+        br_x = max(br_x, pln_pnt[0]);
+        tl_y = min(tl_y, pln_pnt[1]);
+        br_y = max(br_y, pln_pnt[1]);
+    }
+}
+
+bool TrackProcessor::convert2pln_img_coord(float pln_pnt[3], const float &tl_x,
+                                           const float &tl_y, const float &br_x,
+                                           const float &br_y) {
+    if ((pln_pnt[0] < tl_x) || (pln_pnt[0] > br_x) || (pln_pnt[1] < tl_y)
+            || (pln_pnt[1] > br_y))
+        return false;
+    pln_pnt[0] = (pln_pnt[0] - tl_x) / (br_x - tl_x);
+    pln_pnt[1] = (pln_pnt[1] - tl_y) / (br_x - tl_x);
+    return true;
+}
+
+float TrackProcessor::calc_pln_dis(const Box b1, const Box b2, float &dx,
+                                   float &dy) {
+    float img_pnt1[3] = { b1.x + b1.w / 2, b1.y + b1.h, 1 };
+    float img_pnt2[3] = { b2.x + b2.w / 2, b2.y + b2.h, 1 };
+    float pln_pnt1[3];
+    float pln_pnt2[3];
+    planview_.img_coord2pln_coord(img_pnt1, pln_pnt1);
+    planview_.img_coord2pln_coord(img_pnt2, pln_pnt2);
+    if (convert2pln_img_coord(pln_pnt1, tl_x_, tl_y_, br_x_, br_y_)
+            && convert2pln_img_coord(pln_pnt2, tl_x_, tl_y_, br_x_, br_y_)) {
+        dx = pln_pnt1[0] - pln_pnt2[0];
+        dy = pln_pnt1[1] - pln_pnt2[1];
+        return length(dx, dy);
+    } else
+        return delta_v_threshold_ * 1000;
+}
+
+void TrackProcessor::update_vehicle_pic(VehiclePic &vehicle_pic, const Mat *img,
+                                        Box det) {
+    vehicle_pic.area_size = det.w * det.h;
+    if ((vehicle_pic.area_size > 0) && (det.x > width_ * 0.1)
+            && (det.y > height_ * 0.1)
+            && (det.x + det.w < width_ * 0.9)
+            && (det.y + det.h < height_ * 0.7))
+        vehicle_pic.is_valid = true;
+    else
+        vehicle_pic.is_valid = false;
+    float w_rto = 1.0 * img->cols / TRACK_BASE_SIZE_W;
+    float h_rto = 1.0 * img->rows / TRACK_BASE_SIZE_H;
+    det.x = max(1, (int) (w_rto * det.x));
+    det.y = max(1, (int) (h_rto * det.y));
+    det.w = min((int) (w_rto * det.w), (*img).cols - det.x - 1);
+    det.h = min((int) (h_rto * det.h), (*img).rows - det.y - 1);
+//	det.x = max(1, (int) (w_rto * det.x - 0.1 * det.w * w_rto));
+//	det.y = max(1, (int) (h_rto * det.y));
+//	det.w = min((int) (w_rto * det.w + 0.2 * det.w * w_rto),
+//			(*img).cols - det.x - 1);
+//	det.h = min((int) (h_rto * det.h + 0.2 * det.h * h_rto),
+//			(*img).rows - det.y - 1);
+    vehicle_pic.pic = (*img)(Range(det.y, det.y + det.h - 1),
+                             Range(det.x, det.x + det.w - 1));
+    if (vehicle_pic.is_valid)
+        vehicle_pic.score = 10000;
+    else
+        vehicle_pic.score = 0;
+    vehicle_pic.score += vehicle_pic.area_size;
+}
+
+void TrackProcessor::update_vehicle_pic(VehiclePic &vehicle_pic,
+                                        const VehiclePic &pre_vehicle_pic,
+                                        const Mat *img, Box det) {
+    vehicle_pic.area_size = det.w * det.h;
+    if ((vehicle_pic.area_size > 0) && (det.x > width_ * 0.1)
+            && (det.y > height_ * 0.1)
+            && (det.x + det.w < width_ * 0.9)
+            && (det.y + det.h < height_ * 0.7))
+        vehicle_pic.is_valid = true;
+    else
+        vehicle_pic.is_valid = false;
+    if (((vehicle_pic.is_valid == pre_vehicle_pic.is_valid)
+            && (vehicle_pic.area_size <= pre_vehicle_pic.area_size))
+            || (!vehicle_pic.is_valid)) {
+        vehicle_pic.area_size = pre_vehicle_pic.area_size;
+        vehicle_pic.is_valid = pre_vehicle_pic.is_valid;
+        pre_vehicle_pic.pic.copyTo(vehicle_pic.pic);
+        return;
+    }
+    float w_rto = 1.0 * img->cols / TRACK_BASE_SIZE_W;
+    float h_rto = 1.0 * img->rows / TRACK_BASE_SIZE_H;
+    det.x = max(1, (int) (w_rto * det.x));
+    det.y = max(1, (int) (h_rto * det.y));
+    det.w = min((int) (w_rto * det.w), (*img).cols - det.x - 1);
+    det.h = min((int) (h_rto * det.h), (*img).rows - det.y - 1);
+//	det.x = max(1, (int) (w_rto * det.x - 0.1 * det.w * w_rto));
+//	det.y = max(1, (int) (h_rto * det.y));
+//	det.w = min((int) (w_rto * det.w + 0.2 * det.w * w_rto),
+//			(*img).cols - det.x - 1);
+//	det.h = min((int) (h_rto * det.h + 0.2 * det.h * h_rto),
+//			(*img).rows - det.y - 1);
+    vehicle_pic.pic = (*img)(Range(det.y, det.y + det.h - 1),
+                             Range(det.x, det.x + det.w - 1));
+    if (vehicle_pic.is_valid)
+        vehicle_pic.score = 10000;
+    else
+        vehicle_pic.score = 0;
+    vehicle_pic.score += vehicle_pic.area_size;
+}
