@@ -280,7 +280,6 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pC
     pConfig->plateSH=(int)cconfig.Value(ADVANCED_PLATE_MXNET_PLATESH);
     pConfig->numsProposal=(int)cconfig.Value(ADVANCED_PLATE_MXNET_NUMSPROPOSAL);
     pConfig->numsPlates=(int)cconfig.Value(ADVANCED_PLATE_MXNET_PLATENUMS);
-    cout<<pConfig->imageSW<<" ddf"<<pConfig->imageSH<<" "<<pConfig->numsProposal<<" "<<pConfig->plateSH<<" "<<pConfig->numsPlates<<endl;
     int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     pConfig->is_model_encrypt=is_encrypted;
