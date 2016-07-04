@@ -156,6 +156,7 @@ private:
 class Pedestrian: public Object {
 public:
 	typedef struct {
+		int index = 0;
     	string tagname = "";
     	Confidence confidence = 0;
 	} Attr;

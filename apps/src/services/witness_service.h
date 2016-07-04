@@ -109,8 +109,10 @@ private:
     string symbol_mapping_data_;
     string plate_color_mapping_data_;
     string plate_type_mapping_data_;
+    vector<string> pedestrian_attr_type_repo_;
     string vehicle_type_mapping_data_;
     string plate_color_gpu_mapping_data_;
+    string pedestrian_attr_mapping_data_;
 
 
     // library caffe is not thread safe(even crash some times) which means

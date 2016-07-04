@@ -59,7 +59,7 @@ void WitnessAppsService::init(void) {
     string pColorGpuFile = (string) config_->Value(RENDER_VEHICLE_PLATE_GPU_COLOR);
     string pTypeFile = (string) config_->Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
     string pVtypeFile = (string) config_->Value(VEHICLE_TYPE_MAPPING_FILE);
-
+    string pPtypeFile = (string) config_->Value(VEHICLE_PEDESTRIAN_ATTR_TYPE);
     init_vehicle_map(vModelFile, ",", vehicle_repo_);
     init_string_map(vColorFile, "=", color_repo_);
     init_string_map(vSymbolFile, "=", symbol_repo_);
@@ -67,6 +67,7 @@ void WitnessAppsService::init(void) {
     init_string_map(pColorGpuFile, "=", plate_color_gpu_repo_);
     init_string_map(pTypeFile, "=", plate_type_repo_);
     init_string_map(pVtypeFile, "=", vehicle_type_repo_);
+    init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
     model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
     color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
     symbol_mapping_data_ = ReadStringFromFile(vSymbolFile, "r");
@@ -74,6 +75,7 @@ void WitnessAppsService::init(void) {
     plate_type_mapping_data_ = ReadStringFromFile(pTypeFile, "r");
     vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
     plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
+    pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
 
     //advanced color
     int size=color_repo_.size();
@@ -355,7 +357,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 	for(int i = 0; i < attrs.size(); i++)
 	{
 		PedestrianAttr *attr = vrec->add_pedestrianattrs();
-		attr->set_tagname(attrs[i].tagname);
+		attr->set_attrid(attrs[i].index);
 		attr->set_confidence(attrs[i].confidence);
 	}
 
@@ -435,6 +437,9 @@ MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
         case INDEX_CAR_MARKER:
             data = symbol_mapping_data_;
             break;
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
+        	data = pedestrian_attr_mapping_data_;
+        	break;
     }
     response->set_context(data);
 
@@ -868,7 +873,6 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
                                       IndexResponse *response) {
     MatrixError err;
     bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
-
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
             for (int i = 0; i < vehicle_repo_.size(); i++) {
@@ -923,6 +927,12 @@ MatrixError WitnessAppsService::Index(const IndexRequest *request,
         case INDEX_CAR_MARKER:
             for (int i = 0; i < symbol_repo_.size(); i++) {
                 string value = symbol_repo_[i].data();
+                (*response->mutable_index())[i] = value;
+            }
+            break;
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
+            for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
+                string value = pedestrian_attr_type_repo_[i].data();
                 (*response->mutable_index())[i] = value;
             }
             break;
