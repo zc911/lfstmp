@@ -19,7 +19,7 @@ using namespace std;
 namespace dg {
 static long FileSize(const string &file) {
     ifstream is;
-    is.open(file.c_str(), ios::binary);
+    is.open(file.c_str(), ios::binary|ios::ate);
 
     // get length of file:
     is.seekg(0, std::ios::end);

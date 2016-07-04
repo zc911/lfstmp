@@ -23,7 +23,7 @@ struct ModulePREG_S {
 
 int LPPREG_Create(LPDRModel_S stPREG, int dwDevType, int dwDevID, LPDR_HANDLE *phPREG);
 
-int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygonOut[8]);
+int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygonOut[12]);
 
 int LPPREG_Release(LPDR_HANDLE hPREG);
 
