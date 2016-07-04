@@ -15,12 +15,12 @@
 
 namespace dg {
 
-class CarFeatureExtractProcessor : public Processor {
- public:
+class CarFeatureExtractProcessor: public Processor {
+public:
     CarFeatureExtractProcessor();
     virtual ~CarFeatureExtractProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame) {
         return false;
     }
@@ -29,11 +29,11 @@ class CarFeatureExtractProcessor : public Processor {
     virtual bool RecordFeaturePerformance();
 
 
- private:
-    void extract(vector<Object*> &objs);
+private:
+    void extract(vector<Object *> &objs);
 
     CarFeatureExtractor *extractor_;
-    vector<Object*> vehicle_to_processed_;
+    vector<Object *> vehicle_to_processed_;
 };
 
 } /* namespace dg */

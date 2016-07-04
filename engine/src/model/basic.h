@@ -47,9 +47,10 @@ enum Operations
     OPERATION_VEHICLE_MARKER = 1 << 5,
     OPERATION_VEHICLE_PLATE = 1 << 6,
     OPERATION_VEHICLE_FEATURE_VECTOR = 1 << 7,
-    OPERATION_FACE = 1 << 8,
-    OPERATION_FACE_DETECTOR = 1 << 9,
-    OPERATION_FACE_FEATURE_VECTOR = 1 << 10,
+    OPERATION_VEHICLE_PEDESTRIAN_ATTR = 1 << 8,
+    OPERATION_FACE = 1 << 9,
+    OPERATION_FACE_DETECTOR = 1 << 10,
+    OPERATION_FACE_FEATURE_VECTOR = 1 << 11,
     OPERATION_MAX = 1 << 63
 };
 
@@ -98,7 +99,8 @@ typedef struct Operation {
         }
     }
 
-} Operation;
+}
+    Operation;
 
 typedef struct {
     int id;
