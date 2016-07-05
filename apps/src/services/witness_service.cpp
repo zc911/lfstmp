@@ -193,7 +193,6 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             case RECFUNC_VEHICLE:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                     op.Set(OPERATION_VEHICLE);
-
                 break;
             case RECFUNC_VEHICLE_DETECT:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
@@ -222,6 +221,10 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             case RECFUNC_VEHICLE_FEATURE_VECTOR:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                     op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
+                break;
+            case RECFUNC_VEHICLE_PEDESTRIAN_ATTR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_PEDESTRIAN_ATTR);
                 break;
             case RECFUNC_FACE:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
@@ -344,6 +347,21 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
     return err;
 }
 
+MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
+                                         RecVehicle *vrec)
+{
+	MatrixError err;
+	std::vector<Pedestrian::Attr> attrs = pobj->attrs();
+	for(int i = 0; i < attrs.size(); i++)
+	{
+		PedestrianAttr *attr = vrec->add_pedestrianattrs();
+		attr->set_tagname(attrs[i].tagname);
+		attr->set_confidence(attrs[i].confidence);
+	}
+
+	return err;
+}
+
 MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
                                                      RecVehicle *vrec) {
     MatrixError err;
@@ -447,6 +465,9 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             case OBJECT_TRICYCLE:
                 err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
                 break;
+            case OBJECT_PEDESTRIAN:
+                err = getRecognizedPedestrian((Pedestrian *) object, result->add_vehicles());
+                break;
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
@@ -530,7 +551,6 @@ void storage(Frame *frame, VehicleObj *client_request_obj, string storageAddress
 }
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                                           WitnessResponse *response) {
-
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
