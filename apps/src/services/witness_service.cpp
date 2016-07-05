@@ -442,17 +442,6 @@ MatrixError WitnessAppsService::IndexTxt(const IndexTxtRequest *request,
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedPedestrain(
-    const Pedestrain *pedestrain, RecVehicle *vrec) {
-    MatrixError err;
-    const Detection &d = pedestrain->detection();
-    vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = lookup_string(vehicle_type_repo_, OBJ_TYPE_PEDESTRIAN);
-    vrec->set_vehicletypename(type);
-    copyCutboard(d,vrec->mutable_img()->mutable_cutboard());
-    return err;
-}
-
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                                                    WitnessResult *result) {
     MatrixError err;
@@ -471,9 +460,6 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());
                 break;
-            case OBJECT_PEDESTRIAN:
-                 err = getRecognizedPedestrain((Pedestrain *) object, result->add_vehicles());
-                 break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
                 break;
