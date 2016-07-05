@@ -41,6 +41,7 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch)
 		for(int j = 0; j < attrs_i.size(); j++)
 		{
 			Pedestrian::Attr attr;
+			attr.index = attrs_i[j].index;
 			attr.tagname = attrs_i[j].tagname;
 			attr.confidence = attrs_i[j].confidence;
 			attrs_o.push_back(attr);

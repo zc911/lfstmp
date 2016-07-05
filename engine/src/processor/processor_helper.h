@@ -176,9 +176,9 @@ static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
     return 0;
 }
 
-
 static int readModuleFile(string symbol_file, string param_file, LPDRModel_S *pstModel,bool is_encrypt_enabled) {
     int dwSymLenDetect = 0;
+
     readTxtFileAuto(symbol_file.c_str(), &pstModel->pbySym, &dwSymLenDetect,is_encrypt_enabled);
 
     readBinFileAuto(param_file.c_str(), &pstModel->pbyParam, &pstModel->dwParamSize,is_encrypt_enabled);
@@ -263,6 +263,7 @@ static void showUBY_IMG(const char *pbyWinName, uchar *pubyImg, int dwImgW, int 
     cvShowImage(pbyWinName, pcvImg);
     cvReleaseImage(&pcvImg);
 }
+
 
 }
 
