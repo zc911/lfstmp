@@ -1,3 +1,4 @@
+
 /*
  * car_feature_extractor.h
  *
@@ -16,11 +17,11 @@ namespace dg {
 
 class CarFeatureExtractor {
 
- public:
+public:
     CarFeatureExtractor();
     void ExtractDescriptor(const cv::Mat &img, CarRankFeature &des);
 
- private:
+private:
     cv::ORB orb_;
     int max_resize_size_;
 
@@ -29,5 +30,4 @@ class CarFeatureExtractor {
 };
 
 }
-
 #endif /* CAR_FEATURE_EXTRACTOR_H_ */

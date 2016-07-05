@@ -38,11 +38,10 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     VLOG(VLOG_RUNTIME_DEBUG) << "hotspot resized: " << hotspot_resized;
     vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized,
                                                        candidates);
-
-
     t_profiler_str_ = "TotalMatching";
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
+        if(score[i])
         topx[i] = Score(i, score[i]);
     }
 

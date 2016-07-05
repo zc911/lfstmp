@@ -57,14 +57,19 @@ PedestrianClassifier::~PedestrianClassifier()
 void PedestrianClassifier::LoadTagnames(const string &name_list)
 {
 	ifstream fp(name_list);
-	tagnames_.resize(0);
+	tagtable_.resize(0);
 	while (!fp.eof())
 	{
-		string tagname = "";
+		string tagname = "", indexstr = "";
 		fp >> tagname;
-		if (tagname == "")
+		fp >> indexstr;
+		if (tagname == "" || indexstr == "")
 			continue;
-		tagnames_.push_back(tagname);
+
+		Tag tag;
+		tag.index = atof(indexstr.c_str());
+		tag.tagname = tagname;
+		tagtable_.push_back(tag);
 	}
 }
 
@@ -120,7 +125,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
 	auto output_blob = net_->blob_by_name(layer_name_);
 	const float *output_data = output_blob->cpu_data();
 	const int feature_len = output_blob->channels();
-	assert(feature_len == static_cast<int>(tagnames_.size()));
+	assert(feature_len == static_cast<int>(tagtable_.size()));
 
 	results.resize(imgs.size());
 	for (size_t i = 0; i < imgs.size(); i++)
@@ -139,7 +144,7 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
 		const vector<cv::Mat> &imgs)
 {
 	std::vector<vector<PedestrianClassifier::PedestrianAttribute>> attrc;
-	if(imgs.size() == 0)
+	if (imgs.size() == 0)
 		return attrc;
 	vector<vector<float> > results;
 
@@ -150,7 +155,8 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
 		for (size_t a_idx = 0; a_idx < 46; a_idx++)
 		{
 			PedestrianClassifier::PedestrianAttribute attr;
-			attr.tagname = tagnames_[a_idx];
+			attr.index = tagtable_[a_idx].index;
+			attr.tagname = tagtable_[a_idx].tagname;
 			attr.confidence = results[idx][a_idx];
 			attrs.push_back(attr);
 		}
