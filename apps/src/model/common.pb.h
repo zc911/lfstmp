@@ -45,6 +45,7 @@ class FeatureVector;
 class Image;
 class LicensePlate;
 class NullMessage;
+class PedestrianAttr;
 class RecFace;
 class RecVehicle;
 class SrcMetadata;
@@ -967,6 +968,96 @@ class RecFace : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class PedestrianAttr : public ::google::protobuf::Message {
+ public:
+  PedestrianAttr();
+  virtual ~PedestrianAttr();
+
+  PedestrianAttr(const PedestrianAttr& from);
+
+  inline PedestrianAttr& operator=(const PedestrianAttr& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PedestrianAttr& default_instance();
+
+  void Swap(PedestrianAttr* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PedestrianAttr* New() const { return New(NULL); }
+
+  PedestrianAttr* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PedestrianAttr& from);
+  void MergeFrom(const PedestrianAttr& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PedestrianAttr* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string Tagname = 1;
+  void clear_tagname();
+  static const int kTagnameFieldNumber = 1;
+  const ::std::string& tagname() const;
+  void set_tagname(const ::std::string& value);
+  void set_tagname(const char* value);
+  void set_tagname(const char* value, size_t size);
+  ::std::string* mutable_tagname();
+  ::std::string* release_tagname();
+  void set_allocated_tagname(::std::string* tagname);
+
+  // optional float Confidence = 2;
+  void clear_confidence();
+  static const int kConfidenceFieldNumber = 2;
+  float confidence() const;
+  void set_confidence(float value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.PedestrianAttr)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr tagname_;
+  float confidence_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static PedestrianAttr* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class RecVehicle : public ::google::protobuf::Message {
  public:
   RecVehicle();
@@ -1105,6 +1196,18 @@ class RecVehicle : public ::google::protobuf::Message {
   ::std::string* release_vehicletypename();
   void set_allocated_vehicletypename(::std::string* vehicletypename);
 
+  // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
+  int pedestrianattrs_size() const;
+  void clear_pedestrianattrs();
+  static const int kPedestrianAttrsFieldNumber = 10;
+  const ::dg::model::PedestrianAttr& pedestrianattrs(int index) const;
+  ::dg::model::PedestrianAttr* mutable_pedestrianattrs(int index);
+  ::dg::model::PedestrianAttr* add_pedestrianattrs();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >*
+      mutable_pedestrianattrs();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
+      pedestrianattrs() const;
+
   // @@protoc_insertion_point(class_scope:dg.model.RecVehicle)
  private:
 
@@ -1118,6 +1221,7 @@ class RecVehicle : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleSymbol > symbols_;
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::google::protobuf::internal::ArenaStringPtr vehicletypename_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr > pedestrianattrs_;
   int vehicletype_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
@@ -2626,6 +2730,67 @@ inline void RecFace::set_confidence(float value) {
 
 // -------------------------------------------------------------------
 
+// PedestrianAttr
+
+// optional string Tagname = 1;
+inline void PedestrianAttr::clear_tagname() {
+  tagname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PedestrianAttr::tagname() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Tagname)
+  return tagname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PedestrianAttr::set_tagname(const ::std::string& value) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Tagname)
+}
+inline void PedestrianAttr::set_tagname(const char* value) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.Tagname)
+}
+inline void PedestrianAttr::set_tagname(const char* value, size_t size) {
+  
+  tagname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.Tagname)
+}
+inline ::std::string* PedestrianAttr::mutable_tagname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Tagname)
+  return tagname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PedestrianAttr::release_tagname() {
+  
+  return tagname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PedestrianAttr::set_allocated_tagname(::std::string* tagname) {
+  if (tagname != NULL) {
+    
+  } else {
+    
+  }
+  tagname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), tagname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Tagname)
+}
+
+// optional float Confidence = 2;
+inline void PedestrianAttr::clear_confidence() {
+  confidence_ = 0;
+}
+inline float PedestrianAttr::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Confidence)
+  return confidence_;
+}
+inline void PedestrianAttr::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Confidence)
+}
+
+// -------------------------------------------------------------------
+
 // RecVehicle
 
 // optional int64 Id = 1;
@@ -2918,6 +3083,36 @@ inline void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletype
   }
   vehicletypename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), vehicletypename);
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
+}
+
+// repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
+inline int RecVehicle::pedestrianattrs_size() const {
+  return pedestrianattrs_.size();
+}
+inline void RecVehicle::clear_pedestrianattrs() {
+  pedestrianattrs_.Clear();
+}
+inline const ::dg::model::PedestrianAttr& RecVehicle::pedestrianattrs(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedestrianAttrs)
+  return pedestrianattrs_.Get(index);
+}
+inline ::dg::model::PedestrianAttr* RecVehicle::mutable_pedestrianattrs(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedestrianAttrs)
+  return pedestrianattrs_.Mutable(index);
+}
+inline ::dg::model::PedestrianAttr* RecVehicle::add_pedestrianattrs() {
+  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.PedestrianAttrs)
+  return pedestrianattrs_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >*
+RecVehicle::mutable_pedestrianattrs() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.PedestrianAttrs)
+  return &pedestrianattrs_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
+RecVehicle::pedestrianattrs() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.PedestrianAttrs)
+  return pedestrianattrs_;
 }
 
 // -------------------------------------------------------------------
@@ -3799,6 +3994,8 @@ VehicleObj::vehicle() const {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
