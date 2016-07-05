@@ -357,7 +357,6 @@ public:
         }
 
     }
-
 private:
     // Out of the passed in Channel comes the stub, stored here, our view of the
     // server's exposed services.
@@ -487,7 +486,7 @@ int main(int argc, char *argv[]) {
                 t.join();}
                 break;
             case 1:{
-                thread t(callI, address);
+                thread t(callS, address, image_file_path, batch, true);
                 t.join();}
                 break;
             case 2:{

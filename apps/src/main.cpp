@@ -175,7 +175,6 @@ int main(int argc, char *argv[])
 
 	google::InitGoogleLogging(argv[0]);
 //    StartDogMonitor();
-
 //  if (CheckHardware()) {
 	//      return -1;
 	// }

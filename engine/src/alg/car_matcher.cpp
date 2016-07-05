@@ -44,7 +44,7 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
                          des1.position_.at<ushort>(i, 1),
                          des2.position_.at<ushort>(j, 0),
                          des2.position_.at<ushort>(j, 1))
-                    < max_mapping_offset_ * max_mapping_offset_) {
+                < max_mapping_offset_ * max_mapping_offset_) {
                 const uchar* train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
@@ -58,11 +58,11 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
                 }
             }
         if ((min_dist <= (unsigned int) (min_remarkableness_ * sec_dist))
-                && (min_dist <= (unsigned int) max_mis_match_)) {
+            && (min_dist <= (unsigned int) max_mis_match_)) {
             if ((inBox(des1.position_.at<ushort>(i, 0),
                        des1.position_.at<ushort>(i, 1), box1))
-                    && (inBox(des2.position_.at<ushort>(min_idx, 0),
-                              des2.position_.at<ushort>(min_idx, 1), box2))) {
+                && (inBox(des2.position_.at<ushort>(min_idx, 0),
+                          des2.position_.at<ushort>(min_idx, 1), box2))) {
                 score = score + selected_area_weight_;
             } else
                 score++;
@@ -104,8 +104,8 @@ void CarMatcher::calcNewBox(const CarRankFeature &des1,
 }
 
 vector<int> CarMatcher::computeMatchScoreCpu(
-        const CarRankFeature &des, const Rect &in_box,
-        const vector<CarRankFeature> &all_des) {
+    const CarRankFeature &des, const Rect &in_box,
+    const vector<CarRankFeature> &all_des) {
     vector<int> score;
     for (int i = 0; i < all_des.size(); i++) {
         score.push_back(ComputeMatchScore(des, all_des[i], in_box));
@@ -114,8 +114,8 @@ vector<int> CarMatcher::computeMatchScoreCpu(
 }
 
 vector<int> CarMatcher::ComputeMatchScore(
-        const CarRankFeature &des, const Rect &in_box,
-        const vector<CarRankFeature> &all_des) {
+    const CarRankFeature &des, const Rect &in_box,
+    const vector<CarRankFeature> &all_des) {
 #if USE_CUDA
     return computeMatchScoreGpu(des, in_box, all_des);
 #else

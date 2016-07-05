@@ -313,6 +313,7 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pC
 
     pConfig->batchsize = batch_size;
 
+
 }
 int ConfigFilter::initDataConfig(const Config &config)
 {
