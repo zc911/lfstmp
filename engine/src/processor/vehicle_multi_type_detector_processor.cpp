@@ -76,8 +76,15 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             if (d.id == DETECTION_PEDESTRIAN) {
                 // if is pedestrain
                 Pedestrian *p = new Pedestrian();
+                Mat roi = CutImage(frame->payload()->data(), d.box);
+
+                if (roi.rows == 0 || roi.cols == 0) {
+                    continue;
+                }
+                p->set_image(roi);
                 p->set_detection(d);
                 p->set_id(base_id_ + id++);
+
                 obj = static_cast<Object *>(p);
 
             } else if (d.id != DETECTION_UNKNOWN) {

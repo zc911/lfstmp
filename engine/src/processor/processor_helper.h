@@ -264,6 +264,7 @@ static void showUBY_IMG(const char *pbyWinName, uchar *pubyImg, int dwImgW, int 
     cvReleaseImage(&pcvImg);
 }
 
+
 }
 
 #endif /* SRC_PROCESSOR_PROCESSOR_HELPER_H_ */

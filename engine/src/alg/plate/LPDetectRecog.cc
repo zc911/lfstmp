@@ -7,7 +7,7 @@
 #include "LPCHRECOG.hpp"
 
 #define LPDR_CLASS_NUM 79
-/*
+
 const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
           "A", "B", "C", "D", "E", "F", "G", "H", "J", \
           "K", "L", "M", "N", "P", "Q", "R", "S", "T",\
@@ -16,23 +16,16 @@ const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5",
           "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
           "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
           "青", "藏", "川", "宁", "琼", "使", "领", "试", \
-          "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};*/
-/*const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
-          "A", "B", "C", "D", "E", "F", "G", "H", "J", \
-          "K", "L", "M", "N", "P", "Q", "R", "S", "T",\
-          "U", "V", "W", "X", "Y", "Z", "I", "_Jing1_", "_Jin1_",\
-          "_Hu4_", "_Yu2_", "_Ji4_", "_Yu4_", "_Yun2_", "Liao2_", "_Hei1_", "_Xiang1_", \
-          "_Wan3_", "_Min3_", "_Lu3_", "_Xin1_", "_Su1_", "_Zhe4_", "_Gan4_", "_E4_", \
-          "_Gui4_", "_Gan1_", "_Jin4", "_Meng3_", "_Shan3_", "_Ji2_", "_Gui4_", "_Yue4_", \
-          "_Qing1_", "_Zang4_", "_Chuan1_", "_Ning2_", "_Qiong2_", "_Shi3_", "_Ling3_", "_Shi4_", \
-          "_Xue2_", "_Lin2_", "_Shi2_", "_Jing3_", "_Gang3_", "O", "_Gua2_", "_Ao4_", "#"};
-*/
+          "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};
+
+
 struct InputInfoRecog_S
 {
   float *pfImage_0;
   float *pfImage_1;
   int dwH, dwW;
   LPRect rect;
+  int dwSepY;
   char *pbyBuffer;
   int dwBufferLen;
 };
@@ -63,7 +56,7 @@ struct LPDR_Info_S {
 
 int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut);
 int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet);
-
+int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet);
 
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
@@ -342,7 +335,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
         LPRectInfo &lprect = lprectgroup[dwNowIdx];
         
 //        cout << pfCls[dwRI] << ", ";
-        if (pfCls[dwRI] > 0.8)
+        if (pfCls[dwRI] > LP_ROIP_SCORE_MAX)
         {
           lproipgroup_one.push_back(lprect);
 #if LPDR_DBG&1
@@ -399,7 +392,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   ///////////////////////////////
   doRecognitions(handle, pstFCNNImgSet, dwImgNum, pstOutputSet);
   
-
+  doRecogColors(handle, pstImgSet, pstOutputSet);
 
   ///////////////////////////////
   //release resources
@@ -458,8 +451,6 @@ int LPDR_Release(LPDR_HANDLE handle)
 }
 
 
-
-
 int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet)
 {
   LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
@@ -472,7 +463,7 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
   float afNewSize[2] = {1.2f, 1.2f};
   float *pfBlkBuffer_0 = 0, *pfBlkBuffer_1 = 0;
   char *pbyBuffer = 0;
-  int dwBlkMaxLen = 400 * 400, dwBlkH, dwBlkW, dwBufferLen = 500 * 500 * 4;
+  int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 500 * 500 * 4;
   InputInfoRecog_S stIIR;
   LPDRInfo_S stOut;
   
@@ -592,7 +583,8 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
 }
 
 
-int dwRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect, float fStrechRatio, float fShrinkRatio, int dwStep, float fThreshold, LPDRInfo_S *pstOut);
+int mainlandLPCheck(LPDRInfo_S *pstOut);
+int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect, float fStrechRatio, float fShrinkRatio, int dwStep, float fThreshold, LPDRInfo_S *pstOut);
 int parseTwoLinesWithGrad(LPDR_ImageInner_S *pstImage, LPRect rect, vector<LPRect> &rects_out);
 int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fThreshold, LPDRInfo_S *pstOut);
 int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adwMRatioXY[2], float fAngle_old, float *pfAngle_new);
@@ -616,10 +608,13 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   int dwX1 = pstIIR->rect.dwX1;
   int dwY1 = pstIIR->rect.dwY1;
   cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(255, 0, 0), 1, 8, 0);
+  
   cv::imshow("rectify_pre", cimg);
   cv::waitKey(10);
 #endif
-
+  
+  pstIIR->dwSepY = 0;
+  
   rect_old = pstIIR->rect;
   for (dwI = 0; dwI < 8; dwI++)
   {
@@ -634,6 +629,8 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     fAngle_old = fAngle_new;
   }
   
+  int dwSepY = pstIIR->dwSepY;
+  
 #if LPDR_DBG&1
   cv::Mat gimg(pstIIR->dwH, pstIIR->dwW, CV_32FC1, pstIIR->pfImage_1);
   cv::Mat cimg(pstIIR->dwH, pstIIR->dwW, CV_32FC3);
@@ -643,6 +640,7 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   int dwX1 = pstIIR->rect.dwX1;
   int dwY1 = pstIIR->rect.dwY1;
   cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(255, 0, 0), 1, 8, 0);
+  cv::line(cimg, cv::Point(dwX0, dwSepY), cv::Point(dwX1, dwSepY), CV_RGB(0, 255, 0), 2, 8, 0);
   cv::imshow("rectify", cimg);
   cout << "rectify" << endl;
   cv::waitKey(0);
@@ -661,8 +659,28 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   stImage.dwImgW = pstIIR->dwW;
   
   vector<LPRect> rects_out;
-  parseTwoLinesWithGrad(&stImage, pstIIR->rect, rects_out);
+  LPRect rectUp, rectDwn;
   
+  int dwYAdd0 = 0;//max(abs(rect_new.dwY1 - rect_new.dwY0 + 1)/8, 1);
+  rect_new.dwY1 += dwYAdd0;
+  
+  if (abs(dwSepY - rect_new.dwY0 + 1) * 4 > abs(rect_new.dwY1 - rect_new.dwY0 + 1))
+  {
+    int dwYAdd = 0;//max(abs(dwSepY - rect_new.dwY0 + 1)/8, 1);
+    rectUp.dwX0 = rect_new.dwX0; rectUp.dwY0 = rect_new.dwY0;
+    rectUp.dwX1 = rect_new.dwX1; rectUp.dwY1 = dwSepY + dwYAdd;
+    
+    rectDwn.dwX0 = rect_new.dwX0; rectDwn.dwY0 = dwSepY;
+    rectDwn.dwX1 = rect_new.dwX1; rectDwn.dwY1 = rect_new.dwY1;
+    
+    rects_out.push_back(rectUp);
+    rects_out.push_back(rectDwn);
+  }
+  else
+  {
+    rects_out.push_back(rect_new);
+  }
+
   memset(pstOut, 0, sizeof(LPDRInfo_S));
   if (rects_out.size()==1)
   {
@@ -671,7 +689,7 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     fStrechRatio = 5.5;
     fShrinkRatio = 1.0;
     dwStep = 4;
-    dwRet = dwRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut);
+    dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut);
     
     *pstOut = stOut;
     pstOut->dwType = LP_TYPE_SINGLE;
@@ -683,14 +701,14 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     fStrechRatio = 5.5;
     fShrinkRatio = 0.8;
     dwStep = 4;
-    dwRet = dwRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 2.0f, &stOut0);
+    dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 2.0f, &stOut0);
     
 //    if (!dwRet)
     {
       fStrechRatio = 5.5;
       fShrinkRatio = 1.0;
       dwStep = 4;
-      dwRet = dwRecogOneRow(hChRecog, &stImage, rects_out[1], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut1);
+      dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[1], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut1);
       
       if (!dwRet)
       {
@@ -718,6 +736,35 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     }
   }
   
+  dwRet = mainlandLPCheck(pstOut);
+
+  return dwRet;
+}
+
+
+
+int mainlandLPCheck(LPDRInfo_S *pstOut)
+{
+  int dwI;
+  int dwNowV0, dwNowV1;
+  
+  //I->1, O->0
+  for (dwI = 0; dwI < pstOut->dwLPLen; dwI++)
+  {
+    int dwNowV = pstOut->adwLPNumber[dwI];
+    int dwNewV = dwNowV;
+    if (dwNowV == 35) //I->1
+    {
+      dwNewV = 2;
+    }
+    else if (dwNowV == 75) //O->0
+    {
+      dwNewV = 1;
+    }
+    pstOut->adwLPNumber[dwI] = dwNewV;
+  }
+
+  
   //pure experience process
   if (pstOut->dwType == LP_TYPE_DOUBLE)
   {
@@ -728,9 +775,10 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
       pstOut->adwLPNumber[pstOut->dwLPLen-1] = 76;
     }
   }
+  
   //pre two chinese
-  int dwNowV0 = pstOut->adwLPNumber[0];
-  int dwNowV1 = pstOut->adwLPNumber[1];
+  dwNowV0 = pstOut->adwLPNumber[0];
+  dwNowV1 = pstOut->adwLPNumber[1];
   if (dwNowV0 > 35 && dwNowV0 != 75 && dwNowV1 > 35 && dwNowV1 != 75)
   {
     for (dwI = 0; dwI < pstOut->dwLPLen-1; dwI++)
@@ -742,8 +790,32 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     pstOut->dwLPLen--;
   }
   
-  if (pstOut->dwLPLen < 6) return 1;
-
+  //only WJ has 8 chars
+  if (pstOut->dwLPLen==8 && (pstOut->adwLPNumber[1]!=19 && pstOut->adwLPNumber[0]!=31))
+  {
+    return 2;
+  }
+  
+  //the first two chars must be alphabet or the first char must be chinese
+  if (pstOut->dwLPLen>=7)
+  {
+    dwNowV0 = pstOut->adwLPNumber[0];
+    dwNowV1 = pstOut->adwLPNumber[1];
+    if (dwNowV0>=11 && dwNowV0<=35 && ((dwNowV1>=11 && dwNowV1<=35) || dwNowV1==1 || dwNowV1==2)) //military or goverment case
+    {
+    }
+    else if (dwNowV0>=36 && ((dwNowV1>=11 && dwNowV1<=35) || dwNowV1==1 || dwNowV1==2)) //civillian case
+    {
+    }
+    else
+    {
+      return 3;
+    }
+  }
+  
+  //mainlad only has 7 or 8 chars, but we allow it has 6 at least.
+  if (pstOut->dwLPLen < 6 || pstOut->dwLPLen > 8) return 1;
+  
   return 0;
 }
 
@@ -781,7 +853,7 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   stImage.pfData = pfCrop;
   stImage.dwImgW = dwCrop_W;
   stImage.dwImgH = dwCrop_H;
-  int adwPolygonOut[8];
+  int adwPolygonOut[12];
   LPPREG_Process(hPolyReg, &stImage, adwPolygonOut);
 #if LPDR_DBG&0
   {
@@ -798,13 +870,15 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   adwPolygonOut[1*2+0] += dwCrop_X0; adwPolygonOut[1*2+1] += dwCrop_Y0;
   adwPolygonOut[2*2+0] += dwCrop_X0; adwPolygonOut[2*2+1] += dwCrop_Y0;
   adwPolygonOut[3*2+0] += dwCrop_X0; adwPolygonOut[3*2+1] += dwCrop_Y0;
+  adwPolygonOut[4*2+0] += dwCrop_X0; adwPolygonOut[4*2+1] += dwCrop_Y0;
+  adwPolygonOut[5*2+0] += dwCrop_X0; adwPolygonOut[5*2+1] += dwCrop_Y0;
 
   doRectify_f(pfImage_0, pfImage_1, dwImgW, dwImgH, fAngle_old, adwPolygonOut, pfAngle_new);
   
   LPRect &rectnow = pstIIR->rect;
   rectnow.dwX0 = adwPolygonOut[0]; rectnow.dwY0 = adwPolygonOut[1];
   rectnow.dwX1 = adwPolygonOut[0]; rectnow.dwY1 = adwPolygonOut[1];
-  for (dwRI = 0; dwRI < 4; dwRI++)
+  for (dwRI = 1; dwRI < 4; dwRI++)
   {
     int dwX = adwPolygonOut[dwRI*2+0];
     int dwY = adwPolygonOut[dwRI*2+1];
@@ -813,6 +887,10 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
     if (rectnow.dwX1 < dwX) rectnow.dwX1 = dwX;
     if (rectnow.dwY1 < dwY) rectnow.dwY1 = dwY;
   }
+  
+  int dwSepY = min(adwPolygonOut[4*2+1], adwPolygonOut[5*2+1]);
+  pstIIR->dwSepY = dwSepY;
+  
 #if LPDR_DBG&0
   {
     cv::Mat gimg(dwImgH, dwImgW, CV_32FC1, pfImage_1);
@@ -827,59 +905,92 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
 }
 
 
-int dwRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect, float fStrechRatio, float fShrinkRatio, int dwStep, float fThreshold, LPDRInfo_S *pstOut)
+int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect, float fStrechRatio, float fShrinkRatio, int dwStep, float fThreshold, LPDRInfo_S *pstOut)
 {
-  int dwI, dwJ;
-  
+  int dwBestRet = 0;
+  int dwI, dwJ, dwII0, dwII1;
   ModuleCHRECOG_S *pstCHRECOG = (ModuleCHRECOG_S*)hChRecog;
   int adwStdHW[2] = {pstCHRECOG->adwInShape[2], pstCHRECOG->adwInShape[3]};
   
   memset(pstOut, 0, sizeof(LPDRInfo_S));
-  
   int dwRectH = rect.dwY1 - rect.dwY0 + 1;
-  int adwMarginLRTD[4] = {adwStdHW[1]/2, adwStdHW[1]/2, dwRectH/80, dwRectH/80}; //left, right, top, down
-  rect.dwX0 = max(rect.dwX0 - adwMarginLRTD[0], 0);
-  rect.dwY0 = max(rect.dwY0 - adwMarginLRTD[2], 0);
-  rect.dwX1 = min(rect.dwX1 + adwMarginLRTD[1], pstImage->dwImgW - 1);
-  rect.dwY1 = min(rect.dwY1 + adwMarginLRTD[3], pstImage->dwImgH - 1);
-
-  LPCHRECOG_Process(hChRecog, pstImage, rect, fStrechRatio, fShrinkRatio, dwStep);
-
-  float *pfOutScore = pstCHRECOG->pfOutScore;
-  int *pdwOutShape = pstCHRECOG->adwOutShape;
-  int dwBatchNum = pdwOutShape[0];
-  int dwClassNum = pdwOutShape[1];
-  int *pdwClassIdx = pstCHRECOG->pdwClassIdx;
-  float *pfClassScore = pstCHRECOG->pfClassScore;
-  memset(pdwClassIdx, 0, sizeof(int)*dwBatchNum);
-  memset(pfClassScore, 0, sizeof(float)*dwBatchNum);
-  for (dwI = 0; dwI < dwBatchNum; dwI++)
+  
+  //multiple times tests
+#if 0
+  const int dwUpNum = 2, dwDnNum = 2;
+  int adwMarginUps[dwUpNum] = {0, dwRectH/16};
+  int adwMarginDns[dwDnNum] = {dwRectH/16, dwRectH/8};
+#else
+  const int dwUpNum = 1, dwDnNum = 1;
+  int adwMarginUps[dwUpNum] = {0};
+  int adwMarginDns[dwDnNum] = {dwRectH/8};
+#endif
+  for (dwII0 = 0; dwII0 < dwUpNum; dwII0++)
   {
-    float *pfScoreRow = pfOutScore + dwI * dwClassNum;
-    float fMaxScore = pfScoreRow[0];
-    int dwMaxIdx = 0;
-    for (dwJ = 1; dwJ < dwClassNum; dwJ++)
+    int dwMgnUp = adwMarginUps[dwII0];
+    for (dwII1 = 0; dwII1 < dwDnNum; dwII1++)
     {
-      if (fMaxScore < pfScoreRow[dwJ])
+      int dwMgnDn = adwMarginDns[dwII1];
+      LPDRInfo_S stLPOut;
+
+      memset(&stLPOut, 0, sizeof(LPDRInfo_S));
+
+      int adwMarginLRTD[4] = {adwStdHW[1]/16, adwStdHW[1]/16, dwMgnUp, dwMgnDn}; //left, right, top, down
+//      int adwMarginLRTD[4] = {adwStdHW[1], adwStdHW[1], dwMgnUp, dwMgnDn}; //left, right, top, down
+      LPRect newRect;
+      newRect.dwX0 = max(rect.dwX0 - adwMarginLRTD[0], 0);
+      newRect.dwY0 = max(rect.dwY0 - adwMarginLRTD[2], 0);
+      newRect.dwX1 = min(rect.dwX1 + adwMarginLRTD[1], pstImage->dwImgW - 1);
+      newRect.dwY1 = min(rect.dwY1 + adwMarginLRTD[3], pstImage->dwImgH - 1);
+
+      LPCHRECOG_Process(hChRecog, pstImage, newRect, fStrechRatio, fShrinkRatio, dwStep);
+
+      float *pfOutScore = pstCHRECOG->pfOutScore;
+      int *pdwOutShape = pstCHRECOG->adwOutShape;
+      int dwBatchNum = pdwOutShape[0];
+      int dwClassNum = pdwOutShape[1];
+      int *pdwClassIdx = pstCHRECOG->pdwClassIdx;
+      float *pfClassScore = pstCHRECOG->pfClassScore;
+      memset(pdwClassIdx, 0, sizeof(int)*dwBatchNum);
+      memset(pfClassScore, 0, sizeof(float)*dwBatchNum);
+      for (dwI = 0; dwI < dwBatchNum; dwI++)
       {
-        fMaxScore = pfScoreRow[dwJ];
-        dwMaxIdx = dwJ;
+        float *pfScoreRow = pfOutScore + dwI * dwClassNum;
+        float fMaxScore = pfScoreRow[0];
+        int dwMaxIdx = 0;
+        for (dwJ = 1; dwJ < dwClassNum; dwJ++)
+        {
+          if (fMaxScore < pfScoreRow[dwJ])
+          {
+            fMaxScore = pfScoreRow[dwJ];
+            dwMaxIdx = dwJ;
+          }
+        }
+        pdwClassIdx[dwI] = dwMaxIdx;
+        pfClassScore[dwI] = fMaxScore;
+      }
+
+      int dwRet = parseRecogOutInfo(pdwClassIdx, pfClassScore, dwBatchNum, fThreshold, &stLPOut);
+
+    #if LPDR_DBG
+      cout << stLPOut.fAllScore << ": ";
+      for (dwI = 0; dwI < dwBatchNum; dwI++)
+      {
+        cout << paInv_chardict[pdwClassIdx[dwI]];
+      }
+      
+      cout << endl;
+    #endif
+      
+      if (stLPOut.fAllScore > pstOut->fAllScore)
+      {
+        *pstOut = stLPOut;
+        dwBestRet = dwRet;
       }
     }
-    pdwClassIdx[dwI] = dwMaxIdx;
-    pfClassScore[dwI] = fMaxScore;
   }
-#if LPDR_DBG
-  for (dwI = 0; dwI < dwBatchNum; dwI++)
-  {
-    cout << paInv_chardict[pdwClassIdx[dwI]];
-  }
-  cout << endl;
-#endif
-  int dwRet = parseRecogOutInfo(pdwClassIdx, pfClassScore, dwBatchNum, fThreshold, pstOut);
-  
 //  cout << pstOut->dwLPLen << endl;
-  return dwRet;
+  return dwBestRet;
 }
 
 
@@ -1203,6 +1314,118 @@ int parseTwoLinesWithGrad(LPDR_ImageInner_S *pstImage, LPRect rect, vector<LPRec
   
   return 0;
 }
+
+
+/*
+#define LP_COLOUR_WHITE     0
+#define LP_COLOUR_SILVER    1
+#define LP_COLOUR_YELLOW    2
+#define LP_COLOUR_PINK      3
+#define LP_COLOUR_RED       4
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
+*/
+int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
+{
+  int dwSI, dwLI, dwRI, dwCI;
+  int dwImgNum = pstImgSet->dwImageNum;
+  int dwImgW, dwImgH;
+  uchar *pubyImgData, *pubyRow, *pubyBGR;
+  int dwLPNum = 0;
+  LPDRInfo_S *pstLPDR = 0;
+  int adwBB[4];
+  float fH = 0.f, fS = 0.f, fV = 0.f;
+  int adwColorsHist[9], dwMaxColor, dwMaxValue;
+  
+  for (dwSI = 0; dwSI < dwImgNum; dwSI++)
+  {
+    dwImgW = pstImgSet->astSet[dwSI].dwImgW;
+    dwImgH = pstImgSet->astSet[dwSI].dwImgH;
+    pubyImgData = pstImgSet->astSet[dwSI].pubyData;
+    dwLPNum = pstOutputSet->astLPSet[dwSI].dwLPNum;
+    for (dwLI = 0; dwLI < dwLPNum; dwLI++)
+    {
+      pstLPDR = &pstOutputSet->astLPSet[dwSI].astLPs[dwLI];
+      adwBB[0] = pstLPDR->adwLPRect[0];
+      adwBB[1] = pstLPDR->adwLPRect[1];
+      adwBB[2] = pstLPDR->adwLPRect[2];
+      adwBB[3] = pstLPDR->adwLPRect[3];
+      memset(adwColorsHist, 0, sizeof(int)*9);
+      for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
+      {
+        pubyRow = pubyImgData + dwRI * 3 * dwImgW;
+        for (dwCI = adwBB[0]; dwCI < adwBB[2]; dwCI += 2)
+        {
+          pubyBGR = pubyRow + dwCI * 3;
+          cvtRGB2HSV_U8(pubyBGR[2], pubyBGR[1], pubyBGR[0], &fH, &fS, &fV);
+          if (fS > 0.16f && fV > 0.08)
+          {
+//            if (fH > 30.f && fH < 50.f) //0~240
+            if (fH > 45.f && fH < 75.f) //0~360
+            {
+              adwColorsHist[LP_COLOUR_YELLOW]++;
+            }
+//            else if (fH > 130.f && fH < 180.f)
+            else if (fH > 195.f && fH < 270.f)
+            {
+              adwColorsHist[LP_COLOUR_BLUE]++;
+            }
+//            else if (fH > 60.f && fH < 100.f)
+            else if (fH > 90.f && fH < 150.f)
+            {
+              adwColorsHist[LP_COLOUR_GREEN]++;
+            }
+//            else if (fH > 220.f && fH < 10.f)
+            else if (fH > 330.f && fH < 15.f)
+            {
+              adwColorsHist[LP_COLOUR_RED]++;
+            }
+          }
+          else if (fS < 0.16f && fV > 0.4)
+          {
+            adwColorsHist[LP_COLOUR_WHITE]++;
+          }
+          else if (fS < 0.16f && fV < 0.4)
+          {
+            adwColorsHist[LP_COLOUR_BLACK]++;
+          }
+        }
+      }
+#if LPDR_DBG
+      for (int dwI = 0; dwI < 9; dwI++)
+      {
+        printf("%d:%d, ", dwI, adwColorsHist[dwI]);
+      }
+      printf("\n");
+#endif
+      dwMaxColor = 0;
+      dwMaxValue = 0;
+      for (int dwI = 0; dwI < 9; dwI++)
+      {
+        if (dwMaxValue < adwColorsHist[dwI])
+        {
+          dwMaxValue = adwColorsHist[dwI];
+          dwMaxColor = dwI;
+        }
+      }
+      pstLPDR->dwColor = dwMaxColor;
+    }
+
+#if LPDR_DBG||1
+//    cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, );
+    
+#endif
+  }
+  
+  return 0;
+}
+
+
+
+
+
 
 
 

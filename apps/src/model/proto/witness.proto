@@ -31,6 +31,7 @@ enum IndexType {
     INDEX_CAR_MARKER = 6;
     INDEX_CAR_PLATE_TYPE = 7;
     INDEX_CAR_PLATE_COLOR = 8;
+    INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 9;
 }
 
 message IndexRequest {

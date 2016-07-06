@@ -1,6 +1,11 @@
 # Matrix Apps
+<<<<<<< HEAD
+### Version 0.2.6
+2016-06-30
+=======
 ### Version 0.2.5
 2016-06-22
+>>>>>>> origin/people
 
 ### Modules version
 | *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
@@ -10,8 +15,18 @@
 ### Features
 - Improve performance without ssd detection
 - New color models
+<<<<<<< HEAD
+
 ### Bugs fixed
 - DEEPVIDEO-357
+- DEEPVIDEO-356
+- DEEPVIDEO-355
+- DEEPVIDEO-341
+- DEEPVIDEO-329
+=======
+### Bugs fixed
+- DEEPVIDEO-357
+>>>>>>> origin/people
 - Cutboard image data is empty
 
 ### How to Install/Update

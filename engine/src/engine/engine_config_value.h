@@ -32,7 +32,7 @@ static const string FEATURE_VEHICLE_ENABLE_MARKER =
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
         "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
-        "Feature/Vehicle/EnablePedistrianAttr";
+        "Feature/Vehicle/EnablePedestrianAttr";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =
@@ -146,6 +146,12 @@ static const string FILE_PLATE_CHRECOG_SYMBOL = "File/Plate/ChrecogSymbol";
 static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
 
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
+static const string ADVANCED_PLATE_MXNET_IMGSW = "Advanced/PlateMxnet/ImgStandardWidth";
+static const string ADVANCED_PLATE_MXNET_IMGSH = "Advanced/PlateMxnet/ImgStandardHeight";
+static const string ADVANCED_PLATE_MXNET_PLATESW = "Advanced/PlateMxnet/PlateStandardWidth";
+static const string ADVANCED_PLATE_MXNET_PLATESH = "Advanced/PlateMxnet/PlateStandardHeight";
+static const string ADVANCED_PLATE_MXNET_PLATENUMS = "Advanced/PlateMxnet/PlateNums";
+static const string ADVANCED_PLATE_MXNET_NUMSPROPOSAL = "Advanced/PlateMxnet/NumsProposal";
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
 
 }
