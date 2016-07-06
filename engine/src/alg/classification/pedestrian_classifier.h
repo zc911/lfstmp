@@ -41,6 +41,13 @@ public:
 
 	typedef struct
 	{
+		int index;
+		string tagname;
+	} Tag;
+
+	typedef struct
+	{
+		int index;
 		string tagname;
 		float confidence;
 	} PedestrianAttribute;
@@ -50,7 +57,7 @@ public:
 			const vector<cv::Mat> &imgs);
 
 public:
-	vector<string> tagnames_;
+	vector<Tag> tagtable_;
 	int batch_size_;
 
 private:

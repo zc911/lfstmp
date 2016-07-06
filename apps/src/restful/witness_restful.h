@@ -56,7 +56,42 @@ public:
         bind1(server, "^/ping$", "GET", pingBinder);
 
     }
+    virtual void warmUp(int n){
+        string imgdata=ReadStringFromFile("warmup.dat","rb");
+        WitnessRequest protobufRequestMessage;
+        WitnessResponse protobufResponseMessage;
+        protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
+        WitnessRequestContext *ctx = protobufRequestMessage.mutable_context();
+        ctx->mutable_functions()->Add(1);
+        ctx->mutable_functions()->Add(2);
+        ctx->mutable_functions()->Add(3);
+        ctx->mutable_functions()->Add(4);
+        ctx->mutable_functions()->Add(5);
+        ctx->mutable_functions()->Add(6);
+        ctx->mutable_functions()->Add(7);
+        ctx->set_type(REC_TYPE_VEHICLE);
+        ctx->mutable_storage()->set_address("127.0.0.1");
+        for(int i=0;i<n;i++) {
+            CallData data;
+            typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
+            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
+            data.func = [rec_func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
+              return (bind(rec_func, (WitnessAppsService *) data.apps,
+                           placeholders::_1,
+                           placeholders::_2))(&protobufRequestMessage,
+                                              &protobufResponseMessage);
+            };
 
+            if (engine_pool_ == NULL) {
+                LOG(ERROR) << "Engine pool not initailized. " << endl;
+                return;
+            }
+            engine_pool_->enqueue(&data);
+
+            MatrixError error = data.Wait();
+        }
+
+    }
 //    void Run() {
 //        int port = (int) config_.Value("System/Port");
 //        int gpuNum = (int) config_.Value("System/GpuNum");
