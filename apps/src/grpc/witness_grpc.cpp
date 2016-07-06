@@ -80,11 +80,10 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
+
 grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
                                            const IndexTxtRequest *request,
                                            IndexTxtResponse *response) {
-
-
 
     struct timeval start, finish;
     gettimeofday(&start, NULL);

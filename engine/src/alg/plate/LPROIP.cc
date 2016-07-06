@@ -14,6 +14,7 @@ int LPROIP_Create(LPDRModel_S stROIP, int dwDevType, int dwDevID, LPDR_HANDLE *p
   ret = MXSymbolCreateFromJSON(stROIP.pbySym, &hSymbol);
   
   pstModule->hSymbol = hSymbol;
+  assert(ret==0);
 #if DR_DBG&0
   cout << ret << endl;
 #endif
@@ -22,8 +23,8 @@ int LPROIP_Create(LPDRModel_S stROIP, int dwDevType, int dwDevID, LPDR_HANDLE *p
   mx_uint num_args = 2;
   const mx_uint *pdwShape = (mx_uint*)stROIP.adwShape;
   const char *keys[] = {"roip_data", "boxes"};
-  const mx_uint arg_ind_ptr[] = {0, 4, 7};
-  const mx_uint arg_shape_data[] = {pdwShape[0], pdwShape[1], pdwShape[2], pdwShape[3], pdwShape[4], pdwShape[5], pdwShape[6]};
+  const mx_uint arg_ind_ptr[] = {0, 4, 6};
+  const mx_uint arg_shape_data[] = {pdwShape[0], pdwShape[1], pdwShape[2], pdwShape[3], pdwShape[4]*pdwShape[5], pdwShape[6]};
   mx_uint in_shape_size = 0;
   const mx_uint *in_shape_ndim = 0;
   const mx_uint **in_shape_data = 0;
