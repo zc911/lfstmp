@@ -36,7 +36,7 @@ using BindFunction = std::function<MatrixError(const request_type *, response_ty
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 static void responseText(HttpServer::Response &response, int code,
                          const string &text) {
-    response << "HTTP/2.1 " << std::to_string(code)
+    response << "HTTP/1.1 " << std::to_string(code)
         << "\r\nContent-Length: " << text.length()
         << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
         << text;
@@ -131,7 +131,10 @@ public:
         }
         engine_pool_->Run();
         cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
-        warmUp(threadsPerGpu);
+        string instanceType = (string) config_.Value("InstanceType");
+        if (instanceType == "witness") {
+            warmUp(threadsPerGpu);
+        }
         server.start();
     }
     virtual void warmUp(int n){

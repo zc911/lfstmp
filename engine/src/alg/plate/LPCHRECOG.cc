@@ -14,6 +14,7 @@ int LPCHRECOG_Create(LPDRModel_S stCHRECOG, int dwDevType, int dwDevID, LPDR_HAN
   ret = MXSymbolCreateFromJSON(stCHRECOG.pbySym, &hSymbol);
   
   pstModule->hSymbol = hSymbol;
+  assert(ret==0);
 #if DR_DBG&0
   cout << ret << endl;
 #endif
@@ -231,21 +232,28 @@ int LPCHRECOG_Process(LPDR_HANDLE hCHRECOG, LPDR_ImageInner_S *pstImage, LPRect 
   int dwHCrop = rect.dwY1 - rect.dwY0 + 1;
   int dwWCrop = rect.dwX1 - rect.dwX0 + 1;
   
+  int dwBlackMargin = dwHCrop / 2 + 1;
+  dwWCrop += dwBlackMargin * 2;
+  
   assert(dwHCrop * dwWCrop * sizeof(float) <= dwBufferSZNow);
   float *pfDataCrop = (float*)pbyBufferNow;
   pbyBufferNow += dwHCrop * dwWCrop * sizeof(float);
   dwBufferSZNow -= dwHCrop * dwWCrop * sizeof(float);
-
+  
+  memset(pfDataCrop, 0, sizeof(float) * dwHCrop * dwWCrop);
   for (dwRI = 0; dwRI < dwHCrop; dwRI++)
   {
-    memcpy(pfDataCrop + dwRI * dwWCrop, pfDataSrc + (dwRI + rect.dwY0) * dwImgWSrc + rect.dwX0, sizeof(float) * dwWCrop);
+    memcpy(pfDataCrop + dwRI * dwWCrop + dwBlackMargin, pfDataSrc + (dwRI + rect.dwY0) * dwImgWSrc + rect.dwX0, sizeof(float) * (dwWCrop - 2*dwBlackMargin));
   }
   
   int dwHDst = adwStdHW[0];
   int dwWDst = dwWCrop * dwHDst / dwHCrop;
-  int dwWDst2 = dwHDst * fStrechRatio;
-  if (dwWDst < dwWDst2) dwWDst = dwWDst2;
-  if (fShrinkRatio < 1.0) dwWDst = dwWDst * fShrinkRatio;
+  if (fStrechRatio > 0.f)
+  {
+    int dwWDst2 = dwHDst * fStrechRatio;
+    if (dwWDst < dwWDst2) dwWDst = dwWDst2;
+  }
+  if (fShrinkRatio > 0.f) dwWDst = dwWDst * fShrinkRatio;
   
   cv::Mat imgCrop(dwHCrop, dwWCrop, CV_32FC1, pfDataCrop);
   

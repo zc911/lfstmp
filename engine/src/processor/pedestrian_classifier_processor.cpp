@@ -31,6 +31,14 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch)
 {
 	VLOG(VLOG_RUNTIME_DEBUG) << "Start pedestrian processor" << endl;
 	VLOG(VLOG_SERVICE) << "Start pedestrian processor" << endl;
+	for(int i = 0; i < images_.size(); i++)
+	{
+		if(images_[i].cols == 0 || images_[i].rows == 0)
+		{
+			return false;
+		}
+	}
+
 	std::vector<std::vector<PedestrianClassifier::PedestrianAttribute>> attrc =  classifier_->BatchClassify(images_);
 
 	for (int i = 0; i < objs_.size(); i++)
@@ -41,6 +49,7 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch)
 		for(int j = 0; j < attrs_i.size(); j++)
 		{
 			Pedestrian::Attr attr;
+			attr.index = attrs_i[j].index;
 			attr.tagname = attrs_i[j].tagname;
 			attr.confidence = attrs_i[j].confidence;
 			attrs_o.push_back(attr);

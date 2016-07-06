@@ -273,41 +273,47 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
 	wConfig.gpu_id = gpu_id;
 
 }
-void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,
-		_LPDRConfig *pConfig)
-{
-	pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
-	pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
+void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
+    pConfig->fcnnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_FCN_SYMBOL);
+    pConfig->fcnnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_FCN_PARAM);
 
-	pConfig->rpnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_RPN_SYMBOL);
-	pConfig->rpnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_RPN_PARAM);
+    pConfig->rpnSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_RPN_SYMBOL);
+    pConfig->rpnParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_RPN_PARAM);
 
-	pConfig->roipSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_ROIP_SYMBOL);
-	pConfig->roipParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_ROIP_PARAM);
+    pConfig->roipSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_ROIP_SYMBOL);
+    pConfig->roipParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_ROIP_PARAM);
 
-	pConfig->pregSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_POLYREG_SYMBOL);
-	pConfig->pregParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_POLYREG_PARAM);
+    pConfig->pregSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_POLYREG_SYMBOL);
+    pConfig->pregParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_POLYREG_PARAM);
 
-	pConfig->chrecogSymbolFile = (string) data_config_.Value(
-			FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_CHRECOG_SYMBOL);
-	pConfig->chrecogParamFile = (string) data_config_.Value(
-			FILE_PLATE_MODEL_PATH)
-			+ (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
+    pConfig->chrecogSymbolFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_CHRECOG_SYMBOL);
+    pConfig->chrecogParamFile = (string) data_config_.Value(FILE_PLATE_MODEL_PATH)
+        + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+    pConfig->dwDevType=2;
+    pConfig->dwDevID=gpu_id;
+    pConfig->imageSW=(int)cconfig.Value(ADVANCED_PLATE_MXNET_IMGSW);
+    pConfig->imageSH=(int)cconfig.Value(ADVANCED_PLATE_MXNET_IMGSH);
+    pConfig->plateSW=(int)cconfig.Value(ADVANCED_PLATE_MXNET_PLATESW);
+    pConfig->plateSH=(int)cconfig.Value(ADVANCED_PLATE_MXNET_PLATESH);
+    pConfig->numsProposal=(int)cconfig.Value(ADVANCED_PLATE_MXNET_NUMSPROPOSAL);
+    pConfig->numsPlates=(int)cconfig.Value(ADVANCED_PLATE_MXNET_PLATENUMS);
+    int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    pConfig->is_model_encrypt=is_encrypted;
 
-	int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
-	bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-	pConfig->is_model_encrypt = is_encrypted;
+    pConfig->batchsize = batch_size;
 
-	pConfig->batchsize = batch_size;
+
 }
 int ConfigFilter::initDataConfig(const Config &config)
 {
