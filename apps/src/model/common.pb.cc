@@ -226,8 +226,9 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _is_default_instance_));
   PedestrianAttr_descriptor_ = file->message_type(8);
-  static const int PedestrianAttr_offsets_[2] = {
+  static const int PedestrianAttr_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, attrid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, attrname_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, confidence_),
   };
   PedestrianAttr_reflection_ =
@@ -488,49 +489,50 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022\n\n\002Id"
     "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
     "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
-    "(\002\"4\n\016PedestrianAttr\022\016\n\006AttrId\030\001 \001(\005\022\022\n\n"
-    "Confidence\030\002 \001(\002\"\344\002\n\nRecVehicle\022\n\n\002Id\030\001 "
-    "\001(\003\022-\n\tModelType\030\002 \001(\0132\032.dg.model.Vehicl"
-    "eModelType\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Col"
-    "or\022%\n\005Plate\030\004 \001(\0132\026.dg.model.LicensePlat"
-    "e\022$\n\003Img\030\005 \001(\0132\027.dg.model.CutboardImage\022"
-    "(\n\007Symbols\030\006 \003(\0132\027.dg.model.VehicleSymbo"
-    "l\022\020\n\010Features\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\016"
-    "2\021.dg.model.ObjType\022\027\n\017VehicleTypeName\030\t"
-    " \001(\t\0221\n\017PedestrianAttrs\030\n \003(\0132\030.dg.model"
-    ".PedestrianAttr\"\335\001\n\020VehicleModelType\022\n\n\002"
-    "Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030"
-    "\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence"
-    "\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010S"
-    "ubBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006Type"
-    "Id\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\""
-    "\235\001\n\014LicensePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005C"
-    "olor\030\002 \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 "
-    "\001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001("
-    "\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.Cutboard\""
-    "X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSy"
-    "mbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.mod"
-    "el.Symbol\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022."
-    "dg.model.Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N\n"
-    "\rStorageConfig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030"
-    "\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n"
-    "\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model"
-    ".SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Ima"
-    "ge\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model.RecVehicl"
-    "e*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014O"
-    "BJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021O"
-    "BJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIA"
-    "N\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHI"
-    "CLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR"
-    "\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OB"
-    "J_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_"
-    "FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBO"
-    "ARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022\037"
-    "\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_T"
-    "YPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_F"
-    "ACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOW"
-    "NFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022"
-    "\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006proto3", 2397);
+    "(\002\"F\n\016PedestrianAttr\022\016\n\006AttrId\030\001 \001(\005\022\020\n\010"
+    "AttrName\030\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"\344\002\n\nR"
+    "ecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\013"
+    "2\032.dg.model.VehicleModelType\022\036\n\005Color\030\003 "
+    "\001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg"
+    ".model.LicensePlate\022$\n\003Img\030\005 \001(\0132\027.dg.mo"
+    "del.CutboardImage\022(\n\007Symbols\030\006 \003(\0132\027.dg."
+    "model.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n"
+    "\013VehicleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n"
+    "\017VehicleTypeName\030\t \001(\t\0221\n\017PedestrianAttr"
+    "s\030\n \003(\0132\030.dg.model.PedestrianAttr\"\335\001\n\020Ve"
+    "hicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 "
+    "\001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004"
+    " \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r"
+    "\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModel"
+    "Year\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001("
+    "\t\022\016\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlate\022\021\n\tPl"
+    "ateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model."
+    "Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022"
+    "\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022."
+    "dg.model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010Sy"
+    "mbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symb"
+    "ols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n"
+    "\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nC"
+    "onfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Addr"
+    "ess\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBTyp"
+    "e\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadat"
+    "a\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 "
+    "\001(\0132\017.dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024."
+    "dg.model.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_T"
+    "YPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_T"
+    "YPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023"
+    "OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200"
+    "\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_T"
+    "YPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYC"
+    "LE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECT"
+    "OR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_"
+    "TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BIC"
+    "YCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CU"
+    "TBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOAR"
+    "D\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013Dat"
+    "aFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PR"
+    "OTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005"
+    "KAFKA\020\000b\006proto3", 2415);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -4131,6 +4133,7 @@ void RecFace::clear_confidence() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PedestrianAttr::kAttrIdFieldNumber;
+const int PedestrianAttr::kAttrNameFieldNumber;
 const int PedestrianAttr::kConfidenceFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -4154,8 +4157,10 @@ PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
 
 void PedestrianAttr::SharedCtor() {
     _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   attrid_ = 0;
+  attrname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   confidence_ = 0;
 }
 
@@ -4165,6 +4170,7 @@ PedestrianAttr::~PedestrianAttr() {
 }
 
 void PedestrianAttr::SharedDtor() {
+  attrname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -4204,6 +4210,7 @@ void PedestrianAttr::Clear() {
 } while (0)
 
   ZR_(attrid_, confidence_);
+  attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -4230,13 +4237,30 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(21)) goto parse_Confidence;
+        if (input->ExpectTag(18)) goto parse_AttrName;
         break;
       }
 
-      // optional float Confidence = 2;
+      // optional string AttrName = 2;
       case 2: {
-        if (tag == 21) {
+        if (tag == 18) {
+         parse_AttrName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_attrname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->attrname().data(), this->attrname().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.PedestrianAttr.AttrName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_Confidence;
+        break;
+      }
+
+      // optional float Confidence = 3;
+      case 3: {
+        if (tag == 29) {
          parse_Confidence:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -4278,9 +4302,19 @@ void PedestrianAttr::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->attrid(), output);
   }
 
-  // optional float Confidence = 2;
+  // optional string AttrName = 2;
+  if (this->attrname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->attrname().data(), this->attrname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.PedestrianAttr.AttrName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->attrname(), output);
+  }
+
+  // optional float Confidence = 3;
   if (this->confidence() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->confidence(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->confidence(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.PedestrianAttr)
@@ -4294,9 +4328,20 @@ void PedestrianAttr::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->attrid(), target);
   }
 
-  // optional float Confidence = 2;
+  // optional string AttrName = 2;
+  if (this->attrname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->attrname().data(), this->attrname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.PedestrianAttr.AttrName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->attrname(), target);
+  }
+
+  // optional float Confidence = 3;
   if (this->confidence() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->confidence(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->confidence(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.PedestrianAttr)
@@ -4313,7 +4358,14 @@ int PedestrianAttr::ByteSize() const {
         this->attrid());
   }
 
-  // optional float Confidence = 2;
+  // optional string AttrName = 2;
+  if (this->attrname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->attrname());
+  }
+
+  // optional float Confidence = 3;
   if (this->confidence() != 0) {
     total_size += 1 + 4;
   }
@@ -4340,6 +4392,10 @@ void PedestrianAttr::MergeFrom(const PedestrianAttr& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.attrid() != 0) {
     set_attrid(from.attrid());
+  }
+  if (from.attrname().size() > 0) {
+
+    attrname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attrname_);
   }
   if (from.confidence() != 0) {
     set_confidence(from.confidence());
@@ -4369,6 +4425,7 @@ void PedestrianAttr::Swap(PedestrianAttr* other) {
 }
 void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
   std::swap(attrid_, other->attrid_);
+  attrname_.Swap(&other->attrname_);
   std::swap(confidence_, other->confidence_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -4399,7 +4456,50 @@ void PedestrianAttr::clear_attrid() {
   // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrId)
 }
 
-// optional float Confidence = 2;
+// optional string AttrName = 2;
+void PedestrianAttr::clear_attrname() {
+  attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& PedestrianAttr::attrname() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrName)
+  return attrname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void PedestrianAttr::set_attrname(const ::std::string& value) {
+  
+  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrName)
+}
+ void PedestrianAttr::set_attrname(const char* value) {
+  
+  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.AttrName)
+}
+ void PedestrianAttr::set_attrname(const char* value, size_t size) {
+  
+  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.AttrName)
+}
+ ::std::string* PedestrianAttr::mutable_attrname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.AttrName)
+  return attrname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* PedestrianAttr::release_attrname() {
+  
+  return attrname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void PedestrianAttr::set_allocated_attrname(::std::string* attrname) {
+  if (attrname != NULL) {
+    
+  } else {
+    
+  }
+  attrname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), attrname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.AttrName)
+}
+
+// optional float Confidence = 3;
 void PedestrianAttr::clear_confidence() {
   confidence_ = 0;
 }
