@@ -9,7 +9,7 @@
 #ifndef SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
 
-#include "../alg/pedestrian_classifier.h"
+#include "alg/classification/pedestrian_classifier.h"
 #include "processor/processor.h"
 
 namespace dg
