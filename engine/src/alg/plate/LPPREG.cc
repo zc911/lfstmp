@@ -13,6 +13,7 @@ int LPPREG_Create(LPDRModel_S stPREG, int dwDevType, int dwDevID, LPDR_HANDLE *p
   ret = MXSymbolCreateFromJSON(stPREG.pbySym, &hSymbol);
   
   pstModule->hSymbol = hSymbol;
+  assert(ret==0);
 #if DR_DBG&0
   cout << ret << endl;
 #endif
@@ -197,7 +198,7 @@ int LPPREG_Create(LPDRModel_S stPREG, int dwDevType, int dwDevID, LPDR_HANDLE *p
 }
 
 
-int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygonOut[8])
+int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygonOut[12])
 {
   ModulePREG_S *pstPREG = (ModulePREG_S*)hPREG;
   ExecutorHandle hExecute = pstPREG->hExecute;
@@ -258,6 +259,11 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
 	adwPolygonOut[5] = (int)(pfPolygon[5] * dwSrcH);
 	adwPolygonOut[6] = (int)(pfPolygon[6] * dwSrcW);
 	adwPolygonOut[7] = (int)(pfPolygon[7] * dwSrcH);
+	
+	adwPolygonOut[8] = (int)(pfPolygon[8] * dwSrcW + 0.5f);
+	adwPolygonOut[9] = (int)(pfPolygon[9] * dwSrcH + 0.5f);
+	adwPolygonOut[10] = (int)(pfPolygon[10] * dwSrcW + 0.5f);
+	adwPolygonOut[11] = (int)(pfPolygon[11] * dwSrcH + 0.5f);
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;

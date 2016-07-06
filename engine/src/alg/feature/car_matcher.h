@@ -30,7 +30,7 @@ using namespace std;
 namespace dg {
 
 class CarMatcher {
- public:
+public:
     CarMatcher();
     virtual ~CarMatcher();
 
@@ -56,16 +56,16 @@ class CarMatcher {
     string getFeatureTimeCost()
     {
         return (profile_time_) ?
-        t_profiler_feature_.getSmoothedTimeProfileString()
-        :
-        "TimeProfiling is not opened!";
+               t_profiler_feature_.getSmoothedTimeProfileString()
+                               :
+               "TimeProfiling is not opened!";
     }
     string getMatchTimeCost()
     {
         return (profile_time_) ?
-        t_profiler_matching_.getSmoothedTimeProfileString()
-        :
-        "TimeProfiling is not opened!";
+               t_profiler_matching_.getSmoothedTimeProfileString()
+                               :
+               "TimeProfiling is not opened!";
     }
     int getFeatNum()
     {
@@ -88,7 +88,7 @@ private:
     int max_mapping_offset_;
     int selected_area_weight_;
     int score_[100000];
-    int min_score_thr_;
+
 #if USE_CUDA
     cudaStream_t stream_;
 
@@ -120,16 +120,16 @@ private:
     }
 
     int calcDis2(const ushort &x1, const ushort &y1, const ushort &x2,
-            const ushort &y2)
+                 const ushort &y2)
     {
         return (((int) x1) - ((int) x2)) * (((int) x1) - ((int) x2))
-        + (((int) y1) - ((int) y2)) * (((int) y1) - ((int) y2));
+            + (((int) y1) - ((int) y2)) * (((int) y1) - ((int) y2));
     }
 
     bool inBox(const ushort &x, const ushort &y, const Rect &box)
     {
         return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
-        && (y <= box.y + box.height);
+            && (y <= box.y + box.height);
     }
 };
 

@@ -85,8 +85,9 @@ message RecFace {
 }
 
 message PedestrianAttr {
-	string Tagname = 1;
-	float Confidence = 2;
+	int32 AttrId = 1;
+	string AttrName = 2;
+	float Confidence = 3;
 }
 
 message RecVehicle {

@@ -86,6 +86,18 @@ public:
             cout << " pint error" << endl;
         }
     }
+    void Info() {
+        cout<<"hello ping"<<endl;
+        SystemStatusRequest req;
+        SystemStatusResponse resp;
+        ClientContext context;
+        Status status = stub_->SystemStatus(&context, req, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << resp.gpuusage() << endl;
+        } else {
+            cout << " pint error" << endl;
+        }
+    }
 private:
     std::unique_ptr<SystemService::Stub> stub_;
 
@@ -151,11 +163,11 @@ public:
             string s = encode2base64(file_path.c_str());
             witnessimage->mutable_data()->set_bindata(s);
         }
-        WitnessRelativeROI *roi = witnessimage->add_relativeroi();
+   /*     WitnessRelativeROI *roi = witnessimage->add_relativeroi();
         roi->set_posx(0);
         roi->set_posy(0);
         roi->set_width(1000);
-        roi->set_height(1000);
+        roi->set_height(1000);*/
         WitnessResponse resp;
         Print(req);
         ClientContext context;
@@ -163,7 +175,8 @@ public:
         gettimeofday(&start, NULL);
         Status status = stub_->Recognize(&context, req, &resp);
         gettimeofday(&end, NULL);
-
+        for(int i=0;i<resp.result().vehicles_size();i++)
+        cout<<resp.result().vehicles(i).vehicletypename()<<endl;
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
@@ -344,7 +357,6 @@ public:
         }
 
     }
-
 private:
     // Out of the passed in Channel comes the stub, stored here, our view of the
     // server's exposed services.
@@ -394,6 +406,14 @@ void callP(string address) {
                             grpc::InsecureChannelCredentials()));
     client.Ping();
 }
+
+void callI(string address) {
+    SystemClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    client.Info();
+}
+
 void callS(string address, string image_file_path, bool batch, bool uri) {
     WitnessClient client(
         grpc::CreateChannel(string(address),
