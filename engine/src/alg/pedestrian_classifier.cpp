@@ -88,8 +88,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
 
 	for (size_t i = 0; i < imgs.size(); i++)
 	{
-		Mat img = imgs[i];
-		Mat sample;
+		Mat sample, img = imgs[i];
 		if (img.channels() == 4 && num_channels_ == 3)
 			cvtColor(img, sample, CV_BGRA2BGR);
 		else if (img.channels() == 1 && num_channels_ == 3)

@@ -398,6 +398,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 		PedestrianAttr *attr = vrec->add_pedestrianattrs();
 		attr->set_attrid(attrs[i].index);
 		attr->set_confidence(attrs[i].confidence);
+		attr->set_attrname(lookup_string(pedestrian_attr_type_repo_, i));
 	}
 
 	return err;
