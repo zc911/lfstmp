@@ -29,7 +29,6 @@ CarMatcher::~CarMatcher() {
 
 int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
                                   const CarRankFeature &des2, const Rect &box) {
-
     if (profile_time_)
         t_profiler_matching_.Reset();
     Rect box1, box2;
@@ -42,11 +41,10 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
         const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
         for (int j = 0; j < des2.descriptor_.rows; j++)
             if (calcDis2(des1.position_.at<ushort>(i, 0),
-                          des1.position_.at<ushort>(i, 1),
-                          des2.position_.at<ushort>(j, 0),
-                          des2.position_.at<ushort>(j, 1))
-                < max_mapping_offset_
-                    * max_mapping_offset_) {
+                         des1.position_.at<ushort>(i, 1),
+                         des2.position_.at<ushort>(j, 0),
+                         des2.position_.at<ushort>(j, 1))
+                < max_mapping_offset_ * max_mapping_offset_) {
                 const uchar* train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
@@ -62,26 +60,19 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
         if ((min_dist <= (unsigned int) (min_remarkableness_ * sec_dist))
             && (min_dist <= (unsigned int) max_mis_match_)) {
             if ((inBox(des1.position_.at<ushort>(i, 0),
-                           des1.position_.at<ushort>(i, 1), box1))
+                       des1.position_.at<ushort>(i, 1), box1))
                 && (inBox(des2.position_.at<ushort>(min_idx, 0),
-                              des2.position_.at<ushort>(min_idx, 1), box2))) {
+                          des2.position_.at<ushort>(min_idx, 1), box2))) {
                 score = score + selected_area_weight_;
             } else
                 score++;
         }
     }
-    if (score<min_score_thr_)
-        score = 0;
     if (profile_time_) {
         t_profiler_str_ = "Matching";
         t_profiler_matching_.Update(t_profiler_str_);
     }
     return score;
-
-
-
-
-
 }
 
 void CarMatcher::calcNewBox(const CarRankFeature &des1,
@@ -113,8 +104,8 @@ void CarMatcher::calcNewBox(const CarRankFeature &des1,
 }
 
 vector<int> CarMatcher::computeMatchScoreCpu(
-        const CarRankFeature &des, const Rect &in_box,
-        const vector<CarRankFeature> &all_des) {
+    const CarRankFeature &des, const Rect &in_box,
+    const vector<CarRankFeature> &all_des) {
     vector<int> score;
     for (int i = 0; i < all_des.size(); i++) {
         score.push_back(ComputeMatchScore(des, all_des[i], in_box));
@@ -123,8 +114,8 @@ vector<int> CarMatcher::computeMatchScoreCpu(
 }
 
 vector<int> CarMatcher::ComputeMatchScore(
-        const CarRankFeature &des, const Rect &in_box,
-        const vector<CarRankFeature> &all_des) {
+    const CarRankFeature &des, const Rect &in_box,
+    const vector<CarRankFeature> &all_des) {
 #if USE_CUDA
     return computeMatchScoreGpu(des, in_box, all_des);
 #else
