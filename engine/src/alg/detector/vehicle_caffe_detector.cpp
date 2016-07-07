@@ -37,13 +37,13 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();
-    /*  const vector<boost::shared_ptr<Layer<float> > > & layers = net_->layers();
-      const vector<vector<Blob<float>* > > & bottom_vecs = net_->bottom_vecs();
-      const vector<vector<Blob<float>* > > & top_vecs = net_->top_vecs();
-      for(int i = 0; i < layers.size(); ++i) {
-          layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-      }
-  */
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
+
     device_setted_ = false;
 #ifdef SHOW_VIS
     color_.push_back(Scalar(255, 0, 0));

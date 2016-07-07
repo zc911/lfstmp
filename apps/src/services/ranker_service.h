@@ -36,7 +36,7 @@ private:
     CarRankEngine car_ranker_;
     FaceRankEngine face_ranker_;
     MatrixError (RankerAppsService::*getRankedDefaultVector)(const FeatureRankingRequest *,
-                                   FeatureRankingResponse *);
+                                                             FeatureRankingResponse *);
     MatrixError getRankedCarVector(const FeatureRankingRequest *request,
                                    FeatureRankingResponse *response);
 

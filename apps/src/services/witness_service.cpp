@@ -27,7 +27,7 @@
 using namespace std;
 namespace dg {
 
-static int SHIFT_COLOR=1000;
+static int SHIFT_COLOR = 1000;
 WitnessAppsService::WitnessAppsService(const Config *config, string name)
     : config_(config),
       engine_(*config),
@@ -77,10 +77,10 @@ void WitnessAppsService::init(void) {
     plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
     pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
     //advanced color
-    int size=color_repo_.size();
-    for(int i=0;i<size;i++){
-        for(int j=i+1;j<size;j++){
-            string value=string(color_repo_[i])+color_repo_[j];
+    int size = color_repo_.size();
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            string value = string(color_repo_[i]) + color_repo_[j];
             color_repo_.push_back(value);
         }
     }
@@ -325,30 +325,35 @@ MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color,
     return err;
 }
 
-MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
-                                          LicensePlate *rplate) {
+
+MatrixError WitnessAppsService::fillPlates(const vector<Vehicle::Plate> &plates,
+                                           RecVehicle *vrec) {
     bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
     MatrixError err;
-    rplate->set_platetext(plate.plate_num);
-    Detection d;
-    d.box = plate.box;
-    copyCutboard(d, rplate->mutable_cutboard());
-    rplate->mutable_color()->set_colorid(plate.color_id);
-    if (gpuplate) {
-        rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
+    for (auto plate:plates) {
+        LicensePlate *rplate = vrec->add_plates();
+        rplate->set_platetext(plate.plate_num);
+        Detection d;
+        d.box = plate.box;
+        copyCutboard(d, rplate->mutable_cutboard());
+        rplate->mutable_color()->set_colorid(plate.color_id);
+        if (gpuplate) {
+            rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
 
-    } else {
+        } else {
 
-        rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
+            rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
+        }
+        rplate->mutable_color()->set_confidence(plate.confidence);
+        rplate->set_typeid_(plate.plate_type);
+        rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
+        rplate->set_confidence(plate.confidence);
+        vrec->mutable_plate()->CopyFrom(*rplate);
     }
-    rplate->mutable_color()->set_confidence(plate.confidence);
-    rplate->set_typeid_(plate.plate_type);
-    rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
-    rplate->set_confidence(plate.confidence);
+
 
     return err;
 }
-
 MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
                                             RecVehicle *vrec) {
     MatrixError err;
@@ -389,10 +394,9 @@ MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
 }
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-                                         RecVehicle *vrec)
-{
-	MatrixError err;
-	std::vector<Pedestrian::Attr> attrs = pobj->attrs();
+                                                        RecVehicle *vrec) {
+    MatrixError err;
+    std::vector<Pedestrian::Attr> attrs = pobj->attrs();
 
     const Detection &d = pobj->detection();
 
@@ -400,15 +404,14 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
     string type = lookup_string(vehicle_type_repo_, pobj->type());
     vrec->set_vehicletypename(type);
-	for(int i = 0; i < attrs.size(); i++)
-	{
-		PedestrianAttr *attr = vrec->add_pedestrianattrs();
-		attr->set_attrid(attrs[i].index);
-		attr->set_confidence(attrs[i].confidence);
-		attr->set_attrname(lookup_string(pedestrian_attr_type_repo_, i));
-	}
+    for (int i = 0; i < attrs.size(); i++) {
+        PedestrianAttr *attr = vrec->add_pedestrianattrs();
+        attr->set_attrid(attrs[i].index);
+        attr->set_confidence(attrs[i].confidence);
+        attr->set_attrname(lookup_string(pedestrian_attr_type_repo_, i));
+    }
 
-	return err;
+    return err;
 }
 
 MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
@@ -429,7 +432,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     if (err.code() < 0)
         return err;
 
-    err = fillPlate(vobj->plate(), vrec->mutable_plate());
+    err = fillPlates(vobj->plates(), vrec);
     if (err.code() < 0)
         return err;
 
@@ -558,8 +561,8 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
-    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
-    VLOG(VLOG_SERVICE)<<"Received image timestamp: "<<timestamp<<endl;
+    long long timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
+    VLOG(VLOG_SERVICE) << "Received image timestamp: " << timestamp << endl;
     const string &sessionid = request->context().sessionid();
     MatrixError err = checkRequest(*request);
     if (err.code() != 0) {
@@ -669,9 +672,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->CopyFrom(r.vehicles(i));
-                bool enablecutboard = (bool)config_->Value("EnableCutboard");
-                if(enablecutboard){
-                    vector<char> data(roi.datastart,roi.dataend);
+                bool enablecutboard = (bool) config_->Value("EnableCutboard");
+                if (enablecutboard) {
+                    vector<char> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 }
@@ -684,9 +687,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             //src metadata
             vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
             vehicleObj->mutable_metadata()->set_timestamp(timestamp);
-           //      string s;
+            //      string s;
             //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
-             //        VLOG(VLOG_SERVICE) << s << endl;
+            //        VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
             lock.unlock();
         }
@@ -708,7 +711,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
-    long long  timestamp = curr_time.tv_sec*1000+curr_time.tv_usec/1000;
+    long long timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
     const string &sessionid = batchRequest->context().sessionid();
 
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
@@ -848,8 +851,8 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                     v->CopyFrom(r.vehicles(i));
-                    bool enablecutboard = (bool)config_->Value("EnableCutboard");
-                    if(enablecutboard){
+                    bool enablecutboard = (bool) config_->Value("EnableCutboard");
+                    if (enablecutboard) {
                         vector<uchar> data(roi.datastart, roi.dataend);
                         string imgdata = Base64::Encode(data);
                         v->mutable_img()->mutable_img()->set_bindata(imgdata);

@@ -49,8 +49,8 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
         if (result[i].size() < 0) {
             continue;
         }
-        Prediction max ;//= MaxPrediction(result[i]);
-        score_color(max,result[i]);
+        Prediction max;//= MaxPrediction(result[i]);
+        score_color(max, result[i]);
         color.class_id = max.first;
         color.confidence = max.second;
         v->set_color(color);

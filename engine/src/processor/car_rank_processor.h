@@ -22,12 +22,12 @@
 
 namespace dg {
 
-class CarRankProcessor : public Processor {
- public:
+class CarRankProcessor: public Processor {
+public:
     CarRankProcessor();
     virtual ~CarRankProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch) {
         return false;
@@ -37,13 +37,13 @@ class CarRankProcessor : public Processor {
 
     virtual bool RecordFeaturePerformance();
 
- private:
+private:
     string t_profiler_str_;
     CarMatcher car_matcher_;
     CarFeatureExtractor car_feature_extractor_;
 
-    vector<Score> rank(const Mat& image, const Rect& hotspot,
-                       const vector<CarRankFeature>& candidates);
+    vector<Score> rank(const Mat &image, const Rect &hotspot,
+                       const vector<CarRankFeature> &candidates);
 };
 
 }

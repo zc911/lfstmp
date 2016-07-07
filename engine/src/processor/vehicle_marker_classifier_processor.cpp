@@ -18,10 +18,10 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 
     classifier_ = new MarkerCaffeClassifier(mConfig);
     detector_ = new WindowCaffeDetector(wConfig);
-    window_target_min_=wConfig.target_min_size;
-    window_target_max_=wConfig.target_max_size;
-    marker_target_min_=mConfig.target_min_size;
-    marker_target_max_=mConfig.target_max_size;
+    window_target_min_ = wConfig.target_min_size;
+    window_target_max_ = wConfig.target_max_size;
+    marker_target_min_ = mConfig.target_min_size;
+    marker_target_max_ = mConfig.target_max_size;
 
 }
 
@@ -40,6 +40,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
+
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                                      images_);
     gettimeofday(&end, NULL);
@@ -63,13 +64,13 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     for (int i = 0; i < pred.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
         vector<Detection> markers_cutborad;
-        for(int j=0;j<pred[i].size();j++){
+        for (int j = 0; j < pred[i].size(); j++) {
             Detection d(pred[i][j]);
 
-            d.box.x=(crops[i].box.x+pred[i][j].box.x)+v->detection().box.x;
-            d.box.y=(crops[i].box.y+pred[i][j].box.y)+v->detection().box.y;
-            d.box.width=pred[i][j].box.width;
-            d.box.height=pred[i][j].box.height;
+            d.box.x = (crops[i].box.x + pred[i][j].box.x) + v->detection().box.x;
+            d.box.y = (crops[i].box.y + pred[i][j].box.y) + v->detection().box.y;
+            d.box.width = pred[i][j].box.width;
+            d.box.height = pred[i][j].box.height;
             markers_cutborad.push_back(d);
         }
         v->set_markers(markers_cutborad);

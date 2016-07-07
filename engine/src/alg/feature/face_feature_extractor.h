@@ -34,7 +34,7 @@ struct InnFaceFeature {
 };
 
 class FaceFeatureExtractor {
- public:
+public:
     typedef struct {
 
         bool is_model_encrypt = false;
@@ -46,17 +46,17 @@ class FaceFeatureExtractor {
         string deploy_file;
         string model_file;
     } FaceFeatureExtractorConfig;
-    FaceFeatureExtractor(const FaceFeatureExtractorConfig& config);
+    FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
 
     virtual ~FaceFeatureExtractor();
     std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
     std::vector<Mat> Align(std::vector<Mat> imgs);
 
- private:
+private:
     void Detection2Points(const dlib::full_object_detection &detection,
                           std::vector<dlib::point> &points);
 
- private:
+private:
     std::shared_ptr<Net<float> > net_;
     bool device_setted_;
     cv::Size input_geometry_;

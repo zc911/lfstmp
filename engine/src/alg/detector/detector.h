@@ -20,7 +20,7 @@ using namespace std;
 namespace dg {
 
 class Detector {
- public:
+public:
     Detector() {
     }
     virtual ~Detector() {

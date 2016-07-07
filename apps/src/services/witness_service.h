@@ -25,8 +25,7 @@ namespace dg {
 using namespace ::dg::model;
 
 
-
-class WitnessAppsService : public EngineService {
+class WitnessAppsService: public EngineService {
 public:
     WitnessAppsService(const Config *config, string name);
     virtual ~WitnessAppsService();
@@ -36,9 +35,9 @@ public:
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
     MatrixError Index(const IndexRequest *request,
-                           IndexResponse *response);
+                      IndexResponse *response);
     MatrixError IndexTxt(const IndexTxtRequest *request,
-                      IndexTxtResponse *response);
+                         IndexTxtResponse *response);
     string name_;
 private:
 
@@ -126,7 +125,7 @@ private:
                           vector<VehicleModelType> &array);
     const string &lookup_string(const vector<string> &array, int index);
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
-                                       int index);
+                                           int index);
 
     static string trimString(string str);
     static int parseInt(string str);
@@ -134,19 +133,18 @@ private:
     static void copyCutboard(const Detection &d, Cutboard *cb);
 
 
-
     MatrixError checkRequest(const WitnessRequest &request);
     MatrixError checkRequest(const WitnessBatchRequest &requests);
     MatrixError checkWitnessImage(const WitnessImage &wImage);
     MatrixError fillModel(const Vehicle &vobj, RecVehicle *vrec);
     MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
-    MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
+    MatrixError fillPlates(const vector<Vehicle::Plate> &plate, RecVehicle *vrec);
     MatrixError fillSymbols(const vector<Object *> &objects,
                             RecVehicle *vrec);
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
                                      RecVehicle *vrec);
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
-                                         RecVehicle *vrec);
+                                        RecVehicle *vrec);
     MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 //    void getStorageData(Frame *frame,shared_ptr<VehicleObj> &result);

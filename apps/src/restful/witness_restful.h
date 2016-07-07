@@ -26,7 +26,7 @@ public:
     RestWitnessServiceImpl(Config config,
                            string addr,
                            MatrixEnginesPool<WitnessAppsService> *engine_pool)
-        : RestfulService(engine_pool, config),service_system_(&config,"witness system"){
+        : RestfulService(engine_pool, config), service_system_(&config, "witness system") {
 
     }
 
@@ -42,7 +42,7 @@ public:
                                                                   "POST", rec_index_func);
         RecIndexTxtFunc rec_index_txt_func = (RecIndexTxtFunc) &WitnessAppsService::IndexTxt;
         bindFunc<WitnessAppsService, IndexTxtRequest, IndexTxtResponse>(server, "^/rec/index/txt$",
-                                                                  "POST", rec_index_txt_func);
+                                                                        "POST", rec_index_txt_func);
         BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
         bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
                                                                                 "/rec/image/batch$",
@@ -56,8 +56,8 @@ public:
         bind1(server, "^/ping$", "GET", pingBinder);
 
     }
-    virtual void warmUp(int n){
-        string imgdata=ReadStringFromFile("warmup.dat","rb");
+    virtual void warmUp(int n) {
+        string imgdata = ReadStringFromFile("warmup.dat", "rb");
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
         protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
@@ -71,7 +71,7 @@ public:
         ctx->mutable_functions()->Add(7);
         ctx->set_type(REC_TYPE_VEHICLE);
         ctx->mutable_storage()->set_address("127.0.0.1");
-        for(int i=0;i<n;i++) {
+        for (int i = 0; i < n; i++) {
             CallData data;
             typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
             RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;

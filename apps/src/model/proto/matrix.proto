@@ -1,26 +1,61 @@
 syntax = "proto3";
 
-package dg.model;
+package
+dg.model;
 
 import "system.proto";
 import "witness.proto";
 import "skynet.proto";
 import "ranker.proto";
 
-service MatrixService {
-    rpc Ping(PingRequest) returns (PingResponse) {}
+service
+MatrixService
+{
+    rpc
+    Ping(PingRequest)
+    returns(PingResponse)
+    {
+    }
 
-    rpc SystemStatus(SystemStatusRequest) returns (SystemStatusResponse) {}
+    rpc
+    SystemStatus(SystemStatusRequest)
+    returns(SystemStatusResponse)
+    {
+    }
 
-    rpc GetInstances(GetInstancesRequest) returns (InstanceConfigureResponse) {}
-    
-    rpc ConfigEngine(InstanceConfigureRequest) returns (InstanceConfigureResponse) {}
+    rpc
+    GetInstances(GetInstancesRequest)
+    returns(InstanceConfigureResponse)
+    {
+    }
 
-    rpc Recognize(WitnessRequest) returns (WitnessResponse) {}
-    
-    rpc BatchRecognize(WitnessBatchRequest) returns (WitnessBatchResponse) {}
-    
-    rpc VideoRecognize(SkynetRequest) returns (SkynetResponse) {}
+    rpc
+    ConfigEngine(InstanceConfigureRequest)
+    returns(InstanceConfigureResponse)
+    {
+    }
 
-    rpc GetRankedVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+    rpc
+    Recognize(WitnessRequest)
+    returns(WitnessResponse)
+    {
+    }
+
+    rpc
+    BatchRecognize(WitnessBatchRequest)
+    returns(WitnessBatchResponse)
+    {
+    }
+
+    rpc
+    VideoRecognize(SkynetRequest)
+    returns(SkynetResponse)
+    {
+    }
+
+    rpc
+    GetRankedVector(FeatureRankingRequest)
+    returns(FeatureRankingResponse)
+    {
+    }
 }

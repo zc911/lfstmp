@@ -23,7 +23,7 @@ using namespace caffe;
 using namespace cv;
 namespace dg {
 class VehicleConfirmCaffeDetector {
- public:
+public:
 
     VehicleConfirmCaffeDetector(CaffeConfig &config);
     virtual ~VehicleConfirmCaffeDetector();
@@ -31,19 +31,21 @@ class VehicleConfirmCaffeDetector {
                     vector<vector<Detection> > &detect_results);
 
     vector<vector<Detection> > Confirm(vector<Mat> images,
-                                       vector<vector<Detection> > & vbbox);
+                                       vector<vector<Detection> > &vbbox);
 
- protected:
+protected:
     vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
     vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
-    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
-    void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
+    std::vector<Blob < float>*>
+    PredictBatch(vector<Mat>
+    imgs);
+    void WrapBatchInputLayer(vector <vector<Mat>> *input_batch);
 
-    void PreprocessBatch(const vector<Mat> imgs,
-                         vector<vector<Mat> >* input_batch);
- private:
-    boost::shared_ptr<caffe::Net<float> > net_;
+    void PreprocessBatch(const vector <Mat> imgs,
+                         vector <vector<Mat>> *input_batch);
+private:
+    boost::shared_ptr <caffe::Net<float>> net_;
     int num_channels_;
     cv::Size input_geometry_;
     bool device_setted_;
