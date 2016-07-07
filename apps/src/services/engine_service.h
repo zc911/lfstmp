@@ -13,10 +13,10 @@ namespace dg {
 
 class EngineService {
 public:
-    virtual MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response){}
+    virtual MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response) { }
 
     virtual MatrixError BatchRecognize(const WitnessBatchRequest *request,
-                               WitnessBatchResponse *response){}
+                                       WitnessBatchResponse *response) { }
     virtual ~EngineService() { }
 };
 

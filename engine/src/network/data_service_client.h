@@ -13,9 +13,9 @@ namespace dg {
  * The data service client interface
  */
 class DataServiceClient {
- public:
+public:
     DataServiceClient(const string addr)
-            : addr_(addr) {
+        : addr_(addr) {
 
     }
 
@@ -26,7 +26,7 @@ class DataServiceClient {
     virtual void SendData(Message &msg) = 0;
     virtual void SendBatchData(vector<Message> &msg) = 0;
 
- protected:
+protected:
     string addr_;
 };
 }

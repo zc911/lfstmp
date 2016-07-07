@@ -12,31 +12,28 @@
 #include "alg/classification/pedestrian_classifier.h"
 #include "processor/processor.h"
 
-namespace dg
-{
+namespace dg {
 
-class PedestrianClassifierProcessor : public Processor
-{
+class PedestrianClassifierProcessor: public Processor {
 
 public:
-	PedestrianClassifierProcessor(PedestrianClassifier::PedestrianConfig &config);
-	virtual ~PedestrianClassifierProcessor();
+    PedestrianClassifierProcessor(PedestrianClassifier::PedestrianConfig &config);
+    virtual ~PedestrianClassifierProcessor();
 
 protected:
-	virtual bool process(Frame *frame)
-	{
-		return false;
-	}
+    virtual bool process(Frame *frame) {
+        return false;
+    }
 
-	virtual bool process(FrameBatch *frameBatch);
+    virtual bool process(FrameBatch *frameBatch);
 
-	virtual bool beforeUpdate(FrameBatch *frameBatch);
-	virtual bool RecordFeaturePerformance();
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual bool RecordFeaturePerformance();
 
 private:
-	PedestrianClassifier *classifier_;
-	vector<Object *> objs_;
-	vector<Mat> images_;
+    PedestrianClassifier *classifier_;
+    vector<Object *> objs_;
+    vector<Mat> images_;
 };
 }
 

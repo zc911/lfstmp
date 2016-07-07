@@ -22,50 +22,47 @@
 #include "config.h"
 #include "fs_util.h"
 
-namespace dg
-{
-class ConfigFilter
-{
+namespace dg {
+class ConfigFilter {
 
 public:
 
-	static ConfigFilter *GetInstance()
-	{
-		if (!instance_)
-			instance_ = new ConfigFilter;
-		return instance_;
-	}
+    static ConfigFilter *GetInstance() {
+        if (!instance_)
+            instance_ = new ConfigFilter;
+        return instance_;
+    }
 
-	void createVehicleCaffeDetectorConfig(const Config &cconfig,
-			VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
-	void createAccelerateConfig(const Config &cconfig,
-			VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
-	void createFaceDetectorConfig(const Config &cconfig,
-			FaceDetector::FaceDetectorConfig &config);
-	void createFaceExtractorConfig(const Config &cconfig,
-			FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
-	void createVehicleConfig(const Config &cconfig,
-			vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
-	void createVehicleColorConfig(const Config &cconfig,
-			vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
-	void createVehiclePlateConfig(const Config &cconfig,
-			PlateRecognizer::PlateConfig &pConfig);
+    void createVehicleCaffeDetectorConfig(const Config &cconfig,
+                                          VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
+    void createAccelerateConfig(const Config &cconfig,
+                                VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
+    void createFaceDetectorConfig(const Config &cconfig,
+                                  FaceDetector::FaceDetectorConfig &config);
+    void createFaceExtractorConfig(const Config &cconfig,
+                                   FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+    void createVehicleConfig(const Config &cconfig,
+                             vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+    void createVehicleColorConfig(const Config &cconfig,
+                                  vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+    void createVehiclePlateConfig(const Config &cconfig,
+                                  PlateRecognizer::PlateConfig &pConfig);
 //    void createVehicleMutiTypeDetectorConfig(
 //        const Config &cconfig,
 //        VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
-	void createMarkersConfig(const Config &cconfig,
-			MarkerCaffeClassifier::MarkerConfig &mConfig);
-	void createWindowConfig(const Config &cconfig,
-			WindowCaffeDetector::WindowCaffeConfig &wConfig);
-	void createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig);
-	void createPedestrianConfig(const Config &cconfig,
-			PedestrianClassifier::PedestrianConfig &pConfig);
-	int initDataConfig(const Config &config);
+    void createMarkersConfig(const Config &cconfig,
+                             MarkerCaffeClassifier::MarkerConfig &mConfig);
+    void createWindowConfig(const Config &cconfig,
+                            WindowCaffeDetector::WindowCaffeConfig &wConfig);
+    void createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig);
+    void createPedestrianConfig(const Config &cconfig,
+                                PedestrianClassifier::PedestrianConfig &pConfig);
+    int initDataConfig(const Config &config);
 private:
-	ConfigFilter();
-	static ConfigFilter *instance_;
+    ConfigFilter();
+    static ConfigFilter *instance_;
 
-	Config data_config_;
+    Config data_config_;
 };
 
 }

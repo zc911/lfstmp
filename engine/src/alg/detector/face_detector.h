@@ -14,7 +14,7 @@ using namespace caffe;
 namespace dg {
 
 class FaceDetector {
- public:
+public:
     typedef struct {
         bool is_model_encrypt = false;
         int batch_size = 1;
@@ -30,13 +30,13 @@ class FaceDetector {
     virtual ~FaceDetector();
     vector<vector<Detection>> Detect(vector<Mat> imgs);
 
- private:
-    void Forward(const vector<Mat> &imgs, vector<Blob<float>*> &outputs);
-    void GetDetection(vector<Blob<float>*>& outputs,
+private:
+    void Forward(const vector<Mat> &imgs, vector<Blob<float> *> &outputs);
+    void GetDetection(vector<Blob<float> *> &outputs,
                       vector<vector<Detection>> &final_vbbox);
-    void NMS(vector<Detection>& p, float threshold);
+    void NMS(vector<Detection> &p, float threshold);
 
- private:
+private:
     caffe::shared_ptr<Net<float> > net_;
     int num_channels_;
     int batch_size_;

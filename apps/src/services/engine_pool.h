@@ -74,7 +74,7 @@ public:
     } WorkerStatus;
 
     MatrixEnginesPool(Config *config) : config_(config) {
-        stop_=true;
+        stop_ = true;
     }
 
     void PrintStastics() {
@@ -133,7 +133,6 @@ public:
                 });
             }
 
-
         }
 
         cout << "Engine pool worker number: " << workers_.size() << endl;
@@ -156,7 +155,7 @@ public:
 private:
     Config *config_;
     queue<CallData *> tasks_;
-  //  vector<WorkerStatus> worker_status_;
+    //  vector<WorkerStatus> worker_status_;
     vector<std::thread> workers_;
     std::mutex queue_mutex_;
     std::condition_variable condition_;
@@ -177,7 +176,7 @@ public:
             LOG(ERROR) << "The engine pool already runing" << endl;
             return;
         }
-        int threadNum=1;
+        int threadNum = 1;
         for (int i = 0; i < threadNum; ++i) {
             MessageType *engine = new MessageType(config_);
 
@@ -206,7 +205,6 @@ public:
                   task->Run();
               }
             });
-
 
         }
 

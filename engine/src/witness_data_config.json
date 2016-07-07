@@ -1,42 +1,41 @@
 {
-	"File"	: {
-		"Color"  : {
-			"ModelPath" : "models/color/",
-			"TrainedModel" : "zf_q_iter_70000.caffemodel",
-			"DeployModel" : "deploy.prototxt"
-		},
-		"Style"  : {
-			"ModelPath" : "models/car_style/front_day_",
-			"TrainedModel" : "/car_python_mini_alex_256_",
-			"DeployModel" : "/deploy_256.prototxt"
-		},
-		"Detection"  : {
-			"ModelPath" : "models/detector/",
-			"TrainedModel" : "googlenet_faster_rcnn_iter_350000.caffemodel",
-			"DeployModel" : "test.prototxt"
-		},
-		"Marker"  : {
-			"ModelPath" : "models/marker_model/",
-			"TrainedModel" : "frcnn_train_iter_100000.caffemodel",
-			"DeployModel" : "tiny_deploy.prototxt"
-		},
-		"Window"  : {
-			"ModelPath" : "models/window_model/",
-			"TrainedModel" : "car_python_mini_alex_256_5_iter_25000.caffemodel",
-			"DeployModel" : "window_deploy.prototxt"
-		},
-		"FaceDetect"  : {
-			"ModelPath" : "models/face/detect/",
-			"TrainedModel" : "googlenet_face_iter_100000.caffemodel",
-			"DeployModel" : "test.prototxt"
-		},
-		"FaceExtract"  : {
-			"ModelPath" : "models/face/feature/",
-			"TrainedModel" : "lcnn.caffemodel",
-			"DeployModel" : "lcnn.prototxt",
-			"AlignModel" : "shape_predictor_68_face_landmarks.dat",
-			"AlignPic":"avgface.jpg"
-		}
-	}
-
+  "File": {
+    "Color": {
+      "ModelPath": "models/color/",
+      "TrainedModel": "zf_q_iter_70000.caffemodel",
+      "DeployModel": "deploy.prototxt"
+    },
+    "Style": {
+      "ModelPath": "models/car_style/front_day_",
+      "TrainedModel": "/car_python_mini_alex_256_",
+      "DeployModel": "/deploy_256.prototxt"
+    },
+    "Detection": {
+      "ModelPath": "models/detector/",
+      "TrainedModel": "googlenet_faster_rcnn_iter_350000.caffemodel",
+      "DeployModel": "test.prototxt"
+    },
+    "Marker": {
+      "ModelPath": "models/marker_model/",
+      "TrainedModel": "frcnn_train_iter_100000.caffemodel",
+      "DeployModel": "tiny_deploy.prototxt"
+    },
+    "Window": {
+      "ModelPath": "models/window_model/",
+      "TrainedModel": "car_python_mini_alex_256_5_iter_25000.caffemodel",
+      "DeployModel": "window_deploy.prototxt"
+    },
+    "FaceDetect": {
+      "ModelPath": "models/face/detect/",
+      "TrainedModel": "googlenet_face_iter_100000.caffemodel",
+      "DeployModel": "test.prototxt"
+    },
+    "FaceExtract": {
+      "ModelPath": "models/face/feature/",
+      "TrainedModel": "lcnn.caffemodel",
+      "DeployModel": "lcnn.prototxt",
+      "AlignModel": "shape_predictor_68_face_landmarks.dat",
+      "AlignPic": "avgface.jpg"
+    }
+  }
 }

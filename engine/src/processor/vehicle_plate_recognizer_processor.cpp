@@ -31,7 +31,9 @@ bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
     vector<Vehicle::Plate> results = recognizer_->RecognizeBatch(images_);
     for (int i = 0; i < images_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
-        v->set_plate(results[i]);
+        vector<Vehicle::Plate> plates;
+        plates.push_back(results[i]);
+        v->set_plates(plates);
     }
     return true;
 }

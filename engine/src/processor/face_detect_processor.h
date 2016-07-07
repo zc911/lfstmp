@@ -16,12 +16,12 @@
 
 namespace dg {
 
-class FaceDetectProcessor : public Processor {
- public:
+class FaceDetectProcessor: public Processor {
+public:
     FaceDetectProcessor(FaceDetector::FaceDetectorConfig config);
     virtual ~FaceDetectProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
@@ -29,7 +29,7 @@ class FaceDetectProcessor : public Processor {
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 
- private:
+private:
     FaceDetector *detector_;
     int base_id_;
 };

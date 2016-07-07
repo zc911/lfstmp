@@ -18,7 +18,7 @@
 namespace dg {
 
 class MessageTube {
- public:
+public:
     MessageTube(const string addr, unsigned int queueSize,
                 unsigned int batchSize);
     virtual ~MessageTube();
@@ -26,11 +26,11 @@ class MessageTube {
     void InsertQueue(Frame *frame);
     int StartAsyn();
 
- private:
+private:
     void send();
     void sendToServer(vector<Message> &vehicleMsg);
 
- private:
+private:
     boost::circular_buffer<Message> *content_;
     boost::mutex mutex_;
     pthread_t tid_;

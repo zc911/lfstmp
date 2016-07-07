@@ -15,17 +15,17 @@
 
 namespace dg {
 
-class GrpcSkynetServiceImpl final : public SkynetService::Service
-{
+class GrpcSkynetServiceImpl final: public SkynetService::Service {
 public:
-    GrpcSkynetServiceImpl(const Config *config) : service_(config) {}
-    virtual ~GrpcSkynetServiceImpl() {}
+    GrpcSkynetServiceImpl(const Config *config) : service_(config) { }
+    virtual ~GrpcSkynetServiceImpl() { }
 
 private:
     SkynetAppsService service_;
 
-    virtual grpc::Status VideoRecognize(grpc::ServerContext* context, const SkynetRequest* request, SkynetResponse* response) override
-    {
+    virtual grpc::Status VideoRecognize(grpc::ServerContext *context,
+                                        const SkynetRequest *request,
+                                        SkynetResponse *response) override {
         return service_.VideoRecognize(request, response) ? grpc::Status::OK : grpc::Status::CANCELLED;
     }
 };
