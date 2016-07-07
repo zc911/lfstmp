@@ -23,12 +23,11 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     }
 
     batch_size_ = config.batch_size;
-    //  net_.reset(new Net<float>(config.deploy_file, TEST));
-
+    DLOG(INFO) << "Load deploy file: " << config.deploy_file << endl;
     net_.reset(
         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt, NULL));
+    DLOG(INFO) << "Load model file: " << config.model_file << endl;
     net_->CopyTrainedLayersFrom(config.model_file);
-    cout << config.model_file << endl;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
