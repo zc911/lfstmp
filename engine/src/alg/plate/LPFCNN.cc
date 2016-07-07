@@ -15,7 +15,7 @@ int LPFCNN_Create(LPDRModel_S stFCNN, int dwDevType, int dwDevID, LPDR_HANDLE *p
 
   //load model
 //  cout << "fcnn 0\n";
-  cout << strlen(stFCNN.pbySym) << endl;
+//  cout << strlen(stFCNN.pbySym) << endl;
   ret = MXSymbolCreateFromJSON(stFCNN.pbySym, &hSymbol);
 //  cout << "fcnn 1\n";
   pstModule->hSymbol = hSymbol;

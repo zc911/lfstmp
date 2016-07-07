@@ -393,6 +393,13 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 {
 	MatrixError err;
 	std::vector<Pedestrian::Attr> attrs = pobj->attrs();
+
+    const Detection &d = pobj->detection();
+
+    copyCutboard(d, vrec->mutable_img()->mutable_cutboard());
+    vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
+    string type = lookup_string(vehicle_type_repo_, pobj->type());
+    vrec->set_vehicletypename(type);
 	for(int i = 0; i < attrs.size(); i++)
 	{
 		PedestrianAttr *attr = vrec->add_pedestrianattrs();

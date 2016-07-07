@@ -37,7 +37,6 @@ static void networkInfo(int *rx, int *tx) {
         memset(id, 0, sizeof(id));
         FILE *out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
         if (out == NULL) {
-            fclose(out);
             return;
         }
 
