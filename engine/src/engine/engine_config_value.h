@@ -19,33 +19,33 @@ static const string SYSTEM_GPUID = "System/GpuId";
 // feature/vehicle
 static const string FEATURE_VEHICLE_ENABLE = "Feature/Vehicle/Enable";
 static const string FEATURE_VEHICLE_ENABLE_DETECTION =
-        "Feature/Vehicle/EnableDetection";
+    "Feature/Vehicle/EnableDetection";
 static const string FEATURE_VEHICLE_ENABLE_TYPE = "Feature/Vehicle/EnableType";
 static const string FEATURE_VEHICLE_ENABLE_COLOR = "Feature/Vehicle/EnableColor";
 static const string FEATURE_VEHICLE_ENABLE_PLATE = "Feature/Vehicle/EnablePlate";
 static const string FEATURE_VEHICLE_ENABLE_PLATE_ENHANCED =
-        "Feature/Vehicle/EnablePlateEnhanced";
+    "Feature/Vehicle/EnablePlateEnhanced";
 static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE =
-        "Feature/Vehicle/EnableGpuPlate";
+    "Feature/Vehicle/EnableGpuPlate";
 static const string FEATURE_VEHICLE_ENABLE_MARKER =
-        "Feature/Vehicle/EnableMarker";
+    "Feature/Vehicle/EnableMarker";
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
-        "Feature/Vehicle/EnableFeatureVector";
+    "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
-        "Feature/Vehicle/EnablePedestrianAttr";
+    "Feature/Vehicle/EnablePedestrianAttr";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =
-        "Feature/Face/EnableDetection";
+    "Feature/Face/EnableDetection";
 static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
-        "Feature/Face/EnableFeatureVector";
+    "Feature/Face/EnableFeatureVector";
 
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
 static const string DEBUG_ENABLE = "Debug/Enable";
 
 static const string ADVANCED_DETECTION_RESCALE = "Advanced/Detection/Rescale";
 static const string ADVANCED_DETECTION_BATCH_SIZE =
-        "Advanced/Detection/BatchSize";
+    "Advanced/Detection/BatchSize";
 
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/Color/BatchSize";
 static const string ADVANCED_COLOR_MODEL_NUM = "Advanced/Color/ModelNum";
@@ -57,31 +57,31 @@ static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 
 static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
 static const string ADVANCED_MARKER_MOT_CONFIDENCE =
-        "Advanced/Marker/MOTConfidence";
+    "Advanced/Marker/MOTConfidence";
 static const string ADVANCED_MARKER_BETLT_CONFIDENCE =
-        "Advanced/Marker/BeltConfidence";
+    "Advanced/Marker/BeltConfidence";
 static const string ADVANCED_MARKER_GLOBAL_CONFIDENCE =
-        "Advanced/Marker/GlobalConfidence";
+    "Advanced/Marker/GlobalConfidence";
 static const string ADVANCED_MARKER_ACCESSORIES_CONFIDENCE =
-        "Advanced/Marker/AccessoriesConfidence";
+    "Advanced/Marker/AccessoriesConfidence";
 static const string ADVANCED_MARKER_OTHERS_CONFIDENCE =
-        "Advanced/Marker/OthersConfidence";
+    "Advanced/Marker/OthersConfidence";
 static const string ADVANCED_MARKER_TISSUEBOX_CONFIDENCE =
-        "Advanced/Marker/TissueBoxConfidence";
+    "Advanced/Marker/TissueBoxConfidence";
 static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
-        "Advanced/Marker/SunVisorConfidence";
+    "Advanced/Marker/SunVisorConfidence";
 
 static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
-        "Advanced/FaceDetect/BatchSize";
+    "Advanced/FaceDetect/BatchSize";
 static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
 static const string ADVANCED_FACE_DETECT_CONFIDENCE =
-        "Advanced/FaceDetect/Confidence";
+    "Advanced/FaceDetect/Confidence";
 
 static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
-        "Advanced/FaceExtract/BatchSize";
+    "Advanced/FaceExtract/BatchSize";
 
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
-        "Advanced/Plate/LocalProvince";
+    "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
 static const string ADVANCED_PLATE_LOCATE = "Advanced/Plate/Locate";
 static const string ADVANCED_PLATE_ENBALE_SHARPEN = "Advanced/Plate/EnableSharp";
@@ -120,17 +120,17 @@ static const string FILE_WINDOW_DEPLOY_MODEL = "File/Window/DeployModel";
 
 static const string FILE_FACE_DETECT_MODEL_PATH = "File/FaceDetect/ModelPath";
 static const string FILE_FACE_DETECT_TRAINED_MODEL =
-        "File/FaceDetect/TrainedModel";
+    "File/FaceDetect/TrainedModel";
 static const string FILE_FACE_DETECT_DEPLOY_MODEL =
-        "File/FaceDetect/DeployModel";
+    "File/FaceDetect/DeployModel";
 
 static const string FILE_FACE_EXTRACT_MODEL_PATH = "File/FaceExtract/ModelPath";
 static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
-        "File/FaceExtract/TrainedModel";
+    "File/FaceExtract/TrainedModel";
 static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
-        "File/FaceExtract/DeployModel";
+    "File/FaceExtract/DeployModel";
 static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
-        "File/FaceExtract/AlignModel";
+    "File/FaceExtract/AlignModel";
 static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
 
 static const string FILE_PLATE_MODEL_PATH = "File/Plate/ModelPath";

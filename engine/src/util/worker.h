@@ -12,11 +12,9 @@
 #include <condition_variable>
 #include <deque>
 #include "thread_pool.h"
-namespace dg{
-
+namespace dg {
 
 }
-
 
 
 #endif /* SRC_UTIL_WORKER_H_ */

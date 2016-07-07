@@ -1,4 +1,3 @@
-
 /*
  * window_detector.cpp
  *
@@ -17,7 +16,7 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     if (config.use_gpu) {
         Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        LOG(INFO)<< "Use device " << config.gpu_id << endl;
+        LOG(INFO) << "Use device " << config.gpu_id << endl;
 
     } else {
         LOG(WARNING) << "Use CPU only" << endl;
@@ -25,26 +24,32 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     }
 
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+        new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 
-  //  net_.reset(
-   //     new Net<float>(config.deploy_file, TEST));
+    //  net_.reset(
+    //     new Net<float>(config.deploy_file, TEST));
 
     net_->CopyTrainedLayersFrom(config.model_file);
-    CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
+    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
                          input_geometry_.height, input_geometry_.width);
     net_->Reshape();
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
 
 }
 vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resized_imgs,
-                                                   const vector<cv::Mat> &imgs){
+                                                   const vector<cv::Mat> &imgs) {
     vector<Detection> crops;
     int padding_size = (caffe_config_.batch_size
         - imgs.size() % caffe_config_.batch_size)
@@ -68,10 +73,10 @@ vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resize
 
 vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
                                               vector<Mat> imgs) {
-    vector<Blob<float>*> window_outputs = PredictBatch(resized_imgs);
-    Blob<float>* window_reg = window_outputs[0];
-    const float* begin = window_reg->cpu_data();
-    const float* end = begin
+    vector<Blob<float> *> window_outputs = PredictBatch(resized_imgs);
+    Blob<float> *window_reg = window_outputs[0];
+    const float *begin = window_reg->cpu_data();
+    const float *end = begin
         + window_outputs[0]->channels() * resized_imgs.size();
 
     vector<float> output_batch = std::vector<float>(begin, end);
@@ -120,7 +125,7 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
 }
 void WindowCaffeDetector::PreprocessBatch(
     const vector<cv::Mat> imgs,
-    std::vector<std::vector<cv::Mat> >* input_batch) {
+    std::vector<std::vector<cv::Mat> > *input_batch) {
     Mat means_ = cv::Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
 
     for (int i = 0; i < imgs.size(); i++) {
@@ -168,7 +173,7 @@ void WindowCaffeDetector::PreprocessBatch(
 
     }
 }
-vector<Blob<float>*> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
+vector<Blob<float> *> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
     if (!device_setted_) {
         Caffe::SetDevice(caffe_config_.gpu_id);
         device_setted_ = true;
@@ -187,9 +192,9 @@ vector<Blob<float>*> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
     }
 
     /* Copy the output layer to a std::vector */
-    vector<Blob<float>*> outputs;
+    vector<Blob<float> *> outputs;
     for (int i = 0; i < net_->num_outputs(); i++) {
-        Blob<float>* output_layer = net_->output_blobs()[i];
+        Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
 
@@ -198,12 +203,12 @@ vector<Blob<float>*> WindowCaffeDetector::PredictBatch(const vector<Mat> imgs) {
 }
 void WindowCaffeDetector::WrapBatchInputLayer(
     std::vector<std::vector<cv::Mat> > *input_batch) {
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
 
     int width = input_layer->width();
     int height = input_layer->height();
     int num = input_layer->num();
-    float* input_data = input_layer->mutable_cpu_data();
+    float *input_data = input_layer->mutable_cpu_data();
     for (int j = 0; j < num; j++) {
         vector<cv::Mat> input_channels;
         for (int i = 0; i < input_layer->channels(); ++i) {

@@ -9,8 +9,8 @@
 namespace dg {
 
 CarRankEngine::CarRankEngine(const Config &config)
-        : RankEngine(config),
-          id_(0) {
+    : RankEngine(config),
+      id_(0) {
     processor_ = new CarRankProcessor();
 }
 
@@ -20,8 +20,8 @@ CarRankEngine::~CarRankEngine() {
     }
 }
 
-vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
-                                  const vector<CarRankFeature>& candidates) {
+vector<Score> CarRankEngine::Rank(const Mat &image, const Rect &hotspot,
+                                  const vector<CarRankFeature> &candidates) {
 
     vector<Rect> hotspots;
     hotspots.push_back(hotspot);
@@ -31,16 +31,16 @@ vector<Score> CarRankEngine::Rank(const Mat& image, const Rect& hotspot,
 }
 
 FaceRankEngine::FaceRankEngine(const Config &config)
-        : RankEngine(config),
-          id_(0) {
+    : RankEngine(config),
+      id_(0) {
     init(config);
 }
 void FaceRankEngine::init(const Config &config) {
 
     ConfigFilter *configFilter = ConfigFilter::GetInstance();
     if (!configFilter->initDataConfig(config)) {
-        LOG(ERROR)<<"can not init data config"<<endl;
-        DLOG(ERROR)<<"can not init data config"<<endl;
+        LOG(ERROR) << "can not init data config" << endl;
+        DLOG(ERROR) << "can not init data config" << endl;
         return;
     }
     FaceDetector::FaceDetectorConfig fdconfig;
@@ -60,15 +60,15 @@ FaceRankEngine::~FaceRankEngine() {
     delete ranker_;
 }
 
-vector<Score> FaceRankEngine::Rank(const Mat& image, const Rect& hotspot,
-                                   const vector<FaceRankFeature>& candidates) {
+vector<Score> FaceRankEngine::Rank(const Mat &image, const Rect &hotspot,
+                                   const vector<FaceRankFeature> &candidates) {
 
     Frame *frame = new Frame(0, image);
 
     Operation op;
 
     op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-            | OPERATION_FACE_FEATURE_VECTOR);
+               | OPERATION_FACE_FEATURE_VECTOR);
 
     frame->set_operation(op);
 

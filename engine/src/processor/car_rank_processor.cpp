@@ -41,8 +41,8 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     t_profiler_str_ = "TotalMatching";
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
-        if(score[i])
-        topx[i] = Score(i, score[i]);
+        if (score[i])
+            topx[i] = Score(i, score[i]);
     }
 
     return topx;
@@ -61,7 +61,7 @@ bool CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 bool CarRankProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_RANK,performance_);
+    return RecordPerformance(FEATURE_CAR_RANK, performance_);
 
 }
 }

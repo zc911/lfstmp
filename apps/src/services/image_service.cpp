@@ -68,9 +68,9 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
         for (int i = 0; i < imgs.size(); ++i) {
             pool->enqueue(
                 [&roiimages, &finishCount, &countmt, &cv](WitnessImage &img,
-                                                                   int size,
-                                                                   unsigned int timeout,
-                                                                   int index) {
+                                                          int size,
+                                                          unsigned int timeout,
+                                                          int index) {
                   cv::Mat mat;
                   if (img.data().uri().size() > 0) {
                       getImageFromUri(img.data().uri(), mat, timeout);
@@ -204,8 +204,6 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
     MatrixError ok;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin, timeout);
-   // string test=Base64::Encode(bin);
-  //  WriteToFile("warmup.dat",(char *)test.c_str(),test.length());
     if (ret == 0) {
         decodeDataToMat(bin, imgMat);
     } else {

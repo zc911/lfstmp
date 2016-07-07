@@ -1,15 +1,25 @@
 syntax = "proto3";
 
-package dg.model;
+package
+dg.model;
 import "common.proto";
 
 
-
 // ## Business Intelligence APIs
-service SpringService {
+service
+SpringService
+{
     // ### Index APIs
-    rpc IndexVehicle(VehicleObj) returns (NullMessage) {}
-    rpc BingoVehicle(VehicleObj) returns(NullMessage){}
+    rpc
+    IndexVehicle(VehicleObj)
+    returns(NullMessage)
+    {
+    }
+    rpc
+    BingoVehicle(VehicleObj)
+    returns(NullMessage)
+    {
+    }
 
 }
 

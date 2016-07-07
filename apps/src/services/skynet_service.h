@@ -17,13 +17,13 @@ using namespace ::dg::model;
 
 class SkynetAppsService {
 
- public:
+public:
     SkynetAppsService(const Config *config);
     virtual ~SkynetAppsService();
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
 
- private:
+private:
     const Config *config_;
 
 };

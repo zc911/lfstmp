@@ -22,162 +22,162 @@ namespace model {
 
 namespace {
 
-const ::google::protobuf::Descriptor* Time_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Time_reflection_ = NULL;
-const ::google::protobuf::Descriptor* MatrixError_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  MatrixError_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor_ = NULL;
+const ::google::protobuf::Descriptor *Time_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    Time_reflection_ = NULL;
+const ::google::protobuf::Descriptor *MatrixError_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    MatrixError_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor *RecognizeType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor *RecognizeFunctions_descriptor_ = NULL;
 
 }  // namespace
 
 
 void protobuf_AssignDesc_localcommon_2eproto() {
-  protobuf_AddDesc_localcommon_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "localcommon.proto");
-  GOOGLE_CHECK(file != NULL);
-  Time_descriptor_ = file->message_type(0);
-  static const int Time_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, seconds_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, nanosecs_),
-  };
-  Time_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      Time_descriptor_,
-      Time::default_instance_,
-      Time_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(Time),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _is_default_instance_));
-  MatrixError_descriptor_ = file->message_type(1);
-  static const int MatrixError_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, code_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, message_),
-  };
-  MatrixError_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      MatrixError_descriptor_,
-      MatrixError::default_instance_,
-      MatrixError_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(MatrixError),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _is_default_instance_));
-  RecognizeType_descriptor_ = file->enum_type(0);
-  RecognizeFunctions_descriptor_ = file->enum_type(1);
+    protobuf_AddDesc_localcommon_2eproto();
+    const ::google::protobuf::FileDescriptor *file =
+        ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+            "localcommon.proto");
+    GOOGLE_CHECK(file != NULL);
+    Time_descriptor_ = file->message_type(0);
+    static const int Time_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, seconds_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, nanosecs_),
+    };
+    Time_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            Time_descriptor_,
+            Time::default_instance_,
+            Time_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(Time),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Time, _is_default_instance_));
+    MatrixError_descriptor_ = file->message_type(1);
+    static const int MatrixError_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, code_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, message_),
+    };
+    MatrixError_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            MatrixError_descriptor_,
+            MatrixError::default_instance_,
+            MatrixError_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(MatrixError),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _is_default_instance_));
+    RecognizeType_descriptor_ = file->enum_type(0);
+    RecognizeFunctions_descriptor_ = file->enum_type(1);
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
 inline void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_localcommon_2eproto);
+    ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                                       &protobuf_AssignDesc_localcommon_2eproto);
 }
 
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Time_descriptor_, &Time::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      MatrixError_descriptor_, &MatrixError::default_instance());
+void protobuf_RegisterTypes(const ::std::string &) {
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        Time_descriptor_, &Time::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        MatrixError_descriptor_, &MatrixError::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_localcommon_2eproto() {
-  delete Time::default_instance_;
-  delete Time_reflection_;
-  delete MatrixError::default_instance_;
-  delete MatrixError_reflection_;
+    delete Time::default_instance_;
+    delete Time_reflection_;
+    delete MatrixError::default_instance_;
+    delete MatrixError_reflection_;
 }
 
 void protobuf_AddDesc_localcommon_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
+    static bool already_here = false;
+    if (already_here) return;
+    already_here = true;
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\021localcommon.proto\022\010dg.model\")\n\004Time\022\017\n"
-    "\007Seconds\030\001 \001(\003\022\020\n\010NanoSecs\030\002 \001(\003\",\n\013Matr"
-    "ixError\022\014\n\004Code\030\001 \001(\005\022\017\n\007Message\030\002 \001(\t*`"
-    "\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n"
-    "\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020"
-    "\n\014REC_TYPE_ALL\020\003*\366\002\n\022RecognizeFunctions\022"
-    "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
-    "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
-    "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
-    "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_V"
-    "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
-    "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
-    "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
-    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013\022#\n\037"
-    "RECFUNC_VEHICLE_PEDESTRIAN_ATTR\020\014b\006proto"
-    "3", 601);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "localcommon.proto", &protobuf_RegisterTypes);
-  Time::default_instance_ = new Time();
-  MatrixError::default_instance_ = new MatrixError();
-  Time::default_instance_->InitAsDefaultInstance();
-  MatrixError::default_instance_->InitAsDefaultInstance();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_localcommon_2eproto);
+    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+        "\n\021localcommon.proto\022\010dg.model\")\n\004Time\022\017\n"
+            "\007Seconds\030\001 \001(\003\022\020\n\010NanoSecs\030\002 \001(\003\",\n\013Matr"
+            "ixError\022\014\n\004Code\030\001 \001(\005\022\017\n\007Message\030\002 \001(\t*`"
+            "\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n"
+            "\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020"
+            "\n\014REC_TYPE_ALL\020\003*\366\002\n\022RecognizeFunctions\022"
+            "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
+            "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
+            "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
+            "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_V"
+            "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
+            "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
+            "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
+            "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013\022#\n\037"
+            "RECFUNC_VEHICLE_PEDESTRIAN_ATTR\020\014b\006proto"
+            "3", 601);
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+        "localcommon.proto", &protobuf_RegisterTypes);
+    Time::default_instance_ = new Time();
+    MatrixError::default_instance_ = new MatrixError();
+    Time::default_instance_->InitAsDefaultInstance();
+    MatrixError::default_instance_->InitAsDefaultInstance();
+    ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_localcommon_2eproto);
 }
 
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_localcommon_2eproto {
-  StaticDescriptorInitializer_localcommon_2eproto() {
-    protobuf_AddDesc_localcommon_2eproto();
-  }
+    StaticDescriptorInitializer_localcommon_2eproto() {
+        protobuf_AddDesc_localcommon_2eproto();
+    }
 } static_descriptor_initializer_localcommon_2eproto_;
-const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RecognizeType_descriptor_;
+const ::google::protobuf::EnumDescriptor *RecognizeType_descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return RecognizeType_descriptor_;
 }
 bool RecognizeType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
+    switch (value) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            return true;
+        default:
+            return false;
+    }
 }
 
-const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RecognizeFunctions_descriptor_;
+const ::google::protobuf::EnumDescriptor *RecognizeFunctions_descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return RecognizeFunctions_descriptor_;
 }
 bool RecognizeFunctions_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-      return true;
-    default:
-      return false;
-  }
+    switch (value) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+            return true;
+        default:
+            return false;
+    }
 }
 
 
@@ -185,7 +185,7 @@ namespace {
 
 static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+    GOOGLE_CHECK(false) << __FILE__ << ":" << line;
 }
 
 }  // namespace
@@ -199,63 +199,63 @@ const int Time::kNanoSecsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Time::Time()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.Time)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.Time)
 }
 
 void Time::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-Time::Time(const Time& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.Time)
+Time::Time(const Time &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.Time)
 }
 
 void Time::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  seconds_ = GOOGLE_LONGLONG(0);
-  nanosecs_ = GOOGLE_LONGLONG(0);
+    _cached_size_ = 0;
+    seconds_ = GOOGLE_LONGLONG(0);
+    nanosecs_ = GOOGLE_LONGLONG(0);
 }
 
 Time::~Time() {
-  // @@protoc_insertion_point(destructor:dg.model.Time)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.Time)
+    SharedDtor();
 }
 
 void Time::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void Time::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* Time::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Time_descriptor_;
-}
-
-const Time& Time::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_localcommon_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *Time::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return Time_descriptor_;
 }
 
-Time* Time::default_instance_ = NULL;
+const Time &Time::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_localcommon_2eproto();
+    return *default_instance_;
+}
 
-Time* Time::New(::google::protobuf::Arena* arena) const {
-  Time* n = new Time;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+Time *Time::default_instance_ = NULL;
+
+Time *Time::New(::google::protobuf::Arena *arena) const {
+    Time *n = new Time;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void Time::Clear() {
@@ -267,7 +267,7 @@ void Time::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(seconds_, nanosecs_);
+    ZR_(seconds_, nanosecs_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -275,177 +275,177 @@ void Time::Clear() {
 }
 
 bool Time::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.Time)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Seconds = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &seconds_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.Time)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int64 Seconds = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        input, &seconds_)));
 
-        } else {
-          goto handle_unusual;
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(16)) goto parse_NanoSecs;
+                break;
+            }
+
+                // optional int64 NanoSecs = 2;
+            case 2: {
+                if (tag == 16) {
+                    parse_NanoSecs:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        input, &nanosecs_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
+
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        if (input->ExpectTag(16)) goto parse_NanoSecs;
-        break;
-      }
-
-      // optional int64 NanoSecs = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_NanoSecs:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &nanosecs_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.Time)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.Time)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.Time)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.Time)
+    return false;
 #undef DO_
 }
 
 void Time::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.Time)
-  // optional int64 Seconds = 1;
-  if (this->seconds() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->seconds(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.Time)
+    // optional int64 Seconds = 1;
+    if (this->seconds() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->seconds(), output);
+    }
 
-  // optional int64 NanoSecs = 2;
-  if (this->nanosecs() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->nanosecs(), output);
-  }
+    // optional int64 NanoSecs = 2;
+    if (this->nanosecs() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->nanosecs(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.Time)
+    // @@protoc_insertion_point(serialize_end:dg.model.Time)
 }
 
-::google::protobuf::uint8* Time::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.Time)
-  // optional int64 Seconds = 1;
-  if (this->seconds() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->seconds(), target);
-  }
+::google::protobuf::uint8 *Time::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.Time)
+    // optional int64 Seconds = 1;
+    if (this->seconds() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->seconds(), target);
+    }
 
-  // optional int64 NanoSecs = 2;
-  if (this->nanosecs() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->nanosecs(), target);
-  }
+    // optional int64 NanoSecs = 2;
+    if (this->nanosecs() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->nanosecs(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.Time)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.Time)
+    return target;
 }
 
 int Time::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int64 Seconds = 1;
-  if (this->seconds() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->seconds());
-  }
+    // optional int64 Seconds = 1;
+    if (this->seconds() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int64Size(
+                this->seconds());
+    }
 
-  // optional int64 NanoSecs = 2;
-  if (this->nanosecs() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->nanosecs());
-  }
+    // optional int64 NanoSecs = 2;
+    if (this->nanosecs() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int64Size(
+                this->nanosecs());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void Time::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Time* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Time>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void Time::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const Time *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const Time>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void Time::MergeFrom(const Time& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.seconds() != 0) {
-    set_seconds(from.seconds());
-  }
-  if (from.nanosecs() != 0) {
-    set_nanosecs(from.nanosecs());
-  }
+void Time::MergeFrom(const Time &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.seconds() != 0) {
+        set_seconds(from.seconds());
+    }
+    if (from.nanosecs() != 0) {
+        set_nanosecs(from.nanosecs());
+    }
 }
 
-void Time::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void Time::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void Time::CopyFrom(const Time& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void Time::CopyFrom(const Time &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool Time::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void Time::Swap(Time* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void Time::Swap(Time *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void Time::InternalSwap(Time* other) {
-  std::swap(seconds_, other->seconds_);
-  std::swap(nanosecs_, other->nanosecs_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void Time::InternalSwap(Time *other) {
+    std::swap(seconds_, other->seconds_);
+    std::swap(nanosecs_, other->nanosecs_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Time::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Time_descriptor_;
-  metadata.reflection = Time_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = Time_descriptor_;
+    metadata.reflection = Time_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -489,258 +489,258 @@ const int MatrixError::kMessageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 MatrixError::MatrixError()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.MatrixError)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.MatrixError)
 }
 
 void MatrixError::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-MatrixError::MatrixError(const MatrixError& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.MatrixError)
+MatrixError::MatrixError(const MatrixError &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.MatrixError)
 }
 
 void MatrixError::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  code_ = 0;
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::google::protobuf::internal::GetEmptyString();
+    _cached_size_ = 0;
+    code_ = 0;
+    message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 MatrixError::~MatrixError() {
-  // @@protoc_insertion_point(destructor:dg.model.MatrixError)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.MatrixError)
+    SharedDtor();
 }
 
 void MatrixError::SharedDtor() {
-  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-  }
+    message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (this != default_instance_) {
+    }
 }
 
 void MatrixError::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* MatrixError::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return MatrixError_descriptor_;
-}
-
-const MatrixError& MatrixError::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_localcommon_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *MatrixError::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return MatrixError_descriptor_;
 }
 
-MatrixError* MatrixError::default_instance_ = NULL;
+const MatrixError &MatrixError::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_localcommon_2eproto();
+    return *default_instance_;
+}
 
-MatrixError* MatrixError::New(::google::protobuf::Arena* arena) const {
-  MatrixError* n = new MatrixError;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+MatrixError *MatrixError::default_instance_ = NULL;
+
+MatrixError *MatrixError::New(::google::protobuf::Arena *arena) const {
+    MatrixError *n = new MatrixError;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void MatrixError::Clear() {
-  code_ = 0;
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    code_ = 0;
+    message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool MatrixError::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.MatrixError)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 Code = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &code_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.MatrixError)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int32 Code = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &code_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Message;
-        break;
-      }
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Message;
+                break;
+            }
 
-      // optional string Message = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Message:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_message()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->message().data(), this->message().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.MatrixError.Message"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // optional string Message = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Message:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_message()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->message().data(), this->message().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.MatrixError.Message"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.MatrixError)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.MatrixError)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.MatrixError)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.MatrixError)
+    return false;
 #undef DO_
 }
 
 void MatrixError::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.MatrixError)
-  // optional int32 Code = 1;
-  if (this->code() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->code(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.MatrixError)
+    // optional int32 Code = 1;
+    if (this->code() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->code(), output);
+    }
 
-  // optional string Message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.MatrixError.Message");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->message(), output);
-  }
+    // optional string Message = 2;
+    if (this->message().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.MatrixError.Message");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            2, this->message(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.MatrixError)
+    // @@protoc_insertion_point(serialize_end:dg.model.MatrixError)
 }
 
-::google::protobuf::uint8* MatrixError::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.MatrixError)
-  // optional int32 Code = 1;
-  if (this->code() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->code(), target);
-  }
+::google::protobuf::uint8 *MatrixError::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.MatrixError)
+    // optional int32 Code = 1;
+    if (this->code() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->code(), target);
+    }
 
-  // optional string Message = 2;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.MatrixError.Message");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->message(), target);
-  }
+    // optional string Message = 2;
+    if (this->message().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.MatrixError.Message");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                2, this->message(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.MatrixError)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.MatrixError)
+    return target;
 }
 
 int MatrixError::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int32 Code = 1;
-  if (this->code() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->code());
-  }
+    // optional int32 Code = 1;
+    if (this->code() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->code());
+    }
 
-  // optional string Message = 2;
-  if (this->message().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->message());
-  }
+    // optional string Message = 2;
+    if (this->message().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->message());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void MatrixError::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const MatrixError* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const MatrixError>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void MatrixError::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const MatrixError *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const MatrixError>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void MatrixError::MergeFrom(const MatrixError& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.code() != 0) {
-    set_code(from.code());
-  }
-  if (from.message().size() > 0) {
+void MatrixError::MergeFrom(const MatrixError &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.code() != 0) {
+        set_code(from.code());
+    }
+    if (from.message().size() > 0) {
 
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
-  }
+        message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+    }
 }
 
-void MatrixError::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void MatrixError::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void MatrixError::CopyFrom(const MatrixError& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void MatrixError::CopyFrom(const MatrixError &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool MatrixError::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void MatrixError::Swap(MatrixError* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void MatrixError::Swap(MatrixError *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void MatrixError::InternalSwap(MatrixError* other) {
-  std::swap(code_, other->code_);
-  message_.Swap(&other->message_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void MatrixError::InternalSwap(MatrixError *other) {
+    std::swap(code_, other->code_);
+    message_.Swap(&other->message_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata MatrixError::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = MatrixError_descriptor_;
-  metadata.reflection = MatrixError_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = MatrixError_descriptor_;
+    metadata.reflection = MatrixError_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS

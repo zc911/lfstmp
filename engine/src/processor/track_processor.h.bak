@@ -23,13 +23,13 @@ extern float min(float i, float j);
 extern float calc_size_rto(int i, int j);
 extern float length(float i, float j);
 
-class TrackProcessor : public Processor {
+class TrackProcessor: public Processor {
 
- public:
+public:
     TrackProcessor(RingBuffer *buffer, int detectionInterval);
     ~TrackProcessor();
     void Update(Frame *frame);
- private:
+private:
     // parameters
     int height_;
     int width_;
@@ -62,8 +62,8 @@ class TrackProcessor : public Processor {
     // poly fit to get spatial size of the car
     int max_line_pnt_num_;
     float *line_;
-    CvMemStorage* line_fit_storage_;
-    CvSeq* line_fit_point_seq_;
+    CvMemStorage *line_fit_storage_;
+    CvSeq *line_fit_point_seq_;
     // main procedure
     void process_key_frame(Frame *current_frame);
     // main algorithm
@@ -106,22 +106,22 @@ class TrackProcessor : public Processor {
     bool is_in_disable_area(Box &b);
 };
 
-class TrackProcessorRef : public ProcessorRef {
- public:
+class TrackProcessorRef: public ProcessorRef {
+public:
     TrackProcessorRef(RingBuffer *buffer, int detectionInterval) {
         proc_ = new TrackProcessor(buffer, detectionInterval);
     }
     ~TrackProcessorRef() {
     }
 
-    Frame* operator()(Frame* f) {
+    Frame *operator()(Frame *f) {
 //ProfilerRegisterThread();
-        DLOG(INFO)<< "Track frame start: " << f << "-" << f->FrameId() << "-"
-        << f->GetStatus() << endl;
+        DLOG(INFO) << "Track frame start: " << f << "-" << f->FrameId() << "-"
+            << f->GetStatus() << endl;
         proc_->Update(f);
 
         DLOG(INFO) << "Track frame end: " << f << "-" << f->FrameId() << "-"
-        << f->GetStatus() << endl;
+            << f->GetStatus() << endl;
         return f;
     }
 
