@@ -631,7 +631,7 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   
   int dwSepY = pstIIR->dwSepY;
   
-#if LPDR_DBG&1
+#if LPDR_DBG
   cv::Mat gimg(pstIIR->dwH, pstIIR->dwW, CV_32FC1, pstIIR->pfImage_1);
   cv::Mat cimg(pstIIR->dwH, pstIIR->dwW, CV_32FC3);
   cv::cvtColor(gimg, cimg, CV_GRAY2BGR);
@@ -643,7 +643,7 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   cv::line(cimg, cv::Point(dwX0, dwSepY), cv::Point(dwX1, dwSepY), CV_RGB(0, 255, 0), 2, 8, 0);
   cv::imshow("rectify", cimg);
   cout << "rectify" << endl;
-  cv::waitKey(0);
+  cv::waitKey(10);
 #endif
   
   //////////////////////////////////////////
@@ -696,21 +696,22 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
   }
   else if (rects_out.size()==2)
   {
+    int dwRetUp, dwRetDn;
     LPDRInfo_S stOut0, stOut1;
     
     fStrechRatio = 5.5;
     fShrinkRatio = 0.8;
     dwStep = 4;
-    dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 2.0f, &stOut0);
+    dwRetUp = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 2.0f, &stOut0);
     
 //    if (!dwRet)
     {
       fStrechRatio = 5.5;
       fShrinkRatio = 1.0;
       dwStep = 4;
-      dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[1], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut1);
+      dwRetDn = doRecogOneRow(hChRecog, &stImage, rects_out[1], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut1);
       
-      if (!dwRet)
+      if (!dwRetDn)
       {
         pstOut->dwLPLen = 0;
         pstOut->fAllScore = 0.f;
@@ -732,9 +733,16 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
         pstOut->fAllScore += stOut1.fAllScore;
         
         pstOut->dwType = LP_TYPE_DOUBLE;
+        
+        if (stOut0.dwLPLen == 0) //maybe wrong seperator
+        {
+          pstOut->dwType = LP_TYPE_SINGLE;
+          pstIIR->rect.dwY0 = dwSepY;
+        }
       }
     }
   }
+  
   
   dwRet = mainlandLPCheck(pstOut);
 
@@ -1337,7 +1345,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
   LPDRInfo_S *pstLPDR = 0;
   int adwBB[4];
   float fH = 0.f, fS = 0.f, fV = 0.f;
-  int adwColorsHist[9], dwMaxColor, dwMaxValue;
+  int adwColorsHist[9], adwIdxs[9], dwTmpValue;
   
   for (dwSI = 0; dwSI < dwImgNum; dwSI++)
   {
@@ -1348,10 +1356,12 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
     for (dwLI = 0; dwLI < dwLPNum; dwLI++)
     {
       pstLPDR = &pstOutputSet->astLPSet[dwSI].astLPs[dwLI];
-      adwBB[0] = pstLPDR->adwLPRect[0];
-      adwBB[1] = pstLPDR->adwLPRect[1];
-      adwBB[2] = pstLPDR->adwLPRect[2];
-      adwBB[3] = pstLPDR->adwLPRect[3];
+      int dwBBH = pstLPDR->adwLPRect[3] - pstLPDR->adwLPRect[1] + 1;
+      int dwBBW = pstLPDR->adwLPRect[2] - pstLPDR->adwLPRect[0] + 1;
+      adwBB[0] = pstLPDR->adwLPRect[0] + dwBBW/12;
+      adwBB[1] = pstLPDR->adwLPRect[1] + dwBBH/8;
+      adwBB[2] = pstLPDR->adwLPRect[2] - dwBBW/12;
+      adwBB[3] = pstLPDR->adwLPRect[3] - dwBBH/8;
       memset(adwColorsHist, 0, sizeof(int)*9);
       for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
       {
@@ -1360,15 +1370,16 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
         {
           pubyBGR = pubyRow + dwCI * 3;
           cvtRGB2HSV_U8(pubyBGR[2], pubyBGR[1], pubyBGR[0], &fH, &fS, &fV);
-          if (fS > 0.16f && fV > 0.08)
+//          printf("%.2f,%.2f,%.2f; ", fH, fS, fV);
+          if (fS > 0.16f && fV > 0.20)
           {
 //            if (fH > 30.f && fH < 50.f) //0~240
-            if (fH > 45.f && fH < 75.f) //0~360
+            if (fH > 20.f && fH < 75.f) //0~360
             {
               adwColorsHist[LP_COLOUR_YELLOW]++;
             }
 //            else if (fH > 130.f && fH < 180.f)
-            else if (fH > 195.f && fH < 270.f)
+            else if (fH > 180.f && fH < 270.f)
             {
               adwColorsHist[LP_COLOUR_BLUE]++;
             }
@@ -1383,33 +1394,61 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
               adwColorsHist[LP_COLOUR_RED]++;
             }
           }
-          else if (fS < 0.16f && fV > 0.4)
+          else if (fS < 0.45f && fV > 0.4)
+//          else if (fV > 0.3)
           {
             adwColorsHist[LP_COLOUR_WHITE]++;
           }
-          else if (fS < 0.16f && fV < 0.4)
+          else if (fS < 0.45f && fV < 0.4)
+//          else if (fV < 0.3)
           {
             adwColorsHist[LP_COLOUR_BLACK]++;
           }
         }
       }
-#if LPDR_DBG
+      
       for (int dwI = 0; dwI < 9; dwI++)
       {
-        printf("%d:%d, ", dwI, adwColorsHist[dwI]);
+        adwIdxs[dwI] = dwI;
+      }
+      
+      dwTmpValue = 0;
+      for (int dwI = 0; dwI < 8; dwI++)
+      {
+        for (int dwJ = dwI + 1; dwJ < 9; dwJ++)
+        {
+          if (adwColorsHist[dwI] < adwColorsHist[dwJ])
+          {
+            dwTmpValue = adwColorsHist[dwI];
+            adwColorsHist[dwI] = adwColorsHist[dwJ];
+            adwColorsHist[dwJ] = dwTmpValue;
+            
+            dwTmpValue = adwIdxs[dwI];
+            adwIdxs[dwI] = adwIdxs[dwJ];
+            adwIdxs[dwJ] = dwTmpValue;
+          }
+        }
+      }
+      
+#if LPDR_DBG
+      cv::Mat cimg(dwImgH, dwImgW, CV_8UC3, pubyImgData);
+      cv::Mat subcimg = cimg(cv::Range(adwBB[1], adwBB[3]), cv::Range(adwBB[0], adwBB[2]));
+      cv::imshow("hello", subcimg);
+      cv::waitKey(10);
+      string astrColors[9] = {"0.WHITE", "1.SILVER", "2.YELLOW", "3.PINK", "4.RED", "5.GREEN", "6.BLUE", "7.BROWN", "8.BLACK"};
+      for (int dwI = 0; dwI < 9; dwI++)
+      {
+        printf("%s:%d, ", astrColors[adwIdxs[dwI]].c_str(), adwColorsHist[dwI]);
       }
       printf("\n");
 #endif
-      dwMaxColor = 0;
-      dwMaxValue = 0;
-      for (int dwI = 0; dwI < 9; dwI++)
+      int dwMaxColor = adwIdxs[0];
+      
+      if ((adwIdxs[0] == 0 || adwIdxs[0] == 8 || adwIdxs[0] == 5) && (adwIdxs[1] == 2 || adwIdxs[1] == 6 || adwIdxs[1] == 5) && adwColorsHist[0]*40 < adwColorsHist[1]*100)
       {
-        if (dwMaxValue < adwColorsHist[dwI])
-        {
-          dwMaxValue = adwColorsHist[dwI];
-          dwMaxColor = dwI;
-        }
+        dwMaxColor = adwIdxs[1];
       }
+      
       pstLPDR->dwColor = dwMaxColor;
     }
 
