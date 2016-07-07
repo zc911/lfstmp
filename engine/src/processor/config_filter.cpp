@@ -135,6 +135,7 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
 			FILE_DETECTION_TRAINED_MODEL);
 	string deploy_model = (string) data_config_.Value(
 			FILE_DETECTION_DEPLOY_MODEL);
+
 	bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 	int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
 	int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);

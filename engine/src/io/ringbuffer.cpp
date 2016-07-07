@@ -5,15 +5,18 @@ namespace dg {
 RingBuffer::RingBuffer(unsigned int buffSize, unsigned int frameWidth,
                        unsigned int frameHeight)
     : buffer_size_(buffSize),
-      max_frame_width_(frameWidth),
-      max_frame_height_(frameHeight),
+      frame_width_(frameWidth),
+      frame_height_(frameHeight),
       cur_write_pos_(-1),
       cur_read_pos_(-1),
       cur_tracked_pos_(0) {
+
     content_ = vector<Frame *>(buffer_size_);
+    // pre-init the content in the buffer
     for (int i = 0; i < buffer_size_; ++i) {
         content_[i] = new Frame(-1, frameWidth, frameHeight, NULL);
     }
+
 }
 
 RingBuffer::~RingBuffer() {
@@ -24,42 +27,6 @@ RingBuffer::~RingBuffer() {
         }
     }
 }
-
-//void RingBuffer::SetFrame(Frame *f) {
-//    if (f == NULL) {
-//        DLOG(INFO) << "Set NULL frame" << endl;
-//        return;
-//    }
-//    int pos = cur_write_pos_ + 1;
-//    if (pos >= buffer_size_) {
-//        pos = 0;
-//    }
-//    Frame *oldFrame = content_[pos];
-//    unsigned long long frameSleep = 0;
-//
-//    while (oldFrame != NULL
-//        && (oldFrame->GetStatus() & FRAME_STATUS_FINISHED) == 0) {
-//        DLOG(INFO) << "Can not Write frame " << dec << f->FrameId() << ". The old frame status: " << dec
-//            << oldFrame->GetStatus() << " id: " << dec << oldFrame->FrameId() << "address: " << dec << oldFrame << endl;
-//        return;
-//        usleep(RAW_FRAME_SLEEP_INTERVAL);
-//        frameSleep += RAW_FRAME_SLEEP_INTERVAL;
-//        if (frameSleep >= RAW_FRAME_SLEEP_TIMEOUT) {
-//            LOG(WARNING) << "Frame raw sleep timeout" << endl;
-//            delete f;
-//            return;
-//        }
-//
-//        oldFrame = content_[pos];
-//    }
-//    if (oldFrame != NULL) {
-//        delete oldFrame;
-//    }
-//    cur_write_pos_ = pos;
-//    content_[cur_write_pos_] = f;
-//    DLOG(INFO) << "Write frame: " << content_[cur_write_pos_]->FrameId() << endl;
-//
-//}
 
 void RingBuffer::SetFrame(long long frameId, unsigned int dataWidth,
                           unsigned int dataHeight, unsigned char *data) {
@@ -88,7 +55,7 @@ void RingBuffer::SetFrame(long long frameId, unsigned int dataWidth,
     oldFrame->set_id(frameId);
     oldFrame->payload()->Update(dataWidth, dataHeight, data);
     oldFrame->set_status(FRAME_STATUS_NEW);
-    oldFrame->set_status(FRAME_STATUS_ABLE_TO_DISPLAY);
+
     cur_write_pos_ = pos;
 
 }
