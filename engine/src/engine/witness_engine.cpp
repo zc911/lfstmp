@@ -175,7 +175,7 @@ void WitnessEngine::init(const Config &config)
 		if (enable_vehicle_detect_)
 		{
 
-			VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
+			CarOnlyCaffeDetector::VehicleCaffeDetectorConfig dConfig;
 			configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
 			Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
 			if (last == NULL)
@@ -190,7 +190,7 @@ void WitnessEngine::init(const Config &config)
 		}
 		else
 		{
-			VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
+			CarOnlyCaffeDetector::VehicleCaffeDetectorConfig dConfig;
 			configFilter->createAccelerateConfig(config, dConfig);
 			Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
 			if (last == NULL)

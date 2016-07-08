@@ -21,7 +21,7 @@ class VehicleMultiTypeDetectorProcessor: public Processor {
 public:
 
     VehicleMultiTypeDetectorProcessor(
-        const VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
+        const VehicleDetector::VehicleCaffeDetectorConfig &config);
 
     ~VehicleMultiTypeDetectorProcessor();
 
@@ -37,9 +37,8 @@ protected:
     bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
 
- private:
-
-    VehicleCaffeDetector *detector_;
+private:
+    VehicleDetector *detector_;
     int base_id_;
 
 };
