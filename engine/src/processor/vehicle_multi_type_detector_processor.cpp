@@ -1,12 +1,19 @@
+#include "alg/detector/vehicle_caffe_detector.h"
 #include "vehicle_multi_type_detector_processor.h"
+#include "alg/detector/car_only_caffe_detector.h"
 #include "processor_helper.h"
+
 namespace dg {
 
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
     const VehicleCaffeDetector::VehicleCaffeDetectorConfig &config)
     : Processor() {
+    if (config.car_only) {
+        detector_ = new CarOnlyCaffeDetector(config);
+    } else {
+        detector_ = new VehicleCaffeDetector(config);
+    }
 
-    detector_ = new VehicleCaffeDetector(config);
     base_id_ = 0;
 }
 
@@ -29,7 +36,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
         if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
 
-           DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
+            DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
             continue;
         }
 
