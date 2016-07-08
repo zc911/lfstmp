@@ -5,7 +5,8 @@
  *      Author: jiajaichen
  */
 
-#include "vehicle_confirm_caffe_detector.h"
+#include "car_only_confirm_caffe_detector.h"
+
 namespace dg {
 VehicleConfirmCaffeDetector::VehicleConfirmCaffeDetector(CaffeConfig &config)
           : device_setted_(false),
@@ -39,7 +40,7 @@ VehicleConfirmCaffeDetector::VehicleConfirmCaffeDetector(CaffeConfig &config)
 }
 
 VehicleConfirmCaffeDetector::~VehicleConfirmCaffeDetector() {
-     device_setted_ = false;
+     // TODO Auto-generated destructor stub
 }
 
 vector<vector<Detection> > VehicleConfirmCaffeDetector::Confirm(
