@@ -13,8 +13,6 @@ namespace dg {
 CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &config)
     : device_setted_(false), caffe_config_(config),
       scale_num_(21),
-      means_(input_geometry_, CV_32FC3,
-             Scalar(102.9801, 115.9265, 122.7717)),
       rescale_(1) {
 
     if (config.use_gpu) {
@@ -27,18 +25,30 @@ CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &con
         Caffe::set_mode(Caffe::CPU);
     }
 
-    /* Load the network. */
-    net_.reset(new Net<float>(config.deploy_file, TEST));
-    net_->CopyTrainedLayersFrom(config.model_file);
+//    /* Load the network. */
+//    caffe_config_.deploy_file =
+//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_primary/test.prototxt";
+//    caffe_config_.model_file =
+//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_primary/googlenet_faster_rcnn_iter_48000.caffemodel";
+//    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+//    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+//
+////    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+//    //CHECK_EQ(net_->num_outputs(), 1) << "Network should have exactly one output.";
+//
+//    Blob<float> *input_layer = net_->input_blobs()[0];
+//    num_channels_ = input_layer->channels();
+////    CHECK(
+////        num_channels_ == 3 || num_channels_ == 1) << "Input layer should have 1 or 3 channels.";
+//    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+////    means_ = Mat(input_geometry_, CV_32FC3, Scalar(102.9801, 115.9265, 122.7717));
+//    means_[0] = 102.9801;
+//    means_[1] = 115.9265;
+//    means_[2] = 122.7717;
+//
+//    caffe_config_.target_min_size = 400.0;
+//    caffe_config_.target_max_size = 600.0;
 
-//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
-    //CHECK_EQ(net_->num_outputs(), 1) << "Network should have exactly one output.";
-
-    Blob<float> *input_layer = net_->input_blobs()[0];
-    num_channels_ = input_layer->channels();
-//    CHECK(
-//        num_channels_ == 3 || num_channels_ == 1) << "Input layer should have 1 or 3 channels.";
-    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
     /* Load the binaryproto mean file. */
 
 }
@@ -48,34 +58,36 @@ CarOnlyCaffeDetector::~CarOnlyCaffeDetector() {
 
 int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
                                       vector<vector<Detection> > &vvbbox) {
-    if (device_setted_ && caffe_config_.use_gpu) {
-        device_setted_ = false;
+    if (!device_setted_ && caffe_config_.use_gpu) {
+        device_setted_ = true;
         Caffe::SetDevice(caffe_config_.gpu_id);
+        /* Load the network. */
+        caffe_config_.deploy_file =
+            "./unencrypted_models/detection_primary/test.prototxt";
+        caffe_config_.model_file =
+            "./unencrypted_models/detection_primary/googlenet_faster_rcnn_iter_48000.caffemodel";
+        net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+        net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+
+//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+        //CHECK_EQ(net_->num_outputs(), 1) << "Network should have exactly one output.";
+
+        Blob<float> *input_layer = net_->input_blobs()[0];
+        num_channels_ = input_layer->channels();
+//    CHECK(
+//        num_channels_ == 3 || num_channels_ == 1) << "Input layer should have 1 or 3 channels.";
+        input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+//    means_ = Mat(input_geometry_, CV_32FC3, Scalar(102.9801, 115.9265, 122.7717));
+        means_[0] = 102.9801;
+        means_[1] = 115.9265;
+        means_[2] = 122.7717;
+
+        caffe_config_.target_min_size = 400.0;
+        caffe_config_.target_max_size = 600.0;
+
     }
-    if (batch.size() != vvbbox.size()) {
-        LOG(WARNING) << "input size is not equal to output size" << endl;
-        return -1;
-    }
+
     vector<Mat> images(batch);
-    Mat img;
-    int max_rows = 0, max_cols = 0;
-    for (auto &iter_img : images) {
-        img = iter_img;
-
-        int max_size = max(img.rows, img.cols);
-        int min_size = min(img.rows, img.cols);
-
-        float enlarge_ratio = caffe_config_.target_min_size / min_size;
-
-        if (max_size * enlarge_ratio > caffe_config_.target_max_size) {
-            enlarge_ratio = caffe_config_.target_max_size / max_size;
-        }
-
-        int target_row = img.rows * enlarge_ratio;
-        int target_col = img.cols * enlarge_ratio;
-
-        resize(iter_img, iter_img, Size(target_col, target_row));
-    }
 
     vector<Blob<float> *> outputs = PredictBatch(images);
 
@@ -88,23 +100,25 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
                  reg->height(), reg->width());
 
     int batch_size = images.size();
+    vvbbox.resize(batch_size);
+//    vector<vector<struct BoundingBox> > vvbbox(batch_size);
     if (!(cls->num() == reg->num() && cls->num() == scale_num_ * batch_size)) {
-        return -1;
+        return 1;
     }
 
     if (cls->channels() != 2) {
-        return -1;
+        return 1;
     }
     if (reg->channels() != 4) {
-        return -1;
+        return 1;
     }
 
     if (cls->height() != reg->height()) {
-        return -1;
+        return 1;
 
     }
     if (cls->width() != reg->width()) {
-        return -1;
+        return 1;
 
     }
     cudaDeviceSynchronize();
@@ -123,13 +137,20 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
     float ratio[3] = {0.5, 1.0, 2.0};  // w / h
     int cnt = 0;
 
-    for (int idx = 0; idx < images.size(); idx++) {
-        float global_ratio = 1.0 * min(images[idx].rows, images[idx].cols)
-            / caffe_config_.target_min_size;
+    for (auto img : images) {
+
+        int max_size = max(img.rows, img.cols);
+        int min_size = min(img.rows, img.cols);
+
+        float global_ratio = min_size / caffe_config_.target_min_size;
+
+        if (global_ratio < max_size / caffe_config_.target_max_size) {
+            global_ratio = max_size / caffe_config_.target_max_size;
+        }
         for (int i = 0; i < scale_num_ / 3; i++) {
             for (int j = 0; j < 3; j++) {
-                gt_ww[cnt] = sqrt(area[i] * ratio[j]) * global_ratio;
-                gt_hh[cnt] = gt_ww[cnt] / ratio[j] * global_ratio;
+                gt_ww[cnt] = sqrt(area[i] * ratio[j]);// * global_ratio;
+                gt_hh[cnt] = gt_ww[cnt] / ratio[j];//* global_ratio;
                 cnt++;
             }
         }
@@ -151,8 +172,6 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
                         float x1 = cls_cpu[cls_index];
                         float x0 = cls_cpu[cls_index
                             - cls->height() * cls->width()];
-                        //x1 -= min(x1, x0);
-                        //x0 -= min(x1, x0);
                         confidence = exp(x1) / (exp(x1) + exp(x0));
                     }
                 }
@@ -179,15 +198,27 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
                 rect[1] = rect[1] * gt_hh[gt_idx] + gt_cy;
                 rect[2] = exp(rect[2]) * gt_ww[gt_idx];
                 rect[3] = exp(rect[3]) * gt_hh[gt_idx];
-
                 if (confidence > 0.8) {
+
                     Detection bbox;
                     bbox.confidence = confidence;
-                    bbox.box = Rect(rect[0] - rect[2] / 2.0,
-                                    rect[1] - rect[3] / 2.0, rect[2],
-                                    rect[3]);
                     Mat tmp = images[i * batch_size / cls->num()];
+                    int max_size = max(tmp.rows, tmp.cols);
+                    int min_size = min(tmp.rows, tmp.cols);
+
+                    float global_ratio = min_size / caffe_config_.target_min_size;
+
+                    if (global_ratio < max_size / caffe_config_.target_max_size) {
+                        global_ratio = max_size / caffe_config_.target_max_size;
+                    }
+                    bbox.box = Rect((rect[0] - rect[2] / 2.0) * global_ratio,
+                                    (rect[1] - rect[3] / 2.0) * global_ratio,
+                                    rect[2] * global_ratio,
+                                    rect[3] * global_ratio);
+
+
                     bbox.box &= Rect(0, 0, tmp.cols, tmp.rows);
+
                     bbox.deleted = false;
                     if (bbox.box.width == 0 || bbox.box.height == 0) {
                         continue;
@@ -207,37 +238,95 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
 vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
 
-    if (!device_setted_) {
-        Caffe::SetDevice(caffe_config_.gpu_id);
-        device_setted_ = true;
+//    if (!device_setted_) {
+//        Caffe::SetDevice(caffe_config_.gpu_id);
+//        device_setted_ = true;
+//    }
+    unsigned long long tt;
+    {
+        struct timeval now;
+        gettimeofday(&now, NULL);
+        tt = now.tv_sec * 1000 + now.tv_usec / 1000;
     }
-
     Blob<float> *input_layer = net_->input_blobs()[0];
+    int max_size = max(imgs[0].rows, imgs[0].cols);
+    int min_size = min(imgs[0].rows, imgs[0].cols);
 
-    input_geometry_.height = imgs[0].rows;  // + 100;
-    input_geometry_.width = imgs[0].cols;  // + 100;
+    float global_ratio = min_size / caffe_config_.target_min_size;
 
-    for (int i = 1; i < imgs.size(); i++) {
-        if (input_geometry_.height < imgs[i].rows) {
-            input_geometry_.height = imgs[i].rows;
+    if (global_ratio < max_size / caffe_config_.target_max_size) {
+        global_ratio = max_size / caffe_config_.target_max_size;
+    }
+    input_geometry_.height = imgs[0].rows / global_ratio;  // + 100;
+    input_geometry_.width = imgs[0].cols / global_ratio;  // + 100;
+
+    for (int i = 0; i < imgs.size(); i++) {
+        int max_size = max(imgs[i].rows, imgs[i].cols);
+        int min_size = min(imgs[i].rows, imgs[i].cols);
+
+        float global_ratio = min_size / caffe_config_.target_min_size;
+
+        if (global_ratio < max_size / caffe_config_.target_max_size) {
+            global_ratio = max_size / caffe_config_.target_max_size;
         }
-        if (input_geometry_.width < imgs[i].cols) {
-            input_geometry_.width = imgs[i].cols;
+        if (input_geometry_.height < imgs[i].rows / global_ratio) {
+            input_geometry_.height = imgs[i].rows / global_ratio;
+        }
+        if (input_geometry_.width < imgs[i].cols / global_ratio) {
+            input_geometry_.width = imgs[i].cols / global_ratio;
         }
 
     }
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_,
-                         input_geometry_.height, input_geometry_.width);
+    input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
+                         input_geometry_.width);
     /* Forward dimension change to all layers. */
 
     net_->Reshape();
-    std::vector<std::vector<cv::Mat> > input_batch;
-    WrapBatchInputLayer(&input_batch);
+    LOG(INFO) << input_geometry_.width << " " << input_geometry_.height << endl;
+    float *input_data = input_layer->mutable_cpu_data();
+    unsigned long long cnt = 0;
+    for (auto img:imgs) {
+        cv::Mat sample;
 
-    PreprocessBatch(imgs, &input_batch);
+        if (img.channels() == 3 && num_channels_ == 1)
+            cv::cvtColor(img, sample, CV_BGR2GRAY);
+        else if (img.channels() == 4 && num_channels_ == 1)
+            cv::cvtColor(img, sample, CV_BGRA2GRAY);
+        else if (img.channels() == 4 && num_channels_ == 3)
+            cv::cvtColor(img, sample, CV_BGRA2BGR);
+        else if (img.channels() == 1 && num_channels_ == 3)
+            cv::cvtColor(img, sample, CV_GRAY2BGR);
+        else
+            sample = img;
+        int max_size = max(sample.rows, sample.cols);
+        int min_size = min(sample.rows, sample.cols);
 
+
+        float global_ratio = min_size / caffe_config_.target_min_size;
+
+        if (global_ratio < max_size / caffe_config_.target_max_size) {
+            global_ratio = max_size / caffe_config_.target_max_size;
+        }
+
+        for (int k = 0; k < sample.channels(); k++) {
+            for (int i = 0; i < (int) (sample.rows / global_ratio); i++) {
+                for (int j = 0; j < (int) (sample.cols / global_ratio); j++) {
+                    int indexi = (int) (i * global_ratio);
+                    int indexj = (int) (j * global_ratio);
+                    input_data[cnt + k * input_geometry_.width * input_geometry_.height + i * input_geometry_.width
+                        + j] = (float(sample.at<uchar>(indexi, indexj * 3 + k))
+                        - means_[k]);
+
+                }
+            }
+
+        }
+        cnt += input_geometry_.width * input_geometry_.height * 3;
+
+    }
+    cout << 1 << endl;
     net_->ForwardPrefilled();
-
+    cout << 2 << endl;
     if (caffe_config_.use_gpu) {
         cudaDeviceSynchronize();
     }
@@ -248,86 +337,9 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
-    cudaDeviceSynchronize();
 
     return outputs;
 
-}
-
-void CarOnlyCaffeDetector::WrapBatchInputLayer(
-    std::vector<std::vector<cv::Mat> > *input_batch) {
-    Blob<float> *input_layer = net_->input_blobs()[0];
-
-    int width = input_layer->width();
-    int height = input_layer->height();
-    int num = input_layer->num();
-    float *input_data = input_layer->mutable_cpu_data();
-    for (int j = 0; j < num; j++) {
-        vector<cv::Mat> input_channels;
-        for (int i = 0; i < input_layer->channels(); ++i) {
-            cv::Mat channel(height, width, CV_32FC1, input_data);
-            input_channels.push_back(channel);
-            input_data += width * height;
-        }
-        input_batch->push_back(vector<cv::Mat>(input_channels));
-    }
-
-}
-
-void CarOnlyCaffeDetector::PreprocessBatch(
-    const vector<cv::Mat> imgs,
-    std::vector<std::vector<cv::Mat> > *input_batch) {
-
-
-    for (int i = 0; i < imgs.size(); i++) {
-        cv::Mat img = imgs[i];
-        std::vector<cv::Mat> *input_channels = &(input_batch->at(i));
-
-        cv::Mat sample;
-        GenerateSample(num_channels_, img, sample);
-
-        /* Convert the input image to the input image format of the network. */
-//        cv::Mat sample;
-//        if (img.channels() == 3 && num_channels_ == 1)
-//            cv::cvtColor(img, sample, CV_BGR2GRAY);
-//        else if (img.channels() == 4 && num_channels_ == 1)
-//            cv::cvtColor(img, sample, CV_BGRA2GRAY);
-//        else if (img.channels() == 4 && num_channels_ == 3)
-//            cv::cvtColor(img, sample, CV_BGRA2BGR);
-//        else if (img.channels() == 1 && num_channels_ == 3)
-//            cv::cvtColor(img, sample, CV_GRAY2BGR);
-//        else
-//            sample = img;
-
-        cv::Mat sample_resized;
-        cv::resize(sample, sample_resized, input_geometry_);
-        cv::addWeighted(sample_resized, 0, sample_resized, 0, 0,
-                        sample_resized);
-
-        if (sample.size() != input_geometry_) {
-            cv::Mat roi = sample_resized(
-                cv::Rect(0, 0, sample.cols, sample.rows));
-            cv::addWeighted(roi, 0, sample, 1, 0, roi);
-        } else
-            sample_resized = sample;
-
-        cv::Mat sample_float;
-        if (num_channels_ == 3)
-            sample_resized.convertTo(sample_float, CV_32FC3);
-        else
-            sample_resized.convertTo(sample_float, CV_32FC1);
-
-        cv::Mat sample_normalized;
-
-        cv::subtract(sample_float, means_, sample_normalized);
-
-        /* This operation will write the separate BGR planes directly to the
-         * input layer of the network because it is wrapped by the cv::Mat
-         * objects in input_channels. */
-
-        cv::split(sample_normalized, *input_channels);
-
-    }
 }
 
 }

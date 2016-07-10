@@ -5,6 +5,7 @@
  *      Author: jiajaichen
  */
 
+#include <alg/detector/detector.h>
 #include "config_filter.h"
 
 namespace dg {
@@ -129,6 +130,9 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
     int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
+    config.target_min_size = 400;
+    config.target_max_size = 600;
+    config.car_only = true;
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;
     config.is_model_encrypt = is_encrypted;
