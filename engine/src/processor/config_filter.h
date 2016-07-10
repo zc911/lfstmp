@@ -37,9 +37,9 @@ public:
 	}
 
 	void createVehicleCaffeDetectorConfig(const Config &cconfig,
-			CarOnlyCaffeDetector::VehicleCaffeDetectorConfig &config);
+			VehicleCaffeDetectorConfig &config);
 	void createAccelerateConfig(const Config &cconfig,
-			CarOnlyCaffeDetector::VehicleCaffeDetectorConfig &config);
+			VehicleCaffeDetectorConfig &config);
 	void createFaceDetectorConfig(const Config &cconfig,
 			FaceDetector::FaceDetectorConfig &config);
 	void createFaceExtractorConfig(const Config &cconfig,
