@@ -24,13 +24,13 @@ using namespace caffe;
 using namespace cv;
 
 namespace dg {
-class VehicleConfirmCaffeDetector {
+class CarOnlyConfirmCaffeDetector {
 public:
 
-    VehicleConfirmCaffeDetector(CaffeConfig &config){
+    CarOnlyConfirmCaffeDetector(CaffeConfig &config){
 
     }
-    virtual ~VehicleConfirmCaffeDetector(){
+    virtual ~CarOnlyConfirmCaffeDetector(){
 
     }
     int DetectBatch(const vector<cv::Mat> &img,
