@@ -33,20 +33,21 @@ public:
         return instance_;
     }
 
-    void createVehicleCaffeDetectorConfig(const Config &cconfig,
-                                          VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
-    void createAccelerateConfig(const Config &cconfig,
-                                VehicleCaffeDetector::VehicleCaffeDetectorConfig &config);
-    void createFaceDetectorConfig(const Config &cconfig,
-                                  FaceDetector::FaceDetectorConfig &config);
-    void createFaceExtractorConfig(const Config &cconfig,
-                                   FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
-    void createVehicleConfig(const Config &cconfig,
-                             vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
-    void createVehicleColorConfig(const Config &cconfig,
-                                  vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
-    void createVehiclePlateConfig(const Config &cconfig,
-                                  PlateRecognizer::PlateConfig &pConfig);
+
+	void createVehicleCaffeDetectorConfig(const Config &cconfig,
+			VehicleCaffeDetectorConfig &config);
+	void createAccelerateConfig(const Config &cconfig,
+			VehicleCaffeDetectorConfig &config);
+	void createFaceDetectorConfig(const Config &cconfig,
+			FaceDetector::FaceDetectorConfig &config);
+	void createFaceExtractorConfig(const Config &cconfig,
+			FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+	void createVehicleConfig(const Config &cconfig,
+			vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+	void createVehicleColorConfig(const Config &cconfig,
+			vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+	void createVehiclePlateConfig(const Config &cconfig,
+			PlateRecognizer::PlateConfig &pConfig);
 //    void createVehicleMutiTypeDetectorConfig(
 //        const Config &cconfig,
 //        VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);

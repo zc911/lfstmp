@@ -27,6 +27,7 @@ struct Bbox {
     bool deleted;
     int cls_id;
 };
+
 static void normalize_image(const Mat &input_img, Mat &result) {
     Mat img;
     resize(input_img, img, Size(227, 227));
