@@ -82,12 +82,10 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 plate.confidence = pstLP->fAllScore;
                 plate.plate_num = platenum;
                 plates.push_back(plate);
-
             }
             if (objs_.size() > (i + j)) {
                 Vehicle *v = (Vehicle *) objs_[i + j];
                 v->set_plates(plates);
-
             }
 
         }
@@ -166,7 +164,7 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
      return;*/
     images_.clear();
     objs_.clear();
-    objs_ = frameBatch->CollectObjects(FEATURE_CAR_PLATE);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
 

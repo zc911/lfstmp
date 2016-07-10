@@ -134,7 +134,7 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
     AttributePredict(imgs, results);
     for (size_t idx = 0; idx < results.size(); idx++) {
         std::vector<PedestrianClassifier::PedestrianAttribute> attrs;
-        for (size_t a_idx = 0; a_idx < 46; a_idx++) {
+        for (size_t a_idx = 0; a_idx < tagtable_.size(); a_idx++) {
             PedestrianClassifier::PedestrianAttribute attr;
             attr.index = tagtable_[a_idx].index;
             attr.tagname = tagtable_[a_idx].tagname;

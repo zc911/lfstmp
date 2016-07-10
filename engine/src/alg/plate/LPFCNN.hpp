@@ -1,3 +1,4 @@
+
 #ifndef LP_FCNN_HPP
 #define LP_FCNN_HPP
 
@@ -7,32 +8,32 @@
 
 
 struct ModuleFCNN_S {
-    ExecutorHandle hExecute;
-    NDArrayHandle *args_arr;
-    int args_num = 0;
-    SymbolHandle hSymbol;
-
-    int adwInShape[4]; //input image shape
-    int adwOutShape[4]; //class map shape
-
-    uchar *pubyInputData;
-    float *pfInputData;
-
-    float *pfOutputData;
-
-    uchar *pubyBuffer;
-    int dwBuffSize;
-
-    int *pdwRects;
-    int dwRectNum;
-
-    int dwCheckW;
-    int dwCheckH;
-
-    vector<LPRectInfo> *plpgroup;
-
-    int *pdwRealWs;
-    int *pdwRealHs;
+	ExecutorHandle hExecute;
+	NDArrayHandle *args_arr;
+	int args_num = 0; 
+	SymbolHandle hSymbol;
+  
+	int adwInShape[4]; //input image shape
+	int adwOutShape[4]; //class map shape
+	
+	uchar *pubyInputData;
+	float *pfInputData;
+	
+	float *pfOutputData;
+	
+	uchar *pubyBuffer;
+	int dwBuffSize;
+	
+	int *pdwRects;
+	int dwRectNum;
+	
+	int dwCheckW;
+	int dwCheckH;
+	
+	vector<LPRectInfo> *plpgroup;
+	
+  int	*pdwRealWs;
+  int	*pdwRealHs;
 };
 
 
