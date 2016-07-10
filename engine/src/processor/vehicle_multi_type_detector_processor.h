@@ -10,10 +10,11 @@
 
 #include <vector>
 #include <glog/logging.h>
-#include <alg/detector/car_only_caffe_detector.h>
+#include "util/debug_util.h"
 #include "processor.h"
 #include "alg/detector/vehicle_caffe_detector.h"
-#include "util/debug_util.h"
+#include "alg/detector/car_only_confirm_caffe_detector.h"
+#include "alg/detector/car_only_caffe_detector.h"
 
 using namespace std;
 namespace dg {
@@ -42,6 +43,7 @@ private:
 
     VehicleCaffeDetector *vehicle_detector_;
     CarOnlyCaffeDetector *car_only_detector_;
+    CarOnlyConfirmCaffeDetector *car_only_confirm_;
     VehicleCaffeDetectorConfig config_;
     int base_id_;
 

@@ -13,31 +13,37 @@ namespace dg {
 CarOnlyConfirmCaffeDetector::CarOnlyConfirmCaffeDetector(const VehicleCaffeDetectorConfig &config)
     : device_setted_(false),
       caffe_config_(config),
-      means_(input_geometry_, CV_32FC3, Scalar(128, 128, 128)),
       rescale_(100) {
 
-    device_setted_ = false;
-    if (caffe_config_.use_gpu) {
-        Caffe::SetDevice(caffe_config_.gpu_id);
-        Caffe::set_mode(Caffe::GPU);
-        LOG(INFO) << "Use device " << caffe_config_.gpu_id << endl;
-    } else {
-        LOG(WARNING) << "Use CPU only" << endl;
-        Caffe::set_mode(Caffe::CPU);
-    }
-
-    /* Load the network. */
-    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
-    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
-
-//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
-    //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
-
-    Blob<float> *input_layer = net_->input_blobs()[0];
-    num_channels_ = input_layer->channels();
-//    CHECK(num_channels_ == 3 || num_channels_ == 1)
-//    << "Input layer should have 1 or 3 channels.";
-    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+//    device_setted_ = false;
+//    if (caffe_config_.use_gpu) {
+//        Caffe::SetDevice(caffe_config_.gpu_id);
+//        Caffe::set_mode(Caffe::GPU);
+//        LOG(INFO) << "Use device " << caffe_config_.gpu_id << endl;
+//    } else {
+//        LOG(WARNING) << "Use CPU only" << endl;
+//        Caffe::set_mode(Caffe::CPU);
+//    }
+//
+//    /* Load the network. */
+//    caffe_config_.deploy_file =
+//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_secondary/deploy.prototxt";
+//    caffe_config_.model_file =
+//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_secondary/car_not_car_train_iter_30000.caffemodel";
+//    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+//    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+//
+////    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+//    //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
+//
+//    Blob<float> *input_layer = net_->input_blobs()[0];
+//    num_channels_ = input_layer->channels();
+////    CHECK(num_channels_ == 3 || num_channels_ == 1)
+////    << "Input layer should have 1 or 3 channels.";
+//    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+//    means_ = Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
+//    caffe_config_.target_min_size = 400.0;
+//    caffe_config_.target_max_size = 600.0;
 
 }
 
@@ -54,30 +60,30 @@ vector<vector<Detection> > CarOnlyConfirmCaffeDetector::Confirm(
     vector<vector<Detection> > pre_result(batch_size);
 
     for (int j = 0; j < batch_size; j++) {
-
-//        sort(vvbbox[j].begin(), vvbbox[j].end(), detectionCmp);
-        detectionNMS(vvbbox[j], 0.2);
-
-        int tot_left = 0;
         Mat image = imgs[j];
         Mat tmp_img = image;
-        int max_size = max(tmp_img.rows, tmp_img.cols);
-        int min_size = min(tmp_img.rows, tmp_img.cols);
-        float enlarge_ratio = caffe_config_.target_min_size / min_size;
-        if (max_size * enlarge_ratio > caffe_config_.target_min_size) {
-            enlarge_ratio = caffe_config_.target_min_size / max_size;
-        }
+
+        detectionNMS(vvbbox[j], 0.2);
+//        sort(vvbbox[j].begin(), vvbbox[j].end(), mycmp);
+//
+//        nms(vvbbox[j], 0.2);
+
+        int tot_left = 0;
 
         vector<Detection> vbbox = vvbbox[j];
         for (int i = 0; i < vbbox.size(); i++) {
-
+            if ((vbbox[i].box.width * 5 < vbbox[i].box.height)
+                || (vbbox[i].box.height * 5 < vbbox[i].box.width)) {
+                continue;
+            }
             if (!vbbox[i].deleted && vbbox[i].confidence > 0.8) {
 
                 Rect bbox = vbbox[i].box;
-                float x = bbox.x / enlarge_ratio;
-                float y = bbox.y / enlarge_ratio;
-                float w = bbox.width / enlarge_ratio;
-                float h = bbox.height / enlarge_ratio;
+                float x = bbox.x;    // / enlarge_ratio;
+                float y = bbox.y;    // / enlarge_ratio;
+                float w = bbox.width;    // / enlarge_ratio;
+                float h = bbox.height;    // / enlarge_ratio;
+
                 x -= w * 0.1;
                 y -= h * 0.1;
                 w *= 1.2;
@@ -86,15 +92,16 @@ vector<vector<Detection> > CarOnlyConfirmCaffeDetector::Confirm(
                 Rect newbox(x, y, w, h);
                 Mat img_rect = image(
                     newbox & Rect(0, 0, image.cols, image.rows));
+
                 resize(img_rect, img_rect, Size(128, 128));
                 img_rect = img_rect(Rect(5, 5, 118, 118));
                 //vector<Mat> images;
                 images.push_back(img_rect);
 
-                x = bbox.x / enlarge_ratio;
-                y = bbox.y / enlarge_ratio;
-                w = bbox.width / enlarge_ratio;
-                h = bbox.height / enlarge_ratio;
+                x = bbox.x;    // / enlarge_ratio;
+                y = bbox.y;    /// enlarge_ratio;
+                w = bbox.width;    // / enlarge_ratio;
+                h = bbox.height;    /// enlarge_ratio;
 
                 Detection box;
 
@@ -115,18 +122,25 @@ vector<vector<Detection> > CarOnlyConfirmCaffeDetector::Confirm(
     int idx = 0;
 
     for (int j = 0; j < batch_size; j++) {
+        string name;
+
         for (int i = 0; i < pre_result[j].size(); i++) {
             int cls = pred[idx][0].first == 0 ? 0 : 1;
             float pred_confidence = pred[idx][cls].second;
             float vbbox_confidence = pre_result[j][i].confidence;
             if ((vbbox_confidence > 0.995 && pred_confidence > 0.9)
                 || vbbox_confidence > 0.999) {
-                result[j].push_back(pre_result[j][i]);
+                Detection car = pre_result[j][i];
+                car.id = DETECTION_CAR;
+                result[j].push_back(car);
             }
             idx++;
+
         }
+
     }
     return result;
+
 }
 
 vector<vector<Prediction> > CarOnlyConfirmCaffeDetector::ClassifyAutoBatch(
@@ -173,6 +187,34 @@ vector<Blob<float> *> CarOnlyConfirmCaffeDetector::PredictBatch(
     if (!device_setted_) {
         Caffe::SetDevice(caffe_config_.gpu_id);
         device_setted_ = true;
+        if (caffe_config_.use_gpu) {
+            Caffe::SetDevice(caffe_config_.gpu_id);
+            Caffe::set_mode(Caffe::GPU);
+            LOG(INFO) << "Use device " << caffe_config_.gpu_id << endl;
+        } else {
+            LOG(WARNING) << "Use CPU only" << endl;
+            Caffe::set_mode(Caffe::CPU);
+        }
+
+        /* Load the network. */
+        caffe_config_.deploy_file =
+            "./unencrypted_models/detection_secondary/deploy.prototxt";
+        caffe_config_.model_file =
+            "./unencrypted_models/detection_secondary/car_not_car_train_iter_30000.caffemodel";
+        net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+        net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+
+//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+        //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
+
+        Blob<float> *input_layer = net_->input_blobs()[0];
+        num_channels_ = input_layer->channels();
+//    CHECK(num_channels_ == 3 || num_channels_ == 1)
+//    << "Input layer should have 1 or 3 channels.";
+        input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+        means_ = Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
+        caffe_config_.target_min_size = 400.0;
+        caffe_config_.target_max_size = 600.0;
     }
 
     Blob<float> *input_layer = net_->input_blobs()[0];

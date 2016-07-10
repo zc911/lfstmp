@@ -99,7 +99,11 @@ void WitnessEngine::Process(FrameBatch *frames) {
         if (face_processor_)
             face_processor_->Update(frames);
     }
-    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
+//    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
+//        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
+//        isWarmuped_ = true;
+//    }
+    if(!isWarmuped_){
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
         isWarmuped_ = true;
     }
@@ -146,7 +150,17 @@ void WitnessEngine::init(const Config &config) {
     Processor *last = NULL;
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
-
+        VehicleCaffeDetectorConfig dConfig;
+        configFilter->createAccelerateConfig(config, dConfig);
+        Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
+        if (last == NULL) {
+            vehicle_processor_ = p;
+        }
+        else {
+            last->SetNextProcessor(p);
+        }
+        last = p;
+        isWarmuped_ = false;
         if (enable_vehicle_detect_) {
 
             VehicleCaffeDetectorConfig dConfig;
@@ -160,19 +174,19 @@ void WitnessEngine::init(const Config &config) {
             }
             last = p;
         }
-        else {
-            VehicleCaffeDetectorConfig dConfig;
-            configFilter->createAccelerateConfig(config, dConfig);
-            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
-            if (last == NULL) {
-                vehicle_processor_ = p;
-            }
-            else {
-                last->SetNextProcessor(p);
-            }
-            last = p;
-            isWarmuped_ = false;
-        }
+//        else {
+//            VehicleCaffeDetectorConfig dConfig;
+//            configFilter->createAccelerateConfig(config, dConfig);
+//            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
+//            if (last == NULL) {
+//                vehicle_processor_ = p;
+//            }
+//            else {
+//                last->SetNextProcessor(p);
+//            }
+//            last = p;
+//            isWarmuped_ = false;
+//        }
 
         if (enable_vehicle_plate_gpu_) {
             LPDRConfig_S pstConfig;
