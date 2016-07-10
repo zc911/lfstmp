@@ -6,7 +6,8 @@
  */
 
 #include "./car_only_caffe_detector.h"
-#include "caffe_helper.h"
+#include "../caffe_helper.h"
+
 namespace dg {
 
 CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &config)
@@ -88,22 +89,22 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
     int batch_size = images.size();
     if (!(cls->num() == reg->num() && cls->num() == scale_num_ * batch_size)) {
-        return vvbbox;
+        return -1;
     }
 
     if (cls->channels() != 2) {
-        return vvbbox;
+        return -1;
     }
     if (reg->channels() != 4) {
-        return vvbbox;
+        return -1;
     }
 
     if (cls->height() != reg->height()) {
-        return vvbbox;
+        return -1;
 
     }
     if (cls->width() != reg->width()) {
-        return vvbbox;
+        return -1;
 
     }
     cudaDeviceSynchronize();
@@ -205,8 +206,9 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 }
 
 vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
+
     if (!device_setted_) {
-        Caffe::SetDevice(gpu_id_);
+        Caffe::SetDevice(caffe_config_.gpu_id);
         device_setted_ = true;
     }
 

@@ -1,17 +1,17 @@
+#include <alg/detector/detector.h>
 #include "alg/detector/vehicle_caffe_detector.h"
 #include "vehicle_multi_type_detector_processor.h"
-#include "alg/detector/car_only_caffe_detector.h"
 #include "processor_helper.h"
 
 namespace dg {
 
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-    const VehicleCaffeDetector::VehicleCaffeDetectorConfig &config)
-    : Processor() {
-    if (config.car_only) {
-        detector_ = new CarOnlyCaffeDetector(config);
+    const VehicleCaffeDetectorConfig &config)
+    : Processor(), config_(config) {
+    if (config_.car_only) {
+        car_only_detector_ = new CarOnlyCaffeDetector(config);
     } else {
-        detector_ = new VehicleCaffeDetector(config);
+        vehicle_detector_ = new VehicleCaffeDetector(config);
     }
 
     base_id_ = 0;
@@ -19,8 +19,11 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
 
 // TODO complete construction
 VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
-    if (detector_)
-        delete detector_;
+    if (vehicle_detector_)
+        delete vehicle_detector_;
+
+    if (car_only_detector_)
+        delete car_only_detector_;
 }
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
@@ -59,7 +62,11 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         return false;
     }
 
-    detector_->DetectBatch(images, detect_results);
+    if (config_.car_only) {
+        car_only_detector_->DetectBatch(images, detect_results);
+    } else {
+        vehicle_detector_->DetectBatch(images, detect_results);
+    }
 
     if (detect_results.size() < images.size()) {
         LOG(ERROR) << "Detection results size not equals to frame batch size: " << detect_results.size() << "-"

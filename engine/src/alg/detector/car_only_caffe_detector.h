@@ -18,7 +18,7 @@
 #include <caffe/caffe.hpp>
 #include "model/basic.h"
 #include "detector.h"
-#include "caffe_config.h"
+#include "../caffe_config.h"
 
 using namespace std;
 using namespace caffe;
@@ -26,7 +26,7 @@ using namespace cv;
 
 namespace dg {
 
-class CarOnlyCaffeDetector: public VehicleDetector {
+class CarOnlyCaffeDetector {
 
 public:
 
