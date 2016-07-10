@@ -155,13 +155,13 @@ private:
 
 class Pedestrian: public Object {
 public:
-	typedef struct {
-		int index = 0;
-    	string tagname = "";
-    	Confidence confidence = 0;
-	} Attr;
+    typedef struct {
+        int index = 0;
+        string tagname = "";
+        Confidence confidence = 0;
+    } Attr;
 
-	Pedestrian() : Object(OBJECT_PEDESTRIAN) {
+    Pedestrian() : Object(OBJECT_PEDESTRIAN) {
     }
     cv::Mat &image() {
         return image_;
@@ -175,7 +175,7 @@ public:
     }
 
     void set_attrs(const std::vector<Attr> &attrs) {
-    	attrs_ = attrs;
+        attrs_ = attrs;
     }
 
 private:
@@ -240,12 +240,21 @@ public:
         }
     }
 
+/*
     const Plate &plate() const {
         return plate_;
     }
 
     void set_plate(const Plate &plate) {
         plate_ = plate;
+    }
+*/
+    const vector<Plate> &plates() const {
+        return plates_;
+    }
+
+    void set_plates(const vector<Plate> &plates) {
+        plates_ = plates;
     }
 
     Identification class_id() const {
@@ -267,7 +276,7 @@ private:
     cv::Mat image_;
     cv::Mat resized_image_;
     Identification class_id_;
-    Plate plate_;
+    vector<Plate> plates_;
     Color color_;
     Detection window_;
     CarRankFeature feature_;
