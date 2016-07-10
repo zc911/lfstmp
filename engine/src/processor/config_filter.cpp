@@ -119,7 +119,7 @@ void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
-                                                    VehicleCaffeDetector::VehicleCaffeDetectorConfig &config) {
+                                                    VehicleCaffeDetectorConfig &config) {
     string model_path = (string) data_config_.Value(FILE_DETECTION_MODEL_PATH);
     string trained_model = (string) data_config_.Value(
         FILE_DETECTION_TRAINED_MODEL);
@@ -137,7 +137,7 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
 
 }
 void ConfigFilter::createAccelerateConfig(const Config &cconfig,
-                                          VehicleCaffeDetector::VehicleCaffeDetectorConfig &config) {
+                                          VehicleCaffeDetectorConfig &config) {
     string model_path = (string) data_config_.Value(FILE_ACCELERATE_MODEL_PATH);
     string trained_model = (string) data_config_.Value(
         FILE_ACCELERATE_TRAINED_MODEL);
