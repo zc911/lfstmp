@@ -623,7 +623,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         request->image().data().uri());
     result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
     result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
-    
+
     err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {

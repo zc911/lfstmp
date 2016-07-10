@@ -1,5 +1,4 @@
 #include "witness_engine.h"
-#include "log/log_val.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/vehicle_classifier_processor.h"
 #include "processor/vehicle_color_processor.h"
@@ -10,7 +9,6 @@
 #include "processor/face_feature_extract_processor.h"
 #include "processor/config_filter.h"
 #include "processor/plate_recognize_mxnet_processor.h"
-#include "processor/pedestrian_classifier_processor.h"
 
 namespace dg {
 
@@ -151,7 +149,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_detect_) {
 
-            VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
+            VehicleCaffeDetectorConfig dConfig;
             configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
             if (last == NULL) {
@@ -163,7 +161,7 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         else {
-            VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
+            VehicleCaffeDetectorConfig dConfig;
             configFilter->createAccelerateConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
             if (last == NULL) {
