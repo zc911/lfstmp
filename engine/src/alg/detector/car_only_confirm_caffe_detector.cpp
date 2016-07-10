@@ -6,20 +6,21 @@
  */
 
 #include "car_only_confirm_caffe_detector.h"
+#include "../caffe_helper.h"
+
 namespace dg {
 
-VehicleConfirmCaffeDetector::VehicleConfirmCaffeDetector(CaffeConfig &config)
+CarOnlyConfirmCaffeDetector::CarOnlyConfirmCaffeDetector(const VehicleCaffeDetectorConfig &config)
     : device_setted_(false),
       caffe_config_(config),
       means_(input_geometry_, CV_32FC3, Scalar(128, 128, 128)),
       rescale_(100) {
-    device_setted_ = false;
 
+    device_setted_ = false;
     if (caffe_config_.use_gpu) {
         Caffe::SetDevice(caffe_config_.gpu_id);
         Caffe::set_mode(Caffe::GPU);
         LOG(INFO) << "Use device " << caffe_config_.gpu_id << endl;
-
     } else {
         LOG(WARNING) << "Use CPU only" << endl;
         Caffe::set_mode(Caffe::CPU);
@@ -28,31 +29,34 @@ VehicleConfirmCaffeDetector::VehicleConfirmCaffeDetector(CaffeConfig &config)
     /* Load the network. */
     net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
     net_->CopyTrainedLayersFrom(caffe_config_.model_file);
-    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
+
+//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    CHECK(num_channels_ == 3 || num_channels_ == 1)
-    << "Input layer should have 1 or 3 channels.";
+//    CHECK(num_channels_ == 3 || num_channels_ == 1)
+//    << "Input layer should have 1 or 3 channels.";
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
 }
 
-VehicleConfirmCaffeDetector::~VehicleConfirmCaffeDetector() {
+CarOnlyConfirmCaffeDetector::~CarOnlyConfirmCaffeDetector() {
     // TODO Auto-generated destructor stub
 }
 
-vector<vector<Detection> > VehicleConfirmCaffeDetector::Confirm(
+vector<vector<Detection> > CarOnlyConfirmCaffeDetector::Confirm(
     vector<Mat> imgs, vector<vector<Detection> > &vvbbox) {
+
     vector<Mat> images;
     int batch_size = imgs.size();
 
     vector<vector<Detection> > pre_result(batch_size);
 
     for (int j = 0; j < batch_size; j++) {
-        sort(vvbbox[j].begin(), vvbbox[j].end(), mycmp);
-        nms(vvbbox[j], 0.2);
+
+//        sort(vvbbox[j].begin(), vvbbox[j].end(), detectionCmp);
+        detectionNMS(vvbbox[j], 0.2);
 
         int tot_left = 0;
         Mat image = imgs[j];
@@ -69,7 +73,7 @@ vector<vector<Detection> > VehicleConfirmCaffeDetector::Confirm(
 
             if (!vbbox[i].deleted && vbbox[i].confidence > 0.8) {
 
-                Rect bbox = vbbox[i].rect;
+                Rect bbox = vbbox[i].box;
                 float x = bbox.x / enlarge_ratio;
                 float y = bbox.y / enlarge_ratio;
                 float w = bbox.width / enlarge_ratio;
@@ -125,7 +129,7 @@ vector<vector<Detection> > VehicleConfirmCaffeDetector::Confirm(
     return result;
 }
 
-vector<vector<Prediction> > VehicleConfirmCaffeDetector::ClassifyAutoBatch(
+vector<vector<Prediction> > CarOnlyConfirmCaffeDetector::ClassifyAutoBatch(
     const vector<Mat> &imgs) {
     vector<vector<Prediction> > prediction;
     vector<Mat> images = imgs;
@@ -167,7 +171,7 @@ vector<vector<Prediction> > CarOnlyConfirmCaffeDetector::ClassifyBatch(
 vector<Blob<float> *> CarOnlyConfirmCaffeDetector::PredictBatch(
     const vector<Mat> imgs) {
     if (!device_setted_) {
-        Caffe::SetDevice(gpu_id_);
+        Caffe::SetDevice(caffe_config_.gpu_id);
         device_setted_ = true;
     }
 
@@ -226,6 +230,7 @@ void CarOnlyConfirmCaffeDetector::PreprocessBatch(
         cv::Mat img = imgs[i];
         std::vector<cv::Mat> *input_channels = &(input_batch->at(i));
 
+        cv::Mat sample;
         GenerateSample(num_channels_, img, sample);
 
         /* Convert the input image to the input image format of the network. */
@@ -270,9 +275,6 @@ void CarOnlyConfirmCaffeDetector::PreprocessBatch(
 //              == net_->input_blobs()[0]->cpu_data())
 //          << "Input channels are not wrapping the input layer of the network.";
     }
-}
-
-CarOnlyConfirmCaffeDetector::~CarOnlyConfirmCaffeDetector() {
 }
 
 }
