@@ -10,6 +10,7 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
     : Processor(), config_(config) {
     if (config_.car_only) {
         car_only_detector_ = new CarOnlyCaffeDetector(config);
+        car_only_confirm_ = new CarOnlyConfirmCaffeDetector(config);
     } else {
         vehicle_detector_ = new VehicleCaffeDetector(config);
     }
@@ -63,7 +64,40 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
     }
 
     if (config_.car_only) {
+//        car_only_detector_->DetectBatch(images, detect_results);
+
+        LOG(INFO) << "Start detect" << endl;
+//        batch->add_profile("detect_start");
+//        unsigned long long tt;
+//        struct timeval now;
+//        gettimeofday(&now, NULL);
+//        tt = now.tv_sec * 1000 + now.tv_usec / 1000;
+
         car_only_detector_->DetectBatch(images, detect_results);
+        car_only_confirm_->Confirm(images, detect_results);
+
+//        vector<vector<struct BoundingBox> > vPreBbox = detector_first_->BatchDetect(
+//            batch->GetImageMat());
+//        vector<vector<struct BoundingBox> > vbbox = car_only_confirm_->Detect(batch->GetImageMat(), vPreBbox);
+
+//        {
+//            struct timeval now;
+//            gettimeofday(&now, NULL);
+//            cout << "detect " << now.tv_sec * 1000 + now.tv_usec / 1000 - tt
+//                << endl;
+//            tt = now.tv_sec * 1000 + now.tv_usec / 1000;
+//        }
+//        batch->AppendVehicle(vbbox);
+//        batch->add_profile("detect_end");
+//        if (pSuccessor_ == NULL) {
+//            return -1;
+//        }
+//        if (pSuccessor_->HandleRequest(batch) != 1) {
+//            return -1;
+//        }
+
+        return 1;
+
     } else {
         vehicle_detector_->DetectBatch(images, detect_results);
     }

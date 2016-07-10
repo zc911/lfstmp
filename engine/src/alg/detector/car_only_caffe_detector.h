@@ -38,10 +38,10 @@ public:
                             vector<vector<Detection> > &detect_results);
 protected:
     vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
-    void WrapBatchInputLayer(vector<vector<Mat>> *input_batch);
-
-    void PreprocessBatch(const vector<Mat> imgs,
-                         vector<vector<Mat>> *input_batch);
+//    void WrapBatchInputLayer(vector<vector<Mat>> *input_batch);
+//
+//    void PreprocessBatch(const vector<Mat> imgs,
+//                         vector<vector<Mat>> *input_batch);
 private:
     boost::shared_ptr<caffe::Net<float>> net_;
     int num_channels_;
@@ -49,7 +49,7 @@ private:
     bool device_setted_;
     VehicleCaffeDetectorConfig caffe_config_;
     int scale_num_;
-    Mat means_;
+    float means_[3];
     int rescale_;
 
 };
