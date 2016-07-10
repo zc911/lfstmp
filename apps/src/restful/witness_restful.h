@@ -57,7 +57,7 @@ public:
 
     }
     virtual void warmUp(int n) {
-        string imgdata = ReadStringFromFile("warmup.dat", "rb");
+        string imgdata="iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
         protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);

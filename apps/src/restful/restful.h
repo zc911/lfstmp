@@ -138,7 +138,7 @@ public:
         server.start();
     }
     virtual void warmUp(int n) {
-        string imgdata = ReadStringFromFile("warmup.dat", "rb");
+        string imgdata="iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
         protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
@@ -154,6 +154,7 @@ public:
         ctx->mutable_storage()->set_address("127.0.0.1");
         for (int i = 0; i < n; i++) {
             CallData data;
+
             typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
             RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
             data.func = [rec_func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
