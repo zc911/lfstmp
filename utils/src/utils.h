@@ -34,5 +34,6 @@ static long long int NowSeconds() {
     gettimeofday(&nowTime, NULL);
     return nowTime.tv_sec;
 }
+
 }
 #endif /* UTILS_H_ */

@@ -1,3 +1,4 @@
+
 #ifndef __LP_ROIP_HPP__
 #define __LP_ROIP_HPP__
 
@@ -7,21 +8,21 @@
 
 
 struct ModuleROIP_S {
-    ExecutorHandle hExecute;
-    NDArrayHandle *args_arr;
-    int args_num = 0;
-    SymbolHandle hSymbol;
+	ExecutorHandle hExecute;
+	NDArrayHandle *args_arr;
+	int args_num = 0; 
+	SymbolHandle hSymbol;
 
-    int adwInShape[4 + 3]; //input feat shape, box shape
-    int adwOutShape[2 + 2]; //class shape, bb shape
-
-    float *pfRect3D;
-    int adwRectSZ[3];
-
-    float *pfOutCls;
-    float *pfOutBB;
-
-    vector<LPRectInfo> *pvBBGroup;
+	int adwInShape[4+3]; //input feat shape, box shape
+	int adwOutShape[2+2]; //class shape, bb shape
+	
+  float *pfRect3D;
+	int adwRectSZ[3];
+	
+	float *pfOutCls;
+	float *pfOutBB;
+	
+	vector<LPRectInfo> *pvBBGroup;
 };
 
 

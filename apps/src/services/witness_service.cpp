@@ -623,7 +623,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         request->image().data().uri());
     result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
     result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
-
+    
     err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {
@@ -708,6 +708,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     WitnessBatchResponse *batchResponse) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Batch recognize using " << name_ << endl;
+    VLOG(VLOG_SERVICE) << "Batch recognize using " << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;

@@ -1,3 +1,4 @@
+
 #ifndef __LP_PREG_HPP__
 #define __LP_PREG_HPP__
 
@@ -7,16 +8,16 @@
 
 
 struct ModulePREG_S {
-    ExecutorHandle hExecute;
-    NDArrayHandle *args_arr;
-    int args_num = 0;
-    SymbolHandle hSymbol;
+	ExecutorHandle hExecute;
+	NDArrayHandle *args_arr;
+	int args_num = 0; 
+	SymbolHandle hSymbol;
 
-    int adwInShape[4]; //input image shape
-    int adwOutShape[2]; //polygon shape
-
-    float *pfStdData;
-    float *pfOutPolygon;
+	int adwInShape[4]; //input image shape
+	int adwOutShape[2]; //polygon shape
+	
+	float *pfStdData;
+	float *pfOutPolygon;
 };
 
 

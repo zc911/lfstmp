@@ -1,3 +1,4 @@
+
 #ifndef __LP_INNER_HPP__
 #define __LP_INNER_HPP__
 
@@ -22,32 +23,32 @@ typedef struct _LPDR_ImageInner_S {
 
 
 struct LPRect {
-    int dwX0;
-    int dwY0;
-    int dwX1;
-    int dwY1;
+  int dwX0;
+  int dwY0;
+  int dwX1;
+  int dwY1;
 };
 
 
 struct LPPoint2D {
-    int dwX;
-    int dwY;
+  int dwX;
+  int dwY;
 };
 
 
 struct LPRectInfo {
-    float fScore;
-    float fCentX;
-    float fCentY;
-    float fWidth;
-    float fHeight;
-    LPRectInfo() : fScore(0.0f), fCentX(0.0f), fCentY(0.0f),
-                   fWidth(0.0f), fHeight(0.0f) { }
-    LPRectInfo(float score,
-               float centy, float centx,
-               float height, float width) :
-        fScore(score), fCentX(centx), fCentY(centy),
-        fWidth(width), fHeight(height) { }
+	float fScore;
+	float fCentX;
+	float fCentY;
+	float fWidth;
+	float fHeight;
+	LPRectInfo():fScore(0.0f), fCentX(0.0f), fCentY(0.0f),
+						fWidth(0.0f), fHeight(0.0f) {}
+	LPRectInfo(float score,
+						float centy, float centx,
+						float height, float width):
+						fScore(score), fCentX(centx), fCentY(centy),
+						fWidth(width), fHeight(height) {}
 };
 
 
@@ -72,18 +73,18 @@ int calc_overlap(LPRectInfo &rect0, LPRectInfo &rect1, float *pfOR0, float *pfOR
 
 
 int getBestLPRect(mx_uint imgh, mx_uint imgw, mx_uint adims[2], mx_uint ashapes[2][4],
-                  mx_float *pfScore, int scoreSize,
-                  mx_float *pfRect, int rectSize,
-                  vector<LPRectInfo> &group);
+									mx_float *pfScore, int scoreSize,
+									mx_float *pfRect, int rectSize,
+									vector<LPRectInfo> &group);
 
 
 void imgResizeAddBlack(uchar *patch, int s32W_src, int s32H_src,
-                       uchar *tmpBuffer, uchar *result,
-                       int s32W_dst, int s32H_dst, int *pReal_w, int *pReal_h);
+													 uchar *tmpBuffer, uchar *result, 
+													 int s32W_dst, int s32H_dst, int *pReal_w, int *pReal_h);
 
 
-void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg,
-                         int dwDstW, int s32DstH, int *pdwRealW, int *pdwRealH);
+void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
+													 int dwDstW, int s32DstH, int *pdwRealW, int *pdwRealH);
 
 
 void imgResize(uchar *patch, int s32W_src, int s32H_src, uchar *result, int s32W_dst, int s32H_dst);
@@ -98,8 +99,7 @@ int doNormContrastBB_f(float *pfImage, int dwH, int dwW, LPRect bb);
 int calcNewMarginBB(int dwImgH, int dwImgW, LPRect *pstBB, int adwMRatioXY[2]);
 
 
-int doRectify_f
-    (float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new);
+int doRectify_f(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new);
 
 
 int doRotate_f(float *pfImage, int dwW, int dwH, float fAngle);
@@ -111,6 +111,7 @@ int getMeanByHist(int *pdwHist, int dwLen);
 int getBinThresholdIterByHist_uchar(uchar *pubyData, int dwLen);
 
 int cvtRGB2HSV_U8(uchar ubyR, uchar ubyG, uchar ubyB, float *pfH, float *pfS, float *pfV);
+
 
 
 #endif
