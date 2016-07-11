@@ -37,6 +37,8 @@ typedef struct {
     bool use_gpu = true;
     string deploy_file;
     string model_file;
+    string confirm_deploy_file;
+    string confirm_model_file;
     float threshold = 0.5;
 } VehicleCaffeDetectorConfig;
 

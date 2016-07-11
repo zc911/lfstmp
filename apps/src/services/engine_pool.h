@@ -92,14 +92,15 @@ public:
             return;
         }
 
-        int gpuNum = (int) config_->Value("System/GpuNum");
-        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+        vector<int> threadsOnGpu;
+        int gpuNum = config_->Value(SYSTEM_THREADS + "/Size");
+        cout << "Gpu num defined in config file: " << gpuNum << endl;
 
         for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
             config_->AddEntry("System/GpuId", AnyConversion(gpuId));
-            int threadNum = (int) config_->Value("System/ThreadsPerGpu");
-            threadNum = threadNum == 0 ? 1 : threadNum;
+            int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+            cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
