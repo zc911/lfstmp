@@ -31,6 +31,14 @@ CarOnlyConfirmCaffeDetector::CarOnlyConfirmCaffeDetector(const VehicleCaffeDetec
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
     means_ = Mat(input_geometry_, CV_32FC3, Scalar(128, 128, 128));
 
+    net_->Reshape();
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
+
 }
 
 CarOnlyConfirmCaffeDetector::~CarOnlyConfirmCaffeDetector() {

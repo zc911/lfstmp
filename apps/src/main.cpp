@@ -5,20 +5,16 @@
 #include <grpc++/grpc++.h>
 
 #define BOOST_SPIRIT_THREADSAFE
-#include <gflags/gflags.h>
 #include <curl/curl.h>
 
 #include "config.h"
 
 #include "grpc/witness_grpc.h"
 #include "grpc/ranker_grpc.h"
-
+#include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
-#include "services/engine_pool.h"
-#include "watchdog/watch_dog.h"
 #include "grpc/system_grpc.h"
-#include "services/witness_bucket.h"
 
 using namespace std;
 using namespace dg;
@@ -157,20 +153,22 @@ void serveRanker(Config *config, int userPort = 0) {
 DEFINE_int32(port, 0,
              "Service port number, will overwite the value defined in config file");
 DEFINE_string(config, "config.json", "Config file path");
+DEFINE_bool(showconfig, false, "Show config file content");
+DEFINE_bool(encrypt, false, "Use the encrype data, only valid in DEBUG mode");
+
 
 int main(int argc, char *argv[]) {
 
     google::InitGoogleLogging(argv[0]);
-//    StartDogMonitor();
-//  if (CheckHardware()) {
-    //      return -1;
-    // }
 
     google::SetUsageMessage(
         "Usage: " + string(argv[0])
-            + " [--port=6500] [--config=config.json]");
+            + " [--port=6500] [--config=config.json] [--encrypt=false (valid only in DEBUG mode)]");
+
     google::SetVersionString("0.2.4");
     google::ParseCommandLineFlags(&argc, &argv, false);
+
+
 
     // init curl in the main thread
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
@@ -178,7 +176,24 @@ int main(int argc, char *argv[]) {
 
     Config *config = new Config();
     config->Load(FLAGS_config);
-    config->DumpValues();
+    config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(false));
+#ifdef DEBUG
+    if (0) {
+        config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
+#endif
+//        StartDogMonitor();
+//        if (CheckHardware())
+//            return -1;
+#ifdef DEBUG
+    } else {
+        // in DEBUG mode, encrypt is false in default
+        config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(false));
+    }
+#endif
+
+//    if (showconfig) {
+//        config->DumpValues();
+//    }
 
     string instType = (string) config->Value("InstanceType");
 

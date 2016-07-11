@@ -116,7 +116,7 @@ typedef struct _LPDRConfig {
     string chrecogSymbolFile;
     string chrecogParamFile;
     int batchsize = 1;
-    bool is_model_encrypt = false;
+    bool is_model_encrypt = true;
     int imageSW;
     int imageSH;
     int numsPlates;
