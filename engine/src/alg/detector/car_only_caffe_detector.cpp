@@ -33,6 +33,13 @@ CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &con
     means_[0] = 102.9801;
     means_[1] = 115.9265;
     means_[2] = 122.7717;
+    net_->Reshape();
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
 
 }
 
