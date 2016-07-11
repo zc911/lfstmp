@@ -31,17 +31,12 @@ class CarOnlyCaffeDetector {
 public:
 
     CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &config);
-
     virtual ~CarOnlyCaffeDetector();
-
     virtual int DetectBatch(const vector<cv::Mat> &img,
                             vector<vector<Detection> > &detect_results);
+
 protected:
     vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
-//    void WrapBatchInputLayer(vector<vector<Mat>> *input_batch);
-//
-//    void PreprocessBatch(const vector<Mat> imgs,
-//                         vector<vector<Mat>> *input_batch);
 private:
     boost::shared_ptr<caffe::Net<float>> net_;
     int num_channels_;

@@ -49,11 +49,10 @@ WitnessEngine::~WitnessEngine() {
 void WitnessEngine::Process(FrameBatch *frames) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
-
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
+
         if (!enable_vehicle_detect_
             || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
-
             if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
@@ -90,11 +89,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 }
             }
         }
-
-        if (vehicle_processor_)
+        if (vehicle_processor_) {
             vehicle_processor_->Update(frames);
+        }
     }
-
     if (frames->CheckFrameBatchOperation(OPERATION_FACE)) {
         if (face_processor_)
             face_processor_->Update(frames);
@@ -103,7 +101,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
 //        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 //        isWarmuped_ = true;
 //    }
-    if(!isWarmuped_){
+    if (!isWarmuped_) {
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
         isWarmuped_ = true;
     }
@@ -136,6 +134,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 void WitnessEngine::recordPerformance() {
 
 }
+
 void WitnessEngine::init(const Config &config) {
 
     ConfigFilter *configFilter = ConfigFilter::GetInstance();
@@ -153,12 +152,13 @@ void WitnessEngine::init(const Config &config) {
         VehicleCaffeDetectorConfig dConfig;
         configFilter->createAccelerateConfig(config, dConfig);
         Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
+
         if (last == NULL) {
             vehicle_processor_ = p;
-        }
-        else {
+        } else {
             last->SetNextProcessor(p);
         }
+
         last = p;
         isWarmuped_ = false;
         if (enable_vehicle_detect_) {
@@ -168,8 +168,7 @@ void WitnessEngine::init(const Config &config) {
             Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
             if (last == NULL) {
                 vehicle_processor_ = p;
-            }
-            else {
+            } else {
                 last->SetNextProcessor(p);
             }
             last = p;
@@ -309,23 +308,6 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
 
-    /*  Mat image = Mat::zeros(480,480,CV_8UC3);
-     Frame *f = new Frame(100, image);
-     Operation op;
-     op.Set(OPERATION_VEHICLE);
-     op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-     | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-     | OPERATION_VEHICLE_FEATURE_VECTOR
-     | OPERATION_VEHICLE_PLATE);
-     op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-     | OPERATION_FACE_FEATURE_VECTOR);
-
-     f->set_operation(op);
-     FrameBatch *fb = new FrameBatch(1);
-     fb->AddFrame(f);
-     this->Process(fb);
-     delete fb;*/
-    // vehicle_processor_=vehicle_processor_->GetNextProcessor();
     is_init_ = true;
 }
 
