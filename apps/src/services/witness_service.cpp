@@ -334,16 +334,18 @@ MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
     d.box = plate.box;
     copyCutboard(d, rplate->mutable_cutboard());
     rplate->mutable_color()->set_colorid(plate.color_id);
+    int typeId=plate.plate_type;
     if (gpuplate) {
         rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
+        filterPlateType(rplate->color().colorname(),plate.plate_num,typeId);
 
     } else {
 
         rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
     }
+    rplate->set_typeid_(typeId);
+    rplate->set_typename_(lookup_string(plate_type_repo_, typeId));
     rplate->mutable_color()->set_confidence(plate.confidence);
-    rplate->set_typeid_(plate.plate_type);
-    rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
     rplate->set_confidence(plate.confidence);
 
     return err;
