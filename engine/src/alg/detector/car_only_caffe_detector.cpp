@@ -11,6 +11,7 @@
 namespace dg {
 
 CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &config)
+
     : device_setted_(false), caffe_config_(config),
       scale_num_(21),
       rescale_(1) {
@@ -18,38 +19,20 @@ CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &con
     if (config.use_gpu) {
         Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        LOG(INFO) << "Use device " << config.gpu_id << endl;
-
     } else {
-        LOG(WARNING) << "Use CPU only" << endl;
         Caffe::set_mode(Caffe::CPU);
     }
 
-//    /* Load the network. */
-//    caffe_config_.deploy_file =
-//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_primary/test.prototxt";
-//    caffe_config_.model_file =
-//        "/home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/unencrypted_models/detection_primary/googlenet_faster_rcnn_iter_48000.caffemodel";
-//    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
-//    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
-//
-////    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
-//    //CHECK_EQ(net_->num_outputs(), 1) << "Network should have exactly one output.";
-//
-//    Blob<float> *input_layer = net_->input_blobs()[0];
-//    num_channels_ = input_layer->channels();
-////    CHECK(
-////        num_channels_ == 3 || num_channels_ == 1) << "Input layer should have 1 or 3 channels.";
-//    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-////    means_ = Mat(input_geometry_, CV_32FC3, Scalar(102.9801, 115.9265, 122.7717));
-//    means_[0] = 102.9801;
-//    means_[1] = 115.9265;
-//    means_[2] = 122.7717;
-//
-//    caffe_config_.target_min_size = 400.0;
-//    caffe_config_.target_max_size = 600.0;
+    net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
+    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
 
-    /* Load the binaryproto mean file. */
+
+    Blob<float> *input_layer = net_->input_blobs()[0];
+    num_channels_ = input_layer->channels();
+    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+    means_[0] = 102.9801;
+    means_[1] = 115.9265;
+    means_[2] = 122.7717;
 
 }
 
@@ -61,30 +44,6 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
     if (!device_setted_ && caffe_config_.use_gpu) {
         device_setted_ = true;
         Caffe::SetDevice(caffe_config_.gpu_id);
-        /* Load the network. */
-        caffe_config_.deploy_file =
-            "./unencrypted_models/detection_primary/test.prototxt";
-        caffe_config_.model_file =
-            "./unencrypted_models/detection_primary/googlenet_faster_rcnn_iter_48000.caffemodel";
-        net_.reset(new Net<float>(caffe_config_.deploy_file, TEST));
-        net_->CopyTrainedLayersFrom(caffe_config_.model_file);
-
-//    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
-        //CHECK_EQ(net_->num_outputs(), 1) << "Network should have exactly one output.";
-
-        Blob<float> *input_layer = net_->input_blobs()[0];
-        num_channels_ = input_layer->channels();
-//    CHECK(
-//        num_channels_ == 3 || num_channels_ == 1) << "Input layer should have 1 or 3 channels.";
-        input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-//    means_ = Mat(input_geometry_, CV_32FC3, Scalar(102.9801, 115.9265, 122.7717));
-        means_[0] = 102.9801;
-        means_[1] = 115.9265;
-        means_[2] = 122.7717;
-
-        caffe_config_.target_min_size = 400.0;
-        caffe_config_.target_max_size = 600.0;
-
     }
 
     vector<Mat> images(batch);
@@ -101,7 +60,7 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
     int batch_size = images.size();
     vvbbox.resize(batch_size);
-//    vector<vector<struct BoundingBox> > vvbbox(batch_size);
+
     if (!(cls->num() == reg->num() && cls->num() == scale_num_ * batch_size)) {
         return 1;
     }
@@ -142,10 +101,10 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
         int max_size = max(img.rows, img.cols);
         int min_size = min(img.rows, img.cols);
 
-        float global_ratio = min_size / caffe_config_.target_min_size;
+        float global_ratio = (float) min_size / (float) caffe_config_.target_min_size;
 
-        if (global_ratio < max_size / caffe_config_.target_max_size) {
-            global_ratio = max_size / caffe_config_.target_max_size;
+        if (global_ratio < (float) max_size / (float) caffe_config_.target_max_size) {
+            global_ratio = (float) max_size / (float) caffe_config_.target_max_size;
         }
         for (int i = 0; i < scale_num_ / 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -238,16 +197,6 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
 vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
 
-//    if (!device_setted_) {
-//        Caffe::SetDevice(caffe_config_.gpu_id);
-//        device_setted_ = true;
-//    }
-    unsigned long long tt;
-    {
-        struct timeval now;
-        gettimeofday(&now, NULL);
-        tt = now.tv_sec * 1000 + now.tv_usec / 1000;
-    }
     Blob<float> *input_layer = net_->input_blobs()[0];
     int max_size = max(imgs[0].rows, imgs[0].cols);
     int min_size = min(imgs[0].rows, imgs[0].cols);
@@ -279,10 +228,11 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
     }
     input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
                          input_geometry_.width);
-    /* Forward dimension change to all layers. */
 
     net_->Reshape();
-    LOG(INFO) << input_geometry_.width << " " << input_geometry_.height << endl;
+
+    DLOG(INFO) << input_geometry_.width << " " << input_geometry_.height << endl;
+
     float *input_data = input_layer->mutable_cpu_data();
     unsigned long long cnt = 0;
     for (auto img:imgs) {
@@ -302,10 +252,10 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
         int min_size = min(sample.rows, sample.cols);
 
 
-        float global_ratio = min_size / caffe_config_.target_min_size;
+        float global_ratio = (float) min_size / (float) caffe_config_.target_min_size;
 
-        if (global_ratio < max_size / caffe_config_.target_max_size) {
-            global_ratio = max_size / caffe_config_.target_max_size;
+        if (global_ratio < (float) max_size / (float) caffe_config_.target_max_size) {
+            global_ratio = (float) max_size / (float) caffe_config_.target_max_size;
         }
 
         for (int k = 0; k < sample.channels(); k++) {
@@ -324,9 +274,7 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
         cnt += input_geometry_.width * input_geometry_.height * 3;
 
     }
-    cout << 1 << endl;
     net_->ForwardPrefilled();
-    cout << 2 << endl;
     if (caffe_config_.use_gpu) {
         cudaDeviceSynchronize();
     }

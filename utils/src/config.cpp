@@ -1,8 +1,6 @@
 #include "config.h"
 #include <fstream>
-#include <iostream>
 #include <sstream>
-#include <string.h>
 #include "glog/logging.h"
 using namespace std;
 namespace dg {
@@ -11,7 +9,7 @@ AnyConversion EmptyAnyConversion("");
 Config::Config() {
 }
 
-bool Config::Load(string const& configFilePath) {
+bool Config::Load(string const &configFilePath) {
     LOG(INFO) << "Load config file: " << configFilePath << endl;
     if (configFilePath.find(JSON_FILE_POSTFIX) != string::npos) {
         loadJson(configFilePath);
@@ -19,21 +17,21 @@ bool Config::Load(string const& configFilePath) {
         loadText(configFilePath);
         string newConfigFilePath = convertTextToJson(configFilePath);
         LOG(WARNING)
-                << "Old config file detected, new config has been created: "
-                << newConfigFilePath << endl;
+            << "Old config file detected, new config has been created: "
+            << newConfigFilePath << endl;
         Load(newConfigFilePath);
     } else {
         LOG(ERROR) << "Cannot find config file:" << configFilePath.c_str()
-                << endl;
+            << endl;
         exit(1);
     }
 
     return true;
 }
 
-bool Config::KeyExist(string const& section, string const& entry) {
+bool Config::KeyExist(string const &section, string const &entry) {
     std::map<string, AnyConversion>::const_iterator ci = content_.find(
-            section + '/' + entry);
+        section + '/' + entry);
     return !(ci == content_.end());
 }
 
@@ -41,7 +39,7 @@ void Config::AddEntry(string key, AnyConversion value) {
     content_[key] = value;
 }
 
-AnyConversion const& Config::Value(string const& key) const {
+AnyConversion const &Config::Value(string const &key) const {
 
     std::map<string, AnyConversion>::const_iterator ci = content_.find(key);
     if (ci == content_.end()) {
@@ -52,13 +50,13 @@ AnyConversion const& Config::Value(string const& key) const {
     return ci->second;
 }
 
-AnyConversion const& Config::Value(const char *keyFormat, int index) const {
+AnyConversion const &Config::Value(const char *keyFormat, int index) const {
 
     char key[256];
     sprintf(key, keyFormat, index);
     return Value(string(key));
 }
-bool Config::LoadString(string const& data){
+bool Config::LoadString(string const &data) {
     Json::Value root;
     Json::Reader reader;
     bool parse_success = reader.parse(data, root, false);
@@ -69,8 +67,8 @@ bool Config::LoadString(string const& data){
     return true;
 }
 
-bool Config::loadText(string const& configFile) {
-    FILE* file = fopen(configFile.c_str(), "r");
+bool Config::loadText(string const &configFile) {
+    FILE *file = fopen(configFile.c_str(), "r");
 
     if (!file || feof(file))
         return false;
@@ -108,7 +106,7 @@ bool Config::loadText(string const& configFile) {
     return true;
 }
 
-bool Config::loadJson(string const& configFile) {
+bool Config::loadJson(string const &configFile) {
     // parse the json config file
     Json::Value root;
     Json::Reader reader;
@@ -124,7 +122,9 @@ bool Config::loadJson(string const& configFile) {
 
 void Config::parseJsonNode(Json::Value &node, const string prefix) {
     Json::Value::Members::iterator itr;
+
     Json::Value::Members children = node.getMemberNames();
+
     for (itr = children.begin(); itr != children.end(); ++itr) {
         string sectionName = *itr;
         Json::Value section = node[sectionName];
@@ -148,7 +148,17 @@ void Config::parseJsonNode(Json::Value &node, const string prefix) {
                     newPrefix = sectionName;
                 }
                 newPrefix = newPrefix + std::to_string(i);
-                parseJsonNode(section[i], newPrefix);
+                if (section[i].isArray() || section[i].isObject())
+                    parseJsonNode(section[i], newPrefix);
+                else {
+                    if (section[i].isInt()) {
+                        AddEntry(newPrefix, AnyConversion(section[i].asInt()));
+                    } else if (section[i].isNumeric()) {
+                        AddEntry(newPrefix, AnyConversion(section[i].asDouble()));
+                    } else {
+                        AddEntry(newPrefix, AnyConversion(section[i].asString()));
+                    }
+                }
             }
         } else if (section.isInt()) {
             AddEntry(key, AnyConversion(section.asInt()));
@@ -160,7 +170,7 @@ void Config::parseJsonNode(Json::Value &node, const string prefix) {
     }
 }
 
-string Config::convertTextToJson(string const& configFile) {
+string Config::convertTextToJson(string const &configFile) {
 // declare json writer and root node
     Json::FastWriter fast_writer;
     Json::Value root;
@@ -168,7 +178,7 @@ string Config::convertTextToJson(string const& configFile) {
     Json::Value section;
 // construct json file
     for (map<string, AnyConversion>::iterator it = content_.begin();
-            it != content_.end(); ++it) {
+         it != content_.end(); ++it) {
         printf("%s %s\n", it->first.c_str(),
                static_cast<string>(it->second).c_str());
         // get current section name
@@ -206,13 +216,13 @@ string Config::convertTextToJson(string const& configFile) {
     string config_loc = configFile.substr(0, pos);
     config_loc += JSON_FILE_POSTFIX;
     string outstring = fast_writer.write(root);
-    FILE* fp = fopen(config_loc.c_str(), "w+");
+    FILE *fp = fopen(config_loc.c_str(), "w+");
     fwrite(outstring.c_str(), 1, outstring.size(), fp);
     fclose(fp);
     return config_loc;
 }
 
-bool Config::isControlFlag(string const& str) {
+bool Config::isControlFlag(string const &str) {
     if (str.compare("0") == 0 || str.compare("1") == 0) {
         return true;
     } else {
@@ -223,13 +233,13 @@ bool Config::isControlFlag(string const& str) {
 void Config::DumpValues() {
 
     for (std::map<string, AnyConversion>::const_iterator it = content_.begin();
-            it != content_.end(); it++) {
+         it != content_.end(); it++) {
         std::cerr << (string) it->first << " = " << (string) it->second
-                << std::endl;
+            << std::endl;
     }
 }
 
-string Config::trim(string const& source, char const* delims) {
+string Config::trim(string const &source, char const *delims) {
     string result(source);
     string::size_type index = result.find_last_not_of(delims);
     if (index != string::npos)

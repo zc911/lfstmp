@@ -178,6 +178,7 @@ int main(int argc, char *argv[]) {
 
     Config *config = new Config();
     config->Load(FLAGS_config);
+    config->DumpValues();
 
     string instType = (string) config->Value("InstanceType");
 

@@ -121,20 +121,45 @@ void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
 
 void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
                                                     VehicleCaffeDetectorConfig &config) {
+    bool carOnly = (bool) cconfig.Value(ADVANCED_DETECTION_CAR_ONLY);
+
     string model_path = (string) data_config_.Value(FILE_DETECTION_MODEL_PATH);
     string trained_model = (string) data_config_.Value(
         FILE_DETECTION_TRAINED_MODEL);
+
+    string carOnlyPath = (string) data_config_.Value(FILE_CAR_ONLY_DETECTION_MODEL_PATH);
+    string carOnlyDeploy = (string) data_config_.Value(FILE_CAR_ONLY_DETECTION_DEPLOY_MODEL);
+    string carOnlyModel = (string) data_config_.Value(FILE_CAR_ONLY_DETECTION_TRAINED_MODEL);
+
+    string confirmPath = (string) data_config_.Value(FILE_CAR_ONLY_CONFIRM_MODEL_PATH);
+    string confirmDeploy = (string) data_config_.Value(FILE_CAR_ONLY_CONFIRM_DEPLOY_MODEL);
+    string confirmModel = (string) data_config_.Value(FILE_CAR_ONLY_CONFIRM_TRAINED_MODEL);
+
     string deploy_model = (string) data_config_.Value(
         FILE_DETECTION_DEPLOY_MODEL);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int batch_size = (int) cconfig.Value(ADVANCED_DETECTION_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
-    config.target_min_size = 400;
-    config.target_max_size = 600;
-    config.car_only = true;
-    config.model_file = model_path + trained_model;
-    config.deploy_file = model_path + deploy_model;
+    float minSize = (float) cconfig.Value(ADVANCED_DETECTION_TARGET_MIN_SIZE);
+    float maxSize = (float) cconfig.Value(ADVANCED_DETECTION_TARGET_MAX_SIZE);
+
+
+    config.target_min_size = minSize == 0 ? 400.0 : minSize;
+    config.target_max_size = maxSize == 0 ? 600.0 : maxSize;
+    config.car_only = carOnly;
+
+    if (carOnly) {
+        config.model_file = carOnlyPath + carOnlyModel;
+        config.deploy_file = carOnlyPath + carOnlyDeploy;
+        config.confirm_model_file = confirmPath + confirmModel;
+        config.confirm_deploy_file = confirmPath + confirmDeploy;
+    } else {
+        config.model_file = model_path + trained_model;
+        config.deploy_file = model_path + deploy_model;
+    }
+
+
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.gpu_id = gpu_id;
