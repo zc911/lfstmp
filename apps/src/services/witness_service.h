@@ -41,7 +41,40 @@ public:
                       IndexTxtResponse *response);
     string name_;
 private:
+    static void filterPlateType(string color,string plateNum,int &type){
+        if(plateNum.size()<2)
+            return;
+        char first[2];
+        memcpy(first,plateNum.c_str(),sizeof(first));
+        if(color=="蓝"){
+            type=1;
+        }else if(color=="黄"){
+            if(type==0){
+                type=3;
+            }else if(type==1){
+                type=4;
+            }
+            if(first=="学"){
 
+            }
+        }else if(color=="黑"){
+            if(first=="使"){
+                type=10;
+            }else if(first=="港"){
+                type=11;
+            }else{
+                type=2;
+            }
+        }else if(color=="绿"){
+            type=12;
+        }else if(color=="白"){
+            if(first=="WJ"){
+                type=6;
+            }else{
+                type=5;
+            }
+        }
+    }
     /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
 
           FILE *fp = fopen(filename.c_str(),"r");
