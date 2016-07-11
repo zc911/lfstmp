@@ -9,8 +9,6 @@
 
 #include <fstream>
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include "pbjson/pbjson.hpp"
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
@@ -21,8 +19,6 @@
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
-#include "string_util.h"
-#include "log/log_val.h"
 //
 using namespace std;
 namespace dg {
@@ -325,35 +321,30 @@ MatrixError WitnessAppsService::fillColor(const Vehicle::Color &color,
     return err;
 }
 
-
-MatrixError WitnessAppsService::fillPlates(const vector<Vehicle::Plate> &plates,
-                                           RecVehicle *vrec) {
+MatrixError WitnessAppsService::fillPlate(const Vehicle::Plate &plate,
+                                          LicensePlate *rplate) {
     bool gpuplate = (bool) config_->Value(IS_GPU_PLATE);
     MatrixError err;
-    for (auto plate:plates) {
-        LicensePlate *rplate = vrec->add_plates();
-        rplate->set_platetext(plate.plate_num);
-        Detection d;
-        d.box = plate.box;
-        copyCutboard(d, rplate->mutable_cutboard());
-        rplate->mutable_color()->set_colorid(plate.color_id);
-        if (gpuplate) {
-            rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
+    rplate->set_platetext(plate.plate_num);
+    Detection d;
+    d.box = plate.box;
+    copyCutboard(d, rplate->mutable_cutboard());
+    rplate->mutable_color()->set_colorid(plate.color_id);
+    if (gpuplate) {
+        rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
 
-        } else {
+    } else {
 
-            rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
-        }
-        rplate->mutable_color()->set_confidence(plate.confidence);
-        rplate->set_typeid_(plate.plate_type);
-        rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
-        rplate->set_confidence(plate.confidence);
-        vrec->mutable_plate()->CopyFrom(*rplate);
+        rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
     }
-
+    rplate->mutable_color()->set_confidence(plate.confidence);
+    rplate->set_typeid_(plate.plate_type);
+    rplate->set_typename_(lookup_string(plate_type_repo_, plate.plate_type));
+    rplate->set_confidence(plate.confidence);
 
     return err;
 }
+
 MatrixError WitnessAppsService::fillSymbols(const vector<Object *> &objects,
                                             RecVehicle *vrec) {
     MatrixError err;
@@ -397,13 +388,6 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                                                         RecVehicle *vrec) {
     MatrixError err;
     std::vector<Pedestrian::Attr> attrs = pobj->attrs();
-
-    const Detection &d = pobj->detection();
-
-    copyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = lookup_string(vehicle_type_repo_, pobj->type());
-    vrec->set_vehicletypename(type);
     for (int i = 0; i < attrs.size(); i++) {
         PedestrianAttr *attr = vrec->add_pedestrianattrs();
         attr->set_attrid(attrs[i].index);
@@ -432,7 +416,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     if (err.code() < 0)
         return err;
 
-    err = fillPlates(vobj->plates(), vrec);
+    err = fillPlate(vobj->plate(), vrec->mutable_plate());
     if (err.code() < 0)
         return err;
 
@@ -708,7 +692,6 @@ MatrixError WitnessAppsService::BatchRecognize(
     WitnessBatchResponse *batchResponse) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Batch recognize using " << name_ << endl;
-    VLOG(VLOG_SERVICE) << "Batch recognize using " << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
