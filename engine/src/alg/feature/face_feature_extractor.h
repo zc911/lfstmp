@@ -37,7 +37,7 @@ class FaceFeatureExtractor {
 public:
     typedef struct {
 
-        bool is_model_encrypt = false;
+        bool is_model_encrypt = true;
         int batch_size = 1;
         bool use_gpu = true;
         int gpu_id = 0;

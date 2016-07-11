@@ -7,7 +7,9 @@
 
 //#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
-#include "processor_helper.h"
+#include "debug_util.h"
+#include "log/log_val.h"
+
 namespace dg {
 /*const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
         "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J",
@@ -40,10 +42,8 @@ bool PlateRecognizeMxnetProcessor::process(Frame *frame) {
 }
 bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
     float costtime, diff;
-#if DEBUG
     struct timeval start, end;
     gettimeofday(&start, NULL);
-#endif
     int batchsize = batch_size_;
     int imagesize = images_.size();
     for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
@@ -91,12 +91,8 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
         }
 
     }
-#if DEBUG
     gettimeofday(&end, NULL);
-    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
-    printf("plate mxnet cost: %.2fms\n", diff);
-#endif
+    VLOG(VLOG_PROCESS_COST) << "Plate mxnet cost: " << TimeCostInMs(start, end) << endl;
     return true;
 }
 
@@ -164,7 +160,7 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
      return;*/
     images_.clear();
     objs_.clear();
-    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
+    objs_ = frameBatch->CollectObjects(FEATURE_CAR_PLATE);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
 
