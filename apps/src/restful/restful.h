@@ -123,16 +123,8 @@ public:
             int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
             threadsInTotal += threadsOnGpu;
         }
-//        int gpuNum = (int) config_.Value("System/GpuNum");
-//        gpuNum = gpuNum == 0 ? 1 : gpuNum;
-//
-//        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
-//        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
 
-//        int threadNum = gpuNum * threadsPerGpu;
-
-        cout << "threadsInTotal: " << threadsInTotal << endl;
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 2);  //at port with 1 thread
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal);  //at port with 1 thread
         Bind(server);
         if (engine_pool_ == NULL) {
             LOG(ERROR) << "Engine pool not initialized" << endl;
