@@ -37,6 +37,8 @@ public:
 
 protected:
     vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
+    int DetectSolidBatch(const vector<Mat> &batch,
+                         vector<vector<Detection> > &vvbbox);
 private:
     boost::shared_ptr<caffe::Net<float>> net_;
     int num_channels_;

@@ -52,9 +52,31 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
         device_setted_ = true;
         Caffe::SetDevice(caffe_config_.gpu_id);
     }
+    vector<Mat> toPredict;
+    for (auto i : batch) {
+        toPredict.push_back(i);
+        if (toPredict.size() == caffe_config_.batch_size) {
+            vector<vector<Detection>> result;
+            DetectSolidBatch(toPredict, result);
+            vvbbox.insert(vvbbox.end(), result.begin(), result.end());
+            toPredict.clear();
+        }
+    }
+    if (toPredict.size() > 0) {
+        vector<vector<Detection>> result;
+        DetectSolidBatch(toPredict, result);
+        vvbbox.insert(vvbbox.end(), result.begin(), result.end());
+    }
+
+
+    return 1;
+
+}
+int CarOnlyCaffeDetector::DetectSolidBatch(const vector<Mat> &batch,
+                                           vector<vector<Detection> > &vvbbox) {
+
 
     vector<Mat> images(batch);
-
     vector<Blob<float> *> outputs = PredictBatch(images);
 
     Blob<float> *cls = outputs[0];
@@ -204,6 +226,11 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
 vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
 
+    vector<Blob<float> *> outputs;
+    if (imgs.size() > caffe_config_.batch_size) {
+        return outputs;
+    }
+
     Blob<float> *input_layer = net_->input_blobs()[0];
     int max_size = max(imgs[0].rows, imgs[0].cols);
     int min_size = min(imgs[0].rows, imgs[0].cols);
@@ -233,9 +260,10 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
         }
 
     }
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
-                         input_geometry_.width);
 
+
+    input_layer->Reshape(imgs.size(), num_channels_, input_geometry_.height,
+                         input_geometry_.width);
     net_->Reshape();
 
     DLOG(INFO) << input_geometry_.width << " " << input_geometry_.height << endl;
@@ -287,7 +315,6 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
     }
 
     /* Copy the output layer to a std::vector */
-    vector<Blob<float> *> outputs;
     for (int i = 0; i < net_->num_outputs(); i++) {
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
