@@ -274,6 +274,7 @@ public:
         return false;
     }
 
+    Identification id() {
         return id_;
     }
 

@@ -173,19 +173,6 @@ void WitnessEngine::init(const Config &config) {
             }
             last = p;
         }
-//        else {
-//            VehicleCaffeDetectorConfig dConfig;
-//            configFilter->createAccelerateConfig(config, dConfig);
-//            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
-//            if (last == NULL) {
-//                vehicle_processor_ = p;
-//            }
-//            else {
-//                last->SetNextProcessor(p);
-//            }
-//            last = p;
-//            isWarmuped_ = false;
-//        }
 
         if (enable_vehicle_plate_gpu_) {
             LPDRConfig_S pstConfig;

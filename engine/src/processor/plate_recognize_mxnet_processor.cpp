@@ -84,12 +84,15 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 plate.box.height = pdwLPRect[3] - pdwLPRect[1];
 
                 string platenum;
+                float score=0;
                 for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
+                    score+=pstLP->afScores[dwK];
                 }
+                score/=pstLP->dwLPLen;
                 plate.color_id = pstLP->dwColor;
-                plate.plate_type = pstLP->dwType;
-                plate.confidence = pstLP->fAllScore;
+                plate.plate_type=pstLP->dwType;
+                plate.confidence = score;
                 plate.plate_num = platenum;
                 plates.push_back(plate);
             }
