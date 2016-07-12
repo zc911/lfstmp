@@ -37,10 +37,13 @@ protected:
         Prediction tth = nthPrediction(preds, preds.size() - 3);
         float tot_score = 0;
         for (int i = 0; i < preds.size(); i++) {
-            tot_score += preds[i].second;
+            tot_score += preds[i].second-min.second;
         }
         float high_thr = color_high_thr_ * tot_score + min.second;
         float low_thr = color_low_thr_ * tot_score + min.second;
+        cout<<fth.first<<" "<<sth.first<<" "<<tth.first<<endl;
+        cout<<fth.second<<" s "<<sth.second<<" "<<tth.second<<endl;
+        cout<<tot_score<<" d "<<high_thr<<" d "<<low_thr<<endl;
         max.first = -1;
         max.second = 0;
         if (fth.second > high_thr) {
