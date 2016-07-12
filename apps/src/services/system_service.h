@@ -80,7 +80,7 @@ static void networkInfo(int *rx, int *tx) {
 class SystemAppsService {
 
 public:
-    SystemAppsService(const Config *config, string name);
+    SystemAppsService(const Config *config, string name, int baseId = 0);
     virtual ~SystemAppsService();
 
     MatrixError Ping(const PingRequest *request, PingResponse *response);
