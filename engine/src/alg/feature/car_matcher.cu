@@ -3,7 +3,7 @@
 
 namespace dg {
 #define FEATURE_NUM_CUDA 256
-#define MAX_IMG_NUM 10000
+#define MAX_IMG_NUM 100000
 
 #define CUDA_CALL(value) {  \
 cudaError_t _m_cudaStat = value;    \
@@ -27,6 +27,7 @@ CarMatcher::CarMatcher() {
     min_remarkableness_ = 0.8;
     max_mapping_offset_ = 50;
     selected_area_weight_ = 50;
+    min_score_thr_ = 100;
     profile_time_ = false;
 
     cudaStreamCreate(&stream_);
@@ -47,6 +48,13 @@ CarMatcher::CarMatcher() {
 }
 
 CarMatcher::~CarMatcher() {
+	CUDA_CALL(cudaFree(query_pos_cuda));
+    CUDA_CALL(cudaFree(query_desc_cuda));
+    CUDA_CALL(cudaFree(db_pos_cuda));
+    CUDA_CALL(cudaFree(db_desc_cuda));
+    CUDA_CALL(cudaFree(db_width_cuda));
+    CUDA_CALL(cudaFree(db_height_cuda));
+    CUDA_CALL(cudaFree(score_cuda));
     CUDA_CALL(cudaStreamDestroy(stream_));
 }
 
