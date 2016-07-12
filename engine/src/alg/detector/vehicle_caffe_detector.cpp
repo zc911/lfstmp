@@ -28,7 +28,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     net_.reset(
         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt, NULL));
     net_->CopyTrainedLayersFrom(config.model_file);
-    cout << config.model_file << endl;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();

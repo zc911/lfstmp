@@ -3,30 +3,73 @@
     "Code": "1.0.0",
     "Model": "1.9"
   },
+  //  "ProtocolType": "rpc",
   "ProtocolType": "restful",
   "InstanceType": "witness",
+  //"InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
-    "GpuId": 0,
+    "Threads": [
+      1,
+      1
+    ],
+//    "GpuNum": 2,
+//    "ThreadsPerGpu": 5,
     "EnableAsyn": true
+  },
+  "Ranker": {
+    "DefaultType": 2
+  },
+  "Feature": {
+    "Vehicle": {
+      "Enable": true,
+      "EnableDetection": true,
+      "EnableType": true,
+      "EnableColor": true,
+      "EnablePlate": false,
+      "EnableGpuPlate": true,
+      "EnablePlateEnhanced": false,
+      "EnableMarker": false,
+      "EnableFeatureVector": false,
+      "EnablePedestrianAttr": false
+    },
+    "Face": {
+      "Enable": false,
+      "EnableDetection": false,
+      "EnableFeatureVector": false
+    }
   },
   "Advanced": {
     "Detection": {
       "Rescale": 400,
-      "BatchSize": 1
+      "TargetMinSize": 400.0,
+      "TargetMaxSize": 600.0,
+      "CarOnly": true,
+      "BatchSize": 10
     },
     "Color": {
-      "BatchSize": 1
+      "BatchSize": 8,
+      "ModelNum": 8
     },
     "Style": {
-      "BatchSize": 1
+      "BatchSize": 8,
+      "ModelNum": 2
     },
     "Plate": {
       "LocalProvince": "",
       "OCR": 1,
       "Locate": 5,
-      "EnableSharp": true
+      "EnableSharp": false
+    },
+    "PlateMxnet": {
+      "BatchSize": 8,
+      "ImgStandardWidth": 400,
+      "ImgStandardHeight": 400,
+      "PlateStandardWidth": 100,
+      "PlateStandardHeight": 300,
+      "PlateNums": 2,
+      "NumsProposal": 20
     },
     "Marker": {
       "MOTConfidence": 0.6,
@@ -36,45 +79,51 @@
       "OthersConfidence": 0.8,
       "TissueBoxConfidence": 0.8,
       "SunVisorConfidence": 0.8,
-      "BatchSize": 1
+      "BatchSize": 8
     },
     "Window": {
-      "BatchSize": 1
+      "BatchSize": 8
     },
     "FaceDetect": {
       "BatchSize": 1,
       "Confidence": 0.7,
-      "scale": 640
+      "Scale": 640
     },
     "FaceExtract": {
       "BatchSize": 1
+    },
+    "Ranker": {
+      "Maximum": 100000
     }
   },
   "Log": {
     "Dir": "",
     "Level": ""
   },
-  "Feature": {
+  "Render": {
     "Vehicle": {
-      "Enable": true,
-      "EnableDetection": true,
-      "EnableType": true,
-      "EnableColor": true,
-      "EnablePlate": true,
-      "EnableGpuPlate": false,
-      "EnablePlateEnhanced": false,
-      "EnableMarker": true,
-      "EnableFeatureVector": true
-    },
-    "Face": {
-      "Enable": false,
-      "EnableDetection": true,
-      "EnableFeatureVector": true
+      "Type": "unencrypted_models/mapping/vehicle_type.txt",
+      "Model": "unencrypted_models/mapping/front_day_index_1_10.txt",
+      "Color": "unencrypted_models/mapping/vehicle_colorhaoquan.txt",
+      "Symbol": "unencrypted_models/mapping/vehicle_symbol.txt",
+      "Plate": {
+        "Color": "unencrypted_models/mapping/plate_color.txt",
+        "ColorGpu": "unencrypted_models/mapping/plate_gpu_color.txt",
+        "Type": "unencrypted_models/mapping/plate_type.txt"
+      },
+      "PedestrianAttr": "unencrypted_models/mapping/pedestrian_attr_type.txt"
     }
   },
   "Debug": {
     "Enable": true,
+    "EnableCutboard": true,
     "Encrypt": false
   },
-  "DataPath": "data_config.json"
+  "Storage": {
+    "Enabled": false,
+    "Address": "192.168.2.119:9004",
+    "DBType": 2
+  },
+  "DataPath": "data_config_unencrypted.json"
 }
+

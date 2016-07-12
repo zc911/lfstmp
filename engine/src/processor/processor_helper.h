@@ -68,7 +68,6 @@ static bool RecordPerformance(Feature feature, unsigned long long &performance) 
     if (i == 0) {
         if (SetCurrPerformance(FEATURE_CAR_PLATE, performance) == ERR_SUCCESS) {
             DLOG(INFO) << "write performance " << performance << " into dog";
-            cout << "write performance " << performance << " into dog";
 
             performance = 0;
             status = true;

@@ -33,7 +33,7 @@ public:
     int DetectBatch(const vector<cv::Mat> &img,
                     vector<vector<Detection> > &detect_results);
 
-    vector<vector<Detection> > Confirm(
+    void Confirm(
         vector<Mat> images, vector<vector<Detection> > &vbbox);
 
 protected:

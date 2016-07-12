@@ -116,15 +116,15 @@ public:
 
     void Run() {
         int port = (int) config_.Value("System/Port");
-        int gpuNum = (int) config_.Value("System/GpuNum");
-        gpuNum = gpuNum == 0 ? 1 : gpuNum;
 
-        int threadsPerGpu = (int) config_.Value("System/ThreadsPerGpu");
-        threadsPerGpu = threadsPerGpu == 0 ? 1 : threadsPerGpu;
+        int threadsInTotal = 0;
+        int gpuNum = (int) config_.Value(SYSTEM_THREADS + "/Size");
+        for (int i = 0; i < gpuNum; ++i) {
+            int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
+            threadsInTotal += threadsOnGpu;
+        }
 
-        int threadNum = gpuNum * threadsPerGpu;
-
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadNum);  //at port with 1 thread
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal);  //at port with 1 thread
         Bind(server);
         if (engine_pool_ == NULL) {
             LOG(ERROR) << "Engine pool not initialized" << endl;
@@ -133,12 +133,13 @@ public:
         cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
         string instanceType = (string) config_.Value("InstanceType");
         if (instanceType == "witness") {
-            warmUp(threadsPerGpu);
+            warmUp(threadsInTotal);
         }
         server.start();
     }
     virtual void warmUp(int n) {
-        string imgdata="iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
+        string imgdata =
+            "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
         protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
