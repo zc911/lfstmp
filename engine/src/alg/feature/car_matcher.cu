@@ -221,11 +221,11 @@ vector<int> CarMatcher::computeMatchScoreGpu(
     dim3 grid, block;
     grid = dim3(all_des.size());
     block = dim3(FEATURE_NUM_CUDA);
-    compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda, (uint*)query_desc_cuda, 
-    															db_pos_cuda, (uint*)db_desc_cuda, query_width, 
-    															query_height, db_width_cuda, db_height_cuda, 
+    compute_match_score_kernel<<<grid, block, 0, stream_>>>(query_box, query_pos_cuda_, (uint*)query_desc_cuda_, 
+    															db_pos_cuda_, (uint*)db_desc_cuda_, query_width, 
+    															query_height, db_width_cuda_, db_height_cuda_, 
     															max_resize_size_, feature_num_, min_remarkableness_, 
-    															max_mis_match_, selected_area_weight_, max_mapping_offset_, score_cuda);
+    															max_mis_match_, selected_area_weight_, max_mapping_offset_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
 
