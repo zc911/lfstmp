@@ -20,6 +20,7 @@ CarMatcher::CarMatcher() {
     min_remarkableness_ = 0.8;
     max_mapping_offset_ = 50;
     selected_area_weight_ = 50;
+    min_score_thr_ = 100;
     profile_time_ = false;
 }
 
