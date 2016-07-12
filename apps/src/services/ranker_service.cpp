@@ -14,7 +14,7 @@
 #include "image_service.h"
 namespace dg {
 
-RankerAppsService::RankerAppsService(const Config *config, string name)
+RankerAppsService::RankerAppsService(const Config *config, string name, int baseId)
     : name_(name),
       config_(config),
       car_ranker_(*config),

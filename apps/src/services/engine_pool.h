@@ -104,10 +104,10 @@ public:
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
-                EngineType *engine = new EngineType(config_, name);
+                EngineType *engine = new EngineType(config_, name, gpuId * 10 + i);
                 cout << "Start thread: " << name << endl;
 
-                workers_.emplace_back([this, engine] {
+                workers_.emplace_back([this, engine, &name] {
                   for (; ;) {
                       CallData *task;
                       {
@@ -131,6 +131,7 @@ public:
                       // and then invoke the binded function
                       task->Run();
                   }
+                  LOG(ERROR) << "Engine thread " << name << " crashed!!!" << endl;
                 });
             }
 
