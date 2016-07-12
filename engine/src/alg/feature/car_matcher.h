@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <vector>
+#include <math.h>
+
 #include <glog/logging.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -87,6 +89,7 @@ private:
     float min_remarkableness_;
     int max_mapping_offset_;
     int selected_area_weight_;
+    int min_score_thr_;
     int score_[100000];
 
 #if USE_CUDA
@@ -130,6 +133,29 @@ private:
     {
         return (x >= box.x) && (x <= box.x + box.width) && (y >= box.y)
             && (y <= box.y + box.height);
+    }
+
+    void normalizeImg(cv::Mat &img)
+    {
+    	float data_mean = 0;
+    		for (int i = 0; i < img.rows; i++) {
+    			uchar *data = img.ptr<uchar>(i);
+    			for (int j = 0; j < img.cols; j++)
+    				for (int k = 0; k < 3; k++)
+    					data_mean += data[j*3+k];
+    		}
+    		data_mean = 120 - data_mean/(float)img.rows/(float)img.cols/3;
+    		float tmp;
+    		for (int i = 0; i < img.rows; i++) {
+    			uchar *data = img.ptr<uchar>(i);
+    			for (int j = 0; j < img.cols; j++)
+    				for (int k = 0; k < 3; k++) {
+    					tmp = (int)((float)data[j*3+k]+data_mean);
+    					tmp = max(tmp,0.0);
+    					tmp = min(tmp,255.0);
+    					data[j*3+k] = tmp;
+    				}
+    		}
     }
 };
 
