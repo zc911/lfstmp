@@ -22,9 +22,11 @@ string CarRankFeature::Serialize() const {
         return "";
     }
 
-    float version = 1.2;
+    float version = 2.0;
     vector<uchar> data;
     ConvertToByte(version, data);
+    ConvertToByte(width_, data);
+    ConvertToByte(height_, data);
 
     const Mat &des = descriptor_;
     const Mat &pos = position_;
@@ -38,21 +40,31 @@ string CarRankFeature::Serialize() const {
 bool CarRankFeature::Deserialize(string featureStr) {
     float version;
     int des_size, pos_size;
+    int width, height;
 
     vector<uchar> data;
     data.clear();
     Base64::Decode(featureStr, data);
 
     vector<uchar>::iterator it = data.begin();
+
     vector<uchar> version_v(it, it + sizeof(version));
-
     it += sizeof(version);
-    vector<uchar> des_size_v(it, it + sizeof(des_size));
 
+    vector<uchar> width_v(it, it + sizeof(width));
+    it += sizeof(width);
+
+    vector<uchar> height_v(it, it + sizeof(height));
+    it += sizeof(height);
+
+    vector<uchar> des_size_v(it, it + sizeof(des_size));
     it += sizeof(des_size);
+
     vector<uchar> pos_size_v(it, it + sizeof(des_size));
 
     ConvertToValue(&version, version_v);
+    ConvertToValue(&width, width_v);
+    ConvertToValue(&height, height_v);
     ConvertToValue(&des_size, des_size_v);
     ConvertToValue(&pos_size, pos_size_v);
 
@@ -81,8 +93,8 @@ bool CarRankFeature::Deserialize(string featureStr) {
     des.copyTo(descriptor_);
     pos.copyTo(position_);
 
-    width_ = descriptor_.cols;
-    height_ = descriptor_.rows;
+    width_ = width;
+    height_ = height;
 
     return true;
 }
