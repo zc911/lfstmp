@@ -67,7 +67,7 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 	des.height_ = resize_img.rows;
 	des.width_ = resize_img.cols;
 	descriptor.copyTo(des.descriptor_);
-	des.position_ = Mat::zeros(key_point.size(), 2, CV_16UC1);
+	des.position_ = cv::Mat::zeros(key_point.size(), 2, CV_16UC1);
 	for (int i = 0; i < key_point.size(); i++) {
 		des.position_.at<ushort>(i, 0) = ((ushort) key_point[i].pt.x);
 		des.position_.at<ushort>(i, 1) = ((ushort) key_point[i].pt.y);
