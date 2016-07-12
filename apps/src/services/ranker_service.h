@@ -24,7 +24,7 @@ using namespace ::dg::model;
 
 class RankerAppsService {
 public:
-    RankerAppsService(const Config *config, string name);
+    RankerAppsService(const Config *config, string name, int baseId = 0);
     virtual ~RankerAppsService();
 
     MatrixError GetRankedVector(const FeatureRankingRequest *request,
