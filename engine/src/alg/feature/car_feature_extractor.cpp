@@ -45,8 +45,8 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 //        des.position_.at<ushort>(i, 0) = ((ushort) key_point[i].pt.x);
 //        des.position_.at<ushort>(i, 1) = ((ushort) key_point[i].pt.y);
 
-	Mat resize_img;
-	Size new_size;
+	cv::Mat resize_img;
+	cv::Size new_size;
 	calcNewSize(img.rows, img.cols, new_size);
 	if (img.channels() != 3)
 		LOG(WARNING)<<"Color image is required.";
@@ -57,7 +57,7 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 	vector<cv::KeyPoint> key_point;
 	cv::Mat descriptor;
 	//normalize_img(resize_img);
-	orb_extractor_(resize_img, Mat(), key_point, descriptor);
+	orb_extractor_(resize_img, cv::Mat(), key_point, descriptor);
 	//orb_(resize_img, Mat(), key_point_, descriptor_);
 	// std::fstream f("feature_num_new.txt", ios::app|ios::out);
 	// f<<key_point_.size()<<endl;
