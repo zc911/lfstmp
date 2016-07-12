@@ -28,7 +28,7 @@ private:
     ORBextractor orb_extractor_;
     int max_resize_size_;
 
-    void calcNewSize(const int &ori_height, const int &ori_width,
+    void calcNewSize(const ushort &ori_height, const ushort &ori_width,
                      cv::Size &new_size);
 };
 

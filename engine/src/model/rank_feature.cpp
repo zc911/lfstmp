@@ -40,7 +40,7 @@ string CarRankFeature::Serialize() const {
 bool CarRankFeature::Deserialize(string featureStr) {
     float version;
     int des_size, pos_size;
-    int width, height;
+    ushort width, height;
 
     vector<uchar> data;
     data.clear();
