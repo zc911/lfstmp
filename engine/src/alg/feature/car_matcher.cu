@@ -48,13 +48,13 @@ CarMatcher::CarMatcher() {
 }
 
 CarMatcher::~CarMatcher() {
-	CUDA_CALL(cudaFree(query_pos_cuda));
-    CUDA_CALL(cudaFree(query_desc_cuda));
-    CUDA_CALL(cudaFree(db_pos_cuda));
-    CUDA_CALL(cudaFree(db_desc_cuda));
-    CUDA_CALL(cudaFree(db_width_cuda));
-    CUDA_CALL(cudaFree(db_height_cuda));
-    CUDA_CALL(cudaFree(score_cuda));
+	CUDA_CALL(cudaFree(query_pos_cuda_));
+    CUDA_CALL(cudaFree(query_desc_cuda_));
+    CUDA_CALL(cudaFree(db_pos_cuda_));
+    CUDA_CALL(cudaFree(db_desc_cuda_));
+    CUDA_CALL(cudaFree(db_width_cuda_));
+    CUDA_CALL(cudaFree(db_height_cuda_));
+    CUDA_CALL(cudaFree(score_cuda_));
     CUDA_CALL(cudaStreamDestroy(stream_));
 }
 
