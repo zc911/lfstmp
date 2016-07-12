@@ -25,8 +25,8 @@ MatrixError SystemAppsService::Ping(const PingRequest *request,
     return err;
 }
 void SystemAppsService::initNetworkThread() {
- //   std::thread network_th_(networkInfo, &rx_, &tx_);
-  //  network_th_.detach();
+    //   std::thread network_th_(networkInfo, &rx_, &tx_);
+    //  network_th_.detach();
 }
 
 MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,

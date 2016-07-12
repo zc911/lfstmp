@@ -23,7 +23,7 @@ using namespace caffe;
 using namespace cv;
 namespace dg {
 class WindowCaffeDetector {
- public:
+public:
     typedef struct {
 
         bool is_model_encrypt = false;
@@ -40,14 +40,14 @@ class WindowCaffeDetector {
 
     virtual vector<Detection> DetectBatch(const vector<cv::Mat> &img,
                                           const vector<cv::Mat> &resized_img);
- protected:
+protected:
     vector<Detection> Detect(vector<Mat> resized_imgs, vector<Mat> imgs);
-    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    std::vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
     void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
 
     void PreprocessBatch(const vector<Mat> imgs,
-                         vector<vector<Mat> >* input_batch);
- private:
+                         vector<vector<Mat> > *input_batch);
+private:
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;
     cv::Size input_geometry_;

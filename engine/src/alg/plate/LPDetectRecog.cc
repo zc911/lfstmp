@@ -109,7 +109,11 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
 //  assert(dwImgNum==1);
   
   ////////////////FCN///////////////
-  
+#if LPDR_TIME  
+  float costtime, diff;
+  struct timeval start, end;
+#endif
+
   LPDR_ImageInner_S *pstFCNNImgSet = new LPDR_ImageInner_S[dwImgNum];
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
@@ -123,13 +127,30 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     
     cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, pstImgSet->astSet[dwI].pubyData);
     cv::Mat inputGrayOne(dwImgH, dwImgW, CV_8UC1);
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
     cv::cvtColor(inputColorOne, inputGrayOne, CV_BGR2GRAY);
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("cvtColor cost:%.2fms\n", diff);
+#endif
     uchar *pubyOne = (uchar*)inputGrayOne.data;
-    for (dwPI = 0; dwPI < dwSize; dwPI++)
-    {
-      pstOne->pfData[dwPI] = pubyOne[dwPI] / 255.0f;
-    }
-    
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
+//    for (dwPI = 0; dwPI < dwSize; dwPI++)
+//    {
+//      pstOne->pfData[dwPI] = pubyOne[dwPI] / 255.0f;
+//    }
+    cv::Mat oneData(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
+    inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f/255.f, 0);
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("uchar to float cost:%.2fms\n", diff);
+#endif   
 //    doRotate_f(pstOne->pfData, dwImgW, dwImgH, 10.0f);
 
 #if LPDR_DBG&1
@@ -139,7 +160,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   cv::waitKey(0);
 #endif  
   }
-  
+
   LPFCNN_Process(hFCNN, pstFCNNImgSet, dwImgNum);
   
   ////////////////RPN///////////////

@@ -1,26 +1,52 @@
 syntax = "proto3";
 
-package dg.model;
+package
+dg.model;
 
 import "common.proto";
 import "localcommon.proto";
 
-service SimilarityService { 
-	rpc GetRankedVector(FeatureRankingRequest) returns (FeatureRankingResponse) {}
+service
+SimilarityService
+{
+    rpc
+    GetRankedVector(FeatureRankingRequest)
+    returns(FeatureRankingResponse)
+    {
+    }
 }
 
-message FeatureRankingRequest {
-	int64 ReqId = 1;		//请求的Id
-	RecognizeType Type = 2; //
-	Image Image = 3; 		//待比对图片信息
-	repeated Cutboard InterestedAreas = 4;//比对设置的感兴趣区域
-	repeated Cutboard DisabledAreas = 5;//比对设置的禁用区域（当前不可用）
-	repeated FeatureVector Candidates = 6;//待比对的特征列表
-	int32 Limit = 7;		//比对输出条目限制（0为不限制）
+message
+FeatureRankingRequest
+{
+    int64
+    ReqId = 1;		//请求的Id
+    RecognizeType
+    Type = 2; //
+    Image
+    Image = 3; 		//待比对图片信息
+    repeated
+    Cutboard
+    InterestedAreas = 4;//比对设置的感兴趣区域
+    repeated
+    Cutboard
+    DisabledAreas = 5;//比对设置的禁用区域（当前不可用）
+    repeated
+    FeatureVector
+    Candidates = 6;//待比对的特征列表
+    int32
+    Limit = 7;		//比对输出条目限制（0为不限制）
 }
 
-message FeatureRankingResponse {
-	int64 ReqId = 1;			//比对返回的请求Id(对应请求的ReqId)
-	repeated int64 Ids = 2;		//比对返回的排序结果
-	repeated float Scores = 3;	//比对返回的相关性分值
+message
+FeatureRankingResponse
+{
+    int64
+    ReqId = 1;			//比对返回的请求Id(对应请求的ReqId)
+    repeated
+    int64
+    Ids = 2;		//比对返回的排序结果
+    repeated
+    float
+    Scores = 3;	//比对返回的相关性分值
 }

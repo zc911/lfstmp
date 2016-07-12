@@ -22,7 +22,7 @@ using namespace caffe;
 namespace dg {
 
 class VehicleMultiTypeDetector {
- public:
+public:
     typedef struct {
 
         bool is_model_encrypt = false;
@@ -41,15 +41,15 @@ class VehicleMultiTypeDetector {
     vector<Detection> Detect(const cv::Mat &img);
     vector<vector<Detection>> DetectBatch(const vector<cv::Mat> &img);
 
- private:
+private:
 
-    void forward(vector<cv::Mat> imgs, vector<Blob<float>*> &outputs);
-    void getDetection(vector<Blob<float>*>& outputs,
+    void forward(vector<cv::Mat> imgs, vector<Blob<float> *> &outputs);
+    void getDetection(vector<Blob<float> *> &outputs,
                       vector<struct Bbox> &final_vbbox);
 
-    void nms(vector<struct Bbox>& p, float threshold);
-    void bboxTransformInvClip(Blob<float>* roi, Blob<float>* cls,
-                              Blob<float>* reg, Blob<float>* im_info_layer,
+    void nms(vector<struct Bbox> &p, float threshold);
+    void bboxTransformInvClip(Blob<float> *roi, Blob<float> *cls,
+                              Blob<float> *reg, Blob<float> *im_info_layer,
                               vector<struct Bbox> &vbbox);
 
     boost::shared_ptr<caffe::Net<float> > net_;

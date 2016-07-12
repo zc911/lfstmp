@@ -1,81 +1,80 @@
 {
-	"Version" : {
-		"Code" : "1.0.0",
-		"Model" : "1.9"
-	},
-	"ProtocolType" : "restful",
-	"InstanceType" : "witness",
-	"System" : {
-		"Ip" : "0.0.0.0",
-		"Port" : 6500,
-		"GpuId" : 0,
-		"EnableAsyn" : true
-	},
-	"Advanced" : {
-		"Detection" : {
-			"Rescale" : 400,
-			"BatchSize": 1
-		},
-		"Color" :{
-			"BatchSize": 1
-		},
-		"Style" :{
-			"BatchSize": 1
-		},
-		"Plate" : {
-			"LocalProvince" : "",
-			"OCR" : 1,
-			"Locate" : 5,
-			"EnableSharp":true
-		},
-		"Marker" : {
-			"MOTConfidence" : 0.6,		
-			"BeltConfidence" : 0.8,		
-			"GlobalConfidence" : 0.8,		
-			"AccessoriesConfidence" : 0.8,		
-			"OthersConfidence" : 0.8,		
-			"TissueBoxConfidence" : 0.8,	
-			"SunVisorConfidence" : 0.8,
-			"BatchSize" : 1			
-		},
-		"Window" : {
-			"BatchSize":1		
-		},
-		"FaceDetect" : {
-			"BatchSize":1,
-			"Confidence":0.7,
-			"scale":640		
-		},
-		"FaceExtract" :{
-			"BatchSize":1
-		}		
-	},
-	"Log" : {
-		"Dir": "",
-		"Level": ""
-	},
-	"Feature":{
-		"Vehicle": {
-			"Enable" : true,
-			"EnableDetection": true,
-			"EnableType" : true,
-			"EnableColor" : true,
-			"EnablePlate" : true,
-			"EnableGpuPlate": false,
-			"EnablePlateEnhanced" : false,
-			"EnableMarker" : true,
-			"EnableFeatureVector" : true
-		},
-		"Face": {
-			"Enable" : false,
-			"EnableDetection": true,
-			"EnableFeatureVector": true
-		}
-	},
-	"Debug" : {
-		"Enable" : true,
-		"Encrypt" : false
-	},
-	"DataPath":"data_config.json"
-
+  "Version": {
+    "Code": "1.0.0",
+    "Model": "1.9"
+  },
+  "ProtocolType": "restful",
+  "InstanceType": "witness",
+  "System": {
+    "Ip": "0.0.0.0",
+    "Port": 6500,
+    "GpuId": 0,
+    "EnableAsyn": true
+  },
+  "Advanced": {
+    "Detection": {
+      "Rescale": 400,
+      "BatchSize": 1
+    },
+    "Color": {
+      "BatchSize": 1
+    },
+    "Style": {
+      "BatchSize": 1
+    },
+    "Plate": {
+      "LocalProvince": "",
+      "OCR": 1,
+      "Locate": 5,
+      "EnableSharp": true
+    },
+    "Marker": {
+      "MOTConfidence": 0.6,
+      "BeltConfidence": 0.8,
+      "GlobalConfidence": 0.8,
+      "AccessoriesConfidence": 0.8,
+      "OthersConfidence": 0.8,
+      "TissueBoxConfidence": 0.8,
+      "SunVisorConfidence": 0.8,
+      "BatchSize": 1
+    },
+    "Window": {
+      "BatchSize": 1
+    },
+    "FaceDetect": {
+      "BatchSize": 1,
+      "Confidence": 0.7,
+      "scale": 640
+    },
+    "FaceExtract": {
+      "BatchSize": 1
+    }
+  },
+  "Log": {
+    "Dir": "",
+    "Level": ""
+  },
+  "Feature": {
+    "Vehicle": {
+      "Enable": true,
+      "EnableDetection": true,
+      "EnableType": true,
+      "EnableColor": true,
+      "EnablePlate": true,
+      "EnableGpuPlate": false,
+      "EnablePlateEnhanced": false,
+      "EnableMarker": true,
+      "EnableFeatureVector": true
+    },
+    "Face": {
+      "Enable": false,
+      "EnableDetection": true,
+      "EnableFeatureVector": true
+    }
+  },
+  "Debug": {
+    "Enable": true,
+    "Encrypt": false
+  },
+  "DataPath": "data_config.json"
 }

@@ -1,40 +1,69 @@
 syntax = "proto3";
 
-package dg.model;
+package
+dg.model;
 
-message SrcMetadata {
-	int64 Timestamp = 1;
-	int32 Duration = 2;
-	int32 SensorId = 3;
-	string SensorName = 4;
-	string SensorUrl = 5;
-	int32 RepoId = 6;
-	string RepoInfo = 7;
+message
+SrcMetadata
+{
+    int64
+    Timestamp = 1;
+    int33
+    Duration = 2;
+    int32
+    SensorId = 3;
+    string
+    SensorName = 4;
+    string
+    SensorUrl = 5;
+    int32
+    RepoId = 6;
+    string
+    RepoInfo = 7;
 }
 
-message Cutboard {
-	uint32 X = 1;
-	uint32 Y = 2;
-	uint32 Width = 3;
-	uint32 Height = 4;
-	uint32 ResWidth = 5;
-	uint32 ResHeight = 6;
-	float Confidence = 7;
+message
+Cutboard
+{
+    uint32
+    X = 1;
+    uint32
+    Y = 2;
+    uint32
+    Width = 3;
+    uint32
+    Height = 4;
+    uint32
+    ResWidth = 5;
+    uint32
+    ResHeight = 6;
+    float
+    Confidence = 7;
 }
 
-message CutboardImage {
-	Cutboard Cutboard = 1;
-	Image Img = 2;
+message
+CutboardImage
+{
+    Cutboard
+    Cutboard = 1;
+    Image
+    Img = 2;
 }
 
-message Color {
-	int32 ColorId = 1; //DEPLICATE!
-	float Confidence = 2; //颜色汉字表示
-	string ColorName = 3; //颜色识别置信度
+message
+Color
+{
+    int32
+    ColorId = 1; //DEPLICATE!
+    float
+    Confidence = 2; //颜色汉字表示
+    string
+    ColorName = 3; //颜色识别置信度
 }
 
 enum ObjType {
-	OBJ_TYPE_UNKNOWN = 0;
+    OBJ_TYPE_UNKNOWN = 0
+;
 OBJ_TYPE_CAR = 1;
 OBJ_TYPE_BICYCLE = 2;
 OBJ_TYPE_TRICYCLE = 3;
@@ -53,104 +82,190 @@ OBJ_TYPE_FACE_CUTBOARD = 5120;
 }
 
 enum DataFmtType {
-	UNKNOWNFMT = 0;
+    UNKNOWNFMT = 0
+;
 JSON = 1;
 PROTOBUF = 2;
 CSV = 3;
 PDF = 4;
 }
 
-message FeatureVector {
-	int64 Id = 1; 		//特征的关键字
-	string Feature = 2;	//特征值
+message
+FeatureVector
+{
+    int64
+    Id = 1; 		//特征的关键字
+    string
+    Feature = 2;	//特征值
 }
 
-message NullMessage{
+message
+NullMessage
+{
 
 }
 
-message Image {
-	string Id = 1;
-	int32 Width = 2;
-	int32 Height = 3;
-	string URI = 4;
-	string BinData = 5; // base64 format image
+message
+Image
+{
+    string
+    Id = 1;
+    int32
+    Width = 2;
+    int32
+    Height = 3;
+    string
+    URI = 4;
+    string
+    BinData = 5; // base64 format image
 }
 
-message RecFace {
-	int64 Id = 1;
-	CutboardImage Img = 2;
-	string Features = 3;
-	float Confidence = 4;
+message
+RecFace
+{
+    int64
+    Id = 1;
+    CutboardImage
+    Img = 2;
+    string
+    Features = 3;
+    float
+    Confidence = 4;
 }
 
-message PedestrianAttr {
-	int32 AttrId = 1;
-	string AttrName = 2;
-	float Confidence = 3;
+message
+PedestrianAttr
+{
+    int32
+    AttrId = 1;
+    string
+    AttrName = 2;
+    float
+    Confidence = 3;
 }
 
-message RecVehicle {
-	int64 Id = 1;
-	VehicleModelType ModelType = 2;
-	Color Color = 3;
-	LicensePlate Plate = 4;
-	CutboardImage Img = 5;
-	repeated VehicleSymbol Symbols = 6;
-	string Features = 7;
-	ObjType VehicleType = 8;
-	string VehicleTypeName = 9;
-	repeated PedestrianAttr PedestrianAttrs = 10;
+message
+RecVehicle
+{
+    int64
+    Id = 1;
+    VehicleModelType
+    ModelType = 2;
+    Color
+    Color = 3;
+    LicensePlate
+    Plate = 4;
+    CutboardImage
+    Img = 5;
+    repeated
+    VehicleSymbol
+    Symbols = 6;
+    string
+    Features = 7;
+    ObjType
+    VehicleType = 8;
+    string
+    VehicleTypeName = 9;
+    repeated
+    PedestrianAttr
+    PedestrianAttrs = 10;
+    repeated
+    LicensePlate
+    Plates = 11;
 }
 
-message VehicleModelType {
-	int64 Id = 1; // business id
-	int32 BrandId = 2;
-	int32 SubBrandId = 3;
-	int32 ModelYearId = 4;
-	float Confidence = 5;
-	string Type = 6; //车模类型名称
-	string Brand = 7; //车模主品牌名称
-	string SubBrand = 8; //车模子品牌名称
-	string ModelYear = 9; //车模年款名称
-	int32 TypeId = 10;
-	string Model = 11;
-	int32 IsHead = 12;
+message
+VehicleModelType
+{
+    int64
+    Id = 1; // business id
+    int32
+    BrandId = 2;
+    int32
+    SubBrandId = 3;
+    int32
+    ModelYearId = 4;
+    float
+    Confidence = 5;
+    string
+    Type = 6; //车模类型名称
+    string
+    Brand = 7; //车模主品牌名称
+    string
+    SubBrand = 8; //车模子品牌名称
+    string
+    ModelYear = 9; //车模年款名称
+    int32
+    TypeId = 10;
+    string
+    Model = 11;
+    int32
+    IsHead = 12;
 }
 
-message LicensePlate {
-	string PlateText = 1;
-	Color Color = 2;
-	int32 TypeId = 3;
-	string TypeName = 4;
-	float Confidence = 5;
-	Cutboard Cutboard = 6;
+message
+LicensePlate
+{
+    string
+    PlateText = 1;
+    Color
+    Color = 2;
+    int32
+    TypeId = 3;
+    string
+    TypeName = 4;
+    float
+    Confidence = 5;
+    Cutboard
+    Cutboard = 6;
 }
 
-message VehicleSymbol {
-	int32 SymbolId = 1;
-	string SymbolName = 2;
-	repeated Symbol Symbols = 3;
+message
+VehicleSymbol
+{
+    int32
+    SymbolId = 1;
+    string
+    SymbolName = 2;
+    repeated
+    Symbol
+    Symbols = 3;
 }
 
-message Symbol{
-	Cutboard Cutboard = 1;
-	float Confidence = 2;
+message
+Symbol
+{
+    Cutboard
+    Cutboard = 1;
+    float
+    Confidence = 2;
 }
 
 enum DBType{
-	KAFKA = 0;
+    KAFKA = 0
+;
 }
 
-message StorageConfig {
-	string Address = 1;         //结构化信息输出地址 ip:port
-	DBType Type = 2;			    //
-	repeated string Tags = 3;   //设定数据的信息标签
-}
-
-message VehicleObj
+message
+StorageConfig
 {
-	SrcMetadata Metadata = 1;
-	Image Img = 2;
-	repeated RecVehicle Vehicle = 3;
+    string
+    Address = 1;         //结构化信息输出地址 ip:port
+    DBType
+    Type = 2;			    //
+    repeated
+    string
+    Tags = 3;   //设定数据的信息标签
+}
+
+message
+VehicleObj
+{
+    SrcMetadata
+    Metadata = 1;
+    Image
+    Img = 2;
+    repeated
+    RecVehicle
+    Vehicle = 3;
 }

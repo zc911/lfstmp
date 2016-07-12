@@ -39,9 +39,9 @@ void FaceRanker::Sort(vector<Score> &scores, int left, int right) {
         Sort(scores, i, right);
 }
 
-vector<Score> FaceRanker::Rank(const FaceRankFeature& datum,
-                               const vector<Rect>& hotspots,
-                               const vector<FaceRankFeature>& candidates) {
+vector<Score> FaceRanker::Rank(const FaceRankFeature &datum,
+                               const vector<Rect> &hotspots,
+                               const vector<FaceRankFeature> &candidates) {
     vector<Score> scores;
     for (int i = 0; i < candidates.size(); i++) {
         Score score(i, CosSimilarity(datum, candidates[i]));

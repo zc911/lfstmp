@@ -19,17 +19,17 @@ using namespace std;
 
 namespace dg {
 
-class CaffeClassifier : public Classifier {
+class CaffeClassifier: public Classifier {
 
- public:
+public:
     CaffeClassifier(CaffeConfig &caffeConfig)
-            : gpu_id_(caffeConfig.gpu_id),
-              batch_size_(caffeConfig.batch_size),
-              target_min_size_(caffeConfig.target_min_size),
-              target_max_size_(caffeConfig.target_max_size),
-              use_gpu_(caffeConfig.use_gpu),
-              device_setted_(false),
-              meas_(caffeConfig.means) {
+        : gpu_id_(caffeConfig.gpu_id),
+          batch_size_(caffeConfig.batch_size),
+          target_min_size_(caffeConfig.target_min_size),
+          target_max_size_(caffeConfig.target_max_size),
+          use_gpu_(caffeConfig.use_gpu),
+          device_setted_(false),
+          meas_(caffeConfig.means) {
 
     }
     virtual ~CaffeClassifier() {
@@ -38,9 +38,9 @@ class CaffeClassifier : public Classifier {
 
     virtual vector<Prediction> Classify(const Mat &imgs) = 0;
     virtual vector<vector<Prediction> > ClassifyBatch(
-            const vector<Mat> &imgs) = 0;
+        const vector<Mat> &imgs) = 0;
 
- protected:
+protected:
 
     int gpu_id_;
     int batch_size_;
@@ -50,7 +50,8 @@ class CaffeClassifier : public Classifier {
     bool device_setted_;
     float means_[3];
 
-    shared_ptr<caffe::Net<float> > net_;
+    shared_ptr<caffe::Net < float> >
+    net_;
     cv::Size input_geometry_;
 };
 

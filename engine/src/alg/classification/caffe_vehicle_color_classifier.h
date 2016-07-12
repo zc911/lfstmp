@@ -6,7 +6,6 @@
 #define PROJECT_CAFFE_VEHICLE_COLOR_CLASSIFIER_H
 
 
-
 #include <cassert>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -23,7 +22,7 @@ using namespace caffe;
 using namespace cv;
 namespace dg {
 
-class  CaffeVehicleColorClassifier{
+class CaffeVehicleColorClassifier {
 public:
     typedef struct {
 
@@ -42,11 +41,11 @@ public:
 protected:
     vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
-    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    std::vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
     void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
 
     void PreprocessBatch(const vector<Mat> imgs,
-                         vector<vector<Mat> >* input_batch);
+                         vector<vector<Mat> > *input_batch);
 
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;
