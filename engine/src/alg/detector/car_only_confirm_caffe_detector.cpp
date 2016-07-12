@@ -178,8 +178,7 @@ vector<Blob<float> *> CarOnlyConfirmCaffeDetector::PredictBatch(
     }
 
     Blob<float> *input_layer = net_->input_blobs()[0];
-
-    input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
+    input_layer->Reshape(imgs.size(), num_channels_, input_geometry_.height,
                          input_geometry_.width);
 
     net_->Reshape();
