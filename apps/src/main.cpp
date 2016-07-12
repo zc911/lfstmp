@@ -176,14 +176,14 @@ int main(int argc, char *argv[]) {
 
     Config *config = new Config();
     config->Load(FLAGS_config);
-    config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(false));
+    config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 #ifdef DEBUG
     if (0) {
         config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 #endif
-//        StartDogMonitor();
-//        if (CheckHardware())
-//            return -1;
+        StartDogMonitor();
+        if (CheckHardware())
+            return -1;
 #ifdef DEBUG
     } else {
         // in DEBUG mode, encrypt is false in default
