@@ -58,38 +58,30 @@ CarMatcher::~CarMatcher() {
     CUDA_CALL(cudaStreamDestroy(stream_));
 }
 
-__global__ void compute_match_score_kernel(box query_box, ushort *query_pos,
-                                           uint *query_desc, ushort *db_pos,
-                                           uint *db_desc, ushort query_width,
-                                           ushort query_height,
-                                           ushort *db_width, ushort *db_height,
-                                           int max_resize_size, int feature_num,
-                                           float min_remarkableness,
-                                           int max_mis_match,
-                                           int selected_area_weight,
-                                           int *score) {
+__global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uint *query_desc, 
+					ushort *db_pos, uint *db_desc, ushort query_width, ushort query_height, 
+					ushort *db_width, ushort *db_height, int max_resize_size, int feature_num, 
+					float min_remarkableness, int max_mis_match, int selected_area_weight, int max_mapping_offset, int *score) {
     //Calculate new bounding box
     box query_box_resize;
     box db_box_resize;
-    if (query_box.x > 0) {
-        float resize_rto_query = 0;
-        float resize_rto_db = 0;
-        if (query_width > query_height)
-            resize_rto_query = (float) max_resize_size / query_width;
-        else
-            resize_rto_query = (float) max_resize_size / query_height;
-        query_box_resize.x = query_box.x * resize_rto_query;
-        query_box_resize.y = query_box.y * resize_rto_query;
-        query_box_resize.width = query_box.width * resize_rto_query;
-        query_box_resize.height = query_box.height * resize_rto_query;
-        if (db_width[blockIdx.x] > db_height[blockIdx.x])
-            resize_rto_db = (float) max_resize_size / db_width[blockIdx.x];
-        else
-            resize_rto_db = (float) max_resize_size / db_height[blockIdx.x];
-        db_box_resize.x = query_box.x * resize_rto_db;
-        db_box_resize.y = query_box.y * resize_rto_db;
-        db_box_resize.width = query_box.width * resize_rto_db;
-        db_box_resize.height = query_box.height * resize_rto_db;
+    if(query_box.x > 0) {
+	    float resize_rto_query = 0;
+	    float resize_rto_db = 0;
+        if(query_width > query_height)
+		    resize_rto_query = (float)max_resize_size / (float)query_width;
+		else resize_rto_query = (float)max_resize_size / (float)query_height;
+	    query_box_resize.x = (float)query_box.x * resize_rto_query;
+	    query_box_resize.y = (float)query_box.y * resize_rto_query;
+	    query_box_resize.width = (float)query_box.width * resize_rto_query;
+	    query_box_resize.height = (float)query_box.height * resize_rto_query;
+        if(db_width[blockIdx.x] > db_height[blockIdx.x])
+		    resize_rto_db = (float)max_resize_size / (float)db_width[blockIdx.x];
+		else resize_rto_db = (float)max_resize_size / (float)db_height[blockIdx.x];
+	    db_box_resize.x = (float)query_box.x * resize_rto_db - max_mapping_offset;
+	    db_box_resize.y = (float)query_box.y * resize_rto_db - max_mapping_offset;
+	    db_box_resize.width = (float)query_box.width * resize_rto_db + max_mapping_offset * 2;
+	    db_box_resize.height = (float)query_box.height * resize_rto_db + max_mapping_offset * 2;
     } else {
         query_box_resize.x = 0;
         query_box_resize.y = 0;
@@ -100,55 +92,66 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos,
         db_box_resize.width = max_resize_size;
         db_box_resize.height = max_resize_size;
     }
+    //if(blockIdx.x == 638 && threadIdx.x == 0) {
+    //    printf("GPU %d %d %d %d\n", query_box_resize.x, query_box_resize.y, query_box_resize.width, query_box_resize.height);
+    //    printf("GPU %d %d %d %d\n", db_box_resize.x, db_box_resize.y, db_box_resize.width, db_box_resize.height);
+    //}
+    float max_mapping_offset_rto = (float) max_mapping_offset/(float) max_resize_size;
+	max_mapping_offset_rto = 2 * max_mapping_offset_rto * max_mapping_offset_rto;
     //Calculate the score
-    int min_dist = INT_MAX, sec_dist = INT_MAX;
-    int min_idx = -1;
+	int min_dist = INT_MAX, sec_dist = INT_MAX;
+	int min_idx = -1;
     int score_tmp;
     for (int i = 0; i < FEATURE_NUM_CUDA; i++) {
-        //__syncthreads();
-        if (db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] == -1)
-            break;
-        score_tmp = 0;
-        for (int j = 0; j < 8; j++) {
-            score_tmp +=
-                __popc(query_desc[threadIdx.x * 8 + j]
-                           ^ db_desc[blockIdx.x * feature_num * 8 + i * 8 + j]);
+        if(db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] == -1)
+		    break;
+		float pos1_x_rto = (float)query_pos[threadIdx.x * 2] / (float)query_width;
+		float pos1_y_rto = (float)query_pos[threadIdx.x * 2 + 1] / (float)query_height;
+		float pos2_x_rto = (float)db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] / (float)db_width[blockIdx.x];
+		float pos2_y_rto = (float)db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2 + 1] / (float)db_height[blockIdx.x];
+	    if ((pos2_x_rto - pos1_x_rto) * (pos2_x_rto - pos1_x_rto) + 
+	    	(pos2_y_rto - pos1_y_rto) * (pos2_y_rto - pos1_y_rto) < max_mapping_offset_rto){
+	        score_tmp = 0;
+	    	for (int j = 0; j < 8; j++) {
+          	    score_tmp += __popc(query_desc[threadIdx.x * 8 + j] ^ db_desc[blockIdx.x * feature_num * 8 + i * 8 + j]);
+		    }
+		    if (score_tmp < min_dist) {
+        	    sec_dist = min_dist;
+		    	min_dist = score_tmp;
+           	 	min_idx = i;
+        	}
+			else if (score_tmp < sec_dist) {
+		   	 	sec_dist = score_tmp;
+        	}
         }
-        if (score_tmp < min_dist) {
-            sec_dist = min_dist;
-            min_dist = score_tmp;
-            min_idx = i;
-        } else if (score_tmp < sec_dist) {
-            sec_dist = score_tmp;
-        }
-    }
+	}
     score_tmp = 0;
-    if ((min_dist < (unsigned int) (min_remarkableness * sec_dist))
-        && (min_dist < (unsigned int) max_mis_match)) {
-        if (query_pos[threadIdx.x * 2] > query_box_resize.x
-            && query_pos[threadIdx.x * 2]
-                < (query_box_resize.x + query_box_resize.width)
-            && query_pos[threadIdx.x * 2 + 1] > query_box_resize.y
-            && query_pos[threadIdx.x * 2 + 1]
-                < (query_box_resize.y + query_box_resize.height)
-            && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2]
-                > db_box_resize.x
-            && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2]
-                < db_box_resize.x + db_box_resize.width
-            && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1]
-                > db_box_resize.y
-            && db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1]
-                < db_box_resize.y + db_box_resize.height) {
-            score_tmp = score_tmp + selected_area_weight;
-        } else
-            score_tmp++;
+	if ((min_dist <= (unsigned int) (min_remarkableness * sec_dist))
+			&& (min_dist <= (unsigned int) max_mis_match)) {
+		if (query_pos[threadIdx.x * 2] >= query_box_resize.x &&
+				query_pos[threadIdx.x * 2] <= (query_box_resize.x + query_box_resize.width) &&
+				query_pos[threadIdx.x * 2 + 1] >= query_box_resize.y &&
+				query_pos[threadIdx.x * 2 + 1] <= (query_box_resize.y + query_box_resize.height) &&
+			    db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2] >= db_box_resize.x &&
+			    db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2] <= db_box_resize.x + db_box_resize.width &&
+			    db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1] >= db_box_resize.y &&
+			    db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2 + 1] <= db_box_resize.y + db_box_resize.height) {
+			//if(blockIdx.x == 638)
+			//	printf("*GPU above thr %d min_idx %d query pos %d %d res pos %d %d\n", threadIdx.x, min_idx, query_pos[threadIdx.x * 2], query_pos[threadIdx.x * 2+1], db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2], db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2+1]);
+		    score_tmp = score_tmp + selected_area_weight;
+		}
+		else {
+			//if(blockIdx.x == 638)
+			//	printf("GPU under thr %d min_idx %d query pos %d %d res pos %d %d\n", threadIdx.x, min_idx, query_pos[threadIdx.x * 2], query_pos[threadIdx.x * 2+1], db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2], db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + min_idx * 2+1]);
+			score_tmp++;
+		}
     }
-    if (query_pos[threadIdx.x * 2] == -1)
-        score_tmp = 0;
-    __shared__ int score_shared[FEATURE_NUM_CUDA];
-    score_shared[threadIdx.x] = score_tmp;
+    if(query_pos[threadIdx.x * 2] == -1)
+	    score_tmp = 0;
+	__shared__ int score_shared[FEATURE_NUM_CUDA];
+	score_shared[threadIdx.x] = score_tmp;
     // Sum the score of each image in the shared memory
-    for (int stride = blockDim.x; stride > 1; stride >>= 1) {
+    for (int stride = blockDim.x; stride > 1; stride >>=1) {
         __syncthreads();
         if (stride % 2 != 0 && threadIdx.x == 0)
             score_shared[0] += score_shared[stride - 1];
@@ -160,6 +163,7 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos,
     if (threadIdx.x == 0)
         score[blockIdx.x] = score_shared[0];
 }
+
 
 vector<int> CarMatcher::computeMatchScoreGpu(
     const CarRankFeature &des, const Rect &in_box,
