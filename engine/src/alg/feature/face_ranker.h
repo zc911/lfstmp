@@ -17,16 +17,16 @@ using namespace cv;
 namespace dg {
 
 class FaceRanker {
- public:
+public:
     FaceRanker();
     virtual ~FaceRanker();
 
-    vector<Score> Rank(const FaceRankFeature& datum,
-                       const vector<Rect>& hotspots,
-                       const vector<FaceRankFeature>& candidates);
+    vector<Score> Rank(const FaceRankFeature &datum,
+                       const vector<Rect> &hotspots,
+                       const vector<FaceRankFeature> &candidates);
 
- private:
-    float CosSimilarity(const FaceRankFeature & A, const FaceRankFeature & B);
+private:
+    float CosSimilarity(const FaceRankFeature &A, const FaceRankFeature &B);
     void Sort(vector<Score> &scores, int left, int right);
 };
 

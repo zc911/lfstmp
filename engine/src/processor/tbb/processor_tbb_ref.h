@@ -10,16 +10,16 @@
 namespace deepglint {
 
 class ProcessorRef {
- public:
+public:
     ProcessorRef()
-            : proc_(NULL),
-              next_(NULL) {
+        : proc_(NULL),
+          next_(NULL) {
 
     }
     virtual ~ProcessorRef() {
 
     }
-    virtual Frame* operator()(Frame* f) = 0;
+    virtual Frame *operator()(Frame *f) = 0;
     void SetNext(ProcessorRef *next) {
         if (next_ != NULL) {
             delete next_;
@@ -27,7 +27,7 @@ class ProcessorRef {
         }
         next_ = next;
     }
- protected:
+protected:
     Processor *proc_;
     ProcessorRef *next_;
 };

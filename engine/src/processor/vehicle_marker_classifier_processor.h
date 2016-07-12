@@ -14,15 +14,15 @@
 
 namespace dg {
 
-class VehicleMarkerClassifierProcessor : public Processor {
- public:
+class VehicleMarkerClassifierProcessor: public Processor {
+public:
     VehicleMarkerClassifierProcessor(
-            WindowCaffeDetector::WindowCaffeConfig & wConfig,
-            MarkerCaffeClassifier::MarkerConfig &mConfig);
+        WindowCaffeDetector::WindowCaffeConfig &wConfig,
+        MarkerCaffeClassifier::MarkerConfig &mConfig);
 
     ~VehicleMarkerClassifierProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame) {
         return false;
     }
@@ -33,8 +33,7 @@ class VehicleMarkerClassifierProcessor : public Processor {
     virtual bool RecordFeaturePerformance();
 
 
-
- private:
+private:
     MarkerCaffeClassifier *classifier_;
     WindowCaffeDetector *detector_;
     vector<Object *> objs_;
@@ -44,8 +43,7 @@ class VehicleMarkerClassifierProcessor : public Processor {
     int window_target_max_;
     int marker_target_min_;
     int marker_target_max_;
-}
-;
+};
 
 }
 

@@ -1,4 +1,3 @@
-
 /*
  * car_feature_extractor.h
  *

@@ -40,6 +40,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
+
     VehicleCaffeDetector *vehicle_detector_;
     CarOnlyCaffeDetector *car_only_detector_;
     CarOnlyConfirmCaffeDetector *car_only_confirm_;

@@ -18,9 +18,9 @@ static const string VEHICLE_MODEL_MAPPING_FILE = "Render/Vehicle/Model";
 static const string VEHICLE_COLOR_MAPPING_FILE = "Render/Vehicle/Color";
 static const string VEHICLE_SYMBOL_MAPPING_FILE = "Render/Vehicle/Symbol";
 static const string VEHICLE_PLATE_COLOR_MAPPING_FILE =
-        "Render/Vehicle/Plate/Color";
+    "Render/Vehicle/Plate/Color";
 static const string VEHICLE_PLATE_TYPE_MAPPING_FILE =
-        "Render/Vehicle/Plate/Type";
+    "Render/Vehicle/Plate/Type";
 static const string VEHICLE_TYPE_MAPPING_FILE = "Render/Vehicle/Type";
 static const string VEHICLE_PEDESTRIAN_ATTR_TYPE = "Render/Vehicle/PedestrianAttr";
 
@@ -41,7 +41,6 @@ static const string STORAGE_ADDRESS = "Storage/Address";
 static const string STORAGE_ENABLED = "Storage/Enabled";
 static const string STORAGE_DB_TYPE = "Storage/DBType";
 static const string IS_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
-
 
 }
 

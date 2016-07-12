@@ -38,14 +38,14 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
         uint min_dist = 9999;
         uint sec_dist = 9999;
         int min_idx = -1, sec_idx = -1;
-        const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
+        const uchar *query_feat = des1.descriptor_.ptr<uchar>(i);
         for (int j = 0; j < des2.descriptor_.rows; j++)
             if (calcDis2(des1.position_.at<ushort>(i, 0),
                          des1.position_.at<ushort>(i, 1),
                          des2.position_.at<ushort>(j, 0),
                          des2.position_.at<ushort>(j, 1))
                 < max_mapping_offset_ * max_mapping_offset_) {
-                const uchar* train_feat = des2.descriptor_.ptr(j);
+                const uchar *train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
                     sec_dist = min_dist;

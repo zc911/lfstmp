@@ -10,15 +10,15 @@
 
 namespace dg {
 MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
-        : device_setted_(false),
-          marker_config_(markerconfig),
-          means_( { 128, 128, 128 }),
-          rescale_(1) {
+    : device_setted_(false),
+      marker_config_(markerconfig),
+      means_({128, 128, 128}),
+      rescale_(1) {
 
     if (marker_config_.use_gpu) {
         Caffe::SetDevice(marker_config_.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        LOG(INFO)<< "Use device " << marker_config_.gpu_id << endl;
+        LOG(INFO) << "Use device " << marker_config_.gpu_id << endl;
 
     } else {
         LOG(WARNING) << "Use CPU only" << endl;
@@ -27,12 +27,12 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
 
     /* Load the network. */
     net_.reset(
-            new Net<float>(markerconfig.deploy_file,TEST,marker_config_.is_model_encrypt));
+        new Net<float>(markerconfig.deploy_file, TEST, marker_config_.is_model_encrypt));
     net_->CopyTrainedLayersFrom(marker_config_.model_file);
-    CHECK_EQ(net_->num_inputs(), 1)<< "Network should have exactly one input.";
+    CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
     << "Input layer should have 1 or 3 channels.";
@@ -42,10 +42,10 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
                          input_geometry_.width);
 
     //float* input_data = input_layer->mutable_cpu_data();
-    const vector< boost::shared_ptr<Layer<float> > >& layers = net_->layers();
-    const vector<vector<Blob<float>*> >& bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float>*> >& top_vecs = net_->top_vecs();
-    for(int i = 0; i < layers.size(); ++i) {
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
     }
     setupMarker();
@@ -53,8 +53,8 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
 }
 void MarkerCaffeClassifier::setupMarker() {
     {
-        float area[] = { 200, 400, 800, 1600 };
-        float ratio[] = { 0.9, 1.2 };
+        float area[] = {200, 400, 800, 1600};
+        float ratio[] = {0.9, 1.2};
         Marker marker;
         marker.id = MOT;
         marker.stride = 8;
@@ -69,8 +69,8 @@ void MarkerCaffeClassifier::setupMarker() {
 
     }
     {
-        float area[] = { 800, 1600, 3200 };
-        float ratio[] = { 0.2, 0.35 };
+        float area[] = {800, 1600, 3200};
+        float ratio[] = {0.2, 0.35};
         Marker marker;
         marker.id = Accessories;
         marker.stride = 8;
@@ -85,8 +85,8 @@ void MarkerCaffeClassifier::setupMarker() {
     }
 
     {
-        float area[] = { 1600, 3200, 6400, 12800 };
-        float ratio[] = { 0.5, 1, 1.5 };
+        float area[] = {1600, 3200, 6400, 12800};
+        float ratio[] = {0.5, 1, 1.5};
         Marker marker;
         marker.id = TissueBox;
         marker.stride = 16;
@@ -100,8 +100,8 @@ void MarkerCaffeClassifier::setupMarker() {
         markers_.insert(pair<int, Marker>(marker.id, marker));
     }
     {
-        float area[] = { 1600, 3200, 6400, 12800 };
-        float ratio[] = { 0.5, 1, 1.5 };
+        float area[] = {1600, 3200, 6400, 12800};
+        float ratio[] = {0.5, 1, 1.5};
         Marker marker;
         marker.id = Belt;
         marker.stride = 16;
@@ -115,8 +115,8 @@ void MarkerCaffeClassifier::setupMarker() {
         markers_.insert(pair<int, Marker>(marker.id, marker));
     }
     {
-        float area[] = { 400, 800, 1600, 3200, 6400 };
-        float ratio[] = { 0.5, 1, 2, 4 };
+        float area[] = {400, 800, 1600, 3200, 6400};
+        float ratio[] = {0.5, 1, 2, 4};
         Marker marker;
         marker.id = Others;
         marker.stride = 16;
@@ -131,8 +131,8 @@ void MarkerCaffeClassifier::setupMarker() {
     }
 
     {
-        float area[] = { 800, 1600, 3200, 6400 };
-        float ratio[] = { 3, 5 };
+        float area[] = {800, 1600, 3200, 6400};
+        float ratio[] = {3, 5};
         Marker marker;
         marker.id = SunVisor;
         marker.stride = 16;
@@ -148,7 +148,7 @@ void MarkerCaffeClassifier::setupMarker() {
     }
 }
 vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
-        vector<Mat> imgs) {
+    vector<Mat> imgs) {
     int batch_size = imgs.size();
     vector<Mat> tiny_images;
     vector<float> enlarge_ratios;
@@ -157,10 +157,10 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
         Mat img = imgs[i];
         int max_size = max(img.rows, img.cols);
         int min_size = min(img.rows, img.cols);
-        float enlarge_ratio = (float)marker_config_.target_min_size / (float)min_size;
+        float enlarge_ratio = (float) marker_config_.target_min_size / (float) min_size;
 
         if (max_size * enlarge_ratio > marker_config_.target_max_size) {
-            enlarge_ratio = (float)marker_config_.target_max_size / (float)max_size;
+            enlarge_ratio = (float) marker_config_.target_max_size / (float) max_size;
         }
         int target_row = img.rows * enlarge_ratio;
         int target_col = img.cols * enlarge_ratio;
@@ -168,15 +168,15 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
         resize(img, img, Size(target_col, target_row));
 
         tiny_images.push_back(img);
-
+        LOG(INFO) << marker_config_.target_max_size << " " << max_size << " " << img.rows << " " << img.cols << endl;
     }
 
-    vector<Blob<float>*> tiny_outputs = PredictBatch(tiny_images);
+    vector<Blob<float> *> tiny_outputs = PredictBatch(tiny_images);
 
     vector<vector<Detection> > preds(batch_size);
 
     for (map<int, Marker>::iterator it = markers_.begin(); it != markers_.end();
-            it++) {
+         it++) {
         Blob<float> *cls = tiny_outputs[2 * (it->second).id];
         Blob<float> *reg = tiny_outputs[2 * (it->second).id + 1];
         vector<vector<Detection> > rpns = get_final_bbox(tiny_images, cls, reg,
@@ -190,7 +190,7 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyBatch(
     return preds;
 }
 vector<vector<Detection> > MarkerCaffeClassifier::ClassifyAutoBatch(
-        vector<Mat> imgs) {
+    vector<Mat> imgs) {
     vector<vector<Detection> > prediction;
     vector<Mat> images = imgs;
     for (auto batch_images : PrepareBatch(images, marker_config_.batch_size)) {
@@ -198,15 +198,15 @@ vector<vector<Detection> > MarkerCaffeClassifier::ClassifyAutoBatch(
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }
     int padding_size = (marker_config_.batch_size
-            - imgs.size() % marker_config_.batch_size)
-            % marker_config_.batch_size;
+        - imgs.size() % marker_config_.batch_size)
+        % marker_config_.batch_size;
     prediction.erase(prediction.end() - padding_size, prediction.end());
     return prediction;
 }
 
 vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
-        vector<Mat> images, Blob<float>* cls, Blob<float>* reg,
-        vector<float> enlarge_ratios, Marker &marker, vector<Mat> origin_imgs) {
+    vector<Mat> images, Blob<float> *cls, Blob<float> *reg,
+    vector<float> enlarge_ratios, Marker &marker, vector<Mat> origin_imgs) {
 
     int scale_num = marker.area.size() * marker.ratio.size();
 
@@ -218,8 +218,8 @@ vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
     int batch_size = images.size();
 
     vector<vector<Detection> > vvbbox(batch_size);
-    const float* cls_cpu = cls->cpu_data();
-    const float* reg_cpu = reg->cpu_data();
+    const float *cls_cpu = cls->cpu_data();
+    const float *reg_cpu = reg->cpu_data();
 
     float *gt_ww = new float[scale_num * batch_size];
     float *gt_hh = new float[scale_num * batch_size];
@@ -245,7 +245,7 @@ vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
         for (int h = 0; h < cls->height(); h++) {
             for (int w = 0; w < cls->width(); w++) {
                 float confidence;
-                float rect[4] = { };
+                float rect[4] = {};
                 float gt_cx = w * marker.stride;
                 float gt_cy = h * marker.stride;
                 {
@@ -299,8 +299,8 @@ vector<vector<Detection> > MarkerCaffeClassifier::get_final_bbox(
         for (int i = 0; i < vvbbox[idx].size(); i++) {
 
             if (!vvbbox[idx][i].deleted
-                    && vvbbox[idx][i].confidence
-                            > marker_config_.global_confidence) {
+                && vvbbox[idx][i].confidence
+                    > marker_config_.global_confidence) {
                 //Rect box = vbbox[i].rect;
                 Detection box = vvbbox[idx][i];
 
@@ -337,7 +337,7 @@ bool MarkerCaffeClassifier::filter(Detection box, int row, int col) {
     if (box.id == Accessories) {
         float ratio = box.box.x * 1.0 / col;
         if (ratio < marker_config_.accessories_x0
-                || ratio > marker_config_.accessories_y0) {
+            || ratio > marker_config_.accessories_y0) {
             return false;
         }
     }
@@ -357,7 +357,7 @@ bool MarkerCaffeClassifier::filter(Detection box, int row, int col) {
     if (box.id == SunVisor) {
 
         if (box.box.x / (float) col > marker_config_.sunVisor_x0
-                && box.box.x / (float) col < marker_config_.sunVisor_x1) {
+            && box.box.x / (float) col < marker_config_.sunVisor_x1) {
             return false;
         }
         if (box.box.y / (float) row > marker_config_.sunVisor_y0)
@@ -369,7 +369,7 @@ bool MarkerCaffeClassifier::filter(Detection box, int row, int col) {
     }
     return true;
 }
-vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
+vector<Blob<float> *> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
     unsigned long long tt;
 
     if (!device_setted_) {
@@ -377,7 +377,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
         device_setted_ = true;
     }
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
     input_geometry_.height = imgs[0].rows;  // + 100;
     input_geometry_.width = imgs[0].cols;  // + 100;
 
@@ -396,7 +396,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
     /* Forward dimension change to all layers. */
     net_->Reshape();
 
-    float* input_data = input_layer->mutable_cpu_data();
+    float *input_data = input_layer->mutable_cpu_data();
     int cnt = 0;
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat sample;
@@ -421,7 +421,7 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
             for (int i = 0; i < sample.rows; i++) {
                 for (int j = 0; j < sample.cols; j++) {
                     input_data[cnt] = (float(sample.at<uchar>(i, j * 3 + k))
-                            - 128) / rescale_;
+                        - 128) / rescale_;
                     cnt += 1;
                 }
             }
@@ -435,9 +435,9 @@ vector<Blob<float>*> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
     }
 
     /* Copy the output layer to a std::vector */
-    vector<Blob<float>*> outputs;
+    vector<Blob<float> *> outputs;
     for (int i = 0; i < net_->num_outputs(); i++) {
-        Blob<float>* output_layer = net_->output_blobs()[i];
+        Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
 

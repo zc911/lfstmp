@@ -22,130 +22,130 @@ namespace model {
 
 namespace {
 
-const ::google::protobuf::Descriptor* FeatureRankingRequest_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FeatureRankingRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* FeatureRankingResponse_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  FeatureRankingResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor *FeatureRankingRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    FeatureRankingRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor *FeatureRankingResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    FeatureRankingResponse_reflection_ = NULL;
 
 }  // namespace
 
 
 void protobuf_AssignDesc_ranker_2eproto() {
-  protobuf_AddDesc_ranker_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "ranker.proto");
-  GOOGLE_CHECK(file != NULL);
-  FeatureRankingRequest_descriptor_ = file->message_type(0);
-  static const int FeatureRankingRequest_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, reqid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, image_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, interestedareas_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, disabledareas_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, candidates_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, limit_),
-  };
-  FeatureRankingRequest_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FeatureRankingRequest_descriptor_,
-      FeatureRankingRequest::default_instance_,
-      FeatureRankingRequest_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FeatureRankingRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _is_default_instance_));
-  FeatureRankingResponse_descriptor_ = file->message_type(1);
-  static const int FeatureRankingResponse_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, reqid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, ids_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, scores_),
-  };
-  FeatureRankingResponse_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      FeatureRankingResponse_descriptor_,
-      FeatureRankingResponse::default_instance_,
-      FeatureRankingResponse_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(FeatureRankingResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, _is_default_instance_));
+    protobuf_AddDesc_ranker_2eproto();
+    const ::google::protobuf::FileDescriptor *file =
+        ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+            "ranker.proto");
+    GOOGLE_CHECK(file != NULL);
+    FeatureRankingRequest_descriptor_ = file->message_type(0);
+    static const int FeatureRankingRequest_offsets_[7] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, reqid_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, type_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, image_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, interestedareas_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, disabledareas_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, candidates_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, limit_),
+    };
+    FeatureRankingRequest_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            FeatureRankingRequest_descriptor_,
+            FeatureRankingRequest::default_instance_,
+            FeatureRankingRequest_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(FeatureRankingRequest),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _is_default_instance_));
+    FeatureRankingResponse_descriptor_ = file->message_type(1);
+    static const int FeatureRankingResponse_offsets_[3] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, reqid_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, ids_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, scores_),
+    };
+    FeatureRankingResponse_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            FeatureRankingResponse_descriptor_,
+            FeatureRankingResponse::default_instance_,
+            FeatureRankingResponse_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(FeatureRankingResponse),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, _is_default_instance_));
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
 inline void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_ranker_2eproto);
+    ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                                       &protobuf_AssignDesc_ranker_2eproto);
 }
 
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FeatureRankingRequest_descriptor_, &FeatureRankingRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FeatureRankingResponse_descriptor_, &FeatureRankingResponse::default_instance());
+void protobuf_RegisterTypes(const ::std::string &) {
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        FeatureRankingRequest_descriptor_, &FeatureRankingRequest::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        FeatureRankingResponse_descriptor_, &FeatureRankingResponse::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_ranker_2eproto() {
-  delete FeatureRankingRequest::default_instance_;
-  delete FeatureRankingRequest_reflection_;
-  delete FeatureRankingResponse::default_instance_;
-  delete FeatureRankingResponse_reflection_;
+    delete FeatureRankingRequest::default_instance_;
+    delete FeatureRankingRequest_reflection_;
+    delete FeatureRankingResponse::default_instance_;
+    delete FeatureRankingResponse_reflection_;
 }
 
 void protobuf_AddDesc_ranker_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
+    static bool already_here = false;
+    if (already_here) return;
+    already_here = true;
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::dg::model::protobuf_AddDesc_common_2eproto();
-  ::dg::model::protobuf_AddDesc_localcommon_2eproto();
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014ranker.proto\022\010dg.model\032\014common.proto\032\021"
-    "localcommon.proto\"\201\002\n\025FeatureRankingRequ"
-    "est\022\r\n\005ReqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027.dg.mo"
-    "del.RecognizeType\022\036\n\005Image\030\003 \001(\0132\017.dg.mo"
-    "del.Image\022+\n\017InterestedAreas\030\004 \003(\0132\022.dg."
-    "model.Cutboard\022)\n\rDisabledAreas\030\005 \003(\0132\022."
-    "dg.model.Cutboard\022+\n\nCandidates\030\006 \003(\0132\027."
-    "dg.model.FeatureVector\022\r\n\005Limit\030\007 \001(\005\"D\n"
-    "\026FeatureRankingResponse\022\r\n\005ReqId\030\001 \001(\003\022\013"
-    "\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022k\n\021Similarit"
-    "yService\022V\n\017GetRankedVector\022\037.dg.model.F"
-    "eatureRankingRequest\032 .dg.model.FeatureR"
-    "ankingResponse\"\000b\006proto3", 504);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "ranker.proto", &protobuf_RegisterTypes);
-  FeatureRankingRequest::default_instance_ = new FeatureRankingRequest();
-  FeatureRankingResponse::default_instance_ = new FeatureRankingResponse();
-  FeatureRankingRequest::default_instance_->InitAsDefaultInstance();
-  FeatureRankingResponse::default_instance_->InitAsDefaultInstance();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ranker_2eproto);
+    ::dg::model::protobuf_AddDesc_common_2eproto();
+    ::dg::model::protobuf_AddDesc_localcommon_2eproto();
+    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+        "\n\014ranker.proto\022\010dg.model\032\014common.proto\032\021"
+            "localcommon.proto\"\201\002\n\025FeatureRankingRequ"
+            "est\022\r\n\005ReqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027.dg.mo"
+            "del.RecognizeType\022\036\n\005Image\030\003 \001(\0132\017.dg.mo"
+            "del.Image\022+\n\017InterestedAreas\030\004 \003(\0132\022.dg."
+            "model.Cutboard\022)\n\rDisabledAreas\030\005 \003(\0132\022."
+            "dg.model.Cutboard\022+\n\nCandidates\030\006 \003(\0132\027."
+            "dg.model.FeatureVector\022\r\n\005Limit\030\007 \001(\005\"D\n"
+            "\026FeatureRankingResponse\022\r\n\005ReqId\030\001 \001(\003\022\013"
+            "\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022k\n\021Similarit"
+            "yService\022V\n\017GetRankedVector\022\037.dg.model.F"
+            "eatureRankingRequest\032 .dg.model.FeatureR"
+            "ankingResponse\"\000b\006proto3", 504);
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+        "ranker.proto", &protobuf_RegisterTypes);
+    FeatureRankingRequest::default_instance_ = new FeatureRankingRequest();
+    FeatureRankingResponse::default_instance_ = new FeatureRankingResponse();
+    FeatureRankingRequest::default_instance_->InitAsDefaultInstance();
+    FeatureRankingResponse::default_instance_->InitAsDefaultInstance();
+    ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ranker_2eproto);
 }
 
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_ranker_2eproto {
-  StaticDescriptorInitializer_ranker_2eproto() {
-    protobuf_AddDesc_ranker_2eproto();
-  }
+    StaticDescriptorInitializer_ranker_2eproto() {
+        protobuf_AddDesc_ranker_2eproto();
+    }
 } static_descriptor_initializer_ranker_2eproto_;
 
 namespace {
 
 static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+    GOOGLE_CHECK(false) << __FILE__ << ":" << line;
 }
 
 }  // namespace
@@ -164,67 +164,67 @@ const int FeatureRankingRequest::kLimitFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FeatureRankingRequest::FeatureRankingRequest()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.FeatureRankingRequest)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.FeatureRankingRequest)
 }
 
 void FeatureRankingRequest::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  image_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
+    _is_default_instance_ = true;
+    image_ = const_cast< ::dg::model::Image *>(&::dg::model::Image::default_instance());
 }
 
-FeatureRankingRequest::FeatureRankingRequest(const FeatureRankingRequest& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.FeatureRankingRequest)
+FeatureRankingRequest::FeatureRankingRequest(const FeatureRankingRequest &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.FeatureRankingRequest)
 }
 
 void FeatureRankingRequest::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  reqid_ = GOOGLE_LONGLONG(0);
-  type_ = 0;
-  image_ = NULL;
-  limit_ = 0;
+    _cached_size_ = 0;
+    reqid_ = GOOGLE_LONGLONG(0);
+    type_ = 0;
+    image_ = NULL;
+    limit_ = 0;
 }
 
 FeatureRankingRequest::~FeatureRankingRequest() {
-  // @@protoc_insertion_point(destructor:dg.model.FeatureRankingRequest)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.FeatureRankingRequest)
+    SharedDtor();
 }
 
 void FeatureRankingRequest::SharedDtor() {
-  if (this != default_instance_) {
-    delete image_;
-  }
+    if (this != default_instance_) {
+        delete image_;
+    }
 }
 
 void FeatureRankingRequest::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FeatureRankingRequest::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FeatureRankingRequest_descriptor_;
-}
-
-const FeatureRankingRequest& FeatureRankingRequest::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *FeatureRankingRequest::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return FeatureRankingRequest_descriptor_;
 }
 
-FeatureRankingRequest* FeatureRankingRequest::default_instance_ = NULL;
+const FeatureRankingRequest &FeatureRankingRequest::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+    return *default_instance_;
+}
 
-FeatureRankingRequest* FeatureRankingRequest::New(::google::protobuf::Arena* arena) const {
-  FeatureRankingRequest* n = new FeatureRankingRequest;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+FeatureRankingRequest *FeatureRankingRequest::default_instance_ = NULL;
+
+FeatureRankingRequest *FeatureRankingRequest::New(::google::protobuf::Arena *arena) const {
+    FeatureRankingRequest *n = new FeatureRankingRequest;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void FeatureRankingRequest::Clear() {
@@ -236,384 +236,384 @@ void FeatureRankingRequest::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(type_, limit_);
-  reqid_ = GOOGLE_LONGLONG(0);
-  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
-  image_ = NULL;
+    ZR_(type_, limit_);
+    reqid_ = GOOGLE_LONGLONG(0);
+    if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+    image_ = NULL;
 
 #undef ZR_HELPER_
 #undef ZR_
 
-  interestedareas_.Clear();
-  disabledareas_.Clear();
-  candidates_.Clear();
+    interestedareas_.Clear();
+    disabledareas_.Clear();
+    candidates_.Clear();
 }
 
 bool FeatureRankingRequest::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingRequest)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 ReqId = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &reqid_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingRequest)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int64 ReqId = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        input, &reqid_)));
 
-        } else {
-          goto handle_unusual;
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(16)) goto parse_Type;
+                break;
+            }
+
+                // optional .dg.model.RecognizeType Type = 2;
+            case 2: {
+                if (tag == 16) {
+                    parse_Type:
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                        input, &value)));
+                    set_type(static_cast< ::dg::model::RecognizeType >(value));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_Image;
+                break;
+            }
+
+                // optional .dg.model.Image Image = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_Image:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_image()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_InterestedAreas;
+                break;
+            }
+
+                // repeated .dg.model.Cutboard InterestedAreas = 4;
+            case 4: {
+                if (tag == 34) {
+                    parse_InterestedAreas:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_InterestedAreas:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_interestedareas()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_loop_InterestedAreas;
+                if (input->ExpectTag(42)) goto parse_loop_DisabledAreas;
+                input->UnsafeDecrementRecursionDepth();
+                break;
+            }
+
+                // repeated .dg.model.Cutboard DisabledAreas = 5;
+            case 5: {
+                if (tag == 42) {
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_DisabledAreas:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_disabledareas()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(42)) goto parse_loop_DisabledAreas;
+                if (input->ExpectTag(50)) goto parse_loop_Candidates;
+                input->UnsafeDecrementRecursionDepth();
+                break;
+            }
+
+                // repeated .dg.model.FeatureVector Candidates = 6;
+            case 6: {
+                if (tag == 50) {
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Candidates:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_candidates()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(50)) goto parse_loop_Candidates;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectTag(56)) goto parse_Limit;
+                break;
+            }
+
+                // optional int32 Limit = 7;
+            case 7: {
+                if (tag == 56) {
+                    parse_Limit:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &limit_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
+
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        if (input->ExpectTag(16)) goto parse_Type;
-        break;
-      }
-
-      // optional .dg.model.RecognizeType Type = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Type:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_type(static_cast< ::dg::model::RecognizeType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Image;
-        break;
-      }
-
-      // optional .dg.model.Image Image = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Image:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_image()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_InterestedAreas;
-        break;
-      }
-
-      // repeated .dg.model.Cutboard InterestedAreas = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_InterestedAreas:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_InterestedAreas:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_interestedareas()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_loop_InterestedAreas;
-        if (input->ExpectTag(42)) goto parse_loop_DisabledAreas;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .dg.model.Cutboard DisabledAreas = 5;
-      case 5: {
-        if (tag == 42) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_DisabledAreas:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_disabledareas()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_loop_DisabledAreas;
-        if (input->ExpectTag(50)) goto parse_loop_Candidates;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .dg.model.FeatureVector Candidates = 6;
-      case 6: {
-        if (tag == 50) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Candidates:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_candidates()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_loop_Candidates;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(56)) goto parse_Limit;
-        break;
-      }
-
-      // optional int32 Limit = 7;
-      case 7: {
-        if (tag == 56) {
-         parse_Limit:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &limit_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.FeatureRankingRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.FeatureRankingRequest)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.FeatureRankingRequest)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.FeatureRankingRequest)
+    return false;
 #undef DO_
 }
 
 void FeatureRankingRequest::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.FeatureRankingRequest)
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->reqid(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.FeatureRankingRequest)
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->reqid(), output);
+    }
 
-  // optional .dg.model.RecognizeType Type = 2;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
-  }
+    // optional .dg.model.RecognizeType Type = 2;
+    if (this->type() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnum(
+            2, this->type(), output);
+    }
 
-  // optional .dg.model.Image Image = 3;
-  if (this->has_image()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->image_, output);
-  }
+    // optional .dg.model.Image Image = 3;
+    if (this->has_image()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *this->image_, output);
+    }
 
-  // repeated .dg.model.Cutboard InterestedAreas = 4;
-  for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->interestedareas(i), output);
-  }
+    // repeated .dg.model.Cutboard InterestedAreas = 4;
+    for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, this->interestedareas(i), output);
+    }
 
-  // repeated .dg.model.Cutboard DisabledAreas = 5;
-  for (unsigned int i = 0, n = this->disabledareas_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->disabledareas(i), output);
-  }
+    // repeated .dg.model.Cutboard DisabledAreas = 5;
+    for (unsigned int i = 0, n = this->disabledareas_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, this->disabledareas(i), output);
+    }
 
-  // repeated .dg.model.FeatureVector Candidates = 6;
-  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->candidates(i), output);
-  }
+    // repeated .dg.model.FeatureVector Candidates = 6;
+    for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            6, this->candidates(i), output);
+    }
 
-  // optional int32 Limit = 7;
-  if (this->limit() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->limit(), output);
-  }
+    // optional int32 Limit = 7;
+    if (this->limit() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->limit(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.FeatureRankingRequest)
+    // @@protoc_insertion_point(serialize_end:dg.model.FeatureRankingRequest)
 }
 
-::google::protobuf::uint8* FeatureRankingRequest::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.FeatureRankingRequest)
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->reqid(), target);
-  }
+::google::protobuf::uint8 *FeatureRankingRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.FeatureRankingRequest)
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->reqid(), target);
+    }
 
-  // optional .dg.model.RecognizeType Type = 2;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
-  }
+    // optional .dg.model.RecognizeType Type = 2;
+    if (this->type() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+            2, this->type(), target);
+    }
 
-  // optional .dg.model.Image Image = 3;
-  if (this->has_image()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, *this->image_, target);
-  }
+    // optional .dg.model.Image Image = 3;
+    if (this->has_image()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            3, *this->image_, target);
+    }
 
-  // repeated .dg.model.Cutboard InterestedAreas = 4;
-  for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->interestedareas(i), target);
-  }
+    // repeated .dg.model.Cutboard InterestedAreas = 4;
+    for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            4, this->interestedareas(i), target);
+    }
 
-  // repeated .dg.model.Cutboard DisabledAreas = 5;
-  for (unsigned int i = 0, n = this->disabledareas_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, this->disabledareas(i), target);
-  }
+    // repeated .dg.model.Cutboard DisabledAreas = 5;
+    for (unsigned int i = 0, n = this->disabledareas_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            5, this->disabledareas(i), target);
+    }
 
-  // repeated .dg.model.FeatureVector Candidates = 6;
-  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, this->candidates(i), target);
-  }
+    // repeated .dg.model.FeatureVector Candidates = 6;
+    for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            6, this->candidates(i), target);
+    }
 
-  // optional int32 Limit = 7;
-  if (this->limit() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->limit(), target);
-  }
+    // optional int32 Limit = 7;
+    if (this->limit() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->limit(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.FeatureRankingRequest)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.FeatureRankingRequest)
+    return target;
 }
 
 int FeatureRankingRequest::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->reqid());
-  }
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int64Size(
+                this->reqid());
+    }
 
-  // optional .dg.model.RecognizeType Type = 2;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
-  }
+    // optional .dg.model.RecognizeType Type = 2;
+    if (this->type() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+    }
 
-  // optional .dg.model.Image Image = 3;
-  if (this->has_image()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->image_);
-  }
+    // optional .dg.model.Image Image = 3;
+    if (this->has_image()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->image_);
+    }
 
-  // optional int32 Limit = 7;
-  if (this->limit() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->limit());
-  }
+    // optional int32 Limit = 7;
+    if (this->limit() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->limit());
+    }
 
-  // repeated .dg.model.Cutboard InterestedAreas = 4;
-  total_size += 1 * this->interestedareas_size();
-  for (int i = 0; i < this->interestedareas_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->interestedareas(i));
-  }
+    // repeated .dg.model.Cutboard InterestedAreas = 4;
+    total_size += 1 * this->interestedareas_size();
+    for (int i = 0; i < this->interestedareas_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->interestedareas(i));
+    }
 
-  // repeated .dg.model.Cutboard DisabledAreas = 5;
-  total_size += 1 * this->disabledareas_size();
-  for (int i = 0; i < this->disabledareas_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->disabledareas(i));
-  }
+    // repeated .dg.model.Cutboard DisabledAreas = 5;
+    total_size += 1 * this->disabledareas_size();
+    for (int i = 0; i < this->disabledareas_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->disabledareas(i));
+    }
 
-  // repeated .dg.model.FeatureVector Candidates = 6;
-  total_size += 1 * this->candidates_size();
-  for (int i = 0; i < this->candidates_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->candidates(i));
-  }
+    // repeated .dg.model.FeatureVector Candidates = 6;
+    total_size += 1 * this->candidates_size();
+    for (int i = 0; i < this->candidates_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->candidates(i));
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void FeatureRankingRequest::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FeatureRankingRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingRequest>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void FeatureRankingRequest::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const FeatureRankingRequest *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingRequest>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void FeatureRankingRequest::MergeFrom(const FeatureRankingRequest& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  interestedareas_.MergeFrom(from.interestedareas_);
-  disabledareas_.MergeFrom(from.disabledareas_);
-  candidates_.MergeFrom(from.candidates_);
-  if (from.reqid() != 0) {
-    set_reqid(from.reqid());
-  }
-  if (from.type() != 0) {
-    set_type(from.type());
-  }
-  if (from.has_image()) {
-    mutable_image()->::dg::model::Image::MergeFrom(from.image());
-  }
-  if (from.limit() != 0) {
-    set_limit(from.limit());
-  }
+void FeatureRankingRequest::MergeFrom(const FeatureRankingRequest &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    interestedareas_.MergeFrom(from.interestedareas_);
+    disabledareas_.MergeFrom(from.disabledareas_);
+    candidates_.MergeFrom(from.candidates_);
+    if (from.reqid() != 0) {
+        set_reqid(from.reqid());
+    }
+    if (from.type() != 0) {
+        set_type(from.type());
+    }
+    if (from.has_image()) {
+        mutable_image()->::dg::model::Image::MergeFrom(from.image());
+    }
+    if (from.limit() != 0) {
+        set_limit(from.limit());
+    }
 }
 
-void FeatureRankingRequest::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void FeatureRankingRequest::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void FeatureRankingRequest::CopyFrom(const FeatureRankingRequest& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void FeatureRankingRequest::CopyFrom(const FeatureRankingRequest &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool FeatureRankingRequest::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void FeatureRankingRequest::Swap(FeatureRankingRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void FeatureRankingRequest::Swap(FeatureRankingRequest *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void FeatureRankingRequest::InternalSwap(FeatureRankingRequest* other) {
-  std::swap(reqid_, other->reqid_);
-  std::swap(type_, other->type_);
-  std::swap(image_, other->image_);
-  interestedareas_.UnsafeArenaSwap(&other->interestedareas_);
-  disabledareas_.UnsafeArenaSwap(&other->disabledareas_);
-  candidates_.UnsafeArenaSwap(&other->candidates_);
-  std::swap(limit_, other->limit_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void FeatureRankingRequest::InternalSwap(FeatureRankingRequest *other) {
+    std::swap(reqid_, other->reqid_);
+    std::swap(type_, other->type_);
+    std::swap(image_, other->image_);
+    interestedareas_.UnsafeArenaSwap(&other->interestedareas_);
+    disabledareas_.UnsafeArenaSwap(&other->disabledareas_);
+    candidates_.UnsafeArenaSwap(&other->candidates_);
+    std::swap(limit_, other->limit_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata FeatureRankingRequest::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FeatureRankingRequest_descriptor_;
-  metadata.reflection = FeatureRankingRequest_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = FeatureRankingRequest_descriptor_;
+    metadata.reflection = FeatureRankingRequest_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -799,325 +799,329 @@ const int FeatureRankingResponse::kScoresFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 FeatureRankingResponse::FeatureRankingResponse()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.FeatureRankingResponse)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.FeatureRankingResponse)
 }
 
 void FeatureRankingResponse::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-FeatureRankingResponse::FeatureRankingResponse(const FeatureRankingResponse& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.FeatureRankingResponse)
+FeatureRankingResponse::FeatureRankingResponse(const FeatureRankingResponse &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.FeatureRankingResponse)
 }
 
 void FeatureRankingResponse::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  reqid_ = GOOGLE_LONGLONG(0);
+    _cached_size_ = 0;
+    reqid_ = GOOGLE_LONGLONG(0);
 }
 
 FeatureRankingResponse::~FeatureRankingResponse() {
-  // @@protoc_insertion_point(destructor:dg.model.FeatureRankingResponse)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.FeatureRankingResponse)
+    SharedDtor();
 }
 
 void FeatureRankingResponse::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void FeatureRankingResponse::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* FeatureRankingResponse::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FeatureRankingResponse_descriptor_;
-}
-
-const FeatureRankingResponse& FeatureRankingResponse::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *FeatureRankingResponse::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return FeatureRankingResponse_descriptor_;
 }
 
-FeatureRankingResponse* FeatureRankingResponse::default_instance_ = NULL;
+const FeatureRankingResponse &FeatureRankingResponse::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+    return *default_instance_;
+}
 
-FeatureRankingResponse* FeatureRankingResponse::New(::google::protobuf::Arena* arena) const {
-  FeatureRankingResponse* n = new FeatureRankingResponse;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+FeatureRankingResponse *FeatureRankingResponse::default_instance_ = NULL;
+
+FeatureRankingResponse *FeatureRankingResponse::New(::google::protobuf::Arena *arena) const {
+    FeatureRankingResponse *n = new FeatureRankingResponse;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void FeatureRankingResponse::Clear() {
-  reqid_ = GOOGLE_LONGLONG(0);
-  ids_.Clear();
-  scores_.Clear();
+    reqid_ = GOOGLE_LONGLONG(0);
+    ids_.Clear();
+    scores_.Clear();
 }
 
 bool FeatureRankingResponse::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingResponse)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 ReqId = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &reqid_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingResponse)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int64 ReqId = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        input, &reqid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Ids;
-        break;
-      }
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Ids;
+                break;
+            }
 
-      // repeated int64 Ids = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Ids:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, this->mutable_ids())));
-        } else if (tag == 16) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 1, 18, input, this->mutable_ids())));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Scores;
-        break;
-      }
+                // repeated int64 Ids = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Ids:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        input, this->mutable_ids())));
+                } else if (tag == 16) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                        ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                        1, 18, input, this->mutable_ids())));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_Scores;
+                break;
+            }
 
-      // repeated float Scores = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Scores:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, this->mutable_scores())));
-        } else if (tag == 29) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 1, 26, input, this->mutable_scores())));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // repeated float Scores = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_Scores:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                        float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                        input, this->mutable_scores())));
+                } else if (tag == 29) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                        float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                        1, 26, input, this->mutable_scores())));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.FeatureRankingResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.FeatureRankingResponse)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.FeatureRankingResponse)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.FeatureRankingResponse)
+    return false;
 #undef DO_
 }
 
 void FeatureRankingResponse::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.FeatureRankingResponse)
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->reqid(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.FeatureRankingResponse)
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->reqid(), output);
+    }
 
-  // repeated int64 Ids = 2;
-  if (this->ids_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_ids_cached_byte_size_);
-  }
-  for (int i = 0; i < this->ids_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
-      this->ids(i), output);
-  }
+    // repeated int64 Ids = 2;
+    if (this->ids_size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteTag(2,
+                                                               ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+                                                               output);
+        output->WriteVarint32(_ids_cached_byte_size_);
+    }
+    for (int i = 0; i < this->ids_size(); i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+            this->ids(i), output);
+    }
 
-  // repeated float Scores = 3;
-  if (this->scores_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_scores_cached_byte_size_);
-  }
-  for (int i = 0; i < this->scores_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloatNoTag(
-      this->scores(i), output);
-  }
+    // repeated float Scores = 3;
+    if (this->scores_size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteTag(3,
+                                                               ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+                                                               output);
+        output->WriteVarint32(_scores_cached_byte_size_);
+    }
+    for (int i = 0; i < this->scores_size(); i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteFloatNoTag(
+            this->scores(i), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.FeatureRankingResponse)
+    // @@protoc_insertion_point(serialize_end:dg.model.FeatureRankingResponse)
 }
 
-::google::protobuf::uint8* FeatureRankingResponse::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.FeatureRankingResponse)
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->reqid(), target);
-  }
+::google::protobuf::uint8 *FeatureRankingResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.FeatureRankingResponse)
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->reqid(), target);
+    }
 
-  // repeated int64 Ids = 2;
-  if (this->ids_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      2,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-      _ids_cached_byte_size_, target);
-  }
-  for (int i = 0; i < this->ids_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt64NoTagToArray(this->ids(i), target);
-  }
+    // repeated int64 Ids = 2;
+    if (this->ids_size() > 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+            2,
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+            target);
+        target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+            _ids_cached_byte_size_, target);
+    }
+    for (int i = 0; i < this->ids_size(); i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteInt64NoTagToArray(this->ids(i), target);
+    }
 
-  // repeated float Scores = 3;
-  if (this->scores_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      3,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-      _scores_cached_byte_size_, target);
-  }
-  for (int i = 0; i < this->scores_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteFloatNoTagToArray(this->scores(i), target);
-  }
+    // repeated float Scores = 3;
+    if (this->scores_size() > 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+            3,
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+            target);
+        target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+            _scores_cached_byte_size_, target);
+    }
+    for (int i = 0; i < this->scores_size(); i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteFloatNoTagToArray(this->scores(i), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.FeatureRankingResponse)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.FeatureRankingResponse)
+    return target;
 }
 
 int FeatureRankingResponse::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int64 ReqId = 1;
-  if (this->reqid() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->reqid());
-  }
+    // optional int64 ReqId = 1;
+    if (this->reqid() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int64Size(
+                this->reqid());
+    }
 
-  // repeated int64 Ids = 2;
-  {
-    int data_size = 0;
-    for (int i = 0; i < this->ids_size(); i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::
-        Int64Size(this->ids(i));
+    // repeated int64 Ids = 2;
+    {
+        int data_size = 0;
+        for (int i = 0; i < this->ids_size(); i++) {
+            data_size += ::google::protobuf::internal::WireFormatLite::
+            Int64Size(this->ids(i));
+        }
+        if (data_size > 0) {
+            total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _ids_cached_byte_size_ = data_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        total_size += data_size;
     }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+
+    // repeated float Scores = 3;
+    {
+        int data_size = 0;
+        data_size = 4 * this->scores_size();
+        if (data_size > 0) {
+            total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _scores_cached_byte_size_ = data_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        total_size += data_size;
     }
+
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _ids_cached_byte_size_ = data_size;
+    _cached_size_ = total_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
-  }
+    return total_size;
+}
 
-  // repeated float Scores = 3;
-  {
-    int data_size = 0;
-    data_size = 4 * this->scores_size();
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+void FeatureRankingResponse::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const FeatureRankingResponse *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingResponse>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
     }
-    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _scores_cached_byte_size_ = data_size;
-    GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
 }
 
-void FeatureRankingResponse::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FeatureRankingResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingResponse>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void FeatureRankingResponse::MergeFrom(const FeatureRankingResponse &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    ids_.MergeFrom(from.ids_);
+    scores_.MergeFrom(from.scores_);
+    if (from.reqid() != 0) {
+        set_reqid(from.reqid());
+    }
 }
 
-void FeatureRankingResponse::MergeFrom(const FeatureRankingResponse& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  ids_.MergeFrom(from.ids_);
-  scores_.MergeFrom(from.scores_);
-  if (from.reqid() != 0) {
-    set_reqid(from.reqid());
-  }
+void FeatureRankingResponse::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void FeatureRankingResponse::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void FeatureRankingResponse::CopyFrom(const FeatureRankingResponse& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void FeatureRankingResponse::CopyFrom(const FeatureRankingResponse &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool FeatureRankingResponse::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void FeatureRankingResponse::Swap(FeatureRankingResponse* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void FeatureRankingResponse::Swap(FeatureRankingResponse *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void FeatureRankingResponse::InternalSwap(FeatureRankingResponse* other) {
-  std::swap(reqid_, other->reqid_);
-  ids_.UnsafeArenaSwap(&other->ids_);
-  scores_.UnsafeArenaSwap(&other->scores_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void FeatureRankingResponse::InternalSwap(FeatureRankingResponse *other) {
+    std::swap(reqid_, other->reqid_);
+    ids_.UnsafeArenaSwap(&other->ids_);
+    scores_.UnsafeArenaSwap(&other->scores_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata FeatureRankingResponse::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = FeatureRankingResponse_descriptor_;
-  metadata.reflection = FeatureRankingResponse_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = FeatureRankingResponse_descriptor_;
+    metadata.reflection = FeatureRankingResponse_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
