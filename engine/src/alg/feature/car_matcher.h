@@ -99,8 +99,8 @@ private:
     uchar *query_desc_cuda_;
     ushort *db_pos_cuda_;
     uchar *db_desc_cuda_;
-    ushort *db_width_cuda_;
-    ushort *db_height_cuda_;
+    int *db_width_cuda_;
+    int *db_height_cuda_;
     int *score_cuda_;
 
     vector<int> computeMatchScoreGpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);
