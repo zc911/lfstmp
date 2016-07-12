@@ -181,11 +181,16 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
+    config.car_only = false;
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;
     config.is_model_encrypt = is_encrypted;
     config.batch_size = 1;
     config.gpu_id = gpu_id;
+
+    cout << config.model_file << endl;
+    cout << config.deploy_file << endl;
+
 
 }
 
