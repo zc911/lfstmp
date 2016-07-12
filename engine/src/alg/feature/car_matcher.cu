@@ -109,8 +109,7 @@ __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uin
 		float pos1_y_rto = (float)query_pos[threadIdx.x * 2 + 1] / (float)query_height;
 		float pos2_x_rto = (float)db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2] / (float)db_width[blockIdx.x];
 		float pos2_y_rto = (float)db_pos[blockIdx.x * FEATURE_NUM_CUDA * 2 + i * 2 + 1] / (float)db_height[blockIdx.x];
-	    if ((pos2_x_rto - pos1_x_rto) * (pos2_x_rto - pos1_x_rto) + 
-	    	(pos2_y_rto - pos1_y_rto) * (pos2_y_rto - pos1_y_rto) < max_mapping_offset_rto){
+	    if ((pos2_x_rto - pos1_x_rto) * (pos2_x_rto - pos1_x_rto) + (pos2_y_rto - pos1_y_rto) * (pos2_y_rto - pos1_y_rto) < max_mapping_offset_rto) {
 	        score_tmp = 0;
 	    	for (int j = 0; j < 8; j++) {
           	    score_tmp += __popc(query_desc[threadIdx.x * 8 + j] ^ db_desc[blockIdx.x * feature_num * 8 + i * 8 + j]);
