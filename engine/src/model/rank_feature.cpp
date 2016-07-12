@@ -22,7 +22,7 @@ string CarRankFeature::Serialize() const {
         return "";
     }
 
-    float version = 1.0;
+    float version = 1.2;
     vector<uchar> data;
     ConvertToByte(version, data);
 
@@ -61,7 +61,7 @@ bool CarRankFeature::Deserialize(string featureStr) {
 
     // this shit check validates the input data
     if (des_size <= 0 || pos_size <= 0 || des_size % CAR_FEATURE_ORB_COLS_MAX != 0 || pos_size % 2 != 0
-        || des_size % CAR_FEATURE_ORB_COLS_MAX > CAR_FEATURE_ORB_ROWS_MAX || des_size > CAR_FEATURE_DES_MAX_SIZE
+        || des_size % CAR_FEATURE_ORB_COLS_MAX > CAR_FEATURE_ORB_ROWS_MAX
         || it + des_size >= data.end() || it + pos_size >= data.end() || it + des_size + pos_size >= data.end()) {
 
         LOG(ERROR) << "Feature version:" << version << endl;
