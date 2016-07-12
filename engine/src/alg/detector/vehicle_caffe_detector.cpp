@@ -7,7 +7,6 @@
 
 namespace dg {
 VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &config) : caffe_config_(config) {
-
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
     threshold_ = config.threshold;
