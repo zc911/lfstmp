@@ -27,7 +27,7 @@ namespace dg {
 class PedestrianClassifier {
 public:
     typedef struct {
-        bool is_model_encrypt = false;
+        bool is_model_encrypt = true;
         int gpu_id = 0;
         bool use_gpu = true;
         string tag_name_path;
