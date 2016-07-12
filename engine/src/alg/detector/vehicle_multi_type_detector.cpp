@@ -21,8 +21,8 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     batch_size_ = config_.batch_size = 1;
     scale_ = config_.target_min_size;
 
-   // net_.reset(
-   //         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+    // net_.reset(
+    //         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 
     net_.reset(
         new Net<float>(config.deploy_file, TEST));
@@ -52,8 +52,16 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     max_per_img_ = 100;
     layer_name_rois_ = "rois";
     layer_name_score_ = "cls_prob";
+
     layer_name_bbox_ = "bbox_pred";
     sliding_window_stride_ = 16;
+    net_->Reshape();
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
 }
 
 VehicleMultiTypeDetector::~VehicleMultiTypeDetector() {
@@ -111,7 +119,6 @@ void VehicleMultiTypeDetector::forward(vector<cv::Mat> imgs,
         Mat img = imgs[i];
 
         float resize_ratio = ReScaleImage(img, scale_);
-
         vector<int> shape;
         shape.push_back(batch_size_);
         shape.push_back(3);

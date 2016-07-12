@@ -15,7 +15,7 @@
 namespace dg {
 
 static bool roiFilter(const vector<Rect> &mask, Rect src) {
-    if(mask.size() == 0)
+    if (mask.size() == 0)
         return true;
 
     for (int i = 0; i < mask.size(); i++) {
@@ -109,7 +109,7 @@ static int readTxtFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen) {
     return 0;
 }
 
-static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
+static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen, bool is_encrypt_enabled) {
     char *pbyBuffer = 0;
     char byCh;
     int dwNowLen = 0;
@@ -125,7 +125,7 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
 
     *pdwBufflen = dwNowLen;
     pbyBuffer = (char *) calloc(dwNowLen, 1);
-    unsigned char *data = (unsigned char *) calloc(dwNowLen,1);
+    unsigned char *data = (unsigned char *) calloc(dwNowLen, 1);
     *ppbyBuffer = pbyBuffer;
 
     dwNowLen = 0;
@@ -137,10 +137,10 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
     };
 
     fclose(pf);
-    if(is_encrypt_enabled){
-        DecryptModel(data, dwNowLen, (unsigned char *)pbyBuffer);
-    }else{
-        memcpy(pbyBuffer,data,dwNowLen);
+    if (is_encrypt_enabled) {
+        DecryptModel(data, dwNowLen, (unsigned char *) pbyBuffer);
+    } else {
+        memcpy(pbyBuffer, data, dwNowLen);
     }
     free(data);
 
@@ -156,19 +156,19 @@ static Mat CutImage(const Mat &src, Box &box) {
 
     return dst;
 }
-static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
+static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen, bool is_encrypt_enabled) {
     char *pbyBuffer = 0;
     int dwNowLen = 0;
-    dwNowLen=FileSize(pbyFN);
-    FILE *fp = fopen(pbyFN,"r");
-    unsigned char *buffer = (unsigned char *)calloc(dwNowLen,1);
-    size_t rds = fread(buffer,dwNowLen , 1, fp);
+    dwNowLen = FileSize(pbyFN);
+    FILE *fp = fopen(pbyFN, "r");
+    unsigned char *buffer = (unsigned char *) calloc(dwNowLen, 1);
+    size_t rds = fread(buffer, dwNowLen, 1, fp);
     fclose(fp);
     pbyBuffer = (char *) calloc(dwNowLen, 1);
-    if(is_encrypt_enabled){
-        DecryptModel(buffer, dwNowLen, (unsigned char *)pbyBuffer);
-    }else{
-        memcpy(pbyBuffer,buffer,dwNowLen);
+    if (is_encrypt_enabled) {
+        DecryptModel(buffer, dwNowLen, (unsigned char *) pbyBuffer);
+    } else {
+        memcpy(pbyBuffer, buffer, dwNowLen);
     }
     *ppbyBuffer = pbyBuffer;
     *pdwBufflen = dwNowLen;
@@ -176,25 +176,25 @@ static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
     return 0;
 }
 
-static int readModuleFile(string symbol_file, string param_file, LPDRModel_S *pstModel,bool is_encrypt_enabled) {
+static int readModuleFile(string symbol_file, string param_file, LPDRModel_S *pstModel, bool is_encrypt_enabled) {
     int dwSymLenDetect = 0;
 
-    readTxtFileAuto(symbol_file.c_str(), &pstModel->pbySym, &dwSymLenDetect,is_encrypt_enabled);
+    readTxtFileAuto(symbol_file.c_str(), &pstModel->pbySym, &dwSymLenDetect, is_encrypt_enabled);
 
-    readBinFileAuto(param_file.c_str(), &pstModel->pbyParam, &pstModel->dwParamSize,is_encrypt_enabled);
+    readBinFileAuto(param_file.c_str(), &pstModel->pbyParam, &pstModel->dwParamSize, is_encrypt_enabled);
 
     return 0;
 }
 
 
-static int readBinFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen,bool is_encrypt_enabled) {
+static int readBinFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen, bool is_encrypt_enabled) {
     int dwBufferMax = *pdwBufflen;
     char byCh;
     int dwNowLen = 0;
 
     FILE *pf = fopen(pbyFN, "rb");
 
-    unsigned char *data = (unsigned char *) calloc(dwNowLen,1);
+    unsigned char *data = (unsigned char *) calloc(dwNowLen, 1);
     while (!feof(pf)) {
         if (dwNowLen > dwBufferMax) {
             printf("no enough buffer!\n");
@@ -204,10 +204,10 @@ static int readBinFile(const char *pbyFN, char *pbyBuffer, int *pdwBufflen,bool 
         data[dwNowLen] = byCh;
         dwNowLen++;
     };
-    if(is_encrypt_enabled){
-        DecryptModel(data, dwNowLen, (unsigned char *)pbyBuffer);
-    }else{
-        memcpy(pbyBuffer,data,dwNowLen);
+    if (is_encrypt_enabled) {
+        DecryptModel(data, dwNowLen, (unsigned char *) pbyBuffer);
+    } else {
+        memcpy(pbyBuffer, data, dwNowLen);
     }
     free(data);
 
@@ -263,7 +263,6 @@ static void showUBY_IMG(const char *pbyWinName, uchar *pubyImg, int dwImgW, int 
     cvShowImage(pbyWinName, pcvImg);
     cvReleaseImage(&pcvImg);
 }
-
 
 }
 

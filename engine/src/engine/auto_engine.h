@@ -13,10 +13,10 @@
 namespace dg {
 
 template<typename TYPE, void (TYPE::*Process)()>
-void* _start_thread_t(void *param) {
-    TYPE *This = (TYPE*) param;
+void *_start_thread_t(void *param) {
+    TYPE *This = (TYPE *) param;
     This->Process();
-    pthread_exit (NULL);
+    pthread_exit(NULL);
     return NULL;
 }
 
@@ -25,9 +25,9 @@ void* _start_thread_t(void *param) {
 /// An engine aggregates several processors and invoke them to handle the frame
 /// using some schedule method
 class AutoEngine {
- public:
+public:
     AutoEngine()
-            : tid_(NULL) {
+        : tid_(NULL) {
     }
 
     virtual ~AutoEngine() {
@@ -43,7 +43,7 @@ class AutoEngine {
     virtual int StartAsyn() {
         pthread_create(&tid_, NULL,
                        _start_thread_t<AutoEngine, &AutoEngine::Process>,
-                       (void*) this);
+                       (void *) this);
         return 0;
     }
     virtual int Stop() = 0;
@@ -51,7 +51,7 @@ class AutoEngine {
 
     virtual void Process() = 0;
 
- protected:
+protected:
     pthread_t tid_;
 
 };

@@ -1,123 +1,217 @@
 syntax = "proto3";
 
-package dg.model;
+package
+dg.model;
 
 import "common.proto";
 import "localcommon.proto";
 
-service WitnessService {
+service
+WitnessService
+{
 
-    rpc Recognize (WitnessRequest) returns (WitnessResponse) {
+    rpc
+    Recognize(WitnessRequest)
+    returns(WitnessResponse)
+    {
     }
 
-    rpc BatchRecognize (WitnessBatchRequest) returns (WitnessBatchResponse) {
+    rpc
+    BatchRecognize(WitnessBatchRequest)
+    returns(WitnessBatchResponse)
+    {
     }
 
-    rpc GetIndex (IndexRequest) returns (IndexResponse) {
+    rpc
+    GetIndex(IndexRequest)
+    returns(IndexResponse)
+    {
 
     }
-    rpc GetIndexTxt (IndexTxtRequest) returns (IndexTxtResponse) {
+    rpc
+    GetIndexTxt(IndexTxtRequest)
+    returns(IndexTxtResponse)
+    {
 
     }
 }
 
 enum IndexType {
-    INDEX_DEFAULT = 0;
-    INDEX_CAR_TYPE = 1;
-    INDEX_CAR_MAIN_BRAND = 2;
-    INDEX_CAR_SUB_BRAND = 3;
-    INDEX_CAR_YEAR_MODEL = 4;
-    INDEX_CAR_COLOR = 5;
-    INDEX_CAR_MARKER = 6;
-    INDEX_CAR_PLATE_TYPE = 7;
-    INDEX_CAR_PLATE_COLOR = 8;
-    INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 9;
+    INDEX_DEFAULT = 0
+;
+INDEX_CAR_TYPE = 1;
+INDEX_CAR_MAIN_BRAND = 2;
+INDEX_CAR_SUB_BRAND = 3;
+INDEX_CAR_YEAR_MODEL = 4;
+INDEX_CAR_COLOR = 5;
+INDEX_CAR_MARKER = 6;
+INDEX_CAR_PLATE_TYPE = 7;
+INDEX_CAR_PLATE_COLOR = 8;
+INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 9;
 }
 
-message IndexRequest {
-    IndexType IndexType = 1;
+message
+IndexRequest
+{
+    IndexType
+    IndexType = 1;
 }
-message IndexTxtRequest{
-    IndexType IndexType = 1;
+message
+IndexTxtRequest
+{
+    IndexType
+    IndexType = 1;
 }
-message IndexTxtResponse{
-    string Context=1;
+message
+IndexTxtResponse
+{
+    string
+    Context = 1;
 }
-message IndexResponse {
-    map<int32, string> Index = 1;
-}
-
-message WitnessRequest {
-    WitnessRequestContext Context = 1;
-    WitnessImage Image = 2;
-}
-
-message WitnessBatchRequest {
-    WitnessRequestContext Context = 1;
-    repeated WitnessImage Images = 2;
-}
-
-message WitnessResponse {
-    WitnessResponseContext Context = 1;
-    WitnessResult Result = 2;
+message
+IndexResponse
+{
+    map < int32, string > Index = 1;
 }
 
-message WitnessBatchResponse {
-    WitnessResponseContext Context = 1;
-    repeated WitnessResult Results = 2;
+message
+WitnessRequest
+{
+    WitnessRequestContext
+    Context = 1;
+    WitnessImage
+    Image = 2;
 }
 
-message WitnessRelativeROI{
-	int32 PosX=1;
-	int32 PosY=2;
-	int32 Width=3;
-	int32 Height=4;
-}
-message WitnessMarginROI{
-	int32 Left=1;
-	int32 Top=2;
-	int32 Right=3;
-	int32 Bottom=4;
+message
+WitnessBatchRequest
+{
+    WitnessRequestContext
+    Context = 1;
+    repeated
+    WitnessImage
+    Images = 2;
 }
 
-message WitnessRequestContext {
-    string SessionId = 1; //请求Session
-    string UserName = 2;     //用户名信息，需要开启验证功能
-    string Token = 3;        //Token验证，需要开启验证功能
-    repeated RecognizeFunctions Functions = 4; //功能列表
-    RecognizeType Type = 5; //识别类型 enum RecognizeType
-    StorageConfig Storage = 6; //Engine结果存储的信息
-    map<string, string> Params = 7; //扩展参数
+message
+WitnessResponse
+{
+    WitnessResponseContext
+    Context = 1;
+    WitnessResult
+    Result = 2;
+}
+
+message
+WitnessBatchResponse
+{
+    WitnessResponseContext
+    Context = 1;
+    repeated
+    WitnessResult
+    Results = 2;
+}
+
+message
+WitnessRelativeROI
+{
+    int32
+    PosX = 1;
+    int32
+    PosY = 2;
+    int32
+    Width = 3;
+    int32
+    Height = 4;
+}
+message
+WitnessMarginROI
+{
+    int32
+    Left = 1;
+    int32
+    Top = 2;
+    int32
+    Right = 3;
+    int32
+    Bottom = 4;
+}
+
+message
+WitnessRequestContext
+{
+    string
+    SessionId = 1; //请求Session
+    string
+    UserName = 2;     //用户名信息，需要开启验证功能
+    string
+    Token = 3;        //Token验证，需要开启验证功能
+    repeated
+    RecognizeFunctions
+    Functions = 4; //功能列表
+    RecognizeType
+    Type = 5; //识别类型 enum RecognizeType
+    StorageConfig
+    Storage = 6; //Engine结果存储的信息
+    map < string, string > Params = 7; //扩展参数
 
 }
 
-message WitnessImage {
-    Image Data = 1;
-    SrcMetadata WitnessMetaData =2;
-    repeated WitnessRelativeROI RelativeRoi= 3;
-    repeated WitnessMarginROI MarginRoi = 4;
+message
+WitnessImage
+{
+    Image
+    Data = 1;
+    SrcMetadata
+    WitnessMetaData = 2;
+    repeated
+    WitnessRelativeROI
+    RelativeRoi = 3;
+    repeated
+    WitnessMarginROI
+    MarginRoi = 4;
 }
 
-message WitnessResponseContext {
-    string SessionId = 1; //响应Session，如果请求Session不存在，生成UUID，否则复制请求的Session
-    string Status = 2; //响应状态信息
-    string Message = 3; //状态为错误的响应错误信息
-    Time RequestTs = 4; //请求下发给Engine的时间
-    Time ResponseTs = 5; //从Engine读取内容的时间
-    map<string, Time> DebugTs = 6; //Debug用时
+message
+WitnessResponseContext
+{
+    string
+    SessionId = 1; //响应Session，如果请求Session不存在，生成UUID，否则复制请求的Session
+    string
+    Status = 2; //响应状态信息
+    string
+    Message = 3; //状态为错误的响应错误信息
+    Time
+    RequestTs = 4; //请求下发给Engine的时间
+    Time
+    ResponseTs = 5; //从Engine读取内容的时间
+    map < string, Time > DebugTs = 6; //Debug用时
 }
 
-message WitnessResult {
-    string InnerStatus = 1; //响应的内部状态
-    string InnerMessage = 2; //响应的内部信息
-    WitnessImage Image = 3; //响应的图片信息
-    repeated RecVehicle Vehicles = 4; //识别的车辆列表
-    repeated RecFace Faces = 5; //识别的人脸列表
+message
+WitnessResult
+{
+    string
+    InnerStatus = 1; //响应的内部状态
+    string
+    InnerMessage = 2; //响应的内部信息
+    WitnessImage
+    Image = 3; //响应的图片信息
+    repeated
+    RecVehicle
+    Vehicles = 4; //识别的车辆列表
+    repeated
+    RecFace
+    Faces = 5; //识别的人脸列表
 
 }
-message WitnessVehicleObj{
-    VehicleObj VehicleResult=1;
-    StorageConfig Storage=2;
+message
+WitnessVehicleObj
+{
+    VehicleObj
+    VehicleResult = 1;
+    StorageConfig
+    Storage = 2;
 }
 
 

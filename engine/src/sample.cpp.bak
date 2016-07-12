@@ -27,33 +27,33 @@ static void PrintFrame(Frame &frame) {
         cout << endl;
         if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE) {
             cout << "=0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ =0^0~ "
-                 << endl;
-            Vehicle *v = (Vehicle*) obj;
+                << endl;
+            Vehicle *v = (Vehicle *) obj;
             cout << "Vehicle class id: " << v->class_id() << ", Conf: "
-                 << v->confidence() << endl;
+                << v->confidence() << endl;
             cout << "Vehicle color id: " << v->color().class_id << ", "
-                 << v->color().confidence << endl;
+                << v->color().confidence << endl;
             cout << "Vehicle plate: " << v->plate().plate_num << ", "
-                 << v->plate().confidence << endl;
+                << v->plate().confidence << endl;
             vector<Object *> markers = v->children();
             cout << "Vehicle Markers: " << v->children().size() << ", Window: "
-                 << v->window().box.x << endl;
+                << v->window().box.x << endl;
 
             for (int i = 0; i < markers.size(); i++) {
-                Marker *m = (Marker*) markers[i];
+                Marker *m = (Marker *) markers[i];
                 Detection d = m->detection();
                 cout << "Marker " << i << ": " << d << " class id: "
-                     << m->class_id() << endl;
+                    << m->class_id() << endl;
             }
 
             cout << "Feature Vector: " << v->feature().Serialize().substr(0, 32)
-                 << "... Len: " << v->feature().Serialize().size() << endl;
+                << "... Len: " << v->feature().Serialize().size() << endl;
         } else if (type == OBJECT_FACE) {
             cout << "=.= =.= =.= =.= =.= =.= =.= =.= =.= =.= =.= =.=" << endl;
-            Face *f = (Face*) obj;
+            Face *f = (Face *) obj;
             cout << "Face Detection: " << f->detection() << endl;
             cout << "Face Vector: " << f->feature().Serialize().substr(0, 32)
-                 << "... Len:" << f->feature().Serialize().size() << endl;
+                << "... Len:" << f->feature().Serialize().size() << endl;
         }
     }
 }
@@ -72,8 +72,8 @@ static SimpleEngine *engine1;
 //static SimpleEngine *engine5;
 //static SimpleEngine *engine6;
 
-static void* process(void* p) {
-    SimpleEngine *engine = (SimpleEngine*) p;
+static void *process(void *p) {
+    SimpleEngine *engine = (SimpleEngine *) p;
     if (1) {
         FrameBatch *fb = new FrameBatch(1);
         for (int i = 0; i < 1; ++i) {
@@ -93,11 +93,11 @@ static void* process(void* p) {
             Operation op;
             op.Set(OPERATION_VEHICLE);
             op.Set(OPERATION_VEHICLE_DETECT | OPERATION_VEHICLE_STYLE
-                    | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
-                    | OPERATION_VEHICLE_FEATURE_VECTOR
-                    | OPERATION_VEHICLE_PLATE);
+                       | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER
+                       | OPERATION_VEHICLE_FEATURE_VECTOR
+                       | OPERATION_VEHICLE_PLATE);
             op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-                    | OPERATION_FACE_FEATURE_VECTOR);
+                       | OPERATION_FACE_FEATURE_VECTOR);
 
             f->set_operation(op);
             fb->AddFrame(f);
@@ -123,7 +123,7 @@ int main() {
 //    engine6 = new WitnessEngine(*config);
 
     pthread_t t1, t2, t3, t4, t5, t6;
-    pthread_create(&t1, NULL, process, (void*) engine1);
+    pthread_create(&t1, NULL, process, (void *) engine1);
     //sleep(1);
     // pthread_create(&t2, NULL, process, (void*) engine2);
 //    sleep(1);
@@ -162,7 +162,7 @@ int main() {
 //        delete fb;
 //    }
 
-    DLOG(INFO)<< "FINISHED" << endl;
+    DLOG(INFO) << "FINISHED" << endl;
 
 }
 
