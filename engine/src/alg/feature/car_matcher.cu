@@ -232,7 +232,7 @@ vector<int> CarMatcher::computeMatchScoreGpu(
         db_pos_cuda_, (uint *) db_desc_cuda_, query_width,
         query_height, db_width_cuda_, db_height_cuda_,
         max_resize_size_, feature_num_, min_remarkableness_,
-        max_mis_match_, selected_area_weight_, score_cuda_);
+        max_mis_match_, selected_area_weight_, max_mapping_offset_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
     CUDA_CALL(cudaGetLastError());
 
