@@ -49,7 +49,7 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
         	float pos2_x_rto = (float) des2.position_.at<ushort>(j, 0)/(float) des2.width_;
         	float pos2_y_rto = (float) des2.position_.at<ushort>(j, 1)/(float) des2.height_;
 
-            if (calc_dis2(pos1_x_rto, pos1_y_rto, pos2_x_rto, pos2_y_rto)< max_mapping_offset_rto) {
+            if (calcDis2(pos1_x_rto, pos1_y_rto, pos2_x_rto, pos2_y_rto) < max_mapping_offset_rto) {
                 const uchar* train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
