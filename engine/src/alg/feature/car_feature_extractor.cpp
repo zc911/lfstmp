@@ -74,8 +74,8 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 	}
 }
 
-void CarFeatureExtractor::calcNewSize(const int &ori_height,
-                                      const int &ori_width,
+void CarFeatureExtractor::calcNewSize(const ushort &ori_height,
+                                      const ushort &ori_width,
                                       cv::Size &new_size) {
     float resize_rto = max(ori_height, ori_width);
     resize_rto = ((float) max_resize_size_) / resize_rto;

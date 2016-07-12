@@ -59,8 +59,8 @@ CarMatcher::~CarMatcher() {
 }
 
 __global__ void compute_match_score_kernel(box query_box, ushort *query_pos, uint *query_desc, 
-					ushort *db_pos, uint *db_desc, int query_width, int query_height, 
-					int *db_width, int *db_height, int max_resize_size, int feature_num, 
+					ushort *db_pos, uint *db_desc, ushort query_width, ushort query_height, 
+					ushort *db_width, ushort *db_height, int max_resize_size, int feature_num, 
 					float min_remarkableness, int max_mis_match, int selected_area_weight, int max_mapping_offset, int *score) {
     //Calculate new bounding box
     box query_box_resize;
@@ -186,8 +186,8 @@ vector<int> CarMatcher::computeMatchScoreGpu(
                 query_desc_cuda_[j * 32 + k] = 0;
         }
     }
-    int query_width = des.width_;
-    int query_height = des.height_;
+    ushort query_width = des.width_;
+    ushort query_height = des.height_;
     for (int i = 0; i < all_des.size(); i++) {
         db_width_cuda_[i] = all_des[i].width_;
         db_height_cuda_[i] = all_des[i].height_;
