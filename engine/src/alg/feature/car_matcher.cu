@@ -196,7 +196,6 @@ vector<int> CarMatcher::computeMatchScoreGpu(
     ushort query_width = des.width_;
     ushort query_height = des.height_;
     for (int i = 0; i < all_des.size(); i++) {
-    	score_cuda_[i] = 0;
         db_width_cuda_[i] = all_des[i].width_;
         db_height_cuda_[i] = all_des[i].height_;
         for (int j = 0; j < feature_num_; j++) {
