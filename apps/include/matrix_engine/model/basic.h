@@ -99,8 +99,7 @@ typedef struct Operation {
         }
     }
 
-}
-    Operation;
+} Operation;
 
 typedef struct {
     int id;

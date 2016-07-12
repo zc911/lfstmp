@@ -43,9 +43,17 @@ static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
 static const string DEBUG_ENABLE = "Debug/Enable";
 
+
 static const string ADVANCED_DETECTION_RESCALE = "Advanced/Detection/Rescale";
 static const string ADVANCED_DETECTION_BATCH_SIZE =
     "Advanced/Detection/BatchSize";
+static const string ADVANCED_DETECTION_TARGET_MIN_SIZE =
+    "Advanced/Detection/TargetMinSize";
+static const string ADVANCED_DETECTION_TARGET_MAX_SIZE =
+    "Advanced/Detection/TargetMaxSize";
+static const string ADVANCED_DETECTION_CAR_ONLY =
+    "Advanced/Detection/CarOnly";
+
 
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/Color/BatchSize";
 static const string ADVANCED_COLOR_MODEL_NUM = "Advanced/Color/ModelNum";
@@ -99,6 +107,15 @@ static const string FILE_STYLE_DEPLOY_MODEL = "File/Style/DeployModel";
 static const string FILE_DETECTION_MODEL_PATH = "File/Detection/ModelPath";
 static const string FILE_DETECTION_TRAINED_MODEL = "File/Detection/TrainedModel";
 static const string FILE_DETECTION_DEPLOY_MODEL = "File/Detection/DeployModel";
+
+static const string FILE_CAR_ONLY_DETECTION_MODEL_PATH = "File/CarOnlyDetection/ModelPath";
+static const string FILE_CAR_ONLY_DETECTION_TRAINED_MODEL = "File/CarOnlyDetection/TrainedModel";
+static const string FILE_CAR_ONLY_DETECTION_DEPLOY_MODEL = "File/CarOnlyDetection/DeployModel";
+
+static const string FILE_CAR_ONLY_CONFIRM_MODEL_PATH = "File/CarOnlyConfirm/ModelPath";
+static const string FILE_CAR_ONLY_CONFIRM_TRAINED_MODEL = "File/CarOnlyConfirm/TrainedModel";
+static const string FILE_CAR_ONLY_CONFIRM_DEPLOY_MODEL = "File/CarOnlyConfirm/DeployModel";
+
 
 static const string FILE_ACCELERATE_MODEL_PATH = "File/Accelerate/ModelPath";
 static const string FILE_ACCELERATE_TRAINED_MODEL = "File/Accelerate/TrainedModel";
