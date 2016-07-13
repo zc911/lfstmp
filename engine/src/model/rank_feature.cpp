@@ -22,9 +22,11 @@ string CarRankFeature::Serialize() const {
         return "";
     }
 
-    float version = 1.0;
+    float version = 2.0;
     vector<uchar> data;
     ConvertToByte(version, data);
+    ConvertToByte(width_, data);
+    ConvertToByte(height_, data);
 
     const Mat &des = descriptor_;
     const Mat &pos = position_;
@@ -38,21 +40,31 @@ string CarRankFeature::Serialize() const {
 bool CarRankFeature::Deserialize(string featureStr) {
     float version;
     int des_size, pos_size;
+    ushort width, height;
 
     vector<uchar> data;
     data.clear();
     Base64::Decode(featureStr, data);
 
     vector<uchar>::iterator it = data.begin();
+
     vector<uchar> version_v(it, it + sizeof(version));
-
     it += sizeof(version);
-    vector<uchar> des_size_v(it, it + sizeof(des_size));
 
+    vector<uchar> width_v(it, it + sizeof(width));
+    it += sizeof(width);
+
+    vector<uchar> height_v(it, it + sizeof(height));
+    it += sizeof(height);
+
+    vector<uchar> des_size_v(it, it + sizeof(des_size));
     it += sizeof(des_size);
+
     vector<uchar> pos_size_v(it, it + sizeof(des_size));
 
     ConvertToValue(&version, version_v);
+    ConvertToValue(&width, width_v);
+    ConvertToValue(&height, height_v);
     ConvertToValue(&des_size, des_size_v);
     ConvertToValue(&pos_size, pos_size_v);
 
@@ -61,7 +73,7 @@ bool CarRankFeature::Deserialize(string featureStr) {
 
     // this shit check validates the input data
     if (des_size <= 0 || pos_size <= 0 || des_size % CAR_FEATURE_ORB_COLS_MAX != 0 || pos_size % 2 != 0
-        || des_size % CAR_FEATURE_ORB_COLS_MAX > CAR_FEATURE_ORB_ROWS_MAX || des_size > CAR_FEATURE_DES_MAX_SIZE
+        || des_size % CAR_FEATURE_ORB_COLS_MAX > CAR_FEATURE_ORB_ROWS_MAX
         || it + des_size >= data.end() || it + pos_size >= data.end() || it + des_size + pos_size >= data.end()) {
 
         LOG(ERROR) << "Feature version:" << version << endl;
@@ -81,8 +93,8 @@ bool CarRankFeature::Deserialize(string featureStr) {
     des.copyTo(descriptor_);
     pos.copyTo(position_);
 
-    width_ = descriptor_.cols;
-    height_ = descriptor_.rows;
+    width_ = width;
+    height_ = height;
 
     return true;
 }
