@@ -9,8 +9,6 @@
 
 #include <fstream>
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include "pbjson/pbjson.hpp"
 #include <boost/algorithm/string/split.hpp>
 #include <glog/logging.h>
@@ -21,17 +19,16 @@
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
-#include "string_util.h"
-#include "log/log_val.h"
 //
 using namespace std;
 namespace dg {
 
 static int SHIFT_COLOR = 1000;
-WitnessAppsService::WitnessAppsService(const Config *config, string name)
+WitnessAppsService::WitnessAppsService(const Config *config, string name, int baseId)
     : config_(config),
       engine_(*config),
-      id_(0) {
+      id_(0),
+      base_id_(baseId) {
     name_ = name;
     unknown_string_ = "UNKNOWN";
     unknown_vehicle_.set_typeid_(-1);
@@ -707,8 +704,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     const WitnessBatchRequest *batchRequest,
     WitnessBatchResponse *batchResponse) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Batch recognize using " << name_ << endl;
-    VLOG(VLOG_SERVICE) << "Batch recognize using " << name_ << endl;
+
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
     MatrixError err;
@@ -717,9 +713,14 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     const ::google::protobuf::RepeatedPtrField<::dg::model::WitnessImage> &images =
         batchRequest->images();
+    Identification curr_id = base_id_ * 10000 + id_++;
+    VLOG(VLOG_SERVICE)
+    << "Batch recognize using " << name_ << " and batch id: "
+        << curr_id << endl;
+    VLOG(VLOG_SERVICE)
+    << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << " and batch id: "
+        << curr_id << endl;
 
-    VLOG(VLOG_SERVICE) << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << endl;
-    VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << "...";
 
     err = checkRequest(*batchRequest);
     if (err.code() != 0) {
@@ -730,8 +731,8 @@ MatrixError WitnessAppsService::BatchRecognize(
     struct timeval start, end;
     gettimeofday(&start, NULL);
 
-    Identification curr_id = id_++;
-    FrameBatch framebatch(curr_id * 10);
+
+    FrameBatch framebatch(curr_id);
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
     vector<SrcMetadata> srcMetadatas;
@@ -773,6 +774,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     gettimeofday(&start, NULL);
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
+    VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
     rec_lock_.lock();
     engine_.Process(&framebatch);
     rec_lock_.unlock();

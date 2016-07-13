@@ -27,7 +27,7 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 
 bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << frameBatch->id() << endl;
 
     vector<vector<Prediction> > result;
 
@@ -53,6 +53,7 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         v->set_confidence(max.second);
     }
 
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish vehicle classify process" << frameBatch->id() << endl;
     return true;
 }
 
