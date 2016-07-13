@@ -7,14 +7,12 @@
 
 namespace dg {
 VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &config) : caffe_config_(config) {
-
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
     threshold_ = config.threshold;
     if (use_gpu_) {
         Caffe::SetDevice(gpu_id_);
         Caffe::set_mode(Caffe::GPU);
-
         use_gpu_ = true;
     }
     else {
@@ -129,6 +127,7 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
 
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 
