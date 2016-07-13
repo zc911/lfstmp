@@ -202,7 +202,7 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
 {
   ModulePREG_S *pstPREG = (ModulePREG_S*)hPREG;
   ExecutorHandle hExecute = pstPREG->hExecute;
-#if LPDR_TIME
+#if LPDR_TIME&0
   float costtime, diff;
   struct timeval start, end;
 
@@ -223,7 +223,7 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
   cv::Mat tmpImg(dwStdH, dwStdW, CV_32FC1, pfStdData);
 	cv::resize(srcImg, tmpImg, cv::Size(dwStdW, dwStdH), 0, 0, CV_INTER_LINEAR);
 //	memcpy(pfStdData, (float*)tmpImg.data, sizeof(float)*needsize0);
-  
+
 #if LPDR_DBG&0
   cout << "H:" << dwStdH << "W:" << dwStdW << endl;
   cv::Mat gimg(dwStdH, dwStdW, CV_32FC1, pfStdData);
@@ -264,7 +264,7 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
 	adwPolygonOut[9] = (int)(pfPolygon[9] * dwSrcH + 0.5f);
 	adwPolygonOut[10] = (int)(pfPolygon[10] * dwSrcW + 0.5f);
 	adwPolygonOut[11] = (int)(pfPolygon[11] * dwSrcH + 0.5f);
-#if LPDR_TIME
+#if LPDR_TIME&0
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
 	printf("PREG cost:%.2fms\n", diff);
