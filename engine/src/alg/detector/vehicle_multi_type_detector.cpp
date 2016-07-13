@@ -11,8 +11,8 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     : config_(config) {
 
     if (config.use_gpu) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(config.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
     } else {
         Caffe::set_mode(Caffe::CPU);
     }

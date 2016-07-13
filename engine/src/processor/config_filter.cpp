@@ -188,10 +188,6 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
     config.batch_size = 1;
     config.gpu_id = gpu_id;
 
-    cout << config.model_file << endl;
-    cout << config.deploy_file << endl;
-
-
 }
 
 
