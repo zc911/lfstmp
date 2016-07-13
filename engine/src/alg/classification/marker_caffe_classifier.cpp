@@ -374,6 +374,7 @@ vector<Blob<float> *> MarkerCaffeClassifier::PredictBatch(vector<Mat> imgs) {
 
     if (!device_setted_) {
         Caffe::SetDevice(marker_config_.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 
