@@ -96,6 +96,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
     const std::vector<Mat> &imgs) {
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
     std::vector<Mat> align_imgs = Align(imgs);

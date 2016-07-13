@@ -51,6 +51,7 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
     if (!device_setted_ && caffe_config_.use_gpu) {
         device_setted_ = true;
         Caffe::SetDevice(caffe_config_.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
     }
     vector<Mat> toPredict;
     for (auto i : batch) {

@@ -174,6 +174,7 @@ vector<Blob<float> *> CarOnlyConfirmCaffeDetector::PredictBatch(
     const vector<Mat> imgs) {
     if (!device_setted_) {
         Caffe::SetDevice(caffe_config_.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 
