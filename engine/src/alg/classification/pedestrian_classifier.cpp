@@ -26,8 +26,8 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
     input_blob->Reshape(batch_size_, num_channels_, crop_height_, crop_width_);
 
     if (pconf.use_gpu) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(pconf.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         use_gpu_ = true;
     }
     else {

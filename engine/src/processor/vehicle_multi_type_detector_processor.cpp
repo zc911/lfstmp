@@ -29,7 +29,7 @@ VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start detector" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start detector: " << frameBatch->id() << endl;
 
     vector<int> frameIds;
     vector<Mat> images;
@@ -137,7 +137,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
         }
     }
-
+    VLOG(VLOG_RUNTIME_DEBUG) << "finish detector: " << frameBatch->id() << endl;
     return true;
 }
 

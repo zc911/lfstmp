@@ -11,8 +11,8 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     gpu_id_ = config.gpu_id;
     threshold_ = config.threshold;
     if (use_gpu_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         use_gpu_ = true;
     }
     else {
@@ -126,8 +126,8 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
                                       vector<vector<Detection> > &detect_results) {
 
     if (!device_setted_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 

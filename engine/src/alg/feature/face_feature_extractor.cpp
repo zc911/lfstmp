@@ -7,7 +7,6 @@
  * Description : 
  * ==========================================================================*/
 #include "face_feature_extractor.h"
-#include "face_feature_extractor.h"
 
 namespace dg {
 
@@ -19,8 +18,8 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
     if (use_gpu_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(config.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         use_gpu_ = true;
     } else {
         Caffe::set_mode(Caffe::CPU);
@@ -97,6 +96,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
     const std::vector<Mat> &imgs) {
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
     std::vector<Mat> align_imgs = Align(imgs);
