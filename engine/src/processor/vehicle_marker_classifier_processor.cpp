@@ -35,7 +35,7 @@ VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
 
 bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
     float costtime, diff;
     struct timeval start, end;
@@ -82,6 +82,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     printf("mareker cost: %.2fms\n", diff);
     objs_.clear();
 
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish marker and window processor" << frameBatch->id() << endl;
     return true;
 }
 

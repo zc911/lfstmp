@@ -3,10 +3,12 @@
 2016-07-11
 
 ```
-Add Car only detection
+IMPORTANT: The dg plate sdk found multi-thread bug. So only one thread support in engine
 ```
 
 ### Feature
-- Add Car only detection(old deepv model)
+- Add Car only detection(old deepv model) because of the SSD detection multi-thread bug
+- Add lots of runtime debug logs
+- Some code improvements
 
 

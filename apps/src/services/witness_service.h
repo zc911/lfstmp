@@ -27,7 +27,7 @@ using namespace ::dg::model;
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService(const Config *config, string name);
+    WitnessAppsService(const Config *config, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -74,57 +74,11 @@ private:
             }
         }
     }
-    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
 
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              splitForMap(collect,msg,'=');
-          }
-      }
-      void readCarModelFile(std::string filename){
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              vector<string> line;
-              split(msg,line,',');
-              if(line.size()!=10)
-                  continue;
-              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
-      string name_;
-  private:
-
-    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
-
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              splitForMap(collect,msg,'=');
-          }
-      }
-      void readCarModelFile(std::string filename){
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              vector<string> line;
-              split(msg,line,',');
-              if(line.size()!=10)
-                  continue;
-              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
-              car_sub_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[7]));
-              year_model_collect_.insert(pair<int,string>(atoi(line[0]),line[9]));
-              if(line[3]==0){
-                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"head"));
-              }else{
-                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"end"));
-              }
-              car_style_collect_.insert(pair<int,string>(atoi(line[0]),line[2]));
-          }
-
-      }*/
     const Config *config_;
     WitnessEngine engine_;
     Identification id_;
+    Identification base_id_;
 
     //repo list
     string unknown_string_;

@@ -150,6 +150,7 @@ void serveRanker(Config *config, int userPort = 0) {
     }
 }
 
+
 DEFINE_int32(port, 0,
              "Service port number, will overwite the value defined in config file");
 DEFINE_string(config, "config.json", "Config file path");
@@ -178,7 +179,7 @@ int main(int argc, char *argv[]) {
     config->Load(FLAGS_config);
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 #ifdef DEBUG
-    if (0) {
+    if (FLAGS_encrypt) {
         config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 #endif
         StartDogMonitor();
@@ -191,9 +192,9 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
-//    if (showconfig) {
-//        config->DumpValues();
-//    }
+    if (FLAGS_showconfig) {
+        config->DumpValues();
+    }
 
     string instType = (string) config->Value("InstanceType");
 

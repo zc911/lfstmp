@@ -8,7 +8,7 @@
 #include "system_service.h"
 
 namespace dg {
-SystemAppsService::SystemAppsService(const Config *config, string name) {
+SystemAppsService::SystemAppsService(const Config *config, string name, int baseId) {
     config_ = config;
     name_ = name;
     initNetworkThread();

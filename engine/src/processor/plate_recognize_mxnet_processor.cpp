@@ -41,11 +41,15 @@ bool PlateRecognizeMxnetProcessor::process(Frame *frame) {
     return false;
 }
 bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start Plate Recognize Mxnet Processor : " << frameBatch->id() << endl;
+
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
     int batchsize = batch_size_;
     int imagesize = images_.size();
+    VLOG(VLOG_RUNTIME_DEBUG) << "LPDR loop: " << (ceil((float) imagesize / (float) batchsize) * batchsize) << endl;
     for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
                                                                                        batchsize) {
         stImgSet_.dwImageNum = 0;
@@ -60,7 +64,13 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
             }
         }
         LPDR_OutputSet_S stOutput;
+
+        VLOG(VLOG_RUNTIME_DEBUG) << "Start LPDR: " << frameBatch->id() << endl;
         LPDR_Process(h_LPDR_Handle_, &stImgSet_, &stOutput);
+        VLOG(VLOG_RUNTIME_DEBUG) << "Finish LPDR: " << frameBatch->id() << endl;
+
+
+        VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
         for (int j = 0; j < batchsize; j++) {
             LPDR_Output_S *pstOut = stOutput.astLPSet + j;
             vector<Vehicle::Plate> plates;
@@ -92,10 +102,12 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
             }
 
         }
+        VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
 
     }
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Plate mxnet cost: " << TimeCostInMs(start, end) << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish Plate Recognize Mxnet Processor : " << frameBatch->id() << endl;
     return true;
 }
 
