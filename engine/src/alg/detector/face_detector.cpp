@@ -13,8 +13,8 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
     if (use_gpu_) {
+        Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        Caffe::SetDevice(0);
         use_gpu_ = true;
     } else {
         Caffe::set_mode(Caffe::CPU);
