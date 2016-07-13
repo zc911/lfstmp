@@ -230,7 +230,6 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
   float costtime, diff;
   struct timeval start, end;
 
-  gettimeofday(&start, NULL);
 #endif
 
   ModuleFCNN_S *pstFCNN = (ModuleFCNN_S*)hFCNN;
@@ -246,7 +245,10 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
   int dwRealW, dwRealH;
   int needsize = getSize(hData);
   int dwImgWOri, dwImgHOri;
-  
+
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
     vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];
@@ -267,7 +269,16 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
     pstFCNN->pdwRealWs[dwI] = dwRealW;
     pstFCNN->pdwRealHs[dwI] = dwRealH;
   }
-  
+#if LPDR_TIME
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("in FCNN pre cost[%dx%d]:%.2fms\n", dwStdH, dwStdW, diff);
+#endif
+
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
+
   ret = MXNDArraySyncCopyFromCPU(hData, pstFCNN->pfInputData, needsize);
 
   ret = MXExecutorForward(pstFCNN->hExecute, 0);
@@ -326,8 +337,8 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
     for (dwJ = 0; dwJ < lprects.size(); dwJ++)
     {
       LPRectInfo *prect = &lprects[dwJ];
-      prect->fWidth *= 3;
-      prect->fHeight *= 2;
+      prect->fWidth *= 2;//3;
+      prect->fHeight *= 2;//2;
     }
 
     vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];

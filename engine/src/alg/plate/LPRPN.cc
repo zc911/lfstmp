@@ -292,7 +292,7 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("RPN cost_0:%.2fms\n", diff);
+	printf("RPN cost_0[%d]:%.2fms\n", dwImgNum, diff);
 	
 	gettimeofday(&start, NULL);
 #endif
@@ -320,8 +320,14 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 	MXNDArrayFree(out[1]);
 	MXNDArrayFree(out[2]);
 	
-
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("RPN cost_1:%.2fms\n", diff);
 	
+	gettimeofday(&start, NULL);
+#endif
+
 #if 1
 	int adims[2] = {4, 4};
 	int ashapes[2][4] = {{1, pdwOutShape[1], pdwOutShape[2], pdwOutShape[3]},
@@ -374,7 +380,7 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("RPN cost_1:%.2fms\n", diff);
+	printf("RPN cost_2:%.2fms\n", diff);
 #endif
   return 0;
 }

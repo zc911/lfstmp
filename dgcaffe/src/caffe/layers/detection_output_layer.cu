@@ -24,8 +24,8 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
   const int num = bottom[0]->num();
 
   // Decode predictions.
-  Blob<Dtype> bbox_preds;
-  bbox_preds.ReshapeLike(*(bottom[0]));
+  //Blob<Dtype> bbox_preds;
+  //bbox_preds.ReshapeLike(*(bottom[0]));
   Dtype* bbox_data = bbox_preds.mutable_gpu_data();
   const int loc_count = bbox_preds.count();
   DecodeBBoxesGPU<Dtype>(loc_count, loc_data, prior_data, code_type_,
@@ -42,8 +42,8 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
 
   // Retrieve all confidences.
   const Dtype* conf_cpu_data;
-  Blob<Dtype> conf_permute;
-  conf_permute.ReshapeLike(*(bottom[1]));
+  //Blob<Dtype> conf_permute;
+  //conf_permute.ReshapeLike(*(bottom[1]));
   Dtype* conf_permute_data = conf_permute.mutable_gpu_data();
   PermuteDataGPU<Dtype>(conf_permute.count(), bottom[1]->gpu_data(),
       num_classes_, num_priors_, 1, conf_permute_data);
