@@ -9,9 +9,11 @@
 #define CAR_FEATURE_EXTRACTOR_H_
 
 #include <opencv2/core/core.hpp>
+#include <opencv2/features2d/features2d.hpp>
 
 #include "model/rank_feature.h"
-#include <opencv2/features2d/features2d.hpp>
+#include "ORBextractor.h"
+
 namespace dg {
 
 class CarFeatureExtractor {
@@ -21,7 +23,8 @@ public:
     void ExtractDescriptor(const cv::Mat &img, CarRankFeature &des);
 
 private:
-    cv::ORB orb_;
+//    cv::ORB orb_;
+    ORBextractor orb_extractor_;
     int max_resize_size_;
 
     void calcNewSize(const ushort &ori_height, const ushort &ori_width,
