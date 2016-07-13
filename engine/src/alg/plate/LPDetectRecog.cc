@@ -114,6 +114,10 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   struct timeval start, end;
 #endif
 
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
+
   LPDR_ImageInner_S *pstFCNNImgSet = new LPDR_ImageInner_S[dwImgNum];
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
@@ -127,30 +131,16 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     
     cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, pstImgSet->astSet[dwI].pubyData);
     cv::Mat inputGrayOne(dwImgH, dwImgW, CV_8UC1);
-#if LPDR_TIME
-  gettimeofday(&start, NULL);
-#endif
     cv::cvtColor(inputColorOne, inputGrayOne, CV_BGR2GRAY);
-#if LPDR_TIME
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-  printf("cvtColor cost:%.2fms\n", diff);
-#endif
+
     uchar *pubyOne = (uchar*)inputGrayOne.data;
-#if LPDR_TIME
-  gettimeofday(&start, NULL);
-#endif
 //    for (dwPI = 0; dwPI < dwSize; dwPI++)
 //    {
 //      pstOne->pfData[dwPI] = pubyOne[dwPI] / 255.0f;
 //    }
     cv::Mat oneData(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
     inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f/255.f, 0);
-#if LPDR_TIME
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-  printf("uchar to float cost:%.2fms\n", diff);
-#endif   
+   
 //    doRotate_f(pstOne->pfData, dwImgW, dwImgH, 10.0f);
 
 #if LPDR_DBG&1
@@ -160,11 +150,19 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   cv::waitKey(0);
 #endif  
   }
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("pre fcnn cost:%.2fms\n", diff);
+#endif
 
   LPFCNN_Process(hFCNN, pstFCNNImgSet, dwImgNum);
   
   ////////////////RPN///////////////
 #if 1
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   LPDR_HANDLE hRPN = pstLPDR->hRPN;
   ModuleFCNN_S *pstFCNN = (ModuleFCNN_S*)hFCNN;
   
@@ -218,6 +216,11 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
       }
     }
   }
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("pre rpn cost:%.2fms\n", diff);
+#endif
 //  cout << "fuck rpn 1\n";
   LPRPN_Process(hRPN, pstRPNImgSet, dwRPNWantedAll);
 //  cout << "fuck rpn 2\n";
@@ -474,6 +477,12 @@ int LPDR_Release(LPDR_HANDLE handle)
 
 int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet)
 {
+#if LPDR_TIME&1
+  float costtime, diff;
+  struct timeval start, end;
+  
+  gettimeofday(&start, NULL);
+#endif
   LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
   int dwI, dwJ, dwRI, dwLPI;
   int dwX0_0, dwX1_0, dwY0_0, dwY1_0, dwW_0, dwH_0;
@@ -599,7 +608,11 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
   delete []pbyBuffer;
   delete []pfBlkBuffer_0;
   delete []pfBlkBuffer_1;
-  
+#if LPDR_TIME&1
+  gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRecognitions cost:%.2fms\n", diff);
+#endif
   return 0;
 }
 
@@ -649,7 +662,7 @@ int doRecogOne(LPDR_HANDLE handle, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut)
     rect_old = rect_new;
     fAngle_old = fAngle_new;
   }
-  
+//  return 0;
   int dwSepY = pstIIR->dwSepY;
   
 #if LPDR_DBG&1
@@ -843,6 +856,14 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
 
 int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adwMRatioXY[2], float fAngle_old, float *pfAngle_new)
 {
+#if LPDR_TIME
+  float costtime, diff;
+  struct timeval start, end;
+
+#endif
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   int dwRI;
   float *pfImage_0 = pstIIR->pfImage_0;
   float *pfImage_1 = pstIIR->pfImage_1;
@@ -869,14 +890,29 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   {
     memcpy(pfCrop + dwRI * dwCrop_W, pfImage_1 + (dwRI + dwCrop_Y0) * dwImgW + dwCrop_X0, sizeof(float) * dwCrop_W);
   }
-  
+
+#if LPDR_TIME
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_0 cost:%.2fms\n", diff);
+#endif
+
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   LPDR_ImageInner_S stImage;
   stImage.pfData = pfCrop;
   stImage.dwImgW = dwCrop_W;
   stImage.dwImgH = dwCrop_H;
   int adwPolygonOut[12];
   LPPREG_Process(hPolyReg, &stImage, adwPolygonOut);
-#if LPDR_DBG&0
+#if LPDR_TIME
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_1 cost:%.2fms\n", diff);
+#endif
+
+#if LPDR_DBG
   {
     cv::Mat gimg(dwCrop_H, dwCrop_W, CV_32FC1, pfCrop);
     cv::Mat cimg(dwCrop_H, dwCrop_W, CV_32FC3);
@@ -886,14 +922,17 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
     cv::waitKey(0);
   }
 #endif
-  
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   adwPolygonOut[0*2+0] += dwCrop_X0; adwPolygonOut[0*2+1] += dwCrop_Y0;
   adwPolygonOut[1*2+0] += dwCrop_X0; adwPolygonOut[1*2+1] += dwCrop_Y0;
   adwPolygonOut[2*2+0] += dwCrop_X0; adwPolygonOut[2*2+1] += dwCrop_Y0;
   adwPolygonOut[3*2+0] += dwCrop_X0; adwPolygonOut[3*2+1] += dwCrop_Y0;
   adwPolygonOut[4*2+0] += dwCrop_X0; adwPolygonOut[4*2+1] += dwCrop_Y0;
   adwPolygonOut[5*2+0] += dwCrop_X0; adwPolygonOut[5*2+1] += dwCrop_Y0;
-
+  
+//  return 0;
   doRectify_f(pfImage_0, pfImage_1, dwImgW, dwImgH, fAngle_old, adwPolygonOut, pfAngle_new);
   
   LPRect &rectnow = pstIIR->rect;
@@ -912,7 +951,12 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   int dwSepY = min(adwPolygonOut[4*2+1], adwPolygonOut[5*2+1]);
   pstIIR->dwSepY = dwSepY;
   
-#if LPDR_DBG&0
+#if LPDR_TIME
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_2 cost:%.2fms\n", diff);
+#endif
+#if LPDR_DBG
   {
     cv::Mat gimg(dwImgH, dwImgW, CV_32FC1, pfImage_1);
     cv::Mat cimg(dwImgH, dwImgW, CV_32FC3);
@@ -928,6 +972,14 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
 
 int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect, float fStrechRatio, float fShrinkRatio, int dwStep, float fThreshold, LPDRInfo_S *pstOut)
 {
+#if LPDR_TIME
+  float costtime, diff;
+  struct timeval start, end;
+
+#endif
+#if LPDR_TIME
+  gettimeofday(&start, NULL);
+#endif
   int dwBestRet = 0;
   int dwI, dwJ, dwII0, dwII1;
   ModuleCHRECOG_S *pstCHRECOG = (ModuleCHRECOG_S*)hChRecog;
@@ -1010,6 +1062,11 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
       }
     }
   }
+#if LPDR_TIME
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRecogOneRow cost:%.2fms\n", diff);
+#endif
 //  cout << pstOut->dwLPLen << endl;
   return dwBestRet;
 }

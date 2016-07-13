@@ -119,16 +119,16 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
                    &pstConfig->stFCNN, pstConfig->is_model_encrypt);
     pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;    //channel
-    pstConfig->stFCNN.adwShape[2] = pstConfig->imageSW;  //standard width .
-    pstConfig->stFCNN.adwShape[3] = pstConfig->imageSH;  //standard height .
+    pstConfig->stFCNN.adwShape[2] = pstConfig->imageSH;  //standard height .
+    pstConfig->stFCNN.adwShape[3] = pstConfig->imageSW;  //standard width .
 
     readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
                    &pstConfig->stRPN, pstConfig->is_model_encrypt);
     pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
     pstConfig->stRPN.adwShape[1] = pstConfig->numsPlates;//number of plates per image; .
     pstConfig->stRPN.adwShape[2] = 1;
-    pstConfig->stRPN.adwShape[3] = pstConfig->plateSW;// .
-    pstConfig->stRPN.adwShape[4] = pstConfig->plateSH;// .
+    pstConfig->stRPN.adwShape[3] = pstConfig->plateSH;// .
+    pstConfig->stRPN.adwShape[4] = pstConfig->plateSW;// .
 
     readModuleFile(pstConfig->roipSymbolFile, pstConfig->roipParamFile,
                    &pstConfig->stROIP, pstConfig->is_model_encrypt);
