@@ -20,6 +20,7 @@ CarMatcher::CarMatcher() {
     min_remarkableness_ = 0.8;
     max_mapping_offset_ = 50;
     selected_area_weight_ = 50;
+    min_score_thr_ = 100;
     profile_time_ = false;
 }
 
@@ -34,17 +35,21 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
     Rect box1, box2;
     calcNewBox(des1, des2, box, box1, box2);
     int score = 0;
+    float max_mapping_offset_rto = (float) max_mapping_offset_/(float) max_resize_size_;
+    max_mapping_offset_rto = 2*max_mapping_offset_rto*max_mapping_offset_rto;
     for (int i = 0; i < des1.descriptor_.rows; i++) {
         uint min_dist = 9999;
         uint sec_dist = 9999;
         int min_idx = -1, sec_idx = -1;
         const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
-        for (int j = 0; j < des2.descriptor_.rows; j++)
-            if (calcDis2(des1.position_.at<ushort>(i, 0),
-                         des1.position_.at<ushort>(i, 1),
-                         des2.position_.at<ushort>(j, 0),
-                         des2.position_.at<ushort>(j, 1))
-                < max_mapping_offset_ * max_mapping_offset_) {
+        for (int j = 0; j < des2.descriptor_.rows; j++) {
+
+        	float pos1_x_rto = (float) des1.position_.at<ushort>(i, 0)/(float) des1.width_;
+        	float pos1_y_rto = (float) des1.position_.at<ushort>(i, 1)/(float) des1.height_;
+        	float pos2_x_rto = (float) des2.position_.at<ushort>(j, 0)/(float) des2.width_;
+        	float pos2_y_rto = (float) des2.position_.at<ushort>(j, 1)/(float) des2.height_;
+
+            if (calcDis2(pos1_x_rto, pos1_y_rto, pos2_x_rto, pos2_y_rto) < max_mapping_offset_rto) {
                 const uchar* train_feat = des2.descriptor_.ptr(j);
                 uint dist = calcHammingDistance(query_feat, train_feat);
                 if (dist < min_dist) {
@@ -57,6 +62,7 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
                     sec_idx = j;
                 }
             }
+    }
         if ((min_dist <= (unsigned int) (min_remarkableness_ * sec_dist))
             && (min_dist <= (unsigned int) max_mis_match_)) {
             if ((inBox(des1.position_.at<ushort>(i, 0),
