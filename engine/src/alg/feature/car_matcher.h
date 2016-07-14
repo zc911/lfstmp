@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 #include <vector>
+#include <math.h>
+
 #include <glog/logging.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -84,6 +86,7 @@ private:
     float min_remarkableness_;
     int max_mapping_offset_;
     int selected_area_weight_;
+    int min_score_thr_;
     int score_[100000];
 
 #if USE_CUDA
