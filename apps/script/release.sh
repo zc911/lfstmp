@@ -16,7 +16,7 @@ tar -cvf $name"_"$version.tar ../bin/Release/*
 rm version && touch version
 echo $version > version
 scp version dell@192.168.2.119:~/release/home/matrix/$platform/
-scp $name"_"$version.tar  dell@192.168.2.119:~/release/home/matrix/$platform/
+scp $name"_"$version.tar  dell@192.168.2.119:~/release/home/matrix/$platform/release
 rm version
 rm $name"_"$1.tar
 
