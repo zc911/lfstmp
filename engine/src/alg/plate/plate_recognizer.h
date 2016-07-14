@@ -32,11 +32,11 @@ public:
         bool isSharpen;
     } PlateConfig;
 
-    static PlateRecognizer* Instance(const PlateConfig &config);
+    static PlateRecognizer *Instance(const PlateConfig &config);
 
     virtual ~PlateRecognizer();
     template<class F, class... Args>
-    auto enqueue(F&& f, Args&&... args)
+    auto enqueue(F &&f, Args &&... args)
         -> std::future<typename std::result_of<F(Args...)>::type>;
     virtual void Init(void *config);
 
@@ -54,9 +54,9 @@ private:
     PlateRecognizer(const PlateConfig &config);
     int recognizeImage(const Mat &img);
     // need to keep track of threads so we can join them
-    std::vector< std::thread > workers;
+    std::vector<std::thread> workers;
     // the task queue
-    std::queue< std::function<void()> > tasks;
+    std::queue<std::function<void()> > tasks;
 
     // synchronization
     std::mutex queue_mutex;

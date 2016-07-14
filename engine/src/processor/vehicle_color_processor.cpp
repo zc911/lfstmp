@@ -34,7 +34,7 @@ VehicleColorProcessor::~VehicleColorProcessor() {
 
 bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start color process" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start color process: " << frameBatch->id() << endl;
 
     vector<vector<Prediction> > result;
     for_each(classifiers_.begin(), classifiers_.end(), [&](CaffeVehicleColorClassifier *elem) {
@@ -49,12 +49,14 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
         if (result[i].size() < 0) {
             continue;
         }
-        Prediction max ;//= MaxPrediction(result[i]);
-        score_color(max,result[i]);
+        Prediction max;//= MaxPrediction(result[i]);
+        score_color(max, result[i]);
         color.class_id = max.first;
         color.confidence = max.second;
         v->set_color(color);
     }
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish color process: " << frameBatch->id() << endl;
     return true;
 
 }

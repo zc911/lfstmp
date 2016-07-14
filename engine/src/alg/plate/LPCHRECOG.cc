@@ -211,7 +211,7 @@ int LPCHRECOG_Process(LPDR_HANDLE hCHRECOG, LPDR_ImageInner_S *pstImage, LPRect 
   ExecutorHandle hExecute = pstCHRECOG->hExecute;
   int dwRI, dwCI, dwPI;
   int ret = 0;
-#if LPDR_TIME
+#if LPDR_TIME&0
   float costtime, diff;
   struct timeval start, end;
   
@@ -294,7 +294,6 @@ int LPCHRECOG_Process(LPDR_HANDLE hCHRECOG, LPDR_ImageInner_S *pstImage, LPRect 
 #endif 
     dwRealBatchNum++;
   }
-
   
   NDArrayHandle hData = pstCHRECOG->args_arr[0];
   int needsize0 = getSize(pstCHRECOG->args_arr[0]);
@@ -325,7 +324,7 @@ int LPCHRECOG_Process(LPDR_HANDLE hCHRECOG, LPDR_ImageInner_S *pstImage, LPRect 
   cv::Mat imgRealOut(dwRealBatchNum, pdwOutShape[1], CV_32FC1, pfRealOutScore);
   cv::Mat imgStdOut(pdwOutShape[0], pdwOutShape[1], CV_32FC1, pfOutScore);
   cv::resize(imgRealOut, imgStdOut, cv::Size(pdwOutShape[0], pdwOutShape[1]), 0, 0, CV_INTER_LINEAR);
-#if LPDR_TIME
+#if LPDR_TIME&0
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
 	printf("CHRECOG cost:%.2fms\n", diff);

@@ -13,19 +13,19 @@
 
 namespace dg {
 
-class PlateRecognizeMxnetProcessor : public Processor {
+class PlateRecognizeMxnetProcessor: public Processor {
 
- public:
+public:
     PlateRecognizeMxnetProcessor(LPDRConfig_S *pstConfig);
     virtual ~PlateRecognizeMxnetProcessor();
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
- private:
+private:
     void vehiclesFilter(FrameBatch *frameBatch);
 
     void setConfig(LPDRConfig_S *pstConfig);

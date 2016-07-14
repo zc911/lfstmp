@@ -24,10 +24,10 @@ using namespace cv;
 namespace dg {
 
 class VehicleCaffeClassifier {
- public:
+public:
     typedef struct {
 
-        bool is_model_encrypt = false;
+        bool is_model_encrypt = true;
         int batch_size = 1;
         int target_min_size = 400;
         int target_max_size = 1000;
@@ -39,15 +39,15 @@ class VehicleCaffeClassifier {
     VehicleCaffeClassifier(const VehicleCaffeConfig &config);
     virtual ~VehicleCaffeClassifier();
     vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
- protected:
+protected:
     vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
 
-    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    std::vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
     void WrapBatchInputLayer(vector<vector<Mat> > *input_batch);
 
     void PreprocessBatch(const vector<Mat> imgs,
-                         vector<vector<Mat> >* input_batch);
- private:
+                         vector<vector<Mat> > *input_batch);
+private:
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;
     cv::Size input_geometry_;

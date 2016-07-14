@@ -60,7 +60,7 @@ bool CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 bool CarRankProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_RANK,performance_);
+    return RecordPerformance(FEATURE_CAR_RANK, performance_);
 
 }
 }

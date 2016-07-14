@@ -22,344 +22,344 @@ namespace model {
 
 namespace {
 
-const ::google::protobuf::Descriptor* IndexRequest_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  IndexRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IndexTxtRequest_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  IndexTxtRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IndexTxtResponse_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  IndexTxtResponse_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IndexResponse_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  IndexResponse_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IndexResponse_IndexEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* WitnessRequest_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessBatchRequest_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessBatchRequest_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessResponse_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessResponse_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessBatchResponse_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessBatchResponse_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessRelativeROI_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessRelativeROI_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessMarginROI_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessMarginROI_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessRequestContext_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessRequestContext_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessRequestContext_ParamsEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* WitnessImage_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessImage_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessResponseContext_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessResponseContext_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessResponseContext_DebugTsEntry_descriptor_ = NULL;
-const ::google::protobuf::Descriptor* WitnessResult_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessResult_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessVehicleObj_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessVehicleObj_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* IndexType_descriptor_ = NULL;
+const ::google::protobuf::Descriptor *IndexRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    IndexRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor *IndexTxtRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    IndexTxtRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor *IndexTxtResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    IndexTxtResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor *IndexResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    IndexResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor *IndexResponse_IndexEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor *WitnessRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessBatchRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessBatchRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessBatchResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessBatchResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessRelativeROI_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessRelativeROI_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessMarginROI_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessMarginROI_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessRequestContext_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessRequestContext_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessRequestContext_ParamsEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor *WitnessImage_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessImage_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessResponseContext_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessResponseContext_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessResponseContext_DebugTsEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor *WitnessResult_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessResult_reflection_ = NULL;
+const ::google::protobuf::Descriptor *WitnessVehicleObj_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection *
+    WitnessVehicleObj_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor *IndexType_descriptor_ = NULL;
 
 }  // namespace
 
 
 void protobuf_AssignDesc_witness_2eproto() {
-  protobuf_AddDesc_witness_2eproto();
-  const ::google::protobuf::FileDescriptor* file =
-    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
-      "witness.proto");
-  GOOGLE_CHECK(file != NULL);
-  IndexRequest_descriptor_ = file->message_type(0);
-  static const int IndexRequest_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, indextype_),
-  };
-  IndexRequest_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      IndexRequest_descriptor_,
-      IndexRequest::default_instance_,
-      IndexRequest_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(IndexRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, _is_default_instance_));
-  IndexTxtRequest_descriptor_ = file->message_type(1);
-  static const int IndexTxtRequest_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, indextype_),
-  };
-  IndexTxtRequest_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      IndexTxtRequest_descriptor_,
-      IndexTxtRequest::default_instance_,
-      IndexTxtRequest_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(IndexTxtRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, _is_default_instance_));
-  IndexTxtResponse_descriptor_ = file->message_type(2);
-  static const int IndexTxtResponse_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, context_),
-  };
-  IndexTxtResponse_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      IndexTxtResponse_descriptor_,
-      IndexTxtResponse::default_instance_,
-      IndexTxtResponse_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(IndexTxtResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _is_default_instance_));
-  IndexResponse_descriptor_ = file->message_type(3);
-  static const int IndexResponse_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, index_),
-  };
-  IndexResponse_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      IndexResponse_descriptor_,
-      IndexResponse::default_instance_,
-      IndexResponse_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(IndexResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _is_default_instance_));
-  IndexResponse_IndexEntry_descriptor_ = IndexResponse_descriptor_->nested_type(0);
-  WitnessRequest_descriptor_ = file->message_type(4);
-  static const int WitnessRequest_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, context_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, image_),
-  };
-  WitnessRequest_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessRequest_descriptor_,
-      WitnessRequest::default_instance_,
-      WitnessRequest_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _is_default_instance_));
-  WitnessBatchRequest_descriptor_ = file->message_type(5);
-  static const int WitnessBatchRequest_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, context_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, images_),
-  };
-  WitnessBatchRequest_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessBatchRequest_descriptor_,
-      WitnessBatchRequest::default_instance_,
-      WitnessBatchRequest_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessBatchRequest),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _is_default_instance_));
-  WitnessResponse_descriptor_ = file->message_type(6);
-  static const int WitnessResponse_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, context_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, result_),
-  };
-  WitnessResponse_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessResponse_descriptor_,
-      WitnessResponse::default_instance_,
-      WitnessResponse_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _is_default_instance_));
-  WitnessBatchResponse_descriptor_ = file->message_type(7);
-  static const int WitnessBatchResponse_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, context_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, results_),
-  };
-  WitnessBatchResponse_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessBatchResponse_descriptor_,
-      WitnessBatchResponse::default_instance_,
-      WitnessBatchResponse_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessBatchResponse),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _is_default_instance_));
-  WitnessRelativeROI_descriptor_ = file->message_type(8);
-  static const int WitnessRelativeROI_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posx_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posy_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, width_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, height_),
-  };
-  WitnessRelativeROI_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessRelativeROI_descriptor_,
-      WitnessRelativeROI::default_instance_,
-      WitnessRelativeROI_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessRelativeROI),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _is_default_instance_));
-  WitnessMarginROI_descriptor_ = file->message_type(9);
-  static const int WitnessMarginROI_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, left_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, top_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, right_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, bottom_),
-  };
-  WitnessMarginROI_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessMarginROI_descriptor_,
-      WitnessMarginROI::default_instance_,
-      WitnessMarginROI_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessMarginROI),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _is_default_instance_));
-  WitnessRequestContext_descriptor_ = file->message_type(10);
-  static const int WitnessRequestContext_offsets_[7] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, sessionid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, username_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, token_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, functions_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, storage_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, params_),
-  };
-  WitnessRequestContext_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessRequestContext_descriptor_,
-      WitnessRequestContext::default_instance_,
-      WitnessRequestContext_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessRequestContext),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _is_default_instance_));
-  WitnessRequestContext_ParamsEntry_descriptor_ = WitnessRequestContext_descriptor_->nested_type(0);
-  WitnessImage_descriptor_ = file->message_type(11);
-  static const int WitnessImage_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, witnessmetadata_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, relativeroi_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, marginroi_),
-  };
-  WitnessImage_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessImage_descriptor_,
-      WitnessImage::default_instance_,
-      WitnessImage_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessImage),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _is_default_instance_));
-  WitnessResponseContext_descriptor_ = file->message_type(12);
-  static const int WitnessResponseContext_offsets_[6] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, sessionid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, status_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, message_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, requestts_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, responsets_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, debugts_),
-  };
-  WitnessResponseContext_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessResponseContext_descriptor_,
-      WitnessResponseContext::default_instance_,
-      WitnessResponseContext_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessResponseContext),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
-  WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
-  WitnessResult_descriptor_ = file->message_type(13);
-  static const int WitnessResult_offsets_[5] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, image_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, vehicles_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, faces_),
-  };
-  WitnessResult_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessResult_descriptor_,
-      WitnessResult::default_instance_,
-      WitnessResult_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessResult),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
-  WitnessVehicleObj_descriptor_ = file->message_type(14);
-  static const int WitnessVehicleObj_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, vehicleresult_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, storage_),
-  };
-  WitnessVehicleObj_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessVehicleObj_descriptor_,
-      WitnessVehicleObj::default_instance_,
-      WitnessVehicleObj_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessVehicleObj),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _is_default_instance_));
-  IndexType_descriptor_ = file->enum_type(0);
+    protobuf_AddDesc_witness_2eproto();
+    const ::google::protobuf::FileDescriptor *file =
+        ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+            "witness.proto");
+    GOOGLE_CHECK(file != NULL);
+    IndexRequest_descriptor_ = file->message_type(0);
+    static const int IndexRequest_offsets_[1] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, indextype_),
+    };
+    IndexRequest_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            IndexRequest_descriptor_,
+            IndexRequest::default_instance_,
+            IndexRequest_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(IndexRequest),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexRequest, _is_default_instance_));
+    IndexTxtRequest_descriptor_ = file->message_type(1);
+    static const int IndexTxtRequest_offsets_[1] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, indextype_),
+    };
+    IndexTxtRequest_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            IndexTxtRequest_descriptor_,
+            IndexTxtRequest::default_instance_,
+            IndexTxtRequest_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(IndexTxtRequest),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtRequest, _is_default_instance_));
+    IndexTxtResponse_descriptor_ = file->message_type(2);
+    static const int IndexTxtResponse_offsets_[1] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, context_),
+    };
+    IndexTxtResponse_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            IndexTxtResponse_descriptor_,
+            IndexTxtResponse::default_instance_,
+            IndexTxtResponse_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(IndexTxtResponse),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _is_default_instance_));
+    IndexResponse_descriptor_ = file->message_type(3);
+    static const int IndexResponse_offsets_[1] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, index_),
+    };
+    IndexResponse_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            IndexResponse_descriptor_,
+            IndexResponse::default_instance_,
+            IndexResponse_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(IndexResponse),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _is_default_instance_));
+    IndexResponse_IndexEntry_descriptor_ = IndexResponse_descriptor_->nested_type(0);
+    WitnessRequest_descriptor_ = file->message_type(4);
+    static const int WitnessRequest_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, context_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, image_),
+    };
+    WitnessRequest_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessRequest_descriptor_,
+            WitnessRequest::default_instance_,
+            WitnessRequest_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessRequest),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _is_default_instance_));
+    WitnessBatchRequest_descriptor_ = file->message_type(5);
+    static const int WitnessBatchRequest_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, context_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, images_),
+    };
+    WitnessBatchRequest_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessBatchRequest_descriptor_,
+            WitnessBatchRequest::default_instance_,
+            WitnessBatchRequest_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessBatchRequest),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _is_default_instance_));
+    WitnessResponse_descriptor_ = file->message_type(6);
+    static const int WitnessResponse_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, context_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, result_),
+    };
+    WitnessResponse_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessResponse_descriptor_,
+            WitnessResponse::default_instance_,
+            WitnessResponse_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessResponse),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _is_default_instance_));
+    WitnessBatchResponse_descriptor_ = file->message_type(7);
+    static const int WitnessBatchResponse_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, context_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, results_),
+    };
+    WitnessBatchResponse_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessBatchResponse_descriptor_,
+            WitnessBatchResponse::default_instance_,
+            WitnessBatchResponse_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessBatchResponse),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _is_default_instance_));
+    WitnessRelativeROI_descriptor_ = file->message_type(8);
+    static const int WitnessRelativeROI_offsets_[4] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posx_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posy_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, width_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, height_),
+    };
+    WitnessRelativeROI_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessRelativeROI_descriptor_,
+            WitnessRelativeROI::default_instance_,
+            WitnessRelativeROI_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessRelativeROI),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _is_default_instance_));
+    WitnessMarginROI_descriptor_ = file->message_type(9);
+    static const int WitnessMarginROI_offsets_[4] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, left_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, top_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, right_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, bottom_),
+    };
+    WitnessMarginROI_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessMarginROI_descriptor_,
+            WitnessMarginROI::default_instance_,
+            WitnessMarginROI_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessMarginROI),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _is_default_instance_));
+    WitnessRequestContext_descriptor_ = file->message_type(10);
+    static const int WitnessRequestContext_offsets_[7] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, sessionid_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, username_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, token_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, functions_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, type_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, storage_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, params_),
+    };
+    WitnessRequestContext_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessRequestContext_descriptor_,
+            WitnessRequestContext::default_instance_,
+            WitnessRequestContext_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessRequestContext),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _is_default_instance_));
+    WitnessRequestContext_ParamsEntry_descriptor_ = WitnessRequestContext_descriptor_->nested_type(0);
+    WitnessImage_descriptor_ = file->message_type(11);
+    static const int WitnessImage_offsets_[4] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, data_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, witnessmetadata_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, relativeroi_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, marginroi_),
+    };
+    WitnessImage_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessImage_descriptor_,
+            WitnessImage::default_instance_,
+            WitnessImage_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessImage),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _is_default_instance_));
+    WitnessResponseContext_descriptor_ = file->message_type(12);
+    static const int WitnessResponseContext_offsets_[6] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, sessionid_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, status_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, message_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, requestts_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, responsets_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, debugts_),
+    };
+    WitnessResponseContext_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessResponseContext_descriptor_,
+            WitnessResponseContext::default_instance_,
+            WitnessResponseContext_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessResponseContext),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
+    WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
+    WitnessResult_descriptor_ = file->message_type(13);
+    static const int WitnessResult_offsets_[5] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, image_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, vehicles_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, faces_),
+    };
+    WitnessResult_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessResult_descriptor_,
+            WitnessResult::default_instance_,
+            WitnessResult_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessResult),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
+    WitnessVehicleObj_descriptor_ = file->message_type(14);
+    static const int WitnessVehicleObj_offsets_[2] = {
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, vehicleresult_),
+        GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, storage_),
+    };
+    WitnessVehicleObj_reflection_ =
+        ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+            WitnessVehicleObj_descriptor_,
+            WitnessVehicleObj::default_instance_,
+            WitnessVehicleObj_offsets_,
+            -1,
+            -1,
+            -1,
+            sizeof(WitnessVehicleObj),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _internal_metadata_),
+            GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _is_default_instance_));
+    IndexType_descriptor_ = file->enum_type(0);
 }
 
 namespace {
 
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
 inline void protobuf_AssignDescriptorsOnce() {
-  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_witness_2eproto);
+    ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                                       &protobuf_AssignDesc_witness_2eproto);
 }
 
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      IndexRequest_descriptor_, &IndexRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      IndexTxtRequest_descriptor_, &IndexTxtRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      IndexTxtResponse_descriptor_, &IndexTxtResponse::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      IndexResponse_descriptor_, &IndexResponse::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+void protobuf_RegisterTypes(const ::std::string &) {
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        IndexRequest_descriptor_, &IndexRequest::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        IndexTxtRequest_descriptor_, &IndexTxtRequest::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        IndexTxtResponse_descriptor_, &IndexTxtResponse::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        IndexResponse_descriptor_, &IndexResponse::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
         IndexResponse_IndexEntry_descriptor_,
         ::google::protobuf::internal::MapEntry<
             ::google::protobuf::int32,
@@ -367,22 +367,22 @@ void protobuf_RegisterTypes(const ::std::string&) {
             ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             0>::CreateDefaultInstance(
-                IndexResponse_IndexEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessRequest_descriptor_, &WitnessRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessBatchRequest_descriptor_, &WitnessBatchRequest::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessResponse_descriptor_, &WitnessResponse::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessBatchResponse_descriptor_, &WitnessBatchResponse::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessRelativeROI_descriptor_, &WitnessRelativeROI::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessMarginROI_descriptor_, &WitnessMarginROI::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessRequestContext_descriptor_, &WitnessRequestContext::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+            IndexResponse_IndexEntry_descriptor_));
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessRequest_descriptor_, &WitnessRequest::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessBatchRequest_descriptor_, &WitnessBatchRequest::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessResponse_descriptor_, &WitnessResponse::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessBatchResponse_descriptor_, &WitnessBatchResponse::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessRelativeROI_descriptor_, &WitnessRelativeROI::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessMarginROI_descriptor_, &WitnessMarginROI::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessRequestContext_descriptor_, &WitnessRequestContext::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
         WitnessRequestContext_ParamsEntry_descriptor_,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
@@ -390,12 +390,12 @@ void protobuf_RegisterTypes(const ::std::string&) {
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             0>::CreateDefaultInstance(
-                WitnessRequestContext_ParamsEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessImage_descriptor_, &WitnessImage::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessResponseContext_descriptor_, &WitnessResponseContext::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+            WitnessRequestContext_ParamsEntry_descriptor_));
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessImage_descriptor_, &WitnessImage::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessResponseContext_descriptor_, &WitnessResponseContext::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
         WitnessResponseContext_DebugTsEntry_descriptor_,
         ::google::protobuf::internal::MapEntry<
             ::std::string,
@@ -403,183 +403,183 @@ void protobuf_RegisterTypes(const ::std::string&) {
             ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
             ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
             0>::CreateDefaultInstance(
-                WitnessResponseContext_DebugTsEntry_descriptor_));
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessResult_descriptor_, &WitnessResult::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessVehicleObj_descriptor_, &WitnessVehicleObj::default_instance());
+            WitnessResponseContext_DebugTsEntry_descriptor_));
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessResult_descriptor_, &WitnessResult::default_instance());
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        WitnessVehicleObj_descriptor_, &WitnessVehicleObj::default_instance());
 }
 
 }  // namespace
 
 void protobuf_ShutdownFile_witness_2eproto() {
-  delete IndexRequest::default_instance_;
-  delete IndexRequest_reflection_;
-  delete IndexTxtRequest::default_instance_;
-  delete IndexTxtRequest_reflection_;
-  delete IndexTxtResponse::default_instance_;
-  delete IndexTxtResponse_reflection_;
-  delete IndexResponse::default_instance_;
-  delete IndexResponse_reflection_;
-  delete WitnessRequest::default_instance_;
-  delete WitnessRequest_reflection_;
-  delete WitnessBatchRequest::default_instance_;
-  delete WitnessBatchRequest_reflection_;
-  delete WitnessResponse::default_instance_;
-  delete WitnessResponse_reflection_;
-  delete WitnessBatchResponse::default_instance_;
-  delete WitnessBatchResponse_reflection_;
-  delete WitnessRelativeROI::default_instance_;
-  delete WitnessRelativeROI_reflection_;
-  delete WitnessMarginROI::default_instance_;
-  delete WitnessMarginROI_reflection_;
-  delete WitnessRequestContext::default_instance_;
-  delete WitnessRequestContext_reflection_;
-  delete WitnessImage::default_instance_;
-  delete WitnessImage_reflection_;
-  delete WitnessResponseContext::default_instance_;
-  delete WitnessResponseContext_reflection_;
-  delete WitnessResult::default_instance_;
-  delete WitnessResult_reflection_;
-  delete WitnessVehicleObj::default_instance_;
-  delete WitnessVehicleObj_reflection_;
+    delete IndexRequest::default_instance_;
+    delete IndexRequest_reflection_;
+    delete IndexTxtRequest::default_instance_;
+    delete IndexTxtRequest_reflection_;
+    delete IndexTxtResponse::default_instance_;
+    delete IndexTxtResponse_reflection_;
+    delete IndexResponse::default_instance_;
+    delete IndexResponse_reflection_;
+    delete WitnessRequest::default_instance_;
+    delete WitnessRequest_reflection_;
+    delete WitnessBatchRequest::default_instance_;
+    delete WitnessBatchRequest_reflection_;
+    delete WitnessResponse::default_instance_;
+    delete WitnessResponse_reflection_;
+    delete WitnessBatchResponse::default_instance_;
+    delete WitnessBatchResponse_reflection_;
+    delete WitnessRelativeROI::default_instance_;
+    delete WitnessRelativeROI_reflection_;
+    delete WitnessMarginROI::default_instance_;
+    delete WitnessMarginROI_reflection_;
+    delete WitnessRequestContext::default_instance_;
+    delete WitnessRequestContext_reflection_;
+    delete WitnessImage::default_instance_;
+    delete WitnessImage_reflection_;
+    delete WitnessResponseContext::default_instance_;
+    delete WitnessResponseContext_reflection_;
+    delete WitnessResult::default_instance_;
+    delete WitnessResult_reflection_;
+    delete WitnessVehicleObj::default_instance_;
+    delete WitnessVehicleObj_reflection_;
 }
 
 void protobuf_AddDesc_witness_2eproto() {
-  static bool already_here = false;
-  if (already_here) return;
-  already_here = true;
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
+    static bool already_here = false;
+    if (already_here) return;
+    already_here = true;
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::dg::model::protobuf_AddDesc_common_2eproto();
-  ::dg::model::protobuf_AddDesc_localcommon_2eproto();
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\rwitness.proto\022\010dg.model\032\014common.proto\032"
-    "\021localcommon.proto\"6\n\014IndexRequest\022&\n\tIn"
-    "dexType\030\001 \001(\0162\023.dg.model.IndexType\"9\n\017In"
-    "dexTxtRequest\022&\n\tIndexType\030\001 \001(\0162\023.dg.mo"
-    "del.IndexType\"#\n\020IndexTxtResponse\022\017\n\007Con"
-    "text\030\001 \001(\t\"p\n\rIndexResponse\0221\n\005Index\030\001 \003"
-    "(\0132\".dg.model.IndexResponse.IndexEntry\032,"
-    "\n\nIndexEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\t"
-    ":\0028\001\"i\n\016WitnessRequest\0220\n\007Context\030\001 \001(\0132"
-    "\037.dg.model.WitnessRequestContext\022%\n\005Imag"
-    "e\030\002 \001(\0132\026.dg.model.WitnessImage\"o\n\023Witne"
-    "ssBatchRequest\0220\n\007Context\030\001 \001(\0132\037.dg.mod"
-    "el.WitnessRequestContext\022&\n\006Images\030\002 \003(\013"
-    "2\026.dg.model.WitnessImage\"m\n\017WitnessRespo"
-    "nse\0221\n\007Context\030\001 \001(\0132 .dg.model.WitnessR"
-    "esponseContext\022\'\n\006Result\030\002 \001(\0132\027.dg.mode"
-    "l.WitnessResult\"s\n\024WitnessBatchResponse\022"
-    "1\n\007Context\030\001 \001(\0132 .dg.model.WitnessRespo"
-    "nseContext\022(\n\007Results\030\002 \003(\0132\027.dg.model.W"
-    "itnessResult\"O\n\022WitnessRelativeROI\022\014\n\004Po"
-    "sX\030\001 \001(\005\022\014\n\004PosY\030\002 \001(\005\022\r\n\005Width\030\003 \001(\005\022\016\n"
-    "\006Height\030\004 \001(\005\"L\n\020WitnessMarginROI\022\014\n\004Lef"
-    "t\030\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022\r\n\005Right\030\003 \001(\005\022\016\n\006B"
-    "ottom\030\004 \001(\005\"\271\002\n\025WitnessRequestContext\022\021\n"
-    "\tSessionId\030\001 \001(\t\022\020\n\010UserName\030\002 \001(\t\022\r\n\005To"
-    "ken\030\003 \001(\t\022/\n\tFunctions\030\004 \003(\0162\034.dg.model."
-    "RecognizeFunctions\022%\n\004Type\030\005 \001(\0162\027.dg.mo"
-    "del.RecognizeType\022(\n\007Storage\030\006 \001(\0132\027.dg."
-    "model.StorageConfig\022;\n\006Params\030\007 \003(\0132+.dg"
-    ".model.WitnessRequestContext.ParamsEntry"
-    "\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
-    "\001(\t:\0028\001\"\277\001\n\014WitnessImage\022\035\n\004Data\030\001 \001(\0132\017"
-    ".dg.model.Image\022.\n\017WitnessMetaData\030\002 \001(\013"
-    "2\025.dg.model.SrcMetadata\0221\n\013RelativeRoi\030\003"
-    " \003(\0132\034.dg.model.WitnessRelativeROI\022-\n\tMa"
-    "rginRoi\030\004 \003(\0132\032.dg.model.WitnessMarginRO"
-    "I\"\223\002\n\026WitnessResponseContext\022\021\n\tSessionI"
-    "d\030\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t"
-    "\022!\n\tRequestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nR"
-    "esponseTs\030\005 \001(\0132\016.dg.model.Time\022>\n\007Debug"
-    "Ts\030\006 \003(\0132-.dg.model.WitnessResponseConte"
-    "xt.DebugTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001"
-    " \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\""
-    "\253\001\n\rWitnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024"
-    "\n\014InnerMessage\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg"
-    ".model.WitnessImage\022&\n\010Vehicles\030\004 \003(\0132\024."
-    "dg.model.RecVehicle\022 \n\005Faces\030\005 \003(\0132\021.dg."
-    "model.RecFace\"j\n\021WitnessVehicleObj\022+\n\rVe"
-    "hicleResult\030\001 \001(\0132\024.dg.model.VehicleObj\022"
-    "(\n\007Storage\030\002 \001(\0132\027.dg.model.StorageConfi"
-    "g*\203\002\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\022\n\016IN"
-    "DEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_MAIN_BRAND\020\002"
-    "\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n\024INDEX_CAR_Y"
-    "EAR_MODEL\020\004\022\023\n\017INDEX_CAR_COLOR\020\005\022\024\n\020INDE"
-    "X_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_PLATE_TYPE\020\007"
-    "\022\031\n\025INDEX_CAR_PLATE_COLOR\020\010\022\"\n\036INDEX_CAR"
-    "_PEDESTRIAN_ATTR_TYPE\020\t2\256\002\n\016WitnessServi"
-    "ce\022B\n\tRecognize\022\030.dg.model.WitnessReques"
-    "t\032\031.dg.model.WitnessResponse\"\000\022Q\n\016BatchR"
-    "ecognize\022\035.dg.model.WitnessBatchRequest\032"
-    "\036.dg.model.WitnessBatchResponse\"\000\022=\n\010Get"
-    "Index\022\026.dg.model.IndexRequest\032\027.dg.model"
-    ".IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.mod"
-    "el.IndexTxtRequest\032\032.dg.model.IndexTxtRe"
-    "sponse\"\000b\006proto3", 2576);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "witness.proto", &protobuf_RegisterTypes);
-  IndexRequest::default_instance_ = new IndexRequest();
-  IndexTxtRequest::default_instance_ = new IndexTxtRequest();
-  IndexTxtResponse::default_instance_ = new IndexTxtResponse();
-  IndexResponse::default_instance_ = new IndexResponse();
-  WitnessRequest::default_instance_ = new WitnessRequest();
-  WitnessBatchRequest::default_instance_ = new WitnessBatchRequest();
-  WitnessResponse::default_instance_ = new WitnessResponse();
-  WitnessBatchResponse::default_instance_ = new WitnessBatchResponse();
-  WitnessRelativeROI::default_instance_ = new WitnessRelativeROI();
-  WitnessMarginROI::default_instance_ = new WitnessMarginROI();
-  WitnessRequestContext::default_instance_ = new WitnessRequestContext();
-  WitnessImage::default_instance_ = new WitnessImage();
-  WitnessResponseContext::default_instance_ = new WitnessResponseContext();
-  WitnessResult::default_instance_ = new WitnessResult();
-  WitnessVehicleObj::default_instance_ = new WitnessVehicleObj();
-  IndexRequest::default_instance_->InitAsDefaultInstance();
-  IndexTxtRequest::default_instance_->InitAsDefaultInstance();
-  IndexTxtResponse::default_instance_->InitAsDefaultInstance();
-  IndexResponse::default_instance_->InitAsDefaultInstance();
-  WitnessRequest::default_instance_->InitAsDefaultInstance();
-  WitnessBatchRequest::default_instance_->InitAsDefaultInstance();
-  WitnessResponse::default_instance_->InitAsDefaultInstance();
-  WitnessBatchResponse::default_instance_->InitAsDefaultInstance();
-  WitnessRelativeROI::default_instance_->InitAsDefaultInstance();
-  WitnessMarginROI::default_instance_->InitAsDefaultInstance();
-  WitnessRequestContext::default_instance_->InitAsDefaultInstance();
-  WitnessImage::default_instance_->InitAsDefaultInstance();
-  WitnessResponseContext::default_instance_->InitAsDefaultInstance();
-  WitnessResult::default_instance_->InitAsDefaultInstance();
-  WitnessVehicleObj::default_instance_->InitAsDefaultInstance();
-  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_witness_2eproto);
+    ::dg::model::protobuf_AddDesc_common_2eproto();
+    ::dg::model::protobuf_AddDesc_localcommon_2eproto();
+    ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
+        "\n\rwitness.proto\022\010dg.model\032\014common.proto\032"
+            "\021localcommon.proto\"6\n\014IndexRequest\022&\n\tIn"
+            "dexType\030\001 \001(\0162\023.dg.model.IndexType\"9\n\017In"
+            "dexTxtRequest\022&\n\tIndexType\030\001 \001(\0162\023.dg.mo"
+            "del.IndexType\"#\n\020IndexTxtResponse\022\017\n\007Con"
+            "text\030\001 \001(\t\"p\n\rIndexResponse\0221\n\005Index\030\001 \003"
+            "(\0132\".dg.model.IndexResponse.IndexEntry\032,"
+            "\n\nIndexEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\t"
+            ":\0028\001\"i\n\016WitnessRequest\0220\n\007Context\030\001 \001(\0132"
+            "\037.dg.model.WitnessRequestContext\022%\n\005Imag"
+            "e\030\002 \001(\0132\026.dg.model.WitnessImage\"o\n\023Witne"
+            "ssBatchRequest\0220\n\007Context\030\001 \001(\0132\037.dg.mod"
+            "el.WitnessRequestContext\022&\n\006Images\030\002 \003(\013"
+            "2\026.dg.model.WitnessImage\"m\n\017WitnessRespo"
+            "nse\0221\n\007Context\030\001 \001(\0132 .dg.model.WitnessR"
+            "esponseContext\022\'\n\006Result\030\002 \001(\0132\027.dg.mode"
+            "l.WitnessResult\"s\n\024WitnessBatchResponse\022"
+            "1\n\007Context\030\001 \001(\0132 .dg.model.WitnessRespo"
+            "nseContext\022(\n\007Results\030\002 \003(\0132\027.dg.model.W"
+            "itnessResult\"O\n\022WitnessRelativeROI\022\014\n\004Po"
+            "sX\030\001 \001(\005\022\014\n\004PosY\030\002 \001(\005\022\r\n\005Width\030\003 \001(\005\022\016\n"
+            "\006Height\030\004 \001(\005\"L\n\020WitnessMarginROI\022\014\n\004Lef"
+            "t\030\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022\r\n\005Right\030\003 \001(\005\022\016\n\006B"
+            "ottom\030\004 \001(\005\"\271\002\n\025WitnessRequestContext\022\021\n"
+            "\tSessionId\030\001 \001(\t\022\020\n\010UserName\030\002 \001(\t\022\r\n\005To"
+            "ken\030\003 \001(\t\022/\n\tFunctions\030\004 \003(\0162\034.dg.model."
+            "RecognizeFunctions\022%\n\004Type\030\005 \001(\0162\027.dg.mo"
+            "del.RecognizeType\022(\n\007Storage\030\006 \001(\0132\027.dg."
+            "model.StorageConfig\022;\n\006Params\030\007 \003(\0132+.dg"
+            ".model.WitnessRequestContext.ParamsEntry"
+            "\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
+            "\001(\t:\0028\001\"\277\001\n\014WitnessImage\022\035\n\004Data\030\001 \001(\0132\017"
+            ".dg.model.Image\022.\n\017WitnessMetaData\030\002 \001(\013"
+            "2\025.dg.model.SrcMetadata\0221\n\013RelativeRoi\030\003"
+            " \003(\0132\034.dg.model.WitnessRelativeROI\022-\n\tMa"
+            "rginRoi\030\004 \003(\0132\032.dg.model.WitnessMarginRO"
+            "I\"\223\002\n\026WitnessResponseContext\022\021\n\tSessionI"
+            "d\030\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t"
+            "\022!\n\tRequestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nR"
+            "esponseTs\030\005 \001(\0132\016.dg.model.Time\022>\n\007Debug"
+            "Ts\030\006 \003(\0132-.dg.model.WitnessResponseConte"
+            "xt.DebugTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001"
+            " \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\""
+            "\253\001\n\rWitnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024"
+            "\n\014InnerMessage\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg"
+            ".model.WitnessImage\022&\n\010Vehicles\030\004 \003(\0132\024."
+            "dg.model.RecVehicle\022 \n\005Faces\030\005 \003(\0132\021.dg."
+            "model.RecFace\"j\n\021WitnessVehicleObj\022+\n\rVe"
+            "hicleResult\030\001 \001(\0132\024.dg.model.VehicleObj\022"
+            "(\n\007Storage\030\002 \001(\0132\027.dg.model.StorageConfi"
+            "g*\203\002\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\022\n\016IN"
+            "DEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_MAIN_BRAND\020\002"
+            "\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n\024INDEX_CAR_Y"
+            "EAR_MODEL\020\004\022\023\n\017INDEX_CAR_COLOR\020\005\022\024\n\020INDE"
+            "X_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_PLATE_TYPE\020\007"
+            "\022\031\n\025INDEX_CAR_PLATE_COLOR\020\010\022\"\n\036INDEX_CAR"
+            "_PEDESTRIAN_ATTR_TYPE\020\t2\256\002\n\016WitnessServi"
+            "ce\022B\n\tRecognize\022\030.dg.model.WitnessReques"
+            "t\032\031.dg.model.WitnessResponse\"\000\022Q\n\016BatchR"
+            "ecognize\022\035.dg.model.WitnessBatchRequest\032"
+            "\036.dg.model.WitnessBatchResponse\"\000\022=\n\010Get"
+            "Index\022\026.dg.model.IndexRequest\032\027.dg.model"
+            ".IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.mod"
+            "el.IndexTxtRequest\032\032.dg.model.IndexTxtRe"
+            "sponse\"\000b\006proto3", 2576);
+    ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
+        "witness.proto", &protobuf_RegisterTypes);
+    IndexRequest::default_instance_ = new IndexRequest();
+    IndexTxtRequest::default_instance_ = new IndexTxtRequest();
+    IndexTxtResponse::default_instance_ = new IndexTxtResponse();
+    IndexResponse::default_instance_ = new IndexResponse();
+    WitnessRequest::default_instance_ = new WitnessRequest();
+    WitnessBatchRequest::default_instance_ = new WitnessBatchRequest();
+    WitnessResponse::default_instance_ = new WitnessResponse();
+    WitnessBatchResponse::default_instance_ = new WitnessBatchResponse();
+    WitnessRelativeROI::default_instance_ = new WitnessRelativeROI();
+    WitnessMarginROI::default_instance_ = new WitnessMarginROI();
+    WitnessRequestContext::default_instance_ = new WitnessRequestContext();
+    WitnessImage::default_instance_ = new WitnessImage();
+    WitnessResponseContext::default_instance_ = new WitnessResponseContext();
+    WitnessResult::default_instance_ = new WitnessResult();
+    WitnessVehicleObj::default_instance_ = new WitnessVehicleObj();
+    IndexRequest::default_instance_->InitAsDefaultInstance();
+    IndexTxtRequest::default_instance_->InitAsDefaultInstance();
+    IndexTxtResponse::default_instance_->InitAsDefaultInstance();
+    IndexResponse::default_instance_->InitAsDefaultInstance();
+    WitnessRequest::default_instance_->InitAsDefaultInstance();
+    WitnessBatchRequest::default_instance_->InitAsDefaultInstance();
+    WitnessResponse::default_instance_->InitAsDefaultInstance();
+    WitnessBatchResponse::default_instance_->InitAsDefaultInstance();
+    WitnessRelativeROI::default_instance_->InitAsDefaultInstance();
+    WitnessMarginROI::default_instance_->InitAsDefaultInstance();
+    WitnessRequestContext::default_instance_->InitAsDefaultInstance();
+    WitnessImage::default_instance_->InitAsDefaultInstance();
+    WitnessResponseContext::default_instance_->InitAsDefaultInstance();
+    WitnessResult::default_instance_->InitAsDefaultInstance();
+    WitnessVehicleObj::default_instance_->InitAsDefaultInstance();
+    ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_witness_2eproto);
 }
 
 // Force AddDescriptors() to be called at static initialization time.
 struct StaticDescriptorInitializer_witness_2eproto {
-  StaticDescriptorInitializer_witness_2eproto() {
-    protobuf_AddDesc_witness_2eproto();
-  }
+    StaticDescriptorInitializer_witness_2eproto() {
+        protobuf_AddDesc_witness_2eproto();
+    }
 } static_descriptor_initializer_witness_2eproto_;
-const ::google::protobuf::EnumDescriptor* IndexType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return IndexType_descriptor_;
+const ::google::protobuf::EnumDescriptor *IndexType_descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return IndexType_descriptor_;
 }
 bool IndexType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-      return true;
-    default:
-      return false;
-  }
+    switch (value) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            return true;
+        default:
+            return false;
+    }
 }
 
 
@@ -587,7 +587,7 @@ namespace {
 
 static void MergeFromFail(int line) GOOGLE_ATTRIBUTE_COLD;
 static void MergeFromFail(int line) {
-  GOOGLE_CHECK(false) << __FILE__ << ":" << line;
+    GOOGLE_CHECK(false) << __FILE__ << ":" << line;
 }
 
 }  // namespace
@@ -600,210 +600,210 @@ const int IndexRequest::kIndexTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IndexRequest::IndexRequest()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.IndexRequest)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.IndexRequest)
 }
 
 void IndexRequest::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-IndexRequest::IndexRequest(const IndexRequest& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.IndexRequest)
+IndexRequest::IndexRequest(const IndexRequest &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.IndexRequest)
 }
 
 void IndexRequest::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  indextype_ = 0;
+    _cached_size_ = 0;
+    indextype_ = 0;
 }
 
 IndexRequest::~IndexRequest() {
-  // @@protoc_insertion_point(destructor:dg.model.IndexRequest)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.IndexRequest)
+    SharedDtor();
 }
 
 void IndexRequest::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void IndexRequest::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* IndexRequest::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return IndexRequest_descriptor_;
-}
-
-const IndexRequest& IndexRequest::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *IndexRequest::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return IndexRequest_descriptor_;
 }
 
-IndexRequest* IndexRequest::default_instance_ = NULL;
+const IndexRequest &IndexRequest::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-IndexRequest* IndexRequest::New(::google::protobuf::Arena* arena) const {
-  IndexRequest* n = new IndexRequest;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+IndexRequest *IndexRequest::default_instance_ = NULL;
+
+IndexRequest *IndexRequest::New(::google::protobuf::Arena *arena) const {
+    IndexRequest *n = new IndexRequest;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void IndexRequest::Clear() {
-  indextype_ = 0;
+    indextype_ = 0;
 }
 
 bool IndexRequest::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.IndexRequest)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.IndexType IndexType = 1;
-      case 1: {
-        if (tag == 8) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_indextype(static_cast< ::dg::model::IndexType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.IndexRequest)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.IndexType IndexType = 1;
+            case 1: {
+                if (tag == 8) {
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                        input, &value)));
+                    set_indextype(static_cast< ::dg::model::IndexType >(value));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.IndexRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.IndexRequest)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.IndexRequest)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.IndexRequest)
+    return false;
 #undef DO_
 }
 
 void IndexRequest::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.IndexRequest)
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->indextype(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.IndexRequest)
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnum(
+            1, this->indextype(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.IndexRequest)
+    // @@protoc_insertion_point(serialize_end:dg.model.IndexRequest)
 }
 
-::google::protobuf::uint8* IndexRequest::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexRequest)
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->indextype(), target);
-  }
+::google::protobuf::uint8 *IndexRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexRequest)
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+            1, this->indextype(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexRequest)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexRequest)
+    return target;
 }
 
 int IndexRequest::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->indextype());
-  }
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::EnumSize(this->indextype());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void IndexRequest::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const IndexRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const IndexRequest>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void IndexRequest::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const IndexRequest *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const IndexRequest>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void IndexRequest::MergeFrom(const IndexRequest& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.indextype() != 0) {
-    set_indextype(from.indextype());
-  }
+void IndexRequest::MergeFrom(const IndexRequest &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.indextype() != 0) {
+        set_indextype(from.indextype());
+    }
 }
 
-void IndexRequest::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexRequest::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void IndexRequest::CopyFrom(const IndexRequest& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexRequest::CopyFrom(const IndexRequest &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool IndexRequest::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void IndexRequest::Swap(IndexRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void IndexRequest::Swap(IndexRequest *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void IndexRequest::InternalSwap(IndexRequest* other) {
-  std::swap(indextype_, other->indextype_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void IndexRequest::InternalSwap(IndexRequest *other) {
+    std::swap(indextype_, other->indextype_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata IndexRequest::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = IndexRequest_descriptor_;
-  metadata.reflection = IndexRequest_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = IndexRequest_descriptor_;
+    metadata.reflection = IndexRequest_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// IndexRequest
+                                                                                                                        // IndexRequest
 
 // optional .dg.model.IndexType IndexType = 1;
 void IndexRequest::clear_indextype() {
@@ -814,7 +814,7 @@ void IndexRequest::clear_indextype() {
   return static_cast< ::dg::model::IndexType >(indextype_);
 }
  void IndexRequest::set_indextype(::dg::model::IndexType value) {
-  
+
   indextype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.IndexRequest.IndexType)
 }
@@ -828,210 +828,210 @@ const int IndexTxtRequest::kIndexTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IndexTxtRequest::IndexTxtRequest()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.IndexTxtRequest)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.IndexTxtRequest)
 }
 
 void IndexTxtRequest::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-IndexTxtRequest::IndexTxtRequest(const IndexTxtRequest& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.IndexTxtRequest)
+IndexTxtRequest::IndexTxtRequest(const IndexTxtRequest &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.IndexTxtRequest)
 }
 
 void IndexTxtRequest::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  indextype_ = 0;
+    _cached_size_ = 0;
+    indextype_ = 0;
 }
 
 IndexTxtRequest::~IndexTxtRequest() {
-  // @@protoc_insertion_point(destructor:dg.model.IndexTxtRequest)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.IndexTxtRequest)
+    SharedDtor();
 }
 
 void IndexTxtRequest::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void IndexTxtRequest::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* IndexTxtRequest::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return IndexTxtRequest_descriptor_;
-}
-
-const IndexTxtRequest& IndexTxtRequest::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *IndexTxtRequest::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return IndexTxtRequest_descriptor_;
 }
 
-IndexTxtRequest* IndexTxtRequest::default_instance_ = NULL;
+const IndexTxtRequest &IndexTxtRequest::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-IndexTxtRequest* IndexTxtRequest::New(::google::protobuf::Arena* arena) const {
-  IndexTxtRequest* n = new IndexTxtRequest;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+IndexTxtRequest *IndexTxtRequest::default_instance_ = NULL;
+
+IndexTxtRequest *IndexTxtRequest::New(::google::protobuf::Arena *arena) const {
+    IndexTxtRequest *n = new IndexTxtRequest;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void IndexTxtRequest::Clear() {
-  indextype_ = 0;
+    indextype_ = 0;
 }
 
 bool IndexTxtRequest::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.IndexTxtRequest)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.IndexType IndexType = 1;
-      case 1: {
-        if (tag == 8) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_indextype(static_cast< ::dg::model::IndexType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.IndexTxtRequest)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.IndexType IndexType = 1;
+            case 1: {
+                if (tag == 8) {
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                        input, &value)));
+                    set_indextype(static_cast< ::dg::model::IndexType >(value));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.IndexTxtRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.IndexTxtRequest)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.IndexTxtRequest)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.IndexTxtRequest)
+    return false;
 #undef DO_
 }
 
 void IndexTxtRequest::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.IndexTxtRequest)
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->indextype(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.IndexTxtRequest)
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnum(
+            1, this->indextype(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.IndexTxtRequest)
+    // @@protoc_insertion_point(serialize_end:dg.model.IndexTxtRequest)
 }
 
-::google::protobuf::uint8* IndexTxtRequest::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexTxtRequest)
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->indextype(), target);
-  }
+::google::protobuf::uint8 *IndexTxtRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexTxtRequest)
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+            1, this->indextype(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexTxtRequest)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexTxtRequest)
+    return target;
 }
 
 int IndexTxtRequest::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.IndexType IndexType = 1;
-  if (this->indextype() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->indextype());
-  }
+    // optional .dg.model.IndexType IndexType = 1;
+    if (this->indextype() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::EnumSize(this->indextype());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void IndexTxtRequest::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const IndexTxtRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const IndexTxtRequest>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void IndexTxtRequest::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const IndexTxtRequest *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const IndexTxtRequest>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void IndexTxtRequest::MergeFrom(const IndexTxtRequest& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.indextype() != 0) {
-    set_indextype(from.indextype());
-  }
+void IndexTxtRequest::MergeFrom(const IndexTxtRequest &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.indextype() != 0) {
+        set_indextype(from.indextype());
+    }
 }
 
-void IndexTxtRequest::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexTxtRequest::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void IndexTxtRequest::CopyFrom(const IndexTxtRequest& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexTxtRequest::CopyFrom(const IndexTxtRequest &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool IndexTxtRequest::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void IndexTxtRequest::Swap(IndexTxtRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void IndexTxtRequest::Swap(IndexTxtRequest *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void IndexTxtRequest::InternalSwap(IndexTxtRequest* other) {
-  std::swap(indextype_, other->indextype_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void IndexTxtRequest::InternalSwap(IndexTxtRequest *other) {
+    std::swap(indextype_, other->indextype_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata IndexTxtRequest::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = IndexTxtRequest_descriptor_;
-  metadata.reflection = IndexTxtRequest_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = IndexTxtRequest_descriptor_;
+    metadata.reflection = IndexTxtRequest_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// IndexTxtRequest
+                                                                                                                        // IndexTxtRequest
 
 // optional .dg.model.IndexType IndexType = 1;
 void IndexTxtRequest::clear_indextype() {
@@ -1042,7 +1042,7 @@ void IndexTxtRequest::clear_indextype() {
   return static_cast< ::dg::model::IndexType >(indextype_);
 }
  void IndexTxtRequest::set_indextype(::dg::model::IndexType value) {
-  
+
   indextype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.IndexTxtRequest.IndexType)
 }
@@ -1056,224 +1056,224 @@ const int IndexTxtResponse::kContextFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IndexTxtResponse::IndexTxtResponse()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.IndexTxtResponse)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.IndexTxtResponse)
 }
 
 void IndexTxtResponse::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-IndexTxtResponse::IndexTxtResponse(const IndexTxtResponse& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.IndexTxtResponse)
+IndexTxtResponse::IndexTxtResponse(const IndexTxtResponse &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.IndexTxtResponse)
 }
 
 void IndexTxtResponse::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  context_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::google::protobuf::internal::GetEmptyString();
+    _cached_size_ = 0;
+    context_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 IndexTxtResponse::~IndexTxtResponse() {
-  // @@protoc_insertion_point(destructor:dg.model.IndexTxtResponse)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.IndexTxtResponse)
+    SharedDtor();
 }
 
 void IndexTxtResponse::SharedDtor() {
-  context_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-  }
+    context_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (this != default_instance_) {
+    }
 }
 
 void IndexTxtResponse::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* IndexTxtResponse::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return IndexTxtResponse_descriptor_;
-}
-
-const IndexTxtResponse& IndexTxtResponse::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *IndexTxtResponse::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return IndexTxtResponse_descriptor_;
 }
 
-IndexTxtResponse* IndexTxtResponse::default_instance_ = NULL;
+const IndexTxtResponse &IndexTxtResponse::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-IndexTxtResponse* IndexTxtResponse::New(::google::protobuf::Arena* arena) const {
-  IndexTxtResponse* n = new IndexTxtResponse;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+IndexTxtResponse *IndexTxtResponse::default_instance_ = NULL;
+
+IndexTxtResponse *IndexTxtResponse::New(::google::protobuf::Arena *arena) const {
+    IndexTxtResponse *n = new IndexTxtResponse;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void IndexTxtResponse::Clear() {
-  context_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    context_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool IndexTxtResponse::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.IndexTxtResponse)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string Context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_context()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->context().data(), this->context().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.IndexTxtResponse.Context"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.IndexTxtResponse)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional string Context = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_context()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->context().data(), this->context().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.IndexTxtResponse.Context"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.IndexTxtResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.IndexTxtResponse)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.IndexTxtResponse)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.IndexTxtResponse)
+    return false;
 #undef DO_
 }
 
 void IndexTxtResponse::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.IndexTxtResponse)
-  // optional string Context = 1;
-  if (this->context().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->context().data(), this->context().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.IndexTxtResponse.Context");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->context(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.IndexTxtResponse)
+    // optional string Context = 1;
+    if (this->context().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->context().data(), this->context().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.IndexTxtResponse.Context");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            1, this->context(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.IndexTxtResponse)
+    // @@protoc_insertion_point(serialize_end:dg.model.IndexTxtResponse)
 }
 
-::google::protobuf::uint8* IndexTxtResponse::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexTxtResponse)
-  // optional string Context = 1;
-  if (this->context().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->context().data(), this->context().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.IndexTxtResponse.Context");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->context(), target);
-  }
+::google::protobuf::uint8 *IndexTxtResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexTxtResponse)
+    // optional string Context = 1;
+    if (this->context().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->context().data(), this->context().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.IndexTxtResponse.Context");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                1, this->context(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexTxtResponse)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexTxtResponse)
+    return target;
 }
 
 int IndexTxtResponse::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional string Context = 1;
-  if (this->context().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->context());
-  }
+    // optional string Context = 1;
+    if (this->context().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->context());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void IndexTxtResponse::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const IndexTxtResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const IndexTxtResponse>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void IndexTxtResponse::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const IndexTxtResponse *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const IndexTxtResponse>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void IndexTxtResponse::MergeFrom(const IndexTxtResponse& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.context().size() > 0) {
+void IndexTxtResponse::MergeFrom(const IndexTxtResponse &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.context().size() > 0) {
 
-    context_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.context_);
-  }
+        context_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.context_);
+    }
 }
 
-void IndexTxtResponse::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexTxtResponse::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void IndexTxtResponse::CopyFrom(const IndexTxtResponse& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexTxtResponse::CopyFrom(const IndexTxtResponse &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool IndexTxtResponse::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void IndexTxtResponse::Swap(IndexTxtResponse* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void IndexTxtResponse::Swap(IndexTxtResponse *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void IndexTxtResponse::InternalSwap(IndexTxtResponse* other) {
-  context_.Swap(&other->context_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void IndexTxtResponse::InternalSwap(IndexTxtResponse *other) {
+    context_.Swap(&other->context_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata IndexTxtResponse::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = IndexTxtResponse_descriptor_;
-  metadata.reflection = IndexTxtResponse_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = IndexTxtResponse_descriptor_;
+    metadata.reflection = IndexTxtResponse_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// IndexTxtResponse
+                                                                                                                        // IndexTxtResponse
 
 // optional string Context = 1;
 void IndexTxtResponse::clear_context() {
@@ -1284,35 +1284,35 @@ void IndexTxtResponse::clear_context() {
   return context_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void IndexTxtResponse::set_context(const ::std::string& value) {
-  
+
   context_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.IndexTxtResponse.Context)
 }
  void IndexTxtResponse::set_context(const char* value) {
-  
+
   context_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.IndexTxtResponse.Context)
 }
  void IndexTxtResponse::set_context(const char* value, size_t size) {
-  
+
   context_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.IndexTxtResponse.Context)
 }
  ::std::string* IndexTxtResponse::mutable_context() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.IndexTxtResponse.Context)
   return context_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* IndexTxtResponse::release_context() {
-  
+
   return context_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void IndexTxtResponse::set_allocated_context(::std::string* context) {
   if (context != NULL) {
-    
+
   } else {
-    
+
   }
   context_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), context);
   // @@protoc_insertion_point(field_set_allocated:dg.model.IndexTxtResponse.Context)
@@ -1327,247 +1327,247 @@ const int IndexResponse::kIndexFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IndexResponse::IndexResponse()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.IndexResponse)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.IndexResponse)
 }
 
 void IndexResponse::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-IndexResponse::IndexResponse(const IndexResponse& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.IndexResponse)
+IndexResponse::IndexResponse(const IndexResponse &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.IndexResponse)
 }
 
 void IndexResponse::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  index_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
-  index_.SetEntryDescriptor(
-      &::dg::model::IndexResponse_IndexEntry_descriptor_);
+    _cached_size_ = 0;
+    index_.SetAssignDescriptorCallback(
+        protobuf_AssignDescriptorsOnce);
+    index_.SetEntryDescriptor(
+        &::dg::model::IndexResponse_IndexEntry_descriptor_);
 }
 
 IndexResponse::~IndexResponse() {
-  // @@protoc_insertion_point(destructor:dg.model.IndexResponse)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.IndexResponse)
+    SharedDtor();
 }
 
 void IndexResponse::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void IndexResponse::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* IndexResponse::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return IndexResponse_descriptor_;
-}
-
-const IndexResponse& IndexResponse::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *IndexResponse::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return IndexResponse_descriptor_;
 }
 
-IndexResponse* IndexResponse::default_instance_ = NULL;
+const IndexResponse &IndexResponse::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-IndexResponse* IndexResponse::New(::google::protobuf::Arena* arena) const {
-  IndexResponse* n = new IndexResponse;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+IndexResponse *IndexResponse::default_instance_ = NULL;
+
+IndexResponse *IndexResponse::New(::google::protobuf::Arena *arena) const {
+    IndexResponse *n = new IndexResponse;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void IndexResponse::Clear() {
-  index_.Clear();
+    index_.Clear();
 }
 
 bool IndexResponse::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.IndexResponse)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // map<int32, string> Index = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Index:
-          ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry(index_.NewEntry());
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, entry.get()));
-          (*mutable_index())[entry->key()] = *entry->mutable_value();
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->mutable_value()->data(),
-            entry->mutable_value()->length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.IndexResponse.IndexEntry.value"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(10)) goto parse_loop_Index;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.IndexResponse)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // map<int32, string> Index = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Index:
+                    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry(index_.NewEntry());
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, entry.get()));
+                    (*mutable_index())[entry->key()] = *entry->mutable_value();
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        entry->mutable_value()->data(),
+                        entry->mutable_value()->length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.IndexResponse.IndexEntry.value"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(10)) goto parse_loop_Index;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.IndexResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.IndexResponse)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.IndexResponse)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.IndexResponse)
+    return false;
 #undef DO_
 }
 
 void IndexResponse::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.IndexResponse)
-  // map<int32, string> Index = 1;
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.IndexResponse.IndexEntry.value");
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.IndexResponse)
+    // map<int32, string> Index = 1;
+    {
+        ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
+        for (::google::protobuf::Map<::google::protobuf::int32, ::std::string>::const_iterator
+                 it = this->index().begin();
+             it != this->index().end(); ++it) {
+            entry.reset(index_.NewEntryWrapper(it->first, it->second));
+            ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+                1, *entry, output);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->second.data(), it->second.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.IndexResponse.IndexEntry.value");
+        }
     }
-  }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.IndexResponse)
+    // @@protoc_insertion_point(serialize_end:dg.model.IndexResponse)
 }
 
-::google::protobuf::uint8* IndexResponse::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexResponse)
-  // map<int32, string> Index = 1;
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          WriteMessageNoVirtualToArray(
-              1, *entry, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.IndexResponse.IndexEntry.value");
+::google::protobuf::uint8 *IndexResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexResponse)
+    // map<int32, string> Index = 1;
+    {
+        ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
+        for (::google::protobuf::Map<::google::protobuf::int32, ::std::string>::const_iterator
+                 it = this->index().begin();
+             it != this->index().end(); ++it) {
+            entry.reset(index_.NewEntryWrapper(it->first, it->second));
+            target = ::google::protobuf::internal::WireFormatLite::
+            WriteMessageNoVirtualToArray(
+                1, *entry, target);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->second.data(), it->second.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.IndexResponse.IndexEntry.value");
+        }
     }
-  }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexResponse)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexResponse)
+    return target;
 }
 
 int IndexResponse::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // map<int32, string> Index = 1;
-  total_size += 1 * this->index_size();
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
+    // map<int32, string> Index = 1;
+    total_size += 1 * this->index_size();
+    {
+        ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
+        for (::google::protobuf::Map<::google::protobuf::int32, ::std::string>::const_iterator
+                 it = this->index().begin();
+             it != this->index().end(); ++it) {
+            entry.reset(index_.NewEntryWrapper(it->first, it->second));
+            total_size += ::google::protobuf::internal::WireFormatLite::
+            MessageSizeNoVirtual(*entry);
+        }
     }
-  }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void IndexResponse::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const IndexResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const IndexResponse>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void IndexResponse::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const IndexResponse *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const IndexResponse>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void IndexResponse::MergeFrom(const IndexResponse& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  index_.MergeFrom(from.index_);
+void IndexResponse::MergeFrom(const IndexResponse &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    index_.MergeFrom(from.index_);
 }
 
-void IndexResponse::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexResponse::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void IndexResponse::CopyFrom(const IndexResponse& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void IndexResponse::CopyFrom(const IndexResponse &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool IndexResponse::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void IndexResponse::Swap(IndexResponse* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void IndexResponse::Swap(IndexResponse *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void IndexResponse::InternalSwap(IndexResponse* other) {
-  index_.Swap(&other->index_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void IndexResponse::InternalSwap(IndexResponse *other) {
+    index_.Swap(&other->index_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata IndexResponse::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = IndexResponse_descriptor_;
-  metadata.reflection = IndexResponse_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = IndexResponse_descriptor_;
+    metadata.reflection = IndexResponse_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// IndexResponse
+                                                                                                                        // IndexResponse
 
 // map<int32, string> Index = 1;
 int IndexResponse::index_size() const {
@@ -1597,254 +1597,255 @@ const int WitnessRequest::kImageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessRequest::WitnessRequest()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessRequest)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessRequest)
 }
 
 void WitnessRequest::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  context_ = const_cast< ::dg::model::WitnessRequestContext*>(&::dg::model::WitnessRequestContext::default_instance());
-  image_ = const_cast< ::dg::model::WitnessImage*>(&::dg::model::WitnessImage::default_instance());
+    _is_default_instance_ = true;
+    context_ =
+        const_cast< ::dg::model::WitnessRequestContext *>(&::dg::model::WitnessRequestContext::default_instance());
+    image_ = const_cast< ::dg::model::WitnessImage *>(&::dg::model::WitnessImage::default_instance());
 }
 
-WitnessRequest::WitnessRequest(const WitnessRequest& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequest)
+WitnessRequest::WitnessRequest(const WitnessRequest &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequest)
 }
 
 void WitnessRequest::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  context_ = NULL;
-  image_ = NULL;
+    _cached_size_ = 0;
+    context_ = NULL;
+    image_ = NULL;
 }
 
 WitnessRequest::~WitnessRequest() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessRequest)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessRequest)
+    SharedDtor();
 }
 
 void WitnessRequest::SharedDtor() {
-  if (this != default_instance_) {
-    delete context_;
-    delete image_;
-  }
+    if (this != default_instance_) {
+        delete context_;
+        delete image_;
+    }
 }
 
 void WitnessRequest::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessRequest::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessRequest_descriptor_;
-}
-
-const WitnessRequest& WitnessRequest::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessRequest::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessRequest_descriptor_;
 }
 
-WitnessRequest* WitnessRequest::default_instance_ = NULL;
+const WitnessRequest &WitnessRequest::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessRequest* WitnessRequest::New(::google::protobuf::Arena* arena) const {
-  WitnessRequest* n = new WitnessRequest;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessRequest *WitnessRequest::default_instance_ = NULL;
+
+WitnessRequest *WitnessRequest::New(::google::protobuf::Arena *arena) const {
+    WitnessRequest *n = new WitnessRequest;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessRequest::Clear() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
-  image_ = NULL;
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
+    if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+    image_ = NULL;
 }
 
 bool WitnessRequest::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessRequest)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.WitnessRequestContext Context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_context()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Image;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessRequest)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.WitnessRequestContext Context = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_context()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Image;
+                break;
+            }
 
-      // optional .dg.model.WitnessImage Image = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Image:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_image()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // optional .dg.model.WitnessImage Image = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Image:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_image()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequest)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessRequest)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequest)
+    return false;
 #undef DO_
 }
 
 void WitnessRequest::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequest)
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->context_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequest)
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->context_, output);
+    }
 
-  // optional .dg.model.WitnessImage Image = 2;
-  if (this->has_image()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->image_, output);
-  }
+    // optional .dg.model.WitnessImage Image = 2;
+    if (this->has_image()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *this->image_, output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequest)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequest)
 }
 
-::google::protobuf::uint8* WitnessRequest::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequest)
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->context_, target);
-  }
+::google::protobuf::uint8 *WitnessRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequest)
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->context_, target);
+    }
 
-  // optional .dg.model.WitnessImage Image = 2;
-  if (this->has_image()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->image_, target);
-  }
+    // optional .dg.model.WitnessImage Image = 2;
+    if (this->has_image()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, *this->image_, target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequest)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequest)
+    return target;
 }
 
 int WitnessRequest::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->context_);
-  }
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->context_);
+    }
 
-  // optional .dg.model.WitnessImage Image = 2;
-  if (this->has_image()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->image_);
-  }
+    // optional .dg.model.WitnessImage Image = 2;
+    if (this->has_image()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->image_);
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessRequest::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRequest>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessRequest::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessRequest *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRequest>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessRequest::MergeFrom(const WitnessRequest& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.has_context()) {
-    mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
-  }
-  if (from.has_image()) {
-    mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
-  }
+void WitnessRequest::MergeFrom(const WitnessRequest &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.has_context()) {
+        mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
+    }
+    if (from.has_image()) {
+        mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
+    }
 }
 
-void WitnessRequest::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessRequest::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessRequest::CopyFrom(const WitnessRequest& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessRequest::CopyFrom(const WitnessRequest &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessRequest::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessRequest::Swap(WitnessRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessRequest::Swap(WitnessRequest *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessRequest::InternalSwap(WitnessRequest* other) {
-  std::swap(context_, other->context_);
-  std::swap(image_, other->image_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessRequest::InternalSwap(WitnessRequest *other) {
+    std::swap(context_, other->context_);
+    std::swap(image_, other->image_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessRequest::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessRequest_descriptor_;
-  metadata.reflection = WitnessRequest_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessRequest_descriptor_;
+    metadata.reflection = WitnessRequest_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessRequest
+                                                                                                                        // WitnessRequest
 
 // optional .dg.model.WitnessRequestContext Context = 1;
 bool WitnessRequest::has_context() const {
@@ -1859,7 +1860,7 @@ const ::dg::model::WitnessRequestContext& WitnessRequest::context() const {
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
 ::dg::model::WitnessRequestContext* WitnessRequest::mutable_context() {
-  
+
   if (context_ == NULL) {
     context_ = new ::dg::model::WitnessRequestContext;
   }
@@ -1867,7 +1868,7 @@ const ::dg::model::WitnessRequestContext& WitnessRequest::context() const {
   return context_;
 }
 ::dg::model::WitnessRequestContext* WitnessRequest::release_context() {
-  
+
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
@@ -1876,9 +1877,9 @@ void WitnessRequest::set_allocated_context(::dg::model::WitnessRequestContext* c
   delete context_;
   context_ = context;
   if (context) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Context)
 }
@@ -1896,7 +1897,7 @@ const ::dg::model::WitnessImage& WitnessRequest::image() const {
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
 ::dg::model::WitnessImage* WitnessRequest::mutable_image() {
-  
+
   if (image_ == NULL) {
     image_ = new ::dg::model::WitnessImage;
   }
@@ -1904,7 +1905,7 @@ const ::dg::model::WitnessImage& WitnessRequest::image() const {
   return image_;
 }
 ::dg::model::WitnessImage* WitnessRequest::release_image() {
-  
+
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
@@ -1913,9 +1914,9 @@ void WitnessRequest::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequest.Image)
 }
@@ -1930,253 +1931,254 @@ const int WitnessBatchRequest::kImagesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessBatchRequest::WitnessBatchRequest()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessBatchRequest)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessBatchRequest)
 }
 
 void WitnessBatchRequest::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  context_ = const_cast< ::dg::model::WitnessRequestContext*>(&::dg::model::WitnessRequestContext::default_instance());
+    _is_default_instance_ = true;
+    context_ =
+        const_cast< ::dg::model::WitnessRequestContext *>(&::dg::model::WitnessRequestContext::default_instance());
 }
 
-WitnessBatchRequest::WitnessBatchRequest(const WitnessBatchRequest& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchRequest)
+WitnessBatchRequest::WitnessBatchRequest(const WitnessBatchRequest &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchRequest)
 }
 
 void WitnessBatchRequest::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  context_ = NULL;
+    _cached_size_ = 0;
+    context_ = NULL;
 }
 
 WitnessBatchRequest::~WitnessBatchRequest() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessBatchRequest)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessBatchRequest)
+    SharedDtor();
 }
 
 void WitnessBatchRequest::SharedDtor() {
-  if (this != default_instance_) {
-    delete context_;
-  }
+    if (this != default_instance_) {
+        delete context_;
+    }
 }
 
 void WitnessBatchRequest::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessBatchRequest::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessBatchRequest_descriptor_;
-}
-
-const WitnessBatchRequest& WitnessBatchRequest::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessBatchRequest::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessBatchRequest_descriptor_;
 }
 
-WitnessBatchRequest* WitnessBatchRequest::default_instance_ = NULL;
+const WitnessBatchRequest &WitnessBatchRequest::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessBatchRequest* WitnessBatchRequest::New(::google::protobuf::Arena* arena) const {
-  WitnessBatchRequest* n = new WitnessBatchRequest;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessBatchRequest *WitnessBatchRequest::default_instance_ = NULL;
+
+WitnessBatchRequest *WitnessBatchRequest::New(::google::protobuf::Arena *arena) const {
+    WitnessBatchRequest *n = new WitnessBatchRequest;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessBatchRequest::Clear() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-  images_.Clear();
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
+    images_.Clear();
 }
 
 bool WitnessBatchRequest::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchRequest)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.WitnessRequestContext Context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_context()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Images;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchRequest)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.WitnessRequestContext Context = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_context()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Images;
+                break;
+            }
 
-      // repeated .dg.model.WitnessImage Images = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Images:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Images:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_images()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_Images;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // repeated .dg.model.WitnessImage Images = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Images:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Images:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_images()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_loop_Images;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchRequest)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchRequest)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchRequest)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchRequest)
+    return false;
 #undef DO_
 }
 
 void WitnessBatchRequest::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchRequest)
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->context_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchRequest)
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->context_, output);
+    }
 
-  // repeated .dg.model.WitnessImage Images = 2;
-  for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->images(i), output);
-  }
+    // repeated .dg.model.WitnessImage Images = 2;
+    for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, this->images(i), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchRequest)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchRequest)
 }
 
-::google::protobuf::uint8* WitnessBatchRequest::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchRequest)
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->context_, target);
-  }
+::google::protobuf::uint8 *WitnessBatchRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchRequest)
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->context_, target);
+    }
 
-  // repeated .dg.model.WitnessImage Images = 2;
-  for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->images(i), target);
-  }
+    // repeated .dg.model.WitnessImage Images = 2;
+    for (unsigned int i = 0, n = this->images_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, this->images(i), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchRequest)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchRequest)
+    return target;
 }
 
 int WitnessBatchRequest::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.WitnessRequestContext Context = 1;
-  if (this->has_context()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->context_);
-  }
+    // optional .dg.model.WitnessRequestContext Context = 1;
+    if (this->has_context()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->context_);
+    }
 
-  // repeated .dg.model.WitnessImage Images = 2;
-  total_size += 1 * this->images_size();
-  for (int i = 0; i < this->images_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->images(i));
-  }
+    // repeated .dg.model.WitnessImage Images = 2;
+    total_size += 1 * this->images_size();
+    for (int i = 0; i < this->images_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->images(i));
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessBatchRequest::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessBatchRequest* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessBatchRequest>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessBatchRequest::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessBatchRequest *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessBatchRequest>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessBatchRequest::MergeFrom(const WitnessBatchRequest& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  images_.MergeFrom(from.images_);
-  if (from.has_context()) {
-    mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
-  }
+void WitnessBatchRequest::MergeFrom(const WitnessBatchRequest &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    images_.MergeFrom(from.images_);
+    if (from.has_context()) {
+        mutable_context()->::dg::model::WitnessRequestContext::MergeFrom(from.context());
+    }
 }
 
-void WitnessBatchRequest::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessBatchRequest::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessBatchRequest::CopyFrom(const WitnessBatchRequest& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessBatchRequest::CopyFrom(const WitnessBatchRequest &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessBatchRequest::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessBatchRequest::Swap(WitnessBatchRequest* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessBatchRequest::Swap(WitnessBatchRequest *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessBatchRequest::InternalSwap(WitnessBatchRequest* other) {
-  std::swap(context_, other->context_);
-  images_.UnsafeArenaSwap(&other->images_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessBatchRequest::InternalSwap(WitnessBatchRequest *other) {
+    std::swap(context_, other->context_);
+    images_.UnsafeArenaSwap(&other->images_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessBatchRequest::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessBatchRequest_descriptor_;
-  metadata.reflection = WitnessBatchRequest_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessBatchRequest_descriptor_;
+    metadata.reflection = WitnessBatchRequest_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessBatchRequest
+                                                                                                                        // WitnessBatchRequest
 
 // optional .dg.model.WitnessRequestContext Context = 1;
 bool WitnessBatchRequest::has_context() const {
@@ -2191,7 +2193,7 @@ const ::dg::model::WitnessRequestContext& WitnessBatchRequest::context() const {
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
 ::dg::model::WitnessRequestContext* WitnessBatchRequest::mutable_context() {
-  
+
   if (context_ == NULL) {
     context_ = new ::dg::model::WitnessRequestContext;
   }
@@ -2199,7 +2201,7 @@ const ::dg::model::WitnessRequestContext& WitnessBatchRequest::context() const {
   return context_;
 }
 ::dg::model::WitnessRequestContext* WitnessBatchRequest::release_context() {
-  
+
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
   return temp;
@@ -2208,9 +2210,9 @@ void WitnessBatchRequest::set_allocated_context(::dg::model::WitnessRequestConte
   delete context_;
   context_ = context;
   if (context) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchRequest.Context)
 }
@@ -2255,254 +2257,255 @@ const int WitnessResponse::kResultFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessResponse::WitnessResponse()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessResponse)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessResponse)
 }
 
 void WitnessResponse::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  context_ = const_cast< ::dg::model::WitnessResponseContext*>(&::dg::model::WitnessResponseContext::default_instance());
-  result_ = const_cast< ::dg::model::WitnessResult*>(&::dg::model::WitnessResult::default_instance());
+    _is_default_instance_ = true;
+    context_ =
+        const_cast< ::dg::model::WitnessResponseContext *>(&::dg::model::WitnessResponseContext::default_instance());
+    result_ = const_cast< ::dg::model::WitnessResult *>(&::dg::model::WitnessResult::default_instance());
 }
 
-WitnessResponse::WitnessResponse(const WitnessResponse& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponse)
+WitnessResponse::WitnessResponse(const WitnessResponse &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponse)
 }
 
 void WitnessResponse::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  context_ = NULL;
-  result_ = NULL;
+    _cached_size_ = 0;
+    context_ = NULL;
+    result_ = NULL;
 }
 
 WitnessResponse::~WitnessResponse() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessResponse)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessResponse)
+    SharedDtor();
 }
 
 void WitnessResponse::SharedDtor() {
-  if (this != default_instance_) {
-    delete context_;
-    delete result_;
-  }
+    if (this != default_instance_) {
+        delete context_;
+        delete result_;
+    }
 }
 
 void WitnessResponse::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessResponse::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessResponse_descriptor_;
-}
-
-const WitnessResponse& WitnessResponse::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessResponse::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessResponse_descriptor_;
 }
 
-WitnessResponse* WitnessResponse::default_instance_ = NULL;
+const WitnessResponse &WitnessResponse::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessResponse* WitnessResponse::New(::google::protobuf::Arena* arena) const {
-  WitnessResponse* n = new WitnessResponse;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessResponse *WitnessResponse::default_instance_ = NULL;
+
+WitnessResponse *WitnessResponse::New(::google::protobuf::Arena *arena) const {
+    WitnessResponse *n = new WitnessResponse;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessResponse::Clear() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-  if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
-  result_ = NULL;
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
+    if (GetArenaNoVirtual() == NULL && result_ != NULL) delete result_;
+    result_ = NULL;
 }
 
 bool WitnessResponse::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessResponse)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.WitnessResponseContext Context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_context()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Result;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessResponse)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.WitnessResponseContext Context = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_context()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Result;
+                break;
+            }
 
-      // optional .dg.model.WitnessResult Result = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Result:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_result()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // optional .dg.model.WitnessResult Result = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Result:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_result()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponse)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessResponse)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponse)
+    return false;
 #undef DO_
 }
 
 void WitnessResponse::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponse)
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->context_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponse)
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->context_, output);
+    }
 
-  // optional .dg.model.WitnessResult Result = 2;
-  if (this->has_result()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->result_, output);
-  }
+    // optional .dg.model.WitnessResult Result = 2;
+    if (this->has_result()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *this->result_, output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponse)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponse)
 }
 
-::google::protobuf::uint8* WitnessResponse::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponse)
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->context_, target);
-  }
+::google::protobuf::uint8 *WitnessResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponse)
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->context_, target);
+    }
 
-  // optional .dg.model.WitnessResult Result = 2;
-  if (this->has_result()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->result_, target);
-  }
+    // optional .dg.model.WitnessResult Result = 2;
+    if (this->has_result()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, *this->result_, target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponse)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponse)
+    return target;
 }
 
 int WitnessResponse::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->context_);
-  }
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->context_);
+    }
 
-  // optional .dg.model.WitnessResult Result = 2;
-  if (this->has_result()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->result_);
-  }
+    // optional .dg.model.WitnessResult Result = 2;
+    if (this->has_result()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->result_);
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessResponse::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResponse>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessResponse::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessResponse *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResponse>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessResponse::MergeFrom(const WitnessResponse& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.has_context()) {
-    mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
-  }
-  if (from.has_result()) {
-    mutable_result()->::dg::model::WitnessResult::MergeFrom(from.result());
-  }
+void WitnessResponse::MergeFrom(const WitnessResponse &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.has_context()) {
+        mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
+    }
+    if (from.has_result()) {
+        mutable_result()->::dg::model::WitnessResult::MergeFrom(from.result());
+    }
 }
 
-void WitnessResponse::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResponse::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessResponse::CopyFrom(const WitnessResponse& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResponse::CopyFrom(const WitnessResponse &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessResponse::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessResponse::Swap(WitnessResponse* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessResponse::Swap(WitnessResponse *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessResponse::InternalSwap(WitnessResponse* other) {
-  std::swap(context_, other->context_);
-  std::swap(result_, other->result_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessResponse::InternalSwap(WitnessResponse *other) {
+    std::swap(context_, other->context_);
+    std::swap(result_, other->result_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessResponse::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessResponse_descriptor_;
-  metadata.reflection = WitnessResponse_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessResponse_descriptor_;
+    metadata.reflection = WitnessResponse_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessResponse
+                                                                                                                        // WitnessResponse
 
 // optional .dg.model.WitnessResponseContext Context = 1;
 bool WitnessResponse::has_context() const {
@@ -2517,7 +2520,7 @@ const ::dg::model::WitnessResponseContext& WitnessResponse::context() const {
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
 ::dg::model::WitnessResponseContext* WitnessResponse::mutable_context() {
-  
+
   if (context_ == NULL) {
     context_ = new ::dg::model::WitnessResponseContext;
   }
@@ -2525,7 +2528,7 @@ const ::dg::model::WitnessResponseContext& WitnessResponse::context() const {
   return context_;
 }
 ::dg::model::WitnessResponseContext* WitnessResponse::release_context() {
-  
+
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
@@ -2534,9 +2537,9 @@ void WitnessResponse::set_allocated_context(::dg::model::WitnessResponseContext*
   delete context_;
   context_ = context;
   if (context) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Context)
 }
@@ -2554,7 +2557,7 @@ const ::dg::model::WitnessResult& WitnessResponse::result() const {
   return result_ != NULL ? *result_ : *default_instance_->result_;
 }
 ::dg::model::WitnessResult* WitnessResponse::mutable_result() {
-  
+
   if (result_ == NULL) {
     result_ = new ::dg::model::WitnessResult;
   }
@@ -2562,7 +2565,7 @@ const ::dg::model::WitnessResult& WitnessResponse::result() const {
   return result_;
 }
 ::dg::model::WitnessResult* WitnessResponse::release_result() {
-  
+
   ::dg::model::WitnessResult* temp = result_;
   result_ = NULL;
   return temp;
@@ -2571,9 +2574,9 @@ void WitnessResponse::set_allocated_result(::dg::model::WitnessResult* result) {
   delete result_;
   result_ = result;
   if (result) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponse.Result)
 }
@@ -2588,253 +2591,254 @@ const int WitnessBatchResponse::kResultsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessBatchResponse::WitnessBatchResponse()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessBatchResponse)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessBatchResponse)
 }
 
 void WitnessBatchResponse::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  context_ = const_cast< ::dg::model::WitnessResponseContext*>(&::dg::model::WitnessResponseContext::default_instance());
+    _is_default_instance_ = true;
+    context_ =
+        const_cast< ::dg::model::WitnessResponseContext *>(&::dg::model::WitnessResponseContext::default_instance());
 }
 
-WitnessBatchResponse::WitnessBatchResponse(const WitnessBatchResponse& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchResponse)
+WitnessBatchResponse::WitnessBatchResponse(const WitnessBatchResponse &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessBatchResponse)
 }
 
 void WitnessBatchResponse::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  context_ = NULL;
+    _cached_size_ = 0;
+    context_ = NULL;
 }
 
 WitnessBatchResponse::~WitnessBatchResponse() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessBatchResponse)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessBatchResponse)
+    SharedDtor();
 }
 
 void WitnessBatchResponse::SharedDtor() {
-  if (this != default_instance_) {
-    delete context_;
-  }
+    if (this != default_instance_) {
+        delete context_;
+    }
 }
 
 void WitnessBatchResponse::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessBatchResponse::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessBatchResponse_descriptor_;
-}
-
-const WitnessBatchResponse& WitnessBatchResponse::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessBatchResponse::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessBatchResponse_descriptor_;
 }
 
-WitnessBatchResponse* WitnessBatchResponse::default_instance_ = NULL;
+const WitnessBatchResponse &WitnessBatchResponse::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessBatchResponse* WitnessBatchResponse::New(::google::protobuf::Arena* arena) const {
-  WitnessBatchResponse* n = new WitnessBatchResponse;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessBatchResponse *WitnessBatchResponse::default_instance_ = NULL;
+
+WitnessBatchResponse *WitnessBatchResponse::New(::google::protobuf::Arena *arena) const {
+    WitnessBatchResponse *n = new WitnessBatchResponse;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessBatchResponse::Clear() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
-  results_.Clear();
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
+    results_.Clear();
 }
 
 bool WitnessBatchResponse::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchResponse)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.WitnessResponseContext Context = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_context()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Results;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessBatchResponse)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.WitnessResponseContext Context = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_context()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Results;
+                break;
+            }
 
-      // repeated .dg.model.WitnessResult Results = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Results:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Results:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_results()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_Results;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // repeated .dg.model.WitnessResult Results = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Results:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Results:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_results()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_loop_Results;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchResponse)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchResponse)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessBatchResponse)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessBatchResponse)
+    return false;
 #undef DO_
 }
 
 void WitnessBatchResponse::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchResponse)
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->context_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessBatchResponse)
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->context_, output);
+    }
 
-  // repeated .dg.model.WitnessResult Results = 2;
-  for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->results(i), output);
-  }
+    // repeated .dg.model.WitnessResult Results = 2;
+    for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, this->results(i), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchResponse)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessBatchResponse)
 }
 
-::google::protobuf::uint8* WitnessBatchResponse::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchResponse)
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->context_, target);
-  }
+::google::protobuf::uint8 *WitnessBatchResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessBatchResponse)
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->context_, target);
+    }
 
-  // repeated .dg.model.WitnessResult Results = 2;
-  for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->results(i), target);
-  }
+    // repeated .dg.model.WitnessResult Results = 2;
+    for (unsigned int i = 0, n = this->results_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, this->results(i), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchResponse)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessBatchResponse)
+    return target;
 }
 
 int WitnessBatchResponse::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.WitnessResponseContext Context = 1;
-  if (this->has_context()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->context_);
-  }
+    // optional .dg.model.WitnessResponseContext Context = 1;
+    if (this->has_context()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->context_);
+    }
 
-  // repeated .dg.model.WitnessResult Results = 2;
-  total_size += 1 * this->results_size();
-  for (int i = 0; i < this->results_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->results(i));
-  }
+    // repeated .dg.model.WitnessResult Results = 2;
+    total_size += 1 * this->results_size();
+    for (int i = 0; i < this->results_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->results(i));
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessBatchResponse::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessBatchResponse* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessBatchResponse>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessBatchResponse::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessBatchResponse *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessBatchResponse>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessBatchResponse::MergeFrom(const WitnessBatchResponse& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  results_.MergeFrom(from.results_);
-  if (from.has_context()) {
-    mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
-  }
+void WitnessBatchResponse::MergeFrom(const WitnessBatchResponse &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    results_.MergeFrom(from.results_);
+    if (from.has_context()) {
+        mutable_context()->::dg::model::WitnessResponseContext::MergeFrom(from.context());
+    }
 }
 
-void WitnessBatchResponse::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessBatchResponse::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessBatchResponse::CopyFrom(const WitnessBatchResponse& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessBatchResponse::CopyFrom(const WitnessBatchResponse &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessBatchResponse::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessBatchResponse::Swap(WitnessBatchResponse* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessBatchResponse::Swap(WitnessBatchResponse *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessBatchResponse::InternalSwap(WitnessBatchResponse* other) {
-  std::swap(context_, other->context_);
-  results_.UnsafeArenaSwap(&other->results_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessBatchResponse::InternalSwap(WitnessBatchResponse *other) {
+    std::swap(context_, other->context_);
+    results_.UnsafeArenaSwap(&other->results_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessBatchResponse::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessBatchResponse_descriptor_;
-  metadata.reflection = WitnessBatchResponse_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessBatchResponse_descriptor_;
+    metadata.reflection = WitnessBatchResponse_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessBatchResponse
+                                                                                                                        // WitnessBatchResponse
 
 // optional .dg.model.WitnessResponseContext Context = 1;
 bool WitnessBatchResponse::has_context() const {
@@ -2849,7 +2853,7 @@ const ::dg::model::WitnessResponseContext& WitnessBatchResponse::context() const
   return context_ != NULL ? *context_ : *default_instance_->context_;
 }
 ::dg::model::WitnessResponseContext* WitnessBatchResponse::mutable_context() {
-  
+
   if (context_ == NULL) {
     context_ = new ::dg::model::WitnessResponseContext;
   }
@@ -2857,7 +2861,7 @@ const ::dg::model::WitnessResponseContext& WitnessBatchResponse::context() const
   return context_;
 }
 ::dg::model::WitnessResponseContext* WitnessBatchResponse::release_context() {
-  
+
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
   return temp;
@@ -2866,9 +2870,9 @@ void WitnessBatchResponse::set_allocated_context(::dg::model::WitnessResponseCon
   delete context_;
   context_ = context;
   if (context) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessBatchResponse.Context)
 }
@@ -2915,65 +2919,65 @@ const int WitnessRelativeROI::kHeightFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessRelativeROI::WitnessRelativeROI()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessRelativeROI)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessRelativeROI)
 }
 
 void WitnessRelativeROI::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-WitnessRelativeROI::WitnessRelativeROI(const WitnessRelativeROI& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRelativeROI)
+WitnessRelativeROI::WitnessRelativeROI(const WitnessRelativeROI &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRelativeROI)
 }
 
 void WitnessRelativeROI::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  posx_ = 0;
-  posy_ = 0;
-  width_ = 0;
-  height_ = 0;
+    _cached_size_ = 0;
+    posx_ = 0;
+    posy_ = 0;
+    width_ = 0;
+    height_ = 0;
 }
 
 WitnessRelativeROI::~WitnessRelativeROI() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessRelativeROI)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessRelativeROI)
+    SharedDtor();
 }
 
 void WitnessRelativeROI::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void WitnessRelativeROI::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessRelativeROI::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessRelativeROI_descriptor_;
-}
-
-const WitnessRelativeROI& WitnessRelativeROI::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessRelativeROI::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessRelativeROI_descriptor_;
 }
 
-WitnessRelativeROI* WitnessRelativeROI::default_instance_ = NULL;
+const WitnessRelativeROI &WitnessRelativeROI::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessRelativeROI* WitnessRelativeROI::New(::google::protobuf::Arena* arena) const {
-  WitnessRelativeROI* n = new WitnessRelativeROI;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessRelativeROI *WitnessRelativeROI::default_instance_ = NULL;
+
+WitnessRelativeROI *WitnessRelativeROI::New(::google::protobuf::Arena *arena) const {
+    WitnessRelativeROI *n = new WitnessRelativeROI;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessRelativeROI::Clear() {
@@ -2985,7 +2989,7 @@ void WitnessRelativeROI::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(posx_, height_);
+    ZR_(posx_, height_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -2993,253 +2997,253 @@ void WitnessRelativeROI::Clear() {
 }
 
 bool WitnessRelativeROI::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessRelativeROI)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 PosX = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &posx_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessRelativeROI)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int32 PosX = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &posx_)));
 
-        } else {
-          goto handle_unusual;
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(16)) goto parse_PosY;
+                break;
+            }
+
+                // optional int32 PosY = 2;
+            case 2: {
+                if (tag == 16) {
+                    parse_PosY:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &posy_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(24)) goto parse_Width;
+                break;
+            }
+
+                // optional int32 Width = 3;
+            case 3: {
+                if (tag == 24) {
+                    parse_Width:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &width_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(32)) goto parse_Height;
+                break;
+            }
+
+                // optional int32 Height = 4;
+            case 4: {
+                if (tag == 32) {
+                    parse_Height:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &height_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
+
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        if (input->ExpectTag(16)) goto parse_PosY;
-        break;
-      }
-
-      // optional int32 PosY = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_PosY:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &posy_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_Width;
-        break;
-      }
-
-      // optional int32 Width = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_Width:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &width_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_Height;
-        break;
-      }
-
-      // optional int32 Height = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_Height:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &height_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessRelativeROI)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRelativeROI)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessRelativeROI)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessRelativeROI)
+    return false;
 #undef DO_
 }
 
 void WitnessRelativeROI::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRelativeROI)
-  // optional int32 PosX = 1;
-  if (this->posx() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->posx(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessRelativeROI)
+    // optional int32 PosX = 1;
+    if (this->posx() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->posx(), output);
+    }
 
-  // optional int32 PosY = 2;
-  if (this->posy() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->posy(), output);
-  }
+    // optional int32 PosY = 2;
+    if (this->posy() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->posy(), output);
+    }
 
-  // optional int32 Width = 3;
-  if (this->width() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->width(), output);
-  }
+    // optional int32 Width = 3;
+    if (this->width() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->width(), output);
+    }
 
-  // optional int32 Height = 4;
-  if (this->height() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->height(), output);
-  }
+    // optional int32 Height = 4;
+    if (this->height() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->height(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRelativeROI)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessRelativeROI)
 }
 
-::google::protobuf::uint8* WitnessRelativeROI::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRelativeROI)
-  // optional int32 PosX = 1;
-  if (this->posx() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->posx(), target);
-  }
+::google::protobuf::uint8 *WitnessRelativeROI::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRelativeROI)
+    // optional int32 PosX = 1;
+    if (this->posx() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->posx(), target);
+    }
 
-  // optional int32 PosY = 2;
-  if (this->posy() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->posy(), target);
-  }
+    // optional int32 PosY = 2;
+    if (this->posy() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->posy(), target);
+    }
 
-  // optional int32 Width = 3;
-  if (this->width() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->width(), target);
-  }
+    // optional int32 Width = 3;
+    if (this->width() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->width(), target);
+    }
 
-  // optional int32 Height = 4;
-  if (this->height() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->height(), target);
-  }
+    // optional int32 Height = 4;
+    if (this->height() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->height(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRelativeROI)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRelativeROI)
+    return target;
 }
 
 int WitnessRelativeROI::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int32 PosX = 1;
-  if (this->posx() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->posx());
-  }
+    // optional int32 PosX = 1;
+    if (this->posx() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->posx());
+    }
 
-  // optional int32 PosY = 2;
-  if (this->posy() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->posy());
-  }
+    // optional int32 PosY = 2;
+    if (this->posy() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->posy());
+    }
 
-  // optional int32 Width = 3;
-  if (this->width() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->width());
-  }
+    // optional int32 Width = 3;
+    if (this->width() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->width());
+    }
 
-  // optional int32 Height = 4;
-  if (this->height() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->height());
-  }
+    // optional int32 Height = 4;
+    if (this->height() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->height());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessRelativeROI::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessRelativeROI* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRelativeROI>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessRelativeROI::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessRelativeROI *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRelativeROI>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessRelativeROI::MergeFrom(const WitnessRelativeROI& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.posx() != 0) {
-    set_posx(from.posx());
-  }
-  if (from.posy() != 0) {
-    set_posy(from.posy());
-  }
-  if (from.width() != 0) {
-    set_width(from.width());
-  }
-  if (from.height() != 0) {
-    set_height(from.height());
-  }
+void WitnessRelativeROI::MergeFrom(const WitnessRelativeROI &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.posx() != 0) {
+        set_posx(from.posx());
+    }
+    if (from.posy() != 0) {
+        set_posy(from.posy());
+    }
+    if (from.width() != 0) {
+        set_width(from.width());
+    }
+    if (from.height() != 0) {
+        set_height(from.height());
+    }
 }
 
-void WitnessRelativeROI::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessRelativeROI::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessRelativeROI::CopyFrom(const WitnessRelativeROI& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessRelativeROI::CopyFrom(const WitnessRelativeROI &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessRelativeROI::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessRelativeROI::Swap(WitnessRelativeROI* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessRelativeROI::Swap(WitnessRelativeROI *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessRelativeROI::InternalSwap(WitnessRelativeROI* other) {
-  std::swap(posx_, other->posx_);
-  std::swap(posy_, other->posy_);
-  std::swap(width_, other->width_);
-  std::swap(height_, other->height_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessRelativeROI::InternalSwap(WitnessRelativeROI *other) {
+    std::swap(posx_, other->posx_);
+    std::swap(posy_, other->posy_);
+    std::swap(width_, other->width_);
+    std::swap(height_, other->height_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessRelativeROI::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessRelativeROI_descriptor_;
-  metadata.reflection = WitnessRelativeROI_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessRelativeROI_descriptor_;
+    metadata.reflection = WitnessRelativeROI_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessRelativeROI
+                                                                                                                        // WitnessRelativeROI
 
 // optional int32 PosX = 1;
 void WitnessRelativeROI::clear_posx() {
@@ -3250,7 +3254,7 @@ void WitnessRelativeROI::clear_posx() {
   return posx_;
 }
  void WitnessRelativeROI::set_posx(::google::protobuf::int32 value) {
-  
+
   posx_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosX)
 }
@@ -3264,7 +3268,7 @@ void WitnessRelativeROI::clear_posy() {
   return posy_;
 }
  void WitnessRelativeROI::set_posy(::google::protobuf::int32 value) {
-  
+
   posy_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.PosY)
 }
@@ -3278,7 +3282,7 @@ void WitnessRelativeROI::clear_width() {
   return width_;
 }
  void WitnessRelativeROI::set_width(::google::protobuf::int32 value) {
-  
+
   width_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Width)
 }
@@ -3292,7 +3296,7 @@ void WitnessRelativeROI::clear_height() {
   return height_;
 }
  void WitnessRelativeROI::set_height(::google::protobuf::int32 value) {
-  
+
   height_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessRelativeROI.Height)
 }
@@ -3309,65 +3313,65 @@ const int WitnessMarginROI::kBottomFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessMarginROI::WitnessMarginROI()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessMarginROI)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessMarginROI)
 }
 
 void WitnessMarginROI::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
+    _is_default_instance_ = true;
 }
 
-WitnessMarginROI::WitnessMarginROI(const WitnessMarginROI& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessMarginROI)
+WitnessMarginROI::WitnessMarginROI(const WitnessMarginROI &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessMarginROI)
 }
 
 void WitnessMarginROI::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  left_ = 0;
-  top_ = 0;
-  right_ = 0;
-  bottom_ = 0;
+    _cached_size_ = 0;
+    left_ = 0;
+    top_ = 0;
+    right_ = 0;
+    bottom_ = 0;
 }
 
 WitnessMarginROI::~WitnessMarginROI() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessMarginROI)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessMarginROI)
+    SharedDtor();
 }
 
 void WitnessMarginROI::SharedDtor() {
-  if (this != default_instance_) {
-  }
+    if (this != default_instance_) {
+    }
 }
 
 void WitnessMarginROI::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessMarginROI::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessMarginROI_descriptor_;
-}
-
-const WitnessMarginROI& WitnessMarginROI::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessMarginROI::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessMarginROI_descriptor_;
 }
 
-WitnessMarginROI* WitnessMarginROI::default_instance_ = NULL;
+const WitnessMarginROI &WitnessMarginROI::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessMarginROI* WitnessMarginROI::New(::google::protobuf::Arena* arena) const {
-  WitnessMarginROI* n = new WitnessMarginROI;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessMarginROI *WitnessMarginROI::default_instance_ = NULL;
+
+WitnessMarginROI *WitnessMarginROI::New(::google::protobuf::Arena *arena) const {
+    WitnessMarginROI *n = new WitnessMarginROI;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessMarginROI::Clear() {
@@ -3379,7 +3383,7 @@ void WitnessMarginROI::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(left_, bottom_);
+    ZR_(left_, bottom_);
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -3387,253 +3391,253 @@ void WitnessMarginROI::Clear() {
 }
 
 bool WitnessMarginROI::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessMarginROI)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 Left = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &left_)));
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessMarginROI)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional int32 Left = 1;
+            case 1: {
+                if (tag == 8) {
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &left_)));
 
-        } else {
-          goto handle_unusual;
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(16)) goto parse_Top;
+                break;
+            }
+
+                // optional int32 Top = 2;
+            case 2: {
+                if (tag == 16) {
+                    parse_Top:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &top_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(24)) goto parse_Right;
+                break;
+            }
+
+                // optional int32 Right = 3;
+            case 3: {
+                if (tag == 24) {
+                    parse_Right:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &right_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(32)) goto parse_Bottom;
+                break;
+            }
+
+                // optional int32 Bottom = 4;
+            case 4: {
+                if (tag == 32) {
+                    parse_Bottom:
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                        input, &bottom_)));
+
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
+
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        if (input->ExpectTag(16)) goto parse_Top;
-        break;
-      }
-
-      // optional int32 Top = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Top:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &top_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_Right;
-        break;
-      }
-
-      // optional int32 Right = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_Right:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &right_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_Bottom;
-        break;
-      }
-
-      // optional int32 Bottom = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_Bottom:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &bottom_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessMarginROI)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessMarginROI)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessMarginROI)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessMarginROI)
+    return false;
 #undef DO_
 }
 
 void WitnessMarginROI::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessMarginROI)
-  // optional int32 Left = 1;
-  if (this->left() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->left(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessMarginROI)
+    // optional int32 Left = 1;
+    if (this->left() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->left(), output);
+    }
 
-  // optional int32 Top = 2;
-  if (this->top() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->top(), output);
-  }
+    // optional int32 Top = 2;
+    if (this->top() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->top(), output);
+    }
 
-  // optional int32 Right = 3;
-  if (this->right() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->right(), output);
-  }
+    // optional int32 Right = 3;
+    if (this->right() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->right(), output);
+    }
 
-  // optional int32 Bottom = 4;
-  if (this->bottom() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->bottom(), output);
-  }
+    // optional int32 Bottom = 4;
+    if (this->bottom() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->bottom(), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessMarginROI)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessMarginROI)
 }
 
-::google::protobuf::uint8* WitnessMarginROI::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessMarginROI)
-  // optional int32 Left = 1;
-  if (this->left() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->left(), target);
-  }
+::google::protobuf::uint8 *WitnessMarginROI::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessMarginROI)
+    // optional int32 Left = 1;
+    if (this->left() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->left(), target);
+    }
 
-  // optional int32 Top = 2;
-  if (this->top() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->top(), target);
-  }
+    // optional int32 Top = 2;
+    if (this->top() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->top(), target);
+    }
 
-  // optional int32 Right = 3;
-  if (this->right() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->right(), target);
-  }
+    // optional int32 Right = 3;
+    if (this->right() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->right(), target);
+    }
 
-  // optional int32 Bottom = 4;
-  if (this->bottom() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->bottom(), target);
-  }
+    // optional int32 Bottom = 4;
+    if (this->bottom() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->bottom(), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessMarginROI)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessMarginROI)
+    return target;
 }
 
 int WitnessMarginROI::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional int32 Left = 1;
-  if (this->left() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->left());
-  }
+    // optional int32 Left = 1;
+    if (this->left() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->left());
+    }
 
-  // optional int32 Top = 2;
-  if (this->top() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->top());
-  }
+    // optional int32 Top = 2;
+    if (this->top() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->top());
+    }
 
-  // optional int32 Right = 3;
-  if (this->right() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->right());
-  }
+    // optional int32 Right = 3;
+    if (this->right() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->right());
+    }
 
-  // optional int32 Bottom = 4;
-  if (this->bottom() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->bottom());
-  }
+    // optional int32 Bottom = 4;
+    if (this->bottom() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::Int32Size(
+                this->bottom());
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessMarginROI::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessMarginROI* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessMarginROI>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessMarginROI::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessMarginROI *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessMarginROI>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessMarginROI::MergeFrom(const WitnessMarginROI& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.left() != 0) {
-    set_left(from.left());
-  }
-  if (from.top() != 0) {
-    set_top(from.top());
-  }
-  if (from.right() != 0) {
-    set_right(from.right());
-  }
-  if (from.bottom() != 0) {
-    set_bottom(from.bottom());
-  }
+void WitnessMarginROI::MergeFrom(const WitnessMarginROI &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.left() != 0) {
+        set_left(from.left());
+    }
+    if (from.top() != 0) {
+        set_top(from.top());
+    }
+    if (from.right() != 0) {
+        set_right(from.right());
+    }
+    if (from.bottom() != 0) {
+        set_bottom(from.bottom());
+    }
 }
 
-void WitnessMarginROI::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessMarginROI::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessMarginROI::CopyFrom(const WitnessMarginROI& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessMarginROI::CopyFrom(const WitnessMarginROI &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessMarginROI::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessMarginROI::Swap(WitnessMarginROI* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessMarginROI::Swap(WitnessMarginROI *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessMarginROI::InternalSwap(WitnessMarginROI* other) {
-  std::swap(left_, other->left_);
-  std::swap(top_, other->top_);
-  std::swap(right_, other->right_);
-  std::swap(bottom_, other->bottom_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessMarginROI::InternalSwap(WitnessMarginROI *other) {
+    std::swap(left_, other->left_);
+    std::swap(top_, other->top_);
+    std::swap(right_, other->right_);
+    std::swap(bottom_, other->bottom_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessMarginROI::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessMarginROI_descriptor_;
-  metadata.reflection = WitnessMarginROI_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessMarginROI_descriptor_;
+    metadata.reflection = WitnessMarginROI_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessMarginROI
+                                                                                                                        // WitnessMarginROI
 
 // optional int32 Left = 1;
 void WitnessMarginROI::clear_left() {
@@ -3644,7 +3648,7 @@ void WitnessMarginROI::clear_left() {
   return left_;
 }
  void WitnessMarginROI::set_left(::google::protobuf::int32 value) {
-  
+
   left_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Left)
 }
@@ -3658,7 +3662,7 @@ void WitnessMarginROI::clear_top() {
   return top_;
 }
  void WitnessMarginROI::set_top(::google::protobuf::int32 value) {
-  
+
   top_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Top)
 }
@@ -3672,7 +3676,7 @@ void WitnessMarginROI::clear_right() {
   return right_;
 }
  void WitnessMarginROI::set_right(::google::protobuf::int32 value) {
-  
+
   right_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Right)
 }
@@ -3686,7 +3690,7 @@ void WitnessMarginROI::clear_bottom() {
   return bottom_;
 }
  void WitnessMarginROI::set_bottom(::google::protobuf::int32 value) {
-  
+
   bottom_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessMarginROI.Bottom)
 }
@@ -3706,575 +3710,575 @@ const int WitnessRequestContext::kParamsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessRequestContext::WitnessRequestContext()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessRequestContext)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessRequestContext)
 }
 
 void WitnessRequestContext::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  storage_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
+    _is_default_instance_ = true;
+    storage_ = const_cast< ::dg::model::StorageConfig *>(&::dg::model::StorageConfig::default_instance());
 }
 
-WitnessRequestContext::WitnessRequestContext(const WitnessRequestContext& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequestContext)
+WitnessRequestContext::WitnessRequestContext(const WitnessRequestContext &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessRequestContext)
 }
 
 void WitnessRequestContext::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  username_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
-  storage_ = NULL;
-  params_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
-  params_.SetEntryDescriptor(
-      &::dg::model::WitnessRequestContext_ParamsEntry_descriptor_);
+    ::google::protobuf::internal::GetEmptyString();
+    _cached_size_ = 0;
+    sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    username_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    type_ = 0;
+    storage_ = NULL;
+    params_.SetAssignDescriptorCallback(
+        protobuf_AssignDescriptorsOnce);
+    params_.SetEntryDescriptor(
+        &::dg::model::WitnessRequestContext_ParamsEntry_descriptor_);
 }
 
 WitnessRequestContext::~WitnessRequestContext() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessRequestContext)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessRequestContext)
+    SharedDtor();
 }
 
 void WitnessRequestContext::SharedDtor() {
-  sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  username_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-    delete storage_;
-  }
+    sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    username_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (this != default_instance_) {
+        delete storage_;
+    }
 }
 
 void WitnessRequestContext::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessRequestContext::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessRequestContext_descriptor_;
-}
-
-const WitnessRequestContext& WitnessRequestContext::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessRequestContext::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessRequestContext_descriptor_;
 }
 
-WitnessRequestContext* WitnessRequestContext::default_instance_ = NULL;
+const WitnessRequestContext &WitnessRequestContext::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessRequestContext* WitnessRequestContext::New(::google::protobuf::Arena* arena) const {
-  WitnessRequestContext* n = new WitnessRequestContext;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessRequestContext *WitnessRequestContext::default_instance_ = NULL;
+
+WitnessRequestContext *WitnessRequestContext::New(::google::protobuf::Arena *arena) const {
+    WitnessRequestContext *n = new WitnessRequestContext;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessRequestContext::Clear() {
-  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
-  functions_.Clear();
-  params_.Clear();
+    sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    type_ = 0;
+    if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+    storage_ = NULL;
+    functions_.Clear();
+    params_.Clear();
 }
 
 bool WitnessRequestContext::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessRequestContext)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string SessionId = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sessionid()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sessionid().data(), this->sessionid().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessRequestContext.SessionId"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_UserName;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessRequestContext)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional string SessionId = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_sessionid()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->sessionid().data(), this->sessionid().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessRequestContext.SessionId"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_UserName;
+                break;
+            }
 
-      // optional string UserName = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_UserName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_username()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->username().data(), this->username().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessRequestContext.UserName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Token;
-        break;
-      }
+                // optional string UserName = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_UserName:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_username()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->username().data(), this->username().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessRequestContext.UserName"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_Token;
+                break;
+            }
 
-      // optional string Token = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Token:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_token()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->token().data(), this->token().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessRequestContext.Token"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_Functions;
-        break;
-      }
+                // optional string Token = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_Token:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_token()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->token().data(), this->token().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessRequestContext.Token"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_Functions;
+                break;
+            }
 
-      // repeated .dg.model.RecognizeFunctions Functions = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_Functions:
-          ::google::protobuf::uint32 length;
-          DO_(input->ReadVarint32(&length));
-          ::google::protobuf::io::CodedInputStream::Limit limit = input->PushLimit(length);
-          while (input->BytesUntilLimit() > 0) {
-            int value;
-            DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-            add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
-          }
-          input->PopLimit(limit);
-        } else if (tag == 32) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(40)) goto parse_Type;
-        break;
-      }
+                // repeated .dg.model.RecognizeFunctions Functions = 4;
+            case 4: {
+                if (tag == 34) {
+                    parse_Functions:
+                    ::google::protobuf::uint32 length;
+                    DO_(input->ReadVarint32(&length));
+                    ::google::protobuf::io::CodedInputStream::Limit limit = input->PushLimit(length);
+                    while (input->BytesUntilLimit() > 0) {
+                        int value;
+                        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                            int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                            input, &value)));
+                        add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
+                    }
+                    input->PopLimit(limit);
+                } else if (tag == 32) {
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                        input, &value)));
+                    add_functions(static_cast< ::dg::model::RecognizeFunctions >(value));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(40)) goto parse_Type;
+                break;
+            }
 
-      // optional .dg.model.RecognizeType Type = 5;
-      case 5: {
-        if (tag == 40) {
-         parse_Type:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_type(static_cast< ::dg::model::RecognizeType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_Storage;
-        break;
-      }
+                // optional .dg.model.RecognizeType Type = 5;
+            case 5: {
+                if (tag == 40) {
+                    parse_Type:
+                    int value;
+                    DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                        int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                        input, &value)));
+                    set_type(static_cast< ::dg::model::RecognizeType >(value));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(50)) goto parse_Storage;
+                break;
+            }
 
-      // optional .dg.model.StorageConfig Storage = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_Storage:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_storage()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_Params;
-        break;
-      }
+                // optional .dg.model.StorageConfig Storage = 6;
+            case 6: {
+                if (tag == 50) {
+                    parse_Storage:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_storage()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(58)) goto parse_Params;
+                break;
+            }
 
-      // map<string, string> Params = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_Params:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Params:
-          ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry(params_.NewEntry());
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, entry.get()));
-          (*mutable_params())[entry->key()] = *entry->mutable_value();
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->key().data(), entry->key().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessRequestContext.ParamsEntry.key"));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->mutable_value()->data(),
-            entry->mutable_value()->length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessRequestContext.ParamsEntry.value"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_loop_Params;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // map<string, string> Params = 7;
+            case 7: {
+                if (tag == 58) {
+                    parse_Params:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Params:
+                    ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry(params_.NewEntry());
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, entry.get()));
+                    (*mutable_params())[entry->key()] = *entry->mutable_value();
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        entry->key().data(), entry->key().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessRequestContext.ParamsEntry.key"));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        entry->mutable_value()->data(),
+                        entry->mutable_value()->length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessRequestContext.ParamsEntry.value"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(58)) goto parse_loop_Params;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessRequestContext)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequestContext)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessRequestContext)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessRequestContext)
+    return false;
 #undef DO_
 }
 
 void WitnessRequestContext::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequestContext)
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sessionid().data(), this->sessionid().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.SessionId");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->sessionid(), output);
-  }
-
-  // optional string UserName = 2;
-  if (this->username().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->username().data(), this->username().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.UserName");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->username(), output);
-  }
-
-  // optional string Token = 3;
-  if (this->token().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->token().data(), this->token().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.Token");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->token(), output);
-  }
-
-  // repeated .dg.model.RecognizeFunctions Functions = 4;
-  if (this->functions_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(
-      4,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      output);
-    output->WriteVarint32(_functions_cached_byte_size_);
-  }
-  for (int i = 0; i < this->functions_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnumNoTag(
-      this->functions(i), output);
-  }
-
-  // optional .dg.model.RecognizeType Type = 5;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      5, this->type(), output);
-  }
-
-  // optional .dg.model.StorageConfig Storage = 6;
-  if (this->has_storage()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, *this->storage_, output);
-  }
-
-  // map<string, string> Params = 7;
-  {
-    ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->params().begin();
-        it != this->params().end(); ++it) {
-      entry.reset(params_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          7, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessRequestContext.ParamsEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessRequestContext.ParamsEntry.value");
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessRequestContext)
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.SessionId");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            1, this->sessionid(), output);
     }
-  }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequestContext)
+    // optional string UserName = 2;
+    if (this->username().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->username().data(), this->username().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.UserName");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            2, this->username(), output);
+    }
+
+    // optional string Token = 3;
+    if (this->token().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->token().data(), this->token().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.Token");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            3, this->token(), output);
+    }
+
+    // repeated .dg.model.RecognizeFunctions Functions = 4;
+    if (this->functions_size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteTag(
+            4,
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+            output);
+        output->WriteVarint32(_functions_cached_byte_size_);
+    }
+    for (int i = 0; i < this->functions_size(); i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnumNoTag(
+            this->functions(i), output);
+    }
+
+    // optional .dg.model.RecognizeType Type = 5;
+    if (this->type() != 0) {
+        ::google::protobuf::internal::WireFormatLite::WriteEnum(
+            5, this->type(), output);
+    }
+
+    // optional .dg.model.StorageConfig Storage = 6;
+    if (this->has_storage()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            6, *this->storage_, output);
+    }
+
+    // map<string, string> Params = 7;
+    {
+        ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::std::string>::const_iterator
+                 it = this->params().begin();
+             it != this->params().end(); ++it) {
+            entry.reset(params_.NewEntryWrapper(it->first, it->second));
+            ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+                7, *entry, output);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->first.data(), it->first.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessRequestContext.ParamsEntry.key");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->second.data(), it->second.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessRequestContext.ParamsEntry.value");
+        }
+    }
+
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessRequestContext)
 }
 
-::google::protobuf::uint8* WitnessRequestContext::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequestContext)
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sessionid().data(), this->sessionid().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.SessionId");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->sessionid(), target);
-  }
-
-  // optional string UserName = 2;
-  if (this->username().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->username().data(), this->username().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.UserName");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->username(), target);
-  }
-
-  // optional string Token = 3;
-  if (this->token().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->token().data(), this->token().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessRequestContext.Token");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->token(), target);
-  }
-
-  // repeated .dg.model.RecognizeFunctions Functions = 4;
-  if (this->functions_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      4,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(    _functions_cached_byte_size_, target);
-  }
-  for (int i = 0; i < this->functions_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumNoTagToArray(
-      this->functions(i), target);
-  }
-
-  // optional .dg.model.RecognizeType Type = 5;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      5, this->type(), target);
-  }
-
-  // optional .dg.model.StorageConfig Storage = 6;
-  if (this->has_storage()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, *this->storage_, target);
-  }
-
-  // map<string, string> Params = 7;
-  {
-    ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->params().begin();
-        it != this->params().end(); ++it) {
-      entry.reset(params_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          WriteMessageNoVirtualToArray(
-              7, *entry, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessRequestContext.ParamsEntry.key");
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessRequestContext.ParamsEntry.value");
+::google::protobuf::uint8 *WitnessRequestContext::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessRequestContext)
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.SessionId");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                1, this->sessionid(), target);
     }
-  }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequestContext)
-  return target;
+    // optional string UserName = 2;
+    if (this->username().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->username().data(), this->username().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.UserName");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                2, this->username(), target);
+    }
+
+    // optional string Token = 3;
+    if (this->token().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->token().data(), this->token().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessRequestContext.Token");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                3, this->token(), target);
+    }
+
+    // repeated .dg.model.RecognizeFunctions Functions = 4;
+    if (this->functions_size() > 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+            4,
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+            target);
+        target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(_functions_cached_byte_size_, target);
+    }
+    for (int i = 0; i < this->functions_size(); i++) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumNoTagToArray(
+            this->functions(i), target);
+    }
+
+    // optional .dg.model.RecognizeType Type = 5;
+    if (this->type() != 0) {
+        target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+            5, this->type(), target);
+    }
+
+    // optional .dg.model.StorageConfig Storage = 6;
+    if (this->has_storage()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            6, *this->storage_, target);
+    }
+
+    // map<string, string> Params = 7;
+    {
+        ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::std::string>::const_iterator
+                 it = this->params().begin();
+             it != this->params().end(); ++it) {
+            entry.reset(params_.NewEntryWrapper(it->first, it->second));
+            target = ::google::protobuf::internal::WireFormatLite::
+            WriteMessageNoVirtualToArray(
+                7, *entry, target);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->first.data(), it->first.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessRequestContext.ParamsEntry.key");
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->second.data(), it->second.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessRequestContext.ParamsEntry.value");
+        }
+    }
+
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessRequestContext)
+    return target;
 }
 
 int WitnessRequestContext::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sessionid());
-  }
-
-  // optional string UserName = 2;
-  if (this->username().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->username());
-  }
-
-  // optional string Token = 3;
-  if (this->token().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->token());
-  }
-
-  // optional .dg.model.RecognizeType Type = 5;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
-  }
-
-  // optional .dg.model.StorageConfig Storage = 6;
-  if (this->has_storage()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->storage_);
-  }
-
-  // repeated .dg.model.RecognizeFunctions Functions = 4;
-  {
-    int data_size = 0;
-    for (int i = 0; i < this->functions_size(); i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::EnumSize(
-        this->functions(i));
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->sessionid());
     }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+
+    // optional string UserName = 2;
+    if (this->username().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->username());
     }
+
+    // optional string Token = 3;
+    if (this->token().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->token());
+    }
+
+    // optional .dg.model.RecognizeType Type = 5;
+    if (this->type() != 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+    }
+
+    // optional .dg.model.StorageConfig Storage = 6;
+    if (this->has_storage()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->storage_);
+    }
+
+    // repeated .dg.model.RecognizeFunctions Functions = 4;
+    {
+        int data_size = 0;
+        for (int i = 0; i < this->functions_size(); i++) {
+            data_size += ::google::protobuf::internal::WireFormatLite::EnumSize(
+                this->functions(i));
+        }
+        if (data_size > 0) {
+            total_size += 1 +
+                ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+        }
+        GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+        _functions_cached_byte_size_ = data_size;
+        GOOGLE_SAFE_CONCURRENT_WRITES_END();
+        total_size += data_size;
+    }
+
+    // map<string, string> Params = 7;
+    total_size += 1 * this->params_size();
+    {
+        ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::std::string>::const_iterator
+                 it = this->params().begin();
+             it != this->params().end(); ++it) {
+            entry.reset(params_.NewEntryWrapper(it->first, it->second));
+            total_size += ::google::protobuf::internal::WireFormatLite::
+            MessageSizeNoVirtual(*entry);
+        }
+    }
+
     GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _functions_cached_byte_size_ = data_size;
+    _cached_size_ = total_size;
     GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
-  }
+    return total_size;
+}
 
-  // map<string, string> Params = 7;
-  total_size += 1 * this->params_size();
-  {
-    ::google::protobuf::scoped_ptr<WitnessRequestContext_ParamsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
-        it = this->params().begin();
-        it != this->params().end(); ++it) {
-      entry.reset(params_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
+void WitnessRequestContext::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessRequestContext *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRequestContext>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
     }
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
 }
 
-void WitnessRequestContext::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessRequestContext* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessRequestContext>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessRequestContext::MergeFrom(const WitnessRequestContext &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    functions_.MergeFrom(from.functions_);
+    params_.MergeFrom(from.params_);
+    if (from.sessionid().size() > 0) {
+
+        sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
+    }
+    if (from.username().size() > 0) {
+
+        username_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.username_);
+    }
+    if (from.token().size() > 0) {
+
+        token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
+    }
+    if (from.type() != 0) {
+        set_type(from.type());
+    }
+    if (from.has_storage()) {
+        mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
+    }
 }
 
-void WitnessRequestContext::MergeFrom(const WitnessRequestContext& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  functions_.MergeFrom(from.functions_);
-  params_.MergeFrom(from.params_);
-  if (from.sessionid().size() > 0) {
-
-    sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
-  }
-  if (from.username().size() > 0) {
-
-    username_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.username_);
-  }
-  if (from.token().size() > 0) {
-
-    token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
-  }
-  if (from.type() != 0) {
-    set_type(from.type());
-  }
-  if (from.has_storage()) {
-    mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
-  }
+void WitnessRequestContext::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessRequestContext::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void WitnessRequestContext::CopyFrom(const WitnessRequestContext& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessRequestContext::CopyFrom(const WitnessRequestContext &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessRequestContext::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessRequestContext::Swap(WitnessRequestContext* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessRequestContext::Swap(WitnessRequestContext *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessRequestContext::InternalSwap(WitnessRequestContext* other) {
-  sessionid_.Swap(&other->sessionid_);
-  username_.Swap(&other->username_);
-  token_.Swap(&other->token_);
-  functions_.UnsafeArenaSwap(&other->functions_);
-  std::swap(type_, other->type_);
-  std::swap(storage_, other->storage_);
-  params_.Swap(&other->params_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessRequestContext::InternalSwap(WitnessRequestContext *other) {
+    sessionid_.Swap(&other->sessionid_);
+    username_.Swap(&other->username_);
+    token_.Swap(&other->token_);
+    functions_.UnsafeArenaSwap(&other->functions_);
+    std::swap(type_, other->type_);
+    std::swap(storage_, other->storage_);
+    params_.Swap(&other->params_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessRequestContext::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessRequestContext_descriptor_;
-  metadata.reflection = WitnessRequestContext_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessRequestContext_descriptor_;
+    metadata.reflection = WitnessRequestContext_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessRequestContext
+                                                                                                                        // WitnessRequestContext
 
 // optional string SessionId = 1;
 void WitnessRequestContext::clear_sessionid() {
@@ -4285,35 +4289,35 @@ void WitnessRequestContext::clear_sessionid() {
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_sessionid(const ::std::string& value) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.SessionId)
 }
  void WitnessRequestContext::set_sessionid(const char* value) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.SessionId)
 }
  void WitnessRequestContext::set_sessionid(const char* value, size_t size) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.SessionId)
 }
  ::std::string* WitnessRequestContext::mutable_sessionid() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessRequestContext::release_sessionid() {
-  
+
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_allocated_sessionid(::std::string* sessionid) {
   if (sessionid != NULL) {
-    
+
   } else {
-    
+
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.SessionId)
@@ -4328,35 +4332,35 @@ void WitnessRequestContext::clear_username() {
   return username_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_username(const ::std::string& value) {
-  
+
   username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.UserName)
 }
  void WitnessRequestContext::set_username(const char* value) {
-  
+
   username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.UserName)
 }
  void WitnessRequestContext::set_username(const char* value, size_t size) {
-  
+
   username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.UserName)
 }
  ::std::string* WitnessRequestContext::mutable_username() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.UserName)
   return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessRequestContext::release_username() {
-  
+
   return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_allocated_username(::std::string* username) {
   if (username != NULL) {
-    
+
   } else {
-    
+
   }
   username_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), username);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.UserName)
@@ -4371,35 +4375,35 @@ void WitnessRequestContext::clear_token() {
   return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_token(const ::std::string& value) {
-  
+
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Token)
 }
  void WitnessRequestContext::set_token(const char* value) {
-  
+
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessRequestContext.Token)
 }
  void WitnessRequestContext::set_token(const char* value, size_t size) {
-  
+
   token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessRequestContext.Token)
 }
  ::std::string* WitnessRequestContext::mutable_token() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessRequestContext.Token)
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessRequestContext::release_token() {
-  
+
   return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessRequestContext::set_allocated_token(::std::string* token) {
   if (token != NULL) {
-    
+
   } else {
-    
+
   }
   token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.Token)
@@ -4444,7 +4448,7 @@ void WitnessRequestContext::clear_type() {
   return static_cast< ::dg::model::RecognizeType >(type_);
 }
  void WitnessRequestContext::set_type(::dg::model::RecognizeType value) {
-  
+
   type_ = value;
   // @@protoc_insertion_point(field_set:dg.model.WitnessRequestContext.Type)
 }
@@ -4462,7 +4466,7 @@ const ::dg::model::StorageConfig& WitnessRequestContext::storage() const {
   return storage_ != NULL ? *storage_ : *default_instance_->storage_;
 }
 ::dg::model::StorageConfig* WitnessRequestContext::mutable_storage() {
-  
+
   if (storage_ == NULL) {
     storage_ = new ::dg::model::StorageConfig;
   }
@@ -4470,7 +4474,7 @@ const ::dg::model::StorageConfig& WitnessRequestContext::storage() const {
   return storage_;
 }
 ::dg::model::StorageConfig* WitnessRequestContext::release_storage() {
-  
+
   ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
   return temp;
@@ -4479,9 +4483,9 @@ void WitnessRequestContext::set_allocated_storage(::dg::model::StorageConfig* st
   delete storage_;
   storage_ = storage;
   if (storage) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessRequestContext.Storage)
 }
@@ -4516,335 +4520,335 @@ const int WitnessImage::kMarginRoiFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessImage::WitnessImage()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessImage)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessImage)
 }
 
 void WitnessImage::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  data_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
-  witnessmetadata_ = const_cast< ::dg::model::SrcMetadata*>(&::dg::model::SrcMetadata::default_instance());
+    _is_default_instance_ = true;
+    data_ = const_cast< ::dg::model::Image *>(&::dg::model::Image::default_instance());
+    witnessmetadata_ = const_cast< ::dg::model::SrcMetadata *>(&::dg::model::SrcMetadata::default_instance());
 }
 
-WitnessImage::WitnessImage(const WitnessImage& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessImage)
+WitnessImage::WitnessImage(const WitnessImage &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessImage)
 }
 
 void WitnessImage::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  data_ = NULL;
-  witnessmetadata_ = NULL;
+    _cached_size_ = 0;
+    data_ = NULL;
+    witnessmetadata_ = NULL;
 }
 
 WitnessImage::~WitnessImage() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessImage)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessImage)
+    SharedDtor();
 }
 
 void WitnessImage::SharedDtor() {
-  if (this != default_instance_) {
-    delete data_;
-    delete witnessmetadata_;
-  }
+    if (this != default_instance_) {
+        delete data_;
+        delete witnessmetadata_;
+    }
 }
 
 void WitnessImage::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessImage::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessImage_descriptor_;
-}
-
-const WitnessImage& WitnessImage::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessImage::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessImage_descriptor_;
 }
 
-WitnessImage* WitnessImage::default_instance_ = NULL;
+const WitnessImage &WitnessImage::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessImage* WitnessImage::New(::google::protobuf::Arena* arena) const {
-  WitnessImage* n = new WitnessImage;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessImage *WitnessImage::default_instance_ = NULL;
+
+WitnessImage *WitnessImage::New(::google::protobuf::Arena *arena) const {
+    WitnessImage *n = new WitnessImage;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessImage::Clear() {
-  if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
-  data_ = NULL;
-  if (GetArenaNoVirtual() == NULL && witnessmetadata_ != NULL) delete witnessmetadata_;
-  witnessmetadata_ = NULL;
-  relativeroi_.Clear();
-  marginroi_.Clear();
+    if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
+    data_ = NULL;
+    if (GetArenaNoVirtual() == NULL && witnessmetadata_ != NULL) delete witnessmetadata_;
+    witnessmetadata_ = NULL;
+    relativeroi_.Clear();
+    marginroi_.Clear();
 }
 
 bool WitnessImage::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessImage)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.Image Data = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_data()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_WitnessMetaData;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessImage)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.Image Data = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_data()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_WitnessMetaData;
+                break;
+            }
 
-      // optional .dg.model.SrcMetadata WitnessMetaData = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_WitnessMetaData:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_witnessmetadata()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_RelativeRoi;
-        break;
-      }
+                // optional .dg.model.SrcMetadata WitnessMetaData = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_WitnessMetaData:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_witnessmetadata()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_RelativeRoi;
+                break;
+            }
 
-      // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_RelativeRoi:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_RelativeRoi:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_relativeroi()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_loop_RelativeRoi;
-        if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
+                // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_RelativeRoi:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_RelativeRoi:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_relativeroi()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_loop_RelativeRoi;
+                if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
+                input->UnsafeDecrementRecursionDepth();
+                break;
+            }
 
-      // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
-      case 4: {
-        if (tag == 34) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_MarginRoi:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_marginroi()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
+            case 4: {
+                if (tag == 34) {
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_MarginRoi:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_marginroi()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_loop_MarginRoi;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessImage)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessImage)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessImage)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessImage)
+    return false;
 #undef DO_
 }
 
 void WitnessImage::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessImage)
-  // optional .dg.model.Image Data = 1;
-  if (this->has_data()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->data_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessImage)
+    // optional .dg.model.Image Data = 1;
+    if (this->has_data()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->data_, output);
+    }
 
-  // optional .dg.model.SrcMetadata WitnessMetaData = 2;
-  if (this->has_witnessmetadata()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->witnessmetadata_, output);
-  }
+    // optional .dg.model.SrcMetadata WitnessMetaData = 2;
+    if (this->has_witnessmetadata()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *this->witnessmetadata_, output);
+    }
 
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
-  for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->relativeroi(i), output);
-  }
+    // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
+    for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, this->relativeroi(i), output);
+    }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
-  for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->marginroi(i), output);
-  }
+    // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
+    for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, this->marginroi(i), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessImage)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessImage)
 }
 
-::google::protobuf::uint8* WitnessImage::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessImage)
-  // optional .dg.model.Image Data = 1;
-  if (this->has_data()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->data_, target);
-  }
+::google::protobuf::uint8 *WitnessImage::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessImage)
+    // optional .dg.model.Image Data = 1;
+    if (this->has_data()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->data_, target);
+    }
 
-  // optional .dg.model.SrcMetadata WitnessMetaData = 2;
-  if (this->has_witnessmetadata()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->witnessmetadata_, target);
-  }
+    // optional .dg.model.SrcMetadata WitnessMetaData = 2;
+    if (this->has_witnessmetadata()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, *this->witnessmetadata_, target);
+    }
 
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
-  for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->relativeroi(i), target);
-  }
+    // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
+    for (unsigned int i = 0, n = this->relativeroi_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            3, this->relativeroi(i), target);
+    }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
-  for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->marginroi(i), target);
-  }
+    // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
+    for (unsigned int i = 0, n = this->marginroi_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            4, this->marginroi(i), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessImage)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessImage)
+    return target;
 }
 
 int WitnessImage::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.Image Data = 1;
-  if (this->has_data()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->data_);
-  }
+    // optional .dg.model.Image Data = 1;
+    if (this->has_data()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->data_);
+    }
 
-  // optional .dg.model.SrcMetadata WitnessMetaData = 2;
-  if (this->has_witnessmetadata()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->witnessmetadata_);
-  }
+    // optional .dg.model.SrcMetadata WitnessMetaData = 2;
+    if (this->has_witnessmetadata()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->witnessmetadata_);
+    }
 
-  // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
-  total_size += 1 * this->relativeroi_size();
-  for (int i = 0; i < this->relativeroi_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->relativeroi(i));
-  }
+    // repeated .dg.model.WitnessRelativeROI RelativeRoi = 3;
+    total_size += 1 * this->relativeroi_size();
+    for (int i = 0; i < this->relativeroi_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->relativeroi(i));
+    }
 
-  // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
-  total_size += 1 * this->marginroi_size();
-  for (int i = 0; i < this->marginroi_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->marginroi(i));
-  }
+    // repeated .dg.model.WitnessMarginROI MarginRoi = 4;
+    total_size += 1 * this->marginroi_size();
+    for (int i = 0; i < this->marginroi_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->marginroi(i));
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessImage::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessImage* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessImage>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessImage::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessImage *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessImage>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessImage::MergeFrom(const WitnessImage& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  relativeroi_.MergeFrom(from.relativeroi_);
-  marginroi_.MergeFrom(from.marginroi_);
-  if (from.has_data()) {
-    mutable_data()->::dg::model::Image::MergeFrom(from.data());
-  }
-  if (from.has_witnessmetadata()) {
-    mutable_witnessmetadata()->::dg::model::SrcMetadata::MergeFrom(from.witnessmetadata());
-  }
+void WitnessImage::MergeFrom(const WitnessImage &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    relativeroi_.MergeFrom(from.relativeroi_);
+    marginroi_.MergeFrom(from.marginroi_);
+    if (from.has_data()) {
+        mutable_data()->::dg::model::Image::MergeFrom(from.data());
+    }
+    if (from.has_witnessmetadata()) {
+        mutable_witnessmetadata()->::dg::model::SrcMetadata::MergeFrom(from.witnessmetadata());
+    }
 }
 
-void WitnessImage::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessImage::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessImage::CopyFrom(const WitnessImage& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessImage::CopyFrom(const WitnessImage &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessImage::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessImage::Swap(WitnessImage* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessImage::Swap(WitnessImage *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessImage::InternalSwap(WitnessImage* other) {
-  std::swap(data_, other->data_);
-  std::swap(witnessmetadata_, other->witnessmetadata_);
-  relativeroi_.UnsafeArenaSwap(&other->relativeroi_);
-  marginroi_.UnsafeArenaSwap(&other->marginroi_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessImage::InternalSwap(WitnessImage *other) {
+    std::swap(data_, other->data_);
+    std::swap(witnessmetadata_, other->witnessmetadata_);
+    relativeroi_.UnsafeArenaSwap(&other->relativeroi_);
+    marginroi_.UnsafeArenaSwap(&other->marginroi_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessImage::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessImage_descriptor_;
-  metadata.reflection = WitnessImage_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessImage_descriptor_;
+    metadata.reflection = WitnessImage_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessImage
+                                                                                                                        // WitnessImage
 
 // optional .dg.model.Image Data = 1;
 bool WitnessImage::has_data() const {
@@ -4859,7 +4863,7 @@ const ::dg::model::Image& WitnessImage::data() const {
   return data_ != NULL ? *data_ : *default_instance_->data_;
 }
 ::dg::model::Image* WitnessImage::mutable_data() {
-  
+
   if (data_ == NULL) {
     data_ = new ::dg::model::Image;
   }
@@ -4867,7 +4871,7 @@ const ::dg::model::Image& WitnessImage::data() const {
   return data_;
 }
 ::dg::model::Image* WitnessImage::release_data() {
-  
+
   ::dg::model::Image* temp = data_;
   data_ = NULL;
   return temp;
@@ -4876,9 +4880,9 @@ void WitnessImage::set_allocated_data(::dg::model::Image* data) {
   delete data_;
   data_ = data;
   if (data) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.Data)
 }
@@ -4896,7 +4900,7 @@ const ::dg::model::SrcMetadata& WitnessImage::witnessmetadata() const {
   return witnessmetadata_ != NULL ? *witnessmetadata_ : *default_instance_->witnessmetadata_;
 }
 ::dg::model::SrcMetadata* WitnessImage::mutable_witnessmetadata() {
-  
+
   if (witnessmetadata_ == NULL) {
     witnessmetadata_ = new ::dg::model::SrcMetadata;
   }
@@ -4904,7 +4908,7 @@ const ::dg::model::SrcMetadata& WitnessImage::witnessmetadata() const {
   return witnessmetadata_;
 }
 ::dg::model::SrcMetadata* WitnessImage::release_witnessmetadata() {
-  
+
   ::dg::model::SrcMetadata* temp = witnessmetadata_;
   witnessmetadata_ = NULL;
   return temp;
@@ -4913,9 +4917,9 @@ void WitnessImage::set_allocated_witnessmetadata(::dg::model::SrcMetadata* witne
   delete witnessmetadata_;
   witnessmetadata_ = witnessmetadata;
   if (witnessmetadata) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessImage.WitnessMetaData)
 }
@@ -4994,490 +4998,490 @@ const int WitnessResponseContext::kDebugTsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessResponseContext::WitnessResponseContext()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessResponseContext)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessResponseContext)
 }
 
 void WitnessResponseContext::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  requestts_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
-  responsets_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
+    _is_default_instance_ = true;
+    requestts_ = const_cast< ::dg::model::Time *>(&::dg::model::Time::default_instance());
+    responsets_ = const_cast< ::dg::model::Time *>(&::dg::model::Time::default_instance());
 }
 
-WitnessResponseContext::WitnessResponseContext(const WitnessResponseContext& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponseContext)
+WitnessResponseContext::WitnessResponseContext(const WitnessResponseContext &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResponseContext)
 }
 
 void WitnessResponseContext::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  requestts_ = NULL;
-  responsets_ = NULL;
-  debugts_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
-  debugts_.SetEntryDescriptor(
-      &::dg::model::WitnessResponseContext_DebugTsEntry_descriptor_);
+    ::google::protobuf::internal::GetEmptyString();
+    _cached_size_ = 0;
+    sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    requestts_ = NULL;
+    responsets_ = NULL;
+    debugts_.SetAssignDescriptorCallback(
+        protobuf_AssignDescriptorsOnce);
+    debugts_.SetEntryDescriptor(
+        &::dg::model::WitnessResponseContext_DebugTsEntry_descriptor_);
 }
 
 WitnessResponseContext::~WitnessResponseContext() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessResponseContext)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessResponseContext)
+    SharedDtor();
 }
 
 void WitnessResponseContext::SharedDtor() {
-  sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-    delete requestts_;
-    delete responsets_;
-  }
+    sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (this != default_instance_) {
+        delete requestts_;
+        delete responsets_;
+    }
 }
 
 void WitnessResponseContext::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessResponseContext::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessResponseContext_descriptor_;
-}
-
-const WitnessResponseContext& WitnessResponseContext::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessResponseContext::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessResponseContext_descriptor_;
 }
 
-WitnessResponseContext* WitnessResponseContext::default_instance_ = NULL;
+const WitnessResponseContext &WitnessResponseContext::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessResponseContext* WitnessResponseContext::New(::google::protobuf::Arena* arena) const {
-  WitnessResponseContext* n = new WitnessResponseContext;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessResponseContext *WitnessResponseContext::default_instance_ = NULL;
+
+WitnessResponseContext *WitnessResponseContext::New(::google::protobuf::Arena *arena) const {
+    WitnessResponseContext *n = new WitnessResponseContext;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessResponseContext::Clear() {
-  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
-  requestts_ = NULL;
-  if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
-  responsets_ = NULL;
-  debugts_.Clear();
+    sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
+    requestts_ = NULL;
+    if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
+    responsets_ = NULL;
+    debugts_.Clear();
 }
 
 bool WitnessResponseContext::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessResponseContext)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string SessionId = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sessionid()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sessionid().data(), this->sessionid().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResponseContext.SessionId"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Status;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessResponseContext)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional string SessionId = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_sessionid()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->sessionid().data(), this->sessionid().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResponseContext.SessionId"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Status;
+                break;
+            }
 
-      // optional string Status = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Status:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_status()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->status().data(), this->status().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResponseContext.Status"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Message;
-        break;
-      }
+                // optional string Status = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Status:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_status()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->status().data(), this->status().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResponseContext.Status"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_Message;
+                break;
+            }
 
-      // optional string Message = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Message:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_message()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->message().data(), this->message().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResponseContext.Message"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_RequestTs;
-        break;
-      }
+                // optional string Message = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_Message:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_message()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->message().data(), this->message().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResponseContext.Message"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_RequestTs;
+                break;
+            }
 
-      // optional .dg.model.Time RequestTs = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_RequestTs:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_requestts()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_ResponseTs;
-        break;
-      }
+                // optional .dg.model.Time RequestTs = 4;
+            case 4: {
+                if (tag == 34) {
+                    parse_RequestTs:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_requestts()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(42)) goto parse_ResponseTs;
+                break;
+            }
 
-      // optional .dg.model.Time ResponseTs = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_ResponseTs:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_responsets()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_DebugTs;
-        break;
-      }
+                // optional .dg.model.Time ResponseTs = 5;
+            case 5: {
+                if (tag == 42) {
+                    parse_ResponseTs:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_responsets()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(50)) goto parse_DebugTs;
+                break;
+            }
 
-      // map<string, .dg.model.Time> DebugTs = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_DebugTs:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_DebugTs:
-          ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry(debugts_.NewEntry());
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, entry.get()));
-          (*mutable_debugts())[entry->key()].Swap(entry->mutable_value());
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->key().data(), entry->key().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResponseContext.DebugTsEntry.key"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_loop_DebugTs;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // map<string, .dg.model.Time> DebugTs = 6;
+            case 6: {
+                if (tag == 50) {
+                    parse_DebugTs:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_DebugTs:
+                    ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry(debugts_.NewEntry());
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, entry.get()));
+                    (*mutable_debugts())[entry->key()].Swap(entry->mutable_value());
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        entry->key().data(), entry->key().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResponseContext.DebugTsEntry.key"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(50)) goto parse_loop_DebugTs;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessResponseContext)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponseContext)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessResponseContext)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessResponseContext)
+    return false;
 #undef DO_
 }
 
 void WitnessResponseContext::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponseContext)
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sessionid().data(), this->sessionid().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.SessionId");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->sessionid(), output);
-  }
-
-  // optional string Status = 2;
-  if (this->status().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->status().data(), this->status().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.Status");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->status(), output);
-  }
-
-  // optional string Message = 3;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.Message");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->message(), output);
-  }
-
-  // optional .dg.model.Time RequestTs = 4;
-  if (this->has_requestts()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, *this->requestts_, output);
-  }
-
-  // optional .dg.model.Time ResponseTs = 5;
-  if (this->has_responsets()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, *this->responsets_, output);
-  }
-
-  // map<string, .dg.model.Time> DebugTs = 6;
-  {
-    ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
-        it = this->debugts().begin();
-        it != this->debugts().end(); ++it) {
-      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          6, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessResponseContext.DebugTsEntry.key");
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessResponseContext)
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.SessionId");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            1, this->sessionid(), output);
     }
-  }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponseContext)
+    // optional string Status = 2;
+    if (this->status().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->status().data(), this->status().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.Status");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            2, this->status(), output);
+    }
+
+    // optional string Message = 3;
+    if (this->message().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.Message");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            3, this->message(), output);
+    }
+
+    // optional .dg.model.Time RequestTs = 4;
+    if (this->has_requestts()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, *this->requestts_, output);
+    }
+
+    // optional .dg.model.Time ResponseTs = 5;
+    if (this->has_responsets()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, *this->responsets_, output);
+    }
+
+    // map<string, .dg.model.Time> DebugTs = 6;
+    {
+        ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::dg::model::Time>::const_iterator
+                 it = this->debugts().begin();
+             it != this->debugts().end(); ++it) {
+            entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+            ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+                6, *entry, output);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->first.data(), it->first.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessResponseContext.DebugTsEntry.key");
+        }
+    }
+
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessResponseContext)
 }
 
-::google::protobuf::uint8* WitnessResponseContext::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponseContext)
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->sessionid().data(), this->sessionid().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.SessionId");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->sessionid(), target);
-  }
-
-  // optional string Status = 2;
-  if (this->status().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->status().data(), this->status().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.Status");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->status(), target);
-  }
-
-  // optional string Message = 3;
-  if (this->message().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->message().data(), this->message().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResponseContext.Message");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->message(), target);
-  }
-
-  // optional .dg.model.Time RequestTs = 4;
-  if (this->has_requestts()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, *this->requestts_, target);
-  }
-
-  // optional .dg.model.Time ResponseTs = 5;
-  if (this->has_responsets()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, *this->responsets_, target);
-  }
-
-  // map<string, .dg.model.Time> DebugTs = 6;
-  {
-    ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
-        it = this->debugts().begin();
-        it != this->debugts().end(); ++it) {
-      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          WriteMessageNoVirtualToArray(
-              6, *entry, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->first.data(), it->first.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.WitnessResponseContext.DebugTsEntry.key");
+::google::protobuf::uint8 *WitnessResponseContext::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResponseContext)
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.SessionId");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                1, this->sessionid(), target);
     }
-  }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponseContext)
-  return target;
+    // optional string Status = 2;
+    if (this->status().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->status().data(), this->status().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.Status");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                2, this->status(), target);
+    }
+
+    // optional string Message = 3;
+    if (this->message().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResponseContext.Message");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                3, this->message(), target);
+    }
+
+    // optional .dg.model.Time RequestTs = 4;
+    if (this->has_requestts()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            4, *this->requestts_, target);
+    }
+
+    // optional .dg.model.Time ResponseTs = 5;
+    if (this->has_responsets()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            5, *this->responsets_, target);
+    }
+
+    // map<string, .dg.model.Time> DebugTs = 6;
+    {
+        ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::dg::model::Time>::const_iterator
+                 it = this->debugts().begin();
+             it != this->debugts().end(); ++it) {
+            entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+            target = ::google::protobuf::internal::WireFormatLite::
+            WriteMessageNoVirtualToArray(
+                6, *entry, target);
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                it->first.data(), it->first.length(),
+                ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+                "dg.model.WitnessResponseContext.DebugTsEntry.key");
+        }
+    }
+
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResponseContext)
+    return target;
 }
 
 int WitnessResponseContext::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional string SessionId = 1;
-  if (this->sessionid().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sessionid());
-  }
-
-  // optional string Status = 2;
-  if (this->status().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->status());
-  }
-
-  // optional string Message = 3;
-  if (this->message().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->message());
-  }
-
-  // optional .dg.model.Time RequestTs = 4;
-  if (this->has_requestts()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->requestts_);
-  }
-
-  // optional .dg.model.Time ResponseTs = 5;
-  if (this->has_responsets()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->responsets_);
-  }
-
-  // map<string, .dg.model.Time> DebugTs = 6;
-  total_size += 1 * this->debugts_size();
-  {
-    ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
-    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
-        it = this->debugts().begin();
-        it != this->debugts().end(); ++it) {
-      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
+    // optional string SessionId = 1;
+    if (this->sessionid().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->sessionid());
     }
-  }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    // optional string Status = 2;
+    if (this->status().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->status());
+    }
+
+    // optional string Message = 3;
+    if (this->message().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->message());
+    }
+
+    // optional .dg.model.Time RequestTs = 4;
+    if (this->has_requestts()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->requestts_);
+    }
+
+    // optional .dg.model.Time ResponseTs = 5;
+    if (this->has_responsets()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->responsets_);
+    }
+
+    // map<string, .dg.model.Time> DebugTs = 6;
+    total_size += 1 * this->debugts_size();
+    {
+        ::google::protobuf::scoped_ptr<WitnessResponseContext_DebugTsEntry> entry;
+        for (::google::protobuf::Map<::std::string, ::dg::model::Time>::const_iterator
+                 it = this->debugts().begin();
+             it != this->debugts().end(); ++it) {
+            entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+            total_size += ::google::protobuf::internal::WireFormatLite::
+            MessageSizeNoVirtual(*entry);
+        }
+    }
+
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessResponseContext::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessResponseContext* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResponseContext>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessResponseContext::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessResponseContext *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResponseContext>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessResponseContext::MergeFrom(const WitnessResponseContext& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  debugts_.MergeFrom(from.debugts_);
-  if (from.sessionid().size() > 0) {
+void WitnessResponseContext::MergeFrom(const WitnessResponseContext &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    debugts_.MergeFrom(from.debugts_);
+    if (from.sessionid().size() > 0) {
 
-    sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
-  }
-  if (from.status().size() > 0) {
+        sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
+    }
+    if (from.status().size() > 0) {
 
-    status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.status_);
-  }
-  if (from.message().size() > 0) {
+        status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.status_);
+    }
+    if (from.message().size() > 0) {
 
-    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
-  }
-  if (from.has_requestts()) {
-    mutable_requestts()->::dg::model::Time::MergeFrom(from.requestts());
-  }
-  if (from.has_responsets()) {
-    mutable_responsets()->::dg::model::Time::MergeFrom(from.responsets());
-  }
+        message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+    }
+    if (from.has_requestts()) {
+        mutable_requestts()->::dg::model::Time::MergeFrom(from.requestts());
+    }
+    if (from.has_responsets()) {
+        mutable_responsets()->::dg::model::Time::MergeFrom(from.responsets());
+    }
 }
 
-void WitnessResponseContext::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResponseContext::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessResponseContext::CopyFrom(const WitnessResponseContext& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResponseContext::CopyFrom(const WitnessResponseContext &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessResponseContext::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessResponseContext::Swap(WitnessResponseContext* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessResponseContext::Swap(WitnessResponseContext *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessResponseContext::InternalSwap(WitnessResponseContext* other) {
-  sessionid_.Swap(&other->sessionid_);
-  status_.Swap(&other->status_);
-  message_.Swap(&other->message_);
-  std::swap(requestts_, other->requestts_);
-  std::swap(responsets_, other->responsets_);
-  debugts_.Swap(&other->debugts_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessResponseContext::InternalSwap(WitnessResponseContext *other) {
+    sessionid_.Swap(&other->sessionid_);
+    status_.Swap(&other->status_);
+    message_.Swap(&other->message_);
+    std::swap(requestts_, other->requestts_);
+    std::swap(responsets_, other->responsets_);
+    debugts_.Swap(&other->debugts_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessResponseContext::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessResponseContext_descriptor_;
-  metadata.reflection = WitnessResponseContext_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessResponseContext_descriptor_;
+    metadata.reflection = WitnessResponseContext_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessResponseContext
+                                                                                                                        // WitnessResponseContext
 
 // optional string SessionId = 1;
 void WitnessResponseContext::clear_sessionid() {
@@ -5488,35 +5492,35 @@ void WitnessResponseContext::clear_sessionid() {
   return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_sessionid(const ::std::string& value) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.SessionId)
 }
  void WitnessResponseContext::set_sessionid(const char* value) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.SessionId)
 }
  void WitnessResponseContext::set_sessionid(const char* value, size_t size) {
-  
+
   sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.SessionId)
 }
  ::std::string* WitnessResponseContext::mutable_sessionid() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.SessionId)
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_sessionid() {
-  
+
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_allocated_sessionid(::std::string* sessionid) {
   if (sessionid != NULL) {
-    
+
   } else {
-    
+
   }
   sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.SessionId)
@@ -5531,35 +5535,35 @@ void WitnessResponseContext::clear_status() {
   return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_status(const ::std::string& value) {
-  
+
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Status)
 }
  void WitnessResponseContext::set_status(const char* value) {
-  
+
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Status)
 }
  void WitnessResponseContext::set_status(const char* value, size_t size) {
-  
+
   status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Status)
 }
  ::std::string* WitnessResponseContext::mutable_status() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Status)
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_status() {
-  
+
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_allocated_status(::std::string* status) {
   if (status != NULL) {
-    
+
   } else {
-    
+
   }
   status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Status)
@@ -5574,35 +5578,35 @@ void WitnessResponseContext::clear_message() {
   return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_message(const ::std::string& value) {
-  
+
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessResponseContext.Message)
 }
  void WitnessResponseContext::set_message(const char* value) {
-  
+
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessResponseContext.Message)
 }
  void WitnessResponseContext::set_message(const char* value, size_t size) {
-  
+
   message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResponseContext.Message)
 }
  ::std::string* WitnessResponseContext::mutable_message() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessResponseContext.Message)
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResponseContext::release_message() {
-  
+
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResponseContext::set_allocated_message(::std::string* message) {
   if (message != NULL) {
-    
+
   } else {
-    
+
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.Message)
@@ -5621,7 +5625,7 @@ const ::dg::model::Time& WitnessResponseContext::requestts() const {
   return requestts_ != NULL ? *requestts_ : *default_instance_->requestts_;
 }
 ::dg::model::Time* WitnessResponseContext::mutable_requestts() {
-  
+
   if (requestts_ == NULL) {
     requestts_ = new ::dg::model::Time;
   }
@@ -5629,7 +5633,7 @@ const ::dg::model::Time& WitnessResponseContext::requestts() const {
   return requestts_;
 }
 ::dg::model::Time* WitnessResponseContext::release_requestts() {
-  
+
   ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
   return temp;
@@ -5638,9 +5642,9 @@ void WitnessResponseContext::set_allocated_requestts(::dg::model::Time* requestt
   delete requestts_;
   requestts_ = requestts;
   if (requestts) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.RequestTs)
 }
@@ -5658,7 +5662,7 @@ const ::dg::model::Time& WitnessResponseContext::responsets() const {
   return responsets_ != NULL ? *responsets_ : *default_instance_->responsets_;
 }
 ::dg::model::Time* WitnessResponseContext::mutable_responsets() {
-  
+
   if (responsets_ == NULL) {
     responsets_ = new ::dg::model::Time;
   }
@@ -5666,7 +5670,7 @@ const ::dg::model::Time& WitnessResponseContext::responsets() const {
   return responsets_;
 }
 ::dg::model::Time* WitnessResponseContext::release_responsets() {
-  
+
   ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
   return temp;
@@ -5675,9 +5679,9 @@ void WitnessResponseContext::set_allocated_responsets(::dg::model::Time* respons
   delete responsets_;
   responsets_ = responsets;
   if (responsets) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResponseContext.ResponseTs)
 }
@@ -5713,400 +5717,401 @@ const int WitnessResult::kFacesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessResult::WitnessResult()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessResult)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessResult)
 }
 
 void WitnessResult::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  image_ = const_cast< ::dg::model::WitnessImage*>(&::dg::model::WitnessImage::default_instance());
+    _is_default_instance_ = true;
+    image_ = const_cast< ::dg::model::WitnessImage *>(&::dg::model::WitnessImage::default_instance());
 }
 
-WitnessResult::WitnessResult(const WitnessResult& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResult)
+WitnessResult::WitnessResult(const WitnessResult &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessResult)
 }
 
 void WitnessResult::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  innerstatus_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  innermessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  image_ = NULL;
+    ::google::protobuf::internal::GetEmptyString();
+    _cached_size_ = 0;
+    innerstatus_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    innermessage_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    image_ = NULL;
 }
 
 WitnessResult::~WitnessResult() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessResult)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessResult)
+    SharedDtor();
 }
 
 void WitnessResult::SharedDtor() {
-  innerstatus_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  innermessage_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (this != default_instance_) {
-    delete image_;
-  }
+    innerstatus_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    innermessage_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (this != default_instance_) {
+        delete image_;
+    }
 }
 
 void WitnessResult::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessResult::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessResult_descriptor_;
-}
-
-const WitnessResult& WitnessResult::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessResult::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessResult_descriptor_;
 }
 
-WitnessResult* WitnessResult::default_instance_ = NULL;
+const WitnessResult &WitnessResult::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessResult* WitnessResult::New(::google::protobuf::Arena* arena) const {
-  WitnessResult* n = new WitnessResult;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessResult *WitnessResult::default_instance_ = NULL;
+
+WitnessResult *WitnessResult::New(::google::protobuf::Arena *arena) const {
+    WitnessResult *n = new WitnessResult;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessResult::Clear() {
-  innerstatus_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  innermessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
-  image_ = NULL;
-  vehicles_.Clear();
-  faces_.Clear();
+    innerstatus_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    innermessage_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+    image_ = NULL;
+    vehicles_.Clear();
+    faces_.Clear();
 }
 
 bool WitnessResult::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessResult)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string InnerStatus = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_innerstatus()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->innerstatus().data(), this->innerstatus().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResult.InnerStatus"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_InnerMessage;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessResult)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional string InnerStatus = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_innerstatus()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->innerstatus().data(), this->innerstatus().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResult.InnerStatus"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_InnerMessage;
+                break;
+            }
 
-      // optional string InnerMessage = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_InnerMessage:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_innermessage()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->innermessage().data(), this->innermessage().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.WitnessResult.InnerMessage"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Image;
-        break;
-      }
+                // optional string InnerMessage = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_InnerMessage:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                        input, this->mutable_innermessage()));
+                    DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                        this->innermessage().data(), this->innermessage().length(),
+                        ::google::protobuf::internal::WireFormatLite::PARSE,
+                        "dg.model.WitnessResult.InnerMessage"));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(26)) goto parse_Image;
+                break;
+            }
 
-      // optional .dg.model.WitnessImage Image = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Image:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_image()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_Vehicles;
-        break;
-      }
+                // optional .dg.model.WitnessImage Image = 3;
+            case 3: {
+                if (tag == 26) {
+                    parse_Image:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_image()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_Vehicles;
+                break;
+            }
 
-      // repeated .dg.model.RecVehicle Vehicles = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_Vehicles:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Vehicles:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_vehicles()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_loop_Vehicles;
-        if (input->ExpectTag(42)) goto parse_loop_Faces;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
+                // repeated .dg.model.RecVehicle Vehicles = 4;
+            case 4: {
+                if (tag == 34) {
+                    parse_Vehicles:
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Vehicles:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_vehicles()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(34)) goto parse_loop_Vehicles;
+                if (input->ExpectTag(42)) goto parse_loop_Faces;
+                input->UnsafeDecrementRecursionDepth();
+                break;
+            }
 
-      // repeated .dg.model.RecFace Faces = 5;
-      case 5: {
-        if (tag == 42) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Faces:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_faces()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_loop_Faces;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // repeated .dg.model.RecFace Faces = 5;
+            case 5: {
+                if (tag == 42) {
+                    DO_(input->IncrementRecursionDepth());
+                    parse_loop_Faces:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                        input, add_faces()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(42)) goto parse_loop_Faces;
+                input->UnsafeDecrementRecursionDepth();
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessResult)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessResult)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessResult)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessResult)
+    return false;
 #undef DO_
 }
 
 void WitnessResult::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessResult)
-  // optional string InnerStatus = 1;
-  if (this->innerstatus().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->innerstatus().data(), this->innerstatus().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResult.InnerStatus");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->innerstatus(), output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessResult)
+    // optional string InnerStatus = 1;
+    if (this->innerstatus().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->innerstatus().data(), this->innerstatus().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResult.InnerStatus");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            1, this->innerstatus(), output);
+    }
 
-  // optional string InnerMessage = 2;
-  if (this->innermessage().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->innermessage().data(), this->innermessage().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResult.InnerMessage");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->innermessage(), output);
-  }
+    // optional string InnerMessage = 2;
+    if (this->innermessage().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->innermessage().data(), this->innermessage().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResult.InnerMessage");
+        ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+            2, this->innermessage(), output);
+    }
 
-  // optional .dg.model.WitnessImage Image = 3;
-  if (this->has_image()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, *this->image_, output);
-  }
+    // optional .dg.model.WitnessImage Image = 3;
+    if (this->has_image()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            3, *this->image_, output);
+    }
 
-  // repeated .dg.model.RecVehicle Vehicles = 4;
-  for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      4, this->vehicles(i), output);
-  }
+    // repeated .dg.model.RecVehicle Vehicles = 4;
+    for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            4, this->vehicles(i), output);
+    }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->faces(i), output);
-  }
+    // repeated .dg.model.RecFace Faces = 5;
+    for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            5, this->faces(i), output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessResult)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessResult)
 }
 
-::google::protobuf::uint8* WitnessResult::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResult)
-  // optional string InnerStatus = 1;
-  if (this->innerstatus().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->innerstatus().data(), this->innerstatus().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResult.InnerStatus");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->innerstatus(), target);
-  }
+::google::protobuf::uint8 *WitnessResult::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessResult)
+    // optional string InnerStatus = 1;
+    if (this->innerstatus().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->innerstatus().data(), this->innerstatus().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResult.InnerStatus");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                1, this->innerstatus(), target);
+    }
 
-  // optional string InnerMessage = 2;
-  if (this->innermessage().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->innermessage().data(), this->innermessage().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.WitnessResult.InnerMessage");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->innermessage(), target);
-  }
+    // optional string InnerMessage = 2;
+    if (this->innermessage().size() > 0) {
+        ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->innermessage().data(), this->innermessage().length(),
+            ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+            "dg.model.WitnessResult.InnerMessage");
+        target =
+            ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+                2, this->innermessage(), target);
+    }
 
-  // optional .dg.model.WitnessImage Image = 3;
-  if (this->has_image()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, *this->image_, target);
-  }
+    // optional .dg.model.WitnessImage Image = 3;
+    if (this->has_image()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            3, *this->image_, target);
+    }
 
-  // repeated .dg.model.RecVehicle Vehicles = 4;
-  for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, this->vehicles(i), target);
-  }
+    // repeated .dg.model.RecVehicle Vehicles = 4;
+    for (unsigned int i = 0, n = this->vehicles_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            4, this->vehicles(i), target);
+    }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, this->faces(i), target);
-  }
+    // repeated .dg.model.RecFace Faces = 5;
+    for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            5, this->faces(i), target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResult)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResult)
+    return target;
 }
 
 int WitnessResult::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional string InnerStatus = 1;
-  if (this->innerstatus().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->innerstatus());
-  }
+    // optional string InnerStatus = 1;
+    if (this->innerstatus().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->innerstatus());
+    }
 
-  // optional string InnerMessage = 2;
-  if (this->innermessage().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->innermessage());
-  }
+    // optional string InnerMessage = 2;
+    if (this->innermessage().size() > 0) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::StringSize(
+                this->innermessage());
+    }
 
-  // optional .dg.model.WitnessImage Image = 3;
-  if (this->has_image()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->image_);
-  }
+    // optional .dg.model.WitnessImage Image = 3;
+    if (this->has_image()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->image_);
+    }
 
-  // repeated .dg.model.RecVehicle Vehicles = 4;
-  total_size += 1 * this->vehicles_size();
-  for (int i = 0; i < this->vehicles_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->vehicles(i));
-  }
+    // repeated .dg.model.RecVehicle Vehicles = 4;
+    total_size += 1 * this->vehicles_size();
+    for (int i = 0; i < this->vehicles_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->vehicles(i));
+    }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  total_size += 1 * this->faces_size();
-  for (int i = 0; i < this->faces_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->faces(i));
-  }
+    // repeated .dg.model.RecFace Faces = 5;
+    total_size += 1 * this->faces_size();
+    for (int i = 0; i < this->faces_size(); i++) {
+        total_size +=
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                this->faces(i));
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessResult::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessResult* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResult>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessResult::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessResult *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessResult>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessResult::MergeFrom(const WitnessResult& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  vehicles_.MergeFrom(from.vehicles_);
-  faces_.MergeFrom(from.faces_);
-  if (from.innerstatus().size() > 0) {
+void WitnessResult::MergeFrom(const WitnessResult &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    vehicles_.MergeFrom(from.vehicles_);
+    faces_.MergeFrom(from.faces_);
+    if (from.innerstatus().size() > 0) {
 
-    innerstatus_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.innerstatus_);
-  }
-  if (from.innermessage().size() > 0) {
+        innerstatus_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.innerstatus_);
+    }
+    if (from.innermessage().size() > 0) {
 
-    innermessage_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.innermessage_);
-  }
-  if (from.has_image()) {
-    mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
-  }
+        innermessage_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                                        from.innermessage_);
+    }
+    if (from.has_image()) {
+        mutable_image()->::dg::model::WitnessImage::MergeFrom(from.image());
+    }
 }
 
-void WitnessResult::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResult::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessResult::CopyFrom(const WitnessResult& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessResult::CopyFrom(const WitnessResult &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessResult::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessResult::Swap(WitnessResult* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessResult::Swap(WitnessResult *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessResult::InternalSwap(WitnessResult* other) {
-  innerstatus_.Swap(&other->innerstatus_);
-  innermessage_.Swap(&other->innermessage_);
-  std::swap(image_, other->image_);
-  vehicles_.UnsafeArenaSwap(&other->vehicles_);
-  faces_.UnsafeArenaSwap(&other->faces_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessResult::InternalSwap(WitnessResult *other) {
+    innerstatus_.Swap(&other->innerstatus_);
+    innermessage_.Swap(&other->innermessage_);
+    std::swap(image_, other->image_);
+    vehicles_.UnsafeArenaSwap(&other->vehicles_);
+    faces_.UnsafeArenaSwap(&other->faces_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessResult::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessResult_descriptor_;
-  metadata.reflection = WitnessResult_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessResult_descriptor_;
+    metadata.reflection = WitnessResult_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessResult
+                                                                                                                        // WitnessResult
 
 // optional string InnerStatus = 1;
 void WitnessResult::clear_innerstatus() {
@@ -6117,35 +6122,35 @@ void WitnessResult::clear_innerstatus() {
   return innerstatus_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_innerstatus(const ::std::string& value) {
-  
+
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerStatus)
 }
  void WitnessResult::set_innerstatus(const char* value) {
-  
+
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerStatus)
 }
  void WitnessResult::set_innerstatus(const char* value, size_t size) {
-  
+
   innerstatus_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerStatus)
 }
  ::std::string* WitnessResult::mutable_innerstatus() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerStatus)
   return innerstatus_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResult::release_innerstatus() {
-  
+
   return innerstatus_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_allocated_innerstatus(::std::string* innerstatus) {
   if (innerstatus != NULL) {
-    
+
   } else {
-    
+
   }
   innerstatus_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innerstatus);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerStatus)
@@ -6160,35 +6165,35 @@ void WitnessResult::clear_innermessage() {
   return innermessage_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_innermessage(const ::std::string& value) {
-  
+
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.WitnessResult.InnerMessage)
 }
  void WitnessResult::set_innermessage(const char* value) {
-  
+
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.WitnessResult.InnerMessage)
 }
  void WitnessResult::set_innermessage(const char* value, size_t size) {
-  
+
   innermessage_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.WitnessResult.InnerMessage)
 }
  ::std::string* WitnessResult::mutable_innermessage() {
-  
+
   // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.InnerMessage)
   return innermessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* WitnessResult::release_innermessage() {
-  
+
   return innermessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  void WitnessResult::set_allocated_innermessage(::std::string* innermessage) {
   if (innermessage != NULL) {
-    
+
   } else {
-    
+
   }
   innermessage_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), innermessage);
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.InnerMessage)
@@ -6207,7 +6212,7 @@ const ::dg::model::WitnessImage& WitnessResult::image() const {
   return image_ != NULL ? *image_ : *default_instance_->image_;
 }
 ::dg::model::WitnessImage* WitnessResult::mutable_image() {
-  
+
   if (image_ == NULL) {
     image_ = new ::dg::model::WitnessImage;
   }
@@ -6215,7 +6220,7 @@ const ::dg::model::WitnessImage& WitnessResult::image() const {
   return image_;
 }
 ::dg::model::WitnessImage* WitnessResult::release_image() {
-  
+
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
   return temp;
@@ -6224,9 +6229,9 @@ void WitnessResult::set_allocated_image(::dg::model::WitnessImage* image) {
   delete image_;
   image_ = image;
   if (image) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessResult.Image)
 }
@@ -6301,254 +6306,254 @@ const int WitnessVehicleObj::kStorageFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessVehicleObj::WitnessVehicleObj()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessVehicleObj)
+    : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+    SharedCtor();
+    // @@protoc_insertion_point(constructor:dg.model.WitnessVehicleObj)
 }
 
 void WitnessVehicleObj::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  vehicleresult_ = const_cast< ::dg::model::VehicleObj*>(&::dg::model::VehicleObj::default_instance());
-  storage_ = const_cast< ::dg::model::StorageConfig*>(&::dg::model::StorageConfig::default_instance());
+    _is_default_instance_ = true;
+    vehicleresult_ = const_cast< ::dg::model::VehicleObj *>(&::dg::model::VehicleObj::default_instance());
+    storage_ = const_cast< ::dg::model::StorageConfig *>(&::dg::model::StorageConfig::default_instance());
 }
 
-WitnessVehicleObj::WitnessVehicleObj(const WitnessVehicleObj& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessVehicleObj)
+WitnessVehicleObj::WitnessVehicleObj(const WitnessVehicleObj &from)
+    : ::google::protobuf::Message(),
+      _internal_metadata_(NULL) {
+    SharedCtor();
+    MergeFrom(from);
+    // @@protoc_insertion_point(copy_constructor:dg.model.WitnessVehicleObj)
 }
 
 void WitnessVehicleObj::SharedCtor() {
     _is_default_instance_ = false;
-  _cached_size_ = 0;
-  vehicleresult_ = NULL;
-  storage_ = NULL;
+    _cached_size_ = 0;
+    vehicleresult_ = NULL;
+    storage_ = NULL;
 }
 
 WitnessVehicleObj::~WitnessVehicleObj() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessVehicleObj)
-  SharedDtor();
+    // @@protoc_insertion_point(destructor:dg.model.WitnessVehicleObj)
+    SharedDtor();
 }
 
 void WitnessVehicleObj::SharedDtor() {
-  if (this != default_instance_) {
-    delete vehicleresult_;
-    delete storage_;
-  }
+    if (this != default_instance_) {
+        delete vehicleresult_;
+        delete storage_;
+    }
 }
 
 void WitnessVehicleObj::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
-const ::google::protobuf::Descriptor* WitnessVehicleObj::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessVehicleObj_descriptor_;
-}
-
-const WitnessVehicleObj& WitnessVehicleObj::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
+const ::google::protobuf::Descriptor *WitnessVehicleObj::descriptor() {
+    protobuf_AssignDescriptorsOnce();
+    return WitnessVehicleObj_descriptor_;
 }
 
-WitnessVehicleObj* WitnessVehicleObj::default_instance_ = NULL;
+const WitnessVehicleObj &WitnessVehicleObj::default_instance() {
+    if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+    return *default_instance_;
+}
 
-WitnessVehicleObj* WitnessVehicleObj::New(::google::protobuf::Arena* arena) const {
-  WitnessVehicleObj* n = new WitnessVehicleObj;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
+WitnessVehicleObj *WitnessVehicleObj::default_instance_ = NULL;
+
+WitnessVehicleObj *WitnessVehicleObj::New(::google::protobuf::Arena *arena) const {
+    WitnessVehicleObj *n = new WitnessVehicleObj;
+    if (arena != NULL) {
+        arena->Own(n);
+    }
+    return n;
 }
 
 void WitnessVehicleObj::Clear() {
-  if (GetArenaNoVirtual() == NULL && vehicleresult_ != NULL) delete vehicleresult_;
-  vehicleresult_ = NULL;
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
+    if (GetArenaNoVirtual() == NULL && vehicleresult_ != NULL) delete vehicleresult_;
+    vehicleresult_ = NULL;
+    if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+    storage_ = NULL;
 }
 
 bool WitnessVehicleObj::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+    ::google::protobuf::io::CodedInputStream *input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessVehicleObj)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.VehicleObj VehicleResult = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_vehicleresult()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Storage;
-        break;
-      }
+    ::google::protobuf::uint32 tag;
+    // @@protoc_insertion_point(parse_start:dg.model.WitnessVehicleObj)
+    for (; ;) {
+        ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+        tag = p.first;
+        if (!p.second) goto handle_unusual;
+        switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+            // optional .dg.model.VehicleObj VehicleResult = 1;
+            case 1: {
+                if (tag == 10) {
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_vehicleresult()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectTag(18)) goto parse_Storage;
+                break;
+            }
 
-      // optional .dg.model.StorageConfig Storage = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Storage:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_storage()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
+                // optional .dg.model.StorageConfig Storage = 2;
+            case 2: {
+                if (tag == 18) {
+                    parse_Storage:
+                    DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                        input, mutable_storage()));
+                } else {
+                    goto handle_unusual;
+                }
+                if (input->ExpectAtEnd()) goto success;
+                break;
+            }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
+            default: {
+                handle_unusual:
+                if (tag == 0 ||
+                    ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+                        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+                    goto success;
+                }
+                DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+                break;
+            }
         }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
     }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessVehicleObj)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessVehicleObj)
-  return false;
+    success:
+    // @@protoc_insertion_point(parse_success:dg.model.WitnessVehicleObj)
+    return true;
+    failure:
+    // @@protoc_insertion_point(parse_failure:dg.model.WitnessVehicleObj)
+    return false;
 #undef DO_
 }
 
 void WitnessVehicleObj::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessVehicleObj)
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->vehicleresult_, output);
-  }
+    ::google::protobuf::io::CodedOutputStream *output) const {
+    // @@protoc_insertion_point(serialize_start:dg.model.WitnessVehicleObj)
+    // optional .dg.model.VehicleObj VehicleResult = 1;
+    if (this->has_vehicleresult()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            1, *this->vehicleresult_, output);
+    }
 
-  // optional .dg.model.StorageConfig Storage = 2;
-  if (this->has_storage()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, *this->storage_, output);
-  }
+    // optional .dg.model.StorageConfig Storage = 2;
+    if (this->has_storage()) {
+        ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+            2, *this->storage_, output);
+    }
 
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessVehicleObj)
+    // @@protoc_insertion_point(serialize_end:dg.model.WitnessVehicleObj)
 }
 
-::google::protobuf::uint8* WitnessVehicleObj::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessVehicleObj)
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->vehicleresult_, target);
-  }
+::google::protobuf::uint8 *WitnessVehicleObj::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8 *target) const {
+    // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessVehicleObj)
+    // optional .dg.model.VehicleObj VehicleResult = 1;
+    if (this->has_vehicleresult()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            1, *this->vehicleresult_, target);
+    }
 
-  // optional .dg.model.StorageConfig Storage = 2;
-  if (this->has_storage()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->storage_, target);
-  }
+    // optional .dg.model.StorageConfig Storage = 2;
+    if (this->has_storage()) {
+        target = ::google::protobuf::internal::WireFormatLite::
+        WriteMessageNoVirtualToArray(
+            2, *this->storage_, target);
+    }
 
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessVehicleObj)
-  return target;
+    // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessVehicleObj)
+    return target;
 }
 
 int WitnessVehicleObj::ByteSize() const {
-  int total_size = 0;
+    int total_size = 0;
 
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->vehicleresult_);
-  }
+    // optional .dg.model.VehicleObj VehicleResult = 1;
+    if (this->has_vehicleresult()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->vehicleresult_);
+    }
 
-  // optional .dg.model.StorageConfig Storage = 2;
-  if (this->has_storage()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->storage_);
-  }
+    // optional .dg.model.StorageConfig Storage = 2;
+    if (this->has_storage()) {
+        total_size += 1 +
+            ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                *this->storage_);
+    }
 
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _cached_size_ = total_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    return total_size;
 }
 
-void WitnessVehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessVehicleObj* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessVehicleObj>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
+void WitnessVehicleObj::MergeFrom(const ::google::protobuf::Message &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    const WitnessVehicleObj *source =
+        ::google::protobuf::internal::DynamicCastToGenerated<const WitnessVehicleObj>(
+            &from);
+    if (source == NULL) {
+        ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    } else {
+        MergeFrom(*source);
+    }
 }
 
-void WitnessVehicleObj::MergeFrom(const WitnessVehicleObj& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.has_vehicleresult()) {
-    mutable_vehicleresult()->::dg::model::VehicleObj::MergeFrom(from.vehicleresult());
-  }
-  if (from.has_storage()) {
-    mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
-  }
+void WitnessVehicleObj::MergeFrom(const WitnessVehicleObj &from) {
+    if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+    if (from.has_vehicleresult()) {
+        mutable_vehicleresult()->::dg::model::VehicleObj::MergeFrom(from.vehicleresult());
+    }
+    if (from.has_storage()) {
+        mutable_storage()->::dg::model::StorageConfig::MergeFrom(from.storage());
+    }
 }
 
-void WitnessVehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessVehicleObj::CopyFrom(const ::google::protobuf::Message &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
-void WitnessVehicleObj::CopyFrom(const WitnessVehicleObj& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
+void WitnessVehicleObj::CopyFrom(const WitnessVehicleObj &from) {
+    if (&from == this) return;
+    Clear();
+    MergeFrom(from);
 }
 
 bool WitnessVehicleObj::IsInitialized() const {
 
-  return true;
+    return true;
 }
 
-void WitnessVehicleObj::Swap(WitnessVehicleObj* other) {
-  if (other == this) return;
-  InternalSwap(other);
+void WitnessVehicleObj::Swap(WitnessVehicleObj *other) {
+    if (other == this) return;
+    InternalSwap(other);
 }
-void WitnessVehicleObj::InternalSwap(WitnessVehicleObj* other) {
-  std::swap(vehicleresult_, other->vehicleresult_);
-  std::swap(storage_, other->storage_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
+void WitnessVehicleObj::InternalSwap(WitnessVehicleObj *other) {
+    std::swap(vehicleresult_, other->vehicleresult_);
+    std::swap(storage_, other->storage_);
+    _internal_metadata_.Swap(&other->_internal_metadata_);
+    std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata WitnessVehicleObj::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessVehicleObj_descriptor_;
-  metadata.reflection = WitnessVehicleObj_reflection_;
-  return metadata;
+    protobuf_AssignDescriptorsOnce();
+    ::google::protobuf::Metadata metadata;
+    metadata.descriptor = WitnessVehicleObj_descriptor_;
+    metadata.reflection = WitnessVehicleObj_reflection_;
+    return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessVehicleObj
+                                                                                                                        // WitnessVehicleObj
 
 // optional .dg.model.VehicleObj VehicleResult = 1;
 bool WitnessVehicleObj::has_vehicleresult() const {

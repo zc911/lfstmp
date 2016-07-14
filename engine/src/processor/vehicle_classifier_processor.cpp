@@ -27,14 +27,19 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
 
 bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << frameBatch->id() << endl;
 
     vector<vector<Prediction> > result;
 
-    for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
+ /*   for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
       auto tmpPred = elem->ClassifyAutoBatch(images_);
       vote(tmpPred, result, classifiers_.size());
-    });
+    });*/
+    for(auto *elem:classifiers_){
+        auto tmpPred = elem->ClassifyAutoBatch(images_);
+        vote(tmpPred, result, classifiers_.size());
+
+    }
 
     //set results
     for (int i = 0; i < objs_.size(); i++) {
@@ -48,6 +53,7 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         v->set_confidence(max.second);
     }
 
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish vehicle classify process" << frameBatch->id() << endl;
     return true;
 }
 
