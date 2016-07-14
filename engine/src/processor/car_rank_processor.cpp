@@ -41,7 +41,11 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     t_profiler_str_ = "TotalMatching";
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
+<<<<<<< HEAD
             topx[i] = Score(i, score[i]);
+=======
+        topx[i] = Score(i, score[i]);
+>>>>>>> 852e3e34b4b830481b80d824daa49e49778eb9d3
     }
 
     return topx;
