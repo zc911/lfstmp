@@ -93,7 +93,6 @@ public:
         }
 
     }
-    
 private:
     SystemAppsService service_system_;
 };
