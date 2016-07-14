@@ -18,10 +18,10 @@ CarFeatureExtractProcessor::~CarFeatureExtractProcessor() {
     if (extractor_)
         delete extractor_;
 }
-void CarFeatureExtractProcessor::extract(vector<Object*> &objs) {
+void CarFeatureExtractProcessor::extract(vector<Object *> &objs) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
-        Vehicle *v = static_cast<Vehicle*>(obj);
+        Vehicle *v = static_cast<Vehicle *>(obj);
         CarRankFeature feature;
         extractor_->ExtractDescriptor(v->image(), feature);
         v->set_feature(feature);
@@ -47,10 +47,10 @@ bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
     vehicle_to_processed_.clear();
     vehicle_to_processed_ = frameBatch->CollectObjects(
-            OPERATION_VEHICLE_FEATURE_VECTOR);
+        OPERATION_VEHICLE_FEATURE_VECTOR);
 
-    for (vector<Object*>::iterator itr = vehicle_to_processed_.begin();
-            itr != vehicle_to_processed_.end();) {
+    for (vector<Object *>::iterator itr = vehicle_to_processed_.begin();
+         itr != vehicle_to_processed_.end();) {
         if ((*itr)->type() != OBJECT_CAR) {
             itr = vehicle_to_processed_.erase(itr);
         } else {
@@ -61,7 +61,7 @@ bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 bool CarFeatureExtractProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_EXTRACT,performance_);
+    return RecordPerformance(FEATURE_CAR_EXTRACT, performance_);
 
 }
 } /* namespace dg */

@@ -7,13 +7,12 @@
 
 namespace dg {
 VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &config) : caffe_config_(config) {
-
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
     threshold_ = config.threshold;
     if (use_gpu_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         use_gpu_ = true;
     }
     else {
@@ -28,7 +27,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     net_.reset(
         new Net<float>(config.deploy_file, TEST, config.is_model_encrypt, NULL));
     net_->CopyTrainedLayersFrom(config.model_file);
-    cout << config.model_file << endl;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
@@ -37,13 +35,13 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();
-    /*  const vector<boost::shared_ptr<Layer<float> > > & layers = net_->layers();
-      const vector<vector<Blob<float>* > > & bottom_vecs = net_->bottom_vecs();
-      const vector<vector<Blob<float>* > > & top_vecs = net_->top_vecs();
-      for(int i = 0; i < layers.size(); ++i) {
-          layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-      }
-  */
+    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
+        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+    }
+
     device_setted_ = false;
 #ifdef SHOW_VIS
     color_.push_back(Scalar(255, 0, 0));
@@ -128,8 +126,8 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
                                       vector<vector<Detection> > &detect_results) {
 
     if (!device_setted_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 

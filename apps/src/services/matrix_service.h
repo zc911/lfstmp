@@ -17,7 +17,7 @@ namespace dg {
 using namespace ::dg::model;
 
 class MatrixAppsService {
- public:
+public:
     MatrixAppsService(const Config *config);
     virtual ~MatrixAppsService();
 
@@ -39,10 +39,10 @@ class MatrixAppsService {
 
     bool VideoRecognize(const SkynetRequest *request, SkynetResponse *response);
 
-    bool GetRankedVector(const FeatureRankingRequest* request,
-                         FeatureRankingResponse* response);
+    bool GetRankedVector(const FeatureRankingRequest *request,
+                         FeatureRankingResponse *response);
 
- private:
+private:
     const Config *config_;
 
 };

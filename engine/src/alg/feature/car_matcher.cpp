@@ -41,6 +41,7 @@ int CarMatcher::ComputeMatchScore(const CarRankFeature &des1,
         uint min_dist = 9999;
         uint sec_dist = 9999;
         int min_idx = -1, sec_idx = -1;
+
         const uchar* query_feat = des1.descriptor_.ptr<uchar>(i);
         for (int j = 0; j < des2.descriptor_.rows; j++) {
 

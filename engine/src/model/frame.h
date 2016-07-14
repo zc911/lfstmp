@@ -274,6 +274,10 @@ public:
         return false;
     }
 
+    Identification id() {
+        return id_;
+    }
+
 private:
     Identification id_;
     vector<Frame *> frames_;

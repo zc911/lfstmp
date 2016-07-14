@@ -267,5 +267,4 @@ Vehicle::Plate PlateRecognizer::Recognize(const Mat &img) {
     return plate;
 }
 
-
 } /* namespace dg */
