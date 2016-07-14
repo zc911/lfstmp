@@ -17,8 +17,6 @@ namespace dg {
 
 
 typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
-//typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
-
 
 class RestRankerServiceImpl final: public RestfulService<RankerAppsService> {
 
@@ -37,15 +35,6 @@ public:
         RankFunc rank_func = (RankFunc) &RankerAppsService::GetRankedVector;
         bindFunc<RankerAppsService, FeatureRankingRequest, FeatureRankingResponse>(server,
                                                                                    "^/rank$",
-                                                                                   "POST",
-                                                                                   rank_func);
-        std::function<MatrixError(const SystemStatusRequest *, SystemStatusResponse *)> statusBinder =
-            std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/info$", "GET", statusBinder);
-        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
-            std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/ping$", "GET", pingBinder);
-
     }
 
 
