@@ -42,17 +42,17 @@ private:
                                    const WitnessRequest *request,
                                    WitnessResponse *response);
     virtual grpc::Status Index(grpc::ServerContext *context,
-                                   const IndexRequest *request,
-                                   IndexResponse *response);
+                               const IndexRequest *request,
+                               IndexResponse *response);
     virtual grpc::Status IndexTxt(grpc::ServerContext *context,
-                               const IndexTxtRequest *request,
-                               IndexTxtResponse *response);
+                                  const IndexTxtRequest *request,
+                                  IndexTxtResponse *response);
 
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,
                                         WitnessBatchResponse *response);
-    virtual void warmUp(int n){
-        string imgdata=ReadStringFromFile("warmup.dat","rb");
+    virtual void warmUp(int n) {
+        string imgdata = ReadStringFromFile("warmup.dat", "rb");
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
         protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
@@ -67,7 +67,7 @@ private:
         ctx->mutable_functions()->Add(7);
         ctx->set_type(REC_TYPE_VEHICLE);
 
-        for(int i=0;i<n;i++) {
+        for (int i = 0; i < n; i++) {
             CallData data;
             typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
             RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
@@ -89,7 +89,7 @@ private:
 
     }
     //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
-  //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
+    //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
 };
 
 //class GrpcWitnessServiceAsynImpl final: public IGrpcWitnessService, public WitnessService::Service {

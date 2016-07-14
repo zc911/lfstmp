@@ -27,7 +27,7 @@ using namespace cv;
 namespace dg {
 
 class MarkerCaffeClassifier {
- public:
+public:
     enum MarkerType {
         MOT = 2,
         Accessories = 1,
@@ -48,7 +48,7 @@ class MarkerCaffeClassifier {
         float confidence;
     } Marker;
     typedef struct {
-        bool is_model_encrypt = false;
+        bool is_model_encrypt = true;
         int batch_size = 1;
         int target_min_size = 400;
         int target_max_size = 1000;
@@ -72,20 +72,20 @@ class MarkerCaffeClassifier {
     MarkerCaffeClassifier(MarkerConfig &markerconfig);
     virtual ~MarkerCaffeClassifier();
     vector<vector<Detection> > ClassifyAutoBatch(vector<Mat> imgs);
- protected:
+protected:
     vector<vector<Detection> > ClassifyBatch(vector<Mat> imgs);
     vector<vector<Detection> > get_final_bbox(vector<Mat> images,
-                                              Blob<float>* cls,
-                                              Blob<float>* reg,
+                                              Blob<float> *cls,
+                                              Blob<float> *reg,
                                               vector<float> enlarge_ratios,
                                               Marker &marker,
                                               vector<Mat> origin_imgs);
 
     bool filter(Detection, int row, int col);
 
-    std::vector<Blob<float>*> PredictBatch(vector<Mat> imgs);
+    std::vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
 
- private:
+private:
     void setupMarker();
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;

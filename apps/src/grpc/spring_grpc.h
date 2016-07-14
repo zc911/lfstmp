@@ -15,16 +15,16 @@
 using namespace std;
 using namespace ::dg::model;
 namespace dg {
-class SpringGrpcClientImpl{
+class SpringGrpcClientImpl {
 public:
     SpringGrpcClientImpl(Config config)
-        :config_(&config) {
+        : config_(&config) {
 
     }
 
     virtual void Run() {
         StorageRequest sr(config_);
-        while(1){
+        while (1) {
             sr.storage();
         }
     }

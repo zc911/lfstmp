@@ -147,6 +147,8 @@ void DetectionOutputLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
   // [image_id, label, confidence, xmin, ymin, xmax, ymax]
   top_shape.push_back(7);
   top[0]->Reshape(top_shape);
+   bbox_preds.ReshapeLike(*(bottom[0]));
+conf_permute.ReshapeLike(*(bottom[1]));
 }
 
 template <typename Dtype>

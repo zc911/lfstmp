@@ -12,7 +12,7 @@ namespace dg {
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
                                                string addr,
                                                MatrixEnginesPool<WitnessAppsService> *engine_pool)
-    : BasicGrpcService(config, addr, engine_pool){
+    : BasicGrpcService(config, addr, engine_pool) {
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
@@ -42,20 +42,20 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     MatrixError error = data.Wait();
 
     gettimeofday(&finish, NULL);
-  //  rapidjson::Value *value = pbjson::pb2jsonobject(response);
-  //  string s;
- //   pbjson::json2string(value, s);
- //   cout << s << endl;
-    VLOG(VLOG_SERVICE) << "[GRPC] Rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
+    //  rapidjson::Value *value = pbjson::pb2jsonobject(response);
+    //  string s;
+    //   pbjson::json2string(value, s);
+    //   cout << s << endl;
+    VLOG(VLOG_SERVICE)
+    << "[GRPC] Rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
         << endl;
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 }
 grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
-                                               const IndexRequest *request,
-                                               IndexResponse *response) {
-
+                                           const IndexRequest *request,
+                                           IndexResponse *response) {
 
 
     struct timeval start, finish;
@@ -82,8 +82,8 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
 }
 
 grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
-                                           const IndexTxtRequest *request,
-                                           IndexTxtResponse *response) {
+                                              const IndexTxtRequest *request,
+                                              IndexTxtResponse *response) {
 
     struct timeval start, finish;
     gettimeofday(&start, NULL);
@@ -129,7 +129,8 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
     MatrixError error = data.Wait();
 
     gettimeofday(&finish, NULL);
-    VLOG(VLOG_SERVICE) << "[GRPC] Batch rec session id " << request->context().sessionid() << " and total cost: " << TimeCostInMs(start, finish)
+    VLOG(VLOG_SERVICE) << "[GRPC] Batch rec session id " << request->context().sessionid() << " and total cost: "
+        << TimeCostInMs(start, finish)
         << endl;
 
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;

@@ -16,13 +16,13 @@
 
 namespace dg {
 
-class FaceFeatureExtractProcessor : public Processor {
- public:
+class FaceFeatureExtractProcessor: public Processor {
+public:
     FaceFeatureExtractProcessor(
-            const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+        const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
     virtual ~FaceFeatureExtractProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
@@ -30,9 +30,9 @@ class FaceFeatureExtractProcessor : public Processor {
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
- private:
+private:
     FaceFeatureExtractor *extractor_;
-    vector<Object*> to_processed_;
+    vector<Object *> to_processed_;
 };
 
 } /* namespace dg */

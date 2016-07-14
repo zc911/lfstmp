@@ -20,7 +20,7 @@ using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 namespace dg {
-static int timeout=5;
+static int timeout = 5;
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
@@ -28,18 +28,19 @@ public:
     }
     MatrixError storage() {
         unique_lock<mutex> lock(WitnessBucket::Instance().mt_pop);
-        VLOG(VLOG_SERVICE)<<"========START REQUEST==========="<<endl;
+        VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
         string storageAddress = wv->storage().address();
         const VehicleObj &v = wv->vehicleresult();
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
                                                                 grpc::InsecureChannelCredentials());
-        VLOG(VLOG_SERVICE)<<v.metadata().timestamp()<<endl;
+        VLOG(VLOG_SERVICE) << v.metadata().timestamp() << endl;
         std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
         NullMessage reply;
         ClientContext context;
-        std::chrono::system_clock::time_point deadline=std::chrono::system_clock::now()+std::chrono::seconds(timeout);
+        std::chrono::system_clock::time_point
+            deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
         context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
@@ -54,7 +55,7 @@ public:
             lock.unlock();
             return err;
         } else {
-            VLOG(VLOG_SERVICE) << "send to storage failed "<<status.error_code() << endl;
+            VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
             lock.unlock();
             return err;
         }

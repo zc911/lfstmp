@@ -7,20 +7,19 @@
  * Description : 
  * ==========================================================================*/
 #include "face_feature_extractor.h"
-#include "face_feature_extractor.h"
 
 namespace dg {
 
 FaceFeatureExtractor::FaceFeatureExtractor(
-        const FaceFeatureExtractorConfig& config)
-        : device_setted_(false),
-          batch_size_(config.batch_size),
-          detector_(dlib::get_frontal_face_detector()) {
+    const FaceFeatureExtractorConfig &config)
+    : device_setted_(false),
+      batch_size_(config.batch_size),
+      detector_(dlib::get_frontal_face_detector()) {
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
     if (use_gpu_) {
-        Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(config.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         use_gpu_ = true;
     } else {
         Caffe::set_mode(Caffe::CPU);
@@ -29,12 +28,12 @@ FaceFeatureExtractor::FaceFeatureExtractor(
 
     layer_name_ = "eltwise6";
 
-    LOG(INFO)<< "loading model file: " << config.deploy_file;
-    net_.reset(new Net<float>(config.deploy_file, TEST,config.is_model_encrypt));
-    LOG(INFO)<< "loading trained file : " << config.model_file;
+    LOG(INFO) << "loading model file: " << config.deploy_file;
+    net_.reset(new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+    LOG(INFO) << "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 
-    Blob<float>* input_layer = net_->input_blobs()[0];
+    Blob<float> *input_layer = net_->input_blobs()[0];
     do {
         std::vector<int> shape = input_layer->shape();
         shape[0] = batch_size_;
@@ -54,12 +53,11 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     dlib::full_object_detection shape = sp_(avg_face_image, avg_face_bbox[0]);
     Detection2Points(shape, avg_face_points_);
 
-
 }
 
 void FaceFeatureExtractor::Detection2Points(
-        const dlib::full_object_detection &detection,
-        std::vector<dlib::point> &points) {
+    const dlib::full_object_detection &detection,
+    std::vector<dlib::point> &points) {
     points.resize(0);
     for (unsigned long i = 0; i < detection.num_parts(); i++) {
         points.push_back(detection.part(i));
@@ -95,17 +93,18 @@ std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs) {
 }
 
 std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
-        const std::vector<Mat> &imgs) {
+    const std::vector<Mat> &imgs) {
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
     std::vector<Mat> align_imgs = Align(imgs);
     std::vector<FaceRankFeature> features;
-    Blob<float>* input_blob = net_->input_blobs()[0];
+    Blob<float> *input_blob = net_->input_blobs()[0];
     assert(align_imgs.size() <= batch_size_);
     features.resize(align_imgs.size());
-    float* input_data = input_blob->mutable_cpu_data();
+    float *input_data = input_blob->mutable_cpu_data();
     int cnt = 0;
     for (size_t i = 0; i < align_imgs.size(); i++) {
         Mat sample;
@@ -120,7 +119,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
 
         assert(sample.channels() == 1);
         assert((sample.rows == input_geometry_.height)
-                && (sample.cols == input_geometry_.width));
+                   && (sample.cols == input_geometry_.width));
         for (int i = 0; i < sample.rows; i++) {
             for (int j = 0; j < sample.cols; j++) {
                 input_data[cnt] = sample.at<uchar>(i, j) / 255.0f;
@@ -139,7 +138,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
     for (size_t i = 0; i < align_imgs.size(); i++) {
         InnFaceFeature feature;
         const float *data = output_data
-                + i * sizeof(InnFaceFeature) / sizeof(float);
+            + i * sizeof(InnFaceFeature) / sizeof(float);
         memcpy(&feature, data, sizeof(InnFaceFeature));
 
         FaceRankFeature face_feature;

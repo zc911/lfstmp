@@ -51,780 +51,780 @@ class SkynetResponseData;
 
 // ===================================================================
 
-class SkynetRequest : public ::google::protobuf::Message {
- public:
-  SkynetRequest();
-  virtual ~SkynetRequest();
+class SkynetRequest: public ::google::protobuf::Message {
+public:
+    SkynetRequest();
+    virtual ~SkynetRequest();
 
-  SkynetRequest(const SkynetRequest& from);
+    SkynetRequest(const SkynetRequest &from);
 
-  inline SkynetRequest& operator=(const SkynetRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetRequest &operator=(const SkynetRequest &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetRequest& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetRequest &default_instance();
 
-  void Swap(SkynetRequest* other);
+    void Swap(SkynetRequest *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetRequest* New() const { return New(NULL); }
+    inline SkynetRequest *New() const { return New(NULL); }
 
-  SkynetRequest* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetRequest& from);
-  void MergeFrom(const SkynetRequest& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetRequest *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetRequest &from);
+    void MergeFrom(const SkynetRequest &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetRequest* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetRequest *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // optional .dg.model.SkynetRequestContext Context = 1;
-  bool has_context() const;
-  void clear_context();
-  static const int kContextFieldNumber = 1;
-  const ::dg::model::SkynetRequestContext& context() const;
-  ::dg::model::SkynetRequestContext* mutable_context();
-  ::dg::model::SkynetRequestContext* release_context();
-  void set_allocated_context(::dg::model::SkynetRequestContext* context);
+    // optional .dg.model.SkynetRequestContext Context = 1;
+    bool has_context() const;
+    void clear_context();
+    static const int kContextFieldNumber = 1;
+    const ::dg::model::SkynetRequestContext &context() const;
+    ::dg::model::SkynetRequestContext *mutable_context();
+    ::dg::model::SkynetRequestContext *release_context();
+    void set_allocated_context(::dg::model::SkynetRequestContext *context);
 
-  // optional .dg.model.SkynetRequestData Data = 2;
-  bool has_data() const;
-  void clear_data();
-  static const int kDataFieldNumber = 2;
-  const ::dg::model::SkynetRequestData& data() const;
-  ::dg::model::SkynetRequestData* mutable_data();
-  ::dg::model::SkynetRequestData* release_data();
-  void set_allocated_data(::dg::model::SkynetRequestData* data);
+    // optional .dg.model.SkynetRequestData Data = 2;
+    bool has_data() const;
+    void clear_data();
+    static const int kDataFieldNumber = 2;
+    const ::dg::model::SkynetRequestData &data() const;
+    ::dg::model::SkynetRequestData *mutable_data();
+    ::dg::model::SkynetRequestData *release_data();
+    void set_allocated_data(::dg::model::SkynetRequestData *data);
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetRequest)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetRequest)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::dg::model::SkynetRequestContext* context_;
-  ::dg::model::SkynetRequestData* data_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::dg::model::SkynetRequestContext *context_;
+    ::dg::model::SkynetRequestData *data_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetRequest* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetRequest *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetResponse : public ::google::protobuf::Message {
- public:
-  SkynetResponse();
-  virtual ~SkynetResponse();
+class SkynetResponse: public ::google::protobuf::Message {
+public:
+    SkynetResponse();
+    virtual ~SkynetResponse();
 
-  SkynetResponse(const SkynetResponse& from);
+    SkynetResponse(const SkynetResponse &from);
 
-  inline SkynetResponse& operator=(const SkynetResponse& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetResponse &operator=(const SkynetResponse &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetResponse& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetResponse &default_instance();
 
-  void Swap(SkynetResponse* other);
+    void Swap(SkynetResponse *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetResponse* New() const { return New(NULL); }
+    inline SkynetResponse *New() const { return New(NULL); }
 
-  SkynetResponse* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetResponse& from);
-  void MergeFrom(const SkynetResponse& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetResponse *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetResponse &from);
+    void MergeFrom(const SkynetResponse &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetResponse* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetResponse *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // optional .dg.model.SkynetResponseContext Context = 1;
-  bool has_context() const;
-  void clear_context();
-  static const int kContextFieldNumber = 1;
-  const ::dg::model::SkynetResponseContext& context() const;
-  ::dg::model::SkynetResponseContext* mutable_context();
-  ::dg::model::SkynetResponseContext* release_context();
-  void set_allocated_context(::dg::model::SkynetResponseContext* context);
+    // optional .dg.model.SkynetResponseContext Context = 1;
+    bool has_context() const;
+    void clear_context();
+    static const int kContextFieldNumber = 1;
+    const ::dg::model::SkynetResponseContext &context() const;
+    ::dg::model::SkynetResponseContext *mutable_context();
+    ::dg::model::SkynetResponseContext *release_context();
+    void set_allocated_context(::dg::model::SkynetResponseContext *context);
 
-  // optional .dg.model.SkynetResponseData Data = 2;
-  bool has_data() const;
-  void clear_data();
-  static const int kDataFieldNumber = 2;
-  const ::dg::model::SkynetResponseData& data() const;
-  ::dg::model::SkynetResponseData* mutable_data();
-  ::dg::model::SkynetResponseData* release_data();
-  void set_allocated_data(::dg::model::SkynetResponseData* data);
+    // optional .dg.model.SkynetResponseData Data = 2;
+    bool has_data() const;
+    void clear_data();
+    static const int kDataFieldNumber = 2;
+    const ::dg::model::SkynetResponseData &data() const;
+    ::dg::model::SkynetResponseData *mutable_data();
+    ::dg::model::SkynetResponseData *release_data();
+    void set_allocated_data(::dg::model::SkynetResponseData *data);
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetResponse)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetResponse)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::dg::model::SkynetResponseContext* context_;
-  ::dg::model::SkynetResponseData* data_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::dg::model::SkynetResponseContext *context_;
+    ::dg::model::SkynetResponseData *data_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetResponse* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetResponse *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetRequestContext : public ::google::protobuf::Message {
- public:
-  SkynetRequestContext();
-  virtual ~SkynetRequestContext();
+class SkynetRequestContext: public ::google::protobuf::Message {
+public:
+    SkynetRequestContext();
+    virtual ~SkynetRequestContext();
 
-  SkynetRequestContext(const SkynetRequestContext& from);
+    SkynetRequestContext(const SkynetRequestContext &from);
 
-  inline SkynetRequestContext& operator=(const SkynetRequestContext& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetRequestContext &operator=(const SkynetRequestContext &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetRequestContext& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetRequestContext &default_instance();
 
-  void Swap(SkynetRequestContext* other);
+    void Swap(SkynetRequestContext *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetRequestContext* New() const { return New(NULL); }
+    inline SkynetRequestContext *New() const { return New(NULL); }
 
-  SkynetRequestContext* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetRequestContext& from);
-  void MergeFrom(const SkynetRequestContext& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetRequestContext *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetRequestContext &from);
+    void MergeFrom(const SkynetRequestContext &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetRequestContext* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetRequestContext *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // optional string SessionId = 1;
-  void clear_sessionid();
-  static const int kSessionIdFieldNumber = 1;
-  const ::std::string& sessionid() const;
-  void set_sessionid(const ::std::string& value);
-  void set_sessionid(const char* value);
-  void set_sessionid(const char* value, size_t size);
-  ::std::string* mutable_sessionid();
-  ::std::string* release_sessionid();
-  void set_allocated_sessionid(::std::string* sessionid);
+    // optional string SessionId = 1;
+    void clear_sessionid();
+    static const int kSessionIdFieldNumber = 1;
+    const ::std::string &sessionid() const;
+    void set_sessionid(const ::std::string &value);
+    void set_sessionid(const char *value);
+    void set_sessionid(const char *value, size_t size);
+    ::std::string *mutable_sessionid();
+    ::std::string *release_sessionid();
+    void set_allocated_sessionid(::std::string *sessionid);
 
-  // optional .dg.model.RecognizeType Type = 2;
-  void clear_type();
-  static const int kTypeFieldNumber = 2;
-  ::dg::model::RecognizeType type() const;
-  void set_type(::dg::model::RecognizeType value);
+    // optional .dg.model.RecognizeType Type = 2;
+    void clear_type();
+    static const int kTypeFieldNumber = 2;
+    ::dg::model::RecognizeType type() const;
+    void set_type(::dg::model::RecognizeType value);
 
-  // optional .dg.model.StorageConfig Storage = 3;
-  bool has_storage() const;
-  void clear_storage();
-  static const int kStorageFieldNumber = 3;
-  const ::dg::model::StorageConfig& storage() const;
-  ::dg::model::StorageConfig* mutable_storage();
-  ::dg::model::StorageConfig* release_storage();
-  void set_allocated_storage(::dg::model::StorageConfig* storage);
+    // optional .dg.model.StorageConfig Storage = 3;
+    bool has_storage() const;
+    void clear_storage();
+    static const int kStorageFieldNumber = 3;
+    const ::dg::model::StorageConfig &storage() const;
+    ::dg::model::StorageConfig *mutable_storage();
+    ::dg::model::StorageConfig *release_storage();
+    void set_allocated_storage(::dg::model::StorageConfig *storage);
 
-  // map<string, string> Params = 4;
-  int params_size() const;
-  void clear_params();
-  static const int kParamsFieldNumber = 4;
-  const ::google::protobuf::Map< ::std::string, ::std::string >&
-      params() const;
-  ::google::protobuf::Map< ::std::string, ::std::string >*
-      mutable_params();
+    // map<string, string> Params = 4;
+    int params_size() const;
+    void clear_params();
+    static const int kParamsFieldNumber = 4;
+    const ::google::protobuf::Map<::std::string, ::std::string> &
+        params() const;
+    ::google::protobuf::Map<::std::string, ::std::string> *
+        mutable_params();
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetRequestContext)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetRequestContext)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr sessionid_;
-  ::dg::model::StorageConfig* storage_;
-  typedef ::google::protobuf::internal::MapEntryLite<
-      ::std::string, ::std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      0 >
-      SkynetRequestContext_ParamsEntry;
-  ::google::protobuf::internal::MapField<
-      ::std::string, ::std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      0 > params_;
-  int type_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::google::protobuf::internal::ArenaStringPtr sessionid_;
+    ::dg::model::StorageConfig *storage_;
+    typedef ::google::protobuf::internal::MapEntryLite<
+        ::std::string, ::std::string,
+        ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+        ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+        0>
+        SkynetRequestContext_ParamsEntry;
+    ::google::protobuf::internal::MapField<
+        ::std::string, ::std::string,
+        ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+        ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+        0> params_;
+    int type_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetRequestContext* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetRequestContext *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetOutput : public ::google::protobuf::Message {
- public:
-  SkynetOutput();
-  virtual ~SkynetOutput();
+class SkynetOutput: public ::google::protobuf::Message {
+public:
+    SkynetOutput();
+    virtual ~SkynetOutput();
 
-  SkynetOutput(const SkynetOutput& from);
+    SkynetOutput(const SkynetOutput &from);
 
-  inline SkynetOutput& operator=(const SkynetOutput& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetOutput &operator=(const SkynetOutput &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetOutput& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetOutput &default_instance();
 
-  void Swap(SkynetOutput* other);
+    void Swap(SkynetOutput *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetOutput* New() const { return New(NULL); }
+    inline SkynetOutput *New() const { return New(NULL); }
 
-  SkynetOutput* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetOutput& from);
-  void MergeFrom(const SkynetOutput& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetOutput *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetOutput &from);
+    void MergeFrom(const SkynetOutput &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetOutput* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetOutput *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // optional string Address = 1;
-  void clear_address();
-  static const int kAddressFieldNumber = 1;
-  const ::std::string& address() const;
-  void set_address(const ::std::string& value);
-  void set_address(const char* value);
-  void set_address(const char* value, size_t size);
-  ::std::string* mutable_address();
-  ::std::string* release_address();
-  void set_allocated_address(::std::string* address);
+    // optional string Address = 1;
+    void clear_address();
+    static const int kAddressFieldNumber = 1;
+    const ::std::string &address() const;
+    void set_address(const ::std::string &value);
+    void set_address(const char *value);
+    void set_address(const char *value, size_t size);
+    ::std::string *mutable_address();
+    ::std::string *release_address();
+    void set_allocated_address(::std::string *address);
 
-  // optional string Type = 2;
-  void clear_type();
-  static const int kTypeFieldNumber = 2;
-  const ::std::string& type() const;
-  void set_type(const ::std::string& value);
-  void set_type(const char* value);
-  void set_type(const char* value, size_t size);
-  ::std::string* mutable_type();
-  ::std::string* release_type();
-  void set_allocated_type(::std::string* type);
+    // optional string Type = 2;
+    void clear_type();
+    static const int kTypeFieldNumber = 2;
+    const ::std::string &type() const;
+    void set_type(const ::std::string &value);
+    void set_type(const char *value);
+    void set_type(const char *value, size_t size);
+    ::std::string *mutable_type();
+    ::std::string *release_type();
+    void set_allocated_type(::std::string *type);
 
-  // optional int32 Bitrate = 3;
-  void clear_bitrate();
-  static const int kBitrateFieldNumber = 3;
-  ::google::protobuf::int32 bitrate() const;
-  void set_bitrate(::google::protobuf::int32 value);
+    // optional int32 Bitrate = 3;
+    void clear_bitrate();
+    static const int kBitrateFieldNumber = 3;
+    ::google::protobuf::int32 bitrate() const;
+    void set_bitrate(::google::protobuf::int32 value);
 
-  // optional int32 Fps = 4;
-  void clear_fps();
-  static const int kFpsFieldNumber = 4;
-  ::google::protobuf::int32 fps() const;
-  void set_fps(::google::protobuf::int32 value);
+    // optional int32 Fps = 4;
+    void clear_fps();
+    static const int kFpsFieldNumber = 4;
+    ::google::protobuf::int32 fps() const;
+    void set_fps(::google::protobuf::int32 value);
 
-  // optional int32 Width = 5;
-  void clear_width();
-  static const int kWidthFieldNumber = 5;
-  ::google::protobuf::int32 width() const;
-  void set_width(::google::protobuf::int32 value);
+    // optional int32 Width = 5;
+    void clear_width();
+    static const int kWidthFieldNumber = 5;
+    ::google::protobuf::int32 width() const;
+    void set_width(::google::protobuf::int32 value);
 
-  // optional int32 Height = 6;
-  void clear_height();
-  static const int kHeightFieldNumber = 6;
-  ::google::protobuf::int32 height() const;
-  void set_height(::google::protobuf::int32 value);
+    // optional int32 Height = 6;
+    void clear_height();
+    static const int kHeightFieldNumber = 6;
+    ::google::protobuf::int32 height() const;
+    void set_height(::google::protobuf::int32 value);
 
-  // optional bool ShotHotspot = 7;
-  void clear_shothotspot();
-  static const int kShotHotspotFieldNumber = 7;
-  bool shothotspot() const;
-  void set_shothotspot(bool value);
+    // optional bool ShotHotspot = 7;
+    void clear_shothotspot();
+    static const int kShotHotspotFieldNumber = 7;
+    bool shothotspot() const;
+    void set_shothotspot(bool value);
 
-  // optional int32 SnapWidth = 8;
-  void clear_snapwidth();
-  static const int kSnapWidthFieldNumber = 8;
-  ::google::protobuf::int32 snapwidth() const;
-  void set_snapwidth(::google::protobuf::int32 value);
+    // optional int32 SnapWidth = 8;
+    void clear_snapwidth();
+    static const int kSnapWidthFieldNumber = 8;
+    ::google::protobuf::int32 snapwidth() const;
+    void set_snapwidth(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetOutput)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetOutput)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr address_;
-  ::google::protobuf::internal::ArenaStringPtr type_;
-  ::google::protobuf::int32 bitrate_;
-  ::google::protobuf::int32 fps_;
-  ::google::protobuf::int32 width_;
-  ::google::protobuf::int32 height_;
-  bool shothotspot_;
-  ::google::protobuf::int32 snapwidth_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::google::protobuf::internal::ArenaStringPtr address_;
+    ::google::protobuf::internal::ArenaStringPtr type_;
+    ::google::protobuf::int32 bitrate_;
+    ::google::protobuf::int32 fps_;
+    ::google::protobuf::int32 width_;
+    ::google::protobuf::int32 height_;
+    bool shothotspot_;
+    ::google::protobuf::int32 snapwidth_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetOutput* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetOutput *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetRequestData : public ::google::protobuf::Message {
- public:
-  SkynetRequestData();
-  virtual ~SkynetRequestData();
+class SkynetRequestData: public ::google::protobuf::Message {
+public:
+    SkynetRequestData();
+    virtual ~SkynetRequestData();
 
-  SkynetRequestData(const SkynetRequestData& from);
+    SkynetRequestData(const SkynetRequestData &from);
 
-  inline SkynetRequestData& operator=(const SkynetRequestData& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetRequestData &operator=(const SkynetRequestData &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetRequestData& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetRequestData &default_instance();
 
-  void Swap(SkynetRequestData* other);
+    void Swap(SkynetRequestData *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetRequestData* New() const { return New(NULL); }
+    inline SkynetRequestData *New() const { return New(NULL); }
 
-  SkynetRequestData* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetRequestData& from);
-  void MergeFrom(const SkynetRequestData& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetRequestData *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetRequestData &from);
+    void MergeFrom(const SkynetRequestData &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetRequestData* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetRequestData *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // optional int32 SensorId = 1;
-  void clear_sensorid();
-  static const int kSensorIdFieldNumber = 1;
-  ::google::protobuf::int32 sensorid() const;
-  void set_sensorid(::google::protobuf::int32 value);
+    // optional int32 SensorId = 1;
+    void clear_sensorid();
+    static const int kSensorIdFieldNumber = 1;
+    ::google::protobuf::int32 sensorid() const;
+    void set_sensorid(::google::protobuf::int32 value);
 
-  // optional string SensorName = 2;
-  void clear_sensorname();
-  static const int kSensorNameFieldNumber = 2;
-  const ::std::string& sensorname() const;
-  void set_sensorname(const ::std::string& value);
-  void set_sensorname(const char* value);
-  void set_sensorname(const char* value, size_t size);
-  ::std::string* mutable_sensorname();
-  ::std::string* release_sensorname();
-  void set_allocated_sensorname(::std::string* sensorname);
+    // optional string SensorName = 2;
+    void clear_sensorname();
+    static const int kSensorNameFieldNumber = 2;
+    const ::std::string &sensorname() const;
+    void set_sensorname(const ::std::string &value);
+    void set_sensorname(const char *value);
+    void set_sensorname(const char *value, size_t size);
+    ::std::string *mutable_sensorname();
+    ::std::string *release_sensorname();
+    void set_allocated_sensorname(::std::string *sensorname);
 
-  // optional string SensorURI = 3;
-  void clear_sensoruri();
-  static const int kSensorURIFieldNumber = 3;
-  const ::std::string& sensoruri() const;
-  void set_sensoruri(const ::std::string& value);
-  void set_sensoruri(const char* value);
-  void set_sensoruri(const char* value, size_t size);
-  ::std::string* mutable_sensoruri();
-  ::std::string* release_sensoruri();
-  void set_allocated_sensoruri(::std::string* sensoruri);
+    // optional string SensorURI = 3;
+    void clear_sensoruri();
+    static const int kSensorURIFieldNumber = 3;
+    const ::std::string &sensoruri() const;
+    void set_sensoruri(const ::std::string &value);
+    void set_sensoruri(const char *value);
+    void set_sensoruri(const char *value, size_t size);
+    ::std::string *mutable_sensoruri();
+    ::std::string *release_sensoruri();
+    void set_allocated_sensoruri(::std::string *sensoruri);
 
-  // optional string SensorType = 4;
-  void clear_sensortype();
-  static const int kSensorTypeFieldNumber = 4;
-  const ::std::string& sensortype() const;
-  void set_sensortype(const ::std::string& value);
-  void set_sensortype(const char* value);
-  void set_sensortype(const char* value, size_t size);
-  ::std::string* mutable_sensortype();
-  ::std::string* release_sensortype();
-  void set_allocated_sensortype(::std::string* sensortype);
+    // optional string SensorType = 4;
+    void clear_sensortype();
+    static const int kSensorTypeFieldNumber = 4;
+    const ::std::string &sensortype() const;
+    void set_sensortype(const ::std::string &value);
+    void set_sensortype(const char *value);
+    void set_sensortype(const char *value, size_t size);
+    ::std::string *mutable_sensortype();
+    ::std::string *release_sensortype();
+    void set_allocated_sensortype(::std::string *sensortype);
 
-  // optional int32 Width = 5;
-  void clear_width();
-  static const int kWidthFieldNumber = 5;
-  ::google::protobuf::int32 width() const;
-  void set_width(::google::protobuf::int32 value);
+    // optional int32 Width = 5;
+    void clear_width();
+    static const int kWidthFieldNumber = 5;
+    ::google::protobuf::int32 width() const;
+    void set_width(::google::protobuf::int32 value);
 
-  // optional int32 Height = 6;
-  void clear_height();
-  static const int kHeightFieldNumber = 6;
-  ::google::protobuf::int32 height() const;
-  void set_height(::google::protobuf::int32 value);
+    // optional int32 Height = 6;
+    void clear_height();
+    static const int kHeightFieldNumber = 6;
+    ::google::protobuf::int32 height() const;
+    void set_height(::google::protobuf::int32 value);
 
-  // optional int32 Fps = 7;
-  void clear_fps();
-  static const int kFpsFieldNumber = 7;
-  ::google::protobuf::int32 fps() const;
-  void set_fps(::google::protobuf::int32 value);
+    // optional int32 Fps = 7;
+    void clear_fps();
+    static const int kFpsFieldNumber = 7;
+    ::google::protobuf::int32 fps() const;
+    void set_fps(::google::protobuf::int32 value);
 
-  // repeated .dg.model.Cutboard Hotspots = 8;
-  int hotspots_size() const;
-  void clear_hotspots();
-  static const int kHotspotsFieldNumber = 8;
-  const ::dg::model::Cutboard& hotspots(int index) const;
-  ::dg::model::Cutboard* mutable_hotspots(int index);
-  ::dg::model::Cutboard* add_hotspots();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
-      mutable_hotspots();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
-      hotspots() const;
+    // repeated .dg.model.Cutboard Hotspots = 8;
+    int hotspots_size() const;
+    void clear_hotspots();
+    static const int kHotspotsFieldNumber = 8;
+    const ::dg::model::Cutboard &hotspots(int index) const;
+    ::dg::model::Cutboard *mutable_hotspots(int index);
+    ::dg::model::Cutboard *add_hotspots();
+    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> *
+        mutable_hotspots();
+    const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> &
+        hotspots() const;
 
-  // repeated .dg.model.Cutboard DisableAreas = 9;
-  int disableareas_size() const;
-  void clear_disableareas();
-  static const int kDisableAreasFieldNumber = 9;
-  const ::dg::model::Cutboard& disableareas(int index) const;
-  ::dg::model::Cutboard* mutable_disableareas(int index);
-  ::dg::model::Cutboard* add_disableareas();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
-      mutable_disableareas();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
-      disableareas() const;
+    // repeated .dg.model.Cutboard DisableAreas = 9;
+    int disableareas_size() const;
+    void clear_disableareas();
+    static const int kDisableAreasFieldNumber = 9;
+    const ::dg::model::Cutboard &disableareas(int index) const;
+    ::dg::model::Cutboard *mutable_disableareas(int index);
+    ::dg::model::Cutboard *add_disableareas();
+    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> *
+        mutable_disableareas();
+    const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> &
+        disableareas() const;
 
-  // optional string DeepV = 10;
-  void clear_deepv();
-  static const int kDeepVFieldNumber = 10;
-  const ::std::string& deepv() const;
-  void set_deepv(const ::std::string& value);
-  void set_deepv(const char* value);
-  void set_deepv(const char* value, size_t size);
-  ::std::string* mutable_deepv();
-  ::std::string* release_deepv();
-  void set_allocated_deepv(::std::string* deepv);
+    // optional string DeepV = 10;
+    void clear_deepv();
+    static const int kDeepVFieldNumber = 10;
+    const ::std::string &deepv() const;
+    void set_deepv(const ::std::string &value);
+    void set_deepv(const char *value);
+    void set_deepv(const char *value, size_t size);
+    ::std::string *mutable_deepv();
+    ::std::string *release_deepv();
+    void set_allocated_deepv(::std::string *deepv);
 
-  // optional string ResultOutput = 11;
-  void clear_resultoutput();
-  static const int kResultOutputFieldNumber = 11;
-  const ::std::string& resultoutput() const;
-  void set_resultoutput(const ::std::string& value);
-  void set_resultoutput(const char* value);
-  void set_resultoutput(const char* value, size_t size);
-  ::std::string* mutable_resultoutput();
-  ::std::string* release_resultoutput();
-  void set_allocated_resultoutput(::std::string* resultoutput);
+    // optional string ResultOutput = 11;
+    void clear_resultoutput();
+    static const int kResultOutputFieldNumber = 11;
+    const ::std::string &resultoutput() const;
+    void set_resultoutput(const ::std::string &value);
+    void set_resultoutput(const char *value);
+    void set_resultoutput(const char *value, size_t size);
+    ::std::string *mutable_resultoutput();
+    ::std::string *release_resultoutput();
+    void set_allocated_resultoutput(::std::string *resultoutput);
 
-  // optional .dg.model.SkynetOutput VideoOutput = 12;
-  bool has_videooutput() const;
-  void clear_videooutput();
-  static const int kVideoOutputFieldNumber = 12;
-  const ::dg::model::SkynetOutput& videooutput() const;
-  ::dg::model::SkynetOutput* mutable_videooutput();
-  ::dg::model::SkynetOutput* release_videooutput();
-  void set_allocated_videooutput(::dg::model::SkynetOutput* videooutput);
+    // optional .dg.model.SkynetOutput VideoOutput = 12;
+    bool has_videooutput() const;
+    void clear_videooutput();
+    static const int kVideoOutputFieldNumber = 12;
+    const ::dg::model::SkynetOutput &videooutput() const;
+    ::dg::model::SkynetOutput *mutable_videooutput();
+    ::dg::model::SkynetOutput *release_videooutput();
+    void set_allocated_videooutput(::dg::model::SkynetOutput *videooutput);
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetRequestData)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetRequestData)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr sensorname_;
-  ::google::protobuf::internal::ArenaStringPtr sensoruri_;
-  ::google::protobuf::int32 sensorid_;
-  ::google::protobuf::int32 width_;
-  ::google::protobuf::internal::ArenaStringPtr sensortype_;
-  ::google::protobuf::int32 height_;
-  ::google::protobuf::int32 fps_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard > hotspots_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard > disableareas_;
-  ::google::protobuf::internal::ArenaStringPtr deepv_;
-  ::google::protobuf::internal::ArenaStringPtr resultoutput_;
-  ::dg::model::SkynetOutput* videooutput_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    ::google::protobuf::internal::ArenaStringPtr sensorname_;
+    ::google::protobuf::internal::ArenaStringPtr sensoruri_;
+    ::google::protobuf::int32 sensorid_;
+    ::google::protobuf::int32 width_;
+    ::google::protobuf::internal::ArenaStringPtr sensortype_;
+    ::google::protobuf::int32 height_;
+    ::google::protobuf::int32 fps_;
+    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> hotspots_;
+    ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> disableareas_;
+    ::google::protobuf::internal::ArenaStringPtr deepv_;
+    ::google::protobuf::internal::ArenaStringPtr resultoutput_;
+    ::dg::model::SkynetOutput *videooutput_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetRequestData* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetRequestData *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetResponseContext : public ::google::protobuf::Message {
- public:
-  SkynetResponseContext();
-  virtual ~SkynetResponseContext();
+class SkynetResponseContext: public ::google::protobuf::Message {
+public:
+    SkynetResponseContext();
+    virtual ~SkynetResponseContext();
 
-  SkynetResponseContext(const SkynetResponseContext& from);
+    SkynetResponseContext(const SkynetResponseContext &from);
 
-  inline SkynetResponseContext& operator=(const SkynetResponseContext& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetResponseContext &operator=(const SkynetResponseContext &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetResponseContext& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetResponseContext &default_instance();
 
-  void Swap(SkynetResponseContext* other);
+    void Swap(SkynetResponseContext *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetResponseContext* New() const { return New(NULL); }
+    inline SkynetResponseContext *New() const { return New(NULL); }
 
-  SkynetResponseContext* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetResponseContext& from);
-  void MergeFrom(const SkynetResponseContext& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetResponseContext *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetResponseContext &from);
+    void MergeFrom(const SkynetResponseContext &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetResponseContext* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetResponseContext *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetResponseContext)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetResponseContext)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetResponseContext* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetResponseContext *default_instance_;
 };
 // -------------------------------------------------------------------
 
-class SkynetResponseData : public ::google::protobuf::Message {
- public:
-  SkynetResponseData();
-  virtual ~SkynetResponseData();
+class SkynetResponseData: public ::google::protobuf::Message {
+public:
+    SkynetResponseData();
+    virtual ~SkynetResponseData();
 
-  SkynetResponseData(const SkynetResponseData& from);
+    SkynetResponseData(const SkynetResponseData &from);
 
-  inline SkynetResponseData& operator=(const SkynetResponseData& from) {
-    CopyFrom(from);
-    return *this;
-  }
+    inline SkynetResponseData &operator=(const SkynetResponseData &from) {
+        CopyFrom(from);
+        return *this;
+    }
 
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SkynetResponseData& default_instance();
+    static const ::google::protobuf::Descriptor *descriptor();
+    static const SkynetResponseData &default_instance();
 
-  void Swap(SkynetResponseData* other);
+    void Swap(SkynetResponseData *other);
 
-  // implements Message ----------------------------------------------
+    // implements Message ----------------------------------------------
 
-  inline SkynetResponseData* New() const { return New(NULL); }
+    inline SkynetResponseData *New() const { return New(NULL); }
 
-  SkynetResponseData* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const SkynetResponseData& from);
-  void MergeFrom(const SkynetResponseData& from);
-  void Clear();
-  bool IsInitialized() const;
+    SkynetResponseData *New(::google::protobuf::Arena *arena) const;
+    void CopyFrom(const ::google::protobuf::Message &from);
+    void MergeFrom(const ::google::protobuf::Message &from);
+    void CopyFrom(const SkynetResponseData &from);
+    void MergeFrom(const SkynetResponseData &from);
+    void Clear();
+    bool IsInitialized() const;
 
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(SkynetResponseData* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
+    int ByteSize() const;
+    bool MergePartialFromCodedStream(
+        ::google::protobuf::io::CodedInputStream *input);
+    void SerializeWithCachedSizes(
+        ::google::protobuf::io::CodedOutputStream *output) const;
+    ::google::protobuf::uint8 *SerializeWithCachedSizesToArray(::google::protobuf::uint8 *output) const;
+    int GetCachedSize() const { return _cached_size_; }
+private:
+    void SharedCtor();
+    void SharedDtor();
+    void SetCachedSize(int size) const;
+    void InternalSwap(SkynetResponseData *other);
+private:
+    inline ::google::protobuf::Arena *GetArenaNoVirtual() const {
+        return _internal_metadata_.arena();
+    }
+    inline void *MaybeArenaPtr() const {
+        return _internal_metadata_.raw_arena_ptr();
+    }
+public:
 
-  ::google::protobuf::Metadata GetMetadata() const;
+    ::google::protobuf::Metadata GetMetadata() const;
 
-  // nested types ----------------------------------------------------
+    // nested types ----------------------------------------------------
 
-  // accessors -------------------------------------------------------
+    // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:dg.model.SkynetResponseData)
- private:
+    // @@protoc_insertion_point(class_scope:dg.model.SkynetResponseData)
+private:
 
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_skynet_2eproto();
-  friend void protobuf_AssignDesc_skynet_2eproto();
-  friend void protobuf_ShutdownFile_skynet_2eproto();
+    ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+    bool _is_default_instance_;
+    mutable int _cached_size_;
+    friend void protobuf_AddDesc_skynet_2eproto();
+    friend void protobuf_AssignDesc_skynet_2eproto();
+    friend void protobuf_ShutdownFile_skynet_2eproto();
 
-  void InitAsDefaultInstance();
-  static SkynetResponseData* default_instance_;
+    void InitAsDefaultInstance();
+    static SkynetResponseData *default_instance_;
 };
 // ===================================================================
 
@@ -836,76 +836,76 @@ class SkynetResponseData : public ::google::protobuf::Message {
 
 // optional .dg.model.SkynetRequestContext Context = 1;
 inline bool SkynetRequest::has_context() const {
-  return !_is_default_instance_ && context_ != NULL;
+    return !_is_default_instance_ && context_ != NULL;
 }
 inline void SkynetRequest::clear_context() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
 }
-inline const ::dg::model::SkynetRequestContext& SkynetRequest::context() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequest.Context)
-  return context_ != NULL ? *context_ : *default_instance_->context_;
+inline const ::dg::model::SkynetRequestContext &SkynetRequest::context() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequest.Context)
+    return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::model::SkynetRequestContext* SkynetRequest::mutable_context() {
-  
-  if (context_ == NULL) {
-    context_ = new ::dg::model::SkynetRequestContext;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequest.Context)
-  return context_;
+inline ::dg::model::SkynetRequestContext *SkynetRequest::mutable_context() {
+
+    if (context_ == NULL) {
+        context_ = new ::dg::model::SkynetRequestContext;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequest.Context)
+    return context_;
 }
-inline ::dg::model::SkynetRequestContext* SkynetRequest::release_context() {
-  
-  ::dg::model::SkynetRequestContext* temp = context_;
-  context_ = NULL;
-  return temp;
+inline ::dg::model::SkynetRequestContext *SkynetRequest::release_context() {
+
+    ::dg::model::SkynetRequestContext *temp = context_;
+    context_ = NULL;
+    return temp;
 }
-inline void SkynetRequest::set_allocated_context(::dg::model::SkynetRequestContext* context) {
-  delete context_;
-  context_ = context;
-  if (context) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequest.Context)
+inline void SkynetRequest::set_allocated_context(::dg::model::SkynetRequestContext *context) {
+    delete context_;
+    context_ = context;
+    if (context) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequest.Context)
 }
 
 // optional .dg.model.SkynetRequestData Data = 2;
 inline bool SkynetRequest::has_data() const {
-  return !_is_default_instance_ && data_ != NULL;
+    return !_is_default_instance_ && data_ != NULL;
 }
 inline void SkynetRequest::clear_data() {
-  if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
-  data_ = NULL;
+    if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
+    data_ = NULL;
 }
-inline const ::dg::model::SkynetRequestData& SkynetRequest::data() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequest.Data)
-  return data_ != NULL ? *data_ : *default_instance_->data_;
+inline const ::dg::model::SkynetRequestData &SkynetRequest::data() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequest.Data)
+    return data_ != NULL ? *data_ : *default_instance_->data_;
 }
-inline ::dg::model::SkynetRequestData* SkynetRequest::mutable_data() {
-  
-  if (data_ == NULL) {
-    data_ = new ::dg::model::SkynetRequestData;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequest.Data)
-  return data_;
+inline ::dg::model::SkynetRequestData *SkynetRequest::mutable_data() {
+
+    if (data_ == NULL) {
+        data_ = new ::dg::model::SkynetRequestData;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequest.Data)
+    return data_;
 }
-inline ::dg::model::SkynetRequestData* SkynetRequest::release_data() {
-  
-  ::dg::model::SkynetRequestData* temp = data_;
-  data_ = NULL;
-  return temp;
+inline ::dg::model::SkynetRequestData *SkynetRequest::release_data() {
+
+    ::dg::model::SkynetRequestData *temp = data_;
+    data_ = NULL;
+    return temp;
 }
-inline void SkynetRequest::set_allocated_data(::dg::model::SkynetRequestData* data) {
-  delete data_;
-  data_ = data;
-  if (data) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequest.Data)
+inline void SkynetRequest::set_allocated_data(::dg::model::SkynetRequestData *data) {
+    delete data_;
+    data_ = data;
+    if (data) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequest.Data)
 }
 
 // -------------------------------------------------------------------
@@ -914,76 +914,76 @@ inline void SkynetRequest::set_allocated_data(::dg::model::SkynetRequestData* da
 
 // optional .dg.model.SkynetResponseContext Context = 1;
 inline bool SkynetResponse::has_context() const {
-  return !_is_default_instance_ && context_ != NULL;
+    return !_is_default_instance_ && context_ != NULL;
 }
 inline void SkynetResponse::clear_context() {
-  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
-  context_ = NULL;
+    if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+    context_ = NULL;
 }
-inline const ::dg::model::SkynetResponseContext& SkynetResponse::context() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetResponse.Context)
-  return context_ != NULL ? *context_ : *default_instance_->context_;
+inline const ::dg::model::SkynetResponseContext &SkynetResponse::context() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetResponse.Context)
+    return context_ != NULL ? *context_ : *default_instance_->context_;
 }
-inline ::dg::model::SkynetResponseContext* SkynetResponse::mutable_context() {
-  
-  if (context_ == NULL) {
-    context_ = new ::dg::model::SkynetResponseContext;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetResponse.Context)
-  return context_;
+inline ::dg::model::SkynetResponseContext *SkynetResponse::mutable_context() {
+
+    if (context_ == NULL) {
+        context_ = new ::dg::model::SkynetResponseContext;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetResponse.Context)
+    return context_;
 }
-inline ::dg::model::SkynetResponseContext* SkynetResponse::release_context() {
-  
-  ::dg::model::SkynetResponseContext* temp = context_;
-  context_ = NULL;
-  return temp;
+inline ::dg::model::SkynetResponseContext *SkynetResponse::release_context() {
+
+    ::dg::model::SkynetResponseContext *temp = context_;
+    context_ = NULL;
+    return temp;
 }
-inline void SkynetResponse::set_allocated_context(::dg::model::SkynetResponseContext* context) {
-  delete context_;
-  context_ = context;
-  if (context) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetResponse.Context)
+inline void SkynetResponse::set_allocated_context(::dg::model::SkynetResponseContext *context) {
+    delete context_;
+    context_ = context;
+    if (context) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetResponse.Context)
 }
 
 // optional .dg.model.SkynetResponseData Data = 2;
 inline bool SkynetResponse::has_data() const {
-  return !_is_default_instance_ && data_ != NULL;
+    return !_is_default_instance_ && data_ != NULL;
 }
 inline void SkynetResponse::clear_data() {
-  if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
-  data_ = NULL;
+    if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
+    data_ = NULL;
 }
-inline const ::dg::model::SkynetResponseData& SkynetResponse::data() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetResponse.Data)
-  return data_ != NULL ? *data_ : *default_instance_->data_;
+inline const ::dg::model::SkynetResponseData &SkynetResponse::data() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetResponse.Data)
+    return data_ != NULL ? *data_ : *default_instance_->data_;
 }
-inline ::dg::model::SkynetResponseData* SkynetResponse::mutable_data() {
-  
-  if (data_ == NULL) {
-    data_ = new ::dg::model::SkynetResponseData;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetResponse.Data)
-  return data_;
+inline ::dg::model::SkynetResponseData *SkynetResponse::mutable_data() {
+
+    if (data_ == NULL) {
+        data_ = new ::dg::model::SkynetResponseData;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetResponse.Data)
+    return data_;
 }
-inline ::dg::model::SkynetResponseData* SkynetResponse::release_data() {
-  
-  ::dg::model::SkynetResponseData* temp = data_;
-  data_ = NULL;
-  return temp;
+inline ::dg::model::SkynetResponseData *SkynetResponse::release_data() {
+
+    ::dg::model::SkynetResponseData *temp = data_;
+    data_ = NULL;
+    return temp;
 }
-inline void SkynetResponse::set_allocated_data(::dg::model::SkynetResponseData* data) {
-  delete data_;
-  data_ = data;
-  if (data) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetResponse.Data)
+inline void SkynetResponse::set_allocated_data(::dg::model::SkynetResponseData *data) {
+    delete data_;
+    data_ = data;
+    if (data) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetResponse.Data)
 }
 
 // -------------------------------------------------------------------
@@ -992,114 +992,114 @@ inline void SkynetResponse::set_allocated_data(::dg::model::SkynetResponseData* 
 
 // optional string SessionId = 1;
 inline void SkynetRequestContext::clear_sessionid() {
-  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestContext::sessionid() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.SessionId)
-  return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestContext::sessionid() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.SessionId)
+    return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestContext::set_sessionid(const ::std::string& value) {
-  
-  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestContext.SessionId)
+inline void SkynetRequestContext::set_sessionid(const ::std::string &value) {
+
+    sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestContext.SessionId)
 }
-inline void SkynetRequestContext::set_sessionid(const char* value) {
-  
-  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestContext.SessionId)
+inline void SkynetRequestContext::set_sessionid(const char *value) {
+
+    sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestContext.SessionId)
 }
-inline void SkynetRequestContext::set_sessionid(const char* value, size_t size) {
-  
-  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestContext.SessionId)
+inline void SkynetRequestContext::set_sessionid(const char *value, size_t size) {
+
+    sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                          ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestContext.SessionId)
 }
-inline ::std::string* SkynetRequestContext::mutable_sessionid() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestContext.SessionId)
-  return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestContext::mutable_sessionid() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestContext.SessionId)
+    return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestContext::release_sessionid() {
-  
-  return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestContext::release_sessionid() {
+
+    return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestContext::set_allocated_sessionid(::std::string* sessionid) {
-  if (sessionid != NULL) {
-    
-  } else {
-    
-  }
-  sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestContext.SessionId)
+inline void SkynetRequestContext::set_allocated_sessionid(::std::string *sessionid) {
+    if (sessionid != NULL) {
+
+    } else {
+
+    }
+    sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestContext.SessionId)
 }
 
 // optional .dg.model.RecognizeType Type = 2;
 inline void SkynetRequestContext::clear_type() {
-  type_ = 0;
+    type_ = 0;
 }
 inline ::dg::model::RecognizeType SkynetRequestContext::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.Type)
-  return static_cast< ::dg::model::RecognizeType >(type_);
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.Type)
+    return static_cast< ::dg::model::RecognizeType >(type_);
 }
 inline void SkynetRequestContext::set_type(::dg::model::RecognizeType value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestContext.Type)
+
+    type_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestContext.Type)
 }
 
 // optional .dg.model.StorageConfig Storage = 3;
 inline bool SkynetRequestContext::has_storage() const {
-  return !_is_default_instance_ && storage_ != NULL;
+    return !_is_default_instance_ && storage_ != NULL;
 }
 inline void SkynetRequestContext::clear_storage() {
-  if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
-  storage_ = NULL;
+    if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
+    storage_ = NULL;
 }
-inline const ::dg::model::StorageConfig& SkynetRequestContext::storage() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.Storage)
-  return storage_ != NULL ? *storage_ : *default_instance_->storage_;
+inline const ::dg::model::StorageConfig &SkynetRequestContext::storage() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestContext.Storage)
+    return storage_ != NULL ? *storage_ : *default_instance_->storage_;
 }
-inline ::dg::model::StorageConfig* SkynetRequestContext::mutable_storage() {
-  
-  if (storage_ == NULL) {
-    storage_ = new ::dg::model::StorageConfig;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestContext.Storage)
-  return storage_;
+inline ::dg::model::StorageConfig *SkynetRequestContext::mutable_storage() {
+
+    if (storage_ == NULL) {
+        storage_ = new ::dg::model::StorageConfig;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestContext.Storage)
+    return storage_;
 }
-inline ::dg::model::StorageConfig* SkynetRequestContext::release_storage() {
-  
-  ::dg::model::StorageConfig* temp = storage_;
-  storage_ = NULL;
-  return temp;
+inline ::dg::model::StorageConfig *SkynetRequestContext::release_storage() {
+
+    ::dg::model::StorageConfig *temp = storage_;
+    storage_ = NULL;
+    return temp;
 }
-inline void SkynetRequestContext::set_allocated_storage(::dg::model::StorageConfig* storage) {
-  delete storage_;
-  storage_ = storage;
-  if (storage) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestContext.Storage)
+inline void SkynetRequestContext::set_allocated_storage(::dg::model::StorageConfig *storage) {
+    delete storage_;
+    storage_ = storage;
+    if (storage) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestContext.Storage)
 }
 
 // map<string, string> Params = 4;
 inline int SkynetRequestContext::params_size() const {
-  return params_.size();
+    return params_.size();
 }
 inline void SkynetRequestContext::clear_params() {
-  params_.Clear();
+    params_.Clear();
 }
-inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+inline const ::google::protobuf::Map<::std::string, ::std::string> &
 SkynetRequestContext::params() const {
-  // @@protoc_insertion_point(field_map:dg.model.SkynetRequestContext.Params)
-  return params_.GetMap();
+    // @@protoc_insertion_point(field_map:dg.model.SkynetRequestContext.Params)
+    return params_.GetMap();
 }
-inline ::google::protobuf::Map< ::std::string, ::std::string >*
+inline ::google::protobuf::Map<::std::string, ::std::string> *
 SkynetRequestContext::mutable_params() {
-  // @@protoc_insertion_point(field_mutable_map:dg.model.SkynetRequestContext.Params)
-  return params_.MutableMap();
+    // @@protoc_insertion_point(field_mutable_map:dg.model.SkynetRequestContext.Params)
+    return params_.MutableMap();
 }
 
 // -------------------------------------------------------------------
@@ -1108,172 +1108,172 @@ SkynetRequestContext::mutable_params() {
 
 // optional string Address = 1;
 inline void SkynetOutput::clear_address() {
-  address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetOutput::address() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Address)
-  return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetOutput::address() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Address)
+    return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetOutput::set_address(const ::std::string& value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Address)
+inline void SkynetOutput::set_address(const ::std::string &value) {
+
+    address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Address)
 }
-inline void SkynetOutput::set_address(const char* value) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetOutput.Address)
+inline void SkynetOutput::set_address(const char *value) {
+
+    address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetOutput.Address)
 }
-inline void SkynetOutput::set_address(const char* value, size_t size) {
-  
-  address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetOutput.Address)
+inline void SkynetOutput::set_address(const char *value, size_t size) {
+
+    address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                        ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetOutput.Address)
 }
-inline ::std::string* SkynetOutput::mutable_address() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetOutput.Address)
-  return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetOutput::mutable_address() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetOutput.Address)
+    return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetOutput::release_address() {
-  
-  return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetOutput::release_address() {
+
+    return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetOutput::set_allocated_address(::std::string* address) {
-  if (address != NULL) {
-    
-  } else {
-    
-  }
-  address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetOutput.Address)
+inline void SkynetOutput::set_allocated_address(::std::string *address) {
+    if (address != NULL) {
+
+    } else {
+
+    }
+    address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetOutput.Address)
 }
 
 // optional string Type = 2;
 inline void SkynetOutput::clear_type() {
-  type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetOutput::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Type)
-  return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetOutput::type() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Type)
+    return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetOutput::set_type(const ::std::string& value) {
-  
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Type)
+inline void SkynetOutput::set_type(const ::std::string &value) {
+
+    type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Type)
 }
-inline void SkynetOutput::set_type(const char* value) {
-  
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetOutput.Type)
+inline void SkynetOutput::set_type(const char *value) {
+
+    type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetOutput.Type)
 }
-inline void SkynetOutput::set_type(const char* value, size_t size) {
-  
-  type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetOutput.Type)
+inline void SkynetOutput::set_type(const char *value, size_t size) {
+
+    type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                     ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetOutput.Type)
 }
-inline ::std::string* SkynetOutput::mutable_type() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetOutput.Type)
-  return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetOutput::mutable_type() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetOutput.Type)
+    return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetOutput::release_type() {
-  
-  return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetOutput::release_type() {
+
+    return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetOutput::set_allocated_type(::std::string* type) {
-  if (type != NULL) {
-    
-  } else {
-    
-  }
-  type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetOutput.Type)
+inline void SkynetOutput::set_allocated_type(::std::string *type) {
+    if (type != NULL) {
+
+    } else {
+
+    }
+    type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetOutput.Type)
 }
 
 // optional int32 Bitrate = 3;
 inline void SkynetOutput::clear_bitrate() {
-  bitrate_ = 0;
+    bitrate_ = 0;
 }
 inline ::google::protobuf::int32 SkynetOutput::bitrate() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Bitrate)
-  return bitrate_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Bitrate)
+    return bitrate_;
 }
 inline void SkynetOutput::set_bitrate(::google::protobuf::int32 value) {
-  
-  bitrate_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Bitrate)
+
+    bitrate_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Bitrate)
 }
 
 // optional int32 Fps = 4;
 inline void SkynetOutput::clear_fps() {
-  fps_ = 0;
+    fps_ = 0;
 }
 inline ::google::protobuf::int32 SkynetOutput::fps() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Fps)
-  return fps_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Fps)
+    return fps_;
 }
 inline void SkynetOutput::set_fps(::google::protobuf::int32 value) {
-  
-  fps_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Fps)
+
+    fps_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Fps)
 }
 
 // optional int32 Width = 5;
 inline void SkynetOutput::clear_width() {
-  width_ = 0;
+    width_ = 0;
 }
 inline ::google::protobuf::int32 SkynetOutput::width() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Width)
-  return width_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Width)
+    return width_;
 }
 inline void SkynetOutput::set_width(::google::protobuf::int32 value) {
-  
-  width_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Width)
+
+    width_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Width)
 }
 
 // optional int32 Height = 6;
 inline void SkynetOutput::clear_height() {
-  height_ = 0;
+    height_ = 0;
 }
 inline ::google::protobuf::int32 SkynetOutput::height() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Height)
-  return height_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.Height)
+    return height_;
 }
 inline void SkynetOutput::set_height(::google::protobuf::int32 value) {
-  
-  height_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Height)
+
+    height_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.Height)
 }
 
 // optional bool ShotHotspot = 7;
 inline void SkynetOutput::clear_shothotspot() {
-  shothotspot_ = false;
+    shothotspot_ = false;
 }
 inline bool SkynetOutput::shothotspot() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.ShotHotspot)
-  return shothotspot_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.ShotHotspot)
+    return shothotspot_;
 }
 inline void SkynetOutput::set_shothotspot(bool value) {
-  
-  shothotspot_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.ShotHotspot)
+
+    shothotspot_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.ShotHotspot)
 }
 
 // optional int32 SnapWidth = 8;
 inline void SkynetOutput::clear_snapwidth() {
-  snapwidth_ = 0;
+    snapwidth_ = 0;
 }
 inline ::google::protobuf::int32 SkynetOutput::snapwidth() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.SnapWidth)
-  return snapwidth_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetOutput.SnapWidth)
+    return snapwidth_;
 }
 inline void SkynetOutput::set_snapwidth(::google::protobuf::int32 value) {
-  
-  snapwidth_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.SnapWidth)
+
+    snapwidth_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetOutput.SnapWidth)
 }
 
 // -------------------------------------------------------------------
@@ -1282,370 +1282,370 @@ inline void SkynetOutput::set_snapwidth(::google::protobuf::int32 value) {
 
 // optional int32 SensorId = 1;
 inline void SkynetRequestData::clear_sensorid() {
-  sensorid_ = 0;
+    sensorid_ = 0;
 }
 inline ::google::protobuf::int32 SkynetRequestData::sensorid() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorId)
-  return sensorid_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorId)
+    return sensorid_;
 }
 inline void SkynetRequestData::set_sensorid(::google::protobuf::int32 value) {
-  
-  sensorid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorId)
+
+    sensorid_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorId)
 }
 
 // optional string SensorName = 2;
 inline void SkynetRequestData::clear_sensorname() {
-  sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestData::sensorname() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorName)
-  return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestData::sensorname() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorName)
+    return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_sensorname(const ::std::string& value) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorName)
+inline void SkynetRequestData::set_sensorname(const ::std::string &value) {
+
+    sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorName)
 }
-inline void SkynetRequestData::set_sensorname(const char* value) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorName)
+inline void SkynetRequestData::set_sensorname(const char *value) {
+
+    sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorName)
 }
-inline void SkynetRequestData::set_sensorname(const char* value, size_t size) {
-  
-  sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorName)
+inline void SkynetRequestData::set_sensorname(const char *value, size_t size) {
+
+    sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                           ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorName)
 }
-inline ::std::string* SkynetRequestData::mutable_sensorname() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorName)
-  return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::mutable_sensorname() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorName)
+    return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestData::release_sensorname() {
-  
-  return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::release_sensorname() {
+
+    return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_allocated_sensorname(::std::string* sensorname) {
-  if (sensorname != NULL) {
-    
-  } else {
-    
-  }
-  sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorName)
+inline void SkynetRequestData::set_allocated_sensorname(::std::string *sensorname) {
+    if (sensorname != NULL) {
+
+    } else {
+
+    }
+    sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorName)
 }
 
 // optional string SensorURI = 3;
 inline void SkynetRequestData::clear_sensoruri() {
-  sensoruri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    sensoruri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestData::sensoruri() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorURI)
-  return sensoruri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestData::sensoruri() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorURI)
+    return sensoruri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_sensoruri(const ::std::string& value) {
-  
-  sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorURI)
+inline void SkynetRequestData::set_sensoruri(const ::std::string &value) {
+
+    sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorURI)
 }
-inline void SkynetRequestData::set_sensoruri(const char* value) {
-  
-  sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorURI)
+inline void SkynetRequestData::set_sensoruri(const char *value) {
+
+    sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorURI)
 }
-inline void SkynetRequestData::set_sensoruri(const char* value, size_t size) {
-  
-  sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorURI)
+inline void SkynetRequestData::set_sensoruri(const char *value, size_t size) {
+
+    sensoruri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                          ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorURI)
 }
-inline ::std::string* SkynetRequestData::mutable_sensoruri() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorURI)
-  return sensoruri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::mutable_sensoruri() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorURI)
+    return sensoruri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestData::release_sensoruri() {
-  
-  return sensoruri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::release_sensoruri() {
+
+    return sensoruri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_allocated_sensoruri(::std::string* sensoruri) {
-  if (sensoruri != NULL) {
-    
-  } else {
-    
-  }
-  sensoruri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensoruri);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorURI)
+inline void SkynetRequestData::set_allocated_sensoruri(::std::string *sensoruri) {
+    if (sensoruri != NULL) {
+
+    } else {
+
+    }
+    sensoruri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensoruri);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorURI)
 }
 
 // optional string SensorType = 4;
 inline void SkynetRequestData::clear_sensortype() {
-  sensortype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    sensortype_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestData::sensortype() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorType)
-  return sensortype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestData::sensortype() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.SensorType)
+    return sensortype_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_sensortype(const ::std::string& value) {
-  
-  sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorType)
+inline void SkynetRequestData::set_sensortype(const ::std::string &value) {
+
+    sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.SensorType)
 }
-inline void SkynetRequestData::set_sensortype(const char* value) {
-  
-  sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorType)
+inline void SkynetRequestData::set_sensortype(const char *value) {
+
+    sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.SensorType)
 }
-inline void SkynetRequestData::set_sensortype(const char* value, size_t size) {
-  
-  sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorType)
+inline void SkynetRequestData::set_sensortype(const char *value, size_t size) {
+
+    sensortype_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                           ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.SensorType)
 }
-inline ::std::string* SkynetRequestData::mutable_sensortype() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorType)
-  return sensortype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::mutable_sensortype() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.SensorType)
+    return sensortype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestData::release_sensortype() {
-  
-  return sensortype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::release_sensortype() {
+
+    return sensortype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_allocated_sensortype(::std::string* sensortype) {
-  if (sensortype != NULL) {
-    
-  } else {
-    
-  }
-  sensortype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensortype);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorType)
+inline void SkynetRequestData::set_allocated_sensortype(::std::string *sensortype) {
+    if (sensortype != NULL) {
+
+    } else {
+
+    }
+    sensortype_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensortype);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.SensorType)
 }
 
 // optional int32 Width = 5;
 inline void SkynetRequestData::clear_width() {
-  width_ = 0;
+    width_ = 0;
 }
 inline ::google::protobuf::int32 SkynetRequestData::width() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Width)
-  return width_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Width)
+    return width_;
 }
 inline void SkynetRequestData::set_width(::google::protobuf::int32 value) {
-  
-  width_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Width)
+
+    width_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Width)
 }
 
 // optional int32 Height = 6;
 inline void SkynetRequestData::clear_height() {
-  height_ = 0;
+    height_ = 0;
 }
 inline ::google::protobuf::int32 SkynetRequestData::height() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Height)
-  return height_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Height)
+    return height_;
 }
 inline void SkynetRequestData::set_height(::google::protobuf::int32 value) {
-  
-  height_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Height)
+
+    height_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Height)
 }
 
 // optional int32 Fps = 7;
 inline void SkynetRequestData::clear_fps() {
-  fps_ = 0;
+    fps_ = 0;
 }
 inline ::google::protobuf::int32 SkynetRequestData::fps() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Fps)
-  return fps_;
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Fps)
+    return fps_;
 }
 inline void SkynetRequestData::set_fps(::google::protobuf::int32 value) {
-  
-  fps_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Fps)
+
+    fps_ = value;
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.Fps)
 }
 
 // repeated .dg.model.Cutboard Hotspots = 8;
 inline int SkynetRequestData::hotspots_size() const {
-  return hotspots_.size();
+    return hotspots_.size();
 }
 inline void SkynetRequestData::clear_hotspots() {
-  hotspots_.Clear();
+    hotspots_.Clear();
 }
-inline const ::dg::model::Cutboard& SkynetRequestData::hotspots(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Hotspots)
-  return hotspots_.Get(index);
+inline const ::dg::model::Cutboard &SkynetRequestData::hotspots(int index) const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.Hotspots)
+    return hotspots_.Get(index);
 }
-inline ::dg::model::Cutboard* SkynetRequestData::mutable_hotspots(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.Hotspots)
-  return hotspots_.Mutable(index);
+inline ::dg::model::Cutboard *SkynetRequestData::mutable_hotspots(int index) {
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.Hotspots)
+    return hotspots_.Mutable(index);
 }
-inline ::dg::model::Cutboard* SkynetRequestData::add_hotspots() {
-  // @@protoc_insertion_point(field_add:dg.model.SkynetRequestData.Hotspots)
-  return hotspots_.Add();
+inline ::dg::model::Cutboard *SkynetRequestData::add_hotspots() {
+    // @@protoc_insertion_point(field_add:dg.model.SkynetRequestData.Hotspots)
+    return hotspots_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+inline ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> *
 SkynetRequestData::mutable_hotspots() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.SkynetRequestData.Hotspots)
-  return &hotspots_;
+    // @@protoc_insertion_point(field_mutable_list:dg.model.SkynetRequestData.Hotspots)
+    return &hotspots_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+inline const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> &
 SkynetRequestData::hotspots() const {
-  // @@protoc_insertion_point(field_list:dg.model.SkynetRequestData.Hotspots)
-  return hotspots_;
+    // @@protoc_insertion_point(field_list:dg.model.SkynetRequestData.Hotspots)
+    return hotspots_;
 }
 
 // repeated .dg.model.Cutboard DisableAreas = 9;
 inline int SkynetRequestData::disableareas_size() const {
-  return disableareas_.size();
+    return disableareas_.size();
 }
 inline void SkynetRequestData::clear_disableareas() {
-  disableareas_.Clear();
+    disableareas_.Clear();
 }
-inline const ::dg::model::Cutboard& SkynetRequestData::disableareas(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.DisableAreas)
-  return disableareas_.Get(index);
+inline const ::dg::model::Cutboard &SkynetRequestData::disableareas(int index) const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.DisableAreas)
+    return disableareas_.Get(index);
 }
-inline ::dg::model::Cutboard* SkynetRequestData::mutable_disableareas(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.DisableAreas)
-  return disableareas_.Mutable(index);
+inline ::dg::model::Cutboard *SkynetRequestData::mutable_disableareas(int index) {
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.DisableAreas)
+    return disableareas_.Mutable(index);
 }
-inline ::dg::model::Cutboard* SkynetRequestData::add_disableareas() {
-  // @@protoc_insertion_point(field_add:dg.model.SkynetRequestData.DisableAreas)
-  return disableareas_.Add();
+inline ::dg::model::Cutboard *SkynetRequestData::add_disableareas() {
+    // @@protoc_insertion_point(field_add:dg.model.SkynetRequestData.DisableAreas)
+    return disableareas_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+inline ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> *
 SkynetRequestData::mutable_disableareas() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.SkynetRequestData.DisableAreas)
-  return &disableareas_;
+    // @@protoc_insertion_point(field_mutable_list:dg.model.SkynetRequestData.DisableAreas)
+    return &disableareas_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+inline const ::google::protobuf::RepeatedPtrField<::dg::model::Cutboard> &
 SkynetRequestData::disableareas() const {
-  // @@protoc_insertion_point(field_list:dg.model.SkynetRequestData.DisableAreas)
-  return disableareas_;
+    // @@protoc_insertion_point(field_list:dg.model.SkynetRequestData.DisableAreas)
+    return disableareas_;
 }
 
 // optional string DeepV = 10;
 inline void SkynetRequestData::clear_deepv() {
-  deepv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    deepv_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestData::deepv() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.DeepV)
-  return deepv_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestData::deepv() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.DeepV)
+    return deepv_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_deepv(const ::std::string& value) {
-  
-  deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.DeepV)
+inline void SkynetRequestData::set_deepv(const ::std::string &value) {
+
+    deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.DeepV)
 }
-inline void SkynetRequestData::set_deepv(const char* value) {
-  
-  deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.DeepV)
+inline void SkynetRequestData::set_deepv(const char *value) {
+
+    deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.DeepV)
 }
-inline void SkynetRequestData::set_deepv(const char* value, size_t size) {
-  
-  deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.DeepV)
+inline void SkynetRequestData::set_deepv(const char *value, size_t size) {
+
+    deepv_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                      ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.DeepV)
 }
-inline ::std::string* SkynetRequestData::mutable_deepv() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.DeepV)
-  return deepv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::mutable_deepv() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.DeepV)
+    return deepv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestData::release_deepv() {
-  
-  return deepv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::release_deepv() {
+
+    return deepv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_allocated_deepv(::std::string* deepv) {
-  if (deepv != NULL) {
-    
-  } else {
-    
-  }
-  deepv_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), deepv);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.DeepV)
+inline void SkynetRequestData::set_allocated_deepv(::std::string *deepv) {
+    if (deepv != NULL) {
+
+    } else {
+
+    }
+    deepv_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), deepv);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.DeepV)
 }
 
 // optional string ResultOutput = 11;
 inline void SkynetRequestData::clear_resultoutput() {
-  resultoutput_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    resultoutput_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline const ::std::string& SkynetRequestData::resultoutput() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.ResultOutput)
-  return resultoutput_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline const ::std::string &SkynetRequestData::resultoutput() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.ResultOutput)
+    return resultoutput_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_resultoutput(const ::std::string& value) {
-  
-  resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.ResultOutput)
+inline void SkynetRequestData::set_resultoutput(const ::std::string &value) {
+
+    resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+    // @@protoc_insertion_point(field_set:dg.model.SkynetRequestData.ResultOutput)
 }
-inline void SkynetRequestData::set_resultoutput(const char* value) {
-  
-  resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.ResultOutput)
+inline void SkynetRequestData::set_resultoutput(const char *value) {
+
+    resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+    // @@protoc_insertion_point(field_set_char:dg.model.SkynetRequestData.ResultOutput)
 }
-inline void SkynetRequestData::set_resultoutput(const char* value, size_t size) {
-  
-  resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.ResultOutput)
+inline void SkynetRequestData::set_resultoutput(const char *value, size_t size) {
+
+    resultoutput_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+                             ::std::string(reinterpret_cast<const char *>(value), size));
+    // @@protoc_insertion_point(field_set_pointer:dg.model.SkynetRequestData.ResultOutput)
 }
-inline ::std::string* SkynetRequestData::mutable_resultoutput() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.ResultOutput)
-  return resultoutput_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::mutable_resultoutput() {
+
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.ResultOutput)
+    return resultoutput_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* SkynetRequestData::release_resultoutput() {
-  
-  return resultoutput_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string *SkynetRequestData::release_resultoutput() {
+
+    return resultoutput_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void SkynetRequestData::set_allocated_resultoutput(::std::string* resultoutput) {
-  if (resultoutput != NULL) {
-    
-  } else {
-    
-  }
-  resultoutput_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultoutput);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.ResultOutput)
+inline void SkynetRequestData::set_allocated_resultoutput(::std::string *resultoutput) {
+    if (resultoutput != NULL) {
+
+    } else {
+
+    }
+    resultoutput_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), resultoutput);
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.ResultOutput)
 }
 
 // optional .dg.model.SkynetOutput VideoOutput = 12;
 inline bool SkynetRequestData::has_videooutput() const {
-  return !_is_default_instance_ && videooutput_ != NULL;
+    return !_is_default_instance_ && videooutput_ != NULL;
 }
 inline void SkynetRequestData::clear_videooutput() {
-  if (GetArenaNoVirtual() == NULL && videooutput_ != NULL) delete videooutput_;
-  videooutput_ = NULL;
+    if (GetArenaNoVirtual() == NULL && videooutput_ != NULL) delete videooutput_;
+    videooutput_ = NULL;
 }
-inline const ::dg::model::SkynetOutput& SkynetRequestData::videooutput() const {
-  // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.VideoOutput)
-  return videooutput_ != NULL ? *videooutput_ : *default_instance_->videooutput_;
+inline const ::dg::model::SkynetOutput &SkynetRequestData::videooutput() const {
+    // @@protoc_insertion_point(field_get:dg.model.SkynetRequestData.VideoOutput)
+    return videooutput_ != NULL ? *videooutput_ : *default_instance_->videooutput_;
 }
-inline ::dg::model::SkynetOutput* SkynetRequestData::mutable_videooutput() {
-  
-  if (videooutput_ == NULL) {
-    videooutput_ = new ::dg::model::SkynetOutput;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.VideoOutput)
-  return videooutput_;
+inline ::dg::model::SkynetOutput *SkynetRequestData::mutable_videooutput() {
+
+    if (videooutput_ == NULL) {
+        videooutput_ = new ::dg::model::SkynetOutput;
+    }
+    // @@protoc_insertion_point(field_mutable:dg.model.SkynetRequestData.VideoOutput)
+    return videooutput_;
 }
-inline ::dg::model::SkynetOutput* SkynetRequestData::release_videooutput() {
-  
-  ::dg::model::SkynetOutput* temp = videooutput_;
-  videooutput_ = NULL;
-  return temp;
+inline ::dg::model::SkynetOutput *SkynetRequestData::release_videooutput() {
+
+    ::dg::model::SkynetOutput *temp = videooutput_;
+    videooutput_ = NULL;
+    return temp;
 }
-inline void SkynetRequestData::set_allocated_videooutput(::dg::model::SkynetOutput* videooutput) {
-  delete videooutput_;
-  videooutput_ = videooutput;
-  if (videooutput) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.VideoOutput)
+inline void SkynetRequestData::set_allocated_videooutput(::dg::model::SkynetOutput *videooutput) {
+    delete videooutput_;
+    videooutput_ = videooutput;
+    if (videooutput) {
+
+    } else {
+
+    }
+    // @@protoc_insertion_point(field_set_allocated:dg.model.SkynetRequestData.VideoOutput)
 }
 
 // -------------------------------------------------------------------

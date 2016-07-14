@@ -37,7 +37,6 @@ static void networkInfo(int *rx, int *tx) {
         memset(id, 0, sizeof(id));
         FILE *out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
         if (out == NULL) {
-            fclose(out);
             return;
         }
 
@@ -80,8 +79,8 @@ static void networkInfo(int *rx, int *tx) {
 
 class SystemAppsService {
 
- public:
-    SystemAppsService(const Config *config,string name);
+public:
+    SystemAppsService(const Config *config, string name, int baseId = 0);
     virtual ~SystemAppsService();
 
     MatrixError Ping(const PingRequest *request, PingResponse *response);
@@ -160,7 +159,7 @@ class SystemAppsService {
         splitSpace(values, string(id));
 
         if (values.size() >= index) {
-            msg = values[index]+"kB";
+            msg = values[index] + "kB";
         } else {
             return -1;
         }
@@ -202,16 +201,16 @@ class SystemAppsService {
 
     }
 
-    int getNetworkInfo(std::string &msg,std::string cmd){
-        if(cmd=="RX"){
-            msg = to_string(rx)+" kB/s";
-        }else if(cmd=="TX"){
-            msg = to_string(tx)+" kB/s";
+    int getNetworkInfo(std::string &msg, std::string cmd) {
+        if (cmd == "RX") {
+            msg = to_string(rx) + " kB/s";
+        } else if (cmd == "TX") {
+            msg = to_string(tx) + " kB/s";
 
         }
         return 1;
     }
- private:
+private:
     void initNetworkThread();
     const Config *config_;
     string name_;
@@ -219,7 +218,6 @@ class SystemAppsService {
     string serviceversion_;
 
 };
-}
-;
+};
 
 #endif //MATRIX_APPS_SYSTEM_SERVICE_H_

@@ -74,7 +74,7 @@ public:
     } WorkerStatus;
 
     MatrixEnginesPool(Config *config) : config_(config) {
-        stop_=true;
+        stop_ = true;
     }
 
     void PrintStastics() {
@@ -92,21 +92,22 @@ public:
             return;
         }
 
-        int gpuNum = (int) config_->Value("System/GpuNum");
-        gpuNum = gpuNum == 0 ? 1 : gpuNum;
+        vector<int> threadsOnGpu;
+        int gpuNum = config_->Value(SYSTEM_THREADS + "/Size");
+        cout << "Gpu num defined in config file: " << gpuNum << endl;
 
         for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
             config_->AddEntry("System/GpuId", AnyConversion(gpuId));
-            int threadNum = (int) config_->Value("System/ThreadsPerGpu");
-            threadNum = threadNum == 0 ? 1 : threadNum;
+            int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+            cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
             for (int i = 0; i < threadNum; ++i) {
                 string name = "apps_" + to_string(gpuId) + "_" + to_string(i);
-                EngineType *engine = new EngineType(config_, name);
+                EngineType *engine = new EngineType(config_, name, gpuId * 10 + i);
                 cout << "Start thread: " << name << endl;
 
-                workers_.emplace_back([this, engine] {
+                workers_.emplace_back([this, engine, &name] {
                   for (; ;) {
                       CallData *task;
                       {
@@ -130,9 +131,9 @@ public:
                       // and then invoke the binded function
                       task->Run();
                   }
+                  LOG(ERROR) << "Engine thread " << name << " crashed!!!" << endl;
                 });
             }
-
 
         }
 
@@ -156,7 +157,7 @@ public:
 private:
     Config *config_;
     queue<CallData *> tasks_;
-  //  vector<WorkerStatus> worker_status_;
+    //  vector<WorkerStatus> worker_status_;
     vector<std::thread> workers_;
     std::mutex queue_mutex_;
     std::condition_variable condition_;
@@ -177,7 +178,7 @@ public:
             LOG(ERROR) << "The engine pool already runing" << endl;
             return;
         }
-        int threadNum=1;
+        int threadNum = 1;
         for (int i = 0; i < threadNum; ++i) {
             MessageType *engine = new MessageType(config_);
 
@@ -206,7 +207,6 @@ public:
                   task->Run();
               }
             });
-
 
         }
 
