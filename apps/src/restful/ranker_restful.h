@@ -25,7 +25,7 @@ public:
     RestRankerServiceImpl(Config config,
                           string addr,
                           MatrixEnginesPool <RankerAppsService> *engine_pool)
-        : RestfulService(engine_pool, config), service_system_(&config, "system"), config_(config) {
+        : RestfulService(engine_pool, config), config_(config) {
     }
 
     virtual ~RestRankerServiceImpl() { }
@@ -35,11 +35,13 @@ public:
         RankFunc rank_func = (RankFunc) &RankerAppsService::GetRankedVector;
         bindFunc<RankerAppsService, FeatureRankingRequest, FeatureRankingResponse>(server,
                                                                                    "^/rank$",
+                                                                                   "POST",
+                                                                                   rank_func);
+
     }
 
 
 private:
-    SystemAppsService service_system_;
 
     Config config_;
 };
