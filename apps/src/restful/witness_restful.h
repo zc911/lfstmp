@@ -26,7 +26,7 @@ public:
     RestWitnessServiceImpl(Config config,
                            string addr,
                            MatrixEnginesPool<WitnessAppsService> *engine_pool)
-        : RestfulService(engine_pool, config), service_system_(&config, "witness system") {
+        : RestfulService(engine_pool, config) {
 
     }
 
@@ -37,23 +37,19 @@ public:
         RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
         bindFunc<WitnessAppsService, WitnessRequest, WitnessResponse>(server, "^/rec/image$",
                                                                       "POST", rec_func);
+        BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
+        bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
+                                                                                "/rec/image/batch$",
+                                                                                "POST",
+                                                                                batch_func);
+
+
         RecIndexFunc rec_index_func = (RecIndexFunc) &WitnessAppsService::Index;
         bindFunc<WitnessAppsService, IndexRequest, IndexResponse>(server, "^/rec/index$",
                                                                   "POST", rec_index_func);
         RecIndexTxtFunc rec_index_txt_func = (RecIndexTxtFunc) &WitnessAppsService::IndexTxt;
         bindFunc<WitnessAppsService, IndexTxtRequest, IndexTxtResponse>(server, "^/rec/index/txt$",
                                                                         "POST", rec_index_txt_func);
-        BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
-        bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
-                                                                                "/rec/image/batch$",
-                                                                                "POST",
-                                                                                batch_func);
-        std::function<MatrixError(const SystemStatusRequest *, SystemStatusResponse *)> statusBinder =
-            std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/info$", "GET", statusBinder);
-        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
-            std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/ping$", "GET", pingBinder);
 
     }
     virtual void warmUp(int n) {
@@ -93,9 +89,6 @@ public:
         }
 
     }
-    
-private:
-    SystemAppsService service_system_;
 };
 }
 
