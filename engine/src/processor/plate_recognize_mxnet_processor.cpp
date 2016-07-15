@@ -71,6 +71,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
 
 
         VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
+
         for (int j = 0; j < batchsize; j++) {
             LPDR_Output_S *pstOut = stOutput.astLPSet + j;
             vector<Vehicle::Plate> plates;
@@ -177,7 +178,7 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
      return;*/
     images_.clear();
     objs_.clear();
-    objs_ = frameBatch->CollectObjects(FEATURE_CAR_PLATE);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PLATE);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
 
@@ -185,14 +186,14 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
 
         if (obj->type() == OBJECT_CAR) {
             Vehicle *v = (Vehicle *) obj;
-            DLOG(INFO) << "Put vehicle images to be color classified: " << obj->id() << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Put vehicle images to be color classified: " << obj->id() << endl;
             images_.push_back(v->image());
             ++itr;
             performance_++;
 
         } else {
             itr = objs_.erase(itr);
-            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "This is not a type of vehicle: " << obj->id() << endl;
         }
     }
 }
