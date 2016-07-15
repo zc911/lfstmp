@@ -8,6 +8,7 @@
 #ifndef PROCESSOR_H_
 #define PROCESSOR_H_
 #include <sys/file.h>
+#include <atomic>
 #include "model/basic.h"
 #include "model/model.h"
 #include "model/frame.h"
@@ -16,6 +17,7 @@
 namespace dg {
 /// The basic processor interface. It defines the
 /// interfaces each derived processor must to implement.
+const int RECORD_UNIT=1000;
 class Processor {
 public:
     Processor()
@@ -90,7 +92,6 @@ private:
 protected:
     Processor *next_;
     unsigned long long performance_;
-
 };
 }
 #endif /* PROCESSOR_H_ */

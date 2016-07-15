@@ -47,20 +47,19 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     return topx;
 }
 bool CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if RELEASE
-    performance_=20001;
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
-            return false;
+    #if DEBUG
+    #else
+        if(performance_>RECORD_UNIT) {
+            if(!RecordFeaturePerformance()) {
+                return false;
+            }
         }
-    }
-#endif
+    #endif
 
     return true;
 }
 bool CarRankProcessor::RecordFeaturePerformance() {
-
-    return RecordPerformance(FEATURE_CAR_RANK, performance_);
+    return RecordPerformance(FEATURE_CAR_RANK,performance_);
 
 }
 }
