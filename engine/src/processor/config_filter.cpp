@@ -251,9 +251,7 @@ void ConfigFilter::createPedestrianConfig(const Config &cconfig,
 
     pConfig.model_file = modelPath + (string) data_config_.Value(FILE_PEDESTRIAN_ATTR_TRAINED_MODEL);
     pConfig.deploy_file = modelPath + (string) data_config_.Value(FILE_PEDESTRIAN_ATTR_DEPLOY_MODEL);
-    pConfig.tag_name_path = (string) data_config_.Value(
-        FILE_PEDESTRIAN_ATTR_MODEL_PATH)
-        + (string) data_config_.Value(FILE_PEDESTRIAN_ATTR_TAGNAME_MODEL);
+    pConfig.tag_name_path = modelPath + (string) data_config_.Value(FILE_PEDESTRIAN_ATTR_TAGNAME_MODEL);
     pConfig.layer_name = (string) data_config_.Value(
         FILE_PEDESTRIAN_ATTR_LAYER_NAME);
     pConfig.gpu_id = gpu_id;
