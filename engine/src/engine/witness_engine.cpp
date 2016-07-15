@@ -302,7 +302,9 @@ void WitnessEngine::init(const Config &config) {
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
-
+    if(!RecordPerformance(FEATURE_RESERVED,  performance_)) {
+            performance_=RECORD_UNIT;
+   }
     is_init_ = true;
 }
 
