@@ -444,7 +444,7 @@ void callSP(string address){
 }
 int main(int argc, char *argv[]) {
     if (argc != 7) {
-        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] IP:PORT THREAD_NUM"
+        cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] [P|I|R] IP:PORT THREAD_NUM"
             << endl;
         return 0;
     }
