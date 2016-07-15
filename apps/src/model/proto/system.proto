@@ -1,214 +1,122 @@
 syntax = "proto3";
 
-package
-dg.model;
+package dg.model;
 
 import "localcommon.proto";
 import "common.proto";
-service
-SystemService
-{
-    rpc
-    Ping(PingRequest)
-    returns(PingResponse)
-    {
+service SystemService {
+    rpc Ping (PingRequest) returns (PingResponse) {
     }
 
-    rpc
-    SystemStatus(SystemStatusRequest)
-    returns(SystemStatusResponse)
-    {
+    rpc SystemStatus (SystemStatusRequest) returns (SystemStatusResponse) {
     }
 
-    rpc
-    GetInstances(GetInstancesRequest)
-    returns(InstanceConfigureResponse)
-    {
+    rpc GetInstances (GetInstancesRequest) returns (InstanceConfigureResponse) {
     }
 
-    rpc
-    ConfigEngine(InstanceConfigureRequest)
-    returns(InstanceConfigureResponse)
-    {
+    rpc ConfigEngine (InstanceConfigureRequest) returns (InstanceConfigureResponse) {
     }
 }
 
-message
-PingRequest
-{
+message PingRequest {
 
 }
 
-message
-PingResponse
-{
-    string
-    Message = 1;
+message PingResponse {
+    string Message = 1;
 }
 
-message
-SystemStatusRequest
-{
+message SystemStatusRequest {
 
 }
 
-message
-SystemStatusResponse
-{
-    string
-    ModelVer = 1;    //模型版本
-    string
-    EngineVer = 2;   //引擎版本
-    string
-    ServiceVer = 3;  //服务版本
-    string
-    CpuUsage = 4;    //CPU使用率
-    string
-    AvailMem = 5;    //可用内存
-    string
-    TotalMem = 6;    //全部内存
-    string
-    AvailDisk = 7;   //可用磁盘
-    string
-    TotalDisk = 8;   //全部磁盘
-    string
-    NetIOSend = 9;   //网络发送速度
-    string
-    NetIORecv = 10;  //网络接收速度
-    string
-    GpuUsage = 11;   //GPU使用率
-    string
-    GpuAvailMem = 12;//可用显存
-    string
-    GpuTotalMem = 13;//全部显存
+message SystemStatusResponse {
+    string ModelVer = 1; //模型版本
+    string EngineVer = 2; //引擎版本
+    string ServiceVer = 3; //服务版本
+    string CpuUsage = 4; //CPU使用率
+    string AvailMem = 5; //可用内存
+    string TotalMem = 6; //全部内存
+    string AvailDisk = 7; //可用磁盘
+    string TotalDisk = 8; //全部磁盘
+    string NetIOSend = 9; //网络发送速度
+    string NetIORecv = 10; //网络接收速度
+    string GpuUsage = 11; //GPU使用率
+    string GpuAvailMem = 12; //可用显存
+    string GpuTotalMem = 13; //全部显存
 }
 
-message
-InstanceConfigureRequest
-{
-    RecImageVConfig
-    RecImageVConfig = 1; //开启车的图片识别模块配置
-    RecImageFConfig
-    RecImageFConfig = 2; //开启人的图片识别模块配置
-    RecVideoVConfig
-    RecVideoVConfig = 3; //开启车的视频识别模块配置
-    RecVideoFConfig
-    RecVideoFConfig = 4; //开启人的视频识别模块配置
-    RankVConfig
-    RankVConfig = 5; //开启车的比对模块配置
-    RankFConfig
-    RankFConfig = 6; //开启人的比对模块配置
+message InstanceConfigureRequest {
+    RecImageVConfig RecImageVConfig = 1; //开启车的图片识别模块配置
+    RecImageFConfig RecImageFConfig = 2; //开启人的图片识别模块配置
+    RecVideoVConfig RecVideoVConfig = 3; //开启车的视频识别模块配置
+    RecVideoFConfig RecVideoFConfig = 4; //开启人的视频识别模块配置
+    RankVConfig RankVConfig = 5; //开启车的比对模块配置
+    RankFConfig RankFConfig = 6; //开启人的比对模块配置
 }
 
-message
-GetInstancesRequest
-{
+message GetInstancesRequest {
 
 }
 
-message
-InstanceConfigureResponse
-{
-    string
-    Status = 1;
-    string
-    Message = 2;
-    repeated
-    EngineStatus
-    Results = 3;
+message InstanceConfigureResponse {
+    string Status = 1;
+    string Message = 2;
+    repeated EngineStatus Results = 3;
 }
 
 
 enum InstanceType {
-    CFG_TYPE_VEHICLE_IMAGE = 0
-;
-CFG_TYPE_VEHICLE_VIDEO = 1;
-CFG_TYPE_VEHICLE_RANKER = 2;
-CFG_TYPE_FACE_IMAGE = 3;
-CFG_TYPE_FACE_VIDEO = 4;
-CFG_TYPE_FACE_RANKER = 5;
+    CFG_TYPE_VEHICLE_IMAGE = 0;
+    CFG_TYPE_VEHICLE_VIDEO = 1;
+    CFG_TYPE_VEHICLE_RANKER = 2;
+    CFG_TYPE_FACE_IMAGE = 3;
+    CFG_TYPE_FACE_VIDEO = 4;
+    CFG_TYPE_FACE_RANKER = 5;
 }
 
-message
-InstanceConfig
-{
-    InstanceType
-    Type = 1; //Instance类型 enum InstanceType
-    int32
-    Count = 2;//启用的Engine数量
-    repeated
-    RecognizeFunctions
-    Functions = 3; //默认开启的功能 enum RecognizeFunctions
-    StorageConfig
-    StorageConfig = 4; //默认结构化存储地址
+message InstanceConfig {
+    InstanceType Type = 1; //Instance类型 enum InstanceType
+    int32 Count = 2; //启用的Engine数量
+    repeated RecognizeFunctions Functions = 3; //默认开启的功能 enum RecognizeFunctions
+    StorageConfig StorageConfig = 4; //默认结构化存储地址
 }
 
-message
-RecImageVConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RecImageVConfig {
+    InstanceConfig Instances = 1;
 }
 
-message
-RecImageFConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RecImageFConfig {
+    InstanceConfig Instances = 1;
 }
 
-message
-RecVideoVConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RecVideoVConfig {
+    InstanceConfig Instances = 1;
 
-    int32
-    BufferSize = 2;
-    int32
-    DetectInterval = 3;
-    int32
-    ClassifyInterval = 4;
-    int32
-    ClassifyBufferSize = 5;
+    int32 BufferSize = 2;
+    int32 DetectInterval = 3;
+    int32 ClassifyInterval = 4;
+    int32 ClassifyBufferSize = 5;
 }
 
-message
-RecVideoFConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RecVideoFConfig {
+    InstanceConfig Instances = 1;
 
-    int32
-    BufferSize = 2;
-    float
-    DetectThreshold = 3;
-    int32
-    DetectWidth = 4;
-    int32
-    DetectHeight = 5;
+    int32 BufferSize = 2;
+    float DetectThreshold = 3;
+    int32 DetectWidth = 4;
+    int32 DetectHeight = 5;
 }
 
-message
-RankVConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RankVConfig {
+    InstanceConfig Instances = 1;
 }
 
-message
-RankFConfig
-{
-    InstanceConfig
-    Instances = 1;
+message RankFConfig {
+    InstanceConfig Instances = 1;
 }
 
-message
-EngineStatus
-{
-    int32
-    Instances = 1;
-    repeated
-    int32
-    RpcPorts = 2; //must enable multi-process control
+message EngineStatus {
+    int32 Instances = 1;
+    repeated int32 RpcPorts = 2; //must enable multi-process control
 }

@@ -4,7 +4,7 @@ package dg.model;
 
 message SrcMetadata {
     int64 Timestamp = 1;
-    int33 Duration = 2;
+    int32 Duration = 2;
     int32 SensorId = 3;
     string SensorName = 4;
     string SensorUrl = 5;
