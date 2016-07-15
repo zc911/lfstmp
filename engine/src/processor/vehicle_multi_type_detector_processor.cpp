@@ -52,6 +52,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         }
         frameIds.push_back(i);
         images.push_back(frame->payload()->data());
+        performance_++;
     }
 
     if (images.size() == 0) {
@@ -144,8 +145,10 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
 bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else
+
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }
@@ -157,7 +160,7 @@ bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 bool VehicleMultiTypeDetectorProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_DETECTION, performance_);
+    return RecordPerformance(FEATURE_CAR_DETECTION,  performance_);
 
 }
 
