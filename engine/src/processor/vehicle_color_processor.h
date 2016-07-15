@@ -61,6 +61,16 @@ protected:
             return;
         }
     }
+    void normalize_color(Prediction &max, vector<Prediction> preds){
+        Prediction min = nthPrediction(preds, 0);
+         max = nthPrediction(preds, preds.size() - 1);
+        float tot_score = 0;
+
+        for (int i = 0; i < preds.size(); i++) {
+            tot_score += preds[i].second-min.second;
+        }
+        max.second=(max.second-min.second)/tot_score;
+    }
 protected:
     void vehiclesResizedMat(FrameBatch *frameBatch);
 private:
