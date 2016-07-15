@@ -773,6 +773,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     VLOG(VLOG_PROCESS_COST) << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
 
     gettimeofday(&start, NULL);
+
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
     rec_lock_.lock();

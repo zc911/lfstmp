@@ -112,12 +112,14 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool PlateRecognizeMxnetProcessor::RecordFeaturePerformance() {
-    return true;
+
+    return RecordPerformance(FEATURE_CAR_PLATE, performance_);
 }
 
 bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }
@@ -186,6 +188,8 @@ void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
             DLOG(INFO) << "Put vehicle images to be color classified: " << obj->id() << endl;
             images_.push_back(v->image());
             ++itr;
+            performance_++;
+
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;

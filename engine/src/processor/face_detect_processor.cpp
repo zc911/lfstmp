@@ -79,6 +79,8 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
         vector<Mat> imgs;
         imgs.push_back(data);
+        performance_++;
+
         vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
 
         for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
@@ -95,19 +97,20 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     return true;
 }
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if RELEASE
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
-            return false;
-        }
+    #if DEBUG
+    #else
+        if(performance_>RECORD_UNIT) {
+            if(!RecordFeaturePerformance()) {
+                return false;
+            }
     }
-#endif
+    #endif
 
     return true;
 }
 bool FaceDetectProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_DETECTION, performance_);
+    return RecordPerformance(FEATURE_FACE_DETECTION,  performance_);
 
 }
 } /* namespace dg */
