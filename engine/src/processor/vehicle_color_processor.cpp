@@ -63,8 +63,9 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
 
 bool VehicleColorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if (performance_ > 20000) {
+#if DEBUG
+#else
+    if (performance_ > RECORD_UNIT) {
         if (!RecordFeaturePerformance()) {
             return false;
         }
@@ -98,7 +99,7 @@ void VehicleColorProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
 }
 bool VehicleColorProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_COLOR, performance_);
+    return RecordPerformance(FEATURE_CAR_COLOR,  performance_);
 
 }
 }

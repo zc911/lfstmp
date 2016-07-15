@@ -88,8 +88,9 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
 bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }
@@ -111,6 +112,7 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             resized_images_.push_back(v->resized_image());
             images_.push_back(v->image());
             ++itr;
+            performance_++;
 
         } else {
             itr = objs_.erase(itr);

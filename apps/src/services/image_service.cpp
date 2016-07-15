@@ -65,6 +65,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
         std::condition_variable cv;
         int finishCount = 0;
         roiimages.resize(imgs.size());
+
         for (int i = 0; i < imgs.size(); ++i) {
             pool->enqueue(
                 [&roiimages, &finishCount, &countmt, &cv](WitnessImage &img,
