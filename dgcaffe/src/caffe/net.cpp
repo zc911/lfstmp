@@ -65,7 +65,7 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt, const Ne
     DecryptModel(buffer, size, decrypt);
     string input = string((char *)decrypt) ;
 
-    LOG(INFO) << "Caffe will load AES descript model, size=" << size;
+    DLOG(INFO) << "Caffe will load AES descript model, size=" << size;
     ReadNetParamsFromTextMemoryOrDie(param_file, input, &param);
 
     free(buffer);
@@ -89,7 +89,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   // the current NetState.
   NetParameter filtered_param;
   FilterNet(in_param, &filtered_param);
-  LOG_IF(INFO, Caffe::root_solver())
+  DLOG_IF(INFO, Caffe::root_solver())
       << "Initializing net from parameters: " << std::endl
       << filtered_param.DebugString();
   // Create a copy of filtered_param with splits added where necessary.
@@ -124,14 +124,14 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
           << "either 0 or bottom_size times ";
     }
     if (share_from_root) {
-      LOG(INFO) << "Sharing layer " << layer_param.name() << " from root net";
+      DLOG(INFO) << "Sharing layer " << layer_param.name() << " from root net";
       layers_.push_back(root_net_->layers_[layer_id]);
       layers_[layer_id]->SetShared(true);
     } else {
       layers_.push_back(LayerRegistry<Dtype>::CreateLayer(layer_param));
     }
     layer_names_.push_back(layer_param.name());
-    LOG_IF(INFO, Caffe::root_solver())
+    DLOG_IF(INFO, Caffe::root_solver())
         << "Creating Layer " << layer_param.name();
     bool need_backward = false;
 
@@ -174,29 +174,29 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
       const vector<Blob<Dtype>*>& this_top = this->top_vecs_[layer_id];
       for (int top_id = 0; top_id < base_top.size(); ++top_id) {
         this_top[top_id]->ReshapeLike(*base_top[top_id]);
-        LOG(INFO) << "Created top blob " << top_id << " (shape: "
+        DLOG(INFO) << "Created top blob " << top_id << " (shape: "
             << this_top[top_id]->shape_string() <<  ") for shared layer "
             << layer_param.name();
       }
     } else {
       layers_[layer_id]->SetUp(bottom_vecs_[layer_id], top_vecs_[layer_id]);
     }
-    LOG_IF(INFO, Caffe::root_solver())
+    DLOG_IF(INFO, Caffe::root_solver())
         << "Setting up " << layer_names_[layer_id];
     for (int top_id = 0; top_id < top_vecs_[layer_id].size(); ++top_id) {
       if (blob_loss_weights_.size() <= top_id_vecs_[layer_id][top_id]) {
         blob_loss_weights_.resize(top_id_vecs_[layer_id][top_id] + 1, Dtype(0));
       }
       blob_loss_weights_[top_id_vecs_[layer_id][top_id]] = layer->loss(top_id);
-      LOG_IF(INFO, Caffe::root_solver())
+      DLOG_IF(INFO, Caffe::root_solver())
           << "Top shape: " << top_vecs_[layer_id][top_id]->shape_string();
       if (layer->loss(top_id)) {
-        LOG_IF(INFO, Caffe::root_solver())
+        DLOG_IF(INFO, Caffe::root_solver())
             << "    with loss weight " << layer->loss(top_id);
       }
       memory_used_ += top_vecs_[layer_id][top_id]->count();
     }
-    LOG_IF(INFO, Caffe::root_solver())
+    DLOG_IF(INFO, Caffe::root_solver())
         << "Memory required for data: " << memory_used_ * sizeof(Dtype);
     const int param_size = layer_param.param_size();
     const int num_param_blobs = layers_[layer_id]->blobs().size();
@@ -257,9 +257,9 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
     if (!layer_contributes_loss) { layer_need_backward_[layer_id] = false; }
     if (Caffe::root_solver()) {
       if (layer_need_backward_[layer_id]) {
-        LOG(INFO) << layer_names_[layer_id] << " needs backward computation.";
+        DLOG(INFO) << layer_names_[layer_id] << " needs backward computation.";
       } else {
-        LOG(INFO) << layer_names_[layer_id]
+        DLOG(INFO) << layer_names_[layer_id]
             << " does not need backward computation.";
       }
     }
@@ -301,7 +301,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   // In the end, all remaining blobs are considered output blobs.
   for (set<string>::iterator it = available_blobs.begin();
       it != available_blobs.end(); ++it) {
-    LOG_IF(INFO, Caffe::root_solver())
+    DLOG_IF(INFO, Caffe::root_solver())
         << "This network produces output " << *it;
     net_output_blobs_.push_back(blobs_[blob_name_to_idx[*it]].get());
     net_output_blob_indices_.push_back(blob_name_to_idx[*it]);
@@ -439,7 +439,7 @@ void Net<Dtype>::AppendTop(const NetParameter& param, const int layer_id,
   } else {
     // Normal output.
     if (Caffe::root_solver()) {
-      LOG(INFO) << layer_param->name() << " -> " << blob_name;
+      DLOG(INFO) << layer_param->name() << " -> " << blob_name;
     }
     shared_ptr<Blob<Dtype> > blob_pointer(new Blob<Dtype>());
     const int blob_id = blobs_.size();
@@ -724,7 +724,7 @@ void Net<Dtype>::ShareTrainedLayersWith(const Net* other) {
       ++target_layer_id;
     }
     if (target_layer_id == layer_names_.size()) {
-      LOG(INFO) << "Ignoring source layer " << source_layer_name;
+      DLOG(INFO) << "Ignoring source layer " << source_layer_name;
       continue;
     }
     DLOG(INFO) << "Copying source layer " << source_layer_name;
@@ -792,7 +792,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
       ++target_layer_id;
     }
     if (target_layer_id == layer_names_.size()) {
-      LOG(INFO) << "Ignoring source layer " << source_layer_name;
+      DLOG(INFO) << "Ignoring source layer " << source_layer_name;
       continue;
     }
     DLOG(INFO) << "Copying source layer " << source_layer_name;
@@ -822,7 +822,7 @@ template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
   NetParameter param;
   if (is_encrypt_ == false) {
-	LOG(INFO) << "Caffe will load clear text model";
+	DLOG(INFO) << "Caffe will load clear text model";
   	if (trained_filename.size() >= 3 && trained_filename.compare(trained_filename.size() - 3, 3, ".h5") == 0) {
     		CopyTrainedLayersFromHDF5(trained_filename);
   	     } else {
@@ -846,7 +846,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
 
     DecryptModel(buffer, size, decrypt);
 
-    LOG(INFO) << "Caffe will load AES model, size=" << size;
+    DLOG(INFO) << "Caffe will load AES model, size=" << size;
     ReadNetParamsFromBinaryMemoryOrDie(trained_filename, decrypt, size, &param);
 
     free(buffer);
@@ -875,7 +875,7 @@ void Net<Dtype>::CopyTrainedLayersFromHDF5(const string trained_filename) {
   for (int i = 0; i < num_layers; ++i) {
     string source_layer_name = hdf5_get_name_by_idx(data_hid, i);
     if (!layer_names_index_.count(source_layer_name)) {
-      LOG(INFO) << "Ignoring source layer " << source_layer_name;
+      DLOG(INFO) << "Ignoring source layer " << source_layer_name;
       continue;
     }
     int target_layer_id = layer_names_index_[source_layer_name];

@@ -74,13 +74,13 @@ void WitnessAppsService::init(void) {
     plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
     pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
     //advanced color
-    int size = color_repo_.size();
+ /*   int size = color_repo_.size();
     for (int i = 0; i < size; i++) {
         for (int j = i + 1; j < size; j++) {
             string value = string(color_repo_[i]) + color_repo_[j];
             color_repo_.push_back(value);
         }
-    }
+    }*/
 }
 
 int WitnessAppsService::parseInt(string str) {
@@ -424,7 +424,6 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     vrec->mutable_modeltype()->set_confidence(vobj->confidence());
     if (err.code() < 0)
         return err;
-
     err = fillColor(vobj->color(), vrec->mutable_color());
     if (err.code() < 0)
         return err;
@@ -470,6 +469,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             case OBJECT_CAR:
             case OBJECT_BICYCLE:
             case OBJECT_TRICYCLE:
+                
                 err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
                 break;
             case OBJECT_PEDESTRIAN:
