@@ -41,61 +41,6 @@ static void responseText(HttpServer::Response &response, int code,
         << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
         << text;
 }
-template<class request_type, class response_type>
-static void bind1(
-    HttpServer &server,
-    string endpoint,
-    string method,
-    std::function<MatrixError(const request_type *, response_type *)> func) {
-    if (method == ("GET")) {
-        server.resource[endpoint][method] =
-            [func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
-              request_type protobufRequestMessage;
-              response_type protobufResponseMessage;
-              try {
-                  MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
-                  if (error.code() != 0) {
-                      responseText(response, ServiceError, error.message());
-                      return;
-                  }
-                  string content = "";
-                  pbjson::pb2json(&protobufResponseMessage, content);
-                  responseText(response, NoError, content);
-              }
-              catch (exception &e) {
-                  responseText(response, ServiceError, e.what());
-              }
-            };
-    } else if (method == "POST") {
-        server.resource[endpoint][method] =
-            [func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
-              request_type protobufRequestMessage;
-              response_type protobufResponseMessage;
-              try {
-                  string content = request->content.string();
-                  string err;
-                  int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
-                  if (ret < 0) {
-                      responseText(response, RequestError, "parameter conversion failed: " + err);
-                      return;
-                  }
-                  MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
-                  if (error.code() != 0) {
-                      responseText(response, ServiceError, error.message());
-                      return;
-                  }
-
-                  content = "";
-                  pbjson::pb2json(&protobufResponseMessage, content);
-                  responseText(response, NoError, content);
-              }
-              catch (exception &e) {
-                  responseText(response, ServiceError, e.what());
-              }
-            };
-    }
-
-}
 
 template<class EngineType>
 class RestfulService {
@@ -108,7 +53,9 @@ public:
         : engine_pool_(engine_pool),
           config_(config),
           protocol_(protocol),
-          mime_type_(mime_type) {
+          mime_type_(mime_type),
+          sys_apps_(&config, "witness system") {
+
     }
 
     virtual ~RestfulService() {
@@ -123,8 +70,13 @@ public:
             int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
             threadsInTotal += threadsOnGpu;
         }
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal);
 
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal);  //at port with 1 thread
+        // bind ping operation
+        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
+            std::bind(&SystemAppsService::Ping, &sys_apps_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc<PingRequest, PingResponse>(server, "^/ping$", "GET", pingBinder);
+
         Bind(server);
         if (engine_pool_ == NULL) {
             LOG(ERROR) << "Engine pool not initialized" << endl;
@@ -137,6 +89,7 @@ public:
         }
         server.start();
     }
+
     virtual void warmUp(int n) {
         string imgdata =
             "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
@@ -179,11 +132,46 @@ public:
     virtual void Bind(HttpServer &server) = 0;
 
 protected:
+
     Config config_;
     string protocol_;
     string mime_type_;
     MatrixEnginesPool<EngineType> *engine_pool_;
 
+    // This function binds request operation to specific processor
+    // There are two bindFunc implmentation and the differents between these two
+    // is the later one need to passed into an engine instance since the GPU
+    // thread limitation.
+    template<class request_type, class response_type>
+    void bindFunc(
+        HttpServer &server,
+        string endpoint,
+        string method,
+        std::function<MatrixError(const request_type *, response_type *)> func) {
+
+        server.resource[endpoint][method] =
+            [func, endpoint](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
+              request_type protobufRequestMessage;
+              response_type protobufResponseMessage;
+              try {
+                  MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
+                  if (error.code() != 0) {
+                      responseText(response, ServiceError, error.message());
+                      return;
+                  }
+                  string content = "";
+                  pbjson::pb2json(&protobufResponseMessage, content);
+                  responseText(response, NoError, content);
+              }
+              catch (exception &e) {
+                  responseText(response, ServiceError, e.what());
+              }
+            };
+
+    }
+
+    // This function need to pass into an engine instance since
+    // GPU thread limitation. So this function only bind the recognize/batchRecognize/ranker etc.
 
     template<class apps_type, class request_type, class response_type>
     void bindFunc(HttpServer &server,
@@ -191,109 +179,64 @@ protected:
                   string method,
                   MatrixError(*func)(apps_type *, const request_type *, response_type *)) {
 
-        if (method == ("GET")) {
-            server.resource[endpoint][method] =
-                [this, func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
 
+        server.resource[endpoint][method] =
+            [this, func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
+
+              VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
+              VLOG(VLOG_SERVICE) << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
+              struct timeval start, end;
+              gettimeofday(&start, NULL);
+
+              request_type protobufRequestMessage;
+              response_type protobufResponseMessage;
+
+              try {
+                  string content = request->content.string();
+                  string err;
+                  int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
+                  if (ret < 0) {
+                      responseText(response, 400, "parameter conversion failed: " + err);
+                      return;
+                  }
+                  CallData data;
+                  data.func = [func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
+                    return (bind(func, (apps_type *) data.apps,
+                                 placeholders::_1,
+                                 placeholders::_2))(&protobufRequestMessage,
+                                                    &protobufResponseMessage);
+                  };
+
+                  if (engine_pool_ == NULL) {
+                      LOG(ERROR) << "Engine pool not initailized. " << endl;
+                      return;
+                  }
+
+                  engine_pool_->enqueue(&data);
+
+                  MatrixError error = data.Wait();
+
+                  if (error.code() != 0) {
+                      responseText(response, 500, error.message());
+                      return;
+                  }
+
+                  content = "";
+                  pbjson::pb2json(&protobufResponseMessage, content);
+                  responseText(response, 200, content);
+
+                  gettimeofday(&end, NULL);
+                  VLOG(VLOG_PROCESS_COST) << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
                   VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-                  VLOG(VLOG_SERVICE) << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
-                  struct timeval start, end;
-                  gettimeofday(&start, NULL);
+              }
+              catch (exception &e) {
+                  responseText(response, 500, e.what());
+              }
+            };
 
-                  request_type protobufRequestMessage;
-                  response_type protobufResponseMessage;
-
-                  try {
-                      CallData data;
-                      data.func = [func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-                        return (bind(func, (apps_type *) data.apps,
-                                     placeholders::_1,
-                                     placeholders::_2))(&protobufRequestMessage,
-                                                        &protobufResponseMessage);
-                      };
-
-                      if (engine_pool_ == NULL) {
-                          LOG(ERROR) << "Engine pool not initailized. " << endl;
-                          return;
-                      }
-
-                      engine_pool_->enqueue(&data);
-
-                      MatrixError error = data.Wait();
-
-                      if (error.code() != 0) {
-                          responseText(response, 500, error.message());
-                          return;
-                      }
-
-                      string content = "";
-                      pbjson::pb2json(&protobufResponseMessage, content);
-                      responseText(response, 200, content);
-
-                      gettimeofday(&end, NULL);
-                      VLOG(VLOG_PROCESS_COST) << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
-                      VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-                  }
-                  catch (exception &e) {
-                      responseText(response, 500, e.what());
-                  }
-                };
-        } else if (method == "POST") {
-            server.resource[endpoint][method] =
-                [this, func](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
-
-                  VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-                  VLOG(VLOG_SERVICE) << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
-                  struct timeval start, end;
-                  gettimeofday(&start, NULL);
-
-                  request_type protobufRequestMessage;
-                  response_type protobufResponseMessage;
-
-                  try {
-                      string content = request->content.string();
-                      string err;
-                      int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
-                      if (ret < 0) {
-                          responseText(response, 400, "parameter conversion failed: " + err);
-                          return;
-                      }
-                      CallData data;
-                      data.func = [func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-                        return (bind(func, (apps_type *) data.apps,
-                                     placeholders::_1,
-                                     placeholders::_2))(&protobufRequestMessage,
-                                                        &protobufResponseMessage);
-                      };
-
-                      if (engine_pool_ == NULL) {
-                          LOG(ERROR) << "Engine pool not initailized. " << endl;
-                          return;
-                      }
-
-                      engine_pool_->enqueue(&data);
-
-                      MatrixError error = data.Wait();
-
-                      if (error.code() != 0) {
-                          responseText(response, 500, error.message());
-                          return;
-                      }
-
-                      content = "";
-                      pbjson::pb2json(&protobufResponseMessage, content);
-                      responseText(response, 200, content);
-
-                      gettimeofday(&end, NULL);
-                      VLOG(VLOG_PROCESS_COST) << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
-                      VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-                  }
-                  catch (exception &e) {
-                      responseText(response, 500, e.what());
-                  }
-                };
-        }
     }
+private:
+    SystemAppsService sys_apps_;
 
 };
 }
