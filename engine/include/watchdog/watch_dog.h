@@ -50,11 +50,11 @@ enum Feature {
     FEATURE_CAR_PLATE = 16,
     FEATURE_CAR_MARK = 32,
     FEATURE_CAR_RANK = 64,
-    FEATURE_CAR_EXTRACT = 128,
-    FEATURE_FACE_DETECTION = 256,
-    FEATURE_FACE_EXTRACT = 512,
-    FEATURE_FACE_RANK = 1024,
-	FEATURE_CAR_PEDESTRIAN_ATTR = 2048,
+    FEATURE_CAR_EXTRACT=128,
+    FEATURE_FACE_DETECTION=256,
+    FEATURE_FACE_EXTRACT=512,
+    FEATURE_FACE_RANK=1024,
+    FEATURE_CAR_PEDESTRIAN_ATTR=2048
 
 };
 
@@ -95,7 +95,7 @@ int CheckFeature(Feature f, FeatureSet fs);
  * Check Feature f is ON or OFF.
  * Call of this function will lead to data reading from dog.
  */
-int CheckFeature(Feature f, bool isRunning);
+int CheckFeature(Feature f,bool isRunning);
 
 /**
  * This function will encrypt data using key stored within dog.
@@ -134,10 +134,10 @@ int EncryptModelAWS(unsigned char *modelData, const unsigned long len,
  */
 int DecryptModelAWS(unsigned char *enModelData, const unsigned long enLen,
                     unsigned char *modelData);
-int SetMaxPerformance(Feature f, unsigned long long pef);
-int GetMaxPerformance(Feature f, unsigned long long &pef);
-int SetCurrPerformance(Feature f, unsigned long long pef);
-int GetCurrPerformance(Feature f, unsigned long long &pef);
+int SetMaxPerformance(Feature f,unsigned long long pef);
+int GetMaxPerformance(Feature f,unsigned long long &pef);
+int SetCurrPerformance(Feature f,unsigned long long pef);
+int GetCurrPerformance(Feature f,unsigned long long &pef);
 int GetDogTime(time_t &time);
 
 #endif /* SRC_INCLUDE_DOG_CLIENT_H_ */

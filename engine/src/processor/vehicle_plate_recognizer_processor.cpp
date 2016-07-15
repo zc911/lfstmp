@@ -40,8 +40,9 @@ bool PlateRecognizerProcessor::process(FrameBatch *frameBatch) {
 
 bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
     filterVehicle(frameBatch);
-#if RELEASE
-    if (performance_ > 20000) {
+#if DEBUG
+#else
+    if (performance_ > RECORD_UNIT) {
         if (!RecordFeaturePerformance()) {
             return false;
         }
@@ -109,7 +110,8 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
 
 }
 bool PlateRecognizerProcessor::RecordFeaturePerformance() {
-    return RecordPerformance(FEATURE_CAR_PLATE, performance_);
+
+    return RecordPerformance(FEATURE_CAR_PLATE,performance_);
 }
 
 }
