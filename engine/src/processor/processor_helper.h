@@ -61,13 +61,14 @@ static int vote(vector<vector<Prediction> > &src, vector<vector<Prediction> > &d
 }
 static bool RecordPerformance(Feature feature, unsigned long long &performance) {
     FILE *fp = NULL;
-    if ((fp = fopen("file_lock.test", "w+")) == NULL)
+    if ((fp = fopen(".file_lock.test", "w+")) == NULL)
         DLOG(WARNING) << ("file lock failed!\n");
     int i = flock(fileno(fp), LOCK_EX);
     bool status = false;
+
     if (i == 0) {
-        if (SetCurrPerformance(FEATURE_CAR_PLATE, performance) == ERR_SUCCESS) {
-            DLOG(INFO) << "write performance " << performance << " into dog";
+        if (SetCurrPerformance(feature, performance) == ERR_SUCCESS) {
+            LOG(INFO) << "write performance11 "<<feature<<" " << performance << " into dog";
 
             performance = 0;
             status = true;

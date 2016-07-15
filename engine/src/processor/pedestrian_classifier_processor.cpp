@@ -55,15 +55,16 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch) {
 
 bool PedestrianClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000)
-    {
-        if(!RecordFeaturePerformance())
+    #if DEBUG
+    #else
+        if(performance_>RECORD_UNIT)
         {
-            return false;
+            if(!RecordFeaturePerformance())
+            {
+                return false;
+            }
         }
-    }
-#endif
+    #endif
     objs_.clear();
     images_.clear();
 
@@ -77,6 +78,7 @@ bool PedestrianClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             Pedestrian *p = (Pedestrian *) obj;
             images_.push_back(p->image());
             ++itr;
+            performance_++;
 
         }
         else {
@@ -90,7 +92,7 @@ bool PedestrianClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 
 bool PedestrianClassifierProcessor::RecordFeaturePerformance() {
-    return RecordPerformance(FEATURE_CAR_MARK, performance_);
+    return RecordPerformance(FEATURE_CAR_MARK,  performance_);
 }
 
 }

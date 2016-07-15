@@ -60,7 +60,14 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 bool VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 
-    images_.clear();
+    #if DEBUG
+    #else
+        if (performance_ > RECORD_UNIT) {
+            if (!RecordFeaturePerformance()) {
+                return false;
+            }
+        }
+    #endif
     vehiclesResizedMat(frameBatch);
     return true;
 }
@@ -78,6 +85,8 @@ void VehicleClassifierProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
             Vehicle *v = (Vehicle *) obj;
             images_.push_back(v->resized_image());
             ++itr;
+            performance_++;
+
         } else {
             itr = objs_.erase(itr);
             DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << endl;

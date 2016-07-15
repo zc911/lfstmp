@@ -37,13 +37,14 @@ bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if RELEASE
-    if(performance_>20000) {
-        if(!RecordFeaturePerformance()) {
-            return false;
+    #if DEBUG
+    #else
+        if(performance_>RECORD_UNIT) {
+            if(!RecordFeaturePerformance()) {
+                return false;
+            }
         }
-    }
-#endif
+    #endif
 
     vehicle_to_processed_.clear();
     vehicle_to_processed_ = frameBatch->CollectObjects(
@@ -60,7 +61,6 @@ bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     return true;
 }
 bool CarFeatureExtractProcessor::RecordFeaturePerformance() {
-
     return RecordPerformance(FEATURE_CAR_EXTRACT, performance_);
 
 }

@@ -47,7 +47,15 @@ WitnessEngine::~WitnessEngine() {
 }
 
 void WitnessEngine::Process(FrameBatch *frames) {
-
+    performance_+=frames->frames().size();
+    #if DEBUG
+    #else
+        if(performance_>RECORD_UNIT) {
+            if(!RecordPerformance(FEATURE_RESERVED,  performance_)) {
+                return;
+            }
+        }
+    #endif
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
 
@@ -294,7 +302,9 @@ void WitnessEngine::init(const Config &config) {
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
-
+    if(!RecordPerformance(FEATURE_RESERVED,  performance_)) {
+            performance_=RECORD_UNIT;
+   }
     is_init_ = true;
 }
 
