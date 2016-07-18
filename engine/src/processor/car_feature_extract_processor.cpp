@@ -7,7 +7,6 @@
 
 #include "car_feature_extract_processor.h"
 #include "processor_helper.h"
-#include "log/log_val.h"
 namespace dg {
 
 CarFeatureExtractProcessor::CarFeatureExtractProcessor() {
@@ -37,14 +36,14 @@ bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
+        if(!RecordFeaturePerformance()) {
+            return false;
         }
-    #endif
+    }
+#endif
 
     vehicle_to_processed_.clear();
     vehicle_to_processed_ = frameBatch->CollectObjects(

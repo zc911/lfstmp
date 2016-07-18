@@ -31,11 +31,11 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<vector<Prediction> > result;
 
- /*   for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
-      auto tmpPred = elem->ClassifyAutoBatch(images_);
-      vote(tmpPred, result, classifiers_.size());
-    });*/
-    for(auto *elem:classifiers_){
+    /*   for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
+         auto tmpPred = elem->ClassifyAutoBatch(images_);
+         vote(tmpPred, result, classifiers_.size());
+       });*/
+    for (auto *elem:classifiers_) {
         auto tmpPred = elem->ClassifyAutoBatch(images_);
         vote(tmpPred, result, classifiers_.size());
 
@@ -60,14 +60,14 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 bool VehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 
-    #if DEBUG
-    #else
-        if (performance_ > RECORD_UNIT) {
-            if (!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
+            return false;
         }
-    #endif
+    }
+#endif
     vehiclesResizedMat(frameBatch);
     return true;
 }

@@ -61,7 +61,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createVehicleConfig(const Config &cconfig,
-                                       vector <VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+                                       vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_STYLE_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -89,7 +89,7 @@ void ConfigFilter::createVehicleConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createVehicleColorConfig(const Config &cconfig,
-                                            vector <CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
+                                            vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_COLOR_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -181,7 +181,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
-    config.car_only=false;
+    config.car_only = false;
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;
     config.is_model_encrypt = is_encrypted;
