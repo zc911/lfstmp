@@ -97,20 +97,20 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     return true;
 }
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
-    }
-    #endif
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
+        if(!RecordFeaturePerformance()) {
+            return false;
+        }
+}
+#endif
 
     return true;
 }
 bool FaceDetectProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_DETECTION,  performance_);
+    return RecordPerformance(FEATURE_FACE_DETECTION, performance_);
 
 }
 } /* namespace dg */

@@ -14,8 +14,8 @@
       1,
       1
     ],
-//    "GpuNum": 2,
-//    "ThreadsPerGpu": 5,
+    //    "GpuNum": 2,
+    //    "ThreadsPerGpu": 5,
     "EnableAsyn": true
   },
   "Ranker": {

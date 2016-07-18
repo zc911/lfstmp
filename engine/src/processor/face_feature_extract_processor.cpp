@@ -69,17 +69,17 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
 bool FaceFeatureExtractProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_EXTRACT,  performance_);
+    return RecordPerformance(FEATURE_FACE_EXTRACT, performance_);
 
 }
 bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else    //#if RELEASE
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else    //#if RELEASE
+    if(performance_>RECORD_UNIT) {
+        if(!RecordFeaturePerformance()) {
+            return false;
         }
+    }
 #endif
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);

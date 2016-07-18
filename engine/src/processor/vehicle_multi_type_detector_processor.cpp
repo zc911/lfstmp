@@ -160,7 +160,7 @@ bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 bool VehicleMultiTypeDetectorProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_DETECTION,  performance_);
+    return RecordPerformance(FEATURE_CAR_DETECTION, performance_);
 
 }
 
