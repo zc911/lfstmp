@@ -8,7 +8,6 @@
 //#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
 #include "debug_util.h"
-#include "log/log_val.h"
 
 namespace dg {
 /*const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
@@ -85,14 +84,14 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 plate.box.height = pdwLPRect[3] - pdwLPRect[1];
 
                 string platenum;
-                float score=0;
+                float score = 0;
                 for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
-                    score+=pstLP->afScores[dwK];
+                    score += pstLP->afScores[dwK];
                 }
-                score/=pstLP->dwLPLen;
+                score /= pstLP->dwLPLen;
                 plate.color_id = pstLP->dwColor;
-                plate.plate_type=pstLP->dwType;
+                plate.plate_type = pstLP->dwType;
                 plate.confidence = score;
                 plate.plate_num = platenum;
                 plates.push_back(plate);

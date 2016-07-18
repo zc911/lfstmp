@@ -6,7 +6,6 @@
  */
 
 #include "vehicle_color_processor.h"
-#include "processor_helper.h"
 
 namespace dg {
 
@@ -99,7 +98,7 @@ void VehicleColorProcessor::vehiclesResizedMat(FrameBatch *frameBatch) {
 }
 bool VehicleColorProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_COLOR,  performance_);
+    return RecordPerformance(FEATURE_CAR_COLOR, performance_);
 
 }
 }
