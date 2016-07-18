@@ -38,7 +38,6 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    string t_profiler_str_;
     CarMatcher car_matcher_;
     CarFeatureExtractor car_feature_extractor_;
 
