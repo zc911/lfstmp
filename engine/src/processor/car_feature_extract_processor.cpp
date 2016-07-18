@@ -37,21 +37,21 @@ bool CarFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool CarFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
+            return false;
         }
-    #endif
+    }
+#endif
 
     vehicle_to_processed_.clear();
     vehicle_to_processed_ = frameBatch->CollectObjects(
-        OPERATION_VEHICLE_FEATURE_VECTOR);
+                                OPERATION_VEHICLE_FEATURE_VECTOR);
 
     for (vector<Object *>::iterator itr = vehicle_to_processed_.begin();
-         itr != vehicle_to_processed_.end();) {
+            itr != vehicle_to_processed_.end();) {
         if ((*itr)->type() != OBJECT_CAR) {
             itr = vehicle_to_processed_.erase(itr);
         } else {
