@@ -68,7 +68,7 @@ static bool RecordPerformance(Feature feature, unsigned long long &performance) 
 
     if (i == 0) {
         if (SetCurrPerformance(feature, performance) == ERR_SUCCESS) {
-            LOG(INFO) << "write performance11 "<<feature<<" " << performance << " into dog";
+            LOG(INFO) << "write performance11 " << feature << " " << performance << " into dog";
 
             performance = 0;
             status = true;

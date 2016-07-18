@@ -38,7 +38,6 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     VLOG(VLOG_RUNTIME_DEBUG) << "hotspot resized: " << hotspot_resized;
     vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized,
                                                        candidates);
-    t_profiler_str_ = "TotalMatching";
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
         topx[i] = Score(i, score[i]);
@@ -47,19 +46,19 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     return topx;
 }
 bool CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
+        if(!RecordFeaturePerformance()) {
+            return false;
         }
-    #endif
+    }
+#endif
 
     return true;
 }
 bool CarRankProcessor::RecordFeaturePerformance() {
-    return RecordPerformance(FEATURE_CAR_RANK,performance_);
+    return RecordPerformance(FEATURE_CAR_RANK, performance_);
 
 }
 }
