@@ -35,9 +35,12 @@ public:
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
         string storageAddress = wv->storage().address();
-        if(storageAddress!=storageAddress_){
+  
+        map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.find(storageAddress);
+        if (it == stubs_.end()){
             createConnect(storageAddress);
         }
+        
         const VehicleObj &v = wv->vehicleresult();
         NullMessage reply;
         ClientContext context;
@@ -47,7 +50,7 @@ public:
         CompletionQueue cq;
         Status status;
         std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
-            stub_->AsyncIndexVehicle(&context, v, &cq));
+            stubs_[storageAddress]->AsyncIndexVehicle(&context, v, &cq));
         rpc->Finish(&reply, &status, (void *) 1);
         void *got_tag;
         bool ok = false;
@@ -59,19 +62,25 @@ public:
             return err;
         } else {
             VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
+            stubs_.erase(stubs_.find(storageAddress));
             lock.unlock();
             return err;
         }
     }
     ~StorageRequest() { }
 private:
-    std::unique_ptr<SpringService::Stub> stub_;
-    string storageAddress_;
-    void createConnect(string storageAddress){
+    map<string, std::unique_ptr<SpringService::Stub> > stubs_;
+    void createConnect(string storageAddress) {
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
         std::unique_ptr<SpringService::Stub> stub(SpringService::NewStub(channel));
-        stub_ = std::move(stub);
-        storageAddress_=storageAddress;
+        stubs_.insert(std::make_pair(storageAddress, std::move(stub)));
+        if(stubs_.size()>10){
+            stubs_.erase( stubs_.begin() );
+        }
+        for(map<string, std::unique_ptr<SpringService::Stub> >::iterator it=stubs_.begin();it!=stubs_.end();it++){
+            VLOG(VLOG_SERVICE)<<it->first;
+        }
+
     };
 };
 }
