@@ -24,23 +24,25 @@ static int timeout = 5;
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
-
+        string storageAddress = (string)config->Value(STORAGE_ADDRESS);
+        createConnect(storageAddress);
     }
+
     MatrixError storage() {
         unique_lock<mutex> lock(WitnessBucket::Instance().mt_pop);
         VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
+
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
         string storageAddress = wv->storage().address();
+        if(storageAddress!=storageAddress_){
+            createConnect(storageAddress);
+        }
         const VehicleObj &v = wv->vehicleresult();
-        shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress,
-                                                                grpc::InsecureChannelCredentials());
-        VLOG(VLOG_SERVICE) << v.metadata().timestamp() << endl;
-        std::unique_ptr<SpringService::Stub> stub_(SpringService::NewStub(channel));
         NullMessage reply;
         ClientContext context;
         std::chrono::system_clock::time_point
-            deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
+        deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
         context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
@@ -52,6 +54,7 @@ public:
         cq.Next(&got_tag, &ok);
         if (status.ok()) {
             VLOG(VLOG_SERVICE) << "send to storage success" << endl;
+
             lock.unlock();
             return err;
         } else {
@@ -62,7 +65,14 @@ public:
     }
     ~StorageRequest() { }
 private:
-
+    std::unique_ptr<SpringService::Stub> stub_;
+    string storageAddress_;
+    void createConnect(string storageAddress){
+        shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
+        std::unique_ptr<SpringService::Stub> stub(SpringService::NewStub(channel));
+        stub_ = std::move(stub);
+        storageAddress_=storageAddress;
+    };
 };
 }
 #endif //PROJECT_STORAGE_REQUEST_H
