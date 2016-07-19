@@ -17,7 +17,7 @@
 namespace dg {
 /// The basic processor interface. It defines the
 /// interfaces each derived processor must to implement.
-const int RECORD_UNIT=1000;
+const int RECORD_UNIT = 1000;
 class Processor {
 public:
     Processor()
