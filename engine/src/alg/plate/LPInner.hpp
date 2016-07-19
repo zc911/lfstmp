@@ -12,6 +12,9 @@
 #define LP_SCORE_MAX 0.90f
 #define LP_ROIP_SCORE_MAX 0.80f
 
+#define MAX_RECOG_THREAD_NUM 8
+#define DO_FCN_THREAD 1
+
 typedef struct _LPDR_ImageInner_S {
     uchar *pubyData; //unsigned char data
     float *pfData; //float data
@@ -49,6 +52,46 @@ struct LPRectInfo {
 						float height, float width):
 						fScore(score), fCentX(centx), fCentY(centy),
 						fWidth(width), fHeight(height) {}
+};
+
+
+struct InputInfoRecog_S
+{
+  float *pfImage_0;
+  float *pfImage_1;
+  int dwH, dwW;
+  LPRect rect;
+  int dwSepY;
+  char *pbyBuffer;
+  int dwBufferLen;
+};
+
+
+struct LPDR_Info_S {
+	LPDR_HANDLE hFCNN; //fcnn module
+	
+	LPDR_HANDLE hRPN; //rpn module
+	
+	LPDR_HANDLE hROIP; //region of interest pooling module
+
+#if MAX_RECOG_THREAD_NUM>1
+	LPDR_HANDLE ahPREGs[MAX_RECOG_THREAD_NUM]; //polygon regression module
+	
+	LPDR_HANDLE ahCHRECOGs[MAX_RECOG_THREAD_NUM]; //char recognition module
+#else
+  LPDR_HANDLE hPREG; //polygon regression module
+	
+	LPDR_HANDLE hCHRECOG; //char recognition module
+#endif	
+	size_t maxbuffer_size; 
+	mx_float *pfBuffer; 
+	
+	uchar *pubyGrayImage;
+	int dwGrayImgW;
+	int dwGrayImgH;
+	
+	vector<LPRectInfo> *pvBBGroupOfROIP;
+	vector<LPRectInfo> *pvBBGroupOfNMS;
 };
 
 
