@@ -1,5 +1,6 @@
 
 #include "LPFCNN.hpp"
+#include "LPThreadFuncs.hpp"
 
 
 int getRectsOfFCNN(float *pfScore, int dwImgH, int dwImgW, vector<LPRectInfo> &lprects);
@@ -249,6 +250,15 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
 #if LPDR_TIME
   gettimeofday(&start, NULL);
 #endif
+#if DO_FCN_THREAD //cat
+  for (dwI = 0; dwI < dwImgNum; dwI++)
+  {
+    vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];
+    lpgroup.clear();
+  }
+  
+  lpReadyFCNDataThreads(pstImgSet, dwImgNum, pstFCNN);
+#else
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
     vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];
@@ -269,12 +279,18 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
     pstFCNN->pdwRealWs[dwI] = dwRealW;
     pstFCNN->pdwRealHs[dwI] = dwRealH;
   }
+#endif //cat
 #if LPDR_TIME
 	gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
 	printf("in FCNN pre cost[%dx%d]:%.2fms\n", dwStdH, dwStdW, diff);
 #endif
+  int *pdwOutShape = 0;
+  float *pfOutput = 0;
+  int dwNeedSize = 0;
 
+  for (int loopi = 0; loopi < 1; loopi++)
+  {
 #if LPDR_TIME
   gettimeofday(&start, NULL);
 #endif
@@ -288,9 +304,14 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
 
   ret = MXExecutorOutputs(pstFCNN->hExecute, &out_size, &out);
 
-  int *pdwOutShape = pstFCNN->adwOutShape;
-  float *pfOutput = pstFCNN->pfOutputData;
-  int dwNeedSize = pdwOutShape[0] * pdwOutShape[1] * pdwOutShape[2] * pdwOutShape[3];
+  for (int wi = 0; wi < out_size; wi++)
+  {
+    MXNDArrayWaitToRead(out[wi]);
+  }
+
+  pdwOutShape = pstFCNN->adwOutShape;
+  pfOutput = pstFCNN->pfOutputData;
+  dwNeedSize = pdwOutShape[0] * pdwOutShape[1] * pdwOutShape[2] * pdwOutShape[3];
   NDArrayHandle hout = out[0];
   
   ret = MXNDArraySyncCopyToCPU(hout, pfOutput, dwNeedSize);
@@ -300,9 +321,9 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
 #if LPDR_TIME
 	gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("FCNN cost[%dx%d]:%.2fms\n", dwStdH, dwStdW, diff);
+	printf("FCNN cost[%dx%dx%d]:%.2fms\n", dwStdH, dwStdW, dwImgNum, diff);
 #endif
-
+  }
 	int dwOutH = pdwOutShape[2];
 	int dwOutW = pdwOutShape[3];
 	
