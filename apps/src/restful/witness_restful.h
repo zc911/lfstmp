@@ -13,6 +13,7 @@
 #include "restful.h"
 #include "services/witness_service.h"
 #include "services/system_service.h"
+#include "services/repo_service.h"
 
 namespace dg {
 
@@ -43,13 +44,13 @@ public:
                                                                                 "POST",
                                                                                 batch_func);
 
+        std::function<MatrixError(const IndexRequest *, IndexResponse *)> indexBinder =
+            std::bind(&RepoService::Index, RepoService::GetInstance(), std::placeholders::_1, std::placeholders::_2);
+        bindFunc<IndexRequest, IndexResponse>(server, "^/rec/index$", "POST", indexBinder);
 
-        RecIndexFunc rec_index_func = (RecIndexFunc) &WitnessAppsService::Index;
-        bindFunc<WitnessAppsService, IndexRequest, IndexResponse>(server, "^/rec/index$",
-                                                                  "POST", rec_index_func);
-        RecIndexTxtFunc rec_index_txt_func = (RecIndexTxtFunc) &WitnessAppsService::IndexTxt;
-        bindFunc<WitnessAppsService, IndexTxtRequest, IndexTxtResponse>(server, "^/rec/index/txt$",
-                                                                        "POST", rec_index_txt_func);
+        std::function<MatrixError(const IndexTxtRequest *, IndexTxtResponse *)> indexTxtBinder =
+            std::bind(&RepoService::IndexTxt, RepoService::GetInstance(), std::placeholders::_1, std::placeholders::_2);
+        bindFunc<IndexTxtRequest, IndexTxtResponse>(server, "^/rec/index/txt$", "POST", indexTxtBinder);
 
     }
     virtual void warmUp(int n) {
