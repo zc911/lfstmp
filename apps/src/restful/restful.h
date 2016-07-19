@@ -154,12 +154,21 @@ protected:
               request_type protobufRequestMessage;
               response_type protobufResponseMessage;
               try {
+                  string content = request->content.string();
+                  string err;
+                  int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
+                  if (ret < 0) {
+                      responseText(response, 400, "parameter conversion failed: " + err);
+                      return;
+                  }
+
                   MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
                   if (error.code() != 0) {
                       responseText(response, ServiceError, error.message());
                       return;
                   }
-                  string content = "";
+
+                  content = "";
                   pbjson::pb2json(&protobufResponseMessage, content);
                   responseText(response, NoError, content);
               }
