@@ -12,7 +12,7 @@ GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
                                                MatrixEnginesPool<WitnessAppsService> *engine_pool)
     : BasicGrpcService(config, addr, engine_pool) {
 
-    RepoService::GetInstance()->Init(config);
+    RepoService::GetInstance().Init(config);
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
@@ -54,7 +54,7 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
                                            IndexResponse *response) {
 
 
-    MatrixError error = RepoService::GetInstance()->Index(request, response);
+    MatrixError error = RepoService::GetInstance().Index(request, response);
     if (error.code() != 0) {
         return grpc::Status::CANCELLED;
     }
@@ -66,7 +66,7 @@ grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
                                               const IndexTxtRequest *request,
                                               IndexTxtResponse *response) {
 
-    MatrixError error = RepoService::GetInstance()->IndexTxt(request, response);
+    MatrixError error = RepoService::GetInstance().IndexTxt(request, response);
     if (error.code() != 0) {
         return grpc::Status::CANCELLED;
     }
