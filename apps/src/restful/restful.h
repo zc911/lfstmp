@@ -150,16 +150,18 @@ protected:
         std::function<MatrixError(const request_type *, response_type *)> func) {
 
         server.resource[endpoint][method] =
-            [func, endpoint](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
+            [func, endpoint, &method](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
               request_type protobufRequestMessage;
               response_type protobufResponseMessage;
               try {
                   string content = request->content.string();
-                  string err;
-                  int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
-                  if (ret < 0) {
-                      responseText(response, 400, "parameter conversion failed: " + err);
-                      return;
+                  if(method == "POST"){
+                      string err;
+                      int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
+                      if (ret < 0) {
+                          responseText(response, 400, "parameter conversion failed: " + err);
+                          return;
+                      }
                   }
 
                   MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
