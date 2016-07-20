@@ -5,7 +5,6 @@
 
 namespace dg {
 
-RepoService *RepoService::instance_ = NULL;
 bool RepoService::is_init_ = false;
 
 RepoService::RepoService() {
