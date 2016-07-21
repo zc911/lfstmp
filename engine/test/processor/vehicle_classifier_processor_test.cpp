@@ -3,30 +3,35 @@
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
-#include "processor/vehicle_color_processor.h"
+#include "processor/vehicle_classifier_processor.h"
 
 using namespace std;
 using namespace dg;
 
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
-static VehicleColorProcessor *vcprocessor;
+static VehicleClassifierProcessor *vcfprocessor;
 
 static void initConfig() {
-    CaffeVehicleColorClassifier::VehicleColorConfig config;
+    VehicleCaffeClassifier::VehicleCaffeConfig config;
     config.is_model_encrypt = false;
-    config.deploy_file = "data/models/200.txt";
-    config.model_file = "data/models/200.dat";
-    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
+    string basePath = "data/models/";
+    for (int i = 0; i < 8; ++i) {
+        char index[2] = {0};
+        index[0] = '0' + i;
+        config.deploy_file = basePath + "10" + string(index) + ".txt";
+        config.model_file = basePath + "10" + string(index) + ".dat";
+    }
+    vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
     configs.push_back(config);
-    vcprocessor = new VehicleColorProcessor(configs);
+    vcfprocessor = new VehicleClassifierProcessor(configs);
 }
 
 static void init() {
     initConfig();
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
-    head->setNextProcessor(vcprocessor);
+    head->setNextProcessor(vcfprocessor);
 }
 
 static void destory() {
@@ -44,30 +49,27 @@ static void destory() {
 static Operation getOperation() {
     Operation op;
     op.Set( OPERATION_VEHICLE |
-            OPERATION_VEHICLE_COLOR |
+            OPERATION_VEHICLE_STYLE |
             OPERATION_VEHICLE_DETECT );
     return op;
 }
 
-TEST(VehicleColorProcessorTest, VehicleColorTest) {
+TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
     init();
-    fbhelper->setBasePath("data/testimg/vehicleColor/");
+    fbhelper->setBasePath("data/testimg/test/");
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
-    vcprocessor->Update(fb);
-
-    int expectColor[] = {
-            0, 11, 8, 4, 9, 10, 1, 3
+    int expectId[] = {
+            2207, 506, 206
     };
 
     for (int i = 0; i < fb->batch_size(); ++i) {
         Object *obj = fb->frames()[i]->objects()[0];
         Vehicle *v = (Vehicle *)obj;
-        EXPECT_EQ(expectColor[i], v->color().class_id);
+        EXPECT_EQ(expectId[i], v->class_id());
     }
-    //fbhelper->printFrame();
 
 //    destory();
 }

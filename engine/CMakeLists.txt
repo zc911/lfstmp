@@ -6,7 +6,7 @@ ELSE ()
     SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF ()
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w ")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w")
 
 # Download the libs from file server
@@ -44,6 +44,7 @@ FIND_LIBRARY(LIB_DGMEDIA NAMES dgmedia PATHS lib/dgmedia-1.8.0/${PLATFORM})
 
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG} ${LIB_HASP})
 LIST(APPEND LIBS pthread glog gflags protobuf leveldb jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)
+
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
