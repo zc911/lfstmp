@@ -34,7 +34,7 @@ public:
                                          const FeatureRankingRequest *request,
                                          FeatureRankingResponse *response) override {
 
-        cout << "[GRPC] ========================" << endl;
+    /*    cout << "[GRPC] ========================" << endl;
         cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
         CallData data;
 
@@ -49,6 +49,8 @@ public:
         engine_pool_->enqueue(&data);
         MatrixError error = data.Wait();
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+*/
+        return grpc::Status::OK;
 
     }
 

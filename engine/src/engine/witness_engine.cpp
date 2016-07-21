@@ -109,17 +109,17 @@ void WitnessEngine::Process(FrameBatch *frames) {
 //        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 //        isWarmuped_ = true;
 //    }
-    if (!isWarmuped_) {
+ /*   if (!isWarmuped_) {
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
         isWarmuped_ = true;
-    }
+    }*/
 }
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
 
     enable_vehicle_detect_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DETECTION);
+        FEATURE_VEHICLE_ENABLE_DETECTION);//&&(CheckFeature(FEATURE_VEHICLE_ENABLE_DETECTION,false)==ERR_SUCCESS);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
@@ -157,7 +157,7 @@ void WitnessEngine::init(const Config &config) {
     Processor *last = NULL;
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
-        VehicleCaffeDetectorConfig dConfig;
+    /*    VehicleCaffeDetectorConfig dConfig;
         configFilter->createAccelerateConfig(config, dConfig);
         Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
 
@@ -168,7 +168,7 @@ void WitnessEngine::init(const Config &config) {
         }
 
         last = p;
-        isWarmuped_ = false;
+        isWarmuped_ = false;*/
         if (enable_vehicle_detect_) {
 
             VehicleCaffeDetectorConfig dConfig;
