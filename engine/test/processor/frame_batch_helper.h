@@ -27,6 +27,7 @@ public:
     void printFrame(dg::Frame *frame);
 
     string getType(dg::ObjectType t);
+    string getVehicleColor(int t);
 
     void setBasePath(const string & path) {
         baseImagePath = path;
@@ -34,6 +35,24 @@ public:
 
     dg::FrameBatch* getFrameBatch() {
         return frameBatch;
+    }
+
+    void select() {
+        bool flag[100] = {false};
+        for (int i = 0; i < frameBatch->batch_size(); ++i) {
+            if (frameBatch->frames()[i]->get_object_size() == 1) {
+                dg::Object *obj = frameBatch->frames()[i]->objects()[0];
+                dg::Vehicle *v = (dg::Vehicle *) obj;
+                int id = v->color().class_id;
+                cout << "id = " << id << " ";
+                if (flag[id] == false) {
+                    cout << getVehicleColor(id) << " - - " ;
+                    cout << frameBatch->frames()[i]->id() << endl;
+                    flag[id] = true;
+                }
+            }
+
+        }
     }
 
 private:
