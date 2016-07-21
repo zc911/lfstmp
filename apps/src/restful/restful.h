@@ -150,7 +150,7 @@ protected:
         std::function<MatrixError(const request_type *, response_type *)> func) {
 
         server.resource[endpoint][method] =
-            [func, endpoint, &method](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
+            [func, endpoint, method](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
               request_type protobufRequestMessage;
               response_type protobufResponseMessage;
               try {
@@ -163,7 +163,6 @@ protected:
                           return;
                       }
                   }
-
                   MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
                   if (error.code() != 0) {
                       responseText(response, ServiceError, error.message());
