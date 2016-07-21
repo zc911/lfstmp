@@ -21,7 +21,7 @@ public:
 private:
 
     grpc::Status Ping(grpc::ServerContext *context, const PingRequest *request, PingResponse *response) {
-        struct timeval start, finish;
+    /*    struct timeval start, finish;
         gettimeofday(&start, NULL);
 
         CallData data;
@@ -40,12 +40,14 @@ private:
         //  string s;
         //   pbjson::json2string(value, s);
 
-        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+        return grpc::Status::OK;
+
     }
     grpc::Status SystemStatus(grpc::ServerContext *context,
                               const SystemStatusRequest *request,
                               SystemStatusResponse *response) {
-        struct timeval start, finish;
+     /*   struct timeval start, finish;
         gettimeofday(&start, NULL);
 
         CallData data;
@@ -65,7 +67,9 @@ private:
         //  string s;
         //   pbjson::json2string(value, s);
 
-        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+        return grpc::Status::OK;
+
     }
     /*   virtual grpc::Status Ping(grpc::ServerContext* context, const PingRequest *request, PingResponse *response) override
        {

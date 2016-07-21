@@ -32,23 +32,31 @@ string getServerAddress(Config *config, int userPort = 0) {
 
 void serveWitness(Config *config, int userPort = 0) {
     string protocolType = (string) config->Value("ProtocolType");
+    string instanceType = (string) config->Value("InstanceType");
+    int service_thread_num=(int) config->Value("ThreadNum");
     cout << "Protocol type: " << protocolType << endl;
     string address = getServerAddress(config, userPort);
 
     WitnessBucket::Instance().SetMaxSize(100);
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
-    std::thread test(&SpringGrpcClientImpl::Run, client);
-    MatrixEnginesPool<WitnessAppsService> *engine_pool = new MatrixEnginesPool<
-        WitnessAppsService>(config);
-    engine_pool->Run();
+    std::thread springTh(&SpringGrpcClientImpl::Run, client);
+
     std::thread network_th_(networkInfo, &rx, &tx);
 
     if (protocolType == "restful") {
-        RestWitnessServiceImpl *service = new RestWitnessServiceImpl(*config,
-                                                                     address, engine_pool);
+
+
+        MatrixEnginesPool<WitnessEngine> *engine_pool = new MatrixEnginesPool<WitnessEngine>(config);
+        engine_pool->Run();
+
+        ServicePool<WitnessAppsService,WitnessEngine> *service_pool = new ServicePool<
+                WitnessAppsService,WitnessEngine>(config,engine_pool,service_thread_num);
+        RestfulService<WitnessAppsService,WitnessEngine > *service = new RestWitnessServiceImpl(*config, address, service_pool);
+
+        service_pool->Run();
         service->Run();
     }
-    else if (protocolType == "rpc") {
+    /*else if (protocolType == "rpc") {
         GrpcWitnessServiceImpl *service = new GrpcWitnessServiceImpl(*config,
                                                                      address, engine_pool);
         std::thread t1(&GrpcWitnessServiceImpl::Run, service);
@@ -88,12 +96,12 @@ void serveWitness(Config *config, int userPort = 0) {
         cout << "Invalid protocol, should be rpc, restful or rpc|restful"
             << endl;
         exit(-1);
-    }
-    test.join();
+    }*/
+    springTh.join();
     network_th_.join();
 
 }
-
+/*
 void serveRanker(Config *config, int userPort = 0) {
     string protocolType = (string) config->Value("ProtocolType");
     cout << "Protocol type: " << protocolType << endl;
@@ -149,7 +157,7 @@ void serveRanker(Config *config, int userPort = 0) {
         exit(-1);
     }
 }
-
+*/
 
 DEFINE_int32(port, 0,
              "Service port number, will overwite the value defined in config file");
@@ -201,9 +209,9 @@ int main(int argc, char *argv[]) {
     if (instType == "witness") {
         serveWitness(config, FLAGS_port);
     }
-    else if (instType == "ranker") {
+ /*   else if (instType == "ranker") {
         serveRanker(config, FLAGS_port);
-    }
+    }*/
     else {
         cout << "Invalid instance type , should be either witness or ranker."
             << endl;

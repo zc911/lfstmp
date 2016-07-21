@@ -41,16 +41,17 @@ static void responseText(HttpServer::Response &response, int code,
         << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
         << text;
 }
+    template<class ServiceType,class EngineType>
 
-template<class EngineType>
-class RestfulService {
+    class RestfulService {
 
 public:
-    RestfulService(MatrixEnginesPool<EngineType> *engine_pool, Config config,
+
+    RestfulService(ServicePool<ServiceType,EngineType> *service_pool, Config config,
                    string protocol = "HTTP/1.1",
                    string mime_type =
                    "application/json; charset=utf-8")
-        : engine_pool_(engine_pool),
+        : service_pool_(service_pool),
           config_(config),
           protocol_(protocol),
           mime_type_(mime_type),
@@ -70,63 +71,16 @@ public:
             int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
             threadsInTotal += threadsOnGpu;
         }
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal);
-
-        // bind ping operation
-        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
-            std::bind(&SystemAppsService::Ping, &sys_apps_, std::placeholders::_1, std::placeholders::_2);
-        bindFunc<PingRequest, PingResponse>(server, "^/ping$", "GET", pingBinder);
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal*10);
 
         Bind(server);
-        if (engine_pool_ == NULL) {
+        if (service_pool_ == NULL) {
             LOG(ERROR) << "Engine pool not initialized" << endl;
         }
-        engine_pool_->Run();
-        cout << typeid(EngineType).name() << " Server(RESTFUL) listening on " << port << endl;
+        service_pool_->Run();
+        cout << typeid(ServiceType).name() << " Server(RESTFUL) listening on " << port << endl;
         string instanceType = (string) config_.Value("InstanceType");
-        if (instanceType == "witness") {
-            warmUp(threadsInTotal);
-        }
         server.start();
-    }
-
-    virtual void warmUp(int n) {
-        string imgdata =
-            "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
-        WitnessRequest protobufRequestMessage;
-        WitnessResponse protobufResponseMessage;
-        protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
-        WitnessRequestContext *ctx = protobufRequestMessage.mutable_context();
-        ctx->mutable_functions()->Add(1);
-        ctx->mutable_functions()->Add(2);
-        ctx->mutable_functions()->Add(3);
-        ctx->mutable_functions()->Add(4);
-        ctx->mutable_functions()->Add(5);
-        ctx->mutable_functions()->Add(6);
-        ctx->mutable_functions()->Add(7);
-        ctx->set_type(REC_TYPE_VEHICLE);
-        ctx->mutable_storage()->set_address("127.0.0.1");
-        for (int i = 0; i < n; i++) {
-            CallData data;
-
-            typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
-            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
-            data.func = [rec_func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-              return (bind(rec_func, (WitnessAppsService *) data.apps,
-                           placeholders::_1,
-                           placeholders::_2))(&protobufRequestMessage,
-                                              &protobufResponseMessage);
-            };
-
-            if (engine_pool_ == NULL) {
-                LOG(ERROR) << "Engine pool not initailized. " << endl;
-                return;
-            }
-            engine_pool_->enqueue(&data);
-
-            MatrixError error = data.Wait();
-        }
-
     }
 
     virtual void Bind(HttpServer &server) = 0;
@@ -136,7 +90,8 @@ protected:
     Config config_;
     string protocol_;
     string mime_type_;
-    MatrixEnginesPool<EngineType> *engine_pool_;
+    ServicePool<ServiceType,EngineType> *service_pool_;
+
 
     // This function binds request operation to specific processor
     // There are two bindFunc implmentation and the differents between these two
@@ -207,15 +162,14 @@ protected:
                                                     &protobufResponseMessage);
                   };
 
-                  if (engine_pool_ == NULL) {
+                  if (service_pool_ == NULL) {
                       LOG(ERROR) << "Engine pool not initailized. " << endl;
                       return;
                   }
 
-                  engine_pool_->enqueue(&data);
+                  service_pool_->enqueue(&data);
 
                   MatrixError error = data.Wait();
-
                   if (error.code() != 0) {
                       responseText(response, 500, error.message());
                       return;

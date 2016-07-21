@@ -24,9 +24,9 @@ using namespace std;
 namespace dg {
 
 static int SHIFT_COLOR = 1000;
-WitnessAppsService::WitnessAppsService(const Config *config, string name, int baseId)
+WitnessAppsService::WitnessAppsService(const Config *config,MatrixEnginesPool<WitnessEngine> *engine_pool, string name, int baseId)
     : config_(config),
-      engine_(*config),
+      engine_pool_(engine_pool),
       id_(0),
       base_id_(baseId) {
     name_ = name;
@@ -596,9 +596,23 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    rec_lock_.lock();
-    engine_.Process(&framebatch);
-    rec_lock_.unlock();
+   // engine_.Process(&framebatch);
+    EngineData data;
+    data.func = [ &framebatch, &data]() -> void {
+        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                     placeholders::_1))(&framebatch);
+    };
+
+    if (engine_pool_ == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool_->enqueue(&data);
+
+    data.Wait();
+
+
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
@@ -776,9 +790,24 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
-    rec_lock_.lock();
-    engine_.Process(&framebatch);
-    rec_lock_.unlock();
+   // rec_lock_.lock();
+    EngineData data;
+    data.func = [ &framebatch, &data]() -> void {
+        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                     placeholders::_1))(&framebatch);
+    };
+
+    if (engine_pool_ == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool_->enqueue(&data);
+
+    data.Wait();
+
+
+    // rec_lock_.unlock();
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec batch Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
@@ -790,6 +819,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
+    return err;
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx

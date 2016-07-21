@@ -27,7 +27,7 @@ using namespace ::dg::model;
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService(const Config *config, string name, int baseId = 0);
+    WitnessAppsService(const Config *config,MatrixEnginesPool<WitnessEngine> *engine_pool, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -76,7 +76,7 @@ private:
     }
 
     const Config *config_;
-    WitnessEngine engine_;
+    MatrixEnginesPool<WitnessEngine> *engine_pool_;
     Identification id_;
     Identification base_id_;
 
