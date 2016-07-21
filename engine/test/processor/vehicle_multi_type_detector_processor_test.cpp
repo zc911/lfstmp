@@ -1,3 +1,6 @@
+#if true
+
+#include <alg/detector/detector.h>
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
@@ -18,10 +21,12 @@ static void destory() {
         delete fbhelper;
         fbhelper = NULL;
     }
+    /**
     if (head) {
         delete head;
         head = NULL;
     }
+     **/
 }
 
 static Operation getOperation() {
@@ -31,7 +36,7 @@ static Operation getOperation() {
     return op;
 }
 
-TEST(VehicleMultiTypeDectorTest, VehicleTypeTest) {
+TEST(VehicleMultiTypeDectorTest, vehicleTypeTest) {
     init();
     fbhelper->setBasePath("data/testimg/vehicleMultiType/type/");
     fbhelper->readImage(getOperation());
@@ -56,11 +61,10 @@ TEST(VehicleMultiTypeDectorTest, VehicleTypeTest) {
         EXPECT_EQ(expectType[i], obj->type()) << "i = " << i << endl;
     }
 
-    fbhelper->printFrame();
-    //destory();
+    destory();
 }
 
-TEST(VehicleMultiTypeDectorTest, VehicleNumberTest) {
+TEST(VehicleMultiTypeDectorTest, vehicleNumberTest) {
     init();
     fbhelper->setBasePath("data/testimg/vehicleMultiType/number/");
     fbhelper->readImage(getOperation());
@@ -74,11 +78,10 @@ TEST(VehicleMultiTypeDectorTest, VehicleNumberTest) {
     for (int i = 0; i < fb->batch_size(); ++i) {
         EXPECT_EQ(expectNum[i], fb->frames()[i]->get_object_size()) << "i = " << i << endl;
     }
-    fbhelper->printFrame();
-//    destory();
+    destory();
 }
 
-TEST(VehicleMultiTypeDectorTest, StrangeInputTest) {
+TEST(VehicleMultiTypeDectorTest, strangeInputTest) {
     init();
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
@@ -86,14 +89,55 @@ TEST(VehicleMultiTypeDectorTest, StrangeInputTest) {
     EXPECT_EQ(0, fb->batch_size());
 
     fbhelper->setBasePath("data/testimg/vehicleMultiType/strangeInput/");
-    int num = fbhelper->readImage(getOperation());
+    fbhelper->readImage(getOperation());
 
     fb = fbhelper->getFrameBatch();
     cout << fb->batch_size() << endl;
 
     head->process(fb);
-
+    fbhelper->printFrame();
     EXPECT_EQ(3, fb->batch_size());
 
-//    destory();
+    cv::Mat mat1(0, 1, 0);
+    Frame *f1 = new Frame(1001, mat1);
+    f1->set_operation(getOperation());
+    fb->AddFrame(f1);
+
+    cv::Mat mat2(0, 0, 1);
+    Frame *f2 = new Frame(1002, mat2);
+    fb->AddFrame(f2);
+
+    head->process(fb);
+    EXPECT_EQ(5, fb->batch_size());
+
+    destory();
 }
+
+
+TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
+    VehicleCaffeDetectorConfig config;
+    config.car_only = true;
+    config.is_model_encrypt = false;
+    config.deploy_file = "data/models/310.txt";
+    config.confirm_deploy_file = "data/models/300.txt";
+    config.model_file = "data/models/310.dat";
+    config.confirm_model_file = "data/models/300.dat";
+    VehicleMultiTypeDetectorProcessor *ppp =
+            new VehicleMultiTypeDetectorProcessor(config);
+
+    /**
+
+    fbhelper = new FrameBatchHelper(2);
+    fbhelper->setBasePath("data/testimg/test/");
+    fbhelper->readImage(getOperation());
+
+    FrameBatch *fb = fbhelper->getFrameBatch();
+
+    ppp->Update(fb);
+     **/
+
+   // delete processor;
+    //delete fbhelper;
+}
+
+#endif

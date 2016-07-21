@@ -57,18 +57,18 @@ void FrameBatchHelper::printFrame(Frame * frame) {
         ObjectType type = obj->type();
         cout << "---------------------------" << endl;
         cout << "Object type        : " << getType(type) << endl;
-        if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE) {
+        if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE && type != OBJECT_PEDESTRIAN) {
             Vehicle *v = (Vehicle *) obj;
-            cout << "Vehicle class id   : " << v->class_id() << "\t, confidence : "
+            cout << "Vehicle class id   : " << v->class_id() << "\t\t, confidence : "
             << v->confidence() << endl;
-            cout << "Vehicle color id   : " << v->color().class_id << "\t, confidence : "
+            cout << "Vehicle color      : " << getVehicleColor(v->color().class_id) << "\t, confidence : "
             << v->color().confidence << endl;
-            /**
-            cout << "Vehicle plate      : " << v->plate().plate_num << ", confidence : "
-            << v->plate().confidence << endl;
-             **/
+            if (!v->plates().empty()) {
+                cout << "Vehicle plate      : " << v->plates()[0].plate_num << ", confidence : "
+                << v->plates()[0].confidence << endl;
+            }
             vector<Object *> markers = v->children();
-            cout << "Vehicle Markers    : " << v->children().size() << "\t, Window     : "
+            cout << "Vehicle Markers    : " << v->children().size() << "\t\t, Window     : "
             << v->window().box.x << endl;
 
             for (int i = 0; i < markers.size(); i++) {
@@ -80,6 +80,23 @@ void FrameBatchHelper::printFrame(Frame * frame) {
 
             cout << "Feature Vector     : " << v->feature().Serialize().substr(0, 32)
             << "...    Len : " << v->feature().Serialize().size() << endl;
+        }
+        else if (type == OBJECT_PEDESTRIAN) {
+            Pedestrian *v = (Pedestrian*) objs[i];
+            cout << "Pedestrian id      : " << v->id() << "\t\t, confidence : "
+            << v->confidence() << endl;
+
+            if (!v->attrs().empty()) {
+                cout << "Pedestrian attrs:" << endl;
+                cout << "---------------------" << endl;
+                for (int i = 0; i < v->attrs().size(); ++i) {
+                }
+            }
+        }
+        else {
+            cout << "************************" << endl;
+            cout << type << endl;
+            cout << "************************" << endl;
         }
     }
     cout << endl << endl;
@@ -100,7 +117,25 @@ string FrameBatchHelper::getType(ObjectType t) {
     else if (t == OBJECT_MARKER_4) type = "marker";
     else if (t == OBJECT_CAR) type = "car";
     else if (t == OBJECT_UNKNOWN) type = "unknown";
-    else type = "Wrong Type!!";
+    else type = "None!!";
 
     return type;
+}
+
+string FrameBatchHelper::getVehicleColor(int t) {
+    string color;
+    if (t == 0) color = "black";
+    else if (t == 1) color = "blue";
+    else if (t == 2) color = "brown";
+    else if (t == 3) color = "green";
+    else if (t == 4) color = "grey";
+    else if (t == 5) color = "orange";
+    else if (t == 6) color = "pink";
+    else if (t == 7) color = "purple";
+    else if (t == 8) color = "red";
+    else if (t == 9) color = "silver";
+    else if (t == 10) color = "white";
+    else if (t == 11) color = "yellow";
+    else color = "None!!";
+    return color;
 }
