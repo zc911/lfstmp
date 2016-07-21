@@ -9,8 +9,8 @@ namespace dg {
 
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
                                                string addr,
-                                               MatrixEnginesPool<WitnessAppsService> *engine_pool)
-    : BasicGrpcService(config, addr, engine_pool) {
+                           ServicePool<WitnessAppsService,WitnessEngine> *service_pool)
+    : BasicGrpcService(config, addr, service_pool) {
 
     RepoService::GetInstance()->Init(config);
 
@@ -37,8 +37,7 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
                    placeholders::_2))(request,
                                       response);
     };
-
-    engine_pool_->enqueue(&data);
+    service_pool_->enqueue(&data);
     MatrixError error = data.Wait();
 
     gettimeofday(&finish, NULL);
@@ -48,17 +47,18 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
 }
 grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
                                            const IndexRequest *request,
                                            IndexResponse *response) {
-
 
     MatrixError error = RepoService::GetInstance()->Index(request, response);
     if (error.code() != 0) {
         return grpc::Status::CANCELLED;
     }
     return grpc::Status::OK;
+
 
 }
 
@@ -91,7 +91,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
                                       response);
     };
 
-    engine_pool_->enqueue(&data);
+    service_pool_->enqueue(&data);
     MatrixError error = data.Wait();
 
     gettimeofday(&finish, NULL);
@@ -101,6 +101,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
 
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
 }
 
 }

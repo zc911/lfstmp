@@ -21,19 +21,19 @@ using grpc::Status;
 
 namespace dg {
 
-template<class EngineType>
+template<class ServiceType, class EngineType>
 class BasicGrpcService {
 
 public:
 
     BasicGrpcService(Config config,
                      string addr,
-                     MatrixEnginesPool <EngineType> *engine_pool) : config_(config),
-                                                                    addr_(addr),
-                                                                    engine_pool_(engine_pool) {
+                     ServicePool<ServiceType, EngineType> *service_pool) : config_(config),
+        addr_(addr),
+        service_pool_(service_pool) {
+            cout<<addr<<endl;
 
     }
-
     virtual ~BasicGrpcService() {
 
     }
@@ -42,8 +42,7 @@ public:
 
     void Run() {
 
-        engine_pool_->Run();
-        warmUp(config_.Value("System/ThreadsPerGpu"));
+        service_pool_->Run();
         grpc::ServerBuilder builder;
         builder.SetMaxMessageSize(1024 * 1024 * 1024);
 
@@ -52,10 +51,7 @@ public:
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
         cout << typeid(EngineType).name() << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
-            << endl;
-        bool EnabledDetection = (bool) config_.Value("Feature/Vehicle/EnableDetection");
-        if (!EnabledDetection)
-            warmUp(config_.Value("System/ThreadsPerGpu"));
+             << endl;
         server->Wait();
     }
 
@@ -65,22 +61,7 @@ public:
 protected:
     Config config_;
     string addr_;
-    MatrixEnginesPool <EngineType> *engine_pool_;
-};
-template<class MessageType>
-class BasicGrpcClient {
-public:
-    BasicGrpcClient(Config config, MessagePool <MessageType> *message_pool)
-        : config_(config), message_pool_(message_pool) { }
-    virtual ~BasicGrpcClient() {
-
-    }
-    virtual void Run() {
-        message_pool_->Run();
-    }
-protected:
-    Config config_;
-    MessagePool <MessageType> *message_pool_;
+    ServicePool<ServiceType, EngineType> *service_pool_;
 };
 }
 

@@ -21,13 +21,12 @@ typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, Wit
 typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 typedef MatrixError (*RecIndexFunc)(WitnessAppsService *, const IndexRequest *, IndexResponse *);
 typedef MatrixError (*RecIndexTxtFunc)(WitnessAppsService *, const IndexTxtRequest *, IndexTxtResponse *);
-
-class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService> {
+class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService,WitnessEngine> {
 public:
     RestWitnessServiceImpl(Config config,
                            string addr,
-                           MatrixEnginesPool<WitnessAppsService> *engine_pool)
-        : RestfulService(engine_pool, config) {
+                           ServicePool<WitnessAppsService,WitnessEngine> *service_pool)
+        : RestfulService(service_pool, config){
 
     }
 
@@ -53,43 +52,9 @@ public:
         bindFunc<IndexTxtRequest, IndexTxtResponse>(server, "^/rec/index/txt$", "POST", indexTxtBinder);
 
     }
-    virtual void warmUp(int n) {
-        string imgdata =
-            "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAJElEQVQIHW3BAQEAAAABICb1/5wDqshT5CnyFHmKPEWeIk+RZwAGBKHRhTIcAAAAAElFTkSuQmCC";
-        WitnessRequest protobufRequestMessage;
-        WitnessResponse protobufResponseMessage;
-        protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
-        WitnessRequestContext *ctx = protobufRequestMessage.mutable_context();
-        ctx->mutable_functions()->Add(1);
-        ctx->mutable_functions()->Add(2);
-        ctx->mutable_functions()->Add(3);
-        ctx->mutable_functions()->Add(4);
-        ctx->mutable_functions()->Add(5);
-        ctx->mutable_functions()->Add(6);
-        ctx->mutable_functions()->Add(7);
-        ctx->set_type(REC_TYPE_VEHICLE);
-        ctx->mutable_storage()->set_address("127.0.0.1");
-        for (int i = 0; i < n; i++) {
-            CallData data;
-            typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
-            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
-            data.func = [rec_func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-              return (bind(rec_func, (WitnessAppsService *) data.apps,
-                           placeholders::_1,
-                           placeholders::_2))(&protobufRequestMessage,
-                                              &protobufResponseMessage);
-            };
 
-            if (engine_pool_ == NULL) {
-                LOG(ERROR) << "Engine pool not initailized. " << endl;
-                return;
-            }
-            engine_pool_->enqueue(&data);
+protected:
 
-            MatrixError error = data.Wait();
-        }
-
-    }
 };
 }
 

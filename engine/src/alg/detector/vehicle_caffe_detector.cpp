@@ -24,8 +24,13 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
 
+#if DEBUG
     net_.reset(
-        new Net<float>(config.deploy_file, TEST, config.is_model_encrypt, NULL));
+        new Net<float>(config.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#endif
     net_->CopyTrainedLayersFrom(config.model_file);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -35,13 +40,13 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();
-    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+/*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
     const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
     const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
     for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
     }
-
+*/
     device_setted_ = false;
 #ifdef SHOW_VIS
     color_.push_back(Scalar(255, 0, 0));
