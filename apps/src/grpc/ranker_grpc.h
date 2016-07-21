@@ -19,11 +19,11 @@
 using namespace ::dg::model;
 namespace dg {
 
-class GrpcRankerServiceImpl final: public BasicGrpcService<RankerAppsService>, public SimilarityService::Service {
+class GrpcRankerServiceImpl final: public BasicGrpcService<RankerAppsService,RankEngine>, public SimilarityService::Service {
 public:
 
-    GrpcRankerServiceImpl(Config config, string addr, MatrixEnginesPool<RankerAppsService> *engine_pool)
-        : BasicGrpcService(config, addr, engine_pool) { }
+    GrpcRankerServiceImpl(Config config, string addr, ServicePool<RankerAppsService,RankEngine> *service_pool)
+        : BasicGrpcService(config, addr, service_pool) { }
 
     virtual ~GrpcRankerServiceImpl() { }
     virtual ::grpc::Service *service() {
@@ -46,9 +46,11 @@ public:
                                           response);
         };
 
-        engine_pool_->enqueue(&data);
+        service_pool_->enqueue(&data);
         MatrixError error = data.Wait();
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
+        return grpc::Status::OK;
 
     }
 
