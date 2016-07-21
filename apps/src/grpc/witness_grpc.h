@@ -30,9 +30,9 @@ using grpc::Status;
 namespace dg {
 
 
-class GrpcWitnessServiceImpl final: public BasicGrpcService<WitnessAppsService>, public WitnessService::Service {
+class GrpcWitnessServiceImpl final: public BasicGrpcService<WitnessAppsService,WitnessEngine>, public WitnessService::Service {
 public:
-    GrpcWitnessServiceImpl(Config config, string addr, MatrixEnginesPool<WitnessAppsService> *engine_pool);
+    GrpcWitnessServiceImpl(Config config, string addr, ServicePool<WitnessAppsService,WitnessEngine> *service_pool);
     virtual ~GrpcWitnessServiceImpl();
     virtual ::grpc::Service *service() {
         return this;
@@ -51,43 +51,8 @@ private:
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,
                                         WitnessBatchResponse *response);
-    virtual void warmUp(int n) {
-        string imgdata = ReadStringFromFile("warmup.dat", "rb");
-        WitnessRequest protobufRequestMessage;
-        WitnessResponse protobufResponseMessage;
-        protobufRequestMessage.mutable_image()->mutable_data()->set_bindata(imgdata);
-        protobufRequestMessage.mutable_image()->mutable_witnessmetadata()->set_sensorurl("http://127.0.0.1");
-        WitnessRequestContext *ctx = protobufRequestMessage.mutable_context();
-        ctx->mutable_functions()->Add(1);
-        ctx->mutable_functions()->Add(2);
-        ctx->mutable_functions()->Add(3);
-        ctx->mutable_functions()->Add(4);
-        ctx->mutable_functions()->Add(5);
-        ctx->mutable_functions()->Add(6);
-        ctx->mutable_functions()->Add(7);
-        ctx->set_type(REC_TYPE_VEHICLE);
-
-        for (int i = 0; i < n; i++) {
-            CallData data;
-            typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, WitnessResponse *);
-            RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
-            data.func = [rec_func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-              return (bind(rec_func, (WitnessAppsService *) data.apps,
-                           placeholders::_1,
-                           placeholders::_2))(&protobufRequestMessage,
-                                              &protobufResponseMessage);
-            };
-
-            if (engine_pool_ == NULL) {
-                LOG(ERROR) << "Engine pool not initailized. " << endl;
-                return;
-            }
-            engine_pool_->enqueue(&data);
-
-            MatrixError error = data.Wait();
-        }
-
-    }
+    //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
+    //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
 };
 
 }

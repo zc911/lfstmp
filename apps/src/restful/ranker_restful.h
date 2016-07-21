@@ -18,14 +18,14 @@ namespace dg {
 
 typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
 
-class RestRankerServiceImpl final: public RestfulService<RankerAppsService> {
+class RestRankerServiceImpl final: public RestfulService<RankerAppsService,RankEngine> {
 
 public:
 
     RestRankerServiceImpl(Config config,
                           string addr,
-                          MatrixEnginesPool <RankerAppsService> *engine_pool)
-        : RestfulService(engine_pool, config), config_(config) {
+                          ServicePool <RankerAppsService,RankEngine> *service_pool)
+        : RestfulService(service_pool, config) {
     }
 
     virtual ~RestRankerServiceImpl() { }
@@ -42,8 +42,6 @@ public:
 
 
 private:
-
-    Config config_;
 };
 
 }

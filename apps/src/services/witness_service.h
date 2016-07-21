@@ -28,7 +28,7 @@ using namespace ::dg::model;
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService(const Config *config, string name, int baseId = 0);
+    WitnessAppsService(const Config *config,MatrixEnginesPool<WitnessEngine> *engine_pool, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -51,11 +51,11 @@ private:
 
 
     const Config *config_;
-    WitnessEngine engine_;
+    MatrixEnginesPool<WitnessEngine> *engine_pool_;
     Identification id_;
     Identification base_id_;
 
-
+    
     // library caffe is not thread safe(even crash some times) which means
     // only one frame/frameBatch could be processed at one time.
     // So we use a lock to keep the processing thread safe.
