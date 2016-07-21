@@ -15,7 +15,13 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
     256), pixel_means_
         {104, 117, 123} {
     /* Load the network. */
-    net_.reset(new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
+#if DEBUG
+    net_.reset(
+        new Net<float>(pconf.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
+#endif
     net_->CopyTrainedLayersFrom(pconf.model_file);
     layer_name_ = pconf.layer_name;
 

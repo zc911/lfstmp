@@ -28,7 +28,7 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
 
     struct timeval start, finish;
     gettimeofday(&start, NULL);
-
+/*
     CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::Recognize,
@@ -51,7 +51,9 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
         << endl;
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
 
-    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+    return grpc::Status::OK;
+
 }
 grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
                                            const IndexRequest *request,
@@ -60,7 +62,7 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
 
     struct timeval start, finish;
     gettimeofday(&start, NULL);
-
+/*
     CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::Index,
@@ -78,7 +80,8 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
     //  string s;
     //   pbjson::json2string(value, s);
 
-    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+    return grpc::Status::OK;
 }
 
 grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
@@ -88,7 +91,7 @@ grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
     struct timeval start, finish;
     gettimeofday(&start, NULL);
 
-    CallData data;
+    /*CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::IndexTxt,
                    (WitnessAppsService *) data.apps,
@@ -105,7 +108,9 @@ grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
     //  string s;
     //   pbjson::json2string(value, s);
 
-    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+    return grpc::Status::OK;
+
 }
 grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context,
                                                     const WitnessBatchRequest *request,
@@ -115,7 +120,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
     VLOG(VLOG_SERVICE) << "[GRPC] Get batch rec request, session id: " << request->context().sessionid() << endl;
     struct timeval start, finish;
     gettimeofday(&start, NULL);
-
+/*
     CallData data;
     data.func = [request, response, &data]() -> MatrixError {
       return (bind(&WitnessAppsService::BatchRecognize,
@@ -134,7 +139,9 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
         << endl;
 
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
-    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;*/
+    return grpc::Status::OK;
+
 }
 
 //GrpcWitnessServiceAsynImpl::GrpcWitnessServiceAsynImpl(Config *config) : config_(config) {

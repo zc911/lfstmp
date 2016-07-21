@@ -51,7 +51,7 @@ private:
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,
                                         WitnessBatchResponse *response);
-    virtual void warmUp(int n) {
+  /*  virtual void warmUp(int n) {
         string imgdata = ReadStringFromFile("warmup.dat", "rb");
         WitnessRequest protobufRequestMessage;
         WitnessResponse protobufResponseMessage;
@@ -87,7 +87,7 @@ private:
             MatrixError error = data.Wait();
         }
 
-    }
+    }*/
     //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
     //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
 };
