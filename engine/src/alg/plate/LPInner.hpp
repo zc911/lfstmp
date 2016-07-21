@@ -92,6 +92,9 @@ struct LPDR_Info_S {
 	
 	vector<LPRectInfo> *pvBBGroupOfROIP;
 	vector<LPRectInfo> *pvBBGroupOfNMS;
+
+	int dwDev_Type;
+	int dwDev_ID;
 };
 
 
