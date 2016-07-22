@@ -8,14 +8,16 @@
 namespace dg {
 
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
-                                               string addr,
-                                               MatrixEnginesPool<WitnessAppsService> *engine_pool)
-    : BasicGrpcService(config, addr, engine_pool) {
+                                               string addr)
+    : BasicGrpcService(config, addr) {
 
     RepoService::GetInstance()->Init(config);
+    service_ = new WitnessAppsService(&config,"WitnessAppsService"); 
+
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
+  delete service_;
 }
 
 grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
@@ -29,17 +31,7 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     struct timeval start, finish;
     gettimeofday(&start, NULL);
 
-    CallData data;
-    data.func = [request, response, &data]() -> MatrixError {
-      return (bind(&WitnessAppsService::Recognize,
-                   (WitnessAppsService *) data.apps,
-                   placeholders::_1,
-                   placeholders::_2))(request,
-                                      response);
-    };
-
-    engine_pool_->enqueue(&data);
-    MatrixError error = data.Wait();
+    MatrixError error = service_->Recognize(request, response);
 
     gettimeofday(&finish, NULL);
     VLOG(VLOG_SERVICE)
@@ -48,17 +40,18 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
 
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
 }
 grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
                                            const IndexRequest *request,
                                            IndexResponse *response) {
-
 
     MatrixError error = RepoService::GetInstance()->Index(request, response);
     if (error.code() != 0) {
         return grpc::Status::CANCELLED;
     }
     return grpc::Status::OK;
+
 
 }
 
@@ -81,18 +74,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
     VLOG(VLOG_SERVICE) << "[GRPC] Get batch rec request, session id: " << request->context().sessionid() << endl;
     struct timeval start, finish;
     gettimeofday(&start, NULL);
-
-    CallData data;
-    data.func = [request, response, &data]() -> MatrixError {
-      return (bind(&WitnessAppsService::BatchRecognize,
-                   (WitnessAppsService *) data.apps,
-                   placeholders::_1,
-                   placeholders::_2))(request,
-                                      response);
-    };
-
-    engine_pool_->enqueue(&data);
-    MatrixError error = data.Wait();
+    MatrixError error = service_->BatchRecognize(request, response);
 
     gettimeofday(&finish, NULL);
     VLOG(VLOG_SERVICE) << "[GRPC] Batch rec session id " << request->context().sessionid() << " and total cost: "
@@ -101,6 +83,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
 
     VLOG(VLOG_SERVICE) << "[GRPC] ========================" << endl;
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
 }
 
 }
