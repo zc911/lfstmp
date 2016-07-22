@@ -11,7 +11,7 @@ namespace dg {
 CarRankEngine::CarRankEngine(const Config &config)
     : RankEngine(config),
       id_(0) {
-    processor_ = new CarRankProcessor();
+    processor_ = new CarRankProcessor(config);
 }
 
 CarRankEngine::~CarRankEngine() {
