@@ -24,14 +24,14 @@ using namespace std;
 namespace dg {
 
 static int SHIFT_COLOR = 1000;
-WitnessAppsService::WitnessAppsService( Config *config, string name, int baseId)
+WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     : config_(config),
       id_(0),
       base_id_(baseId),
       name_(name) {
-        enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
+    enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
 
-        RepoService::GetInstance()->Init(*config);
+    RepoService::GetInstance()->Init(*config);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -44,59 +44,59 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     int type = ctx.type();
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
-        case RECFUNC_NONE:
-            op.Set(OPERATION_NONE);
-            break;
-        case RECFUNC_VEHICLE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE);
-            break;
-        case RECFUNC_VEHICLE_DETECT:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_DETECT);
-            break;
-        case RECFUNC_VEHICLE_TRACK:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_TRACK);
-            break;
-        case RECFUNC_VEHICLE_STYLE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_STYLE);
-            break;
-        case RECFUNC_VEHICLE_COLOR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_COLOR);
-            break;
-        case RECFUNC_VEHICLE_MARKER:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_MARKER);
-            break;
-        case RECFUNC_VEHICLE_PLATE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_PLATE);
-            break;
-        case RECFUNC_VEHICLE_FEATURE_VECTOR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
-            break;
-        case RECFUNC_VEHICLE_PEDESTRIAN_ATTR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_PEDESTRIAN_ATTR);
-            break;
-        case RECFUNC_FACE:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE);
-            break;
-        case RECFUNC_FACE_DETECTOR:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_DETECTOR);
-            break;
-        case RECFUNC_FACE_FEATURE_VECTOR:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_FEATURE_VECTOR);
-            break;
-        default:
-            break;
+            case RECFUNC_NONE:
+                op.Set(OPERATION_NONE);
+                break;
+            case RECFUNC_VEHICLE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE);
+                break;
+            case RECFUNC_VEHICLE_DETECT:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_DETECT);
+                break;
+            case RECFUNC_VEHICLE_TRACK:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_TRACK);
+                break;
+            case RECFUNC_VEHICLE_STYLE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_STYLE);
+                break;
+            case RECFUNC_VEHICLE_COLOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_COLOR);
+                break;
+            case RECFUNC_VEHICLE_MARKER:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_MARKER);
+                break;
+            case RECFUNC_VEHICLE_PLATE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_PLATE);
+                break;
+            case RECFUNC_VEHICLE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
+                break;
+            case RECFUNC_VEHICLE_PEDESTRIAN_ATTR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_PEDESTRIAN_ATTR);
+                break;
+            case RECFUNC_FACE:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE);
+                break;
+            case RECFUNC_FACE_DETECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_DETECTOR);
+                break;
+            case RECFUNC_FACE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_FEATURE_VECTOR);
+                break;
+            default:
+                break;
         }
     }
 
@@ -105,7 +105,7 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
 
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-        RecVehicle *vrec) {
+                                                        RecVehicle *vrec) {
     MatrixError err;
     std::vector<Pedestrian::Attr> attrs = pobj->attrs();
 
@@ -126,7 +126,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 }
 
 MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
-        RecVehicle *vrec) {
+                                                     RecVehicle *vrec) {
     MatrixError err;
     vrec->set_features(vobj->feature().Serialize());
 
@@ -154,7 +154,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
 }
 
 MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
-        RecFace *frec) {
+                                                  RecFace *frec) {
     MatrixError err;
     frec->set_confidence((float) fobj->confidence());
     frec->set_features(fobj->feature().Serialize());
@@ -165,27 +165,27 @@ MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
 }
 
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
-        WitnessResult *result) {
+                                                   WitnessResult *result) {
     MatrixError err;
 
     for (const Object *object : frame->objects()) {
         DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
-        case OBJECT_CAR:
-        case OBJECT_BICYCLE:
-        case OBJECT_TRICYCLE:
+            case OBJECT_CAR:
+            case OBJECT_BICYCLE:
+            case OBJECT_TRICYCLE:
 
-            err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
-            break;
-        case OBJECT_PEDESTRIAN:
-            err = getRecognizedPedestrian((Pedestrian *) object, result->add_vehicles());
-            break;
-        case OBJECT_FACE:
-            err = getRecognizedFace((Face *) object, result->add_faces());
-            break;
-        default:
-            LOG(WARNING) << "unknown object type: " << object->type();
-            break;
+                err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+                break;
+            case OBJECT_PEDESTRIAN:
+                err = getRecognizedPedestrian((Pedestrian *) object, result->add_vehicles());
+                break;
+            case OBJECT_FACE:
+                err = getRecognizedFace((Face *) object, result->add_faces());
+                break;
+            default:
+                LOG(WARNING) << "unknown object type: " << object->type();
+                break;
         }
 
         if (err.code() < 0) {
@@ -199,7 +199,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
 MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
     MatrixError err;
     if (wImage.data().uri().size() == 0
-            && wImage.data().bindata().size() == 0) {
+        && wImage.data().bindata().size() == 0) {
         LOG(ERROR) << "image uri and bindata are empty both";
         err.set_code(-1);
         err.set_message("image uri and bindata are empty both");
@@ -260,7 +260,7 @@ void storage(Frame *frame, VehicleObj *client_request_obj, string storageAddress
 }
 
 MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
-        WitnessResponse *response) {
+                                          WitnessResponse *response) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
@@ -274,7 +274,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     }
 
     VLOG(VLOG_SERVICE) << "Get Recognize request: " << sessionid
-                       << ", Image URI:" << request->image().data().uri();
+        << ", Image URI:" << request->image().data().uri();
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << "...";
 
     struct timeval start, end;
@@ -306,9 +306,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
 
     EngineData data;
-    data.func = [ &framebatch, &data]() -> void {
-        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-        placeholders::_1))(&framebatch);
+    data.func = [&framebatch, &data]() -> void {
+      return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                   placeholders::_1))(&framebatch);
     };
 
     engine_pool->enqueue(&data);
@@ -331,7 +331,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-            ->mutable_debugts();
+        ->mutable_debugts();
     WitnessResult *result = response->mutable_result();
     result->mutable_image()->mutable_data()->set_uri(
         request->image().data().uri());
@@ -357,7 +357,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-        VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
+    VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
     if (enableStorage_) {
         string storageAddress;
@@ -369,12 +369,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
         switch (dbTypeInt) {
-        case 0:
-            dbType = KAFKA;
-            break;
-        default:
-            dbType = KAFKA;
-            break;
+            case 0:
+                dbType = KAFKA;
+                break;
+            default:
+                dbType = KAFKA;
+                break;
         }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
@@ -432,11 +432,11 @@ MatrixError WitnessAppsService::BatchRecognize(
         batchRequest->images();
     Identification curr_id = base_id_ * 10000 + id_++;
     VLOG(VLOG_SERVICE)
-            << "Batch recognize using " << name_ << " and batch id: "
-            << curr_id << endl;
+    << "Batch recognize using " << name_ << " and batch id: "
+        << curr_id << endl;
     VLOG(VLOG_SERVICE)
-            << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << " and batch id: "
-            << curr_id << endl;
+    << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << " and batch id: "
+        << curr_id << endl;
 
 
     err = checkRequest(*batchRequest);
@@ -453,12 +453,12 @@ MatrixError WitnessAppsService::BatchRecognize(
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
     vector<SrcMetadata> srcMetadatas;
-    vector <
-    ::google::protobuf::RepeatedPtrField <
-    const ::dg::model::WitnessRelativeROI > > roisr;
-    vector <
-    ::google::protobuf::RepeatedPtrField <
-    const ::dg::model::WitnessMarginROI > > roism;
+    vector<
+        ::google::protobuf::RepeatedPtrField<
+            const ::dg::model::WitnessRelativeROI> > roisr;
+    vector<
+        ::google::protobuf::RepeatedPtrField<
+            const ::dg::model::WitnessMarginROI> > roism;
 
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
         images.begin();
@@ -497,9 +497,9 @@ MatrixError WitnessAppsService::BatchRecognize(
     MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
 
     EngineData data;
-    data.func = [ &framebatch, &data]() -> void {
-        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-        placeholders::_1))(&framebatch);
+    data.func = [&framebatch, &data]() -> void {
+      return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                   placeholders::_1))(&framebatch);
     };
 
     if (engine_pool == NULL) {
@@ -527,7 +527,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-            ->mutable_debugts();
+        ->mutable_debugts();
 
     vector<Frame *> frames = framebatch.frames();
     for (int i = 0; i < frames.size(); ++i) {
@@ -546,7 +546,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     if (frames.size() != batchResponse->results().size()) {
         LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
-                   << batchResponse->results().size() << endl;
+            << batchResponse->results().size() << endl;
         err.set_code(-1);
         err.set_message("Input frame size not equal to results size.");
         return err;
@@ -571,12 +571,12 @@ MatrixError WitnessAppsService::BatchRecognize(
         int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
         DBType dbType;
         switch (dbTypeInt) {
-        case 0:
-            dbType = KAFKA;
-            break;
-        default:
-            dbType = KAFKA;
-            break;
+            case 0:
+                dbType = KAFKA;
+                break;
+            default:
+                dbType = KAFKA;
+                break;
         }
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
