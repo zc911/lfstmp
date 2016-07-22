@@ -29,6 +29,8 @@ int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
     *pHandle = (LPDR_HANDLE)pstLPDR;
     int dwDevType = pstConfig->dwDevType;
     int dwDevID = pstConfig->dwDevID;
+		pstLPDR->dwDev_Type = dwDevType;
+		pstLPDR->dwDev_ID = dwDevID;
     
     int dwGroupSize = pstConfig->stFCNN.adwShape[0];
     pstLPDR->pvBBGroupOfROIP = new vector<LPRectInfo>[dwGroupSize];
