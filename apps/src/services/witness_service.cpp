@@ -24,15 +24,14 @@ using namespace std;
 namespace dg {
 
 static int SHIFT_COLOR = 1000;
-WitnessAppsService::WitnessAppsService(const Config *config, MatrixEnginesPool<WitnessEngine> *engine_pool, string name, int baseId)
+WitnessAppsService::WitnessAppsService( Config *config, string name, int baseId)
     : config_(config),
-      engine_pool_(engine_pool),
       id_(0),
       base_id_(baseId),
       name_(name) {
+        enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
 
-
-    RepoService::GetInstance()->Init(*config);
+        RepoService::GetInstance()->Init(*config);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -304,18 +303,15 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         timestamp = request->image().witnessmetadata().timestamp();
     }
     // engine_.Process(&framebatch);
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
+
     EngineData data;
     data.func = [ &framebatch, &data]() -> void {
         return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
         placeholders::_1))(&framebatch);
     };
 
-    if (engine_pool_ == NULL) {
-        LOG(ERROR) << "Engine pool not initailized. " << endl;
-        return err;
-    }
-
-    engine_pool_->enqueue(&data);
+    engine_pool->enqueue(&data);
 
     data.Wait();
 
@@ -350,7 +346,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     }
 
     gettimeofday(&end, NULL);
-    VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
     // return back the image data
 //    WitnessImage *ret_image = result->mutable_image();
@@ -362,8 +357,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if (storageEnabled) {
+        VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
+
+    if (enableStorage_) {
         string storageAddress;
         if (request->context().has_storage()) {
             storageAddress = (string) request->context().storage().address();
@@ -498,18 +494,20 @@ MatrixError WitnessAppsService::BatchRecognize(
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
     // rec_lock_.lock();
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
+
     EngineData data;
     data.func = [ &framebatch, &data]() -> void {
         return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
         placeholders::_1))(&framebatch);
     };
 
-    if (engine_pool_ == NULL) {
+    if (engine_pool == NULL) {
         LOG(ERROR) << "Engine pool not initailized. " << endl;
         return err;
     }
 
-    engine_pool_->enqueue(&data);
+    engine_pool->enqueue(&data);
 
     data.Wait();
 
@@ -526,7 +524,6 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
-    return err;
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx

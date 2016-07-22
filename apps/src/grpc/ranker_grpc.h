@@ -19,11 +19,11 @@
 using namespace ::dg::model;
 namespace dg {
 
-class GrpcRankerServiceImpl final: public BasicGrpcService<RankerAppsService,RankEngine>, public SimilarityService::Service {
+class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilarityService::Service {
 public:
 
-    GrpcRankerServiceImpl(Config config, string addr, ServicePool<RankerAppsService,RankEngine> *service_pool)
-        : BasicGrpcService(config, addr, service_pool) { }
+    GrpcRankerServiceImpl(Config config, string addr)
+        : BasicGrpcService(config, addr) { }
 
     virtual ~GrpcRankerServiceImpl() { }
     virtual ::grpc::Service *service() {
@@ -36,7 +36,7 @@ public:
 
         cout << "[GRPC] ========================" << endl;
         cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
-        CallData data;
+      /*  CallData data;
 
         data.func = [request, response, &data]() -> MatrixError {
           return (bind(&RankerAppsService::GetRankedVector,
@@ -49,7 +49,7 @@ public:
         service_pool_->enqueue(&data);
         MatrixError error = data.Wait();
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-
+*/
         return grpc::Status::OK;
 
     }

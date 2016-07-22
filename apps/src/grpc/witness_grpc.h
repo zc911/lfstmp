@@ -30,9 +30,9 @@ using grpc::Status;
 namespace dg {
 
 
-class GrpcWitnessServiceImpl final: public BasicGrpcService<WitnessAppsService,WitnessEngine>, public WitnessService::Service {
+class GrpcWitnessServiceImpl final: public BasicGrpcService, public WitnessService::Service {
 public:
-    GrpcWitnessServiceImpl(Config config, string addr, ServicePool<WitnessAppsService,WitnessEngine> *service_pool);
+    GrpcWitnessServiceImpl(Config config, string addr);
     virtual ~GrpcWitnessServiceImpl();
     virtual ::grpc::Service *service() {
         return this;
@@ -53,6 +53,8 @@ private:
                                         WitnessBatchResponse *response);
     //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
     //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
+    WitnessAppsService *service_;
+
 };
 
 }

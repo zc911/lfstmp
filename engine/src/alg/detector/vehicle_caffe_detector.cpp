@@ -7,12 +7,17 @@
 
 namespace dg {
 VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &config) : caffe_config_(config) {
+
     use_gpu_ = config.use_gpu;
+
     gpu_id_ = config.gpu_id;
     threshold_ = config.threshold;
+
     if (use_gpu_) {
+
         Caffe::SetDevice(gpu_id_);
         Caffe::set_mode(Caffe::GPU);
+
         use_gpu_ = true;
     }
     else {
@@ -31,6 +36,7 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     net_.reset(
             new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 #endif
+
     net_->CopyTrainedLayersFrom(config.model_file);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -40,6 +46,7 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();
+
 /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
     const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
     const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();

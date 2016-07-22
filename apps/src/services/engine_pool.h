@@ -24,44 +24,6 @@ namespace dg {
 using namespace std;
 using namespace ::dg::model;
 
-class CallData {
-public:
-  CallData() : finished_(false) {
-  }
-
-  MatrixError Wait() {
-    std::unique_lock<std::mutex> lock(m_);
-    cond_.wait(lock, [this]() { return this->finished_; });
-    return result_;
-  }
-  void Finish() {
-    finished_ = true;
-    cond_.notify_all();
-  }
-
-
-  void Error(string msg) {
-    result_.set_code(-1);
-    result_.set_message(msg);
-    Finish();
-  }
-
-  void Run() {
-    result_ = func();
-    Finish();
-  }
-
-
-  std::function<MatrixError()> func;
-  void *apps;
-
-private:
-  volatile bool finished_;
-  MatrixError result_;
-  std::mutex m_;
-  std::condition_variable cond_;
-
-};
 
 class EngineData {
 public:
@@ -105,20 +67,13 @@ public:
   typedef struct {
     int status = 0;
   } WorkerStatus;
-
-  MatrixEnginesPool(Config *config) : config_(config) , stop_(true) {
+  static MatrixEnginesPool<EngineType> *GetInstance(Config *config){
+    if(instance_==NULL){
+      instance_=new MatrixEnginesPool<EngineType>(config);
+    }
+    return instance_;
   }
-
-  void PrintStastics() {
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Worker number in total: " << workers_.size() << endl;
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Task in queue: " << tasks_.size() << endl;
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
-    VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
-  }
-
-  void Run() {
+    void Run() {
     if (!stop_) {
       LOG(ERROR) << "The engine pool already runing" << endl;
       return;
@@ -127,7 +82,6 @@ public:
     vector<int> threadsOnGpu;
     int gpuNum = config_->Value(SYSTEM_THREADS + "/Size");
     cout << "Gpu num defined in config file: " << gpuNum << endl;
-
     for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
       config_->AddEntry("System/GpuId", AnyConversion(gpuId));
@@ -136,6 +90,7 @@ public:
 
       for (int i = 0; i < threadNum; ++i) {
         string name = "engines_" + to_string(gpuId) + "_" + to_string(i);
+
         EngineType *engine = new EngineType(*config_);
         cout << "Start thread: " << name << endl;
 
@@ -163,6 +118,8 @@ public:
             // and then invoke the binded function
             task->Run();
           }
+          cout << "end thread: " << name << endl;
+
           LOG(ERROR) << "Engine thread " << name << " crashed!!!" << endl;
         });
       }
@@ -188,6 +145,21 @@ public:
   }
 
 private:
+
+  MatrixEnginesPool(Config *config) : config_(config) , stop_(true) {
+  }
+  static MatrixEnginesPool<EngineType> *instance_;
+  void PrintStastics() {
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Worker number in total: " << workers_.size() << endl;
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << "== Task in queue: " << tasks_.size() << endl;
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << "========Engine Pool Stastics========" << endl;
+    VLOG_EVERY_N(VLOG_SERVICE, 100) << endl;
+  }
+
+
+private:
   Config *config_;
   queue<EngineData *> tasks_;
   //  vector<WorkerStatus> worker_status_;
@@ -196,81 +168,6 @@ private:
   std::condition_variable condition_;
   bool stop_;
 
-};
-template<class ServiceType, class EngineType >
-
-class ServicePool {
-public:
-
-  ServicePool(Config *config, MatrixEnginesPool<EngineType> *engine_pool, int threadNum) : config_(config), engine_pool_(engine_pool) , thread_num_(threadNum) , stop_(true) {
-
-  }
-
-  void Run() {
-    if (!stop_) {
-      LOG(ERROR) << "The engine pool already runing" << endl;
-      return;
-    }
-    for (int i = 0; i < thread_num_; ++i) {
-      string name = "apps_" + to_string(i);
-      ServiceType *service = new ServiceType(config_, engine_pool_, name, i);
-      VLOG(VLOG_SERVICE) << "start service " << name;
-      workers_.emplace_back([this, service] {
-        for (; ;) {
-          CallData *task;
-          {
-
-            std::unique_lock<std::mutex> lock(queue_mutex_);
-            condition_.wait(lock, [this] {
-              return (this->stop_ || !this->tasks_.empty());
-            });
-
-            if (this->stop_ || this->tasks_.empty()) {
-              continue;
-            }
-
-            task = this->tasks_.front();
-            this->tasks_.pop();
-            lock.unlock();
-          }
-          // assign the current engine instance to task
-          task->apps = (void *) service;
-          // task first binds the engine instance to the specific member methods
-          // and then invoke the binded function
-          task->Run();
-        }
-      });
-
-    }
-
-    cout << "Engine pool worker number: " << workers_.size() << endl;
-    stop_ = false;
-  }
-
-  bool enqueue(CallData *data) {
-    {
-      std::unique_lock<std::mutex> lock(queue_mutex_);
-      if (stop_) {
-        data->Error("Engine pool not running");
-        return false;
-      }
-      tasks_.push(data);
-    }
-    condition_.notify_one();
-    return true;
-  }
-
-
-private:
-  Config *config_;
-  queue<CallData *> tasks_;
-  //  vector<WorkerStatus> worker_status_;
-  vector<std::thread> workers_;
-  std::mutex queue_mutex_;
-  std::condition_variable condition_;
-  bool stop_;
-  int thread_num_;
-  MatrixEnginesPool<EngineType> *engine_pool_;
 };
 
 }
