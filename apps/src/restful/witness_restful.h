@@ -25,22 +25,24 @@ class RestWitnessServiceImpl final: public RestfulService {
 public:
     RestWitnessServiceImpl(Config config,
                            string addr)
-        : RestfulService(config){
-        service_ = new WitnessAppsService(&config,"WitnessAppsService"); 
+        : RestfulService(config) {
+        service_ = new WitnessAppsService(&config, "WitnessAppsService");
     }
 
-    virtual ~RestWitnessServiceImpl() { delete service_;}
+    virtual ~RestWitnessServiceImpl() { delete service_; }
 
     void Bind(HttpServer &server) {
 
-        std::function<MatrixError( const WitnessRequest *, WitnessResponse *)> recBinder = std::bind(&WitnessAppsService::Recognize,service_, std::placeholders::_1, std::placeholders::_2);
+        std::function<MatrixError(const WitnessRequest *, WitnessResponse *)> recBinder =
+            std::bind(&WitnessAppsService::Recognize, service_, std::placeholders::_1, std::placeholders::_2);
         bindFunc<WitnessRequest, WitnessResponse>(server, "^/rec/image$",
-                "POST", recBinder);
-        std::function<MatrixError( const WitnessBatchRequest *, WitnessBatchResponse *)> recBatchBinder = std::bind(&WitnessAppsService::BatchRecognize,service_, std::placeholders::_1, std::placeholders::_2);
-        bindFunc< WitnessBatchRequest, WitnessBatchResponse>(server,
-                "/rec/image/batch$",
-                "POST",
-                recBatchBinder);
+                                                  "POST", recBinder);
+        std::function<MatrixError(const WitnessBatchRequest *, WitnessBatchResponse *)> recBatchBinder =
+            std::bind(&WitnessAppsService::BatchRecognize, service_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc<WitnessBatchRequest, WitnessBatchResponse>(server,
+                                                            "/rec/image/batch$",
+                                                            "POST",
+                                                            recBatchBinder);
 
 
         std::function<MatrixError(const IndexRequest *, IndexResponse *)> indexBinder =

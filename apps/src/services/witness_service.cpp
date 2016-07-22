@@ -31,7 +31,7 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       name_(name) {
     enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
 
-    RepoService::GetInstance()->Init(*config);
+    RepoService::GetInstance().Init(*config);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -113,13 +113,13 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
     vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = RepoService::GetInstance()->FindVehicleTypeName(pobj->type());
+    string type = RepoService::GetInstance().FindVehicleTypeName(pobj->type());
     vrec->set_vehicletypename(type);
     for (int i = 0; i < attrs.size(); i++) {
         PedestrianAttr *attr = vrec->add_pedestrianattrs();
         attr->set_attrid(attrs[i].index);
         attr->set_confidence(attrs[i].confidence);
-        attr->set_attrname(RepoService::GetInstance()->FindPedestrianAttrName(i));
+        attr->set_attrname(RepoService::GetInstance().FindPedestrianAttrName(i));
     }
 
     return err;
@@ -134,19 +134,19 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     const Detection &d = vobj->detection();
 
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    err = RepoService::GetInstance()->FillModel(*vobj, vrec);
+    err = RepoService::GetInstance().FillModel(*vobj, vrec);
     vrec->mutable_modeltype()->set_confidence(vobj->confidence());
     if (err.code() < 0)
         return err;
-    err = RepoService::GetInstance()->FillColor(vobj->color(), vrec->mutable_color());
+    err = RepoService::GetInstance().FillColor(vobj->color(), vrec->mutable_color());
     if (err.code() < 0)
         return err;
 
-    err = RepoService::GetInstance()->FillPlates(vobj->plates(), vrec);
+    err = RepoService::GetInstance().FillPlates(vobj->plates(), vrec);
     if (err.code() < 0)
         return err;
 
-    err = RepoService::GetInstance()->FillSymbols(vobj->children(), vrec);
+    err = RepoService::GetInstance().FillSymbols(vobj->children(), vrec);
     if (err.code() < 0)
         return err;
 
@@ -378,7 +378,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
-            unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
             client_request_obj->mutable_storage()->set_address(storageAddress);
             for (int i = 0; i < r.vehicles_size(); i++) {
@@ -405,7 +404,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
             //        VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
-            lock.unlock();
         }
     }
 
@@ -581,7 +579,7 @@ MatrixError WitnessAppsService::BatchRecognize(
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
-                unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+
                 shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
                 client_request_obj->mutable_storage()->set_address(storageAddress);
                 for (int i = 0; i < r.vehicles_size(); i++) {
@@ -602,7 +600,6 @@ MatrixError WitnessAppsService::BatchRecognize(
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
                 }
                 WitnessBucket::Instance().Push(client_request_obj);
-                lock.unlock();
             }
         }
     }
