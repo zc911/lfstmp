@@ -3,7 +3,7 @@
 
 namespace dg {
 #define FEATURE_NUM_CUDA 256
-
+#define MAX_IMG_NUM 100000
 
 #define CUDA_CALL(value) {  \
 cudaError_t _m_cudaStat = value;    \
@@ -20,7 +20,7 @@ struct box {
     ushort width;
 };
 
-CarMatcher::CarMatcher(unsigned int maxImageCount) {
+CarMatcher::CarMatcher() {
     feature_num_ = FEATURE_NUM_CUDA;
     max_resize_size_ = 300;
     max_mis_match_ = 50;
@@ -29,7 +29,6 @@ CarMatcher::CarMatcher(unsigned int maxImageCount) {
     selected_area_weight_ = 50;
     min_score_thr_ = 100;
     profile_time_ = false;
-    max_image_num_ = maxImageCount;
 
     cudaStreamCreate(&stream_);
     CUDA_CALL(
@@ -37,15 +36,15 @@ CarMatcher::CarMatcher(unsigned int maxImageCount) {
     CUDA_CALL(
         cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * max_image_num_ * sizeof(ushort) * 2, cudaMemAttachHost));
+        cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * max_image_num_ * sizeof(uint) * 8, cudaMemAttachHost));
+        cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_width_cuda_, max_image_num_ * sizeof(ushort), cudaMemAttachHost));
+        cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_height_cuda_, max_image_num_ * sizeof(ushort), cudaMemAttachHost));
+        cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&score_cuda_, max_image_num_ * sizeof(int), cudaMemAttachHost));
+        cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
 }
 
 CarMatcher::~CarMatcher() {
@@ -227,6 +226,7 @@ vector<int> CarMatcher::computeMatchScoreGpu(
         max_resize_size_, feature_num_, min_remarkableness_,
         max_mis_match_, selected_area_weight_, max_mapping_offset_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
+    
     CUDA_CALL(cudaGetLastError());
 
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());

@@ -67,13 +67,13 @@ public:
   typedef struct {
     int status = 0;
   } WorkerStatus;
-  static MatrixEnginesPool<EngineType> *GetInstance(Config *config){
-    if(instance_==NULL){
-      instance_=new MatrixEnginesPool<EngineType>(config);
+  static MatrixEnginesPool<EngineType> *GetInstance(Config *config) {
+    if (instance_ == NULL) {
+      instance_ = new MatrixEnginesPool<EngineType>(config);
     }
     return instance_;
   }
-    void Run() {
+  void Run() {
     if (!stop_) {
       LOG(ERROR) << "The engine pool already runing" << endl;
       return;
