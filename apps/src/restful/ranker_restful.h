@@ -18,30 +18,32 @@ namespace dg {
 
 typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
 
-class RestRankerServiceImpl final: public RestfulService<RankerAppsService,RankEngine> {
+class RestRankerServiceImpl final: public RestfulService {
 
 public:
 
     RestRankerServiceImpl(Config config,
-                          string addr,
-                          ServicePool <RankerAppsService,RankEngine> *service_pool)
-        : RestfulService(service_pool, config) {
+                          string addr)
+        : RestfulService(config) {
+          service_ = new RankerAppsService(&config,"RankerAppsService");
     }
 
-    virtual ~RestRankerServiceImpl() { }
+    virtual ~RestRankerServiceImpl() {delete service_; }
 
     void Bind(HttpServer &server) {
+        std::function<MatrixError( const FeatureRankingRequest *, FeatureRankingResponse *)> rankBinder = std::bind(&RankerAppsService::GetRankedVector,service_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc< FeatureRankingRequest, FeatureRankingResponse>(server,
+                "/rank$",
+                "POST",
+                rankBinder);
 
-        RankFunc rank_func = (RankFunc) &RankerAppsService::GetRankedVector;
-        bindFunc<RankerAppsService, FeatureRankingRequest, FeatureRankingResponse>(server,
-                                                                                   "^/rank$",
-                                                                                   "POST",
-                                                                                   rank_func);
 
     }
 
 
 private:
+      RankerAppsService *service_;
+
 };
 
 }

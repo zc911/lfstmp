@@ -8,11 +8,12 @@
 namespace dg {
 
 GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
-                                               string addr,
-                           ServicePool<WitnessAppsService,WitnessEngine> *service_pool)
-    : BasicGrpcService(config, addr, service_pool) {
+                                               string addr)
+    : BasicGrpcService(config, addr) {
 
     RepoService::GetInstance()->Init(config);
+    service_ = new WitnessAppsService(&config,"WitnessAppsService"); 
+
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
@@ -29,16 +30,7 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     struct timeval start, finish;
     gettimeofday(&start, NULL);
 
-    CallData data;
-    data.func = [request, response, &data]() -> MatrixError {
-      return (bind(&WitnessAppsService::Recognize,
-                   (WitnessAppsService *) data.apps,
-                   placeholders::_1,
-                   placeholders::_2))(request,
-                                      response);
-    };
-    service_pool_->enqueue(&data);
-    MatrixError error = data.Wait();
+    MatrixError error = service_->Recognize(request, response);
 
     gettimeofday(&finish, NULL);
     VLOG(VLOG_SERVICE)
@@ -81,18 +73,7 @@ grpc::Status GrpcWitnessServiceImpl::BatchRecognize(grpc::ServerContext *context
     VLOG(VLOG_SERVICE) << "[GRPC] Get batch rec request, session id: " << request->context().sessionid() << endl;
     struct timeval start, finish;
     gettimeofday(&start, NULL);
-
-    CallData data;
-    data.func = [request, response, &data]() -> MatrixError {
-      return (bind(&WitnessAppsService::BatchRecognize,
-                   (WitnessAppsService *) data.apps,
-                   placeholders::_1,
-                   placeholders::_2))(request,
-                                      response);
-    };
-
-    service_pool_->enqueue(&data);
-    MatrixError error = data.Wait();
+    MatrixError error = service_->BatchRecognize(request, response);
 
     gettimeofday(&finish, NULL);
     VLOG(VLOG_SERVICE) << "[GRPC] Batch rec session id " << request->context().sessionid() << " and total cost: "

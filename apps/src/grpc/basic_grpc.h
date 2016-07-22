@@ -21,17 +21,13 @@ using grpc::Status;
 
 namespace dg {
 
-template<class ServiceType, class EngineType>
 class BasicGrpcService {
 
 public:
 
     BasicGrpcService(Config config,
-                     string addr,
-                     ServicePool<ServiceType, EngineType> *service_pool) : config_(config),
-        addr_(addr),
-        service_pool_(service_pool) {
-            cout<<addr<<endl;
+                     string addr) : config_(config),
+        addr_(addr) {
 
     }
     virtual ~BasicGrpcService() {
@@ -41,8 +37,6 @@ public:
     virtual ::grpc::Service *service() = 0;
 
     void Run() {
-
-        service_pool_->Run();
         grpc::ServerBuilder builder;
         builder.SetMaxMessageSize(1024 * 1024 * 1024);
 
@@ -50,18 +44,13 @@ public:
         builder.RegisterService(service());
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
-        cout << typeid(EngineType).name() << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
+        cout << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
              << endl;
         server->Wait();
-    }
-
-    virtual void warmUp(int n) {
-
     }
 protected:
     Config config_;
     string addr_;
-    ServicePool<ServiceType, EngineType> *service_pool_;
 };
 }
 

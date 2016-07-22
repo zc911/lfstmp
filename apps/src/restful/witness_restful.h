@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_APPS_RESTFUL_WITNESS_H_
@@ -21,27 +21,27 @@ typedef MatrixError (*RecFunc)(WitnessAppsService *, const WitnessRequest *, Wit
 typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 typedef MatrixError (*RecIndexFunc)(WitnessAppsService *, const IndexRequest *, IndexResponse *);
 typedef MatrixError (*RecIndexTxtFunc)(WitnessAppsService *, const IndexTxtRequest *, IndexTxtResponse *);
-class RestWitnessServiceImpl final: public RestfulService<WitnessAppsService,WitnessEngine> {
+class RestWitnessServiceImpl final: public RestfulService {
 public:
     RestWitnessServiceImpl(Config config,
-                           string addr,
-                           ServicePool<WitnessAppsService,WitnessEngine> *service_pool)
-        : RestfulService(service_pool, config){
-
+                           string addr)
+        : RestfulService(config){
+        service_ = new WitnessAppsService(&config,"WitnessAppsService"); 
     }
 
-    virtual ~RestWitnessServiceImpl() { }
+    virtual ~RestWitnessServiceImpl() { delete service_;}
 
     void Bind(HttpServer &server) {
 
-        RecFunc rec_func = (RecFunc) &WitnessAppsService::Recognize;
-        bindFunc<WitnessAppsService, WitnessRequest, WitnessResponse>(server, "^/rec/image$",
-                                                                      "POST", rec_func);
-        BatchRecFunc batch_func = (BatchRecFunc) &WitnessAppsService::BatchRecognize;
-        bindFunc<WitnessAppsService, WitnessBatchRequest, WitnessBatchResponse>(server,
-                                                                                "/rec/image/batch$",
-                                                                                "POST",
-                                                                                batch_func);
+        std::function<MatrixError( const WitnessRequest *, WitnessResponse *)> recBinder = std::bind(&WitnessAppsService::Recognize,service_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc<WitnessRequest, WitnessResponse>(server, "^/rec/image$",
+                "POST", recBinder);
+        std::function<MatrixError( const WitnessBatchRequest *, WitnessBatchResponse *)> recBatchBinder = std::bind(&WitnessAppsService::BatchRecognize,service_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc< WitnessBatchRequest, WitnessBatchResponse>(server,
+                "/rec/image/batch$",
+                "POST",
+                recBatchBinder);
+
 
         std::function<MatrixError(const IndexRequest *, IndexResponse *)> indexBinder =
             std::bind(&RepoService::Index, RepoService::GetInstance(), std::placeholders::_1, std::placeholders::_2);
@@ -54,7 +54,7 @@ public:
     }
 
 protected:
-
+    WitnessAppsService *service_;
 };
 }
 
