@@ -12,7 +12,7 @@
 #define LP_SCORE_MAX 0.90f
 #define LP_ROIP_SCORE_MAX 0.80f
 
-#define MAX_RECOG_THREAD_NUM 8
+#define MAX_RECOG_THREAD_NUM 1
 #define DO_FCN_THREAD 1
 
 typedef struct _LPDR_ImageInner_S {
