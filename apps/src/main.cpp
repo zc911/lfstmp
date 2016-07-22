@@ -48,6 +48,35 @@ void serveWitness(Config *config, int userPort = 0) {
     if (protocolType == "restful") {
         RestfulService *service = new RestWitnessServiceImpl(*config, address);
         service->Run();
+    } else if (protocolType == "rpc") {
+        GrpcWitnessServiceImpl *witness_service = new GrpcWitnessServiceImpl(*config,
+                                                                     address);
+        std::thread witness_thread(&GrpcWitnessServiceImpl::Run, witness_service);
+        string system_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 2);
+        GrpcSystemServiceImpl *system_service = new GrpcSystemServiceImpl(
+            *config, system_addr);
+        std::thread system_thread(&GrpcSystemServiceImpl::Run, system_service);
+        witness_thread.join();
+        system_thread.join();
+    }
+    else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+        GrpcWitnessServiceImpl *grpc_witness_service = new GrpcWitnessServiceImpl(*config,
+                                                                     address);
+        std::thread grpc_witness_thread(&GrpcWitnessServiceImpl::Run, grpc_witness_service);
+        string restful_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 1);
+        RestWitnessServiceImpl *rest_witness_service = new RestWitnessServiceImpl(*config,
+                                                                      restful_addr);
+        std::thread rest_witness_thread(&RestWitnessServiceImpl::Run, rest_witness_service);
+        string grpc_system_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 1);
+        GrpcSystemServiceImpl *grpc_system_service = new GrpcSystemServiceImpl(
+            *config, grpc_system_addr);
+        std::thread grpc_service_thread(&GrpcSystemServiceImpl::Run, grpc_system_service);
+        grpc_witness_thread.join();
+        rest_witness_thread.join();
+        grpc_service_thread.join();
     }
     
     else {
@@ -57,7 +86,6 @@ void serveWitness(Config *config, int userPort = 0) {
     }
     springTh.join();
   //  network_th_.join();
-
 }
 
 void serveRanker(Config *config, int userPort = 0) {
@@ -71,6 +99,35 @@ void serveRanker(Config *config, int userPort = 0) {
         RestRankerServiceImpl *service = new RestRankerServiceImpl(*config,
                                                                    address);
         service->Run();
+    }else if (protocolType == "rpc") {
+        GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
+                                                                   address);
+        std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
+        string grpc_system_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 2);
+        GrpcSystemServiceImpl *grpc_system_service = new GrpcSystemServiceImpl(
+            *config, grpc_system_addr);
+        std::thread grpc_system_thread(&GrpcSystemServiceImpl::Run, grpc_system_service);
+        grpc_ranker_thread.join();
+        grpc_system_thread.join();
+    }else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+        GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
+                                                                   address);
+        std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
+        string rest_ranker_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 1);
+        RestRankerServiceImpl *rest_ranker_service = new RestRankerServiceImpl(*config,
+                                                                    rest_ranker_addr );
+        std::thread rest_ranker_thread(&RestRankerServiceImpl::Run, rest_ranker_service);
+        string grpc_system_addr = getServerAddress(config,
+                                           (int) config->Value("System/Port") + 1);
+
+        GrpcSystemServiceImpl *grpc_system_service = new GrpcSystemServiceImpl(
+            *config, grpc_system_addr);
+        std::thread grpc_system_thread(&GrpcSystemServiceImpl::Run, grpc_system_service);
+        grpc_ranker_thread.join();
+        rest_ranker_thread.join();
+        grpc_system_thread.join();
     }
    
     else {

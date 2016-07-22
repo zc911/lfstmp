@@ -23,9 +23,13 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
 public:
 
     GrpcRankerServiceImpl(Config config, string addr)
-        : BasicGrpcService(config, addr) { }
+        : BasicGrpcService(config, addr) {
+            service_ = new RankerAppsService(&config,"WitnessAppsService"); 
+ }
 
-    virtual ~GrpcRankerServiceImpl() { }
+    virtual ~GrpcRankerServiceImpl() { 
+      delete service_;
+}
     virtual ::grpc::Service *service() {
         return this;
     };
@@ -50,9 +54,11 @@ public:
         MatrixError error = data.Wait();
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 */
-        return grpc::Status::OK;
+        MatrixError error = service_->GetRankedVector(request,response);
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 
     }
+    RankerAppsService *service_;
 
 };
 
