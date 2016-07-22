@@ -12,9 +12,8 @@ namespace dg {
 #define FEATURE_NUM_CUDA 256
 
 #if not USE_CUDA
-CarMatcher::CarMatcher() {
+CarMatcher::CarMatcher(unsigned int maxImageCount) {
     feature_num_ = FEATURE_NUM_CUDA;
-//    orb_ = ORB(feature_num_);
     max_resize_size_ = 300;
     max_mis_match_ = 50;
     min_remarkableness_ = 0.8;
@@ -22,6 +21,8 @@ CarMatcher::CarMatcher() {
     selected_area_weight_ = 50;
     min_score_thr_ = 100;
     profile_time_ = false;
+    max_image_count_ = maxImageCount;
+
 }
 
 CarMatcher::~CarMatcher() {
