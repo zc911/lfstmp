@@ -41,23 +41,18 @@ static void responseText(HttpServer::Response &response, int code,
            << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
            << text;
 }
-template<class ServiceType, class EngineType>
-
 class RestfulService {
 
 public:
 
-  RestfulService(ServicePool<ServiceType, EngineType> *service_pool, Config config,
+  RestfulService( Config config,
                  string protocol = "HTTP/1.1",
                  string mime_type =
                    "application/json; charset=utf-8")
-    : service_pool_(service_pool),
-      config_(config),
+    : config_(config),
       protocol_(protocol),
       mime_type_(mime_type),
-      sys_apps_(&config, "witness system") {
-
-  }
+      sys_apps_(&config, "witness system") {}
 
   virtual ~RestfulService() {
   }
@@ -74,11 +69,7 @@ public:
     SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 10);
 
     Bind(server);
-    if (service_pool_ == NULL) {
-      LOG(ERROR) << "Engine pool not initialized" << endl;
-    }
-    service_pool_->Run();
-    cout << typeid(ServiceType).name() << " Server(RESTFUL) listening on " << port << endl;
+    cout << " Server(RESTFUL) listening on " << port << endl;
     string instanceType = (string) config_.Value("InstanceType");
     server.start();
   }
@@ -90,7 +81,6 @@ protected:
   Config config_;
   string protocol_;
   string mime_type_;
-  ServicePool<ServiceType, EngineType> *service_pool_;
 
 
   // This function binds request operation to specific processor
@@ -142,60 +132,6 @@ protected:
                 string endpoint,
                 string method,
                 MatrixError(*func)(apps_type *, const request_type *, response_type *)) {
-
-
-    server.resource[endpoint][method] =
-    [this, func](HttpServer::Response & response, std::shared_ptr<HttpServer::Request> request) {
-
-      VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-      VLOG(VLOG_SERVICE) << "[RESTFUL] Get request, thread id: " << this_thread::get_id() << endl;
-      struct timeval start, end;
-      gettimeofday(&start, NULL);
-
-      request_type protobufRequestMessage;
-      response_type protobufResponseMessage;
-
-      try {
-        string content = request->content.string();
-        string err;
-        int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
-        if (ret < 0) {
-          responseText(response, 400, "parameter conversion failed: " + err);
-          return;
-        }
-        CallData data;
-        data.func = [func, &protobufRequestMessage, &protobufResponseMessage, &data]() -> MatrixError {
-          return (bind(func, (apps_type *) data.apps,
-          placeholders::_1,
-          placeholders::_2))(&protobufRequestMessage,
-          &protobufResponseMessage);
-        };
-
-        if (service_pool_ == NULL) {
-          LOG(ERROR) << "Engine pool not initailized. " << endl;
-          return;
-        }
-
-        service_pool_->enqueue(&data);
-
-        MatrixError error = data.Wait();
-        if (error.code() != 0) {
-          responseText(response, 500, error.message());
-          return;
-        }
-
-        content = "";
-        pbjson::pb2json(&protobufResponseMessage, content);
-        responseText(response, 200, content);
-
-        gettimeofday(&end, NULL);
-        VLOG(VLOG_PROCESS_COST) << "[RESTFUL] Total cost: " << TimeCostInMs(start, end) << endl;
-        VLOG(VLOG_SERVICE) << "[RESTFUL] ========================" << endl;
-      }
-      catch (exception &e) {
-        responseText(response, 500, e.what());
-      }
-    };
 
   }
 private:
