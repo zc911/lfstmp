@@ -17,6 +17,7 @@ GrpcWitnessServiceImpl::GrpcWitnessServiceImpl(Config config,
 
 }
 GrpcWitnessServiceImpl::~GrpcWitnessServiceImpl() {
+  delete service_;
 }
 
 grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
