@@ -5,7 +5,6 @@
 
 namespace dg {
 
-RepoService *RepoService::instance_ = NULL;
 bool RepoService::is_init_ = false;
 
 RepoService::RepoService() {
@@ -283,7 +282,6 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
 MatrixError RepoService::Index(const IndexRequest *request,
                                IndexResponse *response) {
     MatrixError err;
-
     switch (request->indextype()) {
         case INDEX_CAR_TYPE:
             for (int i = 0; i < vehicle_repo_.size(); i++) {

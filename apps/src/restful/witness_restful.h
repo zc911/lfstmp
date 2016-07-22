@@ -28,7 +28,7 @@ public:
                            string addr,
                            MatrixEnginesPool<WitnessAppsService> *engine_pool)
         : RestfulService(engine_pool, config) {
-
+        RepoService::GetInstance().Init(config);
     }
 
     virtual ~RestWitnessServiceImpl() { }

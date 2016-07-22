@@ -15,7 +15,8 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
-
+#include <pthread.h>
+#include <cuda_runtime.h>
 
 #define LPDR_DBG 0
 #define LPDR_TIME 0
@@ -27,7 +28,7 @@
 
 using namespace std;
 
-typedef void *LPDR_HANDLE;
+typedef void* LPDR_HANDLE;
 typedef unsigned char uchar;
 
 #define MAX_LP_NUM 16
@@ -80,10 +81,10 @@ const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "
 #define LP_COLOUR_YELLOW    2
 #define LP_COLOUR_PINK      3
 #define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN        5
-#define LP_COLOUR_BLUE        6
-#define LP_COLOUR_BROWN        7
-#define LP_COLOUR_BLACK        8
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
 
 #define LP_TYPE_SINGLE 0
 #define LP_TYPE_DOUBLE 1
@@ -94,7 +95,7 @@ typedef struct _LPDRModel {
     char *pbyParam; //model parameter
     int dwParamSize; //model parameter size
     int adwShape[MAX_SHAPE_SIZE]; //batch number, channel number, height, width, ...
-} LPDRModel_S;
+}LPDRModel_S;
 
 
 typedef struct _LPDRConfig {
@@ -168,6 +169,7 @@ int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig);
 int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet);
 
 int LPDR_Release(LPDR_HANDLE handle);
+
 
 #endif
 

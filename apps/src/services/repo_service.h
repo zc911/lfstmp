@@ -20,11 +20,9 @@ namespace dg {
 
 class RepoService {
 public:
-    static RepoService *GetInstance() {
-        if (instance_ == NULL) {
-            instance_ = new RepoService();
-        }
-        return instance_;
+    static RepoService &GetInstance() {
+        static RepoService instance;
+        return instance;
     }
 
     void Init(const Config &config);
@@ -58,7 +56,7 @@ public:
 private:
     RepoService();
 
-    static RepoService *instance_;
+
     static bool is_init_;
 
     //repo list
