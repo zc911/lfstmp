@@ -63,6 +63,7 @@ private:
     string unknown_string_;
     VehicleModelType unknown_vehicle_;
     vector<VehicleModelType> vehicle_repo_;
+    vector<string> car_type_repo_;
     vector<string> vehicle_type_repo_;
     vector<string> color_repo_;
     vector<string> symbol_repo_;
