@@ -12,7 +12,7 @@
 #include "processor_helper.h"
 
 namespace dg {
-
+using LocalProvince=pair<string,float>;
 class PlateRecognizeMxnetProcessor: public Processor {
 
 public:
@@ -34,6 +34,9 @@ private:
     LPDR_ImageSet_S stImgSet_;
     vector<Mat> images_;
     int batch_size_;
+    bool enable_local_province_;
+    string local_province_;
+    float local_province_confidence_;
 };
 
 } /* namespace dg */
