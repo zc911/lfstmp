@@ -1,4 +1,3 @@
-enable_testing()
 set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES  *.cpp)
@@ -43,4 +42,21 @@ target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_BOTH_LIBRARIES})
 #target_link_libraries(${PROJECT_TEST_NAME} ${PROJECT_NAME})
 target_link_libraries(${PROJECT_TEST_NAME} ${LIBS})
 
-add_test(${PROJECT_TEST_NAME} ${PROJECT_TEST_NAME})
+add_custom_target(test
+         COMMAND make && ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME}
+#        COMMAND rm -rf unitTestReport
+#        COMMAND mkdir unitTestReport
+#        COMMAND lcov -c -o all.info -d ${CMAKE_CURRENT_BINARY_DIR}
+#        COMMAND lcov -r all.info "/usr/include*" "/include*" -o result.info
+#        COMMAND genhtml -o ./unitTestReport result.info
+#        COMMAND rm all.info result.info
+        )
+
+add_custom_target(report
+        COMMAND rm -rf unitTestReport
+        COMMAND mkdir unitTestReport
+        COMMAND lcov -c -o all.info -d ${CMAKE_CURRENT_BINARY_DIR}
+        COMMAND lcov -r all.info "/usr/include*" "/include*" -o result.info
+        COMMAND genhtml -o ./unitTestReport result.info
+        COMMAND rm all.info result.info
+        )

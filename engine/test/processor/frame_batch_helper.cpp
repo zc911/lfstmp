@@ -64,8 +64,12 @@ void FrameBatchHelper::printFrame(Frame * frame) {
             cout << "Vehicle color      : " << getVehicleColor(v->color().class_id) << "\t, confidence : "
             << v->color().confidence << endl;
             if (!v->plates().empty()) {
-                cout << "Vehicle plate      : " << v->plates()[0].plate_num << ", confidence : "
-                << v->plates()[0].confidence << endl;
+                cout << "Vehicle plate size : " << v->plates().size() << endl;
+                for (int i = 0; i < v->plates().size(); ++i) {
+                    cout << "Vehicle plate      : " << v->plates()[i].plate_num
+                    << ", color id  : " << v->plates()[i].color_id
+                    << ", confidence: " << v->plates()[i].confidence << endl;
+                }
             }
             vector<Object *> markers = v->children();
             cout << "Vehicle Markers    : " << v->children().size() << "\t\t, Window     : "
@@ -85,13 +89,26 @@ void FrameBatchHelper::printFrame(Frame * frame) {
             Pedestrian *v = (Pedestrian*) objs[i];
             cout << "Pedestrian id      : " << v->id() << "\t\t, confidence : "
             << v->confidence() << endl;
+            cout << "Attributes size    : " << v->attrs().size() << endl;
 
             if (!v->attrs().empty()) {
-                cout << "Pedestrian attrs:" << endl;
                 cout << "---------------------" << endl;
                 for (int i = 0; i < v->attrs().size(); ++i) {
+                    if (v->attrs()[i].confidence >= 0.5) {
+                        cout << v->attrs()[i].tagname << " , "
+                        << v->attrs()[i].confidence << endl;
+                    }
                 }
             }
+        }
+        else if (type == OBJECT_FACE) {
+            Face *f = (Face *)obj;
+            cout << "Face id            : " << f->id() << "\t\t, confidence : "
+            << f->confidence() << endl;
+            cout << "Children size      : " << f->children().size() << endl;
+            cout << "Feature Vector     : " << f->feature().Serialize().substr(0, 32)
+            << "...    Len : " << f->feature().Serialize().size() << endl;
+            cout << f->detection() << endl;
         }
         else {
             cout << "************************" << endl;

@@ -1,9 +1,10 @@
-#if true
+#if false
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_color_processor.h"
+#include "processor/car_rank_processor.h"
 
 using namespace std;
 using namespace dg;
@@ -11,6 +12,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static VehicleColorProcessor *vcprocessor;
+static CarRankProcessor *crprocessor;
 
 static void initConfig() {
     CaffeVehicleColorClassifier::VehicleColorConfig config;
@@ -26,7 +28,8 @@ static void init() {
     initConfig();
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
-    head->setNextProcessor(vcprocessor);
+    crprocessor = new CarRankProcessor();
+    head->setNextProcessor(crprocessor);
 }
 
 static void destory() {
@@ -46,42 +49,15 @@ static void destory() {
 static Operation getOperation() {
     Operation op;
     op.Set( OPERATION_VEHICLE |
-            OPERATION_VEHICLE_COLOR |
             OPERATION_VEHICLE_DETECT );
     return op;
 }
 
-TEST(VehicleColorProcessorTest, vehicleColorTest) {
+TEST(CarRankProcessorTest, carRankTest) {
+
     init();
-    fbhelper->setBasePath("data/testimg/vehicleColor/");
-    fbhelper->readImage(getOperation());
-    FrameBatch *fb = fbhelper->getFrameBatch();
-    head->process(fb);
+    EXPECT_EQ(1, -1);
 
-    int expectColor[] = {
-            0, 11, 8, 4, 9, 10, 1, 3, -1, -1
-    };
-
-    for (int i = 0; i < fb->batch_size(); ++i) {
-        Object *obj = fb->frames()[i]->objects()[0];
-        Vehicle *v = (Vehicle *)obj;
-        EXPECT_EQ(expectColor[i], v->color().class_id);
-    }
-
-    delete fbhelper;
-    fbhelper = new FrameBatchHelper(2);
-
-    fbhelper->setBasePath("data/testimg/vehicleColor/");
-    fbhelper->readImage(getOperation());
-    fb = fbhelper->getFrameBatch();
-
-    for (int i = 0; i < fb->batch_size(); ++i) {
-        Frame *f = fb->frames()[i];
-        head->getProcessor()->Update(f);
-        EXPECT_EQ(0, f->objects().size());
-    }
-
-    destory();
 }
 
 #endif

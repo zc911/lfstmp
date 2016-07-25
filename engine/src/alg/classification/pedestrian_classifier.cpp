@@ -70,7 +70,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
                                             vector<vector<float> > &results) {
     Blob<float> *input_blob = net_->input_blobs()[0];
     int num_imgs = static_cast<int>(imgs.size());
-    assert(num_imgs <= batch_size_);
+    //assert(num_imgs <= batch_size_);
     vector<int> shape =
         {num_imgs, 3, crop_height_, crop_width_};
     input_blob->Reshape(shape);
