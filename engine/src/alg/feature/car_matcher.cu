@@ -4,7 +4,6 @@
 namespace dg {
 #define FEATURE_NUM_CUDA 256
 
-
 #define CUDA_CALL(value) {  \
 cudaError_t _m_cudaStat = value;    \
 if (_m_cudaStat != cudaSuccess) {   \
@@ -20,7 +19,7 @@ struct box {
     ushort width;
 };
 
-CarMatcher::CarMatcher(unsigned int maxImageCount) {
+CarMatcher::CarMatcher(unsigned int maxImageNum) {
     feature_num_ = FEATURE_NUM_CUDA;
     max_resize_size_ = 300;
     max_mis_match_ = 50;
@@ -29,7 +28,7 @@ CarMatcher::CarMatcher(unsigned int maxImageCount) {
     selected_area_weight_ = 50;
     min_score_thr_ = 100;
     profile_time_ = false;
-    max_image_num_ = maxImageCount;
+    max_image_num_ = maxImageNum;
 
     cudaStreamCreate(&stream_);
     CUDA_CALL(
@@ -227,6 +226,7 @@ vector<int> CarMatcher::computeMatchScoreGpu(
         max_resize_size_, feature_num_, min_remarkableness_,
         max_mis_match_, selected_area_weight_, max_mapping_offset_, score_cuda_);
     CUDA_CALL(cudaStreamSynchronize(stream_));
+    
     CUDA_CALL(cudaGetLastError());
 
     return vector<int>(score_cuda_, score_cuda_ + all_des.size());

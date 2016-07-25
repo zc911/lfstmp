@@ -109,17 +109,14 @@ void WitnessEngine::Process(FrameBatch *frames) {
 //        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 //        isWarmuped_ = true;
 //    }
-    if (!isWarmuped_) {
-        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-        isWarmuped_ = true;
-    }
+
 }
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
 
     enable_vehicle_detect_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DETECTION);
+        FEATURE_VEHICLE_ENABLE_DETECTION);//&&(CheckFeature(FEATURE_VEHICLE_ENABLE_DETECTION,false)==ERR_SUCCESS);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
@@ -157,8 +154,12 @@ void WitnessEngine::init(const Config &config) {
     Processor *last = NULL;
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
+
+        LOG(INFO) << "Enable accelerate detection processor." << endl;
+
         VehicleCaffeDetectorConfig dConfig;
         configFilter->createAccelerateConfig(config, dConfig);
+
         Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig);
 
         if (last == NULL) {
@@ -168,8 +169,9 @@ void WitnessEngine::init(const Config &config) {
         }
 
         last = p;
-        isWarmuped_ = false;
+
         if (enable_vehicle_detect_) {
+        LOG(INFO) << "Enable  detection processor." << endl;
 
             VehicleCaffeDetectorConfig dConfig;
             configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
@@ -183,6 +185,8 @@ void WitnessEngine::init(const Config &config) {
         }
 
         if (enable_vehicle_plate_gpu_) {
+                    LOG(INFO) << "Enable plate detection processor." << endl;
+
             LPDRConfig_S pstConfig;
             configFilter->createPlateMxnetConfig(config, &pstConfig);
 
@@ -306,6 +310,13 @@ void WitnessEngine::init(const Config &config) {
         performance_ = RECORD_UNIT;
     }
     is_init_ = true;
+    Mat image = Mat::zeros(100,100,CV_8UC3);      
+    FrameBatch framebatch(0);
+    Frame *frame = new Frame(0,image);
+    framebatch.AddFrame(frame);
+    this->Process(&framebatch);
+    vehicle_processor_ = vehicle_processor_->GetNextProcessor();
+        
 }
 
 }

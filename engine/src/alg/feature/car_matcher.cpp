@@ -124,6 +124,7 @@ vector<int> CarMatcher::computeMatchScoreCpu(
 vector<int> CarMatcher::ComputeMatchScore(
     const CarRankFeature &des, const Rect &in_box,
     const vector<CarRankFeature> &all_des) {
+
 #if USE_CUDA
     return computeMatchScoreGpu(des, in_box, all_des);
 #else
