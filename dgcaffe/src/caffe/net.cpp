@@ -53,14 +53,14 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt, const Ne
     fseek(fp, 0L, SEEK_SET);
 
     unsigned char *buffer = (unsigned char *)calloc(size,1);
-    size_t rds = fread(buffer, size, 1, fp);
+	size_t rds = fread(buffer, size, 1, fp);
     if (rds != size)
     {
-      LOG(WARNING) << "Model file size read error";
+      DLOG(WARNING) << "Model file size read error";
     }
     fclose(fp);
 
-    unsigned char *decrypt = (unsigned char *) calloc(size,1);
+	unsigned char *decrypt = (unsigned char *) calloc(size,1);
 
     DecryptModel(buffer, size, decrypt);
     string input = string((char *)decrypt) ;
@@ -434,7 +434,7 @@ void Net<Dtype>::AppendTop(const NetParameter& param, const int layer_id,
              blob_name_to_idx->find(blob_name) != blob_name_to_idx->end()) {
     // If we are not doing in-place computation but have duplicated blobs,
     // raise an error.
-    LOG(FATAL) << "Top blob '" << blob_name
+    DLOG(FATAL) << "Top blob '" << blob_name
                << "' produced by multiple sources.";
   } else {
     // Normal output.
@@ -461,7 +461,7 @@ int Net<Dtype>::AppendBottom(const NetParameter& param, const int layer_id,
   const LayerParameter& layer_param = param.layer(layer_id);
   const string& blob_name = layer_param.bottom(bottom_id);
   if (available_blobs->find(blob_name) == available_blobs->end()) {
-    LOG(FATAL) << "Unknown bottom blob '" << blob_name << "' (layer '"
+    DLOG(FATAL) << "Unknown bottom blob '" << blob_name << "' (layer '"
                << layer_param.name() << "', bottom index " << bottom_id << ")";
   }
   const int blob_id = (*blob_name_to_idx)[blob_name];
@@ -580,7 +580,7 @@ Dtype Net<Dtype>::ForwardFromTo(int start, int end) {
   CHECK_LT(end, layers_.size());
   Dtype loss = 0;
   for (int i = start; i <= end; ++i) {
-    // LOG(ERROR) << "Forwarding " << layer_names_[i];
+    // DLOG(ERROR) << "Forwarding " << layer_names_[i];
     Dtype layer_loss = layers_[i]->Forward(bottom_vecs_[i], top_vecs_[i]);
     loss += layer_loss;
     if (debug_info_) { ForwardDebugInfo(i); }
@@ -611,7 +611,7 @@ const vector<Blob<Dtype>*>& Net<Dtype>::Forward(Dtype* loss) {
 template <typename Dtype>
 const vector<Blob<Dtype>*>& Net<Dtype>::Forward(
     const vector<Blob<Dtype>*> & bottom, Dtype* loss) {
-  LOG_EVERY_N(WARNING, 1000) << "DEPRECATED: Forward(bottom, loss) "
+  DLOG_EVERY_N(WARNING, 1000) << "DEPRECATED: Forward(bottom, loss) "
       << "will be removed in a future version. Use Forward(loss).";
   // Copy bottom to net bottoms
   for (int i = 0; i < bottom.size(); ++i) {
@@ -767,7 +767,7 @@ void Net<Dtype>::Backward() {
     }
     const Dtype l2norm_data = std::sqrt(sumsq_data);
     const Dtype l2norm_diff = std::sqrt(sumsq_diff);
-    LOG(ERROR) << "    [Backward] All net params (data, diff): "
+    DLOG(ERROR) << "    [Backward] All net params (data, diff): "
                << "L1 norm = (" << asum_data << ", " << asum_diff << "); "
                << "L2 norm = (" << l2norm_data << ", " << l2norm_diff << ")";
   }
@@ -805,7 +805,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
         Blob<Dtype> source_blob;
         const bool kReshape = true;
         source_blob.FromProto(source_layer.blobs(j), kReshape);
-        LOG(FATAL) << "Cannot copy param " << j << " weights from layer '"
+        DLOG(FATAL) << "Cannot copy param " << j << " weights from layer '"
             << source_layer_name << "'; shape mismatch.  Source param shape is "
             << source_blob.shape_string() << "; target param shape is "
             << target_blobs[j]->shape_string() << ". "
@@ -820,6 +820,9 @@ void Net<Dtype>::CopyTrainedLayersFrom(const NetParameter& param) {
 
 template <typename Dtype>
 void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
+ // if (trained_filename.size() >= 3 &&
+ //     trained_filename.compare(trained_filename.size() - 3, 3, ".h5") == 0) {
+ //   CopyTrainedLayersFromHDF5(trained_filename);
   NetParameter param;
   if (is_encrypt_ == false) {
 	DLOG(INFO) << "Caffe will load clear text model";
@@ -827,8 +830,9 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
     		CopyTrainedLayersFromHDF5(trained_filename);
   	     } else {
     		CopyTrainedLayersFromBinaryProto(trained_filename);
-  	     }
+  	     }  
   } else {
+  //  CopyTrainedLayersFromBinaryProto(trained_filename);
 	FILE *fp = fopen(trained_filename.c_str(), "rb");
     fseek(fp, 0L, SEEK_END);
     long int size = ftell(fp);
@@ -838,7 +842,7 @@ void Net<Dtype>::CopyTrainedLayersFrom(const string trained_filename) {
     size_t rds = fread(buffer, size, 1, fp);
     if (rds != size)
     {
-      LOG(WARNING) << "Model file size read error";
+      DLOG(WARNING) << "Model file size read error";
     }
     fclose(fp);
 
@@ -901,7 +905,7 @@ void Net<Dtype>::CopyTrainedLayersFromHDF5(const string trained_filename) {
           // ...but it's weight-shared in target, so that's fine.
           continue;
         } else {
-          LOG(FATAL) << "Incompatible number of blobs for layer "
+          DLOG(FATAL) << "Incompatible number of blobs for layer "
               << source_layer_name;
         }
       }
@@ -1033,7 +1037,7 @@ const shared_ptr<Blob<Dtype> > Net<Dtype>::blob_by_name(
     blob_ptr = blobs_[blob_names_index_.find(blob_name)->second];
   } else {
     blob_ptr.reset((Blob<Dtype>*)(NULL));
-    LOG(WARNING) << "Unknown blob name " << blob_name;
+    DLOG(WARNING) << "Unknown blob name " << blob_name;
   }
   return blob_ptr;
 }
@@ -1051,7 +1055,7 @@ const shared_ptr<Layer<Dtype> > Net<Dtype>::layer_by_name(
     layer_ptr = layers_[layer_names_index_.find(layer_name)->second];
   } else {
     layer_ptr.reset((Layer<Dtype>*)(NULL));
-    LOG(WARNING) << "Unknown layer name " << layer_name;
+    DLOG(WARNING) << "Unknown layer name " << layer_name;
   }
   return layer_ptr;
 }
