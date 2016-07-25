@@ -43,7 +43,9 @@ target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_BOTH_LIBRARIES})
 target_link_libraries(${PROJECT_TEST_NAME} ${LIBS})
 
 add_custom_target(test
-         COMMAND make && ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME}
+        COMMAND make
+        COMMAND if [ ! -d data ]\; then wget -r -R html http://192.168.2.119/unit_test/data/ && mv 192.168.2.119/unit_test/data . && rm -rf 192.168.2.119 \; fi
+        COMMAND ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME}
 #        COMMAND rm -rf unitTestReport
 #        COMMAND mkdir unitTestReport
 #        COMMAND lcov -c -o all.info -d ${CMAKE_CURRENT_BINARY_DIR}
