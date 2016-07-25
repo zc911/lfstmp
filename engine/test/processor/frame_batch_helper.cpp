@@ -32,7 +32,7 @@ int FrameBatchHelper::readImage(const dg::Operation &op) {
     for (int i = 0; ; ++i) {
         stringstream s;
         s << i;
-        string imgPath = baseImagePath + string(s.str()) + ".jpg";
+        string imgPath = baseImagePath + s.str() + ".jpg";
         if (setImage(op, i, imgPath) == false) {
             return i;
         }

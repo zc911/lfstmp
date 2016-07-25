@@ -4,6 +4,7 @@
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_color_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,6 +12,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static VehicleColorProcessor *vcprocessor;
+static FileReader fileReader("data/mapping/vehicle_colorhaoquan.txt");
 
 static void initConfig() {
     CaffeVehicleColorClassifier::VehicleColorConfig config;
@@ -58,14 +60,29 @@ TEST(VehicleColorProcessorTest, vehicleColorTest) {
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
-    int expectColor[] = {
-            0, 11, 8, 4, 9, 10, 1, 3, -1, -1
-    };
+    EXPECT_EQ(true, fileReader.is_open());
+    fileReader.read("=");
+
+    FileReader result("data/testimg/vehicleColor/result.txt");
+    EXPECT_EQ(true, result.is_open());
+    result.read(",");
 
     for (int i = 0; i < fb->batch_size(); ++i) {
         Object *obj = fb->frames()[i]->objects()[0];
         Vehicle *v = (Vehicle *)obj;
-        EXPECT_EQ(expectColor[i], v->color().class_id);
+        stringstream s;
+        s << v->color().class_id;
+        vector<string> V1 = fileReader.getValue(s.str());
+        s.str("");
+        s << i;
+        vector<string> V2 = result.getValue(s.str());
+
+        if (i > 7) {
+            EXPECT_EQ(0, V2.size());
+            continue;
+        }
+
+        EXPECT_EQ(V1[0], V2[0]);
     }
 
     delete fbhelper;
