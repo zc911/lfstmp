@@ -24,28 +24,27 @@ static int timeout = 5;
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
-        string storageAddress = (string)config->Value(STORAGE_ADDRESS);
+        string storageAddress = (string) config->Value(STORAGE_ADDRESS);
         createConnect(storageAddress);
     }
 
     MatrixError storage() {
-        unique_lock<mutex> lock(WitnessBucket::Instance().mt_pop);
         VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
         string storageAddress = wv->storage().address();
-  
+
         map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.find(storageAddress);
-        if (it == stubs_.end()){
+        if (it == stubs_.end()) {
             createConnect(storageAddress);
         }
-        
+
         const VehicleObj &v = wv->vehicleresult();
         NullMessage reply;
         ClientContext context;
         std::chrono::system_clock::time_point
-        deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
+            deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
         context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
@@ -58,12 +57,10 @@ public:
         if (status.ok()) {
             VLOG(VLOG_SERVICE) << "send to storage success" << endl;
 
-            lock.unlock();
             return err;
         } else {
             VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
             stubs_.erase(stubs_.find(storageAddress));
-            lock.unlock();
             return err;
         }
     }
@@ -74,11 +71,12 @@ private:
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
         std::unique_ptr<SpringService::Stub> stub(SpringService::NewStub(channel));
         stubs_.insert(std::make_pair(storageAddress, std::move(stub)));
-        if(stubs_.size()>10){
-            stubs_.erase( stubs_.begin() );
+        if (stubs_.size() > 10) {
+            stubs_.erase(stubs_.begin());
         }
-        for(map<string, std::unique_ptr<SpringService::Stub> >::iterator it=stubs_.begin();it!=stubs_.end();it++){
-            VLOG(VLOG_SERVICE)<<it->first;
+        for (map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.begin(); it != stubs_.end();
+             it++) {
+            VLOG(VLOG_SERVICE) << it->first;
         }
 
     };

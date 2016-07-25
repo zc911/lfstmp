@@ -155,6 +155,8 @@ struct REG_RECOG_GLOBAL_S {
   vector<REG_RECOG_MISSION_S> *pvecMission; //lock
   int dwNowMissionID; //lock
   int dwMissionNum;
+	int dwDev_Type;
+	int dwDev_ID;
 };
 
 struct REG_RECOG_S {
@@ -229,7 +231,8 @@ int doRecognitions_Threads(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int
   stGlobal.pmutex = &mutex;
   stGlobal.dwNowMissionID = 0;
   stGlobal.dwMissionNum = dwMissionNum;
-
+  stGlobal.dwDev_Type = pstLPDR->dwDev_Type;
+	stGlobal.dwDev_ID = pstLPDR->dwDev_ID;
   
   pthread_t athdIDs[MAX_RECOG_THREAD_NUM];
   int dwNeedThreadNum = min(dwMissionNum, MAX_RECOG_THREAD_NUM);
@@ -271,6 +274,8 @@ void *doRecogOne_Thread(void *pParam)
   LPDR_HANDLE hCHRECOG = pstParam->hCHRECOG;
   int dwThreadID = pstParam->dwThreadID;
   REG_RECOG_GLOBAL_S *pstGlobal = pstParam->pstGlobal;
+	int dwDev_Type = pstGlobal->dwDev_Type;
+	int dwDev_ID = pstGlobal->dwDev_ID;
   int dwRI, dwLPI;
   int dwX0_0, dwX1_0, dwY0_0, dwY1_0, dwW_0, dwH_0;
   int dwX0_1, dwX1_1, dwY0_1, dwY1_1;
@@ -289,6 +294,11 @@ void *doRecogOne_Thread(void *pParam)
   float afCropSize[2] = {1.6f, 2.0f};
   float afNewSize[2] = {1.2f, 1.2f};
   
+	if (dwDev_Type==2)
+	{
+	  cudaSetDevice(dwDev_ID);
+	}
+
   LPDR_Output_S *pstLPDRSetOne = 0;
   
   LPRectInfo lprect;

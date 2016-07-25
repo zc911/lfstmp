@@ -23,14 +23,15 @@
 using namespace std;
 namespace dg {
 
-WitnessAppsService::WitnessAppsService(const Config *config, string name, int baseId)
-    : id_(0),
-      config_(config),
-      engine_(*config),
+static int SHIFT_COLOR = 1000;
+WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
+    : config_(config),
+      id_(0),
       base_id_(baseId),
       name_(name) {
+    enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
 
-    RepoService::GetInstance()->Init(*config);
+    RepoService::GetInstance().Init(*config);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -112,13 +113,13 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
     vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = RepoService::GetInstance()->FindVehicleTypeName(pobj->type());
+    string type = RepoService::GetInstance().FindVehicleTypeName(pobj->type());
     vrec->set_vehicletypename(type);
     for (int i = 0; i < attrs.size(); i++) {
         PedestrianAttr *attr = vrec->add_pedestrianattrs();
         attr->set_attrid(attrs[i].index);
         attr->set_confidence(attrs[i].confidence);
-        attr->set_attrname(RepoService::GetInstance()->FindPedestrianAttrName(i));
+        attr->set_attrname(RepoService::GetInstance().FindPedestrianAttrName(i));
     }
 
     return err;
@@ -133,19 +134,19 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     const Detection &d = vobj->detection();
 
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    err = RepoService::GetInstance()->FillModel(*vobj, vrec);
+    err = RepoService::GetInstance().FillModel(*vobj, vrec);
     vrec->mutable_modeltype()->set_confidence(vobj->confidence());
     if (err.code() < 0)
         return err;
-    err = RepoService::GetInstance()->FillColor(vobj->color(), vrec->mutable_color());
+    err = RepoService::GetInstance().FillColor(vobj->color(), vrec->mutable_color());
     if (err.code() < 0)
         return err;
 
-    err = RepoService::GetInstance()->FillPlates(vobj->plates(), vrec);
+    err = RepoService::GetInstance().FillPlates(vobj->plates(), vrec);
     if (err.code() < 0)
         return err;
 
-    err = RepoService::GetInstance()->FillSymbols(vobj->children(), vrec);
+    err = RepoService::GetInstance().FillSymbols(vobj->children(), vrec);
     if (err.code() < 0)
         return err;
 
@@ -301,9 +302,20 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    rec_lock_.lock();
-    engine_.Process(&framebatch);
-    rec_lock_.unlock();
+    // engine_.Process(&framebatch);
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
+
+    EngineData data;
+    data.func = [&framebatch, &data]() -> void {
+      return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                   placeholders::_1))(&framebatch);
+    };
+
+    engine_pool->enqueue(&data);
+
+    data.Wait();
+
+
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
@@ -334,7 +346,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     }
 
     gettimeofday(&end, NULL);
-    VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
     // return back the image data
 //    WitnessImage *ret_image = result->mutable_image();
@@ -346,8 +357,9 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
-    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if (storageEnabled) {
+    VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
+
+    if (enableStorage_) {
         string storageAddress;
         if (request->context().has_storage()) {
             storageAddress = (string) request->context().storage().address();
@@ -366,7 +378,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         }
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
-            unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
             client_request_obj->mutable_storage()->set_address(storageAddress);
             for (int i = 0; i < r.vehicles_size(); i++) {
@@ -393,7 +404,6 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
             //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
             //        VLOG(VLOG_SERVICE) << s << endl;
             WitnessBucket::Instance().Push(client_request_obj);
-            lock.unlock();
         }
     }
 
@@ -481,9 +491,26 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
-    rec_lock_.lock();
-    engine_.Process(&framebatch);
-    rec_lock_.unlock();
+    // rec_lock_.lock();
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
+
+    EngineData data;
+    data.func = [&framebatch, &data]() -> void {
+      return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                   placeholders::_1))(&framebatch);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+
+    data.Wait();
+
+
+    // rec_lock_.unlock();
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec batch Image cost(pure): " << TimeCostInMs(start, end) << endl;
 
@@ -531,8 +558,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
 
-    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if (storageEnabled) {
+    if (enableStorage_) {
         string storageAddress;
         if (batchRequest->context().has_storage()) {
             storageAddress = (string) batchRequest->context().storage().address();
@@ -552,7 +578,7 @@ MatrixError WitnessAppsService::BatchRecognize(
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
-                unique_lock<mutex> lock(WitnessBucket::Instance().mt_push);
+
                 shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
                 client_request_obj->mutable_storage()->set_address(storageAddress);
                 for (int i = 0; i < r.vehicles_size(); i++) {
@@ -573,7 +599,6 @@ MatrixError WitnessAppsService::BatchRecognize(
                     client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
                 }
                 WitnessBucket::Instance().Push(client_request_obj);
-                lock.unlock();
             }
         }
     }

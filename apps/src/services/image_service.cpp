@@ -215,6 +215,8 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
 
     if (imgMat.rows == 0 || imgMat.cols == 0) {
         LOG(ERROR) << "Image is empty: " << uri << endl;
+        ok.set_code(-1);
+        ok.set_message("imag is empty");
     }
     return ok;
 

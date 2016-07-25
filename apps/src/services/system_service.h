@@ -25,57 +25,57 @@ namespace dg {
 static int rx = 0;
 static int tx = 0;
 using namespace ::dg::model;
-static void networkInfo(int *rx, int *tx) {
-    char id[1000];
-    while (1) {
-        struct timeval n;
-        gettimeofday(&n, NULL);
-        uint64_t start = n.tv_sec * 1000 + n.tv_usec / 1000;
-        uint64_t start_rx = 0;
-        uint64_t start_tx = 0;
-
-        memset(id, 0, sizeof(id));
-        FILE *out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
-        if (out == NULL) {
-            return;
-        }
-
-        fgets(id, sizeof(id), out);
-        if (id[0] == ':')
-            start_rx = atoi(id + 1);
-        memset(id, 0, sizeof(id));
-        fgets(id, sizeof(id), out);
-        if (id[0] == ':')
-            start_tx = atoi(id + 1);
-        fclose(out);
-        sleep(1);
-
-        uint64_t end_rx = 0;
-        uint64_t end_tx = 0;
-
-        memset(id, 0, sizeof(id));
-        out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
-        if (out == NULL) {
-            fclose(out);
-            return;
-        }
-
-        fgets(id, sizeof(id), out);
-        if (id[0] == ':')
-            end_rx += atoi(id + 1);
-        memset(id, 0, sizeof(id));
-        fgets(id, sizeof(id), out);
-        fclose(out);
-        if (id[0] == ':')
-            end_tx += atoi(id + 1);
-        gettimeofday(&n, NULL);
-        uint64_t end = n.tv_sec * 1000 + n.tv_usec / 1000;
-
-        *rx = (end_rx - start_rx) / (end - start);
-        *tx = (end_tx - start_tx) / (end - start);
-
-    }
-}
+//static void networkInfo(int *rx, int *tx) {
+//    char id[1000];
+//    while (1) {
+//        struct timeval n;
+//        gettimeofday(&n, NULL);
+//        uint64_t start = n.tv_sec * 1000 + n.tv_usec / 1000;
+//        uint64_t start_rx = 0;
+//        uint64_t start_tx = 0;
+//
+//        memset(id, 0, sizeof(id));
+//        FILE *out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
+//        if (out == NULL) {
+//            return;
+//        }
+//
+//        fgets(id, sizeof(id), out);
+//        if (id[0] == ':')
+//            start_rx = atoi(id + 1);
+//        memset(id, 0, sizeof(id));
+//        fgets(id, sizeof(id), out);
+//        if (id[0] == ':')
+//            start_tx = atoi(id + 1);
+//        fclose(out);
+//        sleep(1);
+//
+//        uint64_t end_rx = 0;
+//        uint64_t end_tx = 0;
+//
+//        memset(id, 0, sizeof(id));
+//        out = popen("ifconfig | grep bytes: |egrep -o ':[0-9]+'", "r");
+//        if (out == NULL) {
+//            fclose(out);
+//            return;
+//        }
+//
+//        fgets(id, sizeof(id), out);
+//        if (id[0] == ':')
+//            end_rx += atoi(id + 1);
+//        memset(id, 0, sizeof(id));
+//        fgets(id, sizeof(id), out);
+//        fclose(out);
+//        if (id[0] == ':')
+//            end_tx += atoi(id + 1);
+//        gettimeofday(&n, NULL);
+//        uint64_t end = n.tv_sec * 1000 + n.tv_usec / 1000;
+//
+//        *rx = (end_rx - start_rx) / (end - start);
+//        *tx = (end_tx - start_tx) / (end - start);
+//
+//    }
+//}
 
 class SystemAppsService {
 
