@@ -19,6 +19,7 @@ SSD is an unified framework for object detection with a single network. You can 
 | [YOLO](http://pjreddie.com/darknet/yolo/) | 63.4 | 45 | 98 |
 | [Fast YOLO](http://pjreddie.com/darknet/yolo/) | 52.7 | 155 | 98 |
 | SSD300 (VGG16) | 72.1 | 58 | 7308 |
+| SSD300 (VGG16, cuDNN v5) | 72.1 | 72 | 7308 |
 | SSD500 (VGG16) | **75.1** | 23 | 20097 |
 
 </center>
@@ -38,7 +39,7 @@ Please cite SSD in your publications if it helps your research:
 1. [Installation](#installation)
 2. [Preparation](#preparation)
 3. [Train/Eval](#traineval)
-4. [Contact](#contact)
+4. [Models](#models)
 
 ### Installation
 1. Get the code. We will call the directory that you cloned Caffe into `$CAFFE_ROOT`
@@ -120,13 +121,14 @@ Please cite SSD in your publications if it helps your research:
   ```
   [Here](https://drive.google.com/file/d/0BzKzrI_SkD1_R09NcjM1eElLcWc/view) is a demo video of running a SSD500 model trained on [MSCOCO](http://mscoco.org) dataset.
 
-4. Check out `examples/ssd_detect.ipynb` on how to detect objects using a SSD model.
+4. Check out `examples/ssd_detect.ipynb` or `examples/ssd/ssd_detect.cpp` on how to detect objects using a SSD model.
 
 5. To train on other dataset, please refer to data/OTHERDATASET for more details.
-We currently add support for MSCOCO.
+We currently add support for MSCOCO and ILSVRC2016.
 
-### Contact
-Please direct all comments and report all bugs to:
+### Models
+1. Models trained on VOC0712: [SSD300](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_VOC0712_SSD_300x300.tar.gz), [SSD500](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_VOC0712_SSD_500x500.tar.gz)
 
-    Wei Liu
-    wliu@cs.unc.edu
+2. Models trained on MSCOCO trainval35k: [SSD300](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_coco_SSD_300x300.tar.gz), [SSD500](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_coco_SSD_500x500.tar.gz)
+
+3. Models trained on ILSVRC2015 trainval1: [SSD300](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_ilsvrc15_SSD_300x300.tar.gz), [SSD500](http://www.cs.unc.edu/~wliu/projects/SSD/models_VGGNet_ilsvrc15_SSD_500x500.tar.gz) (46.4 mAP on val2)
