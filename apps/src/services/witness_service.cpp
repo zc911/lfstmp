@@ -303,7 +303,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         timestamp = request->image().witnessmetadata().timestamp();
     }
     // engine_.Process(&framebatch);
-    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
 
     EngineData data;
     data.func = [&framebatch, &data]() -> void {
@@ -492,7 +492,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     DLOG(INFO) << "Request batch size: " << framebatch.batch_size() << endl;
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << " and id:" << framebatch.id() << endl;
     // rec_lock_.lock();
-    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config_);
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
 
     EngineData data;
     data.func = [&framebatch, &data]() -> void {
@@ -558,8 +558,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
 
-    bool storageEnabled = (bool) config_->Value(STORAGE_ENABLED);
-    if (storageEnabled) {
+    if (enableStorage_) {
         string storageAddress;
         if (batchRequest->context().has_storage()) {
             storageAddress = (string) batchRequest->context().storage().address();
