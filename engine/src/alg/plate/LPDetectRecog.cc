@@ -480,7 +480,7 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
   float afNewSize[2] = {1.2f, 1.2f};
   float *pfBlkBuffer_0 = 0, *pfBlkBuffer_1 = 0;
   char *pbyBuffer = 0;
-  int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 500 * 500 * 4;
+  int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 1000 * 1000 * 4;
   InputInfoRecog_S stIIR;
   LPDRInfo_S stOut;
   
@@ -540,7 +540,8 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
       dwBlkH = adwMarginHW[0] * 2 + dwH_0;
       dwBlkW = adwMarginHW[1] * 2 + dwW_0;
 
-      assert(dwBlkH * dwBlkW < dwBlkMaxLen);
+//      assert(dwBlkH * dwBlkW < dwBlkMaxLen);
+      if (dwBlkH * dwBlkW > dwBlkMaxLen) continue;
 
       memset(pfBlkBuffer_0, 0, sizeof(float) * dwBlkH * dwBlkW);
       for (dwRI = 0; dwRI < dwH_0; dwRI++)
@@ -637,7 +638,8 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
   for (dwI = 0; dwI < 2; dwI++)
   {
 //    cout << dwI << endl;
-    doRectifyWithPolyReg(hPolyReg, pstIIR, adwMRatioXY, fAngle_old, &fAngle_new);
+    dwRet = doRectifyWithPolyReg(hPolyReg, pstIIR, adwMRatioXY, fAngle_old, &fAngle_new);
+    if (dwRet) break;
     rect_new = pstIIR->rect;
     //check stop condition
     float fDiff = abs(rect_new.dwY0 - rect_old.dwY0) + abs(rect_new.dwY1 - rect_old.dwY1);
@@ -646,6 +648,7 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
     rect_old = rect_new;
     fAngle_old = fAngle_new;
   }
+  if (dwRet) return dwRet;
 //  return 0;
   int dwSepY = pstIIR->dwSepY;
  
@@ -868,7 +871,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   int dwCrop_W = dwCrop_X1 - dwCrop_X0 + 1;
   int dwCrop_H = dwCrop_Y1 - dwCrop_Y0 + 1;
   
-  assert(dwCrop_W * dwCrop_H * 4 <= dwBufferLen);
+//  assert(dwCrop_W * dwCrop_H * 4 <= dwBufferLen);
+  if (dwCrop_W * dwCrop_H * 4 > dwBufferLen) return -1;
+
   pfCrop = (float*)pbyBuffer;
   for (dwRI = 0; dwRI < dwCrop_H; dwRI++)
   {
@@ -917,7 +922,7 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   adwPolygonOut[5*2+0] += dwCrop_X0; adwPolygonOut[5*2+1] += dwCrop_Y0;
   
 //  return 0;
-  doRectify_f(pfImage_0, pfImage_1, dwImgW, dwImgH, fAngle_old, adwPolygonOut, pfAngle_new);
+  doRectify_f6(pfImage_0, pfImage_1, dwImgW, dwImgH, fAngle_old, adwPolygonOut, pfAngle_new);
   
   LPRect &rectnow = pstIIR->rect;
   rectnow.dwX0 = adwPolygonOut[0]; rectnow.dwY0 = adwPolygonOut[1];
@@ -1131,6 +1136,7 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
 }
 
 
+#if 0
 /*
 #define LP_COLOUR_WHITE     0
 #define LP_COLOUR_SILVER    1
@@ -1236,8 +1242,154 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
   
   return 0;
 }
+#endif
 
 
+/*
+#define LP_COLOUR_WHITE     0
+#define LP_COLOUR_SILVER    1
+#define LP_COLOUR_YELLOW    2
+#define LP_COLOUR_PINK      3
+#define LP_COLOUR_RED       4
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
+*/
+int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
+{
+  int dwSI, dwLI, dwRI, dwCI;
+  int dwImgNum = pstImgSet->dwImageNum;
+  int dwImgW, dwImgH;
+  uchar *pubyImgData, *pubyRow, *pubyBGR;
+  int dwLPNum = 0;
+  LPDRInfo_S *pstLPDR = 0;
+  int adwBB[4];
+  float fH = 0.f, fS = 0.f, fV = 0.f;
+  int adwColorsHist[9], adwIdxs[9], dwTmpValue;
+  
+  for (dwSI = 0; dwSI < dwImgNum; dwSI++)
+  {
+    dwImgW = pstImgSet->astSet[dwSI].dwImgW;
+    dwImgH = pstImgSet->astSet[dwSI].dwImgH;
+    pubyImgData = pstImgSet->astSet[dwSI].pubyData;
+    dwLPNum = pstOutputSet->astLPSet[dwSI].dwLPNum;
+    for (dwLI = 0; dwLI < dwLPNum; dwLI++)
+    {
+      pstLPDR = &pstOutputSet->astLPSet[dwSI].astLPs[dwLI];
+      int dwBBH = pstLPDR->adwLPRect[3] - pstLPDR->adwLPRect[1] + 1;
+      int dwBBW = pstLPDR->adwLPRect[2] - pstLPDR->adwLPRect[0] + 1;
+      adwBB[0] = pstLPDR->adwLPRect[0] + dwBBW/12;
+      adwBB[1] = pstLPDR->adwLPRect[1] + dwBBH/8;
+      adwBB[2] = pstLPDR->adwLPRect[2] - dwBBW/12;
+      adwBB[3] = pstLPDR->adwLPRect[3] - dwBBH/8;
+      memset(adwColorsHist, 0, sizeof(int)*9);
+      for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
+      {
+        pubyRow = pubyImgData + dwRI * 3 * dwImgW;
+        for (dwCI = adwBB[0]; dwCI < adwBB[2]; dwCI += 2)
+        {
+          pubyBGR = pubyRow + dwCI * 3;
+          cvtRGB2HSV_U8(pubyBGR[2], pubyBGR[1], pubyBGR[0], &fH, &fS, &fV);
+//          printf("%.2f,%.2f,%.2f; ", fH, fS, fV);
+//          if (fS > 0.16f && fV > 0.10)
+          if (fS > 0.10f && fV > 0.10)
+          {
+//            if (fH > 30.f && fH < 50.f) //0~240
+            if (fH > 20.f && fH < 75.f) //0~360
+            {
+              adwColorsHist[LP_COLOUR_YELLOW]++;
+            }
+//            else if (fH > 130.f && fH < 180.f)
+            else if (fH > 100.f && fH < 290.f)
+            {
+              adwColorsHist[LP_COLOUR_BLUE]++;
+            }
+//            else if (fH > 60.f && fH < 100.f)
+            else if (fH > 90.f && fH < 150.f)
+            {
+              adwColorsHist[LP_COLOUR_GREEN]++;
+            }
+//            else if (fH > 220.f && fH < 10.f)
+            else if (fH > 330.f && fH < 15.f)
+            {
+              adwColorsHist[LP_COLOUR_RED]++;
+            }
+          }
+          else if (fS < 0.45f && fV > 0.4)
+//          else if (fV > 0.3)
+          {
+            adwColorsHist[LP_COLOUR_WHITE]++;
+          }
+          else if (fS < 0.45f && fV < 0.4)
+//          else if (fV < 0.3)
+          {
+            adwColorsHist[LP_COLOUR_BLACK]++;
+          }
+        }
+      }
+      
+      for (int dwI = 0; dwI < 9; dwI++)
+      {
+        adwIdxs[dwI] = dwI;
+      }
+      
+      dwTmpValue = 0;
+      for (int dwI = 0; dwI < 8; dwI++)
+      {
+        for (int dwJ = dwI + 1; dwJ < 9; dwJ++)
+        {
+          if (adwColorsHist[dwI] < adwColorsHist[dwJ])
+          {
+            dwTmpValue = adwColorsHist[dwI];
+            adwColorsHist[dwI] = adwColorsHist[dwJ];
+            adwColorsHist[dwJ] = dwTmpValue;
+            
+            dwTmpValue = adwIdxs[dwI];
+            adwIdxs[dwI] = adwIdxs[dwJ];
+            adwIdxs[dwJ] = dwTmpValue;
+          }
+        }
+      }
+      
+#if LPDR_DBG
+      cv::Mat cimg(dwImgH, dwImgW, CV_8UC3, pubyImgData);
+      cv::Mat subcimg = cimg(cv::Range(adwBB[1], adwBB[3]), cv::Range(adwBB[0], adwBB[2]));
+      cv::imshow("hello", subcimg);
+      cv::waitKey(10);
+      string astrColors[9] = {"0.WHITE", "1.SILVER", "2.YELLOW", "3.PINK", "4.RED", "5.GREEN", "6.BLUE", "7.BROWN", "8.BLACK"};
+      for (int dwI = 0; dwI < 9; dwI++)
+      {
+        printf("%s:%d, ", astrColors[adwIdxs[dwI]].c_str(), adwColorsHist[dwI]);
+      }
+      printf("\n");
+#endif
+      int dwMaxColor = adwIdxs[0];
+      
+      if ((adwIdxs[0] == 0 || adwIdxs[0] == 8 || adwIdxs[0] == 5) && (adwIdxs[1] == 2 || adwIdxs[1] == 6 || adwIdxs[1] == 5) && adwColorsHist[0]*40 < adwColorsHist[1]*100)
+      {
+        dwMaxColor = adwIdxs[1];
+      }
+
+      for (int k = 0; k < 9; k++)
+      {
+        if (adwIdxs[k] == 6 && adwColorsHist[k] * 80 > adwColorsHist[0])
+        {
+          dwMaxColor = 6;
+        }
+      }
+      
+      pstLPDR->dwColor = dwMaxColor;
+    }
+
+#if LPDR_DBG||1
+//    cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, );
+    
+#endif
+  }
+  
+  return 0;
+}
 
 
 
