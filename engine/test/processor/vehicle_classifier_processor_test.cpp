@@ -4,6 +4,7 @@
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_classifier_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,6 +12,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static VehicleClassifierProcessor *vcfprocessor;
+static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
     VehicleCaffeClassifier::VehicleCaffeConfig config;
@@ -63,14 +65,32 @@ TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
-    int expectId[] = {
-            387, 15, -1, 446, 507, 32, 15, 15, 2645, 847
-    };
+    EXPECT_EQ(true, fileReader.is_open());
+    fileReader.read(",");
+
+    FileReader result("data/testimg/vehicleClassifier/result.txt");
+    EXPECT_EQ(true, result.is_open());
+    result.read(",");
 
     for (int i = 0; i < fb->batch_size(); ++i) {
         Object *obj = fb->frames()[i]->objects()[0];
         Vehicle *v = (Vehicle *)obj;
-        EXPECT_EQ(expectId[i], v->class_id());
+        stringstream s;
+        s << v->class_id();
+        vector<string> V1 = fileReader.getValue(s.str());
+
+        s.str("");
+        s << i;
+        vector<string> V2 = result.getValue(s.str());
+
+        if (i == 2) {
+            EXPECT_EQ(0, V2.size());
+            continue;
+        }
+
+        EXPECT_EQ(V1[3], V2[0]);
+        EXPECT_EQ(V1[5], V2[1]);
+        EXPECT_EQ(V1[7], V2[2]);
     }
 
     delete fbhelper;
