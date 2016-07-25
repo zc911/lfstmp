@@ -48,7 +48,6 @@ private:
     bool enable_face_detect_;
 
     bool enable_face_feature_vector_;
-    bool isWarmuped_ = true;
     unsigned long long performance_ = 0;
 
 };

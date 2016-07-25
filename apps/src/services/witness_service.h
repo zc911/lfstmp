@@ -28,7 +28,7 @@ using namespace ::dg::model;
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService(const Config *config, string name, int baseId = 0);
+    WitnessAppsService( Config *config, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -50,8 +50,7 @@ private:
     MatrixError checkWitnessImage(const WitnessImage &wImage);
 
 
-    const Config *config_;
-    WitnessEngine engine_;
+    Config *config_;
     Identification id_;
     Identification base_id_;
 
@@ -62,7 +61,7 @@ private:
     std::mutex rec_lock_;
 
     void init(void);
-
+    bool enableStorage_;
 
     static string trimString(string str);
     static int parseInt(string str);

@@ -26,9 +26,14 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
     }
 
     /* Load the network. */
+#if DEBUG
     net_.reset(
-        new Net<float>(markerconfig.deploy_file, TEST, marker_config_.is_model_encrypt));
-    net_->CopyTrainedLayersFrom(marker_config_.model_file);
+        new Net<float>(markerconfig.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(markerconfig.deploy_file, TEST, markerconfig.is_model_encrypt));
+#endif
+   net_->CopyTrainedLayersFrom(marker_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
@@ -40,14 +45,14 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
     input_layer->Reshape(markerconfig.batch_size, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
-
+    net_->Reshape();
     //float* input_data = input_layer->mutable_cpu_data();
-    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+  /*  const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
     const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
     const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
     for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
+    }*/
     setupMarker();
 
 }
