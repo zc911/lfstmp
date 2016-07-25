@@ -28,8 +28,8 @@ string getServerAddress(Config *config, int userPort = 0) {
 
 void serveWitness(Config *config, int userPort = 0) {
 
-    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance(config);
-    engine_pool->Run();
+    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
+    engine_pool->Run(config);
 
     string protocolType = (string) config->Value("ProtocolType");
 
@@ -75,8 +75,8 @@ void serveWitness(Config *config, int userPort = 0) {
 
 void serveRanker(Config *config, int userPort = 0) {
 
-    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance(config);
-    engine_pool->Run();
+    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance();
+    engine_pool->Run(config);
 
     string protocolType = (string) config->Value("ProtocolType");
     cout << "Protocol type: " << protocolType << endl;

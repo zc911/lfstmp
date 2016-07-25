@@ -3,7 +3,6 @@
 
 namespace dg {
 #define FEATURE_NUM_CUDA 256
-#define MAX_IMG_NUM 100000
 
 #define CUDA_CALL(value) {  \
 cudaError_t _m_cudaStat = value;    \
@@ -20,7 +19,7 @@ struct box {
     ushort width;
 };
 
-CarMatcher::CarMatcher() {
+CarMatcher::CarMatcher(unsigned int maxImageNum) {
     feature_num_ = FEATURE_NUM_CUDA;
     max_resize_size_ = 300;
     max_mis_match_ = 50;
@@ -29,6 +28,7 @@ CarMatcher::CarMatcher() {
     selected_area_weight_ = 50;
     min_score_thr_ = 100;
     profile_time_ = false;
+    max_image_num_ = maxImageNum;
 
     cudaStreamCreate(&stream_);
     CUDA_CALL(
@@ -36,15 +36,15 @@ CarMatcher::CarMatcher() {
     CUDA_CALL(
         cudaMallocManaged(&query_desc_cuda_, FEATURE_NUM_CUDA * sizeof(uint) * 8, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(ushort) * 2, cudaMemAttachHost));
+        cudaMallocManaged(&db_pos_cuda_, FEATURE_NUM_CUDA * max_image_num_ * sizeof(ushort) * 2, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * MAX_IMG_NUM * sizeof(uint) * 8, cudaMemAttachHost));
+        cudaMallocManaged(&db_desc_cuda_, FEATURE_NUM_CUDA * max_image_num_ * sizeof(uint) * 8, cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_width_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+        cudaMallocManaged(&db_width_cuda_, max_image_num_ * sizeof(ushort), cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&db_height_cuda_, MAX_IMG_NUM * sizeof(ushort), cudaMemAttachHost));
+        cudaMallocManaged(&db_height_cuda_, max_image_num_ * sizeof(ushort), cudaMemAttachHost));
     CUDA_CALL(
-        cudaMallocManaged(&score_cuda_, MAX_IMG_NUM * sizeof(int), cudaMemAttachHost));
+        cudaMallocManaged(&score_cuda_, max_image_num_ * sizeof(int), cudaMemAttachHost));
 }
 
 CarMatcher::~CarMatcher() {
