@@ -1,6 +1,5 @@
 #if true
 
-#include <alg/detector/detector.h>
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
@@ -95,20 +94,30 @@ TEST(VehicleMultiTypeDectorTest, strangeInputTest) {
     cout << fb->batch_size() << endl;
 
     head->process(fb);
-    fbhelper->printFrame();
     EXPECT_EQ(3, fb->batch_size());
 
     cv::Mat mat1(0, 1, 0);
     Frame *f1 = new Frame(1001, mat1);
     f1->set_operation(getOperation());
     fb->AddFrame(f1);
+    head->getProcessor()->Update(f1);
+    EXPECT_EQ(0, f1->objects().size());
+
 
     cv::Mat mat2(0, 0, 1);
     Frame *f2 = new Frame(1002, mat2);
     fb->AddFrame(f2);
 
+    cv::Mat mat3(1, 2, 3);
+    Frame *f3 = new Frame(1003, mat3);
+    vector<Rect> rois;
+    Rect rect(1, 1, 0, 0);
+    rois.push_back(rect);
+    f3->set_roi(rois);
+    fb->AddFrame(f3);
+
     head->process(fb);
-    EXPECT_EQ(5, fb->batch_size());
+    EXPECT_EQ(6, fb->batch_size());
 
     destory();
 }
@@ -118,26 +127,29 @@ TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     VehicleCaffeDetectorConfig config;
     config.car_only = true;
     config.is_model_encrypt = false;
+    config.target_max_size = 600;
+    config.target_min_size = 400;
     config.deploy_file = "data/models/310.txt";
-    config.confirm_deploy_file = "data/models/300.txt";
     config.model_file = "data/models/310.dat";
-    config.confirm_model_file = "data/models/300.dat";
-    VehicleMultiTypeDetectorProcessor *ppp =
+    config.confirm_deploy_file = "data/models/311.txt";
+    config.confirm_model_file = "data/models/311.dat";
+    VehicleMultiTypeDetectorProcessor *carOnlyProcessor =
             new VehicleMultiTypeDetectorProcessor(config);
 
-    /**
 
-    fbhelper = new FrameBatchHelper(2);
-    fbhelper->setBasePath("data/testimg/test/");
+    fbhelper = new FrameBatchHelper(1);
+    fbhelper->setBasePath("data/testimg/vehicleMultiType/carOnly/");
     fbhelper->readImage(getOperation());
 
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    ppp->Update(fb);
-     **/
+    carOnlyProcessor->Update(fb);
 
-   // delete processor;
-    //delete fbhelper;
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        EXPECT_EQ(OBJECT_CAR, fb->frames()[i]->objects()[0]->type());
+    }
+
+    //delete carOnlyProcessor;
 }
 
 #endif

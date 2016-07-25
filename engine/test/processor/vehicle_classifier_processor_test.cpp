@@ -1,4 +1,4 @@
-#if false
+#if true
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
@@ -35,10 +35,12 @@ static void init() {
 }
 
 static void destory() {
+    /**
     if (head) {
         delete head;
         head = NULL;
     }
+     **/
 
     if (fbhelper) {
         delete fbhelper;
@@ -56,13 +58,13 @@ static Operation getOperation() {
 
 TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
     init();
-    fbhelper->setBasePath("data/testimg/test/");
+    fbhelper->setBasePath("data/testimg/vehicleClassifier/");
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
     int expectId[] = {
-            2207, 506, 206
+            387, 15, -1, 446, 507, 32, 15, 15, 2645, 847
     };
 
     for (int i = 0; i < fb->batch_size(); ++i) {
@@ -71,7 +73,18 @@ TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
         EXPECT_EQ(expectId[i], v->class_id());
     }
 
-//    destory();
+    delete fbhelper;
+    fbhelper = new FrameBatchHelper(1);
+    fbhelper->setBasePath("data/testimg/vehicleClassifier/");
+    fbhelper->readImage(getOperation());
+
+    for (int i = 0; i < fbhelper->getFrameBatch()->frames().size(); ++i) {
+        Frame *f = fbhelper->getFrameBatch()->frames()[i];
+        head->getProcessor()->Update(f);
+        EXPECT_EQ(0, f->objects().size());
+    }
+
+    destory();
 }
 
 #endif
