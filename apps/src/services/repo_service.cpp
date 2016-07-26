@@ -157,8 +157,12 @@ void RepoService::init_vehicle_map(string filename, string sep,
         array[p.first].CopyFrom(p.second);
     }
 
-    car_type_repo_.resize(typeMap.size() + 1);
+    car_type_repo_.resize(typeMap.size());
     for (auto v : typeMap) {
+        if(v.first >= car_type_repo_.size()){
+            LOG(ERROR) << "Init car type repo error, exceeds the max size" << endl;
+            continue;
+        }
         car_type_repo_[v.first] = v.second;
     }
 }
