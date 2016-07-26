@@ -84,7 +84,7 @@ for more help details
       "Rescale": 400,
       "TargetMinSize": 400.0,
       "TargetMaxSize": 600.0,
-      "CarOnly": true, 
+      "CarOnly": false, 
       "BatchSize": 8 
     },
     "Color": {
@@ -109,9 +109,9 @@ for more help details
       "PlateStandardHeight": 100,
       "PlateNums": 2,
       "NumsProposal": 20,
-      "EnableLocalProvince": true, // 启用默认省份功能
-      "LocalProvinceText": "京",   // 默认省份
-      "LocalProvinceConfidence": 0.8  // 阈值
+      "EnableLocalProvince": true,
+      "LocalProvinceText": "京",
+      "LocalProvinceConfidence": 0.8 
     },
     "Marker": {
       "MOTConfidence": 0.6,
@@ -146,7 +146,7 @@ for more help details
     "Vehicle": {
       "Type": "data/mapping/vehicle_type.txt",
       "Model": "data/mapping/front_day_index_1_10.txt",
-      "Color": "data/mapping/vehicle_colorhaoquan.txt",
+      "Color": "data/mapping/vehicle_color.txt",
       "Symbol": "data/mapping/vehicle_symbol.txt",
       "Plate": {
         "Color": "data/mapping/plate_color.txt",
@@ -168,8 +168,6 @@ for more help details
   },
   "DataPath": "data/data.dat"
 }
-
-
 
 
 ```
