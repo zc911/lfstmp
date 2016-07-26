@@ -76,7 +76,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
                                             vector<vector<float> > &results) {
     Blob<float> *input_blob = net_->input_blobs()[0];
     int num_imgs = static_cast<int>(imgs.size());
-    assert(num_imgs <= batch_size_);
+//    assert(num_imgs <= batch_size_);
     vector<int> shape =
         {num_imgs, 3, crop_height_, crop_width_};
     input_blob->Reshape(shape);
@@ -117,7 +117,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
     auto output_blob = net_->blob_by_name(layer_name_);
     const float *output_data = output_blob->cpu_data();
     const int feature_len = output_blob->channels();
-    assert(feature_len == static_cast<int>(tagtable_.size()));
+    //assert(feature_len == static_cast<int>(tagtable_.size()));
 
     results.resize(imgs.size());
     for (size_t i = 0; i < imgs.size(); i++) {
