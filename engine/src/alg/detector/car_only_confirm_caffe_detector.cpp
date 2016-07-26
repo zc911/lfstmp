@@ -22,9 +22,13 @@ CarOnlyConfirmCaffeDetector::CarOnlyConfirmCaffeDetector(const VehicleCaffeDetec
     } else {
         Caffe::set_mode(Caffe::CPU);
     }
-
+#if DEBUG
     net_.reset(
-        new Net<float>(config.confirm_deploy_file, TEST, config.is_model_encrypt));
+        new Net<float>(config.confirm_deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.confirm_deploy_file, TEST, config.is_model_encrypt));
+#endif
     net_->CopyTrainedLayersFrom(caffe_config_.confirm_model_file);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
