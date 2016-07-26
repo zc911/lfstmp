@@ -85,10 +85,20 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
 
                 string platenum;
                 float score = 0;
-                for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
+                if(enable_local_province_){
+                    if(pstLP->afScores[0]<local_province_confidence_){
+                        platenum=local_province_;
+                    }else{
+                        platenum=paInv_chardict[pstLP->adwLPNumber[0]];
+                    }
+                    score+=pstLP->afScores[0];
+                }
+                for (int dwK = 1; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
                     score += pstLP->afScores[dwK];
                 }
+
+
                 score /= pstLP->dwLPLen;
                 plate.color_id = pstLP->dwColor;
                 plate.plate_type = pstLP->dwType;
@@ -102,7 +112,6 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
             }
 
         }
-        VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
 
     }
     gettimeofday(&end, NULL);
@@ -170,6 +179,11 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stCHRECOG.adwShape[3] = 32;
 
     batch_size_ = pstConfig->batchsize;
+    enable_local_province_=pstConfig->enableLocalProvince;
+    local_province_=pstConfig->localProvinceText;
+    local_province_confidence_=pstConfig->localProvinceConfidence;
+
+
 }
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();
