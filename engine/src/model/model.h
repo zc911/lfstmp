@@ -197,6 +197,7 @@ public:
         int color_id = -1;
         int plate_type = -1;
         Confidence confidence = 0;
+        Confidence local_province_confidence=0;
     } Plate;
 
     Vehicle(ObjectType type)

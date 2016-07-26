@@ -104,6 +104,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 plate.plate_type = pstLP->dwType;
                 plate.confidence = score;
                 plate.plate_num = platenum;
+                plate.local_province_confidence=pstLP->afScores[0];
                 plates.push_back(plate);
             }
             if (objs_.size() > (i + j)) {
