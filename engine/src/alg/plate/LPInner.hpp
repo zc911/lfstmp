@@ -12,7 +12,7 @@
 #define LP_SCORE_MAX 0.90f
 #define LP_ROIP_SCORE_MAX 0.80f
 
-#define MAX_RECOG_THREAD_NUM 1
+#define MAX_RECOG_THREAD_NUM 8
 #define DO_FCN_THREAD 1
 
 typedef struct _LPDR_ImageInner_S {
@@ -145,7 +145,9 @@ int doNormContrastBB_f(float *pfImage, int dwH, int dwW, LPRect bb);
 int calcNewMarginBB(int dwImgH, int dwImgW, LPRect *pstBB, int adwMRatioXY[2]);
 
 
-int doRectify_f(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new);
+int doRectify_f4(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new);
+
+int doRectify_f6(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[12], float *pfAngle_new);
 
 
 int doRotate_f(float *pfImage, int dwW, int dwH, float fAngle);
