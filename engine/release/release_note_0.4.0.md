@@ -1,9 +1,9 @@
 # Matrix Engine
-### Version 0.2.0
-2016-07-13
+### Version 0.4.0
+2016-07-26
 
 ```
-IMPORTANT: The dg plate sdk found multi-thread bug. So only one thread support in engine
+Fix SSD detection multiple thread bug
 ```
 
 ### Feature
@@ -12,5 +12,7 @@ IMPORTANT: The dg plate sdk found multi-thread bug. So only one thread support i
 - Use mulitiple thread when processing plate
 - Remove pedestrian assert
 - Add feature check when init witness engine
+
+
 
 

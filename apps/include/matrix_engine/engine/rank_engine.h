@@ -33,6 +33,7 @@ public:
         return max_candidates_size_;
     }
     int max_candidates_size_;
+    bool enable_ranker_;
 
 };
 

@@ -44,20 +44,20 @@ message IndexTxtResponse {
 
 message CommonIndex {
     message Item {
-        int32 Id = 1;
-        string Name = 2;
+        int32 Id = 1;               // ID
+        string Name = 2;            // Value
     }
     repeated Item Items = 1;
 }
 
 message BrandIndex {
     message Item {
-        int32 MainBrandId = 2;
-        int32 SubBrandId = 3;
-        int32 YearModelId = 4;
-        string MainBrandName = 5;
-        string SubBrandName = 6;
-        string YearModelName = 7;
+        int32 MainBrandId = 2;     // 主品牌ID
+        int32 SubBrandId = 3;      // 子品牌ID
+        int32 YearModelId = 4;     // 年款ID
+        string MainBrandName = 5;  // 主品牌名字
+        string SubBrandName = 6;   // 子品牌名字
+        string YearModelName = 7;  // 年款名字
     }
     repeated Item Items = 1;
 
