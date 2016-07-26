@@ -31,8 +31,8 @@ LIST(REMOVE_ITEM ALL_SRC_FILES ../src/engine/rank_engine.cpp)
 
 add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES} ${ALL_SRC_FILES})
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w -lpthread -lgtest -lgtest_main -fprofile-arcs -ftest-coverage")
-SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w -lpthread -lgtest -lgtest_main -fprofile-arcs -ftest-coverage")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w -lpthread -fprofile-arcs -ftest-coverage")
+SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w -lpthread -fprofile-arcs -ftest-coverage")
 
 find_package( GTest )
 include_directories( ${GTEST_INCLUDE_DIRS} )
