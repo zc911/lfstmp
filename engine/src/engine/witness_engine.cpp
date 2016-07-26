@@ -212,10 +212,10 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_plate_gpu_) {
             LOG(INFO) << "Enable plate detection processor." << endl;
 
-            LPDRConfig_S pstConfig;
-            configFilter->createPlateMxnetConfig(config, &pstConfig);
+            PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig pConfig;
+            configFilter->createPlateMxnetConfig(config, &pConfig);
 
-            Processor *p = new PlateRecognizeMxnetProcessor(&pstConfig);
+            Processor *p = new PlateRecognizeMxnetProcessor(&pConfig);
             if (last == NULL) {
                 vehicle_processor_ = p;
             }
