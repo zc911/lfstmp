@@ -169,9 +169,9 @@ static const string ADVANCED_PLATE_MXNET_PLATESW = "Advanced/PlateMxnet/PlateSta
 static const string ADVANCED_PLATE_MXNET_PLATESH = "Advanced/PlateMxnet/PlateStandardHeight";
 static const string ADVANCED_PLATE_MXNET_PLATENUMS = "Advanced/PlateMxnet/PlateNums";
 static const string ADVANCED_PLATE_MXNET_NUMSPROPOSAL = "Advanced/PlateMxnet/NumsProposal";
-static const string ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE="Advanced/PlateMxnet/EnableLocalProvince";
-static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT="Advanced/PlateMxnet/LocalProvinceText";
-static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE="Advanced/PlateMxnet/LocalProvinceConfidence";
+static const string ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE = "Advanced/PlateMxnet/EnableLocalProvince";
+static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT = "Advanced/PlateMxnet/LocalProvinceText";
+static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE = "Advanced/PlateMxnet/LocalProvinceConfidence";
 
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
 
