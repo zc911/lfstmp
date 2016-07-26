@@ -91,7 +91,6 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                     }else{
                         platenum=paInv_chardict[pstLP->adwLPNumber[0]];
                     }
-                    VLOG(VLOG_SERVICE)<<platenum<<" "<<pstLP->afScores[0];
                     score+=pstLP->afScores[0];
                 }
                 for (int dwK = 1; dwK < pstLP->dwLPLen; dwK++) {
@@ -113,7 +112,6 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
             }
 
         }
-        VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
 
     }
     gettimeofday(&end, NULL);
