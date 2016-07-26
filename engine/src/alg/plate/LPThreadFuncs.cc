@@ -286,7 +286,7 @@ void *doRecogOne_Thread(void *pParam)
   vector<REG_RECOG_MISSION_S> *pvecMission = pstGlobal->pvecMission;
 
   
-  int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 500 * 500 * 4;
+  int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 1000 * 1000 * 4;
   int dwImgW, dwImgH;
   float *pfImage = 0;
   
@@ -360,7 +360,8 @@ void *doRecogOne_Thread(void *pParam)
     dwBlkH = adwMarginHW[0] * 2 + dwH_0;
     dwBlkW = adwMarginHW[1] * 2 + dwW_0;
 
-    assert(dwBlkH * dwBlkW < dwBlkMaxLen);
+//    assert(dwBlkH * dwBlkW < dwBlkMaxLen);
+    if (dwBlkH * dwBlkW > dwBlkMaxLen) continue;
 
     memset(pfBlkBuffer_0, 0, sizeof(float) * dwBlkH * dwBlkW);
     for (dwRI = 0; dwRI < dwH_0; dwRI++)
