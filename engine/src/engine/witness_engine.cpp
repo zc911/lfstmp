@@ -50,8 +50,8 @@ void WitnessEngine::Process(FrameBatch *frames) {
     performance_ += frames->frames().size();
 #if DEBUG
 #else
-    if(performance_>RECORD_UNIT) {
-        if(!RecordPerformance(FEATURE_RESERVED,  performance_)) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordPerformance(FEATURE_RESERVED,  performance_)) {
             return;
         }
     }
@@ -60,7 +60,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
 
         if (!enable_vehicle_detect_
-            || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+                || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
             if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
@@ -114,25 +114,50 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
+    enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
 
+#if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DETECTION);//&&(CheckFeature(FEATURE_VEHICLE_ENABLE_DETECTION,false)==ERR_SUCCESS);
+                                 FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
+                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
-    enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
+    enable_face_detect_ = (bool) config.Value(
+                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+                                      FEATURE_FACE_ENABLE_DETECTION);
+
+#else
+    enable_vehicle_detect_ = (bool) config.Value(
+                                 FEATURE_VEHICLE_ENABLE_DETECTION) && (CheckFeature(FEATURE_CAR_DETECTION, false) == ERR_FEATURE_ON);
+    enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE) && (CheckFeature(FEATURE_CAR_STYLE, false) == ERR_FEATURE_ON);
+
+    enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR) && (CheckFeature(FEATURE_CAR_COLOR, false) == ERR_FEATURE_ON);
+    enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE) && (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
+    enable_vehicle_plate_gpu_ = (bool) config.Value(
+                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE) && (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
+
+    enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
+    enable_vehicle_feature_vector_ = (bool) config.Value(
+                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_CAR_EXTRACT, false) == ERR_FEATURE_ON);
+    enable_vehicle_pedestrian_attr_ = (bool) config.Value(
+                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR) && (CheckFeature(FEATURE_CAR_PEDESTRIAN_ATTR, false) == ERR_FEATURE_ON);
+
+    enable_face_detect_ = (bool) config.Value(
+                              FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+    enable_face_feature_vector_ = (bool) config.Value(
+                                      FEATURE_FACE_ENABLE_DETECTION) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
+#endif
 
 }
 
@@ -171,7 +196,7 @@ void WitnessEngine::init(const Config &config) {
         last = p;
 
         if (enable_vehicle_detect_) {
-        LOG(INFO) << "Enable  detection processor." << endl;
+            LOG(INFO) << "Enable  detection processor." << endl;
 
             VehicleCaffeDetectorConfig dConfig;
             configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
@@ -185,7 +210,7 @@ void WitnessEngine::init(const Config &config) {
         }
 
         if (enable_vehicle_plate_gpu_) {
-                    LOG(INFO) << "Enable plate detection processor." << endl;
+            LOG(INFO) << "Enable plate detection processor." << endl;
 
             LPDRConfig_S pstConfig;
             configFilter->createPlateMxnetConfig(config, &pstConfig);
@@ -310,13 +335,13 @@ void WitnessEngine::init(const Config &config) {
         performance_ = RECORD_UNIT;
     }
     is_init_ = true;
-    Mat image = Mat::zeros(100,100,CV_8UC3);      
+    Mat image = Mat::zeros(100, 100, CV_8UC3);
     FrameBatch framebatch(0);
-    Frame *frame = new Frame(0,image);
+    Frame *frame = new Frame(0, image);
     framebatch.AddFrame(frame);
     this->Process(&framebatch);
     vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-        
+
 }
 
 }
