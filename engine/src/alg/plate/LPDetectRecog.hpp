@@ -106,27 +106,6 @@ typedef struct _LPDRConfig {
   LPDRModel_S stCHRECOG; //Recognition
   int dwDevType; //device type: {'cpu': 1, 'gpu': 2, 'cpu_pinned': 3}
   int dwDevID; //device ID: 0, 1, ...
-  string fcnnSymbolFile;
-  string fcnnParamFile;
-  string rpnSymbolFile;
-  string rpnParamFile;
-  string roipSymbolFile;
-  string roipParamFile;
-  string pregSymbolFile;
-  string pregParamFile;
-  string chrecogSymbolFile;
-  string chrecogParamFile;
-  int batchsize = 1;
-  bool is_model_encrypt = true;
-  int imageSW;
-  int imageSH;
-  int numsPlates;
-  int plateSW;
-  int plateSH;
-  int numsProposal;
-  bool enableLocalProvince;
-  string localProvinceText;
-  float localProvinceConfidence;
 } LPDRConfig_S;
 
 
