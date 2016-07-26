@@ -19,6 +19,8 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
+ #include "plate_recognize_mxnet_processor.h"
+
 #include "config.h"
 #include "fs_util.h"
 
@@ -55,7 +57,7 @@ public:
                              MarkerCaffeClassifier::MarkerConfig &mConfig);
     void createWindowConfig(const Config &cconfig,
                             WindowCaffeDetector::WindowCaffeConfig &wConfig);
-    void createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig);
+    void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
     void createPedestrianConfig(const Config &cconfig,
                                 PedestrianClassifier::PedestrianConfig &pConfig);
     int initDataConfig(const Config &config);
