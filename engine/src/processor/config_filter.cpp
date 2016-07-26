@@ -276,7 +276,7 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.gpu_id = gpu_id;
 
 }
-void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
+void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 
     pConfig->is_model_encrypt = is_encrypted;
@@ -300,8 +300,7 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pC
     pConfig->chrecogParamFile = modelPath + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-    pConfig->dwDevType = 2;
-    pConfig->dwDevID = gpu_id;
+    pConfig->gpuId = gpu_id;
     pConfig->imageSW = (int) cconfig.Value(ADVANCED_PLATE_MXNET_IMGSW);
     pConfig->imageSH = (int) cconfig.Value(ADVANCED_PLATE_MXNET_IMGSH);
     pConfig->plateSW = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATESW);
