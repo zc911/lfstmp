@@ -21,42 +21,43 @@
 namespace dg {
 
 class RankEngine {
-    public:
-    RankEngine(const Config &config){
+public:
+    RankEngine(const Config &config) {
         SetMaxCandidatesSize(config);
     }
-    virtual ~RankEngine(){};
-    void SetMaxCandidatesSize(const Config &config){
-        max_candidates_size_=min(RANKER_MAXIMUM,(int)config.Value(ADVANCED_RANKER_MAXIMUM));
+    virtual ~RankEngine() { };
+    void SetMaxCandidatesSize(const Config &config) {
+        max_candidates_size_ = min(RANKER_MAXIMUM, (int) config.Value(ADVANCED_RANKER_MAXIMUM));
     }
-    int GetMaxCandidatesSize(){
+    int GetMaxCandidatesSize() {
         return max_candidates_size_;
     }
     int max_candidates_size_;
+    bool enable_ranker_;
 
 };
 
-class CarRankEngine : public RankEngine {
- public:
+class CarRankEngine: public RankEngine {
+public:
     CarRankEngine(const Config &config);
     virtual ~CarRankEngine();
 
-    vector<Score> Rank(const Mat& image, const Rect& hotspot,
-                       const vector<CarRankFeature>& candidates);
+    vector<Score> Rank(const Mat &image, const Rect &hotspot,
+                       const vector<CarRankFeature> &candidates);
 
- private:
+private:
     Identification id_;
     Processor *processor_;
 };
 
-class FaceRankEngine : public RankEngine {
+class FaceRankEngine: public RankEngine {
 
- public:
+public:
     FaceRankEngine(const Config &config);
     virtual ~FaceRankEngine();
-    vector<Score> Rank(const Mat& image, const Rect& hotspot,
-                       const vector<FaceRankFeature>& candidates);
- private:
+    vector<Score> Rank(const Mat &image, const Rect &hotspot,
+                       const vector<FaceRankFeature> &candidates);
+private:
     void init(const Config &config);
     Identification id_;
     Processor *detector_;

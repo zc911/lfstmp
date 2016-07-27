@@ -23,9 +23,8 @@ public:
 
     }
 
-    virtual void Process(FrameBatch *frame) { };
-    virtual void Run() { };
-    virtual void AsynRun() { };
+    //   virtual void Process(Frame *frame) =0;
+    virtual void Process(FrameBatch *frame) = 0;
 
 };
 

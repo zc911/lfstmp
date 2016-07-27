@@ -13,18 +13,22 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
     if (use_gpu_) {
+        Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
-        Caffe::SetDevice(0);
         use_gpu_ = true;
     } else {
         Caffe::set_mode(Caffe::CPU);
         use_gpu_ = false;
     }
 
-    LOG(INFO)<< "loading model file: " << config.deploy_file;
-
+    LOG(INFO) << "loading model file: " << config.deploy_file;
+#if DEBUG
     net_.reset(
-        new Net<float>(config.deploy_file, TEST,config.is_model_encrypt));
+        new Net<float>(config.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#endif
     LOG(INFO) << "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 
@@ -56,12 +60,12 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
     shape.push_back(scale_);
     input_layer->Reshape(shape);
     net_->Reshape();
-    const vector<boost::shared_ptr<Layer<float> > >& layers = net_->layers();
-    const vector<vector<Blob<float>*> >& bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float>*> >& top_vecs = net_->top_vecs();
-    for(int i = 0; i < layers.size(); ++i) {
+ /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
+    }*/
 }
 
 FaceDetector::~FaceDetector() {

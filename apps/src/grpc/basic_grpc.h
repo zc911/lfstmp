@@ -21,19 +21,15 @@ using grpc::Status;
 
 namespace dg {
 
-template<class EngineType>
 class BasicGrpcService {
 
 public:
 
     BasicGrpcService(Config config,
-                     string addr,
-                     MatrixEnginesPool <EngineType> *engine_pool) : config_(config),
-                                                                    addr_(addr),
-                                                                    engine_pool_(engine_pool) {
+                     string addr) : config_(config),
+        addr_(addr) {
 
     }
-
     virtual ~BasicGrpcService() {
 
     }
@@ -41,46 +37,20 @@ public:
     virtual ::grpc::Service *service() = 0;
 
     void Run() {
-
-        engine_pool_->Run();
-        warmUp(config_.Value("System/ThreadsPerGpu"));
         grpc::ServerBuilder builder;
-        builder.SetMaxMessageSize(1024*1024*1024);
+        builder.SetMaxMessageSize(1024 * 1024 * 1024);
 
         builder.AddListeningPort(addr_, grpc::InsecureServerCredentials());
         builder.RegisterService(service());
         unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
-        cout << typeid(EngineType).name() << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
-            << endl;
-        bool EnabledDetection = (bool)config_.Value("Feature/Vehicle/EnableDetection");
-        if(!EnabledDetection)
-        warmUp(config_.Value("System/ThreadsPerGpu"));
+        cout << " Server(GRPC) listening on " << (int) config_.Value("System/Port")
+             << endl;
         server->Wait();
-    }
-
-    virtual  void warmUp(int n){
-
     }
 protected:
     Config config_;
     string addr_;
-    MatrixEnginesPool <EngineType> *engine_pool_;
-};
-template<class MessageType>
-class BasicGrpcClient {
-public:
-    BasicGrpcClient(Config config, MessagePool <MessageType> *message_pool)
-        : config_(config), message_pool_(message_pool) { }
-    virtual ~BasicGrpcClient() {
-
-    }
-    virtual void Run() {
-        message_pool_->Run();
-    }
-protected:
-    Config config_;
-    MessagePool <MessageType> *message_pool_;
 };
 }
 

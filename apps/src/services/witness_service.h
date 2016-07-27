@@ -20,99 +20,39 @@
 #include "grpc/spring_grpc.h"
 #include "engine_service.h"
 #include "witness_bucket.h"
+#include "repo_service.h"
 //
 namespace dg {
 using namespace ::dg::model;
 
 
-
-class WitnessAppsService : public EngineService {
+class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService(const Config *config, string name);
+    WitnessAppsService( Config *config, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
 
     MatrixError BatchRecognize(const WitnessBatchRequest *request,
                                WitnessBatchResponse *response);
-    MatrixError Index(const IndexRequest *request,
-                           IndexResponse *response);
-    MatrixError IndexTxt(const IndexTxtRequest *request,
-                      IndexTxtResponse *response);
+
     string name_;
 private:
+    MatrixError getRecognizedVehicle(const Vehicle *vobj,
+                                     RecVehicle *vrec);
+    MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
+                                        RecVehicle *vrec);
+    MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
+    MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 
-    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
+    MatrixError checkRequest(const WitnessRequest &request);
+    MatrixError checkRequest(const WitnessBatchRequest &requests);
+    MatrixError checkWitnessImage(const WitnessImage &wImage);
 
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              splitForMap(collect,msg,'=');
-          }
-      }
-      void readCarModelFile(std::string filename){
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              vector<string> line;
-              split(msg,line,',');
-              if(line.size()!=10)
-                  continue;
-              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
-      string name_;
-  private:
 
-    /*  static void readMappingFile(std::string filename,char c,map<int,string>&collect){
-
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              splitForMap(collect,msg,'=');
-          }
-      }
-      void readCarModelFile(std::string filename){
-          FILE *fp = fopen(filename.c_str(),"r");
-          char msg[1000];
-          while(fgets(msg,sizeof(msg),fp)!=NULL){
-              vector<string> line;
-              split(msg,line,',');
-              if(line.size()!=10)
-                  continue;
-              car_main_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[5]));
-              car_sub_brand_collect_.insert(pair<int,string>(atoi(line[0]),line[7]));
-              year_model_collect_.insert(pair<int,string>(atoi(line[0]),line[9]));
-              if(line[3]==0){
-                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"head"));
-              }else{
-                  car_head_tail_collect_.insert(pair<int,string>(atoi(line[0]),"end"));
-              }
-              car_style_collect_.insert(pair<int,string>(atoi(line[0]),line[2]));
-          }
-
-      }*/
-    const Config *config_;
-    WitnessEngine engine_;
+    Config *config_;
     Identification id_;
-
-    //repo list
-    string unknown_string_;
-    VehicleModelType unknown_vehicle_;
-    vector<VehicleModelType> vehicle_repo_;
-    vector<string> vehicle_type_repo_;
-    vector<string> color_repo_;
-    vector<string> symbol_repo_;
-    vector<string> plate_color_repo_;
-    vector<string> plate_type_repo_;
-    vector<string> plate_color_gpu_repo_;
-    string model_mapping_data_;
-    string color_mapping_data_;
-    string symbol_mapping_data_;
-    string plate_color_mapping_data_;
-    string plate_type_mapping_data_;
-    string vehicle_type_mapping_data_;
-    string plate_color_gpu_mapping_data_;
-    vector<string> pedestrian_attr_type_repo_;
-    string pedestrian_attr_mapping_data_;
+    Identification base_id_;
 
 
     // library caffe is not thread safe(even crash some times) which means
@@ -121,35 +61,12 @@ private:
     std::mutex rec_lock_;
 
     void init(void);
-    void init_string_map(string filename, string sep, vector<string> &array);
-    void init_vehicle_map(string filename, string sep,
-                          vector<VehicleModelType> &array);
-    const string &lookup_string(const vector<string> &array, int index);
-    const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
-                                       int index);
+    bool enableStorage_;
 
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Detection &d, Cutboard *cb);
-
-
-
-    MatrixError checkRequest(const WitnessRequest &request);
-    MatrixError checkRequest(const WitnessBatchRequest &requests);
-    MatrixError checkWitnessImage(const WitnessImage &wImage);
-    MatrixError fillModel(const Vehicle &vobj, RecVehicle *vrec);
-    MatrixError fillColor(const Vehicle::Color &color, Color *rcolor);
-    MatrixError fillPlate(const Vehicle::Plate &plate, LicensePlate *rplate);
-    MatrixError fillSymbols(const vector<Object *> &objects,
-                            RecVehicle *vrec);
-    MatrixError getRecognizedVehicle(const Vehicle *vobj,
-                                     RecVehicle *vrec);
-    MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
-                                         RecVehicle *vrec);
-    MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
-    MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
-//    void getStorageData(Frame *frame,shared_ptr<VehicleObj> &result);
 
 };
 

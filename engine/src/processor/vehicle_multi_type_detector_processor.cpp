@@ -1,24 +1,37 @@
+#include <alg/detector/detector.h>
+#include "alg/detector/vehicle_caffe_detector.h"
 #include "vehicle_multi_type_detector_processor.h"
 #include "processor_helper.h"
+
 namespace dg {
 
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-    const VehicleCaffeDetector::VehicleCaffeDetectorConfig &config)
-    : Processor() {
+    const VehicleCaffeDetectorConfig &config)
+    : Processor(), config_(config) {
+    if (config.car_only) {
+        car_only_detector_ = new CarOnlyCaffeDetector(config);
+        car_only_confirm_ = new CarOnlyConfirmCaffeDetector(config);
+    } else {
 
-    detector_ = new VehicleCaffeDetector(config);
+        vehicle_detector_ = new VehicleCaffeDetector(config);
+
+    }
+
     base_id_ = 0;
 }
 
 // TODO complete construction
 VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
-    if (detector_)
-        delete detector_;
+    if (vehicle_detector_)
+        delete vehicle_detector_;
+
+    if (car_only_detector_)
+        delete car_only_detector_;
 }
 
 bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start detector" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start detector: " << frameBatch->id() << endl;
 
     vector<int> frameIds;
     vector<Mat> images;
@@ -29,7 +42,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
         if (!frame->operation().Check(OPERATION_VEHICLE_DETECT)) {
 
-           DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
+            DLOG(INFO) << "Frame :" << frame->id() << " doesn't need to be detected" << endl;
             continue;
         }
 
@@ -41,6 +54,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         }
         frameIds.push_back(i);
         images.push_back(frame->payload()->data());
+        performance_++;
     }
 
     if (images.size() == 0) {
@@ -52,7 +66,15 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         return false;
     }
 
-    detector_->DetectBatch(images, detect_results);
+    if (config_.car_only) {
+        VLOG(VLOG_RUNTIME_DEBUG) << "Car only detection and confirm. " << endl;
+        car_only_detector_->DetectBatch(images, detect_results);
+        car_only_confirm_->Confirm(images, detect_results);
+
+    } else {
+        VLOG(VLOG_RUNTIME_DEBUG) << "Multi detection " << endl;
+        vehicle_detector_->DetectBatch(images, detect_results);
+    }
 
     if (detect_results.size() < images.size()) {
         LOG(ERROR) << "Detection results size not equals to frame batch size: " << detect_results.size() << "-"
@@ -118,15 +140,17 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
         }
     }
-
+    VLOG(VLOG_RUNTIME_DEBUG) << "finish detector: " << frameBatch->id() << endl;
     return true;
 }
 
 
 bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else
+
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }

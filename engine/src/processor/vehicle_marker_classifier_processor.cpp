@@ -18,10 +18,10 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 
     classifier_ = new MarkerCaffeClassifier(mConfig);
     detector_ = new WindowCaffeDetector(wConfig);
-    window_target_min_=wConfig.target_min_size;
-    window_target_max_=wConfig.target_max_size;
-    marker_target_min_=mConfig.target_min_size;
-    marker_target_max_=mConfig.target_max_size;
+    window_target_min_ = wConfig.target_min_size;
+    window_target_max_ = wConfig.target_max_size;
+    marker_target_min_ = mConfig.target_min_size;
+    marker_target_max_ = mConfig.target_max_size;
 
 }
 
@@ -35,17 +35,18 @@ VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
 
 bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
+
     vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                                      images_);
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
         / 1000.f;
-    printf("window cost: %.2fms\n", diff);
+    VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
 
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
@@ -63,13 +64,13 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     for (int i = 0; i < pred.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
         vector<Detection> markers_cutborad;
-        for(int j=0;j<pred[i].size();j++){
+        for (int j = 0; j < pred[i].size(); j++) {
             Detection d(pred[i][j]);
 
-            d.box.x=(crops[i].box.x+pred[i][j].box.x)+v->detection().box.x;
-            d.box.y=(crops[i].box.y+pred[i][j].box.y)+v->detection().box.y;
-            d.box.width=pred[i][j].box.width;
-            d.box.height=pred[i][j].box.height;
+            d.box.x = (crops[i].box.x + pred[i][j].box.x) + v->detection().box.x;
+            d.box.y = (crops[i].box.y + pred[i][j].box.y) + v->detection().box.y;
+            d.box.width = pred[i][j].box.width;
+            d.box.height = pred[i][j].box.height;
             markers_cutborad.push_back(d);
         }
         v->set_markers(markers_cutborad);
@@ -78,16 +79,18 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
         / 1000.f;
-    printf("mareker cost: %.2fms\n", diff);
+    VLOG(VLOG_PROCESS_COST) << "Mareker cost: " << diff << endl;
     objs_.clear();
 
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish marker and window processor" << frameBatch->id() << endl;
     return true;
 }
 
 bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
-#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }
@@ -109,6 +112,7 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             resized_images_.push_back(v->resized_image());
             images_.push_back(v->image());
             ++itr;
+            performance_++;
 
         } else {
             itr = objs_.erase(itr);

@@ -75,8 +75,8 @@ protected:
 
 class CarRankFeature final: public RankFeature {
 public:
-    int width_;
-    int height_;
+    ushort width_;
+    ushort height_;
     cv::Mat descriptor_;
     cv::Mat position_;
 

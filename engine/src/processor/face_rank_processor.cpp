@@ -23,6 +23,8 @@ bool FaceRankProcessor::process(Frame *frame) {
     FaceRankFrame *fframe = (FaceRankFrame *) frame;
     fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
                                     fframe->candidates_);
+    performance_++;
+
     return true;
 
 }
@@ -33,7 +35,7 @@ bool FaceRankProcessor::RecordFeaturePerformance() {
 }
 bool FaceRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if RELEASE
-    if (performance_ > 20000) {
+    if (performance_ > RECORD_UNIT) {
         if (!RecordFeaturePerformance()) {
             return false;
         }

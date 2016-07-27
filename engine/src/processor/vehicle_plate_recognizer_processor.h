@@ -12,14 +12,14 @@
 #include "alg/plate/plate_recognizer.h"
 namespace dg {
 
-class PlateRecognizerProcessor : public Processor {
- public:
+class PlateRecognizerProcessor: public Processor {
+public:
 
     PlateRecognizerProcessor(const PlateRecognizer::PlateConfig &pConfig);
 
     ~PlateRecognizerProcessor();
 
- protected:
+protected:
 
     virtual bool process(Frame *frame) {
         return false;
@@ -29,10 +29,10 @@ class PlateRecognizerProcessor : public Processor {
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
 
- private:
+private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
     void filterVehicle(FrameBatch *frameBatch);
- private:
+private:
     PlateRecognizer *recognizer_;
     vector<Object *> objs_;
     vector<Mat> images_;
