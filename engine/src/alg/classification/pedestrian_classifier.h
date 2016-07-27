@@ -22,61 +22,56 @@ using namespace std;
 using namespace cv;
 using namespace caffe;
 
-namespace dg
-{
+namespace dg {
 
-class PedestrianClassifier
-{
+class PedestrianClassifier {
 public:
-	typedef struct
-	{
-		bool is_model_encrypt = false;
-		int gpu_id = 0;
-		bool use_gpu = true;
-		string tag_name_path;
-		string deploy_file;
-		string model_file;
-		string layer_name;
-	} PedestrianConfig;
+    typedef struct {
+        bool is_model_encrypt = true;
+        int gpu_id = 0;
+        bool use_gpu = true;
+        string tag_name_path;
+        string deploy_file;
+        string model_file;
+        string layer_name;
+    } PedestrianConfig;
 
-	typedef struct
-	{
-		int index;
-		string tagname;
-	} Tag;
+    typedef struct {
+        int index;
+        string tagname;
+    } Tag;
 
-	typedef struct
-	{
-		int index;
-		string tagname;
-		float confidence;
-	} PedestrianAttribute;
-	PedestrianClassifier(PedestrianConfig &pconf);
-	virtual ~PedestrianClassifier();
-	std::vector<vector<PedestrianAttribute>> BatchClassify(
-			const vector<cv::Mat> &imgs);
+    typedef struct {
+        int index;
+        string tagname;
+        float confidence;
+    } PedestrianAttribute;
+    PedestrianClassifier(PedestrianConfig &pconf);
+    virtual ~PedestrianClassifier();
+    std::vector<vector<PedestrianAttribute>> BatchClassify(
+        const vector<cv::Mat> &imgs);
 
 public:
-	vector<Tag> tagtable_;
-	int batch_size_;
+    vector<Tag> tagtable_;
+    int batch_size_;
 
 private:
-	void LoadTagnames(const string &name_list);
-	void AttributePredict(const vector<Mat> &imgs,
-			vector<vector<float> > &results);
+    void LoadTagnames(const string &name_list);
+    void AttributePredict(const vector<Mat> &imgs,
+                          vector<vector<float> > &results);
 
 private:
-	caffe::shared_ptr<Net<float> > net_;
-	Rect crop_rect_;
-	bool use_gpu_;
-	string layer_name_;
-	int num_channels_;
-	int height_;
-	int width_;
-	int crop_height_;
-	int crop_width_;
-	int pixel_scale_;
-	float pixel_means_[3];
+    caffe::shared_ptr<Net<float> > net_;
+    Rect crop_rect_;
+    bool use_gpu_;
+    string layer_name_;
+    int num_channels_;
+    int height_;
+    int width_;
+    int crop_height_;
+    int crop_width_;
+    int pixel_scale_;
+    float pixel_means_[3];
 };
 
 } /* namespace dg */

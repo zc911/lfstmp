@@ -5,8 +5,9 @@ package dg.model;
 import "common.proto";
 import "localcommon.proto";
 
-service SkynetService { 
-    rpc VideoRecognize(SkynetRequest) returns (SkynetResponse) {}
+service SkynetService {
+    rpc VideoRecognize (SkynetRequest) returns (SkynetResponse) {
+    }
 }
 
 message SkynetRequest {
@@ -27,35 +28,35 @@ message SkynetRequestContext {
 }
 
 message SkynetOutput {
-    string Address = 1;     //输出视频地址
-    string Type = 2;        //输出视频类型
-    int32 Bitrate = 3;      //输出视频比特率
-    int32 Fps = 4;          //输出视频帧率
-    int32 Width = 5;        //输出视频宽度
-    int32 Height = 6;       //输出视频高度
-    bool ShotHotspot = 7;   //输出视频是否显示感兴趣区域
-    int32 SnapWidth = 8;    //
+    string Address = 1; //输出视频地址
+    string Type = 2; //输出视频类型
+    int32 Bitrate = 3; //输出视频比特率
+    int32 Fps = 4; //输出视频帧率
+    int32 Width = 5; //输出视频宽度
+    int32 Height = 6; //输出视频高度
+    bool ShotHotspot = 7; //输出视频是否显示感兴趣区域
+    int32 SnapWidth = 8; //
 }
 
 message SkynetRequestData {
-    int32 SensorId = 1;     //URI的Id表示
-    string SensorName = 2;  //
-    string SensorURI = 3;   //输入视频地址
-    string SensorType = 4;  //输入视频类型(File,Rtsp,Onvif)
-    int32 Width = 5;        //输入视频宽度
-    int32 Height = 6;       //输入视频高度
-    int32 Fps = 7;                  //输入视频帧率
+    int32 SensorId = 1; //URI的Id表示
+    string SensorName = 2; //
+    string SensorURI = 3; //输入视频地址
+    string SensorType = 4; //输入视频类型(File,Rtsp,Onvif)
+    int32 Width = 5; //输入视频宽度
+    int32 Height = 6; //输入视频高度
+    int32 Fps = 7; //输入视频帧率
     repeated Cutboard Hotspots = 8; //感兴趣区域
-    repeated Cutboard DisableAreas = 9;//禁用区域
-    string DeepV = 10;              //DeepV地址
-    string ResultOutput = 11;       //结构化输出地址
-    SkynetOutput VideoOutput = 12;  //视频输出信息
+    repeated Cutboard DisableAreas = 9; //禁用区域
+    string DeepV = 10; //DeepV地址
+    string ResultOutput = 11; //结构化输出地址
+    SkynetOutput VideoOutput = 12; //视频输出信息
 }
 
 message SkynetResponseContext {
-    
+
 }
 
 message SkynetResponseData {
-    
+
 }

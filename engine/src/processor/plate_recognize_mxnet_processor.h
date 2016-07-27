@@ -12,28 +12,55 @@
 #include "processor_helper.h"
 
 namespace dg {
+class PlateRecognizeMxnetProcessor: public Processor {
 
-class PlateRecognizeMxnetProcessor : public Processor {
-
- public:
-    PlateRecognizeMxnetProcessor(LPDRConfig_S *pstConfig);
+public:
+    typedef struct {
+        string fcnnSymbolFile;
+        string fcnnParamFile;
+        string rpnSymbolFile;
+        string rpnParamFile;
+        string roipSymbolFile;
+        string roipParamFile;
+        string pregSymbolFile;
+        string pregParamFile;
+        string chrecogSymbolFile;
+        string chrecogParamFile;
+        int batchsize = 1;
+        bool is_model_encrypt = true;
+        int gpuId;
+        int imageSW;
+        int imageSH;
+        int numsPlates;
+        int plateSW;
+        int plateSH;
+        int numsProposal;
+        bool enableLocalProvince;
+        string localProvinceText;
+        float localProvinceConfidence;
+    } PlateRecognizeMxnetConfig;
+    PlateRecognizeMxnetProcessor(PlateRecognizeMxnetConfig *config);
     virtual ~PlateRecognizeMxnetProcessor();
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
- private:
+private:
     void vehiclesFilter(FrameBatch *frameBatch);
 
     void setConfig(LPDRConfig_S *pstConfig);
+    PlateRecognizeMxnetConfig *config_;
     LPDR_HANDLE h_LPDR_Handle_ = 0;
     vector<Object *> objs_;
     LPDR_ImageSet_S stImgSet_;
     vector<Mat> images_;
     int batch_size_;
+    bool enable_local_province_;
+    string local_province_;
+    float local_province_confidence_;
 };
 
 } /* namespace dg */

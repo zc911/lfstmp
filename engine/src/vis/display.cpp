@@ -5,8 +5,6 @@
  *      Author: haoquan
  */
 #include <string>
-#include <unistd.h>
-#include <string>
 #include <glog/logging.h>
 #include "display.h"
 

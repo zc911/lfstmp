@@ -1,0 +1,69 @@
+{
+  "File": {
+    "Color": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "200.dat",
+      "DeployModel": "200.txt"
+    },
+    "Style": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "10",
+      "DeployModel": "10"
+    },
+    "Detection": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "300.dat",
+      "DeployModel": "300.txt"
+    },
+    "CarOnlyDetection": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "310.dat",
+      "DeployModel": "310.txt"
+    },
+    "CarOnlyConfirm": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "311.dat",
+      "DeployModel": "311.txt"
+    },
+    "Accelerate": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "900.dat",
+      "DeployModel": "900.txt"
+    },
+    "Marker": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "600.dat",
+      "DeployModel": "600.txt"
+    },
+    "Window": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "700.dat",
+      "DeployModel": "700.txt"
+    },
+    "FaceDetect": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "400.dat",
+      "DeployModel": "400.txt"
+    },
+    "FaceExtract": {
+      "ModelPath": "unencrypted_models/",
+      "TrainedModel": "500.dat",
+      "DeployModel": "500.txt",
+      "AlignModel": "shape_predictor_68_face_landmarks.dat",
+      "AlignPic": "avgface.jpg"
+    },
+    "Plate": {
+      "ModelPath": "unencrypted_models/",
+      "FcnSymbol": "801.txt",
+      "FcnParam": "801.dat",
+      "RpnSymbol": "804.txt",
+      "RpnParam": "804.dat",
+      "PolyRegSymbol": "802.txt",
+      "PolyRegParam": "802.dat",
+      "RoipSymbol": "803.txt",
+      "RoipParam": "803.dat",
+      "ChrecogSymbol": "800.txt",
+      "ChrecogParam": "800.dat"
+    }
+  }
+}

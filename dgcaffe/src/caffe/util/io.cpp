@@ -34,8 +34,8 @@ namespace caffe {
 using namespace boost::property_tree;  // NOLINT(build/namespaces)
 using google::protobuf::io::FileInputStream;
 using google::protobuf::io::FileOutputStream;
-using google::protobuf::io::ArrayInputStream;
 using google::protobuf::io::ZeroCopyInputStream;
+using google::protobuf::io::ArrayInputStream;
 using google::protobuf::io::CodedInputStream;
 using google::protobuf::io::ZeroCopyOutputStream;
 using google::protobuf::io::CodedOutputStream;

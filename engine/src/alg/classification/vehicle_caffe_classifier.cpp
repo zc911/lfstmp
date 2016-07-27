@@ -26,12 +26,15 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
 
+#if DEBUG
     net_.reset(
-            new Net<float>(caffe_config_.deploy_file, TEST,
-                          config.is_model_encrypt));
-
- //   net_.reset(
-  //      new Net<float>(caffe_config_.deploy_file, TEST));
+        new Net<float>(config.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#endif
+    //   net_.reset(
+    //      new Net<float>(caffe_config_.deploy_file, TEST));
 
     net_->CopyTrainedLayersFrom(caffe_config_.model_file);
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
@@ -44,12 +47,12 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
                          input_geometry_.height, input_geometry_.width);
     /* Forward dimension change to all layers. */
     net_->Reshape();
-    const vector<boost::shared_ptr<Layer<float> > >& layers = net_->layers();
-    const vector<vector<Blob<float>*> >& bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float>*> >& top_vecs = net_->top_vecs();
-    for(int i = 0; i < layers.size(); ++i) {
+  /*  const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+    for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
+    }*/
 }
 
 VehicleCaffeClassifier::~VehicleCaffeClassifier() {
@@ -97,6 +100,7 @@ vector<Blob<float> *> VehicleCaffeClassifier::PredictBatch(
 
     if (!device_setted_) {
         Caffe::SetDevice(caffe_config_.gpu_id);
+        Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
 

@@ -16,11 +16,11 @@
 
 namespace dg {
 
-class FaceRankProcessor : public Processor {
- public:
+class FaceRankProcessor: public Processor {
+public:
     FaceRankProcessor();
     virtual ~FaceRankProcessor();
- protected:
+protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch) {
         return false;
@@ -30,7 +30,7 @@ class FaceRankProcessor : public Processor {
 
     virtual bool RecordFeaturePerformance();
 
- private:
+private:
     FaceRanker *ranker_;
 };
 

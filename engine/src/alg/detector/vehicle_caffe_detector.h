@@ -25,21 +25,9 @@ using namespace caffe;
 
 namespace dg {
 
-class VehicleCaffeDetector {
+class VehicleCaffeDetector: public VehicleDetector {
 
 public:
-    typedef struct {
-        bool is_model_encrypt = false;
-        int batch_size = 1;
-        int target_min_size = 600;
-        int target_max_size = 1000;
-        int gpu_id = 0;
-        bool use_gpu = true;
-        string deploy_file;
-        string model_file;
-        float threshold = 0.5;
-    } VehicleCaffeDetectorConfig;
-
 
     VehicleCaffeDetector(const VehicleCaffeDetectorConfig &config);
     virtual ~VehicleCaffeDetector();

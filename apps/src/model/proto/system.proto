@@ -4,18 +4,22 @@ package dg.model;
 
 import "localcommon.proto";
 import "common.proto";
-service SystemService { 
-    rpc Ping(PingRequest) returns (PingResponse) {}
+service SystemService {
+    rpc Ping (PingRequest) returns (PingResponse) {
+    }
 
-    rpc SystemStatus(SystemStatusRequest) returns (SystemStatusResponse) {}
+    rpc SystemStatus (SystemStatusRequest) returns (SystemStatusResponse) {
+    }
 
-    rpc GetInstances(GetInstancesRequest) returns (InstanceConfigureResponse) {}
-    
-    rpc ConfigEngine(InstanceConfigureRequest) returns (InstanceConfigureResponse) {}
+    rpc GetInstances (GetInstancesRequest) returns (InstanceConfigureResponse) {
+    }
+
+    rpc ConfigEngine (InstanceConfigureRequest) returns (InstanceConfigureResponse) {
+    }
 }
 
 message PingRequest {
-    
+
 }
 
 message PingResponse {
@@ -23,23 +27,23 @@ message PingResponse {
 }
 
 message SystemStatusRequest {
-    
+
 }
 
 message SystemStatusResponse {
-    string ModelVer = 1;    //模型版本
-    string EngineVer = 2;   //引擎版本
-    string ServiceVer = 3;  //服务版本
-    string CpuUsage = 4;    //CPU使用率
-    string AvailMem = 5;    //可用内存
-    string TotalMem = 6;    //全部内存
-    string AvailDisk = 7;   //可用磁盘
-    string TotalDisk = 8;   //全部磁盘
-    string NetIOSend = 9;   //网络发送速度
-    string NetIORecv = 10;  //网络接收速度
-    string GpuUsage = 11;   //GPU使用率
-    string GpuAvailMem = 12;//可用显存
-    string GpuTotalMem = 13;//全部显存
+    string ModelVer = 1; //模型版本
+    string EngineVer = 2; //引擎版本
+    string ServiceVer = 3; //服务版本
+    string CpuUsage = 4; //CPU使用率
+    string AvailMem = 5; //可用内存
+    string TotalMem = 6; //全部内存
+    string AvailDisk = 7; //可用磁盘
+    string TotalDisk = 8; //全部磁盘
+    string NetIOSend = 9; //网络发送速度
+    string NetIORecv = 10; //网络接收速度
+    string GpuUsage = 11; //GPU使用率
+    string GpuAvailMem = 12; //可用显存
+    string GpuTotalMem = 13; //全部显存
 }
 
 message InstanceConfigureRequest {
@@ -52,13 +56,13 @@ message InstanceConfigureRequest {
 }
 
 message GetInstancesRequest {
-    
+
 }
 
 message InstanceConfigureResponse {
     string Status = 1;
     string Message = 2;
-    repeated EngineStatus Results = 3; 
+    repeated EngineStatus Results = 3;
 }
 
 
@@ -73,7 +77,7 @@ enum InstanceType {
 
 message InstanceConfig {
     InstanceType Type = 1; //Instance类型 enum InstanceType
-    int32 Count = 2;//启用的Engine数量
+    int32 Count = 2; //启用的Engine数量
     repeated RecognizeFunctions Functions = 3; //默认开启的功能 enum RecognizeFunctions
     StorageConfig StorageConfig = 4; //默认结构化存储地址
 }
@@ -91,7 +95,7 @@ message RecVideoVConfig {
 
     int32 BufferSize = 2;
     int32 DetectInterval = 3;
-    int32 ClassifyInterval =4;
+    int32 ClassifyInterval = 4;
     int32 ClassifyBufferSize = 5;
 }
 

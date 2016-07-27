@@ -16,14 +16,14 @@
 
 namespace dg {
 
-class WitnessEngine : public SimpleEngine {
+class WitnessEngine: public SimpleEngine {
 
- public:
+public:
     WitnessEngine(const Config &config);
     ~WitnessEngine();
     virtual void Process(FrameBatch *frame);
 
- private:
+private:
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
 
@@ -48,7 +48,7 @@ class WitnessEngine : public SimpleEngine {
     bool enable_face_detect_;
 
     bool enable_face_feature_vector_;
-    bool isWarmuped_=true;
+    unsigned long long performance_ = 0;
 
 };
 

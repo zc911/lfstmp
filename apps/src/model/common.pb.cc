@@ -24,52 +24,52 @@ namespace {
 
 const ::google::protobuf::Descriptor* SrcMetadata_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  SrcMetadata_reflection_ = NULL;
+SrcMetadata_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Cutboard_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Cutboard_reflection_ = NULL;
+Cutboard_reflection_ = NULL;
 const ::google::protobuf::Descriptor* CutboardImage_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  CutboardImage_reflection_ = NULL;
+CutboardImage_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Color_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Color_reflection_ = NULL;
+Color_reflection_ = NULL;
 const ::google::protobuf::Descriptor* FeatureVector_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  FeatureVector_reflection_ = NULL;
+FeatureVector_reflection_ = NULL;
 const ::google::protobuf::Descriptor* NullMessage_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  NullMessage_reflection_ = NULL;
+NullMessage_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Image_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Image_reflection_ = NULL;
+Image_reflection_ = NULL;
 const ::google::protobuf::Descriptor* RecFace_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  RecFace_reflection_ = NULL;
+RecFace_reflection_ = NULL;
 const ::google::protobuf::Descriptor* PedestrianAttr_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  PedestrianAttr_reflection_ = NULL;
+PedestrianAttr_reflection_ = NULL;
 const ::google::protobuf::Descriptor* RecVehicle_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  RecVehicle_reflection_ = NULL;
+RecVehicle_reflection_ = NULL;
 const ::google::protobuf::Descriptor* VehicleModelType_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  VehicleModelType_reflection_ = NULL;
+VehicleModelType_reflection_ = NULL;
 const ::google::protobuf::Descriptor* LicensePlate_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  LicensePlate_reflection_ = NULL;
+LicensePlate_reflection_ = NULL;
 const ::google::protobuf::Descriptor* VehicleSymbol_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  VehicleSymbol_reflection_ = NULL;
+VehicleSymbol_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Symbol_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  Symbol_reflection_ = NULL;
+Symbol_reflection_ = NULL;
 const ::google::protobuf::Descriptor* StorageConfig_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  StorageConfig_reflection_ = NULL;
+StorageConfig_reflection_ = NULL;
 const ::google::protobuf::Descriptor* VehicleObj_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
-  VehicleObj_reflection_ = NULL;
+VehicleObj_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DBType_descriptor_ = NULL;
@@ -243,7 +243,7 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _is_default_instance_));
   RecVehicle_descriptor_ = file->message_type(9);
-  static const int RecVehicle_offsets_[10] = {
+  static const int RecVehicle_offsets_[11] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, modeltype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, color_),
@@ -254,6 +254,7 @@ void protobuf_AssignDesc_common_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletypename_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, pedestrianattrs_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, plates_),
   };
   RecVehicle_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -293,13 +294,14 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
   LicensePlate_descriptor_ = file->message_type(11);
-  static const int LicensePlate_offsets_[6] = {
+  static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, typeid__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, typename__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, confidence_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, cutboard_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, localprovinceconfidence_),
   };
   LicensePlate_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -389,43 +391,43 @@ namespace {
 GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
 inline void protobuf_AssignDescriptorsOnce() {
   ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
-                 &protobuf_AssignDesc_common_2eproto);
+                                     &protobuf_AssignDesc_common_2eproto);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      SrcMetadata_descriptor_, &SrcMetadata::default_instance());
+    SrcMetadata_descriptor_, &SrcMetadata::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Cutboard_descriptor_, &Cutboard::default_instance());
+    Cutboard_descriptor_, &Cutboard::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      CutboardImage_descriptor_, &CutboardImage::default_instance());
+    CutboardImage_descriptor_, &CutboardImage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Color_descriptor_, &Color::default_instance());
+    Color_descriptor_, &Color::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      FeatureVector_descriptor_, &FeatureVector::default_instance());
+    FeatureVector_descriptor_, &FeatureVector::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      NullMessage_descriptor_, &NullMessage::default_instance());
+    NullMessage_descriptor_, &NullMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Image_descriptor_, &Image::default_instance());
+    Image_descriptor_, &Image::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RecFace_descriptor_, &RecFace::default_instance());
+    RecFace_descriptor_, &RecFace::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      PedestrianAttr_descriptor_, &PedestrianAttr::default_instance());
+    PedestrianAttr_descriptor_, &PedestrianAttr::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RecVehicle_descriptor_, &RecVehicle::default_instance());
+    RecVehicle_descriptor_, &RecVehicle::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VehicleModelType_descriptor_, &VehicleModelType::default_instance());
+    VehicleModelType_descriptor_, &VehicleModelType::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      LicensePlate_descriptor_, &LicensePlate::default_instance());
+    LicensePlate_descriptor_, &LicensePlate::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VehicleSymbol_descriptor_, &VehicleSymbol::default_instance());
+    VehicleSymbol_descriptor_, &VehicleSymbol::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      Symbol_descriptor_, &Symbol::default_instance());
+    Symbol_descriptor_, &Symbol::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      StorageConfig_descriptor_, &StorageConfig::default_instance());
+    StorageConfig_descriptor_, &StorageConfig::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      VehicleObj_descriptor_, &VehicleObj::default_instance());
+    VehicleObj_descriptor_, &VehicleObj::default_instance());
 }
 
 }  // namespace
@@ -490,7 +492,7 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
     "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
     "(\002\"F\n\016PedestrianAttr\022\016\n\006AttrId\030\001 \001(\005\022\020\n\010"
-    "AttrName\030\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"\344\002\n\nR"
+    "AttrName\030\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"\214\003\n\nR"
     "ecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\013"
     "2\032.dg.model.VehicleModelType\022\036\n\005Color\030\003 "
     "\001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg"
@@ -499,40 +501,42 @@ void protobuf_AddDesc_common_2eproto() {
     "model.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n"
     "\013VehicleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n"
     "\017VehicleTypeName\030\t \001(\t\0221\n\017PedestrianAttr"
-    "s\030\n \003(\0132\030.dg.model.PedestrianAttr\"\335\001\n\020Ve"
+    "s\030\n \003(\0132\030.dg.model.PedestrianAttr\022&\n\006Pla"
+    "tes\030\013 \003(\0132\026.dg.model.LicensePlate\"\335\001\n\020Ve"
     "hicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 "
     "\001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004"
     " \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r"
     "\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModel"
     "Year\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001("
-    "\t\022\016\n\006IsHead\030\014 \001(\005\"\235\001\n\014LicensePlate\022\021\n\tPl"
+    "\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPl"
     "ateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model."
     "Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022"
     "\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022."
-    "dg.model.Cutboard\"X\n\rVehicleSymbol\022\020\n\010Sy"
-    "mbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symb"
-    "ols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n"
-    "\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nC"
-    "onfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Addr"
-    "ess\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBTyp"
-    "e\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadat"
-    "a\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 "
-    "\001(\0132\017.dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024."
-    "dg.model.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_T"
-    "YPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_T"
-    "YPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023"
-    "OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200"
-    "\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_T"
-    "YPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYC"
-    "LE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECT"
-    "OR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_"
-    "TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BIC"
-    "YCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CU"
-    "TBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOAR"
-    "D\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013Dat"
-    "aFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PR"
-    "OTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005"
-    "KAFKA\020\000b\006proto3", 2415);
+    "dg.model.Cutboard\022\037\n\027LocalProvinceConfid"
+    "ence\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030"
+    "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
+    "(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboa"
+    "rd\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfiden"
+    "ce\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001"
+    "(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Ta"
+    "gs\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\013"
+    "2\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.d"
+    "g.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mode"
+    "l.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNK"
+    "NOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BIC"
+    "YCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYP"
+    "E_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OB"
+    "J_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BIC"
+    "YCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECT"
+    "OR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031"
+    "\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VE"
+    "HICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CU"
+    "TBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020"
+    "\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n"
+    "\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtTyp"
+    "e\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020"
+    "\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000"
+    "b\006proto3", 2488);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -581,26 +585,26 @@ const ::google::protobuf::EnumDescriptor* ObjType_descriptor() {
   return ObjType_descriptor_;
 }
 bool ObjType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 1024:
-    case 2048:
-    case 2049:
-    case 2050:
-    case 2051:
-    case 3072:
-    case 4096:
-    case 4097:
-    case 4098:
-    case 4099:
-    case 5120:
-      return true;
-    default:
-      return false;
+  switch (value) {
+  case 0:
+  case 1:
+  case 2:
+  case 3:
+  case 4:
+  case 1024:
+  case 2048:
+  case 2049:
+  case 2050:
+  case 2051:
+  case 3072:
+  case 4096:
+  case 4097:
+  case 4098:
+  case 4099:
+  case 5120:
+    return true;
+  default:
+    return false;
   }
 }
 
@@ -609,15 +613,15 @@ const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor() {
   return DataFmtType_descriptor_;
 }
 bool DataFmtType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return true;
-    default:
-      return false;
+  switch (value) {
+  case 0:
+  case 1:
+  case 2:
+  case 3:
+  case 4:
+    return true;
+  default:
+    return false;
   }
 }
 
@@ -626,11 +630,11 @@ const ::google::protobuf::EnumDescriptor* DBType_descriptor() {
   return DBType_descriptor_;
 }
 bool DBType_IsValid(int value) {
-  switch(value) {
-    case 0:
-      return true;
-    default:
-      return false;
+  switch (value) {
+  case 0:
+    return true;
+  default:
+    return false;
   }
 }
 
@@ -676,7 +680,7 @@ SrcMetadata::SrcMetadata(const SrcMetadata& from)
 }
 
 void SrcMetadata::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   timestamp_ = GOOGLE_LONGLONG(0);
@@ -747,7 +751,7 @@ void SrcMetadata::Clear() {
 }
 
 bool SrcMetadata::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SrcMetadata)
@@ -756,126 +760,126 @@ bool SrcMetadata::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Timestamp = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &timestamp_)));
+    // optional int64 Timestamp = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64 > (
+               input, &timestamp_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_Duration;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(16)) goto parse_Duration;
+      break;
+    }
 
-      // optional int32 Duration = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Duration:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &duration_)));
+    // optional int32 Duration = 2;
+    case 2: {
+      if (tag == 16) {
+parse_Duration:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &duration_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_SensorId;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(24)) goto parse_SensorId;
+      break;
+    }
 
-      // optional int32 SensorId = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_SensorId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &sensorid_)));
+    // optional int32 SensorId = 3;
+    case 3: {
+      if (tag == 24) {
+parse_SensorId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &sensorid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_SensorName;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(34)) goto parse_SensorName;
+      break;
+    }
 
-      // optional string SensorName = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_SensorName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sensorname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sensorname().data(), this->sensorname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.SrcMetadata.SensorName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_SensorUrl;
-        break;
+    // optional string SensorName = 4;
+    case 4: {
+      if (tag == 34) {
+parse_SensorName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_sensorname()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->sensorname().data(), this->sensorname().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.SrcMetadata.SensorName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(42)) goto parse_SensorUrl;
+      break;
+    }
 
-      // optional string SensorUrl = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_SensorUrl:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sensorurl()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->sensorurl().data(), this->sensorurl().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.SrcMetadata.SensorUrl"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(48)) goto parse_RepoId;
-        break;
+    // optional string SensorUrl = 5;
+    case 5: {
+      if (tag == 42) {
+parse_SensorUrl:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_sensorurl()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->sensorurl().data(), this->sensorurl().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.SrcMetadata.SensorUrl"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(48)) goto parse_RepoId;
+      break;
+    }
 
-      // optional int32 RepoId = 6;
-      case 6: {
-        if (tag == 48) {
-         parse_RepoId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &repoid_)));
+    // optional int32 RepoId = 6;
+    case 6: {
+      if (tag == 48) {
+parse_RepoId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &repoid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_RepoInfo;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(58)) goto parse_RepoInfo;
+      break;
+    }
 
-      // optional string RepoInfo = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_RepoInfo:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_repoinfo()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->repoinfo().data(), this->repoinfo().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.SrcMetadata.RepoInfo"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional string RepoInfo = 7;
+    case 7: {
+      if (tag == 58) {
+parse_RepoInfo:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_repoinfo()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->repoinfo().data(), this->repoinfo().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.SrcMetadata.RepoInfo"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -888,7 +892,7 @@ failure:
 }
 
 void SrcMetadata::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.SrcMetadata)
   // optional int64 Timestamp = 1;
   if (this->timestamp() != 0) {
@@ -944,7 +948,7 @@ void SrcMetadata::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* SrcMetadata::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.SrcMetadata)
   // optional int64 Timestamp = 1;
   if (this->timestamp() != 0) {
@@ -1009,50 +1013,50 @@ int SrcMetadata::ByteSize() const {
   // optional int64 Timestamp = 1;
   if (this->timestamp() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->timestamp());
+                  ::google::protobuf::internal::WireFormatLite::Int64Size(
+                    this->timestamp());
   }
 
   // optional int32 Duration = 2;
   if (this->duration() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->duration());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->duration());
   }
 
   // optional int32 SensorId = 3;
   if (this->sensorid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->sensorid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->sensorid());
   }
 
   // optional string SensorName = 4;
   if (this->sensorname().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sensorname());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->sensorname());
   }
 
   // optional string SensorUrl = 5;
   if (this->sensorurl().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->sensorurl());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->sensorurl());
   }
 
   // optional int32 RepoId = 6;
   if (this->repoid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->repoid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->repoid());
   }
 
   // optional string RepoInfo = 7;
   if (this->repoinfo().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->repoinfo());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->repoinfo());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1063,9 +1067,9 @@ int SrcMetadata::ByteSize() const {
 
 void SrcMetadata::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const SrcMetadata* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const SrcMetadata>(
-          &from);
+  const SrcMetadata* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const SrcMetadata>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -1149,12 +1153,12 @@ void SrcMetadata::InternalSwap(SrcMetadata* other) {
 void SrcMetadata::clear_timestamp() {
   timestamp_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 SrcMetadata::timestamp() const {
+::google::protobuf::int64 SrcMetadata::timestamp() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Timestamp)
   return timestamp_;
 }
- void SrcMetadata::set_timestamp(::google::protobuf::int64 value) {
-  
+void SrcMetadata::set_timestamp(::google::protobuf::int64 value) {
+
   timestamp_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Timestamp)
 }
@@ -1163,12 +1167,12 @@ void SrcMetadata::clear_timestamp() {
 void SrcMetadata::clear_duration() {
   duration_ = 0;
 }
- ::google::protobuf::int32 SrcMetadata::duration() const {
+::google::protobuf::int32 SrcMetadata::duration() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.Duration)
   return duration_;
 }
- void SrcMetadata::set_duration(::google::protobuf::int32 value) {
-  
+void SrcMetadata::set_duration(::google::protobuf::int32 value) {
+
   duration_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.Duration)
 }
@@ -1177,12 +1181,12 @@ void SrcMetadata::clear_duration() {
 void SrcMetadata::clear_sensorid() {
   sensorid_ = 0;
 }
- ::google::protobuf::int32 SrcMetadata::sensorid() const {
+::google::protobuf::int32 SrcMetadata::sensorid() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorId)
   return sensorid_;
 }
- void SrcMetadata::set_sensorid(::google::protobuf::int32 value) {
-  
+void SrcMetadata::set_sensorid(::google::protobuf::int32 value) {
+
   sensorid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorId)
 }
@@ -1191,40 +1195,40 @@ void SrcMetadata::clear_sensorid() {
 void SrcMetadata::clear_sensorname() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& SrcMetadata::sensorname() const {
+const ::std::string& SrcMetadata::sensorname() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorName)
   return sensorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_sensorname(const ::std::string& value) {
-  
+void SrcMetadata::set_sensorname(const ::std::string& value) {
+
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorName)
 }
- void SrcMetadata::set_sensorname(const char* value) {
-  
+void SrcMetadata::set_sensorname(const char* value) {
+
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorName)
 }
- void SrcMetadata::set_sensorname(const char* value, size_t size) {
-  
+void SrcMetadata::set_sensorname(const char* value, size_t size) {
+
   sensorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                         ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorName)
 }
- ::std::string* SrcMetadata::mutable_sensorname() {
-  
+::std::string* SrcMetadata::mutable_sensorname() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorName)
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* SrcMetadata::release_sensorname() {
-  
+::std::string* SrcMetadata::release_sensorname() {
+
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_allocated_sensorname(::std::string* sensorname) {
+void SrcMetadata::set_allocated_sensorname(::std::string* sensorname) {
   if (sensorname != NULL) {
-    
+
   } else {
-    
+
   }
   sensorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorName)
@@ -1234,40 +1238,40 @@ void SrcMetadata::clear_sensorname() {
 void SrcMetadata::clear_sensorurl() {
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& SrcMetadata::sensorurl() const {
+const ::std::string& SrcMetadata::sensorurl() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_sensorurl(const ::std::string& value) {
-  
+void SrcMetadata::set_sensorurl(const ::std::string& value) {
+
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorUrl)
 }
- void SrcMetadata::set_sensorurl(const char* value) {
-  
+void SrcMetadata::set_sensorurl(const char* value) {
+
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorUrl)
 }
- void SrcMetadata::set_sensorurl(const char* value, size_t size) {
-  
+void SrcMetadata::set_sensorurl(const char* value, size_t size) {
+
   sensorurl_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                        ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorUrl)
 }
- ::std::string* SrcMetadata::mutable_sensorurl() {
-  
+::std::string* SrcMetadata::mutable_sensorurl() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorUrl)
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* SrcMetadata::release_sensorurl() {
-  
+::std::string* SrcMetadata::release_sensorurl() {
+
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
+void SrcMetadata::set_allocated_sensorurl(::std::string* sensorurl) {
   if (sensorurl != NULL) {
-    
+
   } else {
-    
+
   }
   sensorurl_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensorurl);
   // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorUrl)
@@ -1277,12 +1281,12 @@ void SrcMetadata::clear_sensorurl() {
 void SrcMetadata::clear_repoid() {
   repoid_ = 0;
 }
- ::google::protobuf::int32 SrcMetadata::repoid() const {
+::google::protobuf::int32 SrcMetadata::repoid() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoId)
   return repoid_;
 }
- void SrcMetadata::set_repoid(::google::protobuf::int32 value) {
-  
+void SrcMetadata::set_repoid(::google::protobuf::int32 value) {
+
   repoid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoId)
 }
@@ -1291,40 +1295,40 @@ void SrcMetadata::clear_repoid() {
 void SrcMetadata::clear_repoinfo() {
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& SrcMetadata::repoinfo() const {
+const ::std::string& SrcMetadata::repoinfo() const {
   // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_repoinfo(const ::std::string& value) {
-  
+void SrcMetadata::set_repoinfo(const ::std::string& value) {
+
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.RepoInfo)
 }
- void SrcMetadata::set_repoinfo(const char* value) {
-  
+void SrcMetadata::set_repoinfo(const char* value) {
+
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.RepoInfo)
 }
- void SrcMetadata::set_repoinfo(const char* value, size_t size) {
-  
+void SrcMetadata::set_repoinfo(const char* value, size_t size) {
+
   repoinfo_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.RepoInfo)
 }
- ::std::string* SrcMetadata::mutable_repoinfo() {
-  
+::std::string* SrcMetadata::mutable_repoinfo() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.RepoInfo)
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* SrcMetadata::release_repoinfo() {
-  
+::std::string* SrcMetadata::release_repoinfo() {
+
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void SrcMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
+void SrcMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
   if (repoinfo != NULL) {
-    
+
   } else {
-    
+
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
   // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.RepoInfo)
@@ -1363,7 +1367,7 @@ Cutboard::Cutboard(const Cutboard& from)
 }
 
 void Cutboard::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   _cached_size_ = 0;
   x_ = 0u;
   y_ = 0u;
@@ -1426,7 +1430,7 @@ void Cutboard::Clear() {
 }
 
 bool Cutboard::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Cutboard)
@@ -1435,120 +1439,120 @@ bool Cutboard::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional uint32 X = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &x_)));
+    // optional uint32 X = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &x_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_Y;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(16)) goto parse_Y;
+      break;
+    }
 
-      // optional uint32 Y = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Y:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &y_)));
+    // optional uint32 Y = 2;
+    case 2: {
+      if (tag == 16) {
+parse_Y:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &y_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_Width;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(24)) goto parse_Width;
+      break;
+    }
 
-      // optional uint32 Width = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_Width:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &width_)));
+    // optional uint32 Width = 3;
+    case 3: {
+      if (tag == 24) {
+parse_Width:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &width_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_Height;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(32)) goto parse_Height;
+      break;
+    }
 
-      // optional uint32 Height = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_Height:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &height_)));
+    // optional uint32 Height = 4;
+    case 4: {
+      if (tag == 32) {
+parse_Height:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &height_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(40)) goto parse_ResWidth;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(40)) goto parse_ResWidth;
+      break;
+    }
 
-      // optional uint32 ResWidth = 5;
-      case 5: {
-        if (tag == 40) {
-         parse_ResWidth:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &reswidth_)));
+    // optional uint32 ResWidth = 5;
+    case 5: {
+      if (tag == 40) {
+parse_ResWidth:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &reswidth_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(48)) goto parse_ResHeight;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(48)) goto parse_ResHeight;
+      break;
+    }
 
-      // optional uint32 ResHeight = 6;
-      case 6: {
-        if (tag == 48) {
-         parse_ResHeight:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &resheight_)));
+    // optional uint32 ResHeight = 6;
+    case 6: {
+      if (tag == 48) {
+parse_ResHeight:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32 > (
+               input, &resheight_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(61)) goto parse_Confidence;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(61)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 7;
-      case 7: {
-        if (tag == 61) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 7;
+    case 7: {
+      if (tag == 61) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -1561,7 +1565,7 @@ failure:
 }
 
 void Cutboard::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.Cutboard)
   // optional uint32 X = 1;
   if (this->x() != 0) {
@@ -1602,7 +1606,7 @@ void Cutboard::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* Cutboard::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.Cutboard)
   // optional uint32 X = 1;
   if (this->x() != 0) {
@@ -1649,43 +1653,43 @@ int Cutboard::ByteSize() const {
   // optional uint32 X = 1;
   if (this->x() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->x());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->x());
   }
 
   // optional uint32 Y = 2;
   if (this->y() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->y());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->y());
   }
 
   // optional uint32 Width = 3;
   if (this->width() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->width());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->width());
   }
 
   // optional uint32 Height = 4;
   if (this->height() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->height());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->height());
   }
 
   // optional uint32 ResWidth = 5;
   if (this->reswidth() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->reswidth());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->reswidth());
   }
 
   // optional uint32 ResHeight = 6;
   if (this->resheight() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::UInt32Size(
-        this->resheight());
+                  ::google::protobuf::internal::WireFormatLite::UInt32Size(
+                    this->resheight());
   }
 
   // optional float Confidence = 7;
@@ -1701,9 +1705,9 @@ int Cutboard::ByteSize() const {
 
 void Cutboard::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Cutboard* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Cutboard>(
-          &from);
+  const Cutboard* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const Cutboard>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -1784,12 +1788,12 @@ void Cutboard::InternalSwap(Cutboard* other) {
 void Cutboard::clear_x() {
   x_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::x() const {
+::google::protobuf::uint32 Cutboard::x() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.X)
   return x_;
 }
- void Cutboard::set_x(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_x(::google::protobuf::uint32 value) {
+
   x_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.X)
 }
@@ -1798,12 +1802,12 @@ void Cutboard::clear_x() {
 void Cutboard::clear_y() {
   y_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::y() const {
+::google::protobuf::uint32 Cutboard::y() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.Y)
   return y_;
 }
- void Cutboard::set_y(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_y(::google::protobuf::uint32 value) {
+
   y_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.Y)
 }
@@ -1812,12 +1816,12 @@ void Cutboard::clear_y() {
 void Cutboard::clear_width() {
   width_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::width() const {
+::google::protobuf::uint32 Cutboard::width() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.Width)
   return width_;
 }
- void Cutboard::set_width(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_width(::google::protobuf::uint32 value) {
+
   width_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.Width)
 }
@@ -1826,12 +1830,12 @@ void Cutboard::clear_width() {
 void Cutboard::clear_height() {
   height_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::height() const {
+::google::protobuf::uint32 Cutboard::height() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.Height)
   return height_;
 }
- void Cutboard::set_height(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_height(::google::protobuf::uint32 value) {
+
   height_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.Height)
 }
@@ -1840,12 +1844,12 @@ void Cutboard::clear_height() {
 void Cutboard::clear_reswidth() {
   reswidth_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::reswidth() const {
+::google::protobuf::uint32 Cutboard::reswidth() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.ResWidth)
   return reswidth_;
 }
- void Cutboard::set_reswidth(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_reswidth(::google::protobuf::uint32 value) {
+
   reswidth_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.ResWidth)
 }
@@ -1854,12 +1858,12 @@ void Cutboard::clear_reswidth() {
 void Cutboard::clear_resheight() {
   resheight_ = 0u;
 }
- ::google::protobuf::uint32 Cutboard::resheight() const {
+::google::protobuf::uint32 Cutboard::resheight() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.ResHeight)
   return resheight_;
 }
- void Cutboard::set_resheight(::google::protobuf::uint32 value) {
-  
+void Cutboard::set_resheight(::google::protobuf::uint32 value) {
+
   resheight_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.ResHeight)
 }
@@ -1868,12 +1872,12 @@ void Cutboard::clear_resheight() {
 void Cutboard::clear_confidence() {
   confidence_ = 0;
 }
- float Cutboard::confidence() const {
+float Cutboard::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.Cutboard.Confidence)
   return confidence_;
 }
- void Cutboard::set_confidence(float value) {
-  
+void Cutboard::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Cutboard.Confidence)
 }
@@ -1908,7 +1912,7 @@ CutboardImage::CutboardImage(const CutboardImage& from)
 }
 
 void CutboardImage::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   _cached_size_ = 0;
   cutboard_ = NULL;
   img_ = NULL;
@@ -1959,7 +1963,7 @@ void CutboardImage::Clear() {
 }
 
 bool CutboardImage::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.CutboardImage)
@@ -1968,41 +1972,41 @@ bool CutboardImage::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.Cutboard Cutboard = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_cutboard()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Img;
-        break;
+    // optional .dg.model.Cutboard Cutboard = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_cutboard()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_Img;
+      break;
+    }
 
-      // optional .dg.model.Image Img = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Img:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_img()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional .dg.model.Image Img = 2;
+    case 2: {
+      if (tag == 18) {
+parse_Img:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_img()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -2015,7 +2019,7 @@ failure:
 }
 
 void CutboardImage::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.CutboardImage)
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
@@ -2033,20 +2037,20 @@ void CutboardImage::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* CutboardImage::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.CutboardImage)
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->cutboard_, target);
+             WriteMessageNoVirtualToArray(
+               1, *this->cutboard_, target);
   }
 
   // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->img_, target);
+             WriteMessageNoVirtualToArray(
+               2, *this->img_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.CutboardImage)
@@ -2059,15 +2063,15 @@ int CutboardImage::ByteSize() const {
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->cutboard_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->cutboard_);
   }
 
   // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->img_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->img_);
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -2078,9 +2082,9 @@ int CutboardImage::ByteSize() const {
 
 void CutboardImage::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const CutboardImage* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const CutboardImage>(
-          &from);
+  const CutboardImage* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const CutboardImage>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -2150,7 +2154,7 @@ const ::dg::model::Cutboard& CutboardImage::cutboard() const {
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
 ::dg::model::Cutboard* CutboardImage::mutable_cutboard() {
-  
+
   if (cutboard_ == NULL) {
     cutboard_ = new ::dg::model::Cutboard;
   }
@@ -2158,7 +2162,7 @@ const ::dg::model::Cutboard& CutboardImage::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* CutboardImage::release_cutboard() {
-  
+
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
@@ -2167,9 +2171,9 @@ void CutboardImage::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Cutboard)
 }
@@ -2187,7 +2191,7 @@ const ::dg::model::Image& CutboardImage::img() const {
   return img_ != NULL ? *img_ : *default_instance_->img_;
 }
 ::dg::model::Image* CutboardImage::mutable_img() {
-  
+
   if (img_ == NULL) {
     img_ = new ::dg::model::Image;
   }
@@ -2195,7 +2199,7 @@ const ::dg::model::Image& CutboardImage::img() const {
   return img_;
 }
 ::dg::model::Image* CutboardImage::release_img() {
-  
+
   ::dg::model::Image* temp = img_;
   img_ = NULL;
   return temp;
@@ -2204,9 +2208,9 @@ void CutboardImage::set_allocated_img(::dg::model::Image* img) {
   delete img_;
   img_ = img;
   if (img) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.CutboardImage.Img)
 }
@@ -2240,7 +2244,7 @@ Color::Color(const Color& from)
 }
 
 void Color::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   colorid_ = 0;
@@ -2302,7 +2306,7 @@ void Color::Clear() {
 }
 
 bool Color::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Color)
@@ -2311,62 +2315,62 @@ bool Color::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 ColorId = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &colorid_)));
+    // optional int32 ColorId = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &colorid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(21)) goto parse_Confidence;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(21)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 2;
-      case 2: {
-        if (tag == 21) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 2;
+    case 2: {
+      if (tag == 21) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_ColorName;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_ColorName;
+      break;
+    }
 
-      // optional string ColorName = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_ColorName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_colorname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->colorname().data(), this->colorname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.Color.ColorName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional string ColorName = 3;
+    case 3: {
+      if (tag == 26) {
+parse_ColorName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_colorname()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->colorname().data(), this->colorname().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.Color.ColorName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -2379,7 +2383,7 @@ failure:
 }
 
 void Color::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.Color)
   // optional int32 ColorId = 1;
   if (this->colorid() != 0) {
@@ -2405,7 +2409,7 @@ void Color::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* Color::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.Color)
   // optional int32 ColorId = 1;
   if (this->colorid() != 0) {
@@ -2438,8 +2442,8 @@ int Color::ByteSize() const {
   // optional int32 ColorId = 1;
   if (this->colorid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->colorid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->colorid());
   }
 
   // optional float Confidence = 2;
@@ -2450,8 +2454,8 @@ int Color::ByteSize() const {
   // optional string ColorName = 3;
   if (this->colorname().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->colorname());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->colorname());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -2462,9 +2466,9 @@ int Color::ByteSize() const {
 
 void Color::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Color* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Color>(
-          &from);
+  const Color* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const Color>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -2530,12 +2534,12 @@ void Color::InternalSwap(Color* other) {
 void Color::clear_colorid() {
   colorid_ = 0;
 }
- ::google::protobuf::int32 Color::colorid() const {
+::google::protobuf::int32 Color::colorid() const {
   // @@protoc_insertion_point(field_get:dg.model.Color.ColorId)
   return colorid_;
 }
- void Color::set_colorid(::google::protobuf::int32 value) {
-  
+void Color::set_colorid(::google::protobuf::int32 value) {
+
   colorid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Color.ColorId)
 }
@@ -2544,12 +2548,12 @@ void Color::clear_colorid() {
 void Color::clear_confidence() {
   confidence_ = 0;
 }
- float Color::confidence() const {
+float Color::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.Color.Confidence)
   return confidence_;
 }
- void Color::set_confidence(float value) {
-  
+void Color::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Color.Confidence)
 }
@@ -2558,40 +2562,40 @@ void Color::clear_confidence() {
 void Color::clear_colorname() {
   colorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& Color::colorname() const {
+const ::std::string& Color::colorname() const {
   // @@protoc_insertion_point(field_get:dg.model.Color.ColorName)
   return colorname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Color::set_colorname(const ::std::string& value) {
-  
+void Color::set_colorname(const ::std::string& value) {
+
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.Color.ColorName)
 }
- void Color::set_colorname(const char* value) {
-  
+void Color::set_colorname(const char* value) {
+
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.Color.ColorName)
 }
- void Color::set_colorname(const char* value, size_t size) {
-  
+void Color::set_colorname(const char* value, size_t size) {
+
   colorname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                        ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.Color.ColorName)
 }
- ::std::string* Color::mutable_colorname() {
-  
+::std::string* Color::mutable_colorname() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.Color.ColorName)
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* Color::release_colorname() {
-  
+::std::string* Color::release_colorname() {
+
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Color::set_allocated_colorname(::std::string* colorname) {
+void Color::set_allocated_colorname(::std::string* colorname) {
   if (colorname != NULL) {
-    
+
   } else {
-    
+
   }
   colorname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), colorname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.Color.ColorName)
@@ -2625,7 +2629,7 @@ FeatureVector::FeatureVector(const FeatureVector& from)
 }
 
 void FeatureVector::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
@@ -2674,7 +2678,7 @@ void FeatureVector::Clear() {
 }
 
 bool FeatureVector::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.FeatureVector)
@@ -2683,47 +2687,47 @@ bool FeatureVector::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &id_)));
+    // optional int64 Id = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64 > (
+               input, &id_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Feature;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_Feature;
+      break;
+    }
 
-      // optional string Feature = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Feature:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_feature()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->feature().data(), this->feature().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.FeatureVector.Feature"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional string Feature = 2;
+    case 2: {
+      if (tag == 18) {
+parse_Feature:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_feature()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->feature().data(), this->feature().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.FeatureVector.Feature"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -2736,7 +2740,7 @@ failure:
 }
 
 void FeatureVector::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.FeatureVector)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -2757,7 +2761,7 @@ void FeatureVector::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* FeatureVector::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.FeatureVector)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -2785,15 +2789,15 @@ int FeatureVector::ByteSize() const {
   // optional int64 Id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->id());
+                  ::google::protobuf::internal::WireFormatLite::Int64Size(
+                    this->id());
   }
 
   // optional string Feature = 2;
   if (this->feature().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->feature());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->feature());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -2804,9 +2808,9 @@ int FeatureVector::ByteSize() const {
 
 void FeatureVector::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const FeatureVector* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const FeatureVector>(
-          &from);
+  const FeatureVector* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const FeatureVector>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -2868,12 +2872,12 @@ void FeatureVector::InternalSwap(FeatureVector* other) {
 void FeatureVector::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 FeatureVector::id() const {
+::google::protobuf::int64 FeatureVector::id() const {
   // @@protoc_insertion_point(field_get:dg.model.FeatureVector.Id)
   return id_;
 }
- void FeatureVector::set_id(::google::protobuf::int64 value) {
-  
+void FeatureVector::set_id(::google::protobuf::int64 value) {
+
   id_ = value;
   // @@protoc_insertion_point(field_set:dg.model.FeatureVector.Id)
 }
@@ -2882,40 +2886,40 @@ void FeatureVector::clear_id() {
 void FeatureVector::clear_feature() {
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& FeatureVector::feature() const {
+const ::std::string& FeatureVector::feature() const {
   // @@protoc_insertion_point(field_get:dg.model.FeatureVector.Feature)
   return feature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void FeatureVector::set_feature(const ::std::string& value) {
-  
+void FeatureVector::set_feature(const ::std::string& value) {
+
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.FeatureVector.Feature)
 }
- void FeatureVector::set_feature(const char* value) {
-  
+void FeatureVector::set_feature(const char* value) {
+
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.FeatureVector.Feature)
 }
- void FeatureVector::set_feature(const char* value, size_t size) {
-  
+void FeatureVector::set_feature(const char* value, size_t size) {
+
   feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                      ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.FeatureVector.Feature)
 }
- ::std::string* FeatureVector::mutable_feature() {
-  
+::std::string* FeatureVector::mutable_feature() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.FeatureVector.Feature)
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* FeatureVector::release_feature() {
-  
+::std::string* FeatureVector::release_feature() {
+
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void FeatureVector::set_allocated_feature(::std::string* feature) {
+void FeatureVector::set_allocated_feature(::std::string* feature) {
   if (feature != NULL) {
-    
+
   } else {
-    
+
   }
   feature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feature);
   // @@protoc_insertion_point(field_set_allocated:dg.model.FeatureVector.Feature)
@@ -2947,7 +2951,7 @@ NullMessage::NullMessage(const NullMessage& from)
 }
 
 void NullMessage::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
@@ -2990,7 +2994,7 @@ void NullMessage::Clear() {
 }
 
 bool NullMessage::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.NullMessage)
@@ -2998,7 +3002,7 @@ bool NullMessage::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
+handle_unusual:
     if (tag == 0 ||
         ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
         ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
@@ -3016,13 +3020,13 @@ failure:
 }
 
 void NullMessage::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.NullMessage)
   // @@protoc_insertion_point(serialize_end:dg.model.NullMessage)
 }
 
 ::google::protobuf::uint8* NullMessage::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.NullMessage)
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.NullMessage)
   return target;
@@ -3039,9 +3043,9 @@ int NullMessage::ByteSize() const {
 
 void NullMessage::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const NullMessage* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const NullMessage>(
-          &from);
+  const NullMessage* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const NullMessage>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -3121,7 +3125,7 @@ Image::Image(const Image& from)
 }
 
 void Image::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -3189,7 +3193,7 @@ void Image::Clear() {
 }
 
 bool Image::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Image)
@@ -3198,96 +3202,96 @@ bool Image::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string Id = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_id()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->id().data(), this->id().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.Image.Id"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_Width;
-        break;
+    // optional string Id = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_id()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->id().data(), this->id().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.Image.Id"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(16)) goto parse_Width;
+      break;
+    }
 
-      // optional int32 Width = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Width:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &width_)));
+    // optional int32 Width = 2;
+    case 2: {
+      if (tag == 16) {
+parse_Width:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &width_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_Height;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(24)) goto parse_Height;
+      break;
+    }
 
-      // optional int32 Height = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_Height:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &height_)));
+    // optional int32 Height = 3;
+    case 3: {
+      if (tag == 24) {
+parse_Height:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &height_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_URI;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(34)) goto parse_URI;
+      break;
+    }
 
-      // optional string URI = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_URI:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_uri()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->uri().data(), this->uri().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.Image.URI"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_BinData;
-        break;
+    // optional string URI = 4;
+    case 4: {
+      if (tag == 34) {
+parse_URI:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_uri()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->uri().data(), this->uri().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.Image.URI"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(42)) goto parse_BinData;
+      break;
+    }
 
-      // optional string BinData = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_BinData:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_bindata()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->bindata().data(), this->bindata().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.Image.BinData"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional string BinData = 5;
+    case 5: {
+      if (tag == 42) {
+parse_BinData:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_bindata()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->bindata().data(), this->bindata().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.Image.BinData"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -3300,7 +3304,7 @@ failure:
 }
 
 void Image::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.Image)
   // optional string Id = 1;
   if (this->id().size() > 0) {
@@ -3346,7 +3350,7 @@ void Image::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* Image::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.Image)
   // optional string Id = 1;
   if (this->id().size() > 0) {
@@ -3401,36 +3405,36 @@ int Image::ByteSize() const {
   // optional string Id = 1;
   if (this->id().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->id());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->id());
   }
 
   // optional int32 Width = 2;
   if (this->width() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->width());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->width());
   }
 
   // optional int32 Height = 3;
   if (this->height() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->height());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->height());
   }
 
   // optional string URI = 4;
   if (this->uri().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->uri());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->uri());
   }
 
   // optional string BinData = 5;
   if (this->bindata().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->bindata());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->bindata());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3441,9 +3445,9 @@ int Image::ByteSize() const {
 
 void Image::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Image* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Image>(
-          &from);
+  const Image* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const Image>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -3519,40 +3523,40 @@ void Image::InternalSwap(Image* other) {
 void Image::clear_id() {
   id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& Image::id() const {
+const ::std::string& Image::id() const {
   // @@protoc_insertion_point(field_get:dg.model.Image.Id)
   return id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_id(const ::std::string& value) {
-  
+void Image::set_id(const ::std::string& value) {
+
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.Image.Id)
 }
- void Image::set_id(const char* value) {
-  
+void Image::set_id(const char* value) {
+
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.Image.Id)
 }
- void Image::set_id(const char* value, size_t size) {
-  
+void Image::set_id(const char* value, size_t size) {
+
   id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                 ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.Image.Id)
 }
- ::std::string* Image::mutable_id() {
-  
+::std::string* Image::mutable_id() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.Image.Id)
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* Image::release_id() {
-  
+::std::string* Image::release_id() {
+
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_allocated_id(::std::string* id) {
+void Image::set_allocated_id(::std::string* id) {
   if (id != NULL) {
-    
+
   } else {
-    
+
   }
   id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
   // @@protoc_insertion_point(field_set_allocated:dg.model.Image.Id)
@@ -3562,12 +3566,12 @@ void Image::clear_id() {
 void Image::clear_width() {
   width_ = 0;
 }
- ::google::protobuf::int32 Image::width() const {
+::google::protobuf::int32 Image::width() const {
   // @@protoc_insertion_point(field_get:dg.model.Image.Width)
   return width_;
 }
- void Image::set_width(::google::protobuf::int32 value) {
-  
+void Image::set_width(::google::protobuf::int32 value) {
+
   width_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Image.Width)
 }
@@ -3576,12 +3580,12 @@ void Image::clear_width() {
 void Image::clear_height() {
   height_ = 0;
 }
- ::google::protobuf::int32 Image::height() const {
+::google::protobuf::int32 Image::height() const {
   // @@protoc_insertion_point(field_get:dg.model.Image.Height)
   return height_;
 }
- void Image::set_height(::google::protobuf::int32 value) {
-  
+void Image::set_height(::google::protobuf::int32 value) {
+
   height_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Image.Height)
 }
@@ -3590,40 +3594,40 @@ void Image::clear_height() {
 void Image::clear_uri() {
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& Image::uri() const {
+const ::std::string& Image::uri() const {
   // @@protoc_insertion_point(field_get:dg.model.Image.URI)
   return uri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_uri(const ::std::string& value) {
-  
+void Image::set_uri(const ::std::string& value) {
+
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.Image.URI)
 }
- void Image::set_uri(const char* value) {
-  
+void Image::set_uri(const char* value) {
+
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.Image.URI)
 }
- void Image::set_uri(const char* value, size_t size) {
-  
+void Image::set_uri(const char* value, size_t size) {
+
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                  ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.Image.URI)
 }
- ::std::string* Image::mutable_uri() {
-  
+::std::string* Image::mutable_uri() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.Image.URI)
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* Image::release_uri() {
-  
+::std::string* Image::release_uri() {
+
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_allocated_uri(::std::string* uri) {
+void Image::set_allocated_uri(::std::string* uri) {
   if (uri != NULL) {
-    
+
   } else {
-    
+
   }
   uri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uri);
   // @@protoc_insertion_point(field_set_allocated:dg.model.Image.URI)
@@ -3633,40 +3637,40 @@ void Image::clear_uri() {
 void Image::clear_bindata() {
   bindata_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& Image::bindata() const {
+const ::std::string& Image::bindata() const {
   // @@protoc_insertion_point(field_get:dg.model.Image.BinData)
   return bindata_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_bindata(const ::std::string& value) {
-  
+void Image::set_bindata(const ::std::string& value) {
+
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.Image.BinData)
 }
- void Image::set_bindata(const char* value) {
-  
+void Image::set_bindata(const char* value) {
+
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.Image.BinData)
 }
- void Image::set_bindata(const char* value, size_t size) {
-  
+void Image::set_bindata(const char* value, size_t size) {
+
   bindata_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                      ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.Image.BinData)
 }
- ::std::string* Image::mutable_bindata() {
-  
+::std::string* Image::mutable_bindata() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.Image.BinData)
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* Image::release_bindata() {
-  
+::std::string* Image::release_bindata() {
+
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void Image::set_allocated_bindata(::std::string* bindata) {
+void Image::set_allocated_bindata(::std::string* bindata) {
   if (bindata != NULL) {
-    
+
   } else {
-    
+
   }
   bindata_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), bindata);
   // @@protoc_insertion_point(field_set_allocated:dg.model.Image.BinData)
@@ -3703,7 +3707,7 @@ RecFace::RecFace(const RecFace& from)
 }
 
 void RecFace::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
@@ -3758,7 +3762,7 @@ void RecFace::Clear() {
 }
 
 bool RecFace::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecFace)
@@ -3767,75 +3771,75 @@ bool RecFace::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &id_)));
+    // optional int64 Id = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64 > (
+               input, &id_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Img;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_Img;
+      break;
+    }
 
-      // optional .dg.model.CutboardImage Img = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Img:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_img()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Features;
-        break;
+    // optional .dg.model.CutboardImage Img = 2;
+    case 2: {
+      if (tag == 18) {
+parse_Img:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_img()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Features;
+      break;
+    }
 
-      // optional string Features = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Features:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_features()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->features().data(), this->features().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.RecFace.Features"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(37)) goto parse_Confidence;
-        break;
+    // optional string Features = 3;
+    case 3: {
+      if (tag == 26) {
+parse_Features:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_features()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->features().data(), this->features().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.RecFace.Features"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(37)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 4;
-      case 4: {
-        if (tag == 37) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 4;
+    case 4: {
+      if (tag == 37) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -3848,7 +3852,7 @@ failure:
 }
 
 void RecFace::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.RecFace)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -3880,7 +3884,7 @@ void RecFace::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* RecFace::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecFace)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -3890,8 +3894,8 @@ void RecFace::SerializeWithCachedSizes(
   // optional .dg.model.CutboardImage Img = 2;
   if (this->has_img()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->img_, target);
+             WriteMessageNoVirtualToArray(
+               2, *this->img_, target);
   }
 
   // optional string Features = 3;
@@ -3920,22 +3924,22 @@ int RecFace::ByteSize() const {
   // optional int64 Id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->id());
+                  ::google::protobuf::internal::WireFormatLite::Int64Size(
+                    this->id());
   }
 
   // optional .dg.model.CutboardImage Img = 2;
   if (this->has_img()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->img_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->img_);
   }
 
   // optional string Features = 3;
   if (this->features().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->features());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->features());
   }
 
   // optional float Confidence = 4;
@@ -3951,9 +3955,9 @@ int RecFace::ByteSize() const {
 
 void RecFace::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const RecFace* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const RecFace>(
-          &from);
+  const RecFace* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const RecFace>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -4023,12 +4027,12 @@ void RecFace::InternalSwap(RecFace* other) {
 void RecFace::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 RecFace::id() const {
+::google::protobuf::int64 RecFace::id() const {
   // @@protoc_insertion_point(field_get:dg.model.RecFace.Id)
   return id_;
 }
- void RecFace::set_id(::google::protobuf::int64 value) {
-  
+void RecFace::set_id(::google::protobuf::int64 value) {
+
   id_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecFace.Id)
 }
@@ -4046,7 +4050,7 @@ const ::dg::model::CutboardImage& RecFace::img() const {
   return img_ != NULL ? *img_ : *default_instance_->img_;
 }
 ::dg::model::CutboardImage* RecFace::mutable_img() {
-  
+
   if (img_ == NULL) {
     img_ = new ::dg::model::CutboardImage;
   }
@@ -4054,7 +4058,7 @@ const ::dg::model::CutboardImage& RecFace::img() const {
   return img_;
 }
 ::dg::model::CutboardImage* RecFace::release_img() {
-  
+
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
   return temp;
@@ -4063,9 +4067,9 @@ void RecFace::set_allocated_img(::dg::model::CutboardImage* img) {
   delete img_;
   img_ = img;
   if (img) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Img)
 }
@@ -4074,40 +4078,40 @@ void RecFace::set_allocated_img(::dg::model::CutboardImage* img) {
 void RecFace::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& RecFace::features() const {
+const ::std::string& RecFace::features() const {
   // @@protoc_insertion_point(field_get:dg.model.RecFace.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecFace::set_features(const ::std::string& value) {
-  
+void RecFace::set_features(const ::std::string& value) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.RecFace.Features)
 }
- void RecFace::set_features(const char* value) {
-  
+void RecFace::set_features(const char* value) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecFace.Features)
 }
- void RecFace::set_features(const char* value, size_t size) {
-  
+void RecFace::set_features(const char* value, size_t size) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.RecFace.Features)
 }
- ::std::string* RecFace::mutable_features() {
-  
+::std::string* RecFace::mutable_features() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.RecFace.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* RecFace::release_features() {
-  
+::std::string* RecFace::release_features() {
+
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecFace::set_allocated_features(::std::string* features) {
+void RecFace::set_allocated_features(::std::string* features) {
   if (features != NULL) {
-    
+
   } else {
-    
+
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Features)
@@ -4117,12 +4121,12 @@ void RecFace::clear_features() {
 void RecFace::clear_confidence() {
   confidence_ = 0;
 }
- float RecFace::confidence() const {
+float RecFace::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.RecFace.Confidence)
   return confidence_;
 }
- void RecFace::set_confidence(float value) {
-  
+void RecFace::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecFace.Confidence)
 }
@@ -4156,7 +4160,7 @@ PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
 }
 
 void PedestrianAttr::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   attrid_ = 0;
@@ -4218,7 +4222,7 @@ void PedestrianAttr::Clear() {
 }
 
 bool PedestrianAttr::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.PedestrianAttr)
@@ -4227,62 +4231,62 @@ bool PedestrianAttr::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 AttrId = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &attrid_)));
+    // optional int32 AttrId = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &attrid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_AttrName;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_AttrName;
+      break;
+    }
 
-      // optional string AttrName = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_AttrName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_attrname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->attrname().data(), this->attrname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.PedestrianAttr.AttrName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(29)) goto parse_Confidence;
-        break;
+    // optional string AttrName = 2;
+    case 2: {
+      if (tag == 18) {
+parse_AttrName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_attrname()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->attrname().data(), this->attrname().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.PedestrianAttr.AttrName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(29)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 3;
-      case 3: {
-        if (tag == 29) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 3;
+    case 3: {
+      if (tag == 29) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -4295,7 +4299,7 @@ failure:
 }
 
 void PedestrianAttr::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.PedestrianAttr)
   // optional int32 AttrId = 1;
   if (this->attrid() != 0) {
@@ -4321,7 +4325,7 @@ void PedestrianAttr::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* PedestrianAttr::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.PedestrianAttr)
   // optional int32 AttrId = 1;
   if (this->attrid() != 0) {
@@ -4354,15 +4358,15 @@ int PedestrianAttr::ByteSize() const {
   // optional int32 AttrId = 1;
   if (this->attrid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->attrid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->attrid());
   }
 
   // optional string AttrName = 2;
   if (this->attrname().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->attrname());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->attrname());
   }
 
   // optional float Confidence = 3;
@@ -4378,9 +4382,9 @@ int PedestrianAttr::ByteSize() const {
 
 void PedestrianAttr::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const PedestrianAttr* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const PedestrianAttr>(
-          &from);
+  const PedestrianAttr* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const PedestrianAttr>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -4446,12 +4450,12 @@ void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
 void PedestrianAttr::clear_attrid() {
   attrid_ = 0;
 }
- ::google::protobuf::int32 PedestrianAttr::attrid() const {
+::google::protobuf::int32 PedestrianAttr::attrid() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrId)
   return attrid_;
 }
- void PedestrianAttr::set_attrid(::google::protobuf::int32 value) {
-  
+void PedestrianAttr::set_attrid(::google::protobuf::int32 value) {
+
   attrid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrId)
 }
@@ -4460,40 +4464,40 @@ void PedestrianAttr::clear_attrid() {
 void PedestrianAttr::clear_attrname() {
   attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& PedestrianAttr::attrname() const {
+const ::std::string& PedestrianAttr::attrname() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrName)
   return attrname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void PedestrianAttr::set_attrname(const ::std::string& value) {
-  
+void PedestrianAttr::set_attrname(const ::std::string& value) {
+
   attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrName)
 }
- void PedestrianAttr::set_attrname(const char* value) {
-  
+void PedestrianAttr::set_attrname(const char* value) {
+
   attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.AttrName)
 }
- void PedestrianAttr::set_attrname(const char* value, size_t size) {
-  
+void PedestrianAttr::set_attrname(const char* value, size_t size) {
+
   attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.AttrName)
 }
- ::std::string* PedestrianAttr::mutable_attrname() {
-  
+::std::string* PedestrianAttr::mutable_attrname() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.AttrName)
   return attrname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* PedestrianAttr::release_attrname() {
-  
+::std::string* PedestrianAttr::release_attrname() {
+
   return attrname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void PedestrianAttr::set_allocated_attrname(::std::string* attrname) {
+void PedestrianAttr::set_allocated_attrname(::std::string* attrname) {
   if (attrname != NULL) {
-    
+
   } else {
-    
+
   }
   attrname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), attrname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.AttrName)
@@ -4503,12 +4507,12 @@ void PedestrianAttr::clear_attrname() {
 void PedestrianAttr::clear_confidence() {
   confidence_ = 0;
 }
- float PedestrianAttr::confidence() const {
+float PedestrianAttr::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Confidence)
   return confidence_;
 }
- void PedestrianAttr::set_confidence(float value) {
-  
+void PedestrianAttr::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Confidence)
 }
@@ -4528,6 +4532,7 @@ const int RecVehicle::kFeaturesFieldNumber;
 const int RecVehicle::kVehicleTypeFieldNumber;
 const int RecVehicle::kVehicleTypeNameFieldNumber;
 const int RecVehicle::kPedestrianAttrsFieldNumber;
+const int RecVehicle::kPlatesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RecVehicle::RecVehicle()
@@ -4553,7 +4558,7 @@ RecVehicle::RecVehicle(const RecVehicle& from)
 }
 
 void RecVehicle::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
@@ -4622,10 +4627,11 @@ void RecVehicle::Clear() {
   vehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbols_.Clear();
   pedestrianattrs_.Clear();
+  plates_.Clear();
 }
 
 bool RecVehicle::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecVehicle)
@@ -4634,166 +4640,182 @@ bool RecVehicle::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &id_)));
+    // optional int64 Id = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64 > (
+               input, &id_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_ModelType;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_ModelType;
+      break;
+    }
 
-      // optional .dg.model.VehicleModelType ModelType = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_ModelType:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_modeltype()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Color;
-        break;
+    // optional .dg.model.VehicleModelType ModelType = 2;
+    case 2: {
+      if (tag == 18) {
+parse_ModelType:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_modeltype()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Color;
+      break;
+    }
 
-      // optional .dg.model.Color Color = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_Plate;
-        break;
+    // optional .dg.model.Color Color = 3;
+    case 3: {
+      if (tag == 26) {
+parse_Color:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_color()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(34)) goto parse_Plate;
+      break;
+    }
 
-      // optional .dg.model.LicensePlate Plate = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_Plate:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_plate()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_Img;
-        break;
+    // optional .dg.model.LicensePlate Plate = 4;
+    case 4: {
+      if (tag == 34) {
+parse_Plate:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_plate()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(42)) goto parse_Img;
+      break;
+    }
 
-      // optional .dg.model.CutboardImage Img = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_Img:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_img()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_Symbols;
-        break;
+    // optional .dg.model.CutboardImage Img = 5;
+    case 5: {
+      if (tag == 42) {
+parse_Img:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_img()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(50)) goto parse_Symbols;
+      break;
+    }
 
-      // repeated .dg.model.VehicleSymbol Symbols = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_Symbols:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Symbols:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_symbols()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_loop_Symbols;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectTag(58)) goto parse_Features;
-        break;
+    // repeated .dg.model.VehicleSymbol Symbols = 6;
+    case 6: {
+      if (tag == 50) {
+parse_Symbols:
+        DO_(input->IncrementRecursionDepth());
+parse_loop_Symbols:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+              input, add_symbols()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(50)) goto parse_loop_Symbols;
+      input->UnsafeDecrementRecursionDepth();
+      if (input->ExpectTag(58)) goto parse_Features;
+      break;
+    }
 
-      // optional string Features = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_Features:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_features()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->features().data(), this->features().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.RecVehicle.Features"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(64)) goto parse_VehicleType;
-        break;
+    // optional string Features = 7;
+    case 7: {
+      if (tag == 58) {
+parse_Features:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_features()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->features().data(), this->features().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.RecVehicle.Features"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(64)) goto parse_VehicleType;
+      break;
+    }
 
-      // optional .dg.model.ObjType VehicleType = 8;
-      case 8: {
-        if (tag == 64) {
-         parse_VehicleType:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_vehicletype(static_cast< ::dg::model::ObjType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(74)) goto parse_VehicleTypeName;
-        break;
+    // optional .dg.model.ObjType VehicleType = 8;
+    case 8: {
+      if (tag == 64) {
+parse_VehicleType:
+        int value;
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM > (
+               input, &value)));
+        set_vehicletype(static_cast< ::dg::model::ObjType >(value));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(74)) goto parse_VehicleTypeName;
+      break;
+    }
 
-      // optional string VehicleTypeName = 9;
-      case 9: {
-        if (tag == 74) {
-         parse_VehicleTypeName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_vehicletypename()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->vehicletypename().data(), this->vehicletypename().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.RecVehicle.VehicleTypeName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(82)) goto parse_PedestrianAttrs;
-        break;
+    // optional string VehicleTypeName = 9;
+    case 9: {
+      if (tag == 74) {
+parse_VehicleTypeName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_vehicletypename()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->vehicletypename().data(), this->vehicletypename().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.RecVehicle.VehicleTypeName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(82)) goto parse_PedestrianAttrs;
+      break;
+    }
 
-      // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-      case 10: {
-        if (tag == 82) {
-         parse_PedestrianAttrs:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_PedestrianAttrs:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_pedestrianattrs()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(82)) goto parse_loop_PedestrianAttrs;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
+    case 10: {
+      if (tag == 82) {
+parse_PedestrianAttrs:
+        DO_(input->IncrementRecursionDepth());
+parse_loop_PedestrianAttrs:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+              input, add_pedestrianattrs()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(82)) goto parse_loop_PedestrianAttrs;
+      if (input->ExpectTag(90)) goto parse_loop_Plates;
+      input->UnsafeDecrementRecursionDepth();
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    // repeated .dg.model.LicensePlate Plates = 11;
+    case 11: {
+      if (tag == 90) {
+        DO_(input->IncrementRecursionDepth());
+parse_loop_Plates:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+              input, add_plates()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(90)) goto parse_loop_Plates;
+      input->UnsafeDecrementRecursionDepth();
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
+
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
+      }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -4806,7 +4828,7 @@ failure:
 }
 
 void RecVehicle::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.RecVehicle)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -4875,11 +4897,17 @@ void RecVehicle::SerializeWithCachedSizes(
       10, this->pedestrianattrs(i), output);
   }
 
+  // repeated .dg.model.LicensePlate Plates = 11;
+  for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      11, this->plates(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.RecVehicle)
 }
 
 ::google::protobuf::uint8* RecVehicle::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecVehicle)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -4889,36 +4917,36 @@ void RecVehicle::SerializeWithCachedSizes(
   // optional .dg.model.VehicleModelType ModelType = 2;
   if (this->has_modeltype()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->modeltype_, target);
+             WriteMessageNoVirtualToArray(
+               2, *this->modeltype_, target);
   }
 
   // optional .dg.model.Color Color = 3;
   if (this->has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, *this->color_, target);
+             WriteMessageNoVirtualToArray(
+               3, *this->color_, target);
   }
 
   // optional .dg.model.LicensePlate Plate = 4;
   if (this->has_plate()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        4, *this->plate_, target);
+             WriteMessageNoVirtualToArray(
+               4, *this->plate_, target);
   }
 
   // optional .dg.model.CutboardImage Img = 5;
   if (this->has_img()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, *this->img_, target);
+             WriteMessageNoVirtualToArray(
+               5, *this->img_, target);
   }
 
   // repeated .dg.model.VehicleSymbol Symbols = 6;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, this->symbols(i), target);
+             WriteMessageNoVirtualToArray(
+               6, this->symbols(i), target);
   }
 
   // optional string Features = 7;
@@ -4935,7 +4963,7 @@ void RecVehicle::SerializeWithCachedSizes(
   // optional .dg.model.ObjType VehicleType = 8;
   if (this->vehicletype() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      8, this->vehicletype(), target);
+               8, this->vehicletype(), target);
   }
 
   // optional string VehicleTypeName = 9;
@@ -4952,8 +4980,15 @@ void RecVehicle::SerializeWithCachedSizes(
   // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
   for (unsigned int i = 0, n = this->pedestrianattrs_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        10, this->pedestrianattrs(i), target);
+             WriteMessageNoVirtualToArray(
+               10, this->pedestrianattrs(i), target);
+  }
+
+  // repeated .dg.model.LicensePlate Plates = 11;
+  for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+             WriteMessageNoVirtualToArray(
+               11, this->plates(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecVehicle)
@@ -4966,56 +5001,56 @@ int RecVehicle::ByteSize() const {
   // optional int64 Id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->id());
+                  ::google::protobuf::internal::WireFormatLite::Int64Size(
+                    this->id());
   }
 
   // optional .dg.model.VehicleModelType ModelType = 2;
   if (this->has_modeltype()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->modeltype_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->modeltype_);
   }
 
   // optional .dg.model.Color Color = 3;
   if (this->has_color()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->color_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->color_);
   }
 
   // optional .dg.model.LicensePlate Plate = 4;
   if (this->has_plate()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->plate_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->plate_);
   }
 
   // optional .dg.model.CutboardImage Img = 5;
   if (this->has_img()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->img_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->img_);
   }
 
   // optional string Features = 7;
   if (this->features().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->features());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->features());
   }
 
   // optional .dg.model.ObjType VehicleType = 8;
   if (this->vehicletype() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->vehicletype());
+                  ::google::protobuf::internal::WireFormatLite::EnumSize(this->vehicletype());
   }
 
   // optional string VehicleTypeName = 9;
   if (this->vehicletypename().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->vehicletypename());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->vehicletypename());
   }
 
   // repeated .dg.model.VehicleSymbol Symbols = 6;
@@ -5034,6 +5069,14 @@ int RecVehicle::ByteSize() const {
         this->pedestrianattrs(i));
   }
 
+  // repeated .dg.model.LicensePlate Plates = 11;
+  total_size += 1 * this->plates_size();
+  for (int i = 0; i < this->plates_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->plates(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -5042,9 +5085,9 @@ int RecVehicle::ByteSize() const {
 
 void RecVehicle::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const RecVehicle* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const RecVehicle>(
-          &from);
+  const RecVehicle* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const RecVehicle>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -5056,6 +5099,7 @@ void RecVehicle::MergeFrom(const RecVehicle& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   symbols_.MergeFrom(from.symbols_);
   pedestrianattrs_.MergeFrom(from.pedestrianattrs_);
+  plates_.MergeFrom(from.plates_);
   if (from.id() != 0) {
     set_id(from.id());
   }
@@ -5116,6 +5160,7 @@ void RecVehicle::InternalSwap(RecVehicle* other) {
   std::swap(vehicletype_, other->vehicletype_);
   vehicletypename_.Swap(&other->vehicletypename_);
   pedestrianattrs_.UnsafeArenaSwap(&other->pedestrianattrs_);
+  plates_.UnsafeArenaSwap(&other->plates_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -5135,12 +5180,12 @@ void RecVehicle::InternalSwap(RecVehicle* other) {
 void RecVehicle::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 RecVehicle::id() const {
+::google::protobuf::int64 RecVehicle::id() const {
   // @@protoc_insertion_point(field_get:dg.model.RecVehicle.Id)
   return id_;
 }
- void RecVehicle::set_id(::google::protobuf::int64 value) {
-  
+void RecVehicle::set_id(::google::protobuf::int64 value) {
+
   id_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecVehicle.Id)
 }
@@ -5158,7 +5203,7 @@ const ::dg::model::VehicleModelType& RecVehicle::modeltype() const {
   return modeltype_ != NULL ? *modeltype_ : *default_instance_->modeltype_;
 }
 ::dg::model::VehicleModelType* RecVehicle::mutable_modeltype() {
-  
+
   if (modeltype_ == NULL) {
     modeltype_ = new ::dg::model::VehicleModelType;
   }
@@ -5166,7 +5211,7 @@ const ::dg::model::VehicleModelType& RecVehicle::modeltype() const {
   return modeltype_;
 }
 ::dg::model::VehicleModelType* RecVehicle::release_modeltype() {
-  
+
   ::dg::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
   return temp;
@@ -5175,9 +5220,9 @@ void RecVehicle::set_allocated_modeltype(::dg::model::VehicleModelType* modeltyp
   delete modeltype_;
   modeltype_ = modeltype;
   if (modeltype) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.ModelType)
 }
@@ -5195,7 +5240,7 @@ const ::dg::model::Color& RecVehicle::color() const {
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
 ::dg::model::Color* RecVehicle::mutable_color() {
-  
+
   if (color_ == NULL) {
     color_ = new ::dg::model::Color;
   }
@@ -5203,7 +5248,7 @@ const ::dg::model::Color& RecVehicle::color() const {
   return color_;
 }
 ::dg::model::Color* RecVehicle::release_color() {
-  
+
   ::dg::model::Color* temp = color_;
   color_ = NULL;
   return temp;
@@ -5212,9 +5257,9 @@ void RecVehicle::set_allocated_color(::dg::model::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.Color)
 }
@@ -5232,7 +5277,7 @@ const ::dg::model::LicensePlate& RecVehicle::plate() const {
   return plate_ != NULL ? *plate_ : *default_instance_->plate_;
 }
 ::dg::model::LicensePlate* RecVehicle::mutable_plate() {
-  
+
   if (plate_ == NULL) {
     plate_ = new ::dg::model::LicensePlate;
   }
@@ -5240,7 +5285,7 @@ const ::dg::model::LicensePlate& RecVehicle::plate() const {
   return plate_;
 }
 ::dg::model::LicensePlate* RecVehicle::release_plate() {
-  
+
   ::dg::model::LicensePlate* temp = plate_;
   plate_ = NULL;
   return temp;
@@ -5249,9 +5294,9 @@ void RecVehicle::set_allocated_plate(::dg::model::LicensePlate* plate) {
   delete plate_;
   plate_ = plate;
   if (plate) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.Plate)
 }
@@ -5269,7 +5314,7 @@ const ::dg::model::CutboardImage& RecVehicle::img() const {
   return img_ != NULL ? *img_ : *default_instance_->img_;
 }
 ::dg::model::CutboardImage* RecVehicle::mutable_img() {
-  
+
   if (img_ == NULL) {
     img_ = new ::dg::model::CutboardImage;
   }
@@ -5277,7 +5322,7 @@ const ::dg::model::CutboardImage& RecVehicle::img() const {
   return img_;
 }
 ::dg::model::CutboardImage* RecVehicle::release_img() {
-  
+
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
   return temp;
@@ -5286,9 +5331,9 @@ void RecVehicle::set_allocated_img(::dg::model::CutboardImage* img) {
   delete img_;
   img_ = img;
   if (img) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.Img)
 }
@@ -5327,40 +5372,40 @@ RecVehicle::symbols() const {
 void RecVehicle::clear_features() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& RecVehicle::features() const {
+const ::std::string& RecVehicle::features() const {
   // @@protoc_insertion_point(field_get:dg.model.RecVehicle.Features)
   return features_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecVehicle::set_features(const ::std::string& value) {
-  
+void RecVehicle::set_features(const ::std::string& value) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.RecVehicle.Features)
 }
- void RecVehicle::set_features(const char* value) {
-  
+void RecVehicle::set_features(const char* value) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecVehicle.Features)
 }
- void RecVehicle::set_features(const char* value, size_t size) {
-  
+void RecVehicle::set_features(const char* value, size_t size) {
+
   features_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.RecVehicle.Features)
 }
- ::std::string* RecVehicle::mutable_features() {
-  
+::std::string* RecVehicle::mutable_features() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.Features)
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* RecVehicle::release_features() {
-  
+::std::string* RecVehicle::release_features() {
+
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecVehicle::set_allocated_features(::std::string* features) {
+void RecVehicle::set_allocated_features(::std::string* features) {
   if (features != NULL) {
-    
+
   } else {
-    
+
   }
   features_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), features);
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.Features)
@@ -5370,12 +5415,12 @@ void RecVehicle::clear_features() {
 void RecVehicle::clear_vehicletype() {
   vehicletype_ = 0;
 }
- ::dg::model::ObjType RecVehicle::vehicletype() const {
+::dg::model::ObjType RecVehicle::vehicletype() const {
   // @@protoc_insertion_point(field_get:dg.model.RecVehicle.VehicleType)
   return static_cast< ::dg::model::ObjType >(vehicletype_);
 }
- void RecVehicle::set_vehicletype(::dg::model::ObjType value) {
-  
+void RecVehicle::set_vehicletype(::dg::model::ObjType value) {
+
   vehicletype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecVehicle.VehicleType)
 }
@@ -5384,40 +5429,40 @@ void RecVehicle::clear_vehicletype() {
 void RecVehicle::clear_vehicletypename() {
   vehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& RecVehicle::vehicletypename() const {
+const ::std::string& RecVehicle::vehicletypename() const {
   // @@protoc_insertion_point(field_get:dg.model.RecVehicle.VehicleTypeName)
   return vehicletypename_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecVehicle::set_vehicletypename(const ::std::string& value) {
-  
+void RecVehicle::set_vehicletypename(const ::std::string& value) {
+
   vehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.RecVehicle.VehicleTypeName)
 }
- void RecVehicle::set_vehicletypename(const char* value) {
-  
+void RecVehicle::set_vehicletypename(const char* value) {
+
   vehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.RecVehicle.VehicleTypeName)
 }
- void RecVehicle::set_vehicletypename(const char* value, size_t size) {
-  
+void RecVehicle::set_vehicletypename(const char* value, size_t size) {
+
   vehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                              ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.RecVehicle.VehicleTypeName)
 }
- ::std::string* RecVehicle::mutable_vehicletypename() {
-  
+::std::string* RecVehicle::mutable_vehicletypename() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.VehicleTypeName)
   return vehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* RecVehicle::release_vehicletypename() {
-  
+::std::string* RecVehicle::release_vehicletypename() {
+
   return vehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletypename) {
+void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletypename) {
   if (vehicletypename != NULL) {
-    
+
   } else {
-    
+
   }
   vehicletypename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), vehicletypename);
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
@@ -5451,6 +5496,36 @@ const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
 RecVehicle::pedestrianattrs() const {
   // @@protoc_insertion_point(field_list:dg.model.RecVehicle.PedestrianAttrs)
   return pedestrianattrs_;
+}
+
+// repeated .dg.model.LicensePlate Plates = 11;
+int RecVehicle::plates_size() const {
+  return plates_.size();
+}
+void RecVehicle::clear_plates() {
+  plates_.Clear();
+}
+const ::dg::model::LicensePlate& RecVehicle::plates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.Plates)
+  return plates_.Get(index);
+}
+::dg::model::LicensePlate* RecVehicle::mutable_plates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.Plates)
+  return plates_.Mutable(index);
+}
+::dg::model::LicensePlate* RecVehicle::add_plates() {
+  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.Plates)
+  return plates_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >*
+RecVehicle::mutable_plates() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.Plates)
+  return &plates_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >&
+RecVehicle::plates() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.Plates)
+  return plates_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5491,7 +5566,7 @@ VehicleModelType::VehicleModelType(const VehicleModelType& from)
 }
 
 void VehicleModelType::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
@@ -5571,7 +5646,7 @@ void VehicleModelType::Clear() {
 }
 
 bool VehicleModelType::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleModelType)
@@ -5580,205 +5655,205 @@ bool VehicleModelType::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int64 Id = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
-                 input, &id_)));
+    // optional int64 Id = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64 > (
+               input, &id_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_BrandId;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(16)) goto parse_BrandId;
+      break;
+    }
 
-      // optional int32 BrandId = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_BrandId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &brandid_)));
+    // optional int32 BrandId = 2;
+    case 2: {
+      if (tag == 16) {
+parse_BrandId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &brandid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_SubBrandId;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(24)) goto parse_SubBrandId;
+      break;
+    }
 
-      // optional int32 SubBrandId = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_SubBrandId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &subbrandid_)));
+    // optional int32 SubBrandId = 3;
+    case 3: {
+      if (tag == 24) {
+parse_SubBrandId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &subbrandid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_ModelYearId;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(32)) goto parse_ModelYearId;
+      break;
+    }
 
-      // optional int32 ModelYearId = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_ModelYearId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &modelyearid_)));
+    // optional int32 ModelYearId = 4;
+    case 4: {
+      if (tag == 32) {
+parse_ModelYearId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &modelyearid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(45)) goto parse_Confidence;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(45)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 5;
-      case 5: {
-        if (tag == 45) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 5;
+    case 5: {
+      if (tag == 45) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_Type;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(50)) goto parse_Type;
+      break;
+    }
 
-      // optional string Type = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_Type:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_type()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->type().data(), this->type().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleModelType.Type"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(58)) goto parse_Brand;
-        break;
+    // optional string Type = 6;
+    case 6: {
+      if (tag == 50) {
+parse_Type:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_type()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->type().data(), this->type().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleModelType.Type"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(58)) goto parse_Brand;
+      break;
+    }
 
-      // optional string Brand = 7;
-      case 7: {
-        if (tag == 58) {
-         parse_Brand:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_brand()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->brand().data(), this->brand().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleModelType.Brand"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(66)) goto parse_SubBrand;
-        break;
+    // optional string Brand = 7;
+    case 7: {
+      if (tag == 58) {
+parse_Brand:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_brand()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->brand().data(), this->brand().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleModelType.Brand"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(66)) goto parse_SubBrand;
+      break;
+    }
 
-      // optional string SubBrand = 8;
-      case 8: {
-        if (tag == 66) {
-         parse_SubBrand:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_subbrand()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->subbrand().data(), this->subbrand().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleModelType.SubBrand"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(74)) goto parse_ModelYear;
-        break;
+    // optional string SubBrand = 8;
+    case 8: {
+      if (tag == 66) {
+parse_SubBrand:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_subbrand()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->subbrand().data(), this->subbrand().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleModelType.SubBrand"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(74)) goto parse_ModelYear;
+      break;
+    }
 
-      // optional string ModelYear = 9;
-      case 9: {
-        if (tag == 74) {
-         parse_ModelYear:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_modelyear()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->modelyear().data(), this->modelyear().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleModelType.ModelYear"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(80)) goto parse_TypeId;
-        break;
+    // optional string ModelYear = 9;
+    case 9: {
+      if (tag == 74) {
+parse_ModelYear:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_modelyear()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->modelyear().data(), this->modelyear().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleModelType.ModelYear"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(80)) goto parse_TypeId;
+      break;
+    }
 
-      // optional int32 TypeId = 10;
-      case 10: {
-        if (tag == 80) {
-         parse_TypeId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &typeid__)));
+    // optional int32 TypeId = 10;
+    case 10: {
+      if (tag == 80) {
+parse_TypeId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &typeid__)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(90)) goto parse_Model;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(90)) goto parse_Model;
+      break;
+    }
 
-      // optional string Model = 11;
-      case 11: {
-        if (tag == 90) {
-         parse_Model:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_model()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->model().data(), this->model().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleModelType.Model"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(96)) goto parse_IsHead;
-        break;
+    // optional string Model = 11;
+    case 11: {
+      if (tag == 90) {
+parse_Model:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_model()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->model().data(), this->model().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleModelType.Model"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(96)) goto parse_IsHead;
+      break;
+    }
 
-      // optional int32 IsHead = 12;
-      case 12: {
-        if (tag == 96) {
-         parse_IsHead:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &ishead_)));
+    // optional int32 IsHead = 12;
+    case 12: {
+      if (tag == 96) {
+parse_IsHead:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &ishead_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -5791,7 +5866,7 @@ failure:
 }
 
 void VehicleModelType::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.VehicleModelType)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -5882,7 +5957,7 @@ void VehicleModelType::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* VehicleModelType::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleModelType)
   // optional int64 Id = 1;
   if (this->id() != 0) {
@@ -5984,29 +6059,29 @@ int VehicleModelType::ByteSize() const {
   // optional int64 Id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int64Size(
-        this->id());
+                  ::google::protobuf::internal::WireFormatLite::Int64Size(
+                    this->id());
   }
 
   // optional int32 BrandId = 2;
   if (this->brandid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->brandid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->brandid());
   }
 
   // optional int32 SubBrandId = 3;
   if (this->subbrandid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->subbrandid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->subbrandid());
   }
 
   // optional int32 ModelYearId = 4;
   if (this->modelyearid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->modelyearid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->modelyearid());
   }
 
   // optional float Confidence = 5;
@@ -6017,50 +6092,50 @@ int VehicleModelType::ByteSize() const {
   // optional string Type = 6;
   if (this->type().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->type());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->type());
   }
 
   // optional string Brand = 7;
   if (this->brand().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->brand());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->brand());
   }
 
   // optional string SubBrand = 8;
   if (this->subbrand().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->subbrand());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->subbrand());
   }
 
   // optional string ModelYear = 9;
   if (this->modelyear().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->modelyear());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->modelyear());
   }
 
   // optional int32 TypeId = 10;
   if (this->typeid_() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->typeid_());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->typeid_());
   }
 
   // optional string Model = 11;
   if (this->model().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->model());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->model());
   }
 
   // optional int32 IsHead = 12;
   if (this->ishead() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->ishead());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->ishead());
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6071,9 +6146,9 @@ int VehicleModelType::ByteSize() const {
 
 void VehicleModelType::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const VehicleModelType* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const VehicleModelType>(
-          &from);
+  const VehicleModelType* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const VehicleModelType>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -6179,12 +6254,12 @@ void VehicleModelType::InternalSwap(VehicleModelType* other) {
 void VehicleModelType::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
- ::google::protobuf::int64 VehicleModelType::id() const {
+::google::protobuf::int64 VehicleModelType::id() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.Id)
   return id_;
 }
- void VehicleModelType::set_id(::google::protobuf::int64 value) {
-  
+void VehicleModelType::set_id(::google::protobuf::int64 value) {
+
   id_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.Id)
 }
@@ -6193,12 +6268,12 @@ void VehicleModelType::clear_id() {
 void VehicleModelType::clear_brandid() {
   brandid_ = 0;
 }
- ::google::protobuf::int32 VehicleModelType::brandid() const {
+::google::protobuf::int32 VehicleModelType::brandid() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.BrandId)
   return brandid_;
 }
- void VehicleModelType::set_brandid(::google::protobuf::int32 value) {
-  
+void VehicleModelType::set_brandid(::google::protobuf::int32 value) {
+
   brandid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.BrandId)
 }
@@ -6207,12 +6282,12 @@ void VehicleModelType::clear_brandid() {
 void VehicleModelType::clear_subbrandid() {
   subbrandid_ = 0;
 }
- ::google::protobuf::int32 VehicleModelType::subbrandid() const {
+::google::protobuf::int32 VehicleModelType::subbrandid() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.SubBrandId)
   return subbrandid_;
 }
- void VehicleModelType::set_subbrandid(::google::protobuf::int32 value) {
-  
+void VehicleModelType::set_subbrandid(::google::protobuf::int32 value) {
+
   subbrandid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.SubBrandId)
 }
@@ -6221,12 +6296,12 @@ void VehicleModelType::clear_subbrandid() {
 void VehicleModelType::clear_modelyearid() {
   modelyearid_ = 0;
 }
- ::google::protobuf::int32 VehicleModelType::modelyearid() const {
+::google::protobuf::int32 VehicleModelType::modelyearid() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.ModelYearId)
   return modelyearid_;
 }
- void VehicleModelType::set_modelyearid(::google::protobuf::int32 value) {
-  
+void VehicleModelType::set_modelyearid(::google::protobuf::int32 value) {
+
   modelyearid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.ModelYearId)
 }
@@ -6235,12 +6310,12 @@ void VehicleModelType::clear_modelyearid() {
 void VehicleModelType::clear_confidence() {
   confidence_ = 0;
 }
- float VehicleModelType::confidence() const {
+float VehicleModelType::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.Confidence)
   return confidence_;
 }
- void VehicleModelType::set_confidence(float value) {
-  
+void VehicleModelType::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.Confidence)
 }
@@ -6249,40 +6324,40 @@ void VehicleModelType::clear_confidence() {
 void VehicleModelType::clear_type() {
   type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleModelType::type() const {
+const ::std::string& VehicleModelType::type() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.Type)
   return type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_type(const ::std::string& value) {
-  
+void VehicleModelType::set_type(const ::std::string& value) {
+
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.Type)
 }
- void VehicleModelType::set_type(const char* value) {
-  
+void VehicleModelType::set_type(const char* value) {
+
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleModelType.Type)
 }
- void VehicleModelType::set_type(const char* value, size_t size) {
-  
+void VehicleModelType::set_type(const char* value, size_t size) {
+
   type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                   ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModelType.Type)
 }
- ::std::string* VehicleModelType::mutable_type() {
-  
+::std::string* VehicleModelType::mutable_type() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleModelType.Type)
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleModelType::release_type() {
-  
+::std::string* VehicleModelType::release_type() {
+
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_allocated_type(::std::string* type) {
+void VehicleModelType::set_allocated_type(::std::string* type) {
   if (type != NULL) {
-    
+
   } else {
-    
+
   }
   type_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), type);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModelType.Type)
@@ -6292,40 +6367,40 @@ void VehicleModelType::clear_type() {
 void VehicleModelType::clear_brand() {
   brand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleModelType::brand() const {
+const ::std::string& VehicleModelType::brand() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.Brand)
   return brand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_brand(const ::std::string& value) {
-  
+void VehicleModelType::set_brand(const ::std::string& value) {
+
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.Brand)
 }
- void VehicleModelType::set_brand(const char* value) {
-  
+void VehicleModelType::set_brand(const char* value) {
+
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleModelType.Brand)
 }
- void VehicleModelType::set_brand(const char* value, size_t size) {
-  
+void VehicleModelType::set_brand(const char* value, size_t size) {
+
   brand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                    ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModelType.Brand)
 }
- ::std::string* VehicleModelType::mutable_brand() {
-  
+::std::string* VehicleModelType::mutable_brand() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleModelType.Brand)
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleModelType::release_brand() {
-  
+::std::string* VehicleModelType::release_brand() {
+
   return brand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_allocated_brand(::std::string* brand) {
+void VehicleModelType::set_allocated_brand(::std::string* brand) {
   if (brand != NULL) {
-    
+
   } else {
-    
+
   }
   brand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), brand);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModelType.Brand)
@@ -6335,40 +6410,40 @@ void VehicleModelType::clear_brand() {
 void VehicleModelType::clear_subbrand() {
   subbrand_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleModelType::subbrand() const {
+const ::std::string& VehicleModelType::subbrand() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.SubBrand)
   return subbrand_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_subbrand(const ::std::string& value) {
-  
+void VehicleModelType::set_subbrand(const ::std::string& value) {
+
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.SubBrand)
 }
- void VehicleModelType::set_subbrand(const char* value) {
-  
+void VehicleModelType::set_subbrand(const char* value) {
+
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleModelType.SubBrand)
 }
- void VehicleModelType::set_subbrand(const char* value, size_t size) {
-  
+void VehicleModelType::set_subbrand(const char* value, size_t size) {
+
   subbrand_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModelType.SubBrand)
 }
- ::std::string* VehicleModelType::mutable_subbrand() {
-  
+::std::string* VehicleModelType::mutable_subbrand() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleModelType.SubBrand)
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleModelType::release_subbrand() {
-  
+::std::string* VehicleModelType::release_subbrand() {
+
   return subbrand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_allocated_subbrand(::std::string* subbrand) {
+void VehicleModelType::set_allocated_subbrand(::std::string* subbrand) {
   if (subbrand != NULL) {
-    
+
   } else {
-    
+
   }
   subbrand_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subbrand);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModelType.SubBrand)
@@ -6378,40 +6453,40 @@ void VehicleModelType::clear_subbrand() {
 void VehicleModelType::clear_modelyear() {
   modelyear_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleModelType::modelyear() const {
+const ::std::string& VehicleModelType::modelyear() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.ModelYear)
   return modelyear_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_modelyear(const ::std::string& value) {
-  
+void VehicleModelType::set_modelyear(const ::std::string& value) {
+
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.ModelYear)
 }
- void VehicleModelType::set_modelyear(const char* value) {
-  
+void VehicleModelType::set_modelyear(const char* value) {
+
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleModelType.ModelYear)
 }
- void VehicleModelType::set_modelyear(const char* value, size_t size) {
-  
+void VehicleModelType::set_modelyear(const char* value, size_t size) {
+
   modelyear_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                        ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModelType.ModelYear)
 }
- ::std::string* VehicleModelType::mutable_modelyear() {
-  
+::std::string* VehicleModelType::mutable_modelyear() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleModelType.ModelYear)
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleModelType::release_modelyear() {
-  
+::std::string* VehicleModelType::release_modelyear() {
+
   return modelyear_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_allocated_modelyear(::std::string* modelyear) {
+void VehicleModelType::set_allocated_modelyear(::std::string* modelyear) {
   if (modelyear != NULL) {
-    
+
   } else {
-    
+
   }
   modelyear_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelyear);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModelType.ModelYear)
@@ -6421,12 +6496,12 @@ void VehicleModelType::clear_modelyear() {
 void VehicleModelType::clear_typeid_() {
   typeid__ = 0;
 }
- ::google::protobuf::int32 VehicleModelType::typeid_() const {
+::google::protobuf::int32 VehicleModelType::typeid_() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.TypeId)
   return typeid__;
 }
- void VehicleModelType::set_typeid_(::google::protobuf::int32 value) {
-  
+void VehicleModelType::set_typeid_(::google::protobuf::int32 value) {
+
   typeid__ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.TypeId)
 }
@@ -6435,40 +6510,40 @@ void VehicleModelType::clear_typeid_() {
 void VehicleModelType::clear_model() {
   model_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleModelType::model() const {
+const ::std::string& VehicleModelType::model() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.Model)
   return model_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_model(const ::std::string& value) {
-  
+void VehicleModelType::set_model(const ::std::string& value) {
+
   model_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.Model)
 }
- void VehicleModelType::set_model(const char* value) {
-  
+void VehicleModelType::set_model(const char* value) {
+
   model_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleModelType.Model)
 }
- void VehicleModelType::set_model(const char* value, size_t size) {
-  
+void VehicleModelType::set_model(const char* value, size_t size) {
+
   model_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                    ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleModelType.Model)
 }
- ::std::string* VehicleModelType::mutable_model() {
-  
+::std::string* VehicleModelType::mutable_model() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleModelType.Model)
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleModelType::release_model() {
-  
+::std::string* VehicleModelType::release_model() {
+
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleModelType::set_allocated_model(::std::string* model) {
+void VehicleModelType::set_allocated_model(::std::string* model) {
   if (model != NULL) {
-    
+
   } else {
-    
+
   }
   model_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), model);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleModelType.Model)
@@ -6478,12 +6553,12 @@ void VehicleModelType::clear_model() {
 void VehicleModelType::clear_ishead() {
   ishead_ = 0;
 }
- ::google::protobuf::int32 VehicleModelType::ishead() const {
+::google::protobuf::int32 VehicleModelType::ishead() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleModelType.IsHead)
   return ishead_;
 }
- void VehicleModelType::set_ishead(::google::protobuf::int32 value) {
-  
+void VehicleModelType::set_ishead(::google::protobuf::int32 value) {
+
   ishead_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleModelType.IsHead)
 }
@@ -6499,6 +6574,7 @@ const int LicensePlate::kTypeIdFieldNumber;
 const int LicensePlate::kTypeNameFieldNumber;
 const int LicensePlate::kConfidenceFieldNumber;
 const int LicensePlate::kCutboardFieldNumber;
+const int LicensePlate::kLocalProvinceConfidenceFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 LicensePlate::LicensePlate()
@@ -6522,7 +6598,7 @@ LicensePlate::LicensePlate(const LicensePlate& from)
 }
 
 void LicensePlate::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   platetext_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -6531,6 +6607,7 @@ void LicensePlate::SharedCtor() {
   typename__.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   confidence_ = 0;
   cutboard_ = NULL;
+  localprovinceconfidence_ = 0;
 }
 
 LicensePlate::~LicensePlate() {
@@ -6588,6 +6665,7 @@ void LicensePlate::Clear() {
   typename__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
+  localprovinceconfidence_ = 0;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -6595,7 +6673,7 @@ void LicensePlate::Clear() {
 }
 
 bool LicensePlate::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.LicensePlate)
@@ -6604,105 +6682,120 @@ bool LicensePlate::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string PlateText = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_platetext()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->platetext().data(), this->platetext().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.LicensePlate.PlateText"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Color;
-        break;
+    // optional string PlateText = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_platetext()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->platetext().data(), this->platetext().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.LicensePlate.PlateText"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_Color;
+      break;
+    }
 
-      // optional .dg.model.Color Color = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Color:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_color()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_TypeId;
-        break;
+    // optional .dg.model.Color Color = 2;
+    case 2: {
+      if (tag == 18) {
+parse_Color:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_color()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(24)) goto parse_TypeId;
+      break;
+    }
 
-      // optional int32 TypeId = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_TypeId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &typeid__)));
+    // optional int32 TypeId = 3;
+    case 3: {
+      if (tag == 24) {
+parse_TypeId:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &typeid__)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(34)) goto parse_TypeName;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(34)) goto parse_TypeName;
+      break;
+    }
 
-      // optional string TypeName = 4;
-      case 4: {
-        if (tag == 34) {
-         parse_TypeName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_typename_()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->typename_().data(), this->typename_().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.LicensePlate.TypeName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(45)) goto parse_Confidence;
-        break;
+    // optional string TypeName = 4;
+    case 4: {
+      if (tag == 34) {
+parse_TypeName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_typename_()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->typename_().data(), this->typename_().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.LicensePlate.TypeName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(45)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 5;
-      case 5: {
-        if (tag == 45) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 5;
+    case 5: {
+      if (tag == 45) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(50)) goto parse_Cutboard;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(50)) goto parse_Cutboard;
+      break;
+    }
 
-      // optional .dg.model.Cutboard Cutboard = 6;
-      case 6: {
-        if (tag == 50) {
-         parse_Cutboard:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_cutboard()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // optional .dg.model.Cutboard Cutboard = 6;
+    case 6: {
+      if (tag == 50) {
+parse_Cutboard:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_cutboard()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(61)) goto parse_LocalProvinceConfidence;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    // optional float LocalProvinceConfidence = 7;
+    case 7: {
+      if (tag == 61) {
+parse_LocalProvinceConfidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &localprovinceconfidence_)));
+
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
+
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
+      }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -6715,7 +6808,7 @@ failure:
 }
 
 void LicensePlate::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.LicensePlate)
   // optional string PlateText = 1;
   if (this->platetext().size() > 0) {
@@ -6759,11 +6852,16 @@ void LicensePlate::SerializeWithCachedSizes(
       6, *this->cutboard_, output);
   }
 
+  // optional float LocalProvinceConfidence = 7;
+  if (this->localprovinceconfidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->localprovinceconfidence(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.LicensePlate)
 }
 
 ::google::protobuf::uint8* LicensePlate::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.LicensePlate)
   // optional string PlateText = 1;
   if (this->platetext().size() > 0) {
@@ -6779,8 +6877,8 @@ void LicensePlate::SerializeWithCachedSizes(
   // optional .dg.model.Color Color = 2;
   if (this->has_color()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->color_, target);
+             WriteMessageNoVirtualToArray(
+               2, *this->color_, target);
   }
 
   // optional int32 TypeId = 3;
@@ -6807,8 +6905,13 @@ void LicensePlate::SerializeWithCachedSizes(
   // optional .dg.model.Cutboard Cutboard = 6;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        6, *this->cutboard_, target);
+             WriteMessageNoVirtualToArray(
+               6, *this->cutboard_, target);
+  }
+
+  // optional float LocalProvinceConfidence = 7;
+  if (this->localprovinceconfidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->localprovinceconfidence(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.LicensePlate)
@@ -6821,29 +6924,29 @@ int LicensePlate::ByteSize() const {
   // optional string PlateText = 1;
   if (this->platetext().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->platetext());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->platetext());
   }
 
   // optional .dg.model.Color Color = 2;
   if (this->has_color()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->color_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->color_);
   }
 
   // optional int32 TypeId = 3;
   if (this->typeid_() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->typeid_());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->typeid_());
   }
 
   // optional string TypeName = 4;
   if (this->typename_().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->typename_());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->typename_());
   }
 
   // optional float Confidence = 5;
@@ -6854,8 +6957,13 @@ int LicensePlate::ByteSize() const {
   // optional .dg.model.Cutboard Cutboard = 6;
   if (this->has_cutboard()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->cutboard_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->cutboard_);
+  }
+
+  // optional float LocalProvinceConfidence = 7;
+  if (this->localprovinceconfidence() != 0) {
+    total_size += 1 + 4;
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -6866,9 +6974,9 @@ int LicensePlate::ByteSize() const {
 
 void LicensePlate::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const LicensePlate* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const LicensePlate>(
-          &from);
+  const LicensePlate* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const LicensePlate>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -6897,6 +7005,9 @@ void LicensePlate::MergeFrom(const LicensePlate& from) {
   }
   if (from.has_cutboard()) {
     mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
+  }
+  if (from.localprovinceconfidence() != 0) {
+    set_localprovinceconfidence(from.localprovinceconfidence());
   }
 }
 
@@ -6928,6 +7039,7 @@ void LicensePlate::InternalSwap(LicensePlate* other) {
   typename__.Swap(&other->typename__);
   std::swap(confidence_, other->confidence_);
   std::swap(cutboard_, other->cutboard_);
+  std::swap(localprovinceconfidence_, other->localprovinceconfidence_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -6947,40 +7059,40 @@ void LicensePlate::InternalSwap(LicensePlate* other) {
 void LicensePlate::clear_platetext() {
   platetext_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& LicensePlate::platetext() const {
+const ::std::string& LicensePlate::platetext() const {
   // @@protoc_insertion_point(field_get:dg.model.LicensePlate.PlateText)
   return platetext_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LicensePlate::set_platetext(const ::std::string& value) {
-  
+void LicensePlate::set_platetext(const ::std::string& value) {
+
   platetext_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.LicensePlate.PlateText)
 }
- void LicensePlate::set_platetext(const char* value) {
-  
+void LicensePlate::set_platetext(const char* value) {
+
   platetext_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.PlateText)
 }
- void LicensePlate::set_platetext(const char* value, size_t size) {
-  
+void LicensePlate::set_platetext(const char* value, size_t size) {
+
   platetext_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                        ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.PlateText)
 }
- ::std::string* LicensePlate::mutable_platetext() {
-  
+::std::string* LicensePlate::mutable_platetext() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.PlateText)
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* LicensePlate::release_platetext() {
-  
+::std::string* LicensePlate::release_platetext() {
+
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LicensePlate::set_allocated_platetext(::std::string* platetext) {
+void LicensePlate::set_allocated_platetext(::std::string* platetext) {
   if (platetext != NULL) {
-    
+
   } else {
-    
+
   }
   platetext_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), platetext);
   // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.PlateText)
@@ -6999,7 +7111,7 @@ const ::dg::model::Color& LicensePlate::color() const {
   return color_ != NULL ? *color_ : *default_instance_->color_;
 }
 ::dg::model::Color* LicensePlate::mutable_color() {
-  
+
   if (color_ == NULL) {
     color_ = new ::dg::model::Color;
   }
@@ -7007,7 +7119,7 @@ const ::dg::model::Color& LicensePlate::color() const {
   return color_;
 }
 ::dg::model::Color* LicensePlate::release_color() {
-  
+
   ::dg::model::Color* temp = color_;
   color_ = NULL;
   return temp;
@@ -7016,9 +7128,9 @@ void LicensePlate::set_allocated_color(::dg::model::Color* color) {
   delete color_;
   color_ = color;
   if (color) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Color)
 }
@@ -7027,12 +7139,12 @@ void LicensePlate::set_allocated_color(::dg::model::Color* color) {
 void LicensePlate::clear_typeid_() {
   typeid__ = 0;
 }
- ::google::protobuf::int32 LicensePlate::typeid_() const {
+::google::protobuf::int32 LicensePlate::typeid_() const {
   // @@protoc_insertion_point(field_get:dg.model.LicensePlate.TypeId)
   return typeid__;
 }
- void LicensePlate::set_typeid_(::google::protobuf::int32 value) {
-  
+void LicensePlate::set_typeid_(::google::protobuf::int32 value) {
+
   typeid__ = value;
   // @@protoc_insertion_point(field_set:dg.model.LicensePlate.TypeId)
 }
@@ -7041,40 +7153,40 @@ void LicensePlate::clear_typeid_() {
 void LicensePlate::clear_typename_() {
   typename__.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& LicensePlate::typename_() const {
+const ::std::string& LicensePlate::typename_() const {
   // @@protoc_insertion_point(field_get:dg.model.LicensePlate.TypeName)
   return typename__.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LicensePlate::set_typename_(const ::std::string& value) {
-  
+void LicensePlate::set_typename_(const ::std::string& value) {
+
   typename__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.LicensePlate.TypeName)
 }
- void LicensePlate::set_typename_(const char* value) {
-  
+void LicensePlate::set_typename_(const char* value) {
+
   typename__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.LicensePlate.TypeName)
 }
- void LicensePlate::set_typename_(const char* value, size_t size) {
-  
+void LicensePlate::set_typename_(const char* value, size_t size) {
+
   typename__.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                        ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.LicensePlate.TypeName)
 }
- ::std::string* LicensePlate::mutable_typename_() {
-  
+::std::string* LicensePlate::mutable_typename_() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.LicensePlate.TypeName)
   return typename__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* LicensePlate::release_typename_() {
-  
+::std::string* LicensePlate::release_typename_() {
+
   return typename__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void LicensePlate::set_allocated_typename_(::std::string* typename_) {
+void LicensePlate::set_allocated_typename_(::std::string* typename_) {
   if (typename_ != NULL) {
-    
+
   } else {
-    
+
   }
   typename__.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), typename_);
   // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.TypeName)
@@ -7084,12 +7196,12 @@ void LicensePlate::clear_typename_() {
 void LicensePlate::clear_confidence() {
   confidence_ = 0;
 }
- float LicensePlate::confidence() const {
+float LicensePlate::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.LicensePlate.Confidence)
   return confidence_;
 }
- void LicensePlate::set_confidence(float value) {
-  
+void LicensePlate::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.LicensePlate.Confidence)
 }
@@ -7107,7 +7219,7 @@ const ::dg::model::Cutboard& LicensePlate::cutboard() const {
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
 ::dg::model::Cutboard* LicensePlate::mutable_cutboard() {
-  
+
   if (cutboard_ == NULL) {
     cutboard_ = new ::dg::model::Cutboard;
   }
@@ -7115,7 +7227,7 @@ const ::dg::model::Cutboard& LicensePlate::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* LicensePlate::release_cutboard() {
-  
+
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
@@ -7124,11 +7236,25 @@ void LicensePlate::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Cutboard)
+}
+
+// optional float LocalProvinceConfidence = 7;
+void LicensePlate::clear_localprovinceconfidence() {
+  localprovinceconfidence_ = 0;
+}
+float LicensePlate::localprovinceconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.LocalProvinceConfidence)
+  return localprovinceconfidence_;
+}
+void LicensePlate::set_localprovinceconfidence(float value) {
+
+  localprovinceconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.LocalProvinceConfidence)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -7160,7 +7286,7 @@ VehicleSymbol::VehicleSymbol(const VehicleSymbol& from)
 }
 
 void VehicleSymbol::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   symbolid_ = 0;
@@ -7210,7 +7336,7 @@ void VehicleSymbol::Clear() {
 }
 
 bool VehicleSymbol::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleSymbol)
@@ -7219,64 +7345,64 @@ bool VehicleSymbol::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 SymbolId = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &symbolid_)));
+    // optional int32 SymbolId = 1;
+    case 1: {
+      if (tag == 8) {
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32 > (
+               input, &symbolid_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_SymbolName;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_SymbolName;
+      break;
+    }
 
-      // optional string SymbolName = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_SymbolName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_symbolname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->symbolname().data(), this->symbolname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.VehicleSymbol.SymbolName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Symbols;
-        break;
+    // optional string SymbolName = 2;
+    case 2: {
+      if (tag == 18) {
+parse_SymbolName:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_symbolname()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->symbolname().data(), this->symbolname().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.VehicleSymbol.SymbolName"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Symbols;
+      break;
+    }
 
-      // repeated .dg.model.Symbol Symbols = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Symbols:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Symbols:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_symbols()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_loop_Symbols;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // repeated .dg.model.Symbol Symbols = 3;
+    case 3: {
+      if (tag == 26) {
+parse_Symbols:
+        DO_(input->IncrementRecursionDepth());
+parse_loop_Symbols:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+              input, add_symbols()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_loop_Symbols;
+      input->UnsafeDecrementRecursionDepth();
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -7289,7 +7415,7 @@ failure:
 }
 
 void VehicleSymbol::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.VehicleSymbol)
   // optional int32 SymbolId = 1;
   if (this->symbolid() != 0) {
@@ -7316,7 +7442,7 @@ void VehicleSymbol::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* VehicleSymbol::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleSymbol)
   // optional int32 SymbolId = 1;
   if (this->symbolid() != 0) {
@@ -7337,8 +7463,8 @@ void VehicleSymbol::SerializeWithCachedSizes(
   // repeated .dg.model.Symbol Symbols = 3;
   for (unsigned int i = 0, n = this->symbols_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->symbols(i), target);
+             WriteMessageNoVirtualToArray(
+               3, this->symbols(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleSymbol)
@@ -7351,15 +7477,15 @@ int VehicleSymbol::ByteSize() const {
   // optional int32 SymbolId = 1;
   if (this->symbolid() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->symbolid());
+                  ::google::protobuf::internal::WireFormatLite::Int32Size(
+                    this->symbolid());
   }
 
   // optional string SymbolName = 2;
   if (this->symbolname().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->symbolname());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->symbolname());
   }
 
   // repeated .dg.model.Symbol Symbols = 3;
@@ -7378,9 +7504,9 @@ int VehicleSymbol::ByteSize() const {
 
 void VehicleSymbol::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const VehicleSymbol* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const VehicleSymbol>(
-          &from);
+  const VehicleSymbol* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const VehicleSymbol>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -7444,12 +7570,12 @@ void VehicleSymbol::InternalSwap(VehicleSymbol* other) {
 void VehicleSymbol::clear_symbolid() {
   symbolid_ = 0;
 }
- ::google::protobuf::int32 VehicleSymbol::symbolid() const {
+::google::protobuf::int32 VehicleSymbol::symbolid() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleSymbol.SymbolId)
   return symbolid_;
 }
- void VehicleSymbol::set_symbolid(::google::protobuf::int32 value) {
-  
+void VehicleSymbol::set_symbolid(::google::protobuf::int32 value) {
+
   symbolid_ = value;
   // @@protoc_insertion_point(field_set:dg.model.VehicleSymbol.SymbolId)
 }
@@ -7458,40 +7584,40 @@ void VehicleSymbol::clear_symbolid() {
 void VehicleSymbol::clear_symbolname() {
   symbolname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& VehicleSymbol::symbolname() const {
+const ::std::string& VehicleSymbol::symbolname() const {
   // @@protoc_insertion_point(field_get:dg.model.VehicleSymbol.SymbolName)
   return symbolname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleSymbol::set_symbolname(const ::std::string& value) {
-  
+void VehicleSymbol::set_symbolname(const ::std::string& value) {
+
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.VehicleSymbol.SymbolName)
 }
- void VehicleSymbol::set_symbolname(const char* value) {
-  
+void VehicleSymbol::set_symbolname(const char* value) {
+
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.VehicleSymbol.SymbolName)
 }
- void VehicleSymbol::set_symbolname(const char* value, size_t size) {
-  
+void VehicleSymbol::set_symbolname(const char* value, size_t size) {
+
   symbolname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                         ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.VehicleSymbol.SymbolName)
 }
- ::std::string* VehicleSymbol::mutable_symbolname() {
-  
+::std::string* VehicleSymbol::mutable_symbolname() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.VehicleSymbol.SymbolName)
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* VehicleSymbol::release_symbolname() {
-  
+::std::string* VehicleSymbol::release_symbolname() {
+
   return symbolname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void VehicleSymbol::set_allocated_symbolname(::std::string* symbolname) {
+void VehicleSymbol::set_allocated_symbolname(::std::string* symbolname) {
   if (symbolname != NULL) {
-    
+
   } else {
-    
+
   }
   symbolname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), symbolname);
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleSymbol.SymbolName)
@@ -7556,7 +7682,7 @@ Symbol::Symbol(const Symbol& from)
 }
 
 void Symbol::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   _cached_size_ = 0;
   cutboard_ = NULL;
   confidence_ = 0;
@@ -7605,7 +7731,7 @@ void Symbol::Clear() {
 }
 
 bool Symbol::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Symbol)
@@ -7614,43 +7740,43 @@ bool Symbol::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.Cutboard Cutboard = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_cutboard()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(21)) goto parse_Confidence;
-        break;
+    // optional .dg.model.Cutboard Cutboard = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_cutboard()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(21)) goto parse_Confidence;
+      break;
+    }
 
-      // optional float Confidence = 2;
-      case 2: {
-        if (tag == 21) {
-         parse_Confidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+    // optional float Confidence = 2;
+    case 2: {
+      if (tag == 21) {
+parse_Confidence:
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT > (
+               input, &confidence_)));
 
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -7663,7 +7789,7 @@ failure:
 }
 
 void Symbol::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.Symbol)
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
@@ -7680,13 +7806,13 @@ void Symbol::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* Symbol::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.Symbol)
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->cutboard_, target);
+             WriteMessageNoVirtualToArray(
+               1, *this->cutboard_, target);
   }
 
   // optional float Confidence = 2;
@@ -7704,8 +7830,8 @@ int Symbol::ByteSize() const {
   // optional .dg.model.Cutboard Cutboard = 1;
   if (this->has_cutboard()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->cutboard_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->cutboard_);
   }
 
   // optional float Confidence = 2;
@@ -7721,9 +7847,9 @@ int Symbol::ByteSize() const {
 
 void Symbol::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const Symbol* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const Symbol>(
-          &from);
+  const Symbol* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const Symbol>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -7793,7 +7919,7 @@ const ::dg::model::Cutboard& Symbol::cutboard() const {
   return cutboard_ != NULL ? *cutboard_ : *default_instance_->cutboard_;
 }
 ::dg::model::Cutboard* Symbol::mutable_cutboard() {
-  
+
   if (cutboard_ == NULL) {
     cutboard_ = new ::dg::model::Cutboard;
   }
@@ -7801,7 +7927,7 @@ const ::dg::model::Cutboard& Symbol::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* Symbol::release_cutboard() {
-  
+
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
   return temp;
@@ -7810,9 +7936,9 @@ void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
   delete cutboard_;
   cutboard_ = cutboard;
   if (cutboard) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.Symbol.Cutboard)
 }
@@ -7821,12 +7947,12 @@ void Symbol::set_allocated_cutboard(::dg::model::Cutboard* cutboard) {
 void Symbol::clear_confidence() {
   confidence_ = 0;
 }
- float Symbol::confidence() const {
+float Symbol::confidence() const {
   // @@protoc_insertion_point(field_get:dg.model.Symbol.Confidence)
   return confidence_;
 }
- void Symbol::set_confidence(float value) {
-  
+void Symbol::set_confidence(float value) {
+
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.Symbol.Confidence)
 }
@@ -7860,7 +7986,7 @@ StorageConfig::StorageConfig(const StorageConfig& from)
 }
 
 void StorageConfig::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -7910,7 +8036,7 @@ void StorageConfig::Clear() {
 }
 
 bool StorageConfig::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.StorageConfig)
@@ -7919,67 +8045,67 @@ bool StorageConfig::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional string Address = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_address()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->address().data(), this->address().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.StorageConfig.Address"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_Type;
-        break;
+    // optional string Address = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->mutable_address()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->address().data(), this->address().length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.StorageConfig.Address"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(16)) goto parse_Type;
+      break;
+    }
 
-      // optional .dg.model.DBType Type = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_Type:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_type(static_cast< ::dg::model::DBType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Tags;
-        break;
+    // optional .dg.model.DBType Type = 2;
+    case 2: {
+      if (tag == 16) {
+parse_Type:
+        int value;
+        DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive <
+             int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM > (
+               input, &value)));
+        set_type(static_cast< ::dg::model::DBType >(value));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Tags;
+      break;
+    }
 
-      // repeated string Tags = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Tags:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->add_tags()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->tags(this->tags_size() - 1).data(),
-            this->tags(this->tags_size() - 1).length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.StorageConfig.Tags"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Tags;
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // repeated string Tags = 3;
+    case 3: {
+      if (tag == 26) {
+parse_Tags:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+              input, this->add_tags()));
+        DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+              this->tags(this->tags_size() - 1).data(),
+              this->tags(this->tags_size() - 1).length(),
+              ::google::protobuf::internal::WireFormatLite::PARSE,
+              "dg.model.StorageConfig.Tags"));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Tags;
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -7992,7 +8118,7 @@ failure:
 }
 
 void StorageConfig::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.StorageConfig)
   // optional string Address = 1;
   if (this->address().size() > 0) {
@@ -8024,7 +8150,7 @@ void StorageConfig::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* StorageConfig::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.StorageConfig)
   // optional string Address = 1;
   if (this->address().size() > 0) {
@@ -8040,7 +8166,7 @@ void StorageConfig::SerializeWithCachedSizes(
   // optional .dg.model.DBType Type = 2;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+               2, this->type(), target);
   }
 
   // repeated string Tags = 3;
@@ -8050,7 +8176,7 @@ void StorageConfig::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "dg.model.StorageConfig.Tags");
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteStringToArray(3, this->tags(i), target);
+             WriteStringToArray(3, this->tags(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.StorageConfig)
@@ -8063,21 +8189,21 @@ int StorageConfig::ByteSize() const {
   // optional string Address = 1;
   if (this->address().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->address());
+                  ::google::protobuf::internal::WireFormatLite::StringSize(
+                    this->address());
   }
 
   // optional .dg.model.DBType Type = 2;
   if (this->type() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+                  ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
   }
 
   // repeated string Tags = 3;
   total_size += 1 * this->tags_size();
   for (int i = 0; i < this->tags_size(); i++) {
     total_size += ::google::protobuf::internal::WireFormatLite::StringSize(
-      this->tags(i));
+                    this->tags(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -8088,9 +8214,9 @@ int StorageConfig::ByteSize() const {
 
 void StorageConfig::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const StorageConfig* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const StorageConfig>(
-          &from);
+  const StorageConfig* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const StorageConfig>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -8154,40 +8280,40 @@ void StorageConfig::InternalSwap(StorageConfig* other) {
 void StorageConfig::clear_address() {
   address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- const ::std::string& StorageConfig::address() const {
+const ::std::string& StorageConfig::address() const {
   // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Address)
   return address_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void StorageConfig::set_address(const ::std::string& value) {
-  
+void StorageConfig::set_address(const ::std::string& value) {
+
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Address)
 }
- void StorageConfig::set_address(const char* value) {
-  
+void StorageConfig::set_address(const char* value) {
+
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Address)
 }
- void StorageConfig::set_address(const char* value, size_t size) {
-  
+void StorageConfig::set_address(const char* value, size_t size) {
+
   address_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
+                      ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Address)
 }
- ::std::string* StorageConfig::mutable_address() {
-  
+::std::string* StorageConfig::mutable_address() {
+
   // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Address)
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::std::string* StorageConfig::release_address() {
-  
+::std::string* StorageConfig::release_address() {
+
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void StorageConfig::set_allocated_address(::std::string* address) {
+void StorageConfig::set_allocated_address(::std::string* address) {
   if (address != NULL) {
-    
+
   } else {
-    
+
   }
   address_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), address);
   // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
@@ -8197,12 +8323,12 @@ void StorageConfig::clear_address() {
 void StorageConfig::clear_type() {
   type_ = 0;
 }
- ::dg::model::DBType StorageConfig::type() const {
+::dg::model::DBType StorageConfig::type() const {
   // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Type)
   return static_cast< ::dg::model::DBType >(type_);
 }
- void StorageConfig::set_type(::dg::model::DBType value) {
-  
+void StorageConfig::set_type(::dg::model::DBType value) {
+
   type_ = value;
   // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Type)
 }
@@ -8214,48 +8340,48 @@ int StorageConfig::tags_size() const {
 void StorageConfig::clear_tags() {
   tags_.Clear();
 }
- const ::std::string& StorageConfig::tags(int index) const {
+const ::std::string& StorageConfig::tags(int index) const {
   // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Tags)
   return tags_.Get(index);
 }
- ::std::string* StorageConfig::mutable_tags(int index) {
+::std::string* StorageConfig::mutable_tags(int index) {
   // @@protoc_insertion_point(field_mutable:dg.model.StorageConfig.Tags)
   return tags_.Mutable(index);
 }
- void StorageConfig::set_tags(int index, const ::std::string& value) {
+void StorageConfig::set_tags(int index, const ::std::string& value) {
   // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Tags)
   tags_.Mutable(index)->assign(value);
 }
- void StorageConfig::set_tags(int index, const char* value) {
+void StorageConfig::set_tags(int index, const char* value) {
   tags_.Mutable(index)->assign(value);
   // @@protoc_insertion_point(field_set_char:dg.model.StorageConfig.Tags)
 }
- void StorageConfig::set_tags(int index, const char* value, size_t size) {
+void StorageConfig::set_tags(int index, const char* value, size_t size) {
   tags_.Mutable(index)->assign(
     reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
 }
- ::std::string* StorageConfig::add_tags() {
+::std::string* StorageConfig::add_tags() {
   return tags_.Add();
 }
- void StorageConfig::add_tags(const ::std::string& value) {
+void StorageConfig::add_tags(const ::std::string& value) {
   tags_.Add()->assign(value);
   // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Tags)
 }
- void StorageConfig::add_tags(const char* value) {
+void StorageConfig::add_tags(const char* value) {
   tags_.Add()->assign(value);
   // @@protoc_insertion_point(field_add_char:dg.model.StorageConfig.Tags)
 }
- void StorageConfig::add_tags(const char* value, size_t size) {
+void StorageConfig::add_tags(const char* value, size_t size) {
   tags_.Add()->assign(reinterpret_cast<const char*>(value), size);
   // @@protoc_insertion_point(field_add_pointer:dg.model.StorageConfig.Tags)
 }
- const ::google::protobuf::RepeatedPtrField< ::std::string>&
+const ::google::protobuf::RepeatedPtrField< ::std::string>&
 StorageConfig::tags() const {
   // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Tags)
   return tags_;
 }
- ::google::protobuf::RepeatedPtrField< ::std::string>*
+::google::protobuf::RepeatedPtrField< ::std::string>*
 StorageConfig::mutable_tags() {
   // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Tags)
   return &tags_;
@@ -8292,7 +8418,7 @@ VehicleObj::VehicleObj(const VehicleObj& from)
 }
 
 void VehicleObj::SharedCtor() {
-    _is_default_instance_ = false;
+  _is_default_instance_ = false;
   _cached_size_ = 0;
   metadata_ = NULL;
   img_ = NULL;
@@ -8344,7 +8470,7 @@ void VehicleObj::Clear() {
 }
 
 bool VehicleObj::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
+  ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleObj)
@@ -8353,58 +8479,58 @@ bool VehicleObj::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.SrcMetadata Metadata = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_metadata()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Img;
-        break;
+    // optional .dg.model.SrcMetadata Metadata = 1;
+    case 1: {
+      if (tag == 10) {
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_metadata()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(18)) goto parse_Img;
+      break;
+    }
 
-      // optional .dg.model.Image Img = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Img:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_img()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_Vehicle;
-        break;
+    // optional .dg.model.Image Img = 2;
+    case 2: {
+      if (tag == 18) {
+parse_Img:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, mutable_img()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_Vehicle;
+      break;
+    }
 
-      // repeated .dg.model.RecVehicle Vehicle = 3;
-      case 3: {
-        if (tag == 26) {
-         parse_Vehicle:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Vehicle:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_vehicle()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_loop_Vehicle;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
+    // repeated .dg.model.RecVehicle Vehicle = 3;
+    case 3: {
+      if (tag == 26) {
+parse_Vehicle:
+        DO_(input->IncrementRecursionDepth());
+parse_loop_Vehicle:
+        DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+              input, add_vehicle()));
+      } else {
+        goto handle_unusual;
       }
+      if (input->ExpectTag(26)) goto parse_loop_Vehicle;
+      input->UnsafeDecrementRecursionDepth();
+      if (input->ExpectAtEnd()) goto success;
+      break;
+    }
 
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
+    default: {
+handle_unusual:
+      if (tag == 0 ||
+          ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+          ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+        goto success;
       }
+      DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+      break;
+    }
     }
   }
 success:
@@ -8417,7 +8543,7 @@ failure:
 }
 
 void VehicleObj::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
+  ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.VehicleObj)
   // optional .dg.model.SrcMetadata Metadata = 1;
   if (this->has_metadata()) {
@@ -8441,27 +8567,27 @@ void VehicleObj::SerializeWithCachedSizes(
 }
 
 ::google::protobuf::uint8* VehicleObj::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
+  ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.VehicleObj)
   // optional .dg.model.SrcMetadata Metadata = 1;
   if (this->has_metadata()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->metadata_, target);
+             WriteMessageNoVirtualToArray(
+               1, *this->metadata_, target);
   }
 
   // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, *this->img_, target);
+             WriteMessageNoVirtualToArray(
+               2, *this->img_, target);
   }
 
   // repeated .dg.model.RecVehicle Vehicle = 3;
   for (unsigned int i = 0, n = this->vehicle_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        3, this->vehicle(i), target);
+             WriteMessageNoVirtualToArray(
+               3, this->vehicle(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.VehicleObj)
@@ -8474,15 +8600,15 @@ int VehicleObj::ByteSize() const {
   // optional .dg.model.SrcMetadata Metadata = 1;
   if (this->has_metadata()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->metadata_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->metadata_);
   }
 
   // optional .dg.model.Image Img = 2;
   if (this->has_img()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->img_);
+                  ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+                    *this->img_);
   }
 
   // repeated .dg.model.RecVehicle Vehicle = 3;
@@ -8501,9 +8627,9 @@ int VehicleObj::ByteSize() const {
 
 void VehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const VehicleObj* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const VehicleObj>(
-          &from);
+  const VehicleObj* source =
+    ::google::protobuf::internal::DynamicCastToGenerated<const VehicleObj>(
+      &from);
   if (source == NULL) {
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
@@ -8575,7 +8701,7 @@ const ::dg::model::SrcMetadata& VehicleObj::metadata() const {
   return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
 }
 ::dg::model::SrcMetadata* VehicleObj::mutable_metadata() {
-  
+
   if (metadata_ == NULL) {
     metadata_ = new ::dg::model::SrcMetadata;
   }
@@ -8583,7 +8709,7 @@ const ::dg::model::SrcMetadata& VehicleObj::metadata() const {
   return metadata_;
 }
 ::dg::model::SrcMetadata* VehicleObj::release_metadata() {
-  
+
   ::dg::model::SrcMetadata* temp = metadata_;
   metadata_ = NULL;
   return temp;
@@ -8592,9 +8718,9 @@ void VehicleObj::set_allocated_metadata(::dg::model::SrcMetadata* metadata) {
   delete metadata_;
   metadata_ = metadata;
   if (metadata) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Metadata)
 }
@@ -8612,7 +8738,7 @@ const ::dg::model::Image& VehicleObj::img() const {
   return img_ != NULL ? *img_ : *default_instance_->img_;
 }
 ::dg::model::Image* VehicleObj::mutable_img() {
-  
+
   if (img_ == NULL) {
     img_ = new ::dg::model::Image;
   }
@@ -8620,7 +8746,7 @@ const ::dg::model::Image& VehicleObj::img() const {
   return img_;
 }
 ::dg::model::Image* VehicleObj::release_img() {
-  
+
   ::dg::model::Image* temp = img_;
   img_ = NULL;
   return temp;
@@ -8629,9 +8755,9 @@ void VehicleObj::set_allocated_img(::dg::model::Image* img) {
   delete img_;
   img_ = img;
   if (img) {
-    
+
   } else {
-    
+
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.VehicleObj.Img)
 }

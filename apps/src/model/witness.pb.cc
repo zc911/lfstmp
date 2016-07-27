@@ -31,10 +31,25 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* IndexTxtResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   IndexTxtResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommonIndex_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommonIndex_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CommonIndex_Item_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CommonIndex_Item_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BrandIndex_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BrandIndex_reflection_ = NULL;
+const ::google::protobuf::Descriptor* BrandIndex_Item_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  BrandIndex_Item_reflection_ = NULL;
 const ::google::protobuf::Descriptor* IndexResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   IndexResponse_reflection_ = NULL;
-const ::google::protobuf::Descriptor* IndexResponse_IndexEntry_descriptor_ = NULL;
+struct IndexResponseOneofInstance {
+  const ::dg::model::CommonIndex* index_;
+  const ::dg::model::BrandIndex* brandindex_;
+}* IndexResponse_default_oneof_instance_ = NULL;
 const ::google::protobuf::Descriptor* WitnessRequest_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   WitnessRequest_reflection_ = NULL;
@@ -126,9 +141,77 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(IndexTxtResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexTxtResponse, _is_default_instance_));
-  IndexResponse_descriptor_ = file->message_type(3);
-  static const int IndexResponse_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, index_),
+  CommonIndex_descriptor_ = file->message_type(3);
+  static const int CommonIndex_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex, items_),
+  };
+  CommonIndex_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      CommonIndex_descriptor_,
+      CommonIndex::default_instance_,
+      CommonIndex_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(CommonIndex),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex, _is_default_instance_));
+  CommonIndex_Item_descriptor_ = CommonIndex_descriptor_->nested_type(0);
+  static const int CommonIndex_Item_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex_Item, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex_Item, name_),
+  };
+  CommonIndex_Item_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      CommonIndex_Item_descriptor_,
+      CommonIndex_Item::default_instance_,
+      CommonIndex_Item_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(CommonIndex_Item),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex_Item, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CommonIndex_Item, _is_default_instance_));
+  BrandIndex_descriptor_ = file->message_type(4);
+  static const int BrandIndex_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex, items_),
+  };
+  BrandIndex_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BrandIndex_descriptor_,
+      BrandIndex::default_instance_,
+      BrandIndex_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BrandIndex),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex, _is_default_instance_));
+  BrandIndex_Item_descriptor_ = BrandIndex_descriptor_->nested_type(0);
+  static const int BrandIndex_Item_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, mainbrandid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, subbrandid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, yearmodelid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, mainbrandname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, subbrandname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, yearmodelname_),
+  };
+  BrandIndex_Item_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      BrandIndex_Item_descriptor_,
+      BrandIndex_Item::default_instance_,
+      BrandIndex_Item_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(BrandIndex_Item),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BrandIndex_Item, _is_default_instance_));
+  IndexResponse_descriptor_ = file->message_type(5);
+  static const int IndexResponse_offsets_[3] = {
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(IndexResponse_default_oneof_instance_, index_),
+    PROTO2_GENERATED_DEFAULT_ONEOF_FIELD_OFFSET(IndexResponse_default_oneof_instance_, brandindex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, index_content_),
   };
   IndexResponse_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -138,11 +221,12 @@ void protobuf_AssignDesc_witness_2eproto() {
       -1,
       -1,
       -1,
+      IndexResponse_default_oneof_instance_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _oneof_case_[0]),
       sizeof(IndexResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(IndexResponse, _is_default_instance_));
-  IndexResponse_IndexEntry_descriptor_ = IndexResponse_descriptor_->nested_type(0);
-  WitnessRequest_descriptor_ = file->message_type(4);
+  WitnessRequest_descriptor_ = file->message_type(6);
   static const int WitnessRequest_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, context_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, image_),
@@ -158,7 +242,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequest, _is_default_instance_));
-  WitnessBatchRequest_descriptor_ = file->message_type(5);
+  WitnessBatchRequest_descriptor_ = file->message_type(7);
   static const int WitnessBatchRequest_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, context_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, images_),
@@ -174,7 +258,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessBatchRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchRequest, _is_default_instance_));
-  WitnessResponse_descriptor_ = file->message_type(6);
+  WitnessResponse_descriptor_ = file->message_type(8);
   static const int WitnessResponse_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, context_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, result_),
@@ -190,7 +274,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponse, _is_default_instance_));
-  WitnessBatchResponse_descriptor_ = file->message_type(7);
+  WitnessBatchResponse_descriptor_ = file->message_type(9);
   static const int WitnessBatchResponse_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, context_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, results_),
@@ -206,7 +290,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessBatchResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessBatchResponse, _is_default_instance_));
-  WitnessRelativeROI_descriptor_ = file->message_type(8);
+  WitnessRelativeROI_descriptor_ = file->message_type(10);
   static const int WitnessRelativeROI_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posx_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, posy_),
@@ -224,7 +308,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessRelativeROI),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRelativeROI, _is_default_instance_));
-  WitnessMarginROI_descriptor_ = file->message_type(9);
+  WitnessMarginROI_descriptor_ = file->message_type(11);
   static const int WitnessMarginROI_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, left_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, top_),
@@ -242,7 +326,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessMarginROI),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessMarginROI, _is_default_instance_));
-  WitnessRequestContext_descriptor_ = file->message_type(10);
+  WitnessRequestContext_descriptor_ = file->message_type(12);
   static const int WitnessRequestContext_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, username_),
@@ -264,7 +348,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessRequestContext, _is_default_instance_));
   WitnessRequestContext_ParamsEntry_descriptor_ = WitnessRequestContext_descriptor_->nested_type(0);
-  WitnessImage_descriptor_ = file->message_type(11);
+  WitnessImage_descriptor_ = file->message_type(13);
   static const int WitnessImage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, witnessmetadata_),
@@ -282,7 +366,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessImage),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessImage, _is_default_instance_));
-  WitnessResponseContext_descriptor_ = file->message_type(12);
+  WitnessResponseContext_descriptor_ = file->message_type(14);
   static const int WitnessResponseContext_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, sessionid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, status_),
@@ -303,7 +387,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
   WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
-  WitnessResult_descriptor_ = file->message_type(13);
+  WitnessResult_descriptor_ = file->message_type(15);
   static const int WitnessResult_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
@@ -322,7 +406,7 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessResult),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
-  WitnessVehicleObj_descriptor_ = file->message_type(14);
+  WitnessVehicleObj_descriptor_ = file->message_type(16);
   static const int WitnessVehicleObj_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, vehicleresult_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, storage_),
@@ -358,16 +442,15 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       IndexTxtResponse_descriptor_, &IndexTxtResponse::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      IndexResponse_descriptor_, &IndexResponse::default_instance());
+      CommonIndex_descriptor_, &CommonIndex::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-        IndexResponse_IndexEntry_descriptor_,
-        ::google::protobuf::internal::MapEntry<
-            ::google::protobuf::int32,
-            ::std::string,
-            ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
-            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-            0>::CreateDefaultInstance(
-                IndexResponse_IndexEntry_descriptor_));
+      CommonIndex_Item_descriptor_, &CommonIndex_Item::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BrandIndex_descriptor_, &BrandIndex::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      BrandIndex_Item_descriptor_, &BrandIndex_Item::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      IndexResponse_descriptor_, &IndexResponse::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       WitnessRequest_descriptor_, &WitnessRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -419,7 +502,16 @@ void protobuf_ShutdownFile_witness_2eproto() {
   delete IndexTxtRequest_reflection_;
   delete IndexTxtResponse::default_instance_;
   delete IndexTxtResponse_reflection_;
+  delete CommonIndex::default_instance_;
+  delete CommonIndex_reflection_;
+  delete CommonIndex_Item::default_instance_;
+  delete CommonIndex_Item_reflection_;
+  delete BrandIndex::default_instance_;
+  delete BrandIndex_reflection_;
+  delete BrandIndex_Item::default_instance_;
+  delete BrandIndex_Item_reflection_;
   delete IndexResponse::default_instance_;
+  delete IndexResponse_default_oneof_instance_;
   delete IndexResponse_reflection_;
   delete WitnessRequest::default_instance_;
   delete WitnessRequest_reflection_;
@@ -459,72 +551,83 @@ void protobuf_AddDesc_witness_2eproto() {
     "dexType\030\001 \001(\0162\023.dg.model.IndexType\"9\n\017In"
     "dexTxtRequest\022&\n\tIndexType\030\001 \001(\0162\023.dg.mo"
     "del.IndexType\"#\n\020IndexTxtResponse\022\017\n\007Con"
-    "text\030\001 \001(\t\"p\n\rIndexResponse\0221\n\005Index\030\001 \003"
-    "(\0132\".dg.model.IndexResponse.IndexEntry\032,"
-    "\n\nIndexEntry\022\013\n\003key\030\001 \001(\005\022\r\n\005value\030\002 \001(\t"
-    ":\0028\001\"i\n\016WitnessRequest\0220\n\007Context\030\001 \001(\0132"
-    "\037.dg.model.WitnessRequestContext\022%\n\005Imag"
-    "e\030\002 \001(\0132\026.dg.model.WitnessImage\"o\n\023Witne"
-    "ssBatchRequest\0220\n\007Context\030\001 \001(\0132\037.dg.mod"
-    "el.WitnessRequestContext\022&\n\006Images\030\002 \003(\013"
-    "2\026.dg.model.WitnessImage\"m\n\017WitnessRespo"
-    "nse\0221\n\007Context\030\001 \001(\0132 .dg.model.WitnessR"
-    "esponseContext\022\'\n\006Result\030\002 \001(\0132\027.dg.mode"
-    "l.WitnessResult\"s\n\024WitnessBatchResponse\022"
-    "1\n\007Context\030\001 \001(\0132 .dg.model.WitnessRespo"
-    "nseContext\022(\n\007Results\030\002 \003(\0132\027.dg.model.W"
-    "itnessResult\"O\n\022WitnessRelativeROI\022\014\n\004Po"
-    "sX\030\001 \001(\005\022\014\n\004PosY\030\002 \001(\005\022\r\n\005Width\030\003 \001(\005\022\016\n"
-    "\006Height\030\004 \001(\005\"L\n\020WitnessMarginROI\022\014\n\004Lef"
-    "t\030\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022\r\n\005Right\030\003 \001(\005\022\016\n\006B"
-    "ottom\030\004 \001(\005\"\271\002\n\025WitnessRequestContext\022\021\n"
-    "\tSessionId\030\001 \001(\t\022\020\n\010UserName\030\002 \001(\t\022\r\n\005To"
-    "ken\030\003 \001(\t\022/\n\tFunctions\030\004 \003(\0162\034.dg.model."
-    "RecognizeFunctions\022%\n\004Type\030\005 \001(\0162\027.dg.mo"
-    "del.RecognizeType\022(\n\007Storage\030\006 \001(\0132\027.dg."
-    "model.StorageConfig\022;\n\006Params\030\007 \003(\0132+.dg"
-    ".model.WitnessRequestContext.ParamsEntry"
-    "\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
-    "\001(\t:\0028\001\"\277\001\n\014WitnessImage\022\035\n\004Data\030\001 \001(\0132\017"
-    ".dg.model.Image\022.\n\017WitnessMetaData\030\002 \001(\013"
-    "2\025.dg.model.SrcMetadata\0221\n\013RelativeRoi\030\003"
-    " \003(\0132\034.dg.model.WitnessRelativeROI\022-\n\tMa"
-    "rginRoi\030\004 \003(\0132\032.dg.model.WitnessMarginRO"
-    "I\"\223\002\n\026WitnessResponseContext\022\021\n\tSessionI"
-    "d\030\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t"
-    "\022!\n\tRequestTs\030\004 \001(\0132\016.dg.model.Time\022\"\n\nR"
-    "esponseTs\030\005 \001(\0132\016.dg.model.Time\022>\n\007Debug"
-    "Ts\030\006 \003(\0132-.dg.model.WitnessResponseConte"
-    "xt.DebugTsEntry\032>\n\014DebugTsEntry\022\013\n\003key\030\001"
-    " \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.model.Time:\0028\001\""
-    "\253\001\n\rWitnessResult\022\023\n\013InnerStatus\030\001 \001(\t\022\024"
-    "\n\014InnerMessage\030\002 \001(\t\022%\n\005Image\030\003 \001(\0132\026.dg"
-    ".model.WitnessImage\022&\n\010Vehicles\030\004 \003(\0132\024."
-    "dg.model.RecVehicle\022 \n\005Faces\030\005 \003(\0132\021.dg."
-    "model.RecFace\"j\n\021WitnessVehicleObj\022+\n\rVe"
-    "hicleResult\030\001 \001(\0132\024.dg.model.VehicleObj\022"
-    "(\n\007Storage\030\002 \001(\0132\027.dg.model.StorageConfi"
-    "g*\203\002\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\022\n\016IN"
-    "DEX_CAR_TYPE\020\001\022\030\n\024INDEX_CAR_MAIN_BRAND\020\002"
-    "\022\027\n\023INDEX_CAR_SUB_BRAND\020\003\022\030\n\024INDEX_CAR_Y"
-    "EAR_MODEL\020\004\022\023\n\017INDEX_CAR_COLOR\020\005\022\024\n\020INDE"
-    "X_CAR_MARKER\020\006\022\030\n\024INDEX_CAR_PLATE_TYPE\020\007"
-    "\022\031\n\025INDEX_CAR_PLATE_COLOR\020\010\022\"\n\036INDEX_CAR"
-    "_PEDESTRIAN_ATTR_TYPE\020\t2\256\002\n\016WitnessServi"
-    "ce\022B\n\tRecognize\022\030.dg.model.WitnessReques"
-    "t\032\031.dg.model.WitnessResponse\"\000\022Q\n\016BatchR"
-    "ecognize\022\035.dg.model.WitnessBatchRequest\032"
-    "\036.dg.model.WitnessBatchResponse\"\000\022=\n\010Get"
-    "Index\022\026.dg.model.IndexRequest\032\027.dg.model"
-    ".IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.mod"
-    "el.IndexTxtRequest\032\032.dg.model.IndexTxtRe"
-    "sponse\"\000b\006proto3", 2576);
+    "text\030\001 \001(\t\"Z\n\013CommonIndex\022)\n\005Items\030\001 \003(\013"
+    "2\032.dg.model.CommonIndex.Item\032 \n\004Item\022\n\n\002"
+    "Id\030\001 \001(\005\022\014\n\004Name\030\002 \001(\t\"\301\001\n\nBrandIndex\022(\n"
+    "\005Items\030\001 \003(\0132\031.dg.model.BrandIndex.Item\032"
+    "\210\001\n\004Item\022\023\n\013MainBrandId\030\002 \001(\005\022\022\n\nSubBran"
+    "dId\030\003 \001(\005\022\023\n\013YearModelId\030\004 \001(\005\022\025\n\rMainBr"
+    "andName\030\005 \001(\t\022\024\n\014SubBrandName\030\006 \001(\t\022\025\n\rY"
+    "earModelName\030\007 \001(\t\"t\n\rIndexResponse\022&\n\005I"
+    "ndex\030\001 \001(\0132\025.dg.model.CommonIndexH\000\022*\n\nB"
+    "randIndex\030\002 \001(\0132\024.dg.model.BrandIndexH\000B"
+    "\017\n\rindex_content\"i\n\016WitnessRequest\0220\n\007Co"
+    "ntext\030\001 \001(\0132\037.dg.model.WitnessRequestCon"
+    "text\022%\n\005Image\030\002 \001(\0132\026.dg.model.WitnessIm"
+    "age\"o\n\023WitnessBatchRequest\0220\n\007Context\030\001 "
+    "\001(\0132\037.dg.model.WitnessRequestContext\022&\n\006"
+    "Images\030\002 \003(\0132\026.dg.model.WitnessImage\"m\n\017"
+    "WitnessResponse\0221\n\007Context\030\001 \001(\0132 .dg.mo"
+    "del.WitnessResponseContext\022\'\n\006Result\030\002 \001"
+    "(\0132\027.dg.model.WitnessResult\"s\n\024WitnessBa"
+    "tchResponse\0221\n\007Context\030\001 \001(\0132 .dg.model."
+    "WitnessResponseContext\022(\n\007Results\030\002 \003(\0132"
+    "\027.dg.model.WitnessResult\"O\n\022WitnessRelat"
+    "iveROI\022\014\n\004PosX\030\001 \001(\005\022\014\n\004PosY\030\002 \001(\005\022\r\n\005Wi"
+    "dth\030\003 \001(\005\022\016\n\006Height\030\004 \001(\005\"L\n\020WitnessMarg"
+    "inROI\022\014\n\004Left\030\001 \001(\005\022\013\n\003Top\030\002 \001(\005\022\r\n\005Righ"
+    "t\030\003 \001(\005\022\016\n\006Bottom\030\004 \001(\005\"\271\002\n\025WitnessReque"
+    "stContext\022\021\n\tSessionId\030\001 \001(\t\022\020\n\010UserName"
+    "\030\002 \001(\t\022\r\n\005Token\030\003 \001(\t\022/\n\tFunctions\030\004 \003(\016"
+    "2\034.dg.model.RecognizeFunctions\022%\n\004Type\030\005"
+    " \001(\0162\027.dg.model.RecognizeType\022(\n\007Storage"
+    "\030\006 \001(\0132\027.dg.model.StorageConfig\022;\n\006Param"
+    "s\030\007 \003(\0132+.dg.model.WitnessRequestContext"
+    ".ParamsEntry\032-\n\013ParamsEntry\022\013\n\003key\030\001 \001(\t"
+    "\022\r\n\005value\030\002 \001(\t:\0028\001\"\277\001\n\014WitnessImage\022\035\n\004"
+    "Data\030\001 \001(\0132\017.dg.model.Image\022.\n\017WitnessMe"
+    "taData\030\002 \001(\0132\025.dg.model.SrcMetadata\0221\n\013R"
+    "elativeRoi\030\003 \003(\0132\034.dg.model.WitnessRelat"
+    "iveROI\022-\n\tMarginRoi\030\004 \003(\0132\032.dg.model.Wit"
+    "nessMarginROI\"\223\002\n\026WitnessResponseContext"
+    "\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006Status\030\002 \001(\t\022\017\n\007M"
+    "essage\030\003 \001(\t\022!\n\tRequestTs\030\004 \001(\0132\016.dg.mod"
+    "el.Time\022\"\n\nResponseTs\030\005 \001(\0132\016.dg.model.T"
+    "ime\022>\n\007DebugTs\030\006 \003(\0132-.dg.model.WitnessR"
+    "esponseContext.DebugTsEntry\032>\n\014DebugTsEn"
+    "try\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.mod"
+    "el.Time:\0028\001\"\253\001\n\rWitnessResult\022\023\n\013InnerSt"
+    "atus\030\001 \001(\t\022\024\n\014InnerMessage\030\002 \001(\t\022%\n\005Imag"
+    "e\030\003 \001(\0132\026.dg.model.WitnessImage\022&\n\010Vehic"
+    "les\030\004 \003(\0132\024.dg.model.RecVehicle\022 \n\005Faces"
+    "\030\005 \003(\0132\021.dg.model.RecFace\"j\n\021WitnessVehi"
+    "cleObj\022+\n\rVehicleResult\030\001 \001(\0132\024.dg.model"
+    ".VehicleObj\022(\n\007Storage\030\002 \001(\0132\027.dg.model."
+    "StorageConfig*\313\001\n\tIndexType\022\021\n\rINDEX_DEF"
+    "AULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001\022\022\n\016INDEX_CAR"
+    "_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020\003\022\024\n\020INDEX_CA"
+    "R_MARKER\020\004\022\030\n\024INDEX_CAR_PLATE_TYPE\020\005\022\031\n\025"
+    "INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036INDEX_CAR_PED"
+    "ESTRIAN_ATTR_TYPE\020\0072\256\002\n\016WitnessService\022B"
+    "\n\tRecognize\022\030.dg.model.WitnessRequest\032\031."
+    "dg.model.WitnessResponse\"\000\022Q\n\016BatchRecog"
+    "nize\022\035.dg.model.WitnessBatchRequest\032\036.dg"
+    ".model.WitnessBatchResponse\"\000\022=\n\010GetInde"
+    "x\022\026.dg.model.IndexRequest\032\027.dg.model.Ind"
+    "exResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.model.I"
+    "ndexTxtRequest\032\032.dg.model.IndexTxtRespon"
+    "se\"\000b\006proto3", 2812);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
   IndexTxtRequest::default_instance_ = new IndexTxtRequest();
   IndexTxtResponse::default_instance_ = new IndexTxtResponse();
+  CommonIndex::default_instance_ = new CommonIndex();
+  CommonIndex_Item::default_instance_ = new CommonIndex_Item();
+  BrandIndex::default_instance_ = new BrandIndex();
+  BrandIndex_Item::default_instance_ = new BrandIndex_Item();
   IndexResponse::default_instance_ = new IndexResponse();
+  IndexResponse_default_oneof_instance_ = new IndexResponseOneofInstance();
   WitnessRequest::default_instance_ = new WitnessRequest();
   WitnessBatchRequest::default_instance_ = new WitnessBatchRequest();
   WitnessResponse::default_instance_ = new WitnessResponse();
@@ -539,6 +642,10 @@ void protobuf_AddDesc_witness_2eproto() {
   IndexRequest::default_instance_->InitAsDefaultInstance();
   IndexTxtRequest::default_instance_->InitAsDefaultInstance();
   IndexTxtResponse::default_instance_->InitAsDefaultInstance();
+  CommonIndex::default_instance_->InitAsDefaultInstance();
+  CommonIndex_Item::default_instance_->InitAsDefaultInstance();
+  BrandIndex::default_instance_->InitAsDefaultInstance();
+  BrandIndex_Item::default_instance_->InitAsDefaultInstance();
   IndexResponse::default_instance_->InitAsDefaultInstance();
   WitnessRequest::default_instance_->InitAsDefaultInstance();
   WitnessBatchRequest::default_instance_->InitAsDefaultInstance();
@@ -574,8 +681,6 @@ bool IndexType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
-    case 8:
-    case 9:
       return true;
     default:
       return false;
@@ -1323,7 +1428,1457 @@ void IndexTxtResponse::clear_context() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CommonIndex_Item::kIdFieldNumber;
+const int CommonIndex_Item::kNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CommonIndex_Item::CommonIndex_Item()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.CommonIndex.Item)
+}
+
+void CommonIndex_Item::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+CommonIndex_Item::CommonIndex_Item(const CommonIndex_Item& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.CommonIndex.Item)
+}
+
+void CommonIndex_Item::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  id_ = 0;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+CommonIndex_Item::~CommonIndex_Item() {
+  // @@protoc_insertion_point(destructor:dg.model.CommonIndex.Item)
+  SharedDtor();
+}
+
+void CommonIndex_Item::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void CommonIndex_Item::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CommonIndex_Item::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommonIndex_Item_descriptor_;
+}
+
+const CommonIndex_Item& CommonIndex_Item::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+CommonIndex_Item* CommonIndex_Item::default_instance_ = NULL;
+
+CommonIndex_Item* CommonIndex_Item::New(::google::protobuf::Arena* arena) const {
+  CommonIndex_Item* n = new CommonIndex_Item;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CommonIndex_Item::Clear() {
+  id_ = 0;
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool CommonIndex_Item::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.CommonIndex.Item)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 Id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Name;
+        break;
+      }
+
+      // optional string Name = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.CommonIndex.Item.Name"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.CommonIndex.Item)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.CommonIndex.Item)
+  return false;
+#undef DO_
+}
+
+void CommonIndex_Item::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.CommonIndex.Item)
+  // optional int32 Id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
+  }
+
+  // optional string Name = 2;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.CommonIndex.Item.Name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->name(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.CommonIndex.Item)
+}
+
+::google::protobuf::uint8* CommonIndex_Item::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.CommonIndex.Item)
+  // optional int32 Id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
+  }
+
+  // optional string Name = 2;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.CommonIndex.Item.Name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->name(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.CommonIndex.Item)
+  return target;
+}
+
+int CommonIndex_Item::ByteSize() const {
+  int total_size = 0;
+
+  // optional int32 Id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->id());
+  }
+
+  // optional string Name = 2;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CommonIndex_Item::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const CommonIndex_Item* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const CommonIndex_Item>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CommonIndex_Item::MergeFrom(const CommonIndex_Item& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+}
+
+void CommonIndex_Item::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CommonIndex_Item::CopyFrom(const CommonIndex_Item& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CommonIndex_Item::IsInitialized() const {
+
+  return true;
+}
+
+void CommonIndex_Item::Swap(CommonIndex_Item* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CommonIndex_Item::InternalSwap(CommonIndex_Item* other) {
+  std::swap(id_, other->id_);
+  name_.Swap(&other->name_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CommonIndex_Item::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommonIndex_Item_descriptor_;
+  metadata.reflection = CommonIndex_Item_reflection_;
+  return metadata;
+}
+
+
+// -------------------------------------------------------------------
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int CommonIndex::kItemsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+CommonIndex::CommonIndex()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.CommonIndex)
+}
+
+void CommonIndex::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+CommonIndex::CommonIndex(const CommonIndex& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.CommonIndex)
+}
+
+void CommonIndex::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+CommonIndex::~CommonIndex() {
+  // @@protoc_insertion_point(destructor:dg.model.CommonIndex)
+  SharedDtor();
+}
+
+void CommonIndex::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void CommonIndex::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CommonIndex::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CommonIndex_descriptor_;
+}
+
+const CommonIndex& CommonIndex::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+CommonIndex* CommonIndex::default_instance_ = NULL;
+
+CommonIndex* CommonIndex::New(::google::protobuf::Arena* arena) const {
+  CommonIndex* n = new CommonIndex;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void CommonIndex::Clear() {
+  items_.Clear();
+}
+
+bool CommonIndex::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.CommonIndex)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .dg.model.CommonIndex.Item Items = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Items:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_items()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_Items;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.CommonIndex)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.CommonIndex)
+  return false;
+#undef DO_
+}
+
+void CommonIndex::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.CommonIndex)
+  // repeated .dg.model.CommonIndex.Item Items = 1;
+  for (unsigned int i = 0, n = this->items_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->items(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.CommonIndex)
+}
+
+::google::protobuf::uint8* CommonIndex::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.CommonIndex)
+  // repeated .dg.model.CommonIndex.Item Items = 1;
+  for (unsigned int i = 0, n = this->items_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->items(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.CommonIndex)
+  return target;
+}
+
+int CommonIndex::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .dg.model.CommonIndex.Item Items = 1;
+  total_size += 1 * this->items_size();
+  for (int i = 0; i < this->items_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->items(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CommonIndex::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const CommonIndex* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const CommonIndex>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CommonIndex::MergeFrom(const CommonIndex& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  items_.MergeFrom(from.items_);
+}
+
+void CommonIndex::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CommonIndex::CopyFrom(const CommonIndex& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CommonIndex::IsInitialized() const {
+
+  return true;
+}
+
+void CommonIndex::Swap(CommonIndex* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void CommonIndex::InternalSwap(CommonIndex* other) {
+  items_.UnsafeArenaSwap(&other->items_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata CommonIndex::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CommonIndex_descriptor_;
+  metadata.reflection = CommonIndex_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// CommonIndex_Item
+
+// optional int32 Id = 1;
+void CommonIndex_Item::clear_id() {
+  id_ = 0;
+}
+ ::google::protobuf::int32 CommonIndex_Item::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Item.Id)
+  return id_;
+}
+ void CommonIndex_Item::set_id(::google::protobuf::int32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.CommonIndex.Item.Id)
+}
+
+// optional string Name = 2;
+void CommonIndex_Item::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& CommonIndex_Item::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Item.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void CommonIndex_Item::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.CommonIndex.Item.Name)
+}
+ void CommonIndex_Item::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.CommonIndex.Item.Name)
+}
+ void CommonIndex_Item::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.CommonIndex.Item.Name)
+}
+ ::std::string* CommonIndex_Item::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.CommonIndex.Item.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* CommonIndex_Item::release_name() {
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void CommonIndex_Item::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.CommonIndex.Item.Name)
+}
+
+// -------------------------------------------------------------------
+
+// CommonIndex
+
+// repeated .dg.model.CommonIndex.Item Items = 1;
+int CommonIndex::items_size() const {
+  return items_.size();
+}
+void CommonIndex::clear_items() {
+  items_.Clear();
+}
+const ::dg::model::CommonIndex_Item& CommonIndex::items(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Items)
+  return items_.Get(index);
+}
+::dg::model::CommonIndex_Item* CommonIndex::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.CommonIndex.Items)
+  return items_.Mutable(index);
+}
+::dg::model::CommonIndex_Item* CommonIndex::add_items() {
+  // @@protoc_insertion_point(field_add:dg.model.CommonIndex.Items)
+  return items_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >*
+CommonIndex::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.CommonIndex.Items)
+  return &items_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >&
+CommonIndex::items() const {
+  // @@protoc_insertion_point(field_list:dg.model.CommonIndex.Items)
+  return items_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BrandIndex_Item::kMainBrandIdFieldNumber;
+const int BrandIndex_Item::kSubBrandIdFieldNumber;
+const int BrandIndex_Item::kYearModelIdFieldNumber;
+const int BrandIndex_Item::kMainBrandNameFieldNumber;
+const int BrandIndex_Item::kSubBrandNameFieldNumber;
+const int BrandIndex_Item::kYearModelNameFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BrandIndex_Item::BrandIndex_Item()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.BrandIndex.Item)
+}
+
+void BrandIndex_Item::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BrandIndex_Item::BrandIndex_Item(const BrandIndex_Item& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.BrandIndex.Item)
+}
+
+void BrandIndex_Item::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  mainbrandid_ = 0;
+  subbrandid_ = 0;
+  yearmodelid_ = 0;
+  mainbrandname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subbrandname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  yearmodelname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+BrandIndex_Item::~BrandIndex_Item() {
+  // @@protoc_insertion_point(destructor:dg.model.BrandIndex.Item)
+  SharedDtor();
+}
+
+void BrandIndex_Item::SharedDtor() {
+  mainbrandname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subbrandname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  yearmodelname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void BrandIndex_Item::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BrandIndex_Item::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BrandIndex_Item_descriptor_;
+}
+
+const BrandIndex_Item& BrandIndex_Item::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+BrandIndex_Item* BrandIndex_Item::default_instance_ = NULL;
+
+BrandIndex_Item* BrandIndex_Item::New(::google::protobuf::Arena* arena) const {
+  BrandIndex_Item* n = new BrandIndex_Item;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BrandIndex_Item::Clear() {
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<BrandIndex_Item*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(mainbrandid_, subbrandid_);
+  yearmodelid_ = 0;
+  mainbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  subbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  yearmodelname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+
+#undef ZR_HELPER_
+#undef ZR_
+
+}
+
+bool BrandIndex_Item::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.BrandIndex.Item)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 MainBrandId = 2;
+      case 2: {
+        if (tag == 16) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &mainbrandid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_SubBrandId;
+        break;
+      }
+
+      // optional int32 SubBrandId = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_SubBrandId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &subbrandid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_YearModelId;
+        break;
+      }
+
+      // optional int32 YearModelId = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_YearModelId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &yearmodelid_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_MainBrandName;
+        break;
+      }
+
+      // optional string MainBrandName = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_MainBrandName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_mainbrandname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->mainbrandname().data(), this->mainbrandname().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.BrandIndex.Item.MainBrandName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_SubBrandName;
+        break;
+      }
+
+      // optional string SubBrandName = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_SubBrandName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_subbrandname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->subbrandname().data(), this->subbrandname().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.BrandIndex.Item.SubBrandName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_YearModelName;
+        break;
+      }
+
+      // optional string YearModelName = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_YearModelName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_yearmodelname()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->yearmodelname().data(), this->yearmodelname().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.BrandIndex.Item.YearModelName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.BrandIndex.Item)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.BrandIndex.Item)
+  return false;
+#undef DO_
+}
+
+void BrandIndex_Item::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.BrandIndex.Item)
+  // optional int32 MainBrandId = 2;
+  if (this->mainbrandid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->mainbrandid(), output);
+  }
+
+  // optional int32 SubBrandId = 3;
+  if (this->subbrandid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->subbrandid(), output);
+  }
+
+  // optional int32 YearModelId = 4;
+  if (this->yearmodelid() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->yearmodelid(), output);
+  }
+
+  // optional string MainBrandName = 5;
+  if (this->mainbrandname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->mainbrandname().data(), this->mainbrandname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.MainBrandName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      5, this->mainbrandname(), output);
+  }
+
+  // optional string SubBrandName = 6;
+  if (this->subbrandname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->subbrandname().data(), this->subbrandname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.SubBrandName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->subbrandname(), output);
+  }
+
+  // optional string YearModelName = 7;
+  if (this->yearmodelname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->yearmodelname().data(), this->yearmodelname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.YearModelName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      7, this->yearmodelname(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.BrandIndex.Item)
+}
+
+::google::protobuf::uint8* BrandIndex_Item::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.BrandIndex.Item)
+  // optional int32 MainBrandId = 2;
+  if (this->mainbrandid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->mainbrandid(), target);
+  }
+
+  // optional int32 SubBrandId = 3;
+  if (this->subbrandid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->subbrandid(), target);
+  }
+
+  // optional int32 YearModelId = 4;
+  if (this->yearmodelid() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->yearmodelid(), target);
+  }
+
+  // optional string MainBrandName = 5;
+  if (this->mainbrandname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->mainbrandname().data(), this->mainbrandname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.MainBrandName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        5, this->mainbrandname(), target);
+  }
+
+  // optional string SubBrandName = 6;
+  if (this->subbrandname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->subbrandname().data(), this->subbrandname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.SubBrandName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        6, this->subbrandname(), target);
+  }
+
+  // optional string YearModelName = 7;
+  if (this->yearmodelname().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->yearmodelname().data(), this->yearmodelname().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.BrandIndex.Item.YearModelName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        7, this->yearmodelname(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.BrandIndex.Item)
+  return target;
+}
+
+int BrandIndex_Item::ByteSize() const {
+  int total_size = 0;
+
+  // optional int32 MainBrandId = 2;
+  if (this->mainbrandid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->mainbrandid());
+  }
+
+  // optional int32 SubBrandId = 3;
+  if (this->subbrandid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->subbrandid());
+  }
+
+  // optional int32 YearModelId = 4;
+  if (this->yearmodelid() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->yearmodelid());
+  }
+
+  // optional string MainBrandName = 5;
+  if (this->mainbrandname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->mainbrandname());
+  }
+
+  // optional string SubBrandName = 6;
+  if (this->subbrandname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->subbrandname());
+  }
+
+  // optional string YearModelName = 7;
+  if (this->yearmodelname().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->yearmodelname());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BrandIndex_Item::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BrandIndex_Item* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BrandIndex_Item>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BrandIndex_Item::MergeFrom(const BrandIndex_Item& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.mainbrandid() != 0) {
+    set_mainbrandid(from.mainbrandid());
+  }
+  if (from.subbrandid() != 0) {
+    set_subbrandid(from.subbrandid());
+  }
+  if (from.yearmodelid() != 0) {
+    set_yearmodelid(from.yearmodelid());
+  }
+  if (from.mainbrandname().size() > 0) {
+
+    mainbrandname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.mainbrandname_);
+  }
+  if (from.subbrandname().size() > 0) {
+
+    subbrandname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.subbrandname_);
+  }
+  if (from.yearmodelname().size() > 0) {
+
+    yearmodelname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.yearmodelname_);
+  }
+}
+
+void BrandIndex_Item::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BrandIndex_Item::CopyFrom(const BrandIndex_Item& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BrandIndex_Item::IsInitialized() const {
+
+  return true;
+}
+
+void BrandIndex_Item::Swap(BrandIndex_Item* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BrandIndex_Item::InternalSwap(BrandIndex_Item* other) {
+  std::swap(mainbrandid_, other->mainbrandid_);
+  std::swap(subbrandid_, other->subbrandid_);
+  std::swap(yearmodelid_, other->yearmodelid_);
+  mainbrandname_.Swap(&other->mainbrandname_);
+  subbrandname_.Swap(&other->subbrandname_);
+  yearmodelname_.Swap(&other->yearmodelname_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BrandIndex_Item::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BrandIndex_Item_descriptor_;
+  metadata.reflection = BrandIndex_Item_reflection_;
+  return metadata;
+}
+
+
+// -------------------------------------------------------------------
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int BrandIndex::kItemsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+BrandIndex::BrandIndex()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.BrandIndex)
+}
+
+void BrandIndex::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+BrandIndex::BrandIndex(const BrandIndex& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.BrandIndex)
+}
+
+void BrandIndex::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+BrandIndex::~BrandIndex() {
+  // @@protoc_insertion_point(destructor:dg.model.BrandIndex)
+  SharedDtor();
+}
+
+void BrandIndex::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void BrandIndex::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* BrandIndex::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return BrandIndex_descriptor_;
+}
+
+const BrandIndex& BrandIndex::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
+  return *default_instance_;
+}
+
+BrandIndex* BrandIndex::default_instance_ = NULL;
+
+BrandIndex* BrandIndex::New(::google::protobuf::Arena* arena) const {
+  BrandIndex* n = new BrandIndex;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void BrandIndex::Clear() {
+  items_.Clear();
+}
+
+bool BrandIndex::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.BrandIndex)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .dg.model.BrandIndex.Item Items = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Items:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_items()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_Items;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.BrandIndex)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.BrandIndex)
+  return false;
+#undef DO_
+}
+
+void BrandIndex::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.BrandIndex)
+  // repeated .dg.model.BrandIndex.Item Items = 1;
+  for (unsigned int i = 0, n = this->items_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->items(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.BrandIndex)
+}
+
+::google::protobuf::uint8* BrandIndex::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.BrandIndex)
+  // repeated .dg.model.BrandIndex.Item Items = 1;
+  for (unsigned int i = 0, n = this->items_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->items(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.BrandIndex)
+  return target;
+}
+
+int BrandIndex::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .dg.model.BrandIndex.Item Items = 1;
+  total_size += 1 * this->items_size();
+  for (int i = 0; i < this->items_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->items(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void BrandIndex::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const BrandIndex* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const BrandIndex>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void BrandIndex::MergeFrom(const BrandIndex& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  items_.MergeFrom(from.items_);
+}
+
+void BrandIndex::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void BrandIndex::CopyFrom(const BrandIndex& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BrandIndex::IsInitialized() const {
+
+  return true;
+}
+
+void BrandIndex::Swap(BrandIndex* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void BrandIndex::InternalSwap(BrandIndex* other) {
+  items_.UnsafeArenaSwap(&other->items_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata BrandIndex::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = BrandIndex_descriptor_;
+  metadata.reflection = BrandIndex_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// BrandIndex_Item
+
+// optional int32 MainBrandId = 2;
+void BrandIndex_Item::clear_mainbrandid() {
+  mainbrandid_ = 0;
+}
+ ::google::protobuf::int32 BrandIndex_Item::mainbrandid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.MainBrandId)
+  return mainbrandid_;
+}
+ void BrandIndex_Item::set_mainbrandid(::google::protobuf::int32 value) {
+  
+  mainbrandid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.MainBrandId)
+}
+
+// optional int32 SubBrandId = 3;
+void BrandIndex_Item::clear_subbrandid() {
+  subbrandid_ = 0;
+}
+ ::google::protobuf::int32 BrandIndex_Item::subbrandid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.SubBrandId)
+  return subbrandid_;
+}
+ void BrandIndex_Item::set_subbrandid(::google::protobuf::int32 value) {
+  
+  subbrandid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.SubBrandId)
+}
+
+// optional int32 YearModelId = 4;
+void BrandIndex_Item::clear_yearmodelid() {
+  yearmodelid_ = 0;
+}
+ ::google::protobuf::int32 BrandIndex_Item::yearmodelid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.YearModelId)
+  return yearmodelid_;
+}
+ void BrandIndex_Item::set_yearmodelid(::google::protobuf::int32 value) {
+  
+  yearmodelid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.YearModelId)
+}
+
+// optional string MainBrandName = 5;
+void BrandIndex_Item::clear_mainbrandname() {
+  mainbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BrandIndex_Item::mainbrandname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.MainBrandName)
+  return mainbrandname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_mainbrandname(const ::std::string& value) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.MainBrandName)
+}
+ void BrandIndex_Item::set_mainbrandname(const char* value) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.MainBrandName)
+}
+ void BrandIndex_Item::set_mainbrandname(const char* value, size_t size) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.MainBrandName)
+}
+ ::std::string* BrandIndex_Item::mutable_mainbrandname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.MainBrandName)
+  return mainbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BrandIndex_Item::release_mainbrandname() {
+  
+  return mainbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_allocated_mainbrandname(::std::string* mainbrandname) {
+  if (mainbrandname != NULL) {
+    
+  } else {
+    
+  }
+  mainbrandname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), mainbrandname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.MainBrandName)
+}
+
+// optional string SubBrandName = 6;
+void BrandIndex_Item::clear_subbrandname() {
+  subbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BrandIndex_Item::subbrandname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.SubBrandName)
+  return subbrandname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_subbrandname(const ::std::string& value) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.SubBrandName)
+}
+ void BrandIndex_Item::set_subbrandname(const char* value) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.SubBrandName)
+}
+ void BrandIndex_Item::set_subbrandname(const char* value, size_t size) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.SubBrandName)
+}
+ ::std::string* BrandIndex_Item::mutable_subbrandname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.SubBrandName)
+  return subbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BrandIndex_Item::release_subbrandname() {
+  
+  return subbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_allocated_subbrandname(::std::string* subbrandname) {
+  if (subbrandname != NULL) {
+    
+  } else {
+    
+  }
+  subbrandname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subbrandname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.SubBrandName)
+}
+
+// optional string YearModelName = 7;
+void BrandIndex_Item::clear_yearmodelname() {
+  yearmodelname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& BrandIndex_Item::yearmodelname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.YearModelName)
+  return yearmodelname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_yearmodelname(const ::std::string& value) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.YearModelName)
+}
+ void BrandIndex_Item::set_yearmodelname(const char* value) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.YearModelName)
+}
+ void BrandIndex_Item::set_yearmodelname(const char* value, size_t size) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.YearModelName)
+}
+ ::std::string* BrandIndex_Item::mutable_yearmodelname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.YearModelName)
+  return yearmodelname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* BrandIndex_Item::release_yearmodelname() {
+  
+  return yearmodelname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void BrandIndex_Item::set_allocated_yearmodelname(::std::string* yearmodelname) {
+  if (yearmodelname != NULL) {
+    
+  } else {
+    
+  }
+  yearmodelname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), yearmodelname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.YearModelName)
+}
+
+// -------------------------------------------------------------------
+
+// BrandIndex
+
+// repeated .dg.model.BrandIndex.Item Items = 1;
+int BrandIndex::items_size() const {
+  return items_.size();
+}
+void BrandIndex::clear_items() {
+  items_.Clear();
+}
+const ::dg::model::BrandIndex_Item& BrandIndex::items(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Items)
+  return items_.Get(index);
+}
+::dg::model::BrandIndex_Item* BrandIndex::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Items)
+  return items_.Mutable(index);
+}
+::dg::model::BrandIndex_Item* BrandIndex::add_items() {
+  // @@protoc_insertion_point(field_add:dg.model.BrandIndex.Items)
+  return items_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >*
+BrandIndex::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.BrandIndex.Items)
+  return &items_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >&
+BrandIndex::items() const {
+  // @@protoc_insertion_point(field_list:dg.model.BrandIndex.Items)
+  return items_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int IndexResponse::kIndexFieldNumber;
+const int IndexResponse::kBrandIndexFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 IndexResponse::IndexResponse()
@@ -1334,6 +2889,8 @@ IndexResponse::IndexResponse()
 
 void IndexResponse::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  IndexResponse_default_oneof_instance_->index_ = const_cast< ::dg::model::CommonIndex*>(&::dg::model::CommonIndex::default_instance());
+  IndexResponse_default_oneof_instance_->brandindex_ = const_cast< ::dg::model::BrandIndex*>(&::dg::model::BrandIndex::default_instance());
 }
 
 IndexResponse::IndexResponse(const IndexResponse& from)
@@ -1347,10 +2904,7 @@ IndexResponse::IndexResponse(const IndexResponse& from)
 void IndexResponse::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
-  index_.SetAssignDescriptorCallback(
-      protobuf_AssignDescriptorsOnce);
-  index_.SetEntryDescriptor(
-      &::dg::model::IndexResponse_IndexEntry_descriptor_);
+  clear_has_index_content();
 }
 
 IndexResponse::~IndexResponse() {
@@ -1359,6 +2913,9 @@ IndexResponse::~IndexResponse() {
 }
 
 void IndexResponse::SharedDtor() {
+  if (has_index_content()) {
+    clear_index_content();
+  }
   if (this != default_instance_) {
   }
 }
@@ -1388,8 +2945,26 @@ IndexResponse* IndexResponse::New(::google::protobuf::Arena* arena) const {
   return n;
 }
 
+void IndexResponse::clear_index_content() {
+  switch(index_content_case()) {
+    case kIndex: {
+      delete index_content_.index_;
+      break;
+    }
+    case kBrandIndex: {
+      delete index_content_.brandindex_;
+      break;
+    }
+    case INDEX_CONTENT_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = INDEX_CONTENT_NOT_SET;
+}
+
+
 void IndexResponse::Clear() {
-  index_.Clear();
+  clear_index_content();
 }
 
 bool IndexResponse::MergePartialFromCodedStream(
@@ -1402,25 +2977,27 @@ bool IndexResponse::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // map<int32, string> Index = 1;
+      // optional .dg.model.CommonIndex Index = 1;
       case 1: {
         if (tag == 10) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Index:
-          ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry(index_.NewEntry());
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-              input, entry.get()));
-          (*mutable_index())[entry->key()] = *entry->mutable_value();
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            entry->mutable_value()->data(),
-            entry->mutable_value()->length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.IndexResponse.IndexEntry.value"));
+               input, mutable_index()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_Index;
-        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_BrandIndex;
+        break;
+      }
+
+      // optional .dg.model.BrandIndex BrandIndex = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_BrandIndex:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_brandindex()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1449,20 +3026,16 @@ failure:
 void IndexResponse::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.IndexResponse)
-  // map<int32, string> Index = 1;
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-          1, *entry, output);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.IndexResponse.IndexEntry.value");
-    }
+  // optional .dg.model.CommonIndex Index = 1;
+  if (has_index()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *index_content_.index_, output);
+  }
+
+  // optional .dg.model.BrandIndex BrandIndex = 2;
+  if (has_brandindex()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *index_content_.brandindex_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.IndexResponse)
@@ -1471,21 +3044,18 @@ void IndexResponse::SerializeWithCachedSizes(
 ::google::protobuf::uint8* IndexResponse::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.IndexResponse)
-  // map<int32, string> Index = 1;
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      target = ::google::protobuf::internal::WireFormatLite::
-          WriteMessageNoVirtualToArray(
-              1, *entry, target);
-      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        it->second.data(), it->second.length(),
-        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-        "dg.model.IndexResponse.IndexEntry.value");
-    }
+  // optional .dg.model.CommonIndex Index = 1;
+  if (has_index()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *index_content_.index_, target);
+  }
+
+  // optional .dg.model.BrandIndex BrandIndex = 2;
+  if (has_brandindex()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *index_content_.brandindex_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.IndexResponse)
@@ -1495,19 +3065,25 @@ void IndexResponse::SerializeWithCachedSizes(
 int IndexResponse::ByteSize() const {
   int total_size = 0;
 
-  // map<int32, string> Index = 1;
-  total_size += 1 * this->index_size();
-  {
-    ::google::protobuf::scoped_ptr<IndexResponse_IndexEntry> entry;
-    for (::google::protobuf::Map< ::google::protobuf::int32, ::std::string >::const_iterator
-        it = this->index().begin();
-        it != this->index().end(); ++it) {
-      entry.reset(index_.NewEntryWrapper(it->first, it->second));
-      total_size += ::google::protobuf::internal::WireFormatLite::
-          MessageSizeNoVirtual(*entry);
+  switch (index_content_case()) {
+    // optional .dg.model.CommonIndex Index = 1;
+    case kIndex: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *index_content_.index_);
+      break;
+    }
+    // optional .dg.model.BrandIndex BrandIndex = 2;
+    case kBrandIndex: {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          *index_content_.brandindex_);
+      break;
+    }
+    case INDEX_CONTENT_NOT_SET: {
+      break;
     }
   }
-
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -1528,7 +3104,19 @@ void IndexResponse::MergeFrom(const ::google::protobuf::Message& from) {
 
 void IndexResponse::MergeFrom(const IndexResponse& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  index_.MergeFrom(from.index_);
+  switch (from.index_content_case()) {
+    case kIndex: {
+      mutable_index()->::dg::model::CommonIndex::MergeFrom(from.index());
+      break;
+    }
+    case kBrandIndex: {
+      mutable_brandindex()->::dg::model::BrandIndex::MergeFrom(from.brandindex());
+      break;
+    }
+    case INDEX_CONTENT_NOT_SET: {
+      break;
+    }
+  }
 }
 
 void IndexResponse::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1553,7 +3141,8 @@ void IndexResponse::Swap(IndexResponse* other) {
   InternalSwap(other);
 }
 void IndexResponse::InternalSwap(IndexResponse* other) {
-  index_.Swap(&other->index_);
+  std::swap(index_content_, other->index_content_);
+  std::swap(_oneof_case_[0], other->_oneof_case_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1569,24 +3158,109 @@ void IndexResponse::InternalSwap(IndexResponse* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // IndexResponse
 
-// map<int32, string> Index = 1;
-int IndexResponse::index_size() const {
-  return index_.size();
+// optional .dg.model.CommonIndex Index = 1;
+bool IndexResponse::has_index() const {
+  return index_content_case() == kIndex;
+}
+void IndexResponse::set_has_index() {
+  _oneof_case_[0] = kIndex;
 }
 void IndexResponse::clear_index() {
-  index_.Clear();
+  if (has_index()) {
+    delete index_content_.index_;
+    clear_has_index_content();
+  }
 }
- const ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >&
-IndexResponse::index() const {
-  // @@protoc_insertion_point(field_map:dg.model.IndexResponse.Index)
-  return index_.GetMap();
+ const ::dg::model::CommonIndex& IndexResponse::index() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexResponse.Index)
+  return has_index()
+      ? *index_content_.index_
+      : ::dg::model::CommonIndex::default_instance();
 }
- ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >*
-IndexResponse::mutable_index() {
-  // @@protoc_insertion_point(field_mutable_map:dg.model.IndexResponse.Index)
-  return index_.MutableMap();
+::dg::model::CommonIndex* IndexResponse::mutable_index() {
+  if (!has_index()) {
+    clear_index_content();
+    set_has_index();
+    index_content_.index_ = new ::dg::model::CommonIndex;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexResponse.Index)
+  return index_content_.index_;
+}
+::dg::model::CommonIndex* IndexResponse::release_index() {
+  if (has_index()) {
+    clear_has_index_content();
+    ::dg::model::CommonIndex* temp = index_content_.index_;
+    index_content_.index_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void IndexResponse::set_allocated_index(::dg::model::CommonIndex* index) {
+  clear_index_content();
+  if (index) {
+    set_has_index();
+    index_content_.index_ = index;
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexResponse.Index)
 }
 
+// optional .dg.model.BrandIndex BrandIndex = 2;
+bool IndexResponse::has_brandindex() const {
+  return index_content_case() == kBrandIndex;
+}
+void IndexResponse::set_has_brandindex() {
+  _oneof_case_[0] = kBrandIndex;
+}
+void IndexResponse::clear_brandindex() {
+  if (has_brandindex()) {
+    delete index_content_.brandindex_;
+    clear_has_index_content();
+  }
+}
+ const ::dg::model::BrandIndex& IndexResponse::brandindex() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexResponse.BrandIndex)
+  return has_brandindex()
+      ? *index_content_.brandindex_
+      : ::dg::model::BrandIndex::default_instance();
+}
+::dg::model::BrandIndex* IndexResponse::mutable_brandindex() {
+  if (!has_brandindex()) {
+    clear_index_content();
+    set_has_brandindex();
+    index_content_.brandindex_ = new ::dg::model::BrandIndex;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexResponse.BrandIndex)
+  return index_content_.brandindex_;
+}
+::dg::model::BrandIndex* IndexResponse::release_brandindex() {
+  if (has_brandindex()) {
+    clear_has_index_content();
+    ::dg::model::BrandIndex* temp = index_content_.brandindex_;
+    index_content_.brandindex_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+void IndexResponse::set_allocated_brandindex(::dg::model::BrandIndex* brandindex) {
+  clear_index_content();
+  if (brandindex) {
+    set_has_brandindex();
+    index_content_.brandindex_ = brandindex;
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexResponse.BrandIndex)
+}
+
+bool IndexResponse::has_index_content() const {
+  return index_content_case() != INDEX_CONTENT_NOT_SET;
+}
+void IndexResponse::clear_has_index_content() {
+  _oneof_case_[0] = INDEX_CONTENT_NOT_SET;
+}
+IndexResponse::IndexContentCase IndexResponse::index_content_case() const {
+  return IndexResponse::IndexContentCase(_oneof_case_[0]);
+}
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
