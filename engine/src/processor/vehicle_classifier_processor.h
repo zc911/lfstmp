@@ -13,25 +13,25 @@
 #include "processor_helper.h"
 namespace dg {
 
-class VehicleClassifierProcessor : public Processor {
- public:
+class VehicleClassifierProcessor: public Processor {
+public:
 
     VehicleClassifierProcessor(
-            const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+        const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
 
     ~VehicleClassifierProcessor();
 
- protected:
+protected:
     virtual bool process(Frame *frame) {
         return false;
     }
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
- private:
+private:
     void vehiclesResizedMat(FrameBatch *frameBatch);
 
-    vector<VehicleCaffeClassifier*> classifiers_;
+    vector<VehicleCaffeClassifier *> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;
 

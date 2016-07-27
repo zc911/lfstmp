@@ -202,7 +202,7 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
 {
   ModulePREG_S *pstPREG = (ModulePREG_S*)hPREG;
   ExecutorHandle hExecute = pstPREG->hExecute;
-#if LPDR_TIME
+#if LPDR_TIME&0
   float costtime, diff;
   struct timeval start, end;
 
@@ -223,7 +223,7 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
   cv::Mat tmpImg(dwStdH, dwStdW, CV_32FC1, pfStdData);
 	cv::resize(srcImg, tmpImg, cv::Size(dwStdW, dwStdH), 0, 0, CV_INTER_LINEAR);
 //	memcpy(pfStdData, (float*)tmpImg.data, sizeof(float)*needsize0);
-  
+
 #if LPDR_DBG&0
   cout << "H:" << dwStdH << "W:" << dwStdW << endl;
   cv::Mat gimg(dwStdH, dwStdW, CV_32FC1, pfStdData);
@@ -251,20 +251,29 @@ int LPPREG_Process(LPDR_HANDLE hPREG, LPDR_ImageInner_S *pstImage, int adwPolygo
 
 	MXNDArrayFree(out[0]);
 
-	adwPolygonOut[0] = (int)(pfPolygon[0] * dwSrcW);
-	adwPolygonOut[1] = (int)(pfPolygon[1] * dwSrcH);
-	adwPolygonOut[2] = (int)(pfPolygon[2] * dwSrcW);
-	adwPolygonOut[3] = (int)(pfPolygon[3] * dwSrcH);
-	adwPolygonOut[4] = (int)(pfPolygon[4] * dwSrcW);
-	adwPolygonOut[5] = (int)(pfPolygon[5] * dwSrcH);
-	adwPolygonOut[6] = (int)(pfPolygon[6] * dwSrcW);
-	adwPolygonOut[7] = (int)(pfPolygon[7] * dwSrcH);
+	adwPolygonOut[0] = (int)(pfPolygon[0] * dwSrcW + 0.5f);
+	adwPolygonOut[1] = (int)(pfPolygon[1] * dwSrcH + 0.5f);
+	adwPolygonOut[2] = (int)(pfPolygon[2] * dwSrcW + 0.5f);
+	adwPolygonOut[3] = (int)(pfPolygon[3] * dwSrcH + 0.5f);
+	adwPolygonOut[4] = (int)(pfPolygon[4] * dwSrcW + 0.5f);
+	adwPolygonOut[5] = (int)(pfPolygon[5] * dwSrcH + 0.5f);
+	adwPolygonOut[6] = (int)(pfPolygon[6] * dwSrcW + 0.5f);
+	adwPolygonOut[7] = (int)(pfPolygon[7] * dwSrcH + 0.5f);
 	
 	adwPolygonOut[8] = (int)(pfPolygon[8] * dwSrcW + 0.5f);
 	adwPolygonOut[9] = (int)(pfPolygon[9] * dwSrcH + 0.5f);
 	adwPolygonOut[10] = (int)(pfPolygon[10] * dwSrcW + 0.5f);
 	adwPolygonOut[11] = (int)(pfPolygon[11] * dwSrcH + 0.5f);
-#if LPDR_TIME
+	
+	for (int dwPI = 0; dwPI < 6; dwPI++)
+	{
+	  if (adwPolygonOut[2 * dwPI + 0] < 0) adwPolygonOut[2 * dwPI + 0] = 0;
+	  else if (adwPolygonOut[2 * dwPI + 0] >= dwSrcW) adwPolygonOut[2 * dwPI + 0] = dwSrcW - 1;
+	  
+	  if (adwPolygonOut[2 * dwPI + 1] < 0) adwPolygonOut[2 * dwPI + 1] = 0;
+	  else if (adwPolygonOut[2 * dwPI + 1] >= dwSrcH) adwPolygonOut[2 * dwPI + 1] = dwSrcH - 1;
+	}
+#if LPDR_TIME&0
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
 	printf("PREG cost:%.2fms\n", diff);

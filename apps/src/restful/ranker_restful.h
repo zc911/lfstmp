@@ -17,42 +17,33 @@ namespace dg {
 
 
 typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest *, FeatureRankingResponse *);
-//typedef MatrixError (*BatchRecFunc)(WitnessAppsService *, const WitnessBatchRequest *, WitnessBatchResponse *);
 
-
-class RestRankerServiceImpl final: public RestfulService<RankerAppsService> {
+class RestRankerServiceImpl final: public RestfulService {
 
 public:
 
     RestRankerServiceImpl(Config config,
-                          string addr,
-                          MatrixEnginesPool <RankerAppsService> *engine_pool)
-        : RestfulService(engine_pool, config), service_system_(&config, "system"), config_(config) {
+                          string addr)
+        : RestfulService(config) {
+          service_ = new RankerAppsService(&config,"RankerAppsService");
     }
 
-    virtual ~RestRankerServiceImpl() { }
+    virtual ~RestRankerServiceImpl() {delete service_; }
 
     void Bind(HttpServer &server) {
+        std::function<MatrixError( const FeatureRankingRequest *, FeatureRankingResponse *)> rankBinder = std::bind(&RankerAppsService::GetRankedVector,service_, std::placeholders::_1, std::placeholders::_2);
+        bindFunc< FeatureRankingRequest, FeatureRankingResponse>(server,
+                "/rank$",
+                "POST",
+                rankBinder);
 
-        RankFunc rank_func = (RankFunc) &RankerAppsService::GetRankedVector;
-        bindFunc<RankerAppsService, FeatureRankingRequest, FeatureRankingResponse>(server,
-                                                                                   "^/rank$",
-                                                                                   "POST",
-                                                                                   rank_func);
-        std::function<MatrixError(const SystemStatusRequest *, SystemStatusResponse *)> statusBinder =
-            std::bind(&SystemAppsService::SystemStatus, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/info$", "GET", statusBinder);
-        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
-            std::bind(&SystemAppsService::Ping, &service_system_, std::placeholders::_1, std::placeholders::_2);
-        bind1(server, "^/ping$", "GET", pingBinder);
 
     }
 
 
 private:
-    SystemAppsService service_system_;
+      RankerAppsService *service_;
 
-    Config config_;
 };
 
 }

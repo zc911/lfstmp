@@ -292,10 +292,17 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("RPN cost_0:%.2fms\n", diff);
-	
+	printf("RPN cost_0[%d]:%.2fms\n", dwImgNum, diff);
+#endif
+  int *pdwOutShape = pstRPN->adwOutShape;
+  int adwNeedSizes[3];
+
+  for (int loopi = 0; loopi < 1; loopi++)
+  {
+#if LPDR_TIME
 	gettimeofday(&start, NULL);
 #endif
+
   ret = MXNDArraySyncCopyFromCPU(hData, pfInputData, needsize);
 
   ret = MXExecutorForward(hExecute, 0);
@@ -305,9 +312,12 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 
   ret = MXExecutorOutputs(hExecute, &out_size, &out);
 
-  int *pdwOutShape = pstRPN->adwOutShape;
+//  MXNDArrayWaitAll();
+  for (int wi = 0; wi < out_size; wi++)
+  {
+    MXNDArrayWaitToRead(out[wi]);
+  }
 
-  int adwNeedSizes[3];
   adwNeedSizes[0] = pdwOutShape[0] * pdwOutShape[1] * pdwOutShape[2] * pdwOutShape[3];
   adwNeedSizes[1] = pdwOutShape[4] * pdwOutShape[5] * pdwOutShape[6] * pdwOutShape[7];
   adwNeedSizes[2] = pdwOutShape[8] * pdwOutShape[9] * pdwOutShape[10] * pdwOutShape[11];
@@ -320,8 +330,15 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 	MXNDArrayFree(out[1]);
 	MXNDArrayFree(out[2]);
 	
-
+#if LPDR_TIME
+  gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("RPN cost_1[%d]:%.2fms\n", dwImgNum, diff);
 	
+	gettimeofday(&start, NULL);
+#endif
+  }
+
 #if 1
 	int adims[2] = {4, 4};
 	int ashapes[2][4] = {{1, pdwOutShape[1], pdwOutShape[2], pdwOutShape[3]},
@@ -374,7 +391,7 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("RPN cost_1:%.2fms\n", diff);
+	printf("RPN cost_2:%.2fms\n", diff);
 #endif
   return 0;
 }

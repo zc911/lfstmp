@@ -11,7 +11,7 @@
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-        const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
+    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
     extractor_ = new FaceFeatureExtractor(config);
 }
 
@@ -26,9 +26,9 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
     int size = frame->objects().size();
 
     for (int i = 0; i < size; ++i) {
-        Object * obj = (frame->objects())[i];
+        Object *obj = (frame->objects())[i];
         if (obj && obj->type() == OBJECT_FACE) {
-            Face *face = static_cast<Face*>(obj);
+            Face *face = static_cast<Face *>(obj);
             Rect rect;
             rect = face->detection().box;
 
@@ -41,7 +41,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
             FaceRankFeature feature = features[0];
             face->set_feature(feature);
         } else {
-            DLOG(WARNING)<< "Object is not type of face: " << obj->id() << endl;
+            DLOG(WARNING) << "Object is not type of face: " << obj->id() << endl;
         }
 
     }
@@ -52,8 +52,9 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
 
     for (int i = 0; i < to_processed_.size(); ++i) {
-        Object * obj = to_processed_[i];
-        Face *face = static_cast<Face*>(obj);
+        Object *obj = to_processed_[i];
+        Face *face = static_cast<Face *>(obj);
+        performance_++;
 
         vector<Mat> imgs;
         imgs.push_back(face->image());
@@ -68,13 +69,13 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
 bool FaceFeatureExtractProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_FACE_EXTRACT,performance_);
+    return RecordPerformance(FEATURE_FACE_EXTRACT, performance_);
 
 }
 bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
-#if NDEBUG
-//#if RELEASE
-    if(performance_>20000) {
+#if DEBUG
+#else    //#if RELEASE
+    if(performance_>RECORD_UNIT) {
         if(!RecordFeaturePerformance()) {
             return false;
         }
@@ -82,12 +83,13 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #endif
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
-    for (vector<Object*>::iterator itr = to_processed_.begin();
-            itr != to_processed_.end();) {
+    for (vector<Object *>::iterator itr = to_processed_.begin();
+         itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else {
             itr++;
+
         }
     }
     return true;

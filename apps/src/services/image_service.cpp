@@ -65,12 +65,13 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
         std::condition_variable cv;
         int finishCount = 0;
         roiimages.resize(imgs.size());
+
         for (int i = 0; i < imgs.size(); ++i) {
             pool->enqueue(
                 [&roiimages, &finishCount, &countmt, &cv](WitnessImage &img,
-                                                                   int size,
-                                                                   unsigned int timeout,
-                                                                   int index) {
+                                                          int size,
+                                                          unsigned int timeout,
+                                                          int index) {
                   cv::Mat mat;
                   if (img.data().uri().size() > 0) {
                       getImageFromUri(img.data().uri(), mat, timeout);
@@ -91,11 +92,11 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                   {
                       std::unique_lock<mutex> countlc(countmt);
                       ++finishCount;
+                      countlc.unlock();
                   }
-                  countmt.unlock();
+
                   if (finishCount == size) {
                       {
-//                          std::unique_lock<mutex> waitlc(waitmt);
                           cv.notify_all();
                       }
                   }
@@ -204,8 +205,6 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
     MatrixError ok;
     vector<uchar> bin;
     int ret = UriReader::Read(uri, bin, timeout);
-   // string test=Base64::Encode(bin);
-  //  WriteToFile("warmup.dat",(char *)test.c_str(),test.length());
     if (ret == 0) {
         decodeDataToMat(bin, imgMat);
     } else {
@@ -216,6 +215,8 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
 
     if (imgMat.rows == 0 || imgMat.cols == 0) {
         LOG(ERROR) << "Image is empty: " << uri << endl;
+        ok.set_code(-1);
+        ok.set_message("imag is empty");
     }
     return ok;
 

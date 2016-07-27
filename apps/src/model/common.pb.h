@@ -1215,6 +1215,18 @@ class RecVehicle : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
       pedestrianattrs() const;
 
+  // repeated .dg.model.LicensePlate Plates = 11;
+  int plates_size() const;
+  void clear_plates();
+  static const int kPlatesFieldNumber = 11;
+  const ::dg::model::LicensePlate& plates(int index) const;
+  ::dg::model::LicensePlate* mutable_plates(int index);
+  ::dg::model::LicensePlate* add_plates();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >*
+      mutable_plates();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >&
+      plates() const;
+
   // @@protoc_insertion_point(class_scope:dg.model.RecVehicle)
  private:
 
@@ -1229,6 +1241,7 @@ class RecVehicle : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::google::protobuf::internal::ArenaStringPtr vehicletypename_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr > pedestrianattrs_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate > plates_;
   int vehicletype_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
@@ -1528,6 +1541,12 @@ class LicensePlate : public ::google::protobuf::Message {
   ::dg::model::Cutboard* release_cutboard();
   void set_allocated_cutboard(::dg::model::Cutboard* cutboard);
 
+  // optional float LocalProvinceConfidence = 7;
+  void clear_localprovinceconfidence();
+  static const int kLocalProvinceConfidenceFieldNumber = 7;
+  float localprovinceconfidence() const;
+  void set_localprovinceconfidence(float value);
+
   // @@protoc_insertion_point(class_scope:dg.model.LicensePlate)
  private:
 
@@ -1539,6 +1558,7 @@ class LicensePlate : public ::google::protobuf::Message {
   ::google::protobuf::int32 typeid__;
   float confidence_;
   ::dg::model::Cutboard* cutboard_;
+  float localprovinceconfidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3136,6 +3156,36 @@ RecVehicle::pedestrianattrs() const {
   return pedestrianattrs_;
 }
 
+// repeated .dg.model.LicensePlate Plates = 11;
+inline int RecVehicle::plates_size() const {
+  return plates_.size();
+}
+inline void RecVehicle::clear_plates() {
+  plates_.Clear();
+}
+inline const ::dg::model::LicensePlate& RecVehicle::plates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.Plates)
+  return plates_.Get(index);
+}
+inline ::dg::model::LicensePlate* RecVehicle::mutable_plates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.Plates)
+  return plates_.Mutable(index);
+}
+inline ::dg::model::LicensePlate* RecVehicle::add_plates() {
+  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.Plates)
+  return plates_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >*
+RecVehicle::mutable_plates() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.Plates)
+  return &plates_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >&
+RecVehicle::plates() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.Plates)
+  return plates_;
+}
+
 // -------------------------------------------------------------------
 
 // VehicleModelType
@@ -3643,6 +3693,20 @@ inline void LicensePlate::set_allocated_cutboard(::dg::model::Cutboard* cutboard
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.LicensePlate.Cutboard)
+}
+
+// optional float LocalProvinceConfidence = 7;
+inline void LicensePlate::clear_localprovinceconfidence() {
+  localprovinceconfidence_ = 0;
+}
+inline float LicensePlate::localprovinceconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.LicensePlate.LocalProvinceConfidence)
+  return localprovinceconfidence_;
+}
+inline void LicensePlate::set_localprovinceconfidence(float value) {
+  
+  localprovinceconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.LicensePlate.LocalProvinceConfidence)
 }
 
 // -------------------------------------------------------------------
