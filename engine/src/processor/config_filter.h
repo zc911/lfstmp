@@ -19,6 +19,8 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
+ #include "plate_recognize_mxnet_processor.h"
+
 #include "config.h"
 #include "fs_util.h"
 
@@ -34,20 +36,20 @@ public:
     }
 
 
-	void createVehicleCaffeDetectorConfig(const Config &cconfig,
-			VehicleCaffeDetectorConfig &config);
-	void createAccelerateConfig(const Config &cconfig,
-			VehicleCaffeDetectorConfig &config);
-	void createFaceDetectorConfig(const Config &cconfig,
-			FaceDetector::FaceDetectorConfig &config);
-	void createFaceExtractorConfig(const Config &cconfig,
-			FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
-	void createVehicleConfig(const Config &cconfig,
-			vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
-	void createVehicleColorConfig(const Config &cconfig,
-			vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
-	void createVehiclePlateConfig(const Config &cconfig,
-			PlateRecognizer::PlateConfig &pConfig);
+    void createVehicleCaffeDetectorConfig(const Config &cconfig,
+                                          VehicleCaffeDetectorConfig &config);
+    void createAccelerateConfig(const Config &cconfig,
+                                VehicleCaffeDetectorConfig &config);
+    void createFaceDetectorConfig(const Config &cconfig,
+                                  FaceDetector::FaceDetectorConfig &config);
+    void createFaceExtractorConfig(const Config &cconfig,
+                                   FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+    void createVehicleConfig(const Config &cconfig,
+                             vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+    void createVehicleColorConfig(const Config &cconfig,
+                                  vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+    void createVehiclePlateConfig(const Config &cconfig,
+                                  PlateRecognizer::PlateConfig &pConfig);
 //    void createVehicleMutiTypeDetectorConfig(
 //        const Config &cconfig,
 //        VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
@@ -55,7 +57,7 @@ public:
                              MarkerCaffeClassifier::MarkerConfig &mConfig);
     void createWindowConfig(const Config &cconfig,
                             WindowCaffeDetector::WindowCaffeConfig &wConfig);
-    void createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig);
+    void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
     void createPedestrianConfig(const Config &cconfig,
                                 PedestrianClassifier::PedestrianConfig &pConfig);
     int initDataConfig(const Config &config);

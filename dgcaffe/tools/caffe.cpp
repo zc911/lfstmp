@@ -324,7 +324,7 @@ int time() {
   caffe_net.Forward(&initial_loss);
   LOG(INFO) << "Initial loss: " << initial_loss;
   LOG(INFO) << "Performing Backward";
-  caffe_net.Backward();
+  //caffe_net.Backward();
 
   const vector<shared_ptr<Layer<float> > >& layers = caffe_net.layers();
   const vector<vector<Blob<float>*> >& bottom_vecs = caffe_net.bottom_vecs();
@@ -355,9 +355,9 @@ int time() {
     backward_timer.Start();
     for (int i = layers.size() - 1; i >= 0; --i) {
       timer.Start();
-      layers[i]->Backward(top_vecs[i], bottom_need_backward[i],
-                          bottom_vecs[i]);
-      backward_time_per_layer[i] += timer.MicroSeconds();
+      //layers[i]->Backward(top_vecs[i], bottom_need_backward[i],
+      //                    bottom_vecs[i]);
+      //backward_time_per_layer[i] += timer.MicroSeconds();
     }
     backward_time += backward_timer.MicroSeconds();
     LOG(INFO) << "Iteration: " << j + 1 << " forward-backward time: "

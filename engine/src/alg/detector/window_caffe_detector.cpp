@@ -22,13 +22,13 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
         LOG(WARNING) << "Use CPU only" << endl;
         Caffe::set_mode(Caffe::CPU);
     }
-
+#if DEBUG
     net_.reset(
-        new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-
-    //  net_.reset(
-    //     new Net<float>(config.deploy_file, TEST));
-
+        new Net<float>(config.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#endif
     net_->CopyTrainedLayersFrom(config.model_file);
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
@@ -40,12 +40,12 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
                          input_geometry_.height, input_geometry_.width);
     net_->Reshape();
-    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+ /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
     const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
     const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
     for (int i = 0; i < layers.size(); ++i) {
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
+    }*/
 
 }
 vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resized_imgs,

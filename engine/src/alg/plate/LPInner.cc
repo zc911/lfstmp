@@ -438,6 +438,48 @@ int impSobelX_Abs_U8(uchar *pubyImg, int dwW, int dwH, uchar *pubySblX)
 }
 
 
+void imgResizeAddBlack_f_bak(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
+													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
+{
+	int rszH, rszW;
+	
+	cv::Mat srcImg(dwSrcH, dwSrcW, CV_32FC1, pfInputImg);
+	cv::Mat dstImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
+
+	if (dwSrcW > dwDstW || dwSrcH > dwDstH) {
+		if (dwSrcW * dwDstH > dwSrcH * dwDstW) {
+			rszW = dwDstW;
+			rszH = dwSrcH * dwDstW / dwSrcW;
+		}
+		else {
+			rszH = dwDstH;
+			rszW = dwSrcW * dwDstH / dwSrcH;
+		}
+		
+		cv::Mat tmpImg;
+		cv::resize(srcImg, tmpImg, cv::Size(rszW, rszH), 0, 0, CV_INTER_LINEAR);
+    cv::copyMakeBorder(tmpImg, dstImg, 0, dwDstH - rszH, 0, dwDstW - rszW, cv::BORDER_CONSTANT, 0);
+	}
+	else {
+		rszW = dwSrcW;
+		rszH = dwSrcH;
+    cv::copyMakeBorder(srcImg, dstImg, 0, dwDstH - rszH, 0, dwDstW - rszW, cv::BORDER_CONSTANT, 0);
+	}
+
+	*pdwRealW = rszW;
+	*pdwRealH = rszH;
+
+#if LPDR_DBG&0
+  cv::Mat blackImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
+  cv::namedWindow("addblack", 0);
+  cv::imshow("addblack", blackImg);
+  cv::waitKey(10);
+#endif
+
+  return;
+}
+
+
 void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
 													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
 {
@@ -484,6 +526,50 @@ void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDst
   return;
 }
 
+void imgResizeAddBlack_f_bak2(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
+													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
+{
+	int rszH, rszW;
+
+	if (dwSrcW > dwDstW || dwSrcH > dwDstH) {
+		if (dwSrcW * dwDstH > dwSrcH * dwDstW) {
+			rszW = dwDstW;
+			rszH = dwSrcH * dwDstW / dwSrcW;
+		}
+		else {
+			rszH = dwDstH;
+			rszW = dwSrcW * dwDstH / dwSrcH;
+		}
+	}
+	else {
+		rszW = dwSrcW;
+		rszH = dwSrcH;
+	}
+
+  int dwRI, dwCI;
+  int dwSrcRI_Offset, dwDstRI_Offset, dwSrcOft, dwDstOft;
+  for (dwRI = 0; dwRI < rszH; dwRI++) {
+    dwSrcRI_Offset = (dwRI * dwSrcH / rszH) * dwSrcW;
+    dwDstRI_Offset = dwRI * dwDstW;
+    for (dwCI = 0; dwCI < rszW; dwCI++) {
+      dwSrcOft = dwCI * dwSrcW / rszW + dwSrcRI_Offset;
+      dwDstOft = dwCI + dwDstRI_Offset;
+      pfDstImg[dwDstOft] = pfInputImg[dwSrcOft];
+    }
+  }
+
+	*pdwRealW = rszW;
+	*pdwRealH = rszH;
+
+#if LPDR_DBG
+  cv::Mat blackImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
+  cv::namedWindow("addblack", 0);
+  cv::imshow("addblack", blackImg);
+  cv::waitKey(0);
+#endif
+
+  return;
+}
 
 int doNormContrastBB_f(float *pfImage, int dwH, int dwW, LPRect bb)
 {
@@ -538,7 +624,7 @@ int calcNewMarginBB(int dwImgH, int dwImgW, LPRect *pstBB, int adwMRatioXY[2])
 }
 
 
-int doRectify_f(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new)
+int doRectify_f4(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[8], float *pfAngle_new)
 {
   float afVecs[4], afVec2[2];
   float afPnts[4*3];
@@ -586,8 +672,83 @@ int doRectify_f(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle
   adwPolygonXY[2*2+0] = pfNewPnts[2*2+0]; adwPolygonXY[2*2+1] = pfNewPnts[2*2+1];
   adwPolygonXY[3*2+0] = pfNewPnts[3*2+0]; adwPolygonXY[3*2+1] = pfNewPnts[3*2+1];
   
+  for (int dwPI = 0; dwPI < 4; dwPI++)
+  {
+    if (adwPolygonXY[dwPI * 2 + 0] < 0) adwPolygonXY[dwPI * 2 + 0] = 0;
+    else if (adwPolygonXY[dwPI * 2 + 0] >= dwW) adwPolygonXY[dwPI * 2 + 0] = dwW - 1;
+    
+    if (adwPolygonXY[dwPI * 2 + 1] < 0) adwPolygonXY[dwPI * 2 + 1] = 0;
+    else if (adwPolygonXY[dwPI * 2 + 1] >= dwH) adwPolygonXY[dwPI * 2 + 1] = dwH - 1;
+  }
+  
   return 0;
 }
+
+
+int doRectify_f6(float *pfImage0, float *pfImage1, int dwW, int dwH, float fAngle_old, int adwPolygonXY[12], float *pfAngle_new)
+{
+  float afVecs[4], afVec2[2];
+  float afPnts[6*3];
+  
+  afVecs[0] = adwPolygonXY[1*2+0] - adwPolygonXY[0*2+0];
+  afVecs[1] = adwPolygonXY[1*2+1] - adwPolygonXY[0*2+1];
+  afVecs[2] = adwPolygonXY[2*2+0] - adwPolygonXY[3*2+0];
+  afVecs[3] = adwPolygonXY[2*2+1] - adwPolygonXY[3*2+1];
+  afVec2[0] = (afVecs[0] + afVecs[2]) / 2;
+  afVec2[1] = (afVecs[1] + afVecs[3]) / 2;
+  
+  float fAngle = atan2(afVec2[1], afVec2[0]);
+  fAngle = fAngle * 180 / 3.14159f;
+  
+//  cout << "doRectify_f 0\n";
+  cv::Mat matRotate(2, 3, CV_32FC1);
+  matRotate = getRotationMatrix2D(cv::Point(dwW/2, dwH/2), fAngle, 1.0);
+  matRotate.convertTo(matRotate, CV_32FC1);
+//  cout << "doRectify_f 1\n";
+  afPnts[0*3+0] = adwPolygonXY[0*2+0]; afPnts[0*3+1] = adwPolygonXY[0*2+1]; afPnts[0*3+2] = 1.0f;
+  afPnts[1*3+0] = adwPolygonXY[1*2+0]; afPnts[1*3+1] = adwPolygonXY[1*2+1]; afPnts[1*3+2] = 1.0f;
+  afPnts[2*3+0] = adwPolygonXY[2*2+0]; afPnts[2*3+1] = adwPolygonXY[2*2+1]; afPnts[2*3+2] = 1.0f;
+  afPnts[3*3+0] = adwPolygonXY[3*2+0]; afPnts[3*3+1] = adwPolygonXY[3*2+1]; afPnts[3*3+2] = 1.0f;
+  afPnts[4*3+0] = adwPolygonXY[4*2+0]; afPnts[4*3+1] = adwPolygonXY[4*2+1]; afPnts[4*3+2] = 1.0f;
+  afPnts[5*3+0] = adwPolygonXY[5*2+0]; afPnts[5*3+1] = adwPolygonXY[5*2+1]; afPnts[5*3+2] = 1.0f;
+  
+  cv::Mat matPnts(6, 3, CV_32FC1, afPnts);
+  cv::Mat newPnts(6, 2, CV_32FC1);
+  cv::Mat matRotateT(2, 3, CV_32FC1);
+  matRotateT = matRotate.t();
+  
+  newPnts = matPnts * matRotateT;
+  
+  cv::Mat matImageSrc(dwH, dwW, CV_32FC1, pfImage0);
+  cv::Mat matImageDst(dwH, dwW, CV_32FC1, pfImage1);
+  
+  float fAngle_new = fAngle_old + fAngle;
+  matRotate = getRotationMatrix2D(cv::Point(dwW/2, dwH/2), fAngle_new, 1.0);
+//  cout << "doRectify_f 3\n";
+  warpAffine(matImageSrc, matImageDst, matRotate, matImageDst.size());
+//  cout << "doRectify_f 4\n";
+  *pfAngle_new = fAngle_new;
+  
+  float *pfNewPnts = (float*)newPnts.data;
+  adwPolygonXY[0*2+0] = pfNewPnts[0*2+0]; adwPolygonXY[0*2+1] = pfNewPnts[0*2+1];
+  adwPolygonXY[1*2+0] = pfNewPnts[1*2+0]; adwPolygonXY[1*2+1] = pfNewPnts[1*2+1];
+  adwPolygonXY[2*2+0] = pfNewPnts[2*2+0]; adwPolygonXY[2*2+1] = pfNewPnts[2*2+1];
+  adwPolygonXY[3*2+0] = pfNewPnts[3*2+0]; adwPolygonXY[3*2+1] = pfNewPnts[3*2+1];
+  adwPolygonXY[4*2+0] = pfNewPnts[4*2+0]; adwPolygonXY[4*2+1] = pfNewPnts[4*2+1];
+  adwPolygonXY[5*2+0] = pfNewPnts[5*2+0]; adwPolygonXY[5*2+1] = pfNewPnts[5*2+1];
+  
+  for (int dwPI = 0; dwPI < 6; dwPI++)
+  {
+    if (adwPolygonXY[dwPI * 2 + 0] < 0) adwPolygonXY[dwPI * 2 + 0] = 0;
+    else if (adwPolygonXY[dwPI * 2 + 0] >= dwW) adwPolygonXY[dwPI * 2 + 0] = dwW - 1;
+    
+    if (adwPolygonXY[dwPI * 2 + 1] < 0) adwPolygonXY[dwPI * 2 + 1] = 0;
+    else if (adwPolygonXY[dwPI * 2 + 1] >= dwH) adwPolygonXY[dwPI * 2 + 1] = dwH - 1;
+  }
+  
+  return 0;
+}
+
 
 
 int doRotate_f(float *pfImage, int dwW, int dwH, float fAngle)

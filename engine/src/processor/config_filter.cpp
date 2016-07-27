@@ -61,7 +61,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createVehicleConfig(const Config &cconfig,
-                                       vector <VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+                                       vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_STYLE_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -89,7 +89,7 @@ void ConfigFilter::createVehicleConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createVehicleColorConfig(const Config &cconfig,
-                                            vector <CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
+                                            vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_COLOR_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -181,7 +181,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
-    config.car_only=false;
+    config.car_only = false;
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;
     config.is_model_encrypt = is_encrypted;
@@ -276,7 +276,7 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.gpu_id = gpu_id;
 
 }
-void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pConfig) {
+void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 
     pConfig->is_model_encrypt = is_encrypted;
@@ -300,18 +300,24 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig, _LPDRConfig *pC
     pConfig->chrecogParamFile = modelPath + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-    pConfig->dwDevType = 2;
-    pConfig->dwDevID = gpu_id;
+    pConfig->gpuId = gpu_id;
     pConfig->imageSW = (int) cconfig.Value(ADVANCED_PLATE_MXNET_IMGSW);
     pConfig->imageSH = (int) cconfig.Value(ADVANCED_PLATE_MXNET_IMGSH);
     pConfig->plateSW = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATESW);
     pConfig->plateSH = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATESH);
     pConfig->numsProposal = (int) cconfig.Value(ADVANCED_PLATE_MXNET_NUMSPROPOSAL);
     pConfig->numsPlates = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATENUMS);
+    pConfig->enableLocalProvince=(bool)cconfig.Value(ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE);
+    pConfig->localProvinceText=(string)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT);
+    pConfig->localProvinceConfidence=(float)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE);
+
+
     int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
 
 
     pConfig->batchsize = batch_size;
+
+
 
 }
 int ConfigFilter::initDataConfig(const Config &config) {

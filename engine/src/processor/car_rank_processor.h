@@ -17,14 +17,14 @@
 #include "model/rank_feature.h"
 #include "alg/feature/car_matcher.h"
 #include "alg/feature/car_feature_extractor.h"
-
+#include "config.h"
 #include "timing_profiler.h"
 
 namespace dg {
 
 class CarRankProcessor: public Processor {
 public:
-    CarRankProcessor();
+    CarRankProcessor(const Config &config);
     virtual ~CarRankProcessor();
 
 protected:
@@ -38,8 +38,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    string t_profiler_str_;
-    CarMatcher car_matcher_;
+    CarMatcher *car_matcher_;
     CarFeatureExtractor car_feature_extractor_;
 
     vector<Score> rank(const Mat &image, const Rect &hotspot,

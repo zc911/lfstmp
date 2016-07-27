@@ -111,7 +111,7 @@ void PlateRecognizerProcessor::filterVehicle(FrameBatch *frameBatch) {
 }
 bool PlateRecognizerProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_PLATE,performance_);
+    return RecordPerformance(FEATURE_CAR_PLATE, performance_);
 }
 
 }

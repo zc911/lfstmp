@@ -126,6 +126,7 @@ message LicensePlate {
     string TypeName = 4;
     float Confidence = 5;
     Cutboard Cutboard = 6;
+    float LocalProvinceConfidence=7;
 }
 
 message VehicleSymbol {
