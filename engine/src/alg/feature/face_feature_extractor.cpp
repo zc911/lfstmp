@@ -29,7 +29,13 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     layer_name_ = "eltwise6";
 
     LOG(INFO) << "loading model file: " << config.deploy_file;
-    net_.reset(new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#if DEBUG
+    net_.reset(
+        new Net<float>(config.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+#endif
     LOG(INFO) << "loading trained file : " << config.model_file;
     net_->CopyTrainedLayersFrom(config.model_file);
 

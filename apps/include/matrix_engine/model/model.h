@@ -56,8 +56,8 @@ typedef struct Detection {
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-            << det.box.y << "," << det.box.width << "," << det.box.height
-            << "] Conf: " << det.confidence;
+               << det.box.y << "," << det.box.width << "," << det.box.height
+               << "] Conf: " << det.confidence;
     }
 
 } Detection;
@@ -197,11 +197,14 @@ public:
         int color_id = -1;
         int plate_type = -1;
         Confidence confidence = 0;
+        Confidence local_province_confidence = 0;
     } Plate;
 
     Vehicle(ObjectType type)
         : Object(type),
           class_id_(-1) {
+        Plate plate;
+        plates_.push_back(plate);
     }
 
     const Color &color() const {
@@ -240,15 +243,15 @@ public:
         }
     }
 
-/*
-    const Plate &plate() const {
-        return plate_;
-    }
+    /*
+        const Plate &plate() const {
+            return plate_;
+        }
 
-    void set_plate(const Plate &plate) {
-        plate_ = plate;
-    }
-*/
+        void set_plate(const Plate &plate) {
+            plate_ = plate;
+        }
+    */
     const vector<Plate> &plates() const {
         return plates_;
     }

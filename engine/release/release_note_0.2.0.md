@@ -7,9 +7,10 @@ IMPORTANT: The dg plate sdk found multi-thread bug. So only one thread support i
 ```
 
 ### Feature
-- Add Car only detection(old deepv model) because of the SSD detection multi-thread bug
-- Improve the plate performace
-- Add lots of runtime debug logs
-- Some code improvements
+- Update libcaffe, to fix SSD Detection multiple thread bug. Now must use cudnn v4
+- Update dg plate lib to 2.7.1.1 to try to fix crash bug and 119M GPU0 bug
+- Use mulitiple thread when processing plate
+- Remove pedestrian assert
+- Add feature check when init witness engine
 
 

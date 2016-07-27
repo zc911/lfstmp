@@ -42,6 +42,10 @@ void protobuf_AddDesc_witness_2eproto();
 void protobuf_AssignDesc_witness_2eproto();
 void protobuf_ShutdownFile_witness_2eproto();
 
+class BrandIndex;
+class BrandIndex_Item;
+class CommonIndex;
+class CommonIndex_Item;
 class IndexRequest;
 class IndexResponse;
 class IndexTxtRequest;
@@ -60,15 +64,13 @@ class WitnessVehicleObj;
 
 enum IndexType {
   INDEX_DEFAULT = 0,
-  INDEX_CAR_TYPE = 1,
-  INDEX_CAR_MAIN_BRAND = 2,
-  INDEX_CAR_SUB_BRAND = 3,
-  INDEX_CAR_YEAR_MODEL = 4,
-  INDEX_CAR_COLOR = 5,
-  INDEX_CAR_MARKER = 6,
-  INDEX_CAR_PLATE_TYPE = 7,
-  INDEX_CAR_PLATE_COLOR = 8,
-  INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 9,
+  INDEX_CAR_BRAND = 1,
+  INDEX_CAR_TYPE = 2,
+  INDEX_CAR_COLOR = 3,
+  INDEX_CAR_MARKER = 4,
+  INDEX_CAR_PLATE_TYPE = 5,
+  INDEX_CAR_PLATE_COLOR = 6,
+  INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 7,
   IndexType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   IndexType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
@@ -328,6 +330,396 @@ class IndexTxtResponse : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class CommonIndex_Item : public ::google::protobuf::Message {
+ public:
+  CommonIndex_Item();
+  virtual ~CommonIndex_Item();
+
+  CommonIndex_Item(const CommonIndex_Item& from);
+
+  inline CommonIndex_Item& operator=(const CommonIndex_Item& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommonIndex_Item& default_instance();
+
+  void Swap(CommonIndex_Item* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CommonIndex_Item* New() const { return New(NULL); }
+
+  CommonIndex_Item* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CommonIndex_Item& from);
+  void MergeFrom(const CommonIndex_Item& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CommonIndex_Item* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int32 id() const;
+  void set_id(::google::protobuf::int32 value);
+
+  // optional string Name = 2;
+  void clear_name();
+  static const int kNameFieldNumber = 2;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // @@protoc_insertion_point(class_scope:dg.model.CommonIndex.Item)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::int32 id_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static CommonIndex_Item* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CommonIndex : public ::google::protobuf::Message {
+ public:
+  CommonIndex();
+  virtual ~CommonIndex();
+
+  CommonIndex(const CommonIndex& from);
+
+  inline CommonIndex& operator=(const CommonIndex& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CommonIndex& default_instance();
+
+  void Swap(CommonIndex* other);
+
+  // implements Message ----------------------------------------------
+
+  inline CommonIndex* New() const { return New(NULL); }
+
+  CommonIndex* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CommonIndex& from);
+  void MergeFrom(const CommonIndex& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CommonIndex* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  typedef CommonIndex_Item Item;
+
+  // accessors -------------------------------------------------------
+
+  // repeated .dg.model.CommonIndex.Item Items = 1;
+  int items_size() const;
+  void clear_items();
+  static const int kItemsFieldNumber = 1;
+  const ::dg::model::CommonIndex_Item& items(int index) const;
+  ::dg::model::CommonIndex_Item* mutable_items(int index);
+  ::dg::model::CommonIndex_Item* add_items();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >*
+      mutable_items();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >&
+      items() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.CommonIndex)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item > items_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static CommonIndex* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class BrandIndex_Item : public ::google::protobuf::Message {
+ public:
+  BrandIndex_Item();
+  virtual ~BrandIndex_Item();
+
+  BrandIndex_Item(const BrandIndex_Item& from);
+
+  inline BrandIndex_Item& operator=(const BrandIndex_Item& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BrandIndex_Item& default_instance();
+
+  void Swap(BrandIndex_Item* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BrandIndex_Item* New() const { return New(NULL); }
+
+  BrandIndex_Item* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BrandIndex_Item& from);
+  void MergeFrom(const BrandIndex_Item& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BrandIndex_Item* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int32 MainBrandId = 2;
+  void clear_mainbrandid();
+  static const int kMainBrandIdFieldNumber = 2;
+  ::google::protobuf::int32 mainbrandid() const;
+  void set_mainbrandid(::google::protobuf::int32 value);
+
+  // optional int32 SubBrandId = 3;
+  void clear_subbrandid();
+  static const int kSubBrandIdFieldNumber = 3;
+  ::google::protobuf::int32 subbrandid() const;
+  void set_subbrandid(::google::protobuf::int32 value);
+
+  // optional int32 YearModelId = 4;
+  void clear_yearmodelid();
+  static const int kYearModelIdFieldNumber = 4;
+  ::google::protobuf::int32 yearmodelid() const;
+  void set_yearmodelid(::google::protobuf::int32 value);
+
+  // optional string MainBrandName = 5;
+  void clear_mainbrandname();
+  static const int kMainBrandNameFieldNumber = 5;
+  const ::std::string& mainbrandname() const;
+  void set_mainbrandname(const ::std::string& value);
+  void set_mainbrandname(const char* value);
+  void set_mainbrandname(const char* value, size_t size);
+  ::std::string* mutable_mainbrandname();
+  ::std::string* release_mainbrandname();
+  void set_allocated_mainbrandname(::std::string* mainbrandname);
+
+  // optional string SubBrandName = 6;
+  void clear_subbrandname();
+  static const int kSubBrandNameFieldNumber = 6;
+  const ::std::string& subbrandname() const;
+  void set_subbrandname(const ::std::string& value);
+  void set_subbrandname(const char* value);
+  void set_subbrandname(const char* value, size_t size);
+  ::std::string* mutable_subbrandname();
+  ::std::string* release_subbrandname();
+  void set_allocated_subbrandname(::std::string* subbrandname);
+
+  // optional string YearModelName = 7;
+  void clear_yearmodelname();
+  static const int kYearModelNameFieldNumber = 7;
+  const ::std::string& yearmodelname() const;
+  void set_yearmodelname(const ::std::string& value);
+  void set_yearmodelname(const char* value);
+  void set_yearmodelname(const char* value, size_t size);
+  ::std::string* mutable_yearmodelname();
+  ::std::string* release_yearmodelname();
+  void set_allocated_yearmodelname(::std::string* yearmodelname);
+
+  // @@protoc_insertion_point(class_scope:dg.model.BrandIndex.Item)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int32 mainbrandid_;
+  ::google::protobuf::int32 subbrandid_;
+  ::google::protobuf::internal::ArenaStringPtr mainbrandname_;
+  ::google::protobuf::internal::ArenaStringPtr subbrandname_;
+  ::google::protobuf::internal::ArenaStringPtr yearmodelname_;
+  ::google::protobuf::int32 yearmodelid_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static BrandIndex_Item* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class BrandIndex : public ::google::protobuf::Message {
+ public:
+  BrandIndex();
+  virtual ~BrandIndex();
+
+  BrandIndex(const BrandIndex& from);
+
+  inline BrandIndex& operator=(const BrandIndex& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const BrandIndex& default_instance();
+
+  void Swap(BrandIndex* other);
+
+  // implements Message ----------------------------------------------
+
+  inline BrandIndex* New() const { return New(NULL); }
+
+  BrandIndex* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const BrandIndex& from);
+  void MergeFrom(const BrandIndex& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BrandIndex* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  typedef BrandIndex_Item Item;
+
+  // accessors -------------------------------------------------------
+
+  // repeated .dg.model.BrandIndex.Item Items = 1;
+  int items_size() const;
+  void clear_items();
+  static const int kItemsFieldNumber = 1;
+  const ::dg::model::BrandIndex_Item& items(int index) const;
+  ::dg::model::BrandIndex_Item* mutable_items(int index);
+  ::dg::model::BrandIndex_Item* add_items();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >*
+      mutable_items();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >&
+      items() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.BrandIndex)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item > items_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_witness_2eproto();
+  friend void protobuf_AssignDesc_witness_2eproto();
+  friend void protobuf_ShutdownFile_witness_2eproto();
+
+  void InitAsDefaultInstance();
+  static BrandIndex* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class IndexResponse : public ::google::protobuf::Message {
  public:
   IndexResponse();
@@ -342,6 +734,12 @@ class IndexResponse : public ::google::protobuf::Message {
 
   static const ::google::protobuf::Descriptor* descriptor();
   static const IndexResponse& default_instance();
+
+  enum IndexContentCase {
+    kIndex = 1,
+    kBrandIndex = 2,
+    INDEX_CONTENT_NOT_SET = 0,
+  };
 
   void Swap(IndexResponse* other);
 
@@ -382,35 +780,46 @@ class IndexResponse : public ::google::protobuf::Message {
 
   // nested types ----------------------------------------------------
 
-
   // accessors -------------------------------------------------------
 
-  // map<int32, string> Index = 1;
-  int index_size() const;
+  // optional .dg.model.CommonIndex Index = 1;
+  bool has_index() const;
   void clear_index();
   static const int kIndexFieldNumber = 1;
-  const ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >&
-      index() const;
-  ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >*
-      mutable_index();
+  const ::dg::model::CommonIndex& index() const;
+  ::dg::model::CommonIndex* mutable_index();
+  ::dg::model::CommonIndex* release_index();
+  void set_allocated_index(::dg::model::CommonIndex* index);
 
+  // optional .dg.model.BrandIndex BrandIndex = 2;
+  bool has_brandindex() const;
+  void clear_brandindex();
+  static const int kBrandIndexFieldNumber = 2;
+  const ::dg::model::BrandIndex& brandindex() const;
+  ::dg::model::BrandIndex* mutable_brandindex();
+  ::dg::model::BrandIndex* release_brandindex();
+  void set_allocated_brandindex(::dg::model::BrandIndex* brandindex);
+
+  IndexContentCase index_content_case() const;
   // @@protoc_insertion_point(class_scope:dg.model.IndexResponse)
  private:
+  inline void set_has_index();
+  inline void set_has_brandindex();
+
+  inline bool has_index_content() const;
+  void clear_index_content();
+  inline void clear_has_index_content();
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  typedef ::google::protobuf::internal::MapEntryLite<
-      ::google::protobuf::int32, ::std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      0 >
-      IndexResponse_IndexEntry;
-  ::google::protobuf::internal::MapField<
-      ::google::protobuf::int32, ::std::string,
-      ::google::protobuf::internal::WireFormatLite::TYPE_INT32,
-      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
-      0 > index_;
+  union IndexContentUnion {
+    IndexContentUnion() {}
+    ::dg::model::CommonIndex* index_;
+    ::dg::model::BrandIndex* brandindex_;
+  } index_content_;
   mutable int _cached_size_;
+  ::google::protobuf::uint32 _oneof_case_[1];
+
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
   friend void protobuf_ShutdownFile_witness_2eproto();
@@ -1704,7 +2113,6 @@ inline ::std::string* IndexTxtResponse::mutable_context() {
   return context_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* IndexTxtResponse::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.IndexTxtResponse.Context)
   
   return context_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1720,26 +2128,415 @@ inline void IndexTxtResponse::set_allocated_context(::std::string* context) {
 
 // -------------------------------------------------------------------
 
+// CommonIndex_Item
+
+// optional int32 Id = 1;
+inline void CommonIndex_Item::clear_id() {
+  id_ = 0;
+}
+inline ::google::protobuf::int32 CommonIndex_Item::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Item.Id)
+  return id_;
+}
+inline void CommonIndex_Item::set_id(::google::protobuf::int32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.CommonIndex.Item.Id)
+}
+
+// optional string Name = 2;
+inline void CommonIndex_Item::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& CommonIndex_Item::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Item.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CommonIndex_Item::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.CommonIndex.Item.Name)
+}
+inline void CommonIndex_Item::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.CommonIndex.Item.Name)
+}
+inline void CommonIndex_Item::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.CommonIndex.Item.Name)
+}
+inline ::std::string* CommonIndex_Item::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.CommonIndex.Item.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CommonIndex_Item::release_name() {
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CommonIndex_Item::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.CommonIndex.Item.Name)
+}
+
+// -------------------------------------------------------------------
+
+// CommonIndex
+
+// repeated .dg.model.CommonIndex.Item Items = 1;
+inline int CommonIndex::items_size() const {
+  return items_.size();
+}
+inline void CommonIndex::clear_items() {
+  items_.Clear();
+}
+inline const ::dg::model::CommonIndex_Item& CommonIndex::items(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.CommonIndex.Items)
+  return items_.Get(index);
+}
+inline ::dg::model::CommonIndex_Item* CommonIndex::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.CommonIndex.Items)
+  return items_.Mutable(index);
+}
+inline ::dg::model::CommonIndex_Item* CommonIndex::add_items() {
+  // @@protoc_insertion_point(field_add:dg.model.CommonIndex.Items)
+  return items_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >*
+CommonIndex::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.CommonIndex.Items)
+  return &items_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::CommonIndex_Item >&
+CommonIndex::items() const {
+  // @@protoc_insertion_point(field_list:dg.model.CommonIndex.Items)
+  return items_;
+}
+
+// -------------------------------------------------------------------
+
+// BrandIndex_Item
+
+// optional int32 MainBrandId = 2;
+inline void BrandIndex_Item::clear_mainbrandid() {
+  mainbrandid_ = 0;
+}
+inline ::google::protobuf::int32 BrandIndex_Item::mainbrandid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.MainBrandId)
+  return mainbrandid_;
+}
+inline void BrandIndex_Item::set_mainbrandid(::google::protobuf::int32 value) {
+  
+  mainbrandid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.MainBrandId)
+}
+
+// optional int32 SubBrandId = 3;
+inline void BrandIndex_Item::clear_subbrandid() {
+  subbrandid_ = 0;
+}
+inline ::google::protobuf::int32 BrandIndex_Item::subbrandid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.SubBrandId)
+  return subbrandid_;
+}
+inline void BrandIndex_Item::set_subbrandid(::google::protobuf::int32 value) {
+  
+  subbrandid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.SubBrandId)
+}
+
+// optional int32 YearModelId = 4;
+inline void BrandIndex_Item::clear_yearmodelid() {
+  yearmodelid_ = 0;
+}
+inline ::google::protobuf::int32 BrandIndex_Item::yearmodelid() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.YearModelId)
+  return yearmodelid_;
+}
+inline void BrandIndex_Item::set_yearmodelid(::google::protobuf::int32 value) {
+  
+  yearmodelid_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.YearModelId)
+}
+
+// optional string MainBrandName = 5;
+inline void BrandIndex_Item::clear_mainbrandname() {
+  mainbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BrandIndex_Item::mainbrandname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.MainBrandName)
+  return mainbrandname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_mainbrandname(const ::std::string& value) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.MainBrandName)
+}
+inline void BrandIndex_Item::set_mainbrandname(const char* value) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.MainBrandName)
+}
+inline void BrandIndex_Item::set_mainbrandname(const char* value, size_t size) {
+  
+  mainbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.MainBrandName)
+}
+inline ::std::string* BrandIndex_Item::mutable_mainbrandname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.MainBrandName)
+  return mainbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BrandIndex_Item::release_mainbrandname() {
+  
+  return mainbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_allocated_mainbrandname(::std::string* mainbrandname) {
+  if (mainbrandname != NULL) {
+    
+  } else {
+    
+  }
+  mainbrandname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), mainbrandname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.MainBrandName)
+}
+
+// optional string SubBrandName = 6;
+inline void BrandIndex_Item::clear_subbrandname() {
+  subbrandname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BrandIndex_Item::subbrandname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.SubBrandName)
+  return subbrandname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_subbrandname(const ::std::string& value) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.SubBrandName)
+}
+inline void BrandIndex_Item::set_subbrandname(const char* value) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.SubBrandName)
+}
+inline void BrandIndex_Item::set_subbrandname(const char* value, size_t size) {
+  
+  subbrandname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.SubBrandName)
+}
+inline ::std::string* BrandIndex_Item::mutable_subbrandname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.SubBrandName)
+  return subbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BrandIndex_Item::release_subbrandname() {
+  
+  return subbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_allocated_subbrandname(::std::string* subbrandname) {
+  if (subbrandname != NULL) {
+    
+  } else {
+    
+  }
+  subbrandname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), subbrandname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.SubBrandName)
+}
+
+// optional string YearModelName = 7;
+inline void BrandIndex_Item::clear_yearmodelname() {
+  yearmodelname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& BrandIndex_Item::yearmodelname() const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Item.YearModelName)
+  return yearmodelname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_yearmodelname(const ::std::string& value) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.BrandIndex.Item.YearModelName)
+}
+inline void BrandIndex_Item::set_yearmodelname(const char* value) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.BrandIndex.Item.YearModelName)
+}
+inline void BrandIndex_Item::set_yearmodelname(const char* value, size_t size) {
+  
+  yearmodelname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.BrandIndex.Item.YearModelName)
+}
+inline ::std::string* BrandIndex_Item::mutable_yearmodelname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Item.YearModelName)
+  return yearmodelname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* BrandIndex_Item::release_yearmodelname() {
+  
+  return yearmodelname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void BrandIndex_Item::set_allocated_yearmodelname(::std::string* yearmodelname) {
+  if (yearmodelname != NULL) {
+    
+  } else {
+    
+  }
+  yearmodelname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), yearmodelname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.BrandIndex.Item.YearModelName)
+}
+
+// -------------------------------------------------------------------
+
+// BrandIndex
+
+// repeated .dg.model.BrandIndex.Item Items = 1;
+inline int BrandIndex::items_size() const {
+  return items_.size();
+}
+inline void BrandIndex::clear_items() {
+  items_.Clear();
+}
+inline const ::dg::model::BrandIndex_Item& BrandIndex::items(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.BrandIndex.Items)
+  return items_.Get(index);
+}
+inline ::dg::model::BrandIndex_Item* BrandIndex::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.BrandIndex.Items)
+  return items_.Mutable(index);
+}
+inline ::dg::model::BrandIndex_Item* BrandIndex::add_items() {
+  // @@protoc_insertion_point(field_add:dg.model.BrandIndex.Items)
+  return items_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >*
+BrandIndex::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.BrandIndex.Items)
+  return &items_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::BrandIndex_Item >&
+BrandIndex::items() const {
+  // @@protoc_insertion_point(field_list:dg.model.BrandIndex.Items)
+  return items_;
+}
+
+// -------------------------------------------------------------------
+
 // IndexResponse
 
-// map<int32, string> Index = 1;
-inline int IndexResponse::index_size() const {
-  return index_.size();
+// optional .dg.model.CommonIndex Index = 1;
+inline bool IndexResponse::has_index() const {
+  return index_content_case() == kIndex;
+}
+inline void IndexResponse::set_has_index() {
+  _oneof_case_[0] = kIndex;
 }
 inline void IndexResponse::clear_index() {
-  index_.Clear();
+  if (has_index()) {
+    delete index_content_.index_;
+    clear_has_index_content();
+  }
 }
-inline const ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >&
-IndexResponse::index() const {
-  // @@protoc_insertion_point(field_map:dg.model.IndexResponse.Index)
-  return index_.GetMap();
+inline  const ::dg::model::CommonIndex& IndexResponse::index() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexResponse.Index)
+  return has_index()
+      ? *index_content_.index_
+      : ::dg::model::CommonIndex::default_instance();
 }
-inline ::google::protobuf::Map< ::google::protobuf::int32, ::std::string >*
-IndexResponse::mutable_index() {
-  // @@protoc_insertion_point(field_mutable_map:dg.model.IndexResponse.Index)
-  return index_.MutableMap();
+inline ::dg::model::CommonIndex* IndexResponse::mutable_index() {
+  if (!has_index()) {
+    clear_index_content();
+    set_has_index();
+    index_content_.index_ = new ::dg::model::CommonIndex;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexResponse.Index)
+  return index_content_.index_;
+}
+inline ::dg::model::CommonIndex* IndexResponse::release_index() {
+  if (has_index()) {
+    clear_has_index_content();
+    ::dg::model::CommonIndex* temp = index_content_.index_;
+    index_content_.index_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void IndexResponse::set_allocated_index(::dg::model::CommonIndex* index) {
+  clear_index_content();
+  if (index) {
+    set_has_index();
+    index_content_.index_ = index;
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexResponse.Index)
 }
 
+// optional .dg.model.BrandIndex BrandIndex = 2;
+inline bool IndexResponse::has_brandindex() const {
+  return index_content_case() == kBrandIndex;
+}
+inline void IndexResponse::set_has_brandindex() {
+  _oneof_case_[0] = kBrandIndex;
+}
+inline void IndexResponse::clear_brandindex() {
+  if (has_brandindex()) {
+    delete index_content_.brandindex_;
+    clear_has_index_content();
+  }
+}
+inline  const ::dg::model::BrandIndex& IndexResponse::brandindex() const {
+  // @@protoc_insertion_point(field_get:dg.model.IndexResponse.BrandIndex)
+  return has_brandindex()
+      ? *index_content_.brandindex_
+      : ::dg::model::BrandIndex::default_instance();
+}
+inline ::dg::model::BrandIndex* IndexResponse::mutable_brandindex() {
+  if (!has_brandindex()) {
+    clear_index_content();
+    set_has_brandindex();
+    index_content_.brandindex_ = new ::dg::model::BrandIndex;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.IndexResponse.BrandIndex)
+  return index_content_.brandindex_;
+}
+inline ::dg::model::BrandIndex* IndexResponse::release_brandindex() {
+  if (has_brandindex()) {
+    clear_has_index_content();
+    ::dg::model::BrandIndex* temp = index_content_.brandindex_;
+    index_content_.brandindex_ = NULL;
+    return temp;
+  } else {
+    return NULL;
+  }
+}
+inline void IndexResponse::set_allocated_brandindex(::dg::model::BrandIndex* brandindex) {
+  clear_index_content();
+  if (brandindex) {
+    set_has_brandindex();
+    index_content_.brandindex_ = brandindex;
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.IndexResponse.BrandIndex)
+}
+
+inline bool IndexResponse::has_index_content() const {
+  return index_content_case() != INDEX_CONTENT_NOT_SET;
+}
+inline void IndexResponse::clear_has_index_content() {
+  _oneof_case_[0] = INDEX_CONTENT_NOT_SET;
+}
+inline IndexResponse::IndexContentCase IndexResponse::index_content_case() const {
+  return IndexResponse::IndexContentCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // WitnessRequest
@@ -1765,7 +2562,6 @@ inline ::dg::model::WitnessRequestContext* WitnessRequest::mutable_context() {
   return context_;
 }
 inline ::dg::model::WitnessRequestContext* WitnessRequest::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequest.Context)
   
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
@@ -1803,7 +2599,6 @@ inline ::dg::model::WitnessImage* WitnessRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::WitnessImage* WitnessRequest::release_image() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequest.Image)
   
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
@@ -1845,7 +2640,6 @@ inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::mutable_context(
   return context_;
 }
 inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessBatchRequest.Context)
   
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
@@ -1917,7 +2711,6 @@ inline ::dg::model::WitnessResponseContext* WitnessResponse::mutable_context() {
   return context_;
 }
 inline ::dg::model::WitnessResponseContext* WitnessResponse::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponse.Context)
   
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
@@ -1955,7 +2748,6 @@ inline ::dg::model::WitnessResult* WitnessResponse::mutable_result() {
   return result_;
 }
 inline ::dg::model::WitnessResult* WitnessResponse::release_result() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponse.Result)
   
   ::dg::model::WitnessResult* temp = result_;
   result_ = NULL;
@@ -1997,7 +2789,6 @@ inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::mutable_contex
   return context_;
 }
 inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessBatchResponse.Context)
   
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
@@ -2198,7 +2989,6 @@ inline ::std::string* WitnessRequestContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_sessionid() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2242,7 +3032,6 @@ inline ::std::string* WitnessRequestContext::mutable_username() {
   return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_username() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.UserName)
   
   return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2286,7 +3075,6 @@ inline ::std::string* WitnessRequestContext::mutable_token() {
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_token() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.Token)
   
   return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2365,7 +3153,6 @@ inline ::dg::model::StorageConfig* WitnessRequestContext::mutable_storage() {
   return storage_;
 }
 inline ::dg::model::StorageConfig* WitnessRequestContext::release_storage() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.Storage)
   
   ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
@@ -2425,7 +3212,6 @@ inline ::dg::model::Image* WitnessImage::mutable_data() {
   return data_;
 }
 inline ::dg::model::Image* WitnessImage::release_data() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessImage.Data)
   
   ::dg::model::Image* temp = data_;
   data_ = NULL;
@@ -2463,7 +3249,6 @@ inline ::dg::model::SrcMetadata* WitnessImage::mutable_witnessmetadata() {
   return witnessmetadata_;
 }
 inline ::dg::model::SrcMetadata* WitnessImage::release_witnessmetadata() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessImage.WitnessMetaData)
   
   ::dg::model::SrcMetadata* temp = witnessmetadata_;
   witnessmetadata_ = NULL;
@@ -2574,7 +3359,6 @@ inline ::std::string* WitnessResponseContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_sessionid() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2618,7 +3402,6 @@ inline ::std::string* WitnessResponseContext::mutable_status() {
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_status() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.Status)
   
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2662,7 +3445,6 @@ inline ::std::string* WitnessResponseContext::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_message() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2697,7 +3479,6 @@ inline ::dg::model::Time* WitnessResponseContext::mutable_requestts() {
   return requestts_;
 }
 inline ::dg::model::Time* WitnessResponseContext::release_requestts() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.RequestTs)
   
   ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
@@ -2735,7 +3516,6 @@ inline ::dg::model::Time* WitnessResponseContext::mutable_responsets() {
   return responsets_;
 }
 inline ::dg::model::Time* WitnessResponseContext::release_responsets() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.ResponseTs)
   
   ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
@@ -2804,7 +3584,6 @@ inline ::std::string* WitnessResult::mutable_innerstatus() {
   return innerstatus_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innerstatus() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.InnerStatus)
   
   return innerstatus_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2848,7 +3627,6 @@ inline ::std::string* WitnessResult::mutable_innermessage() {
   return innermessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innermessage() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.InnerMessage)
   
   return innermessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2883,7 +3661,6 @@ inline ::dg::model::WitnessImage* WitnessResult::mutable_image() {
   return image_;
 }
 inline ::dg::model::WitnessImage* WitnessResult::release_image() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.Image)
   
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
@@ -2985,7 +3762,6 @@ inline ::dg::model::VehicleObj* WitnessVehicleObj::mutable_vehicleresult() {
   return vehicleresult_;
 }
 inline ::dg::model::VehicleObj* WitnessVehicleObj::release_vehicleresult() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessVehicleObj.VehicleResult)
   
   ::dg::model::VehicleObj* temp = vehicleresult_;
   vehicleresult_ = NULL;
@@ -3023,7 +3799,6 @@ inline ::dg::model::StorageConfig* WitnessVehicleObj::mutable_storage() {
   return storage_;
 }
 inline ::dg::model::StorageConfig* WitnessVehicleObj::release_storage() {
-  // @@protoc_insertion_point(field_release:dg.model.WitnessVehicleObj.Storage)
   
   ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
@@ -3041,6 +3816,14 @@ inline void WitnessVehicleObj::set_allocated_storage(::dg::model::StorageConfig*
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

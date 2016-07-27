@@ -12,7 +12,9 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
         car_only_detector_ = new CarOnlyCaffeDetector(config);
         car_only_confirm_ = new CarOnlyConfirmCaffeDetector(config);
     } else {
+
         vehicle_detector_ = new VehicleCaffeDetector(config);
+
     }
 
     base_id_ = 0;
@@ -160,7 +162,7 @@ bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 bool VehicleMultiTypeDetectorProcessor::RecordFeaturePerformance() {
 
-    return RecordPerformance(FEATURE_CAR_DETECTION,  performance_);
+    return RecordPerformance(FEATURE_CAR_DETECTION, performance_);
 
 }
 

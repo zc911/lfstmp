@@ -104,8 +104,9 @@ class DetectionOutputLayer : public Layer<Dtype> {
   bool visualize_;
   float visualize_threshold_;
   shared_ptr<DataTransformer<Dtype> > data_transformer_;
-    Blob<Dtype> bbox_preds;
-    Blob<Dtype> conf_permute;
+
+  Blob<Dtype> bbox_preds;
+  Blob<Dtype> conf_permute;
 };
 
 }  // namespace caffe
