@@ -19,13 +19,17 @@
 using namespace ::dg::model;
 namespace dg {
 
-class GrpcRankerServiceImpl final: public BasicGrpcService<RankerAppsService>, public SimilarityService::Service {
+class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilarityService::Service {
 public:
 
-    GrpcRankerServiceImpl(Config config, string addr, MatrixEnginesPool<RankerAppsService> *engine_pool)
-        : BasicGrpcService(config, addr, engine_pool) { }
+    GrpcRankerServiceImpl(Config config, string addr)
+        : BasicGrpcService(config, addr) {
+            service_ = new RankerAppsService(&config,"WitnessAppsService"); 
+ }
 
-    virtual ~GrpcRankerServiceImpl() { }
+    virtual ~GrpcRankerServiceImpl() { 
+      delete service_;
+}
     virtual ::grpc::Service *service() {
         return this;
     };
@@ -36,7 +40,7 @@ public:
 
         cout << "[GRPC] ========================" << endl;
         cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
-        CallData data;
+      /*  CallData data;
 
         data.func = [request, response, &data]() -> MatrixError {
           return (bind(&RankerAppsService::GetRankedVector,
@@ -46,11 +50,15 @@ public:
                                           response);
         };
 
-        engine_pool_->enqueue(&data);
+        service_pool_->enqueue(&data);
         MatrixError error = data.Wait();
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+*/
+        MatrixError error = service_->GetRankedVector(request,response);
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 
     }
+    RankerAppsService *service_;
 
 };
 

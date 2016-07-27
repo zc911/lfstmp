@@ -8,7 +8,6 @@
 //#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
 #include "debug_util.h"
-#include "log/log_val.h"
 
 namespace dg {
 /*const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
@@ -19,19 +18,21 @@ namespace dg {
         "青", "藏", "川", "宁", "琼", "使", "领", "试", "学", "临", "时", "警", "港", "O",
         "挂", "澳", "#" };*/
 const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
-          "A", "B", "C", "D", "E", "F", "G", "H", "J", \
-          "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
-          "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
-          "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
-          "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
-          "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
-          "青", "藏", "川", "宁", "琼", "使", "领", "试", \
-          "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};
-PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(
-    LPDRConfig_S *stConfig)
-    : h_LPDR_Handle_(0) {
-    setConfig(stConfig);
-    LPDR_Create(&h_LPDR_Handle_, stConfig);
+                                              "A", "B", "C", "D", "E", "F", "G", "H", "J", \
+                                              "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
+                                              "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
+                                              "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
+                                              "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
+                                              "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
+                                              "青", "藏", "川", "宁", "琼", "使", "领", "试", \
+                                              "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
+                                             };
+PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(PlateRecognizeMxnetConfig *config
+                                                          )
+    : config_(config), h_LPDR_Handle_(0) {
+    LPDRConfig_S stConfig;
+    setConfig(&stConfig);
+    LPDR_Create(&h_LPDR_Handle_, &stConfig);
 }
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
@@ -51,7 +52,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
     int imagesize = images_.size();
     VLOG(VLOG_RUNTIME_DEBUG) << "LPDR loop: " << (ceil((float) imagesize / (float) batchsize) * batchsize) << endl;
     for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
-                                                                                       batchsize) {
+                batchsize) {
         stImgSet_.dwImageNum = 0;
         for (int j = 0; j < batchsize; j++) {
             if (i + j < imagesize) {
@@ -85,16 +86,27 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
                 plate.box.height = pdwLPRect[3] - pdwLPRect[1];
 
                 string platenum;
-                float score=0;
-                for (int dwK = 0; dwK < pstLP->dwLPLen; dwK++) {
-                    platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
-                    score+=pstLP->afScores[dwK];
+                float score = 0;
+                if (enable_local_province_) {
+                    if (pstLP->afScores[0] < local_province_confidence_) {
+                        platenum = local_province_;
+                    } else {
+                        platenum = paInv_chardict[pstLP->adwLPNumber[0]];
+                    }
+                    score += pstLP->afScores[0];
                 }
-                score/=pstLP->dwLPLen;
+                for (int dwK = 1; dwK < pstLP->dwLPLen; dwK++) {
+                    platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
+                    score += pstLP->afScores[dwK];
+                }
+
+
+                score /= pstLP->dwLPLen;
                 plate.color_id = pstLP->dwColor;
-                plate.plate_type=pstLP->dwType;
+                plate.plate_type = pstLP->dwType;
                 plate.confidence = score;
                 plate.plate_num = platenum;
+                plate.local_province_confidence = pstLP->afScores[0];
                 plates.push_back(plate);
             }
             if (objs_.size() > (i + j)) {
@@ -103,7 +115,6 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
             }
 
         }
-        VLOG(VLOG_RUNTIME_DEBUG) << "Start Post process: " << frameBatch->id() << endl;
 
     }
     gettimeofday(&end, NULL);
@@ -120,8 +131,8 @@ bool PlateRecognizeMxnetProcessor::RecordFeaturePerformance() {
 bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if DEBUG
 #else
-    if(performance_>RECORD_UNIT) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }
@@ -130,47 +141,53 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
     return true;
 }
 void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
-    readModuleFile(pstConfig->fcnnSymbolFile, pstConfig->fcnnParamFile,
-                   &pstConfig->stFCNN, pstConfig->is_model_encrypt);
-    pstConfig->stFCNN.adwShape[0] = pstConfig->batchsize;
+    readModuleFile(config_->fcnnSymbolFile, config_->fcnnParamFile,
+                   &pstConfig->stFCNN, config_->is_model_encrypt);
+    pstConfig->stFCNN.adwShape[0] = config_->batchsize;
     pstConfig->stFCNN.adwShape[1] = 1;    //channel
-    pstConfig->stFCNN.adwShape[2] = pstConfig->imageSH;  //standard height .
-    pstConfig->stFCNN.adwShape[3] = pstConfig->imageSW;  //standard width .
+    pstConfig->stFCNN.adwShape[2] = config_->imageSH;  //standard height .
+    pstConfig->stFCNN.adwShape[3] = config_->imageSW;  //standard width .
 
-    readModuleFile(pstConfig->rpnSymbolFile, pstConfig->rpnParamFile,
-                   &pstConfig->stRPN, pstConfig->is_model_encrypt);
+    readModuleFile(config_->rpnSymbolFile, config_->rpnParamFile,
+                   &pstConfig->stRPN, config_->is_model_encrypt);
     pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
-    pstConfig->stRPN.adwShape[1] = pstConfig->numsPlates;//number of plates per image; .
+    pstConfig->stRPN.adwShape[1] = config_->numsPlates;//number of plates per image; .
     pstConfig->stRPN.adwShape[2] = 1;
-    pstConfig->stRPN.adwShape[3] = pstConfig->plateSH;// .
-    pstConfig->stRPN.adwShape[4] = pstConfig->plateSW;// .
+    pstConfig->stRPN.adwShape[3] = config_->plateSH;// .
+    pstConfig->stRPN.adwShape[4] = config_->plateSW;// .
 
-    readModuleFile(pstConfig->roipSymbolFile, pstConfig->roipParamFile,
-                   &pstConfig->stROIP, pstConfig->is_model_encrypt);
+    readModuleFile(config_->roipSymbolFile, config_->roipParamFile,
+                   &pstConfig->stROIP, config_->is_model_encrypt);
     pstConfig->stROIP.adwShape[0] = pstConfig->stRPN.adwShape[0]
-        * pstConfig->stRPN.adwShape[1];
+                                    * pstConfig->stRPN.adwShape[1];
     pstConfig->stROIP.adwShape[1] = 0;
     pstConfig->stROIP.adwShape[2] = 0;
     pstConfig->stROIP.adwShape[3] = 0;
     pstConfig->stROIP.adwShape[4] = pstConfig->stROIP.adwShape[0];
-    pstConfig->stROIP.adwShape[5] = pstConfig->numsProposal;//split to 20 small picture   proposal number of the image .
+    pstConfig->stROIP.adwShape[5] = config_->numsProposal;//split to 20 small picture   proposal number of the image .
     pstConfig->stROIP.adwShape[6] = 5;
 
-    readModuleFile(pstConfig->pregSymbolFile, pstConfig->pregParamFile,
-                   &pstConfig->stPREG, pstConfig->is_model_encrypt);
+    readModuleFile(config_->pregSymbolFile, config_->pregParamFile,
+                   &pstConfig->stPREG, config_->is_model_encrypt);
     pstConfig->stPREG.adwShape[0] = 1;
     pstConfig->stPREG.adwShape[1] = 1;
     pstConfig->stPREG.adwShape[2] = 64;
     pstConfig->stPREG.adwShape[3] = 64 * 2;
 
-    readModuleFile(pstConfig->chrecogSymbolFile, pstConfig->chrecogParamFile,
-                   &pstConfig->stCHRECOG, pstConfig->is_model_encrypt);
+    readModuleFile(config_->chrecogSymbolFile, config_->chrecogParamFile,
+                   &pstConfig->stCHRECOG, config_->is_model_encrypt);
     pstConfig->stCHRECOG.adwShape[0] = 50;
     pstConfig->stCHRECOG.adwShape[1] = 1;
     pstConfig->stCHRECOG.adwShape[2] = 32;
     pstConfig->stCHRECOG.adwShape[3] = 32;
 
-    batch_size_ = pstConfig->batchsize;
+    pstConfig->dwDevType = 2;
+    pstConfig->dwDevID = config_->gpuId;
+
+    batch_size_ = config_->batchsize;
+    enable_local_province_ = config_->enableLocalProvince;
+    local_province_ = config_->localProvinceText;
+    local_province_confidence_ = config_->localProvinceConfidence;
 }
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();

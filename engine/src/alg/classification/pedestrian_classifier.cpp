@@ -15,7 +15,13 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
     256), pixel_means_
         {104, 117, 123} {
     /* Load the network. */
-    net_.reset(new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
+#if DEBUG
+    net_.reset(
+        new Net<float>(pconf.deploy_file, TEST));
+#else
+    net_.reset(
+            new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
+#endif
     net_->CopyTrainedLayersFrom(pconf.model_file);
     layer_name_ = pconf.layer_name;
 
@@ -70,7 +76,11 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
                                             vector<vector<float> > &results) {
     Blob<float> *input_blob = net_->input_blobs()[0];
     int num_imgs = static_cast<int>(imgs.size());
+<<<<<<< HEAD
     //assert(num_imgs <= batch_size_);
+=======
+//    assert(num_imgs <= batch_size_);
+>>>>>>> master
     vector<int> shape =
         {num_imgs, 3, crop_height_, crop_width_};
     input_blob->Reshape(shape);
@@ -111,7 +121,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
     auto output_blob = net_->blob_by_name(layer_name_);
     const float *output_data = output_blob->cpu_data();
     const int feature_len = output_blob->channels();
-    assert(feature_len == static_cast<int>(tagtable_.size()));
+    //assert(feature_len == static_cast<int>(tagtable_.size()));
 
     results.resize(imgs.size());
     for (size_t i = 0; i < imgs.size(); i++) {

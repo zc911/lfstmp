@@ -23,15 +23,13 @@ service WitnessService {
 
 enum IndexType {
     INDEX_DEFAULT = 0;
-    INDEX_CAR_TYPE = 1;
-    INDEX_CAR_MAIN_BRAND = 2;
-    INDEX_CAR_SUB_BRAND = 3;
-    INDEX_CAR_YEAR_MODEL = 4;
-    INDEX_CAR_COLOR = 5;
-    INDEX_CAR_MARKER = 6;
-    INDEX_CAR_PLATE_TYPE = 7;
-    INDEX_CAR_PLATE_COLOR = 8;
-    INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 9;
+    INDEX_CAR_BRAND = 1;
+    INDEX_CAR_TYPE = 2;
+    INDEX_CAR_COLOR = 3;
+    INDEX_CAR_MARKER = 4;
+    INDEX_CAR_PLATE_TYPE = 5;
+    INDEX_CAR_PLATE_COLOR = 6;
+    INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 7;
 }
 
 message IndexRequest {
@@ -43,8 +41,34 @@ message IndexTxtRequest {
 message IndexTxtResponse {
     string Context = 1;
 }
+
+message CommonIndex {
+    message Item {
+        int32 Id = 1;               // ID
+        string Name = 2;            // Value
+    }
+    repeated Item Items = 1;
+}
+
+message BrandIndex {
+    message Item {
+        int32 MainBrandId = 2;     // 主品牌ID
+        int32 SubBrandId = 3;      // 子品牌ID
+        int32 YearModelId = 4;     // 年款ID
+        string MainBrandName = 5;  // 主品牌名字
+        string SubBrandName = 6;   // 子品牌名字
+        string YearModelName = 7;  // 年款名字
+    }
+    repeated Item Items = 1;
+
+}
+
 message IndexResponse {
-    map<int32, string> Index = 1;
+    oneof index_content {
+        CommonIndex Index = 1;
+        BrandIndex BrandIndex = 2;
+    }
+
 }
 
 message WitnessRequest {

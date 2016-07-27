@@ -75,7 +75,7 @@ public:
 
     }
     void Ping() {
-        cout<<"hello ping"<<endl;
+        cout << "hello ping" << endl;
         PingRequest req;
         PingResponse resp;
         ClientContext context;
@@ -87,7 +87,7 @@ public:
         }
     }
     void Info() {
-        cout<<"hello ping"<<endl;
+        cout << "hello ping" << endl;
         SystemStatusRequest req;
         SystemStatusResponse resp;
         ClientContext context;
@@ -111,31 +111,31 @@ public:
         VehicleObj v;
         NullMessage resp;
         ClientContext context;
-        RecVehicle *vehicle=v.add_vehicle();
+        RecVehicle *vehicle = v.add_vehicle();
         vehicle->mutable_modeltype()->set_brandid(23);
         vehicle->mutable_color()->set_colorname("1234");
         vehicle->mutable_plate()->set_platetext("djhf");
-   //     vehicle->set_vehicletypename("34");
+        //     vehicle->set_vehicletypename("34");
         v.mutable_img()->set_id("slkdjg");
-      //  plate.set_platetext("123456");
-      //  vehicle->mutable_plate()->set_platetext(test);
-     //   rapidjson::Value *value = pbjson::pb2jsonobject(&v);
+        //  plate.set_platetext("123456");
+        //  vehicle->mutable_plate()->set_platetext(test);
+        //   rapidjson::Value *value = pbjson::pb2jsonobject(&v);
         string s;
-     //   pbjson::json2string(value, s);
+        //   pbjson::json2string(value, s);
         v.SerializeToString(&s);
 
-        for(int i=0;i<s.size();i++){
-            cout<<(int)s[i]<<" ";
+        for (int i = 0; i < s.size(); i++) {
+            cout << (int)s[i] << " ";
         }
-        cout<<endl;
-         //  string s;
+        cout << endl;
+        //  string s;
         //   google::protobuf::TextFormat::PrintToString(v,&s);
         //   cout<<s<<endl;
         Status status = stub_->IndexVehicle(&context, v, &resp);
         if (status.ok()) {
-            cout << "ping finish: "<< endl;
+            cout << "ping finish: " << endl;
         } else {
-            cout << " pint error"<<status.error_code() << endl;
+            cout << " pint error" << status.error_code() << endl;
         }
     }
 private:
@@ -163,11 +163,11 @@ public:
             string s = encode2base64(file_path.c_str());
             witnessimage->mutable_data()->set_bindata(s);
         }
-   /*     WitnessRelativeROI *roi = witnessimage->add_relativeroi();
-        roi->set_posx(0);
-        roi->set_posy(0);
-        roi->set_width(1000);
-        roi->set_height(1000);*/
+        /*     WitnessRelativeROI *roi = witnessimage->add_relativeroi();
+             roi->set_posx(0);
+             roi->set_posy(0);
+             roi->set_width(1000);
+             roi->set_height(1000);*/
         WitnessResponse resp;
         Print(req);
         ClientContext context;
@@ -175,8 +175,8 @@ public:
         gettimeofday(&start, NULL);
         Status status = stub_->Recognize(&context, req, &resp);
         gettimeofday(&end, NULL);
-        for(int i=0;i<resp.result().vehicles_size();i++)
-        cout<<resp.result().vehicles(i).vehicletypename()<<endl;
+        for (int i = 0; i < resp.result().vehicles_size(); i++)
+            cout << resp.result().vehicles(i).vehicletypename() << endl;
         if (status.ok()) {
             cout << "Rec finished: " << resp.context().sessionid() << endl;
             Print(resp);
@@ -438,14 +438,14 @@ void callS(string address, string image_file_path, bool batch, bool uri) {
         }
     }
 }
-void callSP(string address){
-    SpringClient client(grpc::CreateChannel(string(address),grpc::InsecureChannelCredentials()));
+void callSP(string address) {
+    SpringClient client(grpc::CreateChannel(string(address), grpc::InsecureChannelCredentials()));
     client.IndexVehicle();
 }
 int main(int argc, char *argv[]) {
     if (argc != 7) {
         cout << "Usage: " << argv[0] << " IMAGE_FILE_PATH [S|A] [S|B] [P|I|R] IP:PORT THREAD_NUM"
-            << endl;
+             << endl;
         return 0;
     }
 
@@ -481,18 +481,21 @@ int main(int argc, char *argv[]) {
 
     } else {
         switch (status) {
-            case 0:{
-                thread t(callP, address);
-                t.join();}
-                break;
-            case 1:{
-                thread t(callS, address, image_file_path, batch, true);
-                t.join();}
-                break;
-            case 2:{
-                thread t(callS, address, image_file_path, batch, true);
-                t.join();}
-                break;
+        case 0: {
+            thread t(callP, address);
+            t.join();
+        }
+        break;
+        case 1: {
+            thread t(callS, address, image_file_path, batch, true);
+            t.join();
+        }
+        break;
+        case 2: {
+            thread t(callS, address, image_file_path, batch, true);
+            t.join();
+        }
+        break;
         }
     }
 

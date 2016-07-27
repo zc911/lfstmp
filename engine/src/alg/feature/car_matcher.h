@@ -33,7 +33,7 @@ namespace dg {
 
 class CarMatcher {
 public:
-    CarMatcher();
+    CarMatcher(unsigned int maxImageNum);
     virtual ~CarMatcher();
 
 //    void ExtractDescriptor(const Mat &img, CarRankFeature &des);
@@ -88,6 +88,7 @@ private:
     int selected_area_weight_;
     int min_score_thr_;
     int score_[100000];
+    unsigned int max_image_num_;
 
 #if USE_CUDA
     cudaStream_t stream_;

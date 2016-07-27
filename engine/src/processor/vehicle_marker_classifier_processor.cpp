@@ -46,7 +46,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
         / 1000.f;
-    printf("window cost: %.2fms\n", diff);
+    VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
 
     for (int i = 0; i < objs_.size(); i++) {
         Vehicle *v = (Vehicle *) objs_[i];
@@ -79,7 +79,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
         / 1000.f;
-    printf("mareker cost: %.2fms\n", diff);
+    VLOG(VLOG_PROCESS_COST) << "Mareker cost: " << diff << endl;
     objs_.clear();
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Finish marker and window processor" << frameBatch->id() << endl;

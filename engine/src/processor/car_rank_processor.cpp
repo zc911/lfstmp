@@ -1,11 +1,23 @@
 #include "car_rank_processor.h"
 #include "processor_helper.h"
-namespace dg {
-CarRankProcessor::CarRankProcessor()
-    : Processor() {
+#include "engine/engine_config_value.h"
 
+#define MAX_IMAGE_NUM_DEFAULT 10000
+
+namespace dg {
+CarRankProcessor::CarRankProcessor(const Config &config)
+    : Processor() {
+    int maxImageNum = (int) config.Value(ADVANCED_RANKER_MAXIMUM);
+    if (maxImageNum == 0) {
+        LOG(ERROR) << "Max image number in car ranker is 0, use default value: " << MAX_IMAGE_NUM_DEFAULT << endl;
+        maxImageNum = MAX_IMAGE_NUM_DEFAULT;
+    }
+
+    car_matcher_ = new CarMatcher(maxImageNum);
 }
 CarRankProcessor::~CarRankProcessor() {
+    if (car_matcher_)
+        delete car_matcher_;
 }
 
 bool CarRankProcessor::process(Frame *frame) {
@@ -36,9 +48,8 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     hotspot_resized.height *= resize_rto;
 
     VLOG(VLOG_RUNTIME_DEBUG) << "hotspot resized: " << hotspot_resized;
-    vector<int> score = car_matcher_.ComputeMatchScore(des, hotspot_resized,
-                                                       candidates);
-    t_profiler_str_ = "TotalMatching";
+    vector<int> score = car_matcher_->ComputeMatchScore(des, hotspot_resized,
+                                                        candidates);
     vector<Score> topx(score.size());
     for (int i = 0; i < score.size(); i++) {
         topx[i] = Score(i, score[i]);
@@ -47,19 +58,19 @@ vector<Score> CarRankProcessor::rank(const Mat &image, const Rect &hotspot,
     return topx;
 }
 bool CarRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
-    #if DEBUG
-    #else
-        if(performance_>RECORD_UNIT) {
-            if(!RecordFeaturePerformance()) {
-                return false;
-            }
+#if DEBUG
+#else
+    if(performance_>RECORD_UNIT) {
+        if(!RecordFeaturePerformance()) {
+            return false;
         }
-    #endif
+    }
+#endif
 
     return true;
 }
 bool CarRankProcessor::RecordFeaturePerformance() {
-    return RecordPerformance(FEATURE_CAR_RANK,performance_);
+    return RecordPerformance(FEATURE_CAR_RANK, performance_);
 
 }
 }
