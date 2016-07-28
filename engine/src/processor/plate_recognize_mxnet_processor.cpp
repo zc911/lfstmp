@@ -87,14 +87,12 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
 
                 string platenum;
                 float score = 0;
-                if (enable_local_province_) {
-                    if (pstLP->afScores[0] < local_province_confidence_) {
-                        platenum = local_province_;
-                    } else {
-                        platenum = paInv_chardict[pstLP->adwLPNumber[0]];
-                    }
-                    score += pstLP->afScores[0];
+                if (pstLP->afScores[0] < local_province_confidence_ && enable_local_province_) {
+                    platenum = local_province_;
+                } else {
+                    platenum = paInv_chardict[pstLP->adwLPNumber[0]];
                 }
+                score += pstLP->afScores[0];
                 for (int dwK = 1; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
                     score += pstLP->afScores[dwK];
