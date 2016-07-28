@@ -438,48 +438,6 @@ int impSobelX_Abs_U8(uchar *pubyImg, int dwW, int dwH, uchar *pubySblX)
 }
 
 
-void imgResizeAddBlack_f_bak(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
-													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
-{
-	int rszH, rszW;
-	
-	cv::Mat srcImg(dwSrcH, dwSrcW, CV_32FC1, pfInputImg);
-	cv::Mat dstImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
-
-	if (dwSrcW > dwDstW || dwSrcH > dwDstH) {
-		if (dwSrcW * dwDstH > dwSrcH * dwDstW) {
-			rszW = dwDstW;
-			rszH = dwSrcH * dwDstW / dwSrcW;
-		}
-		else {
-			rszH = dwDstH;
-			rszW = dwSrcW * dwDstH / dwSrcH;
-		}
-		
-		cv::Mat tmpImg;
-		cv::resize(srcImg, tmpImg, cv::Size(rszW, rszH), 0, 0, CV_INTER_LINEAR);
-    cv::copyMakeBorder(tmpImg, dstImg, 0, dwDstH - rszH, 0, dwDstW - rszW, cv::BORDER_CONSTANT, 0);
-	}
-	else {
-		rszW = dwSrcW;
-		rszH = dwSrcH;
-    cv::copyMakeBorder(srcImg, dstImg, 0, dwDstH - rszH, 0, dwDstW - rszW, cv::BORDER_CONSTANT, 0);
-	}
-
-	*pdwRealW = rszW;
-	*pdwRealH = rszH;
-
-#if LPDR_DBG&0
-  cv::Mat blackImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
-  cv::namedWindow("addblack", 0);
-  cv::imshow("addblack", blackImg);
-  cv::waitKey(10);
-#endif
-
-  return;
-}
-
-
 void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
 													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
 {
@@ -526,12 +484,17 @@ void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDst
   return;
 }
 
-void imgResizeAddBlack_f_bak2(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
+
+
+void imgResizeAddBlack_fNorm(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
 													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH)
 {
 	int rszH, rszW;
-
-	if (dwSrcW > dwDstW || dwSrcH > dwDstH) {
+	
+	cv::Mat srcImg(dwSrcH, dwSrcW, CV_32FC1, pfInputImg);
+	cv::Mat dstImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
+	
+	{
 		if (dwSrcW * dwDstH > dwSrcH * dwDstW) {
 			rszW = dwDstW;
 			rszH = dwSrcH * dwDstW / dwSrcW;
@@ -540,36 +503,29 @@ void imgResizeAddBlack_f_bak2(float *pfInputImg, int dwSrcW, int dwSrcH, float *
 			rszH = dwDstH;
 			rszW = dwSrcW * dwDstH / dwSrcH;
 		}
+		
+		cv::Mat tmpImg;
+		cv::resize(srcImg, tmpImg, cv::Size(rszW, rszH), 0, 0, CV_INTER_LINEAR);
+    float *pfTmpData = (float*)tmpImg.data;
+		for (int ri = 0; ri < rszH; ri++) {
+			memcpy(pfDstImg + ri * dwDstW, pfTmpData + ri * rszW, rszW * sizeof(float));
+		}
 	}
-	else {
-		rszW = dwSrcW;
-		rszH = dwSrcH;
-	}
-
-  int dwRI, dwCI;
-  int dwSrcRI_Offset, dwDstRI_Offset, dwSrcOft, dwDstOft;
-  for (dwRI = 0; dwRI < rszH; dwRI++) {
-    dwSrcRI_Offset = (dwRI * dwSrcH / rszH) * dwSrcW;
-    dwDstRI_Offset = dwRI * dwDstW;
-    for (dwCI = 0; dwCI < rszW; dwCI++) {
-      dwSrcOft = dwCI * dwSrcW / rszW + dwSrcRI_Offset;
-      dwDstOft = dwCI + dwDstRI_Offset;
-      pfDstImg[dwDstOft] = pfInputImg[dwSrcOft];
-    }
-  }
 
 	*pdwRealW = rszW;
 	*pdwRealH = rszH;
 
-#if LPDR_DBG
+#if LPDR_DBG&0
   cv::Mat blackImg(dwDstH, dwDstW, CV_32FC1, pfDstImg);
   cv::namedWindow("addblack", 0);
   cv::imshow("addblack", blackImg);
-  cv::waitKey(0);
+  cv::waitKey(10);
 #endif
 
   return;
 }
+
+
 
 int doNormContrastBB_f(float *pfImage, int dwH, int dwW, LPRect bb)
 {
