@@ -13,7 +13,7 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
 EXECUTE_PROCESS(COMMAND ./lib_download.sh WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
-INCLUDE_DIRECTORIES(include src include/matrix_engine ../utils/dist/${PLATFORM}/include ../service/src/cpp)
+INCLUDE_DIRECTORIES(include src include/matrix_engine ../utils/dist/${PLATFORM}/include ../imodel/src/cpp)
 
 SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 IF(${PLATFORM} STREQUAL "Linux-armv7l")
