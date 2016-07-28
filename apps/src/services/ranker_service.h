@@ -13,8 +13,8 @@
 #include <opencv2/core/core.hpp>
 #include "config.h"
 #include "config/config_val.h"
-#include "../model/common.pb.h"
-#include "../model/ranker.grpc.pb.h" //from apps
+#include "common.pb.h"
+#include "ranker.grpc.pb.h" //from apps
 #include "engine/rank_engine.h"
 using namespace cv;
 using namespace std;

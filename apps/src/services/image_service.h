@@ -12,8 +12,8 @@
 
 #include <opencv2/core/core.hpp>
 
-#include "../model/common.pb.h"
-#include "../model/witness.pb.h"
+#include "common.pb.h"
+#include "witness.pb.h"
 #include "matrix_engine/model/frame.h"
 
 #include "simple_thread_pool.h"

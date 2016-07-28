@@ -68,6 +68,10 @@ public:
         }
     }
 
+    int QueueLoad(){
+        return queue_.size();
+    }
+
 private:
     volatile bool stop_;
     std::mutex queue_lock_;
