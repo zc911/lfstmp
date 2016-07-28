@@ -45,6 +45,15 @@ public:
     vector<string> getValue(string key) {
         return mp[key];
     }
+
+    int getIntValue(string key, int index) {
+        int ans = 0;
+        string tmp = mp[key][index];
+        for (int i = 0; i < tmp.size(); ++i)
+            ans = ans * 10 + tmp[i] - '0';
+        return ans;
+    }
+
     void show() {
         map<string, vector<string> >::iterator itor = mp.begin();
         for (; itor != mp.end(); itor++) {
