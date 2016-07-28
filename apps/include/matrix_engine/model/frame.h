@@ -146,7 +146,7 @@ public:
         return status & status_;
     }
 
-    void set_status(FrameStatus status, bool logicOr = true) {
+    void set_status(FrameStatus status, bool logicOr = false) {
         if (logicOr)
             status_ = (status | status_);
         else
