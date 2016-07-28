@@ -5,8 +5,8 @@
 #ifndef PROJECT_WITNESS_BUCKET_H
 #define PROJECT_WITNESS_BUCKET_H
 
-#include "model/spring.grpc.pb.h"
-#include "model/witness.grpc.pb.h"
+#include "spring.grpc.pb.h"
+#include "witness.grpc.pb.h"
 #include "glog/logging.h"
 #include "log/log_val.h"
 

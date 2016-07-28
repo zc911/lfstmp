@@ -22,12 +22,14 @@ public:
     void Run();
     void displayFrame();
     void timeFunc(int n);
+    void render(Frame *frame);
 
 private:
     static Displayer *self_;
     static void glutDisplayIt();
     static void glutTimerFuncIt(int n);
     static void glutIdleIt();
+
 
 private:
     string win_name_;

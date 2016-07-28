@@ -12,6 +12,7 @@
 #include "io/stream_tube.h"
 #include "io/ringbuffer.h"
 #include "vis/display.h"
+#include "alg/detector/detector.h"
 #include "processor/processor.h"
 #include "processor/config_filter.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
@@ -36,29 +37,18 @@ public:
 
     void process() {
         int current = 0;
-        SimpleParallelProcessor pp;
+        BasicParallelProcessor pp(processor_);
         while (true) {
             Frame *f = buffer_->TryNextFrame(current);
+
             if (f->CheckStatus(FRAME_STATUS_NEW)) {
-                cout << "put frame: " << f->id() << endl;
+                cout << "Process next frame: " << f->id() << " " << f->status() << endl;
                 pp.Put(f);
                 buffer_->NextFrame(current);
-                cout << "Detect frame finished: " << f->id() << endl;
-            } else {
-                usleep(30 * 1000);
+
             }
+//            usleep(30 * 1000);
 
-
-//            Frame *f = buffer_->TryNextFrame(current);
-//            if (f->CheckStatus(FRAME_STATUS_NEW)) {
-//                processor_->Update(f);
-//                f->set_status(FRAME_STATUS_DETECTED);
-//                f->set_status(FRAME_STATUS_ABLE_TO_DISPLAY);
-//                buffer_->NextFrame(current);
-//                cout << "Detect frame finished: " << f->id() << endl;
-//            } else {
-//                usleep(30 * 1000);
-//            }
         }
     }
 
@@ -77,7 +67,7 @@ private:
 
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
         configFilter->initDataConfig(config);
-        VehicleCaffeDetector::VehicleCaffeDetectorConfig dConfig;
+        VehicleCaffeDetectorConfig dConfig;
         string dataPath = (string) config.Value("DataPath");
         configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
         processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);

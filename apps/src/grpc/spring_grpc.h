@@ -6,8 +6,8 @@
 #define MATRIX_APPS_SPRING_GRPC_H
 
 #include <grpc++/grpc++.h>
-#include "../model/witness.grpc.pb.h"
-#include "../model/spring.grpc.pb.h"
+#include "witness.grpc.pb.h"
+#include "spring.grpc.pb.h"
 #include "../services/engine_pool.h"
 #include "../services/storage_request.h"
 #include "basic_grpc.h"

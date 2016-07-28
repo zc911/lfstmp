@@ -19,7 +19,7 @@
 #include <boost/algorithm/string.hpp>
 #include "config/config_val.h"
 #include "config.h"
-#include "model/system.grpc.pb.h"
+#include "system.grpc.pb.h"
 #include "string_util.h"
 namespace dg {
 static int rx = 0;

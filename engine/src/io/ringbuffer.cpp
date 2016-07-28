@@ -41,9 +41,6 @@ void RingBuffer::SetFrame(long long frameId, unsigned int dataWidth,
         return;
     }
 
-//    unsigned long long frameSleep = 0;
-
-
     while (!oldFrame->CheckStatus(FRAME_STATUS_INIT)
         && !oldFrame->CheckStatus(FRAME_STATUS_FINISHED)) {
 
@@ -54,7 +51,7 @@ void RingBuffer::SetFrame(long long frameId, unsigned int dataWidth,
     oldFrame->Reset();
     oldFrame->set_id(frameId);
     oldFrame->payload()->Update(dataWidth, dataHeight, data);
-    oldFrame->set_status(FRAME_STATUS_NEW);
+    oldFrame->set_status(FRAME_STATUS_NEW, false);
 
     cur_write_pos_ = pos;
 
