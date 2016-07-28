@@ -1,4 +1,4 @@
-#if false
+#if true
 
 #include <algorithm>
 #include "gtest/gtest.h"

@@ -1,4 +1,4 @@
-#if false
+#if true
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
@@ -23,12 +23,10 @@ static void init() {
 }
 
 static void destory() {
-    /**
     if (head) {
         delete head;
         head = NULL;
     }
-     **/
 
     if (fbhelper) {
         delete fbhelper;

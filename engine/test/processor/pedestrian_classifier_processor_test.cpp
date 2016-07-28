@@ -1,4 +1,4 @@
-#if false
+#if true
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
@@ -33,12 +33,10 @@ static void init() {
 }
 
 static void destory() {
-    /**
     if (head) {
         delete head;
         head = NULL;
     }
-     **/
 
     if (fbhelper) {
         delete fbhelper;
@@ -117,64 +115,20 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
             if (fb->frames()[i]->objects()[j]->type() == OBJECT_PEDESTRIAN) {
                 ++total;
+                Pedestrian * p = (Pedestrian *)fb->frames()[i]->objects()[j];
+                int attrCnt = 0;
+                for (int i = 0; i < p->attrs().size(); ++i) {
+                    if (p->attrs()[i].confidence > 0.01) {
+                        ++attrCnt;
+                    }
+                }
+                EXPECT_LE(2, attrCnt);
             }
         }
         EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
     }
-
-    for (int i = 0; i < fb->frames().size(); ++i) {
-
-    }
-    /**
-    Pedestrian *  p = (Pedestrian *)fb->frames()[0]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[1].confidence);
-    EXPECT_LE(0.6, p->attrs()[24].confidence);
-    EXPECT_LE(0.6, p->attrs()[35].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_GE(0.4, p->attrs()[45].confidence);
-
-    p = (Pedestrian *)fb->frames()[1]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[10].confidence);
-    EXPECT_LE(0.6, p->attrs()[24].confidence);
-    EXPECT_LE(0.6, p->attrs()[36].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-
-    p = (Pedestrian *)fb->frames()[2]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[12].confidence);
-    EXPECT_LE(0.6, p->attrs()[24].confidence);
-    EXPECT_LE(0.6, p->attrs()[36].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-    EXPECT_LE(0.6, p->attrs()[45].confidence);
-
-    p = (Pedestrian *)fb->frames()[3]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[12].confidence);
-    EXPECT_LE(0.6, p->attrs()[24].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-    EXPECT_GE(0.4, p->attrs()[45].confidence);
-
-    p = (Pedestrian *)fb->frames()[4]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[10].confidence);
-    EXPECT_LE(0.6, p->attrs()[12].confidence);
-    EXPECT_LE(0.6, p->attrs()[35].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-    EXPECT_LE(0.6, p->attrs()[45].confidence);
-
-    p = (Pedestrian *)fb->frames()[5]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[35].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-
-    p = (Pedestrian *)fb->frames()[6]->objects()[0];
-    EXPECT_LE(0.6, p->attrs()[10].confidence);
-    EXPECT_LE(0.6, p->attrs()[26].confidence);
-    EXPECT_LE(0.6, p->attrs()[40].confidence);
-    EXPECT_LE(0.6, p->attrs()[44].confidence);
-    EXPECT_LE(0.6, p->attrs()[45].confidence);
-
     delete fbhelper;
+
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/pedestrian/attribute/");
     fbhelper->readImage(getOperation());
@@ -184,7 +138,6 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
         head->getProcessor()->Update(fb->frames()[i]);
         EXPECT_EQ(0, fb->frames()[i]->objects().size());
     }
-     **/
 
     destory();
 }
