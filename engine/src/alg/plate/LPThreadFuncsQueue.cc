@@ -1,5 +1,5 @@
 
-#include "LPThreadFuncs.hpp"
+#include "LPThreadFuncsQueue.hpp"
 
 
 
@@ -15,19 +15,25 @@ struct LP_RFCND_THREAD_S {
   int dwStdW;
   int *pdwRealW;
   int *pdwRealH;
+  condition_variable *p_cv;
+  mutex *p_countmt;
+  int *p_dwFinishCount;
+  int dwNeedFinishNum;
 };
 
 
-void *lpReadyFCNDataThreadOne(void *pParam);
 
-int lpReadyFCNDataThreads(LPDR_ImageInner_S *pstImgSet, int dwImgNum, ModuleFCNN_S *pstFCNN)
+void *lpReadyFCNDataThreadQueueOne(void *pParam);
+
+int lpReadyFCNDataThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageInner_S *pstImgSet, int dwImgNum, ModuleFCNN_S *pstFCNN)
 {
   int dwTI;
   LP_RFCND_THREAD_S astParams[256];
-  pthread_t athdIDs[256];
-  assert(256>=dwImgNum);
-  
+  mutex countmt, waitmt;
+  condition_variable cv;
   int dwStdH, dwStdW;
+  int dwFinishCount = 0;
+  int dwNeedFinishNum = dwImgNum;
   
   dwStdH = pstFCNN->adwInShape[2];
   dwStdW = pstFCNN->adwInShape[3];
@@ -40,20 +46,23 @@ int lpReadyFCNDataThreads(LPDR_ImageInner_S *pstImgSet, int dwImgNum, ModuleFCNN
     astParams[dwTI].dwStdW = dwStdW;
     astParams[dwTI].dwStdH = dwStdH;
     astParams[dwTI].pstImage = pstImage;
-    
-    int dwRet = pthread_create(&athdIDs[dwTI], NULL, lpReadyFCNDataThreadOne, (void*)&astParams[dwTI]);
+    astParams[dwTI].p_cv = &cv;
+    astParams[dwTI].p_countmt = &countmt;
+    astParams[dwTI].p_dwFinishCount = &dwFinishCount;
+    astParams[dwTI].dwNeedFinishNum = dwNeedFinishNum;
+
+    p_TPool->enqueue(lpReadyFCNDataThreadQueueOne, (void*)&astParams[dwTI]);
   }
-  
-  for (dwTI = 0; dwTI < dwImgNum; dwTI++)
-  {
-    pthread_join(athdIDs[dwTI], NULL);
-  }
+
+  unique_lock<mutex> waitlc(waitmt);
+//  cv.wait_for(waitlc, chrono::seconds(1), [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
+  cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
 
   return 0;
 }
 
 
-void *lpReadyFCNDataThreadOne(void *pParam)
+void *lpReadyFCNDataThreadQueueOne(void *pParam)
 {
   int dwRealW, dwRealH;
   
@@ -64,6 +73,11 @@ void *lpReadyFCNDataThreadOne(void *pParam)
   int dwStdW = pstParam->dwStdW;
   int *pdwRealH = pstParam->pdwRealH;
   int *pdwRealW = pstParam->pdwRealW;
+  
+  condition_variable *p_cv = pstParam->p_cv;
+  mutex *p_countmt = pstParam->p_countmt;
+  int *p_dwFinishCount = pstParam->p_dwFinishCount;
+  int dwNeedFinishNum = pstParam->dwNeedFinishNum;
 
   float *pfDataOri = pstImage->pfData;
   int dwImgWOri = pstImage->dwImgW;
@@ -75,6 +89,14 @@ void *lpReadyFCNDataThreadOne(void *pParam)
   *pdwRealH = dwRealH;
   *pdwRealW = dwRealW;
   
+  unique_lock<mutex> countlc(*p_countmt);
+  (*p_dwFinishCount)++;
+  countlc.unlock();
+  
+  if ((*p_dwFinishCount) == dwNeedFinishNum) {
+    p_cv->notify_all();
+  }
+  
   return 0;
 }
 
@@ -82,40 +104,56 @@ void *lpReadyFCNDataThreadOne(void *pParam)
 struct LP_PP_THREAD_S {
   LPDR_Image_S *pstOneIn;
   LPDR_ImageInner_S *pstOne;
+  condition_variable *p_cv;
+  mutex *p_countmt;
+  int *p_dwFinishCount;
+  int dwNeedFinishNum;
 };
 
-void *lpPreProcessThreadOne(void *pParam);
+void *lpPreProcessThreadQueueOne(void *pParam);
 
-int lpPreProcessThreads(LPDR_ImageSet_S *pstImgSet, LPDR_ImageInner_S *pstFCNNImgSet)
+int lpPreProcessThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageSet_S *pstImgSet, LPDR_ImageInner_S *pstFCNNImgSet)
 {
   int dwI;
   int dwImgNum = pstImgSet->dwImageNum;
   LP_PP_THREAD_S astPPs[256];
-  pthread_t athdIDs[256];
-  assert(dwImgNum<=256);
+  mutex countmt, waitmt;
+  condition_variable cv;
+  int dwFinishCount = 0;
+  int dwNeedFinishNum = dwImgNum;
+  
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
     LPDR_Image_S *pstImgIn = &pstImgSet->astSet[dwI];
     LPDR_ImageInner_S *pstOne = &pstFCNNImgSet[dwI];
     astPPs[dwI].pstOneIn = pstImgIn;
     astPPs[dwI].pstOne = pstOne;
-    int dwRet = pthread_create(&athdIDs[dwI], NULL, lpPreProcessThreadOne, (void*)&astPPs[dwI]);
+    astPPs[dwI].p_cv = &cv;
+    astPPs[dwI].p_countmt = &countmt;
+    astPPs[dwI].p_dwFinishCount = &dwFinishCount;
+    astPPs[dwI].dwNeedFinishNum = dwNeedFinishNum;
+    
+    p_TPool->enqueue(lpPreProcessThreadQueueOne, (void*)&astPPs[dwI]);
   }
 
-  for (dwI = 0; dwI < dwImgNum; dwI++)
-  {
-    pthread_join(athdIDs[dwI], NULL);
-  }
-  
+  unique_lock<mutex> waitlc(waitmt);
+//  cv.wait_for(waitlc, chrono::seconds(1), [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
+  cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
+
   return 0;
 }
 
 
-void *lpPreProcessThreadOne(void *pParam)
+void *lpPreProcessThreadQueueOne(void *pParam)
 {
   LP_PP_THREAD_S *pstPP = (LP_PP_THREAD_S*)pParam;
   LPDR_Image_S *pstOneIn = pstPP->pstOneIn;
   LPDR_ImageInner_S *pstOne = pstPP->pstOne;
+  
+  condition_variable *p_cv = pstPP->p_cv;
+  mutex *p_countmt = pstPP->p_countmt;
+  int *p_dwFinishCount = pstPP->p_dwFinishCount;
+  int dwNeedFinishNum = pstPP->dwNeedFinishNum;
   
   int dwImgW = pstOneIn->dwImgW;
   int dwImgH = pstOneIn->dwImgH;
@@ -131,6 +169,14 @@ void *lpPreProcessThreadOne(void *pParam)
   uchar *pubyOne = (uchar*)inputGrayOne.data;
   cv::Mat oneData(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
   inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f/255.f, 0);  
+  
+  unique_lock<mutex> countlc(*p_countmt);
+  (*p_dwFinishCount)++;
+  countlc.unlock();
+  
+  if ((*p_dwFinishCount) == dwNeedFinishNum) {
+    p_cv->notify_all();
+  }
 
   return 0;
 }
@@ -150,13 +196,18 @@ struct REG_RECOG_MISSION_S {
 
 
 struct REG_RECOG_GLOBAL_S {
-  pthread_mutex_t *pmutex;
-
   vector<REG_RECOG_MISSION_S> *pvecMission; //lock
   int dwNowMissionID; //lock
   int dwMissionNum;
 	int dwDev_Type;
 	int dwDev_ID;
+	
+	int *p_dwFinishCount;
+  int dwNeedFinishNum;
+
+  condition_variable *p_cv;
+  mutex *p_countmt;
+  mutex *p_missionmt;
 };
 
 struct REG_RECOG_S {
@@ -169,8 +220,8 @@ struct REG_RECOG_S {
 };
 
 
-void *doRecogOne_Thread(void *pParams);
-int doRecognitions_Threads(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet)
+void *doRecogOne_ThreadQueue(void *pParams);
+int doRecognitions_ThreadsQueue(dg::ThreadPool *p_TPool, LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet)
 {
 #if LPDR_TIME&1
   float costtime, diff;
@@ -180,6 +231,7 @@ int doRecognitions_Threads(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int
 #endif
   int dwI, dwJ;
   LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
+  
 
   vector<LPRectInfo> *plproipnms = pstLPDR->pvBBGroupOfNMS;
 
@@ -216,46 +268,52 @@ int doRecognitions_Threads(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int
       stOne.stLPRect = lproipnms_one[dwJ];
       stOne.pstLPDRSetOne = pstLPDRSetOne;
       vecMissions.push_back(stOne);
+      
+//      printf("imgh:%d, imgw:%d\n", dwImgH, dwImgW);
     }
   }
   
-  pthread_mutex_t mutex;
-  
-  pthread_mutex_init(&mutex, NULL);
+  mutex countmt, missionmt, waitmt;
+  condition_variable cv;
 
   int dwMissionNum = vecMissions.size();
   
   REG_RECOG_S astParams[MAX_RECOG_THREAD_NUM];
+  
   REG_RECOG_GLOBAL_S stGlobal;
+  
+  int dwFinishCount = 0;
+  int dwNeedThreadNum = min(dwMissionNum, MAX_RECOG_THREAD_NUM);
+  int dwNeedFinishNum = dwNeedThreadNum;
+
   stGlobal.pvecMission = &vecMissions;
-  stGlobal.pmutex = &mutex;
+  stGlobal.p_countmt = &countmt;
+  stGlobal.p_missionmt = &missionmt;
+  stGlobal.p_cv = &cv;
   stGlobal.dwNowMissionID = 0;
   stGlobal.dwMissionNum = dwMissionNum;
   stGlobal.dwDev_Type = pstLPDR->dwDev_Type;
 	stGlobal.dwDev_ID = pstLPDR->dwDev_ID;
+	stGlobal.p_dwFinishCount = &dwFinishCount;
+  stGlobal.dwNeedFinishNum = dwNeedFinishNum;
   
-  pthread_t athdIDs[MAX_RECOG_THREAD_NUM];
-  int dwNeedThreadNum = min(dwMissionNum, MAX_RECOG_THREAD_NUM);
-//  cout << "Need Thread Number:" << dwNeedThreadNum << endl;
+//  printf("stGlobal.p_dwFinishCount:%d\n", *stGlobal.p_dwFinishCount);
   for (int dwTI = 0; dwTI < dwNeedThreadNum; dwTI++)
   {
- //   printf("start new thread %d\n", dwTI);
+//    printf("start new thread %d\n", dwTI);
     REG_RECOG_S *pstParam = &astParams[dwTI];
     pstParam->pstGlobal = &stGlobal;
     pstParam->hPREG = pstLPDR->ahPREGs[dwTI];
     pstParam->hCHRECOG = pstLPDR->ahCHRECOGs[dwTI];
     pstParam->dwThreadID = dwTI;
+    
+    p_TPool->enqueue(doRecogOne_ThreadQueue, (void*)pstParam);
+  }
+  
+  unique_lock<mutex> waitlc(waitmt);
+//  cv.wait_for(waitlc, [&stGlobal]() { return stGlobal.dwNowMissionID == stGlobal.dwMissionNum;});
+  cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
 
-    int dwRet = pthread_create(&athdIDs[dwTI], NULL, doRecogOne_Thread, (void*)pstParam);
-  }
-  
-  for (int dwTI = 0; dwTI < dwNeedThreadNum; dwTI++)
-  {
-    pthread_join(athdIDs[dwTI], NULL);
-  }
-  
-  pthread_mutex_destroy(&mutex);
-  
   pstOutputSet->dwImageNum = dwImgNum;
 
 #if LPDR_TIME&1
@@ -267,7 +325,8 @@ int doRecognitions_Threads(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int
 }
 
 
-void *doRecogOne_Thread(void *pParam)
+
+void *doRecogOne_ThreadQueue(void *pParam)
 {
   REG_RECOG_S *pstParam = (REG_RECOG_S*)pParam;
   LPDR_HANDLE hPREG = pstParam->hPREG;
@@ -284,7 +343,12 @@ void *doRecogOne_Thread(void *pParam)
   char *pbyBuffer = 0;
   int dwMissionNum = pstGlobal->dwMissionNum;
   vector<REG_RECOG_MISSION_S> *pvecMission = pstGlobal->pvecMission;
-
+  condition_variable *p_cv = pstGlobal->p_cv;
+  mutex *p_countmt = pstGlobal->p_countmt;
+  mutex *p_missionmt = pstGlobal->p_missionmt;
+  
+//  printf("aaaaaaaaaaaaaaaa!!!%d\n", dwThreadID);
+  
   
   int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 1000 * 1000 * 4;
   int dwImgW, dwImgH;
@@ -300,27 +364,35 @@ void *doRecogOne_Thread(void *pParam)
 	}
 
   LPDR_Output_S *pstLPDRSetOne = 0;
+  int dwNowMissionID = -1;
   
   LPRectInfo lprect;
-
-  pthread_mutex_t *pmutex = pstGlobal->pmutex;
 
   pfBlkBuffer_0 = new float[dwBlkMaxLen];
   pfBlkBuffer_1 = new float[dwBlkMaxLen];
   pbyBuffer = new char[dwBufferLen];
   
+//  printf("mission_0=>imgh:%d, imgw:%d\n", (*pvecMission)[0].dwImgH, (*pvecMission)[0].dwImgW);
+  
   while (1) {
     //read data
-    pthread_mutex_lock(pmutex);
+    unique_lock<mutex> countlc1(*p_missionmt);
+//    p_missionmt->lock();
     
-//    printf("start new mission %x %d/%d[%d]\n", &pstGlobal->dwNowMissionID, pstGlobal->dwNowMissionID+1, dwMissionNum, dwThreadID);
+//    printf("fucking new dwNowMissionID %x %d/%d[%d]\n", &pstGlobal->dwNowMissionID, pstGlobal->dwNowMissionID, dwMissionNum, dwThreadID);
     if (pstGlobal->dwNowMissionID >= dwMissionNum)
     {
-      pthread_mutex_unlock(pmutex);
+//      printf("fucking thread[exit while]:%d/%d, %d\n", pstGlobal->dwNowMissionID, dwMissionNum, dwThreadID);
+      countlc1.unlock();
+//      p_missionmt->unlock();
       break;
     }
+
     REG_RECOG_MISSION_S &stMission = (*pvecMission)[pstGlobal->dwNowMissionID];
     pstGlobal->dwNowMissionID++;
+    dwNowMissionID = pstGlobal->dwNowMissionID;
+    
+//    printf("start new mission %x %d/%d[%d]\n", &pstGlobal->dwNowMissionID, pstGlobal->dwNowMissionID, dwMissionNum, dwThreadID);
     
     pfImage = stMission.pfMomImage;
     dwImgW = stMission.dwImgW;
@@ -328,13 +400,17 @@ void *doRecogOne_Thread(void *pParam)
     lprect = stMission.stLPRect;
     pstLPDRSetOne = stMission.pstLPDRSetOne;
 
-    pthread_mutex_unlock(pmutex);
-
+    countlc1.unlock();
+//    p_missionmt->unlock();
+    
     //process data
     LPRectInfo lprect_crop(lprect.fScore, lprect.fCentY, lprect.fCentX, lprect.fHeight*afCropSize[1], lprect.fWidth*afCropSize[0]);
 
     LPDRInfo_S stOut;
     InputInfoRecog_S stIIR;
+    
+    memset(&stOut, 0, sizeof(LPDRInfo_S));
+    memset(&stIIR, 0, sizeof(InputInfoRecog_S));
     
     stIIR.pbyBuffer = pbyBuffer;
     stIIR.dwBufferLen = dwBufferLen;
@@ -393,12 +469,16 @@ void *doRecogOne_Thread(void *pParam)
   #endif
     memcpy(pfBlkBuffer_1, pfBlkBuffer_0, sizeof(float) * dwBlkH * dwBlkW);
     
+//    printf(">>>wwww:[%d/%d, %d]\n", dwNowMissionID, dwMissionNum, dwThreadID);
+    
     int dwRet = doRecogOne(hPREG, hCHRECOG, &stIIR, &stOut);
     
+//    printf(">>>dwRet:%d, [%d/%d, %d]\n", dwRet, dwNowMissionID, dwMissionNum, dwThreadID);
     if (!dwRet)
     {
       //write data
-      pthread_mutex_lock(pmutex);
+      unique_lock<mutex> countlc2(*p_missionmt);
+//      p_missionmt->lock();
       
       stOut.adwLPRect[0] = stIIR.rect.dwX0 + dwX0_0 - adwMarginHW[1];
       stOut.adwLPRect[1] = stIIR.rect.dwY0 + dwY0_0 - adwMarginHW[0];
@@ -406,7 +486,10 @@ void *doRecogOne_Thread(void *pParam)
       stOut.adwLPRect[3] = stIIR.rect.dwY1 + dwY0_0 - adwMarginHW[0];
       pstLPDRSetOne->astLPs[pstLPDRSetOne->dwLPNum++] = stOut;
       
-      pthread_mutex_unlock(pmutex);
+//      printf(">>>>dwLPNum:%x, %d[%d/%d]\n", &pstLPDRSetOne->dwLPNum, pstLPDRSetOne->dwLPNum, dwNowMissionID, dwThreadID);
+      
+      countlc2.unlock();
+//      p_missionmt->unlock();
     }
   }
   
@@ -414,8 +497,24 @@ void *doRecogOne_Thread(void *pParam)
   delete []pfBlkBuffer_0;
   delete []pfBlkBuffer_1;
 
+//  printf("finished thread:%d\n", dwThreadID);
+
+  int *p_dwFinishCount = pstGlobal->p_dwFinishCount;
+  int dwNeedFinishNum = pstGlobal->dwNeedFinishNum;
+  
+  unique_lock<mutex> countlc(*p_countmt);
+  (*p_dwFinishCount)++;
+//  printf("fucking finished thread_0:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
+  countlc.unlock();
+//  printf("fucking finished thread_1:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
+  
+  if (*p_dwFinishCount == dwNeedFinishNum) {
+    p_cv->notify_all();
+  }
+  
   return 0;
 }
+
 #endif
 
 
