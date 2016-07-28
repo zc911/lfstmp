@@ -2,6 +2,8 @@ set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES  *.cpp)
 
+message(${TEST_SRC_FILES})
+
 AUX_SOURCE_DIRECTORY(../../utils/src/ UTILS)
 LIST(APPEND ALL_SRC_FILES ${UTILS})
 
@@ -28,6 +30,10 @@ LIST(APPEND ALL_SRC_FILES ${SRC_SECURITY} ${SRC_UTIL} ${SRC_VIS})
 LIST(REMOVE_ITEM ALL_SRC_FILES ../src/alg/feature/car_matcher.cpp)
 LIST(REMOVE_ITEM ALL_SRC_FILES ../src/processor/car_rank_processor.cpp)
 LIST(REMOVE_ITEM ALL_SRC_FILES ../src/engine/rank_engine.cpp)
+
+#LIST(REMOVE_ITEM TEST_SRC_FILES ../src/alg/feature/car_matcher.cpp)
+#LIST(REMOVE_ITEM TEST_SRC_FILES ../src/processor/car_rank_processor.cpp)
+#LIST(REMOVE_ITEM TEST_SRC_FILES ../src/engine/rank_engine.cpp)
 
 add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES} ${ALL_SRC_FILES})
 
