@@ -1,9 +1,10 @@
-#if true
+#if false
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,8 +12,10 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static FaceDetectProcessor *fdprocessor;
 static FaceFeatureExtractProcessor *ffeprocessor;
+static FileReader *resultReader;
 
 static void initConfig() {
+    resultReader = NULL;
     FaceDetector::FaceDetectorConfig dConfig;
     dConfig.is_model_encrypt = false;
     dConfig.deploy_file = "data/models/400.txt";
@@ -40,6 +43,10 @@ static void destory() {
         delete fdprocessor;
         fdprocessor = NULL;
     }
+    if (resultReader) {
+        delete resultReader;
+        resultReader = NULL;
+    }
 }
 
 static Operation getOperation() {
@@ -52,44 +59,34 @@ static Operation getOperation() {
 
 TEST(FaceFeatureExtractProcessorTest, faceFeatureExtractTest) {
     initConfig();
-    fbhelper->setBasePath("data/testimg/face/");
+    fbhelper->setBasePath("data/testimg/face/featureExtract/");
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
     fdprocessor->SetNextProcessor(ffeprocessor);
 
-    fdprocessor->Update(fb);
-    for (int i = 0; i < 7; ++i) {
-        Face *f = (Face*)fb->frames()[i]->objects()[0];
-        EXPECT_LE(256, f->feature().Serialize().size());
-    }
-    EXPECT_EQ(0, fb->frames()[7]->objects().size());
-    EXPECT_EQ(0, fb->frames()[8]->objects().size());
-    Object *obj1 = new Object(OBJECT_CAR);
-    Object *obj2 = new Object(OBJECT_UNKNOWN);
-    fb->frames()[7]->put_object(obj1);
-    fb->frames()[8]->put_object(obj2);
-    fdprocessor->Update(fb);
-    EXPECT_EQ(OBJECT_CAR, obj1->type());
-    EXPECT_EQ(OBJECT_UNKNOWN, obj2->type());
+    resultReader = new FileReader("data/testimg/face/featureExtract/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
 
-    delete fbhelper;
-    fbhelper = new FrameBatchHelper(1);
-    fbhelper->setBasePath("data/testimg/face/");
-    fbhelper->readImage(getOperation());
-    fb = fbhelper->getFrameBatch();
-
-    for (int i = 0; i < 7; ++i) {
-        fdprocessor->Update(fb->frames()[i]);
-        Face *f = (Face*)fb->frames()[i]->objects()[0];
-        EXPECT_LE(256, f->feature().Serialize().size());
+    fdprocessor->Update(fb);
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        stringstream s;
+        s << i;
+        if (resultReader->getIntValue(s.str(), 0) == 0) {
+            if (fb->frames()[i]->objects().empty()) {
+                continue;
+            }
+        }
+        int total = 0;
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            if (fb->frames()[i]->objects()[j]->type() == OBJECT_FACE) {
+                ++total;
+                Face *f = (Face *) fb->frames()[i]->objects()[j];
+                EXPECT_LE(256, f->feature().Serialize().size());
+            }
+        }
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
     }
-    obj1 = new Object(OBJECT_CAR);
-    fb->frames()[7]->put_object(obj1);
-    fdprocessor->Update(fb->frames()[7]);
-    EXPECT_EQ(OBJECT_CAR, obj1->type());
-    obj2 = new Object(OBJECT_UNKNOWN);
-    fb->frames()[8]->put_object(obj2);
-    EXPECT_EQ(OBJECT_UNKNOWN, obj2->type());
 
     destory();
 }

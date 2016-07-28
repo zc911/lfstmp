@@ -1,9 +1,10 @@
-#if true
+#if false
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_marker_classifier_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,6 +12,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static VehicleMarkerClassifierProcessor *vmcprocessor;
+static FileReader *resultReader;
 
 static void initConfig() {
     WindowCaffeDetector::WindowCaffeConfig wConfig;
@@ -37,19 +39,21 @@ static Operation getOperation() {
 
 static void init() {
     initConfig();
+    resultReader = NULL;
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(vmcprocessor);
 }
 
 static void destory() {
-    /**
     if (head) {
         delete head;
         head = NULL;
     }
-     **/
-
+    if (resultReader) {
+        delete resultReader;
+        resultReader = NULL;
+    }
     if (fbhelper) {
         delete fbhelper;
         fbhelper = NULL;
@@ -63,48 +67,41 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     fbhelper->readImage(getOperation());
     head->process(fbhelper->getFrameBatch());
     FrameBatch *fb = fbhelper->getFrameBatch();
-    int expectNumber[] = {
-            3, 4, 3, 5, 1, 2, 7, 4, 3, 0, 0
-    };
+    resultReader = new FileReader("data/testimg/markerClassifier/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
 
     for (int i = 0; i < fb->batch_size(); ++i) {
         Vehicle *obj = (Vehicle *)fb->frames()[i]->objects()[0];
-        EXPECT_EQ(expectNumber[i], obj->children().size()) << "i = " << i << endl;
+        stringstream s;
+        s << i;
+        EXPECT_EQ(resultReader->getIntValue(s.str(),0), obj->children().size());
     }
 
+    for (int i = 0; i < fb->batch_size(); ++i) {
 
-    Box expectBox[] = {
-            Box(583,456,417,145),
-            Box(409, 517, 392, 129),
-            Box(484, 532, 504, 164),
-            Box(166, 512, 462, 150),
-            Box(416, 434, 516, 152),
-            Box(626, 416, 456, 160),
-            Box(122, 412, 410, 164),
-            Box(838, 396, 486, 182),
-            Box(752, 448, 450, 176)
-    };
-
-    for (int i = 0; i < 9; ++i) {
         vector<Object *>v = fb->frames()[i]->objects()[0]->children();
-
+        stringstream s;
+        s << i;
         for (int j = 0; j < v.size(); ++j) {
             Vehicle *vehicle = (Vehicle*)v[j];
-            EXPECT_LE(expectBox[i].x, vehicle->detection().box.x);
-            EXPECT_LE(expectBox[i].y, vehicle->detection().box.y);
-            EXPECT_GE(expectBox[i].width, vehicle->detection().box.width);
-            EXPECT_GE(expectBox[i].height, vehicle->detection().box.height);
+            EXPECT_LE(resultReader->getIntValue(s.str(), 1), vehicle->detection().box.x);
+            EXPECT_LE(resultReader->getIntValue(s.str(), 2), vehicle->detection().box.y);
+            EXPECT_GE(resultReader->getIntValue(s.str(), 3), vehicle->detection().box.width);
+            EXPECT_GE(resultReader->getIntValue(s.str(), 4), vehicle->detection().box.height);
         }
     }
 
-    delete fbhelper;
-    fbhelper = new FrameBatchHelper(1);
-    fbhelper->setBasePath("data/testimg/markerClassifier/");
-    fbhelper->readImage(getOperation());
-
     for (int i = 0; i < fb->batch_size(); ++i) {
-        head->getProcessor()->Update(fb->frames()[i]);
-        EXPECT_EQ(0, fb->frames()[i]->objects().size()) << "i = " << i << endl;
+        vector<Object *>v = fb->frames()[i]->objects()[0]->children();
+        stringstream s;
+        s << i;
+
+        EXPECT_EQ(resultReader->getValue(s.str()).size(), 5 + v.size());
+        for (int j = 0; j < v.size(); ++j) {
+            Marker *marker = (Marker *)v[j];
+            EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id());
+        }
     }
 
     destory();

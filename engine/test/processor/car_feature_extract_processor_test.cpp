@@ -1,9 +1,10 @@
-#if true
+#if false
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/car_feature_extract_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,8 +12,10 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static CarFeatureExtractProcessor *cfeprocessor;
+static FileReader *resultReader;
 
 static void init() {
+    resultReader = NULL;
     cfeprocessor = new CarFeatureExtractProcessor();
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
@@ -31,6 +34,10 @@ static void destory() {
         delete fbhelper;
         fbhelper = NULL;
     }
+    if (resultReader) {
+        delete resultReader;
+        resultReader = NULL;
+    }
 }
 
 static Operation getOperation() {
@@ -48,12 +55,29 @@ TEST(CarFeatureExtractProcessorTest, carFeatureExtractTest) {
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
+    resultReader = new FileReader("data/testimg/carFeatureExtract/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
+
     for (int i = 0; i < fb->batch_size(); ++i) {
-        Object *obj = fb->frames()[i]->objects()[0];
-        if (obj->type() == OBJECT_CAR) {
-            Vehicle *v = (Vehicle *)obj;
-            EXPECT_LT(256, v->feature().Serialize().size());
+        stringstream s;
+        s << i;
+        if (resultReader->getIntValue(s.str(), 0) == 0) {
+            if (fb->frames()[i]->objects().empty()) {
+                continue;
+            }
         }
+        int total = 0;
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+
+            Object *obj = fb->frames()[i]->objects()[j];
+            if (obj->type() == OBJECT_CAR) {
+                ++total;
+                Vehicle *v = (Vehicle *)obj;
+                EXPECT_LT(256, v->feature().Serialize().size());
+            }
+        }
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
     }
 
     delete fbhelper;

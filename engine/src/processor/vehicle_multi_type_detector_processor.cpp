@@ -7,7 +7,7 @@ namespace dg {
 
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
     const VehicleCaffeDetectorConfig &config)
-    : Processor(), config_(config) {
+    : Processor(), config_(config) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
     if (config.car_only) {
         car_only_detector_ = new CarOnlyCaffeDetector(config);
         car_only_confirm_ = new CarOnlyConfirmCaffeDetector(config);
@@ -22,10 +22,13 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
 
 // TODO complete construction
 VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
-    if (vehicle_detector_)
+   if (vehicle_detector_)
         delete vehicle_detector_;
 
-    if (car_only_detector_)
+   if(car_only_confirm_)
+        delete car_only_confirm_;
+
+   if (car_only_detector_)
         delete car_only_detector_;
 }
 

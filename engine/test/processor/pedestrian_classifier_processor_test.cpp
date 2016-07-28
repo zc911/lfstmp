@@ -1,9 +1,10 @@
-#if true
+#if false
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "processor/pedestrian_classifier_processor.h"
+#include "file_reader.h"
 
 using namespace std;
 using namespace dg;
@@ -11,6 +12,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static PedestrianClassifierProcessor *pcprocessor;
+static FileReader *resultReader;
 
 static void initConfig() {
     PedestrianClassifier::PedestrianConfig config;
@@ -23,6 +25,7 @@ static void initConfig() {
 }
 
 static void init() {
+    resultReader = NULL;
     initConfig();
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
@@ -41,6 +44,11 @@ static void destory() {
         delete fbhelper;
         fbhelper = NULL;
     }
+
+    if (resultReader) {
+        delete resultReader;
+        resultReader = NULL;
+    }
 }
 
 static Operation getOperation() {
@@ -58,12 +66,25 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianNumberTest) {
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
 
-    int expectNumber[] = {
-            1, 1, 2, 4, 2
-    };
+    resultReader = new FileReader("data/testimg/pedestrian/number/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
 
     for (int i = 0; i < fb->batch_size(); ++i) {
-        EXPECT_EQ(expectNumber[i], fb->frames()[i]->objects().size());
+        stringstream s;
+        s << i;
+        if (resultReader->getIntValue(s.str(), 0) == 0) {
+            if (fb->frames()[i]->objects().empty()) {
+                continue;
+            }
+        }
+        int total = 0;
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            if (fb->frames()[i]->objects()[j]->type() == OBJECT_PEDESTRIAN) {
+                ++total;
+            }
+        }
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
     }
 
     destory();
@@ -75,7 +96,36 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
+    FileReader mapping("data/models/pedestrian_attribute_tagnames.txt");
+    EXPECT_TRUE(mapping.is_open());
+    mapping.read(" ");
+    cout << mapping.getValue("head_hat")[0] << endl;
 
+    resultReader = new FileReader("data/testimg/pedestrian/attribute/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
+
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        stringstream s;
+        s << i;
+        if (resultReader->getIntValue(s.str(), 0) == 0) {
+            if (fb->frames()[i]->objects().empty()) {
+                continue;
+            }
+        }
+        int total = 0;
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            if (fb->frames()[i]->objects()[j]->type() == OBJECT_PEDESTRIAN) {
+                ++total;
+            }
+        }
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
+    }
+
+    for (int i = 0; i < fb->frames().size(); ++i) {
+
+    }
+    /**
     Pedestrian *  p = (Pedestrian *)fb->frames()[0]->objects()[0];
     EXPECT_LE(0.6, p->attrs()[1].confidence);
     EXPECT_LE(0.6, p->attrs()[24].confidence);
@@ -134,6 +184,7 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
         head->getProcessor()->Update(fb->frames()[i]);
         EXPECT_EQ(0, fb->frames()[i]->objects().size());
     }
+     **/
 
     destory();
 }
