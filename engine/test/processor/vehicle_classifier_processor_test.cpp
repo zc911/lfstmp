@@ -1,4 +1,4 @@
-#if false
+#if true
 
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
