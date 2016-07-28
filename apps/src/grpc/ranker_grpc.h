@@ -11,7 +11,7 @@
 #define MATRIX_APPS_GRPC_RANKER_H_
 
 #include <grpc++/grpc++.h>
-#include "../model/common.pb.h"
+#include "common.pb.h"
 #include "services/ranker_service.h"
 #include "services/system_service.h"
 #include "basic_grpc.h"

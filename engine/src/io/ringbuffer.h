@@ -8,8 +8,9 @@
 #ifndef RINGBUFFER_H_
 #define RINGBUFFER_H_
 
-#include "model/frame.h"
 #include <vector>
+#include "model/frame.h"
+
 
 using namespace std;
 
@@ -27,15 +28,6 @@ public:
     RingBuffer(unsigned int buffSize, unsigned int frameWidth,
                unsigned int frameHeight);
 
-//    static RingBuffer &Instance(unsigned int frameWidth,
-//                                unsigned int frameHeight, int size =
-//    RINGBUFFER_DEFAULT_SIZE) {
-//        if (RingBuffer::instance_ == NULL) {
-//            RingBuffer::instance_ = new RingBuffer(size, frameWidth,
-//                                                   frameHeight);
-//        }
-//        return *RingBuffer::instance_;
-//    }
     ~RingBuffer();
 
     inline unsigned int BufferSize() {
@@ -93,6 +85,14 @@ public:
         return cur_read_pos_;
     }
 
+    inline int frame_width() {
+        return frame_width_;
+    }
+
+    inline int frame_height() {
+        return frame_height_;
+    }
+
     void SetFrame(Frame *f);
     void SetFrame(long long frameId, unsigned int width, unsigned int height,
                   unsigned char *data);
@@ -105,8 +105,8 @@ private:
 
 
     unsigned int buffer_size_;
-    unsigned int max_frame_width_;
-    unsigned int max_frame_height_;
+    unsigned int frame_width_;
+    unsigned int frame_height_;
     vector<Frame *> content_;
     volatile unsigned int cur_write_pos_;
     volatile unsigned int cur_read_pos_;
