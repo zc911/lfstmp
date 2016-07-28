@@ -11,7 +11,7 @@
 #define MATRIX_APPS_SKYNET_SERVICE_H_
 
 #include "config.h"
-#include "model/skynet.grpc.pb.h"
+#include "skynet.grpc.pb.h"
 namespace dg {
 using namespace ::dg::model;
 
