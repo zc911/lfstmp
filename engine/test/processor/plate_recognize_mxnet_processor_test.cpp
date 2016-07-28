@@ -28,6 +28,7 @@ static void initConfig() {
     config.rpnSymbolFile = basePath + "804.txt";
     config.rpnParamFile = basePath + "804.dat";
 
+    config.gpuId = 0;
     config.is_model_encrypt = false;
     config.imageSH = 800;
     config.imageSW = 800;
@@ -123,14 +124,13 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
 }
 
 TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
-    /**
     initConfig();
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/recognize/");
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    resultReader = new FileReader("data/testimg/plateReconginze/result.txt");
+    resultReader = new FileReader("data/testimg/plateRecognize/recognize/result.txt");
     EXPECT_TRUE(resultReader->is_open());
     resultReader->read(",");
 
@@ -154,6 +154,10 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
         vector<string> expectPlate = resultReader->getValue(s.str());
         vector<string> realPlate;
 
+        if (expectPlate.empty()) {
+            continue;
+        }
+
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
             Object *obj = fb->frames()[i]->objects()[j];
             if (obj->type() == OBJECT_CAR) {
@@ -163,54 +167,54 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
                 }
             }
         }
-        EXPECT_EQ(expectPlate.size(), realPlate.size());
-        sort(expectPlate.begin(), expectPlate.end());
-        sort(realPlate.begin(), realPlate.end());
-
+        bool found = false;
         for (int j = 0; j < expectPlate.size(); ++j) {
-            EXPECT_EQ(expectPlate[j], realPlate[j]);
+            for (int k = 0; k < realPlate.size(); ++k) {
+                if (expectPlate[j] == realPlate[k]) {
+                    found = true;
+                }
+            }
         }
+        EXPECT_TRUE(found);
     }
 
     delete prmprocessor;
     destory();
-    **/
 }
 
 TEST(PlateRecognizeMxnetTest, plateColorTest) {
-    initConfig();
-    delete prmprocessor;
-    /**
+    init();
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/color/");
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    for (int i = 0; i < fb->batch_size(); ++i) {
-        Frame *frame = fb->frames()[i];
-        Vehicle *vehicle = new Vehicle(OBJECT_CAR);
-        Mat tmp = frame->payload()->data();
-        Detection d;
-        d.box = Rect(0, 0, tmp.cols, tmp.rows);
-        vehicle->set_id(i);
-        vehicle->set_image(tmp);
-        Object *obj = static_cast<Object *>(vehicle);
-        frame->put_object(obj);
-    }
+    FileReader mapping("data/mapping/plate_gpu_color.txt");
+    EXPECT_TRUE(mapping.is_open());
+    mapping.read("=");
 
-    prmprocessor->Update(fb);
+    resultReader = new FileReader("data/testimg/plateRecognize/color/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
 
-    int expectPlateColor[] = {
-            2, 6, 0, 0, 0
-    };
+    head->process(fb);
 
     for (int i = 0; i < fb->batch_size(); ++i) {
+        stringstream s;
+        s << i;
+        vector<string> expectColor = resultReader->getValue(s.str());
+        if (expectColor.empty()) {
+            continue;
+        }
+        s.str("");
+
         Vehicle *obj = (Vehicle*)fb->frames()[i]->objects()[0];
-//        EXPECT_EQ(expectPlateColor[i], obj->plates()[0].color_id);
+        s << obj->plates()[0].color_id;
+        vector<string> realColor = mapping.getValue(s.str());
+        EXPECT_EQ(expectColor[0], realColor[0]);
     }
 
-    delete prmprocessor;
-     **/
+    destory();
 }
 
 #endif
