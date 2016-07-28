@@ -1,5 +1,5 @@
 file(GLOB_RECURSE SRC_FILES *.cpp *.c *.cc)
-file(GLOB_RECURSE SRC_FILES_grpc "../../service/src/cpp/*.cc")
+file(GLOB_RECURSE SRC_FILES_grpc "../../imodel/src/cpp/*.cc")
 
 LIST(APPEND SRC_FILES ${SRC_FILES_grpc})
 
