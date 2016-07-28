@@ -13,7 +13,7 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
 EXECUTE_PROCESS(COMMAND ./lib_download.sh WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
-INCLUDE_DIRECTORIES(include src include/matrix_engine ../utils/dist/${PLATFORM}/include)
+INCLUDE_DIRECTORIES(include src include/matrix_engine ../utils/dist/${PLATFORM}/include ../service/src/cpp)
 
 SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 IF(${PLATFORM} STREQUAL "Linux-armv7l")
@@ -26,10 +26,9 @@ ELSE(${PLATFORM} STREQUAL "Linux-armv7l")
 ENDIF(${PLATFORM} STREQUAL "Linux-armv7l")
 
 OPTION(ENABLE_CUDA "" ON)
+
 FIND_PACKAGE(CUDA REQUIRED)
-
 FIND_PACKAGE(Boost COMPONENTS regex system filesystem coroutine context REQUIRED)
-
 FIND_LIBRARY(LIB_CAFFE NAMES caffe PATHS lib/dgcaffe/${PLATFORM})
 FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS ${CUDA_LIB_PATH})
 FIND_LIBRARY(LIB_PBJSON NAMES pbjson PATHS lib/pbjson/${PLATFORM})

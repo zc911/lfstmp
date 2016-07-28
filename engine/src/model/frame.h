@@ -146,7 +146,7 @@ public:
         return status & status_;
     }
 
-    void set_status(FrameStatus status, bool logicOr = true) {
+    void set_status(FrameStatus status, bool logicOr = false) {
         if (logicOr)
             status_ = (status | status_);
         else
@@ -220,24 +220,27 @@ private:
 class FrameBatch {
 public:
     FrameBatch(const Identification id)
-        : id_(id) {
+        : id_(id), delegate_(true) {
 
     }
     ~FrameBatch() {
-        for (int i = 0; i < frames_.size(); ++i) {
-            Frame *f = frames_[i];
-            if (f) {
-                delete f;
-                f = NULL;
+        if (delegate_) {
+            for (int i = 0; i < frames_.size(); ++i) {
+                Frame *f = frames_[i];
+                if (f) {
+                    delete f;
+                    f = NULL;
+                }
             }
         }
         frames_.clear();
     }
 
-    int AddFrame(Frame *frame) {
+    int AddFrame(Frame *frame, bool delegate = true) {
         if (frame == NULL) {
             return -1;
         }
+        delegate_ = delegate;
         frames_.push_back(frame);
         return frames_.size();
     }
@@ -281,6 +284,7 @@ public:
 private:
     Identification id_;
     vector<Frame *> frames_;
+    bool delegate_;
 };
 
 class CarRankFrame: public Frame {

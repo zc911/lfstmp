@@ -54,6 +54,16 @@ Displayer::Displayer(RingBuffer *buffer, const string winName, int width,
 
 }
 
+void Displayer::render(Frame *frame) {
+    vector<Object *> &objs = frame->objects();
+    Mat rdata = frame->payload()->data();
+    for (auto o : objs) {
+        const Detection &d = o->detection();
+        cv::rectangle(rdata, d.box, cv::Scalar(255, 0, 0));
+    }
+}
+
+
 void Displayer::displayFrame() {
 
     glRasterPos3f(-1.0f, 1.0f, 0);
@@ -69,7 +79,16 @@ void Displayer::displayFrame() {
     }
     display_pointer_++;
     Mat data = f->payload()->data();
+
+
+    if (data.rows == 0 || data.cols == 0) {
+        cout << "Frame data is empty: " << f->id() << endl;
+        return;
+    }
     Mat displayData;
+    render(f);
+
+
     if (data.cols != width_ || data.rows != height_) {
         cv::resize(data, displayData, cv::Size(width_, height_));
     }
@@ -77,7 +96,7 @@ void Displayer::displayFrame() {
                  displayData.data);
 
     glutSwapBuffers();
-    f->set_status(FRAME_STATUS_FINISHED);
+    f->set_status(FRAME_STATUS_FINISHED, false);
 
 }
 
