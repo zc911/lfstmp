@@ -161,6 +161,8 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
     } else {
         config.model_file = model_path + trained_model;
         config.deploy_file = model_path + deploy_model;
+        config.target_min_size=minSize;
+        config.target_max_size=maxSize;
     }
 
 
@@ -187,6 +189,8 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
     config.is_model_encrypt = is_encrypted;
     config.batch_size = 1;
     config.gpu_id = gpu_id;
+    config.target_min_size=4;
+    config.target_max_size=6;
 
 }
 
