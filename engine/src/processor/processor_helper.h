@@ -260,7 +260,7 @@ static void showUBY_IMG(const char *pbyWinName, uchar *pubyImg, int dwImgW, int 
     }
 
     //    cvSaveImage("/Users/mzhang/work/LPCE_ERROR/tmp/name.bmp", pcvImg);
-    cvShowImage(pbyWinName, pcvImg);
+  //  cvShowImage(pbyWinName, pcvImg);
     cvReleaseImage(&pcvImg);
 }
 
