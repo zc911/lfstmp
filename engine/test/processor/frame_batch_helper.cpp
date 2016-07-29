@@ -8,6 +8,10 @@ FrameBatchHelper::FrameBatchHelper(dg::Identification id) {
     frameBatch = new FrameBatch(id);
 }
 
+FrameBatchHelper::FrameBatchHelper(FrameBatch *fb) {
+    frameBatch = fb;
+}
+
 FrameBatchHelper::~FrameBatchHelper() {
     if (frameBatch) {
         delete frameBatch;

@@ -72,6 +72,29 @@ TEST(FaceDetectProcessorTest, faceDetectTest) {
         EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
     }
 
+    delete fbhelper;
+    fbhelper = new FrameBatchHelper(1);
+    fbhelper->setBasePath("data/testimg/face/detect/");
+    fbhelper->readImage(getOperation());
+    fb = fbhelper->getFrameBatch();
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        fdprocessor->Update(fb->frames()[i]);
+        stringstream s;
+        s << i;
+        if (resultReader->getIntValue(s.str(), 0) == 0) {
+            if (fb->frames()[i]->objects().size() == 0) {
+                continue;
+            }
+        }
+        int total = 0;
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            if (fb->frames()[i]->objects()[j]->type() == OBJECT_FACE) {
+                ++total;
+            }
+        }
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
+    }
+
     destory();
 }
 
