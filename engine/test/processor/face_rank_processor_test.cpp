@@ -122,17 +122,25 @@ TEST(FaceRankProcessorTest, faceRankTest) {
             break;
         }
     }
-    FrameBatch *fb = fbhelper->getFrameBatch();
-    FaceRankFrame *frame = dynamic_cast<FaceRankFrame *>(fb->frames()[0]);
 
-    frprocessor->Update(frame);
-    cout << "##########################" << endl;
-    cout << frame->result_.size() << endl;
-    for (int i = 0; i < frame->result_.size(); ++i) {
-        cout << "index = " << frame->result_[i].index_ << endl;
-        cout << "score = " << frame->result_[i].score_ << endl;
+    FrameBatch *fb = fbhelper->getFrameBatch();
+    frprocessor->Update(fb);
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        EXPECT_EQ(0, fb->frames()[i]->objects().size());
     }
-    cout << "##########################" << endl;
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        FaceRankFrame *frame = (FaceRankFrame *)(fb->frames()[i]);
+        frprocessor->Update(frame);
+        int idx = 0;
+        for (int j = 0; j < frame->result_.size(); ++j) {
+            if (frame->result_[j].score_ > frame->result_[idx].score_) {
+                idx = j;
+            }
+        }
+        stringstream s;
+        s << i;
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 1), frame->result_[idx].index_);
+    }
 
     destory();
 }
