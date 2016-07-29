@@ -10,6 +10,7 @@ using namespace std;
 using namespace dg;
 
 
+/**
 int main() {
     string video = "/home/chenzhen/video/road1.mp4";
 
@@ -23,3 +24,4 @@ int main() {
     while (1) { sleep(10000); }
     return 1;
 }
+ **/
