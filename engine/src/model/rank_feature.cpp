@@ -103,12 +103,12 @@ string FaceRankFeature::Serialize() const {
     if (descriptor_.size() == 0) {
         return "";
     }
-    return Base64::Encode(descriptor_);
+    return Base64::Encode<float>(descriptor_);
 }
 
 bool FaceRankFeature::Deserialize(string featureStr) {
     descriptor_.clear();
-    Base64::Decode(featureStr, descriptor_);
+    Base64::Decode<float>(featureStr, descriptor_);
     return true;
 }
 
