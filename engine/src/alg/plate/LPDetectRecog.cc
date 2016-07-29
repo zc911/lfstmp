@@ -27,6 +27,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
 {
+
   LPDR_Info_S *pstLPDR = (LPDR_Info_S*)calloc(1, sizeof(LPDR_Info_S));
   *pHandle = (LPDR_HANDLE)pstLPDR;
   int dwDevType = pstConfig->dwDevType;
@@ -86,6 +87,7 @@ int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
   LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->hPREG);
   LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->hCHRECOG);
 #endif
+
 
   return 0;
 }
@@ -387,6 +389,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     {
       LPRectInfo &lprect = lproipnms_one[dwRI];
 
+
       int dwX0 = lprect.fCentX - lprect.fWidth / 2;
       int dwY0 = lprect.fCentY - lprect.fHeight / 2;
       int dwX1 = lprect.fCentX + lprect.fWidth / 2;
@@ -476,6 +479,7 @@ int LPDR_Release(LPDR_HANDLE handle)
 
 //    cout << "release 3\n";
 #if MAX_RECOG_THREAD_NUM>1
+
   delete pstLPDR->p_recogTPool;
 
   for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
