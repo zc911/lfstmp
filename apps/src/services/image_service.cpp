@@ -88,6 +88,8 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
 
                   ROIImages roiimage;
                   roiimage.data = mat;
+                  roiimage.rois =rois;
+
                   roiimages[index] = roiimage;
                   {
                       std::unique_lock<mutex> countlc(countmt);
@@ -165,10 +167,9 @@ MatrixError ImageService::getMarginROIs(
         margin.top = it->top();
         margin.right = it->right();
         margin.bottom = it->bottom();
-
         cv::Rect rect(0 + margin.left, 0 + margin.top,
                       width - margin.right - margin.left,
-                      height - margin.top - margin.top);
+                      height - margin.bottom - margin.top);
 
         rois.push_back(rect);
     }
