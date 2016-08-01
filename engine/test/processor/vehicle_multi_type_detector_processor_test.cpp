@@ -65,9 +65,9 @@ TEST(VehicleMultiTypeDectorTest, vehicleTypeTest) {
         }
         sort(expectResult.begin(), expectResult.end());
         sort(realResult.begin(), realResult.end());
-        EXPECT_EQ(realResult.size(), expectResult.size());
+        EXPECT_EQ(realResult.size(), expectResult.size()) << "i = " << i << endl;
         for (int j = 0; j < expectResult.size(); ++j) {
-            EXPECT_EQ(realResult[j], expectResult[j]);
+            EXPECT_EQ(realResult[j], expectResult[j])  << "i = " << i << " j = " << j << endl;
         }
     }
 
@@ -113,7 +113,7 @@ TEST(VehicleMultiTypeDectorTest, strangeInputTest) {
     for (int i = 0; i < fb->batch_size(); ++i) {
         stringstream s;
         s << i;
-        EXPECT_EQ(resultReader->getValue(s.str()).size(), fb->frames()[i]->objects().size());
+        EXPECT_EQ(resultReader->getValue(s.str()).size(), fb->frames()[i]->objects().size()) << "i = " << i << endl;
     }
 
     cv::Mat mat1(0, 1, 0);
@@ -238,7 +238,7 @@ TEST(VehicleMultiTypeDectorTest, vehiclePositionTest) {
                 }
             }
         }
-        EXPECT_LE(60, realArea * 100 / totalArea);
+        EXPECT_LE(60, realArea * 100 / totalArea) << "i = " << i << endl;
     }
 
     destory();

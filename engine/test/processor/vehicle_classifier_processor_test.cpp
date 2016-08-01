@@ -84,9 +84,9 @@ TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
             continue;
         }
 
-        EXPECT_EQ(V1[3], V2[0]);
-        EXPECT_EQ(V1[5], V2[1]);
-        EXPECT_EQ(V1[7], V2[2]);
+        EXPECT_EQ(V1[3], V2[0]) << "i = " << i << endl;
+        EXPECT_EQ(V1[5], V2[1]) << "i = " << i << endl;
+        EXPECT_EQ(V1[7], V2[2]) << "i = " << i << endl;
     }
 
     delete fbhelper;
@@ -97,7 +97,7 @@ TEST(VehicleClassifierProcessorTest, VehicleClassifierTest) {
     for (int i = 0; i < fbhelper->getFrameBatch()->frames().size(); ++i) {
         Frame *f = fbhelper->getFrameBatch()->frames()[i];
         head->getProcessor()->Update(f);
-        EXPECT_EQ(0, f->objects().size());
+        EXPECT_EQ(0, f->objects().size()) << "i = " << i << endl;
     }
 
     destory();
