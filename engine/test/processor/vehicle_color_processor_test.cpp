@@ -79,7 +79,7 @@ TEST(VehicleColorProcessorTest, vehicleColorTest) {
         s << v->color().class_id;
         vector<string> realColor = fileReader.getValue(s.str());
 
-        EXPECT_EQ(expectColor[0], realColor[0]);
+        EXPECT_EQ(expectColor[0], realColor[0]) << "i = " << i << endl;
     }
 
     destory();

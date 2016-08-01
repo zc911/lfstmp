@@ -82,7 +82,7 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianNumberTest) {
                 ++total;
             }
         }
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total) << "i = " << i << endl;
     }
 
     destory();
@@ -125,7 +125,7 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
                 EXPECT_LE(2, attrCnt);
             }
         }
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total) << "i = " << i << endl;
     }
     delete fbhelper;
 
