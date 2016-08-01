@@ -10,7 +10,7 @@
 
 #include "processor/processor.h"
 #include "processor_helper.h"
-
+#include "alg/plate/LPDetectRecog.hpp"
 namespace dg {
 class PlateRecognizeMxnetProcessor: public Processor {
 

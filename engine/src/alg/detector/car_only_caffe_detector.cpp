@@ -271,8 +271,6 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
                          input_geometry_.width);
     net_->Reshape();
 
-    DLOG(INFO) << input_geometry_.width << " " << input_geometry_.height << endl;
-
     float *input_data = input_layer->mutable_cpu_data();
     unsigned long long cnt = 0;
     for (auto img:imgs) {

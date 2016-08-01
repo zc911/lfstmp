@@ -72,9 +72,9 @@ void StreamTube::frameDecodeFinished(unsigned char *data, int size,
                                      Frameset info) {
 
     data_id_++;
-    if (data_id_ % 2 != 0) {
-        return;
-    }
+//    if (data_id_ % 2 != 0) {
+//        return;
+//    }
     frame_id_++;
     DLOG(INFO) << "Read Data: " << frame_id_ << endl;
 #ifdef __x86_64__

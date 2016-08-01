@@ -310,22 +310,15 @@ void *doRecogOne_Thread(void *pParam)
   pbyBuffer = new char[dwBufferLen];
   
   while (1) {
-    int dwMissionIDNow = -1;
-    pthread_mutex_lock(pmutex);
-    dwMissionIDNow = pstGlobal->dwNowMissionID;
-    pthread_mutex_unlock(pmutex);
-    if (dwMissionIDNow >= dwMissionNum)
-    {
-//      cout << "no more mission now!" << endl;
-      break;
-    }
-    
-
     //read data
     pthread_mutex_lock(pmutex);
     
 //    printf("start new mission %x %d/%d[%d]\n", &pstGlobal->dwNowMissionID, pstGlobal->dwNowMissionID+1, dwMissionNum, dwThreadID);
-    
+    if (pstGlobal->dwNowMissionID >= dwMissionNum)
+    {
+      pthread_mutex_unlock(pmutex);
+      break;
+    }
     REG_RECOG_MISSION_S &stMission = (*pvecMission)[pstGlobal->dwNowMissionID];
     pstGlobal->dwNowMissionID++;
     

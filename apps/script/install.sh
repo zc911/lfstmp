@@ -16,8 +16,8 @@ echo "install cuda libs ..."
 ./install_cuda.sh
 mv deepvideo_env.sh env.sh # the environment script
 
-echo "install dependency libs ..."
-./install_libs.sh
+# echo "install dependency libs ..."
+# ./install_libs.sh
 
 echo "install matrix ..."
 ./pull.sh "matrix_apps" "latest"

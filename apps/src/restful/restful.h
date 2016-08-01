@@ -15,7 +15,7 @@
 #include "debug_util.h"
 #include "pbjson/pbjson.hpp" //from pbjson
 #include "Simple-Web-Server/server_http.hpp" //from Simple-Web-Server
-#include "../model/common.pb.h"
+#include "common.pb.h"
 
 #include "services/engine_service.h"
 #include "log/log_val.h"
