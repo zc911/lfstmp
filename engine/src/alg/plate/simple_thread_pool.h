@@ -5,6 +5,7 @@
 #ifndef PROJECT_SIMPLE_THREAD_POOL_H
 #define PROJECT_SIMPLE_THREAD_POOL_H
 
+#include <iostream>
 #include <vector>
 #include <queue>
 #include <memory>
@@ -26,6 +27,10 @@ public:
     auto enqueue(F &&f, Args &&... args)
         -> std::future<typename std::result_of<F(Args...)>::type>;
     ~ThreadPool();
+    int size()
+    {
+      return tasks.size();
+    }
 private:
     // need to keep track of threads so we can join them
     std::vector<std::thread> workers;
@@ -56,8 +61,11 @@ inline ThreadPool::ThreadPool(int threads)
                       task = std::move(this->tasks.front());
                       this->tasks.pop();
                   }
+//                  cout << "task size:" << size() << endl;
+//                  printf("task size:%d\n", size());
 
                   task();
+//                  printf("task size_2:%d\n", size());
               }
             }
         );
