@@ -20,8 +20,6 @@ ENDIF ()
 SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w -fprofile-arcs -ftest-coverage")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w -fprofile-arcs -ftest-coverage")
 
-message("aaa: " ${CMAKE_CXX_FLAGS_DEBUG})
-
 find_package( GTest )
 include_directories( ${GTEST_INCLUDE_DIRS} )
 include_directories( ../src )
