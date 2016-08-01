@@ -2049,6 +2049,7 @@ inline ::std::string* SrcMetadata::mutable_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_sensorname() {
+  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2092,6 +2093,7 @@ inline ::std::string* SrcMetadata::mutable_sensorurl() {
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_sensorurl() {
+  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorUrl)
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2149,6 +2151,7 @@ inline ::std::string* SrcMetadata::mutable_repoinfo() {
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_repoinfo() {
+  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.RepoInfo)
   
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2289,6 +2292,7 @@ inline ::dg::model::Cutboard* CutboardImage::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* CutboardImage::release_cutboard() {
+  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2326,6 +2330,7 @@ inline ::dg::model::Image* CutboardImage::mutable_img() {
   return img_;
 }
 inline ::dg::model::Image* CutboardImage::release_img() {
+  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;
@@ -2404,6 +2409,7 @@ inline ::std::string* Color::mutable_colorname() {
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Color::release_colorname() {
+  // @@protoc_insertion_point(field_release:dg.model.Color.ColorName)
   
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2465,6 +2471,7 @@ inline ::std::string* FeatureVector::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FeatureVector::release_feature() {
+  // @@protoc_insertion_point(field_release:dg.model.FeatureVector.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2516,6 +2523,7 @@ inline ::std::string* Image::mutable_id() {
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_id() {
+  // @@protoc_insertion_point(field_release:dg.model.Image.Id)
   
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2587,6 +2595,7 @@ inline ::std::string* Image::mutable_uri() {
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_uri() {
+  // @@protoc_insertion_point(field_release:dg.model.Image.URI)
   
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2630,6 +2639,7 @@ inline ::std::string* Image::mutable_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_bindata() {
+  // @@protoc_insertion_point(field_release:dg.model.Image.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2682,6 +2692,7 @@ inline ::dg::model::CutboardImage* RecFace::mutable_img() {
   return img_;
 }
 inline ::dg::model::CutboardImage* RecFace::release_img() {
+  // @@protoc_insertion_point(field_release:dg.model.RecFace.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -2728,6 +2739,7 @@ inline ::std::string* RecFace::mutable_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecFace::release_features() {
+  // @@protoc_insertion_point(field_release:dg.model.RecFace.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2803,6 +2815,7 @@ inline ::std::string* PedestrianAttr::mutable_attrname() {
   return attrname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* PedestrianAttr::release_attrname() {
+  // @@protoc_insertion_point(field_release:dg.model.PedestrianAttr.AttrName)
   
   return attrname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2869,6 +2882,7 @@ inline ::dg::model::VehicleModelType* RecVehicle::mutable_modeltype() {
   return modeltype_;
 }
 inline ::dg::model::VehicleModelType* RecVehicle::release_modeltype() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.ModelType)
   
   ::dg::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
@@ -2906,6 +2920,7 @@ inline ::dg::model::Color* RecVehicle::mutable_color() {
   return color_;
 }
 inline ::dg::model::Color* RecVehicle::release_color() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -2943,6 +2958,7 @@ inline ::dg::model::LicensePlate* RecVehicle::mutable_plate() {
   return plate_;
 }
 inline ::dg::model::LicensePlate* RecVehicle::release_plate() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Plate)
   
   ::dg::model::LicensePlate* temp = plate_;
   plate_ = NULL;
@@ -2980,6 +2996,7 @@ inline ::dg::model::CutboardImage* RecVehicle::mutable_img() {
   return img_;
 }
 inline ::dg::model::CutboardImage* RecVehicle::release_img() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3056,6 +3073,7 @@ inline ::std::string* RecVehicle::mutable_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecVehicle::release_features() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3113,6 +3131,7 @@ inline ::std::string* RecVehicle::mutable_vehicletypename() {
   return vehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecVehicle::release_vehicletypename() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.VehicleTypeName)
   
   return vehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3290,6 +3309,7 @@ inline ::std::string* VehicleModelType::mutable_type() {
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_type() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Type)
   
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3333,6 +3353,7 @@ inline ::std::string* VehicleModelType::mutable_brand() {
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_brand() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Brand)
   
   return brand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3376,6 +3397,7 @@ inline ::std::string* VehicleModelType::mutable_subbrand() {
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_subbrand() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.SubBrand)
   
   return subbrand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3419,6 +3441,7 @@ inline ::std::string* VehicleModelType::mutable_modelyear() {
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_modelyear() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.ModelYear)
   
   return modelyear_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3476,6 +3499,7 @@ inline ::std::string* VehicleModelType::mutable_model() {
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_model() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Model)
   
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3537,6 +3561,7 @@ inline ::std::string* LicensePlate::mutable_platetext() {
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_platetext() {
+  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.PlateText)
   
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3571,6 +3596,7 @@ inline ::dg::model::Color* LicensePlate::mutable_color() {
   return color_;
 }
 inline ::dg::model::Color* LicensePlate::release_color() {
+  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -3631,6 +3657,7 @@ inline ::std::string* LicensePlate::mutable_typename_() {
   return typename__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_typename_() {
+  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.TypeName)
   
   return typename__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3679,6 +3706,7 @@ inline ::dg::model::Cutboard* LicensePlate::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* LicensePlate::release_cutboard() {
+  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -3757,6 +3785,7 @@ inline ::std::string* VehicleSymbol::mutable_symbolname() {
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleSymbol::release_symbolname() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleSymbol.SymbolName)
   
   return symbolname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3825,6 +3854,7 @@ inline ::dg::model::Cutboard* Symbol::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* Symbol::release_cutboard() {
+  // @@protoc_insertion_point(field_release:dg.model.Symbol.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -3889,6 +3919,7 @@ inline ::std::string* StorageConfig::mutable_address() {
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* StorageConfig::release_address() {
+  // @@protoc_insertion_point(field_release:dg.model.StorageConfig.Address)
   
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3945,6 +3976,7 @@ inline void StorageConfig::set_tags(int index, const char* value, size_t size) {
   // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
 }
 inline ::std::string* StorageConfig::add_tags() {
+  // @@protoc_insertion_point(field_add_mutable:dg.model.StorageConfig.Tags)
   return tags_.Add();
 }
 inline void StorageConfig::add_tags(const ::std::string& value) {
@@ -3995,6 +4027,7 @@ inline ::dg::model::SrcMetadata* VehicleObj::mutable_metadata() {
   return metadata_;
 }
 inline ::dg::model::SrcMetadata* VehicleObj::release_metadata() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Metadata)
   
   ::dg::model::SrcMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4032,6 +4065,7 @@ inline ::dg::model::Image* VehicleObj::mutable_img() {
   return img_;
 }
 inline ::dg::model::Image* VehicleObj::release_img() {
+  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;

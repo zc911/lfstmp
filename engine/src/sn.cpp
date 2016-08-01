@@ -3,9 +3,8 @@
 //
 #include <string>
 #include "io/ringbuffer.h"
-#include "io/stream_tube.h"
-#include "vis/display.h"
-
+#include "config.h"
+#include "engine/skynet_engine.h"
 using namespace std;
 using namespace dg;
 

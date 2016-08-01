@@ -39,7 +39,7 @@ struct ModuleFCNN_S {
 
 int LPFCNN_Create(LPDRModel_S stFCNN, int dwDevType, int dwDevID, LPDR_HANDLE *phFCNN);
 
-int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum);
+int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum, dg::ThreadPool *p_TPool);
 
 int LPFCNN_Release(LPDR_HANDLE hFCNN);
 
