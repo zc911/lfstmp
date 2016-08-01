@@ -13,38 +13,38 @@ static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static PlateRecognizeMxnetProcessor *prmprocessor;
 static FileReader *resultReader;
+static PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *config;
 
 static void initConfig() {
-    PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig config;
+    config = new PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig();
     string basePath = "data/models/";
-    config.fcnnSymbolFile = basePath + "801.txt";
-    config.fcnnParamFile = basePath + "801.dat";
-    config.pregSymbolFile = basePath + "802.txt";
-    config.pregParamFile = basePath + "802.dat";
-    config.chrecogSymbolFile = basePath + "800.txt";
-    config.chrecogParamFile = basePath + "800.dat";
-    config.roipSymbolFile = basePath + "803.txt";
-    config.roipParamFile = basePath + "803.dat";
-    config.rpnSymbolFile = basePath + "804.txt";
-    config.rpnParamFile = basePath + "804.dat";
+    config->fcnnSymbolFile = basePath + "801.txt";
+    config->fcnnParamFile = basePath + "801.dat";
+    config->pregSymbolFile = basePath + "802.txt";
+    config->pregParamFile = basePath + "802.dat";
+    config->chrecogSymbolFile = basePath + "800.txt";
+    config->chrecogParamFile = basePath + "800.dat";
+    config->roipSymbolFile = basePath + "803.txt";
+    config->roipParamFile = basePath + "803.dat";
+    config->rpnSymbolFile = basePath + "804.txt";
+    config->rpnParamFile = basePath + "804.dat";
 
-    config.gpuId = 0;
-    config.is_model_encrypt = false;
-    config.imageSH = 800;
-    config.imageSW = 800;
-    config.numsPlates = 2;
-    config.numsProposal = 20;
-    config.plateSH = 400;
-    config.plateSW = 300;
-    config.enableLocalProvince=true;
-    config.localProvinceText="";
-    config.localProvinceConfidence=0;
-
-    prmprocessor = new PlateRecognizeMxnetProcessor(&config);
+    config->gpuId = 0;
+    config->is_model_encrypt = false;
+    config->imageSH = 600;
+    config->imageSW = 400;
+    config->numsPlates = 2;
+    config->numsProposal = 20;
+    config->plateSH = 100;
+    config->plateSW = 300;
+    config->enableLocalProvince=true;
+    config->localProvinceText="";
+    config->localProvinceConfidence=0;
 }
 
 static void init() {
     initConfig();
+    prmprocessor = new PlateRecognizeMxnetProcessor(config);
     resultReader = NULL;
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
@@ -64,12 +64,17 @@ static void destory() {
         delete resultReader;
         resultReader = NULL;
     }
+    if (config) {
+        delete config;
+        config = NULL;
+    }
 }
 
 static Operation getOperation() {
     Operation op;
     op.Set( OPERATION_VEHICLE |
             OPERATION_VEHICLE_PLATE |
+            OPERATION_VEHICLE_TRACK |
             OPERATION_VEHICLE_DETECT );
     return op;
 }
@@ -101,7 +106,7 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
                 }
             }
         }
-        EXPECT_EQ(expectPlate.size(), realPlate.size());
+        EXPECT_EQ(expectPlate.size(), realPlate.size()) << "i = " << i << endl;
         sort(expectPlate.begin(), expectPlate.end());
         sort(realPlate.begin(), realPlate.end());
 
@@ -125,6 +130,10 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
 
 TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
     initConfig();
+    config->imageSH = 1080;//600;
+    config->imageSW = 1920;//400;
+    config->numsPlates = 10;//2;
+    prmprocessor = new PlateRecognizeMxnetProcessor(config);
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/recognize/");
     fbhelper->readImage(getOperation());
@@ -175,7 +184,7 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
                 }
             }
         }
-        EXPECT_TRUE(found);
+        EXPECT_TRUE(found) << "i = " << i << endl;
     }
 
     delete prmprocessor;
