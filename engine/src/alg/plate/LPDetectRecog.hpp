@@ -18,13 +18,11 @@
 #include <pthread.h>
 #include <cuda_runtime.h>
 
+
 #define LPDR_DBG 0
 #define LPDR_TIME 0
-
 #include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
 
 using namespace std;
 
@@ -35,7 +33,7 @@ typedef unsigned char uchar;
 #define MAX_LPCHAR_NUM 16
 #define MAX_IMAGE_SET_MAXSIZE 512
 #define MAX_SHAPE_SIZE 128
-#define LPDR_CLASS_NUM 79
+
 
 
 /*
@@ -81,21 +79,21 @@ const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "
 #define LP_COLOUR_YELLOW    2
 #define LP_COLOUR_PINK      3
 #define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN     5
-#define LP_COLOUR_BLUE      6
-#define LP_COLOUR_BROWN     7
-#define LP_COLOUR_BLACK     8
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
 
 #define LP_TYPE_SINGLE 0
 #define LP_TYPE_DOUBLE 1
 
 
 typedef struct _LPDRModel {
-  char *pbySym; //symbol model
-  char *pbyParam; //model parameter
-  int dwParamSize; //model parameter size
-  int adwShape[MAX_SHAPE_SIZE]; //batch number, channel number, height, width, ...
-} LPDRModel_S;
+    char *pbySym; //symbol model
+    char *pbyParam; //model parameter
+    int dwParamSize; //model parameter size
+    int adwShape[MAX_SHAPE_SIZE]; //batch number, channel number, height, width, ...
+}LPDRModel_S;
 
 
 typedef struct _LPDRConfig {
@@ -106,44 +104,44 @@ typedef struct _LPDRConfig {
   LPDRModel_S stCHRECOG; //Recognition
   int dwDevType; //device type: {'cpu': 1, 'gpu': 2, 'cpu_pinned': 3}
   int dwDevID; //device ID: 0, 1, ...
-} LPDRConfig_S;
+}LPDRConfig_S;
 
 
 typedef struct _LPDRInfo {
   int adwLPRect[4]; //top, left, right, bottom
-  int adwLPPolygon[8]; //pnt0(x,y), pnt1(x,y), pnt2(x,y), pnt3(x,y)
-  int adwLPNumber[MAX_LPCHAR_NUM]; //number name of char
-  float afScores[MAX_LPCHAR_NUM]; //score for eatch char
-  int dwLPLen; //chars number
-  float fAllScore; //LP score
-  int dwColor; //LP color
-  int dwType; //LP type, single line, or double line
-} LPDRInfo_S;
+	int adwLPPolygon[8]; //pnt0(x,y), pnt1(x,y), pnt2(x,y), pnt3(x,y)
+	int adwLPNumber[MAX_LPCHAR_NUM]; //number name of char
+	float afScores[MAX_LPCHAR_NUM]; //score for eatch char
+	int dwLPLen; //chars number
+	float fAllScore; //LP score
+	int dwColor; //LP color
+	int dwType; //LP type, single line, or double line
+}LPDRInfo_S;
 
 
 typedef struct _LPDR_Output {
-  LPDRInfo_S astLPs[MAX_LP_NUM]; //LP set
-  int dwLPNum; //LP Number
-} LPDR_Output_S;
+	LPDRInfo_S astLPs[MAX_LP_NUM]; //LP set
+	int dwLPNum; //LP Number
+}LPDR_Output_S;
 
 
 typedef struct _LPDR_OutputSet {
-  LPDR_Output_S astLPSet[MAX_IMAGE_SET_MAXSIZE]; //LPs for each image
-  int dwImageNum; //image number
-} LPDR_OutputSet_S;
+	LPDR_Output_S astLPSet[MAX_IMAGE_SET_MAXSIZE]; //LPs for each image
+	int dwImageNum; //image number
+}LPDR_OutputSet_S;
 
 
 typedef struct _LPDR_Image {
-  uchar *pubyData; // RGB or YUV data of Image
-  int dwImgW; //image width
-  int dwImgH; //image height
-} LPDR_Image_S;
+    uchar *pubyData; // RGB or YUV data of Image
+    int dwImgW; //image width
+    int dwImgH; //image height
+}LPDR_Image_S;
 
 
 typedef struct _LPDR_ImageSet {
-  LPDR_Image_S astSet[MAX_IMAGE_SET_MAXSIZE]; //image set
-  int dwImageNum; //image number
-} LPDR_ImageSet_S;
+    LPDR_Image_S astSet[MAX_IMAGE_SET_MAXSIZE]; //image set
+    int dwImageNum; //image number
+}LPDR_ImageSet_S;
 
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig);

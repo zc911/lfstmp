@@ -13,7 +13,6 @@
 #include <condition_variable>
 #include <future>
 #include <functional>
-#include "../model/common.pb.h"
 #include "log/log_val.h"
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -22,7 +21,6 @@
 namespace dg {
 
 using namespace std;
-using namespace ::dg::model;
 
 
 class EngineData {

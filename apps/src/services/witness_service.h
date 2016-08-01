@@ -14,7 +14,7 @@
 #include "config.h"
 #include "matrix_engine/model/model.h"
 #include "matrix_engine/engine/witness_engine.h"
-#include "model/witness.grpc.pb.h"
+#include "witness.grpc.pb.h"
 #include "string_util.h"
 #include "../config/config_val.h"
 #include "grpc/spring_grpc.h"
