@@ -61,7 +61,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                                      unsigned int timeout, bool concurrent) {
   MatrixError err;
   if (concurrent) {
-    std::mutex countmt, waitmt;
+    std::mutex countmt;
     std::condition_variable cv;
     int finishCount = 0;
     roiimages.resize(imgs.size());
@@ -108,7 +108,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
     }
 
     {
-      std::unique_lock<mutex> waitlc(waitmt);
+      std::unique_lock<mutex> waitlc(countmt);
       if (cv.wait_for(waitlc,
                       std::chrono::seconds(timeout),
       [&finishCount, &imgs]() { return finishCount == imgs.size(); })) {
