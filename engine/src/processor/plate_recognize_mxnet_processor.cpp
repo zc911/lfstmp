@@ -37,6 +37,7 @@ PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(PlateRecognizeMxnetCo
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
     // TODO Auto-generated destructor stub
+    LPDR_Release(h_LPDR_Handle_);
 }
 bool PlateRecognizeMxnetProcessor::process(Frame *frame) {
     return false;
