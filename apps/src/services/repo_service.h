@@ -11,7 +11,7 @@
 #include "config.h"
 #include "string_util.h"
 #include "../config/config_val.h"
-#include "model/witness.grpc.pb.h"
+#include "witness.grpc.pb.h"
 #include "matrix_engine/model/model.h"
 
 using namespace std;

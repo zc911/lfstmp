@@ -346,6 +346,7 @@ inline ::dg::model::Image* FeatureRankingRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::Image* FeatureRankingRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.FeatureRankingRequest.Image)
   
   ::dg::model::Image* temp = image_;
   image_ = NULL;

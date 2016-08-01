@@ -14,14 +14,13 @@ struct ModuleRPN_S {
 	SymbolHandle hSymbol;
 
 	int adwInShape[5]; //input image shape
-	int adwOutShape[4+4+4]; //anchor class map shape, anchor bb map shape, feat shape
+	int adwOutShape[3+4]; //bbs shape, feat shape
 	
 	uchar *pubyInputData;
 	float *pfInputData;
 	
 	float *pfOutputDataFeat;
-	float *pfOutputDataCls;
-	float *pfOutputDataReg;
+	float *pfOutputBBs;
 	
 	uchar *pubyBuffer;
 	int dwBuffSize;

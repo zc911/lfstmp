@@ -855,6 +855,7 @@ inline ::dg::model::SkynetRequestContext* SkynetRequest::mutable_context() {
   return context_;
 }
 inline ::dg::model::SkynetRequestContext* SkynetRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequest.Context)
   
   ::dg::model::SkynetRequestContext* temp = context_;
   context_ = NULL;
@@ -892,6 +893,7 @@ inline ::dg::model::SkynetRequestData* SkynetRequest::mutable_data() {
   return data_;
 }
 inline ::dg::model::SkynetRequestData* SkynetRequest::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequest.Data)
   
   ::dg::model::SkynetRequestData* temp = data_;
   data_ = NULL;
@@ -933,6 +935,7 @@ inline ::dg::model::SkynetResponseContext* SkynetResponse::mutable_context() {
   return context_;
 }
 inline ::dg::model::SkynetResponseContext* SkynetResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetResponse.Context)
   
   ::dg::model::SkynetResponseContext* temp = context_;
   context_ = NULL;
@@ -970,6 +973,7 @@ inline ::dg::model::SkynetResponseData* SkynetResponse::mutable_data() {
   return data_;
 }
 inline ::dg::model::SkynetResponseData* SkynetResponse::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetResponse.Data)
   
   ::dg::model::SkynetResponseData* temp = data_;
   data_ = NULL;
@@ -1020,6 +1024,7 @@ inline ::std::string* SkynetRequestContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1068,6 +1073,7 @@ inline ::dg::model::StorageConfig* SkynetRequestContext::mutable_storage() {
   return storage_;
 }
 inline ::dg::model::StorageConfig* SkynetRequestContext::release_storage() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestContext.Storage)
   
   ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
@@ -1136,6 +1142,7 @@ inline ::std::string* SkynetOutput::mutable_address() {
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetOutput::release_address() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetOutput.Address)
   
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1179,6 +1186,7 @@ inline ::std::string* SkynetOutput::mutable_type() {
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetOutput::release_type() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetOutput.Type)
   
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1324,6 +1332,7 @@ inline ::std::string* SkynetRequestData::mutable_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestData::release_sensorname() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1367,6 +1376,7 @@ inline ::std::string* SkynetRequestData::mutable_sensoruri() {
   return sensoruri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestData::release_sensoruri() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorURI)
   
   return sensoruri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1410,6 +1420,7 @@ inline ::std::string* SkynetRequestData::mutable_sensortype() {
   return sensortype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestData::release_sensortype() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorType)
   
   return sensortype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1555,6 +1566,7 @@ inline ::std::string* SkynetRequestData::mutable_deepv() {
   return deepv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestData::release_deepv() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.DeepV)
   
   return deepv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1598,6 +1610,7 @@ inline ::std::string* SkynetRequestData::mutable_resultoutput() {
   return resultoutput_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SkynetRequestData::release_resultoutput() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.ResultOutput)
   
   return resultoutput_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1632,6 +1645,7 @@ inline ::dg::model::SkynetOutput* SkynetRequestData::mutable_videooutput() {
   return videooutput_;
 }
 inline ::dg::model::SkynetOutput* SkynetRequestData::release_videooutput() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.VideoOutput)
   
   ::dg::model::SkynetOutput* temp = videooutput_;
   videooutput_ = NULL;

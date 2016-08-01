@@ -23,7 +23,7 @@ public:
     // TODO init data_ as YUV and rbg_ as BGR format
     Payload(Identification id, unsigned int width, unsigned int height,
             unsigned char *data)
-        : id_(id) {
+        : id_(id), width_(width), height_(height) {
         if (data != NULL) {
             cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
             tmp.copyTo(data_);
@@ -54,6 +54,8 @@ public:
                 return;
             }
         }
+        width_ = width;
+        height_ = height;
 
         cv::Mat tmp = cv::Mat(height, width, CV_8UC4, data);
         tmp.copyTo(data_);
@@ -65,6 +67,8 @@ public:
     }
 private:
     Identification id_;
+    unsigned int width_;
+    unsigned int height_;
     cv::Mat data_;
     cv::Mat rgb_;
 
