@@ -117,8 +117,12 @@ int LPRPN_Create(LPDRModel_S stRPN, int dwDevType, int dwDevID, LPDR_HANDLE *phR
   for (int i = 0; i < in_shape_size; i++) {
     ret = MXNDArrayCreate(in_shape_data[i], in_shape_ndim[i], dwDevType, dwDevID, 0, &in_args[i]);
     allparams_pairs[args_str_array[i]] = in_args[i];
-#if DR_DBG&0
-    cout << i << ":" << ret << ", ";
+#if DR_DBG
+    cout << i << ", " << args_str_array[i] << ":" << ret << ", [";
+    for (int j = 0; j < in_shape_ndim[i]; j++) {
+      cout << in_shape_data[i][j] << ",";
+    }
+    cout << "]\n";
 #endif
   }
 #if DR_DBG&0
@@ -313,6 +317,21 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 #endif
     }
   }
+#if 0
+  {
+    int dwII, dwJJ;
+    float fDiff = 0;
+    int dwGroupSize = dwInputOneSize * pdwInShape[1];
+    for (dwII = 0; dwII < dwGroupSize; dwII++)
+    {
+      for (dwJJ = 0; dwJJ < pdwInShape[0] - 1; dwJJ++)
+      {
+        fDiff += fabs((pfInputData + dwJJ * dwGroupSize)[dwII] - (pfInputData + (dwJJ + 1) * dwGroupSize)[dwII]);
+      }
+    }
+    printf("RPN fDiff Number:%.2f\n", fDiff);
+  }
+#endif
 #if LPDR_TIME
   gettimeofday(&end, NULL);
 	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
@@ -348,12 +367,27 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
     
     dwBoxNumPerBatch = pdwOutShape[1];
     dwBoxDim = pdwOutShape[2];
+//    printf("dwBoxDim:%d, %d, dwBoxNumPerBatch:%d\n", dwBoxDim, pdwOutShape[0], dwBoxNumPerBatch);
     adwNeedSizes[0] = pdwOutShape[0] * dwBoxNumPerBatch * dwBoxDim;
     adwNeedSizes[1] = pdwOutShape[3] * pdwOutShape[4] * pdwOutShape[5] * pdwOutShape[6];
 
     ret = MXNDArraySyncCopyToCPU(out[0], pstRPN->pfOutputBBs, adwNeedSizes[0]);
     ret = MXNDArraySyncCopyToCPU(out[1], pstRPN->pfOutputDataFeat, adwNeedSizes[1]);
-
+#if 0
+    {
+      int dwII, dwJJ;
+      float fDiff = 0.;
+      int dwGroupSize = pdwInShape[1] * pdwOutShape[4] * pdwOutShape[5] * pdwOutShape[6];
+      for (dwII = 0; dwII < dwGroupSize; dwII++)
+      {
+        for (dwJJ = 0; dwJJ < pdwInShape[0] - 1; dwJJ++)
+        {
+          fDiff += fabs((pstRPN->pfOutputDataFeat + dwJJ * dwGroupSize)[dwII] - (pstRPN->pfOutputDataFeat + (dwJJ + 1) * dwGroupSize)[dwII]);
+        }
+      }
+      printf("RPN Feat fDiff Number:%.2f\n", fDiff);
+    }
+#endif
 	  MXNDArrayFree(out[0]);
 	  MXNDArrayFree(out[1]);
 	
@@ -381,6 +415,7 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
     int dwRealH = pdwRealHs[dwBI];
     int dwImgWOri = pstImgSet[dwBI].dwImgW;
     int dwImgHOri = pstImgSet[dwBI].dwImgH;
+//    printf("dwImgWOri:%d, dwImgHOri:%d, dwRealW:%d, dwRealH:%d\n", dwImgWOri, dwImgHOri, dwRealW, dwRealH);
 //    int dwPID = pstImgSet[dwBI].dwPID;
     float *pfRectsBatchNow = pstRPN->pfOutputBBs + dwBI * dwBoxNumPerBatch * dwBoxDim;
     
@@ -391,22 +426,30 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
 //      for (int dwCI = 0; dwCI < lprects0.size(); dwCI++)
       for (int dwCI = 0; dwCI < dwBoxNumPerBatch; dwCI++)
       {
-        float *pfRectNow = pfRectsBatchNow + dwCI * dwBoxDim;
-        if (pfRectNow[2] > 0.f)
+        float fScore = *(pfRectsBatchNow + dwCI * dwBoxDim);
+        float *pfRectNow = pfRectsBatchNow + dwCI * dwBoxDim + 1;
+        if (pfRectNow[2] > 0.f && fScore > 0.5f)
         {
           dwX0 = pfRectNow[1] - pfRectNow[3] / 2;
           dwY0 = pfRectNow[0] - pfRectNow[2] / 2;
           dwX1 = pfRectNow[1] + pfRectNow[3] / 2;
           dwY1 = pfRectNow[0] + pfRectNow[2] / 2;
-          
+          #if 0
+          {
+            if (dwCI == 0)
+            {
+              printf("rpn img:%d, rect:[%d, %d, %d, %d]\n", dwBI, dwX0, dwY0, dwX1, dwY1);
+            }
+          }
+          #endif
           dwX0 = max(0, dwX0);
           dwY0 = max(0, dwY0);
           dwX1 = min(dwRealW - 1, dwX1);
           dwY1 = min(dwRealH - 1, dwY1);
           
           if (dwX0 >= dwX1 || dwY0 >= dwY1) continue;
-          
-          LPRectInfo rect(1.0f, (dwY0 + dwY1) / 2, (dwX0 + dwX1) / 2, dwY1 - dwY0 + 1, dwX1 - dwX0 + 1);
+//          printf("%.2f, ", fScore); 
+          LPRectInfo rect(fScore, (dwY0 + dwY1) / 2, (dwX0 + dwX1) / 2, dwY1 - dwY0 + 1, dwX1 - dwX0 + 1);
           
           pstRPN->plprectgroup_0[dwBI].push_back(rect);
           
@@ -420,6 +463,7 @@ int LPRPN_Process(LPDR_HANDLE hRPN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
           pstRPN->plprectgroup[dwBI].push_back(rect);
         }
       }
+ //     printf("RPN img:%d, rectnum:%d\n", dwBI, pstRPN->plprectgroup[dwBI].size());
     }
 #if LPDR_DBG
     cv::Mat gimg2(dwStdH, dwStdW, CV_32FC1, pfInputData + dwBI * dwStdH * dwStdW);
