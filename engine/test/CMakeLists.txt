@@ -1,8 +1,7 @@
 set(DATA_URL "192.168.2.119/unit_test/data")
 set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
-#file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
-file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc processor/plate_recognize_mxnet_processor_test.cpp processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp)
+file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
 
 AUX_SOURCE_DIRECTORY(../../utils/src/ UTILS)
 LIST(APPEND ALL_SRC_FILES ${UTILS})

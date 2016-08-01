@@ -29,17 +29,33 @@ int lpReadyFCNDataThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageInner_S *pstIm
 {
   int dwTI;
   LP_RFCND_THREAD_S astParams[256];
-  mutex countmt, waitmt;
+  mutex countmt;
   condition_variable cv;
   int dwStdH, dwStdW;
   int dwFinishCount = 0;
-  int dwNeedFinishNum = dwImgNum;
+  int dwNeedFinishNum = 0;//dwImgNum;
+
+  assert(dwImgNum <= 256);
+
+  for (dwTI = 0; dwTI < dwImgNum; dwTI++)
+  {
+    if (pstImgSet[dwTI].pfData)
+    {
+      dwNeedFinishNum++;
+    }
+  }
   
+  memset(astParams, 0, sizeof(LP_RFCND_THREAD_S)*256);
   dwStdH = pstFCNN->adwInShape[2];
   dwStdW = pstFCNN->adwInShape[3];
   for (dwTI = 0; dwTI < dwImgNum; dwTI++)
   {
     LPDR_ImageInner_S *pstImage = &pstImgSet[dwTI];
+//    printf("[%d]pstImage->pfData:%x\n", dwTI, pstImage->pfData);
+    if (!pstImage->pfData)
+    {
+      continue;
+    }
     astParams[dwTI].pfStdInputData = pstFCNN->pfInputData + dwTI * dwStdW * dwStdH;
     astParams[dwTI].pdwRealW = &pstFCNN->pdwRealWs[dwTI];
     astParams[dwTI].pdwRealH = &pstFCNN->pdwRealHs[dwTI];
@@ -54,7 +70,7 @@ int lpReadyFCNDataThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageInner_S *pstIm
     p_TPool->enqueue(lpReadyFCNDataThreadQueueOne, (void*)&astParams[dwTI]);
   }
 
-  unique_lock<mutex> waitlc(waitmt);
+  unique_lock<mutex> waitlc(countmt);
 //  cv.wait_for(waitlc, chrono::seconds(1), [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
   cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
 
@@ -89,11 +105,15 @@ void *lpReadyFCNDataThreadQueueOne(void *pParam)
   *pdwRealH = dwRealH;
   *pdwRealW = dwRealW;
   
+  int dwFinishCount = 0;
   unique_lock<mutex> countlc(*p_countmt);
-  (*p_dwFinishCount)++;
+  if ((*p_dwFinishCount) < dwNeedFinishNum) {
+    (*p_dwFinishCount)++;
+  }
+  dwFinishCount = (*p_dwFinishCount);
   countlc.unlock();
   
-  if ((*p_dwFinishCount) == dwNeedFinishNum) {
+  if (dwFinishCount == dwNeedFinishNum) {
     p_cv->notify_all();
   }
   
@@ -117,10 +137,14 @@ int lpPreProcessThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageSet_S *pstImgSet
   int dwI;
   int dwImgNum = pstImgSet->dwImageNum;
   LP_PP_THREAD_S astPPs[256];
-  mutex countmt, waitmt;
+  mutex countmt;
   condition_variable cv;
   int dwFinishCount = 0;
   int dwNeedFinishNum = dwImgNum;
+
+  assert(dwImgNum <= 256);
+
+  memset(astPPs, 0, 256*sizeof(LP_PP_THREAD_S));
   
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
@@ -134,11 +158,14 @@ int lpPreProcessThreadsQueue(dg::ThreadPool *p_TPool, LPDR_ImageSet_S *pstImgSet
     astPPs[dwI].dwNeedFinishNum = dwNeedFinishNum;
     
     p_TPool->enqueue(lpPreProcessThreadQueueOne, (void*)&astPPs[dwI]);
+//    printf("%d:%d\n", dwI, p_TPool->size());
   }
+  
 
-  unique_lock<mutex> waitlc(waitmt);
+  unique_lock<mutex> waitlc(countmt);
 //  cv.wait_for(waitlc, chrono::seconds(1), [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
-  cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
+  cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() {return dwFinishCount == dwNeedFinishNum;});
+//  printf("ok now!\n");
 
   return 0;
 }
@@ -149,12 +176,14 @@ void *lpPreProcessThreadQueueOne(void *pParam)
   LP_PP_THREAD_S *pstPP = (LP_PP_THREAD_S*)pParam;
   LPDR_Image_S *pstOneIn = pstPP->pstOneIn;
   LPDR_ImageInner_S *pstOne = pstPP->pstOne;
+
+//  printf("lpPreProcessThreadQueueOne_0\n");
   
   condition_variable *p_cv = pstPP->p_cv;
   mutex *p_countmt = pstPP->p_countmt;
   int *p_dwFinishCount = pstPP->p_dwFinishCount;
   int dwNeedFinishNum = pstPP->dwNeedFinishNum;
-  
+#if 1  
   int dwImgW = pstOneIn->dwImgW;
   int dwImgH = pstOneIn->dwImgH;
   pstOne->dwImgW = dwImgW;
@@ -162,19 +191,34 @@ void *lpPreProcessThreadQueueOne(void *pParam)
   pstOne->pfData = new float[pstOne->dwImgW * pstOne->dwImgH];
   int dwSize = pstOne->dwImgW * pstOne->dwImgH;
   
+//  printf("lpPreProcessThreadQueueOne_1\n");
+
   cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, pstOneIn->pubyData);
   cv::Mat inputGrayOne(dwImgH, dwImgW, CV_8UC1);
   cv::cvtColor(inputColorOne, inputGrayOne, CV_BGR2GRAY);
 
+//  printf("lpPreProcessThreadQueueOne_2\n");
+
   uchar *pubyOne = (uchar*)inputGrayOne.data;
   cv::Mat oneData(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
   inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f/255.f, 0);  
-  
+#endif
+  int dwFinishCount = 0;
+//  printf("dwFinishCount_0:%d/%d\n", dwFinishCount, dwNeedFinishNum); 
+#if 1
   unique_lock<mutex> countlc(*p_countmt);
-  (*p_dwFinishCount)++;
+  if ((*p_dwFinishCount) < dwNeedFinishNum) {
+    (*p_dwFinishCount)++;
+  }
+  dwFinishCount = (*p_dwFinishCount);
+//  printf("dwFinishCount_1:%d\n", dwFinishCount); 
+//  printf("dwFinishCount_1:%d/%d\n", dwFinishCount, dwNeedFinishNum); 
   countlc.unlock();
-  
-  if ((*p_dwFinishCount) == dwNeedFinishNum) {
+#endif  
+
+  if (dwFinishCount == dwNeedFinishNum)
+  {
+//    printf("dwFinishCount_2:%d\n", dwFinishCount); 
     p_cv->notify_all();
   }
 
@@ -273,7 +317,7 @@ int doRecognitions_ThreadsQueue(dg::ThreadPool *p_TPool, LPDR_HANDLE handle, LPD
     }
   }
   
-  mutex countmt, missionmt, waitmt;
+  mutex countmt, missionmt;
   condition_variable cv;
 
   int dwMissionNum = vecMissions.size();
@@ -285,6 +329,8 @@ int doRecognitions_ThreadsQueue(dg::ThreadPool *p_TPool, LPDR_HANDLE handle, LPD
   int dwFinishCount = 0;
   int dwNeedThreadNum = min(dwMissionNum, MAX_RECOG_THREAD_NUM);
   int dwNeedFinishNum = dwNeedThreadNum;
+  
+  memset(astParams, 0, sizeof(REG_RECOG_S)*MAX_RECOG_THREAD_NUM);
 
   stGlobal.pvecMission = &vecMissions;
   stGlobal.p_countmt = &countmt;
@@ -310,7 +356,7 @@ int doRecognitions_ThreadsQueue(dg::ThreadPool *p_TPool, LPDR_HANDLE handle, LPD
     p_TPool->enqueue(doRecogOne_ThreadQueue, (void*)pstParam);
   }
   
-  unique_lock<mutex> waitlc(waitmt);
+  unique_lock<mutex> waitlc(countmt);
 //  cv.wait_for(waitlc, [&stGlobal]() { return stGlobal.dwNowMissionID == stGlobal.dwMissionNum;});
   cv.wait(waitlc, [&dwFinishCount, &dwNeedFinishNum]() { return dwFinishCount == dwNeedFinishNum;});
 
@@ -501,14 +547,18 @@ void *doRecogOne_ThreadQueue(void *pParam)
 
   int *p_dwFinishCount = pstGlobal->p_dwFinishCount;
   int dwNeedFinishNum = pstGlobal->dwNeedFinishNum;
+  int dwFinishCount = 0;
   
   unique_lock<mutex> countlc(*p_countmt);
-  (*p_dwFinishCount)++;
+  if ((*p_dwFinishCount) < dwNeedFinishNum) {
+    (*p_dwFinishCount)++;
+  }
+  dwFinishCount = (*p_dwFinishCount);
 //  printf("fucking finished thread_0:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
   countlc.unlock();
 //  printf("fucking finished thread_1:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
   
-  if (*p_dwFinishCount == dwNeedFinishNum) {
+  if (dwFinishCount == dwNeedFinishNum) {
     p_cv->notify_all();
   }
   

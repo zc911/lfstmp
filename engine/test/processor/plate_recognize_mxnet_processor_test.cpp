@@ -40,12 +40,11 @@ static void initConfig() {
     config->enableLocalProvince=true;
     config->localProvinceText="";
     config->localProvinceConfidence=0;
-
-    prmprocessor = new PlateRecognizeMxnetProcessor(config);
 }
 
 static void init() {
     initConfig();
+    prmprocessor = new PlateRecognizeMxnetProcessor(config);
     resultReader = NULL;
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
@@ -102,29 +101,20 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
             Object *obj = fb->frames()[i]->objects()[j];
             if (obj->type() == OBJECT_CAR) {
                 Vehicle *v = (Vehicle *)obj;
-                cout << "plate size = " << v->plates().size() << endl;
                 for (int k = 0; k < v->plates().size(); ++k) {
                     realPlate.push_back(v->plates()[k].plate_num);
                 }
             }
         }
-        /**
-        //EXPECT_EQ(expectPlate.size(), realPlate.size()) << "i = " << i << endl;
+        EXPECT_EQ(expectPlate.size(), realPlate.size()) << "i = " << i << endl;
         sort(expectPlate.begin(), expectPlate.end());
         sort(realPlate.begin(), realPlate.end());
 
-        for (int j = 0; j < realPlate.size(); ++j) {
-            cout << realPlate[j] << ' ' << endl;
-        }
-        cout << endl;
-
         for (int j = 0; j < expectPlate.size(); ++j) {
-            //EXPECT_EQ(expectPlate[j], realPlate[j]);
+            EXPECT_EQ(expectPlate[j], realPlate[j]);
         }
-         **/
     }
 
-    /**
     delete fbhelper;
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/recognize/");
@@ -134,14 +124,16 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
         head->getProcessor()->Update(fb->frames()[i]);
         EXPECT_EQ(0, fb->frames()[i]->objects().size()) << "i = " << i << endl;
     }
-     **/
 
     destory();
 }
 
-/**
 TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
     initConfig();
+    config->imageSH = 1080;//600;
+    config->imageSW = 1920;//400;
+    config->numsPlates = 10;//2;
+    prmprocessor = new PlateRecognizeMxnetProcessor(config);
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/recognize/");
     fbhelper->readImage(getOperation());
@@ -192,7 +184,7 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
                 }
             }
         }
-        EXPECT_TRUE(found);
+        EXPECT_TRUE(found) << "i = " << i << endl;
     }
 
     delete prmprocessor;
@@ -233,6 +225,5 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
 
     destory();
 }
- **/
 
 #endif
