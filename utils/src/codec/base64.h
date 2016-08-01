@@ -115,7 +115,7 @@ public:
         T temp;
         while(ss_out.good())
         {
-            ss_out.read((char *) (&temp), 1);
+            ss_out.read((char *) (&temp), sizeof(T));
             result_array.push_back(temp);
         }
     }
