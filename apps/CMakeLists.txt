@@ -43,9 +43,10 @@ FIND_LIBRARY(LIB_WATCHDOG watchdog PATHS lib/watchdog/${PLATFORM} )
 FIND_LIBRARY(LIB_PROTOBUF protobuf HINTS lib/protobuf/${PLATFORM})
 FIND_LIBRARY(LIB_GRPC grpc HINTS lib/grpc/${PLATFORM})
 FIND_LIBRARY(LIB_GRPC++ grpc++ HINTS lib/grpc/${PLATFORM})
+FIND_LIBRARY(LIB_GTEST_MAIN NAMES gtest_main PATHS lib/gtest/${PLATFORM})
 FIND_LIBRARY(LIB_GTEST NAMES gtest PATHS lib/gtest/${PLATFORM})
 
-LIST(APPEND LIBS ${LIB_GTEST} ${LIB_MATRIX} ${LIB_WATCHDOG} ${LIB_HASP} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DLIB})
+LIST(APPEND LIBS ${LIB_GTEST_MAIN} ${LIB_GTEST} ${LIB_MATRIX} ${LIB_WATCHDOG} ${LIB_HASP} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DLIB})
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_GRPC++} ${LIB_GRPC} ${LIB_PROTOBUF} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_MXNET} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
 LIST(APPEND LIBS glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
 freetype hdf5_hl hdf5 m crypto opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10
