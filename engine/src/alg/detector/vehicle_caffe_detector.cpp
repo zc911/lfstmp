@@ -41,7 +41,7 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
+    input_geometry_ = cv::Size(config.target_max_size, config.target_min_size);
     input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);

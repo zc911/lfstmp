@@ -17,7 +17,7 @@ namespace dg {
         "鲁", "新", "苏", "浙", "赣", "鄂", "桂", "甘", "晋", "蒙", "\u9655", "吉", "贵", "粤",
         "青", "藏", "川", "宁", "琼", "使", "领", "试", "学", "临", "时", "警", "港", "O",
         "挂", "澳", "#" };*/
-const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
+const char *paInv_chardict[79] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
                                               "A", "B", "C", "D", "E", "F", "G", "H", "J", \
                                               "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
                                               "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
@@ -88,14 +88,12 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
 
                 string platenum;
                 float score = 0;
-                if (enable_local_province_) {
-                    if (pstLP->afScores[0] < local_province_confidence_) {
-                        platenum = local_province_;
-                    } else {
-                        platenum = paInv_chardict[pstLP->adwLPNumber[0]];
-                    }
-                    score += pstLP->afScores[0];
+                if (pstLP->afScores[0] < local_province_confidence_ && enable_local_province_) {
+                    platenum = local_province_;
+                } else {
+                    platenum = paInv_chardict[pstLP->adwLPNumber[0]];
                 }
+                score += pstLP->afScores[0];
                 for (int dwK = 1; dwK < pstLP->dwLPLen; dwK++) {
                     platenum += paInv_chardict[pstLP->adwLPNumber[dwK]];
                     score += pstLP->afScores[dwK];

@@ -7,7 +7,7 @@
 
 #include <string>
 #include <grpc++/grpc++.h>
-#include "../model/common.pb.h"
+#include "common.pb.h"
 #include "services/witness_service.h"
 #include "services/engine_pool.h"
 

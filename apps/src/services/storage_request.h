@@ -4,9 +4,9 @@
 
 #ifndef PROJECT_STORAGE_REQUEST_H
 #define PROJECT_STORAGE_REQUEST_H
-#include "model/spring.grpc.pb.h"
-#include "model/localcommon.pb.h"
-#include "model/witness.grpc.pb.h"
+#include "spring.grpc.pb.h"
+#include "localcommon.pb.h"
+#include "witness.grpc.pb.h"
 #include "witness_bucket.h"
 #include "pbjson/pbjson.hpp"
 #include <google/protobuf/text_format.h>

@@ -4,6 +4,8 @@
 
 #include "LPDetectRecog.hpp"
 
+#include "simple_thread_pool.h"
+
 
 #define MAX_GP_NUMBER 64
 
@@ -95,6 +97,10 @@ struct LPDR_Info_S {
 
 	int dwDev_Type;
 	int dwDev_ID;
+	
+	dg::ThreadPool *p_ppTPool;
+	dg::ThreadPool *p_rfcnTPool;
+	dg::ThreadPool *p_recogTPool;
 };
 
 
@@ -132,6 +138,8 @@ void imgResizeAddBlack(uchar *patch, int s32W_src, int s32H_src,
 void imgResizeAddBlack_f(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
 													 int dwDstW, int s32DstH, int *pdwRealW, int *pdwRealH);
 
+void imgResizeAddBlack_fNorm(float *pfInputImg, int dwSrcW, int dwSrcH, float *pfDstImg, 
+													 int dwDstW, int dwDstH, int *pdwRealW, int *pdwRealH);
 
 void imgResize(uchar *patch, int s32W_src, int s32H_src, uchar *result, int s32W_dst, int s32H_dst);
 

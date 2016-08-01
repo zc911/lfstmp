@@ -1,7 +1,7 @@
 
 #include "LPFCNN.hpp"
 #include "LPThreadFuncs.hpp"
-
+#include "LPThreadFuncsQueue.hpp"
 
 int getRectsOfFCNN(float *pfScore, int dwImgH, int dwImgW, vector<LPRectInfo> &lprects);
 
@@ -223,7 +223,7 @@ int LPFCNN_Create(LPDRModel_S stFCNN, int dwDevType, int dwDevID, LPDR_HANDLE *p
 }
 
 
-int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum)
+int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum, dg::ThreadPool *p_TPool)
 {
   int dwI, dwJ;
   int ret;
@@ -257,7 +257,8 @@ int LPFCNN_Process(LPDR_HANDLE hFCNN, LPDR_ImageInner_S *pstImgSet, int dwImgNum
     lpgroup.clear();
   }
   
-  lpReadyFCNDataThreads(pstImgSet, dwImgNum, pstFCNN);
+//  lpReadyFCNDataThreads(pstImgSet, dwImgNum, pstFCNN);
+  lpReadyFCNDataThreadsQueue(p_TPool, pstImgSet, dwImgNum, pstFCNN);
 #else
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
@@ -480,7 +481,7 @@ int getRectsOfFCNN(float *pfScore, int dwImgH, int dwImgW, vector<LPRectInfo> &l
   
   for (dwI = 0; dwI < dwSize; dwI++)
   {
-    if (pfScore[dwI] > 0.8) pubyBinImg[dwI] = 255;
+    if (pfScore[dwI] > 0.6) pubyBinImg[dwI] = 255;
   }
   memcpy(pubyBinImg2, pubyBinImg, dwSize);
   
