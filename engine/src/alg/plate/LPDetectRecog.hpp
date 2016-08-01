@@ -21,8 +21,9 @@
 
 #define LPDR_DBG 0
 #define LPDR_TIME 0
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+
+#include "cv.h"
+#include "highgui.h"
 
 using namespace std;
 
