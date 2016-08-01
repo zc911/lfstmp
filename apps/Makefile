@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/LEO/Matrix
+CMAKE_SOURCE_DIR = /home/deepglint/Matrix
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/LEO/Matrix/apps
+CMAKE_BINARY_DIR = /home/deepglint/Matrix/apps
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -110,9 +110,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/LEO/Matrix/apps/CMakeFiles /home/leo/LEO/Matrix/apps/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/deepglint/Matrix/apps/CMakeFiles /home/deepglint/Matrix/apps/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/LEO/Matrix/apps/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/deepglint/Matrix/apps/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -166,6 +166,71 @@ matrix_cuda/fast:
 .PHONY : matrix_cuda/fast
 
 #=============================================================================
+# Target rules for targets named matrix_main
+
+# Build rule for target.
+matrix_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 matrix_main
+.PHONY : matrix_main
+
+# fast build rule for target.
+matrix_main/fast:
+	$(MAKE) -f engine/src/CMakeFiles/matrix_main.dir/build.make engine/src/CMakeFiles/matrix_main.dir/build
+.PHONY : matrix_main/fast
+
+#=============================================================================
+# Target rules for targets named matrix_cuda_test
+
+# Build rule for target.
+matrix_cuda_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 matrix_cuda_test
+.PHONY : matrix_cuda_test
+
+# fast build rule for target.
+matrix_cuda_test/fast:
+	$(MAKE) -f engine/test/CMakeFiles/matrix_cuda_test.dir/build.make engine/test/CMakeFiles/matrix_cuda_test.dir/build
+.PHONY : matrix_cuda_test/fast
+
+#=============================================================================
+# Target rules for targets named report
+
+# Build rule for target.
+report: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 report
+.PHONY : report
+
+# fast build rule for target.
+report/fast:
+	$(MAKE) -f engine/test/CMakeFiles/report.dir/build.make engine/test/CMakeFiles/report.dir/build
+.PHONY : report/fast
+
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) -f engine/test/CMakeFiles/test.dir/build.make engine/test/CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named test_matrix
+
+# Build rule for target.
+test_matrix: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_matrix
+.PHONY : test_matrix
+
+# fast build rule for target.
+test_matrix/fast:
+	$(MAKE) -f engine/test/CMakeFiles/test_matrix.dir/build.make engine/test/CMakeFiles/test_matrix.dir/build
+.PHONY : test_matrix/fast
+
+#=============================================================================
 # Target rules for targets named matrix_apps
 
 # Build rule for target.
@@ -192,6 +257,11 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... matrix"
 	@echo "... matrix_cuda"
+	@echo "... matrix_main"
+	@echo "... matrix_cuda_test"
+	@echo "... report"
+	@echo "... test"
+	@echo "... test_matrix"
 	@echo "... matrix_apps"
 .PHONY : help
 
