@@ -38,6 +38,8 @@ void protobuf_AssignDesc_deepdatasingle_2eproto();
 void protobuf_ShutdownFile_deepdatasingle_2eproto();
 
 class BaseEntity;
+class Bicycle;
+class Bicycles;
 class Color;
 class Cutboard;
 class CutboardImage;
@@ -934,6 +936,210 @@ class Tricycles : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Tricycles* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Bicycle : public ::google::protobuf::Message {
+ public:
+  Bicycle();
+  virtual ~Bicycle();
+
+  Bicycle(const Bicycle& from);
+
+  inline Bicycle& operator=(const Bicycle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Bicycle& default_instance();
+
+  void Swap(Bicycle* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Bicycle* New() const { return New(NULL); }
+
+  Bicycle* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Bicycle& from);
+  void MergeFrom(const Bicycle& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Bicycle* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int64 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
+
+  // optional .model.VideoMetadata Metadata = 2;
+  bool has_metadata() const;
+  void clear_metadata();
+  static const int kMetadataFieldNumber = 2;
+  const ::model::VideoMetadata& metadata() const;
+  ::model::VideoMetadata* mutable_metadata();
+  ::model::VideoMetadata* release_metadata();
+  void set_allocated_metadata(::model::VideoMetadata* metadata);
+
+  // optional .model.CutboardImage Img = 3;
+  bool has_img() const;
+  void clear_img();
+  static const int kImgFieldNumber = 3;
+  const ::model::CutboardImage& img() const;
+  ::model::CutboardImage* mutable_img();
+  ::model::CutboardImage* release_img();
+  void set_allocated_img(::model::CutboardImage* img);
+
+  // optional bytes Feature = 4;
+  void clear_feature();
+  static const int kFeatureFieldNumber = 4;
+  const ::std::string& feature() const;
+  void set_feature(const ::std::string& value);
+  void set_feature(const char* value);
+  void set_feature(const void* value, size_t size);
+  ::std::string* mutable_feature();
+  ::std::string* release_feature();
+  void set_allocated_feature(::std::string* feature);
+
+  // optional .model.Color Color = 5;
+  bool has_color() const;
+  void clear_color();
+  static const int kColorFieldNumber = 5;
+  const ::model::Color& color() const;
+  ::model::Color* mutable_color();
+  ::model::Color* release_color();
+  void set_allocated_color(::model::Color* color);
+
+  // @@protoc_insertion_point(class_scope:model.Bicycle)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 id_;
+  ::model::VideoMetadata* metadata_;
+  ::model::CutboardImage* img_;
+  ::google::protobuf::internal::ArenaStringPtr feature_;
+  ::model::Color* color_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_deepdatasingle_2eproto();
+  friend void protobuf_AssignDesc_deepdatasingle_2eproto();
+  friend void protobuf_ShutdownFile_deepdatasingle_2eproto();
+
+  void InitAsDefaultInstance();
+  static Bicycle* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Bicycles : public ::google::protobuf::Message {
+ public:
+  Bicycles();
+  virtual ~Bicycles();
+
+  Bicycles(const Bicycles& from);
+
+  inline Bicycles& operator=(const Bicycles& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Bicycles& default_instance();
+
+  void Swap(Bicycles* other);
+
+  // implements Message ----------------------------------------------
+
+  inline Bicycles* New() const { return New(NULL); }
+
+  Bicycles* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Bicycles& from);
+  void MergeFrom(const Bicycles& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Bicycles* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .model.Bicycle Tricycle = 1;
+  int tricycle_size() const;
+  void clear_tricycle();
+  static const int kTricycleFieldNumber = 1;
+  const ::model::Bicycle& tricycle(int index) const;
+  ::model::Bicycle* mutable_tricycle(int index);
+  ::model::Bicycle* add_tricycle();
+  ::google::protobuf::RepeatedPtrField< ::model::Bicycle >*
+      mutable_tricycle();
+  const ::google::protobuf::RepeatedPtrField< ::model::Bicycle >&
+      tricycle() const;
+
+  // @@protoc_insertion_point(class_scope:model.Bicycles)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::RepeatedPtrField< ::model::Bicycle > tricycle_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_deepdatasingle_2eproto();
+  friend void protobuf_AssignDesc_deepdatasingle_2eproto();
+  friend void protobuf_ShutdownFile_deepdatasingle_2eproto();
+
+  void InitAsDefaultInstance();
+  static Bicycles* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -3151,6 +3357,212 @@ Tricycles::tricycle() const {
 
 // -------------------------------------------------------------------
 
+// Bicycle
+
+// optional int64 Id = 1;
+inline void Bicycle::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 Bicycle::id() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Id)
+  return id_;
+}
+inline void Bicycle::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:model.Bicycle.Id)
+}
+
+// optional .model.VideoMetadata Metadata = 2;
+inline bool Bicycle::has_metadata() const {
+  return !_is_default_instance_ && metadata_ != NULL;
+}
+inline void Bicycle::clear_metadata() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+}
+inline const ::model::VideoMetadata& Bicycle::metadata() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Metadata)
+  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
+}
+inline ::model::VideoMetadata* Bicycle::mutable_metadata() {
+  
+  if (metadata_ == NULL) {
+    metadata_ = new ::model::VideoMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Metadata)
+  return metadata_;
+}
+inline ::model::VideoMetadata* Bicycle::release_metadata() {
+  
+  ::model::VideoMetadata* temp = metadata_;
+  metadata_ = NULL;
+  return temp;
+}
+inline void Bicycle::set_allocated_metadata(::model::VideoMetadata* metadata) {
+  delete metadata_;
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Metadata)
+}
+
+// optional .model.CutboardImage Img = 3;
+inline bool Bicycle::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+inline void Bicycle::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+inline const ::model::CutboardImage& Bicycle::img() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+inline ::model::CutboardImage* Bicycle::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::model::CutboardImage;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Img)
+  return img_;
+}
+inline ::model::CutboardImage* Bicycle::release_img() {
+  
+  ::model::CutboardImage* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+inline void Bicycle::set_allocated_img(::model::CutboardImage* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Img)
+}
+
+// optional bytes Feature = 4;
+inline void Bicycle::clear_feature() {
+  feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& Bicycle::feature() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Feature)
+  return feature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Bicycle::set_feature(const ::std::string& value) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:model.Bicycle.Feature)
+}
+inline void Bicycle::set_feature(const char* value) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:model.Bicycle.Feature)
+}
+inline void Bicycle::set_feature(const void* value, size_t size) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:model.Bicycle.Feature)
+}
+inline ::std::string* Bicycle::mutable_feature() {
+  
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Feature)
+  return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* Bicycle::release_feature() {
+  
+  return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void Bicycle::set_allocated_feature(::std::string* feature) {
+  if (feature != NULL) {
+    
+  } else {
+    
+  }
+  feature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feature);
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Feature)
+}
+
+// optional .model.Color Color = 5;
+inline bool Bicycle::has_color() const {
+  return !_is_default_instance_ && color_ != NULL;
+}
+inline void Bicycle::clear_color() {
+  if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
+  color_ = NULL;
+}
+inline const ::model::Color& Bicycle::color() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Color)
+  return color_ != NULL ? *color_ : *default_instance_->color_;
+}
+inline ::model::Color* Bicycle::mutable_color() {
+  
+  if (color_ == NULL) {
+    color_ = new ::model::Color;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Color)
+  return color_;
+}
+inline ::model::Color* Bicycle::release_color() {
+  
+  ::model::Color* temp = color_;
+  color_ = NULL;
+  return temp;
+}
+inline void Bicycle::set_allocated_color(::model::Color* color) {
+  delete color_;
+  color_ = color;
+  if (color) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Color)
+}
+
+// -------------------------------------------------------------------
+
+// Bicycles
+
+// repeated .model.Bicycle Tricycle = 1;
+inline int Bicycles::tricycle_size() const {
+  return tricycle_.size();
+}
+inline void Bicycles::clear_tricycle() {
+  tricycle_.Clear();
+}
+inline const ::model::Bicycle& Bicycles::tricycle(int index) const {
+  // @@protoc_insertion_point(field_get:model.Bicycles.Tricycle)
+  return tricycle_.Get(index);
+}
+inline ::model::Bicycle* Bicycles::mutable_tricycle(int index) {
+  // @@protoc_insertion_point(field_mutable:model.Bicycles.Tricycle)
+  return tricycle_.Mutable(index);
+}
+inline ::model::Bicycle* Bicycles::add_tricycle() {
+  // @@protoc_insertion_point(field_add:model.Bicycles.Tricycle)
+  return tricycle_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::model::Bicycle >*
+Bicycles::mutable_tricycle() {
+  // @@protoc_insertion_point(field_mutable_list:model.Bicycles.Tricycle)
+  return &tricycle_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::model::Bicycle >&
+Bicycles::tricycle() const {
+  // @@protoc_insertion_point(field_list:model.Bicycles.Tricycle)
+  return tricycle_;
+}
+
+// -------------------------------------------------------------------
+
 // Pedestrian
 
 // optional int64 Id = 1;
@@ -4299,6 +4711,10 @@ inline void FeatureVector::set_allocated_feature(::std::string* feature) {
 // NullMessage
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
