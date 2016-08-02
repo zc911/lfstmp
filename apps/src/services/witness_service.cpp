@@ -29,7 +29,14 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       id_(0),
       base_id_(baseId),
       name_(name) {
-    enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
+    enable_storage_ = (bool) config_->Value(STORAGE_ENABLED);
+    storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
+    int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
+    for(int i=0;i<typeNum;i++){
+        int threadNum = (int) config_->Value(STORAGE_DB_TYPE + to_string(i));
+        storage_types_.push_back(threadNum);
+    }
+    enable_cutboard_ = (bool) config_->Value("EnableCutboard");
 
     RepoService::GetInstance().Init(*config);
 }
@@ -359,34 +366,24 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
     VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
-    if (enableStorage_) {
-        string storageAddress;
+    if (enable_storage_) {
         if (request->context().has_storage()) {
-            storageAddress = (string) request->context().storage().address();
+            storage_address_ = (string) request->context().storage().address();
         } else {
-            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+            storage_address_ = storage_address_;
         }
-        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
-        DBType dbType;
-        switch (dbTypeInt) {
-            case 0:
-                dbType = KAFKA;
-                break;
-            default:
-                dbType = KAFKA;
-                break;
-        }
+
+
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-            client_request_obj->mutable_storage()->set_address(storageAddress);
+            client_request_obj->mutable_storage()->set_address(storage_address_);
             for (int i = 0; i < r.vehicles_size(); i++) {
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->CopyFrom(r.vehicles(i));
-                bool enablecutboard = (bool) config_->Value("EnableCutboard");
-                if (enablecutboard) {
+                if (enable_cutboard_) {
                     vector<char> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
@@ -558,23 +555,14 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
 
-    if (enableStorage_) {
+    if (enable_storage_) {
         string storageAddress;
         if (batchRequest->context().has_storage()) {
             storageAddress = (string) batchRequest->context().storage().address();
         } else {
-            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+            storageAddress = storage_address_;
         }
-        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
-        DBType dbType;
-        switch (dbTypeInt) {
-            case 0:
-                dbType = KAFKA;
-                break;
-            default:
-                dbType = KAFKA;
-                break;
-        }
+
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
@@ -586,8 +574,7 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                     v->CopyFrom(r.vehicles(i));
-                    bool enablecutboard = (bool) config_->Value("EnableCutboard");
-                    if (enablecutboard) {
+                    if (enable_cutboard_) {
                         vector<uchar> data(roi.datastart, roi.dataend);
                         string imgdata = Base64::Encode(data);
                         v->mutable_img()->mutable_img()->set_bindata(imgdata);
