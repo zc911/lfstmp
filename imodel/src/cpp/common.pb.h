@@ -44,6 +44,7 @@ class CutboardImage;
 class FeatureVector;
 class Image;
 class LicensePlate;
+class NameAndConfidence;
 class NullMessage;
 class PedestrianAttr;
 class RecFace;
@@ -113,6 +114,74 @@ inline bool DataFmtType_Parse(
     const ::std::string& name, DataFmtType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<DataFmtType>(
     DataFmtType_descriptor(), name, value);
+}
+enum SexType {
+  SEX_TYPE_UNKNOWN = 0,
+  SEX_TYPE_MALE = 1,
+  SEX_TYPE_FEMALE = 2,
+  SexType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  SexType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool SexType_IsValid(int value);
+const SexType SexType_MIN = SEX_TYPE_UNKNOWN;
+const SexType SexType_MAX = SEX_TYPE_FEMALE;
+const int SexType_ARRAYSIZE = SexType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* SexType_descriptor();
+inline const ::std::string& SexType_Name(SexType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    SexType_descriptor(), value);
+}
+inline bool SexType_Parse(
+    const ::std::string& name, SexType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<SexType>(
+    SexType_descriptor(), name, value);
+}
+enum NationalType {
+  NATIONAL_TYPE_UNKNOWN = 0,
+  NATIONAL_TYPE_HAN = 1,
+  NATIONAL_TYPE_MINORITY = 2,
+  NationalType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  NationalType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool NationalType_IsValid(int value);
+const NationalType NationalType_MIN = NATIONAL_TYPE_UNKNOWN;
+const NationalType NationalType_MAX = NATIONAL_TYPE_MINORITY;
+const int NationalType_ARRAYSIZE = NationalType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* NationalType_descriptor();
+inline const ::std::string& NationalType_Name(NationalType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    NationalType_descriptor(), value);
+}
+inline bool NationalType_Parse(
+    const ::std::string& name, NationalType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<NationalType>(
+    NationalType_descriptor(), name, value);
+}
+enum AgeType {
+  AGE_TYPE_UNKNOWN = 0,
+  AGE_TYPE_LT15 = 1,
+  AGE_TYPE_1530 = 2,
+  AGE_TYPE_3050 = 3,
+  AGE_TYPE_50UP = 4,
+  AgeType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  AgeType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool AgeType_IsValid(int value);
+const AgeType AgeType_MIN = AGE_TYPE_UNKNOWN;
+const AgeType AgeType_MAX = AGE_TYPE_50UP;
+const int AgeType_ARRAYSIZE = AgeType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* AgeType_descriptor();
+inline const ::std::string& AgeType_Name(AgeType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    AgeType_descriptor(), value);
+}
+inline bool AgeType_Parse(
+    const ::std::string& name, AgeType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<AgeType>(
+    AgeType_descriptor(), name, value);
 }
 enum DBType {
   KAFKA = 0,
@@ -968,6 +1037,96 @@ class RecFace : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class NameAndConfidence : public ::google::protobuf::Message {
+ public:
+  NameAndConfidence();
+  virtual ~NameAndConfidence();
+
+  NameAndConfidence(const NameAndConfidence& from);
+
+  inline NameAndConfidence& operator=(const NameAndConfidence& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const NameAndConfidence& default_instance();
+
+  void Swap(NameAndConfidence* other);
+
+  // implements Message ----------------------------------------------
+
+  inline NameAndConfidence* New() const { return New(NULL); }
+
+  NameAndConfidence* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const NameAndConfidence& from);
+  void MergeFrom(const NameAndConfidence& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NameAndConfidence* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string Name = 1;
+  void clear_name();
+  static const int kNameFieldNumber = 1;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // optional float Confidence = 2;
+  void clear_confidence();
+  static const int kConfidenceFieldNumber = 2;
+  float confidence() const;
+  void set_confidence(float value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.NameAndConfidence)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
+  float confidence_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static NameAndConfidence* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class PedestrianAttr : public ::google::protobuf::Message {
  public:
   PedestrianAttr();
@@ -1024,37 +1183,131 @@ class PedestrianAttr : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional int32 AttrId = 1;
-  void clear_attrid();
-  static const int kAttrIdFieldNumber = 1;
-  ::google::protobuf::int32 attrid() const;
-  void set_attrid(::google::protobuf::int32 value);
+  // optional .dg.model.SexType Sex = 1;
+  void clear_sex();
+  static const int kSexFieldNumber = 1;
+  ::dg::model::SexType sex() const;
+  void set_sex(::dg::model::SexType value);
 
-  // optional string AttrName = 2;
-  void clear_attrname();
-  static const int kAttrNameFieldNumber = 2;
-  const ::std::string& attrname() const;
-  void set_attrname(const ::std::string& value);
-  void set_attrname(const char* value);
-  void set_attrname(const char* value, size_t size);
-  ::std::string* mutable_attrname();
-  ::std::string* release_attrname();
-  void set_allocated_attrname(::std::string* attrname);
+  // optional float SexConfidence = 2;
+  void clear_sexconfidence();
+  static const int kSexConfidenceFieldNumber = 2;
+  float sexconfidence() const;
+  void set_sexconfidence(float value);
 
-  // optional float Confidence = 3;
-  void clear_confidence();
-  static const int kConfidenceFieldNumber = 3;
-  float confidence() const;
-  void set_confidence(float value);
+  // optional .dg.model.NationalType National = 3;
+  void clear_national();
+  static const int kNationalFieldNumber = 3;
+  ::dg::model::NationalType national() const;
+  void set_national(::dg::model::NationalType value);
+
+  // optional float NationalConfidence = 4;
+  void clear_nationalconfidence();
+  static const int kNationalConfidenceFieldNumber = 4;
+  float nationalconfidence() const;
+  void set_nationalconfidence(float value);
+
+  // optional .dg.model.AgeType Age = 5;
+  void clear_age();
+  static const int kAgeFieldNumber = 5;
+  ::dg::model::AgeType age() const;
+  void set_age(::dg::model::AgeType value);
+
+  // optional float AgeConfidence = 6;
+  void clear_ageconfidence();
+  static const int kAgeConfidenceFieldNumber = 6;
+  float ageconfidence() const;
+  void set_ageconfidence(float value);
+
+  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  int headwears_size() const;
+  void clear_headwears();
+  static const int kHeadWearsFieldNumber = 7;
+  const ::dg::model::NameAndConfidence& headwears(int index) const;
+  ::dg::model::NameAndConfidence* mutable_headwears(int index);
+  ::dg::model::NameAndConfidence* add_headwears();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_headwears();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      headwears() const;
+
+  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  int bodywears_size() const;
+  void clear_bodywears();
+  static const int kBodyWearsFieldNumber = 8;
+  const ::dg::model::NameAndConfidence& bodywears(int index) const;
+  ::dg::model::NameAndConfidence* mutable_bodywears(int index);
+  ::dg::model::NameAndConfidence* add_bodywears();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_bodywears();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      bodywears() const;
+
+  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  int upperwears_size() const;
+  void clear_upperwears();
+  static const int kUpperWearsFieldNumber = 9;
+  const ::dg::model::NameAndConfidence& upperwears(int index) const;
+  ::dg::model::NameAndConfidence* mutable_upperwears(int index);
+  ::dg::model::NameAndConfidence* add_upperwears();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_upperwears();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      upperwears() const;
+
+  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  int lowerwears_size() const;
+  void clear_lowerwears();
+  static const int kLowerWearsFieldNumber = 10;
+  const ::dg::model::NameAndConfidence& lowerwears(int index) const;
+  ::dg::model::NameAndConfidence* mutable_lowerwears(int index);
+  ::dg::model::NameAndConfidence* add_lowerwears();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_lowerwears();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      lowerwears() const;
+
+  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  int uppercolors_size() const;
+  void clear_uppercolors();
+  static const int kUpperColorsFieldNumber = 11;
+  const ::dg::model::NameAndConfidence& uppercolors(int index) const;
+  ::dg::model::NameAndConfidence* mutable_uppercolors(int index);
+  ::dg::model::NameAndConfidence* add_uppercolors();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_uppercolors();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      uppercolors() const;
+
+  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  int lowercolors_size() const;
+  void clear_lowercolors();
+  static const int kLowerColorsFieldNumber = 12;
+  const ::dg::model::NameAndConfidence& lowercolors(int index) const;
+  ::dg::model::NameAndConfidence* mutable_lowercolors(int index);
+  ::dg::model::NameAndConfidence* add_lowercolors();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+      mutable_lowercolors();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+      lowercolors() const;
 
   // @@protoc_insertion_point(class_scope:dg.model.PedestrianAttr)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::internal::ArenaStringPtr attrname_;
-  ::google::protobuf::int32 attrid_;
-  float confidence_;
+  int sex_;
+  float sexconfidence_;
+  int national_;
+  float nationalconfidence_;
+  int age_;
+  float ageconfidence_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > headwears_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > bodywears_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > upperwears_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > lowerwears_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > uppercolors_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > lowercolors_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -1203,17 +1456,14 @@ class RecVehicle : public ::google::protobuf::Message {
   ::std::string* release_vehicletypename();
   void set_allocated_vehicletypename(::std::string* vehicletypename);
 
-  // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-  int pedestrianattrs_size() const;
-  void clear_pedestrianattrs();
-  static const int kPedestrianAttrsFieldNumber = 10;
-  const ::dg::model::PedestrianAttr& pedestrianattrs(int index) const;
-  ::dg::model::PedestrianAttr* mutable_pedestrianattrs(int index);
-  ::dg::model::PedestrianAttr* add_pedestrianattrs();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >*
-      mutable_pedestrianattrs();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
-      pedestrianattrs() const;
+  // optional .dg.model.PedestrianAttr PedesAttr = 10;
+  bool has_pedesattr() const;
+  void clear_pedesattr();
+  static const int kPedesAttrFieldNumber = 10;
+  const ::dg::model::PedestrianAttr& pedesattr() const;
+  ::dg::model::PedestrianAttr* mutable_pedesattr();
+  ::dg::model::PedestrianAttr* release_pedesattr();
+  void set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr);
 
   // repeated .dg.model.LicensePlate Plates = 11;
   int plates_size() const;
@@ -1240,7 +1490,7 @@ class RecVehicle : public ::google::protobuf::Message {
   ::google::protobuf::RepeatedPtrField< ::dg::model::VehicleSymbol > symbols_;
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::google::protobuf::internal::ArenaStringPtr vehicletypename_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr > pedestrianattrs_;
+  ::dg::model::PedestrianAttr* pedesattr_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate > plates_;
   int vehicletype_;
   mutable int _cached_size_;
@@ -2049,7 +2299,6 @@ inline ::std::string* SrcMetadata::mutable_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_sensorname() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2093,7 +2342,6 @@ inline ::std::string* SrcMetadata::mutable_sensorurl() {
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_sensorurl() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorUrl)
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2151,7 +2399,6 @@ inline ::std::string* SrcMetadata::mutable_repoinfo() {
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SrcMetadata::release_repoinfo() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.RepoInfo)
   
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2292,7 +2539,6 @@ inline ::dg::model::Cutboard* CutboardImage::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* CutboardImage::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2330,7 +2576,6 @@ inline ::dg::model::Image* CutboardImage::mutable_img() {
   return img_;
 }
 inline ::dg::model::Image* CutboardImage::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;
@@ -2409,7 +2654,6 @@ inline ::std::string* Color::mutable_colorname() {
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Color::release_colorname() {
-  // @@protoc_insertion_point(field_release:dg.model.Color.ColorName)
   
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2471,7 +2715,6 @@ inline ::std::string* FeatureVector::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FeatureVector::release_feature() {
-  // @@protoc_insertion_point(field_release:dg.model.FeatureVector.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2523,7 +2766,6 @@ inline ::std::string* Image::mutable_id() {
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_id() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.Id)
   
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2595,7 +2837,6 @@ inline ::std::string* Image::mutable_uri() {
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_uri() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.URI)
   
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2639,7 +2880,6 @@ inline ::std::string* Image::mutable_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_bindata() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2692,7 +2932,6 @@ inline ::dg::model::CutboardImage* RecFace::mutable_img() {
   return img_;
 }
 inline ::dg::model::CutboardImage* RecFace::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.RecFace.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -2739,7 +2978,6 @@ inline ::std::string* RecFace::mutable_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecFace::release_features() {
-  // @@protoc_insertion_point(field_release:dg.model.RecFace.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2769,78 +3007,331 @@ inline void RecFace::set_confidence(float value) {
 
 // -------------------------------------------------------------------
 
-// PedestrianAttr
+// NameAndConfidence
 
-// optional int32 AttrId = 1;
-inline void PedestrianAttr::clear_attrid() {
-  attrid_ = 0;
+// optional string Name = 1;
+inline void NameAndConfidence::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::int32 PedestrianAttr::attrid() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrId)
-  return attrid_;
+inline const ::std::string& NameAndConfidence::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void PedestrianAttr::set_attrid(::google::protobuf::int32 value) {
+inline void NameAndConfidence::set_name(const ::std::string& value) {
   
-  attrid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrId)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Name)
 }
-
-// optional string AttrName = 2;
-inline void PedestrianAttr::clear_attrname() {
-  attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline const ::std::string& PedestrianAttr::attrname() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrName)
-  return attrname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void PedestrianAttr::set_attrname(const ::std::string& value) {
+inline void NameAndConfidence::set_name(const char* value) {
   
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrName)
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.NameAndConfidence.Name)
 }
-inline void PedestrianAttr::set_attrname(const char* value) {
+inline void NameAndConfidence::set_name(const char* value, size_t size) {
   
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.AttrName)
-}
-inline void PedestrianAttr::set_attrname(const char* value, size_t size) {
-  
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.AttrName)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.NameAndConfidence.Name)
 }
-inline ::std::string* PedestrianAttr::mutable_attrname() {
+inline ::std::string* NameAndConfidence::mutable_name() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.AttrName)
-  return attrname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:dg.model.NameAndConfidence.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* PedestrianAttr::release_attrname() {
-  // @@protoc_insertion_point(field_release:dg.model.PedestrianAttr.AttrName)
+inline ::std::string* NameAndConfidence::release_name() {
   
-  return attrname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void PedestrianAttr::set_allocated_attrname(::std::string* attrname) {
-  if (attrname != NULL) {
+inline void NameAndConfidence::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
     
   } else {
     
   }
-  attrname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), attrname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.AttrName)
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.NameAndConfidence.Name)
 }
 
-// optional float Confidence = 3;
-inline void PedestrianAttr::clear_confidence() {
+// optional float Confidence = 2;
+inline void NameAndConfidence::clear_confidence() {
   confidence_ = 0;
 }
-inline float PedestrianAttr::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Confidence)
+inline float NameAndConfidence::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Confidence)
   return confidence_;
 }
-inline void PedestrianAttr::set_confidence(float value) {
+inline void NameAndConfidence::set_confidence(float value) {
   
   confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Confidence)
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Confidence)
+}
+
+// -------------------------------------------------------------------
+
+// PedestrianAttr
+
+// optional .dg.model.SexType Sex = 1;
+inline void PedestrianAttr::clear_sex() {
+  sex_ = 0;
+}
+inline ::dg::model::SexType PedestrianAttr::sex() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Sex)
+  return static_cast< ::dg::model::SexType >(sex_);
+}
+inline void PedestrianAttr::set_sex(::dg::model::SexType value) {
+  
+  sex_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Sex)
+}
+
+// optional float SexConfidence = 2;
+inline void PedestrianAttr::clear_sexconfidence() {
+  sexconfidence_ = 0;
+}
+inline float PedestrianAttr::sexconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.SexConfidence)
+  return sexconfidence_;
+}
+inline void PedestrianAttr::set_sexconfidence(float value) {
+  
+  sexconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.SexConfidence)
+}
+
+// optional .dg.model.NationalType National = 3;
+inline void PedestrianAttr::clear_national() {
+  national_ = 0;
+}
+inline ::dg::model::NationalType PedestrianAttr::national() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
+  return static_cast< ::dg::model::NationalType >(national_);
+}
+inline void PedestrianAttr::set_national(::dg::model::NationalType value) {
+  
+  national_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.National)
+}
+
+// optional float NationalConfidence = 4;
+inline void PedestrianAttr::clear_nationalconfidence() {
+  nationalconfidence_ = 0;
+}
+inline float PedestrianAttr::nationalconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.NationalConfidence)
+  return nationalconfidence_;
+}
+inline void PedestrianAttr::set_nationalconfidence(float value) {
+  
+  nationalconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.NationalConfidence)
+}
+
+// optional .dg.model.AgeType Age = 5;
+inline void PedestrianAttr::clear_age() {
+  age_ = 0;
+}
+inline ::dg::model::AgeType PedestrianAttr::age() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Age)
+  return static_cast< ::dg::model::AgeType >(age_);
+}
+inline void PedestrianAttr::set_age(::dg::model::AgeType value) {
+  
+  age_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Age)
+}
+
+// optional float AgeConfidence = 6;
+inline void PedestrianAttr::clear_ageconfidence() {
+  ageconfidence_ = 0;
+}
+inline float PedestrianAttr::ageconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AgeConfidence)
+  return ageconfidence_;
+}
+inline void PedestrianAttr::set_ageconfidence(float value) {
+  
+  ageconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AgeConfidence)
+}
+
+// repeated .dg.model.NameAndConfidence HeadWears = 7;
+inline int PedestrianAttr::headwears_size() const {
+  return headwears_.size();
+}
+inline void PedestrianAttr::clear_headwears() {
+  headwears_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::headwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_headwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_headwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_headwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.HeadWears)
+  return &headwears_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::headwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.HeadWears)
+  return headwears_;
+}
+
+// repeated .dg.model.NameAndConfidence BodyWears = 8;
+inline int PedestrianAttr::bodywears_size() const {
+  return bodywears_.size();
+}
+inline void PedestrianAttr::clear_bodywears() {
+  bodywears_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::bodywears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_bodywears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_bodywears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_bodywears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.BodyWears)
+  return &bodywears_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::bodywears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_;
+}
+
+// repeated .dg.model.NameAndConfidence UpperWears = 9;
+inline int PedestrianAttr::upperwears_size() const {
+  return upperwears_.size();
+}
+inline void PedestrianAttr::clear_upperwears() {
+  upperwears_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::upperwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_upperwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_upperwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_upperwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperWears)
+  return &upperwears_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::upperwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_;
+}
+
+// repeated .dg.model.NameAndConfidence LowerWears = 10;
+inline int PedestrianAttr::lowerwears_size() const {
+  return lowerwears_.size();
+}
+inline void PedestrianAttr::clear_lowerwears() {
+  lowerwears_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::lowerwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowerwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_lowerwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_lowerwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerWears)
+  return &lowerwears_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::lowerwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_;
+}
+
+// repeated .dg.model.NameAndConfidence UpperColors = 11;
+inline int PedestrianAttr::uppercolors_size() const {
+  return uppercolors_.size();
+}
+inline void PedestrianAttr::clear_uppercolors() {
+  uppercolors_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::uppercolors(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_uppercolors(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_uppercolors() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_uppercolors() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperColors)
+  return &uppercolors_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::uppercolors() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_;
+}
+
+// repeated .dg.model.NameAndConfidence LowerColors = 12;
+inline int PedestrianAttr::lowercolors_size() const {
+  return lowercolors_.size();
+}
+inline void PedestrianAttr::clear_lowercolors() {
+  lowercolors_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::lowercolors(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowercolors(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::add_lowercolors() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_lowercolors() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerColors)
+  return &lowercolors_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::lowercolors() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_;
 }
 
 // -------------------------------------------------------------------
@@ -2882,7 +3373,6 @@ inline ::dg::model::VehicleModelType* RecVehicle::mutable_modeltype() {
   return modeltype_;
 }
 inline ::dg::model::VehicleModelType* RecVehicle::release_modeltype() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.ModelType)
   
   ::dg::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
@@ -2920,7 +3410,6 @@ inline ::dg::model::Color* RecVehicle::mutable_color() {
   return color_;
 }
 inline ::dg::model::Color* RecVehicle::release_color() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -2958,7 +3447,6 @@ inline ::dg::model::LicensePlate* RecVehicle::mutable_plate() {
   return plate_;
 }
 inline ::dg::model::LicensePlate* RecVehicle::release_plate() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Plate)
   
   ::dg::model::LicensePlate* temp = plate_;
   plate_ = NULL;
@@ -2996,7 +3484,6 @@ inline ::dg::model::CutboardImage* RecVehicle::mutable_img() {
   return img_;
 }
 inline ::dg::model::CutboardImage* RecVehicle::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3073,7 +3560,6 @@ inline ::std::string* RecVehicle::mutable_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecVehicle::release_features() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3131,7 +3617,6 @@ inline ::std::string* RecVehicle::mutable_vehicletypename() {
   return vehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RecVehicle::release_vehicletypename() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.VehicleTypeName)
   
   return vehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3145,34 +3630,41 @@ inline void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletype
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
 }
 
-// repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-inline int RecVehicle::pedestrianattrs_size() const {
-  return pedestrianattrs_.size();
+// optional .dg.model.PedestrianAttr PedesAttr = 10;
+inline bool RecVehicle::has_pedesattr() const {
+  return !_is_default_instance_ && pedesattr_ != NULL;
 }
-inline void RecVehicle::clear_pedestrianattrs() {
-  pedestrianattrs_.Clear();
+inline void RecVehicle::clear_pedesattr() {
+  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
+  pedesattr_ = NULL;
 }
-inline const ::dg::model::PedestrianAttr& RecVehicle::pedestrianattrs(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Get(index);
+inline const ::dg::model::PedestrianAttr& RecVehicle::pedesattr() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedesAttr)
+  return pedesattr_ != NULL ? *pedesattr_ : *default_instance_->pedesattr_;
 }
-inline ::dg::model::PedestrianAttr* RecVehicle::mutable_pedestrianattrs(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Mutable(index);
+inline ::dg::model::PedestrianAttr* RecVehicle::mutable_pedesattr() {
+  
+  if (pedesattr_ == NULL) {
+    pedesattr_ = new ::dg::model::PedestrianAttr;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedesAttr)
+  return pedesattr_;
 }
-inline ::dg::model::PedestrianAttr* RecVehicle::add_pedestrianattrs() {
-  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Add();
+inline ::dg::model::PedestrianAttr* RecVehicle::release_pedesattr() {
+  
+  ::dg::model::PedestrianAttr* temp = pedesattr_;
+  pedesattr_ = NULL;
+  return temp;
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >*
-RecVehicle::mutable_pedestrianattrs() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.PedestrianAttrs)
-  return &pedestrianattrs_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
-RecVehicle::pedestrianattrs() const {
-  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_;
+inline void RecVehicle::set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr) {
+  delete pedesattr_;
+  pedesattr_ = pedesattr;
+  if (pedesattr) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.PedesAttr)
 }
 
 // repeated .dg.model.LicensePlate Plates = 11;
@@ -3309,7 +3801,6 @@ inline ::std::string* VehicleModelType::mutable_type() {
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_type() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Type)
   
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3353,7 +3844,6 @@ inline ::std::string* VehicleModelType::mutable_brand() {
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_brand() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Brand)
   
   return brand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3397,7 +3887,6 @@ inline ::std::string* VehicleModelType::mutable_subbrand() {
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_subbrand() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.SubBrand)
   
   return subbrand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3441,7 +3930,6 @@ inline ::std::string* VehicleModelType::mutable_modelyear() {
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_modelyear() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.ModelYear)
   
   return modelyear_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3499,7 +3987,6 @@ inline ::std::string* VehicleModelType::mutable_model() {
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_model() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Model)
   
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3561,7 +4048,6 @@ inline ::std::string* LicensePlate::mutable_platetext() {
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_platetext() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.PlateText)
   
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3596,7 +4082,6 @@ inline ::dg::model::Color* LicensePlate::mutable_color() {
   return color_;
 }
 inline ::dg::model::Color* LicensePlate::release_color() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -3657,7 +4142,6 @@ inline ::std::string* LicensePlate::mutable_typename_() {
   return typename__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_typename_() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.TypeName)
   
   return typename__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3706,7 +4190,6 @@ inline ::dg::model::Cutboard* LicensePlate::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* LicensePlate::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -3785,7 +4268,6 @@ inline ::std::string* VehicleSymbol::mutable_symbolname() {
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleSymbol::release_symbolname() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleSymbol.SymbolName)
   
   return symbolname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3854,7 +4336,6 @@ inline ::dg::model::Cutboard* Symbol::mutable_cutboard() {
   return cutboard_;
 }
 inline ::dg::model::Cutboard* Symbol::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.Symbol.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -3919,7 +4400,6 @@ inline ::std::string* StorageConfig::mutable_address() {
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* StorageConfig::release_address() {
-  // @@protoc_insertion_point(field_release:dg.model.StorageConfig.Address)
   
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3976,7 +4456,6 @@ inline void StorageConfig::set_tags(int index, const char* value, size_t size) {
   // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
 }
 inline ::std::string* StorageConfig::add_tags() {
-  // @@protoc_insertion_point(field_add_mutable:dg.model.StorageConfig.Tags)
   return tags_.Add();
 }
 inline void StorageConfig::add_tags(const ::std::string& value) {
@@ -4027,7 +4506,6 @@ inline ::dg::model::SrcMetadata* VehicleObj::mutable_metadata() {
   return metadata_;
 }
 inline ::dg::model::SrcMetadata* VehicleObj::release_metadata() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Metadata)
   
   ::dg::model::SrcMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4065,7 +4543,6 @@ inline ::dg::model::Image* VehicleObj::mutable_img() {
   return img_;
 }
 inline ::dg::model::Image* VehicleObj::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;
@@ -4143,6 +4620,8 @@ VehicleObj::vehicle() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -4162,6 +4641,21 @@ template <> struct is_proto_enum< ::dg::model::DataFmtType> : ::google::protobuf
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::DataFmtType>() {
   return ::dg::model::DataFmtType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::SexType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::SexType>() {
+  return ::dg::model::SexType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::NationalType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::NationalType>() {
+  return ::dg::model::NationalType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::AgeType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::AgeType>() {
+  return ::dg::model::AgeType_descriptor();
 }
 template <> struct is_proto_enum< ::dg::model::DBType> : ::google::protobuf::internal::true_type {};
 template <>

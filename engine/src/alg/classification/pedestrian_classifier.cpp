@@ -59,15 +59,18 @@ void PedestrianClassifier::LoadTagnames(const string &name_list) {
     ifstream fp(name_list);
     tagtable_.resize(0);
     while (!fp.eof()) {
-        string tagname = "", indexstr = "";
+        string tagname = "", indexstr = "", threshold = "", threshold_t = "";
         fp >> tagname;
         fp >> indexstr;
-        if (tagname == "" || indexstr == "")
+		fp >> threshold;
+		fp >> threshold_t;
+        if (tagname == "" || indexstr == "" || threshold == "")
             continue;
-
         Tag tag;
         tag.index = atof(indexstr.c_str());
         tag.tagname = tagname;
+		tag.threshold = atof(threshold.c_str());
+		tag.threshold_t = atof(threshold_t.c_str());
         tagtable_.push_back(tag);
     }
 }
@@ -136,7 +139,6 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
     if (imgs.size() == 0)
         return attrc;
     vector<vector<float> > results;
-
     AttributePredict(imgs, results);
     for (size_t idx = 0; idx < results.size(); idx++) {
         std::vector<PedestrianClassifier::PedestrianAttribute> attrs;
@@ -144,6 +146,8 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
             PedestrianClassifier::PedestrianAttribute attr;
             attr.index = tagtable_[a_idx].index;
             attr.tagname = tagtable_[a_idx].tagname;
+			attr.threshold = tagtable_[a_idx].threshold;
+			attr.threshold_t = tagtable_[a_idx].threshold_t;
             attr.confidence = results[idx][a_idx];
             attrs.push_back(attr);
         }
