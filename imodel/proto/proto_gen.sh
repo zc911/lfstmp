@@ -18,6 +18,8 @@ if [ "$1" == "cpp" ]; then
     protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} matrix.proto
     protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} spring.proto
     protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} localcommon.proto
+    protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} dataservice.proto
+    protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} deepdatasingle.proto
 elif [ "$1" == "python" ]; then
     grpc_x_plugin=`which grpc_python_plugin`
     target="--python_out"
