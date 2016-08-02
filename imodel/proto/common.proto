@@ -84,10 +84,44 @@ message RecFace {
     float Confidence = 4;
 }
 
+enum SexType {
+    SEX_TYPE_UNKNOWN = 0;
+    SEX_TYPE_MALE = 1;
+    SEX_TYPE_FEMALE = 2;
+}
+
+enum NationalType {
+    NATIONAL_TYPE_UNKNOWN = 0;
+    NATIONAL_TYPE_HAN = 1;
+    NATIONAL_TYPE_MINORITY = 2;
+}
+
+enum AgeType {
+    AGE_TYPE_UNKNOWN = 0;
+    AGE_TYPE_LT15 = 1;
+    AGE_TYPE_1530 = 2;
+    AGE_TYPE_3050 = 3;
+    AGE_TYPE_50UP = 4;
+}
+
+message NameAndConfidence {
+    string Name = 1;
+    float Confidence = 2;
+}
+
 message PedestrianAttr {
-    int32 AttrId = 1;
-    string AttrName = 2;
-    float Confidence = 3;
+    SexType Sex = 1;
+    float SexConfidence = 2;
+    NationalType National = 3;
+    float NationalConfidence = 4;
+    AgeType Age = 5;
+    float AgeConfidence = 6;
+    repeated NameAndConfidence HeadWears = 7;
+    repeated NameAndConfidence BodyWears = 8;
+    repeated NameAndConfidence UpperWears = 9;
+    repeated NameAndConfidence LowerWears = 10;
+    repeated NameAndConfidence UpperColors = 11;
+    repeated NameAndConfidence LowerColors = 12;
 }
 
 message RecVehicle {
@@ -100,7 +134,7 @@ message RecVehicle {
     string Features = 7;
     ObjType VehicleType = 8;
     string VehicleTypeName = 9;
-    repeated PedestrianAttr PedestrianAttrs = 10;
+    PedestrianAttr PedesAttr = 10;
     repeated LicensePlate Plates = 11;
 }
 

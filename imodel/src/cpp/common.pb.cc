@@ -46,6 +46,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* RecFace_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RecFace_reflection_ = NULL;
+const ::google::protobuf::Descriptor* NameAndConfidence_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  NameAndConfidence_reflection_ = NULL;
 const ::google::protobuf::Descriptor* PedestrianAttr_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PedestrianAttr_reflection_ = NULL;
@@ -72,6 +75,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
   VehicleObj_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* ObjType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* SexType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* NationalType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* AgeType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DBType_descriptor_ = NULL;
 
 }  // namespace
@@ -225,11 +231,36 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecFace),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _is_default_instance_));
-  PedestrianAttr_descriptor_ = file->message_type(8);
-  static const int PedestrianAttr_offsets_[3] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, attrid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, attrname_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, confidence_),
+  NameAndConfidence_descriptor_ = file->message_type(8);
+  static const int NameAndConfidence_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, confidence_),
+  };
+  NameAndConfidence_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      NameAndConfidence_descriptor_,
+      NameAndConfidence::default_instance_,
+      NameAndConfidence_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(NameAndConfidence),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _is_default_instance_));
+  PedestrianAttr_descriptor_ = file->message_type(9);
+  static const int PedestrianAttr_offsets_[12] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, sex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, sexconfidence_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, national_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, nationalconfidence_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, age_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, ageconfidence_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, headwears_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, bodywears_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, upperwears_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, lowerwears_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, uppercolors_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, lowercolors_),
   };
   PedestrianAttr_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -242,7 +273,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(PedestrianAttr),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _is_default_instance_));
-  RecVehicle_descriptor_ = file->message_type(9);
+  RecVehicle_descriptor_ = file->message_type(10);
   static const int RecVehicle_offsets_[11] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, modeltype_),
@@ -253,7 +284,7 @@ void protobuf_AssignDesc_common_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, features_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletypename_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, pedestrianattrs_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, pedesattr_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, plates_),
   };
   RecVehicle_reflection_ =
@@ -267,7 +298,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _is_default_instance_));
-  VehicleModelType_descriptor_ = file->message_type(10);
+  VehicleModelType_descriptor_ = file->message_type(11);
   static const int VehicleModelType_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, brandid_),
@@ -293,7 +324,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleModelType),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(11);
+  LicensePlate_descriptor_ = file->message_type(12);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
@@ -314,7 +345,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  VehicleSymbol_descriptor_ = file->message_type(12);
+  VehicleSymbol_descriptor_ = file->message_type(13);
   static const int VehicleSymbol_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolname_),
@@ -331,7 +362,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleSymbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(13);
+  Symbol_descriptor_ = file->message_type(14);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -347,7 +378,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  StorageConfig_descriptor_ = file->message_type(14);
+  StorageConfig_descriptor_ = file->message_type(15);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
@@ -364,7 +395,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
-  VehicleObj_descriptor_ = file->message_type(15);
+  VehicleObj_descriptor_ = file->message_type(16);
   static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
@@ -383,7 +414,10 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _is_default_instance_));
   ObjType_descriptor_ = file->enum_type(0);
   DataFmtType_descriptor_ = file->enum_type(1);
-  DBType_descriptor_ = file->enum_type(2);
+  SexType_descriptor_ = file->enum_type(2);
+  NationalType_descriptor_ = file->enum_type(3);
+  AgeType_descriptor_ = file->enum_type(4);
+  DBType_descriptor_ = file->enum_type(5);
 }
 
 namespace {
@@ -412,6 +446,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Image_descriptor_, &Image::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecFace_descriptor_, &RecFace::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      NameAndConfidence_descriptor_, &NameAndConfidence::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       PedestrianAttr_descriptor_, &PedestrianAttr::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -449,6 +485,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete Image_reflection_;
   delete RecFace::default_instance_;
   delete RecFace_reflection_;
+  delete NameAndConfidence::default_instance_;
+  delete NameAndConfidence_reflection_;
   delete PedestrianAttr::default_instance_;
   delete PedestrianAttr_reflection_;
   delete RecVehicle::default_instance_;
@@ -491,52 +529,70 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022\n\n\002Id"
     "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
     "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
-    "(\002\"F\n\016PedestrianAttr\022\016\n\006AttrId\030\001 \001(\005\022\020\n\010"
-    "AttrName\030\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"\214\003\n\nR"
-    "ecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\013"
-    "2\032.dg.model.VehicleModelType\022\036\n\005Color\030\003 "
-    "\001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg"
-    ".model.LicensePlate\022$\n\003Img\030\005 \001(\0132\027.dg.mo"
-    "del.CutboardImage\022(\n\007Symbols\030\006 \003(\0132\027.dg."
-    "model.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n"
-    "\013VehicleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n"
-    "\017VehicleTypeName\030\t \001(\t\0221\n\017PedestrianAttr"
-    "s\030\n \003(\0132\030.dg.model.PedestrianAttr\022&\n\006Pla"
-    "tes\030\013 \003(\0132\026.dg.model.LicensePlate\"\335\001\n\020Ve"
-    "hicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 "
-    "\001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004"
-    " \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r"
-    "\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModel"
-    "Year\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001("
-    "\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPl"
-    "ateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model."
-    "Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022"
-    "\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022."
-    "dg.model.Cutboard\022\037\n\027LocalProvinceConfid"
-    "ence\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030"
-    "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
-    "(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboa"
-    "rd\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfiden"
-    "ce\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001"
-    "(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Ta"
-    "gs\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\013"
-    "2\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.d"
-    "g.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mode"
-    "l.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNK"
-    "NOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BIC"
-    "YCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYP"
-    "E_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OB"
-    "J_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BIC"
-    "YCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECT"
-    "OR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031"
-    "\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VE"
-    "HICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CU"
-    "TBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020"
-    "\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n"
-    "\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtTyp"
-    "e\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020"
-    "\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000"
-    "b\006proto3", 2488);
+    "(\002\"5\n\021NameAndConfidence\022\014\n\004Name\030\001 \001(\t\022\022\n"
+    "\nConfidence\030\002 \001(\002\"\352\003\n\016PedestrianAttr\022\036\n\003"
+    "Sex\030\001 \001(\0162\021.dg.model.SexType\022\025\n\rSexConfi"
+    "dence\030\002 \001(\002\022(\n\010National\030\003 \001(\0162\026.dg.model"
+    ".NationalType\022\032\n\022NationalConfidence\030\004 \001("
+    "\002\022\036\n\003Age\030\005 \001(\0162\021.dg.model.AgeType\022\025\n\rAge"
+    "Confidence\030\006 \001(\002\022.\n\tHeadWears\030\007 \003(\0132\033.dg"
+    ".model.NameAndConfidence\022.\n\tBodyWears\030\010 "
+    "\003(\0132\033.dg.model.NameAndConfidence\022/\n\nUppe"
+    "rWears\030\t \003(\0132\033.dg.model.NameAndConfidenc"
+    "e\022/\n\nLowerWears\030\n \003(\0132\033.dg.model.NameAnd"
+    "Confidence\0220\n\013UpperColors\030\013 \003(\0132\033.dg.mod"
+    "el.NameAndConfidence\0220\n\013LowerColors\030\014 \003("
+    "\0132\033.dg.model.NameAndConfidence\"\206\003\n\nRecVe"
+    "hicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.d"
+    "g.model.VehicleModelType\022\036\n\005Color\030\003 \001(\0132"
+    "\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg.mod"
+    "el.LicensePlate\022$\n\003Img\030\005 \001(\0132\027.dg.model."
+    "CutboardImage\022(\n\007Symbols\030\006 \003(\0132\027.dg.mode"
+    "l.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n\013Veh"
+    "icleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n\017Veh"
+    "icleTypeName\030\t \001(\t\022+\n\tPedesAttr\030\n \001(\0132\030."
+    "dg.model.PedestrianAttr\022&\n\006Plates\030\013 \003(\0132"
+    "\026.dg.model.LicensePlate\"\335\001\n\020VehicleModel"
+    "Type\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSub"
+    "BrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nCo"
+    "nfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 "
+    "\001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t"
+    "\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHea"
+    "d\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPlateText\030\001 "
+    "\001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Color\022\016\n\006T"
+    "ypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfide"
+    "nce\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.C"
+    "utboard\022\037\n\027LocalProvinceConfidence\030\007 \001(\002"
+    "\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nS"
+    "ymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.mo"
+    "del.Symbol\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022"
+    ".dg.model.Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N"
+    "\n\rStorageConfig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type"
+    "\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z"
+    "\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.mode"
+    "l.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Im"
+    "age\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model.RecVehic"
+    "le*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014"
+    "OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021"
+    "OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRI"
+    "AN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEH"
+    "ICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTO"
+    "R\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032O"
+    "BJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE"
+    "_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTB"
+    "OARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022"
+    "\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_"
+    "TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_"
+    "FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNO"
+    "WNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003"
+    "\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN"
+    "\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE"
+    "\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKN"
+    "OWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL"
+    "_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_"
+    "UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE"
+    "_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_5"
+    "0UP\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006proto3", 3234);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -547,6 +603,7 @@ void protobuf_AddDesc_common_2eproto() {
   NullMessage::default_instance_ = new NullMessage();
   Image::default_instance_ = new Image();
   RecFace::default_instance_ = new RecFace();
+  NameAndConfidence::default_instance_ = new NameAndConfidence();
   PedestrianAttr::default_instance_ = new PedestrianAttr();
   RecVehicle::default_instance_ = new RecVehicle();
   VehicleModelType::default_instance_ = new VehicleModelType();
@@ -563,6 +620,7 @@ void protobuf_AddDesc_common_2eproto() {
   NullMessage::default_instance_->InitAsDefaultInstance();
   Image::default_instance_->InitAsDefaultInstance();
   RecFace::default_instance_->InitAsDefaultInstance();
+  NameAndConfidence::default_instance_->InitAsDefaultInstance();
   PedestrianAttr::default_instance_->InitAsDefaultInstance();
   RecVehicle::default_instance_->InitAsDefaultInstance();
   VehicleModelType::default_instance_->InitAsDefaultInstance();
@@ -613,6 +671,53 @@ const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor() {
   return DataFmtType_descriptor_;
 }
 bool DataFmtType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* SexType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SexType_descriptor_;
+}
+bool SexType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* NationalType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NationalType_descriptor_;
+}
+bool NationalType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* AgeType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return AgeType_descriptor_;
+}
+bool AgeType_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
@@ -731,17 +836,8 @@ SrcMetadata* SrcMetadata::New(::google::protobuf::Arena* arena) const {
 }
 
 void SrcMetadata::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.SrcMetadata)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(SrcMetadata, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<SrcMetadata*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -761,7 +857,7 @@ void SrcMetadata::Clear() {
 
 bool SrcMetadata::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SrcMetadata)
   for (;;) {
@@ -1017,7 +1113,6 @@ void SrcMetadata::SerializeWithCachedSizes(
 }
 
 int SrcMetadata::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.SrcMetadata)
   int total_size = 0;
 
   // optional int64 Timestamp = 1;
@@ -1076,22 +1171,18 @@ int SrcMetadata::ByteSize() const {
 }
 
 void SrcMetadata::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SrcMetadata)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SrcMetadata* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SrcMetadata>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SrcMetadata)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SrcMetadata)
     MergeFrom(*source);
   }
 }
 
 void SrcMetadata::MergeFrom(const SrcMetadata& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SrcMetadata)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.timestamp() != 0) {
     set_timestamp(from.timestamp());
@@ -1120,14 +1211,12 @@ void SrcMetadata::MergeFrom(const SrcMetadata& from) {
 }
 
 void SrcMetadata::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SrcMetadata)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SrcMetadata::CopyFrom(const SrcMetadata& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SrcMetadata)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1237,7 +1326,6 @@ void SrcMetadata::clear_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SrcMetadata::release_sensorname() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1281,7 +1369,6 @@ void SrcMetadata::clear_sensorurl() {
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SrcMetadata::release_sensorurl() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.SensorUrl)
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1339,7 +1426,6 @@ void SrcMetadata::clear_repoinfo() {
   return repoinfo_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SrcMetadata::release_repoinfo() {
-  // @@protoc_insertion_point(field_release:dg.model.SrcMetadata.RepoInfo)
   
   return repoinfo_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1433,17 +1519,8 @@ Cutboard* Cutboard::New(::google::protobuf::Arena* arena) const {
 }
 
 void Cutboard::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.Cutboard)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Cutboard, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Cutboard*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -1459,7 +1536,7 @@ void Cutboard::Clear() {
 
 bool Cutboard::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Cutboard)
   for (;;) {
@@ -1676,7 +1753,6 @@ void Cutboard::SerializeWithCachedSizes(
 }
 
 int Cutboard::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.Cutboard)
   int total_size = 0;
 
   // optional uint32 X = 1;
@@ -1733,22 +1809,18 @@ int Cutboard::ByteSize() const {
 }
 
 void Cutboard::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Cutboard)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Cutboard* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Cutboard>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Cutboard)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Cutboard)
     MergeFrom(*source);
   }
 }
 
 void Cutboard::MergeFrom(const Cutboard& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Cutboard)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.x() != 0) {
     set_x(from.x());
@@ -1774,14 +1846,12 @@ void Cutboard::MergeFrom(const Cutboard& from) {
 }
 
 void Cutboard::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Cutboard)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Cutboard::CopyFrom(const Cutboard& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Cutboard)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1991,7 +2061,6 @@ CutboardImage* CutboardImage::New(::google::protobuf::Arena* arena) const {
 }
 
 void CutboardImage::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.CutboardImage)
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
@@ -2000,7 +2069,7 @@ void CutboardImage::Clear() {
 
 bool CutboardImage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.CutboardImage)
   for (;;) {
@@ -2094,7 +2163,6 @@ void CutboardImage::SerializeWithCachedSizes(
 }
 
 int CutboardImage::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.CutboardImage)
   int total_size = 0;
 
   // optional .dg.model.Cutboard Cutboard = 1;
@@ -2118,22 +2186,18 @@ int CutboardImage::ByteSize() const {
 }
 
 void CutboardImage::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.CutboardImage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CutboardImage* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CutboardImage>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.CutboardImage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.CutboardImage)
     MergeFrom(*source);
   }
 }
 
 void CutboardImage::MergeFrom(const CutboardImage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.CutboardImage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_cutboard()) {
     mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
@@ -2144,14 +2208,12 @@ void CutboardImage::MergeFrom(const CutboardImage& from) {
 }
 
 void CutboardImage::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.CutboardImage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CutboardImage::CopyFrom(const CutboardImage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.CutboardImage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2205,7 +2267,6 @@ const ::dg::model::Cutboard& CutboardImage::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* CutboardImage::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2243,7 +2304,6 @@ const ::dg::model::Image& CutboardImage::img() const {
   return img_;
 }
 ::dg::model::Image* CutboardImage::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.CutboardImage.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;
@@ -2334,17 +2394,8 @@ Color* Color::New(::google::protobuf::Arena* arena) const {
 }
 
 void Color::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.Color)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Color, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Color*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -2361,7 +2412,7 @@ void Color::Clear() {
 
 bool Color::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Color)
   for (;;) {
@@ -2491,7 +2542,6 @@ void Color::SerializeWithCachedSizes(
 }
 
 int Color::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.Color)
   int total_size = 0;
 
   // optional int32 ColorId = 1;
@@ -2520,22 +2570,18 @@ int Color::ByteSize() const {
 }
 
 void Color::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Color)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Color* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Color>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Color)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Color)
     MergeFrom(*source);
   }
 }
 
 void Color::MergeFrom(const Color& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Color)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.colorid() != 0) {
     set_colorid(from.colorid());
@@ -2550,14 +2596,12 @@ void Color::MergeFrom(const Color& from) {
 }
 
 void Color::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Color::CopyFrom(const Color& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2649,7 +2693,6 @@ void Color::clear_colorname() {
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Color::release_colorname() {
-  // @@protoc_insertion_point(field_release:dg.model.Color.ColorName)
   
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2735,14 +2778,13 @@ FeatureVector* FeatureVector::New(::google::protobuf::Arena* arena) const {
 }
 
 void FeatureVector::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.FeatureVector)
   id_ = GOOGLE_LONGLONG(0);
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool FeatureVector::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.FeatureVector)
   for (;;) {
@@ -2847,7 +2889,6 @@ void FeatureVector::SerializeWithCachedSizes(
 }
 
 int FeatureVector::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.FeatureVector)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -2871,22 +2912,18 @@ int FeatureVector::ByteSize() const {
 }
 
 void FeatureVector::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.FeatureVector)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const FeatureVector* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FeatureVector>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.FeatureVector)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.FeatureVector)
     MergeFrom(*source);
   }
 }
 
 void FeatureVector::MergeFrom(const FeatureVector& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.FeatureVector)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -2898,14 +2935,12 @@ void FeatureVector::MergeFrom(const FeatureVector& from) {
 }
 
 void FeatureVector::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.FeatureVector)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void FeatureVector::CopyFrom(const FeatureVector& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.FeatureVector)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2982,7 +3017,6 @@ void FeatureVector::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* FeatureVector::release_feature() {
-  // @@protoc_insertion_point(field_release:dg.model.FeatureVector.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3062,12 +3096,11 @@ NullMessage* NullMessage::New(::google::protobuf::Arena* arena) const {
 }
 
 void NullMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.NullMessage)
 }
 
 bool NullMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.NullMessage)
   for (;;) {
@@ -3105,7 +3138,6 @@ void NullMessage::SerializeWithCachedSizes(
 }
 
 int NullMessage::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.NullMessage)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3115,34 +3147,28 @@ int NullMessage::ByteSize() const {
 }
 
 void NullMessage::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.NullMessage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const NullMessage* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const NullMessage>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.NullMessage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.NullMessage)
     MergeFrom(*source);
   }
 }
 
 void NullMessage::MergeFrom(const NullMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.NullMessage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void NullMessage::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.NullMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void NullMessage::CopyFrom(const NullMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.NullMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3253,17 +3279,8 @@ Image* Image::New(::google::protobuf::Arena* arena) const {
 }
 
 void Image::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.Image)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(Image, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Image*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -3282,7 +3299,7 @@ void Image::Clear() {
 
 bool Image::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Image)
   for (;;) {
@@ -3488,7 +3505,6 @@ void Image::SerializeWithCachedSizes(
 }
 
 int Image::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.Image)
   int total_size = 0;
 
   // optional string Id = 1;
@@ -3533,22 +3549,18 @@ int Image::ByteSize() const {
 }
 
 void Image::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Image)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Image* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Image>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Image)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Image)
     MergeFrom(*source);
   }
 }
 
 void Image::MergeFrom(const Image& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Image)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id().size() > 0) {
 
@@ -3571,14 +3583,12 @@ void Image::MergeFrom(const Image& from) {
 }
 
 void Image::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Image)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Image::CopyFrom(const Image& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Image)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3644,7 +3654,6 @@ void Image::clear_id() {
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Image::release_id() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.Id)
   
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3716,7 +3725,6 @@ void Image::clear_uri() {
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Image::release_uri() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.URI)
   
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3760,7 +3768,6 @@ void Image::clear_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Image::release_bindata() {
-  // @@protoc_insertion_point(field_release:dg.model.Image.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3852,7 +3859,6 @@ RecFace* RecFace::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecFace::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.RecFace)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
   img_ = NULL;
@@ -3862,7 +3868,7 @@ void RecFace::Clear() {
 
 bool RecFace::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecFace)
   for (;;) {
@@ -4018,7 +4024,6 @@ void RecFace::SerializeWithCachedSizes(
 }
 
 int RecFace::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.RecFace)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -4054,22 +4059,18 @@ int RecFace::ByteSize() const {
 }
 
 void RecFace::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecFace)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecFace* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecFace>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecFace)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecFace)
     MergeFrom(*source);
   }
 }
 
 void RecFace::MergeFrom(const RecFace& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecFace)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -4087,14 +4088,12 @@ void RecFace::MergeFrom(const RecFace& from) {
 }
 
 void RecFace::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecFace)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecFace::CopyFrom(const RecFace& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecFace)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4164,7 +4163,6 @@ const ::dg::model::CutboardImage& RecFace::img() const {
   return img_;
 }
 ::dg::model::CutboardImage* RecFace::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.RecFace.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -4211,7 +4209,6 @@ void RecFace::clear_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecFace::release_features() {
-  // @@protoc_insertion_point(field_release:dg.model.RecFace.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4244,9 +4241,340 @@ void RecFace::clear_confidence() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PedestrianAttr::kAttrIdFieldNumber;
-const int PedestrianAttr::kAttrNameFieldNumber;
-const int PedestrianAttr::kConfidenceFieldNumber;
+const int NameAndConfidence::kNameFieldNumber;
+const int NameAndConfidence::kConfidenceFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+NameAndConfidence::NameAndConfidence()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.NameAndConfidence)
+}
+
+void NameAndConfidence::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+NameAndConfidence::NameAndConfidence(const NameAndConfidence& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.NameAndConfidence)
+}
+
+void NameAndConfidence::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  confidence_ = 0;
+}
+
+NameAndConfidence::~NameAndConfidence() {
+  // @@protoc_insertion_point(destructor:dg.model.NameAndConfidence)
+  SharedDtor();
+}
+
+void NameAndConfidence::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void NameAndConfidence::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* NameAndConfidence::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NameAndConfidence_descriptor_;
+}
+
+const NameAndConfidence& NameAndConfidence::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+NameAndConfidence* NameAndConfidence::default_instance_ = NULL;
+
+NameAndConfidence* NameAndConfidence::New(::google::protobuf::Arena* arena) const {
+  NameAndConfidence* n = new NameAndConfidence;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void NameAndConfidence::Clear() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  confidence_ = 0;
+}
+
+bool NameAndConfidence::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.NameAndConfidence)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string Name = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.NameAndConfidence.Name"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(21)) goto parse_Confidence;
+        break;
+      }
+
+      // optional float Confidence = 2;
+      case 2: {
+        if (tag == 21) {
+         parse_Confidence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &confidence_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.NameAndConfidence)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.NameAndConfidence)
+  return false;
+#undef DO_
+}
+
+void NameAndConfidence::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.NameAndConfidence)
+  // optional string Name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.NameAndConfidence.Name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->name(), output);
+  }
+
+  // optional float Confidence = 2;
+  if (this->confidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->confidence(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.NameAndConfidence)
+}
+
+::google::protobuf::uint8* NameAndConfidence::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.NameAndConfidence)
+  // optional string Name = 1;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.NameAndConfidence.Name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->name(), target);
+  }
+
+  // optional float Confidence = 2;
+  if (this->confidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->confidence(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.NameAndConfidence)
+  return target;
+}
+
+int NameAndConfidence::ByteSize() const {
+  int total_size = 0;
+
+  // optional string Name = 1;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // optional float Confidence = 2;
+  if (this->confidence() != 0) {
+    total_size += 1 + 4;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void NameAndConfidence::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const NameAndConfidence* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const NameAndConfidence>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void NameAndConfidence::MergeFrom(const NameAndConfidence& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+  }
+  if (from.confidence() != 0) {
+    set_confidence(from.confidence());
+  }
+}
+
+void NameAndConfidence::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void NameAndConfidence::CopyFrom(const NameAndConfidence& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NameAndConfidence::IsInitialized() const {
+
+  return true;
+}
+
+void NameAndConfidence::Swap(NameAndConfidence* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void NameAndConfidence::InternalSwap(NameAndConfidence* other) {
+  name_.Swap(&other->name_);
+  std::swap(confidence_, other->confidence_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata NameAndConfidence::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = NameAndConfidence_descriptor_;
+  metadata.reflection = NameAndConfidence_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// NameAndConfidence
+
+// optional string Name = 1;
+void NameAndConfidence::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& NameAndConfidence::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void NameAndConfidence::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Name)
+}
+ void NameAndConfidence::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.NameAndConfidence.Name)
+}
+ void NameAndConfidence::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.NameAndConfidence.Name)
+}
+ ::std::string* NameAndConfidence::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.NameAndConfidence.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* NameAndConfidence::release_name() {
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void NameAndConfidence::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.NameAndConfidence.Name)
+}
+
+// optional float Confidence = 2;
+void NameAndConfidence::clear_confidence() {
+  confidence_ = 0;
+}
+ float NameAndConfidence::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Confidence)
+  return confidence_;
+}
+ void NameAndConfidence::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Confidence)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PedestrianAttr::kSexFieldNumber;
+const int PedestrianAttr::kSexConfidenceFieldNumber;
+const int PedestrianAttr::kNationalFieldNumber;
+const int PedestrianAttr::kNationalConfidenceFieldNumber;
+const int PedestrianAttr::kAgeFieldNumber;
+const int PedestrianAttr::kAgeConfidenceFieldNumber;
+const int PedestrianAttr::kHeadWearsFieldNumber;
+const int PedestrianAttr::kBodyWearsFieldNumber;
+const int PedestrianAttr::kUpperWearsFieldNumber;
+const int PedestrianAttr::kLowerWearsFieldNumber;
+const int PedestrianAttr::kUpperColorsFieldNumber;
+const int PedestrianAttr::kLowerColorsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PedestrianAttr::PedestrianAttr()
@@ -4269,11 +4597,13 @@ PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
 
 void PedestrianAttr::SharedCtor() {
     _is_default_instance_ = false;
-  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  attrid_ = 0;
-  attrname_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  confidence_ = 0;
+  sex_ = 0;
+  sexconfidence_ = 0;
+  national_ = 0;
+  nationalconfidence_ = 0;
+  age_ = 0;
+  ageconfidence_ = 0;
 }
 
 PedestrianAttr::~PedestrianAttr() {
@@ -4282,7 +4612,6 @@ PedestrianAttr::~PedestrianAttr() {
 }
 
 void PedestrianAttr::SharedDtor() {
-  attrname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -4313,34 +4642,30 @@ PedestrianAttr* PedestrianAttr::New(::google::protobuf::Arena* arena) const {
 }
 
 void PedestrianAttr::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.PedestrianAttr)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(PedestrianAttr, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<PedestrianAttr*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(attrid_, confidence_);
-  attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ZR_(sex_, ageconfidence_);
 
 #undef ZR_HELPER_
 #undef ZR_
 
+  headwears_.Clear();
+  bodywears_.Clear();
+  upperwears_.Clear();
+  lowerwears_.Clear();
+  uppercolors_.Clear();
+  lowercolors_.Clear();
 }
 
 bool PedestrianAttr::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.PedestrianAttr)
   for (;;) {
@@ -4348,48 +4673,191 @@ bool PedestrianAttr::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 AttrId = 1;
+      // optional .dg.model.SexType Sex = 1;
       case 1: {
         if (tag == 8) {
+          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &attrid_)));
-
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_sex(static_cast< ::dg::model::SexType >(value));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_AttrName;
+        if (input->ExpectTag(21)) goto parse_SexConfidence;
         break;
       }
 
-      // optional string AttrName = 2;
+      // optional float SexConfidence = 2;
       case 2: {
-        if (tag == 18) {
-         parse_AttrName:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_attrname()));
-          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->attrname().data(), this->attrname().length(),
-            ::google::protobuf::internal::WireFormatLite::PARSE,
-            "dg.model.PedestrianAttr.AttrName"));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(29)) goto parse_Confidence;
-        break;
-      }
-
-      // optional float Confidence = 3;
-      case 3: {
-        if (tag == 29) {
-         parse_Confidence:
+        if (tag == 21) {
+         parse_SexConfidence:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &confidence_)));
+                 input, &sexconfidence_)));
 
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(24)) goto parse_National;
+        break;
+      }
+
+      // optional .dg.model.NationalType National = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_National:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_national(static_cast< ::dg::model::NationalType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_NationalConfidence;
+        break;
+      }
+
+      // optional float NationalConfidence = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_NationalConfidence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &nationalconfidence_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_Age;
+        break;
+      }
+
+      // optional .dg.model.AgeType Age = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_Age:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_age(static_cast< ::dg::model::AgeType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(53)) goto parse_AgeConfidence;
+        break;
+      }
+
+      // optional float AgeConfidence = 6;
+      case 6: {
+        if (tag == 53) {
+         parse_AgeConfidence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &ageconfidence_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_HeadWears;
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence HeadWears = 7;
+      case 7: {
+        if (tag == 58) {
+         parse_HeadWears:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_HeadWears:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_headwears()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_loop_HeadWears;
+        if (input->ExpectTag(66)) goto parse_loop_BodyWears;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence BodyWears = 8;
+      case 8: {
+        if (tag == 66) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_BodyWears:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_bodywears()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(66)) goto parse_loop_BodyWears;
+        if (input->ExpectTag(74)) goto parse_loop_UpperWears;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence UpperWears = 9;
+      case 9: {
+        if (tag == 74) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_UpperWears:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_upperwears()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(74)) goto parse_loop_UpperWears;
+        if (input->ExpectTag(82)) goto parse_loop_LowerWears;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence LowerWears = 10;
+      case 10: {
+        if (tag == 82) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_LowerWears:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_lowerwears()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(82)) goto parse_loop_LowerWears;
+        if (input->ExpectTag(90)) goto parse_loop_UpperColors;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence UpperColors = 11;
+      case 11: {
+        if (tag == 90) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_UpperColors:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_uppercolors()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(90)) goto parse_loop_UpperColors;
+        if (input->ExpectTag(98)) goto parse_loop_LowerColors;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.NameAndConfidence LowerColors = 12;
+      case 12: {
+        if (tag == 98) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_LowerColors:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_lowercolors()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(98)) goto parse_loop_LowerColors;
+        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4418,24 +4886,73 @@ failure:
 void PedestrianAttr::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.PedestrianAttr)
-  // optional int32 AttrId = 1;
-  if (this->attrid() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->attrid(), output);
+  // optional .dg.model.SexType Sex = 1;
+  if (this->sex() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->sex(), output);
   }
 
-  // optional string AttrName = 2;
-  if (this->attrname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->attrname().data(), this->attrname().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.PedestrianAttr.AttrName");
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->attrname(), output);
+  // optional float SexConfidence = 2;
+  if (this->sexconfidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->sexconfidence(), output);
   }
 
-  // optional float Confidence = 3;
-  if (this->confidence() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->confidence(), output);
+  // optional .dg.model.NationalType National = 3;
+  if (this->national() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->national(), output);
+  }
+
+  // optional float NationalConfidence = 4;
+  if (this->nationalconfidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->nationalconfidence(), output);
+  }
+
+  // optional .dg.model.AgeType Age = 5;
+  if (this->age() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      5, this->age(), output);
+  }
+
+  // optional float AgeConfidence = 6;
+  if (this->ageconfidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->ageconfidence(), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  for (unsigned int i = 0, n = this->headwears_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->headwears(i), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  for (unsigned int i = 0, n = this->bodywears_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      8, this->bodywears(i), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      9, this->upperwears(i), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      10, this->lowerwears(i), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      11, this->uppercolors(i), output);
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      12, this->lowercolors(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.PedestrianAttr)
@@ -4444,25 +4961,79 @@ void PedestrianAttr::SerializeWithCachedSizes(
 ::google::protobuf::uint8* PedestrianAttr::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.PedestrianAttr)
-  // optional int32 AttrId = 1;
-  if (this->attrid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->attrid(), target);
+  // optional .dg.model.SexType Sex = 1;
+  if (this->sex() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->sex(), target);
   }
 
-  // optional string AttrName = 2;
-  if (this->attrname().size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->attrname().data(), this->attrname().length(),
-      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "dg.model.PedestrianAttr.AttrName");
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        2, this->attrname(), target);
+  // optional float SexConfidence = 2;
+  if (this->sexconfidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->sexconfidence(), target);
   }
 
-  // optional float Confidence = 3;
-  if (this->confidence() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->confidence(), target);
+  // optional .dg.model.NationalType National = 3;
+  if (this->national() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      3, this->national(), target);
+  }
+
+  // optional float NationalConfidence = 4;
+  if (this->nationalconfidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->nationalconfidence(), target);
+  }
+
+  // optional .dg.model.AgeType Age = 5;
+  if (this->age() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      5, this->age(), target);
+  }
+
+  // optional float AgeConfidence = 6;
+  if (this->ageconfidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->ageconfidence(), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  for (unsigned int i = 0, n = this->headwears_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->headwears(i), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  for (unsigned int i = 0, n = this->bodywears_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        8, this->bodywears(i), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        9, this->upperwears(i), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        10, this->lowerwears(i), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        11, this->uppercolors(i), target);
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        12, this->lowercolors(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.PedestrianAttr)
@@ -4470,26 +5041,87 @@ void PedestrianAttr::SerializeWithCachedSizes(
 }
 
 int PedestrianAttr::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.PedestrianAttr)
   int total_size = 0;
 
-  // optional int32 AttrId = 1;
-  if (this->attrid() != 0) {
+  // optional .dg.model.SexType Sex = 1;
+  if (this->sex() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->attrid());
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->sex());
   }
 
-  // optional string AttrName = 2;
-  if (this->attrname().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->attrname());
-  }
-
-  // optional float Confidence = 3;
-  if (this->confidence() != 0) {
+  // optional float SexConfidence = 2;
+  if (this->sexconfidence() != 0) {
     total_size += 1 + 4;
+  }
+
+  // optional .dg.model.NationalType National = 3;
+  if (this->national() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->national());
+  }
+
+  // optional float NationalConfidence = 4;
+  if (this->nationalconfidence() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // optional .dg.model.AgeType Age = 5;
+  if (this->age() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->age());
+  }
+
+  // optional float AgeConfidence = 6;
+  if (this->ageconfidence() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  total_size += 1 * this->headwears_size();
+  for (int i = 0; i < this->headwears_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->headwears(i));
+  }
+
+  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  total_size += 1 * this->bodywears_size();
+  for (int i = 0; i < this->bodywears_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->bodywears(i));
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  total_size += 1 * this->upperwears_size();
+  for (int i = 0; i < this->upperwears_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->upperwears(i));
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  total_size += 1 * this->lowerwears_size();
+  for (int i = 0; i < this->lowerwears_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->lowerwears(i));
+  }
+
+  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  total_size += 1 * this->uppercolors_size();
+  for (int i = 0; i < this->uppercolors_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->uppercolors(i));
+  }
+
+  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  total_size += 1 * this->lowercolors_size();
+  for (int i = 0; i < this->lowercolors_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->lowercolors(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -4499,44 +5131,52 @@ int PedestrianAttr::ByteSize() const {
 }
 
 void PedestrianAttr::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.PedestrianAttr)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const PedestrianAttr* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PedestrianAttr>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.PedestrianAttr)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.PedestrianAttr)
     MergeFrom(*source);
   }
 }
 
 void PedestrianAttr::MergeFrom(const PedestrianAttr& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.PedestrianAttr)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.attrid() != 0) {
-    set_attrid(from.attrid());
+  headwears_.MergeFrom(from.headwears_);
+  bodywears_.MergeFrom(from.bodywears_);
+  upperwears_.MergeFrom(from.upperwears_);
+  lowerwears_.MergeFrom(from.lowerwears_);
+  uppercolors_.MergeFrom(from.uppercolors_);
+  lowercolors_.MergeFrom(from.lowercolors_);
+  if (from.sex() != 0) {
+    set_sex(from.sex());
   }
-  if (from.attrname().size() > 0) {
-
-    attrname_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.attrname_);
+  if (from.sexconfidence() != 0) {
+    set_sexconfidence(from.sexconfidence());
   }
-  if (from.confidence() != 0) {
-    set_confidence(from.confidence());
+  if (from.national() != 0) {
+    set_national(from.national());
+  }
+  if (from.nationalconfidence() != 0) {
+    set_nationalconfidence(from.nationalconfidence());
+  }
+  if (from.age() != 0) {
+    set_age(from.age());
+  }
+  if (from.ageconfidence() != 0) {
+    set_ageconfidence(from.ageconfidence());
   }
 }
 
 void PedestrianAttr::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.PedestrianAttr)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void PedestrianAttr::CopyFrom(const PedestrianAttr& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.PedestrianAttr)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4552,9 +5192,18 @@ void PedestrianAttr::Swap(PedestrianAttr* other) {
   InternalSwap(other);
 }
 void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
-  std::swap(attrid_, other->attrid_);
-  attrname_.Swap(&other->attrname_);
-  std::swap(confidence_, other->confidence_);
+  std::swap(sex_, other->sex_);
+  std::swap(sexconfidence_, other->sexconfidence_);
+  std::swap(national_, other->national_);
+  std::swap(nationalconfidence_, other->nationalconfidence_);
+  std::swap(age_, other->age_);
+  std::swap(ageconfidence_, other->ageconfidence_);
+  headwears_.UnsafeArenaSwap(&other->headwears_);
+  bodywears_.UnsafeArenaSwap(&other->bodywears_);
+  upperwears_.UnsafeArenaSwap(&other->upperwears_);
+  lowerwears_.UnsafeArenaSwap(&other->lowerwears_);
+  uppercolors_.UnsafeArenaSwap(&other->uppercolors_);
+  lowercolors_.UnsafeArenaSwap(&other->lowercolors_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -4570,76 +5219,268 @@ void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PedestrianAttr
 
-// optional int32 AttrId = 1;
-void PedestrianAttr::clear_attrid() {
-  attrid_ = 0;
+// optional .dg.model.SexType Sex = 1;
+void PedestrianAttr::clear_sex() {
+  sex_ = 0;
 }
- ::google::protobuf::int32 PedestrianAttr::attrid() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrId)
-  return attrid_;
+ ::dg::model::SexType PedestrianAttr::sex() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Sex)
+  return static_cast< ::dg::model::SexType >(sex_);
 }
- void PedestrianAttr::set_attrid(::google::protobuf::int32 value) {
+ void PedestrianAttr::set_sex(::dg::model::SexType value) {
   
-  attrid_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrId)
+  sex_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Sex)
 }
 
-// optional string AttrName = 2;
-void PedestrianAttr::clear_attrname() {
-  attrname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// optional float SexConfidence = 2;
+void PedestrianAttr::clear_sexconfidence() {
+  sexconfidence_ = 0;
 }
- const ::std::string& PedestrianAttr::attrname() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AttrName)
-  return attrname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+ float PedestrianAttr::sexconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.SexConfidence)
+  return sexconfidence_;
 }
- void PedestrianAttr::set_attrname(const ::std::string& value) {
+ void PedestrianAttr::set_sexconfidence(float value) {
   
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AttrName)
-}
- void PedestrianAttr::set_attrname(const char* value) {
-  
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.PedestrianAttr.AttrName)
-}
- void PedestrianAttr::set_attrname(const char* value, size_t size) {
-  
-  attrname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.PedestrianAttr.AttrName)
-}
- ::std::string* PedestrianAttr::mutable_attrname() {
-  
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.AttrName)
-  return attrname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* PedestrianAttr::release_attrname() {
-  // @@protoc_insertion_point(field_release:dg.model.PedestrianAttr.AttrName)
-  
-  return attrname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void PedestrianAttr::set_allocated_attrname(::std::string* attrname) {
-  if (attrname != NULL) {
-    
-  } else {
-    
-  }
-  attrname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), attrname);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.AttrName)
+  sexconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.SexConfidence)
 }
 
-// optional float Confidence = 3;
-void PedestrianAttr::clear_confidence() {
-  confidence_ = 0;
+// optional .dg.model.NationalType National = 3;
+void PedestrianAttr::clear_national() {
+  national_ = 0;
 }
- float PedestrianAttr::confidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Confidence)
-  return confidence_;
+ ::dg::model::NationalType PedestrianAttr::national() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
+  return static_cast< ::dg::model::NationalType >(national_);
 }
- void PedestrianAttr::set_confidence(float value) {
+ void PedestrianAttr::set_national(::dg::model::NationalType value) {
   
-  confidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Confidence)
+  national_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.National)
+}
+
+// optional float NationalConfidence = 4;
+void PedestrianAttr::clear_nationalconfidence() {
+  nationalconfidence_ = 0;
+}
+ float PedestrianAttr::nationalconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.NationalConfidence)
+  return nationalconfidence_;
+}
+ void PedestrianAttr::set_nationalconfidence(float value) {
+  
+  nationalconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.NationalConfidence)
+}
+
+// optional .dg.model.AgeType Age = 5;
+void PedestrianAttr::clear_age() {
+  age_ = 0;
+}
+ ::dg::model::AgeType PedestrianAttr::age() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Age)
+  return static_cast< ::dg::model::AgeType >(age_);
+}
+ void PedestrianAttr::set_age(::dg::model::AgeType value) {
+  
+  age_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Age)
+}
+
+// optional float AgeConfidence = 6;
+void PedestrianAttr::clear_ageconfidence() {
+  ageconfidence_ = 0;
+}
+ float PedestrianAttr::ageconfidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AgeConfidence)
+  return ageconfidence_;
+}
+ void PedestrianAttr::set_ageconfidence(float value) {
+  
+  ageconfidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AgeConfidence)
+}
+
+// repeated .dg.model.NameAndConfidence HeadWears = 7;
+int PedestrianAttr::headwears_size() const {
+  return headwears_.size();
+}
+void PedestrianAttr::clear_headwears() {
+  headwears_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::headwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_headwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_headwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.HeadWears)
+  return headwears_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_headwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.HeadWears)
+  return &headwears_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::headwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.HeadWears)
+  return headwears_;
+}
+
+// repeated .dg.model.NameAndConfidence BodyWears = 8;
+int PedestrianAttr::bodywears_size() const {
+  return bodywears_.size();
+}
+void PedestrianAttr::clear_bodywears() {
+  bodywears_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::bodywears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_bodywears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_bodywears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_bodywears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.BodyWears)
+  return &bodywears_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::bodywears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.BodyWears)
+  return bodywears_;
+}
+
+// repeated .dg.model.NameAndConfidence UpperWears = 9;
+int PedestrianAttr::upperwears_size() const {
+  return upperwears_.size();
+}
+void PedestrianAttr::clear_upperwears() {
+  upperwears_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::upperwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_upperwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_upperwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_upperwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperWears)
+  return &upperwears_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::upperwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperWears)
+  return upperwears_;
+}
+
+// repeated .dg.model.NameAndConfidence LowerWears = 10;
+int PedestrianAttr::lowerwears_size() const {
+  return lowerwears_.size();
+}
+void PedestrianAttr::clear_lowerwears() {
+  lowerwears_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::lowerwears(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowerwears(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_lowerwears() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_lowerwears() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerWears)
+  return &lowerwears_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::lowerwears() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerWears)
+  return lowerwears_;
+}
+
+// repeated .dg.model.NameAndConfidence UpperColors = 11;
+int PedestrianAttr::uppercolors_size() const {
+  return uppercolors_.size();
+}
+void PedestrianAttr::clear_uppercolors() {
+  uppercolors_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::uppercolors(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_uppercolors(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_uppercolors() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_uppercolors() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperColors)
+  return &uppercolors_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::uppercolors() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperColors)
+  return uppercolors_;
+}
+
+// repeated .dg.model.NameAndConfidence LowerColors = 12;
+int PedestrianAttr::lowercolors_size() const {
+  return lowercolors_.size();
+}
+void PedestrianAttr::clear_lowercolors() {
+  lowercolors_.Clear();
+}
+const ::dg::model::NameAndConfidence& PedestrianAttr::lowercolors(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Get(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowercolors(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Mutable(index);
+}
+::dg::model::NameAndConfidence* PedestrianAttr::add_lowercolors() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+PedestrianAttr::mutable_lowercolors() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerColors)
+  return &lowercolors_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+PedestrianAttr::lowercolors() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerColors)
+  return lowercolors_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4656,7 +5497,7 @@ const int RecVehicle::kSymbolsFieldNumber;
 const int RecVehicle::kFeaturesFieldNumber;
 const int RecVehicle::kVehicleTypeFieldNumber;
 const int RecVehicle::kVehicleTypeNameFieldNumber;
-const int RecVehicle::kPedestrianAttrsFieldNumber;
+const int RecVehicle::kPedesAttrFieldNumber;
 const int RecVehicle::kPlatesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -4672,6 +5513,7 @@ void RecVehicle::InitAsDefaultInstance() {
   color_ = const_cast< ::dg::model::Color*>(&::dg::model::Color::default_instance());
   plate_ = const_cast< ::dg::model::LicensePlate*>(&::dg::model::LicensePlate::default_instance());
   img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
+  pedesattr_ = const_cast< ::dg::model::PedestrianAttr*>(&::dg::model::PedestrianAttr::default_instance());
 }
 
 RecVehicle::RecVehicle(const RecVehicle& from)
@@ -4694,6 +5536,7 @@ void RecVehicle::SharedCtor() {
   features_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   vehicletype_ = 0;
   vehicletypename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  pedesattr_ = NULL;
 }
 
 RecVehicle::~RecVehicle() {
@@ -4709,6 +5552,7 @@ void RecVehicle::SharedDtor() {
     delete color_;
     delete plate_;
     delete img_;
+    delete pedesattr_;
   }
 }
 
@@ -4738,7 +5582,6 @@ RecVehicle* RecVehicle::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecVehicle::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.RecVehicle)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && modeltype_ != NULL) delete modeltype_;
   modeltype_ = NULL;
@@ -4751,14 +5594,15 @@ void RecVehicle::Clear() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   vehicletype_ = 0;
   vehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
+  pedesattr_ = NULL;
   symbols_.Clear();
-  pedestrianattrs_.Clear();
   plates_.Clear();
 }
 
 bool RecVehicle::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecVehicle)
   for (;;) {
@@ -4895,30 +5739,27 @@ bool RecVehicle::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(82)) goto parse_PedestrianAttrs;
+        if (input->ExpectTag(82)) goto parse_PedesAttr;
         break;
       }
 
-      // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
+      // optional .dg.model.PedestrianAttr PedesAttr = 10;
       case 10: {
         if (tag == 82) {
-         parse_PedestrianAttrs:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_PedestrianAttrs:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_pedestrianattrs()));
+         parse_PedesAttr:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pedesattr()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(82)) goto parse_loop_PedestrianAttrs;
-        if (input->ExpectTag(90)) goto parse_loop_Plates;
-        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(90)) goto parse_Plates;
         break;
       }
 
       // repeated .dg.model.LicensePlate Plates = 11;
       case 11: {
         if (tag == 90) {
+         parse_Plates:
           DO_(input->IncrementRecursionDepth());
          parse_loop_Plates:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -5017,10 +5858,10 @@ void RecVehicle::SerializeWithCachedSizes(
       9, this->vehicletypename(), output);
   }
 
-  // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-  for (unsigned int i = 0, n = this->pedestrianattrs_size(); i < n; i++) {
+  // optional .dg.model.PedestrianAttr PedesAttr = 10;
+  if (this->has_pedesattr()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      10, this->pedestrianattrs(i), output);
+      10, *this->pedesattr_, output);
   }
 
   // repeated .dg.model.LicensePlate Plates = 11;
@@ -5103,11 +5944,11 @@ void RecVehicle::SerializeWithCachedSizes(
         9, this->vehicletypename(), target);
   }
 
-  // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-  for (unsigned int i = 0, n = this->pedestrianattrs_size(); i < n; i++) {
+  // optional .dg.model.PedestrianAttr PedesAttr = 10;
+  if (this->has_pedesattr()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        10, this->pedestrianattrs(i), target);
+        10, *this->pedesattr_, target);
   }
 
   // repeated .dg.model.LicensePlate Plates = 11;
@@ -5122,7 +5963,6 @@ void RecVehicle::SerializeWithCachedSizes(
 }
 
 int RecVehicle::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.RecVehicle)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -5180,20 +6020,19 @@ int RecVehicle::ByteSize() const {
         this->vehicletypename());
   }
 
+  // optional .dg.model.PedestrianAttr PedesAttr = 10;
+  if (this->has_pedesattr()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->pedesattr_);
+  }
+
   // repeated .dg.model.VehicleSymbol Symbols = 6;
   total_size += 1 * this->symbols_size();
   for (int i = 0; i < this->symbols_size(); i++) {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->symbols(i));
-  }
-
-  // repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-  total_size += 1 * this->pedestrianattrs_size();
-  for (int i = 0; i < this->pedestrianattrs_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->pedestrianattrs(i));
   }
 
   // repeated .dg.model.LicensePlate Plates = 11;
@@ -5211,25 +6050,20 @@ int RecVehicle::ByteSize() const {
 }
 
 void RecVehicle::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecVehicle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecVehicle* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecVehicle>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecVehicle)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecVehicle)
     MergeFrom(*source);
   }
 }
 
 void RecVehicle::MergeFrom(const RecVehicle& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecVehicle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   symbols_.MergeFrom(from.symbols_);
-  pedestrianattrs_.MergeFrom(from.pedestrianattrs_);
   plates_.MergeFrom(from.plates_);
   if (from.id() != 0) {
     set_id(from.id());
@@ -5257,17 +6091,18 @@ void RecVehicle::MergeFrom(const RecVehicle& from) {
 
     vehicletypename_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.vehicletypename_);
   }
+  if (from.has_pedesattr()) {
+    mutable_pedesattr()->::dg::model::PedestrianAttr::MergeFrom(from.pedesattr());
+  }
 }
 
 void RecVehicle::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecVehicle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecVehicle::CopyFrom(const RecVehicle& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecVehicle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5292,7 +6127,7 @@ void RecVehicle::InternalSwap(RecVehicle* other) {
   features_.Swap(&other->features_);
   std::swap(vehicletype_, other->vehicletype_);
   vehicletypename_.Swap(&other->vehicletypename_);
-  pedestrianattrs_.UnsafeArenaSwap(&other->pedestrianattrs_);
+  std::swap(pedesattr_, other->pedesattr_);
   plates_.UnsafeArenaSwap(&other->plates_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -5344,7 +6179,6 @@ const ::dg::model::VehicleModelType& RecVehicle::modeltype() const {
   return modeltype_;
 }
 ::dg::model::VehicleModelType* RecVehicle::release_modeltype() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.ModelType)
   
   ::dg::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
@@ -5382,7 +6216,6 @@ const ::dg::model::Color& RecVehicle::color() const {
   return color_;
 }
 ::dg::model::Color* RecVehicle::release_color() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -5420,7 +6253,6 @@ const ::dg::model::LicensePlate& RecVehicle::plate() const {
   return plate_;
 }
 ::dg::model::LicensePlate* RecVehicle::release_plate() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Plate)
   
   ::dg::model::LicensePlate* temp = plate_;
   plate_ = NULL;
@@ -5458,7 +6290,6 @@ const ::dg::model::CutboardImage& RecVehicle::img() const {
   return img_;
 }
 ::dg::model::CutboardImage* RecVehicle::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Img)
   
   ::dg::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -5535,7 +6366,6 @@ void RecVehicle::clear_features() {
   return features_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecVehicle::release_features() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.Features)
   
   return features_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5593,7 +6423,6 @@ void RecVehicle::clear_vehicletypename() {
   return vehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* RecVehicle::release_vehicletypename() {
-  // @@protoc_insertion_point(field_release:dg.model.RecVehicle.VehicleTypeName)
   
   return vehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -5607,34 +6436,41 @@ void RecVehicle::clear_vehicletypename() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
 }
 
-// repeated .dg.model.PedestrianAttr PedestrianAttrs = 10;
-int RecVehicle::pedestrianattrs_size() const {
-  return pedestrianattrs_.size();
+// optional .dg.model.PedestrianAttr PedesAttr = 10;
+bool RecVehicle::has_pedesattr() const {
+  return !_is_default_instance_ && pedesattr_ != NULL;
 }
-void RecVehicle::clear_pedestrianattrs() {
-  pedestrianattrs_.Clear();
+void RecVehicle::clear_pedesattr() {
+  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
+  pedesattr_ = NULL;
 }
-const ::dg::model::PedestrianAttr& RecVehicle::pedestrianattrs(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Get(index);
+const ::dg::model::PedestrianAttr& RecVehicle::pedesattr() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedesAttr)
+  return pedesattr_ != NULL ? *pedesattr_ : *default_instance_->pedesattr_;
 }
-::dg::model::PedestrianAttr* RecVehicle::mutable_pedestrianattrs(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Mutable(index);
+::dg::model::PedestrianAttr* RecVehicle::mutable_pedesattr() {
+  
+  if (pedesattr_ == NULL) {
+    pedesattr_ = new ::dg::model::PedestrianAttr;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedesAttr)
+  return pedesattr_;
 }
-::dg::model::PedestrianAttr* RecVehicle::add_pedestrianattrs() {
-  // @@protoc_insertion_point(field_add:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_.Add();
+::dg::model::PedestrianAttr* RecVehicle::release_pedesattr() {
+  
+  ::dg::model::PedestrianAttr* temp = pedesattr_;
+  pedesattr_ = NULL;
+  return temp;
 }
-::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >*
-RecVehicle::mutable_pedestrianattrs() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.RecVehicle.PedestrianAttrs)
-  return &pedestrianattrs_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::PedestrianAttr >&
-RecVehicle::pedestrianattrs() const {
-  // @@protoc_insertion_point(field_list:dg.model.RecVehicle.PedestrianAttrs)
-  return pedestrianattrs_;
+void RecVehicle::set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr) {
+  delete pedesattr_;
+  pedesattr_ = pedesattr;
+  if (pedesattr) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.PedesAttr)
 }
 
 // repeated .dg.model.LicensePlate Plates = 11;
@@ -5763,17 +6599,8 @@ VehicleModelType* VehicleModelType::New(::google::protobuf::Arena* arena) const 
 }
 
 void VehicleModelType::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.VehicleModelType)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(VehicleModelType, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<VehicleModelType*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -5795,7 +6622,7 @@ void VehicleModelType::Clear() {
 
 bool VehicleModelType::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleModelType)
   for (;;) {
@@ -6202,7 +7029,6 @@ void VehicleModelType::SerializeWithCachedSizes(
 }
 
 int VehicleModelType::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.VehicleModelType)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -6294,22 +7120,18 @@ int VehicleModelType::ByteSize() const {
 }
 
 void VehicleModelType::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.VehicleModelType)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VehicleModelType* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VehicleModelType>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.VehicleModelType)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.VehicleModelType)
     MergeFrom(*source);
   }
 }
 
 void VehicleModelType::MergeFrom(const VehicleModelType& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.VehicleModelType)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -6355,14 +7177,12 @@ void VehicleModelType::MergeFrom(const VehicleModelType& from) {
 }
 
 void VehicleModelType::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.VehicleModelType)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VehicleModelType::CopyFrom(const VehicleModelType& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.VehicleModelType)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6505,7 +7325,6 @@ void VehicleModelType::clear_type() {
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_type() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Type)
   
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6549,7 +7368,6 @@ void VehicleModelType::clear_brand() {
   return brand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_brand() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Brand)
   
   return brand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6593,7 +7411,6 @@ void VehicleModelType::clear_subbrand() {
   return subbrand_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_subbrand() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.SubBrand)
   
   return subbrand_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6637,7 +7454,6 @@ void VehicleModelType::clear_modelyear() {
   return modelyear_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_modelyear() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.ModelYear)
   
   return modelyear_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6695,7 +7511,6 @@ void VehicleModelType::clear_model() {
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_model() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleModelType.Model)
   
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6810,17 +7625,8 @@ LicensePlate* LicensePlate::New(::google::protobuf::Arena* arena) const {
 }
 
 void LicensePlate::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.LicensePlate)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(LicensePlate, f) \
-  _Pragma("clang diagnostic pop")
-#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<LicensePlate*>(16)->f)
-#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -6843,7 +7649,7 @@ void LicensePlate::Clear() {
 
 bool LicensePlate::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.LicensePlate)
   for (;;) {
@@ -7088,7 +7894,6 @@ void LicensePlate::SerializeWithCachedSizes(
 }
 
 int LicensePlate::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.LicensePlate)
   int total_size = 0;
 
   // optional string PlateText = 1;
@@ -7143,22 +7948,18 @@ int LicensePlate::ByteSize() const {
 }
 
 void LicensePlate::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.LicensePlate)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const LicensePlate* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const LicensePlate>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.LicensePlate)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.LicensePlate)
     MergeFrom(*source);
   }
 }
 
 void LicensePlate::MergeFrom(const LicensePlate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.LicensePlate)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.platetext().size() > 0) {
 
@@ -7186,14 +7987,12 @@ void LicensePlate::MergeFrom(const LicensePlate& from) {
 }
 
 void LicensePlate::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.LicensePlate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void LicensePlate::CopyFrom(const LicensePlate& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.LicensePlate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7261,7 +8060,6 @@ void LicensePlate::clear_platetext() {
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_platetext() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.PlateText)
   
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7296,7 +8094,6 @@ const ::dg::model::Color& LicensePlate::color() const {
   return color_;
 }
 ::dg::model::Color* LicensePlate::release_color() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Color)
   
   ::dg::model::Color* temp = color_;
   color_ = NULL;
@@ -7357,7 +8154,6 @@ void LicensePlate::clear_typename_() {
   return typename__.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_typename_() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.TypeName)
   
   return typename__.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7406,7 +8202,6 @@ const ::dg::model::Cutboard& LicensePlate::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* LicensePlate::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.LicensePlate.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -7510,7 +8305,6 @@ VehicleSymbol* VehicleSymbol::New(::google::protobuf::Arena* arena) const {
 }
 
 void VehicleSymbol::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.VehicleSymbol)
   symbolid_ = 0;
   symbolname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   symbols_.Clear();
@@ -7518,7 +8312,7 @@ void VehicleSymbol::Clear() {
 
 bool VehicleSymbol::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleSymbol)
   for (;;) {
@@ -7653,7 +8447,6 @@ void VehicleSymbol::SerializeWithCachedSizes(
 }
 
 int VehicleSymbol::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.VehicleSymbol)
   int total_size = 0;
 
   // optional int32 SymbolId = 1;
@@ -7685,22 +8478,18 @@ int VehicleSymbol::ByteSize() const {
 }
 
 void VehicleSymbol::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.VehicleSymbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VehicleSymbol* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VehicleSymbol>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.VehicleSymbol)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.VehicleSymbol)
     MergeFrom(*source);
   }
 }
 
 void VehicleSymbol::MergeFrom(const VehicleSymbol& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.VehicleSymbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   symbols_.MergeFrom(from.symbols_);
   if (from.symbolid() != 0) {
@@ -7713,14 +8502,12 @@ void VehicleSymbol::MergeFrom(const VehicleSymbol& from) {
 }
 
 void VehicleSymbol::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.VehicleSymbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VehicleSymbol::CopyFrom(const VehicleSymbol& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.VehicleSymbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7798,7 +8585,6 @@ void VehicleSymbol::clear_symbolname() {
   return symbolname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleSymbol::release_symbolname() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleSymbol.SymbolName)
   
   return symbolname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7914,7 +8700,6 @@ Symbol* Symbol::New(::google::protobuf::Arena* arena) const {
 }
 
 void Symbol::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.Symbol)
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
   cutboard_ = NULL;
   confidence_ = 0;
@@ -7922,7 +8707,7 @@ void Symbol::Clear() {
 
 bool Symbol::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Symbol)
   for (;;) {
@@ -8015,7 +8800,6 @@ void Symbol::SerializeWithCachedSizes(
 }
 
 int Symbol::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.Symbol)
   int total_size = 0;
 
   // optional .dg.model.Cutboard Cutboard = 1;
@@ -8037,22 +8821,18 @@ int Symbol::ByteSize() const {
 }
 
 void Symbol::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Symbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Symbol* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Symbol>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Symbol)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Symbol)
     MergeFrom(*source);
   }
 }
 
 void Symbol::MergeFrom(const Symbol& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Symbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_cutboard()) {
     mutable_cutboard()->::dg::model::Cutboard::MergeFrom(from.cutboard());
@@ -8063,14 +8843,12 @@ void Symbol::MergeFrom(const Symbol& from) {
 }
 
 void Symbol::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Symbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Symbol::CopyFrom(const Symbol& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Symbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8124,7 +8902,6 @@ const ::dg::model::Cutboard& Symbol::cutboard() const {
   return cutboard_;
 }
 ::dg::model::Cutboard* Symbol::release_cutboard() {
-  // @@protoc_insertion_point(field_release:dg.model.Symbol.Cutboard)
   
   ::dg::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -8228,7 +9005,6 @@ StorageConfig* StorageConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void StorageConfig::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.StorageConfig)
   address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_ = 0;
   tags_.Clear();
@@ -8236,7 +9012,7 @@ void StorageConfig::Clear() {
 
 bool StorageConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.StorageConfig)
   for (;;) {
@@ -8383,7 +9159,6 @@ void StorageConfig::SerializeWithCachedSizes(
 }
 
 int StorageConfig::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.StorageConfig)
   int total_size = 0;
 
   // optional string Address = 1;
@@ -8413,22 +9188,18 @@ int StorageConfig::ByteSize() const {
 }
 
 void StorageConfig::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.StorageConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const StorageConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const StorageConfig>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.StorageConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.StorageConfig)
     MergeFrom(*source);
   }
 }
 
 void StorageConfig::MergeFrom(const StorageConfig& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.StorageConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   tags_.MergeFrom(from.tags_);
   if (from.address().size() > 0) {
@@ -8441,14 +9212,12 @@ void StorageConfig::MergeFrom(const StorageConfig& from) {
 }
 
 void StorageConfig::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.StorageConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void StorageConfig::CopyFrom(const StorageConfig& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.StorageConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8512,7 +9281,6 @@ void StorageConfig::clear_address() {
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* StorageConfig::release_address() {
-  // @@protoc_insertion_point(field_release:dg.model.StorageConfig.Address)
   
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8569,7 +9337,6 @@ void StorageConfig::clear_tags() {
   // @@protoc_insertion_point(field_set_pointer:dg.model.StorageConfig.Tags)
 }
  ::std::string* StorageConfig::add_tags() {
-  // @@protoc_insertion_point(field_add_mutable:dg.model.StorageConfig.Tags)
   return tags_.Add();
 }
  void StorageConfig::add_tags(const ::std::string& value) {
@@ -8670,7 +9437,6 @@ VehicleObj* VehicleObj::New(::google::protobuf::Arena* arena) const {
 }
 
 void VehicleObj::Clear() {
-// @@protoc_insertion_point(message_clear_start:dg.model.VehicleObj)
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
@@ -8680,7 +9446,7 @@ void VehicleObj::Clear() {
 
 bool VehicleObj::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VehicleObj)
   for (;;) {
@@ -8804,7 +9570,6 @@ void VehicleObj::SerializeWithCachedSizes(
 }
 
 int VehicleObj::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:dg.model.VehicleObj)
   int total_size = 0;
 
   // optional .dg.model.SrcMetadata Metadata = 1;
@@ -8836,22 +9601,18 @@ int VehicleObj::ByteSize() const {
 }
 
 void VehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:dg.model.VehicleObj)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VehicleObj* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VehicleObj>(
           &from);
   if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.VehicleObj)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.VehicleObj)
     MergeFrom(*source);
   }
 }
 
 void VehicleObj::MergeFrom(const VehicleObj& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.VehicleObj)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   vehicle_.MergeFrom(from.vehicle_);
   if (from.has_metadata()) {
@@ -8863,14 +9624,12 @@ void VehicleObj::MergeFrom(const VehicleObj& from) {
 }
 
 void VehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:dg.model.VehicleObj)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VehicleObj::CopyFrom(const VehicleObj& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.VehicleObj)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8925,7 +9684,6 @@ const ::dg::model::SrcMetadata& VehicleObj::metadata() const {
   return metadata_;
 }
 ::dg::model::SrcMetadata* VehicleObj::release_metadata() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Metadata)
   
   ::dg::model::SrcMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -8963,7 +9721,6 @@ const ::dg::model::Image& VehicleObj::img() const {
   return img_;
 }
 ::dg::model::Image* VehicleObj::release_img() {
-  // @@protoc_insertion_point(field_release:dg.model.VehicleObj.Img)
   
   ::dg::model::Image* temp = img_;
   img_ = NULL;
