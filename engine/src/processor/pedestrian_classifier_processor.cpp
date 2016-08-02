@@ -44,6 +44,8 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch) {
             attr.index = attrs_i[j].index;
             attr.tagname = attrs_i[j].tagname;
             attr.confidence = attrs_i[j].confidence;
+			attr.threshold = attrs_i[j].threshold;
+			attr.threshold_t = attrs_i[j].threshold_t;
             attrs_o.push_back(attr);
         }
         p->set_attrs(attrs_o);
