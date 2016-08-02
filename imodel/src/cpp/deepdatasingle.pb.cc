@@ -42,6 +42,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Tricycles_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Tricycles_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Bicycle_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Bicycle_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Bicycles_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Bicycles_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Pedestrian_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Pedestrian_reflection_ = NULL;
@@ -223,7 +229,41 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Tricycles),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Tricycles, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Tricycles, _is_default_instance_));
-  Pedestrian_descriptor_ = file->message_type(7);
+  Bicycle_descriptor_ = file->message_type(7);
+  static const int Bicycle_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, metadata_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, img_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, feature_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, color_),
+  };
+  Bicycle_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Bicycle_descriptor_,
+      Bicycle::default_instance_,
+      Bicycle_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Bicycle),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycle, _is_default_instance_));
+  Bicycles_descriptor_ = file->message_type(8);
+  static const int Bicycles_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycles, tricycle_),
+  };
+  Bicycles_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Bicycles_descriptor_,
+      Bicycles::default_instance_,
+      Bicycles_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Bicycles),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycles, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Bicycles, _is_default_instance_));
+  Pedestrian_descriptor_ = file->message_type(9);
   static const int Pedestrian_offsets_[13] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrian, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrian, metadata_),
@@ -250,7 +290,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Pedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrian, _is_default_instance_));
-  Pedestrians_descriptor_ = file->message_type(8);
+  Pedestrians_descriptor_ = file->message_type(10);
   static const int Pedestrians_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrians, pedestrian_),
   };
@@ -265,7 +305,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Pedestrians),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrians, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Pedestrians, _is_default_instance_));
-  Face_descriptor_ = file->message_type(9);
+  Face_descriptor_ = file->message_type(11);
   static const int Face_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Face, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Face, metadata_),
@@ -283,7 +323,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Face),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Face, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Face, _is_default_instance_));
-  Faces_descriptor_ = file->message_type(10);
+  Faces_descriptor_ = file->message_type(12);
   static const int Faces_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Faces, face_),
   };
@@ -298,7 +338,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Faces),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Faces, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Faces, _is_default_instance_));
-  VideoMetadata_descriptor_ = file->message_type(11);
+  VideoMetadata_descriptor_ = file->message_type(13);
   static const int VideoMetadata_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, timestamp_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, duration_),
@@ -317,7 +357,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(VideoMetadata),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VideoMetadata, _is_default_instance_));
-  Image_descriptor_ = file->message_type(12);
+  Image_descriptor_ = file->message_type(14);
   static const int Image_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, width_),
@@ -335,7 +375,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Image),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, _is_default_instance_));
-  CutboardImage_descriptor_ = file->message_type(13);
+  CutboardImage_descriptor_ = file->message_type(15);
   static const int CutboardImage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, cutboard_),
@@ -352,7 +392,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(CutboardImage),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CutboardImage, _is_default_instance_));
-  Color_descriptor_ = file->message_type(14);
+  Color_descriptor_ = file->message_type(16);
   static const int Color_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, confidence_),
@@ -369,7 +409,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Color),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Color, _is_default_instance_));
-  Cutboard_descriptor_ = file->message_type(15);
+  Cutboard_descriptor_ = file->message_type(17);
   static const int Cutboard_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, y_),
@@ -389,7 +429,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(Cutboard),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Cutboard, _is_default_instance_));
-  BaseEntity_descriptor_ = file->message_type(16);
+  BaseEntity_descriptor_ = file->message_type(18);
   static const int BaseEntity_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BaseEntity, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BaseEntity, metadata_),
@@ -406,7 +446,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(BaseEntity),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BaseEntity, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(BaseEntity, _is_default_instance_));
-  FeatureVector_descriptor_ = file->message_type(17);
+  FeatureVector_descriptor_ = file->message_type(19);
   static const int FeatureVector_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, feature_),
@@ -422,7 +462,7 @@ void protobuf_AssignDesc_deepdatasingle_2eproto() {
       sizeof(FeatureVector),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureVector, _is_default_instance_));
-  NullMessage_descriptor_ = file->message_type(18);
+  NullMessage_descriptor_ = file->message_type(20);
   static const int NullMessage_offsets_[1] = {
   };
   NullMessage_reflection_ =
@@ -464,6 +504,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       Tricycle_descriptor_, &Tricycle::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Tricycles_descriptor_, &Tricycles::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Bicycle_descriptor_, &Bicycle::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Bicycles_descriptor_, &Bicycles::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Pedestrian_descriptor_, &Pedestrian::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -507,6 +551,10 @@ void protobuf_ShutdownFile_deepdatasingle_2eproto() {
   delete Tricycle_reflection_;
   delete Tricycles::default_instance_;
   delete Tricycles_reflection_;
+  delete Bicycle::default_instance_;
+  delete Bicycle_reflection_;
+  delete Bicycles::default_instance_;
+  delete Bicycles_reflection_;
   delete Pedestrian::default_instance_;
   delete Pedestrian_reflection_;
   delete Pedestrians::default_instance_;
@@ -564,45 +612,49 @@ void protobuf_AddDesc_deepdatasingle_2eproto() {
     "g\030\003 \001(\0132\024.model.CutboardImage\022\017\n\007Feature"
     "\030\004 \001(\014\022\033\n\005Color\030\005 \001(\0132\014.model.Color\".\n\tT"
     "ricycles\022!\n\010Tricycle\030\001 \003(\0132\017.model.Tricy"
-    "cle\"\224\002\n\nPedestrian\022\n\n\002Id\030\001 \001(\003\022&\n\010Metada"
-    "ta\030\002 \001(\0132\024.model.VideoMetadata\022!\n\003Img\030\003 "
-    "\001(\0132\024.model.CutboardImage\022\020\n\010Features\030\004 "
-    "\001(\r\022\r\n\005Heads\030\005 \001(\r\022\023\n\013UpperColors\030\006 \001(\r\022"
-    "\023\n\013LowerColors\030\007 \001(\r\022\013\n\003Age\030\010 \001(\r\022\022\n\nUpp"
-    "erStyle\030\t \001(\r\022\022\n\nLowerStyle\030\n \001(\r\022\016\n\006Gen"
-    "der\030\013 \001(\010\022\016\n\006Ethnic\030\014 \001(\010\022\017\n\007Feature\030\r \001"
-    "(\014\"4\n\013Pedestrians\022%\n\nPedestrian\030\001 \003(\0132\021."
-    "model.Pedestrian\"n\n\004Face\022\n\n\002Id\030\001 \001(\003\022&\n\010"
-    "Metadata\030\002 \001(\0132\024.model.VideoMetadata\022!\n\003"
-    "Img\030\003 \001(\0132\024.model.CutboardImage\022\017\n\007Featu"
-    "re\030\004 \001(\014\"\"\n\005Faces\022\031\n\004Face\030\001 \003(\0132\013.model."
-    "Face\"m\n\rVideoMetadata\022\021\n\tTimestamp\030\001 \001(\003"
-    "\022\020\n\010Duration\030\002 \001(\005\022\020\n\010SensorId\030\003 \001(\005\022\022\n\n"
-    "SensorName\030\004 \001(\t\022\021\n\tSensorUrl\030\005 \001(\t\"C\n\005I"
-    "mage\022\n\n\002Id\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Heigh"
-    "t\030\003 \001(\005\022\017\n\007BinData\030\004 \001(\014\"u\n\rCutboardImag"
-    "e\022&\n\010Metadata\030\001 \001(\0132\024.model.VideoMetadat"
-    "a\022!\n\010Cutboard\030\002 \001(\0132\017.model.Cutboard\022\031\n\003"
-    "Img\030\003 \001(\0132\014.model.Image\":\n\005Color\022\n\n\002Id\030\001"
-    " \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColorName\030\003 "
-    "\001(\t\"d\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r\n"
-    "\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010ResWidth"
-    "\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\"c\n\nBaseEntity\022"
-    "\n\n\002Id\030\001 \001(\003\022&\n\010Metadata\030\002 \001(\0132\024.model.Vi"
-    "deoMetadata\022!\n\003Img\030\003 \001(\0132\024.model.Cutboar"
-    "dImage\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007F"
-    "eature\030\002 \001(\014\"\r\n\013NullMessage*\315\002\n\007ObjType\022"
-    "\016\n\nUNKNOWNOBJ\020\000\022\013\n\007VEHICLE\020\001\022\013\n\007BICYCLE\020"
-    "\002\022\014\n\010TRICYCLE\020\003\022\016\n\nPEDESTRIAN\020\004\022\t\n\004FACE\020"
-    "\200\010\022\021\n\014LICENSEPLATE\020\201\010\022\023\n\016VEHICLE_VECTOR\020"
-    "\200\020\022\023\n\016BICYCLE_VECTOR\020\201\020\022\024\n\017TRICYCLE_VECT"
-    "OR\020\202\020\022\026\n\021PEDESTRIAN_VECTOR\020\203\020\022\020\n\013FACE_VE"
-    "CTOR\020\200\030\022\025\n\020VEHICLE_CUTBOARD\020\200 \022\025\n\020BICYCL"
-    "E_CUTBOARD\020\201 \022\026\n\021TRICYCLE_CUTBOARD\020\202 \022\030\n"
-    "\023PEDESTRIAN_CUTBOARD\020\203 \022\022\n\rFACE_CUTBOARD"
-    "\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JS"
-    "ON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004b\006pr"
-    "oto3", 2484);
+    "cle\"\216\001\n\007Bicycle\022\n\n\002Id\030\001 \001(\003\022&\n\010Metadata\030"
+    "\002 \001(\0132\024.model.VideoMetadata\022!\n\003Img\030\003 \001(\013"
+    "2\024.model.CutboardImage\022\017\n\007Feature\030\004 \001(\014\022"
+    "\033\n\005Color\030\005 \001(\0132\014.model.Color\",\n\010Bicycles"
+    "\022 \n\010Tricycle\030\001 \003(\0132\016.model.Bicycle\"\224\002\n\nP"
+    "edestrian\022\n\n\002Id\030\001 \001(\003\022&\n\010Metadata\030\002 \001(\0132"
+    "\024.model.VideoMetadata\022!\n\003Img\030\003 \001(\0132\024.mod"
+    "el.CutboardImage\022\020\n\010Features\030\004 \001(\r\022\r\n\005He"
+    "ads\030\005 \001(\r\022\023\n\013UpperColors\030\006 \001(\r\022\023\n\013LowerC"
+    "olors\030\007 \001(\r\022\013\n\003Age\030\010 \001(\r\022\022\n\nUpperStyle\030\t"
+    " \001(\r\022\022\n\nLowerStyle\030\n \001(\r\022\016\n\006Gender\030\013 \001(\010"
+    "\022\016\n\006Ethnic\030\014 \001(\010\022\017\n\007Feature\030\r \001(\014\"4\n\013Ped"
+    "estrians\022%\n\nPedestrian\030\001 \003(\0132\021.model.Ped"
+    "estrian\"n\n\004Face\022\n\n\002Id\030\001 \001(\003\022&\n\010Metadata\030"
+    "\002 \001(\0132\024.model.VideoMetadata\022!\n\003Img\030\003 \001(\013"
+    "2\024.model.CutboardImage\022\017\n\007Feature\030\004 \001(\014\""
+    "\"\n\005Faces\022\031\n\004Face\030\001 \003(\0132\013.model.Face\"m\n\rV"
+    "ideoMetadata\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Durat"
+    "ion\030\002 \001(\005\022\020\n\010SensorId\030\003 \001(\005\022\022\n\nSensorNam"
+    "e\030\004 \001(\t\022\021\n\tSensorUrl\030\005 \001(\t\"C\n\005Image\022\n\n\002I"
+    "d\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\017"
+    "\n\007BinData\030\004 \001(\014\"u\n\rCutboardImage\022&\n\010Meta"
+    "data\030\001 \001(\0132\024.model.VideoMetadata\022!\n\010Cutb"
+    "oard\030\002 \001(\0132\017.model.Cutboard\022\031\n\003Img\030\003 \001(\013"
+    "2\014.model.Image\":\n\005Color\022\n\n\002Id\030\001 \001(\005\022\022\n\nC"
+    "onfidence\030\002 \001(\002\022\021\n\tColorName\030\003 \001(\t\"d\n\010Cu"
+    "tboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r\n\005Width\030\003 "
+    "\001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010ResWidth\030\005 \001(\r\022\021\n"
+    "\tResHeight\030\006 \001(\r\"c\n\nBaseEntity\022\n\n\002Id\030\001 \001"
+    "(\003\022&\n\010Metadata\030\002 \001(\0132\024.model.VideoMetada"
+    "ta\022!\n\003Img\030\003 \001(\0132\024.model.CutboardImage\",\n"
+    "\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature\030\002 "
+    "\001(\014\"\r\n\013NullMessage*\315\002\n\007ObjType\022\016\n\nUNKNOW"
+    "NOBJ\020\000\022\013\n\007VEHICLE\020\001\022\013\n\007BICYCLE\020\002\022\014\n\010TRIC"
+    "YCLE\020\003\022\016\n\nPEDESTRIAN\020\004\022\t\n\004FACE\020\200\010\022\021\n\014LIC"
+    "ENSEPLATE\020\201\010\022\023\n\016VEHICLE_VECTOR\020\200\020\022\023\n\016BIC"
+    "YCLE_VECTOR\020\201\020\022\024\n\017TRICYCLE_VECTOR\020\202\020\022\026\n\021"
+    "PEDESTRIAN_VECTOR\020\203\020\022\020\n\013FACE_VECTOR\020\200\030\022\025"
+    "\n\020VEHICLE_CUTBOARD\020\200 \022\025\n\020BICYCLE_CUTBOAR"
+    "D\020\201 \022\026\n\021TRICYCLE_CUTBOARD\020\202 \022\030\n\023PEDESTRI"
+    "AN_CUTBOARD\020\203 \022\022\n\rFACE_CUTBOARD\020\200(*G\n\013Da"
+    "taFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010P"
+    "ROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004b\006proto3", 2675);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "deepdatasingle.proto", &protobuf_RegisterTypes);
   VehicleModelType::default_instance_ = new VehicleModelType();
@@ -612,6 +664,8 @@ void protobuf_AddDesc_deepdatasingle_2eproto() {
   Vehicles::default_instance_ = new Vehicles();
   Tricycle::default_instance_ = new Tricycle();
   Tricycles::default_instance_ = new Tricycles();
+  Bicycle::default_instance_ = new Bicycle();
+  Bicycles::default_instance_ = new Bicycles();
   Pedestrian::default_instance_ = new Pedestrian();
   Pedestrians::default_instance_ = new Pedestrians();
   Face::default_instance_ = new Face();
@@ -631,6 +685,8 @@ void protobuf_AddDesc_deepdatasingle_2eproto() {
   Vehicles::default_instance_->InitAsDefaultInstance();
   Tricycle::default_instance_->InitAsDefaultInstance();
   Tricycles::default_instance_->InitAsDefaultInstance();
+  Bicycle::default_instance_->InitAsDefaultInstance();
+  Bicycles::default_instance_->InitAsDefaultInstance();
   Pedestrian::default_instance_->InitAsDefaultInstance();
   Pedestrians::default_instance_->InitAsDefaultInstance();
   Face::default_instance_->InitAsDefaultInstance();
@@ -4355,6 +4411,803 @@ Tricycles::mutable_tricycle() {
 const ::google::protobuf::RepeatedPtrField< ::model::Tricycle >&
 Tricycles::tricycle() const {
   // @@protoc_insertion_point(field_list:model.Tricycles.Tricycle)
+  return tricycle_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Bicycle::kIdFieldNumber;
+const int Bicycle::kMetadataFieldNumber;
+const int Bicycle::kImgFieldNumber;
+const int Bicycle::kFeatureFieldNumber;
+const int Bicycle::kColorFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Bicycle::Bicycle()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:model.Bicycle)
+}
+
+void Bicycle::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  metadata_ = const_cast< ::model::VideoMetadata*>(&::model::VideoMetadata::default_instance());
+  img_ = const_cast< ::model::CutboardImage*>(&::model::CutboardImage::default_instance());
+  color_ = const_cast< ::model::Color*>(&::model::Color::default_instance());
+}
+
+Bicycle::Bicycle(const Bicycle& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:model.Bicycle)
+}
+
+void Bicycle::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
+  metadata_ = NULL;
+  img_ = NULL;
+  feature_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  color_ = NULL;
+}
+
+Bicycle::~Bicycle() {
+  // @@protoc_insertion_point(destructor:model.Bicycle)
+  SharedDtor();
+}
+
+void Bicycle::SharedDtor() {
+  feature_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+    delete metadata_;
+    delete img_;
+    delete color_;
+  }
+}
+
+void Bicycle::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Bicycle::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Bicycle_descriptor_;
+}
+
+const Bicycle& Bicycle::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_deepdatasingle_2eproto();
+  return *default_instance_;
+}
+
+Bicycle* Bicycle::default_instance_ = NULL;
+
+Bicycle* Bicycle::New(::google::protobuf::Arena* arena) const {
+  Bicycle* n = new Bicycle;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Bicycle::Clear() {
+  id_ = GOOGLE_LONGLONG(0);
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+  feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
+  color_ = NULL;
+}
+
+bool Bicycle::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:model.Bicycle)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int64 Id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Metadata;
+        break;
+      }
+
+      // optional .model.VideoMetadata Metadata = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Metadata:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_metadata()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Img;
+        break;
+      }
+
+      // optional .model.CutboardImage Img = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Img:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_img()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_Feature;
+        break;
+      }
+
+      // optional bytes Feature = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_Feature:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_feature()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_Color;
+        break;
+      }
+
+      // optional .model.Color Color = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_Color:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_color()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:model.Bicycle)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:model.Bicycle)
+  return false;
+#undef DO_
+}
+
+void Bicycle::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:model.Bicycle)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
+  }
+
+  // optional .model.VideoMetadata Metadata = 2;
+  if (this->has_metadata()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->metadata_, output);
+  }
+
+  // optional .model.CutboardImage Img = 3;
+  if (this->has_img()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->img_, output);
+  }
+
+  // optional bytes Feature = 4;
+  if (this->feature().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      4, this->feature(), output);
+  }
+
+  // optional .model.Color Color = 5;
+  if (this->has_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *this->color_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:model.Bicycle)
+}
+
+::google::protobuf::uint8* Bicycle::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:model.Bicycle)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
+  }
+
+  // optional .model.VideoMetadata Metadata = 2;
+  if (this->has_metadata()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->metadata_, target);
+  }
+
+  // optional .model.CutboardImage Img = 3;
+  if (this->has_img()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->img_, target);
+  }
+
+  // optional bytes Feature = 4;
+  if (this->feature().size() > 0) {
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
+        4, this->feature(), target);
+  }
+
+  // optional .model.Color Color = 5;
+  if (this->has_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, *this->color_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:model.Bicycle)
+  return target;
+}
+
+int Bicycle::ByteSize() const {
+  int total_size = 0;
+
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->id());
+  }
+
+  // optional .model.VideoMetadata Metadata = 2;
+  if (this->has_metadata()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->metadata_);
+  }
+
+  // optional .model.CutboardImage Img = 3;
+  if (this->has_img()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->img_);
+  }
+
+  // optional bytes Feature = 4;
+  if (this->feature().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->feature());
+  }
+
+  // optional .model.Color Color = 5;
+  if (this->has_color()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->color_);
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Bicycle::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const Bicycle* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const Bicycle>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Bicycle::MergeFrom(const Bicycle& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.has_metadata()) {
+    mutable_metadata()->::model::VideoMetadata::MergeFrom(from.metadata());
+  }
+  if (from.has_img()) {
+    mutable_img()->::model::CutboardImage::MergeFrom(from.img());
+  }
+  if (from.feature().size() > 0) {
+
+    feature_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.feature_);
+  }
+  if (from.has_color()) {
+    mutable_color()->::model::Color::MergeFrom(from.color());
+  }
+}
+
+void Bicycle::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Bicycle::CopyFrom(const Bicycle& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Bicycle::IsInitialized() const {
+
+  return true;
+}
+
+void Bicycle::Swap(Bicycle* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Bicycle::InternalSwap(Bicycle* other) {
+  std::swap(id_, other->id_);
+  std::swap(metadata_, other->metadata_);
+  std::swap(img_, other->img_);
+  feature_.Swap(&other->feature_);
+  std::swap(color_, other->color_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Bicycle::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Bicycle_descriptor_;
+  metadata.reflection = Bicycle_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Bicycle
+
+// optional int64 Id = 1;
+void Bicycle::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 Bicycle::id() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Id)
+  return id_;
+}
+ void Bicycle::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:model.Bicycle.Id)
+}
+
+// optional .model.VideoMetadata Metadata = 2;
+bool Bicycle::has_metadata() const {
+  return !_is_default_instance_ && metadata_ != NULL;
+}
+void Bicycle::clear_metadata() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+}
+const ::model::VideoMetadata& Bicycle::metadata() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Metadata)
+  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
+}
+::model::VideoMetadata* Bicycle::mutable_metadata() {
+  
+  if (metadata_ == NULL) {
+    metadata_ = new ::model::VideoMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Metadata)
+  return metadata_;
+}
+::model::VideoMetadata* Bicycle::release_metadata() {
+  
+  ::model::VideoMetadata* temp = metadata_;
+  metadata_ = NULL;
+  return temp;
+}
+void Bicycle::set_allocated_metadata(::model::VideoMetadata* metadata) {
+  delete metadata_;
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Metadata)
+}
+
+// optional .model.CutboardImage Img = 3;
+bool Bicycle::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+void Bicycle::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+const ::model::CutboardImage& Bicycle::img() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+::model::CutboardImage* Bicycle::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::model::CutboardImage;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Img)
+  return img_;
+}
+::model::CutboardImage* Bicycle::release_img() {
+  
+  ::model::CutboardImage* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+void Bicycle::set_allocated_img(::model::CutboardImage* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Img)
+}
+
+// optional bytes Feature = 4;
+void Bicycle::clear_feature() {
+  feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& Bicycle::feature() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Feature)
+  return feature_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void Bicycle::set_feature(const ::std::string& value) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:model.Bicycle.Feature)
+}
+ void Bicycle::set_feature(const char* value) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:model.Bicycle.Feature)
+}
+ void Bicycle::set_feature(const void* value, size_t size) {
+  
+  feature_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:model.Bicycle.Feature)
+}
+ ::std::string* Bicycle::mutable_feature() {
+  
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Feature)
+  return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* Bicycle::release_feature() {
+  
+  return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void Bicycle::set_allocated_feature(::std::string* feature) {
+  if (feature != NULL) {
+    
+  } else {
+    
+  }
+  feature_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), feature);
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Feature)
+}
+
+// optional .model.Color Color = 5;
+bool Bicycle::has_color() const {
+  return !_is_default_instance_ && color_ != NULL;
+}
+void Bicycle::clear_color() {
+  if (GetArenaNoVirtual() == NULL && color_ != NULL) delete color_;
+  color_ = NULL;
+}
+const ::model::Color& Bicycle::color() const {
+  // @@protoc_insertion_point(field_get:model.Bicycle.Color)
+  return color_ != NULL ? *color_ : *default_instance_->color_;
+}
+::model::Color* Bicycle::mutable_color() {
+  
+  if (color_ == NULL) {
+    color_ = new ::model::Color;
+  }
+  // @@protoc_insertion_point(field_mutable:model.Bicycle.Color)
+  return color_;
+}
+::model::Color* Bicycle::release_color() {
+  
+  ::model::Color* temp = color_;
+  color_ = NULL;
+  return temp;
+}
+void Bicycle::set_allocated_color(::model::Color* color) {
+  delete color_;
+  color_ = color;
+  if (color) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:model.Bicycle.Color)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int Bicycles::kTricycleFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+Bicycles::Bicycles()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:model.Bicycles)
+}
+
+void Bicycles::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+Bicycles::Bicycles(const Bicycles& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:model.Bicycles)
+}
+
+void Bicycles::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+Bicycles::~Bicycles() {
+  // @@protoc_insertion_point(destructor:model.Bicycles)
+  SharedDtor();
+}
+
+void Bicycles::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void Bicycles::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Bicycles::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Bicycles_descriptor_;
+}
+
+const Bicycles& Bicycles::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_deepdatasingle_2eproto();
+  return *default_instance_;
+}
+
+Bicycles* Bicycles::default_instance_ = NULL;
+
+Bicycles* Bicycles::New(::google::protobuf::Arena* arena) const {
+  Bicycles* n = new Bicycles;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void Bicycles::Clear() {
+  tricycle_.Clear();
+}
+
+bool Bicycles::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:model.Bicycles)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .model.Bicycle Tricycle = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Tricycle:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_tricycle()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_Tricycle;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:model.Bicycles)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:model.Bicycles)
+  return false;
+#undef DO_
+}
+
+void Bicycles::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:model.Bicycles)
+  // repeated .model.Bicycle Tricycle = 1;
+  for (unsigned int i = 0, n = this->tricycle_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->tricycle(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:model.Bicycles)
+}
+
+::google::protobuf::uint8* Bicycles::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:model.Bicycles)
+  // repeated .model.Bicycle Tricycle = 1;
+  for (unsigned int i = 0, n = this->tricycle_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->tricycle(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:model.Bicycles)
+  return target;
+}
+
+int Bicycles::ByteSize() const {
+  int total_size = 0;
+
+  // repeated .model.Bicycle Tricycle = 1;
+  total_size += 1 * this->tricycle_size();
+  for (int i = 0; i < this->tricycle_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->tricycle(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Bicycles::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const Bicycles* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const Bicycles>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Bicycles::MergeFrom(const Bicycles& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  tricycle_.MergeFrom(from.tricycle_);
+}
+
+void Bicycles::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Bicycles::CopyFrom(const Bicycles& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Bicycles::IsInitialized() const {
+
+  return true;
+}
+
+void Bicycles::Swap(Bicycles* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void Bicycles::InternalSwap(Bicycles* other) {
+  tricycle_.UnsafeArenaSwap(&other->tricycle_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata Bicycles::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Bicycles_descriptor_;
+  metadata.reflection = Bicycles_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// Bicycles
+
+// repeated .model.Bicycle Tricycle = 1;
+int Bicycles::tricycle_size() const {
+  return tricycle_.size();
+}
+void Bicycles::clear_tricycle() {
+  tricycle_.Clear();
+}
+const ::model::Bicycle& Bicycles::tricycle(int index) const {
+  // @@protoc_insertion_point(field_get:model.Bicycles.Tricycle)
+  return tricycle_.Get(index);
+}
+::model::Bicycle* Bicycles::mutable_tricycle(int index) {
+  // @@protoc_insertion_point(field_mutable:model.Bicycles.Tricycle)
+  return tricycle_.Mutable(index);
+}
+::model::Bicycle* Bicycles::add_tricycle() {
+  // @@protoc_insertion_point(field_add:model.Bicycles.Tricycle)
+  return tricycle_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::model::Bicycle >*
+Bicycles::mutable_tricycle() {
+  // @@protoc_insertion_point(field_mutable_list:model.Bicycles.Tricycle)
+  return &tricycle_;
+}
+const ::google::protobuf::RepeatedPtrField< ::model::Bicycle >&
+Bicycles::tricycle() const {
+  // @@protoc_insertion_point(field_list:model.Bicycles.Tricycle)
   return tricycle_;
 }
 
