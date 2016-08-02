@@ -17,10 +17,8 @@ ENDIF ()
 SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -w -fprofile-arcs -ftest-coverage")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w -fprofile-arcs -ftest-coverage")
 
-find_package( GTest )
-include_directories( ${GTEST_INCLUDE_DIRS} ../src )
-target_link_libraries(${PROJECT_TEST_NAME} ${GTEST_BOTH_LIBRARIES} ${PROJECT_ENGINE_CUDA_LIB_TEST})
-target_link_libraries(${PROJECT_TEST_NAME} ${LIBS})
+include_directories( ../src )
+target_link_libraries(${PROJECT_TEST_NAME} ${LIBS} ${PROJECT_ENGINE_CUDA_LIB_TEST})
 
 install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test )
 
