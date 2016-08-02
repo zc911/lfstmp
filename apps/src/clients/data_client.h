@@ -16,40 +16,40 @@ using grpc::CompletionQueue;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-namespace dg{
 
 
 class DataClient {
+    int timeout=5;
 public:
     DataClient() {
 
     }
-	MatrixError SendBatchData(string address,const VehicleObj &v){
-        model::BatchDataRequest batchReq;
-        for(int i=0;i<v.vehicle_size();i++){
-            string binData="";
+	MatrixError SendBatchData(string address, VehicleObj *v){
+        ::model::BatchDataRequest batchReq;
+        for(int i=0;i<v->vehicle_size();i++){
+            string bindata="";
             ::model::ObjType typeValue=model::UNKNOWNOBJ;
-            dg::model::RecVehicle *mV = v.mutable_vehicle(i);
+            dg::model::RecVehicle *mV = v->mutable_vehicle(i);
             if(mV->vehicletype()==dg::model::OBJ_TYPE_CAR){
                 model::Vehicle pbVehicle;
-                vehicle2Protobuf(pbVehicle,mV,v.metadata());
+                vehicle2Protobuf(pbVehicle,mV,v->metadata());
                 bindata = pbVehicle.SerializeAsString();
-                typeValue=model::OBJ_TYPE_CAR;
+                typeValue=model::VEHICLE;
             }else if(mV->vehicletype()==dg::model::OBJ_TYPE_BICYCLE){
                 model::Bicycle pbBicycle;
-                bicycle2Protobuf(pbBicycle,mV,v.metadata());
+                bicycle2Protobuf(pbBicycle,mV,v->metadata());
                 bindata = pbBicycle.SerializeAsString();
-                typeValue=model::OBJ_TYPE_BICYCLE;
+                typeValue=model::BICYCLE;
             }else if(mV->vehicletype()==dg::model::OBJ_TYPE_TRICYCLE){
                 model::Tricycle pbTricycle;
-                tricycle2Protobuf(pbTricycle,mV,v.metadata());
-                bindata = pbTricyle.SerializeAsString();
-                typeValue=model::OBJ_TYPE_TRICYCLE;
+                tricycle2Protobuf(pbTricycle,mV,v->metadata());
+                bindata = pbTricycle.SerializeAsString();
+                typeValue=model::TRICYCLE;
             }else if(mV->vehicletype()==dg::model::OBJ_TYPE_PEDESTRIAN){
                 model::Pedestrian pbPedestrian;
-                pedestrian2Protobuf(pbPedestrian,mV,v.metadata());
+                pedestrian2Protobuf(pbPedestrian,mV,v->metadata());
                 bindata = pbPedestrian.SerializeAsString();
-                typeValue=model::OBJ_TYPE_PEDESTRIAN;
+                typeValue=model::PEDESTRIAN;
             }
             if(typeValue!=model::UNKNOWNOBJ){
                 model::GenericObj *genObj =batchReq.add_entities();
@@ -63,15 +63,15 @@ public:
         if (it == stubs_.end()) {
             CreateConnect(address);
         }
-        NullMessage reply;
+        ::model::DataResponse reply;
         ClientContext context;
         std::chrono::system_clock::time_point
             deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
         context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
-        std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
-            stubs_[address]->AsyncIndexVehicle(&context, v, &cq));
+        std::unique_ptr<ClientAsyncResponseReader<::model::DataResponse> > rpc(
+            stubs_[address]->AsyncSendBatchData(&context, batchReq, &cq));
         rpc->Finish(&reply, &status, (void *) 1);
         void *got_tag;
         bool ok = false;
@@ -84,12 +84,12 @@ public:
             return err;
         } else {
             VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
-            stubs_.erase(stubs_.find(storageAddress));
+            stubs_.erase(stubs_.find(address));
             return err;
         }
 	}
     void CreateConnect(string address) {
-        shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
+        shared_ptr<grpc::Channel> channel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
         std::unique_ptr<DataService::Stub> stub(DataService::NewStub(channel));
         stubs_.insert(std::make_pair(address, std::move(stub)));
         if (stubs_.size() > 10) {
@@ -106,7 +106,6 @@ private:
         model::VideoMetadata *metadata = pbBicycle.mutable_metadata();
         model::Color *mColor = pbBicycle.mutable_color();
         model::CutboardImage *mCutImage = pbBicycle.mutable_img();
-        string *feature = pbBicycle.mutable_feature();
 
         mColor->set_id(recVehicle->color().colorid());
         mColor->set_confidence(recVehicle->color().confidence());
@@ -114,8 +113,8 @@ private:
         metadata->set_timestamp(srcMetadata.timestamp());
         metadata->set_sensorurl(srcMetadata.sensorurl());
 
-        mCutImage->mutable_cutboard()->set_x(max(recVehicle->img().cutboard().x()),0);
-        mCutImage->mutable_cutboard()->set_y(max(recVehicle->img().cutboard().y()),0);
+        mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x()>0?recVehicle->img().cutboard().x():0);
+        mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y()>0?recVehicle->img().cutboard().y():0);
         mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
         mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
         mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
@@ -123,14 +122,12 @@ private:
 
         model::Image *image = mCutImage->mutable_img();
         image->set_bindata(recVehicle->img().img().bindata());
-
-        feature=recVehicle->features();
+        pbBicycle.set_feature(recVehicle->features());
     }
     void tricycle2Protobuf(model::Tricycle &pbTricycle,dg::model::RecVehicle *recVehicle,const dg::model::SrcMetadata &srcMetadata){
         model::VideoMetadata *metadata = pbTricycle.mutable_metadata();
         model::Color *mColor = pbTricycle.mutable_color();
         model::CutboardImage *mCutImage = pbTricycle.mutable_img();
-        string *feature = pbTricycle.mutable_feature();
 
         mColor->set_id(recVehicle->color().colorid());
         mColor->set_confidence(recVehicle->color().confidence());
@@ -138,8 +135,8 @@ private:
         metadata->set_timestamp(srcMetadata.timestamp());
         metadata->set_sensorurl(srcMetadata.sensorurl());
 
-        mCutImage->mutable_cutboard()->set_x(max(recVehicle->img().cutboard().x()),0);
-        mCutImage->mutable_cutboard()->set_y(max(recVehicle->img().cutboard().y()),0);
+        mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x()>0?recVehicle->img().cutboard().x():0);
+        mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y()>0?recVehicle->img().cutboard().y():0);
         mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
         mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
         mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
@@ -147,7 +144,7 @@ private:
         model::Image *image = mCutImage->mutable_img();
         image->set_bindata(recVehicle->img().img().bindata());
 
-        feature=recVehicle->features();
+        pbTricycle.set_feature(recVehicle->features());
     }
     void pedestrian2Protobuf(model::Pedestrian &pbPedestrian,dg::model::RecVehicle *recVehicle,const dg::model::SrcMetadata &srcMetadata){
         model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
@@ -156,8 +153,8 @@ private:
         metadata->set_timestamp(srcMetadata.timestamp());
         metadata->set_sensorurl(srcMetadata.sensorurl());
 
-        mCutImage->mutable_cutboard()->set_x(max(recVehicle->img().cutboard().x()),0);
-        mCutImage->mutable_cutboard()->set_y(max(recVehicle->img().cutboard().y()),0);
+        mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x()>0?recVehicle->img().cutboard().x():0);
+        mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y()>0?recVehicle->img().cutboard().y():0);
         mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
         mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
         mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
@@ -174,6 +171,11 @@ private:
         unsigned int lowerStyleTmp=0;
         unsigned int genderTmp=0;
         unsigned int ethnicTmp=0;
+        float age_conf=0.0;
+        float upper_conf=0.0;
+        float lower_conf=0.0;
+        float sex_conf=0.0;
+        float ethnic_conf=0.0;
         for(size_t i=0;i<recVehicle->pedestrianattrs_size();i++){
             if(i>=0&&i<6){
                featuresTmp|=1<<recVehicle->pedestrianattrs(i).attrid();
@@ -197,19 +199,19 @@ private:
                 }
             }else if(i==45){
                 if(recVehicle->pedestrianattrs(i).confidence()>sex_conf){
-                    pbPedestrian.set_gender(true);
+                    pbPedestrian.set_gender(1);
                 }else{
-                    pbPedestrian.set_gender(false);
+                    pbPedestrian.set_gender(0);
                 }
             }else if(i<=46){
                 if(recVehicle->pedestrianattrs(i).confidence()>ethnic_conf){
-                    pbPedestrian.set_ethnic(true);
+                    pbPedestrian.set_ethnic(1);
                 }else{
-                    pbPedestrian.set_ethnic(false);
+                    pbPedestrian.set_ethnic(0);
                 }
             }
         }
-        feature=recVehicle->features();
+
     }
     void vehicle2Protobuf(model::Vehicle &pbVehicle,dg::model::RecVehicle *recVehicle,const dg::model::SrcMetadata &srcMetadata){
         model::VideoMetadata *metadata = pbVehicle.mutable_metadata();
@@ -226,7 +228,7 @@ private:
         metadata->set_sensorurl(srcMetadata.sensorurl());
 
         mModelType->set_type(recVehicle->modeltype().typeid_());
-        mModelType->set_ishead(recVehicle->modeltype().brandid());
+        mModelType->set_brandid(recVehicle->modeltype().brandid());
         mModelType->set_subbrandid(recVehicle->modeltype().subbrandid());
         mModelType->set_modelyearid(recVehicle->modeltype().modelyearid());
         if(recVehicle->modeltype().confidence()+1<=0.0001){
@@ -238,17 +240,17 @@ private:
         mPlate->set_type(recVehicle->plate().typeid_());
         mPlate->set_confidence(recVehicle->plate().confidence());
         model::Color *mPlateColor = mPlate->mutable_color();
-        mPlateColor.set_colorid(recVehicle->plate().color().colorid());
-        mPlateColor.set_confidence(recVehicle->plate().color().confidence());
+        mPlateColor->set_id(recVehicle->plate().color().colorid());
+        mPlateColor->set_confidence(recVehicle->plate().color().confidence());
         mPlate->set_platetext(recVehicle->plate().platetext());
         model::Cutboard *mPlateCutboard = mPlate->mutable_cutboard();
-        mPlateCutboard->set_x(max(recVehicle->plate().cutboard().x()),0);
-        mPlateCutboard->set_y(max(recVehicle->plate().cutboard().y()),0);
+        mPlateCutboard->set_x(((int)recVehicle->plate().cutboard().x())>0?recVehicle->plate().cutboard().x():0);
+        mPlateCutboard->set_y(((int)recVehicle->plate().cutboard().y())>0?recVehicle->plate().cutboard().y():0);
         mPlateCutboard->set_width(recVehicle->plate().cutboard().width());
         mPlateCutboard->set_height(recVehicle->plate().cutboard().height());
 
-        mCutImage->mutable_cutboard()->set_x(max(recVehicle->img().cutboard().x()),0);
-        mCutImage->mutable_cutboard()->set_y(max(recVehicle->img().cutboard().y()),0);
+        mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x()>0?recVehicle->img().cutboard().x():0);
+        mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y()>0?recVehicle->img().cutboard().y():0);
         mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
         mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
         mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
@@ -256,10 +258,11 @@ private:
         model::Image *image = mCutImage->mutable_img();
         image->set_bindata(recVehicle->img().img().bindata());
 
-        feature=recVehicle->features();
+        pbVehicle.set_feature(recVehicle->features());
+
     }
     map<string, std::unique_ptr<DataService::Stub> > stubs_;
 
 };
-}
+
 #endif 

@@ -12,8 +12,10 @@ namespace dg {
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
-        string storageAddress = (string) config->Value(STORAGE_ADDRESS);
-        spring_client_.CreateConnect(storageAddress);
+        string address = (string) config->Value(STORAGE_ADDRESS);
+        spring_client_.CreateConnect(address);
+        data_client_.CreateConnect(address);
+
     }
 
     MatrixError storage() {
@@ -22,12 +24,12 @@ public:
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
 
-        string storageAddress = wv->storage().address();
+        string address = wv->storage().address();
 
 
         const VehicleObj &v = wv->vehicleresult();
-        err=spring_client_.IndexVehicle(storageAddress,v);
-
+        err=spring_client_.IndexVehicle(address,v);
+        err=data_client_.SendBatchData(address,wv->mutable_vehicleresult());
         return err;
     }
     ~StorageRequest() { }
