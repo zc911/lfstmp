@@ -19,8 +19,10 @@ scp version dell@192.168.2.119:~/release/home/matrix/$platform/
 scp $name"_"$version.tar  dell@192.168.2.119:~/release/home/matrix/$platform/release
 rm version
 rm $name"_"$1.tar
+
 git commit -a -m $version
 git tag $version
 git push origin $version
+git checkout release && git merge master && git push
 echo "release " $version "done!"
 
