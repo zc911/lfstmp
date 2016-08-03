@@ -535,8 +535,8 @@ void protobuf_AddDesc_common_2eproto() {
     "\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033"
     "\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtTy"
     "pe\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF"
-    "\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020"
-    "\000b\006proto3", 2489);
+    "\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*!\n\006DBType\022\t\n\005KAFKA\020"
+    "\000\022\014\n\010POSTGRES\020\001b\006proto3", 2503);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -632,6 +632,7 @@ const ::google::protobuf::EnumDescriptor* DBType_descriptor() {
 bool DBType_IsValid(int value) {
   switch(value) {
     case 0:
+    case 1:
       return true;
     default:
       return false;
