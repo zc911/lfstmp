@@ -26,7 +26,6 @@ public:
 
         string address = wv->storage().address();
 
-
         const VehicleObj &v = wv->vehicleresult();
         err=spring_client_.IndexVehicle(address,v);
         err=data_client_.SendBatchData(address,wv->mutable_vehicleresult());

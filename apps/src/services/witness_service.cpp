@@ -33,8 +33,8 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
     int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
     for(int i=0;i<typeNum;i++){
-        int threadNum = (int) config_->Value(STORAGE_DB_TYPE + to_string(i));
-        storage_types_.push_back(threadNum);
+        int type = (int) config_->Value(STORAGE_DB_TYPE + to_string(i));
+        dbtypes_.Add(type);
     }
     enable_cutboard_ = (bool) config_->Value("EnableCutboard");
 
@@ -369,6 +369,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     if (enable_storage_) {
         if (request->context().has_storage()) {
             storage_address_ = (string) request->context().storage().address();
+            dbtypes_.CopyFrom(request->context().storage().types());
         } else {
             storage_address_ = storage_address_;
         }
@@ -378,6 +379,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         if (r.vehicles_size() != 0) {
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
             client_request_obj->mutable_storage()->set_address(storage_address_);
+            client_request_obj->mutable_storage()->mutable_types()->CopyFrom(dbtypes_);
             for (int i = 0; i < r.vehicles_size(); i++) {
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
@@ -557,10 +559,13 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     if (enable_storage_) {
         string storageAddress;
+
         if (batchRequest->context().has_storage()) {
             storageAddress = (string) batchRequest->context().storage().address();
+            dbtypes_.CopyFrom(batchRequest->context().storage().types());
         } else {
             storageAddress = storage_address_;
+
         }
 
         for (int k = 0; k < batchResponse->results_size(); k++) {
