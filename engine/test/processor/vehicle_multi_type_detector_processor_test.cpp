@@ -1,5 +1,3 @@
-#if true
-
 #include <algorithm>
 #include "gtest/gtest.h"
 
@@ -243,5 +241,3 @@ TEST(VehicleMultiTypeDectorTest, vehiclePositionTest) {
 
     destory();
 }
-
-#endif

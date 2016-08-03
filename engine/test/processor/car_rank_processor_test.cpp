@@ -1,5 +1,3 @@
-#if true
-
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "processor/car_rank_processor.h"
@@ -143,5 +141,3 @@ TEST(CarRankProcessorTest, carRankTest) {
 
     destory();
 }
-
-#endif
