@@ -25,10 +25,22 @@ public:
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
 
         string address = wv->storage().address();
-
-        const VehicleObj &v = wv->vehicleresult();
-        err=spring_client_.IndexVehicle(address,v);
-        err=data_client_.SendBatchData(address,wv->mutable_vehicleresult());
+        for(int i=0;i<=wv->storage().types_size();i++){
+            if(wv->storage().types(i)==model::POSTGRES){
+                MatrixError errTmp=data_client_.SendBatchData(address,wv->mutable_vehicleresult());
+                if(errTmp.code()!=0){
+                    err.set_code(errTmp.code());
+                    err.set_message("send to postgres error");
+                }
+            }else if(wv->storage().types(i)==model::KAFKA){
+                const VehicleObj &v = wv->vehicleresult();
+                MatrixError errTmp=spring_client_.IndexVehicle(address,v);
+                if(errTmp.code()!=0){
+                    err.set_code(errTmp.code());
+                    err.set_message("send to kafka error");
+                }
+            }
+        }
         return err;
     }
     ~StorageRequest() { }
