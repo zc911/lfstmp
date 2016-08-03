@@ -350,7 +350,7 @@ void protobuf_AssignDesc_common_2eproto() {
   StorageConfig_descriptor_ = file->message_type(14);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, types_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, tags_),
   };
   StorageConfig_reflection_ =
@@ -517,26 +517,26 @@ void protobuf_AddDesc_common_2eproto() {
     "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
     "(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboa"
     "rd\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfiden"
-    "ce\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001"
-    "(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Ta"
-    "gs\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\013"
-    "2\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.d"
-    "g.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mode"
-    "l.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNK"
-    "NOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BIC"
-    "YCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYP"
-    "E_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OB"
-    "J_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BIC"
-    "YCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECT"
-    "OR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031"
-    "\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VE"
-    "HICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CU"
-    "TBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020"
-    "\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n"
-    "\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtTyp"
-    "e\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020"
-    "\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000"
-    "b\006proto3", 2488);
+    "ce\030\002 \001(\002\"O\n\rStorageConfig\022\017\n\007Address\030\001 \001"
+    "(\t\022\037\n\005Types\030\002 \003(\0162\020.dg.model.DBType\022\014\n\004T"
+    "ags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001("
+    "\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017."
+    "dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mod"
+    "el.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UN"
+    "KNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BI"
+    "CYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TY"
+    "PE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027O"
+    "BJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BI"
+    "CYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VEC"
+    "TOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022"
+    "\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_V"
+    "EHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_C"
+    "UTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD"
+    "\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033"
+    "\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtTy"
+    "pe\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF"
+    "\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*\023\n\006DBType\022\t\n\005KAFKA\020"
+    "\000b\006proto3", 2489);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -7963,7 +7963,7 @@ void Symbol::clear_confidence() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int StorageConfig::kAddressFieldNumber;
-const int StorageConfig::kTypeFieldNumber;
+const int StorageConfig::kTypesFieldNumber;
 const int StorageConfig::kTagsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -7990,7 +7990,6 @@ void StorageConfig::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   address_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
 }
 
 StorageConfig::~StorageConfig() {
@@ -8031,7 +8030,7 @@ StorageConfig* StorageConfig::New(::google::protobuf::Arena* arena) const {
 
 void StorageConfig::Clear() {
   address_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  type_ = 0;
+  types_.Clear();
   tags_.Clear();
 }
 
@@ -8057,19 +8056,31 @@ bool StorageConfig::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_Type;
+        if (input->ExpectTag(18)) goto parse_Types;
         break;
       }
 
-      // optional .dg.model.DBType Type = 2;
+      // repeated .dg.model.DBType Types = 2;
       case 2: {
-        if (tag == 16) {
-         parse_Type:
+        if (tag == 18) {
+         parse_Types:
+          ::google::protobuf::uint32 length;
+          DO_(input->ReadVarint32(&length));
+          ::google::protobuf::io::CodedInputStream::Limit limit = input->PushLimit(length);
+          while (input->BytesUntilLimit() > 0) {
+            int value;
+            DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+            add_types(static_cast< ::dg::model::DBType >(value));
+          }
+          input->PopLimit(limit);
+        } else if (tag == 16) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_type(static_cast< ::dg::model::DBType >(value));
+          add_types(static_cast< ::dg::model::DBType >(value));
         } else {
           goto handle_unusual;
         }
@@ -8130,10 +8141,17 @@ void StorageConfig::SerializeWithCachedSizes(
       1, this->address(), output);
   }
 
-  // optional .dg.model.DBType Type = 2;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->type(), output);
+  // repeated .dg.model.DBType Types = 2;
+  if (this->types_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(
+      2,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      output);
+    output->WriteVarint32(_types_cached_byte_size_);
+  }
+  for (int i = 0; i < this->types_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnumNoTag(
+      this->types(i), output);
   }
 
   // repeated string Tags = 3;
@@ -8163,10 +8181,17 @@ void StorageConfig::SerializeWithCachedSizes(
         1, this->address(), target);
   }
 
-  // optional .dg.model.DBType Type = 2;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->type(), target);
+  // repeated .dg.model.DBType Types = 2;
+  if (this->types_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      2,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(    _types_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->types_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumNoTagToArray(
+      this->types(i), target);
   }
 
   // repeated string Tags = 3;
@@ -8193,10 +8218,21 @@ int StorageConfig::ByteSize() const {
         this->address());
   }
 
-  // optional .dg.model.DBType Type = 2;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+  // repeated .dg.model.DBType Types = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->types_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::EnumSize(
+        this->types(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _types_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
   }
 
   // repeated string Tags = 3;
@@ -8226,13 +8262,11 @@ void StorageConfig::MergeFrom(const ::google::protobuf::Message& from) {
 
 void StorageConfig::MergeFrom(const StorageConfig& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  types_.MergeFrom(from.types_);
   tags_.MergeFrom(from.tags_);
   if (from.address().size() > 0) {
 
     address_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.address_);
-  }
-  if (from.type() != 0) {
-    set_type(from.type());
   }
 }
 
@@ -8259,7 +8293,7 @@ void StorageConfig::Swap(StorageConfig* other) {
 }
 void StorageConfig::InternalSwap(StorageConfig* other) {
   address_.Swap(&other->address_);
-  std::swap(type_, other->type_);
+  types_.UnsafeArenaSwap(&other->types_);
   tags_.UnsafeArenaSwap(&other->tags_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -8319,18 +8353,34 @@ void StorageConfig::clear_address() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
 }
 
-// optional .dg.model.DBType Type = 2;
-void StorageConfig::clear_type() {
-  type_ = 0;
+// repeated .dg.model.DBType Types = 2;
+int StorageConfig::types_size() const {
+  return types_.size();
 }
- ::dg::model::DBType StorageConfig::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Type)
-  return static_cast< ::dg::model::DBType >(type_);
+void StorageConfig::clear_types() {
+  types_.Clear();
 }
- void StorageConfig::set_type(::dg::model::DBType value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Type)
+ ::dg::model::DBType StorageConfig::types(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Types)
+  return static_cast< ::dg::model::DBType >(types_.Get(index));
+}
+ void StorageConfig::set_types(int index, ::dg::model::DBType value) {
+  types_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Types)
+}
+ void StorageConfig::add_types(::dg::model::DBType value) {
+  types_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Types)
+}
+ const ::google::protobuf::RepeatedField<int>&
+StorageConfig::types() const {
+  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Types)
+  return types_;
+}
+ ::google::protobuf::RepeatedField<int>*
+StorageConfig::mutable_types() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Types)
+  return &types_;
 }
 
 // repeated string Tags = 3;

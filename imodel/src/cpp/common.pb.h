@@ -1827,11 +1827,15 @@ class StorageConfig : public ::google::protobuf::Message {
   ::std::string* release_address();
   void set_allocated_address(::std::string* address);
 
-  // optional .dg.model.DBType Type = 2;
-  void clear_type();
-  static const int kTypeFieldNumber = 2;
-  ::dg::model::DBType type() const;
-  void set_type(::dg::model::DBType value);
+  // repeated .dg.model.DBType Types = 2;
+  int types_size() const;
+  void clear_types();
+  static const int kTypesFieldNumber = 2;
+  ::dg::model::DBType types(int index) const;
+  void set_types(int index, ::dg::model::DBType value);
+  void add_types(::dg::model::DBType value);
+  const ::google::protobuf::RepeatedField<int>& types() const;
+  ::google::protobuf::RepeatedField<int>* mutable_types();
 
   // repeated string Tags = 3;
   int tags_size() const;
@@ -1855,8 +1859,9 @@ class StorageConfig : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr address_;
+  ::google::protobuf::RepeatedField<int> types_;
+  mutable int _types_cached_byte_size_;
   ::google::protobuf::RepeatedPtrField< ::std::string> tags_;
-  int type_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3902,18 +3907,34 @@ inline void StorageConfig::set_allocated_address(::std::string* address) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.StorageConfig.Address)
 }
 
-// optional .dg.model.DBType Type = 2;
-inline void StorageConfig::clear_type() {
-  type_ = 0;
+// repeated .dg.model.DBType Types = 2;
+inline int StorageConfig::types_size() const {
+  return types_.size();
 }
-inline ::dg::model::DBType StorageConfig::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Type)
-  return static_cast< ::dg::model::DBType >(type_);
+inline void StorageConfig::clear_types() {
+  types_.Clear();
 }
-inline void StorageConfig::set_type(::dg::model::DBType value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Type)
+inline ::dg::model::DBType StorageConfig::types(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.StorageConfig.Types)
+  return static_cast< ::dg::model::DBType >(types_.Get(index));
+}
+inline void StorageConfig::set_types(int index, ::dg::model::DBType value) {
+  types_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.StorageConfig.Types)
+}
+inline void StorageConfig::add_types(::dg::model::DBType value) {
+  types_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.StorageConfig.Types)
+}
+inline const ::google::protobuf::RepeatedField<int>&
+StorageConfig::types() const {
+  // @@protoc_insertion_point(field_list:dg.model.StorageConfig.Types)
+  return types_;
+}
+inline ::google::protobuf::RepeatedField<int>*
+StorageConfig::mutable_types() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.StorageConfig.Types)
+  return &types_;
 }
 
 // repeated string Tags = 3;
