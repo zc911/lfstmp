@@ -1,5 +1,3 @@
-#if true
-
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
@@ -97,7 +95,7 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
         stringstream s;
         s << i;
 
-        EXPECT_EQ(resultReader->getValue(s.str()).size(), 5 + v.size()) << "i = " << i << endl;
+        ASSERT_EQ(resultReader->getValue(s.str()).size(), 5 + v.size()) << "i = " << i << endl;
         for (int j = 0; j < v.size(); ++j) {
             Marker *marker = (Marker *)v[j];
             EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id());
@@ -106,5 +104,3 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
 
     destory();
 }
-
-#endif
