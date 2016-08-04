@@ -1,4 +1,6 @@
-set(DATA_URL "192.168.2.119/unit_test/data")
+set(BASE_URL "192.168.2.119/matrix")
+set(RELEASE_URL ${BASE_URL}"/Linux-x86_64")
+set(DATA_URL ${BASE_URL}"/unit_test/data")
 set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
@@ -24,7 +26,21 @@ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME} DESTINATION ${
 
 add_custom_target(test
         COMMAND make -j8 install
-        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\; then wget -r -R html ${DATA_URL} && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test \; fi
+        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
+            then echo "Loading models..."
+            && wget -rq -R html ${DATA_URL}
+            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test \; fi
+        COMMAND wget -rq -R html ${RELEASE_URL}/version -O VERSION
+        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version VERSION > /tmp/null
+            || (echo "Updating models..."
+            && rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data
+            && wget -rq -R html ${DATA_URL}
+            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
+            && mv VERSION ${PROJECT_SOURCE_DIR}/bin/test/data/version)
+        COMMAND rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data/testimg || true
+        COMMAND echo "Loading data..." && wget -rq -R html ${DATA_URL}/testimg/
+            && mv ${DATA_URL}/testimg ${PROJECT_SOURCE_DIR}/bin/test/data/testimg
+            && rm -rf ${BASE_URL} \; fi
         COMMAND cd ${PROJECT_SOURCE_DIR}/bin/test/ && ./${PROJECT_TEST_NAME}
         )
 
