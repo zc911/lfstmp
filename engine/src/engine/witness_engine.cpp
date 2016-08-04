@@ -66,6 +66,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 for (auto frame : frames->frames()) {
                     Pedestrian *p = new Pedestrian();
                     Mat tmp = frame->payload()->data();
+                    if (tmp.empty()) {
+                        LOG(ERROR) << "Mat is empty" << endl;
+                        return ;
+                    }
                     p->set_image(tmp);
                     p->set_id(baseid);
                     baseid++;
@@ -83,6 +87,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 for (auto frame : frames->frames()) {
                     Vehicle *v = new Vehicle(OBJECT_CAR);
                     Mat tmp = frame->payload()->data();
+                    if (tmp.empty()) {
+                        LOG(ERROR) << "Mat is empty" << endl;
+                        return ;
+                    }
                     v->set_image(tmp);
                     v->set_id(baseid);
                     baseid++;
