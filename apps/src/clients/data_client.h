@@ -79,11 +79,11 @@ public:
                 MatrixError err;
 
         if (status.ok()) {
-            VLOG(VLOG_SERVICE) << "send to storage success" << endl;
+            VLOG(VLOG_SERVICE) << "send to postgres success" << endl;
 
             return err;
         } else {
-            VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
+            VLOG(VLOG_SERVICE) << "send to postgres failed " << status.error_code() << endl;
             stubs_.erase(stubs_.find(address));
             return err;
         }

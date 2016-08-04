@@ -46,7 +46,7 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
         sc->set_type((DBType )type);
     }
     enable_cutboard_ = (bool) config_->Value("EnableCutboard");
-
+    pool = new ThreadPool(1);
 }
 
 WitnessAppsService::~WitnessAppsService() {

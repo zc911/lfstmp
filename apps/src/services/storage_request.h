@@ -7,6 +7,7 @@
 #include "witness_bucket.h"
 #include "clients/spring_client.h"
 #include "clients/data_client.h"
+#include "simple_thread_pool.h"
 
 namespace dg {
 class StorageRequest {
@@ -15,7 +16,7 @@ public:
         string address = (string) config->Value(STORAGE_ADDRESS);
         spring_client_.CreateConnect(address);
         data_client_.CreateConnect(address);
-
+        pool_ = new ThreadPool(4);
     }
 
     MatrixError storage() {
@@ -23,27 +24,39 @@ public:
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
-        for(int i=0;i<=wv->storage().types_size();i++){
+        for (int i = 0; i < wv->storages_size(); i++) {
+
             string address = wv->storages(i).address();
-            if(wv->storages(i).type()==model::POSTGRES){
-                MatrixError errTmp=data_client_.SendBatchData(address,wv->mutable_vehicleresult());
-                if(errTmp.code()!=0){
-                    err.set_code(errTmp.code());
-                    err.set_message("send to postgres error");
-                }
-            }else if(wv->storage(i).type()==model::KAFKA){
-                const VehicleObj &v = wv->vehicleresult();
-                MatrixError errTmp=spring_client_.IndexVehicle(address,v);
-                if(errTmp.code()!=0){
-                    err.set_code(errTmp.code());
-                    err.set_message("send to kafka error");
-                }
+            if (wv->storages(i).type() == model::POSTGRES) {
+                pool_->enqueue([&address, this, wv, &err]() {
+                    MatrixError errTmp = this->data_client_.SendBatchData(address, wv->mutable_vehicleresult());
+                    if (errTmp.code() != 0) {
+                        err.set_code(errTmp.code());
+                        err.set_message("send to postgres error");
+                    }
+                });
+            } else if (wv->storages(i).type() == model::KAFKA) {
+                pool_->enqueue([&address, this, wv, &err]() {
+                    const VehicleObj &v = wv->vehicleresult();
+
+                    MatrixError errTmp = spring_client_.IndexVehicle(address, v);
+                    if (errTmp.code() != 0) {
+                        err.set_code(errTmp.code());
+                        err.set_message("send to kafka error");
+                    }
+                });
+
             }
         }
         return err;
     }
-    ~StorageRequest() { }
+    ~StorageRequest() {
+        if (pool_) {
+            delete pool_;
+        }
+    }
 private:
+    ThreadPool *pool_;
     SpringClient spring_client_;
     DataClient data_client_;
 };
