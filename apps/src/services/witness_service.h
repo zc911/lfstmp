@@ -21,7 +21,7 @@
 #include "engine_service.h"
 #include "witness_bucket.h"
 #include "repo_service.h"
-//
+#inlcude "utils.h"//
 namespace dg {
 using namespace ::dg::model;
 
@@ -62,7 +62,8 @@ private:
 
     void init(void);
     bool enable_storage_;
-    string storage_address_;
+    bool enable_fullimage_storage_;
+    string fullimage_storage_address_;
     ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
     bool enable_cutboard_;
     ThreadPool *pool_;
