@@ -31,7 +31,7 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       name_(name) {
     RepoService::GetInstance().Init(*config);
     enable_storage_ = (bool) config_->Value(STORAGE_ENABLED);
-    storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
+    fullimage_storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
     int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
     int addressNum = config_->Value(STORAGE_ADDRESS + "/Size");
     if(typeNum!=addressNum){
@@ -41,6 +41,11 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     for(int i=0;i<typeNum;i++){
         int type = (int) config_->Value(STORAGE_DB_TYPE + to_string(i));
         string address = (string) config_->Value(STORAGE_ADDRESS + to_string(i));
+        if(type==(int)FILEIMAGE){
+            enable_fullimage_storage_=true;
+            fullimage_storage_address_=address;
+            continue;
+        }
         StorageConfig *sc = storage_configs_.Add();
         sc->set_address(address);
         sc->set_type((DBType )type);
@@ -301,6 +306,11 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         LOG(ERROR) << "parse image failed, " << err.message();
         return err;
     }
+    pool_->enqueue(&[roiimages](){
+
+        string name = fullimage_storage_address_+"/"+GetLatestHour()+"/"+timestamp+".jpg";
+      imwrite(name,roiimages.data);
+    });
     
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Parse Image cost: " << TimeCostInMs(start, end) << endl;
