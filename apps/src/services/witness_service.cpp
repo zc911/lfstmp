@@ -46,7 +46,7 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
         sc->set_type((DBType )type);
     }
     enable_cutboard_ = (bool) config_->Value("EnableCutboard");
-    pool = new ThreadPool(1);
+    pool_ = new ThreadPool(1);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -301,6 +301,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         LOG(ERROR) << "parse image failed, " << err.message();
         return err;
     }
+    
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Parse Image cost: " << TimeCostInMs(start, end) << endl;
 
