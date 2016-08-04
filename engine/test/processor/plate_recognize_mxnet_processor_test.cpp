@@ -1,5 +1,3 @@
-#if true
-
 #include <processor/plate_recognize_mxnet_processor.h>
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
@@ -225,5 +223,3 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
 
     destory();
 }
-
-#endif
