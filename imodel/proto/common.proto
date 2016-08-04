@@ -147,7 +147,7 @@ enum DBType {
 
 message StorageConfig {
     string Address = 1; //结构化信息输出地址 ip:port
-    repeated DBType Types = 2; //
+    DBType Type = 2; //
     repeated string Tags = 3; //设定数据的信息标签
 }
 
