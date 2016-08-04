@@ -65,6 +65,7 @@ private:
     string storage_address_;
     ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
     bool enable_cutboard_;
+    ThreadPool *pool_;
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
