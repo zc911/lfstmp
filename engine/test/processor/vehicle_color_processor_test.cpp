@@ -10,7 +10,7 @@ using namespace dg;
 static FrameBatchHelper *fbhelper;
 static VehicleProcessorHead *head;
 static VehicleColorProcessor *vcprocessor;
-static FileReader fileReader("data/mapping/vehicle_colorhaoquan.txt");
+static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
     CaffeVehicleColorClassifier::VehicleColorConfig config;
