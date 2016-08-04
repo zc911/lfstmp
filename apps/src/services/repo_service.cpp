@@ -60,28 +60,28 @@ MatrixError RepoService::IndexTxt(const IndexTxtRequest *request,
     MatrixError err;
     string data;
     switch (request->indextype()) {
-    case INDEX_CAR_TYPE:
-        data = model_mapping_data_;
-        break;
-    case INDEX_CAR_PLATE_COLOR:
-        if (!is_gpu_plate_) {
-            data = plate_color_mapping_data_;
-        } else {
-            data = plate_color_gpu_mapping_data_;
-        }
-        break;
-    case INDEX_CAR_PLATE_TYPE:
-        data = plate_type_mapping_data_;
-        break;
-    case INDEX_CAR_COLOR:
-        data = color_mapping_data_;
-        break;
-    case INDEX_CAR_MARKER:
-        data = symbol_mapping_data_;
-        break;
-    case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
-        data = pedestrian_attr_mapping_data_;
-        break;
+        case INDEX_CAR_TYPE:
+            data = model_mapping_data_;
+            break;
+        case INDEX_CAR_PLATE_COLOR:
+            if (!is_gpu_plate_) {
+                data = plate_color_mapping_data_;
+            } else {
+                data = plate_color_gpu_mapping_data_;
+            }
+            break;
+        case INDEX_CAR_PLATE_TYPE:
+            data = plate_type_mapping_data_;
+            break;
+        case INDEX_CAR_COLOR:
+            data = color_mapping_data_;
+            break;
+        case INDEX_CAR_MARKER:
+            data = symbol_mapping_data_;
+            break;
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
+            data = pedestrian_attr_mapping_data_;
+            break;
     }
     response->set_context(data);
 
@@ -159,7 +159,7 @@ void RepoService::init_vehicle_map(string filename, string sep,
 
     car_type_repo_.resize(typeMap.size());
     for (auto v : typeMap) {
-        if(v.first >= car_type_repo_.size()){
+        if (v.first >= car_type_repo_.size()) {
             LOG(ERROR) << "Init car type repo error, exceeds the max size" << endl;
             continue;
         }
@@ -168,7 +168,7 @@ void RepoService::init_vehicle_map(string filename, string sep,
 }
 
 const string &RepoService::lookup_string(const vector<string> &array,
-        int index) {
+                                         int index) {
     if (index < 0 || index > array.size()) {
         return unknown_string_;
     }
@@ -189,8 +189,8 @@ MatrixError RepoService::FillModel(const Vehicle &vobj,
                                    RecVehicle *vrec) {
     MatrixError err;
     string type = lookup_string(vehicle_type_repo_, vobj.type());
+    resetModel(vrec);
     vrec->set_vehicletypename(type);
-
     if (vobj.type() == OBJECT_CAR) {
         const VehicleModelType &m = lookup_vehicle(vehicle_repo_, vobj.class_id());
         VehicleModelType *model = vrec->mutable_modeltype();
@@ -286,106 +286,106 @@ MatrixError RepoService::Index(const IndexRequest *request,
                                IndexResponse *response) {
     MatrixError err;
     switch (request->indextype()) {
-    case INDEX_CAR_BRAND: {
-        if (response->has_index())
-            break;
-        BrandIndex *sIndex = response->mutable_brandindex();
+        case INDEX_CAR_BRAND: {
+            if (response->has_index())
+                break;
+            BrandIndex *sIndex = response->mutable_brandindex();
 
-        for (int i = 0; i < vehicle_repo_.size(); i++) {
-            VehicleModelType model = vehicle_repo_[i];
-            BrandIndex_Item *item = sIndex->add_items();
-            item->set_mainbrandid(model.brandid());
-            item->set_subbrandid(model.subbrandid());
-            item->set_yearmodelid(model.modelyearid());
-            item->set_mainbrandname(model.brand());
-            item->set_subbrandname(model.subbrand());
-            item->set_yearmodelname(model.modelyear());
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                VehicleModelType model = vehicle_repo_[i];
+                BrandIndex_Item *item = sIndex->add_items();
+                item->set_mainbrandid(model.brandid());
+                item->set_subbrandid(model.subbrandid());
+                item->set_yearmodelid(model.modelyearid());
+                item->set_mainbrandname(model.brand());
+                item->set_subbrandname(model.subbrand());
+                item->set_yearmodelname(model.modelyear());
+            }
+            break;
         }
-        break;
-    }
-    case INDEX_CAR_TYPE: {
-        if (response->has_brandindex())
-            break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < car_type_repo_.size(); i++) {
-            string value = car_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
-        }
-        break;
-    }
-    case INDEX_CAR_PLATE_COLOR: {
-
-        if (response->has_brandindex())
-            break;
-
-        CommonIndex *cIndex = response->mutable_index();
-        if (!is_gpu_plate_) {
-            for (int i = 0; i < plate_color_repo_.size(); i++) {
-                string value = plate_color_repo_[i].data();
+        case INDEX_CAR_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < car_type_repo_.size(); i++) {
+                string value = car_type_repo_[i].data();
                 CommonIndex_Item *item = cIndex->add_items();
                 item->set_id(i);
                 item->set_name(value);
             }
-        } else {
-            for (int i = 0; i < plate_color_gpu_repo_.size(); i++) {
-                string value = plate_color_gpu_repo_[i].data();
+            break;
+        }
+        case INDEX_CAR_PLATE_COLOR: {
+
+            if (response->has_brandindex())
+                break;
+
+            CommonIndex *cIndex = response->mutable_index();
+            if (!is_gpu_plate_) {
+                for (int i = 0; i < plate_color_repo_.size(); i++) {
+                    string value = plate_color_repo_[i].data();
+                    CommonIndex_Item *item = cIndex->add_items();
+                    item->set_id(i);
+                    item->set_name(value);
+                }
+            } else {
+                for (int i = 0; i < plate_color_gpu_repo_.size(); i++) {
+                    string value = plate_color_gpu_repo_[i].data();
+                    CommonIndex_Item *item = cIndex->add_items();
+                    item->set_id(i);
+                    item->set_name(value);
+                }
+            }
+            break;
+        }
+        case INDEX_CAR_PLATE_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < plate_type_repo_.size(); i++) {
+                string value = plate_type_repo_[i].data();
                 CommonIndex_Item *item = cIndex->add_items();
                 item->set_id(i);
                 item->set_name(value);
             }
-        }
-        break;
-    }
-    case INDEX_CAR_PLATE_TYPE: {
-        if (response->has_brandindex())
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < plate_type_repo_.size(); i++) {
-            string value = plate_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_COLOR: {
-        if (response->has_brandindex())
+        case INDEX_CAR_COLOR: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < color_repo_.size(); i++) {
+                string value = color_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < color_repo_.size(); i++) {
-            string value = color_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_MARKER: {
-        if (response->has_brandindex())
+        case INDEX_CAR_MARKER: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < symbol_repo_.size(); i++) {
+                string value = symbol_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < symbol_repo_.size(); i++) {
-            string value = symbol_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_PEDESTRIAN_ATTR_TYPE: {
-        if (response->has_brandindex())
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
+                string value = pedestrian_attr_type_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
-            string value = pedestrian_attr_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
     }
 
     return err;
