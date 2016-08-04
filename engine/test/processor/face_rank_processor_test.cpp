@@ -1,5 +1,3 @@
-#if true
-
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "processor/face_rank_processor.h"
@@ -144,5 +142,3 @@ TEST(FaceRankProcessorTest, faceRankTest) {
 
     destory();
 }
-
-#endif
