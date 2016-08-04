@@ -143,6 +143,7 @@ message Symbol {
 enum DBType {
     KAFKA = 0;
     POSTGRES = 1;
+    FILEIMAGE=2;
 }
 
 message StorageConfig {
