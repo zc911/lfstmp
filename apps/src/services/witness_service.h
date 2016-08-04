@@ -63,7 +63,7 @@ private:
     void init(void);
     bool enable_storage_;
     string storage_address_;
-    ::google::protobuf::RepeatedField<int > dbtypes_;
+    ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
     bool enable_cutboard_;
     static string trimString(string str);
     static int parseInt(string str);

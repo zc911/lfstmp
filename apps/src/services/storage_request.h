@@ -23,16 +23,15 @@ public:
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
-
-        string address = wv->storage().address();
         for(int i=0;i<=wv->storage().types_size();i++){
-            if(wv->storage().types(i)==model::POSTGRES){
+            string address = wv->storages(i).address();
+            if(wv->storages(i).type()==model::POSTGRES){
                 MatrixError errTmp=data_client_.SendBatchData(address,wv->mutable_vehicleresult());
                 if(errTmp.code()!=0){
                     err.set_code(errTmp.code());
                     err.set_message("send to postgres error");
                 }
-            }else if(wv->storage().types(i)==model::KAFKA){
+            }else if(wv->storage(i).type()==model::KAFKA){
                 const VehicleObj &v = wv->vehicleresult();
                 MatrixError errTmp=spring_client_.IndexVehicle(address,v);
                 if(errTmp.code()!=0){
