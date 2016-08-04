@@ -29,16 +29,24 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       id_(0),
       base_id_(baseId),
       name_(name) {
+    RepoService::GetInstance().Init(*config);
     enable_storage_ = (bool) config_->Value(STORAGE_ENABLED);
     storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
     int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
+    int addressNum = config_->Value(STORAGE_ADDRESS + "/Size");
+    if(typeNum!=addressNum){
+        enable_storage_=false;
+        return;
+    }
     for(int i=0;i<typeNum;i++){
         int type = (int) config_->Value(STORAGE_DB_TYPE + to_string(i));
-        dbtypes_.Add(type);
+        string address = (string) config_->Value(STORAGE_ADDRESS + to_string(i));
+        StorageConfig *sc = storage_configs_.Add();
+        sc->set_address(address);
+        sc->set_type((DBType )type);
     }
     enable_cutboard_ = (bool) config_->Value("EnableCutboard");
 
-    RepoService::GetInstance().Init(*config);
 }
 
 WitnessAppsService::~WitnessAppsService() {
@@ -367,19 +375,15 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
 
     if (enable_storage_) {
-        if (request->context().has_storage()) {
-            storage_address_ = (string) request->context().storage().address();
-            dbtypes_.CopyFrom(request->context().storage().types());
-        } else {
-            storage_address_ = storage_address_;
-        }
-
 
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-            client_request_obj->mutable_storage()->set_address(storage_address_);
-            client_request_obj->mutable_storage()->mutable_types()->CopyFrom(dbtypes_);
+            if (request->context().storages_size()>0) {
+                client_request_obj->mutable_storages()->CopyFrom(request->context().storages());
+            }else{
+                client_request_obj->mutable_storages()->CopyFrom(storage_configs_);
+            }
             for (int i = 0; i < r.vehicles_size(); i++) {
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
@@ -389,6 +393,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                     vector<char> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                    v->img().img().bindata();
                 }
             }
             VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
@@ -558,22 +563,16 @@ MatrixError WitnessAppsService::BatchRecognize(
 
 
     if (enable_storage_) {
-        string storageAddress;
-
-        if (batchRequest->context().has_storage()) {
-            storageAddress = (string) batchRequest->context().storage().address();
-            dbtypes_.CopyFrom(batchRequest->context().storage().types());
-        } else {
-            storageAddress = storage_address_;
-
-        }
-
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
 
                 shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-                client_request_obj->mutable_storage()->set_address(storageAddress);
+                if (batchRequest->context().storages_size()>0) {
+                    client_request_obj->mutable_storages()->CopyFrom(batchRequest->context().storages());
+                }else{
+                    client_request_obj->mutable_storages()->CopyFrom(storage_configs_);
+                }
                 for (int i = 0; i < r.vehicles_size(); i++) {
                     Cutboard c = r.vehicles(i).img().cutboard();
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
