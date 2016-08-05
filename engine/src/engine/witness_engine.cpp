@@ -279,12 +279,23 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_marker_) {
             LOG(INFO) << "Enable vehicle marker processor." << endl;
-            MarkerCaffeClassifier::MarkerConfig mConfig;
-            configFilter->createMarkersConfig(config, mConfig);
-            WindowCaffeDetector::WindowCaffeConfig wConfig;
-            configFilter->createWindowConfig(config, wConfig);
+            bool carOnly = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+            Processor *p;
+            if(carOnly){
+                MarkerCaffeClassifier::MarkerConfig mConfig;
+                configFilter->createMarkersConfig(config, mConfig);
+                WindowCaffeDetector::WindowCaffeConfig wConfig;
+                configFilter->createWindowConfig(config, wConfig);
+                p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+            }else{
+                VehicleCaffeDetectorConfig mConfig;
+                VehicleCaffeDetectorConfig wConfig;
+                configFilter->createMarkersConfig(config, mConfig);
+                configFilter->createWindowConfig(config, wConfig);
+                p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+            }
 
-            Processor *p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+
             if (last == NULL) {
                 vehicle_processor_ = p;
             }

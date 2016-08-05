@@ -280,6 +280,38 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.gpu_id = gpu_id;
 
 }
+void ConfigFilter::createMarkersConfig(const Config &cconfig,
+                         VehicleCaffeDetectorConfig &mConfig){
+    int batch_size = (int) cconfig.Value(ADVANCED_MARKER_BATCH_SIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+
+
+    string modelPath = (string) data_config_.Value(FILE_MARKER_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
+    mConfig.model_file = modelPath + (string) data_config_.Value(FILE_MARKER_TRAINED_MODEL);
+    mConfig.deploy_file = modelPath + (string) data_config_.Value(FILE_MARKER_DEPLOY_MODEL);
+
+    mConfig.is_model_encrypt = is_encrypted;
+    mConfig.batch_size = batch_size;
+    mConfig.gpu_id = gpu_id;
+}
+void ConfigFilter::createWindowConfig(const Config &cconfig,
+                        VehicleCaffeDetectorConfig &wConfig){
+    int batch_size = (int) cconfig.Value(ADVANCED_WINDOW_BATCH_SIZE);
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+
+    string
+        modelPath = (string) data_config_.Value(FILE_WINDOW_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
+
+    wConfig.model_file = modelPath
+        + (string) data_config_.Value(FILE_WINDOW_TRAINED_MODEL);
+    wConfig.deploy_file = modelPath
+        + (string) data_config_.Value(FILE_WINDOW_DEPLOY_MODEL);
+    wConfig.is_model_encrypt = is_encrypted;
+    wConfig.batch_size = batch_size;
+    wConfig.gpu_id = gpu_id;
+}
 void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 

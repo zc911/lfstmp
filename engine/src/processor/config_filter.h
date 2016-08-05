@@ -57,6 +57,10 @@ public:
                              MarkerCaffeClassifier::MarkerConfig &mConfig);
     void createWindowConfig(const Config &cconfig,
                             WindowCaffeDetector::WindowCaffeConfig &wConfig);
+    void createMarkersConfig(const Config &cconfig,
+                             VehicleCaffeDetectorConfig &mConfig);
+    void createWindowConfig(const Config &cconfig,
+                            VehicleCaffeDetectorConfig &wConfig);
     void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
     void createPedestrianConfig(const Config &cconfig,
                                 PedestrianClassifier::PedestrianConfig &pConfig);

@@ -62,9 +62,9 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 WindowCaffeSsdDetector::~WindowCaffeSsdDetector() {
 
 }
-void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &imgs_origin, vector<Blob < float> *>&outputs,vector<vector<Detection> > &detect_results) {
+void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < float> *>&outputs_win,vector<vector<Detection> > &detect_results) {
     int image_offset = detect_results.size();
-    for (int i = 0; i < img.size(); ++i) {
+    for (int i = 0; i < images_origin.size(); ++i) {
         vector<Detection> imageDetection;
         detect_results.push_back(imageDetection);
     }
@@ -79,20 +79,18 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &imgs_origin, vector<Blob <
             continue;
         }
         vector<Detection> &imageDetection = detect_results[image_offset + img_id];
-
+        if(imageDetection.size()>0){
+            continue;
+        }
 //        int cls = top_data_win[j * 7 + 1];
         float score = top_data_win[j * 7 + 2];
         float xmin = top_data_win[j * 7 + 3] * images_origin[img_id].cols;
         float ymin = top_data_win[j * 7 + 4] * images_origin[img_id].rows;
         float xmax = top_data_win[j * 7 + 5] * images_origin[img_id].cols;
         float ymax = top_data_win[j * 7 + 6] * images_origin[img_id].rows;
-        vector<Detection> &imageDetection = detect_results[image_offset + img_id];
 
         if (score > threshold_) {
             /*******************tiny object detector*********************/
-            // exclude exiting img
-            if (std::find(img_ids.begin(), img_ids.end(), img_id) != img_ids.end())
-                continue;
             Detection detection;
             detection.box = Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             detection.id = img_id;
