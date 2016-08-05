@@ -76,67 +76,82 @@ MarkerCaffeSsdDetector::~MarkerCaffeSsdDetector() {
 
 }
 
-void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &img,
-                                   vector<Blob<float> *> &outputs,
-vector<vector<Detection> > &detect_results,vector<vector<Rect> > fobs,vector<vector<float> > params) {
-int tot_cnt = 0;
-int box_num = outputs[tot_cnt]->height();
-
-const float *top_data = outputs[tot_cnt]->cpu_data();
-
-int image_offset = detect_results.size();
-for (int i = 0; i < img.size(); ++i) {
-vector<Detection> imageDetection;
-detect_results.push_back(imageDetection);
-}
-
-for (int j = 0; j < box_num; j++) {
-int img_id = top_data[j * 7 + 0];
-if (img_id < 0 || img_id >= detect_results.size()) {
-LOG(ERROR) << "Image id invalid: " << img_id << endl;
-continue;
-}
-vector<Detection> &imageDetection = detect_results[image_offset + img_id];
-
-int cls = top_data[j * 7 + 1];
-float score = top_data[j * 7 + 2];
-float xmin = top_data[j * 7 + 3] * img[img_id].cols;
-float ymin = top_data[j * 7 + 4] * img[img_id].rows;
-float xmax = top_data[j * 7 + 5] * img[img_id].cols;
-float ymax = top_data[j * 7 + 6] * img[img_id].rows;
-
-if (score > threshold_) {
-
-Detection detection;
-detection.box = Rect(xmin, ymin, xmax - xmin, ymax - ymin);
-detection.id = cls;
-detection.confidence = score;
-imageDetection.push_back(detection);
-
-#ifdef SHOW_VIS
-char char_score[100];
-            sprintf(char_score, "%.3f", score);
-            rectangle(img[img_id], Rect(xmin, ymin, xmax - xmin, ymax - ymin), color_[cls]);
-            putText(img[img_id],
-                    tags_[cls] + "_" + string(char_score),
-                    Point(xmin, ymin),
-                    CV_FONT_HERSHEY_COMPLEX,
-                    0.5,
-                    color_[0]);
-#endif
-
-}
-}
-#ifdef  SHOW_VIS
-for(int i = 0; i < img.size(); ++i){
-        cv::Mat image = img[i];
-        imshow("debug.jpg", image);
-        waitKey(-1);
+void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
+                                     vector<Blob<float> *> &outputs,
+                                     vector<vector<Detection> > &detect_results,
+                                     vector<vector<Rect> > &fobs,
+                                     vector<vector<float> > &params) {
+    int image_offset = detect_results.size();
+    for (int i = 0; i < images_tiny.size(); ++i) {
+        vector<Detection> imageDetection;
+        detect_results.push_back(imageDetection);
     }
-#endif
+    int box_num = outputs[0]->height();
+    cout << "tiny info start " << outputs[0]->num() << " " << outputs[0]->channels()
+        << " " << outputs[0]->height() << " " << outputs[0]->width() << endl;
+    const float* top_data = outputs[0]->cpu_data();
+    vector<float> crop_xmin=params[0];
+    vector<float> crop_ymin=params[1];
+    vector<float> thresh_ymin=params[2];
+    vector<float> thresh_ymax=params[3];
+    vector<float> row_ratio = params[4];
+    vector<float> col_ratio = params[5];
+    float cls_conf[7] = {1.0, 0.36, 0.6, 0.6, 0.5, 0.6, 0.6};
+    for(int j = 0; j < box_num; j++) {
+        int img_id = top_data[j * 7 + 0];
+        if (img_id < 0 || img_id >= detect_results.size()) {
+            LOG(ERROR) << "Image id invalid: " << img_id << endl;
+            continue;
+        }
+        vector<Detection> &imageDetection = detect_results[image_offset + img_id];
+
+        int cls = top_data[j * 7 + 1];
+        float score = top_data[j * 7 + 2];
+        float xmin = top_data[j * 7 + 3] * images_tiny[img_id].cols;
+        float ymin = top_data[j * 7 + 4] * images_tiny[img_id].rows;
+        float xmax = top_data[j * 7 + 5] * images_tiny[img_id].cols;
+        float ymax = top_data[j * 7 + 6] * images_tiny[img_id].rows;
+
+        if (score > cls_conf[cls]) {
+            char id[100];
+            sprintf(id, "%d", img_id);
+//            cout << "image_id " << string(id) << endl;
+
+            xmin *= col_ratio[img_id];
+            xmax *= col_ratio[img_id];
+            ymin *= row_ratio[img_id];
+            ymax *= row_ratio[img_id];
+
+            xmin += crop_xmin[img_id];
+            xmax += crop_xmin[img_id];
+            ymin += crop_ymin[img_id];
+            ymax += crop_ymin[img_id];
+
+            // exclude bboxes that lie outside car window.
+            if ((thresh_ymin[img_id]-ymin)/(ymax-ymin) > 0.3 ||
+                (ymax-thresh_ymax[img_id])/(ymax-ymin) > 0.3)
+                continue;
+
+            // exclude bboxes that lie in a predefined fobbiden place
+            // cout << "cls " << cls << endl;
+            vector<Rect> fob = fobs[img_id];
+
+            Rect overlap = fob[cls] & Rect(xmin,ymin,xmax-xmin,ymax-ymin);
+            // cout << "overlap area " << overlap.area() << endl;
+            if (int(overlap.area()) > 1) {
+                continue;  //exclude this box
+            }
+            Detection detection;
+            detection.box = overlap;
+            detection.id = cls;
+            detection.confidence = score;
+            imageDetection.push_back(detection);
+
+        }
+    }
 }
-int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,vector<Detection> &window_detections,
-                                      vector<vector<Detection> > &detect_results) {
+int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Detection> > &window_detections,
+                                        vector<vector<Detection> > &detect_results) {
 
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
@@ -147,61 +162,61 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,vector<Detection> &
 
     detect_results.clear();
     vector<cv::Mat> toPredict;
-    vector<float> row_ratio;
-    vector<float> col_ratio;
-    vector<float> crop_xmin;
-    vector<float> crop_ymin;
-    vector<float> thresh_ymin;
-    vector<float> thresh_ymax;
-    vector< vector<float> > params;
+    vector<vector<float> > params;
     params.resize(6);
     vector<vector<Rect> > fobs;
-    for (int i = 0; i < img.size(); ++i) {
-        cv::Mat image = img[i];
+    for (int i = 0; i < imgs.size(); ++i) {
+        cv::Mat image = imgs[i];
 
         // fobbiden areas
-        int xmin=window_detections[i].box.x;
-        int ymin = window_detections[i].box.y;
-        int xmax=window_detections[i].box.x+window_detections[i].box.width;
-        int ymax=window_detections[i].box.y+window_detections[i].box.height;
-        vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
-        fobs.push_back(fob);
+        if(window_detections[i].size()>0) {
+            int xmin = window_detections[i][0].box.x;
+            int ymin = window_detections[i][0].box.y;
+            int xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
+            int ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
 
-        // crop and resize image for tiny.
-        int cxmin, cymin;
-        Mat img = crop_image(images_origin[img_id], xmin, ymin, xmax, ymax, &cxmin, &cymin);
-        img_ids.push_back(img_id);
-        params[0].push_back(cxmin);
-        params[1].push_back(cymin);
+            vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
+            fobs.push_back(fob);
 
-        // obtain y threshold for detected object that lies outside car window
-        int tymin;
-        int tymax;
-        float ratio = 0.15;
-        show_enlarged_box(images_origin[img_id], xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
-        params[2].push_back(tymin);
-        params[3].push_back(tymax);
+            // crop and resize image for tiny.
+            int cxmin, cymin;
+            Mat img = crop_image(image, xmin, ymin, xmax, ymax, &cxmin, &cymin);
+            params[0].push_back(cxmin);
+            params[1].push_back(cymin);
 
-        float target_row = 256;
-        float target_col = 384;
-        params[4].push_back(img.rows * 1.0 / target_row);
-        params[5].push_back(img.cols * 1.0 / target_col);
+            // obtain y threshold for detected object that lies outside car window
+            int tymin;
+            int tymax;
+            float ratio = 0.15;
+            show_enlarged_box(image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
+            params[2].push_back(tymin);
+            params[3].push_back(tymax);
 
-        // only process images that has a car window.
-        // only count images that has a car window.
-        resize(image, image, Size(target_col, target_row));
-        toPredict.push_back(image);
+            float target_row = 256;
+            float target_col = 384;
+            params[4].push_back(img.rows * 1.0 / target_row);
+            params[5].push_back(img.cols * 1.0 / target_col);
+
+            // only process images that has a car window.
+            // only count images that has a car window.
+            resize(img, img, Size(target_col, target_row));
+            toPredict.push_back(img);
+        }else{
+            Mat img(Size(256,384),CV_8UC3,0);
+            toPredict.push_back(img);
+
+        }
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
-            Fullfil(toPredict, outputs, detect_results,fobs,params);
+            Fullfil(toPredict, outputs, detect_results, fobs, params);
             toPredict.clear();
         }
     }
 
     if (toPredict.size() > 0) {
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
-        Fullfil(toPredict, outputs, detect_results,fobs,params);
+        Fullfil(toPredict, outputs, detect_results, fobs, params);
     }
 
 //    // make sure batch size is times of the batch size
