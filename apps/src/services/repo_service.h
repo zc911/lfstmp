@@ -14,8 +14,11 @@
 #include "witness.grpc.pb.h"
 #include "matrix_engine/model/model.h"
 
+#define DEFAULT_INT_VALUE -1
+
 using namespace std;
 using namespace ::dg::model;
+
 namespace dg {
 
 class RepoService {
@@ -99,6 +102,20 @@ private:
     }
 
     void filterPlateType(string color, string plateNum, int &type);
+    static void resetModel(RecVehicle *vrec) {
+        VehicleModelType *mType = vrec->mutable_modeltype();
+        mType->set_id(DEFAULT_INT_VALUE);
+        mType->set_brandid(DEFAULT_INT_VALUE);
+        mType->set_subbrandid(DEFAULT_INT_VALUE);
+        mType->set_modelyearid(DEFAULT_INT_VALUE);
+        mType->set_typeid_(DEFAULT_INT_VALUE);
+        mType->set_ishead(DEFAULT_INT_VALUE);
+        Color *color = vrec->mutable_color();
+        color->set_colorid(DEFAULT_INT_VALUE);
+        vrec->mutable_plate()->set_typeid_(DEFAULT_INT_VALUE);
+        vrec->mutable_plate()->mutable_color()->set_colorid(DEFAULT_INT_VALUE);
+        vrec->set_vehicletype(OBJ_TYPE_UNKNOWN);
+    }
 
 };
 
