@@ -28,7 +28,7 @@ public:
 
             string address = wv->storages(i).address();
             if (wv->storages(i).type() == model::POSTGRES) {
-                pool_->enqueue([&address, this, wv, &err]() {
+                pool_->enqueue([address, this, wv, &err]() {
                     MatrixError errTmp = this->data_client_.SendBatchData(address, wv->mutable_vehicleresult());
                     if (errTmp.code() != 0) {
                         err.set_code(errTmp.code());
@@ -36,9 +36,8 @@ public:
                     }
                 });
             } else if (wv->storages(i).type() == model::KAFKA) {
-                pool_->enqueue([&address, this, wv, &err]() {
+                pool_->enqueue([address, this, wv, &err]() {
                     const VehicleObj &v = wv->vehicleresult();
-
                     MatrixError errTmp = spring_client_.IndexVehicle(address, v);
                     if (errTmp.code() != 0) {
                         err.set_code(errTmp.code());
