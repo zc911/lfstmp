@@ -28,7 +28,6 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
     VehicleCaffeDetectorConfig &mConfig)
     : Processor() {
-    cout<<mConfig.deploy_file<<" "<<mConfig.model_file;
 
     ssd_marker_detector_ = new MarkerCaffeSsdDetector(mConfig);
     ssd_window_detector_ = new WindowCaffeSsdDetector(wConfig);
@@ -66,11 +65,13 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     if(isSsd){
         vector<vector<Detection> > crops;
         vector<vector<Detection> > preds;
-        ssd_window_detector_->DetectBatch(resized_images_,crops);
-        ssd_marker_detector_->DetectBatch(resized_images_,crops,preds);
+        ssd_window_detector_->DetectBatch(images_,crops);
+        ssd_marker_detector_->DetectBatch(images_,crops,preds);
         for (int i = 0; i < preds.size(); i++) {
             Vehicle *v = (Vehicle *) objs_[i];
             vector<Detection> markers_cutborad;
+            Mat img(v->image());
+
             for (int j = 0; j < preds[i].size(); j++) {
                 Detection d(preds[i][j]);
 
@@ -79,10 +80,13 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 d.box.width = preds[i][j].box.width;
                 d.box.height = preds[i][j].box.height;
                 markers_cutborad.push_back(d);
+                rectangle(img,Rect(preds[i][j].box.x,preds[i][j].box.y,preds[i][j].box.width,preds[i][j].box.height),Scalar(255,0,0));
             }
             v->set_markers(markers_cutborad);
-
+            string name=to_string(i)+"da.jpg";
+            imwrite(name.c_str(),img);
         }
+
     }else{
         vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                                          images_);
