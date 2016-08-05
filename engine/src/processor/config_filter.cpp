@@ -287,9 +287,9 @@ void ConfigFilter::createMarkersConfig(const Config &cconfig,
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
 
-    string modelPath = (string) data_config_.Value(FILE_MARKER_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
-    mConfig.model_file = modelPath + (string) data_config_.Value(FILE_MARKER_TRAINED_MODEL);
-    mConfig.deploy_file = modelPath + (string) data_config_.Value(FILE_MARKER_DEPLOY_MODEL);
+    string modelPath = (string) data_config_.Value(FILE_MARKER_ONLY_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
+    mConfig.model_file = modelPath + (string) data_config_.Value(FILE_MARKER_ONLY_TRAINED_MODEL);
+    mConfig.deploy_file = modelPath + (string) data_config_.Value(FILE_MARKER_ONLY_DEPLOY_MODEL);
 
     mConfig.is_model_encrypt = is_encrypted;
     mConfig.batch_size = batch_size;
@@ -302,12 +302,12 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
     string
-        modelPath = (string) data_config_.Value(FILE_WINDOW_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
+        modelPath = (string) data_config_.Value(FILE_WINDOW_ONLY_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
 
     wConfig.model_file = modelPath
-        + (string) data_config_.Value(FILE_WINDOW_TRAINED_MODEL);
+        + (string) data_config_.Value(FILE_WINDOW_ONLY_TRAINED_MODEL);
     wConfig.deploy_file = modelPath
-        + (string) data_config_.Value(FILE_WINDOW_DEPLOY_MODEL);
+        + (string) data_config_.Value(FILE_WINDOW_ONLY_DEPLOY_MODEL);
     wConfig.is_model_encrypt = is_encrypted;
     wConfig.batch_size = batch_size;
     wConfig.gpu_id = gpu_id;
