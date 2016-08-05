@@ -15,14 +15,22 @@ static FileReader *resultReader;
 static void initConfig() {
     WindowCaffeDetector::WindowCaffeConfig wConfig;
     MarkerCaffeClassifier::MarkerConfig mConfig;
-
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
-    wConfig.deploy_file = "data/models/700.txt";
-    wConfig.model_file = "data/models/700.dat";
-
     mConfig.is_model_encrypt = false;
-    mConfig.deploy_file = "data/models/600.txt";
-    mConfig.model_file = "data/models/600.dat";
+    baseModelPath = "data/0/";
+#else
+    wConfig.is_model_encrypt = true;
+    mConfig.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
+
+    wConfig.deploy_file = baseModelPath + "700.txt";
+    wConfig.model_file = baseModelPath + "700.dat";
+
+    mConfig.deploy_file = baseModelPath + "600.txt";
+    mConfig.model_file = baseModelPath + "600.dat";
 
     vmcprocessor = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
 }

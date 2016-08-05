@@ -4,6 +4,13 @@ set(DATA_URL ${BASE_URL}"/unit_test/data")
 set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
+#file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp
+#        processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp
+#        processor/vehicle_multi_type_detector_processor_test.cpp)
+
+IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    ADD_DEFINITIONS( -DUNENCRYPTMODEL )
+ENDIF()
 
 AUX_SOURCE_DIRECTORY(../../utils/src/ UTILS)
 LIST(APPEND ALL_SRC_FILES ${UTILS})
@@ -26,17 +33,29 @@ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME} DESTINATION ${
 
 add_custom_target(test
         COMMAND make -j8 install
+        COMMAND wget -rq -R html ${RELEASE_URL}/version -O version
+        COMMAND echo -n ${RELEASE_URL} > task.txt
+        COMMAND echo -n "/release/data/matrix_apps_data_" >> task.txt
+        COMMAND echo -n `more version` >> task.txt
+        COMMAND echo ".tar" >> task.txt
         COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
             then echo "Loading models..."
             && wget -rq -R html ${DATA_URL}
-            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test \; fi
-        COMMAND wget -rq -R html ${RELEASE_URL}/version -O VERSION
-        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version VERSION > /tmp/null
+            && wget -rqi task.txt -O matrix_models.tar
+            && tar -xf matrix_models.tar
+            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
+            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
+            && rm -rf bin matrix_models.tar \; fi
+        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version version > /dev/null
             || (echo "Updating models..."
             && rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data
             && wget -rq -R html ${DATA_URL}
+            && wget -rqi task.txt -O matrix_models.tar
+            && tar -xf matrix_models.tar
             && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
-            && mv VERSION ${PROJECT_SOURCE_DIR}/bin/test/data/version)
+            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
+            && rm -rf bin matrix_models.tar
+            && mv version ${PROJECT_SOURCE_DIR}/bin/test/data/version)
         COMMAND rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data/testimg || true
         COMMAND echo "Loading data..." && wget -rq -R html ${DATA_URL}/testimg/
             && mv ${DATA_URL}/testimg ${PROJECT_SOURCE_DIR}/bin/test/data/testimg
