@@ -229,6 +229,162 @@ static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
         sample = img;
 }
 
+cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
+    Mat img = image.clone();
+    int img_width = img.cols;
+    int img_height = img.rows;
+//	float centerx = (xmin + xmax) / 2.0;
+    int centery = (ymin + ymax) / 2;
+    int width = abs(xmax - xmin);
+//    float height = abs(ymax - ymin);
+
+    int width_add = width / 4;  // add width on one side
+    int crop_width = width + width_add * 2;
+    int crop_xmin = xmin - width_add;
+    int crop_xmax = xmax + width_add;
+
+    int crop_height = crop_width * 2 / 3; // =height/1.5
+    int crop_ymin = centery - crop_height / 2;
+    int crop_ymax = centery + crop_height / 2;
+
+    cout << xmin << " "<< xmax << " " << ymin << " "<< ymax << endl;
+    cout << crop_xmin << " "<< crop_xmax << " " << crop_ymin << " "<< crop_ymax << endl;
+    cout << "crop width " << crop_width << " crop height " << crop_height << endl;
+
+
+    if (crop_width > img_width) {
+        cout << "hconcat started " << endl;
+        crop_xmin = 0;
+        crop_xmax = crop_width;
+        char cw[100], iw[100], ih[100];
+        sprintf(cw, "%.3d", crop_width);
+        sprintf(iw, "%.3d", img_width);
+        sprintf(ih, "%.3d", img_height);
+        cout << "crop_width " << String(cw) << endl;
+        cout << "img width " << String(iw) << "img height " << String(ih) << endl;
+        Mat cols = Mat::zeros(img_height, int(crop_width) - img_width + 1, img.type()); // +1 for input > 0
+        cv::hconcat(img, cols, img);
+    }
+    else if (crop_xmin < 0) {
+        crop_xmin = 0;
+        crop_xmax = crop_width;
+    }
+    else if (crop_xmax >= img_width) {
+        crop_xmax = img_width;
+        crop_xmin = img_width - crop_width;
+    }
+    // the operation above may change the dimension of image
+    img_width = img.cols;
+    img_height = img.rows;
+    if (crop_height > img_height) {
+        crop_ymin = 0;
+        crop_ymax = crop_height;
+        cout << "add rows started" << endl;
+        Mat rows = Mat::zeros(int(crop_height) - img_height + 1, img_width, img.type()); // +1 for input > 0
+        img.push_back(rows);
+    }
+    else if (crop_ymin < 0) {
+        crop_ymin = 0;
+        crop_ymax = crop_height;
+    }
+    else if (crop_ymax >= img_height) {
+        crop_ymax = img_height;
+        crop_ymin = img_height - crop_height;
+    }
+    img = img(Rect(crop_xmin, crop_ymin, floor(crop_xmax-crop_xmin), floor(crop_ymax-crop_ymin)));
+    cout << "crop succeed" << endl;
+    *cxmin = crop_xmin;
+    *cymin = crop_ymin;
+    return img;
+}
+
+
+void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
+    Mat img = image;
+    float img_width = img.cols;
+    float img_height = img.rows;
+//	float centerx = (xmin + xmax) / 2.0;
+    float centery = (ymin + ymax) / 2.0;
+    float width = abs(xmax - xmin);
+    float height = abs(ymax - ymin);
+
+    float width_add = width * 0.25;  // add width on one side
+    float crop_width = width + width_add * 2.0;
+    float crop_xmin = xmin - width_add;
+    float crop_xmax = xmax + width_add;
+
+    float height_add = height * ratio;
+    float crop_height = height + height_add * 2;
+    float crop_ymin = centery - crop_height / 2.0;
+    float crop_ymax = centery + crop_height / 2.0;
+
+    if (crop_width > img_width) {
+        cout << "hconcat started " << endl;
+        crop_xmin = 0;
+        crop_xmax = crop_width;
+        char cw[100], iw[100], ih[100];
+        sprintf(cw, "%.3f", crop_width);
+        sprintf(iw, "%.3f", img_width);
+        sprintf(ih, "%.3f", img_height);
+        cout << "crop_width " << String(cw) << endl;
+        cout << "img width " << String(iw) << "img height " << String(ih);
+        Mat cols = Mat::zeros(img_height, int(crop_width) - img_width + 1, img.type()); // +1 for input > 0
+        cv::hconcat(img, cols, img);
+    }
+    else if (crop_xmin < 0) {
+        crop_xmin = 0;
+        crop_xmax = crop_width;
+    }
+    else if (crop_xmax >= img_width) {
+        crop_xmax = img_width;
+        crop_xmin = img_width - crop_width;
+    }
+    if (crop_height > img_height) {
+        crop_ymin = 0;
+        crop_ymin = crop_height;
+        cout << "add rows started" << endl;
+        Mat rows = Mat::zeros(int(crop_height) - crop_width + 1, img_width, img.type()); // +1 for input > 0
+        img.push_back(rows);
+    }
+    else if (crop_ymin < 0) {
+        crop_ymin = 0;
+        crop_ymax = crop_height;
+    }
+    else if (crop_ymax >= img_height) {
+        crop_ymax = img_height;
+        crop_ymin = img_height - crop_width;
+    }
+    rectangle(image, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
+    *cymin = crop_ymin;
+    *cymax = crop_ymax;
+}
+
+vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float ymax) {
+    vector<Rect> fob;
+
+    float width = xmax - xmin;
+    float height = ymax - ymin;
+    float centerx = (xmin + xmax) / 2;
+    float centery = (ymin + ymax) / 2;
+    // background : not in all
+    fob.push_back(Rect(xmin, ymin, width, height));
+    // nianjianbiao: not in center
+    fob.push_back(Rect(centerx - width/2/2 , centery - height/3/2, width/2, height/3));
+    // zheyangban: not in bottom
+    fob.push_back(Rect(xmin, ymin + height/2, width, height/2));
+    // qita: not in upper
+    fob.push_back(Rect(xmin, ymin, width, height/3));
+    // anquandai: not in center
+    fob.push_back(Rect(centerx - width/10/2 , centery - height/2, width/10, height));
+    // guazhui: not in left and right, only in right for programming simplicity
+    fob.push_back(Rect(xmin, ymin, width/4, height));
+//	Rect x6 = Rect(xmin + width/4*3, ymin, width/4, height);
+    // zhijinhe: not in upper
+    fob.push_back(Rect(xmin, ymin, width, height/2.5));
+
+    return fob;
+}
+
 }
 
 #endif /* SRC_ALG_CAFFE_HELPER_H_ */
