@@ -34,7 +34,7 @@ static string GetLatestHour(){
     struct tm *struct_time;
     time(&current_time);
     struct_time=gmtime(&current_time);
-    string result = to_string(struct_time->tm_year)+to_string(struct_time.tm_mon)+to_string(struct_time->tm_mday)+to_string(struct_time->tm_hour);
+    string result = to_string(struct_time->tm_year)+to_string(struct_time->tm_mon)+to_string(struct_time->tm_mday)+to_string(struct_time->tm_hour);
     return result;
 }
 static long long int NowSeconds() {
