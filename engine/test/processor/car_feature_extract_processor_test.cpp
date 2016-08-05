@@ -1,5 +1,3 @@
-#if true
-
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
@@ -90,5 +88,3 @@ TEST(CarFeatureExtractProcessorTest, carFeatureExtractTest) {
 
     destory();
 }
-
-#endif
