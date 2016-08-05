@@ -36,7 +36,7 @@ add_custom_target(test
         COMMAND wget -rq -R html ${RELEASE_URL}/version -O version
         COMMAND echo -n ${RELEASE_URL} > task.txt
         COMMAND echo -n "/release/data/matrix_apps_data_" >> task.txt
-        COMMAND echo -n `more version` >> task.txt
+        COMMAND echo -n `cat version` >> task.txt
         COMMAND echo ".tar" >> task.txt
         COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
             then echo "Loading models..."
