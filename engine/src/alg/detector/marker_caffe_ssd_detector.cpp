@@ -83,6 +83,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
                                      vector<vector<Detection> > &detect_results,
                                      vector<vector<Rect> > &fobs,
                                      vector<vector<float> > &params) {
+
     int image_offset = detect_results.size();
     for (int i = 0; i < images_tiny.size(); ++i) {
         vector<Detection> imageDetection;
@@ -115,8 +116,6 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
         float ymax = top_data[j * 7 + 6] * images_tiny[img_id].rows;
 
         if (score > cls_conf[cls]) {
-            char id[100];
-            sprintf(id, "%d", img_id);
 //            cout << "image_id " << string(id) << endl;
 
             xmin *= col_ratio[img_id];
@@ -128,7 +127,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             xmax += crop_xmin[img_id];
             ymin += crop_ymin[img_id];
             ymax += crop_ymin[img_id];
-
+            LOG(INFO)<<col_ratio[img_id]<<" "<<crop_xmin[img_id];
             // exclude bboxes that lie outside car window.
             if ((thresh_ymin[img_id]-ymin)/(ymax-ymin) > 0.3 ||
                 (ymax-thresh_ymax[img_id])/(ymax-ymin) > 0.3)
@@ -143,14 +142,16 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             if (int(overlap.area()) > 1) {
                 continue;  //exclude this box
             }
+
             Detection detection;
-            detection.box = overlap;
+            detection.box =  Rect(xmin,ymin,xmax-xmin,ymax-ymin);
             detection.id = cls;
             detection.confidence = score;
             imageDetection.push_back(detection);
 
         }
     }
+
 }
 int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Detection> > &window_detections,
                                         vector<vector<Detection> > &detect_results) {
@@ -247,26 +248,20 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
 std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
 
-    vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     float *input_data = input_layer->mutable_cpu_data();
-
-    if (imgs.size() <= batch_size_) {
+    input_geometry_.height=imgs[0].rows;
+    input_geometry_.width=imgs[0].cols;
         input_layer->Reshape(imgs.size(), num_channels_,
                              input_geometry_.height,
                              input_geometry_.width);
-        net_->Reshape();
-    } else {
-        LOG(ERROR) << "Input images size is more than batch size!" << endl;
-        return outputs;
-    }
+
     int cnt = 0;
     DLOG(INFO) << "Start predict batch, size: " << imgs.size() << endl;
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat sample;
         cv::Mat img = imgs[i];
-
 
         GenerateSample(num_channels_, img, sample);
 
@@ -284,12 +279,14 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
             }
         }
     }
-
+    net_->Reshape();
     net_->ForwardPrefilled();
 
     if (use_gpu_) {
         cudaDeviceSynchronize();
     }
+
+    vector<Blob<float> *> outputs;
 
     for (int i = 0; i < net_->num_outputs(); i++) {
         Blob<float> *output_layer = net_->output_blobs()[i];

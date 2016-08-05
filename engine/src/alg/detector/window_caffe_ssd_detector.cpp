@@ -71,10 +71,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
     int tot_cnt_win = 0;
     int box_num_win = outputs_win[tot_cnt_win]->height();
     const float* top_data_win = outputs_win[tot_cnt_win]->cpu_data();
-    for(int i=0;i<7;i++){
-                        DLOG(INFO) << "end predict batch, size: " << top_data_win[i] << endl;
 
-    }
     for(int j = 0; j < box_num_win; j++) {
 
         int img_id = top_data_win[j * 7 + 0];
@@ -92,7 +89,6 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
         float ymin = top_data_win[j * 7 + 4] * images_origin[img_id].rows;
         float xmax = top_data_win[j * 7 + 5] * images_origin[img_id].cols;
         float ymax = top_data_win[j * 7 + 6] * images_origin[img_id].rows;
-
         if (score > threshold_) {
             /*******************tiny object detector*********************/
             Detection detection;
@@ -154,7 +150,6 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat sample;
         cv::Mat img = imgs[i];
-
 
         GenerateSample(num_channels_, img, sample);
 
