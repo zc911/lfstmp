@@ -14,13 +14,19 @@ static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
     VehicleCaffeClassifier::VehicleCaffeConfig config;
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
-    string basePath = "data/models/";
+    baseModelPath = "data/0/";
+#else
+    config.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
     for (int i = 0; i < 8; ++i) {
         char index[2] = {0};
         index[0] = '0' + i;
-        config.deploy_file = basePath + "10" + string(index) + ".txt";
-        config.model_file = basePath + "10" + string(index) + ".dat";
+        config.deploy_file = baseModelPath + "10" + string(index) + ".txt";
+        config.model_file = baseModelPath + "10" + string(index) + ".dat";
     }
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
     configs.push_back(config);
