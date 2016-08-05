@@ -476,7 +476,9 @@ int LPDR_Release(LPDR_HANDLE handle)
     delete pstLPDR->p_rfcnTPool;
 #endif
     
-    
+#if MAX_RECOG_THREAD_NUM>1
+    delete pstLPDR->p_recogTPool;
+#endif    
 //    cout << "release 0\n";
     LPFCNN_Release(pstLPDR->hFCNN);
     
@@ -488,7 +490,6 @@ int LPDR_Release(LPDR_HANDLE handle)
     
 //    cout << "release 3\n";
 #if MAX_RECOG_THREAD_NUM>1
-    delete pstLPDR->p_recogTPool;
     
     for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
     {
