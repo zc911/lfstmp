@@ -18,15 +18,17 @@ using grpc::CompletionQueue;
 using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
-namespace dg{
-	static int timeout = 5;
+namespace dg {
+static int timeout = 5;
 
 class SpringClient {
 public:
-    SpringClient(){
+    SpringClient() {
 
     }
-	MatrixError IndexVehicle(string storageAddress,const VehicleObj &v){
+    MatrixError IndexVehicle(string storageAddress, const VehicleObj &v) {
+        unique_lock<mutex> lock(mtx);
+
         map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.find(storageAddress);
         if (it == stubs_.end()) {
             CreateConnect(storageAddress);
@@ -34,17 +36,19 @@ public:
         NullMessage reply;
         ClientContext context;
         std::chrono::system_clock::time_point
-            deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
+        deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
         context.set_deadline(deadline);
         CompletionQueue cq;
         Status status;
         std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
             stubs_[storageAddress]->AsyncIndexVehicle(&context, v, &cq));
         rpc->Finish(&reply, &status, (void *) 1);
+        lock.unlock();
+
         void *got_tag;
         bool ok = false;
         cq.Next(&got_tag, &ok);
-                MatrixError err;
+        MatrixError err;
 
         if (status.ok()) {
             VLOG(VLOG_SERVICE) << "send to storage success" << endl;
@@ -52,25 +56,33 @@ public:
             return err;
         } else {
             VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
-            stubs_.erase(stubs_.find(storageAddress));
+            unique_lock<mutex> lock(mtx);
+
+            map<string, std::unique_ptr<SpringService::Stub> >::iterator it;
+            if ((it = stubs_.find(storageAddress)) != stubs_.end())
+                stubs_.erase(it);
+            lock.unlock();
+
             return err;
         }
-	}
+    }
     void CreateConnect(string storageAddress) {
         shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
+
         std::unique_ptr<SpringService::Stub> stub(SpringService::NewStub(channel));
+
         stubs_.insert(std::make_pair(storageAddress, std::move(stub)));
         if (stubs_.size() > 10) {
+            unique_lock<mutex> lock(mtx);
             stubs_.erase(stubs_.begin());
-        }
-        for (map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.begin(); it != stubs_.end();
-             it++) {
-            VLOG(VLOG_SERVICE) << it->first;
+            lock.unlock();
+
         }
 
     };
 private:
     map<string, std::unique_ptr<SpringService::Stub> > stubs_;
+    std::mutex mtx;
 
 };
 }
