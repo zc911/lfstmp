@@ -42,11 +42,11 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    input_geometry_ = cv::Size(config.target_max_size, config.target_min_size);
-    input_layer->Reshape(batch_size_, num_channels_,
+    input_geometry_ = cv::Size(input_layer->width(),input_layer->height());
+  /*  input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
-    net_->Reshape();
+    net_->Reshape();*/
 
 /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
     const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
@@ -71,8 +71,12 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
     int tot_cnt_win = 0;
     int box_num_win = outputs_win[tot_cnt_win]->height();
     const float* top_data_win = outputs_win[tot_cnt_win]->cpu_data();
+    for(int i=0;i<7;i++){
+                        DLOG(INFO) << "end predict batch, size: " << top_data_win[i] << endl;
 
+    }
     for(int j = 0; j < box_num_win; j++) {
+
         int img_id = top_data_win[j * 7 + 0];
         if ((img_id < 0) || ((img_id+image_offset) >= detect_results.size())) {
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
@@ -179,6 +183,7 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
+
     return outputs;
 }
 
