@@ -1,5 +1,3 @@
-#if true
-
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "processor/face_detect_processor.h"
@@ -128,5 +126,3 @@ TEST(FaceDetectProcessorTest, strangeInputTest) {
 
     destory();
 }
-
-#endif
