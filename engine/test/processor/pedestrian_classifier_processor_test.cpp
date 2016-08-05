@@ -14,10 +14,17 @@ static FileReader *resultReader;
 
 static void initConfig() {
     PedestrianClassifier::PedestrianConfig config;
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
-    config.deploy_file = "data/models/1000.txt";
-    config.model_file = "data/models/1000.dat";
-    config.tag_name_path = "data/models/pedestrian_attribute_tagnames.txt";
+    baseModelPath = "data/0/";
+#else
+    config.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
+    config.deploy_file = baseModelPath + "1000.txt";
+    config.model_file = baseModelPath + "1000.dat";
+    config.tag_name_path = baseModelPath + "pedestrian_attribute_tagnames.txt";
     config.layer_name = "loss3/classifier_personattrib_47";
     pcprocessor = new PedestrianClassifierProcessor(config);
 }
@@ -92,7 +99,13 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
     head->process(fb);
-    FileReader mapping("data/models/pedestrian_attribute_tagnames.txt");
+
+#ifdef UNENCRYPTMODEL
+    FileReader mapping("data/0/pedestrian_attribute_tagnames.txt");
+#else
+    FileReader mapping("data/1/pedestrian_attribute_tagnames.txt");
+#endif
+
     EXPECT_TRUE(mapping.is_open());
     mapping.read(" ");
     cout << mapping.getValue("head_hat")[0] << endl;
