@@ -68,12 +68,11 @@ static void destory() {
 
 TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     init();
-
-    fbhelper->setBasePath("data/testimg/markerClassifier/");
+    fbhelper->setBasePath("data/testimg/markerClassifier/singleCarMarkers/");
     fbhelper->readImage(getOperation());
     head->process(fbhelper->getFrameBatch());
     FrameBatch *fb = fbhelper->getFrameBatch();
-    resultReader = new FileReader("data/testimg/markerClassifier/result.txt");
+    resultReader = new FileReader("data/testimg/markerClassifier/singleCarMarkers/result.txt");
     EXPECT_TRUE(resultReader->is_open());
     resultReader->read(",");
 
@@ -85,7 +84,6 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     }
 
     for (int i = 0; i < fb->batch_size(); ++i) {
-
         vector<Object *>v = fb->frames()[i]->objects()[0]->children();
         stringstream s;
         s << i;
@@ -107,6 +105,44 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
         for (int j = 0; j < v.size(); ++j) {
             Marker *marker = (Marker *)v[j];
             EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id());
+        }
+    }
+
+    destory();
+}
+
+TEST(VehicleMarkerClassifierTest, handleMultiVehiclesTest) {
+    init();
+    fbhelper->setBasePath("data/testimg/markerClassifier/multiCarMarkers/");
+    fbhelper->readImage(getOperation());
+    head->process(fbhelper->getFrameBatch());
+    FrameBatch *fb = fbhelper->getFrameBatch();
+    resultReader = new FileReader("data/testimg/markerClassifier/multiCarMarkers/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
+
+    vector<int> expectMarker;
+    vector<int> realMarker;
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        expectMarker.clear();
+        realMarker.clear();
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            Object *obj = (Object *)fb->frames()[i]->objects()[j];
+            if (obj->type() == OBJECT_CAR) {
+                realMarker.push_back(obj->children().size());
+            }
+        }
+        stringstream s;
+        s << i;
+        int Size = resultReader->getIntValue(s.str(), 0);
+        for (int j = 1; j <= Size; ++j) {
+            expectMarker.push_back(resultReader->getIntValue(s.str(), j));
+        }
+        sort(expectMarker.begin(), expectMarker.end());
+        sort(realMarker.begin(), realMarker.end());
+        ASSERT_EQ(expectMarker.size(), realMarker.size()) << "i = " << i << endl;
+        for (int j = 0; j < expectMarker.size(); ++j) {
+            EXPECT_EQ(expectMarker[j], realMarker[j]) << "j = " << j << endl;
         }
     }
 
