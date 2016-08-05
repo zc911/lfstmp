@@ -27,13 +27,13 @@ public:
 
     MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig &config);
     virtual ~MarkerCaffeSsdDetector();
-    virtual int DetectBatch(vector<cv::Mat> &img,vector<Detection> &window_detections,
+    virtual int DetectBatch(vector<cv::Mat> &img,vector<vector<Detection> > &window_detections,
                             vector<vector<Detection> > &detect_results);
 
 protected:
 
     vector<Blob<float>*> PredictBatch(const vector<Mat> &imgs);
-    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs,vector<vector<Detection> > &detect_results,vector<vector<Rect> > fobs,vector<vector<Rect> >&params);
+    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs,vector<vector<Detection> > &detect_results,vector<vector<Rect> > &fobs,vector<vector<float> >&params);
 
 private:
     boost::shared_ptr<caffe::Net<float>> net_;
