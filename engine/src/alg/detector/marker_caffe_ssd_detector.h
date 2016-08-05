@@ -21,7 +21,7 @@ using namespace caffe;
 
 namespace dg {
 
-class MarkerCaffeSsdDetector: public MarkerCaffeSsdDetector {
+class MarkerCaffeSsdDetector : public Detector{
 
 public:
 

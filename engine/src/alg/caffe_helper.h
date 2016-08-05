@@ -229,7 +229,7 @@ static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
         sample = img;
 }
 
-cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
+static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
     Mat img = image.clone();
     int img_width = img.cols;
     int img_height = img.rows;
@@ -299,7 +299,7 @@ cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax
 }
 
 
-void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
+static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
     Mat img = image;
     float img_width = img.cols;
     float img_height = img.rows;
@@ -359,7 +359,7 @@ void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float 
     *cymax = crop_ymax;
 }
 
-vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float ymax) {
+static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float ymax) {
     vector<Rect> fob;
 
     float width = xmax - xmin;

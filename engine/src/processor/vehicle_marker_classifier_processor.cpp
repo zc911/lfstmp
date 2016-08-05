@@ -28,6 +28,7 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
     VehicleCaffeDetectorConfig &mConfig)
     : Processor() {
+    cout<<mConfig.deploy_file<<" "<<mConfig.model_file;
 
     ssd_marker_detector_ = new MarkerCaffeSsdDetector(mConfig);
     ssd_window_detector_ = new WindowCaffeSsdDetector(wConfig);
