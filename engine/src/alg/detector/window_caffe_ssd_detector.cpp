@@ -43,6 +43,9 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(input_layer->width(),input_layer->height());
+    target_col_=config.target_min_size;
+    target_row_=config.target_max_size;
+
   /*  input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
@@ -75,6 +78,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
     for(int j = 0; j < box_num_win; j++) {
 
         int img_id = top_data_win[j * 7 + 0];
+
         if ((img_id < 0) || ((img_id+image_offset) >= detect_results.size())) {
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
             continue;
@@ -95,8 +99,10 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
             detection.box = Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             detection.id = img_id;
             detection.confidence = score;
-
+     
             imageDetection.push_back(detection);
+
+
         }
     }
 }
@@ -112,19 +118,24 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
 
     detect_results.clear();
     vector<cv::Mat> toPredict;
+    vector<cv::Mat> origins;
     for (int i = 0; i < img.size(); ++i) {
-        cv::Mat image = img[i];
+        cv::Mat image = img[i].clone();
+        resize(image,image,Size(target_col_,target_row_));
         toPredict.push_back(image);
+        origins.push_back(img[i]);
         if (toPredict.size() == batch_size_) {
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
-            Fullfil(toPredict, outputs, detect_results);
+            Fullfil(origins, outputs, detect_results);
             toPredict.clear();
+            origins.clear();
         }
     }
 
     if (toPredict.size() > 0) {
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
-        Fullfil(toPredict, outputs, detect_results);
+
+        Fullfil(origins, outputs, detect_results);
     }
 
 }
@@ -134,8 +145,6 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
     vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
-    float *input_data = input_layer->mutable_cpu_data();
-
     if (imgs.size() <= batch_size_) {
         input_layer->Reshape(imgs.size(), num_channels_,
                              input_geometry_.height,
@@ -145,6 +154,7 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         LOG(ERROR) << "Input images size is more than batch size!" << endl;
         return outputs;
     }
+    float *input_data = input_layer->mutable_cpu_data();
     int cnt = 0;
     DLOG(INFO) << "Start predict batch, size: " << imgs.size() << endl;
     for (int i = 0; i < imgs.size(); i++) {
@@ -152,11 +162,9 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         cv::Mat img = imgs[i];
 
         GenerateSample(num_channels_, img, sample);
-
         if ((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
             cv::resize(sample, sample, Size(input_geometry_.width, input_geometry_.height));
         }
-
         float mean[3] = {104, 117, 123};
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {

@@ -247,21 +247,21 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
     int crop_ymin = centery - crop_height / 2;
     int crop_ymax = centery + crop_height / 2;
 
-    cout << xmin << " "<< xmax << " " << ymin << " "<< ymax << endl;
-    cout << crop_xmin << " "<< crop_xmax << " " << crop_ymin << " "<< crop_ymax << endl;
-    cout << "crop width " << crop_width << " crop height " << crop_height << endl;
+//    cout << xmin << " "<< xmax << " " << ymin << " "<< ymax << endl;
+//    cout << crop_xmin << " "<< crop_xmax << " " << crop_ymin << " "<< crop_ymax << endl;
+//    cout << "crop width " << crop_width << " crop height " << crop_height << endl;
 
 
     if (crop_width > img_width) {
-        cout << "hconcat started " << endl;
+ //       cout << "hconcat started " << endl;
         crop_xmin = 0;
         crop_xmax = crop_width;
         char cw[100], iw[100], ih[100];
         sprintf(cw, "%.3d", crop_width);
         sprintf(iw, "%.3d", img_width);
         sprintf(ih, "%.3d", img_height);
-        cout << "crop_width " << String(cw) << endl;
-        cout << "img width " << String(iw) << "img height " << String(ih) << endl;
+  //      cout << "crop_width " << String(cw) << endl;
+  //      cout << "img width " << String(iw) << "img height " << String(ih) << endl;
         Mat cols = Mat::zeros(img_height, int(crop_width) - img_width + 1, img.type()); // +1 for input > 0
         cv::hconcat(img, cols, img);
     }
@@ -279,7 +279,7 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
     if (crop_height > img_height) {
         crop_ymin = 0;
         crop_ymax = crop_height;
-        cout << "add rows started" << endl;
+   //     cout << "add rows started" << endl;
         Mat rows = Mat::zeros(int(crop_height) - img_height + 1, img_width, img.type()); // +1 for input > 0
         img.push_back(rows);
     }
@@ -292,7 +292,7 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
         crop_ymin = img_height - crop_height;
     }
     img = img(Rect(crop_xmin, crop_ymin, floor(crop_xmax-crop_xmin), floor(crop_ymax-crop_ymin)));
-    cout << "crop succeed" << endl;
+//    cout << "crop succeed" << endl;
     *cxmin = crop_xmin;
     *cymin = crop_ymin;
     return img;
@@ -319,15 +319,15 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
     float crop_ymax = centery + crop_height / 2.0;
 
     if (crop_width > img_width) {
-        cout << "hconcat started " << endl;
+    //    cout << "hconcat started " << endl;
         crop_xmin = 0;
         crop_xmax = crop_width;
         char cw[100], iw[100], ih[100];
         sprintf(cw, "%.3f", crop_width);
         sprintf(iw, "%.3f", img_width);
         sprintf(ih, "%.3f", img_height);
-        cout << "crop_width " << String(cw) << endl;
-        cout << "img width " << String(iw) << "img height " << String(ih);
+     //   cout << "crop_width " << String(cw) << endl;
+    //    cout << "img width " << String(iw) << "img height " << String(ih);
         Mat cols = Mat::zeros(img_height, int(crop_width) - img_width + 1, img.type()); // +1 for input > 0
         cv::hconcat(img, cols, img);
     }
@@ -342,7 +342,7 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
     if (crop_height > img_height) {
         crop_ymin = 0;
         crop_ymin = crop_height;
-        cout << "add rows started" << endl;
+    //    cout << "add rows started" << endl;
         Mat rows = Mat::zeros(int(crop_height) - crop_width + 1, img_width, img.type()); // +1 for input > 0
         img.push_back(rows);
     }
