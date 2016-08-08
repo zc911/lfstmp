@@ -44,6 +44,8 @@ private:
     int gpu_id_;
     int batch_size_;
     float threshold_;
+    int target_col_;
+    int target_row_;
 #ifdef SHOW_VIS
     vector<Scalar> color_;
     vector<string> tags_;
