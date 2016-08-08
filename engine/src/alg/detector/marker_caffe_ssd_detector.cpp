@@ -128,6 +128,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
                 continue;
 
             // exclude bboxes that lie in a predefined fobbiden place
+
             vector<Rect> fob = fobs[img_id];
 
             Rect overlap = fob[cls] & Rect(xmin,ymin,xmax-xmin,ymax-ymin);
@@ -165,12 +166,16 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
         cv::Mat image = imgs[i].clone();
 
         // fobbiden areas
+        int xmin,ymin,xmax,ymax;
         if(window_detections[i].size()>0) {
-            int xmin = window_detections[i][0].box.x;
-            int ymin = window_detections[i][0].box.y;
-            int xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
-            int ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
-
+            xmin = window_detections[i][0].box.x;
+            ymin = window_detections[i][0].box.y;
+            xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
+            ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
+        }else{
+            xmin=ymin=0;
+            xmax=ymax=1;
+        }
             vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
             fobs.push_back(fob);
 
@@ -195,17 +200,20 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
             // only process images that has a car window.
             // only count images that has a car window.
-            resize(img, img, Size(target_col, target_row));
+            if(img.rows>0&&img.cols>0){
+                resize(img, img, Size(target_col, target_row));
+            }else{
+                img=Mat::zeros(Size(target_col, target_row),CV_8UC3);
+            }
+
             toPredict.push_back(img);
-        }else{
-            Mat img=Mat::zeros(Size(input_geometry_.width,input_geometry_.height),CV_8UC3);
-            toPredict.push_back(img);
-        }
-        origins.push_back(imgs[i]);
+        
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
+
             Fullfil(toPredict, outputs, detect_results, fobs, params);
+
             toPredict.clear();
         }
     }
@@ -241,13 +249,20 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
 std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
 
+    vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     input_geometry_.height=imgs[0].rows;
     input_geometry_.width=imgs[0].cols;
+    if (imgs.size() <= batch_size_) {
         input_layer->Reshape(imgs.size(), num_channels_,
                              input_geometry_.height,
                              input_geometry_.width);
+        net_->Reshape();
+    } else {
+        LOG(ERROR) << "Input images size is more than batch size!" << endl;
+        return outputs;
+    }
     float *input_data = input_layer->mutable_cpu_data();
 
     int cnt = 0;
@@ -279,7 +294,6 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
         cudaDeviceSynchronize();
     }
 
-    vector<Blob<float> *> outputs;
 
     for (int i = 0; i < net_->num_outputs(); i++) {
         Blob<float> *output_layer = net_->output_blobs()[i];
