@@ -25,7 +25,6 @@ namespace dg {
 class WindowCaffeDetector {
 public:
     typedef struct {
-
         bool is_model_encrypt = true;
         int batch_size = 1;
         int target_min_size = 400;
