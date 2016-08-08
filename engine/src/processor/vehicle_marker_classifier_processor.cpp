@@ -83,8 +83,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 rectangle(img,Rect(preds[i][j].box.x,preds[i][j].box.y,preds[i][j].box.width,preds[i][j].box.height),Scalar(255,0,0));
             }
             v->set_markers(markers_cutborad);
-            string name=to_string(i)+"da.jpg";
-            imwrite(name.c_str(),img);
+//            string name=to_string(i)+"da.jpg";
+  //          imwrite(name.c_str(),img);
         }
 
     }else{

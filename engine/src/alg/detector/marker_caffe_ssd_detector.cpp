@@ -55,7 +55,6 @@ MarkerCaffeSsdDetector::MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig 
         layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
     }
 */
-            cout<<"Sdggth"<<endl;
 
     device_setted_ = false;
 #ifdef SHOW_VIS
@@ -90,8 +89,6 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
         detect_results.push_back(imageDetection);
     }
     int box_num = outputs[0]->height();
-    cout << "tiny info start " << outputs[0]->num() << " " << outputs[0]->channels()
-        << " " << outputs[0]->height() << " " << outputs[0]->width() << endl;
     const float* top_data = outputs[0]->cpu_data();
     vector<float> crop_xmin=params[0];
     vector<float> crop_ymin=params[1];
@@ -114,9 +111,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
         float ymin = top_data[j * 7 + 4] * images_tiny[img_id].rows;
         float xmax = top_data[j * 7 + 5] * images_tiny[img_id].cols;
         float ymax = top_data[j * 7 + 6] * images_tiny[img_id].rows;
-
         if (score > cls_conf[cls]) {
-//            cout << "image_id " << string(id) << endl;
 
             xmin *= col_ratio[img_id];
             xmax *= col_ratio[img_id];
@@ -127,22 +122,18 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             xmax += crop_xmin[img_id];
             ymin += crop_ymin[img_id];
             ymax += crop_ymin[img_id];
-            LOG(INFO)<<col_ratio[img_id]<<" "<<crop_xmin[img_id];
             // exclude bboxes that lie outside car window.
             if ((thresh_ymin[img_id]-ymin)/(ymax-ymin) > 0.3 ||
                 (ymax-thresh_ymax[img_id])/(ymax-ymin) > 0.3)
                 continue;
 
             // exclude bboxes that lie in a predefined fobbiden place
-            // cout << "cls " << cls << endl;
             vector<Rect> fob = fobs[img_id];
 
             Rect overlap = fob[cls] & Rect(xmin,ymin,xmax-xmin,ymax-ymin);
-            // cout << "overlap area " << overlap.area() << endl;
             if (int(overlap.area()) > 1) {
                 continue;  //exclude this box
             }
-
             Detection detection;
             detection.box =  Rect(xmin,ymin,xmax-xmin,ymax-ymin);
             detection.id = cls;
@@ -165,11 +156,13 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
     detect_results.clear();
     vector<cv::Mat> toPredict;
+        vector<cv::Mat> origins;
+
     vector<vector<float> > params;
     params.resize(6);
     vector<vector<Rect> > fobs;
     for (int i = 0; i < imgs.size(); ++i) {
-        cv::Mat image = imgs[i];
+        cv::Mat image = imgs[i].clone();
 
         // fobbiden areas
         if(window_detections[i].size()>0) {
@@ -205,10 +198,10 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             resize(img, img, Size(target_col, target_row));
             toPredict.push_back(img);
         }else{
-            Mat img(Size(256,384),CV_8UC3,0);
+            Mat img=Mat::zeros(Size(input_geometry_.width,input_geometry_.height),CV_8UC3);
             toPredict.push_back(img);
-
         }
+        origins.push_back(imgs[i]);
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
@@ -250,19 +243,18 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
-    float *input_data = input_layer->mutable_cpu_data();
     input_geometry_.height=imgs[0].rows;
     input_geometry_.width=imgs[0].cols;
         input_layer->Reshape(imgs.size(), num_channels_,
                              input_geometry_.height,
                              input_geometry_.width);
+    float *input_data = input_layer->mutable_cpu_data();
 
     int cnt = 0;
     DLOG(INFO) << "Start predict batch, size: " << imgs.size() << endl;
     for (int i = 0; i < imgs.size(); i++) {
         cv::Mat sample;
         cv::Mat img = imgs[i];
-
         GenerateSample(num_channels_, img, sample);
 
         if ((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
@@ -273,6 +265,7 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {
                 for (int j = 0; j < sample.cols; j++) {
+
                     input_data[cnt] = sample.at<uchar>(i, j * 3 + k) - mean[k];
                     cnt += 1;
                 }

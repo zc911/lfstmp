@@ -308,6 +308,8 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
         + (string) data_config_.Value(FILE_WINDOW_ONLY_TRAINED_MODEL);
     wConfig.deploy_file = modelPath
         + (string) data_config_.Value(FILE_WINDOW_ONLY_DEPLOY_MODEL);
+    wConfig.target_max_size=200;
+    wConfig.target_min_size=100;
     wConfig.is_model_encrypt = is_encrypted;
     wConfig.batch_size = batch_size;
     wConfig.gpu_id = gpu_id;
