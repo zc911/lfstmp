@@ -26,12 +26,13 @@ static void initConfig() {
     baseModelPath = "data/1/";
 #endif
 
-    wConfig.deploy_file = baseModelPath + "700.txt";
-    wConfig.model_file = baseModelPath + "700.dat";
+    wConfig.deploy_file = baseModelPath + "701.txt";
+    wConfig.model_file = baseModelPath + "701.dat";
 
-    mConfig.deploy_file = baseModelPath + "600.txt";
-    mConfig.model_file = baseModelPath + "600.dat";
-
+    mConfig.deploy_file = baseModelPath + "601.txt";
+    mConfig.model_file = baseModelPath + "601.dat";
+    wConfig.target_max_size=160;
+    wConfig.target_min_size=80;
     vmcprocessor = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
 }
 
@@ -73,6 +74,7 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     head->process(fbhelper->getFrameBatch());
     FrameBatch *fb = fbhelper->getFrameBatch();
     resultReader = new FileReader("data/testimg/markerClassifier/singleCarMarkers/result.txt");
+
     EXPECT_TRUE(resultReader->is_open());
     resultReader->read(",");
 
