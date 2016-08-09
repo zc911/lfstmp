@@ -29,8 +29,8 @@ VehicleCaffeDetectorConfig VehicleProcessorHead::getConfig() {
     basePath = "data/1/";
 #endif
 
-    config.target_max_size = 600;
-    config.target_min_size = 400;
+    config.target_max_size = 450;
+    config.target_min_size = 300;
     config.deploy_file = config.confirm_deploy_file =
             basePath + "300.txt";
     config.model_file = config.confirm_deploy_file =
