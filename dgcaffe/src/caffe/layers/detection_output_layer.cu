@@ -58,8 +58,8 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
   // Retrieve all decoded location predictions.
   const Dtype* bbox_cpu_data = bbox_preds.cpu_data();
   vector<LabelBBox> all_decode_bboxes;
-  GetLocPredictions(bbox_cpu_data, num, num_priors_, num_loc_classes_,
-      share_location_, &all_decode_bboxes);
+  //GetLocPredictions(bbox_cpu_data, num, num_priors_, num_loc_classes_,
+  //    share_location_, &all_decode_bboxes);
 
 
  // cudaDeviceSynchronize();
@@ -84,11 +84,11 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
   conf_data = conf_permute.cpu_data();
   const bool class_major = true;
   vector<map<int, vector<float> > > all_conf_scores;
-  GetConfidenceScores(conf_data, num, num_priors_, num_classes_,
-     class_major, &all_conf_scores);
+  //GetConfidenceScores(conf_data, num, num_priors_, num_classes_,
+  //   class_major, &all_conf_scores);
 
-  //GetLocAndScores(bbox_cpu_data, num, num_priors_, num_loc_classes_,
-    //    share_location_, &all_decode_bboxes, conf_data, num_classes_, class_major, &all_conf_scores);
+  GetLocAndScores(bbox_cpu_data, num, num_priors_, num_loc_classes_,
+        share_location_, &all_decode_bboxes, conf_data, num_classes_, class_major, &all_conf_scores);
 
   int num_kept = 0;
   vector<map<int, vector<int> > > all_indices;
