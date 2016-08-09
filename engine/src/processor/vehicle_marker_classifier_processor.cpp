@@ -57,15 +57,20 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
+
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
-
 
     if(isSsd){
         vector<vector<Detection> > crops;
         vector<vector<Detection> > preds;
         ssd_window_detector_->DetectBatch(images_,crops);
+              gettimeofday(&end, NULL);
+        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+            / 1000.f;
+        VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
+
         ssd_marker_detector_->DetectBatch(images_,crops,preds);
         for (int i = 0; i < preds.size(); i++) {
             Vehicle *v = (Vehicle *) objs_[i];
@@ -124,9 +129,6 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
         }
     }
-
-
-
 
 
     gettimeofday(&end, NULL);

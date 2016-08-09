@@ -108,7 +108,9 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
 }
 int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
                                       vector<vector<Detection> > &detect_results) {
-
+    float costtime, diff;
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
         Caffe::set_mode(Caffe::GPU);
@@ -122,6 +124,8 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
     for (int i = 0; i < img.size(); ++i) {
         cv::Mat image = img[i].clone();
         resize(image,image,Size(target_col_,target_row_));
+        cvtColor(image,image,CV_BGR2GRAY);
+        equalizeHist(image,image);
         toPredict.push_back(image);
         origins.push_back(img[i]);
         if (toPredict.size() == batch_size_) {
@@ -137,11 +141,17 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
 
         Fullfil(origins, outputs, detect_results);
     }
+        gettimeofday(&end, NULL);
 
+        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+            / 1000.f;
+            LOG(INFO)<<"window detect batch "<<diff;
 }
 
 std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
-
+    float costtime, diff;
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -186,7 +196,11 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
+        gettimeofday(&end, NULL);
 
+        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+            / 1000.f;
+            LOG(INFO)<<"window predict batch "<<diff;
     return outputs;
 }
 

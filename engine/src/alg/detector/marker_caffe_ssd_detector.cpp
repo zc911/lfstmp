@@ -147,6 +147,10 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
 }
 int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Detection> > &window_detections,
                                         vector<vector<Detection> > &detect_results) {
+    float costtime, diff;
+
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
 
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
@@ -222,6 +226,11 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
         Fullfil(toPredict, outputs, detect_results, fobs, params);
     }
+        gettimeofday(&end, NULL);
+
+        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+            / 1000.f;
+            LOG(INFO)<<"window marker  batch "<<diff;
 
 //    // make sure batch size is times of the batch size
 //    if (img.size() % batch_size_ != 0) {
@@ -248,7 +257,9 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 }
 
 std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
-
+    float costtime, diff;
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -299,6 +310,11 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
+        gettimeofday(&end, NULL);
+
+            diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+            / 1000.f;
+            LOG(INFO)<<"marker predict batch "<<diff;
     return outputs;
 }
 
