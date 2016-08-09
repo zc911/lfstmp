@@ -617,8 +617,8 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
   }
   loc_preds->resize(num);
 
-  float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
-
+  //float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
+  float thresh_hold=0.3;
   //std::cout << "num_classes " << num_classes << std::endl;
   for (int i = 0; i < num; ++i) { // batch size
     LabelBBox& label_bbox = (*loc_preds)[i];
@@ -631,32 +631,25 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
     for (int p = 0; p < num_preds_per_class; ++p) { // number of anchors
         bool is_push = false;
         for(int c = 1; c < num_classes; c++) {
-            if (conf_data[c*num_preds_per_class + p] > thresh_hold[c]) {
+            if (conf_data[c*num_preds_per_class + p] > thresh_hold) {
                 is_push = true; 
                 break;
             }
         }
-        if(is_push) 
-        for(int c = 0; c < num_classes; c++) {
+        if(is_push) {
+                  for(int c = 0; c < num_classes; c++) {
             label_scores[c].push_back(conf_data[c*num_preds_per_class + p]);
         }
-    }
-    for (int p = 0; p < num_preds_per_class; ++p) { // number of anchors
-      int start_idx_conf = p * num_classes;
-      int start_idx_loc = p * 4;
-      if(conf_data[num_preds_per_class + p] > thresh_hold[1] || conf_data[(num_preds_per_class<<1) + p] > thresh_hold[2]
-        || conf_data[num_preds_per_class + (num_preds_per_class<<1) + p] > thresh_hold[3] || conf_data[(num_preds_per_class<<2) + p] > thresh_hold[4]) {
-        NormalizedBBox nbbox;
+                  NormalizedBBox nbbox;
         nbbox.set_xmin(loc_data[start_idx_loc]);
         nbbox.set_ymin(loc_data[start_idx_loc+1]);
         nbbox.set_xmax(loc_data[start_idx_loc+2]);
         nbbox.set_ymax(loc_data[start_idx_loc+3]);
         label_bbox[label].push_back(nbbox);
-        //for (int c = 0; c < num_classes; ++c) { // number of classes
-        //  label_scores[c].push_back(conf_data[start_idx_conf + c]);
-        //}
-      }
+        }
+
     }
+
     conf_data += num_preds_per_class * num_classes;
     loc_data += num_preds_per_class * (num_loc_classes << 2);
   }

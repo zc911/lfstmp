@@ -86,7 +86,7 @@ TEST(VehicleMultiTypeDectorTest, vehicleNumberTest) {
     for (int i = 0; i < fb->batch_size(); ++i) {
         stringstream s;
         s << i;
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), fb->frames()[i]->get_object_size());
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), fb->frames()[i]->get_object_size()) << "i = " << i << endl;
     }
     destory();
 }
@@ -150,8 +150,8 @@ TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     baseModelPath = "data/1/";
 #endif
     config.car_only = true;
-    config.target_max_size = 600;
-    config.target_min_size = 400;
+    config.target_max_size = 450;
+    config.target_min_size = 300;
     config.deploy_file = baseModelPath + "310.txt";
     config.model_file = baseModelPath + "310.dat";
     config.confirm_deploy_file = baseModelPath + "311.txt";

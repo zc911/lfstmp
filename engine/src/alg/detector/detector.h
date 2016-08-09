@@ -41,7 +41,16 @@ typedef struct {
     string confirm_model_file;
     float threshold = 0.5;
 } VehicleCaffeDetectorConfig;
-
+typedef struct {
+    bool is_model_encrypt = true;
+    int batch_size = 1;
+    int target_min_size = 400;
+    int target_max_size = 1000;
+    int gpu_id = 0;
+    bool use_gpu = true;
+    string deploy_file;
+    string model_file;
+} CaffeDetectorConfig;
 class VehicleDetector {
 public:
 
