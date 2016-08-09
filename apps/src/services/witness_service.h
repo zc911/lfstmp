@@ -62,7 +62,8 @@ private:
 
     void init(void);
     bool enableStorage_;
-
+    string storage_address_;
+    bool enable_cutboard_;
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);

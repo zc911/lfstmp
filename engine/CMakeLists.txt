@@ -17,8 +17,6 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 
 INCLUDE_DIRECTORIES(../utils/src src include include/dgcaffe include/mxnet include/watchdog include/dgmedia-1.8.0 /usr/local/cuda/include /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/include/libxml2 /usr/include/freetype2)
 
-
-INCLUDE_DIRECTORIES(../utils/src src include include/dgcaffe include/mxnet include/watchdog   include/dgmedia-1.4.0 /usr/local/cuda/include /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/lib/arm-linux-gnueabihf/glib-2.0/include /usr/include/libxml2 /usr/include/freetype2)
 SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 
 IF (${PLATFORM} STREQUAL "Linux-armv7l")
@@ -41,9 +39,13 @@ FIND_LIBRARY(LIB_HASP NAMES hasp PATHS lib/watchdog/${PLATFORM})
 FIND_LIBRARY(LIB_WATCHDOG NAMES watchdog hasp PATHS lib/watchdog/${PLATFORM})
 FIND_LIBRARY(LIB_MXNET NAMES mxnet PATHS lib/mxnet/${PLATFORM})
 FIND_LIBRARY(LIB_DGMEDIA NAMES dgmedia PATHS lib/dgmedia-1.8.0/${PLATFORM})
+FIND_LIBRARY(LIB_PROTOBUF NAMES protobuf PATHS lib/protobuf/${PLATFORM})
+FIND_LIBRARY(LIB_GTEST_MAIN NAMES gtest_main PATHS lib/gtest/${PLATFORM})
+FIND_LIBRARY(LIB_GTEST NAMES gtest PATHS lib/gtest/${PLATFORM})
 
-LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG} ${LIB_HASP})
-LIST(APPEND LIBS pthread glog gflags protobuf leveldb jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)
+LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_PROTOBUF} ${LIB_GTEST_MAIN} ${LIB_GTEST} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG} ${LIB_HASP})
+LIST(APPEND LIBS pthread glog gflags leveldb jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)
+
 
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)

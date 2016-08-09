@@ -4,7 +4,7 @@
 
 #include "LPDetectRecog.hpp"
 
-#include "simple_thread_pool.h"
+#include "thread/simple_thread_pool.h"
 
 
 #define MAX_GP_NUMBER 64

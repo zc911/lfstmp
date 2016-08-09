@@ -3,21 +3,21 @@
 if [ "$source" == "" ]; then source="http://192.168.2.119:80"; fi
 
 # change apt source
-$wget -O sources.list "$source/apt/sources.list" && mv sources.list /etc/apt/sources.list
+# $wget -O sources.list "$source/apt/sources.list" && mv sources.list /etc/apt/sources.list
 
 #wget -O install_cuda.sh "$source/cuda/install.sh" && chmod +x install_cuda.sh
 #wget -O install_libs.sh "$source/libs/install.sh" && chmod +x install_libs.sh
 
-wget -O dog_tool "$source/libs/dog_tool" && chmod +x dog_tool
+# wget -O dog_tool "$source/libs/dog_tool" && chmod +x dog_tool
 wget -O pull.sh "$source/matrix/pull.sh" && chmod +x pull.sh
-wget -O run.sh "$source/matrix/run.sh" && chmod +x run.sh
+# wget -O run.sh "$source/matrix/run.sh" && chmod +x run.sh
 
-echo "install cuda libs ..."
-./install_cuda.sh
-mv deepvideo_env.sh env.sh # the environment script
+# echo "install cuda libs ..."
+# ./install_cuda.sh
+# mv deepvideo_env.sh env.sh # the environment script
 
-echo "install dependency libs ..."
-./install_libs.sh
+# echo "install dependency libs ..."
+# ./install_libs.sh
 
 echo "install matrix ..."
 ./pull.sh "matrix_apps" "latest"
