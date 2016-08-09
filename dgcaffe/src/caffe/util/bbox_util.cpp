@@ -907,7 +907,6 @@ void ApplyNMS(const vector<NormalizedBBox>& bboxes, const vector<float>& scores,
       const float threshold, const int top_k, const bool reuse_overlaps,
       map<int, map<int, float> >* overlaps, vector<int>* indices) {
   // Sanity check.
-  LOG(INFO)<<bboxes.size()<<" "<<scores.size();
   CHECK_EQ(bboxes.size(), scores.size())
       << "bboxes and scores have different size.";
 
