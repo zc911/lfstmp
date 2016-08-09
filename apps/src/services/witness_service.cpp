@@ -31,6 +31,8 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       base_id_(baseId),
       name_(name) {
     enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
+    storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
+    enable_cutboard_ = (bool) config_->Value("EnableCutboard");
 
     RepoService::GetInstance().Init(*config);
 }
@@ -469,18 +471,11 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         if (request->context().has_storage()) {
             storageAddress = (string) request->context().storage().address();
         } else {
-            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+            storageAddress = storage_address_;
         }
-        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
-        DBType dbType;
-        switch (dbTypeInt) {
-            case 0:
-                dbType = KAFKA;
-                break;
-            default:
-                dbType = KAFKA;
-                break;
-        }
+
+        int dbType = KAFKA;
+   
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
@@ -490,8 +485,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
                 Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                 v->CopyFrom(r.vehicles(i));
-                bool enablecutboard = (bool) config_->Value("EnableCutboard");
-                if (enablecutboard) {
+                if (enable_cutboard_) {
                     vector<char> data(roi.datastart, roi.dataend);
                     string imgdata = Base64::Encode(data);
                     v->mutable_img()->mutable_img()->set_bindata(imgdata);
@@ -668,18 +662,10 @@ MatrixError WitnessAppsService::BatchRecognize(
         if (batchRequest->context().has_storage()) {
             storageAddress = (string) batchRequest->context().storage().address();
         } else {
-            storageAddress = (string) config_->Value(STORAGE_ADDRESS);
+            storageAddress = storage_address_;
         }
-        int dbTypeInt = (int) config_->Value(STORAGE_DB_TYPE);
-        DBType dbType;
-        switch (dbTypeInt) {
-            case 0:
-                dbType = KAFKA;
-                break;
-            default:
-                dbType = KAFKA;
-                break;
-        }
+        int dbTypeInt = KAFKA;
+           
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
@@ -691,8 +677,7 @@ MatrixError WitnessAppsService::BatchRecognize(
                     Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
                     RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
                     v->CopyFrom(r.vehicles(i));
-                    bool enablecutboard = (bool) config_->Value("EnableCutboard");
-                    if (enablecutboard) {
+                    if (enable_cutboard_) {
                         vector<uchar> data(roi.datastart, roi.dataend);
                         string imgdata = Base64::Encode(data);
                         v->mutable_img()->mutable_img()->set_bindata(imgdata);

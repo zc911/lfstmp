@@ -66,6 +66,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 for (auto frame : frames->frames()) {
                     Pedestrian *p = new Pedestrian();
                     Mat tmp = frame->payload()->data();
+                    if (tmp.empty()) {
+                        LOG(ERROR) << "Mat is empty" << endl;
+                        return ;
+                    }
                     p->set_image(tmp);
                     p->set_id(baseid);
                     baseid++;
@@ -83,6 +87,10 @@ void WitnessEngine::Process(FrameBatch *frames) {
                 for (auto frame : frames->frames()) {
                     Vehicle *v = new Vehicle(OBJECT_CAR);
                     Mat tmp = frame->payload()->data();
+                    if (tmp.empty()) {
+                        LOG(ERROR) << "Mat is empty" << endl;
+                        return ;
+                    }
                     v->set_image(tmp);
                     v->set_id(baseid);
                     baseid++;
@@ -271,12 +279,23 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_marker_) {
             LOG(INFO) << "Enable vehicle marker processor." << endl;
-            MarkerCaffeClassifier::MarkerConfig mConfig;
-            configFilter->createMarkersConfig(config, mConfig);
-            WindowCaffeDetector::WindowCaffeConfig wConfig;
-            configFilter->createWindowConfig(config, wConfig);
+            bool carOnly = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+            Processor *p;
+            if(carOnly){
+                MarkerCaffeClassifier::MarkerConfig mConfig;
+                configFilter->createMarkersConfig(config, mConfig);
+                WindowCaffeDetector::WindowCaffeConfig wConfig;
+                configFilter->createWindowConfig(config, wConfig);
+                p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+            }else{
+                VehicleCaffeDetectorConfig mConfig;
+                VehicleCaffeDetectorConfig wConfig;
+                configFilter->createMarkersConfig(config, mConfig);
+                configFilter->createWindowConfig(config, wConfig);
+                p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+            }
 
-            Processor *p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+
             if (last == NULL) {
                 vehicle_processor_ = p;
             }

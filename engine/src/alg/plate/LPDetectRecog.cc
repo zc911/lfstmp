@@ -11,15 +11,14 @@
 #define LPDR_CLASS_NUM 79
 
 const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
-                                              "A", "B", "C", "D", "E", "F", "G", "H", "J", \
-                                              "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
-                                              "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
-                                              "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
-                                              "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
-                                              "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
-                                              "青", "藏", "川", "宁", "琼", "使", "领", "试", \
-                                              "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
-                                             };
+          "A", "B", "C", "D", "E", "F", "G", "H", "J", \
+          "K", "L", "M", "N", "P", "Q", "R", "S", "T",\
+          "U", "V", "W", "X", "Y", "Z", "I", "京", "津",\
+          "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
+          "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
+          "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
+          "青", "藏", "川", "宁", "琼", "使", "领", "试", \
+          "学", "临", "时", "警", "港", "O", "挂", "澳", "#"};
 
 int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut);
 int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet);
@@ -27,70 +26,72 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
 {
-
-  LPDR_Info_S *pstLPDR = (LPDR_Info_S*)calloc(1, sizeof(LPDR_Info_S));
-  *pHandle = (LPDR_HANDLE)pstLPDR;
-  int dwDevType = pstConfig->dwDevType;
-  int dwDevID = pstConfig->dwDevID;
-  pstLPDR->dwDev_Type = dwDevType;
-  pstLPDR->dwDev_ID = dwDevID;
-
-  int dwGroupSize = pstConfig->stFCNN.adwShape[0];
-  pstLPDR->pvBBGroupOfROIP = new vector<LPRectInfo>[dwGroupSize];
-  pstLPDR->pvBBGroupOfNMS = new vector<LPRectInfo>[dwGroupSize];
+    LPDR_Info_S *pstLPDR = (LPDR_Info_S*)calloc(1, sizeof(LPDR_Info_S));
+    *pHandle = (LPDR_HANDLE)pstLPDR;
+    int dwDevType = pstConfig->dwDevType;
+    int dwDevID = pstConfig->dwDevID;
+		pstLPDR->dwDev_Type = dwDevType;
+		pstLPDR->dwDev_ID = dwDevID;
+    
+    int dwGroupSize = pstConfig->stFCNN.adwShape[0];
+    pstLPDR->pvBBGroupOfROIP = new vector<LPRectInfo>[dwGroupSize];
+    pstLPDR->pvBBGroupOfNMS = new vector<LPRectInfo>[dwGroupSize];
 
 #if DO_FCN_THREAD
-  pstLPDR->p_ppTPool = new dg::ThreadPool(dwGroupSize);
-  pstLPDR->p_rfcnTPool = new dg::ThreadPool(dwGroupSize);
+    pstLPDR->p_ppTPool = new dg::ThreadPool(dwGroupSize);
+    pstLPDR->p_rfcnTPool = new dg::ThreadPool(dwGroupSize);
 #endif
 
 //    cout << "cat 0\n";
-  LPFCNN_Create(pstConfig->stFCNN, dwDevType, dwDevID, &pstLPDR->hFCNN);
-
+    LPFCNN_Create(pstConfig->stFCNN, dwDevType, dwDevID, &pstLPDR->hFCNN);
+    
 //    cout << "cat 1\n";
-  LPRPN_Create(pstConfig->stRPN, dwDevType, dwDevID, &pstLPDR->hRPN);
-
+    LPRPN_Create(pstConfig->stRPN, dwDevType, dwDevID, &pstLPDR->hRPN);
+    
 //    cout << "cat 2\n";
 #if 1
-  ModuleRPN_S *pstRPN = (ModuleRPN_S*)(pstLPDR->hRPN);
-  int *pdwRPNOutFeatShape = pstRPN->adwOutShape + 3;
-  int *pdwROIPInShape = pstConfig->stROIP.adwShape;
-  for (int i = 0; i < 4; i++)
-  {
-    pdwROIPInShape[i] = pdwRPNOutFeatShape[i];
+    ModuleRPN_S *pstRPN = (ModuleRPN_S*)(pstLPDR->hRPN);
+    int *pdwRPNOutFeatShape = pstRPN->adwOutShape + 3;
+    int *pdwROIPInShape = pstConfig->stROIP.adwShape;
+    for (int i = 0; i < 4; i++)
+    {
+      pdwROIPInShape[i] = pdwRPNOutFeatShape[i];
 //      cout << pdwRPNOutFeatShape[i] << endl;
-  }
+    }
 #else
-  ModuleRPN_S *pstRPN = (ModuleRPN_S*)(pstLPDR->hRPN);
-  int *pdwRPNOutFeatShape = pstRPN->adwOutShape + 8;
-  int *pdwROIPInShape = pstConfig->stROIP.adwShape;
-  for (int i = 0; i < 4; i++)
-  {
-    pdwROIPInShape[i] = pdwRPNOutFeatShape[i];
+    ModuleRPN_S *pstRPN = (ModuleRPN_S*)(pstLPDR->hRPN);
+    int *pdwRPNOutFeatShape = pstRPN->adwOutShape + 8;
+    int *pdwROIPInShape = pstConfig->stROIP.adwShape;
+    for (int i = 0; i < 4; i++)
+    {
+      pdwROIPInShape[i] = pdwRPNOutFeatShape[i];
 //      cout << pdwRPNOutFeatShape[i] << endl;
-  }
+    }
 #endif
 //    cout << "cat 3\n";
-  LPROIP_Create(pstConfig->stROIP, dwDevType, dwDevID, &pstLPDR->hROIP);
-
+    LPROIP_Create(pstConfig->stROIP, dwDevType, dwDevID, &pstLPDR->hROIP);
+    
 //    cout << "cat 4\n";
 #if MAX_RECOG_THREAD_NUM>1
-
-  for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
-  {
-    LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->ahPREGs[dwTI]);
-    LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->ahCHRECOGs[dwTI]);
-  }
-
-  pstLPDR->p_recogTPool = new dg::ThreadPool(MAX_RECOG_THREAD_NUM);
+    
+    for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
+    {
+      LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->ahPREGs[dwTI]);
+      LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->ahCHRECOGs[dwTI]);
+    }
+    
+    pstLPDR->p_recogTPool = new dg::ThreadPool(MAX_RECOG_THREAD_NUM);
 #else
-  LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->hPREG);
-  LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->hCHRECOG);
+    LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->hPREG);
+    LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->hCHRECOG);
 #endif
 
-
-  return 0;
+    return 0;
 }
+
+
+
+bool doSortRect(LPRectInfo one, LPRectInfo two);
 
 
 int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
@@ -99,11 +100,11 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   LPDR_HANDLE hFCNN = pstLPDR->hFCNN;
   int dwI, dwJ, dwRI, dwPI;
   int dwImgNum = pstImgSet->dwImageNum;
-
+  
 //  assert(dwImgNum==1);
-
+  
   ////////////////FCN///////////////
-#if LPDR_TIME
+#if LPDR_TIME  
   float costtime, diff;
   struct timeval start, end;
 #endif
@@ -113,6 +114,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
 #endif
 
   LPDR_ImageInner_S *pstFCNNImgSet = new LPDR_ImageInner_S[dwImgNum];
+  memset(pstFCNNImgSet, 0, sizeof(LPDR_ImageInner_S) * dwImgNum);
 #if DO_FCN_THREAD //dog
 //  lpPreProcessThreads(pstImgSet, pstFCNNImgSet);
   lpPreProcessThreadsQueue(pstLPDR->p_ppTPool, pstImgSet, pstFCNNImgSet);
@@ -126,33 +128,34 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     pstOne->dwImgH = dwImgH;
     pstOne->pfData = new float[pstOne->dwImgW * pstOne->dwImgH];
     int dwSize = pstOne->dwImgW * pstOne->dwImgH;
-
+    memset(pstOne->pfData, 0, sizeof(float) * dwSize);
+    
     cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, pstImgSet->astSet[dwI].pubyData);
     cv::Mat inputGrayOne(dwImgH, dwImgW, CV_8UC1);
     cv::cvtColor(inputColorOne, inputGrayOne, CV_BGR2GRAY);
 
     uchar *pubyOne = (uchar*)inputGrayOne.data;
     cv::Mat oneData(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
-    inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f / 255.f, 0);
+    inputGrayOne.convertTo(oneData, CV_32FC1, 1.0f/255.f, 0);
 
 //    doRotate_f(pstOne->pfData, dwImgW, dwImgH, 10.0f);
 
 #if LPDR_DBG&1
-    cv::Mat imagegray(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
-    cv::namedWindow("fuck0", 0);
-    cv::imshow("fuck0", imagegray);
-    cv::waitKey(0);
+  cv::Mat imagegray(dwImgH, dwImgW, CV_32FC1, pstOne->pfData);
+  cv::namedWindow("fuck0", 0);
+  cv::imshow("fuck0", imagegray);
+  cv::waitKey(0);
 #endif
   }
 #endif //dog
 #if LPDR_TIME
   gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
   printf("pre fcnn cost:%.2fms\n", diff);
 #endif
 
   LPFCNN_Process(hFCNN, pstFCNNImgSet, dwImgNum, pstLPDR->p_rfcnTPool);
-
+  
   ////////////////RPN///////////////
 #if 1
 #if LPDR_TIME
@@ -160,7 +163,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
 #endif
   LPDR_HANDLE hRPN = pstLPDR->hRPN;
   ModuleFCNN_S *pstFCNN = (ModuleFCNN_S*)hFCNN;
-
+  
   ModuleRPN_S *pstRPN = (ModuleRPN_S*)hRPN;
   int dwRPNWantedAll = pstRPN->adwInShape[0] * pstRPN->adwInShape[1];
   int dwRPNWantedPerImg = pstRPN->adwInShape[1];
@@ -174,24 +177,25 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     int dwImgWSrc = pstOne->dwImgW;
     int dwImgHSrc = pstOne->dwImgH;
     float *pfDataSrc = pstOne->pfData;
-
+//    cout << dwI << "_pfDataSrc:" << pfDataSrc << endl;
+    if (!pfDataSrc) continue;
     vector<LPRectInfo> &lpgroup = pstFCNN->plpgroup[dwI];
-
+    
     int dwBBNum = lpgroup.size();
 //    cout << "dwBBNum:" << dwBBNum << endl;
     int dwActualNUm = dwBBNum < dwRPNWantedPerImg ? dwBBNum : dwRPNWantedPerImg;
-
+    
     int dwRI2 = 0;
     for (dwJ = 0; dwJ < dwActualNUm; dwJ++)
     {
       LPDR_ImageInner_S *pstRPNImgNow = pstRPNImgNowSet + dwJ;
-
+      
       LPRectInfo *prect = &lpgroup[dwJ];
-      int dwX0 = prect->fCentX - prect->fWidth / 2;
-      int dwY0 = prect->fCentY - prect->fHeight / 2;
-      int dwX1 = prect->fCentX + prect->fWidth / 2;
-      int dwY1 = prect->fCentY + prect->fHeight / 2;
-
+      int dwX0 = prect->fCentX - prect->fWidth/2;
+      int dwY0 = prect->fCentY - prect->fHeight/2;
+      int dwX1 = prect->fCentX + prect->fWidth/2;
+      int dwY1 = prect->fCentY + prect->fHeight/2;
+      
       pstRPNImgNow->dwImgW = dwX1 - dwX0;
       pstRPNImgNow->dwImgH = dwY1 - dwY0;
 //      cout << pstRPNImgNow->dwImgW << ", " <<  dwX1-dwX0 << ", " << pstRPNImgNow->dwImgH << ", " << dwY1-dwY0 << endl;
@@ -213,7 +217,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   }
 #if LPDR_TIME
   gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
   printf("pre rpn cost:%.2fms\n", diff);
 #endif
 //  cout << "fuck rpn 1\n";
@@ -227,13 +231,13 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     int dwImgW = pstImgSet->astSet[dwI].dwImgW;
     int dwImgH = pstImgSet->astSet[dwI].dwImgH;
     cv::Mat cimg(dwImgH, dwImgW, CV_8UC3, pstImgSet->astSet[dwI].pubyData);
-
+    
     avCImages.push_back(cimg);
-
+    
     stringstream ss;
     ss << "rpnout_" << dwI;
     string winame = ss.str();
-
+    
     avWinNames.push_back(winame);
   }
 #endif
@@ -250,11 +254,11 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
       {
         LPRectInfo *prect = &rpnrects[dwRI];
 
-        int dwX0 = prect->fCentX - prect->fWidth / 2;
-        int dwY0 = prect->fCentY - prect->fHeight / 2;
-        int dwX1 = prect->fCentX + prect->fWidth / 2;
-        int dwY1 = prect->fCentY + prect->fHeight / 2;
-
+        int dwX0 = prect->fCentX - prect->fWidth/2;
+        int dwY0 = prect->fCentY - prect->fHeight/2;
+        int dwX1 = prect->fCentX + prect->fWidth/2;
+        int dwY1 = prect->fCentY + prect->fHeight/2;
+        
         cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(255, 0, 0), 2, 8, 0);
       }
     }
@@ -277,7 +281,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   memset(pfRect3D, 0, sizeof(float) * pdwRectSZ[0] * pdwRectSZ[1] * pdwRectSZ[2]);
 //  cout << "fuck roip 1\n";
   int dwGroupNum = pstRPN->dwGroupSize;
-  assert(pdwRectSZ[1] == pstROIP->adwInShape[4 + 1]);
+  assert(pdwRectSZ[1]==pstROIP->adwInShape[4+1]);
   int dwRectWantedPerRPNImg = pdwRectSZ[1];
   int dwROIPBatchNum = 0, dwROIPBatchNowID;
 //  cout << dwGroupNum << ", " << dwImgNum << ", " << dwRPNWantedPerImg << endl;
@@ -293,45 +297,49 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
       dwROIPBatchNowID = dwROIPBatchNum - 1;
       vector<int> &rectidxgroup = prectidxgroup[dwI * dwRPNWantedPerImg + dwJ];
       vector<LPRectInfo> &lprectgroup = pstRPN->plprectgroup_0[dwI * dwRPNWantedPerImg + dwJ];
+      vector<LPRectInfo> &lprectgroup2 = pstRPN->plprectgroup[dwI * dwRPNWantedPerImg + dwJ];
       pfRect3D = pstROIP->pfRect3D + dwROIPBatchNowID * pdwRectSZ[1] * pdwRectSZ[2];
       int dwRectnum = lprectgroup.size();
       if (dwRectnum == 0) continue;
+//      printf("img:%d, roi:%d, rectnum:%d\n", dwI, dwJ, dwRectnum);
       int dwNeedRectNum = 1024 < dwRectnum ? 1024 : dwRectnum;
       for (dwPI = 0; dwPI < dwNeedRectNum; dwPI++)
       {
         adwIndex[dwPI] = dwPI;
       }
-      random_shuffle(adwIndex, adwIndex + dwNeedRectNum);
+//      random_shuffle(adwIndex, adwIndex+dwNeedRectNum);
+      sort(lprectgroup.begin(), lprectgroup.end(), doSortRect);
+      sort(lprectgroup2.begin(), lprectgroup2.end(), doSortRect);
       int dwNeedNum = dwRectWantedPerRPNImg < dwRectnum ? dwRectWantedPerRPNImg : dwRectnum;
 //      cout << "dwRectnum:" << dwRectnum << ", dwNeedNum:" << dwNeedNum << "; ";
       for (dwRI = 0; dwRI < dwNeedNum; dwRI++)
       {
         int dwNowIdx = adwIndex[dwRI];
-//        cout << dwRI << ":" << dwNowIdx << ",";
 //        cout << dwNowIdx << ",";
-
+        
         rectidxgroup.push_back(dwNowIdx);
-
+        
         LPRectInfo &lprect = lprectgroup[dwNowIdx];
-
+//        printf("%.6f,", lprect.fScore);
+        
         float *pfRectOne = pfRect3D + dwRI * pdwRectSZ[2];
         pfRectOne[0] = dwROIPBatchNowID;
-        pfRectOne[1] = lprect.fCentX - lprect.fWidth / 2;
-        pfRectOne[2] = lprect.fCentY - lprect.fHeight / 2;
-        pfRectOne[3] = lprect.fCentX + lprect.fWidth / 2;
-        pfRectOne[4] = lprect.fCentY + lprect.fHeight / 2;
+        pfRectOne[1] = lprect.fCentX - lprect.fWidth/2;
+        pfRectOne[2] = lprect.fCentY - lprect.fHeight/2;
+        pfRectOne[3] = lprect.fCentX + lprect.fWidth/2;
+        pfRectOne[4] = lprect.fCentY + lprect.fHeight/2;
       }
 //      cout << endl;
-
+      
     }
   }
 //  cout << "fuck roip 3\n";
 //  pstRPN->pdwRealWs;
 //  pstRPN->pdwRealHs;
-  LPROIP_Process(hROIP, pstRPN->pfOutputDataFeat, pstRPN->adwOutShape + 8, pstROIP->pfRect3D, pstROIP->adwRectSZ);
+  LPROIP_Process(hROIP, pstRPN->pfOutputDataFeat, pstRPN->adwOutShape+3, pstROIP->pfRect3D, pstROIP->adwRectSZ);
   float *pfOutCls = pstROIP->pfOutCls;
 //  cout << "fuck roip 4\n";
-
+  
   for (dwI = 0; dwI < dwImgNum; dwI++)
   {
     vector<LPRectInfo> &lproipgroup_one = pstLPDR->pvBBGroupOfROIP[dwI];
@@ -344,7 +352,7 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
 
 //      cout << rectidxgroup.size() << ", " << lprectgroup.size() << endl;
 
-      assert(rectidxgroup.size() <= lprectgroup.size());
+      assert(rectidxgroup.size()<=lprectgroup.size());
       int dwRectnum = rectidxgroup.size();
       if (dwRectnum == 0) continue;
       int dwNeedNum = dwRectWantedPerRPNImg < dwRectnum ? dwRectWantedPerRPNImg : dwRectnum;
@@ -352,22 +360,24 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
       {
         int dwNowIdx = rectidxgroup[dwRI];
         LPRectInfo &lprect = lprectgroup[dwNowIdx];
-
+//        printf("%.6f, ", lprect.fScore);
+        
 //        cout << pfCls[dwRI] << ", ";
         if (pfCls[dwRI] > LP_ROIP_SCORE_MAX)
         {
           lproipgroup_one.push_back(lprect);
 #if LPDR_DBG&1
           cv::Mat cimg = avCImages[dwI];
-
-          int dwX0 = lprect.fCentX - lprect.fWidth / 2;
-          int dwY0 = lprect.fCentY - lprect.fHeight / 2;
-          int dwX1 = lprect.fCentX + lprect.fWidth / 2;
-          int dwY1 = lprect.fCentY + lprect.fHeight / 2;
+          
+          int dwX0 = lprect.fCentX - lprect.fWidth/2;
+          int dwY0 = lprect.fCentY - lprect.fHeight/2;
+          int dwX1 = lprect.fCentX + lprect.fWidth/2;
+          int dwY1 = lprect.fCentY + lprect.fHeight/2;
           cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(255, 255, 0), 2, 8, 0);
 #endif
         }
       }
+//      printf("\n");
     }
   }
 //  cout << "fuck roip 6\n";
@@ -381,27 +391,26 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
     vector<LPRectInfo> &lproipgroup_one = pstLPDR->pvBBGroupOfROIP[dwI];
     vector<LPRectInfo> &lproipnms_one = pstLPDR->pvBBGroupOfNMS[dwI];
     group_bbs(lproipgroup_one, lproipnms_one, 0.3);
-
+    
 #if LPDR_DBG&1
     cv::Mat cimg = avCImages[dwI];
-
+    
     for (dwRI = 0; dwRI < lproipnms_one.size(); dwRI++)
     {
       LPRectInfo &lprect = lproipnms_one[dwRI];
-
-
-      int dwX0 = lprect.fCentX - lprect.fWidth / 2;
-      int dwY0 = lprect.fCentY - lprect.fHeight / 2;
-      int dwX1 = lprect.fCentX + lprect.fWidth / 2;
-      int dwY1 = lprect.fCentY + lprect.fHeight / 2;
-
+      
+      int dwX0 = lprect.fCentX - lprect.fWidth/2;
+      int dwY0 = lprect.fCentY - lprect.fHeight/2;
+      int dwX1 = lprect.fCentX + lprect.fWidth/2;
+      int dwY1 = lprect.fCentY + lprect.fHeight/2;
+      
       cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(0, 255, 0), 3, 8, 0);
     }
 #endif
   }
 #if LPDR_TIME
   gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
   printf("nms cost:%.2fms\n", diff);
 #endif
 #if LPDR_DBG
@@ -453,51 +462,56 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
   delete []pstFCNNImgSet;
   pstFCNNImgSet = 0;
 //  cout << "fuck release 4\n";
-
+  
   return 0;
 }
 
 
 int LPDR_Release(LPDR_HANDLE handle)
 {
-  LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
+    LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
 
 #if DO_FCN_THREAD
-  delete pstLPDR->p_ppTPool;
-  delete pstLPDR->p_rfcnTPool;
+    delete pstLPDR->p_ppTPool;
+    delete pstLPDR->p_rfcnTPool;
 #endif
-
-
+    
+#if MAX_RECOG_THREAD_NUM>1
+    delete pstLPDR->p_recogTPool;
+#endif    
 //    cout << "release 0\n";
-  LPFCNN_Release(pstLPDR->hFCNN);
-
+    LPFCNN_Release(pstLPDR->hFCNN);
+    
 //    cout << "release 1\n";
-  LPRPN_Release(pstLPDR->hRPN);
-
+    LPRPN_Release(pstLPDR->hRPN);
+    
 //    cout << "release 2\n";
-  LPROIP_Release(pstLPDR->hROIP);
-
+    LPROIP_Release(pstLPDR->hROIP);
+    
 //    cout << "release 3\n";
 #if MAX_RECOG_THREAD_NUM>1
-
-  delete pstLPDR->p_recogTPool;
-
-  for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
-  {
-    LPPREG_Release(pstLPDR->ahPREGs[dwTI]);
-  }
-
+    
+    for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
+    {
+      LPPREG_Release(pstLPDR->ahPREGs[dwTI]);
+    }
+    
 //    cout << "release 4\n";
-  for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
-  {
-    LPCHRECOG_Release(pstLPDR->ahCHRECOGs[dwTI]);
-  }
-
+    for (int dwTI = 0; dwTI < MAX_RECOG_THREAD_NUM; dwTI++)
+    {
+      LPCHRECOG_Release(pstLPDR->ahCHRECOGs[dwTI]);
+    }
+    
 #else
-  LPPREG_Release(pstLPDR->hPREG);
-  LPCHRECOG_Release(pstLPDR->hCHRECOG);
+    LPPREG_Release(pstLPDR->hPREG);
+    LPCHRECOG_Release(pstLPDR->hCHRECOG);
 #endif
-  return 0;
+    return 0;
+}
+
+bool doSortRect(LPRectInfo one, LPRectInfo two)
+{
+  return one.fScore > two.fScore;
 }
 
 #if MAX_RECOG_THREAD_NUM<=1
@@ -506,7 +520,7 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
 #if LPDR_TIME&1
   float costtime, diff;
   struct timeval start, end;
-
+  
   gettimeofday(&start, NULL);
 #endif
   LPDR_Info_S *pstLPDR = (LPDR_Info_S*)handle;
@@ -522,16 +536,16 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
   int dwBlkMaxLen = 1000 * 1000, dwBlkH, dwBlkW, dwBufferLen = 1000 * 1000 * 4;
   InputInfoRecog_S stIIR;
   LPDRInfo_S stOut;
-
+  
   vector<LPRectInfo> *plproipnms = pstLPDR->pvBBGroupOfNMS;
-
+  
   pfBlkBuffer_0 = new float[dwBlkMaxLen];
   pfBlkBuffer_1 = new float[dwBlkMaxLen];
   pbyBuffer = new char[dwBufferLen];
 
   stIIR.pbyBuffer = pbyBuffer;
   stIIR.dwBufferLen = dwBufferLen;
-
+  
 //  cout << "doRecognitions:0\n";
   memset(pstOutputSet, 0, sizeof(LPDR_OutputSet_S));
 //  cout << "doRecognitions:1\n";
@@ -559,21 +573,21 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
 //      cout << "doRecognitions:2, " << dwSize << endl;
       LPRectInfo &lprect = lproipnms_one[dwJ];
 //      cout << "H:" << lprect.fHeight << ", W:" << lprect.fWidth << endl;
-      LPRectInfo lprect_crop(lprect.fScore, lprect.fCentY, lprect.fCentX, lprect.fHeight * afCropSize[1], lprect.fWidth * afCropSize[0]);
+      LPRectInfo lprect_crop(lprect.fScore, lprect.fCentY, lprect.fCentX, lprect.fHeight*afCropSize[1], lprect.fWidth*afCropSize[0]);
 
-      dwX0_0 = max(lprect_crop.fCentX - lprect_crop.fWidth / 2, 0.0f);
-      dwY0_0 = max(lprect_crop.fCentY - lprect_crop.fHeight / 2, 0.0f);
-      dwX1_0 = min(lprect_crop.fCentX + lprect_crop.fWidth / 2, dwImgW - 1.f);
-      dwY1_0 = min(lprect_crop.fCentY + lprect_crop.fHeight / 2, dwImgH - 1.f);
+      dwX0_0 = max(lprect_crop.fCentX - lprect_crop.fWidth/2, 0.0f);
+      dwY0_0 = max(lprect_crop.fCentY - lprect_crop.fHeight/2, 0.0f);
+      dwX1_0 = min(lprect_crop.fCentX + lprect_crop.fWidth/2, dwImgW-1.f);
+      dwY1_0 = min(lprect_crop.fCentY + lprect_crop.fHeight/2, dwImgH-1.f);
       dwW_0 = dwX1_0 - dwX0_0 + 1;
       dwH_0 = dwY1_0 - dwY0_0 + 1;
-
+      
 //      cout << "H:" << dwH_0 << ", W:" << dwW_0 << endl;
 
       //add margin
-      adwMarginHW[0] = (int)((dwH_0 * afMarginRatioHW[0]) / 2);
-      adwMarginHW[1] = (int)((dwW_0 * afMarginRatioHW[1]) / 2);
-
+      adwMarginHW[0] = (int)((dwH_0 * afMarginRatioHW[0])/2);
+      adwMarginHW[1] = (int)((dwW_0 * afMarginRatioHW[1])/2);
+      
 //      cout << adwMarginHW[0] << ", " << adwMarginHW[1] << endl;
 
       dwBlkH = adwMarginHW[0] * 2 + dwH_0;
@@ -588,17 +602,17 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
         memcpy(pfBlkBuffer_0 + (dwRI + adwMarginHW[0]) * dwBlkW + adwMarginHW[1], pfImage + (dwRI + dwY0_0) * dwImgW + dwX0_0, sizeof(float) * dwW_0);
       }
 
-      LPRectInfo lprect_new(lprect.fScore, lprect.fCentY, lprect.fCentX, lprect.fHeight * afNewSize[1], lprect.fWidth * afNewSize[0]);
-      dwX0_1 = max(lprect_new.fCentX - lprect_new.fWidth / 2, 0.f);
-      dwY0_1 = max(lprect_new.fCentY - lprect_new.fHeight / 2, 0.f);
-      dwX1_1 = min(lprect_new.fCentX + lprect_new.fWidth / 2, dwImgW - 1.f);
-      dwY1_1 = min(lprect_new.fCentY + lprect_new.fHeight / 2, dwImgH - 1.f);
+      LPRectInfo lprect_new(lprect.fScore, lprect.fCentY, lprect.fCentX, lprect.fHeight*afNewSize[1], lprect.fWidth*afNewSize[0]);
+      dwX0_1 = max(lprect_new.fCentX - lprect_new.fWidth/2, 0.f);
+      dwY0_1 = max(lprect_new.fCentY - lprect_new.fHeight/2, 0.f);
+      dwX1_1 = min(lprect_new.fCentX + lprect_new.fWidth/2, dwImgW-1.f);
+      dwY1_1 = min(lprect_new.fCentY + lprect_new.fHeight/2, dwImgH-1.f);
 
       dwX0_1 = dwX0_1 + adwMarginHW[1] - dwX0_0;
       dwY0_1 = dwY0_1 + adwMarginHW[0] - dwY0_0;
       dwX1_1 = dwX1_1 + adwMarginHW[1] - dwX0_0;
       dwY1_1 = dwY1_1 + adwMarginHW[0] - dwY0_0;
-
+      
       stIIR.pfImage_0 = pfBlkBuffer_0;
       stIIR.pfImage_1 = pfBlkBuffer_1;
       stIIR.dwH = dwBlkH;
@@ -617,9 +631,9 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
       cv::imshow("normafter", normafter);
 #endif
       memcpy(pfBlkBuffer_1, pfBlkBuffer_0, sizeof(float) * dwBlkH * dwBlkW);
-
+      
       int dwRet = doRecogOne(pstLPDR->hPREG, pstLPDR->hCHRECOG, &stIIR, &stOut);
-      if (!dwRet)
+      if (!dwRet) 
       {
         stOut.adwLPRect[0] = stIIR.rect.dwX0 + dwX0_0 - adwMarginHW[1];
         stOut.adwLPRect[1] = stIIR.rect.dwY0 + dwY0_0 - adwMarginHW[0];
@@ -631,14 +645,14 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
     pstLPDRSetOne->dwLPNum = dwLPI;
   }
   pstOutputSet->dwImageNum = dwImgNum;
-
+  
   delete []pbyBuffer;
   delete []pfBlkBuffer_0;
   delete []pfBlkBuffer_1;
 #if LPDR_TIME&1
   gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
-  printf("doRecognitions cost:%.2fms\n", diff);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRecognitions cost:%.2fms\n", diff);
 #endif
   return 0;
 }
@@ -667,14 +681,14 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
     int dwX1 = pstIIR->rect.dwX1;
     int dwY1 = pstIIR->rect.dwY1;
     cv::rectangle(cimg, cv::Point(dwX0, dwY0), cv::Point(dwX1, dwY1), CV_RGB(255, 0, 0), 1, 8, 0);
-
+    
     cv::imshow("rectify_pre", cimg);
     cv::waitKey(10);
   }
 #endif
-
+  
   pstIIR->dwSepY = 0;
-
+  
   rect_old = pstIIR->rect;
   for (dwI = 0; dwI < 2; dwI++)
   {
@@ -692,7 +706,7 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
   if (dwRet) return dwRet;
 //  return 0;
   int dwSepY = pstIIR->dwSepY;
-
+ 
 #if LPDR_DBG&1
   cv::Mat gimg(pstIIR->dwH, pstIIR->dwW, CV_32FC1, pstIIR->pfImage_1);
   cv::Mat cimg(pstIIR->dwH, pstIIR->dwW, CV_32FC3);
@@ -707,34 +721,34 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
   cout << "rectify" << endl;
   cv::waitKey(0);
 #endif
-
+  
   //////////////////////////////////////////
-
-
+  
+  
   float fStrechRatio = 5.5;
   float fShrinkRatio = 1.0;
   int dwStep = 4;
-
+  
   LPDR_ImageInner_S stImage;
   stImage.pfData = pstIIR->pfImage_1;
   stImage.dwImgH = pstIIR->dwH;
   stImage.dwImgW = pstIIR->dwW;
-
+  
   vector<LPRect> rects_out;
   LPRect rectUp, rectDwn;
-
+  
   int dwYAdd0 = 0;//max(abs(rect_new.dwY1 - rect_new.dwY0 + 1)/8, 1);
   rect_new.dwY1 += dwYAdd0;
-
+  
   if (abs(dwSepY - rect_new.dwY0 + 1) * 4 > abs(rect_new.dwY1 - rect_new.dwY0 + 1))
   {
     int dwYAdd = 0;//max(abs(dwSepY - rect_new.dwY0 + 1)/8, 1);
     rectUp.dwX0 = rect_new.dwX0; rectUp.dwY0 = rect_new.dwY0;
     rectUp.dwX1 = rect_new.dwX1; rectUp.dwY1 = dwSepY + dwYAdd;
-
+    
     rectDwn.dwX0 = rect_new.dwX0; rectDwn.dwY0 = dwSepY;
     rectDwn.dwX1 = rect_new.dwX1; rectDwn.dwY1 = rect_new.dwY1;
-
+    
     rects_out.push_back(rectUp);
     rects_out.push_back(rectDwn);
   }
@@ -744,44 +758,44 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
   }
 
   memset(pstOut, 0, sizeof(LPDRInfo_S));
-  if (rects_out.size() == 1)
+  if (rects_out.size()==1)
   {
     LPDRInfo_S stOut;
-
+    
     fStrechRatio = 5.5;
     fShrinkRatio = 1.0;
     dwStep = 4;
     dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut);
-
+    
     *pstOut = stOut;
     pstOut->dwType = LP_TYPE_SINGLE;
   }
-  else if (rects_out.size() == 2)
+  else if (rects_out.size()==2)
   {
     LPDRInfo_S stOut0, stOut1;
-
+    
     fStrechRatio = 5.5;
     fShrinkRatio = 0.8;
     dwStep = 4;
     dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[0], fStrechRatio, fShrinkRatio, dwStep, 2.0f, &stOut0);
-
+    
 //    if (!dwRet)
     {
       fStrechRatio = 5.5;
       fShrinkRatio = 1.0;
       dwStep = 4;
       dwRet = doRecogOneRow(hChRecog, &stImage, rects_out[1], fStrechRatio, fShrinkRatio, dwStep, 6.0f, &stOut1);
-
+      
       if ((stOut0.dwLPLen + stOut1.dwLPLen) > MAX_LPCHAR_NUM)
       {
         dwRet = -1;
       }
-
+      
       if (!dwRet)
       {
         pstOut->dwLPLen = 0;
         pstOut->fAllScore = 0.f;
-        //    cout << stOut0.dwLPLen << endl;
+    //    cout << stOut0.dwLPLen << endl;
         for (dwI = 0; dwI < stOut0.dwLPLen; dwI++)
         {
           pstOut->adwLPNumber[pstOut->dwLPLen] = stOut0.adwLPNumber[dwI];
@@ -789,7 +803,7 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
           pstOut->dwLPLen++;
         }
         pstOut->fAllScore += stOut0.fAllScore;
-
+        
         for (dwI = 0; dwI < stOut1.dwLPLen; dwI++)
         {
           pstOut->adwLPNumber[pstOut->dwLPLen] = stOut1.adwLPNumber[dwI];
@@ -797,12 +811,12 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
           pstOut->dwLPLen++;
         }
         pstOut->fAllScore += stOut1.fAllScore;
-
+        
         pstOut->dwType = LP_TYPE_DOUBLE;
       }
     }
   }
-
+  
   dwRet = mainlandLPCheck(pstOut);
 
   return dwRet;
@@ -814,7 +828,7 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
 {
   int dwI;
   int dwNowV0, dwNowV1;
-
+  
   //I->1, O->0
   for (dwI = 0; dwI < pstOut->dwLPLen; dwI++)
   {
@@ -831,47 +845,47 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
     pstOut->adwLPNumber[dwI] = dwNewV;
   }
 
-
+  
   //pure experience process
   if (pstOut->dwType == LP_TYPE_DOUBLE)
   {
-    int dwNowV = pstOut->adwLPNumber[pstOut->dwLPLen - 1];
+    int dwNowV = pstOut->adwLPNumber[pstOut->dwLPLen-1];
     //double line 挂
     if (dwNowV > 35 && dwNowV != 75)
     {
-      pstOut->adwLPNumber[pstOut->dwLPLen - 1] = 76;
+      pstOut->adwLPNumber[pstOut->dwLPLen-1] = 76;
     }
   }
-
+  
   //pre two chinese
   dwNowV0 = pstOut->adwLPNumber[0];
   dwNowV1 = pstOut->adwLPNumber[1];
   if (dwNowV0 > 35 && dwNowV0 != 75 && dwNowV1 > 35 && dwNowV1 != 75)
   {
-    for (dwI = 0; dwI < pstOut->dwLPLen - 1; dwI++)
+    for (dwI = 0; dwI < pstOut->dwLPLen-1; dwI++)
     {
       pstOut->adwLPNumber[dwI] = pstOut->adwLPNumber[dwI + 1];
       pstOut->afScores[dwI] = pstOut->afScores[dwI + 1];
     }
-
+    
     pstOut->dwLPLen--;
   }
-
+  
   //only WJ has 8 chars
-  if (pstOut->dwLPLen == 8 && (pstOut->adwLPNumber[1] != 19 && pstOut->adwLPNumber[0] != 31))
+  if (pstOut->dwLPLen==8 && (pstOut->adwLPNumber[1]!=19 && pstOut->adwLPNumber[0]!=31))
   {
     return 2;
   }
-
+  
   //the first two chars must be alphabet or the first char must be chinese
-  if (pstOut->dwLPLen >= 7)
+  if (pstOut->dwLPLen>=7)
   {
     dwNowV0 = pstOut->adwLPNumber[0];
     dwNowV1 = pstOut->adwLPNumber[1];
-    if (dwNowV0 >= 11 && dwNowV0 <= 35 && ((dwNowV1 >= 11 && dwNowV1 <= 35) || dwNowV1 == 1 || dwNowV1 == 2)) //military or goverment case
+    if (dwNowV0>=11 && dwNowV0<=35 && ((dwNowV1>=11 && dwNowV1<=35) || dwNowV1==1 || dwNowV1==2)) //military or goverment case
     {
     }
-    else if (dwNowV0 >= 36 && ((dwNowV1 >= 11 && dwNowV1 <= 35) || dwNowV1 == 1 || dwNowV1 == 2)) //civillian case
+    else if (dwNowV0>=36 && ((dwNowV1>=11 && dwNowV1<=35) || dwNowV1==1 || dwNowV1==2)) //civillian case
     {
     }
     else
@@ -879,10 +893,10 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
       return 3;
     }
   }
-
+  
   //mainlad only has 7 or 8 chars, but we allow it has 6 at least.
   if (pstOut->dwLPLen < 6 || pstOut->dwLPLen > 8) return 1;
-
+  
   return 0;
 }
 
@@ -902,21 +916,21 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   float *pfImage_1 = pstIIR->pfImage_1;
   int dwImgW = pstIIR->dwW;
   int dwImgH = pstIIR->dwH;
-
+  
   LPRect rectnew = pstIIR->rect;
   char *pbyBuffer = pstIIR->pbyBuffer;
   int dwBufferLen = pstIIR->dwBufferLen;
   float *pfCrop = 0;
 
   calcNewMarginBB(dwImgH, dwImgW, &rectnew, adwMRatioXY);
-
+  
   int dwCrop_X0 = rectnew.dwX0;
   int dwCrop_Y0 = rectnew.dwY0;
   int dwCrop_X1 = rectnew.dwX1;
   int dwCrop_Y1 = rectnew.dwY1;
   int dwCrop_W = dwCrop_X1 - dwCrop_X0 + 1;
   int dwCrop_H = dwCrop_Y1 - dwCrop_Y0 + 1;
-
+  
 //  assert(dwCrop_W * dwCrop_H * 4 <= dwBufferLen);
   if (dwCrop_W * dwCrop_H * 4 > dwBufferLen) return -1;
 
@@ -927,9 +941,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   }
 
 #if LPDR_TIME&0
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
-  printf("doRectifyWithPolyReg_0 cost:%.2fms\n", diff);
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_0 cost:%.2fms\n", diff);
 #endif
 
 #if LPDR_TIME&0
@@ -942,9 +956,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   int adwPolygonOut[12];
   LPPREG_Process(hPolyReg, &stImage, adwPolygonOut);
 #if LPDR_TIME&0
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
-  printf("doRectifyWithPolyReg_1 cost:%.2fms\n", diff);
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_1 cost:%.2fms\n", diff);
 #endif
 
 #if LPDR_DBG
@@ -960,37 +974,37 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
 #if LPDR_TIME&0
   gettimeofday(&start, NULL);
 #endif
-  adwPolygonOut[0 * 2 + 0] += dwCrop_X0; adwPolygonOut[0 * 2 + 1] += dwCrop_Y0;
-  adwPolygonOut[1 * 2 + 0] += dwCrop_X0; adwPolygonOut[1 * 2 + 1] += dwCrop_Y0;
-  adwPolygonOut[2 * 2 + 0] += dwCrop_X0; adwPolygonOut[2 * 2 + 1] += dwCrop_Y0;
-  adwPolygonOut[3 * 2 + 0] += dwCrop_X0; adwPolygonOut[3 * 2 + 1] += dwCrop_Y0;
-  adwPolygonOut[4 * 2 + 0] += dwCrop_X0; adwPolygonOut[4 * 2 + 1] += dwCrop_Y0;
-  adwPolygonOut[5 * 2 + 0] += dwCrop_X0; adwPolygonOut[5 * 2 + 1] += dwCrop_Y0;
-
+  adwPolygonOut[0*2+0] += dwCrop_X0; adwPolygonOut[0*2+1] += dwCrop_Y0;
+  adwPolygonOut[1*2+0] += dwCrop_X0; adwPolygonOut[1*2+1] += dwCrop_Y0;
+  adwPolygonOut[2*2+0] += dwCrop_X0; adwPolygonOut[2*2+1] += dwCrop_Y0;
+  adwPolygonOut[3*2+0] += dwCrop_X0; adwPolygonOut[3*2+1] += dwCrop_Y0;
+  adwPolygonOut[4*2+0] += dwCrop_X0; adwPolygonOut[4*2+1] += dwCrop_Y0;
+  adwPolygonOut[5*2+0] += dwCrop_X0; adwPolygonOut[5*2+1] += dwCrop_Y0;
+  
 //  return 0;
   doRectify_f6(pfImage_0, pfImage_1, dwImgW, dwImgH, fAngle_old, adwPolygonOut, pfAngle_new);
-
+  
   LPRect &rectnow = pstIIR->rect;
   rectnow.dwX0 = adwPolygonOut[0]; rectnow.dwY0 = adwPolygonOut[1];
   rectnow.dwX1 = adwPolygonOut[0]; rectnow.dwY1 = adwPolygonOut[1];
   for (dwRI = 1; dwRI < 4; dwRI++)
   {
-    int dwX = adwPolygonOut[dwRI * 2 + 0];
-    int dwY = adwPolygonOut[dwRI * 2 + 1];
+    int dwX = adwPolygonOut[dwRI*2+0];
+    int dwY = adwPolygonOut[dwRI*2+1];
     if (rectnow.dwX0 > dwX) rectnow.dwX0 = dwX;
     if (rectnow.dwY0 > dwY) rectnow.dwY0 = dwY;
     if (rectnow.dwX1 < dwX) rectnow.dwX1 = dwX;
     if (rectnow.dwY1 < dwY) rectnow.dwY1 = dwY;
   }
-
-  int dwSepY = min(adwPolygonOut[4 * 2 + 1], adwPolygonOut[5 * 2 + 1]);
+  
+  int dwSepY = min(adwPolygonOut[4*2+1], adwPolygonOut[5*2+1]);
   if (dwSepY < rectnow.dwY0) dwSepY = rectnow.dwY0;
   pstIIR->dwSepY = dwSepY;
-
+  
 #if LPDR_TIME&0
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
-  printf("doRectifyWithPolyReg_2 cost:%.2fms\n", diff);
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRectifyWithPolyReg_2 cost:%.2fms\n", diff);
 #endif
 #if LPDR_DBG
   {
@@ -1020,19 +1034,19 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
   int dwI, dwJ, dwII0, dwII1;
   ModuleCHRECOG_S *pstCHRECOG = (ModuleCHRECOG_S*)hChRecog;
   int adwStdHW[2] = {pstCHRECOG->adwInShape[2], pstCHRECOG->adwInShape[3]};
-
+  
   memset(pstOut, 0, sizeof(LPDRInfo_S));
   int dwRectH = rect.dwY1 - rect.dwY0 + 1;
-
+  
   //multiple times tests
 #if 0
   const int dwUpNum = 2, dwDnNum = 2;
-  int adwMarginUps[dwUpNum] = {0, dwRectH / 16};
-  int adwMarginDns[dwDnNum] = {dwRectH / 16, dwRectH / 8};
+  int adwMarginUps[dwUpNum] = {0, dwRectH/16};
+  int adwMarginDns[dwDnNum] = {dwRectH/16, dwRectH/8};
 #else
   const int dwUpNum = 1, dwDnNum = 1;
   int adwMarginUps[dwUpNum] = {0};
-  int adwMarginDns[dwDnNum] = {dwRectH / 8};
+  int adwMarginDns[dwDnNum] = {dwRectH/8};
 #endif
   for (dwII0 = 0; dwII0 < dwUpNum; dwII0++)
   {
@@ -1044,7 +1058,7 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
 
       memset(&stLPOut, 0, sizeof(LPDRInfo_S));
 
-      int adwMarginLRTD[4] = {adwStdHW[1] / 16, adwStdHW[1] / 16, dwMgnUp, dwMgnDn}; //left, right, top, down
+      int adwMarginLRTD[4] = {adwStdHW[1]/16, adwStdHW[1]/16, dwMgnUp, dwMgnDn}; //left, right, top, down
 //      int adwMarginLRTD[4] = {adwStdHW[1], adwStdHW[1], dwMgnUp, dwMgnDn}; //left, right, top, down
       LPRect newRect;
       newRect.dwX0 = max(rect.dwX0 - adwMarginLRTD[0], 0);
@@ -1081,16 +1095,16 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
 
       int dwRet = parseRecogOutInfo(pdwClassIdx, pfClassScore, dwBatchNum, fThreshold, &stLPOut);
 
-#if LPDR_DBG
+    #if LPDR_DBG
       cout << stLPOut.fAllScore << ": ";
       for (dwI = 0; dwI < dwBatchNum; dwI++)
       {
         cout << paInv_chardict[pdwClassIdx[dwI]];
       }
-
+      
       cout << endl;
-#endif
-
+    #endif
+      
       if (stLPOut.fAllScore > pstOut->fAllScore)
       {
         *pstOut = stLPOut;
@@ -1099,9 +1113,9 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
     }
   }
 #if LPDR_TIME&0
-  gettimeofday(&end, NULL);
-  diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec) / 1000.f;
-  printf("doRecogOneRow cost:%.2fms\n", diff);
+	gettimeofday(&end, NULL);
+	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+	printf("doRecogOneRow cost:%.2fms\n", diff);
 #endif
 //  cout << pstOut->dwLPLen << endl;
   return dwBestRet;
@@ -1121,13 +1135,13 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
   int *pdwLPNumber = pstOut->adwLPNumber;
   float *pfScores = pstOut->afScores, fAllScore;
   int dwLen = 0;
-
+  
   fAllScore = 0.f;
   dwStart = -1;
   dwEnd = -1;
   for (dwPI = 0; dwPI < dwNum; dwPI++)
   {
-    if (pdwClassIdx[dwPI] != 0 && dwPI < dwNum - 1)
+    if (pdwClassIdx[dwPI] != 0 && dwPI < dwNum-1)
     {
       if (dwStart == -1) dwStart = dwPI;
     }
@@ -1142,7 +1156,7 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
         adwClassNum[dwClsIdx]++;
         afClassScore[dwClsIdx] += pfClassScore[dwJ];
       }
-
+      
       fMaxScore = afClassScore[0];
       dwMaxIdx = 0;
       for (dwJ = 1; dwJ < LPDR_CLASS_NUM; dwJ++)
@@ -1154,7 +1168,7 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
         }
       }
       pdwLPNumber[dwLen] = dwMaxIdx;
-      pfScores[dwLen] = fMaxScore / adwClassNum[dwMaxIdx];
+      pfScores[dwLen] = fMaxScore/adwClassNum[dwMaxIdx];
       fAllScore += fMaxScore;
       dwLen++;
       if (dwLen >= MAX_LPCHAR_NUM)
@@ -1167,7 +1181,7 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
     }
   }
 //  cout << dwLen << endl;
-
+  
   if (fAllScore < fThreshold)
   {
 #if LPDR_DBG
@@ -1177,11 +1191,11 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
     pstOut->dwLPLen = 0;
     return 1;
   }
-
+  
 //  cout << dwLen << endl;
   pstOut->dwLPLen = dwLen;
   pstOut->fAllScore = fAllScore;
-
+  
   return 0;
 }
 
@@ -1193,10 +1207,10 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
 #define LP_COLOUR_YELLOW    2
 #define LP_COLOUR_PINK      3
 #define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN     5
-#define LP_COLOUR_BLUE      6
-#define LP_COLOUR_BROWN     7
-#define LP_COLOUR_BLACK     8
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
 */
 int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
 {
@@ -1209,7 +1223,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
   int adwBB[4];
   float fH = 0.f, fS = 0.f, fV = 0.f;
   int adwColorsHist[9], dwMaxColor, dwMaxValue;
-
+  
   for (dwSI = 0; dwSI < dwImgNum; dwSI++)
   {
     dwImgW = pstImgSet->astSet[dwSI].dwImgW;
@@ -1223,7 +1237,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
       adwBB[1] = pstLPDR->adwLPRect[1];
       adwBB[2] = pstLPDR->adwLPRect[2];
       adwBB[3] = pstLPDR->adwLPRect[3];
-      memset(adwColorsHist, 0, sizeof(int) * 9);
+      memset(adwColorsHist, 0, sizeof(int)*9);
       for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
       {
         pubyRow = pubyImgData + dwRI * 3 * dwImgW;
@@ -1286,10 +1300,10 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 
 #if LPDR_DBG||1
 //    cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, );
-
+    
 #endif
   }
-
+  
   return 0;
 }
 #endif
@@ -1301,10 +1315,10 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 #define LP_COLOUR_YELLOW    2
 #define LP_COLOUR_PINK      3
 #define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN     5
-#define LP_COLOUR_BLUE      6
-#define LP_COLOUR_BROWN     7
-#define LP_COLOUR_BLACK     8
+#define LP_COLOUR_GREEN	    5
+#define LP_COLOUR_BLUE	    6
+#define LP_COLOUR_BROWN	    7
+#define LP_COLOUR_BLACK	    8
 */
 int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
 {
@@ -1317,7 +1331,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
   int adwBB[4];
   float fH = 0.f, fS = 0.f, fV = 0.f;
   int adwColorsHist[9], adwIdxs[9], dwTmpValue;
-
+  
   for (dwSI = 0; dwSI < dwImgNum; dwSI++)
   {
     dwImgW = pstImgSet->astSet[dwSI].dwImgW;
@@ -1329,11 +1343,11 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
       pstLPDR = &pstOutputSet->astLPSet[dwSI].astLPs[dwLI];
       int dwBBH = pstLPDR->adwLPRect[3] - pstLPDR->adwLPRect[1] + 1;
       int dwBBW = pstLPDR->adwLPRect[2] - pstLPDR->adwLPRect[0] + 1;
-      adwBB[0] = pstLPDR->adwLPRect[0] + dwBBW / 12;
-      adwBB[1] = pstLPDR->adwLPRect[1] + dwBBH / 8;
-      adwBB[2] = pstLPDR->adwLPRect[2] - dwBBW / 12;
-      adwBB[3] = pstLPDR->adwLPRect[3] - dwBBH / 8;
-      memset(adwColorsHist, 0, sizeof(int) * 9);
+      adwBB[0] = pstLPDR->adwLPRect[0] + dwBBW/12;
+      adwBB[1] = pstLPDR->adwLPRect[1] + dwBBH/8;
+      adwBB[2] = pstLPDR->adwLPRect[2] - dwBBW/12;
+      adwBB[3] = pstLPDR->adwLPRect[3] - dwBBH/8;
+      memset(adwColorsHist, 0, sizeof(int)*9);
       for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
       {
         pubyRow = pubyImgData + dwRI * 3 * dwImgW;
@@ -1378,12 +1392,12 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
           }
         }
       }
-
+      
       for (int dwI = 0; dwI < 9; dwI++)
       {
         adwIdxs[dwI] = dwI;
       }
-
+      
       dwTmpValue = 0;
       for (int dwI = 0; dwI < 8; dwI++)
       {
@@ -1394,14 +1408,14 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
             dwTmpValue = adwColorsHist[dwI];
             adwColorsHist[dwI] = adwColorsHist[dwJ];
             adwColorsHist[dwJ] = dwTmpValue;
-
+            
             dwTmpValue = adwIdxs[dwI];
             adwIdxs[dwI] = adwIdxs[dwJ];
             adwIdxs[dwJ] = dwTmpValue;
           }
         }
       }
-
+      
 #if LPDR_DBG
       cv::Mat cimg(dwImgH, dwImgW, CV_8UC3, pubyImgData);
       cv::Mat subcimg = cimg(cv::Range(adwBB[1], adwBB[3]), cv::Range(adwBB[0], adwBB[2]));
@@ -1415,8 +1429,8 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
       printf("\n");
 #endif
       int dwMaxColor = adwIdxs[0];
-
-      if ((adwIdxs[0] == 0 || adwIdxs[0] == 8 || adwIdxs[0] == 5) && (adwIdxs[1] == 2 || adwIdxs[1] == 6 || adwIdxs[1] == 5) && adwColorsHist[0] * 40 < adwColorsHist[1] * 100)
+      
+      if ((adwIdxs[0] == 0 || adwIdxs[0] == 8 || adwIdxs[0] == 5) && (adwIdxs[1] == 2 || adwIdxs[1] == 6 || adwIdxs[1] == 5) && adwColorsHist[0]*40 < adwColorsHist[1]*100)
       {
         dwMaxColor = adwIdxs[1];
       }
@@ -1428,16 +1442,16 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
           dwMaxColor = 6;
         }
       }
-
+      
       pstLPDR->dwColor = dwMaxColor;
     }
 
 #if LPDR_DBG||1
 //    cv::Mat inputColorOne(dwImgH, dwImgW, CV_8UC3, );
-
+    
 #endif
   }
-
+  
   return 0;
 }
 
