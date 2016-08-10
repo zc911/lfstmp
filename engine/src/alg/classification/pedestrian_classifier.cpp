@@ -59,18 +59,18 @@ void PedestrianClassifier::LoadTagnames(const string &name_list) {
     ifstream fp(name_list);
     tagtable_.resize(0);
     while (!fp.eof()) {
-        string tagname = "", indexstr = "", threshold = "", threshold_t = "";
+        string tagname = "", indexstr = "", threshold_lower = "", threshold_upper = "";
         fp >> tagname;
         fp >> indexstr;
-        fp >> threshold;
-        fp >> threshold_t;
-        if (tagname == "" || indexstr == "" || threshold == "")
+        fp >> threshold_lower;
+        fp >> threshold_upper;
+        if (tagname == "" || indexstr == "" || threshold_lower == "")
             continue;
         Tag tag;
         tag.index = atof(indexstr.c_str());
         tag.tagname = tagname;
-        tag.threshold = atof(threshold.c_str());
-        tag.threshold_t = atof(threshold_t.c_str());
+        tag.threshold_lower = atof(threshold_lower.c_str());
+        tag.threshold_upper = atof(threshold_upper.c_str());
         tagtable_.push_back(tag);
     }
 }
@@ -146,8 +146,8 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
             PedestrianClassifier::PedestrianAttribute attr;
             attr.index = tagtable_[a_idx].index;
             attr.tagname = tagtable_[a_idx].tagname;
-            attr.threshold = tagtable_[a_idx].threshold;
-            attr.threshold_t = tagtable_[a_idx].threshold_t;
+            attr.threshold_lower = tagtable_[a_idx].threshold_lower;
+            attr.threshold_upper = tagtable_[a_idx].threshold_upper;
             attr.confidence = results[idx][a_idx];
             attrs.push_back(attr);
         }
