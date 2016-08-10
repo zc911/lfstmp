@@ -108,26 +108,26 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
 
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-                                                        RecVehicle *vrec) {
+                                                        RecPedestrian *prec) {
     MatrixError err;
+    const Detection &d = pobj->detection();
     std::vector<Pedestrian::Attr> attrs = pobj->attrs();
 
-    const Detection &d = pobj->detection();
+    prec->set_id(pobj->id());
+    prec->set_confidence((float) pobj->confidence());
 
-    RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = RepoService::GetInstance().FindVehicleTypeName(pobj->type());
-    vrec->set_vehicletypename(type);
-   
-    PedestrianAttr* attr = vrec->mutable_pedesattr();    
+    RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
+
+    PedestrianAttr* attr = prec->mutable_pedesattr();
+
     float ageconfidence = 0;
     for (int i = 0; i < attrs.size(); i++) {
         // sex judge
         if(i == 45) {
             attr->set_sexconfidence(attrs[i].confidence);
-            if(attrs[i].confidence < attrs[i].threshold) {
+            if(attrs[i].confidence < attrs[i].threshold_lower) {
                 attr->set_sex(SEX_TYPE_MALE);
-            } else if(attrs[i].confidence > attrs[i].threshold_t) {
+            } else if(attrs[i].confidence > attrs[i].threshold_upper) {
                 attr->set_sex(SEX_TYPE_FEMALE);
             } else {
                 attr->set_sex(SEX_TYPE_UNKNOWN);
@@ -136,9 +136,9 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         // national judge
         if(i == 46) {
             attr->set_nationalconfidence(attrs[i].confidence);
-            if(attrs[i].confidence < attrs[i].threshold) {
+            if(attrs[i].confidence < attrs[i].threshold_lower) {
                 attr->set_national(NATIONAL_TYPE_HAN);
-            } else if(attrs[i].confidence > attrs[i].threshold_t) {
+            } else if(attrs[i].confidence > attrs[i].threshold_upper) {
                 attr->set_national(NATIONAL_TYPE_MINORITY);
             } else {
                 attr->set_national(NATIONAL_TYPE_UNKNOWN);
@@ -175,7 +175,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // head wears judge
         if(i >= 6 && i <= 9) {
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_headwears();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -183,7 +183,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // body wear
         if(i >= 0 && i <= 5) {    
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_bodywears();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -191,7 +191,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // upper wear
         if(i >= 38 && i <= 41) {    
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_upperwears();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -199,7 +199,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // lower wear
         if(i >= 42 && i <= 44) {    
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_lowerwears();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -207,7 +207,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // upper color
         if(i >= 10 && i <= 21) {    
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_uppercolors();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -215,7 +215,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         }
         // lower color
         if(i >= 22 && i <= 33) {    
-            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+            if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_lowercolors();
                 nac->set_name(attrs[i].tagname);
                 nac->set_confidence(attrs[i].confidence);
@@ -279,7 +279,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                 err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
                 break;
             case OBJECT_PEDESTRIAN:
-                err = getRecognizedPedestrian((Pedestrian *) object, result->add_vehicles());
+                err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());
                 break;
             case OBJECT_FACE:
                 err = getRecognizedFace((Face *) object, result->add_faces());

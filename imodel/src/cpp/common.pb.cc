@@ -55,6 +55,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* RecVehicle_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RecVehicle_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecPedestrian_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RecPedestrian_reflection_ = NULL;
 const ::google::protobuf::Descriptor* VehicleModelType_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   VehicleModelType_reflection_ = NULL;
@@ -274,7 +277,7 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _is_default_instance_));
   RecVehicle_descriptor_ = file->message_type(10);
-  static const int RecVehicle_offsets_[11] = {
+  static const int RecVehicle_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, modeltype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, color_),
@@ -284,7 +287,6 @@ void protobuf_AssignDesc_common_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, features_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletype_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, vehicletypename_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, pedesattr_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, plates_),
   };
   RecVehicle_reflection_ =
@@ -298,7 +300,25 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _is_default_instance_));
-  VehicleModelType_descriptor_ = file->message_type(11);
+  RecPedestrian_descriptor_ = file->message_type(11);
+  static const int RecPedestrian_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, img_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, confidence_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, pedesattr_),
+  };
+  RecPedestrian_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RecPedestrian_descriptor_,
+      RecPedestrian::default_instance_,
+      RecPedestrian_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RecPedestrian),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _is_default_instance_));
+  VehicleModelType_descriptor_ = file->message_type(12);
   static const int VehicleModelType_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, brandid_),
@@ -324,7 +344,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleModelType),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(12);
+  LicensePlate_descriptor_ = file->message_type(13);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
@@ -345,7 +365,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  VehicleSymbol_descriptor_ = file->message_type(13);
+  VehicleSymbol_descriptor_ = file->message_type(14);
   static const int VehicleSymbol_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolname_),
@@ -362,7 +382,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleSymbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(14);
+  Symbol_descriptor_ = file->message_type(15);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -378,7 +398,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  StorageConfig_descriptor_ = file->message_type(15);
+  StorageConfig_descriptor_ = file->message_type(16);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
@@ -395,7 +415,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
-  VehicleObj_descriptor_ = file->message_type(16);
+  VehicleObj_descriptor_ = file->message_type(17);
   static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
@@ -453,6 +473,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecVehicle_descriptor_, &RecVehicle::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RecPedestrian_descriptor_, &RecPedestrian::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       VehicleModelType_descriptor_, &VehicleModelType::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       LicensePlate_descriptor_, &LicensePlate::default_instance());
@@ -491,6 +513,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete PedestrianAttr_reflection_;
   delete RecVehicle::default_instance_;
   delete RecVehicle_reflection_;
+  delete RecPedestrian::default_instance_;
+  delete RecPedestrian_reflection_;
   delete VehicleModelType::default_instance_;
   delete VehicleModelType_reflection_;
   delete LicensePlate::default_instance_;
@@ -542,7 +566,7 @@ void protobuf_AddDesc_common_2eproto() {
     "e\022/\n\nLowerWears\030\n \003(\0132\033.dg.model.NameAnd"
     "Confidence\0220\n\013UpperColors\030\013 \003(\0132\033.dg.mod"
     "el.NameAndConfidence\0220\n\013LowerColors\030\014 \003("
-    "\0132\033.dg.model.NameAndConfidence\"\206\003\n\nRecVe"
+    "\0132\033.dg.model.NameAndConfidence\"\331\002\n\nRecVe"
     "hicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.d"
     "g.model.VehicleModelType\022\036\n\005Color\030\003 \001(\0132"
     "\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg.mod"
@@ -550,49 +574,52 @@ void protobuf_AddDesc_common_2eproto() {
     "CutboardImage\022(\n\007Symbols\030\006 \003(\0132\027.dg.mode"
     "l.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n\013Veh"
     "icleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n\017Veh"
-    "icleTypeName\030\t \001(\t\022+\n\tPedesAttr\030\n \001(\0132\030."
-    "dg.model.PedestrianAttr\022&\n\006Plates\030\013 \003(\0132"
-    "\026.dg.model.LicensePlate\"\335\001\n\020VehicleModel"
-    "Type\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSub"
-    "BrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nCo"
-    "nfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 "
-    "\001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t"
-    "\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHea"
-    "d\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPlateText\030\001 "
-    "\001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Color\022\016\n\006T"
-    "ypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfide"
-    "nce\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.C"
-    "utboard\022\037\n\027LocalProvinceConfidence\030\007 \001(\002"
-    "\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nS"
-    "ymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.mo"
-    "del.Symbol\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022"
-    ".dg.model.Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N"
-    "\n\rStorageConfig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type"
-    "\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z"
-    "\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.mode"
-    "l.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Im"
-    "age\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model.RecVehic"
-    "le*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014"
-    "OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021"
-    "OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRI"
-    "AN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEH"
-    "ICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTO"
-    "R\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032O"
-    "BJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE"
-    "_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTB"
-    "OARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022"
-    "\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_"
-    "TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_"
-    "FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNO"
-    "WNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003"
-    "\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN"
-    "\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE"
-    "\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKN"
-    "OWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL"
-    "_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_"
-    "UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE"
-    "_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_5"
-    "0UP\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006proto3", 3234);
+    "icleTypeName\030\t \001(\t\022&\n\006Plates\030\013 \003(\0132\026.dg."
+    "model.LicensePlate\"\202\001\n\rRecPedestrian\022\n\n\002"
+    "Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cutboar"
+    "dImage\022\022\n\nConfidence\030\003 \001(\002\022+\n\tPedesAttr\030"
+    "\004 \001(\0132\030.dg.model.PedestrianAttr\"\335\001\n\020Vehi"
+    "cleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001("
+    "\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001"
+    "(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005"
+    "Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYe"
+    "ar\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022"
+    "\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPlat"
+    "eText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Co"
+    "lor\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n"
+    "\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg"
+    ".model.Cutboard\022\037\n\027LocalProvinceConfiden"
+    "ce\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 "
+    "\001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\013"
+    "2\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboard"
+    "\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfidence"
+    "\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001(\t"
+    "\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags"
+    "\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025"
+    ".dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg."
+    "model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model."
+    "RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNO"
+    "WN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYC"
+    "LE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_"
+    "PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_"
+    "TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYC"
+    "LE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR"
+    "\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024"
+    "OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHI"
+    "CLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTB"
+    "OARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 "
+    "\022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026O"
+    "BJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022"
+    "\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022"
+    "\007\n\003CSV\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE"
+    "_UNKNOWN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYP"
+    "E_FEMALE\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_T"
+    "YPE_UNKNOWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026"
+    "NATIONAL_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020A"
+    "GE_TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\r"
+    "AGE_TYPE_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAG"
+    "E_TYPE_50UP\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006prot"
+    "o3", 3322);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -606,6 +633,7 @@ void protobuf_AddDesc_common_2eproto() {
   NameAndConfidence::default_instance_ = new NameAndConfidence();
   PedestrianAttr::default_instance_ = new PedestrianAttr();
   RecVehicle::default_instance_ = new RecVehicle();
+  RecPedestrian::default_instance_ = new RecPedestrian();
   VehicleModelType::default_instance_ = new VehicleModelType();
   LicensePlate::default_instance_ = new LicensePlate();
   VehicleSymbol::default_instance_ = new VehicleSymbol();
@@ -623,6 +651,7 @@ void protobuf_AddDesc_common_2eproto() {
   NameAndConfidence::default_instance_->InitAsDefaultInstance();
   PedestrianAttr::default_instance_->InitAsDefaultInstance();
   RecVehicle::default_instance_->InitAsDefaultInstance();
+  RecPedestrian::default_instance_->InitAsDefaultInstance();
   VehicleModelType::default_instance_->InitAsDefaultInstance();
   LicensePlate::default_instance_->InitAsDefaultInstance();
   VehicleSymbol::default_instance_->InitAsDefaultInstance();
@@ -5497,7 +5526,6 @@ const int RecVehicle::kSymbolsFieldNumber;
 const int RecVehicle::kFeaturesFieldNumber;
 const int RecVehicle::kVehicleTypeFieldNumber;
 const int RecVehicle::kVehicleTypeNameFieldNumber;
-const int RecVehicle::kPedesAttrFieldNumber;
 const int RecVehicle::kPlatesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -5513,7 +5541,6 @@ void RecVehicle::InitAsDefaultInstance() {
   color_ = const_cast< ::dg::model::Color*>(&::dg::model::Color::default_instance());
   plate_ = const_cast< ::dg::model::LicensePlate*>(&::dg::model::LicensePlate::default_instance());
   img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
-  pedesattr_ = const_cast< ::dg::model::PedestrianAttr*>(&::dg::model::PedestrianAttr::default_instance());
 }
 
 RecVehicle::RecVehicle(const RecVehicle& from)
@@ -5536,7 +5563,6 @@ void RecVehicle::SharedCtor() {
   features_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   vehicletype_ = 0;
   vehicletypename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  pedesattr_ = NULL;
 }
 
 RecVehicle::~RecVehicle() {
@@ -5552,7 +5578,6 @@ void RecVehicle::SharedDtor() {
     delete color_;
     delete plate_;
     delete img_;
-    delete pedesattr_;
   }
 }
 
@@ -5594,8 +5619,6 @@ void RecVehicle::Clear() {
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   vehicletype_ = 0;
   vehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
-  pedesattr_ = NULL;
   symbols_.Clear();
   plates_.Clear();
 }
@@ -5739,19 +5762,6 @@ bool RecVehicle::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(82)) goto parse_PedesAttr;
-        break;
-      }
-
-      // optional .dg.model.PedestrianAttr PedesAttr = 10;
-      case 10: {
-        if (tag == 82) {
-         parse_PedesAttr:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_pedesattr()));
-        } else {
-          goto handle_unusual;
-        }
         if (input->ExpectTag(90)) goto parse_Plates;
         break;
       }
@@ -5858,12 +5868,6 @@ void RecVehicle::SerializeWithCachedSizes(
       9, this->vehicletypename(), output);
   }
 
-  // optional .dg.model.PedestrianAttr PedesAttr = 10;
-  if (this->has_pedesattr()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      10, *this->pedesattr_, output);
-  }
-
   // repeated .dg.model.LicensePlate Plates = 11;
   for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
@@ -5944,13 +5948,6 @@ void RecVehicle::SerializeWithCachedSizes(
         9, this->vehicletypename(), target);
   }
 
-  // optional .dg.model.PedestrianAttr PedesAttr = 10;
-  if (this->has_pedesattr()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        10, *this->pedesattr_, target);
-  }
-
   // repeated .dg.model.LicensePlate Plates = 11;
   for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
@@ -6020,13 +6017,6 @@ int RecVehicle::ByteSize() const {
         this->vehicletypename());
   }
 
-  // optional .dg.model.PedestrianAttr PedesAttr = 10;
-  if (this->has_pedesattr()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->pedesattr_);
-  }
-
   // repeated .dg.model.VehicleSymbol Symbols = 6;
   total_size += 1 * this->symbols_size();
   for (int i = 0; i < this->symbols_size(); i++) {
@@ -6091,9 +6081,6 @@ void RecVehicle::MergeFrom(const RecVehicle& from) {
 
     vehicletypename_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.vehicletypename_);
   }
-  if (from.has_pedesattr()) {
-    mutable_pedesattr()->::dg::model::PedestrianAttr::MergeFrom(from.pedesattr());
-  }
 }
 
 void RecVehicle::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6127,7 +6114,6 @@ void RecVehicle::InternalSwap(RecVehicle* other) {
   features_.Swap(&other->features_);
   std::swap(vehicletype_, other->vehicletype_);
   vehicletypename_.Swap(&other->vehicletypename_);
-  std::swap(pedesattr_, other->pedesattr_);
   plates_.UnsafeArenaSwap(&other->plates_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -6436,43 +6422,6 @@ void RecVehicle::clear_vehicletypename() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
 }
 
-// optional .dg.model.PedestrianAttr PedesAttr = 10;
-bool RecVehicle::has_pedesattr() const {
-  return !_is_default_instance_ && pedesattr_ != NULL;
-}
-void RecVehicle::clear_pedesattr() {
-  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
-  pedesattr_ = NULL;
-}
-const ::dg::model::PedestrianAttr& RecVehicle::pedesattr() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecVehicle.PedesAttr)
-  return pedesattr_ != NULL ? *pedesattr_ : *default_instance_->pedesattr_;
-}
-::dg::model::PedestrianAttr* RecVehicle::mutable_pedesattr() {
-  
-  if (pedesattr_ == NULL) {
-    pedesattr_ = new ::dg::model::PedestrianAttr;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.RecVehicle.PedesAttr)
-  return pedesattr_;
-}
-::dg::model::PedestrianAttr* RecVehicle::release_pedesattr() {
-  
-  ::dg::model::PedestrianAttr* temp = pedesattr_;
-  pedesattr_ = NULL;
-  return temp;
-}
-void RecVehicle::set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr) {
-  delete pedesattr_;
-  pedesattr_ = pedesattr;
-  if (pedesattr) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.PedesAttr)
-}
-
 // repeated .dg.model.LicensePlate Plates = 11;
 int RecVehicle::plates_size() const {
   return plates_.size();
@@ -6501,6 +6450,443 @@ const ::google::protobuf::RepeatedPtrField< ::dg::model::LicensePlate >&
 RecVehicle::plates() const {
   // @@protoc_insertion_point(field_list:dg.model.RecVehicle.Plates)
   return plates_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RecPedestrian::kIdFieldNumber;
+const int RecPedestrian::kImgFieldNumber;
+const int RecPedestrian::kConfidenceFieldNumber;
+const int RecPedestrian::kPedesAttrFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RecPedestrian::RecPedestrian()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RecPedestrian)
+}
+
+void RecPedestrian::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
+  pedesattr_ = const_cast< ::dg::model::PedestrianAttr*>(&::dg::model::PedestrianAttr::default_instance());
+}
+
+RecPedestrian::RecPedestrian(const RecPedestrian& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RecPedestrian)
+}
+
+void RecPedestrian::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
+  img_ = NULL;
+  confidence_ = 0;
+  pedesattr_ = NULL;
+}
+
+RecPedestrian::~RecPedestrian() {
+  // @@protoc_insertion_point(destructor:dg.model.RecPedestrian)
+  SharedDtor();
+}
+
+void RecPedestrian::SharedDtor() {
+  if (this != default_instance_) {
+    delete img_;
+    delete pedesattr_;
+  }
+}
+
+void RecPedestrian::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RecPedestrian::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecPedestrian_descriptor_;
+}
+
+const RecPedestrian& RecPedestrian::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+RecPedestrian* RecPedestrian::default_instance_ = NULL;
+
+RecPedestrian* RecPedestrian::New(::google::protobuf::Arena* arena) const {
+  RecPedestrian* n = new RecPedestrian;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RecPedestrian::Clear() {
+  id_ = GOOGLE_LONGLONG(0);
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+  confidence_ = 0;
+  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
+  pedesattr_ = NULL;
+}
+
+bool RecPedestrian::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RecPedestrian)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int64 Id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Img;
+        break;
+      }
+
+      // optional .dg.model.CutboardImage Img = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Img:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_img()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(29)) goto parse_Confidence;
+        break;
+      }
+
+      // optional float Confidence = 3;
+      case 3: {
+        if (tag == 29) {
+         parse_Confidence:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &confidence_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_PedesAttr;
+        break;
+      }
+
+      // optional .dg.model.PedestrianAttr PedesAttr = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_PedesAttr:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_pedesattr()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RecPedestrian)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RecPedestrian)
+  return false;
+#undef DO_
+}
+
+void RecPedestrian::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RecPedestrian)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
+  }
+
+  // optional .dg.model.CutboardImage Img = 2;
+  if (this->has_img()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->img_, output);
+  }
+
+  // optional float Confidence = 3;
+  if (this->confidence() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->confidence(), output);
+  }
+
+  // optional .dg.model.PedestrianAttr PedesAttr = 4;
+  if (this->has_pedesattr()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *this->pedesattr_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RecPedestrian)
+}
+
+::google::protobuf::uint8* RecPedestrian::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecPedestrian)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
+  }
+
+  // optional .dg.model.CutboardImage Img = 2;
+  if (this->has_img()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->img_, target);
+  }
+
+  // optional float Confidence = 3;
+  if (this->confidence() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->confidence(), target);
+  }
+
+  // optional .dg.model.PedestrianAttr PedesAttr = 4;
+  if (this->has_pedesattr()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, *this->pedesattr_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecPedestrian)
+  return target;
+}
+
+int RecPedestrian::ByteSize() const {
+  int total_size = 0;
+
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->id());
+  }
+
+  // optional .dg.model.CutboardImage Img = 2;
+  if (this->has_img()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->img_);
+  }
+
+  // optional float Confidence = 3;
+  if (this->confidence() != 0) {
+    total_size += 1 + 4;
+  }
+
+  // optional .dg.model.PedestrianAttr PedesAttr = 4;
+  if (this->has_pedesattr()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->pedesattr_);
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecPedestrian::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RecPedestrian* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecPedestrian>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void RecPedestrian::MergeFrom(const RecPedestrian& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.has_img()) {
+    mutable_img()->::dg::model::CutboardImage::MergeFrom(from.img());
+  }
+  if (from.confidence() != 0) {
+    set_confidence(from.confidence());
+  }
+  if (from.has_pedesattr()) {
+    mutable_pedesattr()->::dg::model::PedestrianAttr::MergeFrom(from.pedesattr());
+  }
+}
+
+void RecPedestrian::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecPedestrian::CopyFrom(const RecPedestrian& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RecPedestrian::IsInitialized() const {
+
+  return true;
+}
+
+void RecPedestrian::Swap(RecPedestrian* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RecPedestrian::InternalSwap(RecPedestrian* other) {
+  std::swap(id_, other->id_);
+  std::swap(img_, other->img_);
+  std::swap(confidence_, other->confidence_);
+  std::swap(pedesattr_, other->pedesattr_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RecPedestrian::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RecPedestrian_descriptor_;
+  metadata.reflection = RecPedestrian_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RecPedestrian
+
+// optional int64 Id = 1;
+void RecPedestrian::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 RecPedestrian::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Id)
+  return id_;
+}
+ void RecPedestrian::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Id)
+}
+
+// optional .dg.model.CutboardImage Img = 2;
+bool RecPedestrian::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+void RecPedestrian::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+const ::dg::model::CutboardImage& RecPedestrian::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+::dg::model::CutboardImage* RecPedestrian::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::CutboardImage;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecPedestrian.Img)
+  return img_;
+}
+::dg::model::CutboardImage* RecPedestrian::release_img() {
+  
+  ::dg::model::CutboardImage* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+void RecPedestrian::set_allocated_img(::dg::model::CutboardImage* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.Img)
+}
+
+// optional float Confidence = 3;
+void RecPedestrian::clear_confidence() {
+  confidence_ = 0;
+}
+ float RecPedestrian::confidence() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Confidence)
+  return confidence_;
+}
+ void RecPedestrian::set_confidence(float value) {
+  
+  confidence_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecPedestrian.Confidence)
+}
+
+// optional .dg.model.PedestrianAttr PedesAttr = 4;
+bool RecPedestrian::has_pedesattr() const {
+  return !_is_default_instance_ && pedesattr_ != NULL;
+}
+void RecPedestrian::clear_pedesattr() {
+  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
+  pedesattr_ = NULL;
+}
+const ::dg::model::PedestrianAttr& RecPedestrian::pedesattr() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.PedesAttr)
+  return pedesattr_ != NULL ? *pedesattr_ : *default_instance_->pedesattr_;
+}
+::dg::model::PedestrianAttr* RecPedestrian::mutable_pedesattr() {
+  
+  if (pedesattr_ == NULL) {
+    pedesattr_ = new ::dg::model::PedestrianAttr;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecPedestrian.PedesAttr)
+  return pedesattr_;
+}
+::dg::model::PedestrianAttr* RecPedestrian::release_pedesattr() {
+  
+  ::dg::model::PedestrianAttr* temp = pedesattr_;
+  pedesattr_ = NULL;
+  return temp;
+}
+void RecPedestrian::set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr) {
+  delete pedesattr_;
+  pedesattr_ = pedesattr;
+  if (pedesattr) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.PedesAttr)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

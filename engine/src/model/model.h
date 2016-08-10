@@ -160,8 +160,8 @@ public:
         int index = 0;
         string tagname = "";
         Confidence confidence = 0;
-        float threshold = 0;
-        float threshold_t = 0;
+        float threshold_lower = 0;
+        float threshold_upper = 0;
     } Attr;
 
     Pedestrian() : Object(OBJECT_PEDESTRIAN) {
