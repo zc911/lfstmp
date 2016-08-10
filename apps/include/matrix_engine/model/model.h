@@ -47,7 +47,8 @@ typedef struct Detection {
     bool deleted;
     Box box;
     Confidence confidence = 0;
-
+    float col_ratio=1.0;
+    float row_ratio=1.0;
     void Rescale(float scale) {
         box.x = box.x / scale;
         box.y = box.y / scale;
@@ -159,8 +160,8 @@ public:
         int index = 0;
         string tagname = "";
         Confidence confidence = 0;
-        float threshold = 0;
-        float threshold_t = 0;
+        float threshold_lower = 0;
+        float threshold_upper = 0;
     } Attr;
 
     Pedestrian() : Object(OBJECT_PEDESTRIAN) {

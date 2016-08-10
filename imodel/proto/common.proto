@@ -29,8 +29,8 @@ message CutboardImage {
 
 message Color {
     int32 ColorId = 1; //DEPLICATE!
-    float Confidence = 2; //颜色汉字表示
-    string ColorName = 3; //颜色识别置信度
+    float Confidence = 2; //颜色识别置信度
+    string ColorName = 3; //颜色汉字表示
 }
 
 enum ObjType {
@@ -134,8 +134,15 @@ message RecVehicle {
     string Features = 7;
     ObjType VehicleType = 8;
     string VehicleTypeName = 9;
-    PedestrianAttr PedesAttr = 10;
+    //PedestrianAttr PedesAttr = 10;
     repeated LicensePlate Plates = 11;
+}
+
+message RecPedestrian {
+    int64 Id = 1;
+    CutboardImage Img = 2;
+    float Confidence = 3;
+    PedestrianAttr PedesAttr = 4;
 }
 
 message VehicleModelType {
