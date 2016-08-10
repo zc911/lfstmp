@@ -125,6 +125,10 @@ static const string FILE_MARKER_MODEL_PATH = "File/Marker/ModelPath";
 static const string FILE_MARKER_TRAINED_MODEL = "File/Marker/TrainedModel";
 static const string FILE_MARKER_DEPLOY_MODEL = "File/Marker/DeployModel";
 
+static const string FILE_MARKER_ONLY_MODEL_PATH = "File/MarkerOnly/ModelPath";
+static const string FILE_MARKER_ONLY_TRAINED_MODEL = "File/MarkerOnly/TrainedModel";
+static const string FILE_MARKER_ONLY_DEPLOY_MODEL = "File/MarkerOnly/DeployModel";
+
 static const string FILE_PEDESTRIAN_ATTR_MODEL_PATH = "File/PedestrianAttr/ModelPath";
 static const string FILE_PEDESTRIAN_ATTR_TRAINED_MODEL = "File/PedestrianAttr/TrainedModel";
 static const string FILE_PEDESTRIAN_ATTR_DEPLOY_MODEL = "File/PedestrianAttr/DeployModel";
@@ -134,6 +138,10 @@ static const string FILE_PEDESTRIAN_ATTR_LAYER_NAME = "File/PedestrianAttr/Layer
 static const string FILE_WINDOW_MODEL_PATH = "File/Window/ModelPath";
 static const string FILE_WINDOW_TRAINED_MODEL = "File/Window/TrainedModel";
 static const string FILE_WINDOW_DEPLOY_MODEL = "File/Window/DeployModel";
+static const string FILE_WINDOW_ONLY_MODEL_PATH = "File/WindowOnly/ModelPath";
+static const string FILE_WINDOW_ONLY_TRAINED_MODEL = "File/WindowOnly/TrainedModel";
+static const string FILE_WINDOW_ONLY_DEPLOY_MODEL = "File/WindowOnly/DeployModel";
+
 
 static const string FILE_FACE_DETECT_MODEL_PATH = "File/FaceDetect/ModelPath";
 static const string FILE_FACE_DETECT_TRAINED_MODEL =

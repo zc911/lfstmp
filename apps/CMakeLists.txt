@@ -6,7 +6,7 @@ ELSE()
     SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF()
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -w")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -w -fprofile-arcs -ftest-coverage")
 SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w")
 
 SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
@@ -50,7 +50,7 @@ LIST(APPEND LIBS ${LIB_GTEST_MAIN} ${LIB_GTEST} ${LIB_MATRIX} ${LIB_WATCHDOG} ${
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_GRPC++} ${LIB_GRPC} ${LIB_PROTOBUF} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_MXNET} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
 LIST(APPEND LIBS glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
 freetype hdf5_hl hdf5 m crypto opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10
-gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)
+gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread )
 
 
 ADD_SUBDIRECTORY(src)
