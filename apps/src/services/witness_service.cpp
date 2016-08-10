@@ -119,108 +119,108 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     string type = RepoService::GetInstance().FindVehicleTypeName(pobj->type());
     vrec->set_vehicletypename(type);
    
-	PedestrianAttr* attr = vrec->mutable_pedesattr();	
-	float ageconfidence = 0;
-	for (int i = 0; i < attrs.size(); i++) {
-		// sex judge
-		if(i == 45) {
-			attr->set_sexconfidence(attrs[i].confidence);
-			if(attrs[i].confidence < attrs[i].threshold) {
-				attr->set_sex(SEX_TYPE_MALE);
-			} else if(attrs[i].confidence > attrs[i].threshold_t) {
-				attr->set_sex(SEX_TYPE_FEMALE);
-			} else {
-				attr->set_sex(SEX_TYPE_UNKNOWN);
-			}
-		}
-		// national judge
-		if(i == 46) {
-			attr->set_nationalconfidence(attrs[i].confidence);
-			if(attrs[i].confidence < attrs[i].threshold) {
-				attr->set_national(NATIONAL_TYPE_HAN);
-			} else if(attrs[i].confidence > attrs[i].threshold_t) {
-				attr->set_national(NATIONAL_TYPE_MINORITY);
-			} else {
-				attr->set_national(NATIONAL_TYPE_UNKNOWN);
-			}
-		}
-		// age judge
-		if(i == 34) {
-			if(attrs[i].confidence > ageconfidence) {
-				ageconfidence = attrs[i].confidence;
-				attr->set_age(AGE_TYPE_LT15);
-				attr->set_ageconfidence(attrs[i].confidence);
-			}
-		}	
-		if(i == 35) {
-			if(attrs[i].confidence > ageconfidence) {
-				ageconfidence = attrs[i].confidence;
-				attr->set_age(AGE_TYPE_1530);
-				attr->set_ageconfidence(attrs[i].confidence);
-			}
-		}
-		if(i == 36) {
-			if(attrs[i].confidence > ageconfidence) {
-				ageconfidence = attrs[i].confidence;
-				attr->set_age(AGE_TYPE_3050);
-				attr->set_ageconfidence(attrs[i].confidence);
-			}
-		}
-		if(i == 37) {
-			if(attrs[i].confidence > ageconfidence) {
-				ageconfidence = attrs[i].confidence;
-				attr->set_age(AGE_TYPE_50UP);
-				attr->set_ageconfidence(attrs[i].confidence);
-			}
-		}
-		// head wears judge
-		if(i >= 6 && i <= 9) {
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_headwears();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
-		// body wear
-		if(i >= 0 && i <= 5) {	
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_bodywears();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
-		// upper wear
-		if(i >= 38 && i <= 41) {	
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_upperwears();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
-		// lower wear
-		if(i >= 42 && i <= 44) {	
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_lowerwears();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
-		// upper color
-		if(i >= 10 && i <= 21) {	
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_uppercolors();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
-		// lower color
-		if(i >= 22 && i <= 33) {	
-			if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
-				NameAndConfidence* nac = attr->add_lowercolors();
-				nac->set_name(attrs[i].tagname);
-				nac->set_confidence(attrs[i].confidence);
-			}
-		}
+    PedestrianAttr* attr = vrec->mutable_pedesattr();    
+    float ageconfidence = 0;
+    for (int i = 0; i < attrs.size(); i++) {
+        // sex judge
+        if(i == 45) {
+            attr->set_sexconfidence(attrs[i].confidence);
+            if(attrs[i].confidence < attrs[i].threshold) {
+                attr->set_sex(SEX_TYPE_MALE);
+            } else if(attrs[i].confidence > attrs[i].threshold_t) {
+                attr->set_sex(SEX_TYPE_FEMALE);
+            } else {
+                attr->set_sex(SEX_TYPE_UNKNOWN);
+            }
+        }
+        // national judge
+        if(i == 46) {
+            attr->set_nationalconfidence(attrs[i].confidence);
+            if(attrs[i].confidence < attrs[i].threshold) {
+                attr->set_national(NATIONAL_TYPE_HAN);
+            } else if(attrs[i].confidence > attrs[i].threshold_t) {
+                attr->set_national(NATIONAL_TYPE_MINORITY);
+            } else {
+                attr->set_national(NATIONAL_TYPE_UNKNOWN);
+            }
+        }
+        // age judge
+        if(i == 34) {
+            if(attrs[i].confidence > ageconfidence) {
+                ageconfidence = attrs[i].confidence;
+                attr->set_age(AGE_TYPE_LT15);
+                attr->set_ageconfidence(attrs[i].confidence);
+            }
+        }    
+        if(i == 35) {
+            if(attrs[i].confidence > ageconfidence) {
+                ageconfidence = attrs[i].confidence;
+                attr->set_age(AGE_TYPE_1530);
+                attr->set_ageconfidence(attrs[i].confidence);
+            }
+        }
+        if(i == 36) {
+            if(attrs[i].confidence > ageconfidence) {
+                ageconfidence = attrs[i].confidence;
+                attr->set_age(AGE_TYPE_3050);
+                attr->set_ageconfidence(attrs[i].confidence);
+            }
+        }
+        if(i == 37) {
+            if(attrs[i].confidence > ageconfidence) {
+                ageconfidence = attrs[i].confidence;
+                attr->set_age(AGE_TYPE_50UP);
+                attr->set_ageconfidence(attrs[i].confidence);
+            }
+        }
+        // head wears judge
+        if(i >= 6 && i <= 9) {
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_headwears();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // body wear
+        if(i >= 0 && i <= 5) {    
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_bodywears();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // upper wear
+        if(i >= 38 && i <= 41) {    
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_upperwears();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // lower wear
+        if(i >= 42 && i <= 44) {    
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_lowerwears();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // upper color
+        if(i >= 10 && i <= 21) {    
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_uppercolors();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // lower color
+        if(i >= 22 && i <= 33) {    
+            if(attrs[i].confidence > attrs[i].threshold || strcmp(nofilter_flag.c_str(), "true") == 0) {
+                NameAndConfidence* nac = attr->add_lowercolors();
+                nac->set_name(attrs[i].tagname);
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
     }
 
     return err;
@@ -438,14 +438,14 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         request->image().data().uri());
     result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
     result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
-	
-	string in = "Nofilter";
-	const ::google::protobuf::Map<string, string> &Params = request->context().params();
+    
+    string in = "Nofilter";
+    const ::google::protobuf::Map<string, string> &Params = request->context().params();
     if(Params.find(in) != Params.end())
-		nofilter_flag = Params.at(in);
-	else 
-		nofilter_flag = "false";
-	err = getRecognizeResult(frame, result);
+        nofilter_flag = Params.at(in);
+    else 
+        nofilter_flag = "false";
+    err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {
         LOG(ERROR) << "get result from frame failed, " << err.message();
