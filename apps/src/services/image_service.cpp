@@ -85,12 +85,9 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                   } else {
                       getMarginROIs(img.marginroi(), rois, mat);
                   }
+                  roiimages[index].data = mat;
+                  roiimages[index].rois = rois;
 
-                  ROIImages roiimage;
-                  roiimage.data = mat;
-                  roiimage.rois = rois;
-
-                  roiimages[index] = roiimage;
                   {
                       std::unique_lock<mutex> countlc(countmt);
                       ++finishCount;
@@ -111,7 +108,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
             std::unique_lock<mutex> waitlc(countmt);
             if (cv.wait_for(waitlc,
                             std::chrono::seconds(timeout),
-                            [&finishCount, &imgs]() { return finishCount == imgs.size(); })) {
+                            [finishCount, &imgs]() { return finishCount == imgs.size(); })) {
                 if (roiimages.size() != imgs.size()) {
                     LOG(ERROR) << "Parsed images size not equals to input size" << std::endl;
                     err.set_code(-1);
@@ -119,6 +116,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                 }
 
             } else {
+                cout << finishCount << "," << imgs.size() << endl;
                 LOG(ERROR) << "Parse input images timeout " << std::endl;
                 err.set_code(-1);
                 err.set_message("Parse input images timeout");

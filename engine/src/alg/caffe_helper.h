@@ -299,7 +299,7 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
 }
 
 
-static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
+static void show_enlarged_box(cv::Mat tmp,cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
     Mat img = image;
     float img_width = img.cols;
     float img_height = img.rows;
@@ -359,7 +359,7 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
         crop_ymax = img_height;
         crop_ymin = img_height - crop_width;
     }
-   // rectangle(image, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
+    rectangle(tmp, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
     *cymin = crop_ymin;
     *cymax = crop_ymax;
 }
@@ -376,7 +376,7 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
     // nianjianbiao: not in center
     fob.push_back(Rect(centerx - width/2/2 , centery - height/3/2, width/2, height/3));
     // zheyangban: not in bottom
-    fob.push_back(Rect(xmin, ymin + height/2, width, height/2));
+    fob.push_back(Rect(xmin, ymin + height*2/3, width, height/2));
     // qita: not in upper
     fob.push_back(Rect(xmin, ymin, width, height/3));
     // anquandai: not in center
