@@ -120,64 +120,35 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
 
     PedestrianAttr* attr = prec->mutable_pedesattr();
 
-    float ageconfidence = 0;
     for (int i = 0; i < attrs.size(); i++) {
         // sex judge
         if(i == 45) {
-            attr->set_sexconfidence(attrs[i].confidence);
-            if(attrs[i].confidence < attrs[i].threshold_lower) {
-                attr->set_sex(SEX_TYPE_MALE);
-            } else if(attrs[i].confidence > attrs[i].threshold_upper) {
-                attr->set_sex(SEX_TYPE_FEMALE);
-            } else {
-                attr->set_sex(SEX_TYPE_UNKNOWN);
-            }
+            NameAndConfidence* nac = attr->mutable_sex();
+            nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+            nac->set_confidence(attrs[i].confidence);
         }
+
         // national judge
         if(i == 46) {
-            attr->set_nationalconfidence(attrs[i].confidence);
-            if(attrs[i].confidence < attrs[i].threshold_lower) {
-                attr->set_national(NATIONAL_TYPE_HAN);
-            } else if(attrs[i].confidence > attrs[i].threshold_upper) {
-                attr->set_national(NATIONAL_TYPE_MINORITY);
-            } else {
-                attr->set_national(NATIONAL_TYPE_UNKNOWN);
-            }
+            NameAndConfidence *nac = attr->mutable_national();
+            nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+            nac->set_confidence(attrs[i].confidence);
         }
+
         // age judge
-        if(i == 34) {
-            if(attrs[i].confidence > ageconfidence) {
-                ageconfidence = attrs[i].confidence;
-                attr->set_age(AGE_TYPE_LT15);
-                attr->set_ageconfidence(attrs[i].confidence);
-            }
-        }    
-        if(i == 35) {
-            if(attrs[i].confidence > ageconfidence) {
-                ageconfidence = attrs[i].confidence;
-                attr->set_age(AGE_TYPE_1530);
-                attr->set_ageconfidence(attrs[i].confidence);
-            }
-        }
-        if(i == 36) {
-            if(attrs[i].confidence > ageconfidence) {
-                ageconfidence = attrs[i].confidence;
-                attr->set_age(AGE_TYPE_3050);
-                attr->set_ageconfidence(attrs[i].confidence);
-            }
-        }
-        if(i == 37) {
-            if(attrs[i].confidence > ageconfidence) {
-                ageconfidence = attrs[i].confidence;
-                attr->set_age(AGE_TYPE_50UP);
-                attr->set_ageconfidence(attrs[i].confidence);
+        if (i >= 35 && i <= 37) {
+            NameAndConfidence* nac = attr->mutable_age();
+            float confidence = nac->confidence();
+            if (attrs[i].confidence > confidence) {
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                nac->set_confidence(attrs[i].confidence);
             }
         }
         // head wears judge
         if(i >= 6 && i <= 9) {
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_headwears();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }
@@ -185,7 +156,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if(i >= 0 && i <= 5) {    
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_bodywears();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }
@@ -193,7 +164,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if(i >= 38 && i <= 41) {    
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_upperwears();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }
@@ -201,7 +172,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if(i >= 42 && i <= 44) {    
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_lowerwears();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }
@@ -209,7 +180,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if(i >= 10 && i <= 21) {    
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_uppercolors();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }
@@ -217,7 +188,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if(i >= 22 && i <= 33) {    
             if(attrs[i].confidence > attrs[i].threshold_upper || strcmp(nofilter_flag.c_str(), "true") == 0) {
                 NameAndConfidence* nac = attr->add_lowercolors();
-                nac->set_name(attrs[i].tagname);
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                 nac->set_confidence(attrs[i].confidence);
             }
         }

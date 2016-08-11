@@ -1184,46 +1184,37 @@ class PedestrianAttr : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional .dg.model.SexType Sex = 1;
+  // optional .dg.model.NameAndConfidence Sex = 1;
+  bool has_sex() const;
   void clear_sex();
   static const int kSexFieldNumber = 1;
-  ::dg::model::SexType sex() const;
-  void set_sex(::dg::model::SexType value);
+  const ::dg::model::NameAndConfidence& sex() const;
+  ::dg::model::NameAndConfidence* mutable_sex();
+  ::dg::model::NameAndConfidence* release_sex();
+  void set_allocated_sex(::dg::model::NameAndConfidence* sex);
 
-  // optional float SexConfidence = 2;
-  void clear_sexconfidence();
-  static const int kSexConfidenceFieldNumber = 2;
-  float sexconfidence() const;
-  void set_sexconfidence(float value);
+  // optional .dg.model.NameAndConfidence Age = 2;
+  bool has_age() const;
+  void clear_age();
+  static const int kAgeFieldNumber = 2;
+  const ::dg::model::NameAndConfidence& age() const;
+  ::dg::model::NameAndConfidence* mutable_age();
+  ::dg::model::NameAndConfidence* release_age();
+  void set_allocated_age(::dg::model::NameAndConfidence* age);
 
-  // optional .dg.model.NationalType National = 3;
+  // optional .dg.model.NameAndConfidence National = 3;
+  bool has_national() const;
   void clear_national();
   static const int kNationalFieldNumber = 3;
-  ::dg::model::NationalType national() const;
-  void set_national(::dg::model::NationalType value);
+  const ::dg::model::NameAndConfidence& national() const;
+  ::dg::model::NameAndConfidence* mutable_national();
+  ::dg::model::NameAndConfidence* release_national();
+  void set_allocated_national(::dg::model::NameAndConfidence* national);
 
-  // optional float NationalConfidence = 4;
-  void clear_nationalconfidence();
-  static const int kNationalConfidenceFieldNumber = 4;
-  float nationalconfidence() const;
-  void set_nationalconfidence(float value);
-
-  // optional .dg.model.AgeType Age = 5;
-  void clear_age();
-  static const int kAgeFieldNumber = 5;
-  ::dg::model::AgeType age() const;
-  void set_age(::dg::model::AgeType value);
-
-  // optional float AgeConfidence = 6;
-  void clear_ageconfidence();
-  static const int kAgeConfidenceFieldNumber = 6;
-  float ageconfidence() const;
-  void set_ageconfidence(float value);
-
-  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  // repeated .dg.model.NameAndConfidence HeadWears = 4;
   int headwears_size() const;
   void clear_headwears();
-  static const int kHeadWearsFieldNumber = 7;
+  static const int kHeadWearsFieldNumber = 4;
   const ::dg::model::NameAndConfidence& headwears(int index) const;
   ::dg::model::NameAndConfidence* mutable_headwears(int index);
   ::dg::model::NameAndConfidence* add_headwears();
@@ -1232,10 +1223,10 @@ class PedestrianAttr : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
       headwears() const;
 
-  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  // repeated .dg.model.NameAndConfidence BodyWears = 5;
   int bodywears_size() const;
   void clear_bodywears();
-  static const int kBodyWearsFieldNumber = 8;
+  static const int kBodyWearsFieldNumber = 5;
   const ::dg::model::NameAndConfidence& bodywears(int index) const;
   ::dg::model::NameAndConfidence* mutable_bodywears(int index);
   ::dg::model::NameAndConfidence* add_bodywears();
@@ -1244,10 +1235,10 @@ class PedestrianAttr : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
       bodywears() const;
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  // repeated .dg.model.NameAndConfidence UpperWears = 6;
   int upperwears_size() const;
   void clear_upperwears();
-  static const int kUpperWearsFieldNumber = 9;
+  static const int kUpperWearsFieldNumber = 6;
   const ::dg::model::NameAndConfidence& upperwears(int index) const;
   ::dg::model::NameAndConfidence* mutable_upperwears(int index);
   ::dg::model::NameAndConfidence* add_upperwears();
@@ -1256,10 +1247,10 @@ class PedestrianAttr : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
       upperwears() const;
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  // repeated .dg.model.NameAndConfidence LowerWears = 7;
   int lowerwears_size() const;
   void clear_lowerwears();
-  static const int kLowerWearsFieldNumber = 10;
+  static const int kLowerWearsFieldNumber = 7;
   const ::dg::model::NameAndConfidence& lowerwears(int index) const;
   ::dg::model::NameAndConfidence* mutable_lowerwears(int index);
   ::dg::model::NameAndConfidence* add_lowerwears();
@@ -1268,10 +1259,10 @@ class PedestrianAttr : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
       lowerwears() const;
 
-  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  // repeated .dg.model.NameAndConfidence UpperColors = 8;
   int uppercolors_size() const;
   void clear_uppercolors();
-  static const int kUpperColorsFieldNumber = 11;
+  static const int kUpperColorsFieldNumber = 8;
   const ::dg::model::NameAndConfidence& uppercolors(int index) const;
   ::dg::model::NameAndConfidence* mutable_uppercolors(int index);
   ::dg::model::NameAndConfidence* add_uppercolors();
@@ -1280,10 +1271,10 @@ class PedestrianAttr : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
       uppercolors() const;
 
-  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  // repeated .dg.model.NameAndConfidence LowerColors = 9;
   int lowercolors_size() const;
   void clear_lowercolors();
-  static const int kLowerColorsFieldNumber = 12;
+  static const int kLowerColorsFieldNumber = 9;
   const ::dg::model::NameAndConfidence& lowercolors(int index) const;
   ::dg::model::NameAndConfidence* mutable_lowercolors(int index);
   ::dg::model::NameAndConfidence* add_lowercolors();
@@ -1297,12 +1288,9 @@ class PedestrianAttr : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  int sex_;
-  float sexconfidence_;
-  int national_;
-  float nationalconfidence_;
-  int age_;
-  float ageconfidence_;
+  ::dg::model::NameAndConfidence* sex_;
+  ::dg::model::NameAndConfidence* age_;
+  ::dg::model::NameAndConfidence* national_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > headwears_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > bodywears_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > upperwears_;
@@ -1457,10 +1445,10 @@ class RecVehicle : public ::google::protobuf::Message {
   ::std::string* release_vehicletypename();
   void set_allocated_vehicletypename(::std::string* vehicletypename);
 
-  // repeated .dg.model.LicensePlate Plates = 11;
+  // repeated .dg.model.LicensePlate Plates = 10;
   int plates_size() const;
   void clear_plates();
-  static const int kPlatesFieldNumber = 11;
+  static const int kPlatesFieldNumber = 10;
   const ::dg::model::LicensePlate& plates(int index) const;
   ::dg::model::LicensePlate* mutable_plates(int index);
   ::dg::model::LicensePlate* add_plates();
@@ -3166,91 +3154,118 @@ inline void NameAndConfidence::set_confidence(float value) {
 
 // PedestrianAttr
 
-// optional .dg.model.SexType Sex = 1;
+// optional .dg.model.NameAndConfidence Sex = 1;
+inline bool PedestrianAttr::has_sex() const {
+  return !_is_default_instance_ && sex_ != NULL;
+}
 inline void PedestrianAttr::clear_sex() {
-  sex_ = 0;
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
 }
-inline ::dg::model::SexType PedestrianAttr::sex() const {
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::sex() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Sex)
-  return static_cast< ::dg::model::SexType >(sex_);
+  return sex_ != NULL ? *sex_ : *default_instance_->sex_;
 }
-inline void PedestrianAttr::set_sex(::dg::model::SexType value) {
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_sex() {
   
-  sex_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Sex)
+  if (sex_ == NULL) {
+    sex_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Sex)
+  return sex_;
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::release_sex() {
+  
+  ::dg::model::NameAndConfidence* temp = sex_;
+  sex_ = NULL;
+  return temp;
+}
+inline void PedestrianAttr::set_allocated_sex(::dg::model::NameAndConfidence* sex) {
+  delete sex_;
+  sex_ = sex;
+  if (sex) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Sex)
 }
 
-// optional float SexConfidence = 2;
-inline void PedestrianAttr::clear_sexconfidence() {
-  sexconfidence_ = 0;
+// optional .dg.model.NameAndConfidence Age = 2;
+inline bool PedestrianAttr::has_age() const {
+  return !_is_default_instance_ && age_ != NULL;
 }
-inline float PedestrianAttr::sexconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.SexConfidence)
-  return sexconfidence_;
-}
-inline void PedestrianAttr::set_sexconfidence(float value) {
-  
-  sexconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.SexConfidence)
-}
-
-// optional .dg.model.NationalType National = 3;
-inline void PedestrianAttr::clear_national() {
-  national_ = 0;
-}
-inline ::dg::model::NationalType PedestrianAttr::national() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
-  return static_cast< ::dg::model::NationalType >(national_);
-}
-inline void PedestrianAttr::set_national(::dg::model::NationalType value) {
-  
-  national_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.National)
-}
-
-// optional float NationalConfidence = 4;
-inline void PedestrianAttr::clear_nationalconfidence() {
-  nationalconfidence_ = 0;
-}
-inline float PedestrianAttr::nationalconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.NationalConfidence)
-  return nationalconfidence_;
-}
-inline void PedestrianAttr::set_nationalconfidence(float value) {
-  
-  nationalconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.NationalConfidence)
-}
-
-// optional .dg.model.AgeType Age = 5;
 inline void PedestrianAttr::clear_age() {
-  age_ = 0;
+  if (GetArenaNoVirtual() == NULL && age_ != NULL) delete age_;
+  age_ = NULL;
 }
-inline ::dg::model::AgeType PedestrianAttr::age() const {
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::age() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Age)
-  return static_cast< ::dg::model::AgeType >(age_);
+  return age_ != NULL ? *age_ : *default_instance_->age_;
 }
-inline void PedestrianAttr::set_age(::dg::model::AgeType value) {
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_age() {
   
-  age_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Age)
+  if (age_ == NULL) {
+    age_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Age)
+  return age_;
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::release_age() {
+  
+  ::dg::model::NameAndConfidence* temp = age_;
+  age_ = NULL;
+  return temp;
+}
+inline void PedestrianAttr::set_allocated_age(::dg::model::NameAndConfidence* age) {
+  delete age_;
+  age_ = age;
+  if (age) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Age)
 }
 
-// optional float AgeConfidence = 6;
-inline void PedestrianAttr::clear_ageconfidence() {
-  ageconfidence_ = 0;
+// optional .dg.model.NameAndConfidence National = 3;
+inline bool PedestrianAttr::has_national() const {
+  return !_is_default_instance_ && national_ != NULL;
 }
-inline float PedestrianAttr::ageconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AgeConfidence)
-  return ageconfidence_;
+inline void PedestrianAttr::clear_national() {
+  if (GetArenaNoVirtual() == NULL && national_ != NULL) delete national_;
+  national_ = NULL;
 }
-inline void PedestrianAttr::set_ageconfidence(float value) {
+inline const ::dg::model::NameAndConfidence& PedestrianAttr::national() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
+  return national_ != NULL ? *national_ : *default_instance_->national_;
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_national() {
   
-  ageconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AgeConfidence)
+  if (national_ == NULL) {
+    national_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.National)
+  return national_;
+}
+inline ::dg::model::NameAndConfidence* PedestrianAttr::release_national() {
+  
+  ::dg::model::NameAndConfidence* temp = national_;
+  national_ = NULL;
+  return temp;
+}
+inline void PedestrianAttr::set_allocated_national(::dg::model::NameAndConfidence* national) {
+  delete national_;
+  national_ = national;
+  if (national) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.National)
 }
 
-// repeated .dg.model.NameAndConfidence HeadWears = 7;
+// repeated .dg.model.NameAndConfidence HeadWears = 4;
 inline int PedestrianAttr::headwears_size() const {
   return headwears_.size();
 }
@@ -3280,7 +3295,7 @@ PedestrianAttr::headwears() const {
   return headwears_;
 }
 
-// repeated .dg.model.NameAndConfidence BodyWears = 8;
+// repeated .dg.model.NameAndConfidence BodyWears = 5;
 inline int PedestrianAttr::bodywears_size() const {
   return bodywears_.size();
 }
@@ -3310,7 +3325,7 @@ PedestrianAttr::bodywears() const {
   return bodywears_;
 }
 
-// repeated .dg.model.NameAndConfidence UpperWears = 9;
+// repeated .dg.model.NameAndConfidence UpperWears = 6;
 inline int PedestrianAttr::upperwears_size() const {
   return upperwears_.size();
 }
@@ -3340,7 +3355,7 @@ PedestrianAttr::upperwears() const {
   return upperwears_;
 }
 
-// repeated .dg.model.NameAndConfidence LowerWears = 10;
+// repeated .dg.model.NameAndConfidence LowerWears = 7;
 inline int PedestrianAttr::lowerwears_size() const {
   return lowerwears_.size();
 }
@@ -3370,7 +3385,7 @@ PedestrianAttr::lowerwears() const {
   return lowerwears_;
 }
 
-// repeated .dg.model.NameAndConfidence UpperColors = 11;
+// repeated .dg.model.NameAndConfidence UpperColors = 8;
 inline int PedestrianAttr::uppercolors_size() const {
   return uppercolors_.size();
 }
@@ -3400,7 +3415,7 @@ PedestrianAttr::uppercolors() const {
   return uppercolors_;
 }
 
-// repeated .dg.model.NameAndConfidence LowerColors = 12;
+// repeated .dg.model.NameAndConfidence LowerColors = 9;
 inline int PedestrianAttr::lowercolors_size() const {
   return lowercolors_.size();
 }
@@ -3726,7 +3741,7 @@ inline void RecVehicle::set_allocated_vehicletypename(::std::string* vehicletype
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
 }
 
-// repeated .dg.model.LicensePlate Plates = 11;
+// repeated .dg.model.LicensePlate Plates = 10;
 inline int RecVehicle::plates_size() const {
   return plates_.size();
 }
