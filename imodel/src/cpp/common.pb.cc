@@ -251,13 +251,10 @@ void protobuf_AssignDesc_common_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _is_default_instance_));
   PedestrianAttr_descriptor_ = file->message_type(9);
-  static const int PedestrianAttr_offsets_[12] = {
+  static const int PedestrianAttr_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, sex_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, sexconfidence_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, national_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, nationalconfidence_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, age_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, ageconfidence_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, national_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, headwears_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, bodywears_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, upperwears_),
@@ -554,72 +551,70 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
     "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
     "(\002\"5\n\021NameAndConfidence\022\014\n\004Name\030\001 \001(\t\022\022\n"
-    "\nConfidence\030\002 \001(\002\"\352\003\n\016PedestrianAttr\022\036\n\003"
-    "Sex\030\001 \001(\0162\021.dg.model.SexType\022\025\n\rSexConfi"
-    "dence\030\002 \001(\002\022(\n\010National\030\003 \001(\0162\026.dg.model"
-    ".NationalType\022\032\n\022NationalConfidence\030\004 \001("
-    "\002\022\036\n\003Age\030\005 \001(\0162\021.dg.model.AgeType\022\025\n\rAge"
-    "Confidence\030\006 \001(\002\022.\n\tHeadWears\030\007 \003(\0132\033.dg"
-    ".model.NameAndConfidence\022.\n\tBodyWears\030\010 "
-    "\003(\0132\033.dg.model.NameAndConfidence\022/\n\nUppe"
-    "rWears\030\t \003(\0132\033.dg.model.NameAndConfidenc"
-    "e\022/\n\nLowerWears\030\n \003(\0132\033.dg.model.NameAnd"
-    "Confidence\0220\n\013UpperColors\030\013 \003(\0132\033.dg.mod"
-    "el.NameAndConfidence\0220\n\013LowerColors\030\014 \003("
-    "\0132\033.dg.model.NameAndConfidence\"\331\002\n\nRecVe"
-    "hicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.d"
-    "g.model.VehicleModelType\022\036\n\005Color\030\003 \001(\0132"
-    "\017.dg.model.Color\022%\n\005Plate\030\004 \001(\0132\026.dg.mod"
-    "el.LicensePlate\022$\n\003Img\030\005 \001(\0132\027.dg.model."
-    "CutboardImage\022(\n\007Symbols\030\006 \003(\0132\027.dg.mode"
-    "l.VehicleSymbol\022\020\n\010Features\030\007 \001(\t\022&\n\013Veh"
-    "icleType\030\010 \001(\0162\021.dg.model.ObjType\022\027\n\017Veh"
-    "icleTypeName\030\t \001(\t\022&\n\006Plates\030\013 \003(\0132\026.dg."
-    "model.LicensePlate\"\202\001\n\rRecPedestrian\022\n\n\002"
-    "Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cutboar"
-    "dImage\022\022\n\nConfidence\030\003 \001(\002\022+\n\tPedesAttr\030"
-    "\004 \001(\0132\030.dg.model.PedestrianAttr\"\335\001\n\020Vehi"
-    "cleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001("
-    "\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001"
-    "(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005"
-    "Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYe"
-    "ar\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022"
-    "\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPlat"
-    "eText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Co"
-    "lor\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n"
-    "\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg"
-    ".model.Cutboard\022\037\n\027LocalProvinceConfiden"
-    "ce\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 "
-    "\001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\013"
-    "2\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboard"
-    "\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfidence"
-    "\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001(\t"
-    "\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags"
-    "\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025"
-    ".dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg."
-    "model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model."
-    "RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNO"
-    "WN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYC"
-    "LE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_"
-    "PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_"
-    "TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYC"
-    "LE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR"
-    "\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024"
-    "OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHI"
-    "CLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTB"
-    "OARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 "
-    "\022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026O"
-    "BJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022"
-    "\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022"
-    "\007\n\003CSV\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE"
-    "_UNKNOWN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYP"
-    "E_FEMALE\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_T"
-    "YPE_UNKNOWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026"
-    "NATIONAL_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020A"
-    "GE_TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\r"
-    "AGE_TYPE_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAG"
-    "E_TYPE_50UP\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006prot"
-    "o3", 3322);
+    "\nConfidence\030\002 \001(\002\"\271\003\n\016PedestrianAttr\022(\n\003"
+    "Sex\030\001 \001(\0132\033.dg.model.NameAndConfidence\022("
+    "\n\003Age\030\002 \001(\0132\033.dg.model.NameAndConfidence"
+    "\022-\n\010National\030\003 \001(\0132\033.dg.model.NameAndCon"
+    "fidence\022.\n\tHeadWears\030\004 \003(\0132\033.dg.model.Na"
+    "meAndConfidence\022.\n\tBodyWears\030\005 \003(\0132\033.dg."
+    "model.NameAndConfidence\022/\n\nUpperWears\030\006 "
+    "\003(\0132\033.dg.model.NameAndConfidence\022/\n\nLowe"
+    "rWears\030\007 \003(\0132\033.dg.model.NameAndConfidenc"
+    "e\0220\n\013UpperColors\030\010 \003(\0132\033.dg.model.NameAn"
+    "dConfidence\0220\n\013LowerColors\030\t \003(\0132\033.dg.mo"
+    "del.NameAndConfidence\"\331\002\n\nRecVehicle\022\n\n\002"
+    "Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.dg.model.V"
+    "ehicleModelType\022\036\n\005Color\030\003 \001(\0132\017.dg.mode"
+    "l.Color\022%\n\005Plate\030\004 \001(\0132\026.dg.model.Licens"
+    "ePlate\022$\n\003Img\030\005 \001(\0132\027.dg.model.CutboardI"
+    "mage\022(\n\007Symbols\030\006 \003(\0132\027.dg.model.Vehicle"
+    "Symbol\022\020\n\010Features\030\007 \001(\t\022&\n\013VehicleType\030"
+    "\010 \001(\0162\021.dg.model.ObjType\022\027\n\017VehicleTypeN"
+    "ame\030\t \001(\t\022&\n\006Plates\030\n \003(\0132\026.dg.model.Lic"
+    "ensePlate\"\202\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022"
+    "$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n"
+    "\nConfidence\030\003 \001(\002\022+\n\tPedesAttr\030\004 \001(\0132\030.d"
+    "g.model.PedestrianAttr\"\335\001\n\020VehicleModelT"
+    "ype\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubB"
+    "randId\030\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nCon"
+    "fidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001"
+    "(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022"
+    "\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead"
+    "\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPlateText\030\001 \001"
+    "(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model.Color\022\016\n\006Ty"
+    "peId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfiden"
+    "ce\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.Cu"
+    "tboard\022\037\n\027LocalProvinceConfidence\030\007 \001(\002\""
+    "X\n\rVehicleSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSy"
+    "mbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.mod"
+    "el.Symbol\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022."
+    "dg.model.Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N\n"
+    "\rStorageConfig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030"
+    "\002 \001(\0162\020.dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n"
+    "\nVehicleObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model"
+    ".SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Ima"
+    "ge\022%\n\007Vehicle\030\003 \003(\0132\024.dg.model.RecVehicl"
+    "e*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014O"
+    "BJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021O"
+    "BJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIA"
+    "N\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHI"
+    "CLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR"
+    "\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OB"
+    "J_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_"
+    "FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBO"
+    "ARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022\037"
+    "\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_T"
+    "YPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_F"
+    "ACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOW"
+    "NFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022"
+    "\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN\020"
+    "\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020"
+    "\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKNO"
+    "WN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL_"
+    "TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_U"
+    "NKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_"
+    "1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_50"
+    "UP\020\004*\023\n\006DBType\022\t\n\005KAFKA\020\000b\006proto3", 3273);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -4593,11 +4588,8 @@ void NameAndConfidence::clear_confidence() {
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PedestrianAttr::kSexFieldNumber;
-const int PedestrianAttr::kSexConfidenceFieldNumber;
-const int PedestrianAttr::kNationalFieldNumber;
-const int PedestrianAttr::kNationalConfidenceFieldNumber;
 const int PedestrianAttr::kAgeFieldNumber;
-const int PedestrianAttr::kAgeConfidenceFieldNumber;
+const int PedestrianAttr::kNationalFieldNumber;
 const int PedestrianAttr::kHeadWearsFieldNumber;
 const int PedestrianAttr::kBodyWearsFieldNumber;
 const int PedestrianAttr::kUpperWearsFieldNumber;
@@ -4614,6 +4606,9 @@ PedestrianAttr::PedestrianAttr()
 
 void PedestrianAttr::InitAsDefaultInstance() {
   _is_default_instance_ = true;
+  sex_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+  age_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+  national_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
 }
 
 PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
@@ -4627,12 +4622,9 @@ PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
 void PedestrianAttr::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
-  sex_ = 0;
-  sexconfidence_ = 0;
-  national_ = 0;
-  nationalconfidence_ = 0;
-  age_ = 0;
-  ageconfidence_ = 0;
+  sex_ = NULL;
+  age_ = NULL;
+  national_ = NULL;
 }
 
 PedestrianAttr::~PedestrianAttr() {
@@ -4642,6 +4634,9 @@ PedestrianAttr::~PedestrianAttr() {
 
 void PedestrianAttr::SharedDtor() {
   if (this != default_instance_) {
+    delete sex_;
+    delete age_;
+    delete national_;
   }
 }
 
@@ -4671,19 +4666,12 @@ PedestrianAttr* PedestrianAttr::New(::google::protobuf::Arena* arena) const {
 }
 
 void PedestrianAttr::Clear() {
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<PedestrianAttr*>(16)->f)
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(sex_, ageconfidence_);
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
+  if (GetArenaNoVirtual() == NULL && age_ != NULL) delete age_;
+  age_ = NULL;
+  if (GetArenaNoVirtual() == NULL && national_ != NULL) delete national_;
+  national_ = NULL;
   headwears_.Clear();
   bodywears_.Clear();
   upperwears_.Clear();
@@ -4702,101 +4690,47 @@ bool PedestrianAttr::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.SexType Sex = 1;
+      // optional .dg.model.NameAndConfidence Sex = 1;
       case 1: {
-        if (tag == 8) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_sex(static_cast< ::dg::model::SexType >(value));
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_sex()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(21)) goto parse_SexConfidence;
+        if (input->ExpectTag(18)) goto parse_Age;
         break;
       }
 
-      // optional float SexConfidence = 2;
+      // optional .dg.model.NameAndConfidence Age = 2;
       case 2: {
-        if (tag == 21) {
-         parse_SexConfidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &sexconfidence_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(24)) goto parse_National;
-        break;
-      }
-
-      // optional .dg.model.NationalType National = 3;
-      case 3: {
-        if (tag == 24) {
-         parse_National:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_national(static_cast< ::dg::model::NationalType >(value));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(37)) goto parse_NationalConfidence;
-        break;
-      }
-
-      // optional float NationalConfidence = 4;
-      case 4: {
-        if (tag == 37) {
-         parse_NationalConfidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &nationalconfidence_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(40)) goto parse_Age;
-        break;
-      }
-
-      // optional .dg.model.AgeType Age = 5;
-      case 5: {
-        if (tag == 40) {
+        if (tag == 18) {
          parse_Age:
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_age(static_cast< ::dg::model::AgeType >(value));
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_age()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(53)) goto parse_AgeConfidence;
+        if (input->ExpectTag(26)) goto parse_National;
         break;
       }
 
-      // optional float AgeConfidence = 6;
-      case 6: {
-        if (tag == 53) {
-         parse_AgeConfidence:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &ageconfidence_)));
-
+      // optional .dg.model.NameAndConfidence National = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_National:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_national()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_HeadWears;
+        if (input->ExpectTag(34)) goto parse_HeadWears;
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence HeadWears = 7;
-      case 7: {
-        if (tag == 58) {
+      // repeated .dg.model.NameAndConfidence HeadWears = 4;
+      case 4: {
+        if (tag == 34) {
          parse_HeadWears:
           DO_(input->IncrementRecursionDepth());
          parse_loop_HeadWears:
@@ -4805,15 +4739,15 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_loop_HeadWears;
-        if (input->ExpectTag(66)) goto parse_loop_BodyWears;
+        if (input->ExpectTag(34)) goto parse_loop_HeadWears;
+        if (input->ExpectTag(42)) goto parse_loop_BodyWears;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence BodyWears = 8;
-      case 8: {
-        if (tag == 66) {
+      // repeated .dg.model.NameAndConfidence BodyWears = 5;
+      case 5: {
+        if (tag == 42) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_BodyWears:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -4821,15 +4755,15 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(66)) goto parse_loop_BodyWears;
-        if (input->ExpectTag(74)) goto parse_loop_UpperWears;
+        if (input->ExpectTag(42)) goto parse_loop_BodyWears;
+        if (input->ExpectTag(50)) goto parse_loop_UpperWears;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence UpperWears = 9;
-      case 9: {
-        if (tag == 74) {
+      // repeated .dg.model.NameAndConfidence UpperWears = 6;
+      case 6: {
+        if (tag == 50) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_UpperWears:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -4837,15 +4771,15 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(74)) goto parse_loop_UpperWears;
-        if (input->ExpectTag(82)) goto parse_loop_LowerWears;
+        if (input->ExpectTag(50)) goto parse_loop_UpperWears;
+        if (input->ExpectTag(58)) goto parse_loop_LowerWears;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence LowerWears = 10;
-      case 10: {
-        if (tag == 82) {
+      // repeated .dg.model.NameAndConfidence LowerWears = 7;
+      case 7: {
+        if (tag == 58) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_LowerWears:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -4853,15 +4787,15 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(82)) goto parse_loop_LowerWears;
-        if (input->ExpectTag(90)) goto parse_loop_UpperColors;
+        if (input->ExpectTag(58)) goto parse_loop_LowerWears;
+        if (input->ExpectTag(66)) goto parse_loop_UpperColors;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence UpperColors = 11;
-      case 11: {
-        if (tag == 90) {
+      // repeated .dg.model.NameAndConfidence UpperColors = 8;
+      case 8: {
+        if (tag == 66) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_UpperColors:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -4869,15 +4803,15 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(90)) goto parse_loop_UpperColors;
-        if (input->ExpectTag(98)) goto parse_loop_LowerColors;
+        if (input->ExpectTag(66)) goto parse_loop_UpperColors;
+        if (input->ExpectTag(74)) goto parse_loop_LowerColors;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence LowerColors = 12;
-      case 12: {
-        if (tag == 98) {
+      // repeated .dg.model.NameAndConfidence LowerColors = 9;
+      case 9: {
+        if (tag == 74) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_LowerColors:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -4885,7 +4819,7 @@ bool PedestrianAttr::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(98)) goto parse_loop_LowerColors;
+        if (input->ExpectTag(74)) goto parse_loop_LowerColors;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -4915,73 +4849,58 @@ failure:
 void PedestrianAttr::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.PedestrianAttr)
-  // optional .dg.model.SexType Sex = 1;
-  if (this->sex() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->sex(), output);
+  // optional .dg.model.NameAndConfidence Sex = 1;
+  if (this->has_sex()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->sex_, output);
   }
 
-  // optional float SexConfidence = 2;
-  if (this->sexconfidence() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->sexconfidence(), output);
+  // optional .dg.model.NameAndConfidence Age = 2;
+  if (this->has_age()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->age_, output);
   }
 
-  // optional .dg.model.NationalType National = 3;
-  if (this->national() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      3, this->national(), output);
+  // optional .dg.model.NameAndConfidence National = 3;
+  if (this->has_national()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->national_, output);
   }
 
-  // optional float NationalConfidence = 4;
-  if (this->nationalconfidence() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->nationalconfidence(), output);
-  }
-
-  // optional .dg.model.AgeType Age = 5;
-  if (this->age() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      5, this->age(), output);
-  }
-
-  // optional float AgeConfidence = 6;
-  if (this->ageconfidence() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->ageconfidence(), output);
-  }
-
-  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  // repeated .dg.model.NameAndConfidence HeadWears = 4;
   for (unsigned int i = 0, n = this->headwears_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      7, this->headwears(i), output);
+      4, this->headwears(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  // repeated .dg.model.NameAndConfidence BodyWears = 5;
   for (unsigned int i = 0, n = this->bodywears_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, this->bodywears(i), output);
+      5, this->bodywears(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  // repeated .dg.model.NameAndConfidence UpperWears = 6;
   for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      9, this->upperwears(i), output);
+      6, this->upperwears(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  // repeated .dg.model.NameAndConfidence LowerWears = 7;
   for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      10, this->lowerwears(i), output);
+      7, this->lowerwears(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  // repeated .dg.model.NameAndConfidence UpperColors = 8;
   for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      11, this->uppercolors(i), output);
+      8, this->uppercolors(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  // repeated .dg.model.NameAndConfidence LowerColors = 9;
   for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      12, this->lowercolors(i), output);
+      9, this->lowercolors(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.PedestrianAttr)
@@ -4990,79 +4909,67 @@ void PedestrianAttr::SerializeWithCachedSizes(
 ::google::protobuf::uint8* PedestrianAttr::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.PedestrianAttr)
-  // optional .dg.model.SexType Sex = 1;
-  if (this->sex() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->sex(), target);
+  // optional .dg.model.NameAndConfidence Sex = 1;
+  if (this->has_sex()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->sex_, target);
   }
 
-  // optional float SexConfidence = 2;
-  if (this->sexconfidence() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->sexconfidence(), target);
+  // optional .dg.model.NameAndConfidence Age = 2;
+  if (this->has_age()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->age_, target);
   }
 
-  // optional .dg.model.NationalType National = 3;
-  if (this->national() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      3, this->national(), target);
+  // optional .dg.model.NameAndConfidence National = 3;
+  if (this->has_national()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->national_, target);
   }
 
-  // optional float NationalConfidence = 4;
-  if (this->nationalconfidence() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->nationalconfidence(), target);
-  }
-
-  // optional .dg.model.AgeType Age = 5;
-  if (this->age() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      5, this->age(), target);
-  }
-
-  // optional float AgeConfidence = 6;
-  if (this->ageconfidence() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->ageconfidence(), target);
-  }
-
-  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  // repeated .dg.model.NameAndConfidence HeadWears = 4;
   for (unsigned int i = 0, n = this->headwears_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        7, this->headwears(i), target);
+        4, this->headwears(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  // repeated .dg.model.NameAndConfidence BodyWears = 5;
   for (unsigned int i = 0, n = this->bodywears_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        8, this->bodywears(i), target);
+        5, this->bodywears(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  // repeated .dg.model.NameAndConfidence UpperWears = 6;
   for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        9, this->upperwears(i), target);
+        6, this->upperwears(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  // repeated .dg.model.NameAndConfidence LowerWears = 7;
   for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        10, this->lowerwears(i), target);
+        7, this->lowerwears(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  // repeated .dg.model.NameAndConfidence UpperColors = 8;
   for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        11, this->uppercolors(i), target);
+        8, this->uppercolors(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  // repeated .dg.model.NameAndConfidence LowerColors = 9;
   for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        12, this->lowercolors(i), target);
+        9, this->lowercolors(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.PedestrianAttr)
@@ -5072,40 +4979,28 @@ void PedestrianAttr::SerializeWithCachedSizes(
 int PedestrianAttr::ByteSize() const {
   int total_size = 0;
 
-  // optional .dg.model.SexType Sex = 1;
-  if (this->sex() != 0) {
+  // optional .dg.model.NameAndConfidence Sex = 1;
+  if (this->has_sex()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->sex());
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->sex_);
   }
 
-  // optional float SexConfidence = 2;
-  if (this->sexconfidence() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // optional .dg.model.NationalType National = 3;
-  if (this->national() != 0) {
+  // optional .dg.model.NameAndConfidence Age = 2;
+  if (this->has_age()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->national());
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->age_);
   }
 
-  // optional float NationalConfidence = 4;
-  if (this->nationalconfidence() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // optional .dg.model.AgeType Age = 5;
-  if (this->age() != 0) {
+  // optional .dg.model.NameAndConfidence National = 3;
+  if (this->has_national()) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->age());
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->national_);
   }
 
-  // optional float AgeConfidence = 6;
-  if (this->ageconfidence() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // repeated .dg.model.NameAndConfidence HeadWears = 7;
+  // repeated .dg.model.NameAndConfidence HeadWears = 4;
   total_size += 1 * this->headwears_size();
   for (int i = 0; i < this->headwears_size(); i++) {
     total_size +=
@@ -5113,7 +5008,7 @@ int PedestrianAttr::ByteSize() const {
         this->headwears(i));
   }
 
-  // repeated .dg.model.NameAndConfidence BodyWears = 8;
+  // repeated .dg.model.NameAndConfidence BodyWears = 5;
   total_size += 1 * this->bodywears_size();
   for (int i = 0; i < this->bodywears_size(); i++) {
     total_size +=
@@ -5121,7 +5016,7 @@ int PedestrianAttr::ByteSize() const {
         this->bodywears(i));
   }
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 9;
+  // repeated .dg.model.NameAndConfidence UpperWears = 6;
   total_size += 1 * this->upperwears_size();
   for (int i = 0; i < this->upperwears_size(); i++) {
     total_size +=
@@ -5129,7 +5024,7 @@ int PedestrianAttr::ByteSize() const {
         this->upperwears(i));
   }
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 10;
+  // repeated .dg.model.NameAndConfidence LowerWears = 7;
   total_size += 1 * this->lowerwears_size();
   for (int i = 0; i < this->lowerwears_size(); i++) {
     total_size +=
@@ -5137,7 +5032,7 @@ int PedestrianAttr::ByteSize() const {
         this->lowerwears(i));
   }
 
-  // repeated .dg.model.NameAndConfidence UpperColors = 11;
+  // repeated .dg.model.NameAndConfidence UpperColors = 8;
   total_size += 1 * this->uppercolors_size();
   for (int i = 0; i < this->uppercolors_size(); i++) {
     total_size +=
@@ -5145,7 +5040,7 @@ int PedestrianAttr::ByteSize() const {
         this->uppercolors(i));
   }
 
-  // repeated .dg.model.NameAndConfidence LowerColors = 12;
+  // repeated .dg.model.NameAndConfidence LowerColors = 9;
   total_size += 1 * this->lowercolors_size();
   for (int i = 0; i < this->lowercolors_size(); i++) {
     total_size +=
@@ -5179,23 +5074,14 @@ void PedestrianAttr::MergeFrom(const PedestrianAttr& from) {
   lowerwears_.MergeFrom(from.lowerwears_);
   uppercolors_.MergeFrom(from.uppercolors_);
   lowercolors_.MergeFrom(from.lowercolors_);
-  if (from.sex() != 0) {
-    set_sex(from.sex());
+  if (from.has_sex()) {
+    mutable_sex()->::dg::model::NameAndConfidence::MergeFrom(from.sex());
   }
-  if (from.sexconfidence() != 0) {
-    set_sexconfidence(from.sexconfidence());
+  if (from.has_age()) {
+    mutable_age()->::dg::model::NameAndConfidence::MergeFrom(from.age());
   }
-  if (from.national() != 0) {
-    set_national(from.national());
-  }
-  if (from.nationalconfidence() != 0) {
-    set_nationalconfidence(from.nationalconfidence());
-  }
-  if (from.age() != 0) {
-    set_age(from.age());
-  }
-  if (from.ageconfidence() != 0) {
-    set_ageconfidence(from.ageconfidence());
+  if (from.has_national()) {
+    mutable_national()->::dg::model::NameAndConfidence::MergeFrom(from.national());
   }
 }
 
@@ -5222,11 +5108,8 @@ void PedestrianAttr::Swap(PedestrianAttr* other) {
 }
 void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
   std::swap(sex_, other->sex_);
-  std::swap(sexconfidence_, other->sexconfidence_);
-  std::swap(national_, other->national_);
-  std::swap(nationalconfidence_, other->nationalconfidence_);
   std::swap(age_, other->age_);
-  std::swap(ageconfidence_, other->ageconfidence_);
+  std::swap(national_, other->national_);
   headwears_.UnsafeArenaSwap(&other->headwears_);
   bodywears_.UnsafeArenaSwap(&other->bodywears_);
   upperwears_.UnsafeArenaSwap(&other->upperwears_);
@@ -5248,91 +5131,118 @@ void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PedestrianAttr
 
-// optional .dg.model.SexType Sex = 1;
+// optional .dg.model.NameAndConfidence Sex = 1;
+bool PedestrianAttr::has_sex() const {
+  return !_is_default_instance_ && sex_ != NULL;
+}
 void PedestrianAttr::clear_sex() {
-  sex_ = 0;
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
 }
- ::dg::model::SexType PedestrianAttr::sex() const {
+const ::dg::model::NameAndConfidence& PedestrianAttr::sex() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Sex)
-  return static_cast< ::dg::model::SexType >(sex_);
+  return sex_ != NULL ? *sex_ : *default_instance_->sex_;
 }
- void PedestrianAttr::set_sex(::dg::model::SexType value) {
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_sex() {
   
-  sex_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Sex)
+  if (sex_ == NULL) {
+    sex_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Sex)
+  return sex_;
+}
+::dg::model::NameAndConfidence* PedestrianAttr::release_sex() {
+  
+  ::dg::model::NameAndConfidence* temp = sex_;
+  sex_ = NULL;
+  return temp;
+}
+void PedestrianAttr::set_allocated_sex(::dg::model::NameAndConfidence* sex) {
+  delete sex_;
+  sex_ = sex;
+  if (sex) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Sex)
 }
 
-// optional float SexConfidence = 2;
-void PedestrianAttr::clear_sexconfidence() {
-  sexconfidence_ = 0;
+// optional .dg.model.NameAndConfidence Age = 2;
+bool PedestrianAttr::has_age() const {
+  return !_is_default_instance_ && age_ != NULL;
 }
- float PedestrianAttr::sexconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.SexConfidence)
-  return sexconfidence_;
-}
- void PedestrianAttr::set_sexconfidence(float value) {
-  
-  sexconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.SexConfidence)
-}
-
-// optional .dg.model.NationalType National = 3;
-void PedestrianAttr::clear_national() {
-  national_ = 0;
-}
- ::dg::model::NationalType PedestrianAttr::national() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
-  return static_cast< ::dg::model::NationalType >(national_);
-}
- void PedestrianAttr::set_national(::dg::model::NationalType value) {
-  
-  national_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.National)
-}
-
-// optional float NationalConfidence = 4;
-void PedestrianAttr::clear_nationalconfidence() {
-  nationalconfidence_ = 0;
-}
- float PedestrianAttr::nationalconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.NationalConfidence)
-  return nationalconfidence_;
-}
- void PedestrianAttr::set_nationalconfidence(float value) {
-  
-  nationalconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.NationalConfidence)
-}
-
-// optional .dg.model.AgeType Age = 5;
 void PedestrianAttr::clear_age() {
-  age_ = 0;
+  if (GetArenaNoVirtual() == NULL && age_ != NULL) delete age_;
+  age_ = NULL;
 }
- ::dg::model::AgeType PedestrianAttr::age() const {
+const ::dg::model::NameAndConfidence& PedestrianAttr::age() const {
   // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Age)
-  return static_cast< ::dg::model::AgeType >(age_);
+  return age_ != NULL ? *age_ : *default_instance_->age_;
 }
- void PedestrianAttr::set_age(::dg::model::AgeType value) {
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_age() {
   
-  age_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.Age)
+  if (age_ == NULL) {
+    age_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Age)
+  return age_;
+}
+::dg::model::NameAndConfidence* PedestrianAttr::release_age() {
+  
+  ::dg::model::NameAndConfidence* temp = age_;
+  age_ = NULL;
+  return temp;
+}
+void PedestrianAttr::set_allocated_age(::dg::model::NameAndConfidence* age) {
+  delete age_;
+  age_ = age;
+  if (age) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.Age)
 }
 
-// optional float AgeConfidence = 6;
-void PedestrianAttr::clear_ageconfidence() {
-  ageconfidence_ = 0;
+// optional .dg.model.NameAndConfidence National = 3;
+bool PedestrianAttr::has_national() const {
+  return !_is_default_instance_ && national_ != NULL;
 }
- float PedestrianAttr::ageconfidence() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.AgeConfidence)
-  return ageconfidence_;
+void PedestrianAttr::clear_national() {
+  if (GetArenaNoVirtual() == NULL && national_ != NULL) delete national_;
+  national_ = NULL;
 }
- void PedestrianAttr::set_ageconfidence(float value) {
+const ::dg::model::NameAndConfidence& PedestrianAttr::national() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.National)
+  return national_ != NULL ? *national_ : *default_instance_->national_;
+}
+::dg::model::NameAndConfidence* PedestrianAttr::mutable_national() {
   
-  ageconfidence_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.PedestrianAttr.AgeConfidence)
+  if (national_ == NULL) {
+    national_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.National)
+  return national_;
+}
+::dg::model::NameAndConfidence* PedestrianAttr::release_national() {
+  
+  ::dg::model::NameAndConfidence* temp = national_;
+  national_ = NULL;
+  return temp;
+}
+void PedestrianAttr::set_allocated_national(::dg::model::NameAndConfidence* national) {
+  delete national_;
+  national_ = national;
+  if (national) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.National)
 }
 
-// repeated .dg.model.NameAndConfidence HeadWears = 7;
+// repeated .dg.model.NameAndConfidence HeadWears = 4;
 int PedestrianAttr::headwears_size() const {
   return headwears_.size();
 }
@@ -5362,7 +5272,7 @@ PedestrianAttr::headwears() const {
   return headwears_;
 }
 
-// repeated .dg.model.NameAndConfidence BodyWears = 8;
+// repeated .dg.model.NameAndConfidence BodyWears = 5;
 int PedestrianAttr::bodywears_size() const {
   return bodywears_.size();
 }
@@ -5392,7 +5302,7 @@ PedestrianAttr::bodywears() const {
   return bodywears_;
 }
 
-// repeated .dg.model.NameAndConfidence UpperWears = 9;
+// repeated .dg.model.NameAndConfidence UpperWears = 6;
 int PedestrianAttr::upperwears_size() const {
   return upperwears_.size();
 }
@@ -5422,7 +5332,7 @@ PedestrianAttr::upperwears() const {
   return upperwears_;
 }
 
-// repeated .dg.model.NameAndConfidence LowerWears = 10;
+// repeated .dg.model.NameAndConfidence LowerWears = 7;
 int PedestrianAttr::lowerwears_size() const {
   return lowerwears_.size();
 }
@@ -5452,7 +5362,7 @@ PedestrianAttr::lowerwears() const {
   return lowerwears_;
 }
 
-// repeated .dg.model.NameAndConfidence UpperColors = 11;
+// repeated .dg.model.NameAndConfidence UpperColors = 8;
 int PedestrianAttr::uppercolors_size() const {
   return uppercolors_.size();
 }
@@ -5482,7 +5392,7 @@ PedestrianAttr::uppercolors() const {
   return uppercolors_;
 }
 
-// repeated .dg.model.NameAndConfidence LowerColors = 12;
+// repeated .dg.model.NameAndConfidence LowerColors = 9;
 int PedestrianAttr::lowercolors_size() const {
   return lowercolors_.size();
 }
@@ -5762,13 +5672,13 @@ bool RecVehicle::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(90)) goto parse_Plates;
+        if (input->ExpectTag(82)) goto parse_Plates;
         break;
       }
 
-      // repeated .dg.model.LicensePlate Plates = 11;
-      case 11: {
-        if (tag == 90) {
+      // repeated .dg.model.LicensePlate Plates = 10;
+      case 10: {
+        if (tag == 82) {
          parse_Plates:
           DO_(input->IncrementRecursionDepth());
          parse_loop_Plates:
@@ -5777,7 +5687,7 @@ bool RecVehicle::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(90)) goto parse_loop_Plates;
+        if (input->ExpectTag(82)) goto parse_loop_Plates;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -5868,10 +5778,10 @@ void RecVehicle::SerializeWithCachedSizes(
       9, this->vehicletypename(), output);
   }
 
-  // repeated .dg.model.LicensePlate Plates = 11;
+  // repeated .dg.model.LicensePlate Plates = 10;
   for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      11, this->plates(i), output);
+      10, this->plates(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.RecVehicle)
@@ -5948,11 +5858,11 @@ void RecVehicle::SerializeWithCachedSizes(
         9, this->vehicletypename(), target);
   }
 
-  // repeated .dg.model.LicensePlate Plates = 11;
+  // repeated .dg.model.LicensePlate Plates = 10;
   for (unsigned int i = 0, n = this->plates_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        11, this->plates(i), target);
+        10, this->plates(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecVehicle)
@@ -6025,7 +5935,7 @@ int RecVehicle::ByteSize() const {
         this->symbols(i));
   }
 
-  // repeated .dg.model.LicensePlate Plates = 11;
+  // repeated .dg.model.LicensePlate Plates = 10;
   total_size += 1 * this->plates_size();
   for (int i = 0; i < this->plates_size(); i++) {
     total_size +=
@@ -6422,7 +6332,7 @@ void RecVehicle::clear_vehicletypename() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecVehicle.VehicleTypeName)
 }
 
-// repeated .dg.model.LicensePlate Plates = 11;
+// repeated .dg.model.LicensePlate Plates = 10;
 int RecVehicle::plates_size() const {
   return plates_.size();
 }

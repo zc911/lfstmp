@@ -110,18 +110,15 @@ message NameAndConfidence {
 }
 
 message PedestrianAttr {
-    SexType Sex = 1;
-    float SexConfidence = 2;
-    NationalType National = 3;
-    float NationalConfidence = 4;
-    AgeType Age = 5;
-    float AgeConfidence = 6;
-    repeated NameAndConfidence HeadWears = 7;
-    repeated NameAndConfidence BodyWears = 8;
-    repeated NameAndConfidence UpperWears = 9;
-    repeated NameAndConfidence LowerWears = 10;
-    repeated NameAndConfidence UpperColors = 11;
-    repeated NameAndConfidence LowerColors = 12;
+    NameAndConfidence Sex = 1;
+    NameAndConfidence Age = 2;
+    NameAndConfidence National = 3;
+    repeated NameAndConfidence HeadWears = 4;
+    repeated NameAndConfidence BodyWears = 5;
+    repeated NameAndConfidence UpperWears = 6;
+    repeated NameAndConfidence LowerWears = 7;
+    repeated NameAndConfidence UpperColors = 8;
+    repeated NameAndConfidence LowerColors = 9;
 }
 
 message RecVehicle {
@@ -134,8 +131,7 @@ message RecVehicle {
     string Features = 7;
     ObjType VehicleType = 8;
     string VehicleTypeName = 9;
-    //PedestrianAttr PedesAttr = 10;
-    repeated LicensePlate Plates = 11;
+    repeated LicensePlate Plates = 10;
 }
 
 message RecPedestrian {
