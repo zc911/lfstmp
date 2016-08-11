@@ -72,20 +72,28 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
 
         ssd_marker_detector_->DetectBatch(images_,crops,preds);
-        for (int i = 0; i < preds.size(); i++) {
-            Vehicle *v = (Vehicle *) objs_[i];
+        int cnt=0;
+        for (int i = 0; i < crops.size(); i++) {
+            if(crops[i].size()<=0)
+                continue;
+
+            Vehicle *v = (Vehicle *) objs_[cnt];
             vector<Detection> markers_cutborad;
             Mat img(v->image());
 
-            for (int j = 0; j < preds[i].size(); j++) {
-                Detection d(preds[i][j]);
+            for (int j = 0; j < preds[cnt].size(); j++) {
+                Detection d(preds[cnt][j]);
 
-                d.box.x = (preds[i][j].box.x) + v->detection().box.x;
-                d.box.y = (preds[i][j].box.y) + v->detection().box.y;
-                d.box.width = preds[i][j].box.width;
-                d.box.height = preds[i][j].box.height;
+                d.box.x = (preds[cnt][j].box.x) + v->detection().box.x;
+                d.box.y = (preds[cnt][j].box.y) + v->detection().box.y;
+                d.box.width = preds[cnt][j].box.width;
+                d.box.height = preds[cnt][j].box.height;
                 markers_cutborad.push_back(d);
+                rectangle(img,preds[cnt][j].box,Scalar(255,0,0));
+
             }
+            v->set_markers(markers_cutborad);
+
         }
 
     }else{
@@ -121,6 +129,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 d.box.height = pred[i][j].box.height;
                 markers_cutborad.push_back(d);
             }
+            
             v->set_markers(markers_cutborad);
 
         }
