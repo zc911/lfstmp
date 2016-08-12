@@ -349,38 +349,44 @@ void WitnessEngine::init(const Config &config) {
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
-
     if (!RecordPerformance(FEATURE_RESERVED, performance_)) {
         performance_ = RECORD_UNIT;
     }
 
+    Mat image = Mat::zeros(100, 100, CV_8UC3);
+    FrameBatch framebatch(0);
+    Frame *frame = new Frame(0, image);
+    framebatch.AddFrame(frame);
+    this->Process(&framebatch);
 
-    FrameBatch frameBatch(0);
-    initGpuMemory(frameBatch);
-    this->Process(&frameBatch);
     if (vehicle_processor_)
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 
+//    initGpuMemory(framebatch);
+//    this->Process(&framebatch);
+
     is_init_ = true;
+
 }
 
 void WitnessEngine::initGpuMemory(FrameBatch &batch) {
 
     Mat image = Mat::zeros(1000, 1000, CV_8UC3);
+    Mat smallImage = Mat::zeros(50, 50, CV_8UC3);
     Operation op;
     op.Set(UINT64_MAX);
     for (int i = 0; i < 16; ++i) {
         Frame *frame = new Frame(i, image);
         Vehicle *vehicle = new Vehicle(OBJECT_CAR);
         vehicle->set_id(1);
-        vehicle->set_image(image);
+        vehicle->set_image(smallImage);
         vector<Detection> markers;
         Detection det;
-        det.box = cv::Rect(1, 1, 800, 800);
+        det.box = cv::Rect(1, 1, 10, 10);
         markers.push_back(det);
         vehicle->set_markers(markers);
         Pedestrian *pedestrain = new Pedestrian();
-        pedestrain->set_image(image);
+        pedestrain->set_image(smallImage);
         pedestrain->set_id(2);
         frame->put_object(vehicle);
         frame->put_object(pedestrain);
