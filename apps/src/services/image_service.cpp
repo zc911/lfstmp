@@ -59,11 +59,11 @@ MatrixError ImageService::ParseImage(const WitnessImage &imgDes, ROIImages &imgr
 MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                                      std::vector<ROIImages> &roiimages,
                                      unsigned int timeout, bool concurrent) {
-    MatrixError err;
+   MatrixError err;
     if (concurrent) {
         std::mutex countmt;
         std::condition_variable cv;
-        int finishCount = 0;
+        std::atomic<int> finishCount;
         roiimages.resize(imgs.size());
 
         for (int i = 0; i < imgs.size(); ++i) {
@@ -85,20 +85,21 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                   } else {
                       getMarginROIs(img.marginroi(), rois, mat);
                   }
-                  roiimages[index].data = mat;
-                  roiimages[index].rois = rois;
 
+                  ROIImages roiimage;
+                  roiimage.data = mat;
+                  roiimage.rois = rois;
+
+                  roiimages[index] = roiimage;
                   {
-                      std::unique_lock<mutex> countlc(countmt);
-                      ++finishCount;
-                      countlc.unlock();
+                      finishCount++;
                   }
-
-                  if (finishCount == size) {
+                if (finishCount == size) {
                       {
                           cv.notify_all();
                       }
                   }
+
                 },
                 imgs[i], imgs.size(), timeout / 2, i);
 
@@ -108,7 +109,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
             std::unique_lock<mutex> waitlc(countmt);
             if (cv.wait_for(waitlc,
                             std::chrono::seconds(timeout),
-                            [finishCount, &imgs]() { return finishCount == imgs.size(); })) {
+                            [&finishCount, &imgs]() { return finishCount == imgs.size(); })) {
                 if (roiimages.size() != imgs.size()) {
                     LOG(ERROR) << "Parsed images size not equals to input size" << std::endl;
                     err.set_code(-1);
@@ -116,7 +117,6 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                 }
 
             } else {
-                cout << finishCount << "," << imgs.size() << endl;
                 LOG(ERROR) << "Parse input images timeout " << std::endl;
                 err.set_code(-1);
                 err.set_message("Parse input images timeout");
@@ -135,6 +135,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
         }
         return err;
     }
+
 
 }
 MatrixError ImageService::getRelativeROIs(

@@ -87,7 +87,7 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
   //GetConfidenceScores(conf_data, num, num_priors_, num_classes_,
   //   class_major, &all_conf_scores);
   GetLocAndScores(bbox_cpu_data, num, num_priors_, num_loc_classes_,
-        share_location_, &all_decode_bboxes, conf_data, num_classes_, class_major, &all_conf_scores,thresholds_);
+        share_location_, &all_decode_bboxes, conf_data, num_classes_, class_major, &all_conf_scores,&thresholds_);
 
   int num_kept = 0;
   vector<map<int, vector<int> > > all_indices;
