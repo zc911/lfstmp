@@ -8,7 +8,6 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "processor/config_filter.h"
-#include "processor/plate_recognize_mxnet_processor.h"
 
 namespace dg {
 
@@ -60,7 +59,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
 
         if (!enable_vehicle_detect_
-                || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+            || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
             if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
@@ -68,7 +67,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
                     Mat tmp = frame->payload()->data();
                     if (tmp.empty()) {
                         LOG(ERROR) << "Mat is empty" << endl;
-                        return ;
+                        return;
                     }
                     p->set_image(tmp);
                     p->set_id(baseid);
@@ -89,7 +88,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
                     Mat tmp = frame->payload()->data();
                     if (tmp.empty()) {
                         LOG(ERROR) << "Mat is empty" << endl;
-                        return ;
+                        return;
                     }
                     v->set_image(tmp);
                     v->set_id(baseid);
@@ -126,24 +125,24 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
-                                 FEATURE_VEHICLE_ENABLE_DETECTION);
+        FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
+        FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
     enable_face_detect_ = (bool) config.Value(
-                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-                                      FEATURE_FACE_ENABLE_DETECTION);
+        FEATURE_FACE_ENABLE_DETECTION);
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
@@ -281,13 +280,13 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO) << "Enable vehicle marker processor." << endl;
             bool carOnly = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
             Processor *p;
-            if(carOnly){
+            if (carOnly) {
                 MarkerCaffeClassifier::MarkerConfig mConfig;
                 configFilter->createMarkersConfig(config, mConfig);
                 WindowCaffeDetector::WindowCaffeConfig wConfig;
                 configFilter->createWindowConfig(config, wConfig);
                 p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
-            }else{
+            } else {
                 VehicleCaffeDetectorConfig mConfig;
                 VehicleCaffeDetectorConfig wConfig;
                 configFilter->createMarkersConfig(config, mConfig);
@@ -350,16 +349,26 @@ void WitnessEngine::init(const Config &config) {
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
+
     if (!RecordPerformance(FEATURE_RESERVED, performance_)) {
         performance_ = RECORD_UNIT;
     }
+
     is_init_ = true;
-    Mat image = Mat::zeros(100, 100, CV_8UC3);
+//    Mat image = Mat::zeros(100, 100, CV_8UC3);
+    Mat image = cv::imread("/home/chenzhen/Desktop/rankertest.jpg");
     FrameBatch framebatch(0);
-    Frame *frame = new Frame(0, image);
-    framebatch.AddFrame(frame);
+    Operation op;
+    op.Set(UINT64_MAX);
+    for (int i = 0; i < 16; ++i) {
+        Frame *frame = new Frame(i, image);
+        framebatch.AddFrame(frame);
+        frame->set_operation(op);
+    }
+
     this->Process(&framebatch);
-    vehicle_processor_ = vehicle_processor_->GetNextProcessor();
+    if (vehicle_processor_)
+        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 
 }
 
