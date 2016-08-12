@@ -47,7 +47,8 @@ typedef struct Detection {
     bool deleted;
     Box box;
     Confidence confidence = 0;
-
+    float col_ratio=1.0;
+    float row_ratio=1.0;
     void Rescale(float scale) {
         box.x = box.x / scale;
         box.y = box.y / scale;

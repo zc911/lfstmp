@@ -1375,10 +1375,6 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
               adwColorsHist[LP_COLOUR_GREEN]++;
             }
 //            else if (fH > 220.f && fH < 10.f)
-            else if (fH > 330.f && fH < 15.f)
-            {
-              adwColorsHist[LP_COLOUR_RED]++;
-            }
           }
           else if (fS < 0.45f && fV > 0.4)
 //          else if (fV > 0.3)

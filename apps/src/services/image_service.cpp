@@ -86,15 +86,12 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
                       getMarginROIs(img.marginroi(), rois, mat);
                   }
 
-                  ROIImages roiimage;
-                  roiimage.data = mat;
-                  roiimage.rois = rois;
+                  roiimages[index].data = mat;
+                  roiimages[index].rois = rois;
 
-                  roiimages[index] = roiimage;
                   {
                       std::unique_lock<mutex> countlc(countmt);
                       ++finishCount;
-                      countlc.unlock();
                   }
 
                   if (finishCount == size) {
@@ -187,7 +184,7 @@ static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
     }
 }
 
-MatrixError ImageService::getImageFromData(const string img64,
+MatrixError ImageService::getImageFromData(const string &img64,
                                            ::cv::Mat &imgMat) {
     MatrixError ok;
     vector<uchar> bin;
