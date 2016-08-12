@@ -354,22 +354,39 @@ void WitnessEngine::init(const Config &config) {
         performance_ = RECORD_UNIT;
     }
 
+
+    FrameBatch frameBatch(0);
+    initGpuMemory(frameBatch);
+    this->Process(&frameBatch);
+    if (vehicle_processor_)
+        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
+
     is_init_ = true;
-//    Mat image = Mat::zeros(100, 100, CV_8UC3);
-    Mat image = cv::imread("/home/chenzhen/Desktop/rankertest.jpg");
-    FrameBatch framebatch(0);
+}
+
+void WitnessEngine::initGpuMemory(FrameBatch &batch) {
+
+    Mat image = Mat::zeros(1000, 1000, CV_8UC3);
     Operation op;
     op.Set(UINT64_MAX);
     for (int i = 0; i < 16; ++i) {
         Frame *frame = new Frame(i, image);
-        framebatch.AddFrame(frame);
+        Vehicle *vehicle = new Vehicle(OBJECT_CAR);
+        vehicle->set_id(1);
+        vehicle->set_image(image);
+        vector<Detection> markers;
+        Detection det;
+        det.box = cv::Rect(1, 1, 800, 800);
+        markers.push_back(det);
+        vehicle->set_markers(markers);
+        Pedestrian *pedestrain = new Pedestrian();
+        pedestrain->set_image(image);
+        pedestrain->set_id(2);
+        frame->put_object(vehicle);
+        frame->put_object(pedestrain);
         frame->set_operation(op);
+        batch.AddFrame(frame);
     }
-
-    this->Process(&framebatch);
-    if (vehicle_processor_)
-        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-
 }
 
 }
