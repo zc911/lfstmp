@@ -594,19 +594,19 @@ template void GetGroundTruth(const double* gt_data, const int num_gt,
 template void GetLocAndScores(const float* loc_data, const int num,
       const int num_preds_per_class, const int num_loc_classes,
       const bool share_location, vector<LabelBBox>* loc_preds, const float* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> thresh_hold);
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
 
 template void GetLocAndScores(const double* loc_data, const int num,
       const int num_preds_per_class, const int num_loc_classes,
       const bool share_location, vector<LabelBBox>* loc_preds, const double* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> thresh_hold);
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
 
 
 template <typename Dtype>
 void GetLocAndScores(const Dtype* loc_data, const int num,
       const int num_preds_per_class, const int num_loc_classes,
       const bool share_location, vector<LabelBBox>* loc_preds, const Dtype* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> thresh_hold) {
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold) {
   conf_preds->clear();
   conf_preds->resize(num);
 
@@ -618,7 +618,7 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
 
   //float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
  // float thresh_hold=0.3;
-  //std::cout << "num_classes " << num_classes << std::endl;
+  LOG(INFO) << "num_classes " << num_classes<<thresh_hold->size() << std::endl;
   for (int i = 0; i < num; ++i) { // batch size
     LabelBBox& label_bbox = (*loc_preds)[i];
     int label = share_location ? -1 : 0;
@@ -631,7 +631,8 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
         bool is_push = false;
         int start_idx_loc = p * 4;
         for(int c = 1; c < num_classes; c++) {
-            if (conf_data[c*num_preds_per_class + p] > thresh_hold[c]) {
+         
+            if (conf_data[c*num_preds_per_class + p] > thresh_hold->at(c)) {
                 is_push = true; 
                 break;
             }
@@ -649,10 +650,11 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
         }
 
     }
-
     conf_data += num_preds_per_class * num_classes;
     loc_data += num_preds_per_class * (num_loc_classes << 2);
   }
+    LOG(INFO) << "FINISH " << num_classes << std::endl;
+
 }
 
 

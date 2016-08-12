@@ -171,7 +171,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
     MatrixError err;
 
     for (const Object *object : frame->objects()) {
-        DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
+      //  DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
             case OBJECT_CAR:
             case OBJECT_BICYCLE:
@@ -500,6 +500,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     }
 
     engine_pool->enqueue(&data);
+    gettimeofday(&start, NULL);
 
     data.Wait();
 
