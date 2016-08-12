@@ -66,7 +66,7 @@ public:
             int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
             threadsInTotal += threadsOnGpu;
         }
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 10);
+        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 20);
 
         SystemAppsService sysApp(&config_, "SystemAppsService");
         std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
