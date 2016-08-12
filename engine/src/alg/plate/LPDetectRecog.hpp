@@ -75,13 +75,10 @@ const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "
 
 
 #define LP_COLOUR_WHITE     0
-#define LP_COLOUR_SILVER    1
 #define LP_COLOUR_YELLOW    2
-#define LP_COLOUR_PINK      3
 #define LP_COLOUR_RED       4
 #define LP_COLOUR_GREEN	    5
 #define LP_COLOUR_BLUE	    6
-#define LP_COLOUR_BROWN	    7
 #define LP_COLOUR_BLACK	    8
 
 #define LP_TYPE_SINGLE 0
