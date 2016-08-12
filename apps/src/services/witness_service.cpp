@@ -124,7 +124,15 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         // sex judge
         if(i == 45) {
             NameAndConfidence* nac = attr->mutable_sex();
-            nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+            if (attrs[i].confidence < attrs[i].threshold_lower) {
+                nac->set_name("男");
+            }
+            else if (attrs[i].confidence > attrs[i].threshold_upper){
+                nac->set_name("女");
+            }
+            else {
+                nac->set_name("未知");
+            }
             nac->set_confidence(attrs[i].confidence);
         }
 
