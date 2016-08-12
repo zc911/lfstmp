@@ -76,17 +76,30 @@ public:
         Bind(server);
         cout << " Server(RESTFUL) listening on " << port << endl;
         string instanceType = (string) config_.Value("InstanceType");
-        server.start();
+        try {
+            server.start();
+        }
+        catch (...) {
+            std::lock_guard<std::mutex> lock(g_mutex);
+            g_exceptions.push_back(std::current_exception());
+            return;
+        }
     }
 
 
     virtual void Bind(HttpServer &server) = 0;
+
+    std::vector<std::exception_ptr> getExceptions() const {
+        return g_exceptions;
+    }
 
 protected:
 
     Config config_;
     string protocol_;
     string mime_type_;
+    std::mutex g_mutex;
+    std::vector<std::exception_ptr>  g_exceptions;
 
 
     // This function binds request operation to specific processor
