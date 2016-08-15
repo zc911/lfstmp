@@ -13,8 +13,8 @@ static VehicleMarkerClassifierProcessor *vmcprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    WindowCaffeDetector::WindowCaffeConfig wConfig;
-    MarkerCaffeClassifier::MarkerConfig mConfig;
+    VehicleCaffeDetectorConfig wConfig;
+    VehicleCaffeDetectorConfigmConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
