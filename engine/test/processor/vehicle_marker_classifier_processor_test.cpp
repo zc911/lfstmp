@@ -14,7 +14,7 @@ static FileReader *resultReader;
 
 static void initConfig() {
     VehicleCaffeDetectorConfig wConfig;
-    VehicleCaffeDetectorConfigmConfig;
+    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
