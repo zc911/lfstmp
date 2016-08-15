@@ -10,9 +10,6 @@
 #include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
-#include <stdio.h>
-#include <signal.h>
-#include <stdlib.h>
 
 
 using namespace std;
@@ -20,7 +17,9 @@ using namespace dg;
 #if DEBUG
 extern "C" void __gcov_flush();
 static void dump_coverage(int signal) {
-   __gcov_flush();
+    __gcov_flush();
+    cout << "Killed by user, bye" << endl;
+    exit(0);
 }
 #endif
 #define BOOST_SPIRIT_THREADSAFE
@@ -66,7 +65,7 @@ void serveWitness(Config *config, int userPort = 0) {
         std::thread grpc_witness_thread(&GrpcWitnessServiceImpl::Run, grpc_witness_service);
 
         string restful_addr = getServerAddress(config, (int) config->Value("System/Port") + 1);
-        RestWitnessServiceImpl *rest_witness_service = new RestWitnessServiceImpl(*config,restful_addr);
+        RestWitnessServiceImpl *rest_witness_service = new RestWitnessServiceImpl(*config, restful_addr);
         std::thread rest_witness_thread(&RestWitnessServiceImpl::Run, rest_witness_service);
 
         grpc_witness_thread.join();
