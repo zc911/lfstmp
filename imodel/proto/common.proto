@@ -139,6 +139,7 @@ message RecPedestrian {
     CutboardImage Img = 2;
     float Confidence = 3;
     PedestrianAttr PedesAttr = 4;
+    RecFace Face = 5;
 }
 
 message VehicleModelType {

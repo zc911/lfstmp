@@ -132,7 +132,7 @@ DEFINE_bool(encrypt, false, "Use the encrype data, only valid in DEBUG mode");
 
 
 int main(int argc, char *argv[]) {
-#if DEBUG
+#if false
     if (signal(SIGINT, dump_coverage) == SIG_ERR) {
         fputs("An error occurred while setting a signal handler.\n", stderr);
         return EXIT_FAILURE;
