@@ -23,7 +23,7 @@
 using namespace std;
 namespace dg {
 
-static int SHIFT_COLOR = 1000;
+const static unsigned int PARSE_IMAGE_TIMEOUT_DEFAULT = 60;
 WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     : config_(config),
       id_(0),
@@ -31,7 +31,9 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       name_(name) {
     enableStorage_ = (bool) config_->Value(STORAGE_ENABLED);
     storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
-    enable_cutboard_ = (bool) config_->Value("EnableCutboard");
+    enable_cutboard_ = (bool) config_->Value(ENABLE_CUTBOARD);
+    parse_image_timeout_ = (int) config_->Value(PARSE_IMAGE_TIMEOUT);
+    parse_image_timeout_ = parse_image_timeout_ == 0 ? PARSE_IMAGE_TIMEOUT_DEFAULT : parse_image_timeout_;
 
     RepoService::GetInstance().Init(*config);
 }
@@ -304,7 +306,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    // engine_.Process(&framebatch);
+    //engine_.Process(&framebatch);
     MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
 
     EngineData data;
@@ -370,7 +372,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         }
 
         int dbType = KAFKA;
-   
+
         const WitnessResult &r = response->result();
         if (r.vehicles_size() != 0) {
             shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
@@ -466,7 +468,12 @@ MatrixError WitnessAppsService::BatchRecognize(
         itr++;
     }
 
-    ImageService::ParseImage(imgDesc, roiimages, 10, true);
+    err = ImageService::ParseImage(imgDesc, roiimages, parse_image_timeout_, true);
+
+    if (err.code() == -1) {
+        cout << "Read data error" << endl;
+        return err;
+    }
 
     for (int i = 0; i < roiimages.size(); ++i) {
         ROIImages image = roiimages[i];
@@ -561,7 +568,7 @@ MatrixError WitnessAppsService::BatchRecognize(
             storageAddress = storage_address_;
         }
         int dbTypeInt = KAFKA;
-           
+
         for (int k = 0; k < batchResponse->results_size(); k++) {
             const WitnessResult &r = batchResponse->results(k);
             if (r.vehicles_size() != 0) {
