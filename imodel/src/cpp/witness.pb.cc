@@ -388,12 +388,11 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
   WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
   WitnessResult_descriptor_ = file->message_type(15);
-  static const int WitnessResult_offsets_[6] = {
+  static const int WitnessResult_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, image_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, vehicles_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, faces_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, pedestrian_),
   };
   WitnessResult_reflection_ =
@@ -597,28 +596,27 @@ void protobuf_AddDesc_witness_2eproto() {
     "ime\022>\n\007DebugTs\030\006 \003(\0132-.dg.model.WitnessR"
     "esponseContext.DebugTsEntry\032>\n\014DebugTsEn"
     "try\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.mod"
-    "el.Time:\0028\001\"\330\001\n\rWitnessResult\022\023\n\013InnerSt"
+    "el.Time:\0028\001\"\266\001\n\rWitnessResult\022\023\n\013InnerSt"
     "atus\030\001 \001(\t\022\024\n\014InnerMessage\030\002 \001(\t\022%\n\005Imag"
     "e\030\003 \001(\0132\026.dg.model.WitnessImage\022&\n\010Vehic"
-    "les\030\004 \003(\0132\024.dg.model.RecVehicle\022 \n\005Faces"
-    "\030\005 \003(\0132\021.dg.model.RecFace\022+\n\nPedestrian\030"
-    "\006 \003(\0132\027.dg.model.RecPedestrian\"j\n\021Witnes"
-    "sVehicleObj\022+\n\rVehicleResult\030\001 \001(\0132\024.dg."
-    "model.VehicleObj\022(\n\007Storage\030\002 \001(\0132\027.dg.m"
-    "odel.StorageConfig*\313\001\n\tIndexType\022\021\n\rINDE"
-    "X_DEFAULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001\022\022\n\016INDE"
-    "X_CAR_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020\003\022\024\n\020IND"
-    "EX_CAR_MARKER\020\004\022\030\n\024INDEX_CAR_PLATE_TYPE\020"
-    "\005\022\031\n\025INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036INDEX_CA"
-    "R_PEDESTRIAN_ATTR_TYPE\020\0072\256\002\n\016WitnessServ"
-    "ice\022B\n\tRecognize\022\030.dg.model.WitnessReque"
-    "st\032\031.dg.model.WitnessResponse\"\000\022Q\n\016Batch"
-    "Recognize\022\035.dg.model.WitnessBatchRequest"
-    "\032\036.dg.model.WitnessBatchResponse\"\000\022=\n\010Ge"
-    "tIndex\022\026.dg.model.IndexRequest\032\027.dg.mode"
-    "l.IndexResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.mo"
-    "del.IndexTxtRequest\032\032.dg.model.IndexTxtR"
-    "esponse\"\000b\006proto3", 2857);
+    "les\030\004 \003(\0132\024.dg.model.RecVehicle\022+\n\nPedes"
+    "trian\030\005 \003(\0132\027.dg.model.RecPedestrian\"j\n\021"
+    "WitnessVehicleObj\022+\n\rVehicleResult\030\001 \001(\013"
+    "2\024.dg.model.VehicleObj\022(\n\007Storage\030\002 \001(\0132"
+    "\027.dg.model.StorageConfig*\313\001\n\tIndexType\022\021"
+    "\n\rINDEX_DEFAULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001\022\022"
+    "\n\016INDEX_CAR_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020\003\022"
+    "\024\n\020INDEX_CAR_MARKER\020\004\022\030\n\024INDEX_CAR_PLATE"
+    "_TYPE\020\005\022\031\n\025INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036IN"
+    "DEX_CAR_PEDESTRIAN_ATTR_TYPE\020\0072\256\002\n\016Witne"
+    "ssService\022B\n\tRecognize\022\030.dg.model.Witnes"
+    "sRequest\032\031.dg.model.WitnessResponse\"\000\022Q\n"
+    "\016BatchRecognize\022\035.dg.model.WitnessBatchR"
+    "equest\032\036.dg.model.WitnessBatchResponse\"\000"
+    "\022=\n\010GetIndex\022\026.dg.model.IndexRequest\032\027.d"
+    "g.model.IndexResponse\"\000\022F\n\013GetIndexTxt\022\031"
+    ".dg.model.IndexTxtRequest\032\032.dg.model.Ind"
+    "exTxtResponse\"\000b\006proto3", 2823);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -7385,7 +7383,6 @@ const int WitnessResult::kInnerStatusFieldNumber;
 const int WitnessResult::kInnerMessageFieldNumber;
 const int WitnessResult::kImageFieldNumber;
 const int WitnessResult::kVehiclesFieldNumber;
-const int WitnessResult::kFacesFieldNumber;
 const int WitnessResult::kPedestrianFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -7461,7 +7458,6 @@ void WitnessResult::Clear() {
   if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
   image_ = NULL;
   vehicles_.Clear();
-  faces_.Clear();
   pedestrian_.Clear();
 }
 
@@ -7533,30 +7529,14 @@ bool WitnessResult::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(34)) goto parse_loop_Vehicles;
-        if (input->ExpectTag(42)) goto parse_loop_Faces;
+        if (input->ExpectTag(42)) goto parse_loop_Pedestrian;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
-      // repeated .dg.model.RecFace Faces = 5;
+      // repeated .dg.model.RecPedestrian Pedestrian = 5;
       case 5: {
         if (tag == 42) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Faces:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_faces()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(42)) goto parse_loop_Faces;
-        if (input->ExpectTag(50)) goto parse_loop_Pedestrian;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .dg.model.RecPedestrian Pedestrian = 6;
-      case 6: {
-        if (tag == 50) {
           DO_(input->IncrementRecursionDepth());
          parse_loop_Pedestrian:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -7564,7 +7544,7 @@ bool WitnessResult::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_loop_Pedestrian;
+        if (input->ExpectTag(42)) goto parse_loop_Pedestrian;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -7626,16 +7606,10 @@ void WitnessResult::SerializeWithCachedSizes(
       4, this->vehicles(i), output);
   }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->faces(i), output);
-  }
-
-  // repeated .dg.model.RecPedestrian Pedestrian = 6;
+  // repeated .dg.model.RecPedestrian Pedestrian = 5;
   for (unsigned int i = 0, n = this->pedestrian_size(); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->pedestrian(i), output);
+      5, this->pedestrian(i), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.WitnessResult)
@@ -7680,18 +7654,11 @@ void WitnessResult::SerializeWithCachedSizes(
         4, this->vehicles(i), target);
   }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  for (unsigned int i = 0, n = this->faces_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, this->faces(i), target);
-  }
-
-  // repeated .dg.model.RecPedestrian Pedestrian = 6;
+  // repeated .dg.model.RecPedestrian Pedestrian = 5;
   for (unsigned int i = 0, n = this->pedestrian_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        6, this->pedestrian(i), target);
+        5, this->pedestrian(i), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResult)
@@ -7730,15 +7697,7 @@ int WitnessResult::ByteSize() const {
         this->vehicles(i));
   }
 
-  // repeated .dg.model.RecFace Faces = 5;
-  total_size += 1 * this->faces_size();
-  for (int i = 0; i < this->faces_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->faces(i));
-  }
-
-  // repeated .dg.model.RecPedestrian Pedestrian = 6;
+  // repeated .dg.model.RecPedestrian Pedestrian = 5;
   total_size += 1 * this->pedestrian_size();
   for (int i = 0; i < this->pedestrian_size(); i++) {
     total_size +=
@@ -7767,7 +7726,6 @@ void WitnessResult::MergeFrom(const ::google::protobuf::Message& from) {
 void WitnessResult::MergeFrom(const WitnessResult& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   vehicles_.MergeFrom(from.vehicles_);
-  faces_.MergeFrom(from.faces_);
   pedestrian_.MergeFrom(from.pedestrian_);
   if (from.innerstatus().size() > 0) {
 
@@ -7808,7 +7766,6 @@ void WitnessResult::InternalSwap(WitnessResult* other) {
   innermessage_.Swap(&other->innermessage_);
   std::swap(image_, other->image_);
   vehicles_.UnsafeArenaSwap(&other->vehicles_);
-  faces_.UnsafeArenaSwap(&other->faces_);
   pedestrian_.UnsafeArenaSwap(&other->pedestrian_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -7978,37 +7935,7 @@ WitnessResult::vehicles() const {
   return vehicles_;
 }
 
-// repeated .dg.model.RecFace Faces = 5;
-int WitnessResult::faces_size() const {
-  return faces_.size();
-}
-void WitnessResult::clear_faces() {
-  faces_.Clear();
-}
-const ::dg::model::RecFace& WitnessResult::faces(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Faces)
-  return faces_.Get(index);
-}
-::dg::model::RecFace* WitnessResult::mutable_faces(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Faces)
-  return faces_.Mutable(index);
-}
-::dg::model::RecFace* WitnessResult::add_faces() {
-  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Faces)
-  return faces_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >*
-WitnessResult::mutable_faces() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Faces)
-  return &faces_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >&
-WitnessResult::faces() const {
-  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Faces)
-  return faces_;
-}
-
-// repeated .dg.model.RecPedestrian Pedestrian = 6;
+// repeated .dg.model.RecPedestrian Pedestrian = 5;
 int WitnessResult::pedestrian_size() const {
   return pedestrian_.size();
 }

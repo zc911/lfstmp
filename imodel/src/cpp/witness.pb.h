@@ -1918,22 +1918,10 @@ class WitnessResult : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle >&
       vehicles() const;
 
-  // repeated .dg.model.RecFace Faces = 5;
-  int faces_size() const;
-  void clear_faces();
-  static const int kFacesFieldNumber = 5;
-  const ::dg::model::RecFace& faces(int index) const;
-  ::dg::model::RecFace* mutable_faces(int index);
-  ::dg::model::RecFace* add_faces();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >*
-      mutable_faces();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >&
-      faces() const;
-
-  // repeated .dg.model.RecPedestrian Pedestrian = 6;
+  // repeated .dg.model.RecPedestrian Pedestrian = 5;
   int pedestrian_size() const;
   void clear_pedestrian();
-  static const int kPedestrianFieldNumber = 6;
+  static const int kPedestrianFieldNumber = 5;
   const ::dg::model::RecPedestrian& pedestrian(int index) const;
   ::dg::model::RecPedestrian* mutable_pedestrian(int index);
   ::dg::model::RecPedestrian* add_pedestrian();
@@ -1951,7 +1939,6 @@ class WitnessResult : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr innermessage_;
   ::dg::model::WitnessImage* image_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle > vehicles_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace > faces_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian > pedestrian_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
@@ -3720,37 +3707,7 @@ WitnessResult::vehicles() const {
   return vehicles_;
 }
 
-// repeated .dg.model.RecFace Faces = 5;
-inline int WitnessResult::faces_size() const {
-  return faces_.size();
-}
-inline void WitnessResult::clear_faces() {
-  faces_.Clear();
-}
-inline const ::dg::model::RecFace& WitnessResult::faces(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.Faces)
-  return faces_.Get(index);
-}
-inline ::dg::model::RecFace* WitnessResult::mutable_faces(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.Faces)
-  return faces_.Mutable(index);
-}
-inline ::dg::model::RecFace* WitnessResult::add_faces() {
-  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.Faces)
-  return faces_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >*
-WitnessResult::mutable_faces() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.Faces)
-  return &faces_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecFace >&
-WitnessResult::faces() const {
-  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Faces)
-  return faces_;
-}
-
-// repeated .dg.model.RecPedestrian Pedestrian = 6;
+// repeated .dg.model.RecPedestrian Pedestrian = 5;
 inline int WitnessResult::pedestrian_size() const {
   return pedestrian_.size();
 }

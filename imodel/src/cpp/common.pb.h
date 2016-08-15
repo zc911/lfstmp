@@ -1568,6 +1568,15 @@ class RecPedestrian : public ::google::protobuf::Message {
   ::dg::model::PedestrianAttr* release_pedesattr();
   void set_allocated_pedesattr(::dg::model::PedestrianAttr* pedesattr);
 
+  // optional .dg.model.RecFace Face = 5;
+  bool has_face() const;
+  void clear_face();
+  static const int kFaceFieldNumber = 5;
+  const ::dg::model::RecFace& face() const;
+  ::dg::model::RecFace* mutable_face();
+  ::dg::model::RecFace* release_face();
+  void set_allocated_face(::dg::model::RecFace* face);
+
   // @@protoc_insertion_point(class_scope:dg.model.RecPedestrian)
  private:
 
@@ -1576,6 +1585,7 @@ class RecPedestrian : public ::google::protobuf::Message {
   ::google::protobuf::int64 id_;
   ::dg::model::CutboardImage* img_;
   ::dg::model::PedestrianAttr* pedesattr_;
+  ::dg::model::RecFace* face_;
   float confidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
@@ -3875,6 +3885,43 @@ inline void RecPedestrian::set_allocated_pedesattr(::dg::model::PedestrianAttr* 
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.PedesAttr)
+}
+
+// optional .dg.model.RecFace Face = 5;
+inline bool RecPedestrian::has_face() const {
+  return !_is_default_instance_ && face_ != NULL;
+}
+inline void RecPedestrian::clear_face() {
+  if (GetArenaNoVirtual() == NULL && face_ != NULL) delete face_;
+  face_ = NULL;
+}
+inline const ::dg::model::RecFace& RecPedestrian::face() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecPedestrian.Face)
+  return face_ != NULL ? *face_ : *default_instance_->face_;
+}
+inline ::dg::model::RecFace* RecPedestrian::mutable_face() {
+  
+  if (face_ == NULL) {
+    face_ = new ::dg::model::RecFace;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecPedestrian.Face)
+  return face_;
+}
+inline ::dg::model::RecFace* RecPedestrian::release_face() {
+  
+  ::dg::model::RecFace* temp = face_;
+  face_ = NULL;
+  return temp;
+}
+inline void RecPedestrian::set_allocated_face(::dg::model::RecFace* face) {
+  delete face_;
+  face_ = face;
+  if (face) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecPedestrian.Face)
 }
 
 // -------------------------------------------------------------------

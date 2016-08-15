@@ -233,20 +233,83 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
-                                                  RecFace *frec) {
+MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
+                                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian) {
     MatrixError err;
-    frec->set_confidence((float) fobj->confidence());
-    frec->set_features(fobj->feature().Serialize());
+    recPedestrian->mutable_data();
+    for (int i = 0; i < faceVector.size(); ++i) {
+        const Face * fobj = faceVector[i];
+        struct result {
+            RecPedestrian* recP;
+            double coincidence;
+            double distance;
+        };
+        auto findCandidate = [=](RecPedestrian *recP) {
+            result info;
+            info.recP = recP;
 
-    const Detection &d = fobj->detection();
-    RepoService::CopyCutboard(d, frec->mutable_img()->mutable_cutboard());
+            int faceX = fobj->detection().box.x;
+            int faceY = fobj->detection().box.y;
+            int faceWidth = fobj->detection().box.width;
+            int faceHeight = fobj->detection().box.height;
+
+            int pX = recP->img().cutboard().x();
+            int pY = recP->img().cutboard().y();
+            int pWidth = recP->img().cutboard().width();
+            int pHeight = recP->img().cutboard().height();
+            int totalArea = faceWidth * faceHeight, coinArea = 0;
+
+            if (faceX >= pX && faceY >= pY && faceX <= pX + pWidth && faceY <= pY + pHeight) {
+                coinArea = min(pX + pWidth - faceX, faceWidth) * min(pY + pHeight - faceY, faceHeight);
+            } else if (faceX < pX && faceY < pY && faceX + faceWidth > pX && faceY + faceHeight > pY) {
+                coinArea = min(faceX + faceWidth - pX, pWidth) * min(faceY + faceHeight - pY, pHeight);
+            } else if (faceX < pX && faceY > pY && faceY <= pY + pHeight && faceX + faceWidth > pX) {
+                coinArea = min(faceX + faceWidth - pX, pWidth) * min(faceHeight, pY + pHeight - faceY);
+            } else if (faceX > pX && faceX <= pX + pWidth && faceY < pY && faceY + faceHeight > pY) {
+                coinArea = min(faceWidth, pX + pWidth - faceX) * min(faceY + faceHeight - pY, faceWidth);
+            }
+            info.coincidence = (double)coinArea * 100.0 / totalArea;
+            info.distance = abs(faceX - pX) + abs(faceY - pY);
+
+            return info;
+        };
+        vector<result> candidates;
+        for (int j = 0; j < recPedestrian->size(); ++j) {
+            if (!recPedestrian->Mutable(j)->has_face()) {
+                candidates.push_back(findCandidate(recPedestrian->Mutable(j)));
+            }
+        }
+        RecPedestrian* MatchedPedestrian = NULL;
+        if (candidates.empty()) {
+            MatchedPedestrian = recPedestrian->Add();
+        } else {
+            result MatchedResult = candidates[0];
+            for (int j = 1; j < candidates.size(); ++j) {
+                if (candidates[j].coincidence > MatchedResult.coincidence) {
+                    MatchedResult = candidates[j];
+                } else if (abs(candidates[j].coincidence - MatchedResult.coincidence) < 0.1) {
+                    if (candidates[j].distance < MatchedResult.distance) {
+                        MatchedResult = candidates[j];
+                    }
+                }
+            }
+            MatchedPedestrian = MatchedResult.recP;
+        }
+        RecFace* face = MatchedPedestrian->mutable_face();
+        face->set_id(fobj->id());
+        face->set_confidence((float) fobj->confidence());
+        face->set_features(fobj->feature().Serialize());
+        const Detection &d = fobj->detection();
+        RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
+    }
+
     return err;
 }
 
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                                                    WitnessResult *result) {
     MatrixError err;
+    vector<const Face *> FacesVector;
 
     for (const Object *object : frame->objects()) {
         DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
@@ -261,7 +324,7 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                 err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());
                 break;
             case OBJECT_FACE:
-                err = getRecognizedFace((Face *) object, result->add_faces());
+                FacesVector.push_back((Face *) object);
                 break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
@@ -272,6 +335,8 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             break;
         }
     }
+
+    err =  getRecognizedFace(FacesVector, result->mutable_pedestrian());
 
     return err;
 }
