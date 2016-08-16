@@ -145,7 +145,7 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
 
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
             / 1000.f;
-            LOG(INFO)<<"window detect batch "<<diff;
+            DLOG(INFO)<<"window detect batch "<<diff;
 }
 
 std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
@@ -200,7 +200,7 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
 
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
             / 1000.f;
-            LOG(INFO)<<"window predict batch "<<diff;
+            DLOG(INFO)<<"window predict batch "<<diff;
     return outputs;
 }
 

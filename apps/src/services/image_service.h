@@ -38,8 +38,8 @@ class ImageService {
 
  private:
     static MatrixError getImageFromUri(const std::string uri, ::cv::Mat &imgMat,
-                                       unsigned int timeout = 10);
-    static MatrixError getImageFromData(const std::string img64,
+                                       unsigned int timeout = 60);
+    static MatrixError getImageFromData(const std::string &img64,
                                         ::cv::Mat &imgMat);
     static MatrixError getRelativeROIs(
             ::google::protobuf::RepeatedPtrField<::dg::model::WitnessRelativeROI>,
