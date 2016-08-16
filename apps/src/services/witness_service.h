@@ -21,14 +21,16 @@
 #include "engine_service.h"
 #include "witness_bucket.h"
 #include "repo_service.h"
-//
+
+
 namespace dg {
+
 using namespace ::dg::model;
 
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService( Config *config, string name, int baseId = 0);
+    WitnessAppsService(Config *config, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -64,6 +66,8 @@ private:
     bool enableStorage_;
     string storage_address_;
     bool enable_cutboard_;
+    unsigned int parse_image_timeout_;
+
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);

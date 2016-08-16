@@ -44,6 +44,8 @@ static const string STORAGE_ADDRESS = "Storage/Address";
 static const string STORAGE_ENABLED = "Storage/Enabled";
 static const string STORAGE_DB_TYPE = "Storage/DBType";
 static const string IS_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
+static const string ENABLE_CUTBOARD = "Debug/EnableCutboard";
+static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
 
 }
 

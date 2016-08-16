@@ -26,6 +26,7 @@ public:
 private:
     void init(const Config &config);
     void initFeatureOptions(const Config &config);
+    void initGpuMemory(FrameBatch &batch);
 
     void recordPerformance();
     Processor *vehicle_processor_;
