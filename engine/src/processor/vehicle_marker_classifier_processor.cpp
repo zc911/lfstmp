@@ -93,6 +93,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
             }
             v->set_markers(markers_cutborad);
+            cnt++;
 
         }
 
