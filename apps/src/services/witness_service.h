@@ -21,8 +21,7 @@
 #include "engine_service.h"
 #include "witness_bucket.h"
 #include "repo_service.h"
-
-
+#include "utils.h"
 namespace dg {
 
 using namespace ::dg::model;
@@ -63,11 +62,14 @@ private:
     std::mutex rec_lock_;
 
     void init(void);
-    bool enableStorage_;
-    string storage_address_;
-    bool enable_cutboard_;
-    unsigned int parse_image_timeout_;
 
+    unsigned int parse_image_timeout_;
+    bool enable_storage_;
+    bool enable_fullimage_storage_;
+    string fullimage_storage_address_;
+    ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
+    bool enable_cutboard_;
+    ThreadPool *pool_;
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);

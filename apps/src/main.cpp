@@ -14,14 +14,7 @@
 
 using namespace std;
 using namespace dg;
-#if DEBUG
-extern "C" void __gcov_flush();
-static void dump_coverage(int signal) {
-    __gcov_flush();
-    cout << "Killed by user, bye" << endl;
-    exit(0);
-}
-#endif
+
 #define BOOST_SPIRIT_THREADSAFE
 
 string getServerAddress(Config *config, int userPort = 0) {
@@ -131,12 +124,7 @@ DEFINE_bool(encrypt, false, "Use the encrype data, only valid in DEBUG mode");
 
 
 int main(int argc, char *argv[]) {
-#if DEBUG
-    if (signal(SIGINT, dump_coverage) == SIG_ERR) {
-        fputs("An error occurred while setting a signal handler.\n", stderr);
-        return EXIT_FAILURE;
-    }
-#endif
+
     google::InitGoogleLogging(argv[0]);
 
     google::SetUsageMessage(
