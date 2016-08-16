@@ -43,6 +43,7 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
 
     // load attrib names
     LoadTagnames(pconf.tag_name_path);
+    LoadThresholdFile(pconf.threshold_file_path);
 
     //calculate crop rectangle coordinates
     int offset_h = height_ - crop_height_;
@@ -72,6 +73,19 @@ void PedestrianClassifier::LoadTagnames(const string &name_list) {
         tag.threshold_lower = atof(threshold_lower.c_str());
         tag.threshold_upper = atof(threshold_upper.c_str());
         tagtable_.push_back(tag);
+    }
+}
+
+void PedestrianClassifier::LoadThresholdFile(const string &name_list) {
+    ifstream fp(name_list);
+    attribute_threshold_.clear();
+    while (!fp.eof()) {
+        string tagname = "", threshold = "";
+        fp >> tagname;
+        fp >> threshold;
+        if (tagname == "" || threshold == "")
+            continue;
+        attribute_threshold_[tagname] = atof(threshold.c_str());
     }
 }
 

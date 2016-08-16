@@ -49,6 +49,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* NameAndConfidence_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   NameAndConfidence_reflection_ = NULL;
+const ::google::protobuf::Descriptor* HalfOfBodyFeature_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  HalfOfBodyFeature_reflection_ = NULL;
 const ::google::protobuf::Descriptor* PedestrianAttr_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PedestrianAttr_reflection_ = NULL;
@@ -250,17 +253,32 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(NameAndConfidence),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _is_default_instance_));
-  PedestrianAttr_descriptor_ = file->message_type(9);
-  static const int PedestrianAttr_offsets_[9] = {
+  HalfOfBodyFeature_descriptor_ = file->message_type(9);
+  static const int HalfOfBodyFeature_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HalfOfBodyFeature, color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HalfOfBodyFeature, stripes_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HalfOfBodyFeature, catagory_),
+  };
+  HalfOfBodyFeature_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      HalfOfBodyFeature_descriptor_,
+      HalfOfBodyFeature::default_instance_,
+      HalfOfBodyFeature_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(HalfOfBodyFeature),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HalfOfBodyFeature, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(HalfOfBodyFeature, _is_default_instance_));
+  PedestrianAttr_descriptor_ = file->message_type(10);
+  static const int PedestrianAttr_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, sex_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, age_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, national_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, headwears_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, bodywears_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, upperwears_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, lowerwears_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, uppercolors_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, lowercolors_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, upperfeatures_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, lowerfeatures_),
   };
   PedestrianAttr_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -273,7 +291,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(PedestrianAttr),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianAttr, _is_default_instance_));
-  RecVehicle_descriptor_ = file->message_type(10);
+  RecVehicle_descriptor_ = file->message_type(11);
   static const int RecVehicle_offsets_[10] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, modeltype_),
@@ -297,7 +315,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _is_default_instance_));
-  RecPedestrian_descriptor_ = file->message_type(11);
+  RecPedestrian_descriptor_ = file->message_type(12);
   static const int RecPedestrian_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, img_),
@@ -316,7 +334,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecPedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _is_default_instance_));
-  VehicleModelType_descriptor_ = file->message_type(12);
+  VehicleModelType_descriptor_ = file->message_type(13);
   static const int VehicleModelType_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, brandid_),
@@ -342,7 +360,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleModelType),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(13);
+  LicensePlate_descriptor_ = file->message_type(14);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
@@ -363,7 +381,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  VehicleSymbol_descriptor_ = file->message_type(14);
+  VehicleSymbol_descriptor_ = file->message_type(15);
   static const int VehicleSymbol_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolname_),
@@ -380,7 +398,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleSymbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(15);
+  Symbol_descriptor_ = file->message_type(16);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -396,7 +414,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  StorageConfig_descriptor_ = file->message_type(16);
+  StorageConfig_descriptor_ = file->message_type(17);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
@@ -413,7 +431,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
-  VehicleObj_descriptor_ = file->message_type(17);
+  VehicleObj_descriptor_ = file->message_type(18);
   static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
@@ -467,6 +485,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       NameAndConfidence_descriptor_, &NameAndConfidence::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      HalfOfBodyFeature_descriptor_, &HalfOfBodyFeature::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       PedestrianAttr_descriptor_, &PedestrianAttr::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecVehicle_descriptor_, &RecVehicle::default_instance());
@@ -507,6 +527,8 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete RecFace_reflection_;
   delete NameAndConfidence::default_instance_;
   delete NameAndConfidence_reflection_;
+  delete HalfOfBodyFeature::default_instance_;
+  delete HalfOfBodyFeature_reflection_;
   delete PedestrianAttr::default_instance_;
   delete PedestrianAttr_reflection_;
   delete RecVehicle::default_instance_;
@@ -552,71 +574,73 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardI"
     "mage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001"
     "(\002\"5\n\021NameAndConfidence\022\014\n\004Name\030\001 \001(\t\022\022\n"
-    "\nConfidence\030\002 \001(\002\"\271\003\n\016PedestrianAttr\022(\n\003"
-    "Sex\030\001 \001(\0132\033.dg.model.NameAndConfidence\022("
-    "\n\003Age\030\002 \001(\0132\033.dg.model.NameAndConfidence"
-    "\022-\n\010National\030\003 \001(\0132\033.dg.model.NameAndCon"
-    "fidence\022.\n\tHeadWears\030\004 \003(\0132\033.dg.model.Na"
-    "meAndConfidence\022.\n\tBodyWears\030\005 \003(\0132\033.dg."
-    "model.NameAndConfidence\022/\n\nUpperWears\030\006 "
-    "\003(\0132\033.dg.model.NameAndConfidence\022/\n\nLowe"
-    "rWears\030\007 \003(\0132\033.dg.model.NameAndConfidenc"
-    "e\0220\n\013UpperColors\030\010 \003(\0132\033.dg.model.NameAn"
-    "dConfidence\0220\n\013LowerColors\030\t \003(\0132\033.dg.mo"
-    "del.NameAndConfidence\"\331\002\n\nRecVehicle\022\n\n\002"
-    "Id\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.dg.model.V"
-    "ehicleModelType\022\036\n\005Color\030\003 \001(\0132\017.dg.mode"
-    "l.Color\022%\n\005Plate\030\004 \001(\0132\026.dg.model.Licens"
-    "ePlate\022$\n\003Img\030\005 \001(\0132\027.dg.model.CutboardI"
-    "mage\022(\n\007Symbols\030\006 \003(\0132\027.dg.model.Vehicle"
-    "Symbol\022\020\n\010Features\030\007 \001(\t\022&\n\013VehicleType\030"
-    "\010 \001(\0162\021.dg.model.ObjType\022\027\n\017VehicleTypeN"
-    "ame\030\t \001(\t\022&\n\006Plates\030\n \003(\0132\026.dg.model.Lic"
-    "ensePlate\"\243\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022"
-    "$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n"
-    "\nConfidence\030\003 \001(\002\022+\n\tPedesAttr\030\004 \001(\0132\030.d"
-    "g.model.PedestrianAttr\022\037\n\004Face\030\005 \001(\0132\021.d"
-    "g.model.RecFace\"\335\001\n\020VehicleModelType\022\n\n\002"
-    "Id\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030"
-    "\003 \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence"
-    "\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010S"
-    "ubBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006Type"
-    "Id\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\""
-    "\276\001\n\014LicensePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005C"
-    "olor\030\002 \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 "
-    "\001(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001("
-    "\002\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.Cutboard\022"
-    "\037\n\027LocalProvinceConfidence\030\007 \001(\002\"X\n\rVehi"
-    "cleSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolNam"
-    "e\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symb"
-    "ol\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.mode"
-    "l.Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorag"
-    "eConfig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020"
-    ".dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicl"
-    "eObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMet"
-    "adata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022%\n\007V"
-    "ehicle\030\003 \003(\0132\024.dg.model.RecVehicle*\303\003\n\007O"
-    "bjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE"
-    "_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE"
-    "_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\r"
-    "OBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VEC"
-    "TOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030"
-    "OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_"
-    "PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VE"
-    "CTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBOARD\020\200 \022"
-    "\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022\037\n\032OBJ_T"
-    "YPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_TYPE_PED"
-    "ESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_FACE_CUT"
-    "BOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022"
-    "\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020"
-    "\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN\020\000\022\021\n\rSE"
-    "X_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020\002*\\\n\014Na"
-    "tionalType\022\031\n\025NATIONAL_TYPE_UNKNOWN\020\000\022\025\n"
-    "\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL_TYPE_MI"
-    "NORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_UNKNOWN\020"
-    "\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_1530\020\002\022"
-    "\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_50UP\020\004*\023\n"
-    "\006DBType\022\t\n\005KAFKA\020\000b\006proto3", 3306);
+    "\nConfidence\030\002 \001(\002\"\234\001\n\021HalfOfBodyFeature\022"
+    "*\n\005Color\030\001 \003(\0132\033.dg.model.NameAndConfide"
+    "nce\022,\n\007Stripes\030\002 \001(\0132\033.dg.model.NameAndC"
+    "onfidence\022-\n\010Catagory\030\003 \001(\0132\033.dg.model.N"
+    "ameAndConfidence\"\333\002\n\016PedestrianAttr\022(\n\003S"
+    "ex\030\001 \001(\0132\033.dg.model.NameAndConfidence\022(\n"
+    "\003Age\030\002 \001(\0132\033.dg.model.NameAndConfidence\022"
+    "-\n\010National\030\003 \001(\0132\033.dg.model.NameAndConf"
+    "idence\022.\n\tHeadWears\030\004 \003(\0132\033.dg.model.Nam"
+    "eAndConfidence\022.\n\tBodyWears\030\005 \003(\0132\033.dg.m"
+    "odel.NameAndConfidence\0222\n\rUpperFeatures\030"
+    "\006 \001(\0132\033.dg.model.HalfOfBodyFeature\0222\n\rLo"
+    "werFeatures\030\007 \001(\0132\033.dg.model.HalfOfBodyF"
+    "eature\"\331\002\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tMod"
+    "elType\030\002 \001(\0132\032.dg.model.VehicleModelType"
+    "\022\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Plat"
+    "e\030\004 \001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030\005"
+    " \001(\0132\027.dg.model.CutboardImage\022(\n\007Symbols"
+    "\030\006 \003(\0132\027.dg.model.VehicleSymbol\022\020\n\010Featu"
+    "res\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.mode"
+    "l.ObjType\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Pl"
+    "ates\030\n \003(\0132\026.dg.model.LicensePlate\"\243\001\n\rR"
+    "ecPedestrian\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027."
+    "dg.model.CutboardImage\022\022\n\nConfidence\030\003 \001"
+    "(\002\022+\n\tPedesAttr\030\004 \001(\0132\030.dg.model.Pedestr"
+    "ianAttr\022\037\n\004Face\030\005 \001(\0132\021.dg.model.RecFace"
+    "\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007Bra"
+    "ndId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelY"
+    "earId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030"
+    "\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021"
+    "\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Mod"
+    "el\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlat"
+    "e\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg"
+    ".model.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName"
+    "\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006"
+    " \001(\0132\022.dg.model.Cutboard\022\037\n\027LocalProvinc"
+    "eConfidence\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010Sy"
+    "mbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symb"
+    "ols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n"
+    "\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nC"
+    "onfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Addr"
+    "ess\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBTyp"
+    "e\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadat"
+    "a\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 "
+    "\001(\0132\017.dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024."
+    "dg.model.RecVehicle*\303\003\n\007ObjType\022\024\n\020OBJ_T"
+    "YPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_T"
+    "YPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023"
+    "OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200"
+    "\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_T"
+    "YPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYC"
+    "LE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECT"
+    "OR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_"
+    "TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BIC"
+    "YCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CU"
+    "TBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_CUTBOAR"
+    "D\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200(*G\n\013Dat"
+    "aFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PR"
+    "OTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n"
+    "\020SEX_TYPE_UNKNOWN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023"
+    "\n\017SEX_TYPE_FEMALE\020\002*\\\n\014NationalType\022\031\n\025N"
+    "ATIONAL_TYPE_UNKNOWN\020\000\022\025\n\021NATIONAL_TYPE_"
+    "HAN\020\001\022\032\n\026NATIONAL_TYPE_MINORITY\020\002*k\n\007Age"
+    "Type\022\024\n\020AGE_TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_L"
+    "T15\020\001\022\021\n\rAGE_TYPE_1530\020\002\022\021\n\rAGE_TYPE_305"
+    "0\020\003\022\021\n\rAGE_TYPE_50UP\020\004*\023\n\006DBType\022\t\n\005KAFK"
+    "A\020\000b\006proto3", 3371);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -628,6 +652,7 @@ void protobuf_AddDesc_common_2eproto() {
   Image::default_instance_ = new Image();
   RecFace::default_instance_ = new RecFace();
   NameAndConfidence::default_instance_ = new NameAndConfidence();
+  HalfOfBodyFeature::default_instance_ = new HalfOfBodyFeature();
   PedestrianAttr::default_instance_ = new PedestrianAttr();
   RecVehicle::default_instance_ = new RecVehicle();
   RecPedestrian::default_instance_ = new RecPedestrian();
@@ -646,6 +671,7 @@ void protobuf_AddDesc_common_2eproto() {
   Image::default_instance_->InitAsDefaultInstance();
   RecFace::default_instance_->InitAsDefaultInstance();
   NameAndConfidence::default_instance_->InitAsDefaultInstance();
+  HalfOfBodyFeature::default_instance_->InitAsDefaultInstance();
   PedestrianAttr::default_instance_->InitAsDefaultInstance();
   RecVehicle::default_instance_->InitAsDefaultInstance();
   RecPedestrian::default_instance_->InitAsDefaultInstance();
@@ -4589,15 +4615,418 @@ void NameAndConfidence::clear_confidence() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int HalfOfBodyFeature::kColorFieldNumber;
+const int HalfOfBodyFeature::kStripesFieldNumber;
+const int HalfOfBodyFeature::kCatagoryFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+HalfOfBodyFeature::HalfOfBodyFeature()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.HalfOfBodyFeature)
+}
+
+void HalfOfBodyFeature::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  stripes_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+  catagory_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+}
+
+HalfOfBodyFeature::HalfOfBodyFeature(const HalfOfBodyFeature& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.HalfOfBodyFeature)
+}
+
+void HalfOfBodyFeature::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  stripes_ = NULL;
+  catagory_ = NULL;
+}
+
+HalfOfBodyFeature::~HalfOfBodyFeature() {
+  // @@protoc_insertion_point(destructor:dg.model.HalfOfBodyFeature)
+  SharedDtor();
+}
+
+void HalfOfBodyFeature::SharedDtor() {
+  if (this != default_instance_) {
+    delete stripes_;
+    delete catagory_;
+  }
+}
+
+void HalfOfBodyFeature::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* HalfOfBodyFeature::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return HalfOfBodyFeature_descriptor_;
+}
+
+const HalfOfBodyFeature& HalfOfBodyFeature::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+HalfOfBodyFeature* HalfOfBodyFeature::default_instance_ = NULL;
+
+HalfOfBodyFeature* HalfOfBodyFeature::New(::google::protobuf::Arena* arena) const {
+  HalfOfBodyFeature* n = new HalfOfBodyFeature;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void HalfOfBodyFeature::Clear() {
+  if (GetArenaNoVirtual() == NULL && stripes_ != NULL) delete stripes_;
+  stripes_ = NULL;
+  if (GetArenaNoVirtual() == NULL && catagory_ != NULL) delete catagory_;
+  catagory_ = NULL;
+  color_.Clear();
+}
+
+bool HalfOfBodyFeature::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.HalfOfBodyFeature)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // repeated .dg.model.NameAndConfidence Color = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Color:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_color()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(10)) goto parse_loop_Color;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_Stripes;
+        break;
+      }
+
+      // optional .dg.model.NameAndConfidence Stripes = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Stripes:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_stripes()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Catagory;
+        break;
+      }
+
+      // optional .dg.model.NameAndConfidence Catagory = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Catagory:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_catagory()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.HalfOfBodyFeature)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.HalfOfBodyFeature)
+  return false;
+#undef DO_
+}
+
+void HalfOfBodyFeature::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.HalfOfBodyFeature)
+  // repeated .dg.model.NameAndConfidence Color = 1;
+  for (unsigned int i = 0, n = this->color_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, this->color(i), output);
+  }
+
+  // optional .dg.model.NameAndConfidence Stripes = 2;
+  if (this->has_stripes()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->stripes_, output);
+  }
+
+  // optional .dg.model.NameAndConfidence Catagory = 3;
+  if (this->has_catagory()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, *this->catagory_, output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.HalfOfBodyFeature)
+}
+
+::google::protobuf::uint8* HalfOfBodyFeature::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.HalfOfBodyFeature)
+  // repeated .dg.model.NameAndConfidence Color = 1;
+  for (unsigned int i = 0, n = this->color_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, this->color(i), target);
+  }
+
+  // optional .dg.model.NameAndConfidence Stripes = 2;
+  if (this->has_stripes()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->stripes_, target);
+  }
+
+  // optional .dg.model.NameAndConfidence Catagory = 3;
+  if (this->has_catagory()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, *this->catagory_, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.HalfOfBodyFeature)
+  return target;
+}
+
+int HalfOfBodyFeature::ByteSize() const {
+  int total_size = 0;
+
+  // optional .dg.model.NameAndConfidence Stripes = 2;
+  if (this->has_stripes()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->stripes_);
+  }
+
+  // optional .dg.model.NameAndConfidence Catagory = 3;
+  if (this->has_catagory()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->catagory_);
+  }
+
+  // repeated .dg.model.NameAndConfidence Color = 1;
+  total_size += 1 * this->color_size();
+  for (int i = 0; i < this->color_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->color(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void HalfOfBodyFeature::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const HalfOfBodyFeature* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const HalfOfBodyFeature>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void HalfOfBodyFeature::MergeFrom(const HalfOfBodyFeature& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  color_.MergeFrom(from.color_);
+  if (from.has_stripes()) {
+    mutable_stripes()->::dg::model::NameAndConfidence::MergeFrom(from.stripes());
+  }
+  if (from.has_catagory()) {
+    mutable_catagory()->::dg::model::NameAndConfidence::MergeFrom(from.catagory());
+  }
+}
+
+void HalfOfBodyFeature::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void HalfOfBodyFeature::CopyFrom(const HalfOfBodyFeature& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool HalfOfBodyFeature::IsInitialized() const {
+
+  return true;
+}
+
+void HalfOfBodyFeature::Swap(HalfOfBodyFeature* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void HalfOfBodyFeature::InternalSwap(HalfOfBodyFeature* other) {
+  color_.UnsafeArenaSwap(&other->color_);
+  std::swap(stripes_, other->stripes_);
+  std::swap(catagory_, other->catagory_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata HalfOfBodyFeature::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = HalfOfBodyFeature_descriptor_;
+  metadata.reflection = HalfOfBodyFeature_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// HalfOfBodyFeature
+
+// repeated .dg.model.NameAndConfidence Color = 1;
+int HalfOfBodyFeature::color_size() const {
+  return color_.size();
+}
+void HalfOfBodyFeature::clear_color() {
+  color_.Clear();
+}
+const ::dg::model::NameAndConfidence& HalfOfBodyFeature::color(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Color)
+  return color_.Get(index);
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_color(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Color)
+  return color_.Mutable(index);
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::add_color() {
+  // @@protoc_insertion_point(field_add:dg.model.HalfOfBodyFeature.Color)
+  return color_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
+HalfOfBodyFeature::mutable_color() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.HalfOfBodyFeature.Color)
+  return &color_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
+HalfOfBodyFeature::color() const {
+  // @@protoc_insertion_point(field_list:dg.model.HalfOfBodyFeature.Color)
+  return color_;
+}
+
+// optional .dg.model.NameAndConfidence Stripes = 2;
+bool HalfOfBodyFeature::has_stripes() const {
+  return !_is_default_instance_ && stripes_ != NULL;
+}
+void HalfOfBodyFeature::clear_stripes() {
+  if (GetArenaNoVirtual() == NULL && stripes_ != NULL) delete stripes_;
+  stripes_ = NULL;
+}
+const ::dg::model::NameAndConfidence& HalfOfBodyFeature::stripes() const {
+  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Stripes)
+  return stripes_ != NULL ? *stripes_ : *default_instance_->stripes_;
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_stripes() {
+  
+  if (stripes_ == NULL) {
+    stripes_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Stripes)
+  return stripes_;
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::release_stripes() {
+  
+  ::dg::model::NameAndConfidence* temp = stripes_;
+  stripes_ = NULL;
+  return temp;
+}
+void HalfOfBodyFeature::set_allocated_stripes(::dg::model::NameAndConfidence* stripes) {
+  delete stripes_;
+  stripes_ = stripes;
+  if (stripes) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.HalfOfBodyFeature.Stripes)
+}
+
+// optional .dg.model.NameAndConfidence Catagory = 3;
+bool HalfOfBodyFeature::has_catagory() const {
+  return !_is_default_instance_ && catagory_ != NULL;
+}
+void HalfOfBodyFeature::clear_catagory() {
+  if (GetArenaNoVirtual() == NULL && catagory_ != NULL) delete catagory_;
+  catagory_ = NULL;
+}
+const ::dg::model::NameAndConfidence& HalfOfBodyFeature::catagory() const {
+  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Catagory)
+  return catagory_ != NULL ? *catagory_ : *default_instance_->catagory_;
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_catagory() {
+  
+  if (catagory_ == NULL) {
+    catagory_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Catagory)
+  return catagory_;
+}
+::dg::model::NameAndConfidence* HalfOfBodyFeature::release_catagory() {
+  
+  ::dg::model::NameAndConfidence* temp = catagory_;
+  catagory_ = NULL;
+  return temp;
+}
+void HalfOfBodyFeature::set_allocated_catagory(::dg::model::NameAndConfidence* catagory) {
+  delete catagory_;
+  catagory_ = catagory;
+  if (catagory) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.HalfOfBodyFeature.Catagory)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PedestrianAttr::kSexFieldNumber;
 const int PedestrianAttr::kAgeFieldNumber;
 const int PedestrianAttr::kNationalFieldNumber;
 const int PedestrianAttr::kHeadWearsFieldNumber;
 const int PedestrianAttr::kBodyWearsFieldNumber;
-const int PedestrianAttr::kUpperWearsFieldNumber;
-const int PedestrianAttr::kLowerWearsFieldNumber;
-const int PedestrianAttr::kUpperColorsFieldNumber;
-const int PedestrianAttr::kLowerColorsFieldNumber;
+const int PedestrianAttr::kUpperFeaturesFieldNumber;
+const int PedestrianAttr::kLowerFeaturesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PedestrianAttr::PedestrianAttr()
@@ -4611,6 +5040,8 @@ void PedestrianAttr::InitAsDefaultInstance() {
   sex_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
   age_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
   national_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+  upperfeatures_ = const_cast< ::dg::model::HalfOfBodyFeature*>(&::dg::model::HalfOfBodyFeature::default_instance());
+  lowerfeatures_ = const_cast< ::dg::model::HalfOfBodyFeature*>(&::dg::model::HalfOfBodyFeature::default_instance());
 }
 
 PedestrianAttr::PedestrianAttr(const PedestrianAttr& from)
@@ -4627,6 +5058,8 @@ void PedestrianAttr::SharedCtor() {
   sex_ = NULL;
   age_ = NULL;
   national_ = NULL;
+  upperfeatures_ = NULL;
+  lowerfeatures_ = NULL;
 }
 
 PedestrianAttr::~PedestrianAttr() {
@@ -4639,6 +5072,8 @@ void PedestrianAttr::SharedDtor() {
     delete sex_;
     delete age_;
     delete national_;
+    delete upperfeatures_;
+    delete lowerfeatures_;
   }
 }
 
@@ -4674,12 +5109,12 @@ void PedestrianAttr::Clear() {
   age_ = NULL;
   if (GetArenaNoVirtual() == NULL && national_ != NULL) delete national_;
   national_ = NULL;
+  if (GetArenaNoVirtual() == NULL && upperfeatures_ != NULL) delete upperfeatures_;
+  upperfeatures_ = NULL;
+  if (GetArenaNoVirtual() == NULL && lowerfeatures_ != NULL) delete lowerfeatures_;
+  lowerfeatures_ = NULL;
   headwears_.Clear();
   bodywears_.Clear();
-  upperwears_.Clear();
-  lowerwears_.Clear();
-  uppercolors_.Clear();
-  lowercolors_.Clear();
 }
 
 bool PedestrianAttr::MergePartialFromCodedStream(
@@ -4758,71 +5193,33 @@ bool PedestrianAttr::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(42)) goto parse_loop_BodyWears;
-        if (input->ExpectTag(50)) goto parse_loop_UpperWears;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(50)) goto parse_UpperFeatures;
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence UpperWears = 6;
+      // optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
       case 6: {
         if (tag == 50) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_UpperWears:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_upperwears()));
+         parse_UpperFeatures:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_upperfeatures()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(50)) goto parse_loop_UpperWears;
-        if (input->ExpectTag(58)) goto parse_loop_LowerWears;
-        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(58)) goto parse_LowerFeatures;
         break;
       }
 
-      // repeated .dg.model.NameAndConfidence LowerWears = 7;
+      // optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
       case 7: {
         if (tag == 58) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_LowerWears:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_lowerwears()));
+         parse_LowerFeatures:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_lowerfeatures()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(58)) goto parse_loop_LowerWears;
-        if (input->ExpectTag(66)) goto parse_loop_UpperColors;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .dg.model.NameAndConfidence UpperColors = 8;
-      case 8: {
-        if (tag == 66) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_UpperColors:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_uppercolors()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(66)) goto parse_loop_UpperColors;
-        if (input->ExpectTag(74)) goto parse_loop_LowerColors;
-        input->UnsafeDecrementRecursionDepth();
-        break;
-      }
-
-      // repeated .dg.model.NameAndConfidence LowerColors = 9;
-      case 9: {
-        if (tag == 74) {
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_LowerColors:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_lowercolors()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(74)) goto parse_loop_LowerColors;
-        input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4881,28 +5278,16 @@ void PedestrianAttr::SerializeWithCachedSizes(
       5, this->bodywears(i), output);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 6;
-  for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
+  // optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
+  if (this->has_upperfeatures()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      6, this->upperwears(i), output);
+      6, *this->upperfeatures_, output);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 7;
-  for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
+  // optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
+  if (this->has_lowerfeatures()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      7, this->lowerwears(i), output);
-  }
-
-  // repeated .dg.model.NameAndConfidence UpperColors = 8;
-  for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      8, this->uppercolors(i), output);
-  }
-
-  // repeated .dg.model.NameAndConfidence LowerColors = 9;
-  for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      9, this->lowercolors(i), output);
+      7, *this->lowerfeatures_, output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.PedestrianAttr)
@@ -4946,32 +5331,18 @@ void PedestrianAttr::SerializeWithCachedSizes(
         5, this->bodywears(i), target);
   }
 
-  // repeated .dg.model.NameAndConfidence UpperWears = 6;
-  for (unsigned int i = 0, n = this->upperwears_size(); i < n; i++) {
+  // optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
+  if (this->has_upperfeatures()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        6, this->upperwears(i), target);
+        6, *this->upperfeatures_, target);
   }
 
-  // repeated .dg.model.NameAndConfidence LowerWears = 7;
-  for (unsigned int i = 0, n = this->lowerwears_size(); i < n; i++) {
+  // optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
+  if (this->has_lowerfeatures()) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        7, this->lowerwears(i), target);
-  }
-
-  // repeated .dg.model.NameAndConfidence UpperColors = 8;
-  for (unsigned int i = 0, n = this->uppercolors_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        8, this->uppercolors(i), target);
-  }
-
-  // repeated .dg.model.NameAndConfidence LowerColors = 9;
-  for (unsigned int i = 0, n = this->lowercolors_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        9, this->lowercolors(i), target);
+        7, *this->lowerfeatures_, target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.PedestrianAttr)
@@ -5002,6 +5373,20 @@ int PedestrianAttr::ByteSize() const {
         *this->national_);
   }
 
+  // optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
+  if (this->has_upperfeatures()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->upperfeatures_);
+  }
+
+  // optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
+  if (this->has_lowerfeatures()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->lowerfeatures_);
+  }
+
   // repeated .dg.model.NameAndConfidence HeadWears = 4;
   total_size += 1 * this->headwears_size();
   for (int i = 0; i < this->headwears_size(); i++) {
@@ -5016,38 +5401,6 @@ int PedestrianAttr::ByteSize() const {
     total_size +=
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         this->bodywears(i));
-  }
-
-  // repeated .dg.model.NameAndConfidence UpperWears = 6;
-  total_size += 1 * this->upperwears_size();
-  for (int i = 0; i < this->upperwears_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->upperwears(i));
-  }
-
-  // repeated .dg.model.NameAndConfidence LowerWears = 7;
-  total_size += 1 * this->lowerwears_size();
-  for (int i = 0; i < this->lowerwears_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->lowerwears(i));
-  }
-
-  // repeated .dg.model.NameAndConfidence UpperColors = 8;
-  total_size += 1 * this->uppercolors_size();
-  for (int i = 0; i < this->uppercolors_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->uppercolors(i));
-  }
-
-  // repeated .dg.model.NameAndConfidence LowerColors = 9;
-  total_size += 1 * this->lowercolors_size();
-  for (int i = 0; i < this->lowercolors_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->lowercolors(i));
   }
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -5072,10 +5425,6 @@ void PedestrianAttr::MergeFrom(const PedestrianAttr& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   headwears_.MergeFrom(from.headwears_);
   bodywears_.MergeFrom(from.bodywears_);
-  upperwears_.MergeFrom(from.upperwears_);
-  lowerwears_.MergeFrom(from.lowerwears_);
-  uppercolors_.MergeFrom(from.uppercolors_);
-  lowercolors_.MergeFrom(from.lowercolors_);
   if (from.has_sex()) {
     mutable_sex()->::dg::model::NameAndConfidence::MergeFrom(from.sex());
   }
@@ -5084,6 +5433,12 @@ void PedestrianAttr::MergeFrom(const PedestrianAttr& from) {
   }
   if (from.has_national()) {
     mutable_national()->::dg::model::NameAndConfidence::MergeFrom(from.national());
+  }
+  if (from.has_upperfeatures()) {
+    mutable_upperfeatures()->::dg::model::HalfOfBodyFeature::MergeFrom(from.upperfeatures());
+  }
+  if (from.has_lowerfeatures()) {
+    mutable_lowerfeatures()->::dg::model::HalfOfBodyFeature::MergeFrom(from.lowerfeatures());
   }
 }
 
@@ -5114,10 +5469,8 @@ void PedestrianAttr::InternalSwap(PedestrianAttr* other) {
   std::swap(national_, other->national_);
   headwears_.UnsafeArenaSwap(&other->headwears_);
   bodywears_.UnsafeArenaSwap(&other->bodywears_);
-  upperwears_.UnsafeArenaSwap(&other->upperwears_);
-  lowerwears_.UnsafeArenaSwap(&other->lowerwears_);
-  uppercolors_.UnsafeArenaSwap(&other->uppercolors_);
-  lowercolors_.UnsafeArenaSwap(&other->lowercolors_);
+  std::swap(upperfeatures_, other->upperfeatures_);
+  std::swap(lowerfeatures_, other->lowerfeatures_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -5304,124 +5657,78 @@ PedestrianAttr::bodywears() const {
   return bodywears_;
 }
 
-// repeated .dg.model.NameAndConfidence UpperWears = 6;
-int PedestrianAttr::upperwears_size() const {
-  return upperwears_.size();
+// optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
+bool PedestrianAttr::has_upperfeatures() const {
+  return !_is_default_instance_ && upperfeatures_ != NULL;
 }
-void PedestrianAttr::clear_upperwears() {
-  upperwears_.Clear();
+void PedestrianAttr::clear_upperfeatures() {
+  if (GetArenaNoVirtual() == NULL && upperfeatures_ != NULL) delete upperfeatures_;
+  upperfeatures_ = NULL;
 }
-const ::dg::model::NameAndConfidence& PedestrianAttr::upperwears(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperWears)
-  return upperwears_.Get(index);
+const ::dg::model::HalfOfBodyFeature& PedestrianAttr::upperfeatures() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperFeatures)
+  return upperfeatures_ != NULL ? *upperfeatures_ : *default_instance_->upperfeatures_;
 }
-::dg::model::NameAndConfidence* PedestrianAttr::mutable_upperwears(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperWears)
-  return upperwears_.Mutable(index);
+::dg::model::HalfOfBodyFeature* PedestrianAttr::mutable_upperfeatures() {
+  
+  if (upperfeatures_ == NULL) {
+    upperfeatures_ = new ::dg::model::HalfOfBodyFeature;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperFeatures)
+  return upperfeatures_;
 }
-::dg::model::NameAndConfidence* PedestrianAttr::add_upperwears() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperWears)
-  return upperwears_.Add();
+::dg::model::HalfOfBodyFeature* PedestrianAttr::release_upperfeatures() {
+  
+  ::dg::model::HalfOfBodyFeature* temp = upperfeatures_;
+  upperfeatures_ = NULL;
+  return temp;
 }
-::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_upperwears() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperWears)
-  return &upperwears_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::upperwears() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperWears)
-  return upperwears_;
-}
-
-// repeated .dg.model.NameAndConfidence LowerWears = 7;
-int PedestrianAttr::lowerwears_size() const {
-  return lowerwears_.size();
-}
-void PedestrianAttr::clear_lowerwears() {
-  lowerwears_.Clear();
-}
-const ::dg::model::NameAndConfidence& PedestrianAttr::lowerwears(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerWears)
-  return lowerwears_.Get(index);
-}
-::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowerwears(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerWears)
-  return lowerwears_.Mutable(index);
-}
-::dg::model::NameAndConfidence* PedestrianAttr::add_lowerwears() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerWears)
-  return lowerwears_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_lowerwears() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerWears)
-  return &lowerwears_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::lowerwears() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerWears)
-  return lowerwears_;
+void PedestrianAttr::set_allocated_upperfeatures(::dg::model::HalfOfBodyFeature* upperfeatures) {
+  delete upperfeatures_;
+  upperfeatures_ = upperfeatures;
+  if (upperfeatures) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.UpperFeatures)
 }
 
-// repeated .dg.model.NameAndConfidence UpperColors = 8;
-int PedestrianAttr::uppercolors_size() const {
-  return uppercolors_.size();
+// optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
+bool PedestrianAttr::has_lowerfeatures() const {
+  return !_is_default_instance_ && lowerfeatures_ != NULL;
 }
-void PedestrianAttr::clear_uppercolors() {
-  uppercolors_.Clear();
+void PedestrianAttr::clear_lowerfeatures() {
+  if (GetArenaNoVirtual() == NULL && lowerfeatures_ != NULL) delete lowerfeatures_;
+  lowerfeatures_ = NULL;
 }
-const ::dg::model::NameAndConfidence& PedestrianAttr::uppercolors(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperColors)
-  return uppercolors_.Get(index);
+const ::dg::model::HalfOfBodyFeature& PedestrianAttr::lowerfeatures() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerFeatures)
+  return lowerfeatures_ != NULL ? *lowerfeatures_ : *default_instance_->lowerfeatures_;
 }
-::dg::model::NameAndConfidence* PedestrianAttr::mutable_uppercolors(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperColors)
-  return uppercolors_.Mutable(index);
+::dg::model::HalfOfBodyFeature* PedestrianAttr::mutable_lowerfeatures() {
+  
+  if (lowerfeatures_ == NULL) {
+    lowerfeatures_ = new ::dg::model::HalfOfBodyFeature;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerFeatures)
+  return lowerfeatures_;
 }
-::dg::model::NameAndConfidence* PedestrianAttr::add_uppercolors() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.UpperColors)
-  return uppercolors_.Add();
+::dg::model::HalfOfBodyFeature* PedestrianAttr::release_lowerfeatures() {
+  
+  ::dg::model::HalfOfBodyFeature* temp = lowerfeatures_;
+  lowerfeatures_ = NULL;
+  return temp;
 }
-::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_uppercolors() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.UpperColors)
-  return &uppercolors_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::uppercolors() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.UpperColors)
-  return uppercolors_;
-}
-
-// repeated .dg.model.NameAndConfidence LowerColors = 9;
-int PedestrianAttr::lowercolors_size() const {
-  return lowercolors_.size();
-}
-void PedestrianAttr::clear_lowercolors() {
-  lowercolors_.Clear();
-}
-const ::dg::model::NameAndConfidence& PedestrianAttr::lowercolors(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerColors)
-  return lowercolors_.Get(index);
-}
-::dg::model::NameAndConfidence* PedestrianAttr::mutable_lowercolors(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerColors)
-  return lowercolors_.Mutable(index);
-}
-::dg::model::NameAndConfidence* PedestrianAttr::add_lowercolors() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.LowerColors)
-  return lowercolors_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_lowercolors() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.LowerColors)
-  return &lowercolors_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::lowercolors() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.LowerColors)
-  return lowercolors_;
+void PedestrianAttr::set_allocated_lowerfeatures(::dg::model::HalfOfBodyFeature* lowerfeatures) {
+  delete lowerfeatures_;
+  lowerfeatures_ = lowerfeatures;
+  if (lowerfeatures) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.LowerFeatures)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

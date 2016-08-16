@@ -31,6 +31,7 @@ public:
         int gpu_id = 0;
         bool use_gpu = true;
         string tag_name_path;
+        string threshold_file_path;
         string deploy_file;
         string model_file;
         string layer_name;
@@ -57,10 +58,12 @@ public:
 
 public:
     vector<Tag> tagtable_;
+    map<string, float> attribute_threshold_;
     int batch_size_;
 
 private:
     void LoadTagnames(const string &name_list);
+    void LoadThresholdFile(const string &name_list);
     void AttributePredict(const vector<Mat> &imgs,
                           vector<vector<float> > &results);
 
