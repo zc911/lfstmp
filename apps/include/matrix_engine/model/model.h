@@ -181,9 +181,18 @@ public:
         attrs_ = attrs;
     }
 
+    const std::map<string, float> &threshold() const {
+        return threshold_;
+    };
+
+    void set_threshold(const std::map<string, float> &threshold) {
+        threshold_ = threshold;
+    }
+
 private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
+    std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {

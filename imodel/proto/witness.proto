@@ -112,7 +112,6 @@ message WitnessRequestContext {
     RecognizeType Type = 5; //识别类型 enum RecognizeType
     StorageConfig Storage = 6; //Engine结果存储的信息
     map<string, string> Params = 7; //扩展参数
-
 }
 
 message WitnessImage {

@@ -109,16 +109,20 @@ message NameAndConfidence {
     float Confidence = 2;
 }
 
+message HalfOfBodyFeature{
+    repeated NameAndConfidence Color = 1;
+    NameAndConfidence Stripes = 2;
+    NameAndConfidence Catagory = 3;
+}
+
 message PedestrianAttr {
     NameAndConfidence Sex = 1;
     NameAndConfidence Age = 2;
     NameAndConfidence National = 3;
     repeated NameAndConfidence HeadWears = 4;
     repeated NameAndConfidence BodyWears = 5;
-    repeated NameAndConfidence UpperWears = 6;
-    repeated NameAndConfidence LowerWears = 7;
-    repeated NameAndConfidence UpperColors = 8;
-    repeated NameAndConfidence LowerColors = 9;
+    HalfOfBodyFeature UpperFeatures = 6;
+    HalfOfBodyFeature LowerFeatures = 7;
 }
 
 message RecVehicle {
