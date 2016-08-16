@@ -20,7 +20,12 @@ using namespace cv;
 using namespace caffe;
 
 namespace dg {
-
+enum{
+    LeftBelt=7,
+    RightBelt=8,
+    LeftSunVisor=9,
+    RightSunVisor=10
+};
 class MarkerCaffeSsdDetector : public Detector{
 
 public:
@@ -45,6 +50,8 @@ private:
     int gpu_id_;
     int batch_size_;
     float threshold_;
+                float target_row = 256;
+            float target_col = 384;
 #ifdef SHOW_VIS
     vector<Scalar> color_;
     vector<string> tags_;

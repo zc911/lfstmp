@@ -166,7 +166,7 @@ void GetLocAndScores(const Dtype* loc_data, const int num,
       const int num_preds_per_class, const int num_loc_classes, 
       const bool share_location, vector<LabelBBox>* loc_preds, 
       const Dtype* conf_data, const int num_classes, const bool class_major,
-      vector<map<int, vector<float> > >* conf_scores);
+      vector<map<int, vector<float> > >* conf_scores,vector<float> *thresh_hold);
 
 
 
