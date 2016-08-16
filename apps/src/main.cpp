@@ -10,9 +10,6 @@
 #include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
-#include <stdio.h>
-#include <signal.h>
-#include <stdlib.h>
 
 
 using namespace std;
@@ -20,7 +17,9 @@ using namespace dg;
 #if DEBUG
 extern "C" void __gcov_flush();
 static void dump_coverage(int signal) {
-   __gcov_flush();
+    __gcov_flush();
+    cout << "Killed by user, bye" << endl;
+    exit(0);
 }
 #endif
 #define BOOST_SPIRIT_THREADSAFE
