@@ -48,34 +48,61 @@ void serveWitness(Config *config, int userPort = 0) {
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
-    if (protocolType == "restful") {
+    try {
 
-        RestfulService *service = new RestWitnessServiceImpl(*config, address);
-        service->Run();
+        if (protocolType == "restful") {
 
-    } else if (protocolType == "rpc") {
+            RestfulService *service = new RestWitnessServiceImpl(*config, address);
+            service->Run();
+            for (auto e : service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
 
-        GrpcWitnessServiceImpl *witness_service = new GrpcWitnessServiceImpl(*config, address);
-        std::thread witness_thread(&GrpcWitnessServiceImpl::Run, witness_service);
-        witness_thread.join();
+        } else if (protocolType == "rpc") {
 
+            GrpcWitnessServiceImpl *witness_service = new GrpcWitnessServiceImpl(*config, address);
+            std::thread witness_thread(&GrpcWitnessServiceImpl::Run, witness_service);
+            witness_thread.join();
+            for (auto e : witness_service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
+
+        }
+        else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+            GrpcWitnessServiceImpl *grpc_witness_service = new GrpcWitnessServiceImpl(*config, address);
+            std::thread grpc_witness_thread(&GrpcWitnessServiceImpl::Run, grpc_witness_service);
+
+            string restful_addr = getServerAddress(config, (int) config->Value("System/Port") + 1);
+            RestWitnessServiceImpl *rest_witness_service = new RestWitnessServiceImpl(*config, restful_addr);
+            std::thread rest_witness_thread(&RestWitnessServiceImpl::Run, rest_witness_service);
+
+            grpc_witness_thread.join();
+            for (auto e : grpc_witness_service->getExceptions()) {
+                if (e != nullptr) {
+                    rest_witness_thread.detach();
+                    std::rethrow_exception(e);
+                }
+            }
+            rest_witness_thread.join();
+            for (auto e : rest_witness_service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
+        }
+        else {
+            cout << "Invalid protocol, should be rpc, restful or rpc|restful"
+                 << endl;
+            exit(-1);
+        }
     }
-    else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
-        GrpcWitnessServiceImpl *grpc_witness_service = new GrpcWitnessServiceImpl(*config, address);
-        std::thread grpc_witness_thread(&GrpcWitnessServiceImpl::Run, grpc_witness_service);
-
-        string restful_addr = getServerAddress(config, (int) config->Value("System/Port") + 1);
-        RestWitnessServiceImpl *rest_witness_service = new RestWitnessServiceImpl(*config, restful_addr);
-        std::thread rest_witness_thread(&RestWitnessServiceImpl::Run, rest_witness_service);
-
-        grpc_witness_thread.join();
-        rest_witness_thread.join();
-    }
-
-    else {
-        cout << "Invalid protocol, should be rpc, restful or rpc|restful"
-            << endl;
-        exit(-1);
+    catch (const std::exception & e) {
+        cout << e.what() << endl;
+        quick_exit(EXIT_FAILURE);
     }
     springTh.join();
     //  network_th_.join();
@@ -91,35 +118,65 @@ void serveRanker(Config *config, int userPort = 0) {
 
     string address = getServerAddress(config, userPort);
 
-    if (protocolType == "restful") {
-        RestRankerServiceImpl *service = new RestRankerServiceImpl(*config,
-                                                                   address);
-        service->Run();
-    } else if (protocolType == "rpc") {
+    try {
+        if (protocolType == "restful") {
+            RestRankerServiceImpl *service = new RestRankerServiceImpl(*config,
+                                                                       address);
+            service->Run();
+            for (auto e : service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
 
-        GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
-                                                                               address);
-        std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
-        grpc_ranker_thread.join();
+        } else if (protocolType == "rpc") {
 
-    } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
-        GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
-                                                                               address);
-        std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
-        string rest_ranker_addr = getServerAddress(config,
-                                                   (int) config->Value("System/Port") + 1);
-        RestRankerServiceImpl *rest_ranker_service = new RestRankerServiceImpl(*config,
-                                                                               rest_ranker_addr);
-        std::thread rest_ranker_thread(&RestRankerServiceImpl::Run, rest_ranker_service);
+            GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
+                                                                                   address);
+            std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
+            grpc_ranker_thread.join();
+            for (auto e : grpc_ranker_service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
 
-        grpc_ranker_thread.join();
-        rest_ranker_thread.join();
+        } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
+            GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
+                                                                                   address);
+            std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
+            string rest_ranker_addr = getServerAddress(config,
+                                                       (int) config->Value("System/Port") + 1);
+            RestRankerServiceImpl *rest_ranker_service = new RestRankerServiceImpl(*config,
+                                                                                   rest_ranker_addr);
+            std::thread rest_ranker_thread(&RestRankerServiceImpl::Run, rest_ranker_service);
+
+            grpc_ranker_thread.join();
+
+            for (auto e : grpc_ranker_service->getExceptions()) {
+                if (e != nullptr) {
+                    rest_ranker_thread.detach();
+                    std::rethrow_exception(e);
+                }
+            }
+
+            rest_ranker_thread.join();
+            for (auto e : rest_ranker_service->getExceptions()) {
+                if (e != nullptr) {
+                    std::rethrow_exception(e);
+                }
+            }
+        }
+
+        else {
+            cout << "Invalid protocol, should be rpc, restful or rpc|restful"
+                 << endl;
+            exit(-1);
+        }
     }
-
-    else {
-        cout << "Invalid protocol, should be rpc, restful or rpc|restful"
-            << endl;
-        exit(-1);
+    catch (const exception & e) {
+        cout << e.what() << endl;
+        quick_exit(EXIT_FAILURE);
     }
 }
 
@@ -131,7 +188,7 @@ DEFINE_bool(encrypt, false, "Use the encrype data, only valid in DEBUG mode");
 
 
 int main(int argc, char *argv[]) {
-#if DEBUG
+#if false
     if (signal(SIGINT, dump_coverage) == SIG_ERR) {
         fputs("An error occurred while setting a signal handler.\n", stderr);
         return EXIT_FAILURE;
@@ -175,6 +232,7 @@ int main(int argc, char *argv[]) {
         config->DumpValues();
     }
 
+
     string instType = (string) config->Value("InstanceType");
 
     if (instType == "witness") {
@@ -189,6 +247,7 @@ int main(int argc, char *argv[]) {
             << endl;
         return -1;
     }
+
 
     return 0;
 }

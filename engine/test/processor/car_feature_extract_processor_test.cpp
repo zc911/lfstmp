@@ -73,7 +73,7 @@ TEST(CarFeatureExtractProcessorTest, carFeatureExtractTest) {
                 EXPECT_LT(256, v->feature().Serialize().size());
             }
         }
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total);
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), total) << "i = " << i << endl;
     }
 
     delete fbhelper;
