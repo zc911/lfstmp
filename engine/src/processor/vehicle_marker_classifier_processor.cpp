@@ -22,7 +22,7 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     window_target_max_ = wConfig.target_max_size;
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
-    isSsd=false;
+    isSsd = false;
 }
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
@@ -35,18 +35,18 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     window_target_max_ = wConfig.target_max_size;
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
-    isSsd=true;
+    isSsd = true;
 }
 VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
     if (classifier_)
         delete classifier_;
-    if(detector_){
+    if (detector_) {
         delete detector_;
     }
-    if(ssd_marker_detector_){
+    if (ssd_marker_detector_) {
         delete ssd_marker_detector_;
     }
-    if(ssd_window_detector_){
+    if (ssd_window_detector_) {
         delete ssd_window_detector_;
     }
     images_.clear();
@@ -62,38 +62,47 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     struct timeval start, end;
     gettimeofday(&start, NULL);
 
-    if(isSsd){
+    if (isSsd) {
         vector<vector<Detection> > crops;
         vector<vector<Detection> > preds;
-        ssd_window_detector_->DetectBatch(images_,crops);
-              gettimeofday(&end, NULL);
+        ssd_window_detector_->DetectBatch(images_, crops);
+        gettimeofday(&end, NULL);
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
+               / 1000.f;
         VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
 
-        ssd_marker_detector_->DetectBatch(images_,crops,preds);
-        for (int i = 0; i < preds.size(); i++) {
-            Vehicle *v = (Vehicle *) objs_[i];
+        ssd_marker_detector_->DetectBatch(images_, crops, preds);
+        int cnt = 0;
+        for (int i = 0; i < crops.size(); i++) {
+            if (crops[i].size() <= 0)
+                continue;
+
+            Vehicle *v = (Vehicle *) objs_[cnt];
             vector<Detection> markers_cutborad;
             Mat img(v->image());
 
-            for (int j = 0; j < preds[i].size(); j++) {
-                Detection d(preds[i][j]);
+            for (int j = 0; j < preds[cnt].size(); j++) {
+                Detection d(preds[cnt][j]);
 
-                d.box.x = (preds[i][j].box.x) + v->detection().box.x;
-                d.box.y = (preds[i][j].box.y) + v->detection().box.y;
-                d.box.width = preds[i][j].box.width;
-                d.box.height = preds[i][j].box.height;
+                d.box.x = (preds[cnt][j].box.x) + v->detection().box.x;
+                d.box.y = (preds[cnt][j].box.y) + v->detection().box.y;
+                d.box.width = preds[cnt][j].box.width;
+                d.box.height = preds[cnt][j].box.height;
                 markers_cutborad.push_back(d);
+                rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
+
             }
+            v->set_markers(markers_cutborad);
+            cnt++;
+
         }
 
-    }else{
+    } else {
         vector<Detection> crops = detector_->DetectBatch(resized_images_,
-                                                         images_);
+                                  images_);
         gettimeofday(&end, NULL);
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
+               / 1000.f;
         VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
 
         for (int i = 0; i < objs_.size(); i++) {
@@ -121,6 +130,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 d.box.height = pred[i][j].box.height;
                 markers_cutborad.push_back(d);
             }
+
             v->set_markers(markers_cutborad);
 
         }
@@ -129,7 +139,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
+           / 1000.f;
     VLOG(VLOG_PROCESS_COST) << "Mareker cost: " << diff << endl;
     objs_.clear();
 
@@ -141,8 +151,8 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 #if DEBUG
 #else
-    if(performance_>RECORD_UNIT) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }

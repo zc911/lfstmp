@@ -34,27 +34,27 @@ MarkerCaffeSsdDetector::MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig 
         new Net<float>(config.deploy_file, TEST));
 #else
     net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
+        new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
 #endif
 
     net_->CopyTrainedLayersFrom(config.model_file);
     Blob<float> *input_layer = net_->input_blobs()[0];
 
     num_channels_ = input_layer->channels();
-    input_geometry_ = cv::Size(input_layer->width(),input_layer->height());
+    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
     /*input_geometry_ = cv::Size(config.target_max_size, config.target_min_size);
     input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
                          input_geometry_.width);
     net_->Reshape();*/
 
-/*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
-*/
+    /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+        const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+        const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+        for (int i = 0; i < layers.size(); ++i) {
+            layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+        }
+    */
 
     device_setted_ = false;
 #ifdef SHOW_VIS
@@ -90,14 +90,14 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
     }
     int box_num = outputs[0]->height();
     const float* top_data = outputs[0]->cpu_data();
-    vector<float> crop_xmin=params[0];
-    vector<float> crop_ymin=params[1];
-    vector<float> thresh_ymin=params[2];
-    vector<float> thresh_ymax=params[3];
+    vector<float> crop_xmin = params[0];
+    vector<float> crop_ymin = params[1];
+    vector<float> thresh_ymin = params[2];
+    vector<float> thresh_ymax = params[3];
     vector<float> row_ratio = params[4];
     vector<float> col_ratio = params[5];
     float cls_conf[7] = {1.0, 0.36, 0.6, 0.6, 0.5, 0.6, 0.6};
-    for(int j = 0; j < box_num; j++) {
+    for (int j = 0; j < box_num; j++) {
         int img_id = top_data[j * 7 + 0];
         if (img_id < 0 || img_id >= detect_results.size()) {
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
@@ -123,20 +123,20 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             ymin += crop_ymin[img_id];
             ymax += crop_ymin[img_id];
             // exclude bboxes that lie outside car window.
-            if ((thresh_ymin[img_id]-ymin)/(ymax-ymin) > 0.3 ||
-                (ymax-thresh_ymax[img_id])/(ymax-ymin) > 0.3)
+            if ((thresh_ymin[img_id] - ymin) / (ymax - ymin) > 0.3 ||
+                    (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3)
                 continue;
 
             // exclude bboxes that lie in a predefined fobbiden place
 
             vector<Rect> fob = fobs[img_id];
 
-            Rect overlap = fob[cls] & Rect(xmin,ymin,xmax-xmin,ymax-ymin);
+            Rect overlap = fob[cls] & Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if (int(overlap.area()) > 1) {
                 continue;  //exclude this box
             }
             Detection detection;
-            detection.box =  Rect(xmin,ymin,xmax-xmin,ymax-ymin);
+            detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             detection.id = cls;
             detection.confidence = score;
             imageDetection.push_back(detection);
@@ -161,25 +161,25 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
     detect_results.clear();
     vector<cv::Mat> toPredict;
-        vector<cv::Mat> origins;
+    vector<cv::Mat> origins;
 
     vector<vector<float> > params;
     params.resize(6);
     vector<vector<Rect> > fobs;
     for (int i = 0; i < imgs.size(); ++i) {
+
         cv::Mat image = imgs[i].clone();
 
         // fobbiden areas
-        int xmin,ymin,xmax,ymax;
-        if(window_detections[i].size()>0) {
+        int xmin, ymin, xmax, ymax;
+
+        if (window_detections[i].size() > 0) {
             xmin = window_detections[i][0].box.x;
             ymin = window_detections[i][0].box.y;
             xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
             ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
-        }else{
-            xmin=ymin=0;
-            xmax=ymax=1;
-        }
+
+
             vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
             fobs.push_back(fob);
 
@@ -194,6 +194,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             int tymax;
             float ratio = 0.15;
             show_enlarged_box(image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
+
             params[2].push_back(tymin);
             params[3].push_back(tymax);
 
@@ -201,36 +202,42 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             float target_col = 384;
             params[4].push_back(img.rows * 1.0 / target_row);
             params[5].push_back(img.cols * 1.0 / target_col);
-
-            // only process images that has a car window.
-            // only count images that has a car window.
-            if(img.rows>0&&img.cols>0){
+            if (img.rows > 0 && img.cols > 0) {
                 resize(img, img, Size(target_col, target_row));
-            }else{
-                img=Mat::zeros(Size(target_col, target_row),CV_8UC3);
+            } else {
+                img = Mat::zeros(Size(target_col, target_row), CV_8UC3);
             }
-
             toPredict.push_back(img);
-        
+
+        }
+        // only process images that has a car window.
+        // only count images that has a car window.
+
+
+
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
-
             Fullfil(toPredict, outputs, detect_results, fobs, params);
 
             toPredict.clear();
+
+
         }
     }
 
     if (toPredict.size() > 0) {
-        vector<Blob<float> *> outputs = PredictBatch(toPredict);
-        Fullfil(toPredict, outputs, detect_results, fobs, params);
-    }
-        gettimeofday(&end, NULL);
 
-        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
-            LOG(INFO)<<"window marker  batch "<<diff;
+        vector<Blob<float> *> outputs = PredictBatch(toPredict);
+
+        Fullfil(toPredict, outputs, detect_results, fobs, params);
+
+    }
+    gettimeofday(&end, NULL);
+
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+           / 1000.f;
+    DLOG(INFO) << "window marker  batch " << diff;
 
 //    // make sure batch size is times of the batch size
 //    if (img.size() % batch_size_ != 0) {
@@ -263,8 +270,8 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
     vector<Blob<float> *> outputs;
 
     Blob<float> *input_layer = net_->input_blobs()[0];
-    input_geometry_.height=imgs[0].rows;
-    input_geometry_.width=imgs[0].cols;
+    input_geometry_.height = imgs[0].rows;
+    input_geometry_.width = imgs[0].cols;
     if (imgs.size() <= batch_size_) {
         input_layer->Reshape(imgs.size(), num_channels_,
                              input_geometry_.height,
@@ -310,11 +317,11 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
-        gettimeofday(&end, NULL);
+    gettimeofday(&end, NULL);
 
-            diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
-            LOG(INFO)<<"marker predict batch "<<diff;
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+           / 1000.f;
+    DLOG(INFO) << "marker predict batch " << diff;
     return outputs;
 }
 
