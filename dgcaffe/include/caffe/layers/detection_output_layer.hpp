@@ -81,6 +81,7 @@ class DetectionOutputLayer : public Layer<Dtype> {
   bool variance_encoded_in_target_;
   int keep_top_k_;
   float confidence_threshold_;
+  vector<float> thresholds_;
 
   int num_;
   int num_priors_;
