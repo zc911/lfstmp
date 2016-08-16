@@ -289,29 +289,13 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         auto findCandidate = [=](RecPedestrian *recP) {
             result info;
             info.recP = recP;
-
-            int faceX = fobj->detection().box.x;
-            int faceY = fobj->detection().box.y;
-            int faceWidth = fobj->detection().box.width;
-            int faceHeight = fobj->detection().box.height;
-
-            int pX = recP->img().cutboard().x();
-            int pY = recP->img().cutboard().y();
-            int pWidth = recP->img().cutboard().width();
-            int pHeight = recP->img().cutboard().height();
-            int totalArea = faceWidth * faceHeight, coinArea = 0;
-
-            if (faceX >= pX && faceY >= pY && faceX <= pX + pWidth && faceY <= pY + pHeight) {
-                coinArea = min(pX + pWidth - faceX, faceWidth) * min(pY + pHeight - faceY, faceHeight);
-            } else if (faceX < pX && faceY < pY && faceX + faceWidth > pX && faceY + faceHeight > pY) {
-                coinArea = min(faceX + faceWidth - pX, pWidth) * min(faceY + faceHeight - pY, pHeight);
-            } else if (faceX < pX && faceY > pY && faceY <= pY + pHeight && faceX + faceWidth > pX) {
-                coinArea = min(faceX + faceWidth - pX, pWidth) * min(faceHeight, pY + pHeight - faceY);
-            } else if (faceX > pX && faceX <= pX + pWidth && faceY < pY && faceY + faceHeight > pY) {
-                coinArea = min(faceWidth, pX + pWidth - faceX) * min(faceY + faceHeight - pY, faceWidth);
-            }
-            info.coincidence = (double)coinArea * 100.0 / totalArea;
-            info.distance = abs(faceX - pX) + abs(faceY - pY);
+            info.recP = recP;
+            Rect FaceBox = fobj->detection().box;
+            Rect BodyBox = Rect(recP->img().cutboard().x(), recP->img().cutboard().y(),
+                                recP->img().cutboard().width(), recP->img().cutboard().height());
+            Rect overLap = FaceBox & BodyBox;
+            info.coincidence = (double)overLap.area() * 100.0 / FaceBox.area();
+            info.distance = abs(FaceBox.x - BodyBox.x) + abs(FaceBox.y - FaceBox.y);
 
             return info;
         };
