@@ -138,10 +138,5 @@ message WitnessResult {
     repeated RecPedestrian Pedestrian = 5; //识别的行人列表
 }
 
-message WitnessVehicleObj {
-    VehicleObj VehicleResult = 1;
-    repeated StorageConfig Storages = 2;
-}
-
 
 
