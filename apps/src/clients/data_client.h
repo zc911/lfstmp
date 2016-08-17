@@ -24,7 +24,7 @@ public:
     DataClient() {
 
     }
-    MatrixError SendBatchData(string address, VehicleObj &v, PedestrianObj &p) {
+    MatrixError SendBatchData(string address, VehicleObj v, PedestrianObj p) {
         MatrixError err;
 
 
@@ -64,8 +64,8 @@ public:
         for(int i=0;i<p.pedestrian_size();i++){
             dg::model::RecPedestrian *mP = p.mutable_pedestrian(i);
             model::Pedestrian pbPedestrian;
-            pedestrian2Protobuf(pbPedestrian,mp,p.metadata());
-            bindata = pbPedestrian.SerializeAsString();
+            pedestrian2Protobuf(pbPedestrian,mP,p.metadata());
+            string bindata = pbPedestrian.SerializeAsString();
             model::GenericObj *genObj = batchReq.add_entities();
             genObj->set_fmttype(model::PROTOBUF);
             genObj->set_type(model::PEDESTRIAN);
@@ -132,11 +132,7 @@ private:
     std::mutex mtx;
     void pedestrian2Protobuf(model::Pedestrian &pbPedestrian, dg::model::RecPedestrian *recPedestrian, const dg::model::SrcMetadata &srcMetadata) {
         model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
-        model::Color *mColor = pbPedestrian.mutable_color();
         model::CutboardImage *mCutImage = pbPedestrian.mutable_img();
-
-        mColor->set_id(recVehicle->color().colorid());
-        mColor->set_confidence(recVehicle->color().confidence());
 
         metadata->set_timestamp(srcMetadata.timestamp());
         metadata->set_sensorurl(srcMetadata.sensorurl());
@@ -163,7 +159,7 @@ private:
             featuresTmp |=1<<(recPedestrian->pedesattr().bodywears(i).id());
         }
         for(int i=0;i<recPedestrian->pedesattr().headwears_size();i++){
-            headsTmp |=1<<(recPedestrian->pedesattr().geadwears(i).id()-6);
+            headsTmp |=1<<(recPedestrian->pedesattr().headwears(i).id()-6);
         }
         for(int i=0;i<recPedestrian->pedesattr().upperfeatures().color_size();i++){
             upperColorsTmp |=1<<(recPedestrian->pedesattr().upperfeatures().color(i).id()-10);
@@ -270,7 +266,7 @@ private:
         pbTricycle.set_feature(recVehicle->features());
     }
     void pedestrian2Protobuf(model::Pedestrian &pbPedestrian, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
-        model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
+  /*      model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
         model::CutboardImage *mCutImage = pbPedestrian.mutable_img();
 
         metadata->set_timestamp(srcMetadata.timestamp());
@@ -334,7 +330,7 @@ private:
                 }
             }
         }
-
+*/
     }
     void vehicle2Protobuf(model::Vehicle &pbVehicle, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
         model::VideoMetadata *metadata = pbVehicle.mutable_metadata();

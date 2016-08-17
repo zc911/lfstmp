@@ -17,13 +17,13 @@ using ::dg::model::WitnessService;
 
 namespace dg {
 
-typedef struct  {
+class WitnessVehicleObj{
     ::google::protobuf::RepeatedPtrField<::dg::model::WitnessResult> results;
     ::google::protobuf::RepeatedPtrField<::dg::model::StorageConfig> storages;
     vector<Mat> imgs;
     vector<SrcMetadata> srcMetadatas;
 
-}WitnessVehicleObj;
+};
 
 class WitnessBucket {
 public:
