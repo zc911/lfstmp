@@ -608,6 +608,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
             SrcMetadata metadata;
             metadata.set_timestamp(timestamp);
             client_request_obj->srcMetadatas.push_back(metadata);
+            WitnessBucket::Instance().Push(client_request_obj);
+
         }
 
 
@@ -799,6 +801,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                 client_request_obj->imgs.push_back(framebatch.frames()[k]->payload()->data());
             }
             client_request_obj->srcMetadatas=srcMetadatas;
+            WitnessBucket::Instance().Push(client_request_obj);
+
         }
 
 
