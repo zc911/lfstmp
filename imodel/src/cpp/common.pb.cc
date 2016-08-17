@@ -639,8 +639,8 @@ void protobuf_AddDesc_common_2eproto() {
     "HAN\020\001\022\032\n\026NATIONAL_TYPE_MINORITY\020\002*k\n\007Age"
     "Type\022\024\n\020AGE_TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_L"
     "T15\020\001\022\021\n\rAGE_TYPE_1530\020\002\022\021\n\rAGE_TYPE_305"
-    "0\020\003\022\021\n\rAGE_TYPE_50UP\020\004*\023\n\006DBType\022\t\n\005KAFK"
-    "A\020\000b\006proto3", 3371);
+    "0\020\003\022\021\n\rAGE_TYPE_50UP\020\004*0\n\006DBType\022\t\n\005KAFK"
+    "A\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE\020\002b\006proto3", 3400);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -789,6 +789,8 @@ const ::google::protobuf::EnumDescriptor* DBType_descriptor() {
 bool DBType_IsValid(int value) {
   switch(value) {
     case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;

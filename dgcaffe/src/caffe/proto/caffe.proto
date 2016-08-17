@@ -965,6 +965,7 @@ message DetectionOutputParameter {
   optional bool visualize = 10 [default = false];
   // The threshold used to visualize the detection results.
   optional float visualize_threshold = 11;
+  repeated float thresholds=12;
 }
 
 message DropoutParameter {
