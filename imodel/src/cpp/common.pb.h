@@ -187,12 +187,14 @@ inline bool AgeType_Parse(
 }
 enum DBType {
   KAFKA = 0,
+  POSTGRES = 1,
+  FILEIMAGE = 2,
   DBType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   DBType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool DBType_IsValid(int value);
 const DBType DBType_MIN = KAFKA;
-const DBType DBType_MAX = KAFKA;
+const DBType DBType_MAX = FILEIMAGE;
 const int DBType_ARRAYSIZE = DBType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* DBType_descriptor();
