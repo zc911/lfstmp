@@ -60,7 +60,6 @@ class WitnessRequestContext;
 class WitnessResponse;
 class WitnessResponseContext;
 class WitnessResult;
-class WitnessVehicleObj;
 
 enum IndexType {
   INDEX_DEFAULT = 0,
@@ -1951,100 +1950,6 @@ class WitnessResult : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static WitnessResult* default_instance_;
 };
-// -------------------------------------------------------------------
-
-class WitnessVehicleObj : public ::google::protobuf::Message {
- public:
-  WitnessVehicleObj();
-  virtual ~WitnessVehicleObj();
-
-  WitnessVehicleObj(const WitnessVehicleObj& from);
-
-  inline WitnessVehicleObj& operator=(const WitnessVehicleObj& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const WitnessVehicleObj& default_instance();
-
-  void Swap(WitnessVehicleObj* other);
-
-  // implements Message ----------------------------------------------
-
-  inline WitnessVehicleObj* New() const { return New(NULL); }
-
-  WitnessVehicleObj* New(::google::protobuf::Arena* arena) const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const WitnessVehicleObj& from);
-  void MergeFrom(const WitnessVehicleObj& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(WitnessVehicleObj* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _internal_metadata_.arena();
-  }
-  inline void* MaybeArenaPtr() const {
-    return _internal_metadata_.raw_arena_ptr();
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  bool has_vehicleresult() const;
-  void clear_vehicleresult();
-  static const int kVehicleResultFieldNumber = 1;
-  const ::dg::model::VehicleObj& vehicleresult() const;
-  ::dg::model::VehicleObj* mutable_vehicleresult();
-  ::dg::model::VehicleObj* release_vehicleresult();
-  void set_allocated_vehicleresult(::dg::model::VehicleObj* vehicleresult);
-
-  // repeated .dg.model.StorageConfig Storages = 2;
-  int storages_size() const;
-  void clear_storages();
-  static const int kStoragesFieldNumber = 2;
-  const ::dg::model::StorageConfig& storages(int index) const;
-  ::dg::model::StorageConfig* mutable_storages(int index);
-  ::dg::model::StorageConfig* add_storages();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >*
-      mutable_storages();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >&
-      storages() const;
-
-  // @@protoc_insertion_point(class_scope:dg.model.WitnessVehicleObj)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  bool _is_default_instance_;
-  ::dg::model::VehicleObj* vehicleresult_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig > storages_;
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_witness_2eproto();
-  friend void protobuf_AssignDesc_witness_2eproto();
-  friend void protobuf_ShutdownFile_witness_2eproto();
-
-  void InitAsDefaultInstance();
-  static WitnessVehicleObj* default_instance_;
-};
 // ===================================================================
 
 
@@ -3736,80 +3641,7 @@ WitnessResult::pedestrian() const {
   return pedestrian_;
 }
 
-// -------------------------------------------------------------------
-
-// WitnessVehicleObj
-
-// optional .dg.model.VehicleObj VehicleResult = 1;
-inline bool WitnessVehicleObj::has_vehicleresult() const {
-  return !_is_default_instance_ && vehicleresult_ != NULL;
-}
-inline void WitnessVehicleObj::clear_vehicleresult() {
-  if (GetArenaNoVirtual() == NULL && vehicleresult_ != NULL) delete vehicleresult_;
-  vehicleresult_ = NULL;
-}
-inline const ::dg::model::VehicleObj& WitnessVehicleObj::vehicleresult() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessVehicleObj.VehicleResult)
-  return vehicleresult_ != NULL ? *vehicleresult_ : *default_instance_->vehicleresult_;
-}
-inline ::dg::model::VehicleObj* WitnessVehicleObj::mutable_vehicleresult() {
-  
-  if (vehicleresult_ == NULL) {
-    vehicleresult_ = new ::dg::model::VehicleObj;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessVehicleObj.VehicleResult)
-  return vehicleresult_;
-}
-inline ::dg::model::VehicleObj* WitnessVehicleObj::release_vehicleresult() {
-  
-  ::dg::model::VehicleObj* temp = vehicleresult_;
-  vehicleresult_ = NULL;
-  return temp;
-}
-inline void WitnessVehicleObj::set_allocated_vehicleresult(::dg::model::VehicleObj* vehicleresult) {
-  delete vehicleresult_;
-  vehicleresult_ = vehicleresult;
-  if (vehicleresult) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessVehicleObj.VehicleResult)
-}
-
-// repeated .dg.model.StorageConfig Storages = 2;
-inline int WitnessVehicleObj::storages_size() const {
-  return storages_.size();
-}
-inline void WitnessVehicleObj::clear_storages() {
-  storages_.Clear();
-}
-inline const ::dg::model::StorageConfig& WitnessVehicleObj::storages(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Get(index);
-}
-inline ::dg::model::StorageConfig* WitnessVehicleObj::mutable_storages(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Mutable(index);
-}
-inline ::dg::model::StorageConfig* WitnessVehicleObj::add_storages() {
-  // @@protoc_insertion_point(field_add:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >*
-WitnessVehicleObj::mutable_storages() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessVehicleObj.Storages)
-  return &storages_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >&
-WitnessVehicleObj::storages() const {
-  // @@protoc_insertion_point(field_list:dg.model.WitnessVehicleObj.Storages)
-  return storages_;
-}
-
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

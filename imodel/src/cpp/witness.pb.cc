@@ -82,9 +82,6 @@ const ::google::protobuf::Descriptor* WitnessResponseContext_DebugTsEntry_descri
 const ::google::protobuf::Descriptor* WitnessResult_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   WitnessResult_reflection_ = NULL;
-const ::google::protobuf::Descriptor* WitnessVehicleObj_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  WitnessVehicleObj_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* IndexType_descriptor_ = NULL;
 
 }  // namespace
@@ -406,22 +403,6 @@ void protobuf_AssignDesc_witness_2eproto() {
       sizeof(WitnessResult),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, _is_default_instance_));
-  WitnessVehicleObj_descriptor_ = file->message_type(16);
-  static const int WitnessVehicleObj_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, vehicleresult_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, storages_),
-  };
-  WitnessVehicleObj_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      WitnessVehicleObj_descriptor_,
-      WitnessVehicleObj::default_instance_,
-      WitnessVehicleObj_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(WitnessVehicleObj),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessVehicleObj, _is_default_instance_));
   IndexType_descriptor_ = file->enum_type(0);
 }
 
@@ -489,8 +470,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
                 WitnessResponseContext_DebugTsEntry_descriptor_));
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       WitnessResult_descriptor_, &WitnessResult::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      WitnessVehicleObj_descriptor_, &WitnessVehicleObj::default_instance());
 }
 
 }  // namespace
@@ -533,8 +512,6 @@ void protobuf_ShutdownFile_witness_2eproto() {
   delete WitnessResponseContext_reflection_;
   delete WitnessResult::default_instance_;
   delete WitnessResult_reflection_;
-  delete WitnessVehicleObj::default_instance_;
-  delete WitnessVehicleObj_reflection_;
 }
 
 void protobuf_AddDesc_witness_2eproto() {
@@ -600,23 +577,20 @@ void protobuf_AddDesc_witness_2eproto() {
     "tatus\030\001 \001(\t\022\024\n\014InnerMessage\030\002 \001(\t\022%\n\005Ima"
     "ge\030\003 \001(\0132\026.dg.model.WitnessImage\022&\n\010Vehi"
     "cles\030\004 \003(\0132\024.dg.model.RecVehicle\022+\n\nPede"
-    "strian\030\005 \003(\0132\027.dg.model.RecPedestrian\"k\n"
-    "\021WitnessVehicleObj\022+\n\rVehicleResult\030\001 \001("
-    "\0132\024.dg.model.VehicleObj\022)\n\010Storages\030\002 \003("
-    "\0132\027.dg.model.StorageConfig*\313\001\n\tIndexType"
-    "\022\021\n\rINDEX_DEFAULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001"
-    "\022\022\n\016INDEX_CAR_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020"
-    "\003\022\024\n\020INDEX_CAR_MARKER\020\004\022\030\n\024INDEX_CAR_PLA"
-    "TE_TYPE\020\005\022\031\n\025INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036"
-    "INDEX_CAR_PEDESTRIAN_ATTR_TYPE\020\0072\256\002\n\016Wit"
-    "nessService\022B\n\tRecognize\022\030.dg.model.Witn"
-    "essRequest\032\031.dg.model.WitnessResponse\"\000\022"
-    "Q\n\016BatchRecognize\022\035.dg.model.WitnessBatc"
-    "hRequest\032\036.dg.model.WitnessBatchResponse"
-    "\"\000\022=\n\010GetIndex\022\026.dg.model.IndexRequest\032\027"
-    ".dg.model.IndexResponse\"\000\022F\n\013GetIndexTxt"
-    "\022\031.dg.model.IndexTxtRequest\032\032.dg.model.I"
-    "ndexTxtResponse\"\000b\006proto3", 2825);
+    "strian\030\005 \003(\0132\027.dg.model.RecPedestrian*\313\001"
+    "\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\023\n\017INDEX_"
+    "CAR_BRAND\020\001\022\022\n\016INDEX_CAR_TYPE\020\002\022\023\n\017INDEX"
+    "_CAR_COLOR\020\003\022\024\n\020INDEX_CAR_MARKER\020\004\022\030\n\024IN"
+    "DEX_CAR_PLATE_TYPE\020\005\022\031\n\025INDEX_CAR_PLATE_"
+    "COLOR\020\006\022\"\n\036INDEX_CAR_PEDESTRIAN_ATTR_TYP"
+    "E\020\0072\256\002\n\016WitnessService\022B\n\tRecognize\022\030.dg"
+    ".model.WitnessRequest\032\031.dg.model.Witness"
+    "Response\"\000\022Q\n\016BatchRecognize\022\035.dg.model."
+    "WitnessBatchRequest\032\036.dg.model.WitnessBa"
+    "tchResponse\"\000\022=\n\010GetIndex\022\026.dg.model.Ind"
+    "exRequest\032\027.dg.model.IndexResponse\"\000\022F\n\013"
+    "GetIndexTxt\022\031.dg.model.IndexTxtRequest\032\032"
+    ".dg.model.IndexTxtResponse\"\000b\006proto3", 2716);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -638,7 +612,6 @@ void protobuf_AddDesc_witness_2eproto() {
   WitnessImage::default_instance_ = new WitnessImage();
   WitnessResponseContext::default_instance_ = new WitnessResponseContext();
   WitnessResult::default_instance_ = new WitnessResult();
-  WitnessVehicleObj::default_instance_ = new WitnessVehicleObj();
   IndexRequest::default_instance_->InitAsDefaultInstance();
   IndexTxtRequest::default_instance_->InitAsDefaultInstance();
   IndexTxtResponse::default_instance_->InitAsDefaultInstance();
@@ -657,7 +630,6 @@ void protobuf_AddDesc_witness_2eproto() {
   WitnessImage::default_instance_->InitAsDefaultInstance();
   WitnessResponseContext::default_instance_->InitAsDefaultInstance();
   WitnessResult::default_instance_->InitAsDefaultInstance();
-  WitnessVehicleObj::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_witness_2eproto);
 }
 
@@ -7954,331 +7926,6 @@ const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
 WitnessResult::pedestrian() const {
   // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Pedestrian)
   return pedestrian_;
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int WitnessVehicleObj::kVehicleResultFieldNumber;
-const int WitnessVehicleObj::kStoragesFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-WitnessVehicleObj::WitnessVehicleObj()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.WitnessVehicleObj)
-}
-
-void WitnessVehicleObj::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-  vehicleresult_ = const_cast< ::dg::model::VehicleObj*>(&::dg::model::VehicleObj::default_instance());
-}
-
-WitnessVehicleObj::WitnessVehicleObj(const WitnessVehicleObj& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.WitnessVehicleObj)
-}
-
-void WitnessVehicleObj::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
-  vehicleresult_ = NULL;
-}
-
-WitnessVehicleObj::~WitnessVehicleObj() {
-  // @@protoc_insertion_point(destructor:dg.model.WitnessVehicleObj)
-  SharedDtor();
-}
-
-void WitnessVehicleObj::SharedDtor() {
-  if (this != default_instance_) {
-    delete vehicleresult_;
-  }
-}
-
-void WitnessVehicleObj::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* WitnessVehicleObj::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return WitnessVehicleObj_descriptor_;
-}
-
-const WitnessVehicleObj& WitnessVehicleObj::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_witness_2eproto();
-  return *default_instance_;
-}
-
-WitnessVehicleObj* WitnessVehicleObj::default_instance_ = NULL;
-
-WitnessVehicleObj* WitnessVehicleObj::New(::google::protobuf::Arena* arena) const {
-  WitnessVehicleObj* n = new WitnessVehicleObj;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void WitnessVehicleObj::Clear() {
-  if (GetArenaNoVirtual() == NULL && vehicleresult_ != NULL) delete vehicleresult_;
-  vehicleresult_ = NULL;
-  storages_.Clear();
-}
-
-bool WitnessVehicleObj::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.WitnessVehicleObj)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .dg.model.VehicleObj VehicleResult = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_vehicleresult()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Storages;
-        break;
-      }
-
-      // repeated .dg.model.StorageConfig Storages = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Storages:
-          DO_(input->IncrementRecursionDepth());
-         parse_loop_Storages:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
-                input, add_storages()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_loop_Storages;
-        input->UnsafeDecrementRecursionDepth();
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.WitnessVehicleObj)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.WitnessVehicleObj)
-  return false;
-#undef DO_
-}
-
-void WitnessVehicleObj::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.WitnessVehicleObj)
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, *this->vehicleresult_, output);
-  }
-
-  // repeated .dg.model.StorageConfig Storages = 2;
-  for (unsigned int i = 0, n = this->storages_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->storages(i), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:dg.model.WitnessVehicleObj)
-}
-
-::google::protobuf::uint8* WitnessVehicleObj::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.WitnessVehicleObj)
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        1, *this->vehicleresult_, target);
-  }
-
-  // repeated .dg.model.StorageConfig Storages = 2;
-  for (unsigned int i = 0, n = this->storages_size(); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        2, this->storages(i), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessVehicleObj)
-  return target;
-}
-
-int WitnessVehicleObj::ByteSize() const {
-  int total_size = 0;
-
-  // optional .dg.model.VehicleObj VehicleResult = 1;
-  if (this->has_vehicleresult()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->vehicleresult_);
-  }
-
-  // repeated .dg.model.StorageConfig Storages = 2;
-  total_size += 1 * this->storages_size();
-  for (int i = 0; i < this->storages_size(); i++) {
-    total_size +=
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        this->storages(i));
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void WitnessVehicleObj::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const WitnessVehicleObj* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const WitnessVehicleObj>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void WitnessVehicleObj::MergeFrom(const WitnessVehicleObj& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  storages_.MergeFrom(from.storages_);
-  if (from.has_vehicleresult()) {
-    mutable_vehicleresult()->::dg::model::VehicleObj::MergeFrom(from.vehicleresult());
-  }
-}
-
-void WitnessVehicleObj::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void WitnessVehicleObj::CopyFrom(const WitnessVehicleObj& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool WitnessVehicleObj::IsInitialized() const {
-
-  return true;
-}
-
-void WitnessVehicleObj::Swap(WitnessVehicleObj* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void WitnessVehicleObj::InternalSwap(WitnessVehicleObj* other) {
-  std::swap(vehicleresult_, other->vehicleresult_);
-  storages_.UnsafeArenaSwap(&other->storages_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata WitnessVehicleObj::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = WitnessVehicleObj_descriptor_;
-  metadata.reflection = WitnessVehicleObj_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// WitnessVehicleObj
-
-// optional .dg.model.VehicleObj VehicleResult = 1;
-bool WitnessVehicleObj::has_vehicleresult() const {
-  return !_is_default_instance_ && vehicleresult_ != NULL;
-}
-void WitnessVehicleObj::clear_vehicleresult() {
-  if (GetArenaNoVirtual() == NULL && vehicleresult_ != NULL) delete vehicleresult_;
-  vehicleresult_ = NULL;
-}
-const ::dg::model::VehicleObj& WitnessVehicleObj::vehicleresult() const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessVehicleObj.VehicleResult)
-  return vehicleresult_ != NULL ? *vehicleresult_ : *default_instance_->vehicleresult_;
-}
-::dg::model::VehicleObj* WitnessVehicleObj::mutable_vehicleresult() {
-  
-  if (vehicleresult_ == NULL) {
-    vehicleresult_ = new ::dg::model::VehicleObj;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessVehicleObj.VehicleResult)
-  return vehicleresult_;
-}
-::dg::model::VehicleObj* WitnessVehicleObj::release_vehicleresult() {
-  
-  ::dg::model::VehicleObj* temp = vehicleresult_;
-  vehicleresult_ = NULL;
-  return temp;
-}
-void WitnessVehicleObj::set_allocated_vehicleresult(::dg::model::VehicleObj* vehicleresult) {
-  delete vehicleresult_;
-  vehicleresult_ = vehicleresult;
-  if (vehicleresult) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.WitnessVehicleObj.VehicleResult)
-}
-
-// repeated .dg.model.StorageConfig Storages = 2;
-int WitnessVehicleObj::storages_size() const {
-  return storages_.size();
-}
-void WitnessVehicleObj::clear_storages() {
-  storages_.Clear();
-}
-const ::dg::model::StorageConfig& WitnessVehicleObj::storages(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Get(index);
-}
-::dg::model::StorageConfig* WitnessVehicleObj::mutable_storages(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Mutable(index);
-}
-::dg::model::StorageConfig* WitnessVehicleObj::add_storages() {
-  // @@protoc_insertion_point(field_add:dg.model.WitnessVehicleObj.Storages)
-  return storages_.Add();
-}
-::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >*
-WitnessVehicleObj::mutable_storages() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessVehicleObj.Storages)
-  return &storages_;
-}
-const ::google::protobuf::RepeatedPtrField< ::dg::model::StorageConfig >&
-WitnessVehicleObj::storages() const {
-  // @@protoc_insertion_point(field_list:dg.model.WitnessVehicleObj.Storages)
-  return storages_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

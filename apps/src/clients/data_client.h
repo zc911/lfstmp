@@ -24,33 +24,33 @@ public:
     DataClient() {
 
     }
-    MatrixError SendBatchData(string address, VehicleObj *v) {
+    MatrixError SendBatchData(string address, VehicleObj &v, PedestrianObj &p) {
         MatrixError err;
 
 
         ::model::BatchDataRequest batchReq;
-        for (int i = 0; i < v->vehicle_size(); i++) {
+        for (int i = 0; i < v.vehicle_size(); i++) {
             string bindata = "";
             ::model::ObjType typeValue = model::UNKNOWNOBJ;
-            dg::model::RecVehicle *mV = v->mutable_vehicle(i);
+            dg::model::RecVehicle *mV = v.mutable_vehicle(i);
             if (mV->vehicletype() == dg::model::OBJ_TYPE_CAR) {
                 model::Vehicle pbVehicle;
-                vehicle2Protobuf(pbVehicle, mV, v->metadata());
+                vehicle2Protobuf(pbVehicle, mV, v.metadata());
                 bindata = pbVehicle.SerializeAsString();
                 typeValue = model::VEHICLE;
             } else if (mV->vehicletype() == dg::model::OBJ_TYPE_BICYCLE) {
                 model::Bicycle pbBicycle;
-                bicycle2Protobuf(pbBicycle, mV, v->metadata());
+                bicycle2Protobuf(pbBicycle, mV, v.metadata());
                 bindata = pbBicycle.SerializeAsString();
                 typeValue = model::BICYCLE;
             } else if (mV->vehicletype() == dg::model::OBJ_TYPE_TRICYCLE) {
                 model::Tricycle pbTricycle;
-                tricycle2Protobuf(pbTricycle, mV, v->metadata());
+                tricycle2Protobuf(pbTricycle, mV, v.metadata());
                 bindata = pbTricycle.SerializeAsString();
                 typeValue = model::TRICYCLE;
             } else if (mV->vehicletype() == dg::model::OBJ_TYPE_PEDESTRIAN) {
                 model::Pedestrian pbPedestrian;
-                pedestrian2Protobuf(pbPedestrian, mV, v->metadata());
+                pedestrian2Protobuf(pbPedestrian, mV, v.metadata());
                 bindata = pbPedestrian.SerializeAsString();
                 typeValue = model::PEDESTRIAN;
             }
@@ -60,6 +60,16 @@ public:
                 genObj->set_type(typeValue);
                 genObj->set_bindata(bindata);
             }
+        }
+        for(int i=0;i<p.pedestrian_size();i++){
+            dg::model::RecPedestrian *mP = p.mutable_pedestrian(i);
+            model::Pedestrian pbPedestrian;
+            pedestrian2Protobuf(pbPedestrian,mp,p.metadata());
+            bindata = pbPedestrian.SerializeAsString();
+            model::GenericObj *genObj = batchReq.add_entities();
+            genObj->set_fmttype(model::PROTOBUF);
+            genObj->set_type(model::PEDESTRIAN);
+            genObj->set_bindata(bindata);
         }
         unique_lock<mutex> lock(mtx);
         map<string, std::unique_ptr<DataService::Stub> >::iterator it = stubs_.find(address);
@@ -120,7 +130,101 @@ public:
     };
 private:
     std::mutex mtx;
+    void pedestrian2Protobuf(model::Pedestrian &pbPedestrian, dg::model::RecPedestrian *recPedestrian, const dg::model::SrcMetadata &srcMetadata) {
+        model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
+        model::Color *mColor = pbPedestrian.mutable_color();
+        model::CutboardImage *mCutImage = pbPedestrian.mutable_img();
 
+        mColor->set_id(recVehicle->color().colorid());
+        mColor->set_confidence(recVehicle->color().confidence());
+
+        metadata->set_timestamp(srcMetadata.timestamp());
+        metadata->set_sensorurl(srcMetadata.sensorurl());
+
+        mCutImage->mutable_cutboard()->set_x((int)recPedestrian->img().cutboard().x() > 0 ? recPedestrian->img().cutboard().x() : 0);
+        mCutImage->mutable_cutboard()->set_y((int)recPedestrian->img().cutboard().y() > 0 ? recPedestrian->img().cutboard().y() : 0);
+        mCutImage->mutable_cutboard()->set_width(recPedestrian->img().cutboard().width());
+        mCutImage->mutable_cutboard()->set_height(recPedestrian->img().cutboard().height());
+        mCutImage->mutable_cutboard()->set_reswidth(recPedestrian->img().cutboard().reswidth());
+        mCutImage->mutable_cutboard()->set_resheight(recPedestrian->img().cutboard().resheight());
+
+        model::Image *image = mCutImage->mutable_img();
+        image->set_bindata(recPedestrian->img().img().bindata());
+        pbPedestrian.set_age(recPedestrian->pedesattr().age().id());
+        pbPedestrian.set_upperstyle(recPedestrian->pedesattr().upperfeatures().catagory().id());
+        pbPedestrian.set_lowerstyle(recPedestrian->pedesattr().lowerfeatures().catagory().id());
+
+        unsigned int featuresTmp = 0;
+        unsigned int headsTmp = 0;
+        unsigned int upperColorsTmp = 0;
+        unsigned int lowerColorsTmp = 0;
+
+        for(int i=0;i<recPedestrian->pedesattr().bodywears_size();i++){
+            featuresTmp |=1<<(recPedestrian->pedesattr().bodywears(i).id());
+        }
+        for(int i=0;i<recPedestrian->pedesattr().headwears_size();i++){
+            headsTmp |=1<<(recPedestrian->pedesattr().geadwears(i).id()-6);
+        }
+        for(int i=0;i<recPedestrian->pedesattr().upperfeatures().color_size();i++){
+            upperColorsTmp |=1<<(recPedestrian->pedesattr().upperfeatures().color(i).id()-10);
+        }
+        pbPedestrian.set_uppercolors(upperColorsTmp);
+        for(int i=0;i<recPedestrian->pedesattr().lowerfeatures().color_size();i++){
+            lowerColorsTmp |=1<<(recPedestrian->pedesattr().lowerfeatures().color(i).id()-22);
+        }
+        pbPedestrian.set_lowercolors(lowerColorsTmp);
+/*
+        unsigned int featuresTmp = 0;
+        unsigned int headsTmp = 0;
+        unsigned int upperColorsTmp = 0;
+        unsigned int lowerColorsTmp = 0;
+        unsigned int ageTmp = 0;
+        unsigned int upperStyleTmp = 0;
+        unsigned int lowerStyleTmp = 0;
+        unsigned int genderTmp = 0;
+        unsigned int ethnicTmp = 0;
+        float age_conf = 0.0;
+        float upper_conf = 0.0;
+        float lower_conf = 0.0;
+        float sex_conf = 0.0;
+        float ethnic_conf = 0.0;
+        for (size_t i = 0; i < recVehicle->pedestrianattrs_size(); i++) {
+            if (i >= 0 && i < 6) {
+                featuresTmp |= 1 << recVehicle->pedestrianattrs(i).attrid();
+            } else if (i >= 6 && i < 10) {
+                headsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 6);
+            } else if (i >= 10 && i < 22) {
+                upperColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 10);
+            } else if (i >= 22 && i < 34) {
+                lowerColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 22);
+            } else if (i >= 34 && i < 38) {
+                if (recVehicle->pedestrianattrs(i).confidence() > age_conf) {
+                    pbPedestrian.set_age(recVehicle->pedestrianattrs(i).attrid());
+                }
+            } else if (i >= 38 && i < 42) {
+                if (recVehicle->pedestrianattrs(i).confidence() > upper_conf) {
+                    pbPedestrian.set_upperstyle(recVehicle->pedestrianattrs(i).attrid());
+                }
+            } else if (i >= 42 && i < 45) {
+                if (recVehicle->pedestrianattrs(i).confidence() > lower_conf) {
+                    pbPedestrian.set_lowerstyle(recVehicle->pedestrianattrs(i).attrid());
+                }
+            } else if (i == 45) {
+                if (recVehicle->pedestrianattrs(i).confidence() > sex_conf) {
+                    pbPedestrian.set_gender(1);
+                } else {
+                    pbPedestrian.set_gender(0);
+                }
+            } else if (i <= 46) {
+                if (recVehicle->pedestrianattrs(i).confidence() > ethnic_conf) {
+                    pbPedestrian.set_ethnic(1);
+                } else {
+                    pbPedestrian.set_ethnic(0);
+                }
+            }
+        }
+*/
+    }
     void bicycle2Protobuf(model::Bicycle &pbBicycle, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
         model::VideoMetadata *metadata = pbBicycle.mutable_metadata();
         model::Color *mColor = pbBicycle.mutable_color();

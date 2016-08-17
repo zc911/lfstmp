@@ -16,6 +16,15 @@ using ::dg::model::SpringService;
 using ::dg::model::WitnessService;
 
 namespace dg {
+
+typedef struct  {
+    ::google::protobuf::RepeatedPtrField<::dg::model::WitnessResult> results;
+    ::google::protobuf::RepeatedPtrField<::dg::model::StorageConfig> storages;
+    vector<Mat> imgs;
+    vector<SrcMetadata> srcMetadatas;
+
+}WitnessVehicleObj;
+
 class WitnessBucket {
 public:
     ~WitnessBucket() { };

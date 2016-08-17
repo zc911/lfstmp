@@ -48,6 +48,7 @@ class LicensePlate;
 class NameAndConfidence;
 class NullMessage;
 class PedestrianAttr;
+class PedestrianObj;
 class RecFace;
 class RecPedestrian;
 class RecVehicle;
@@ -1114,6 +1115,12 @@ class NameAndConfidence : public ::google::protobuf::Message {
   float confidence() const;
   void set_confidence(float value);
 
+  // optional int32 Id = 3;
+  void clear_id();
+  static const int kIdFieldNumber = 3;
+  ::google::protobuf::int32 id() const;
+  void set_id(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:dg.model.NameAndConfidence)
  private:
 
@@ -1121,6 +1128,7 @@ class NameAndConfidence : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   float confidence_;
+  ::google::protobuf::int32 id_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -2388,6 +2396,110 @@ class VehicleObj : public ::google::protobuf::Message {
   void InitAsDefaultInstance();
   static VehicleObj* default_instance_;
 };
+// -------------------------------------------------------------------
+
+class PedestrianObj : public ::google::protobuf::Message {
+ public:
+  PedestrianObj();
+  virtual ~PedestrianObj();
+
+  PedestrianObj(const PedestrianObj& from);
+
+  inline PedestrianObj& operator=(const PedestrianObj& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PedestrianObj& default_instance();
+
+  void Swap(PedestrianObj* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PedestrianObj* New() const { return New(NULL); }
+
+  PedestrianObj* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const PedestrianObj& from);
+  void MergeFrom(const PedestrianObj& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PedestrianObj* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.SrcMetadata Metadata = 1;
+  bool has_metadata() const;
+  void clear_metadata();
+  static const int kMetadataFieldNumber = 1;
+  const ::dg::model::SrcMetadata& metadata() const;
+  ::dg::model::SrcMetadata* mutable_metadata();
+  ::dg::model::SrcMetadata* release_metadata();
+  void set_allocated_metadata(::dg::model::SrcMetadata* metadata);
+
+  // optional .dg.model.Image Img = 2;
+  bool has_img() const;
+  void clear_img();
+  static const int kImgFieldNumber = 2;
+  const ::dg::model::Image& img() const;
+  ::dg::model::Image* mutable_img();
+  ::dg::model::Image* release_img();
+  void set_allocated_img(::dg::model::Image* img);
+
+  // repeated .dg.model.RecPedestrian Pedestrian = 3;
+  int pedestrian_size() const;
+  void clear_pedestrian();
+  static const int kPedestrianFieldNumber = 3;
+  const ::dg::model::RecPedestrian& pedestrian(int index) const;
+  ::dg::model::RecPedestrian* mutable_pedestrian(int index);
+  ::dg::model::RecPedestrian* add_pedestrian();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >*
+      mutable_pedestrian();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
+      pedestrian() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.PedestrianObj)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::SrcMetadata* metadata_;
+  ::dg::model::Image* img_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian > pedestrian_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static PedestrianObj* default_instance_;
+};
 // ===================================================================
 
 
@@ -3233,6 +3345,20 @@ inline void NameAndConfidence::set_confidence(float value) {
   
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Confidence)
+}
+
+// optional int32 Id = 3;
+inline void NameAndConfidence::clear_id() {
+  id_ = 0;
+}
+inline ::google::protobuf::int32 NameAndConfidence::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Id)
+  return id_;
+}
+inline void NameAndConfidence::set_id(::google::protobuf::int32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Id)
 }
 
 // -------------------------------------------------------------------
@@ -4953,7 +5079,117 @@ VehicleObj::vehicle() const {
   return vehicle_;
 }
 
+// -------------------------------------------------------------------
+
+// PedestrianObj
+
+// optional .dg.model.SrcMetadata Metadata = 1;
+inline bool PedestrianObj::has_metadata() const {
+  return !_is_default_instance_ && metadata_ != NULL;
+}
+inline void PedestrianObj::clear_metadata() {
+  if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
+  metadata_ = NULL;
+}
+inline const ::dg::model::SrcMetadata& PedestrianObj::metadata() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianObj.Metadata)
+  return metadata_ != NULL ? *metadata_ : *default_instance_->metadata_;
+}
+inline ::dg::model::SrcMetadata* PedestrianObj::mutable_metadata() {
+  
+  if (metadata_ == NULL) {
+    metadata_ = new ::dg::model::SrcMetadata;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianObj.Metadata)
+  return metadata_;
+}
+inline ::dg::model::SrcMetadata* PedestrianObj::release_metadata() {
+  
+  ::dg::model::SrcMetadata* temp = metadata_;
+  metadata_ = NULL;
+  return temp;
+}
+inline void PedestrianObj::set_allocated_metadata(::dg::model::SrcMetadata* metadata) {
+  delete metadata_;
+  metadata_ = metadata;
+  if (metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianObj.Metadata)
+}
+
+// optional .dg.model.Image Img = 2;
+inline bool PedestrianObj::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+inline void PedestrianObj::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+inline const ::dg::model::Image& PedestrianObj::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianObj.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+inline ::dg::model::Image* PedestrianObj::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianObj.Img)
+  return img_;
+}
+inline ::dg::model::Image* PedestrianObj::release_img() {
+  
+  ::dg::model::Image* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+inline void PedestrianObj::set_allocated_img(::dg::model::Image* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianObj.Img)
+}
+
+// repeated .dg.model.RecPedestrian Pedestrian = 3;
+inline int PedestrianObj::pedestrian_size() const {
+  return pedestrian_.size();
+}
+inline void PedestrianObj::clear_pedestrian() {
+  pedestrian_.Clear();
+}
+inline const ::dg::model::RecPedestrian& PedestrianObj::pedestrian(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianObj.Pedestrian)
+  return pedestrian_.Get(index);
+}
+inline ::dg::model::RecPedestrian* PedestrianObj::mutable_pedestrian(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianObj.Pedestrian)
+  return pedestrian_.Mutable(index);
+}
+inline ::dg::model::RecPedestrian* PedestrianObj::add_pedestrian() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianObj.Pedestrian)
+  return pedestrian_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >*
+PedestrianObj::mutable_pedestrian() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianObj.Pedestrian)
+  return &pedestrian_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
+PedestrianObj::pedestrian() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianObj.Pedestrian)
+  return pedestrian_;
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
