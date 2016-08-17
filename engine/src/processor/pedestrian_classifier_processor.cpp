@@ -39,14 +39,18 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch) {
         Pedestrian *p = (Pedestrian *) objs_[i];
         std::vector<PedestrianClassifier::PedestrianAttribute> attrs_i = attrc[i];
         std::vector<Pedestrian::Attr> attrs_o;
+        std::map<string, float> threshold_ = classifier_->attribute_threshold_;
         for (int j = 0; j < attrs_i.size(); j++) {
             Pedestrian::Attr attr;
             attr.index = attrs_i[j].index;
             attr.tagname = attrs_i[j].tagname;
             attr.confidence = attrs_i[j].confidence;
+            attr.threshold_lower = attrs_i[j].threshold_lower;
+            attr.threshold_upper = attrs_i[j].threshold_upper;
             attrs_o.push_back(attr);
         }
         p->set_attrs(attrs_o);
+        p->set_threshold(threshold_);
         std::vector<Pedestrian::Attr> a = p->attrs();
     }
 
