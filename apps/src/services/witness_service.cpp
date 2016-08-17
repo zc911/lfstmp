@@ -19,6 +19,7 @@
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
+#include "witness_bucket.h"
 //
 using namespace std;
 namespace dg {
@@ -131,11 +132,8 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
 
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-        <<< <<< < HEAD
         RecPedestrian *prec) {
-    == == == =
-        RecVehicle * vrec) {
-        >>> >>> > merge_storage
+
         MatrixError err;
         const Detection &d = pobj->detection();
         std::vector<Pedestrian::Attr> attrs = pobj->attrs();
@@ -164,6 +162,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                     nac->set_name("未知");
                     nac->set_confidence(attrs[i].confidence);
                 }
+                nac->set_id(i);
+
             }
 
             // national judge
@@ -181,6 +181,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                     nac->set_name("未知");
                     nac->set_confidence(attrs[i].confidence);
                 }
+                nac->set_id(i);
+
             }
 
             // age judge
@@ -191,6 +193,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                     nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                     nac->set_confidence(attrs[i].confidence);
                 }
+                nac->set_id(i);
             }
             // head wears judge
             if (i >= 6 && i <= 9) {
@@ -199,8 +202,11 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                         NameAndConfidence *nac = attr->add_headwears();
                         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                         nac->set_confidence(attrs[i].confidence);
+                        nac->set_id(i);
+
                     }
                 }
+
             }
 
             // body wear
@@ -210,6 +216,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                         NameAndConfidence *nac = attr->add_bodywears();
                         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                         nac->set_confidence(attrs[i].confidence);
+                        nac->set_id(i);
+
                     }
                 }
             }
@@ -222,6 +230,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                         NameAndConfidence *nac = hobf->add_color();
                         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                         nac->set_confidence(attrs[i].confidence);
+                        nac->set_id(i);
+
                     }
                 }
             }
@@ -235,6 +245,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                             NameAndConfidence *nac = hobf->mutable_stripes();
                             nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                             nac->set_confidence(attrs[i].confidence);
+                            nac->set_id(i);
+
                         }
                     }
                 }
@@ -248,6 +260,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                         NameAndConfidence *nac = hobf->add_color();
                         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                         nac->set_confidence(attrs[i].confidence);
+                        nac->set_id(i);
+
                     }
                 }
             }
@@ -261,6 +275,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                             NameAndConfidence *nac = hobf->mutable_catagory();
                             nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
                             nac->set_confidence(attrs[i].confidence);
+                            nac->set_id(i);
+
                         }
                     }
                 }
@@ -579,43 +595,21 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
         ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
         VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
-
         if (enable_storage_) {
-
-            const WitnessResult &r = response->result();
-            if (r.vehicles_size() != 0) {
-                shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-                if (request->context().storages_size() > 0) {
-                    client_request_obj->mutable_storages()->CopyFrom(request->context().storages());
-                } else {
-                    client_request_obj->mutable_storages()->CopyFrom(storage_configs_);
-                }
-                for (int i = 0; i < r.vehicles_size(); i++) {
-                    Cutboard c = r.vehicles(i).img().cutboard();
-                    Mat roi(frame->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
-                    RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
-                    v->CopyFrom(r.vehicles(i));
-                    if (enable_cutboard_) {
-                        vector<char> data(roi.datastart, roi.dataend);
-                        string imgdata = Base64::Encode(data);
-                        v->mutable_img()->mutable_img()->set_bindata(imgdata);
-                        v->img().img().bindata();
-                    }
-                }
-                VehicleObj *vehicleObj = client_request_obj->mutable_vehicleresult();
-                //origin img info
-                vehicleObj->mutable_img()->set_uri(request->image().data().uri());
-                vehicleObj->mutable_img()->set_height(frame->payload()->data().rows);
-                vehicleObj->mutable_img()->set_width(frame->payload()->data().cols);
-                //src metadata
-                vehicleObj->mutable_metadata()->CopyFrom(request->image().witnessmetadata());
-                vehicleObj->mutable_metadata()->set_timestamp(timestamp);
-                //      string s;
-                //       google::protobuf::TextFormat::PrintToString(*client_request_obj.get(), &s);
-                //        VLOG(VLOG_SERVICE) << s << endl;
-                WitnessBucket::Instance().Push(client_request_obj);
+            shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
+            WitnessResult * result=client_request_obj->results.Add();
+            result->CopyFrom(response->result());
+            if (request->context().storages_size() > 0) {
+                client_request_obj->storages.CopyFrom(request->context().storages());
+            } else {
+                client_request_obj->storages.CopyFrom(storage_configs_);
             }
+            client_request_obj->imgs.push_back(framebatch.frames()[0]->payload()->data());
+            SrcMetadata metadata;
+            metadata.set_timestamp(timestamp);
+            client_request_obj->srcMetadatas.push_back(metadata);
         }
+
 
         VLOG(VLOG_SERVICE) << "recognized objects: " << frame->objects().size() << endl;
         VLOG(VLOG_SERVICE) << "Finish processing: " << sessionid << "..." << endl;
@@ -794,35 +788,17 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
         if (enable_storage_) {
-            for (int k = 0; k < batchResponse->results_size(); k++) {
-                const WitnessResult &r = batchResponse->results(k);
-                if (r.vehicles_size() != 0) {
-
-                    shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-                    if (batchRequest->context().storages_size() > 0) {
-                        client_request_obj->mutable_storages()->CopyFrom(batchRequest->context().storages());
-                    } else {
-                        client_request_obj->mutable_storages()->CopyFrom(storage_configs_);
-                    }
-                    for (int i = 0; i < r.vehicles_size(); i++) {
-                        Cutboard c = r.vehicles(i).img().cutboard();
-                        Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
-                        RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
-                        v->CopyFrom(r.vehicles(i));
-                        if (enable_cutboard_) {
-                            vector<uchar> data(roi.datastart, roi.dataend);
-                            string imgdata = Base64::Encode(data);
-                            v->mutable_img()->mutable_img()->set_bindata(imgdata);
-                        }
-                        client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(srcMetadatas[k]);
-                        client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
-
-                        client_request_obj->mutable_vehicleresult()->mutable_img()->set_height(framebatch.frames()[k]->payload()->data().rows);
-                        client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
-                    }
-                    WitnessBucket::Instance().Push(client_request_obj);
-                }
+            shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
+            client_request_obj->results.CopyFrom(batchResponse->results());
+            if (batchRequest->context().storages_size() > 0) {
+                client_request_obj->storages.CopyFrom(batchRequest->context().storages());
+            } else {
+                client_request_obj->storages.CopyFrom(storage_configs_);
             }
+            for (int k = 0; k < batchResponse->results_size(); k++) {
+                client_request_obj->imgs.push_back(framebatch.frames()[k]->payload()->data());
+            }
+            client_request_obj->srcMetadatas=srcMetadatas;
         }
 
 
@@ -831,4 +807,35 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     }
 
 }
+
+
+/*
+for (int k = 0; k < batchResponse->results_size(); k++) {
+const WitnessResult &r = batchResponse->results(k);
+if (r.vehicles_size() != 0) {
+
+if (batchRequest->context().storages_size() > 0) {
+client_request_obj->mutable_storages()->CopyFrom(batchRequest->context().storages());
+} else {
+client_request_obj->mutable_storages()->CopyFrom(storage_configs_);
+}
+for (int i = 0; i < r.vehicles_size(); i++) {
+Cutboard c = r.vehicles(i).img().cutboard();
+Mat roi(framebatch.frames()[k]->payload()->data(), Rect(c.x(), c.y(), c.width(), c.height()));
+RecVehicle *v = client_request_obj->mutable_vehicleresult()->add_vehicle();
+v->CopyFrom(r.vehicles(i));
+if (enable_cutboard_) {
+vector<uchar> data(roi.datastart, roi.dataend);
+string imgdata = Base64::Encode(data);
+v->mutable_img()->mutable_img()->set_bindata(imgdata);
+}
+client_request_obj->mutable_vehicleresult()->mutable_metadata()->CopyFrom(srcMetadatas[k]);
+client_request_obj->mutable_vehicleresult()->mutable_img()->set_uri(batchRequest->images(k).data().uri());
+
+client_request_obj->mutable_vehicleresult()->mutable_img()->set_height(framebatch.frames()[k]->payload()->data().rows);
+client_request_obj->mutable_vehicleresult()->mutable_img()->set_width(framebatch.frames()[k]->payload()->data().cols);
+}
+WitnessBucket::Instance().Push(client_request_obj);
+}
+}*/
 
