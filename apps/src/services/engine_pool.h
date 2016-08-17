@@ -93,7 +93,7 @@ public:
                 EngineType *engine = new EngineType(*config_);
                 cout << "Start thread: " << name << endl;
 
-                workers_.emplace_back([this, engine, &name] {
+                workers_.emplace_back([this, engine, name] {
                   for (; ;) {
                       EngineData *task;
                       {
@@ -111,11 +111,15 @@ public:
                           this->tasks_.pop();
                           lock.unlock();
                       }
+                      LOG(INFO)<<name<<" "<<task;
+
                       // assign the current engine instance to task
                       task->apps = (void *) engine;
                       // task first binds the engine instance to the specific member methods
                       // and then invoke the binded function
                       task->Run();
+                      LOG(INFO)<<name<<" "<<task;
+
                   }
                   cout << "end thread: " << name << endl;
 

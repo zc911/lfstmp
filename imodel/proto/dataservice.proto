@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package model;
+
+import "deepdatasingle.proto";
+service DataService {
+	// SendData sends the data of a single entity to store.
+	rpc SendData(DataRequest) returns (DataResponse) {}
+	// SendBatchData sends the data of multiple entities to store.
+	rpc SendBatchData(BatchDataRequest) returns (DataResponse) {}
+	// Query queries stored data based on requested criteria.
+	rpc Search(SearchRequest) returns (DataResponse) {}
+}
+
+
+message DataRequest {
+	GenericObj Entity = 1;
+}
+
+message BatchDataRequest {
+	repeated GenericObj Entities = 2;
+}
+
+message DataResponse {
+	ApiStatus Status = 1;
+	string Msg = 2;
+	bytes Data = 3;
+}
+
+message SearchRequest {
+	GenericQuery Query = 1;
+}
+message GenericQuery {
+	ObjType Type = 1;
+	DataFmtType FmtType = 2;
+	string StrData = 3; // Json representation of specific query.
+	bytes BinData = 4; // Protobuf representation of specific query.
+}
+message GenericObj {
+	ObjType Type = 1;
+	DataFmtType FmtType = 2;
+	string StrData = 3; // Json representation of specific obj. Use string for two reasons: the readbility; don't need to overhead of converting to base64 in http api.
+	bytes BinData = 4; // Protobuf representation of specific obj.
+}
+enum ApiStatus{
+	UNKNOWNSTATUS = 0;
+	SUCCESS = 1;
+	ERROR = 2;
+	// TODO: Added more specific error codes.
+}
+
+message HttpResp {
+	ApiStatus Status = 1;
+	string Msg = 2;
+	string Data = 3;
+}
+
+message GenericObjs {
+	repeated GenericObj Objs = 1;
+}
+
+message InsertResp {
+	ApiStatus Status = 1;
+	string Msg = 2;
+	string Data = 3;
+}
+

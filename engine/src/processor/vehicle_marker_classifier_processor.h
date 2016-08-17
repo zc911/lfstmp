@@ -36,10 +36,10 @@ protected:
 
 
 private:
-    MarkerCaffeClassifier *classifier_;
-    WindowCaffeDetector *detector_;
-    WindowCaffeSsdDetector *ssd_window_detector_;
-    MarkerCaffeSsdDetector *ssd_marker_detector_;
+    MarkerCaffeClassifier *classifier_=NULL;
+    WindowCaffeDetector *detector_=NULL;
+    WindowCaffeSsdDetector *ssd_window_detector_=NULL;
+    MarkerCaffeSsdDetector *ssd_marker_detector_=NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;
