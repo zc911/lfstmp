@@ -1,3 +1,4 @@
+#include <alg/classification/pedestrian_classifier.h>
 #include "gtest/gtest.h"
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
@@ -25,6 +26,8 @@ static void initConfig() {
     config.deploy_file = baseModelPath + "1000.txt";
     config.model_file = baseModelPath + "1000.dat";
     config.tag_name_path = baseModelPath + "pedestrian_attribute_tagnames.txt";
+    config.threshold_file_path = baseModelPath +
+            "pedestrian_attribute_threashold.txt";
     config.layer_name = "loss3/classifier_personattrib_47";
     pcprocessor = new PedestrianClassifierProcessor(config);
 }

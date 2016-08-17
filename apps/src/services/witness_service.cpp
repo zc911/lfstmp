@@ -23,6 +23,9 @@
 using namespace std;
 namespace dg {
 
+static int SHIFT_COLOR = 1000;
+static bool nofilter_flag = false;
+
 const static unsigned int PARSE_IMAGE_TIMEOUT_DEFAULT = 60;
 WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     : config_(config),
@@ -109,21 +112,136 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
 
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-                                                        RecVehicle *vrec) {
+                                                        RecPedestrian *prec) {
     MatrixError err;
-    std::vector<Pedestrian::Attr> attrs = pobj->attrs();
-
     const Detection &d = pobj->detection();
+    std::vector<Pedestrian::Attr> attrs = pobj->attrs();
+    std::map<std::string, float> threshold = pobj->threshold();
 
-    RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    vrec->set_vehicletype(OBJ_TYPE_PEDESTRIAN);
-    string type = RepoService::GetInstance().FindVehicleTypeName(pobj->type());
-    vrec->set_vehicletypename(type);
+    prec->set_id(pobj->id());
+    prec->set_confidence((float) pobj->confidence());
+
+    RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
+
+    PedestrianAttr* attr = prec->mutable_pedesattr();
+
     for (int i = 0; i < attrs.size(); i++) {
-        PedestrianAttr *attr = vrec->add_pedestrianattrs();
-        attr->set_attrid(attrs[i].index);
-        attr->set_confidence(attrs[i].confidence);
-        attr->set_attrname(RepoService::GetInstance().FindPedestrianAttrName(i));
+        // sex judge
+        if (i == 45) {
+            NameAndConfidence *nac = attr->mutable_sex();
+            if (attrs[i].confidence < attrs[i].threshold_lower) {
+                nac->set_name("男");
+                nac->set_confidence(1 - attrs[i].confidence);
+            }
+            else if (attrs[i].confidence > attrs[i].threshold_upper) {
+                nac->set_name("女");
+                nac->set_confidence(attrs[i].confidence);
+            }
+            else {
+                nac->set_name("未知");
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+
+        // national judge
+        if (i == 46) {
+            NameAndConfidence *nac = attr->mutable_national();
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                nac->set_confidence(attrs[i].confidence);
+            }
+            else if (attrs[i].confidence < attrs[i].threshold_lower){
+                nac->set_name("汉族");
+                nac->set_confidence(1.0 - attrs[i].confidence);
+            }
+            else {
+                nac->set_name("未知");
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+
+        // age judge
+        if (i >= 35 && i <= 37) {
+            NameAndConfidence *nac = attr->mutable_age();
+            float confidence = nac->confidence();
+            if (attrs[i].confidence > confidence) {
+                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                nac->set_confidence(attrs[i].confidence);
+            }
+        }
+        // head wears judge
+        if (i >= 6 && i <= 9) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                if (attrs[i].confidence > threshold["HeadWears"] || nofilter_flag == true) {
+                    NameAndConfidence *nac = attr->add_headwears();
+                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                    nac->set_confidence(attrs[i].confidence);
+                }
+            }
+        }
+
+        // body wear
+        if (i >= 0 && i <= 5) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                if (attrs[i].confidence > threshold["BodyWears"] || nofilter_flag == true) {
+                    NameAndConfidence *nac = attr->add_bodywears();
+                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                    nac->set_confidence(attrs[i].confidence);
+                }
+            }
+        }
+
+        // upper color
+        if (i >= 10 && i <= 21) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                HalfOfBodyFeature *hobf = attr->mutable_upperfeatures();
+                if (attrs[i].confidence > threshold["UpperColors"] || nofilter_flag == true) {
+                    NameAndConfidence *nac = hobf->add_color();
+                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                    nac->set_confidence(attrs[i].confidence);
+                }
+            }
+        }
+
+        // upper stripes
+        if (i >= 38 && i <= 41) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                HalfOfBodyFeature *hobf = attr->mutable_upperfeatures();
+                if (attrs[i].confidence > threshold["UpperStripes"] || nofilter_flag == true) {
+                    if (!hobf->has_stripes() || attrs[i].confidence > hobf->mutable_stripes()->confidence()) {
+                        NameAndConfidence *nac = hobf->mutable_stripes();
+                        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                        nac->set_confidence(attrs[i].confidence);
+                    }
+                }
+            }
+        }
+
+        // lower color
+        if (i >= 22 && i <= 33) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                HalfOfBodyFeature *hobf = attr->mutable_lowerfeatures();
+                if (attrs[i].confidence > threshold["LowerColors"] || nofilter_flag == true) {
+                    NameAndConfidence *nac = hobf->add_color();
+                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                    nac->set_confidence(attrs[i].confidence);
+                }
+            }
+        }
+
+        // lower catagory
+        if (i >= 42 && i <= 44) {
+            if (attrs[i].confidence > attrs[i].threshold_upper) {
+                HalfOfBodyFeature *hobf = attr->mutable_lowerfeatures();
+                if (attrs[i].confidence > threshold["LowerCatagory"] || nofilter_flag == true) {
+                    if (!hobf->has_catagory() || attrs[i].confidence > hobf->mutable_catagory()->confidence()) {
+                        NameAndConfidence *nac = hobf->mutable_catagory();
+                        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                        nac->set_confidence(attrs[i].confidence);
+                    }
+                }
+            }
+        }
     }
 
     return err;
@@ -157,20 +275,70 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedFace(const Face *fobj,
-                                                  RecFace *frec) {
+MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
+                                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian) {
     MatrixError err;
-    frec->set_confidence((float) fobj->confidence());
-    frec->set_features(fobj->feature().Serialize());
+    recPedestrian->mutable_data();
+    for (int i = 0; i < faceVector.size(); ++i) {
+        const Face * fobj = faceVector[i];
+        struct result {
+            RecPedestrian* recP;
+            double coincidence;
+            double distance;
+        };
+        auto findCandidate = [=](RecPedestrian *recP) {
+            result info;
+            info.recP = recP;
+            info.recP = recP;
+            Rect FaceBox = fobj->detection().box;
+            Rect BodyBox = Rect(recP->img().cutboard().x(), recP->img().cutboard().y(),
+                                recP->img().cutboard().width(), recP->img().cutboard().height());
+            Rect overLap = FaceBox & BodyBox;
+            info.coincidence = (double)overLap.area() * 100.0 / FaceBox.area();
+            info.distance = abs(FaceBox.x - BodyBox.x) + abs(FaceBox.y - FaceBox.y);
 
-    const Detection &d = fobj->detection();
-    RepoService::CopyCutboard(d, frec->mutable_img()->mutable_cutboard());
+            return info;
+        };
+        vector<result> candidates;
+        for (int j = 0; j < recPedestrian->size(); ++j) {
+            if (!recPedestrian->Mutable(j)->has_face()) {
+                result tmp = findCandidate(recPedestrian->Mutable(j));
+                if (tmp.coincidence > 20) {
+                    candidates.push_back(tmp);
+                }
+            }
+        }
+        RecPedestrian* MatchedPedestrian = NULL;
+        if (candidates.empty()) {
+            MatchedPedestrian = recPedestrian->Add();
+        } else {
+            result MatchedResult = candidates[0];
+            for (int j = 1; j < candidates.size(); ++j) {
+                if (candidates[j].coincidence > MatchedResult.coincidence) {
+                    MatchedResult = candidates[j];
+                } else if (abs(candidates[j].coincidence - MatchedResult.coincidence) < 0.1) {
+                    if (candidates[j].distance < MatchedResult.distance) {
+                        MatchedResult = candidates[j];
+                    }
+                }
+            }
+            MatchedPedestrian = MatchedResult.recP;
+        }
+        RecFace* face = MatchedPedestrian->mutable_face();
+        face->set_id(fobj->id());
+        face->set_confidence((float) fobj->confidence());
+        face->set_features(fobj->feature().Serialize());
+        const Detection &d = fobj->detection();
+        RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
+    }
+
     return err;
 }
 
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                                                    WitnessResult *result) {
     MatrixError err;
+    vector<const Face *> FacesVector;
 
     for (const Object *object : frame->objects()) {
         DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
@@ -182,10 +350,10 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
                 err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
                 break;
             case OBJECT_PEDESTRIAN:
-                err = getRecognizedPedestrian((Pedestrian *) object, result->add_vehicles());
+                err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());
                 break;
             case OBJECT_FACE:
-                err = getRecognizedFace((Face *) object, result->add_faces());
+                FacesVector.push_back((Face *) object);
                 break;
             default:
                 LOG(WARNING) << "unknown object type: " << object->type();
@@ -196,6 +364,8 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
             break;
         }
     }
+
+    err =  getRecognizedFace(FacesVector, result->mutable_pedestrian());
 
     return err;
 }
@@ -341,7 +511,13 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
         request->image().data().uri());
     result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
     result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
-
+    
+    string fileterFlag = "Nofilter";
+    auto Params = request->context().params();
+    if(Params.find(fileterFlag) == Params.end() || Params.at(fileterFlag) == "0")
+        nofilter_flag = false;
+    else
+        nofilter_flag = true;
     err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {
@@ -356,7 +532,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
 //    ret_image->CopyFrom(request->image());
 //    ret_image->mutable_data()->set_width(image.cols);
 //    ret_image->mutable_data()->set_height(image.rows);
-    //if ReturnsImage, compress image into data.bindata
+    //if ReturnsImage, compress image ito data.bindata
 
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
