@@ -61,16 +61,17 @@ public:
                 genObj->set_bindata(bindata);
             }
         }
-        for(int i=0;i<p.pedestrian_size();i++){
+        for (int i = 0; i < p.pedestrian_size(); i++) {
             dg::model::RecPedestrian *mP = p.mutable_pedestrian(i);
             model::Pedestrian pbPedestrian;
-            pedestrian2Protobuf(pbPedestrian,mP,p.metadata());
+            pedestrian2Protobuf(pbPedestrian, mP, p.metadata());
             string bindata = pbPedestrian.SerializeAsString();
             model::GenericObj *genObj = batchReq.add_entities();
             genObj->set_fmttype(model::PROTOBUF);
             genObj->set_type(model::PEDESTRIAN);
             genObj->set_bindata(bindata);
         }
+
         unique_lock<mutex> lock(mtx);
         map<string, std::unique_ptr<DataService::Stub> >::iterator it = stubs_.find(address);
         if (it == stubs_.end()) {
@@ -101,12 +102,12 @@ public:
             return err;
         } else {
             VLOG(VLOG_SERVICE) << "send to postgres failed " << status.error_code() << endl;
-                   unique_lock<mutex> lock(mtx);
+            unique_lock<mutex> lock(mtx);
 
             map<string, std::unique_ptr<DataService::Stub> >::iterator it;
             if ((it = stubs_.find(address)) != stubs_.end())
                 stubs_.erase(it);
-        lock.unlock();
+            lock.unlock();
 
             return err;
         }
@@ -155,71 +156,71 @@ private:
         unsigned int upperColorsTmp = 0;
         unsigned int lowerColorsTmp = 0;
 
-        for(int i=0;i<recPedestrian->pedesattr().bodywears_size();i++){
-            featuresTmp |=1<<(recPedestrian->pedesattr().bodywears(i).id());
+        for (int i = 0; i < recPedestrian->pedesattr().bodywears_size(); i++) {
+            featuresTmp |= 1 << (recPedestrian->pedesattr().bodywears(i).id());
         }
-        for(int i=0;i<recPedestrian->pedesattr().headwears_size();i++){
-            headsTmp |=1<<(recPedestrian->pedesattr().headwears(i).id()-6);
+        for (int i = 0; i < recPedestrian->pedesattr().headwears_size(); i++) {
+            headsTmp |= 1 << (recPedestrian->pedesattr().headwears(i).id() - 6);
         }
-        for(int i=0;i<recPedestrian->pedesattr().upperfeatures().color_size();i++){
-            upperColorsTmp |=1<<(recPedestrian->pedesattr().upperfeatures().color(i).id()-10);
+        for (int i = 0; i < recPedestrian->pedesattr().upperfeatures().color_size(); i++) {
+            upperColorsTmp |= 1 << (recPedestrian->pedesattr().upperfeatures().color(i).id() - 10);
         }
         pbPedestrian.set_uppercolors(upperColorsTmp);
-        for(int i=0;i<recPedestrian->pedesattr().lowerfeatures().color_size();i++){
-            lowerColorsTmp |=1<<(recPedestrian->pedesattr().lowerfeatures().color(i).id()-22);
+        for (int i = 0; i < recPedestrian->pedesattr().lowerfeatures().color_size(); i++) {
+            lowerColorsTmp |= 1 << (recPedestrian->pedesattr().lowerfeatures().color(i).id() - 22);
         }
         pbPedestrian.set_lowercolors(lowerColorsTmp);
-/*
-        unsigned int featuresTmp = 0;
-        unsigned int headsTmp = 0;
-        unsigned int upperColorsTmp = 0;
-        unsigned int lowerColorsTmp = 0;
-        unsigned int ageTmp = 0;
-        unsigned int upperStyleTmp = 0;
-        unsigned int lowerStyleTmp = 0;
-        unsigned int genderTmp = 0;
-        unsigned int ethnicTmp = 0;
-        float age_conf = 0.0;
-        float upper_conf = 0.0;
-        float lower_conf = 0.0;
-        float sex_conf = 0.0;
-        float ethnic_conf = 0.0;
-        for (size_t i = 0; i < recVehicle->pedestrianattrs_size(); i++) {
-            if (i >= 0 && i < 6) {
-                featuresTmp |= 1 << recVehicle->pedestrianattrs(i).attrid();
-            } else if (i >= 6 && i < 10) {
-                headsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 6);
-            } else if (i >= 10 && i < 22) {
-                upperColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 10);
-            } else if (i >= 22 && i < 34) {
-                lowerColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 22);
-            } else if (i >= 34 && i < 38) {
-                if (recVehicle->pedestrianattrs(i).confidence() > age_conf) {
-                    pbPedestrian.set_age(recVehicle->pedestrianattrs(i).attrid());
+        /*
+                unsigned int featuresTmp = 0;
+                unsigned int headsTmp = 0;
+                unsigned int upperColorsTmp = 0;
+                unsigned int lowerColorsTmp = 0;
+                unsigned int ageTmp = 0;
+                unsigned int upperStyleTmp = 0;
+                unsigned int lowerStyleTmp = 0;
+                unsigned int genderTmp = 0;
+                unsigned int ethnicTmp = 0;
+                float age_conf = 0.0;
+                float upper_conf = 0.0;
+                float lower_conf = 0.0;
+                float sex_conf = 0.0;
+                float ethnic_conf = 0.0;
+                for (size_t i = 0; i < recVehicle->pedestrianattrs_size(); i++) {
+                    if (i >= 0 && i < 6) {
+                        featuresTmp |= 1 << recVehicle->pedestrianattrs(i).attrid();
+                    } else if (i >= 6 && i < 10) {
+                        headsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 6);
+                    } else if (i >= 10 && i < 22) {
+                        upperColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 10);
+                    } else if (i >= 22 && i < 34) {
+                        lowerColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 22);
+                    } else if (i >= 34 && i < 38) {
+                        if (recVehicle->pedestrianattrs(i).confidence() > age_conf) {
+                            pbPedestrian.set_age(recVehicle->pedestrianattrs(i).attrid());
+                        }
+                    } else if (i >= 38 && i < 42) {
+                        if (recVehicle->pedestrianattrs(i).confidence() > upper_conf) {
+                            pbPedestrian.set_upperstyle(recVehicle->pedestrianattrs(i).attrid());
+                        }
+                    } else if (i >= 42 && i < 45) {
+                        if (recVehicle->pedestrianattrs(i).confidence() > lower_conf) {
+                            pbPedestrian.set_lowerstyle(recVehicle->pedestrianattrs(i).attrid());
+                        }
+                    } else if (i == 45) {
+                        if (recVehicle->pedestrianattrs(i).confidence() > sex_conf) {
+                            pbPedestrian.set_gender(1);
+                        } else {
+                            pbPedestrian.set_gender(0);
+                        }
+                    } else if (i <= 46) {
+                        if (recVehicle->pedestrianattrs(i).confidence() > ethnic_conf) {
+                            pbPedestrian.set_ethnic(1);
+                        } else {
+                            pbPedestrian.set_ethnic(0);
+                        }
+                    }
                 }
-            } else if (i >= 38 && i < 42) {
-                if (recVehicle->pedestrianattrs(i).confidence() > upper_conf) {
-                    pbPedestrian.set_upperstyle(recVehicle->pedestrianattrs(i).attrid());
-                }
-            } else if (i >= 42 && i < 45) {
-                if (recVehicle->pedestrianattrs(i).confidence() > lower_conf) {
-                    pbPedestrian.set_lowerstyle(recVehicle->pedestrianattrs(i).attrid());
-                }
-            } else if (i == 45) {
-                if (recVehicle->pedestrianattrs(i).confidence() > sex_conf) {
-                    pbPedestrian.set_gender(1);
-                } else {
-                    pbPedestrian.set_gender(0);
-                }
-            } else if (i <= 46) {
-                if (recVehicle->pedestrianattrs(i).confidence() > ethnic_conf) {
-                    pbPedestrian.set_ethnic(1);
-                } else {
-                    pbPedestrian.set_ethnic(0);
-                }
-            }
-        }
-*/
+        */
     }
     void bicycle2Protobuf(model::Bicycle &pbBicycle, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
         model::VideoMetadata *metadata = pbBicycle.mutable_metadata();
@@ -266,71 +267,71 @@ private:
         pbTricycle.set_feature(recVehicle->features());
     }
     void pedestrian2Protobuf(model::Pedestrian &pbPedestrian, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
-  /*      model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
-        model::CutboardImage *mCutImage = pbPedestrian.mutable_img();
+        /*      model::VideoMetadata *metadata = pbPedestrian.mutable_metadata();
+              model::CutboardImage *mCutImage = pbPedestrian.mutable_img();
 
-        metadata->set_timestamp(srcMetadata.timestamp());
-        metadata->set_sensorurl(srcMetadata.sensorurl());
+              metadata->set_timestamp(srcMetadata.timestamp());
+              metadata->set_sensorurl(srcMetadata.sensorurl());
 
-        mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x() > 0 ? recVehicle->img().cutboard().x() : 0);
-        mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y() > 0 ? recVehicle->img().cutboard().y() : 0);
-        mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
-        mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
-        mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
-        mCutImage->mutable_cutboard()->set_resheight(recVehicle->img().cutboard().resheight());
-        model::Image *image = mCutImage->mutable_img();
-        image->set_bindata(recVehicle->img().img().bindata());
+              mCutImage->mutable_cutboard()->set_x((int)recVehicle->img().cutboard().x() > 0 ? recVehicle->img().cutboard().x() : 0);
+              mCutImage->mutable_cutboard()->set_y((int)recVehicle->img().cutboard().y() > 0 ? recVehicle->img().cutboard().y() : 0);
+              mCutImage->mutable_cutboard()->set_width(recVehicle->img().cutboard().width());
+              mCutImage->mutable_cutboard()->set_height(recVehicle->img().cutboard().height());
+              mCutImage->mutable_cutboard()->set_reswidth(recVehicle->img().cutboard().reswidth());
+              mCutImage->mutable_cutboard()->set_resheight(recVehicle->img().cutboard().resheight());
+              model::Image *image = mCutImage->mutable_img();
+              image->set_bindata(recVehicle->img().img().bindata());
 
-        unsigned int featuresTmp = 0;
-        unsigned int headsTmp = 0;
-        unsigned int upperColorsTmp = 0;
-        unsigned int lowerColorsTmp = 0;
-        unsigned int ageTmp = 0;
-        unsigned int upperStyleTmp = 0;
-        unsigned int lowerStyleTmp = 0;
-        unsigned int genderTmp = 0;
-        unsigned int ethnicTmp = 0;
-        float age_conf = 0.0;
-        float upper_conf = 0.0;
-        float lower_conf = 0.0;
-        float sex_conf = 0.0;
-        float ethnic_conf = 0.0;
-        for (size_t i = 0; i < recVehicle->pedestrianattrs_size(); i++) {
-            if (i >= 0 && i < 6) {
-                featuresTmp |= 1 << recVehicle->pedestrianattrs(i).attrid();
-            } else if (i >= 6 && i < 10) {
-                headsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 6);
-            } else if (i >= 10 && i < 22) {
-                upperColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 10);
-            } else if (i >= 22 && i < 34) {
-                lowerColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 22);
-            } else if (i >= 34 && i < 38) {
-                if (recVehicle->pedestrianattrs(i).confidence() > age_conf) {
-                    pbPedestrian.set_age(recVehicle->pedestrianattrs(i).attrid());
-                }
-            } else if (i >= 38 && i < 42) {
-                if (recVehicle->pedestrianattrs(i).confidence() > upper_conf) {
-                    pbPedestrian.set_upperstyle(recVehicle->pedestrianattrs(i).attrid());
-                }
-            } else if (i >= 42 && i < 45) {
-                if (recVehicle->pedestrianattrs(i).confidence() > lower_conf) {
-                    pbPedestrian.set_lowerstyle(recVehicle->pedestrianattrs(i).attrid());
-                }
-            } else if (i == 45) {
-                if (recVehicle->pedestrianattrs(i).confidence() > sex_conf) {
-                    pbPedestrian.set_gender(1);
-                } else {
-                    pbPedestrian.set_gender(0);
-                }
-            } else if (i <= 46) {
-                if (recVehicle->pedestrianattrs(i).confidence() > ethnic_conf) {
-                    pbPedestrian.set_ethnic(1);
-                } else {
-                    pbPedestrian.set_ethnic(0);
-                }
-            }
-        }
-*/
+              unsigned int featuresTmp = 0;
+              unsigned int headsTmp = 0;
+              unsigned int upperColorsTmp = 0;
+              unsigned int lowerColorsTmp = 0;
+              unsigned int ageTmp = 0;
+              unsigned int upperStyleTmp = 0;
+              unsigned int lowerStyleTmp = 0;
+              unsigned int genderTmp = 0;
+              unsigned int ethnicTmp = 0;
+              float age_conf = 0.0;
+              float upper_conf = 0.0;
+              float lower_conf = 0.0;
+              float sex_conf = 0.0;
+              float ethnic_conf = 0.0;
+              for (size_t i = 0; i < recVehicle->pedestrianattrs_size(); i++) {
+                  if (i >= 0 && i < 6) {
+                      featuresTmp |= 1 << recVehicle->pedestrianattrs(i).attrid();
+                  } else if (i >= 6 && i < 10) {
+                      headsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 6);
+                  } else if (i >= 10 && i < 22) {
+                      upperColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 10);
+                  } else if (i >= 22 && i < 34) {
+                      lowerColorsTmp |= 1 << (recVehicle->pedestrianattrs(i).attrid() - 22);
+                  } else if (i >= 34 && i < 38) {
+                      if (recVehicle->pedestrianattrs(i).confidence() > age_conf) {
+                          pbPedestrian.set_age(recVehicle->pedestrianattrs(i).attrid());
+                      }
+                  } else if (i >= 38 && i < 42) {
+                      if (recVehicle->pedestrianattrs(i).confidence() > upper_conf) {
+                          pbPedestrian.set_upperstyle(recVehicle->pedestrianattrs(i).attrid());
+                      }
+                  } else if (i >= 42 && i < 45) {
+                      if (recVehicle->pedestrianattrs(i).confidence() > lower_conf) {
+                          pbPedestrian.set_lowerstyle(recVehicle->pedestrianattrs(i).attrid());
+                      }
+                  } else if (i == 45) {
+                      if (recVehicle->pedestrianattrs(i).confidence() > sex_conf) {
+                          pbPedestrian.set_gender(1);
+                      } else {
+                          pbPedestrian.set_gender(0);
+                      }
+                  } else if (i <= 46) {
+                      if (recVehicle->pedestrianattrs(i).confidence() > ethnic_conf) {
+                          pbPedestrian.set_ethnic(1);
+                      } else {
+                          pbPedestrian.set_ethnic(0);
+                      }
+                  }
+              }
+        */
     }
     void vehicle2Protobuf(model::Vehicle &pbVehicle, dg::model::RecVehicle *recVehicle, const dg::model::SrcMetadata &srcMetadata) {
         model::VideoMetadata *metadata = pbVehicle.mutable_metadata();
