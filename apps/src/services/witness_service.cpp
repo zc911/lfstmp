@@ -806,6 +806,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
     if (enable_storage_) {
+        VLOG(VLOG_PROCESS_COST)<<"enable storage";
         shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
         client_request_obj->results.CopyFrom(batchResponse->results());
         if (batchRequest->context().storages_size() > 0) {
