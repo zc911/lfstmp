@@ -44,7 +44,9 @@ private:
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
                                         RecPedestrian *vrec);
     MatrixError getRecognizedFace(const vector<const Face *>faceVector,
-                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian);
+        ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+        int width,
+        int height);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 
     MatrixError checkRequest(const WitnessRequest &request);
