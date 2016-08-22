@@ -66,7 +66,7 @@ private:
 
     unsigned int parse_image_timeout_;
     bool enable_storage_;
-    bool enable_fullimage_storage_;
+    bool enable_fullimage_storage_=false;
     string fullimage_storage_address_;
     ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
     bool enable_cutboard_;

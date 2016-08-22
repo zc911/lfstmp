@@ -17,13 +17,13 @@ using ::dg::model::WitnessService;
 
 namespace dg {
 
-class WitnessVehicleObj{
+typedef struct {
     ::google::protobuf::RepeatedPtrField<::dg::model::WitnessResult> results;
     ::google::protobuf::RepeatedPtrField<::dg::model::StorageConfig> storages;
     vector<Mat> imgs;
     vector<SrcMetadata> srcMetadatas;
 
-};
+}WitnessVehicleObj;
 
 class WitnessBucket {
 public:
@@ -41,7 +41,6 @@ public:
         unique_lock<mutex> lock(mtx);
         while (max_size_ == tasks.size())
             not_full.wait(lock);
-        VLOG(VLOG_SERVICE) << "tasks size " << tasks.size() << endl;
         tasks.push(item);
         not_empty.notify_all();
         lock.unlock();
