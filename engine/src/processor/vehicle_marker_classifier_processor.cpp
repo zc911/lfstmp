@@ -69,10 +69,17 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         gettimeofday(&end, NULL);
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
                / 1000.f;
-        VLOG(VLOG_PROCESS_COST) << "Marker window cost: " << diff << "ms" << endl;
+        VLOG(VLOG_PROCESS_COST) << "[Total] window cost: " << diff << "ms" << endl;
 
         ssd_marker_detector_->DetectBatch(images_, crops, preds);
         int cnt = 0;
+        struct timeval  end1;
+
+        gettimeofday(&end1, NULL);
+        diff = ((end1.tv_sec - end.tv_sec) * 1000000 + end1.tv_usec - end.tv_usec)
+               / 1000.f;
+        VLOG(VLOG_PROCESS_COST) << "[Total] marker cost: " << diff << "ms" << endl;
+
         for (int i = 0; i < crops.size(); i++) {
             if (crops[i].size() <= 0)
                 continue;
@@ -89,15 +96,24 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 d.box.width = preds[cnt][j].box.width;
                 d.box.height = preds[cnt][j].box.height;
                 markers_cutborad.push_back(d);
-                rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
 
+                //                      rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
             }
+
+            //  string name = to_string(i)+"test.jpg";
+            //imwrite(name,img);
             v->set_markers(markers_cutborad);
             cnt++;
+            gettimeofday(&end, NULL);
+            diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+                   / 1000.f;
+            VLOG(VLOG_PROCESS_COST) << "after cost: " << diff << "ms" << endl;
 
         }
 
+
     } else {
+
         vector<Detection> crops = detector_->DetectBatch(resized_images_,
                                   images_);
         gettimeofday(&end, NULL);
