@@ -79,7 +79,7 @@ private:
     string plate_color_mapping_data_;
     string plate_type_mapping_data_;
     string vehicle_type_mapping_data_;
-    string plate_color_gpu_mapping_data_;
+    //string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
     string pedestrian_attr_mapping_data_;
     bool is_gpu_plate_;
