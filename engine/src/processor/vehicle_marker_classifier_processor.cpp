@@ -91,8 +91,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             for (int j = 0; j < preds[cnt].size(); j++) {
                 Detection d(preds[cnt][j]);
 
-                d.box.x = (preds[cnt][j].box.x) + v->detection().box.x;
-                d.box.y = (preds[cnt][j].box.y) + v->detection().box.y;
+                d.box.x = (preds[cnt][j].box.x); // + v->detection().box.x;
+                d.box.y = (preds[cnt][j].box.y); // + v->detection().box.y;
                 d.box.width = preds[cnt][j].box.width;
                 d.box.height = preds[cnt][j].box.height;
                 markers_cutborad.push_back(d);
@@ -140,8 +140,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             for (int j = 0; j < pred[i].size(); j++) {
                 Detection d(pred[i][j]);
 
-                d.box.x = (crops[i].box.x + pred[i][j].box.x) + v->detection().box.x;
-                d.box.y = (crops[i].box.y + pred[i][j].box.y) + v->detection().box.y;
+                d.box.x = (crops[i].box.x + pred[i][j].box.x); // + v->detection().box.x;
+                d.box.y = (crops[i].box.y + pred[i][j].box.y); // + v->detection().box.y;
                 d.box.width = pred[i][j].box.width;
                 d.box.height = pred[i][j].box.height;
                 markers_cutborad.push_back(d);

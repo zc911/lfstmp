@@ -159,15 +159,15 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if (i == 45) {
             NameAndConfidence *nac = attr->mutable_sex();
             if (attrs[i].confidence < attrs[i].threshold_lower) {
-                nac->set_name("男");
+                nac->set_name("men");
                 nac->set_confidence(1 - attrs[i].confidence);
             }
             else if (attrs[i].confidence > attrs[i].threshold_upper) {
-                nac->set_name("女");
+                nac->set_name("women");
                 nac->set_confidence(attrs[i].confidence);
             }
             else {
-                nac->set_name("未知");
+                nac->set_name("unknown");
                 nac->set_confidence(attrs[i].confidence);
             }
             nac->set_id(i);
@@ -182,11 +182,11 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                 nac->set_confidence(attrs[i].confidence);
             }
             else if (attrs[i].confidence < attrs[i].threshold_lower) {
-                nac->set_name("汉族");
+                nac->set_name("han");
                 nac->set_confidence(1.0 - attrs[i].confidence);
             }
             else {
-                nac->set_name("未知");
+                nac->set_name("unknown");
                 nac->set_confidence(attrs[i].confidence);
             }
             nac->set_id(i);
@@ -323,7 +323,9 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
 }
 
 MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
-        ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian) {
+        ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+        int imgWidth,
+        int imgHeight) {
 
     MatrixError err;
     recPedestrian->mutable_data();
@@ -347,6 +349,8 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
 
             return info;
         };
+        auto Max = [](int x, int y) {return x > y ? x : y;};
+        auto Min = [](int x, int y) {return x < y ? x : y;};
         vector<result> candidates;
         for (int j = 0; j < recPedestrian->size(); ++j) {
             if (!recPedestrian->Mutable(j)->has_face()) {
@@ -357,9 +361,11 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             }
         }
         RecPedestrian* MatchedPedestrian = NULL;
+        bool findMatched = false;
         if (candidates.empty()) {
             MatchedPedestrian = recPedestrian->Add();
         } else {
+            findMatched = true;
             result MatchedResult = candidates[0];
             for (int j = 1; j < candidates.size(); ++j) {
                 if (candidates[j].coincidence > MatchedResult.coincidence) {
@@ -377,7 +383,26 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         face->set_confidence((float) fobj->confidence());
         face->set_features(fobj->feature().Serialize());
         const Detection &d = fobj->detection();
-        RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
+        auto faceCutboard = face->mutable_img()->mutable_cutboard();
+        auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();
+        //RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
+        if (findMatched == false) {
+            MatchedPedestrian->set_id(fobj->id());
+            MatchedPedestrian->set_confidence((float)fobj->confidence());
+            float leftTimes = RepoService::GetInstance().FindFaceRelativePedestrian("left");
+            float rightTimes = RepoService::GetInstance().FindFaceRelativePedestrian("right");
+            float topTimes = RepoService::GetInstance().FindFaceRelativePedestrian("top");
+            float bottomTimes = RepoService::GetInstance().FindFaceRelativePedestrian("bottom");
+            pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
+            pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
+            pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth -1 - pedCutboard->x()));
+            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes), imgHeight -1 - pedCutboard->y()));
+        }
+        faceCutboard->set_x(Max(d.box.x - pedCutboard->x(), 0));
+        faceCutboard->set_y(Max(d.box.y - pedCutboard->y(), 0));
+        faceCutboard->set_width(Min(d.box.width, pedCutboard->x() + pedCutboard->width() - d.box.x));
+        faceCutboard->set_height(Min(d.box.height, pedCutboard->y() + pedCutboard->height() - d.box.y));
+        faceCutboard->set_confidence(d.confidence);
     }
 
     return err;
@@ -414,7 +439,9 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame * frame,
         }
     }
 
-    err =  getRecognizedFace(FacesVector, result->mutable_pedestrian());
+    err =  getRecognizedFace(FacesVector, result->mutable_pedestrian(),
+                             result->image().data().width(),
+                             result->image().data().height());
 
     return err;
 }

@@ -22,7 +22,8 @@ static const string VEHICLE_PLATE_COLOR_MAPPING_FILE =
 static const string VEHICLE_PLATE_TYPE_MAPPING_FILE =
     "Render/Vehicle/Plate/Type";
 static const string VEHICLE_TYPE_MAPPING_FILE = "Render/Vehicle/Type";
-static const string VEHICLE_PEDESTRIAN_ATTR_TYPE = "Render/Vehicle/PedestrianAttr";
+static const string PEDESTRIAN_ATTR_TYPE = "Render/Pedestrian/PedestrianAttr";
+static const string FACE_RELATIVE_PEDESTRIAN_POSITION = "Render/Pedestrian/FaceRelativePedestrian";
 
 //static const string SYSTEM_GPU_NUM = "System/GpuNum";
 //static const string SYSTEM_THREADS_PER_GPU = "System/ThreadsPerGpu";

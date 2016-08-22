@@ -27,7 +27,7 @@ static void initConfig() {
     config.model_file = baseModelPath + "1000.dat";
     config.tag_name_path = baseModelPath + "pedestrian_attribute_tagnames.txt";
     config.threshold_file_path = baseModelPath +
-            "pedestrian_attribute_threashold.txt";
+            "pedestrian_attribute_threshold.txt";
     config.layer_name = "loss3/classifier_personattrib_47";
     pcprocessor = new PedestrianClassifierProcessor(config);
 }
