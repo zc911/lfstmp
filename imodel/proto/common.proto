@@ -107,6 +107,7 @@ enum AgeType {
 message NameAndConfidence {
     string Name = 1;
     float Confidence = 2;
+    int32 Id=3;
 }
 
 message HalfOfBodyFeature{
@@ -184,6 +185,8 @@ message Symbol {
 
 enum DBType {
     KAFKA = 0;
+    POSTGRES = 1;
+    FILEIMAGE=2;
 }
 
 message StorageConfig {
@@ -196,4 +199,9 @@ message VehicleObj {
     SrcMetadata Metadata = 1;
     Image Img = 2;
     repeated RecVehicle Vehicle = 3;
+}
+message PedestrianObj {
+    SrcMetadata Metadata = 1;
+    Image Img = 2;
+    repeated RecPedestrian Pedestrian = 3;
 }

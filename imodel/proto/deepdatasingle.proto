@@ -1,0 +1,181 @@
+syntax = "proto3";
+
+package model;
+
+
+message VehicleModelType {
+	int64 Id = 1; // business id
+	int32 BrandId = 2;
+	int32 SubBrandId = 3;
+	int32 ModelYearId = 4;
+	float Confidence = 5;
+	int32 Type = 6;
+	string Model = 7;
+}
+
+message LicensePlate {
+	string PlateText = 1;
+	Color Color = 2;
+	int32 Type = 3;
+	float Confidence = 4;
+	Cutboard Cutboard = 5;
+}
+
+message VehicleSymbol {
+	int32 Id = 1;
+	int32 Type = 2;
+	float Confidence = 3;
+	string Name = 4;
+	Cutboard Cutboard = 5;
+}
+
+message Vehicle {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	VehicleModelType ModelType = 3;
+	Color Color = 4;
+	bool IsHead = 5; // DEPRECATED!
+	bool IsDay = 6;
+	LicensePlate Plate = 7;
+	int32 Side = 8;
+	CutboardImage Img = 9;
+	repeated VehicleSymbol Symbols = 10;
+	bytes Feature = 11;
+}
+
+message Vehicles {
+	repeated Vehicle Vehicle = 1;
+}
+
+message Tricycle {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+	bytes Feature = 4;
+	Color Color = 5;
+}
+
+message Tricycles {
+	repeated Tricycle Tricycle = 1;
+}
+message Bicycle {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+	bytes Feature = 4;
+	Color Color = 5;
+}
+
+message Bicycles {
+	repeated Bicycle Tricycle = 1;
+}
+message Pedestrian {
+    int64 Id = 1;
+    VideoMetadata Metadata = 2;
+    CutboardImage Img = 3;
+    uint32 Features = 4;
+    uint32 Heads = 5;
+    uint32 UpperColors = 6;
+    uint32 LowerColors = 7;
+    uint32 Age = 8;
+    uint32 UpperStyle = 9;
+    uint32 LowerStyle = 10;
+    bool Gender = 11;
+    bool Ethnic = 12;
+    bytes Feature = 13;
+}
+
+message Pedestrians {
+	repeated Pedestrian Pedestrian = 1;
+}
+message Face {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+	bytes Feature = 4;
+}
+
+message Faces {
+	repeated Face Face = 1;
+}
+
+message VideoMetadata {
+	int64 Timestamp = 1;
+	int32 Duration = 2;
+	int32 SensorId = 3;
+	string SensorName = 4;
+	string SensorUrl = 5;
+}
+
+message Image {
+	string Id = 1;
+	int32 Width = 2;
+	int32 Height = 3;
+	bytes BinData = 4; // base64 format image
+}
+
+message CutboardImage {
+	VideoMetadata Metadata = 1;
+	Cutboard Cutboard = 2;
+	Image Img = 3;
+}
+
+message Color {
+	int32 Id = 1;
+	float Confidence = 2;
+	string ColorName = 3;
+}
+
+message Cutboard {
+	uint32 X = 1;
+	uint32 Y = 2;
+	uint32 Width = 3;
+	uint32 Height = 4;
+	uint32 ResWidth = 5;
+	uint32 ResHeight = 6;
+}
+
+message BaseEntity {
+	int64 Id = 1;
+	VideoMetadata Metadata = 2;
+	CutboardImage Img = 3;
+}
+
+enum ObjType {
+	UNKNOWNOBJ = 0;
+	VEHICLE = 1;
+	BICYCLE = 2;
+	TRICYCLE = 3;
+	PEDESTRIAN = 4;
+	FACE = 1024;
+	LICENSEPLATE = 1025;
+    VEHICLE_VECTOR = 2048;
+	BICYCLE_VECTOR = 2049;
+	TRICYCLE_VECTOR = 2050;
+	PEDESTRIAN_VECTOR = 2051;
+	FACE_VECTOR = 3072;
+	VEHICLE_CUTBOARD = 4096;
+	BICYCLE_CUTBOARD = 4097;
+	TRICYCLE_CUTBOARD = 4098;
+	PEDESTRIAN_CUTBOARD = 4099;
+	FACE_CUTBOARD = 5120;
+}
+
+enum DataFmtType {
+	UNKNOWNFMT = 0;
+	JSON = 1;
+	PROTOBUF = 2;
+	CSV = 3;
+	PDF = 4;
+}
+
+message FeatureVector {
+	int64 Id = 1; // This is only for ranking. Can be void during feature extraction.
+	bytes Feature = 2;
+}
+
+message NullMessage {
+}
+
+
+
