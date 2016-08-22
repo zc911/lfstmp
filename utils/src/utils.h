@@ -29,12 +29,20 @@ static long long int NowMs() {
     gettimeofday(&nowTime, NULL);
     return nowTime.tv_sec * 1000 + nowTime.tv_usec / 1000;
 }
-static string GetLatestHour(){
+static string GetLatestHour() {
     time_t current_time;
     struct tm *struct_time;
     time(&current_time);
-    struct_time=gmtime(&current_time);
-    string result = to_string(struct_time->tm_year)+to_string(struct_time->tm_mon)+to_string(struct_time->tm_mday)+to_string(struct_time->tm_hour);
+    struct_time = gmtime(&current_time);
+    string result = to_string(struct_time->tm_year) + to_string(struct_time->tm_mon) + to_string(struct_time->tm_mday) + to_string(struct_time->tm_hour);
+    return result;
+}
+static string GetLatestMinute() {
+    time_t current_time;
+    struct tm *struct_time;
+    time(&current_time);
+    struct_time = gmtime(&current_time);
+    string result = to_string(struct_time->tm_year) + to_string(struct_time->tm_mon) + to_string(struct_time->tm_mday) + to_string(struct_time->tm_hour) + to_string(struct_time->tm_min);
     return result;
 }
 static long long int NowSeconds() {

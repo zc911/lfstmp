@@ -145,7 +145,7 @@ MatrixError ImageService::getRelativeROIs(
   MatrixError ok;
   for (::google::protobuf::RepeatedPtrField <
        ::dg::model::WitnessRelativeROI >::iterator it =
-         roisSrc.begin(); it != roisSrc.end(); it++) {
+         roisSrc.begin(); it != roisSrc.end(); ++it) {
     cv::Rect rect(it->posx(), it->posy(), std::max(it->width(), 0),
                   std::max(0, it->height()));
     rois.push_back(rect);
@@ -161,7 +161,7 @@ MatrixError ImageService::getMarginROIs(
   int height = img.rows;
   for (::google::protobuf::RepeatedPtrField <
        ::dg::model::WitnessMarginROI >::iterator it = roisSrc.begin();
-       it != roisSrc.end(); it++) {
+       it != roisSrc.end(); ++it) {
     Margin margin;
     margin.left = it->left();
     margin.top = it->top();
