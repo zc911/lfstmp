@@ -72,7 +72,7 @@ private:
 
     WitnessBucket() { };
     WitnessBucket(const WitnessBucket &) { };
-    WitnessBucket &operator=(const WitnessBucket &) { };
+    //WitnessBucket &operator=(const WitnessBucket &) { };
     queue<shared_ptr<WitnessVehicleObj> > tasks;
     int max_size_ = 10;
     int current_ = 0;

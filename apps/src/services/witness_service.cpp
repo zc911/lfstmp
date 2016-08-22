@@ -512,7 +512,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     if (enable_fullimage_storage_) {
         pool_->enqueue([&roiimages, this, timestamp]() {
 
-            string path = this->fullimage_storage_address_ + "/" + GetLatestHour();
+            string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
             string dir = "mkdir -p " + path;
             const int dir_err = system(dir.c_str());
             if (-1 == dir_err)
@@ -700,7 +700,7 @@ MatrixError WitnessAppsService::BatchRecognize(
             struct timeval curr_time;
             gettimeofday(&curr_time, NULL);
             long long timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
-            string path = this->fullimage_storage_address_ + "/" + GetLatestHour();
+            string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
             string dir = "mkdir -p " + path;
             const int dir_err = system(dir.c_str());
             if (-1 == dir_err)
