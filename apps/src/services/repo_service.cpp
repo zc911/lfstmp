@@ -32,7 +32,8 @@ void RepoService::Init(const Config &config) {
         string pColorGpuFile = (string) config.Value(RENDER_VEHICLE_PLATE_GPU_COLOR);
         string pTypeFile = (string) config.Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
         string pVtypeFile = (string) config.Value(VEHICLE_TYPE_MAPPING_FILE);
-        string pPtypeFile = (string) config.Value(VEHICLE_PEDESTRIAN_ATTR_TYPE);
+        string pPtypeFile = (string) config.Value(PEDESTRIAN_ATTR_TYPE);
+        string pFaceRelativePed = (string) config.Value(FACE_RELATIVE_PEDESTRIAN_POSITION);
         init_vehicle_map(vModelFile, ",", vehicle_repo_);
         init_string_map(vColorFile, "=", color_repo_);
         init_string_map(vSymbolFile, "=", symbol_repo_);
@@ -41,6 +42,7 @@ void RepoService::Init(const Config &config) {
         init_string_map(pTypeFile, "=", plate_type_repo_);
         init_string_map(pVtypeFile, "=", vehicle_type_repo_);
         init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
+        init_string_map(pFaceRelativePed, "=", face_relative_pedestrian_);
         model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
         color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
         symbol_mapping_data_ = ReadStringFromFile(vSymbolFile, "r");
@@ -49,6 +51,7 @@ void RepoService::Init(const Config &config) {
         vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
         plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
         pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
+        face_relative_pedestrian_data_ = ReadStringFromFile(pColorFile, "r");
         is_gpu_plate_ = (bool) config.Value(IS_GPU_PLATE);
 
         is_init_ = true;
@@ -113,6 +116,19 @@ void RepoService::init_string_map(string filename, string sep,
 
     for (const std::pair<int, string> &p : pairs) {
         array[p.first] = p.second;
+    }
+}
+
+void RepoService::init_string_map(string filename, string sep,
+                                  map<string, float > &mp) {
+    ifstream input(filename);
+
+    for (string line; std::getline(input, line);) {
+        vector<string> tokens;
+        boost::iter_split(tokens, line, boost::first_finder(sep));
+        assert(tokens.size() == 2);
+        float value = parseFloat(tokens[1]);
+        mp[tokens[0]] = value;
     }
 }
 

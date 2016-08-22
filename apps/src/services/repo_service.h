@@ -48,6 +48,10 @@ public:
         return lookup_string(pedestrian_attr_type_repo_, attrId);
     }
 
+    float FindFaceRelativePedestrian(string direction) {
+        return face_relative_pedestrian_[direction];
+    }
+
     static void CopyCutboard(const Detection &b, Cutboard *cb) {
         cb->set_x(b.box.x);
         cb->set_y(b.box.y);
@@ -81,18 +85,25 @@ private:
     string vehicle_type_mapping_data_;
     string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
+    map<string, float> face_relative_pedestrian_;
     string pedestrian_attr_mapping_data_;
+    string face_relative_pedestrian_data_;
     bool is_gpu_plate_;
 
     const string &lookup_string(const vector<string> &array, int index);
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                            int index);
     void init_string_map(string filename, string sep, vector<string> &array);
+    void init_string_map(string filename, string sep, map<string, float> &mp);
     void init_vehicle_map(string filename, string sep,
                           vector<VehicleModelType> &array);
 
     int parseInt(string str) {
         return std::stoi(trimString(str), nullptr, 10);
+    }
+
+    float parseFloat(string str) {
+        return std::stof(trimString(str), nullptr);
     }
 
     string trimString(string str) {
