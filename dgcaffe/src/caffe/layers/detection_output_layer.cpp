@@ -30,6 +30,11 @@ void DetectionOutputLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
       detection_output_param.confidence_threshold() : -FLT_MAX;
   // Parameters used in nms.
   nms_threshold_ = detection_output_param.nms_param().nms_threshold();
+  int size = detection_output_param.thresholds_size();
+  for(int i=0;i<size;i++){
+    thresholds_.push_back(detection_output_param.thresholds(i));
+  }
+
   CHECK_GE(nms_threshold_, 0.) << "nms_threshold must be non negative.";
   top_k_ = -1;
   if (detection_output_param.nms_param().has_top_k()) {
