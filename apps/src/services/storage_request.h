@@ -4,7 +4,7 @@
 
 #ifndef PROJECT_STORAGE_REQUEST_H
 #define PROJECT_STORAGE_REQUEST_H
-
+#include "codec/base64.h"
 #include "witness_bucket.h"
 #include "clients/spring_client.h"
 #include "clients/data_client.h"
@@ -22,7 +22,6 @@ public:
 
     MatrixError storage() {
         VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
-        LOG(INFO)<<"DFE";
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
@@ -36,9 +35,9 @@ public:
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = wv->results.Mutable(k)->mutable_vehicles(i);
                 vector<uchar> data(roi.datastart, roi.dataend);
-                //string imgdata = Base64::Encode(data);
-                //v->mutable_img()->mutable_img()->set_bindata(imgdata);
-                vo.mutable_vehicle()->AddAllocated(v);
+                string imgdata = Base64::Encode(data);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                vo.mutable_vehicle()->Add()->CopyFrom(*v);
 
 
             }
@@ -46,12 +45,12 @@ public:
                 Cutboard c = r.pedestrian(i).img().cutboard();
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecPedestrian *v = wv->results.Mutable(k)->mutable_pedestrian(i);
-                po.mutable_pedestrian()->AddAllocated(v);
+                po.mutable_pedestrian()->Add()->CopyFrom(*v);
 
                 vector<uchar> data(roi.datastart, roi.dataend);
-               //dee string imgdata = Base64::Encode(data);
-               // v->mutable_img()->mutable_img()->set_bindata(imgdata);
-                po.mutable_pedestrian()->AddAllocated(v);
+                string imgdata = Base64::Encode(data);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                po.mutable_pedestrian()->Add()->CopyFrom(*v);
             }
             if (r.vehicles_size() > 0) {
                 vo.mutable_metadata()->CopyFrom(wv->srcMetadatas[k]);
@@ -66,10 +65,8 @@ public:
                 po.mutable_img()->set_width(wv->imgs[k].cols);
             }
 
-            string s;
-            google::protobuf::TextFormat::PrintToString(vo, &s);
-            VLOG(VLOG_SERVICE) << s << endl;
-          /*  for (int i = 0; i < wv->storages.size(); i++) {
+
+            for (int i = 0; i < wv->storages.size(); i++) {
 
                 string address = wv->storages.Get(i).address();
                 if (wv->storages.Get(i).type() == model::POSTGRES) {
@@ -90,7 +87,7 @@ public:
                     });
 
                 }
-            }*/
+            }
         }
         return err;
     }
