@@ -202,7 +202,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    FileReader mapping("data/mapping/plate_gpu_color.txt");
+    FileReader mapping("data/mapping/plate_color.txt");
     EXPECT_TRUE(mapping.is_open());
     mapping.read("=");
 
@@ -224,7 +224,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
         Vehicle *obj = (Vehicle*)fb->frames()[i]->objects()[0];
         s << obj->plates()[0].color_id;
         vector<string> realColor = mapping.getValue(s.str());
-        EXPECT_EQ(expectColor[0], realColor[0]);
+        EXPECT_EQ(expectColor[0], realColor[0])<< "i = " << i << realColor[0]<<" "<<expectColor[0]<<endl;
     }
 
     destory();
