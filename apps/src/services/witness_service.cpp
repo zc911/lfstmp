@@ -512,7 +512,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     if (enable_fullimage_storage_) {
         pool_->enqueue([&roiimages, this, timestamp]() {
 
-            string path = this->fullimage_storage_address_ + "/" + GetLatestHour();
+            string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
             string dir = "mkdir -p " + path;
             const int dir_err = system(dir.c_str());
             if (-1 == dir_err)
@@ -692,24 +692,23 @@ MatrixError WitnessAppsService::BatchRecognize(
         return err;
     }
     if (enable_fullimage_storage_) {
-    std::mutex imgmt;
+        std::mutex imgmt;
 
-        pool_->enqueue([&roiimages,&imgmt, this]() {
-                      std::unique_lock<mutex> imglc(imgmt);
+        pool_->enqueue([&roiimages, &imgmt, this]() {
+            std::unique_lock<mutex> imglc(imgmt);
 
             struct timeval curr_time;
             gettimeofday(&curr_time, NULL);
             long long timestamp = curr_time.tv_sec * 1000 + curr_time.tv_usec / 1000;
-
+            string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
+            string dir = "mkdir -p " + path;
+            const int dir_err = system(dir.c_str());
+            if (-1 == dir_err)
+            {
+                LOG(WARNING) << ("Error creating directory!n");
+            }
             for (int i = 0; i < roiimages.size(); i++) {
-                string path = this->fullimage_storage_address_ + "/" + GetLatestHour();
-                string dir = "mkdir -p " + path;
-                const int dir_err = system(dir.c_str());
-                if (-1 == dir_err)
-                {
-                    LOG(WARNING)<<("Error creating directory!n");
-                    continue;
-                }
+
                 char uuidBuff[36];
                 uuid_t uuidGenerated;
                 uuid_generate_random(uuidGenerated);
@@ -806,6 +805,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
     if (enable_storage_) {
+        VLOG(VLOG_PROCESS_COST) << "enable storage";
         shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
         client_request_obj->results.CopyFrom(batchResponse->results());
         if (batchRequest->context().storages_size() > 0) {
@@ -817,12 +817,7 @@ MatrixError WitnessAppsService::BatchRecognize(
             client_request_obj->imgs.push_back(framebatch.frames()[k]->payload()->data());
         }
         client_request_obj->srcMetadatas = srcMetadatas;
-            gettimeofday(&start, NULL);
-
         WitnessBucket::Instance().Push(client_request_obj);
-            gettimeofday(&end, NULL);
-            VLOG(VLOG_PROCESS_COST) << "storage cost: " << TimeCostInMs(start, end) << endl;
-
 
     }
 

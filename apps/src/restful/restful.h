@@ -75,7 +75,6 @@ public:
 
         Bind(server);
         cout << " Server(RESTFUL) listening on " << port << endl;
-        string instanceType = (string) config_.Value("InstanceType");
         try {
             server.start();
         }
