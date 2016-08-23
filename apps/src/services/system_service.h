@@ -98,7 +98,6 @@ public:
         char id[300];
         FILE *out = popen("top -bn1 |grep 'Cpu(s)'", "r");
         if (out == NULL) {
-            fclose(out);
             return -1;
         }
         fgets(id, sizeof(id), out);
@@ -118,7 +117,6 @@ public:
         char id[50];
         FILE *out = popen(fullcmd.c_str(), "r");
         if (out == NULL) {
-            fclose(out);
             return -1;
         }
 
@@ -138,7 +136,6 @@ public:
         char id[1000];
         FILE *out = popen("df / ", "r");
         if (out == NULL) {
-            fclose(out);
             return -1;
         }
 
@@ -170,7 +167,6 @@ public:
         char id[1000];
         FILE *out = popen("nvidia-smi -L", "r");
         if (out == NULL) {
-            fclose(out);
             return -1;
         }
         int gpuCnt = 0;
@@ -180,7 +176,6 @@ public:
         memset(id, 0, sizeof(id));
         out = popen("nvidia-smi |grep MiB", "r");
         if (out == NULL) {
-            fclose(out);
             return -1;
         }
         vector<vector<string> > memgpus;
