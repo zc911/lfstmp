@@ -316,10 +316,10 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         if (findMatched == false) {
             MatchedPedestrian->set_id(fobj->id());
             MatchedPedestrian->set_confidence((float)fobj->confidence());
-            float leftTimes = RepoService::GetInstance().FindFaceRelativePedestrian("left");
-            float rightTimes = RepoService::GetInstance().FindFaceRelativePedestrian("right");
-            float topTimes = RepoService::GetInstance().FindFaceRelativePedestrian("top");
-            float bottomTimes = RepoService::GetInstance().FindFaceRelativePedestrian("bottom");
+            float leftTimes = RepoService::GetInstance().FindBodyRelativeFace("left");
+            float rightTimes = RepoService::GetInstance().FindBodyRelativeFace("right");
+            float topTimes = RepoService::GetInstance().FindBodyRelativeFace("top");
+            float bottomTimes = RepoService::GetInstance().FindBodyRelativeFace("bottom");
             pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
             pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
             pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth -1 - pedCutboard->x()));

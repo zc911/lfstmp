@@ -33,8 +33,11 @@ void RepoService::Init(const Config &config) {
         string pTypeFile = (string) config.Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
         string pVtypeFile = (string) config.Value(VEHICLE_TYPE_MAPPING_FILE);
         string pPtypeFile = (string) config.Value(PEDESTRIAN_ATTR_TYPE);
-        string pFaceRelativePed = (string) config.Value(FACE_RELATIVE_PEDESTRIAN_POSITION);
         string pAttrCatagoryFile = (string) config.Value(PEDESTRIAN_ATTR_CATAGORY);
+        pBodyRelativeFaceLeft = (float) config.Value(BODY_RELATIVE_FACE_LEFT);
+        pBodyRelativeFaceRight = (float) config.Value(BODY_RELATIVE_FACE_RIGHT);
+        pBodyRelativeFaceTop = (float) config.Value(BODY_RELATIVE_FACE_TOP);
+        pBodyRelativeFaceBottom = (float) config.Value(BODY_RELATIVE_FACE_BOTTOM);
         init_vehicle_map(vModelFile, ",", vehicle_repo_);
         init_string_map(vColorFile, "=", color_repo_);
         init_string_map(vSymbolFile, "=", symbol_repo_);
@@ -43,7 +46,6 @@ void RepoService::Init(const Config &config) {
         init_string_map(pTypeFile, "=", plate_type_repo_);
         init_string_map(pVtypeFile, "=", vehicle_type_repo_);
         init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
-        init_string_map(pFaceRelativePed, "=", face_relative_pedestrian_);
         init_string_map(pAttrCatagoryFile, "=", pedestrian_attr_catagory_repo_);
         model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
         color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
@@ -53,7 +55,6 @@ void RepoService::Init(const Config &config) {
         vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
         plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
         pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
-        face_relative_pedestrian_data_ = ReadStringFromFile(pFaceRelativePed, "r");
         pedestrian_attr_catagory_data_ = ReadStringFromFile(pAttrCatagoryFile, "r");
         is_gpu_plate_ = (bool) config.Value(IS_GPU_PLATE);
 
@@ -119,19 +120,6 @@ void RepoService::init_string_map(string filename, string sep,
 
     for (const std::pair<int, string> &p : pairs) {
         array[p.first] = p.second;
-    }
-}
-
-void RepoService::init_string_map(string filename, string sep,
-                                  map<string, float > &mp) {
-    ifstream input(filename);
-
-    for (string line; std::getline(input, line);) {
-        vector<string> tokens;
-        boost::iter_split(tokens, line, boost::first_finder(sep));
-        assert(tokens.size() == 2);
-        float value = parseFloat(tokens[1]);
-        mp[tokens[0]] = value;
     }
 }
 
