@@ -202,7 +202,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    FileReader mapping("data/mapping/plate_gpu_color.txt");
+    FileReader mapping("data/mapping/plate_color.txt");
     EXPECT_TRUE(mapping.is_open());
     mapping.read("=");
 
