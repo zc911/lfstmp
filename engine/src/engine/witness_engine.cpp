@@ -46,6 +46,10 @@ WitnessEngine::~WitnessEngine() {
 }
 
 void WitnessEngine::Process(FrameBatch *frames) {
+        float costtime, diff;
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+
     performance_ += frames->frames().size();
 #if DEBUG
 #else
@@ -112,6 +116,12 @@ void WitnessEngine::Process(FrameBatch *frames) {
         if (face_processor_)
             face_processor_->Update(frames);
     }
+       gettimeofday(&end, NULL);
+
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+           / 1000.f;
+    DLOG(INFO) << " [witness engine ]: " << diff;
+
 //    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
 //        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 //        isWarmuped_ = true;

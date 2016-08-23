@@ -124,8 +124,10 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             ymax += crop_ymin[img_id];
             // exclude bboxes that lie outside car window.
             if ((thresh_ymin[img_id] - ymin) / (ymax - ymin) > 0.3 ||
-                    (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3)
+                    (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3){
                 continue;
+
+            }
 
             // exclude bboxes that lie in a predefined fobbiden place
 
@@ -133,12 +135,29 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
 
             Rect overlap = fob[cls] & Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if (int(overlap.area()) > 1) {
+
                 continue;  //exclude this box
             }
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
-            detection.id = cls;
+            if(cls==4){
+                if(xmin*2<target_row){
+                    detection.id=LeftBelt;
+                }else{
+                    detection.id=RightBelt;
+                }
+            }else if(cls==2){
+                if(xmin*2<target_row){
+                    detection.id=LeftSunVisor;
+                }else{
+                    detection.id=RightSunVisor;
+                }
+            }else{
+                detection.id = cls;
+
+            }
             detection.confidence = score;
+
             imageDetection.push_back(detection);
 
         }
@@ -193,13 +212,12 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             int tymin;
             int tymax;
             float ratio = 0.15;
-            show_enlarged_box(image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
+            show_enlarged_box(imgs[i],image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
 
             params[2].push_back(tymin);
             params[3].push_back(tymax);
 
-            float target_row = 256;
-            float target_col = 384;
+
             params[4].push_back(img.rows * 1.0 / target_row);
             params[5].push_back(img.cols * 1.0 / target_col);
             if (img.rows > 0 && img.cols > 0) {
@@ -207,6 +225,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             } else {
                 img = Mat::zeros(Size(target_col, target_row), CV_8UC3);
             }
+
             toPredict.push_back(img);
 
         }
@@ -237,7 +256,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
            / 1000.f;
-    DLOG(INFO) << "window marker  batch " << diff;
+    DLOG(INFO) << "        [Marker]  Detect batch : " << diff;
 
 //    // make sure batch size is times of the batch size
 //    if (img.size() % batch_size_ != 0) {
@@ -321,7 +340,7 @@ std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
            / 1000.f;
-    DLOG(INFO) << "marker predict batch " << diff;
+    DLOG(INFO) << "         [Marker] predict batch " << diff;
     return outputs;
 }
 
