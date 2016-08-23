@@ -17,15 +17,17 @@ public:
         string address = (string) config->Value(STORAGE_ADDRESS);
         spring_client_.CreateConnect(address);
         data_client_.CreateConnect(address);
-        pool_ = new ThreadPool(4);
+        pool_ = new ThreadPool(10);
     }
 
     MatrixError storage() {
-        VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
+
+        VLOG(VLOG_SERVICE) << "========START REQUEST " << WitnessBucket::Instance().Size() << "===========" << endl;
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
-
+        vector<VehicleObj> vos;
+        vector<PedestrianObj> pos;
         for (int k = 0; k < wv->results.size(); k++) {
             VehicleObj vo;
             PedestrianObj po;
@@ -34,7 +36,10 @@ public:
                 Cutboard c = r.vehicles(i).img().cutboard();
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = wv->results.Mutable(k)->mutable_vehicles(i);
-                vector<uchar> data(roi.datastart, roi.dataend);
+                vector<uchar> data;
+                imencode(".jpg",roi,data);
+
+             //   vector<uchar> data(roi.datastart, roi.dataend);
                 string imgdata = Base64::Encode(data);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 vo.mutable_vehicle()->Add()->CopyFrom(*v);
@@ -46,8 +51,10 @@ public:
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecPedestrian *v = wv->results.Mutable(k)->mutable_pedestrian(i);
                 po.mutable_pedestrian()->Add()->CopyFrom(*v);
+                                vector<uchar> data;
 
-                vector<uchar> data(roi.datastart, roi.dataend);
+                imencode(".jpg",roi,data);
+            //    vector<uchar> data(roi.datastart, roi.dataend);
                 string imgdata = Base64::Encode(data);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 po.mutable_pedestrian()->Add()->CopyFrom(*v);
@@ -64,20 +71,24 @@ public:
                 po.mutable_img()->set_height(wv->imgs[k].rows);
                 po.mutable_img()->set_width(wv->imgs[k].cols);
             }
+            pos.push_back(po);
+            vos.push_back(vo);
 
+        }
+        for (int i = 0; i < wv->storages.size(); i++) {
 
-            for (int i = 0; i < wv->storages.size(); i++) {
-
-                string address = wv->storages.Get(i).address();
-                if (wv->storages.Get(i).type() == model::POSTGRES) {
-                    pool_->enqueue([address, this, vo, po, &err]() {
-                        MatrixError errTmp = this->data_client_.SendBatchData(address, vo, po);
-                        if (errTmp.code() != 0) {
-                            err.set_code(errTmp.code());
-                            err.set_message("send to postgres error");
-                        }
-                    });
-                } else if (wv->storages.Get(i).type() == model::KAFKA) {
+            string address = wv->storages.Get(i).address();
+            if (wv->storages.Get(i).type() == model::POSTGRES) {
+                pool_->enqueue([address, this, vos, pos, &err]() {
+                    MatrixError errTmp = this->data_client_.SendBatchData(address, vos, pos);
+                    if (errTmp.code() != 0) {
+                        err.set_code(errTmp.code());
+                        err.set_message("send to postgres error");
+                    }
+                });
+            } else if (wv->storages.Get(i).type() == model::KAFKA) {
+                for (int j = 0; j < vos.size(); j++) {
+                    VehicleObj vo = vos[j];
                     pool_->enqueue([address, this, vo, &err]() {
                         MatrixError errTmp = spring_client_.IndexVehicle(address, vo);
                         if (errTmp.code() != 0) {
@@ -85,8 +96,9 @@ public:
                             err.set_message("send to kafka error");
                         }
                     });
-
                 }
+
+
             }
         }
         return err;

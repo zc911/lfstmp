@@ -17,12 +17,12 @@
 #include <algorithm>
 #include <pthread.h>
 #include <cuda_runtime.h>
-
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 #define LPDR_DBG 0
 #define LPDR_TIME 0
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+
 
 using namespace std;
 
@@ -71,15 +71,12 @@ const char *paInv_chardict_[79] = {"blank", "0", "1", "2", "3", "4", "5", "6", "
 
 */
 
-
-
-
-#define LP_COLOUR_WHITE     0
+#define LP_COLOUR_UNKNOWN   0
+#define LP_COLOUR_BLUE      1
 #define LP_COLOUR_YELLOW    2
-#define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN	    5
-#define LP_COLOUR_BLUE	    6
-#define LP_COLOUR_BLACK	    8
+#define LP_COLOUR_WHITE     3
+#define LP_COLOUR_BLACK     4
+#define LP_COLOUR_GREEN     5
 
 #define LP_TYPE_SINGLE 0
 #define LP_TYPE_DOUBLE 1
