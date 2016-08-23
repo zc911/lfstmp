@@ -29,7 +29,7 @@ void RepoService::Init(const Config &config) {
         string vColorFile = (string) config.Value(VEHICLE_COLOR_MAPPING_FILE);
         string vSymbolFile = (string) config.Value(VEHICLE_SYMBOL_MAPPING_FILE);
         string pColorFile = (string) config.Value(VEHICLE_PLATE_COLOR_MAPPING_FILE);
-        string pColorGpuFile = (string) config.Value(RENDER_VEHICLE_PLATE_GPU_COLOR);
+        //string pColorGpuFile = (string) config.Value(RENDER_VEHICLE_PLATE_GPU_COLOR);
         string pTypeFile = (string) config.Value(VEHICLE_PLATE_TYPE_MAPPING_FILE);
         string pVtypeFile = (string) config.Value(VEHICLE_TYPE_MAPPING_FILE);
         string pPtypeFile = (string) config.Value(VEHICLE_PEDESTRIAN_ATTR_TYPE);
@@ -37,7 +37,7 @@ void RepoService::Init(const Config &config) {
         init_string_map(vColorFile, "=", color_repo_);
         init_string_map(vSymbolFile, "=", symbol_repo_);
         init_string_map(pColorFile, "=", plate_color_repo_);
-        init_string_map(pColorGpuFile, "=", plate_color_gpu_repo_);
+        //init_string_map(pColorGpuFile, "=", plate_color_gpu_repo_);
         init_string_map(pTypeFile, "=", plate_type_repo_);
         init_string_map(pVtypeFile, "=", vehicle_type_repo_);
         init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
@@ -47,7 +47,6 @@ void RepoService::Init(const Config &config) {
         plate_color_mapping_data_ = ReadStringFromFile(pColorFile, "r");
         plate_type_mapping_data_ = ReadStringFromFile(pTypeFile, "r");
         vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
-        plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
         pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
         is_gpu_plate_ = (bool) config.Value(IS_GPU_PLATE);
 
@@ -64,11 +63,7 @@ MatrixError RepoService::IndexTxt(const IndexTxtRequest *request,
             data = model_mapping_data_;
             break;
         case INDEX_CAR_PLATE_COLOR:
-            if (!is_gpu_plate_) {
-                data = plate_color_mapping_data_;
-            } else {
-                data = plate_color_gpu_mapping_data_;
-            }
+            data = plate_color_mapping_data_;
             break;
         case INDEX_CAR_PLATE_TYPE:
             data = plate_type_mapping_data_;
@@ -227,7 +222,7 @@ MatrixError RepoService::FillPlates(const vector<Vehicle::Plate> &plates,
         rplate->mutable_color()->set_colorid(plate.color_id);
         int typeId = plate.plate_type;
         if (is_gpu_plate_) {
-            rplate->mutable_color()->set_colorname(lookup_string(plate_color_gpu_repo_, plate.color_id));
+            rplate->mutable_color()->set_colorname(lookup_string(plate_color_repo_, plate.color_id));
             filterPlateType(rplate->color().colorname(), plate.plate_num, typeId);
         } else {
 
@@ -321,21 +316,13 @@ MatrixError RepoService::Index(const IndexRequest *request,
                 break;
 
             CommonIndex *cIndex = response->mutable_index();
-            if (!is_gpu_plate_) {
                 for (int i = 0; i < plate_color_repo_.size(); i++) {
                     string value = plate_color_repo_[i].data();
                     CommonIndex_Item *item = cIndex->add_items();
                     item->set_id(i);
                     item->set_name(value);
                 }
-            } else {
-                for (int i = 0; i < plate_color_gpu_repo_.size(); i++) {
-                    string value = plate_color_gpu_repo_[i].data();
-                    CommonIndex_Item *item = cIndex->add_items();
-                    item->set_id(i);
-                    item->set_name(value);
-                }
-            }
+            
             break;
         }
         case INDEX_CAR_PLATE_TYPE: {
