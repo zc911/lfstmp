@@ -21,10 +21,10 @@ using namespace caffe;
 
 namespace dg {
 enum{
-    LeftBelt=6,
-    RightBelt=7,
-    LeftSunVisor=8,
-    RightSunVisor=9
+    LeftBelt=7,
+    RightBelt=8,
+    LeftSunVisor=9,
+    RightSunVisor=10
 };
 class MarkerCaffeSsdDetector : public Detector{
 
