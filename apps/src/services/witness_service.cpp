@@ -30,7 +30,12 @@ using namespace std;
 namespace dg {
 
 static int SHIFT_COLOR = 1000;
-static bool nofilter_flag = false;
+static bool filter_flag = false;
+const static string PEDESTRIAN_ATTR_UNKNOWN_ = "未知";
+const static string PEDESTRIAN_ATTR_MALE_ = "男";
+const static string PEDESTRIAN_ATTR_FEMALE_ = "女";
+const static string PEDESTRIAN_ATTR_HAN_ = "汉族";
+const static string PEDESTRIAN_ATTR_MINORITY_ = "少数民族";
 
 const static unsigned int PARSE_IMAGE_TIMEOUT_DEFAULT = 60;
 WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
@@ -145,148 +150,73 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     MatrixError err;
     const Detection &d = pobj->detection();
     std::vector<Pedestrian::Attr> attrs = pobj->attrs();
-    std::map<std::string, float> threshold = pobj->threshold();
 
     prec->set_id(pobj->id());
     prec->set_confidence((float) pobj->confidence());
 
     RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
-
     PedestrianAttr* attr = prec->mutable_pedesattr();
+
+    auto SetNameAndConfidence = [](NameAndConfidence* nac, Pedestrian::Attr& attribute) {
+        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(attribute.mappingId));
+        nac->set_confidence(attribute.confidence);
+        nac->set_id(attribute.index);
+    };
 
     for (int i = 0; i < attrs.size(); i++) {
         // sex judge
-        if (i == 45) {
+        if (attrs[i].categoryId == 9) {
             NameAndConfidence *nac = attr->mutable_sex();
             if (attrs[i].confidence < attrs[i].threshold_lower) {
-                nac->set_name("men");
+                nac->set_name(PEDESTRIAN_ATTR_MALE_);
                 nac->set_confidence(1 - attrs[i].confidence);
-            }
-            else if (attrs[i].confidence > attrs[i].threshold_upper) {
-                nac->set_name("women");
+            } else if (attrs[i].confidence > attrs[i].threshold_upper) {
+                nac->set_name(PEDESTRIAN_ATTR_FEMALE_);
                 nac->set_confidence(attrs[i].confidence);
-            }
-            else {
-                nac->set_name("unknown");
+            } else { nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
                 nac->set_confidence(attrs[i].confidence);
             }
             nac->set_id(i);
-
-        }
-
-        // national judge
-        if (i == 46) {
+        } else if (attrs[i].categoryId == 10) {
+            // national judge
             NameAndConfidence *nac = attr->mutable_national();
             if (attrs[i].confidence > attrs[i].threshold_upper) {
-                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
+                nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
                 nac->set_confidence(attrs[i].confidence);
-            }
-            else if (attrs[i].confidence < attrs[i].threshold_lower) {
-                nac->set_name("han");
+            } else if (attrs[i].confidence < attrs[i].threshold_lower) {
+                nac->set_name(PEDESTRIAN_ATTR_HAN_);
                 nac->set_confidence(1.0 - attrs[i].confidence);
-            }
-            else {
-                nac->set_name("unknown");
+            } else {
+                nac->set_name(PEDESTRIAN_ATTR_UNKNOWN_);
                 nac->set_confidence(attrs[i].confidence);
             }
             nac->set_id(i);
-
-        }
-
-        // age judge
-        if (i >= 35 && i <= 37) {
+        } else if (attrs[i].categoryId == 8) {
+            // age judge
             NameAndConfidence *nac = attr->mutable_age();
             float confidence = nac->confidence();
             if (attrs[i].confidence > confidence) {
-                nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                nac->set_confidence(attrs[i].confidence);
+                SetNameAndConfidence(nac, attrs[i]);
             }
-            nac->set_id(i);
-        }
-        // head wears judge
-        if (i >= 6 && i <= 9) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                if (attrs[i].confidence > threshold["HeadWears"] || nofilter_flag == true) {
-                    NameAndConfidence *nac = attr->add_headwears();
-                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                    nac->set_confidence(attrs[i].confidence);
-                    nac->set_id(i);
+        } else if (attrs[i].confidence >= attrs[i].threshold_lower) {
+            // others judge
+            if (filter_flag == false || attrs[i].confidence >= attrs[i].threshold_upper) {
 
-                }
-            }
-
-        }
-
-        // body wear
-        if (i >= 0 && i <= 5) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                if (attrs[i].confidence > threshold["BodyWears"] || nofilter_flag == true) {
-                    NameAndConfidence *nac = attr->add_bodywears();
-                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                    nac->set_confidence(attrs[i].confidence);
-                    nac->set_id(i);
-
-                }
-            }
-        }
-
-        // upper color
-        if (i >= 10 && i <= 21) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                HalfOfBodyFeature *hobf = attr->mutable_upperfeatures();
-                if (attrs[i].confidence > threshold["UpperColors"] || nofilter_flag == true) {
-                    NameAndConfidence *nac = hobf->add_color();
-                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                    nac->set_confidence(attrs[i].confidence);
-                    nac->set_id(i);
-
-                }
-            }
-        }
-
-        // upper stripes
-        if (i >= 38 && i <= 41) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                HalfOfBodyFeature *hobf = attr->mutable_upperfeatures();
-                if (attrs[i].confidence > threshold["UpperStripes"] || nofilter_flag == true) {
-                    if (!hobf->has_stripes() || attrs[i].confidence > hobf->mutable_stripes()->confidence()) {
-                        NameAndConfidence *nac = hobf->mutable_stripes();
-                        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                        nac->set_confidence(attrs[i].confidence);
-                        nac->set_id(i);
-
+                CategoryAndFeature *caf = NULL;
+                for (int j = 0; j < attr->category_size(); ++j) {
+                    if (attrs[i].categoryId == attr->category(j).id()) {
+                        caf = attr->mutable_category(j);
+                        break;
                     }
                 }
-            }
-        }
-
-        // lower color
-        if (i >= 22 && i <= 33) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                HalfOfBodyFeature *hobf = attr->mutable_lowerfeatures();
-                if (attrs[i].confidence > threshold["LowerColors"] || nofilter_flag == true) {
-                    NameAndConfidence *nac = hobf->add_color();
-                    nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                    nac->set_confidence(attrs[i].confidence);
-                    nac->set_id(i);
-
+                if (caf == NULL) {
+                    caf = attr->add_category();
+                    caf->set_id(attrs[i].categoryId);
+                    caf->set_categoryname(
+                            RepoService::GetInstance().FindPedestrianAttrCatagory(attrs[i].categoryId));
                 }
-            }
-        }
-
-        // lower catagory
-        if (i >= 42 && i <= 44) {
-            if (attrs[i].confidence > attrs[i].threshold_upper) {
-                HalfOfBodyFeature *hobf = attr->mutable_lowerfeatures();
-                if (attrs[i].confidence > threshold["LowerCatagory"] || nofilter_flag == true) {
-                    if (!hobf->has_catagory() || attrs[i].confidence > hobf->mutable_catagory()->confidence()) {
-                        NameAndConfidence *nac = hobf->mutable_catagory();
-                        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(i));
-                        nac->set_confidence(attrs[i].confidence);
-                        nac->set_id(i);
-
-                    }
-                }
+                NameAndConfidence *nac = caf->add_items();
+                SetNameAndConfidence(nac, attrs[i]);
             }
         }
     }
@@ -604,12 +534,12 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     result->mutable_image()->mutable_data()->set_height(frame->payload()->data().rows);
     result->mutable_image()->mutable_data()->set_width(frame->payload()->data().cols);
 
-    string fileterFlag = "Nofilter";
+    string fileterFlag = "AttributeFilter";
     auto Params = request->context().params();
-    if (Params.find(fileterFlag) == Params.end() || Params.at(fileterFlag) == "0")
-        nofilter_flag = false;
+    if (Params.find(fileterFlag) != Params.end() && Params.at(fileterFlag) == "0")
+        filter_flag = false;
     else
-        nofilter_flag = true;
+        filter_flag = true;
     err = getRecognizeResult(frame, result);
 
     if (err.code() != 0) {
