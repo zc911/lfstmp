@@ -255,6 +255,7 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
 
         Marker *m = (Marker *) object;
         Identification mid = m->class_id();
+
         if (mid >= 0 && mid < isize) {
             VehicleSymbol *item = NULL;
             if (indexes[mid] < 0) {
