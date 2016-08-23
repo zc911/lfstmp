@@ -31,7 +31,6 @@ public:
         int gpu_id = 0;
         bool use_gpu = true;
         string tag_name_path;
-        string threshold_file_path;
         string deploy_file;
         string model_file;
         string layer_name;
@@ -42,6 +41,8 @@ public:
         string tagname;
         float threshold_lower;
         float threshold_upper;
+        int categoryId;
+        int mappingId;
     } Tag;
 
     typedef struct {
@@ -50,6 +51,8 @@ public:
         float confidence;
         float threshold_lower;
         float threshold_upper;
+        int categoryId;
+        int mappingId;
     } PedestrianAttribute;
     PedestrianClassifier(PedestrianConfig &pconf);
     virtual ~PedestrianClassifier();
@@ -58,12 +61,10 @@ public:
 
 public:
     vector<Tag> tagtable_;
-    map<string, float> attribute_threshold_;
     int batch_size_;
 
 private:
     void LoadTagnames(const string &name_list);
-    void LoadThresholdFile(const string &name_list);
     void AttributePredict(const vector<Mat> &imgs,
                           vector<vector<float> > &results);
 
