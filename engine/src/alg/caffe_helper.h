@@ -376,7 +376,7 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
     // nianjianbiao: not in center
     fob.push_back(Rect(centerx - width/2/2 , centery - height/3/2, width/2, height/3));
     // zheyangban: not in bottom
-    fob.push_back(Rect(xmin, ymin + height*2/3, width, height));
+    fob.push_back(Rect(xmin, ymin + height*2/3, width, height/3));
     // qita: not in upper
     fob.push_back(Rect(xmin, ymin, width, height/3));
     // anquandai: not in center
