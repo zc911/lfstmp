@@ -13,8 +13,8 @@ static VehicleMarkerClassifierProcessor *vmcprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    WindowCaffeDetector::WindowCaffeConfig wConfig;
-    MarkerCaffeClassifier::MarkerConfig mConfig;
+    VehicleCaffeDetectorConfig wConfig;
+    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
@@ -106,7 +106,7 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
         ASSERT_EQ(resultReader->getValue(s.str()).size(), 5 + v.size()) << "i = " << i << endl;
         for (int j = 0; j < v.size(); ++j) {
             Marker *marker = (Marker *)v[j];
-            EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id());
+            EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id()) << "i = " << i << " j = " << j << endl;
         }
     }
 
@@ -144,7 +144,7 @@ TEST(VehicleMarkerClassifierTest, handleMultiVehiclesTest) {
         sort(realMarker.begin(), realMarker.end());
         ASSERT_EQ(expectMarker.size(), realMarker.size()) << "i = " << i << endl;
         for (int j = 0; j < expectMarker.size(); ++j) {
-            EXPECT_EQ(expectMarker[j], realMarker[j]) << "j = " << j << endl;
+            EXPECT_EQ(expectMarker[j], realMarker[j]) << "i = " << i << " j = " << j << endl;
         }
     }
 

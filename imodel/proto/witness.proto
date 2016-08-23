@@ -110,9 +110,8 @@ message WitnessRequestContext {
     string Token = 3; //Token验证，需要开启验证功能
     repeated RecognizeFunctions Functions = 4; //功能列表
     RecognizeType Type = 5; //识别类型 enum RecognizeType
-    StorageConfig Storage = 6; //Engine结果存储的信息
+    repeated StorageConfig Storages = 6; //Engine结果存储的信息
     map<string, string> Params = 7; //扩展参数
-
 }
 
 message WitnessImage {
@@ -136,12 +135,7 @@ message WitnessResult {
     string InnerMessage = 2; //响应的内部信息
     WitnessImage Image = 3; //响应的图片信息
     repeated RecVehicle Vehicles = 4; //识别的车辆列表
-    repeated RecFace Faces = 5; //识别的人脸列表
-
-}
-message WitnessVehicleObj {
-    VehicleObj VehicleResult = 1;
-    StorageConfig Storage = 2;
+    repeated RecPedestrian Pedestrian = 5; //识别的行人列表
 }
 
 

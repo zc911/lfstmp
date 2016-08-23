@@ -43,6 +43,7 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
 
     // load attrib names
     LoadTagnames(pconf.tag_name_path);
+    LoadThresholdFile(pconf.threshold_file_path);
 
     //calculate crop rectangle coordinates
     int offset_h = height_ - crop_height_;
@@ -59,16 +60,32 @@ void PedestrianClassifier::LoadTagnames(const string &name_list) {
     ifstream fp(name_list);
     tagtable_.resize(0);
     while (!fp.eof()) {
-        string tagname = "", indexstr = "";
+        string tagname = "", indexstr = "", threshold_lower = "", threshold_upper = "";
         fp >> tagname;
         fp >> indexstr;
-        if (tagname == "" || indexstr == "")
+        fp >> threshold_lower;
+        fp >> threshold_upper;
+        if (tagname == "" || indexstr == "" || threshold_lower == "")
             continue;
-
         Tag tag;
         tag.index = atof(indexstr.c_str());
         tag.tagname = tagname;
+        tag.threshold_lower = atof(threshold_lower.c_str());
+        tag.threshold_upper = atof(threshold_upper.c_str());
         tagtable_.push_back(tag);
+    }
+}
+
+void PedestrianClassifier::LoadThresholdFile(const string &name_list) {
+    ifstream fp(name_list);
+    attribute_threshold_.clear();
+    while (!fp.eof()) {
+        string tagname = "", threshold = "";
+        fp >> tagname;
+        fp >> threshold;
+        if (tagname == "" || threshold == "")
+            continue;
+        attribute_threshold_[tagname] = atof(threshold.c_str());
     }
 }
 
@@ -136,7 +153,6 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
     if (imgs.size() == 0)
         return attrc;
     vector<vector<float> > results;
-
     AttributePredict(imgs, results);
     for (size_t idx = 0; idx < results.size(); idx++) {
         std::vector<PedestrianClassifier::PedestrianAttribute> attrs;
@@ -144,6 +160,8 @@ std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassif
             PedestrianClassifier::PedestrianAttribute attr;
             attr.index = tagtable_[a_idx].index;
             attr.tagname = tagtable_[a_idx].tagname;
+            attr.threshold_lower = tagtable_[a_idx].threshold_lower;
+            attr.threshold_upper = tagtable_[a_idx].threshold_upper;
             attr.confidence = results[idx][a_idx];
             attrs.push_back(attr);
         }

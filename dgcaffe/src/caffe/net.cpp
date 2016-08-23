@@ -81,14 +81,17 @@ Net<Dtype>::Net(const string& param_file, Phase phase, bool is_encrypt, const Ne
 
 template <typename Dtype>
 void Net<Dtype>::Init(const NetParameter& in_param) {
+
   CHECK(Caffe::root_solver() || root_net_)
       << "root_net_ needs to be set for all non-root solvers";
   // Set phase from the state.
   phase_ = in_param.state().phase();
+
   // Filter layers based on their include/exclude rules and
   // the current NetState.
   NetParameter filtered_param;
   FilterNet(in_param, &filtered_param);
+
   DLOG_IF(INFO, Caffe::root_solver())
       << "Initializing net from parameters: " << std::endl
       << filtered_param.DebugString();

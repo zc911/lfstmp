@@ -4,82 +4,107 @@
 
 #ifndef PROJECT_STORAGE_REQUEST_H
 #define PROJECT_STORAGE_REQUEST_H
-#include "spring.grpc.pb.h"
-#include "localcommon.pb.h"
-#include "witness.grpc.pb.h"
+#include "codec/base64.h"
 #include "witness_bucket.h"
-#include "pbjson/pbjson.hpp"
-#include <google/protobuf/text_format.h>
-using ::dg::model::SpringService;
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::ClientAsyncResponseReader;
-using grpc::Status;
-using grpc::CompletionQueue;
-using grpc::Channel;
-using grpc::ClientContext;
-using grpc::Status;
+#include "clients/spring_client.h"
+#include "clients/data_client.h"
+#include "simple_thread_pool.h"
+
 namespace dg {
-static int timeout = 5;
 class StorageRequest {
 public:
     StorageRequest(const Config *config) {
-        string storageAddress = (string) config->Value(STORAGE_ADDRESS);
-        createConnect(storageAddress);
+        string address = (string) config->Value(STORAGE_ADDRESS);
+        spring_client_.CreateConnect(address);
+        data_client_.CreateConnect(address);
+        pool_ = new ThreadPool(4);
     }
 
     MatrixError storage() {
-        VLOG(VLOG_SERVICE) << "========START REQUEST===========" << endl;
+        VLOG(VLOG_SERVICE) << "========START REQUEST "<<WitnessBucket::Instance().Size()<<"===========" << endl;
 
         MatrixError err;
         shared_ptr<WitnessVehicleObj> wv = WitnessBucket::Instance().Pop();
-        string storageAddress = wv->storage().address();
 
-        map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.find(storageAddress);
-        if (it == stubs_.end()) {
-            createConnect(storageAddress);
+        for (int k = 0; k < wv->results.size(); k++) {
+            VehicleObj vo;
+            PedestrianObj po;
+            const WitnessResult &r = wv->results.Get(k);
+            for (int i = 0; i < r.vehicles_size(); i++) {
+                Cutboard c = r.vehicles(i).img().cutboard();
+                Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
+                RecVehicle *v = wv->results.Mutable(k)->mutable_vehicles(i);
+                vector<uchar> data;
+                imencode(".jpg",roi,data);
+
+             //   vector<uchar> data(roi.datastart, roi.dataend);
+                string imgdata = Base64::Encode(data);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                vo.mutable_vehicle()->Add()->CopyFrom(*v);
+
+
+            }
+            for (int i = 0; i < r.pedestrian_size(); i++) {
+                Cutboard c = r.pedestrian(i).img().cutboard();
+                Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
+                RecPedestrian *v = wv->results.Mutable(k)->mutable_pedestrian(i);
+                po.mutable_pedestrian()->Add()->CopyFrom(*v);
+                                vector<uchar> data;
+
+                imencode(".jpg",roi,data);
+            //    vector<uchar> data(roi.datastart, roi.dataend);
+                string imgdata = Base64::Encode(data);
+                v->mutable_img()->mutable_img()->set_bindata(imgdata);
+                po.mutable_pedestrian()->Add()->CopyFrom(*v);
+            }
+            if (r.vehicles_size() > 0) {
+                vo.mutable_metadata()->CopyFrom(wv->srcMetadatas[k]);
+                vo.mutable_img()->set_uri(r.image().data().uri());
+                vo.mutable_img()->set_height(wv->imgs[k].rows);
+                vo.mutable_img()->set_width(wv->imgs[k].cols);
+            }
+            if (r.pedestrian_size()) {
+                po.mutable_metadata()->CopyFrom(wv->srcMetadatas[k]);
+                po.mutable_img()->set_uri(r.image().data().uri());
+                po.mutable_img()->set_height(wv->imgs[k].rows);
+                po.mutable_img()->set_width(wv->imgs[k].cols);
+            }
+
+
+            for (int i = 0; i < wv->storages.size(); i++) {
+
+                string address = wv->storages.Get(i).address();
+                if (wv->storages.Get(i).type() == model::POSTGRES) {
+                    pool_->enqueue([address, this, vo, po, &err]() {
+                        MatrixError errTmp = this->data_client_.SendBatchData(address, vo, po);
+                        if (errTmp.code() != 0) {
+                            err.set_code(errTmp.code());
+                            err.set_message("send to postgres error");
+                        }
+                    });
+                } else if (wv->storages.Get(i).type() == model::KAFKA) {
+                    pool_->enqueue([address, this, vo, &err]() {
+                        MatrixError errTmp = spring_client_.IndexVehicle(address, vo);
+                        if (errTmp.code() != 0) {
+                            err.set_code(errTmp.code());
+                            err.set_message("send to kafka error");
+                        }
+                    });
+
+                }
+            }
         }
-
-        const VehicleObj &v = wv->vehicleresult();
-        NullMessage reply;
-        ClientContext context;
-        std::chrono::system_clock::time_point
-            deadline = std::chrono::system_clock::now() + std::chrono::seconds(timeout);
-        context.set_deadline(deadline);
-        CompletionQueue cq;
-        Status status;
-        std::unique_ptr<ClientAsyncResponseReader<NullMessage> > rpc(
-            stubs_[storageAddress]->AsyncIndexVehicle(&context, v, &cq));
-        rpc->Finish(&reply, &status, (void *) 1);
-        void *got_tag;
-        bool ok = false;
-        cq.Next(&got_tag, &ok);
-        if (status.ok()) {
-            VLOG(VLOG_SERVICE) << "send to storage success" << endl;
-
-            return err;
-        } else {
-            VLOG(VLOG_SERVICE) << "send to storage failed " << status.error_code() << endl;
-            stubs_.erase(stubs_.find(storageAddress));
-            return err;
+        return err;
+    }
+    ~StorageRequest() {
+        if (pool_) {
+            delete pool_;
         }
     }
-    ~StorageRequest() { }
 private:
-    map<string, std::unique_ptr<SpringService::Stub> > stubs_;
-    void createConnect(string storageAddress) {
-        shared_ptr<grpc::Channel> channel = grpc::CreateChannel(storageAddress, grpc::InsecureChannelCredentials());
-        std::unique_ptr<SpringService::Stub> stub(SpringService::NewStub(channel));
-        stubs_.insert(std::make_pair(storageAddress, std::move(stub)));
-        if (stubs_.size() > 10) {
-            stubs_.erase(stubs_.begin());
-        }
-        for (map<string, std::unique_ptr<SpringService::Stub> >::iterator it = stubs_.begin(); it != stubs_.end();
-             it++) {
-            VLOG(VLOG_SERVICE) << it->first;
-        }
-
-    };
+    ThreadPool *pool_;
+    SpringClient spring_client_;
+    DataClient data_client_;
 };
 }
 #endif //PROJECT_STORAGE_REQUEST_H
