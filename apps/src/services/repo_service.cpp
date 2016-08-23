@@ -34,6 +34,7 @@ void RepoService::Init(const Config &config) {
         string pVtypeFile = (string) config.Value(VEHICLE_TYPE_MAPPING_FILE);
         string pPtypeFile = (string) config.Value(PEDESTRIAN_ATTR_TYPE);
         string pFaceRelativePed = (string) config.Value(FACE_RELATIVE_PEDESTRIAN_POSITION);
+        string pAttrCatagoryFile = (string) config.Value(PEDESTRIAN_ATTR_CATAGORY);
         init_vehicle_map(vModelFile, ",", vehicle_repo_);
         init_string_map(vColorFile, "=", color_repo_);
         init_string_map(vSymbolFile, "=", symbol_repo_);
@@ -43,6 +44,7 @@ void RepoService::Init(const Config &config) {
         init_string_map(pVtypeFile, "=", vehicle_type_repo_);
         init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
         init_string_map(pFaceRelativePed, "=", face_relative_pedestrian_);
+        init_string_map(pAttrCatagoryFile, "=", pedestrian_attr_catagory_repo_);
         model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
         color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
         symbol_mapping_data_ = ReadStringFromFile(vSymbolFile, "r");
@@ -51,7 +53,8 @@ void RepoService::Init(const Config &config) {
         vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
         plate_color_gpu_mapping_data_ = ReadStringFromFile(pColorFile, "r");
         pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
-        face_relative_pedestrian_data_ = ReadStringFromFile(pColorFile, "r");
+        face_relative_pedestrian_data_ = ReadStringFromFile(pFaceRelativePed, "r");
+        pedestrian_attr_catagory_data_ = ReadStringFromFile(pAttrCatagoryFile, "r");
         is_gpu_plate_ = (bool) config.Value(IS_GPU_PLATE);
 
         is_init_ = true;

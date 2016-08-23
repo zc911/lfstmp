@@ -48,6 +48,10 @@ public:
         return lookup_string(pedestrian_attr_type_repo_, attrId);
     }
 
+    string FindPedestrianAttrCatagory(int attrId) {
+        return lookup_string(pedestrian_attr_catagory_repo_, attrId);
+    }
+
     float FindFaceRelativePedestrian(string direction) {
         return face_relative_pedestrian_[direction];
     }
@@ -85,9 +89,11 @@ private:
     string vehicle_type_mapping_data_;
     string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
+    vector<string> pedestrian_attr_catagory_repo_;
     map<string, float> face_relative_pedestrian_;
     string pedestrian_attr_mapping_data_;
     string face_relative_pedestrian_data_;
+    string pedestrian_attr_catagory_data_;
     bool is_gpu_plate_;
 
     const string &lookup_string(const vector<string> &array, int index);

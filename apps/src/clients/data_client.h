@@ -147,15 +147,16 @@ private:
 
         model::Image *image = mCutImage->mutable_img();
         image->set_bindata(recPedestrian->img().img().bindata());
-        pbPedestrian.set_age(recPedestrian->pedesattr().age().id());
-        pbPedestrian.set_upperstyle(recPedestrian->pedesattr().upperfeatures().catagory().id());
-        pbPedestrian.set_lowerstyle(recPedestrian->pedesattr().lowerfeatures().catagory().id());
+        //pbPedestrian.set_age(recPedestrian->pedesattr().age().id());
+        //pbPedestrian.set_upperstyle(recPedestrian->pedesattr().upperfeatures().catagory().id());
+        //pbPedestrian.set_lowerstyle(recPedestrian->pedesattr().lowerfeatures().catagory().id());
 
         unsigned int featuresTmp = 0;
         unsigned int headsTmp = 0;
         unsigned int upperColorsTmp = 0;
         unsigned int lowerColorsTmp = 0;
 
+        /**
         for (int i = 0; i < recPedestrian->pedesattr().bodywears_size(); i++) {
             featuresTmp |= 1 << (recPedestrian->pedesattr().bodywears(i).id());
         }
@@ -170,6 +171,7 @@ private:
             lowerColorsTmp |= 1 << (recPedestrian->pedesattr().lowerfeatures().color(i).id() - 22);
         }
         pbPedestrian.set_lowercolors(lowerColorsTmp);
+         **/
         /*
                 unsigned int featuresTmp = 0;
                 unsigned int headsTmp = 0;
