@@ -188,25 +188,51 @@
   }],
   "Marker": [{
     "Name": "601.txt",
-    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/600.txt",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/601.txt",
     "Path": "data/0/",
     "Md5sum": "",
     "Md5check": "false"
   }, {
     "Name": "601.dat",
-    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/600.dat",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/601.dat",
     "Path": "data/0/",
     "Md5sum": "",
     "Md5check": "false"
   }],
   "Window": [{
     "Name": "701.txt",
-    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/700.txt",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/701.txt",
     "Path": "data/0/",
     "Md5sum": "",
     "Md5check": "false"
   }, {
     "Name": "701.dat",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/701.dat",
+    "Path": "data/0/",
+    "Md5sum": "",
+    "Md5check": "false"
+  }],
+  "MarkerOnly": [{
+    "Name": "600.txt",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/600.txt",
+    "Path": "data/0/",
+    "Md5sum": "",
+    "Md5check": "false"
+  }, {
+    "Name": "600.dat",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/600.dat",
+    "Path": "data/0/",
+    "Md5sum": "",
+    "Md5check": "false"
+  }],
+  "WindowOnly": [{
+    "Name": "700.txt",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/700.txt",
+    "Path": "data/0/",
+    "Md5sum": "",
+    "Md5check": "false"
+  }, {
+    "Name": "700.dat",
     "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/0/700.dat",
     "Path": "data/0/",
     "Md5sum": "",
