@@ -169,27 +169,24 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
             NameAndConfidence *nac = attr->mutable_sex();
             if (attrs[i].confidence < attrs[i].threshold_lower) {
                 nac->set_name(PEDESTRIAN_ATTR_MALE_);
-                nac->set_confidence(1 - attrs[i].confidence);
             } else if (attrs[i].confidence > attrs[i].threshold_upper) {
                 nac->set_name(PEDESTRIAN_ATTR_FEMALE_);
-                nac->set_confidence(attrs[i].confidence);
-            } else { nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
-                nac->set_confidence(attrs[i].confidence);
+            } else {
+                nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
             }
+            nac->set_confidence(attrs[i].confidence);
             nac->set_id(i);
         } else if (attrs[i].categoryId == 10) {
             // national judge
             NameAndConfidence *nac = attr->mutable_national();
             if (attrs[i].confidence > attrs[i].threshold_upper) {
                 nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
-                nac->set_confidence(attrs[i].confidence);
             } else if (attrs[i].confidence < attrs[i].threshold_lower) {
                 nac->set_name(PEDESTRIAN_ATTR_HAN_);
-                nac->set_confidence(1.0 - attrs[i].confidence);
             } else {
                 nac->set_name(PEDESTRIAN_ATTR_UNKNOWN_);
-                nac->set_confidence(attrs[i].confidence);
             }
+            nac->set_confidence(attrs[i].confidence);
             nac->set_id(i);
         } else if (attrs[i].categoryId == 8) {
             // age judge
