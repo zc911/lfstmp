@@ -38,11 +38,11 @@ void protobuf_AddDesc_common_2eproto();
 void protobuf_AssignDesc_common_2eproto();
 void protobuf_ShutdownFile_common_2eproto();
 
+class CategoryAndFeature;
 class Color;
 class Cutboard;
 class CutboardImage;
 class FeatureVector;
-class HalfOfBodyFeature;
 class Image;
 class LicensePlate;
 class NameAndConfidence;
@@ -1098,9 +1098,15 @@ class NameAndConfidence : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional string Name = 1;
+  // optional int32 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int32 id() const;
+  void set_id(::google::protobuf::int32 value);
+
+  // optional string Name = 2;
   void clear_name();
-  static const int kNameFieldNumber = 1;
+  static const int kNameFieldNumber = 2;
   const ::std::string& name() const;
   void set_name(const ::std::string& value);
   void set_name(const char* value);
@@ -1109,17 +1115,11 @@ class NameAndConfidence : public ::google::protobuf::Message {
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // optional float Confidence = 2;
+  // optional float Confidence = 3;
   void clear_confidence();
-  static const int kConfidenceFieldNumber = 2;
+  static const int kConfidenceFieldNumber = 3;
   float confidence() const;
   void set_confidence(float value);
-
-  // optional int32 Id = 3;
-  void clear_id();
-  static const int kIdFieldNumber = 3;
-  ::google::protobuf::int32 id() const;
-  void set_id(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:dg.model.NameAndConfidence)
  private:
@@ -1127,8 +1127,8 @@ class NameAndConfidence : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::internal::ArenaStringPtr name_;
-  float confidence_;
   ::google::protobuf::int32 id_;
+  float confidence_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -1139,32 +1139,32 @@ class NameAndConfidence : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class HalfOfBodyFeature : public ::google::protobuf::Message {
+class CategoryAndFeature : public ::google::protobuf::Message {
  public:
-  HalfOfBodyFeature();
-  virtual ~HalfOfBodyFeature();
+  CategoryAndFeature();
+  virtual ~CategoryAndFeature();
 
-  HalfOfBodyFeature(const HalfOfBodyFeature& from);
+  CategoryAndFeature(const CategoryAndFeature& from);
 
-  inline HalfOfBodyFeature& operator=(const HalfOfBodyFeature& from) {
+  inline CategoryAndFeature& operator=(const CategoryAndFeature& from) {
     CopyFrom(from);
     return *this;
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const HalfOfBodyFeature& default_instance();
+  static const CategoryAndFeature& default_instance();
 
-  void Swap(HalfOfBodyFeature* other);
+  void Swap(CategoryAndFeature* other);
 
   // implements Message ----------------------------------------------
 
-  inline HalfOfBodyFeature* New() const { return New(NULL); }
+  inline CategoryAndFeature* New() const { return New(NULL); }
 
-  HalfOfBodyFeature* New(::google::protobuf::Arena* arena) const;
+  CategoryAndFeature* New(::google::protobuf::Arena* arena) const;
   void CopyFrom(const ::google::protobuf::Message& from);
   void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const HalfOfBodyFeature& from);
-  void MergeFrom(const HalfOfBodyFeature& from);
+  void CopyFrom(const CategoryAndFeature& from);
+  void MergeFrom(const CategoryAndFeature& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -1179,7 +1179,7 @@ class HalfOfBodyFeature : public ::google::protobuf::Message {
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(HalfOfBodyFeature* other);
+  void InternalSwap(CategoryAndFeature* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _internal_metadata_.arena();
@@ -1195,51 +1195,50 @@ class HalfOfBodyFeature : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .dg.model.NameAndConfidence Color = 1;
-  int color_size() const;
-  void clear_color();
-  static const int kColorFieldNumber = 1;
-  const ::dg::model::NameAndConfidence& color(int index) const;
-  ::dg::model::NameAndConfidence* mutable_color(int index);
-  ::dg::model::NameAndConfidence* add_color();
+  // optional int32 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int32 id() const;
+  void set_id(::google::protobuf::int32 value);
+
+  // optional string CategoryName = 2;
+  void clear_categoryname();
+  static const int kCategoryNameFieldNumber = 2;
+  const ::std::string& categoryname() const;
+  void set_categoryname(const ::std::string& value);
+  void set_categoryname(const char* value);
+  void set_categoryname(const char* value, size_t size);
+  ::std::string* mutable_categoryname();
+  ::std::string* release_categoryname();
+  void set_allocated_categoryname(::std::string* categoryname);
+
+  // repeated .dg.model.NameAndConfidence Items = 3;
+  int items_size() const;
+  void clear_items();
+  static const int kItemsFieldNumber = 3;
+  const ::dg::model::NameAndConfidence& items(int index) const;
+  ::dg::model::NameAndConfidence* mutable_items(int index);
+  ::dg::model::NameAndConfidence* add_items();
   ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-      mutable_color();
+      mutable_items();
   const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-      color() const;
+      items() const;
 
-  // optional .dg.model.NameAndConfidence Stripes = 2;
-  bool has_stripes() const;
-  void clear_stripes();
-  static const int kStripesFieldNumber = 2;
-  const ::dg::model::NameAndConfidence& stripes() const;
-  ::dg::model::NameAndConfidence* mutable_stripes();
-  ::dg::model::NameAndConfidence* release_stripes();
-  void set_allocated_stripes(::dg::model::NameAndConfidence* stripes);
-
-  // optional .dg.model.NameAndConfidence Catagory = 3;
-  bool has_catagory() const;
-  void clear_catagory();
-  static const int kCatagoryFieldNumber = 3;
-  const ::dg::model::NameAndConfidence& catagory() const;
-  ::dg::model::NameAndConfidence* mutable_catagory();
-  ::dg::model::NameAndConfidence* release_catagory();
-  void set_allocated_catagory(::dg::model::NameAndConfidence* catagory);
-
-  // @@protoc_insertion_point(class_scope:dg.model.HalfOfBodyFeature)
+  // @@protoc_insertion_point(class_scope:dg.model.CategoryAndFeature)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > color_;
-  ::dg::model::NameAndConfidence* stripes_;
-  ::dg::model::NameAndConfidence* catagory_;
+  ::google::protobuf::internal::ArenaStringPtr categoryname_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > items_;
+  ::google::protobuf::int32 id_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
   friend void protobuf_ShutdownFile_common_2eproto();
 
   void InitAsDefaultInstance();
-  static HalfOfBodyFeature* default_instance_;
+  static CategoryAndFeature* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -1326,47 +1325,17 @@ class PedestrianAttr : public ::google::protobuf::Message {
   ::dg::model::NameAndConfidence* release_national();
   void set_allocated_national(::dg::model::NameAndConfidence* national);
 
-  // repeated .dg.model.NameAndConfidence HeadWears = 4;
-  int headwears_size() const;
-  void clear_headwears();
-  static const int kHeadWearsFieldNumber = 4;
-  const ::dg::model::NameAndConfidence& headwears(int index) const;
-  ::dg::model::NameAndConfidence* mutable_headwears(int index);
-  ::dg::model::NameAndConfidence* add_headwears();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-      mutable_headwears();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-      headwears() const;
-
-  // repeated .dg.model.NameAndConfidence BodyWears = 5;
-  int bodywears_size() const;
-  void clear_bodywears();
-  static const int kBodyWearsFieldNumber = 5;
-  const ::dg::model::NameAndConfidence& bodywears(int index) const;
-  ::dg::model::NameAndConfidence* mutable_bodywears(int index);
-  ::dg::model::NameAndConfidence* add_bodywears();
-  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-      mutable_bodywears();
-  const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-      bodywears() const;
-
-  // optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
-  bool has_upperfeatures() const;
-  void clear_upperfeatures();
-  static const int kUpperFeaturesFieldNumber = 6;
-  const ::dg::model::HalfOfBodyFeature& upperfeatures() const;
-  ::dg::model::HalfOfBodyFeature* mutable_upperfeatures();
-  ::dg::model::HalfOfBodyFeature* release_upperfeatures();
-  void set_allocated_upperfeatures(::dg::model::HalfOfBodyFeature* upperfeatures);
-
-  // optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
-  bool has_lowerfeatures() const;
-  void clear_lowerfeatures();
-  static const int kLowerFeaturesFieldNumber = 7;
-  const ::dg::model::HalfOfBodyFeature& lowerfeatures() const;
-  ::dg::model::HalfOfBodyFeature* mutable_lowerfeatures();
-  ::dg::model::HalfOfBodyFeature* release_lowerfeatures();
-  void set_allocated_lowerfeatures(::dg::model::HalfOfBodyFeature* lowerfeatures);
+  // repeated .dg.model.CategoryAndFeature Category = 4;
+  int category_size() const;
+  void clear_category();
+  static const int kCategoryFieldNumber = 4;
+  const ::dg::model::CategoryAndFeature& category(int index) const;
+  ::dg::model::CategoryAndFeature* mutable_category(int index);
+  ::dg::model::CategoryAndFeature* add_category();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+      mutable_category();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+      category() const;
 
   // @@protoc_insertion_point(class_scope:dg.model.PedestrianAttr)
  private:
@@ -1376,10 +1345,7 @@ class PedestrianAttr : public ::google::protobuf::Message {
   ::dg::model::NameAndConfidence* sex_;
   ::dg::model::NameAndConfidence* age_;
   ::dg::model::NameAndConfidence* national_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > headwears_;
-  ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence > bodywears_;
-  ::dg::model::HalfOfBodyFeature* upperfeatures_;
-  ::dg::model::HalfOfBodyFeature* lowerfeatures_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature > category_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3290,7 +3256,21 @@ inline void RecFace::set_confidence(float value) {
 
 // NameAndConfidence
 
-// optional string Name = 1;
+// optional int32 Id = 1;
+inline void NameAndConfidence::clear_id() {
+  id_ = 0;
+}
+inline ::google::protobuf::int32 NameAndConfidence::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Id)
+  return id_;
+}
+inline void NameAndConfidence::set_id(::google::protobuf::int32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Id)
+}
+
+// optional string Name = 2;
 inline void NameAndConfidence::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3333,7 +3313,7 @@ inline void NameAndConfidence::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.NameAndConfidence.Name)
 }
 
-// optional float Confidence = 2;
+// optional float Confidence = 3;
 inline void NameAndConfidence::clear_confidence() {
   confidence_ = 0;
 }
@@ -3347,126 +3327,95 @@ inline void NameAndConfidence::set_confidence(float value) {
   // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Confidence)
 }
 
-// optional int32 Id = 3;
-inline void NameAndConfidence::clear_id() {
-  id_ = 0;
-}
-inline ::google::protobuf::int32 NameAndConfidence::id() const {
-  // @@protoc_insertion_point(field_get:dg.model.NameAndConfidence.Id)
-  return id_;
-}
-inline void NameAndConfidence::set_id(::google::protobuf::int32 value) {
-  
-  id_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.NameAndConfidence.Id)
-}
-
 // -------------------------------------------------------------------
 
-// HalfOfBodyFeature
+// CategoryAndFeature
 
-// repeated .dg.model.NameAndConfidence Color = 1;
-inline int HalfOfBodyFeature::color_size() const {
-  return color_.size();
+// optional int32 Id = 1;
+inline void CategoryAndFeature::clear_id() {
+  id_ = 0;
 }
-inline void HalfOfBodyFeature::clear_color() {
-  color_.Clear();
+inline ::google::protobuf::int32 CategoryAndFeature::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.CategoryAndFeature.Id)
+  return id_;
 }
-inline const ::dg::model::NameAndConfidence& HalfOfBodyFeature::color(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Color)
-  return color_.Get(index);
+inline void CategoryAndFeature::set_id(::google::protobuf::int32 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.CategoryAndFeature.Id)
 }
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_color(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Color)
-  return color_.Mutable(index);
+
+// optional string CategoryName = 2;
+inline void CategoryAndFeature::clear_categoryname() {
+  categoryname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::add_color() {
-  // @@protoc_insertion_point(field_add:dg.model.HalfOfBodyFeature.Color)
-  return color_.Add();
+inline const ::std::string& CategoryAndFeature::categoryname() const {
+  // @@protoc_insertion_point(field_get:dg.model.CategoryAndFeature.CategoryName)
+  return categoryname_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CategoryAndFeature::set_categoryname(const ::std::string& value) {
+  
+  categoryname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.CategoryAndFeature.CategoryName)
+}
+inline void CategoryAndFeature::set_categoryname(const char* value) {
+  
+  categoryname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.CategoryAndFeature.CategoryName)
+}
+inline void CategoryAndFeature::set_categoryname(const char* value, size_t size) {
+  
+  categoryname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.CategoryAndFeature.CategoryName)
+}
+inline ::std::string* CategoryAndFeature::mutable_categoryname() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.CategoryAndFeature.CategoryName)
+  return categoryname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* CategoryAndFeature::release_categoryname() {
+  
+  return categoryname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void CategoryAndFeature::set_allocated_categoryname(::std::string* categoryname) {
+  if (categoryname != NULL) {
+    
+  } else {
+    
+  }
+  categoryname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), categoryname);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.CategoryAndFeature.CategoryName)
+}
+
+// repeated .dg.model.NameAndConfidence Items = 3;
+inline int CategoryAndFeature::items_size() const {
+  return items_.size();
+}
+inline void CategoryAndFeature::clear_items() {
+  items_.Clear();
+}
+inline const ::dg::model::NameAndConfidence& CategoryAndFeature::items(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.CategoryAndFeature.Items)
+  return items_.Get(index);
+}
+inline ::dg::model::NameAndConfidence* CategoryAndFeature::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.CategoryAndFeature.Items)
+  return items_.Mutable(index);
+}
+inline ::dg::model::NameAndConfidence* CategoryAndFeature::add_items() {
+  // @@protoc_insertion_point(field_add:dg.model.CategoryAndFeature.Items)
+  return items_.Add();
 }
 inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-HalfOfBodyFeature::mutable_color() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.HalfOfBodyFeature.Color)
-  return &color_;
+CategoryAndFeature::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.CategoryAndFeature.Items)
+  return &items_;
 }
 inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-HalfOfBodyFeature::color() const {
-  // @@protoc_insertion_point(field_list:dg.model.HalfOfBodyFeature.Color)
-  return color_;
-}
-
-// optional .dg.model.NameAndConfidence Stripes = 2;
-inline bool HalfOfBodyFeature::has_stripes() const {
-  return !_is_default_instance_ && stripes_ != NULL;
-}
-inline void HalfOfBodyFeature::clear_stripes() {
-  if (GetArenaNoVirtual() == NULL && stripes_ != NULL) delete stripes_;
-  stripes_ = NULL;
-}
-inline const ::dg::model::NameAndConfidence& HalfOfBodyFeature::stripes() const {
-  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Stripes)
-  return stripes_ != NULL ? *stripes_ : *default_instance_->stripes_;
-}
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_stripes() {
-  
-  if (stripes_ == NULL) {
-    stripes_ = new ::dg::model::NameAndConfidence;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Stripes)
-  return stripes_;
-}
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::release_stripes() {
-  
-  ::dg::model::NameAndConfidence* temp = stripes_;
-  stripes_ = NULL;
-  return temp;
-}
-inline void HalfOfBodyFeature::set_allocated_stripes(::dg::model::NameAndConfidence* stripes) {
-  delete stripes_;
-  stripes_ = stripes;
-  if (stripes) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.HalfOfBodyFeature.Stripes)
-}
-
-// optional .dg.model.NameAndConfidence Catagory = 3;
-inline bool HalfOfBodyFeature::has_catagory() const {
-  return !_is_default_instance_ && catagory_ != NULL;
-}
-inline void HalfOfBodyFeature::clear_catagory() {
-  if (GetArenaNoVirtual() == NULL && catagory_ != NULL) delete catagory_;
-  catagory_ = NULL;
-}
-inline const ::dg::model::NameAndConfidence& HalfOfBodyFeature::catagory() const {
-  // @@protoc_insertion_point(field_get:dg.model.HalfOfBodyFeature.Catagory)
-  return catagory_ != NULL ? *catagory_ : *default_instance_->catagory_;
-}
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::mutable_catagory() {
-  
-  if (catagory_ == NULL) {
-    catagory_ = new ::dg::model::NameAndConfidence;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.HalfOfBodyFeature.Catagory)
-  return catagory_;
-}
-inline ::dg::model::NameAndConfidence* HalfOfBodyFeature::release_catagory() {
-  
-  ::dg::model::NameAndConfidence* temp = catagory_;
-  catagory_ = NULL;
-  return temp;
-}
-inline void HalfOfBodyFeature::set_allocated_catagory(::dg::model::NameAndConfidence* catagory) {
-  delete catagory_;
-  catagory_ = catagory;
-  if (catagory) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.HalfOfBodyFeature.Catagory)
+CategoryAndFeature::items() const {
+  // @@protoc_insertion_point(field_list:dg.model.CategoryAndFeature.Items)
+  return items_;
 }
 
 // -------------------------------------------------------------------
@@ -3584,138 +3533,34 @@ inline void PedestrianAttr::set_allocated_national(::dg::model::NameAndConfidenc
   // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.National)
 }
 
-// repeated .dg.model.NameAndConfidence HeadWears = 4;
-inline int PedestrianAttr::headwears_size() const {
-  return headwears_.size();
+// repeated .dg.model.CategoryAndFeature Category = 4;
+inline int PedestrianAttr::category_size() const {
+  return category_.size();
 }
-inline void PedestrianAttr::clear_headwears() {
-  headwears_.Clear();
+inline void PedestrianAttr::clear_category() {
+  category_.Clear();
 }
-inline const ::dg::model::NameAndConfidence& PedestrianAttr::headwears(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.HeadWears)
-  return headwears_.Get(index);
+inline const ::dg::model::CategoryAndFeature& PedestrianAttr::category(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.Category)
+  return category_.Get(index);
 }
-inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_headwears(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.HeadWears)
-  return headwears_.Mutable(index);
+inline ::dg::model::CategoryAndFeature* PedestrianAttr::mutable_category(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.Category)
+  return category_.Mutable(index);
 }
-inline ::dg::model::NameAndConfidence* PedestrianAttr::add_headwears() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.HeadWears)
-  return headwears_.Add();
+inline ::dg::model::CategoryAndFeature* PedestrianAttr::add_category() {
+  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.Category)
+  return category_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_headwears() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.HeadWears)
-  return &headwears_;
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+PedestrianAttr::mutable_category() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.Category)
+  return &category_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::headwears() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.HeadWears)
-  return headwears_;
-}
-
-// repeated .dg.model.NameAndConfidence BodyWears = 5;
-inline int PedestrianAttr::bodywears_size() const {
-  return bodywears_.size();
-}
-inline void PedestrianAttr::clear_bodywears() {
-  bodywears_.Clear();
-}
-inline const ::dg::model::NameAndConfidence& PedestrianAttr::bodywears(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.BodyWears)
-  return bodywears_.Get(index);
-}
-inline ::dg::model::NameAndConfidence* PedestrianAttr::mutable_bodywears(int index) {
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.BodyWears)
-  return bodywears_.Mutable(index);
-}
-inline ::dg::model::NameAndConfidence* PedestrianAttr::add_bodywears() {
-  // @@protoc_insertion_point(field_add:dg.model.PedestrianAttr.BodyWears)
-  return bodywears_.Add();
-}
-inline ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >*
-PedestrianAttr::mutable_bodywears() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.PedestrianAttr.BodyWears)
-  return &bodywears_;
-}
-inline const ::google::protobuf::RepeatedPtrField< ::dg::model::NameAndConfidence >&
-PedestrianAttr::bodywears() const {
-  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.BodyWears)
-  return bodywears_;
-}
-
-// optional .dg.model.HalfOfBodyFeature UpperFeatures = 6;
-inline bool PedestrianAttr::has_upperfeatures() const {
-  return !_is_default_instance_ && upperfeatures_ != NULL;
-}
-inline void PedestrianAttr::clear_upperfeatures() {
-  if (GetArenaNoVirtual() == NULL && upperfeatures_ != NULL) delete upperfeatures_;
-  upperfeatures_ = NULL;
-}
-inline const ::dg::model::HalfOfBodyFeature& PedestrianAttr::upperfeatures() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.UpperFeatures)
-  return upperfeatures_ != NULL ? *upperfeatures_ : *default_instance_->upperfeatures_;
-}
-inline ::dg::model::HalfOfBodyFeature* PedestrianAttr::mutable_upperfeatures() {
-  
-  if (upperfeatures_ == NULL) {
-    upperfeatures_ = new ::dg::model::HalfOfBodyFeature;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.UpperFeatures)
-  return upperfeatures_;
-}
-inline ::dg::model::HalfOfBodyFeature* PedestrianAttr::release_upperfeatures() {
-  
-  ::dg::model::HalfOfBodyFeature* temp = upperfeatures_;
-  upperfeatures_ = NULL;
-  return temp;
-}
-inline void PedestrianAttr::set_allocated_upperfeatures(::dg::model::HalfOfBodyFeature* upperfeatures) {
-  delete upperfeatures_;
-  upperfeatures_ = upperfeatures;
-  if (upperfeatures) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.UpperFeatures)
-}
-
-// optional .dg.model.HalfOfBodyFeature LowerFeatures = 7;
-inline bool PedestrianAttr::has_lowerfeatures() const {
-  return !_is_default_instance_ && lowerfeatures_ != NULL;
-}
-inline void PedestrianAttr::clear_lowerfeatures() {
-  if (GetArenaNoVirtual() == NULL && lowerfeatures_ != NULL) delete lowerfeatures_;
-  lowerfeatures_ = NULL;
-}
-inline const ::dg::model::HalfOfBodyFeature& PedestrianAttr::lowerfeatures() const {
-  // @@protoc_insertion_point(field_get:dg.model.PedestrianAttr.LowerFeatures)
-  return lowerfeatures_ != NULL ? *lowerfeatures_ : *default_instance_->lowerfeatures_;
-}
-inline ::dg::model::HalfOfBodyFeature* PedestrianAttr::mutable_lowerfeatures() {
-  
-  if (lowerfeatures_ == NULL) {
-    lowerfeatures_ = new ::dg::model::HalfOfBodyFeature;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.PedestrianAttr.LowerFeatures)
-  return lowerfeatures_;
-}
-inline ::dg::model::HalfOfBodyFeature* PedestrianAttr::release_lowerfeatures() {
-  
-  ::dg::model::HalfOfBodyFeature* temp = lowerfeatures_;
-  lowerfeatures_ = NULL;
-  return temp;
-}
-inline void PedestrianAttr::set_allocated_lowerfeatures(::dg::model::HalfOfBodyFeature* lowerfeatures) {
-  delete lowerfeatures_;
-  lowerfeatures_ = lowerfeatures;
-  if (lowerfeatures) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.PedestrianAttr.LowerFeatures)
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+PedestrianAttr::category() const {
+  // @@protoc_insertion_point(field_list:dg.model.PedestrianAttr.Category)
+  return category_;
 }
 
 // -------------------------------------------------------------------
