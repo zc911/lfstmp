@@ -1202,15 +1202,12 @@ int parseRecogOutInfo(int *pdwClassIdx, float *pfClassScore, int dwNum, float fT
 
 #if 0
 /*
-#define LP_COLOUR_WHITE     0
-#define LP_COLOUR_SILVER    1
+#define LP_COLOUR_UNKNOWN   0
+#define LP_COLOUR_BLUE      1
 #define LP_COLOUR_YELLOW    2
-#define LP_COLOUR_PINK      3
-#define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN	    5
-#define LP_COLOUR_BLUE	    6
-#define LP_COLOUR_BROWN	    7
-#define LP_COLOUR_BLACK	    8
+#define LP_COLOUR_WHITE     3
+#define LP_COLOUR_BLACK     4
+#define LP_COLOUR_GREEN     5
 */
 int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
 {
@@ -1262,11 +1259,6 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
             {
               adwColorsHist[LP_COLOUR_GREEN]++;
             }
-//            else if (fH > 220.f && fH < 10.f)
-            else if (fH > 330.f && fH < 15.f)
-            {
-              adwColorsHist[LP_COLOUR_RED]++;
-            }
           }
           else if (fS < 0.16f && fV > 0.4)
           {
@@ -1310,15 +1302,12 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 
 
 /*
-#define LP_COLOUR_WHITE     0
-#define LP_COLOUR_SILVER    1
+#define LP_COLOUR_UNKNOWN   0
+#define LP_COLOUR_BLUE      1
 #define LP_COLOUR_YELLOW    2
-#define LP_COLOUR_PINK      3
-#define LP_COLOUR_RED       4
-#define LP_COLOUR_GREEN	    5
-#define LP_COLOUR_BLUE	    6
-#define LP_COLOUR_BROWN	    7
-#define LP_COLOUR_BLACK	    8
+#define LP_COLOUR_WHITE     3
+#define LP_COLOUR_BLACK     4
+#define LP_COLOUR_GREEN     5
 */
 int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet)
 {
@@ -1330,7 +1319,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
   LPDRInfo_S *pstLPDR = 0;
   int adwBB[4];
   float fH = 0.f, fS = 0.f, fV = 0.f;
-  int adwColorsHist[9], adwIdxs[9], dwTmpValue;
+  int adwColorsHist[6], adwIdxs[6], dwTmpValue;
   
   for (dwSI = 0; dwSI < dwImgNum; dwSI++)
   {
@@ -1347,7 +1336,7 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
       adwBB[1] = pstLPDR->adwLPRect[1] + dwBBH/8;
       adwBB[2] = pstLPDR->adwLPRect[2] - dwBBW/12;
       adwBB[3] = pstLPDR->adwLPRect[3] - dwBBH/8;
-      memset(adwColorsHist, 0, sizeof(int)*9);
+      memset(adwColorsHist, 0, sizeof(int)*6);
       for (dwRI = adwBB[1]; dwRI < adwBB[3]; dwRI += 2)
       {
         pubyRow = pubyImgData + dwRI * 3 * dwImgW;
@@ -1374,7 +1363,6 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
             {
               adwColorsHist[LP_COLOUR_GREEN]++;
             }
-//            else if (fH > 220.f && fH < 10.f)
           }
           else if (fS < 0.45f && fV > 0.4)
 //          else if (fV > 0.3)
@@ -1389,15 +1377,15 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
         }
       }
       
-      for (int dwI = 0; dwI < 9; dwI++)
+      for (int dwI = 0; dwI < 6; dwI++)
       {
         adwIdxs[dwI] = dwI;
       }
       
       dwTmpValue = 0;
-      for (int dwI = 0; dwI < 8; dwI++)
+      for (int dwI = 0; dwI < 5; dwI++)
       {
-        for (int dwJ = dwI + 1; dwJ < 9; dwJ++)
+        for (int dwJ = dwI + 1; dwJ < 6; dwJ++)
         {
           if (adwColorsHist[dwI] < adwColorsHist[dwJ])
           {
@@ -1417,8 +1405,8 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
       cv::Mat subcimg = cimg(cv::Range(adwBB[1], adwBB[3]), cv::Range(adwBB[0], adwBB[2]));
       cv::imshow("hello", subcimg);
       cv::waitKey(10);
-      string astrColors[9] = {"0.WHITE", "1.SILVER", "2.YELLOW", "3.PINK", "4.RED", "5.GREEN", "6.BLUE", "7.BROWN", "8.BLACK"};
-      for (int dwI = 0; dwI < 9; dwI++)
+      string astrColors[6] = {"0.UNKNOWN", "1.BLUE", "2.YELLOW", "3.WHITE", "4.BLACK", "5.GREEN"};
+      for (int dwI = 0; dwI < 6; dwI++)
       {
         printf("%s:%d, ", astrColors[adwIdxs[dwI]].c_str(), adwColorsHist[dwI]);
       }
@@ -1426,16 +1414,16 @@ int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet
 #endif
       int dwMaxColor = adwIdxs[0];
       
-      if ((adwIdxs[0] == 0 || adwIdxs[0] == 8 || adwIdxs[0] == 5) && (adwIdxs[1] == 2 || adwIdxs[1] == 6 || adwIdxs[1] == 5) && adwColorsHist[0]*40 < adwColorsHist[1]*100)
+      if ((adwIdxs[0] == LP_COLOUR_WHITE || adwIdxs[0] == LP_COLOUR_BLACK || adwIdxs[0] == LP_COLOUR_GREEN) && (adwIdxs[1] == LP_COLOUR_YELLOW || adwIdxs[1] == LP_COLOUR_BLUE || adwIdxs[1] == LP_COLOUR_GREEN) && adwColorsHist[0]*40 < adwColorsHist[1]*100)
       {
         dwMaxColor = adwIdxs[1];
       }
 
-      for (int k = 0; k < 9; k++)
+      for (int k = 0; k < 6; k++)
       {
-        if (adwIdxs[k] == 6 && adwColorsHist[k] * 80 > adwColorsHist[0])
+        if (adwIdxs[k] == LP_COLOUR_BLUE && adwColorsHist[k] * 80 > adwColorsHist[0])
         {
-          dwMaxColor = 6;
+          dwMaxColor = LP_COLOUR_BLUE;
         }
       }
       
