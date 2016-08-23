@@ -48,12 +48,16 @@ public:
         return lookup_string(pedestrian_attr_type_repo_, attrId);
     }
 
-    string FindPedestrianAttrCatagory(int attrId) {
-        return lookup_string(pedestrian_attr_catagory_repo_, attrId);
+    float FindBodyRelativeFace(string dir) {
+        if (dir == "left") return pBodyRelativeFaceLeft;
+        if (dir == "right") return pBodyRelativeFaceRight;
+        if (dir == "top") return pBodyRelativeFaceTop;
+        if (dir == "bottom") return pBodyRelativeFaceBottom;
+        return 0.0;
     }
 
-    float FindFaceRelativePedestrian(string direction) {
-        return face_relative_pedestrian_[direction];
+    string FindPedestrianAttrCatagory(int attrId) {
+        return lookup_string(pedestrian_attr_catagory_repo_, attrId);
     }
 
     static void CopyCutboard(const Detection &b, Cutboard *cb) {
@@ -90,17 +94,18 @@ private:
     string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
     vector<string> pedestrian_attr_catagory_repo_;
-    map<string, float> face_relative_pedestrian_;
     string pedestrian_attr_mapping_data_;
-    string face_relative_pedestrian_data_;
     string pedestrian_attr_catagory_data_;
+    float pBodyRelativeFaceLeft;
+    float pBodyRelativeFaceRight;
+    float pBodyRelativeFaceTop;
+    float pBodyRelativeFaceBottom;
     bool is_gpu_plate_;
 
     const string &lookup_string(const vector<string> &array, int index);
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                            int index);
     void init_string_map(string filename, string sep, vector<string> &array);
-    void init_string_map(string filename, string sep, map<string, float> &mp);
     void init_vehicle_map(string filename, string sep,
                           vector<VehicleModelType> &array);
 
