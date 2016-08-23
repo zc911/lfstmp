@@ -29,8 +29,8 @@ message CutboardImage {
 
 message Color {
     int32 ColorId = 1; //DEPLICATE!
-    float Confidence = 2; //颜色汉字表示
-    string ColorName = 3; //颜色识别置信度
+    float Confidence = 2; //颜色识别置信度
+    string ColorName = 3; //颜色汉字表示
 }
 
 enum ObjType {
@@ -84,10 +84,46 @@ message RecFace {
     float Confidence = 4;
 }
 
+enum SexType {
+    SEX_TYPE_UNKNOWN = 0;
+    SEX_TYPE_MALE = 1;
+    SEX_TYPE_FEMALE = 2;
+}
+
+enum NationalType {
+    NATIONAL_TYPE_UNKNOWN = 0;
+    NATIONAL_TYPE_HAN = 1;
+    NATIONAL_TYPE_MINORITY = 2;
+}
+
+enum AgeType {
+    AGE_TYPE_UNKNOWN = 0;
+    AGE_TYPE_LT15 = 1;
+    AGE_TYPE_1530 = 2;
+    AGE_TYPE_3050 = 3;
+    AGE_TYPE_50UP = 4;
+}
+
+message NameAndConfidence {
+    string Name = 1;
+    float Confidence = 2;
+    int32 Id=3;
+}
+
+message HalfOfBodyFeature{
+    repeated NameAndConfidence Color = 1;
+    NameAndConfidence Stripes = 2;
+    NameAndConfidence Catagory = 3;
+}
+
 message PedestrianAttr {
-    int32 AttrId = 1;
-    string AttrName = 2;
-    float Confidence = 3;
+    NameAndConfidence Sex = 1;
+    NameAndConfidence Age = 2;
+    NameAndConfidence National = 3;
+    repeated NameAndConfidence HeadWears = 4;
+    repeated NameAndConfidence BodyWears = 5;
+    HalfOfBodyFeature UpperFeatures = 6;
+    HalfOfBodyFeature LowerFeatures = 7;
 }
 
 message RecVehicle {
@@ -100,8 +136,15 @@ message RecVehicle {
     string Features = 7;
     ObjType VehicleType = 8;
     string VehicleTypeName = 9;
-    repeated PedestrianAttr PedestrianAttrs = 10;
-    repeated LicensePlate Plates = 11;
+    repeated LicensePlate Plates = 10;
+}
+
+message RecPedestrian {
+    int64 Id = 1;
+    CutboardImage Img = 2;
+    float Confidence = 3;
+    PedestrianAttr PedesAttr = 4;
+    RecFace Face = 5;
 }
 
 message VehicleModelType {
@@ -142,6 +185,8 @@ message Symbol {
 
 enum DBType {
     KAFKA = 0;
+    POSTGRES = 1;
+    FILEIMAGE=2;
 }
 
 message StorageConfig {
@@ -154,4 +199,9 @@ message VehicleObj {
     SrcMetadata Metadata = 1;
     Image Img = 2;
     repeated RecVehicle Vehicle = 3;
+}
+message PedestrianObj {
+    SrcMetadata Metadata = 1;
+    Image Img = 2;
+    repeated RecPedestrian Pedestrian = 3;
 }

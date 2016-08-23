@@ -299,7 +299,7 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
 }
 
 
-static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
+static void show_enlarged_box(cv::Mat tmp,cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
     Mat img = image;
     float img_width = img.cols;
     float img_height = img.rows;
@@ -321,7 +321,7 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
     //    cout << "hconcat started " << endl;
         crop_xmin = 0;
         crop_xmax = crop_width;
-        char cw[100], iw[100], ih[100];
+     /*   char cw[100], iw[100], ih[100];
         sprintf(cw, "%.3f", crop_width);
         sprintf(iw, "%.3f", img_width);
         sprintf(ih, "%.3f", img_height);
@@ -329,7 +329,7 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
     //    cout << "img width " << String(iw) << "img height " << String(ih);
 
         Mat cols = Mat::zeros(img_height, int(crop_width) - img_width + 1, img.type()); // +1 for input > 0
-        cv::hconcat(img, cols, img);
+        cv::hconcat(img, cols, img);*/
 
     }
 
@@ -346,8 +346,8 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
         crop_ymin = crop_height;
     //    cout << "add rows started" << endl;
 
-        Mat rows = Mat::zeros(int(crop_height) - img_height + 1, img.cols, img.type()); // +1 for input > 0
-        img.push_back(rows);
+   //     Mat rows = Mat::zeros(int(crop_height) - img_height + 1, img.cols, img.type()); // +1 for input > 0
+     //   img.push_back(rows);
 
     }
 
@@ -359,7 +359,7 @@ static void show_enlarged_box(cv::Mat image, float xmin, float ymin, float xmax,
         crop_ymax = img_height;
         crop_ymin = img_height - crop_width;
     }
-   // rectangle(image, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
+    rectangle(tmp, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
     *cymin = crop_ymin;
     *cymax = crop_ymax;
 }
@@ -376,7 +376,7 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
     // nianjianbiao: not in center
     fob.push_back(Rect(centerx - width/2/2 , centery - height/3/2, width/2, height/3));
     // zheyangban: not in bottom
-    fob.push_back(Rect(xmin, ymin + height/2, width, height/2));
+    fob.push_back(Rect(xmin, ymin + height*2/3, width, height/2));
     // qita: not in upper
     fob.push_back(Rect(xmin, ymin, width, height/3));
     // anquandai: not in center
