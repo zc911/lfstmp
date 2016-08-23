@@ -1,37 +1,54 @@
 {
-  "libprotobuf":[{ 
-    "Name":"libprotobuf.so.10",
-    "Url":"http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libprotobuf.so.10",
-    "Path":"libs",
-    "Md5sum":"",
-    "Md5check":"false"
-  }],
-  "libcudnn":[{ 
-    "Name":"libcudnn.so.4,libcudnn.so",
-    "Url":"http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libcudnn.so.4.0.7",
-    "Path":"libs",
-    "Md5sum":"",
-    "Md5check":"false"
-  }],
-  "libcaffe":[{
-    "Name":"libcaffe.so",
-    "Url":"http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libcaffe.so.1.0.0-rc3",
-    "Path":"libs",
-    "Md5sum":"",
-    "Md5check":"false"
-   }],
-  "libgrpc":[{
-    "Name":"libgrpc.so",
-    "Url":"http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libgrpc.so.0.14.1",
-    "Path":"libs",
-    "Md5sum":"",
-    "Md5check":"false"
-   },
-   {
-    "Name":"libgrpc++.so",
-    "Url":"http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libgrpc++.so.0.14.1",
-    "Path":"libs",
-    "Md5sum":"",
-    "Md5check":"false"
-   }]
+  "libprotobuf": [
+    {
+      "Name": "libprotobuf.so.10",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libprotobuf.so.10",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    }
+  ],
+  "libcudnn": [
+    {
+      "Name": "libcudnn.so.4,libcudnn.so",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libcudnn.so.4.0.7",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    }
+  ],
+  "libcaffe": [
+    {
+      "Name": "libcaffe.so",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libcaffe.so.1.0.0-rc3",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    }
+  ],
+  "libmxnet": [
+    {
+      "Name": "libmxnet.so",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libmxnet.so",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    }
+  ],
+  "libgrpc": [
+    {
+      "Name": "libgrpc.so",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libgrpc.so.0.14.1",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    },
+    {
+      "Name": "libgrpc++.so",
+      "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/libs/libgrpc++.so.0.14.1",
+      "Path": "libs",
+      "Md5sum": "",
+      "Md5check": "false"
+    }
+  ]
 }
