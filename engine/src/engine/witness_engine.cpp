@@ -373,7 +373,7 @@ void WitnessEngine::init(const Config &config) {
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 
 //    initGpuMemory(framebatch);
-//    this->Process(&framebatch);
+    this->Process(&framebatch);
 
     is_init_ = true;
 
@@ -384,7 +384,7 @@ void WitnessEngine::initGpuMemory(FrameBatch &batch) {
     Mat image = Mat::zeros(1000, 1000, CV_8UC3);
     Mat smallImage = Mat::zeros(50, 50, CV_8UC3);
     Operation op;
-    op.Set(UINT64_MAX);
+    op.Set(1023);
     for (int i = 0; i < 16; ++i) {
         Frame *frame = new Frame(i, image);
         Vehicle *vehicle = new Vehicle(OBJECT_CAR);
