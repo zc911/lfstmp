@@ -21,14 +21,15 @@
 #include "engine_service.h"
 #include "witness_bucket.h"
 #include "repo_service.h"
-//
+#include "utils.h"
 namespace dg {
+
 using namespace ::dg::model;
 
 
 class WitnessAppsService: public EngineService {
 public:
-    WitnessAppsService( Config *config, string name, int baseId = 0);
+    WitnessAppsService(Config *config, string name, int baseId = 0);
     virtual ~WitnessAppsService();
 
     MatrixError Recognize(const WitnessRequest *request, WitnessResponse *response);
@@ -41,8 +42,11 @@ private:
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
                                      RecVehicle *vrec);
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
-                                        RecVehicle *vrec);
-    MatrixError getRecognizedFace(const Face *fobj, RecFace *frec);
+                                        RecPedestrian *vrec);
+    MatrixError getRecognizedFace(const vector<const Face *>faceVector,
+        ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+        int width,
+        int height);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 
     MatrixError checkRequest(const WitnessRequest &request);
@@ -61,8 +65,14 @@ private:
     std::mutex rec_lock_;
 
     void init(void);
-    bool enableStorage_;
 
+    unsigned int parse_image_timeout_;
+    bool enable_storage_;
+    bool enable_fullimage_storage_=false;
+    string fullimage_storage_address_;
+    ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
+    bool enable_cutboard_;
+    ThreadPool *pool_;
     static string trimString(string str);
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);

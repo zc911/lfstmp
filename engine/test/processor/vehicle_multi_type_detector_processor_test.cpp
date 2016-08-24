@@ -86,7 +86,7 @@ TEST(VehicleMultiTypeDectorTest, vehicleNumberTest) {
     for (int i = 0; i < fb->batch_size(); ++i) {
         stringstream s;
         s << i;
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), fb->frames()[i]->get_object_size());
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), fb->frames()[i]->get_object_size()) << "i = " << i << endl;
     }
     destory();
 }
@@ -141,14 +141,21 @@ TEST(VehicleMultiTypeDectorTest, strangeInputTest) {
 
 TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     VehicleCaffeDetectorConfig config;
-    config.car_only = true;
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
-    config.target_max_size = 600;
-    config.target_min_size = 400;
-    config.deploy_file = "data/models/310.txt";
-    config.model_file = "data/models/310.dat";
-    config.confirm_deploy_file = "data/models/311.txt";
-    config.confirm_model_file = "data/models/311.dat";
+    baseModelPath = "data/0/";
+#else
+    config.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
+    config.car_only = true;
+    config.target_max_size = 450;
+    config.target_min_size = 300;
+    config.deploy_file = baseModelPath + "310.txt";
+    config.model_file = baseModelPath + "310.dat";
+    config.confirm_deploy_file = baseModelPath + "311.txt";
+    config.confirm_model_file = baseModelPath + "311.dat";
     VehicleMultiTypeDetectorProcessor *carOnlyProcessor =
             new VehicleMultiTypeDetectorProcessor(config);
 

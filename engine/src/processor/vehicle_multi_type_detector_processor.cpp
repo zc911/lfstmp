@@ -137,11 +137,15 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             }
 
             if (obj) {
+           //     Mat tmp = frame->payload()->data();
+             //   rectangle(tmp,d.box,Scalar(255,0,0));
+
                 obj->set_detection(d);
                 frame->put_object(obj);
             }
 
         }
+
     }
     VLOG(VLOG_RUNTIME_DEBUG) << "finish detector: " << frameBatch->id() << endl;
     return true;

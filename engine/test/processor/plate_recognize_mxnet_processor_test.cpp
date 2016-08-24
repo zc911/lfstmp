@@ -15,20 +15,26 @@ static PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *config;
 
 static void initConfig() {
     config = new PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig();
-    string basePath = "data/models/";
-    config->fcnnSymbolFile = basePath + "801.txt";
-    config->fcnnParamFile = basePath + "801.dat";
-    config->pregSymbolFile = basePath + "802.txt";
-    config->pregParamFile = basePath + "802.dat";
-    config->chrecogSymbolFile = basePath + "800.txt";
-    config->chrecogParamFile = basePath + "800.dat";
-    config->roipSymbolFile = basePath + "803.txt";
-    config->roipParamFile = basePath + "803.dat";
-    config->rpnSymbolFile = basePath + "804.txt";
-    config->rpnParamFile = basePath + "804.dat";
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
+    config->is_model_encrypt = false;
+    baseModelPath = "data/0/";
+#else
+    config->is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
+    config->fcnnSymbolFile = baseModelPath + "801.txt";
+    config->fcnnParamFile = baseModelPath + "801.dat";
+    config->pregSymbolFile = baseModelPath + "802.txt";
+    config->pregParamFile = baseModelPath + "802.dat";
+    config->chrecogSymbolFile = baseModelPath + "800.txt";
+    config->chrecogParamFile = baseModelPath + "800.dat";
+    config->roipSymbolFile = baseModelPath + "803.txt";
+    config->roipParamFile = baseModelPath + "803.dat";
+    config->rpnSymbolFile = baseModelPath + "804.txt";
+    config->rpnParamFile = baseModelPath + "804.dat";
 
     config->gpuId = 0;
-    config->is_model_encrypt = false;
     config->imageSH = 600;
     config->imageSW = 400;
     config->numsPlates = 2;
@@ -196,7 +202,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
     fbhelper->readImage(getOperation());
     FrameBatch *fb = fbhelper->getFrameBatch();
 
-    FileReader mapping("data/mapping/plate_gpu_color.txt");
+    FileReader mapping("data/mapping/plate_color.txt");
     EXPECT_TRUE(mapping.is_open());
     mapping.read("=");
 
@@ -218,7 +224,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
         Vehicle *obj = (Vehicle*)fb->frames()[i]->objects()[0];
         s << obj->plates()[0].color_id;
         vector<string> realColor = mapping.getValue(s.str());
-        EXPECT_EQ(expectColor[0], realColor[0]);
+        EXPECT_EQ(expectColor[0], realColor[0])<< "i = " << i << realColor[0]<<" "<<expectColor[0]<<endl;
     }
 
     destory();
