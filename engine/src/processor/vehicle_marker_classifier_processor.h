@@ -11,7 +11,8 @@
 #include "processor/processor.h"
 #include "alg/classification/marker_caffe_classifier.h"
 #include "alg/detector/window_caffe_detector.h"
-
+#include "alg/detector/window_caffe_ssd_detector.h"
+#include "alg/detector/marker_caffe_ssd_detector.h"
 namespace dg {
 
 class VehicleMarkerClassifierProcessor: public Processor {
@@ -19,7 +20,8 @@ public:
     VehicleMarkerClassifierProcessor(
         WindowCaffeDetector::WindowCaffeConfig &wConfig,
         MarkerCaffeClassifier::MarkerConfig &mConfig);
-
+    VehicleMarkerClassifierProcessor(VehicleCaffeDetectorConfig &wConfig,
+                                     VehicleCaffeDetectorConfig &mConfig);
     ~VehicleMarkerClassifierProcessor();
 
 protected:
@@ -34,11 +36,14 @@ protected:
 
 
 private:
-    MarkerCaffeClassifier *classifier_;
-    WindowCaffeDetector *detector_;
+    MarkerCaffeClassifier *classifier_=NULL;
+    WindowCaffeDetector *detector_=NULL;
+    WindowCaffeSsdDetector *ssd_window_detector_=NULL;
+    MarkerCaffeSsdDetector *ssd_marker_detector_=NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;
+    bool isSsd=true;
     int window_target_min_;
     int window_target_max_;
     int marker_target_min_;

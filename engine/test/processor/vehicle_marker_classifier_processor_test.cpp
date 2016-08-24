@@ -13,17 +13,26 @@ static VehicleMarkerClassifierProcessor *vmcprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    WindowCaffeDetector::WindowCaffeConfig wConfig;
-    MarkerCaffeClassifier::MarkerConfig mConfig;
-
+    VehicleCaffeDetectorConfig wConfig;
+    VehicleCaffeDetectorConfig mConfig;
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
-    wConfig.deploy_file = "data/models/700.txt";
-    wConfig.model_file = "data/models/700.dat";
-
     mConfig.is_model_encrypt = false;
-    mConfig.deploy_file = "data/models/600.txt";
-    mConfig.model_file = "data/models/600.dat";
+    baseModelPath = "data/0/";
+#else
+    wConfig.is_model_encrypt = true;
+    mConfig.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
 
+    wConfig.deploy_file = baseModelPath + "701.txt";
+    wConfig.model_file = baseModelPath + "701.dat";
+
+    mConfig.deploy_file = baseModelPath + "601.txt";
+    mConfig.model_file = baseModelPath + "601.dat";
+    wConfig.target_max_size=160;
+    wConfig.target_min_size=80;
     vmcprocessor = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
 }
 
@@ -60,12 +69,12 @@ static void destory() {
 
 TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     init();
-
-    fbhelper->setBasePath("data/testimg/markerClassifier/");
+    fbhelper->setBasePath("data/testimg/markerClassifier/singleCarMarkers/");
     fbhelper->readImage(getOperation());
     head->process(fbhelper->getFrameBatch());
     FrameBatch *fb = fbhelper->getFrameBatch();
-    resultReader = new FileReader("data/testimg/markerClassifier/result.txt");
+    resultReader = new FileReader("data/testimg/markerClassifier/singleCarMarkers/result.txt");
+
     EXPECT_TRUE(resultReader->is_open());
     resultReader->read(",");
 
@@ -77,7 +86,6 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
     }
 
     for (int i = 0; i < fb->batch_size(); ++i) {
-
         vector<Object *>v = fb->frames()[i]->objects()[0]->children();
         stringstream s;
         s << i;
@@ -98,7 +106,45 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
         ASSERT_EQ(resultReader->getValue(s.str()).size(), 5 + v.size()) << "i = " << i << endl;
         for (int j = 0; j < v.size(); ++j) {
             Marker *marker = (Marker *)v[j];
-            EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id());
+            EXPECT_EQ(resultReader->getIntValue(s.str(), 5 + j), marker->class_id()) << "i = " << i << " j = " << j << endl;
+        }
+    }
+
+    destory();
+}
+
+TEST(VehicleMarkerClassifierTest, handleMultiVehiclesTest) {
+    init();
+    fbhelper->setBasePath("data/testimg/markerClassifier/multiCarMarkers/");
+    fbhelper->readImage(getOperation());
+    head->process(fbhelper->getFrameBatch());
+    FrameBatch *fb = fbhelper->getFrameBatch();
+    resultReader = new FileReader("data/testimg/markerClassifier/multiCarMarkers/result.txt");
+    EXPECT_TRUE(resultReader->is_open());
+    resultReader->read(",");
+
+    vector<int> expectMarker;
+    vector<int> realMarker;
+    for (int i = 0; i < fb->batch_size(); ++i) {
+        expectMarker.clear();
+        realMarker.clear();
+        for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
+            Object *obj = (Object *)fb->frames()[i]->objects()[j];
+            if (obj->type() == OBJECT_CAR) {
+                realMarker.push_back(obj->children().size());
+            }
+        }
+        stringstream s;
+        s << i;
+        int Size = resultReader->getIntValue(s.str(), 0);
+        for (int j = 1; j <= Size; ++j) {
+            expectMarker.push_back(resultReader->getIntValue(s.str(), j));
+        }
+        sort(expectMarker.begin(), expectMarker.end());
+        sort(realMarker.begin(), realMarker.end());
+        ASSERT_EQ(expectMarker.size(), realMarker.size()) << "i = " << i << endl;
+        for (int j = 0; j < expectMarker.size(); ++j) {
+            EXPECT_EQ(expectMarker[j], realMarker[j]) << "i = " << i << " j = " << j << endl;
         }
     }
 

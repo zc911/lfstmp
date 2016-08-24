@@ -7,6 +7,7 @@
  * Description : 
  * ==========================================================================*/
 
+#include <alg/classification/pedestrian_classifier.h>
 #include "pedestrian_classifier_processor.h"
 
 #include "processor_helper.h"
@@ -44,6 +45,10 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch) {
             attr.index = attrs_i[j].index;
             attr.tagname = attrs_i[j].tagname;
             attr.confidence = attrs_i[j].confidence;
+            attr.threshold_lower = attrs_i[j].threshold_lower;
+            attr.threshold_upper = attrs_i[j].threshold_upper;
+            attr.categoryId = attrs_i[j].categoryId;
+            attr.mappingId = attrs_i[j].mappingId;
             attrs_o.push_back(attr);
         }
         p->set_attrs(attrs_o);

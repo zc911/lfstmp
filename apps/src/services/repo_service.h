@@ -48,6 +48,18 @@ public:
         return lookup_string(pedestrian_attr_type_repo_, attrId);
     }
 
+    float FindBodyRelativeFace(string dir) {
+        if (dir == "left") return pBodyRelativeFaceLeft;
+        if (dir == "right") return pBodyRelativeFaceRight;
+        if (dir == "top") return pBodyRelativeFaceTop;
+        if (dir == "bottom") return pBodyRelativeFaceBottom;
+        return 0.0;
+    }
+
+    string FindPedestrianAttrCatagory(int attrId) {
+        return lookup_string(pedestrian_attr_catagory_repo_, attrId);
+    }
+
     static void CopyCutboard(const Detection &b, Cutboard *cb) {
         cb->set_x(b.box.x);
         cb->set_y(b.box.y);
@@ -79,9 +91,15 @@ private:
     string plate_color_mapping_data_;
     string plate_type_mapping_data_;
     string vehicle_type_mapping_data_;
-    string plate_color_gpu_mapping_data_;
+    //string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
+    vector<string> pedestrian_attr_catagory_repo_;
     string pedestrian_attr_mapping_data_;
+    string pedestrian_attr_catagory_data_;
+    float pBodyRelativeFaceLeft;
+    float pBodyRelativeFaceRight;
+    float pBodyRelativeFaceTop;
+    float pBodyRelativeFaceBottom;
     bool is_gpu_plate_;
 
     const string &lookup_string(const vector<string> &array, int index);
@@ -93,6 +111,10 @@ private:
 
     int parseInt(string str) {
         return std::stoi(trimString(str), nullptr, 10);
+    }
+
+    float parseFloat(string str) {
+        return std::stof(trimString(str), nullptr);
     }
 
     string trimString(string str) {

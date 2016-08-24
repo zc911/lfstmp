@@ -22,7 +22,12 @@ static const string VEHICLE_PLATE_COLOR_MAPPING_FILE =
 static const string VEHICLE_PLATE_TYPE_MAPPING_FILE =
     "Render/Vehicle/Plate/Type";
 static const string VEHICLE_TYPE_MAPPING_FILE = "Render/Vehicle/Type";
-static const string VEHICLE_PEDESTRIAN_ATTR_TYPE = "Render/Vehicle/PedestrianAttr";
+static const string PEDESTRIAN_ATTR_TYPE = "Render/Pedestrian/PedestrianAttr";
+static const string PEDESTRIAN_ATTR_CATAGORY = "Render/Pedestrian/PedestrianCategory";
+static const string BODY_RELATIVE_FACE_LEFT = "Advanced/FaceDetect/BodyRelativeFaceLeft";
+static const string BODY_RELATIVE_FACE_RIGHT = "Advanced/FaceDetect/BodyRelativeFaceRight";
+static const string BODY_RELATIVE_FACE_TOP = "Advanced/FaceDetect/BodyRelativeFaceTop";
+static const string BODY_RELATIVE_FACE_BOTTOM = "Advanced/FaceDetect/BodyRelativeFaceBottom";
 
 //static const string SYSTEM_GPU_NUM = "System/GpuNum";
 //static const string SYSTEM_THREADS_PER_GPU = "System/ThreadsPerGpu";
@@ -44,6 +49,8 @@ static const string STORAGE_ADDRESS = "Storage/Address";
 static const string STORAGE_ENABLED = "Storage/Enabled";
 static const string STORAGE_DB_TYPE = "Storage/DBType";
 static const string IS_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
+static const string ENABLE_CUTBOARD = "Debug/EnableCutboard";
+static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
 
 }
 

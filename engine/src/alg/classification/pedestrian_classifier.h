@@ -39,12 +39,20 @@ public:
     typedef struct {
         int index;
         string tagname;
+        float threshold_lower;
+        float threshold_upper;
+        int categoryId;
+        int mappingId;
     } Tag;
 
     typedef struct {
         int index;
         string tagname;
         float confidence;
+        float threshold_lower;
+        float threshold_upper;
+        int categoryId;
+        int mappingId;
     } PedestrianAttribute;
     PedestrianClassifier(PedestrianConfig &pconf);
     virtual ~PedestrianClassifier();

@@ -37,6 +37,7 @@ tar -cvf $name"_"$version.tar --exclude ../bin/Release/libs --exclude ../bin/Rel
 
 rm version.tmp && touch version.tmp
 echo $version > version.tmp
+chmod 400 ./release_id_rsa
 scp -i ./release_id_rsa version.tmp dell@$server:~/release/home/matrix/$platform/version
 scp -i ./release_id_rsa $name"_"$version.tar  dell@$server:~/release/home/matrix/$platform/release/
 scp -i ./release_id_rsa $name"_libs_"$version.tar dell@$server:~/release/home/matrix/$platform/release/libs/

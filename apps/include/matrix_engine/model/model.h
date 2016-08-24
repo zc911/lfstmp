@@ -47,7 +47,8 @@ typedef struct Detection {
     bool deleted;
     Box box;
     Confidence confidence = 0;
-
+    float col_ratio=1.0;
+    float row_ratio=1.0;
     void Rescale(float scale) {
         box.x = box.x / scale;
         box.y = box.y / scale;
@@ -159,6 +160,10 @@ public:
         int index = 0;
         string tagname = "";
         Confidence confidence = 0;
+        float threshold_lower = 0;
+        float threshold_upper = 0;
+        int categoryId = 0;
+        int mappingId = 0;
     } Attr;
 
     Pedestrian() : Object(OBJECT_PEDESTRIAN) {
@@ -178,9 +183,18 @@ public:
         attrs_ = attrs;
     }
 
+    const std::map<string, float> &threshold() const {
+        return threshold_;
+    };
+
+    void set_threshold(const std::map<string, float> &threshold) {
+        threshold_ = threshold;
+    }
+
 private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
+    std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {

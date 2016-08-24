@@ -13,9 +13,16 @@ static FileReader *resultReader;
 static void initConfig() {
     resultReader = NULL;
     FaceDetector::FaceDetectorConfig config;
+    string baseModelPath;
+#ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
-    config.deploy_file = "data/models/400.txt";
-    config.model_file = "data/models/400.dat";
+    baseModelPath = "data/0/";
+#else
+    config.is_model_encrypt = true;
+    baseModelPath = "data/1/";
+#endif
+    config.deploy_file = baseModelPath + "400.txt";
+    config.model_file = baseModelPath + "400.dat";
     fdprocessor = new FaceDetectProcessor(config);
     fbhelper = new FrameBatchHelper(1);
 }

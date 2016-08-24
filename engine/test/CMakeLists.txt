@@ -1,7 +1,16 @@
-set(DATA_URL "192.168.2.119/unit_test/data")
+set(BASE_URL "192.168.2.119/matrix")
+set(RELEASE_URL ${BASE_URL}"/Linux-x86_64")
+set(DATA_URL ${BASE_URL}"/unit_test/data")
 set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
+#file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp
+#        processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp
+#        processor/vehicle_marker_classifier_processor_test.cpp)
+
+IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    ADD_DEFINITIONS( -DUNENCRYPTMODEL )
+ENDIF()
 
 AUX_SOURCE_DIRECTORY(../../utils/src/ UTILS)
 LIST(APPEND ALL_SRC_FILES ${UTILS})
@@ -24,7 +33,37 @@ install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME} DESTINATION ${
 
 add_custom_target(test
         COMMAND make -j8 install
-        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\; then wget -r -R html ${DATA_URL} && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test \; fi
+        COMMAND wget -rq -R html ${RELEASE_URL}/version -O version
+        COMMAND echo -n ${RELEASE_URL} > task.txt
+        COMMAND echo -n "/release/data/matrix_apps_data_" >> task.txt
+        COMMAND echo -n `cat version` >> task.txt
+        COMMAND echo ".tar" >> task.txt
+        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
+            then echo "Loading models..."
+            && wget -rq -R html ${DATA_URL}/
+            && wget -rq -R html ${RELEASE_URL}/internal/data/
+            && wget -rqi task.txt -O matrix_models.tar
+            && tar -xf matrix_models.tar
+            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
+            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
+            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
+            && rm -rf bin matrix_models.tar \; fi
+        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version version > /dev/null
+            || (echo "Updating models..."
+            && rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data
+            && wget -rq -R html ${DATA_URL}/
+            && wget -rq -R html ${RELEASE_URL}/internal/data/
+            && wget -rqi task.txt -O matrix_models.tar
+            && tar -xf matrix_models.tar
+            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
+            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
+            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
+            && rm -rf bin matrix_models.tar
+            && mv version ${PROJECT_SOURCE_DIR}/bin/test/data/version)
+        COMMAND rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data/testimg || true
+        COMMAND echo "Loading data..." && wget -rq -R html ${DATA_URL}/testimg/
+            && mv ${DATA_URL}/testimg ${PROJECT_SOURCE_DIR}/bin/test/data/testimg
+            && rm -rf ${BASE_URL} \; fi
         COMMAND cd ${PROJECT_SOURCE_DIR}/bin/test/ && ./${PROJECT_TEST_NAME}
         )
 

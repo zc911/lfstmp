@@ -40,6 +40,7 @@ int UriReader::Read(const std::string uri, std::vector<uchar> &buffer, unsigned 
     trimLR(theUri);
 
     curl_easy_setopt(curl_handle, CURLOPT_URL, theUri.c_str());
+    curl_easy_setopt(curl_handle, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 0L); //0L for no verbose
     curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L); //oL for progress
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_callback);
