@@ -404,5 +404,11 @@
     "Path": "data/mapping",
     "Md5sum": "",
     "Md5check": "false"
+  }, {
+    "Name": "pedestrian_attr_category.txt",
+    "Url": "http://192.168.2.119/matrix/Linux-x86_64/internal/data/mapping/pedestrian_attr_category.txt",
+    "Path": "data/mapping",
+    "Md5sum": "",
+    "Md5check": "false"
   }]
 }
