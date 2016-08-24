@@ -870,7 +870,8 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
     
     pstOut->dwLPLen--;
   }
-  
+
+ 
   //only WJ has 8 chars
   if (pstOut->dwLPLen==8 && (pstOut->adwLPNumber[1]!=19 && pstOut->adwLPNumber[0]!=31))
   {
@@ -894,6 +895,38 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
     }
   }
   
+  //there is no two province characters
+  int dwNum = 0;
+  for (dwI = 0; dwI < pstOut->dwLPLen; dwI++)
+  {
+    dwNowV0 = pstOut->adwLPNumber[dwI];
+    if (dwNowV0 >= 36 && dwNowV0 <= 66)
+    {
+      dwNum++;
+    }
+  }
+
+  if (dwNum > 1) return 4;
+
+
+  //some chinese characters must be in the end of plate.
+  for (dwI = 0; dwI < pstOut->dwLPLen; dwI++)
+  {
+    dwNowV0 = pstOut->adwLPNumber[dwI];
+    if (dwNowV0 == 70 //学 
+     || dwNowV0 == 73 //警
+     || dwNowV0 == 74 //港
+     || dwNowV0 == 76 //挂
+     || dwNowV0 == 77 //澳
+     )
+    {
+      if (dwI != pstOut->dwLPLen - 1)
+      {
+        return 5;
+      }
+    }
+  } 
+ 
   //mainlad only has 7 or 8 chars, but we allow it has 6 at least.
   if (pstOut->dwLPLen < 6 || pstOut->dwLPLen > 8) return 1;
   
