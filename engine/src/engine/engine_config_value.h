@@ -133,7 +133,6 @@ static const string FILE_PEDESTRIAN_ATTR_MODEL_PATH = "File/PedestrianAttr/Model
 static const string FILE_PEDESTRIAN_ATTR_TRAINED_MODEL = "File/PedestrianAttr/TrainedModel";
 static const string FILE_PEDESTRIAN_ATTR_DEPLOY_MODEL = "File/PedestrianAttr/DeployModel";
 static const string FILE_PEDESTRIAN_ATTR_TAGNAME_MODEL = "File/PedestrianAttr/TagnameModel";
-static const string FILE_PEDESTRIAN_ATTR_THRESHOLD_MODEL = "File/PedestrianAttr/ThresholdFile";
 static const string FILE_PEDESTRIAN_ATTR_LAYER_NAME = "File/PedestrianAttr/LayerName";
 
 static const string FILE_WINDOW_MODEL_PATH = "File/Window/ModelPath";
