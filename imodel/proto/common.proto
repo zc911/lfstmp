@@ -105,25 +105,22 @@ enum AgeType {
 }
 
 message NameAndConfidence {
-    string Name = 1;
-    float Confidence = 2;
-    int32 Id=3;
+    int32 Id = 1;
+    string Name = 2;
+    float Confidence = 3;
 }
 
-message HalfOfBodyFeature{
-    repeated NameAndConfidence Color = 1;
-    NameAndConfidence Stripes = 2;
-    NameAndConfidence Catagory = 3;
+message CategoryAndFeature {
+    int32 Id = 1;
+    string CategoryName = 2;
+    repeated NameAndConfidence Items = 3;
 }
 
 message PedestrianAttr {
     NameAndConfidence Sex = 1;
     NameAndConfidence Age = 2;
     NameAndConfidence National = 3;
-    repeated NameAndConfidence HeadWears = 4;
-    repeated NameAndConfidence BodyWears = 5;
-    HalfOfBodyFeature UpperFeatures = 6;
-    HalfOfBodyFeature LowerFeatures = 7;
+    repeated CategoryAndFeature Category = 4;
 }
 
 message RecVehicle {

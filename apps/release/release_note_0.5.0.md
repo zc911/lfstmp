@@ -1,3 +1,45 @@
+# Matrix Apps
+### Version 0.4.4
+2016-08-04
+
+```
+Update plate sdk to 2.2.4 and remove MAC check in watchdog
+```
+
+### Modules version
+| *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
+|:--------------:|:-------------:|:---------------:|:------------:|
+| 0.5.0 | 0.1.3 | 1.10 | * |
+
+### Features
+- New marker ssd model/window ssd model
+- Send results to postresql
+- Save images in a particular path
+- Group pedestrian result
+- Improve caffe lib
+- Unify gpu plate color mapping with wentong plate color mapping
+
+### Bugs
+- DEEPVIDEO-522 打开Strorage且只用restful接口时，调用matrix奔溃
+- DEEPVIDEO-498 matrix 识别symbols，整图与局部车辆图片识别不一致，不检测，也未正确识别遮阳板
+
+### How to Install/Update
+```
+$ wget -O install.sh http://192.168.2.119/matrix/install.sh
+$ chmod +x install.sh
+$ ./install.sh 
+```
+
+### How to Run
+```
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
+```
+
+### Config File
+```json
 {
   "Version": {
     "Code": "1.0.0",
@@ -129,8 +171,9 @@
     "Address": ["192.168.2.132:9877","192.168.2.119:9004"],
     "DBType": [0,1]
   },
-
-  //"DataPath": "data/data_tollgate.dat"
   "DataPath": "data/data.dat"
 }
 
+
+
+```

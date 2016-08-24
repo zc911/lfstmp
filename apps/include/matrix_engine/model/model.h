@@ -162,6 +162,8 @@ public:
         Confidence confidence = 0;
         float threshold_lower = 0;
         float threshold_upper = 0;
+        int categoryId = 0;
+        int mappingId = 0;
     } Attr;
 
     Pedestrian() : Object(OBJECT_PEDESTRIAN) {
