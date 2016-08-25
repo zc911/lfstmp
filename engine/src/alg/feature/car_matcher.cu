@@ -30,7 +30,7 @@ CarMatcher::CarMatcher(unsigned int maxImageNum) {
     profile_time_ = false;
     max_image_num_ = maxImageNum;
 
-    cudaStreamCreate(&stream_);
+    CUDA_CALL(cudaStreamCreate(&stream_));
     CUDA_CALL(
         cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
     CUDA_CALL(
