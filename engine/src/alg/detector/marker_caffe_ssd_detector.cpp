@@ -140,19 +140,23 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             }
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
-            if(cls==4){
-                if(xmin*2<target_col){
-                    detection.id=LeftBelt;
-                }else{
-                    detection.id=RightBelt;
+            if (cls == 4) {
+                if (xmin * 2 < target_col) {
+                    detection.id = RightBelt;
+
+                } else {
+                    detection.id = LeftBelt;
+
                 }
-            }else if(cls==2){
-                if(xmin*2<target_col){
-                    detection.id=LeftSunVisor;
-                }else{
-                    detection.id=RightSunVisor;
+            } else if (cls == 2) {
+                if (xmin * 2 < target_col) {
+                    detection.id = RightSunVisor;
+
+                } else {
+                    detection.id = LeftSunVisor;
+
                 }
-            }else{
+            } else {
                 detection.id = cls;
 
             }
@@ -212,7 +216,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             int tymin;
             int tymax;
             float ratio = 0.15;
-            show_enlarged_box(imgs[i],image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
+            show_enlarged_box(imgs[i], image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
 
             params[2].push_back(tymin);
             params[3].push_back(tymax);
