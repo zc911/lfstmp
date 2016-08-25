@@ -12,9 +12,12 @@ CarRankEngine::CarRankEngine(const Config &config)
     : RankEngine(config),
       id_(0) {
 #if DEBUG
+    enable_ranker_=true;    
 #else
     enable_ranker_ = (CheckFeature(FEATURE_CAR_RANK, false) == ERR_FEATURE_ON);
 #endif
+        enable_ranker_=true;    
+
     if (enable_ranker_) {
         processor_ = new CarRankProcessor(config);
     }
@@ -47,9 +50,12 @@ FaceRankEngine::FaceRankEngine(const Config &config)
 }
 void FaceRankEngine::init(const Config &config) {
 #if DEBUG
+    enable_ranker_=true;    
 #else
     enable_ranker_ = (CheckFeature(FEATURE_FACE_RANK, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
 #endif
+        enable_ranker_=true;    
+
     if (enable_ranker_) {
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
         if (!configFilter->initDataConfig(config)) {

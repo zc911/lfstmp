@@ -61,7 +61,6 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
-
     if (isSsd) {
         vector<vector<Detection> > crops;
         vector<vector<Detection> > preds;
@@ -97,10 +96,11 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 d.box.height = preds[cnt][j].box.height;
                 markers_cutborad.push_back(d);
 
-                //                      rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
+                   //                   rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
             }
 
             //  string name = to_string(i)+"test.jpg";
+
             //imwrite(name,img);
             v->set_markers(markers_cutborad);
             cnt++;
