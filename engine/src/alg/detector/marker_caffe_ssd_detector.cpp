@@ -141,13 +141,13 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if(cls==4){
-                if(xmin*2<target_row){
+                if(xmin*2<target_col){
                     detection.id=LeftBelt;
                 }else{
                     detection.id=RightBelt;
                 }
             }else if(cls==2){
-                if(xmin*2<target_row){
+                if(xmin*2<target_col){
                     detection.id=LeftSunVisor;
                 }else{
                     detection.id=RightSunVisor;
