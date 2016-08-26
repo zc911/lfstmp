@@ -83,7 +83,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             if (crops[i].size() <= 0)
                 continue;
 
-            Vehicle *v = (Vehicle *) objs_[cnt];
+            Vehicle *v = (Vehicle *) objs_[i];
             vector<Detection> markers_cutborad;
             Mat img(v->image());
 
