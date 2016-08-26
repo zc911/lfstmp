@@ -141,7 +141,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if (cls == 4) {
-                if (xmin * 2 < target_col) {
+                if (xmin * 2 < target_col*col_ratio[img_id]) {
                     detection.id = RightBelt;
 
                 } else {
@@ -149,7 +149,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
 
                 }
             } else if (cls == 2) {
-                if (xmin * 2 < target_col) {
+                if (xmin * 2 < target_col*col_ratio[img_id]) {
                     detection.id = RightSunVisor;
 
                 } else {
