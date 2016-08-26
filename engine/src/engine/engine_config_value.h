@@ -183,6 +183,7 @@ static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE = "Advanced/Pl
 
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
 
+static const string DEBUG_VISUALIZATION = "Debug/Visualization";
 
 }
 

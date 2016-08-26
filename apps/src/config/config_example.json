@@ -6,7 +6,7 @@
   // "ProtocolType": "rpc",
   "ProtocolType": "rpc|restful",
   "InstanceType": "witness",
-  // "InstanceType" : "ranker",
+//   "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
@@ -122,7 +122,8 @@
   "Debug": {
     "Enable": true,
     "EnableCutboard": true,
-    "Encrypt": false
+    "Encrypt": false,
+    "Visualization":false
   },
   "Storage": {
     "Enabled": false,
