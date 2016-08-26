@@ -7,7 +7,6 @@
 
 #ifndef SRC_PROCESSOR_VEHICLE_MARKER_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_MARKER_CLASSIFIER_PROCESSOR_H_
-
 #include "processor/processor.h"
 #include "alg/classification/marker_caffe_classifier.h"
 #include "alg/detector/window_caffe_detector.h"
@@ -21,9 +20,8 @@ public:
         WindowCaffeDetector::WindowCaffeConfig &wConfig,
         MarkerCaffeClassifier::MarkerConfig &mConfig);
     VehicleMarkerClassifierProcessor(VehicleCaffeDetectorConfig &wConfig,
-                                     VehicleCaffeDetectorConfig &mConfig);
+                                     VehicleCaffeDetectorConfig &mConfig,bool isVisualization);
     ~VehicleMarkerClassifierProcessor();
-
 protected:
     virtual bool process(Frame *frame) {
         return false;
@@ -48,6 +46,7 @@ private:
     int window_target_max_;
     int marker_target_min_;
     int marker_target_max_;
+    bool isVisualization_=false;
 };
 
 }

@@ -26,7 +26,7 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 }
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
-    VehicleCaffeDetectorConfig &mConfig)
+    VehicleCaffeDetectorConfig &mConfig, bool flag)
     : Processor() {
 
     ssd_marker_detector_ = new MarkerCaffeSsdDetector(mConfig);
@@ -36,6 +36,8 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
     isSsd = true;
+    isVisualization_ = flag;
+
 }
 VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
     if (classifier_)
@@ -87,21 +89,37 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             vector<Detection> markers_cutborad;
             Mat img(v->image());
 
-            for (int j = 0; j < preds[cnt].size(); j++) {
-                Detection d(preds[cnt][j]);
+            if (isVisualization_) {
+                for (int j = 0; j < preds[cnt].size(); j++) {
+                    Detection d(preds[cnt][j]);
 
-                d.box.x = (preds[cnt][j].box.x); // + v->detection().box.x;
-                d.box.y = (preds[cnt][j].box.y); // + v->detection().box.y;
-                d.box.width = preds[cnt][j].box.width;
-                d.box.height = preds[cnt][j].box.height;
-                markers_cutborad.push_back(d);
+                    d.box.x = (preds[cnt][j].box.x); // + v->detection().box.x;
+                    d.box.y = (preds[cnt][j].box.y); // + v->detection().box.y;
+                    d.box.width = preds[cnt][j].box.width;
+                    d.box.height = preds[cnt][j].box.height;
+                    markers_cutborad.push_back(d);
 
-                   //                   rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
+                    rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
+                    int midx = d.box.x + d.box.width / 2;
+                    int midy = d.box.y + d.box.height / 2;
+                    string id = "";
+                    id += (char)(d.id - 48);
+                    cv::putText(img, (id), cv::Point(midx, midy), CV_FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0));
+                }
+
+                string name = "marker" + to_string(i) + to_string(img.rows) + ".jpg";
+                imwrite(name, img);
+            } else {
+                for (int j = 0; j < preds[cnt].size(); j++) {
+                    Detection d(preds[cnt][j]);
+
+                    d.box.x = (preds[cnt][j].box.x); // + v->detection().box.x;
+                    d.box.y = (preds[cnt][j].box.y); // + v->detection().box.y;
+                    d.box.width = preds[cnt][j].box.width;
+                    d.box.height = preds[cnt][j].box.height;
+                    markers_cutborad.push_back(d);
+                }
             }
-
-            //  string name = to_string(i)+"test.jpg";
-
-            //imwrite(name,img);
             v->set_markers(markers_cutborad);
             cnt++;
             gettimeofday(&end, NULL);

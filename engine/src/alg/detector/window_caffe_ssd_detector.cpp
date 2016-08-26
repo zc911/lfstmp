@@ -79,8 +79,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
 
         int img_id = top_data_win[j * 7 + 0];
 
-        if ((img_id < 0) || ((img_id+image_offset) >= detect_results.size())) {
-            LOG(ERROR) << "Image id invalid: " << img_id << endl;
+        if ((img_id < 0) || ((img_id+image_offset) > detect_results.size())) {
             continue;
         }
         vector<Detection> &imageDetection = detect_results[image_offset + img_id];
@@ -104,6 +103,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
 
 
         }
+        LOG(INFO)<<imageDetection.size();
     }
 }
 int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
