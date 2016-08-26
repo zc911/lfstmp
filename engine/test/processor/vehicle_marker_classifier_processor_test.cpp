@@ -33,7 +33,7 @@ static void initConfig() {
     mConfig.model_file = baseModelPath + "601.dat";
     wConfig.target_max_size=160;
     wConfig.target_min_size=80;
-    vmcprocessor = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+    vmcprocessor = new VehicleMarkerClassifierProcessor(wConfig, mConfig,false);
 }
 
 static Operation getOperation() {
