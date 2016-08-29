@@ -99,7 +99,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
     float cls_conf[7] = {1.0, 0.36, 0.6, 0.6, 0.5, 0.6, 0.6};
     for (int j = 0; j < box_num; j++) {
         int img_id = top_data[j * 7 + 0];
-        if (img_id < 0 || img_id >= detect_results.size()) {
+        if (img_id < 0 || img_id > detect_results.size()) {
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
             continue;
         }
@@ -124,7 +124,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             ymax += crop_ymin[img_id];
             // exclude bboxes that lie outside car window.
             if ((thresh_ymin[img_id] - ymin) / (ymax - ymin) > 0.3 ||
-                    (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3){
+                    (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3) {
                 continue;
 
             }
@@ -141,7 +141,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if (cls == 4) {
-                if (xmin * 2 < target_col*col_ratio[img_id]) {
+                if (xmin * 2 < target_col * col_ratio[img_id]) {
                     detection.id = RightBelt;
 
                 } else {
@@ -149,7 +149,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
 
                 }
             } else if (cls == 2) {
-                if (xmin * 2 < target_col*col_ratio[img_id]) {
+                if (xmin * 2 < target_col * col_ratio[img_id]) {
                     detection.id = RightSunVisor;
 
                 } else {
@@ -191,17 +191,17 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
     vector<vector<Rect> > fobs;
     for (int i = 0; i < imgs.size(); ++i) {
 
-        cv::Mat image = imgs[i].clone();
 
         // fobbiden areas
         int xmin, ymin, xmax, ymax;
 
         if (window_detections[i].size() > 0) {
+            cv::Mat image = imgs[i].clone();
+
             xmin = window_detections[i][0].box.x;
             ymin = window_detections[i][0].box.y;
             xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
             ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
-
 
             vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
             fobs.push_back(fob);
@@ -226,25 +226,26 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             params[5].push_back(img.cols * 1.0 / target_col);
             if (img.rows > 0 && img.cols > 0) {
                 resize(img, img, Size(target_col, target_row));
-            } else {
-                img = Mat::zeros(Size(target_col, target_row), CV_8UC3);
-            }
+                toPredict.push_back(img);
 
-            toPredict.push_back(img);
+            }
 
         }
         // only process images that has a car window.
         // only count images that has a car window.
 
 
-
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
             Fullfil(toPredict, outputs, detect_results, fobs, params);
-
+            params[0].clear();
+            params[1].clear();
+            params[2].clear();
+            params[3].clear();
+            params[4].clear();
+            params[5].clear();
             toPredict.clear();
-
 
         }
     }
