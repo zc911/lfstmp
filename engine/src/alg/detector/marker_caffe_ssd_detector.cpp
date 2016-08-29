@@ -103,6 +103,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
             continue;
         }
+
         vector<Detection> &imageDetection = detect_results[image_offset + img_id];
 
         int cls = top_data[j * 7 + 1];
@@ -111,6 +112,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
         float ymin = top_data[j * 7 + 4] * images_tiny[img_id].rows;
         float xmax = top_data[j * 7 + 5] * images_tiny[img_id].cols;
         float ymax = top_data[j * 7 + 6] * images_tiny[img_id].rows;
+
         if (score > cls_conf[cls]) {
 
             xmin *= col_ratio[img_id];
@@ -138,6 +140,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
 
                 continue;  //exclude this box
             }
+
             Detection detection;
             detection.box =  Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             if (cls == 4) {
@@ -165,6 +168,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             imageDetection.push_back(detection);
 
         }
+
     }
 
 }
@@ -245,6 +249,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
             params[3].clear();
             params[4].clear();
             params[5].clear();
+            fobs.clear();
             toPredict.clear();
 
         }
