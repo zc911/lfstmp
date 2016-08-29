@@ -99,7 +99,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
     float cls_conf[7] = {1.0, 0.36, 0.6, 0.6, 0.5, 0.6, 0.6};
     for (int j = 0; j < box_num; j++) {
         int img_id = top_data[j * 7 + 0];
-        if (img_id < 0 || img_id > detect_results.size()) {
+        if (img_id < 0 || img_id >= detect_results.size()) {
             LOG(ERROR) << "Image id invalid: " << img_id << endl;
             continue;
         }
