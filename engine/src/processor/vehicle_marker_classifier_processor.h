@@ -47,6 +47,7 @@ private:
     int marker_target_min_;
     int marker_target_max_;
     bool isVisualization_=false;
+    vector<Scalar> color_;
 };
 
 }
