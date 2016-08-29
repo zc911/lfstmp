@@ -25,7 +25,12 @@ static wstring utf8_to_wstring(const string &str) {
     return boost::locale::conv::utf_to_utf<wchar_t>(str.c_str(),
                                                     str.c_str() + str.size());
 }
-
+static string i2string(int id){
+        stringstream ss;
+        ss<<id;
+        string   s=ss.str();
+        return s;
+}
 static string findPrefix(const string s, const char sep) {
     int pos = s.find_first_of(sep);
     if (pos == string::npos) {
