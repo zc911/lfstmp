@@ -359,7 +359,6 @@ static void show_enlarged_box(cv::Mat tmp,cv::Mat image, float xmin, float ymin,
         crop_ymax = img_height;
         crop_ymin = img_height - crop_width;
     }
-    rectangle(tmp, Rect(crop_xmin, crop_ymin, crop_xmax-crop_xmin, crop_ymax-crop_ymin), Scalar(255,0,0)); //, 'red'
     *cymin = crop_ymin;
     *cymax = crop_ymax;
 }

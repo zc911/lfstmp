@@ -8,6 +8,7 @@
 #include <alg/classification/marker_caffe_classifier.h>
 #include "vehicle_marker_classifier_processor.h"
 #include "processor_helper.h"
+ #include "string_util.h"
 
 namespace dg {
 
@@ -23,6 +24,18 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
     isSsd = false;
+    color_.push_back(Scalar(15, 115, 190));
+    color_.push_back(Scalar(230, 2, 0));
+    color_.push_back(Scalar(0, 255, 0));
+    color_.push_back(Scalar(2, 0, 230));
+    color_.push_back(Scalar(255, 255, 0));
+    color_.push_back(Scalar(2, 235, 235));
+    color_.push_back(Scalar(235, 2, 235));
+    color_.push_back(Scalar(155, 255, 0));
+    color_.push_back(Scalar(255, 155, 0));
+    color_.push_back(Scalar(2, 215, 2));
+    color_.push_back(Scalar(2, 115, 2));
+
 }
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
@@ -37,6 +50,17 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     marker_target_max_ = mConfig.target_max_size;
     isSsd = true;
     isVisualization_ = flag;
+    color_.push_back(Scalar(15, 115, 190));
+    color_.push_back(Scalar(230, 2, 0));
+    color_.push_back(Scalar(0, 255, 0));
+    color_.push_back(Scalar(2, 0, 230));
+    color_.push_back(Scalar(255, 255, 0));
+    color_.push_back(Scalar(2, 235, 235));
+    color_.push_back(Scalar(235, 2, 235));
+    color_.push_back(Scalar(155, 255, 0));
+    color_.push_back(Scalar(255, 155, 0));
+    color_.push_back(Scalar(2, 215, 2));
+    color_.push_back(Scalar(2, 115, 2));
 
 }
 VehicleMarkerClassifierProcessor::~VehicleMarkerClassifierProcessor() {
@@ -80,6 +104,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
         diff = ((end1.tv_sec - end.tv_sec) * 1000000 + end1.tv_usec - end.tv_usec)
                / 1000.f;
         VLOG(VLOG_PROCESS_COST) << "[Total] marker cost: " << diff << "ms" << endl;
+                    LOG(INFO)<<color_.size();
 
         for (int i = 0; i < crops.size(); i++) {
             if (crops[i].size() <= 0)
@@ -98,15 +123,16 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                     d.box.width = preds[cnt][j].box.width;
                     d.box.height = preds[cnt][j].box.height;
                     markers_cutborad.push_back(d);
+                    if(d.id>color_.size())
+                        continue;
+                    rectangle(img, preds[cnt][j].box,color_[d.id]);
+                    int midx = d.box.x + d.box.width / 2-4;
+                    int midy = d.box.y + d.box.height / 2+4;
+                    string id = i2string(d.id);
 
-                    rectangle(img, preds[cnt][j].box, Scalar(255, 0, 0));
-                    int midx = d.box.x + d.box.width / 2;
-                    int midy = d.box.y + d.box.height / 2;
-                    string id = "";
-                    id += (char)(d.id - 48);
-                    cv::putText(img, (id), cv::Point(midx, midy), CV_FONT_HERSHEY_SIMPLEX, 1, Scalar(255, 0, 0));
+                    cv::putText(img,id, cv::Point(midx, midy), FONT_HERSHEY_COMPLEX_SMALL, 1,color_[d.id]);
                 }
-
+                rectangle(img, crops[i][0].box, color_[0]);
                 string name = "marker" + to_string(i) + to_string(img.rows) + ".jpg";
                 imwrite(name, img);
             } else {
@@ -122,12 +148,12 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             }
             v->set_markers(markers_cutborad);
             cnt++;
+
+        }
             gettimeofday(&end, NULL);
             diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
                    / 1000.f;
             VLOG(VLOG_PROCESS_COST) << "after cost: " << diff << "ms" << endl;
-
-        }
 
 
     } else {
