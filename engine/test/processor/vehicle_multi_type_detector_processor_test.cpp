@@ -50,7 +50,7 @@ TEST(VehicleMultiTypeDectorTest, vehicleTypeTest) {
     EXPECT_TRUE(resultReader->is_open());
     resultReader->read(",");
     head->process(fb);
-
+fbhelper->printFrame();
     for (int i = 0; i < fb->batch_size(); ++i) {
         vector<int> expectResult, realResult;
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
@@ -63,7 +63,7 @@ TEST(VehicleMultiTypeDectorTest, vehicleTypeTest) {
         }
         sort(expectResult.begin(), expectResult.end());
         sort(realResult.begin(), realResult.end());
-        EXPECT_EQ(realResult.size(), expectResult.size()) << "i = " << i << endl;
+        ASSERT_EQ(realResult.size(), expectResult.size()) << "i = " << i << endl;
         for (int j = 0; j < expectResult.size(); ++j) {
             EXPECT_EQ(realResult[j], expectResult[j])  << "i = " << i << " j = " << j << endl;
         }
