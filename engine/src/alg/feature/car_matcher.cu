@@ -19,7 +19,7 @@ struct box {
     ushort width;
 };
 
-CarMatcher::CarMatcher(unsigned int maxImageNum) {
+CarMatcher::CarMatcher(unsigned int maxImageNum,int gpuid) {
     feature_num_ = FEATURE_NUM_CUDA;
     max_resize_size_ = 300;
     max_mis_match_ = 50;
@@ -29,7 +29,7 @@ CarMatcher::CarMatcher(unsigned int maxImageNum) {
     min_score_thr_ = 100;
     profile_time_ = false;
     max_image_num_ = maxImageNum;
-
+    cudaSetDevice(0);
     CUDA_CALL(cudaStreamCreate(&stream_));
     CUDA_CALL(
         cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
