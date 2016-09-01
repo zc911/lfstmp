@@ -18,6 +18,7 @@
 
 using namespace std;
 namespace dg {
+
 typedef enum {
     OBJECT_UNKNOWN = 0,
     OBJECT_CAR = 1,
@@ -42,13 +43,15 @@ enum DetectionTypeId {
     DETECTION_TRICYCLE = 4
 };
 
+
+
 typedef struct Detection {
     int id = -1;
     bool deleted;
     Box box;
     Confidence confidence = 0;
-    float col_ratio=1.0;
-    float row_ratio=1.0;
+    float col_ratio = 1.0;
+    float row_ratio = 1.0;
     void Rescale(float scale) {
         box.x = box.x / scale;
         box.y = box.y / scale;

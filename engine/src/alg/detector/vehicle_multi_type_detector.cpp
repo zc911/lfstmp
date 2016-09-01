@@ -1,4 +1,5 @@
 #include "vehicle_multi_type_detector.h"
+#include "alg/caffe_helper.h"
 
 namespace dg {
 
@@ -21,16 +22,16 @@ VehicleMultiTypeDetector::VehicleMultiTypeDetector(
     batch_size_ = config_.batch_size = 1;
     scale_ = config_.target_min_size;
 
+    string deploy_content;
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-#if DEBUG
+    modelsMap->getModelContent(config.deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
+        new Net<float>(config.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.model_file,model_content);
 
-    net_->CopyTrainedLayersFrom(config.model_file);
     CHECK_EQ(net_->num_inputs(), 2) << "Network should have exactly two input.";
 
     Blob<float> *input_layer = net_->input_blobs()[0];

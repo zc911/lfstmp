@@ -21,16 +21,16 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
         use_gpu_ = false;
     }
 
-    LOG(INFO) << "loading model file: " << config.deploy_file;
-#if DEBUG
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
+    string deploy_content;
+    modelsMap->getModelContent(config.deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
-    LOG(INFO) << "loading trained file : " << config.model_file;
-    net_->CopyTrainedLayersFrom(config.model_file);
+        new Net<float>(config.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+
+
 
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
