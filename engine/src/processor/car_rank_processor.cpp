@@ -12,8 +12,9 @@ CarRankProcessor::CarRankProcessor(const Config &config)
         LOG(ERROR) << "Max image number in car ranker is 0, use default value: " << MAX_IMAGE_NUM_DEFAULT << endl;
         maxImageNum = MAX_IMAGE_NUM_DEFAULT;
     }
+    int gpu_id = (int) config.Value(SYSTEM_GPUID);
 
-    car_matcher_ = new CarMatcher(maxImageNum);
+    car_matcher_ = new CarMatcher(maxImageNum,gpu_id);
 }
 CarRankProcessor::~CarRankProcessor() {
     if (car_matcher_)
