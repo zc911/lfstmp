@@ -6,7 +6,7 @@
  */
 
 #include "car_only_confirm_caffe_detector.h"
-#include "../caffe_helper.h"
+#include "alg/caffe_helper.h"
 
 namespace dg {
 
@@ -22,14 +22,17 @@ CarOnlyConfirmCaffeDetector::CarOnlyConfirmCaffeDetector(const VehicleCaffeDetec
     } else {
         Caffe::set_mode(Caffe::CPU);
     }
-#if DEBUG
+    string deploy_content;
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
+
+    modelsMap->getModelContent(config.confirm_deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(config.confirm_deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.confirm_deploy_file, TEST, config.is_model_encrypt));
-#endif
-    net_->CopyTrainedLayersFrom(caffe_config_.confirm_model_file);
+        new Net<float>(config.confirm_deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.confirm_model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.confirm_model_file,model_content);
+
+
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
