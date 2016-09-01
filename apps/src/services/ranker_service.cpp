@@ -150,7 +150,23 @@ MatrixError RankerAppsService::getCarScoredVector(
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
     }
-    scores = car_ranker_.Rank(image, hotspot, features);
+    CarRankFrame f(0, image, hotspot, features);
+
+    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&framebatch, &data]() -> void {
+        return (bind(&RankEngine::Rank, (RankEngine *) data.apps,
+        placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+    scores=f.result_;
+    //scores = car_ranker_.Rank(image, hotspot, features);
     return err;
 }
 MatrixError RankerAppsService::getFaceScoredVector(
@@ -184,8 +200,29 @@ MatrixError RankerAppsService::getFaceScoredVector(
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
     }
+    FaceRankFrame f(0, image, hotspot, features);
+    Operation op;
 
-    scores = face_ranker_.Rank(image, hotspot, features);
+    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+           | OPERATION_FACE_FEATURE_VECTOR);
+
+    face_rank_frame->set_operation(op);
+
+    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&f, &data]() -> void {
+        return (bind(&RankEngine::Rank, (RankEngine *) data.apps,
+        placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+    scores=f.result_;
+ //   scores = face_ranker_.Rank(image, hotspot, features);
     return err;
 }
 MatrixError RankerAppsService::getRankedFaceVector(

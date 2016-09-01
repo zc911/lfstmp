@@ -287,12 +287,28 @@ private:
     bool delegate_;
 };
 
+template<typename RankType>
+class RankFrame: public Frame {
+public:
+    RankFrame(Identification id, const Mat &image,
+                 const vector<Rect> &hotspots,
+                 const vector<CarRankFeature> &candidates)
+        : Frame(id,image),
+          hotspots_(hotspots),
+          candidates_(candidates) {
+    }
+    ~RankFrame() {
+    }
+    vector<Rect> hotspots_;
+    vector<RankType> candidates_;
+    vector<Score> result_;
+};
 class CarRankFrame: public Frame {
 public:
     CarRankFrame(Identification id, const Mat &image,
                  const vector<Rect> &hotspots,
                  const vector<CarRankFeature> &candidates)
-        : Frame(id),
+        : Frame(id,image),
           image_(image),
           hotspots_(hotspots),
           candidates_(candidates) {
@@ -315,10 +331,10 @@ public:
 
 class FaceRankFrame: public Frame {
 public:
-    FaceRankFrame(Identification id, const FaceRankFeature &datum,
+    FaceRankFrame(Identification id,Mat &img,
                   const vector<Rect> &hotspots,
                   const vector<FaceRankFeature> &candidates)
-        : Frame(id),
+        : Frame(id,img),
           datum_(datum),
           hotspots_(hotspots),
           candidates_(candidates) {
@@ -326,11 +342,13 @@ public:
 
     ~FaceRankFrame() {
     }
-
-    const vector<Rect> &hotspots_;
-    const vector<FaceRankFeature> &candidates_;
+    void set_feature(FaceRankFeature feature){
+        datum_=feature;
+    }
+    vector<Rect> hotspots_;
+    vector<FaceRankFeature> candidates_;
     vector<Score> result_;
-    const FaceRankFeature &datum_;
+    FaceRankFeature datum_;
 };
 
 }
