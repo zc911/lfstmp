@@ -172,7 +172,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
             } else if (attrs[i].confidence > attrs[i].threshold_upper) {
                 nac->set_name(PEDESTRIAN_ATTR_FEMALE_);
             } else {
-                nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
+                nac->set_name(PEDESTRIAN_ATTR_UNKNOWN_);
             }
             nac->set_confidence(attrs[i].confidence);
             nac->set_id(i);
