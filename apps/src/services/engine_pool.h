@@ -128,7 +128,8 @@ public:
       }
 
     }
-
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
+    modelsMap->clearModels();
     cout << "Engine pool worker number: " << workers_.size() << endl;
     stop_ = false;
   }
