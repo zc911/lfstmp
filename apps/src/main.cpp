@@ -213,9 +213,9 @@ int main(int argc, char *argv[]) {
     if (FLAGS_encrypt) {
         config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 #endif
-    //    StartDogMonitor();
-      //  if (CheckHardware())
-        //    return -1;
+        StartDogMonitor();
+        if (CheckHardware())
+            return -1;
 #ifdef DEBUG
     } else {
         // in DEBUG mode, encrypt is false in default
