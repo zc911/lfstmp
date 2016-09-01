@@ -29,15 +29,16 @@ MarkerCaffeSsdDetector::MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
-#if DEBUG
-    net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-        new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
+    string deploy_content;
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    net_->CopyTrainedLayersFrom(config.model_file);
+    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    net_.reset(
+        new Net<float>(config.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+
     Blob<float> *input_layer = net_->input_blobs()[0];
 
     num_channels_ = input_layer->channels();
