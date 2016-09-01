@@ -84,7 +84,8 @@ public:
     for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
       config_->AddEntry("System/GpuId", AnyConversion(gpuId));
-      int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+
+           int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
       cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
       for (int i = 0; i < threadNum; ++i) {
@@ -127,7 +128,8 @@ public:
       }
 
     }
-
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
+    modelsMap->clearModels();
     cout << "Engine pool worker number: " << workers_.size() << endl;
     stop_ = false;
   }

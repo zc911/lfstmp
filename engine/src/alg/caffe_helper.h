@@ -13,6 +13,8 @@
 #include <vector>
 #include <algorithm>
 #include <opencv2/core/core.hpp>
+#include <watch_dog.h>
+#include "fs_util.h"
 #include "model/basic.h"
 #include "model/model.h"
 

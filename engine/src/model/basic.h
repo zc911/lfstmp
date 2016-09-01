@@ -12,7 +12,8 @@
 #include <vector>
 #include <utility>
 #include <opencv2/core/core.hpp>
-
+#include "fs_util.h"
+#include "watchdog/watch_dog.h"
 using namespace std;
 
 namespace dg {
@@ -54,6 +55,60 @@ enum Operations
     OPERATION_MAX = 1 << 63
 };
 
+class ModelsMap {
+public:
+
+    static ModelsMap *GetInstance() {
+        static ModelsMap instance;
+        return &instance;
+    }
+    int getModelContent(string file, string & content) {
+        map<string, string>::iterator itr = models_.find(file);
+        if (itr != models_.end()) {
+            content = models_[file];
+            return 1 ;
+
+        }
+#if DEBUG
+
+        content = ReadStringFromFile(file, "rb");
+
+#else
+        int length;
+        length = FileSize(file);
+        FILE *fp = fopen(file.c_str(), "rb");
+        if (fp == NULL) {
+            return -1;
+        }
+        unsigned char *src = (unsigned char *)calloc(length, 1);
+
+        length = fread(src, sizeof(char), length, fp);
+        fclose(fp);
+        unsigned char * dst = (unsigned char *)calloc(length, 1);
+        DecryptModel((unsigned char *)src, length, dst);
+        if (file.substr (file.size() - 3, 3) == "txt") {
+            string content_tmp((char *)dst);
+            content = content_tmp;
+        } else {
+            string content_tmp((char *)dst, length);
+            content = content_tmp;
+        }
+
+        free(src);
+        free(dst);
+#endif
+        models_.insert(std::pair<string, string>(file, content));
+
+        return 0;
+    }
+    void clearModels() {
+        models_.clear();
+    }
+private:
+    ModelsMap() {};
+    map<string, string> models_;
+};
+
 /**
  * This class defines the operations each request(Frame/FrameBatch) asked for.
  * The operation value can be OPERATION_VEHICLE_DETECT or anyone defined in enum OperationValue .
@@ -78,11 +133,11 @@ typedef struct Operation {
     void Set(Operations op) {
         operate = (operate | op);
         if (op >= OPERATION_VEHICLE_DETECT
-            && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+                && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
         if (op >= OPERATION_FACE_DETECTOR
-            && op <= OPERATION_FACE_FEATURE_VECTOR) {
+                && op <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
     }
@@ -90,11 +145,11 @@ typedef struct Operation {
     void Set(OperationValue opv) {
         operate = (operate | opv);
         if (opv >= OPERATION_VEHICLE_DETECT
-            && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
+                && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
         if (opv >= OPERATION_FACE_DETECTOR
-            && opv <= OPERATION_FACE_FEATURE_VECTOR) {
+                && opv <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
     }

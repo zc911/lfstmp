@@ -33,7 +33,7 @@ namespace dg {
 
 class CarMatcher {
 public:
-    CarMatcher(unsigned int maxImageNum);
+    CarMatcher(unsigned int maxImageNum,int gpuid);
     virtual ~CarMatcher();
 
 //    void ExtractDescriptor(const Mat &img, CarRankFeature &des);
