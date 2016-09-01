@@ -100,6 +100,7 @@ private:
     ushort *db_width_cuda_;
     ushort *db_height_cuda_;
     int *score_cuda_;
+    int gpu_id_;
 
     vector<int>
         computeMatchScoreGpu(const CarRankFeature &des, const Rect &in_box, const vector<CarRankFeature> &all_des);

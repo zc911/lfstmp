@@ -33,21 +33,22 @@ public:
         return max_candidates_size_;
     }
     int max_candidates_size_;
-    bool enable_ranker_;
 
 };
 
-class CarRankEngine: public RankEngine {
+class SimpleRankEngine: public RankEngine {
 public:
-    CarRankEngine(const Config &config);
-    virtual ~CarRankEngine();
+    SimpleRankEngine(const Config &config);
+    virtual ~SimpleRankEngine();
 
-    vector<Score> Rank(const Mat &image, const Rect &hotspot,
-                       const vector<CarRankFeature> &candidates);
+    vector<Score> Rank();
 
 private:
     Identification id_;
     Processor *processor_;
+    bool enable_ranker_face_;
+    bool enable_ranker_vehicle_;
+
 };
 
 class FaceRankEngine: public RankEngine {
