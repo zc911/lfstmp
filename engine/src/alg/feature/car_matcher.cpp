@@ -22,7 +22,7 @@ CarMatcher::CarMatcher(unsigned int maxImageCount,int gpuid) {
     min_score_thr_ = 100;
     profile_time_ = false;
     max_image_count_ = maxImageCount;
-
+    gpu_id_=gpuid;
 }
 
 CarMatcher::~CarMatcher() {

@@ -27,7 +27,7 @@ bool CarRankProcessor::process(Frame *frame) {
 
     //process frame
     CarRankFrame *cframe = (CarRankFrame *) frame;
-    cframe->result_ = rank(cframe->image_, cframe->hotspots_[0], cframe->candidates_);
+    cframe->result_ = rank(cframe->payload()->data(), cframe->hotspots_[0], cframe->candidates_);
 
     frame->set_status(FRAME_STATUS_FINISHED);
     return true;

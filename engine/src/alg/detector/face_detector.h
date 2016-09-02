@@ -51,6 +51,8 @@ private:
     vector<float> area_;
     vector<float> ratio_;
     vector<float> resize_ratios_;
+    bool device_setted_ = false;
+    int gpu_id_;
 };
 
 } /* namespace dg */
