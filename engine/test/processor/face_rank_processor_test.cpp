@@ -102,7 +102,8 @@ bool readFeature(string basePath, int index) {
         EXPECT_TRUE(frFeature.Deserialize(feature));
         candidates->push_back(frFeature);
     }
-    FaceRankFrame *frame = new FaceRankFrame(index, *faceRankFeature, *hotspots, *candidates);
+    Mat img;
+    FaceRankFrame *frame = new FaceRankFrame(index,img, *hotspots, *candidates);
     frame->set_operation(getOperation());
     fbhelper->getFrameBatch()->AddFrame(frame);
     frprocessor->Update(frame);

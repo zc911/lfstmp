@@ -12,6 +12,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
       batch_size_(config.batch_size),
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
+    gpu_id_=config.gpu_id;
     if (use_gpu_) {
         Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
@@ -167,6 +168,12 @@ void FaceDetector::NMS(vector<Detection> &p, float threshold) {
 }
 
 vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
+    if (!device_setted_) {
+        Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
+        device_setted_ = true;
+    }
+
     vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
     vector<vector<Detection>> boxes;
