@@ -102,7 +102,7 @@ public:
 
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *old_obj = *itr;
 
             if (old_obj->id() == obj->id()) {
@@ -117,7 +117,7 @@ public:
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *obj = *itr;
             if (obj->id() == id) {
                 return *itr;
@@ -292,45 +292,37 @@ public:
     CarRankFrame(Identification id, const Mat &image,
                  const vector<Rect> &hotspots,
                  const vector<CarRankFeature> &candidates)
-        : Frame(id),
-          image_(image),
+        : Frame(id, image),
           hotspots_(hotspots),
           candidates_(candidates) {
     }
     ~CarRankFrame() {
     }
-    CarRankFrame(const CarRankFrame &f)
-        : Frame(f.id_),
-          image_(f.image_),
-          hotspots_(f.hotspots_),
-          candidates_(f.candidates_) {
-    }
 
-    const Mat &image_;
     const vector<Rect> &hotspots_;
     const vector<CarRankFeature> &candidates_;
-
     vector<Score> result_;
 };
 
 class FaceRankFrame: public Frame {
 public:
-    FaceRankFrame(Identification id, const FaceRankFeature &datum,
+    FaceRankFrame(Identification id, Mat &img,
                   const vector<Rect> &hotspots,
                   const vector<FaceRankFeature> &candidates)
-        : Frame(id),
-          datum_(datum),
+        : Frame(id, img),
           hotspots_(hotspots),
           candidates_(candidates) {
     }
 
     ~FaceRankFrame() {
     }
-
-    const vector<Rect> &hotspots_;
-    const vector<FaceRankFeature> &candidates_;
+    void set_feature(FaceRankFeature feature) {
+        datum_ = feature;
+    }
+    vector<Rect> hotspots_;
+    vector<FaceRankFeature> candidates_;
     vector<Score> result_;
-    const FaceRankFeature &datum_;
+    FaceRankFeature datum_;
 };
 
 }

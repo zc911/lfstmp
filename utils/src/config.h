@@ -30,6 +30,7 @@ class Config {
     bool KeyExist(string const& section, string const& entry);
     void DumpValues();
 
+
  private:
     bool loadJson(string const& configFile);
 
