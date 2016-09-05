@@ -36,7 +36,7 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
     }
 #if DEBUG
 #else
-    enable_ranker_car_ = enable_ranker_face_ && (CheckFeature(FEATURE_CAR_RANK, false) == ERR_FEATURE_ON);
+    enable_ranker_car_ = enable_ranker_car_ && (CheckFeature(FEATURE_CAR_RANK, false) == ERR_FEATURE_ON);
     enable_ranker_face_ = enable_ranker_face_ && (CheckFeature(FEATURE_FACE_RANK, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
 
 #endif

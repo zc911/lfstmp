@@ -171,6 +171,8 @@ static const string FILE_PLATE_ROIP_SYMBOL = "File/Plate/RoipSymbol";
 static const string FILE_PLATE_ROIP_PARAM = "File/Plate/RoipParam";
 static const string FILE_PLATE_CHRECOG_SYMBOL = "File/Plate/ChrecogSymbol";
 static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
+static const string FILE_PLATE_COLOR_SYMBOL = "File/Plate/ColorSymbol";
+static const string FILE_PLATE_COLOR_PARAM = "File/Plate/ColorParam";
 
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
 static const string ADVANCED_PLATE_MXNET_IMGSW = "Advanced/PlateMxnet/ImgStandardWidth";
