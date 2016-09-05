@@ -85,6 +85,9 @@ struct LPDR_Info_S {
 	
 	LPDR_HANDLE hCHRECOG; //char recognition module
 #endif	
+
+  LPDR_HANDLE hCOLOR;
+  
 	size_t maxbuffer_size; 
 	mx_float *pfBuffer; 
 	
