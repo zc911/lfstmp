@@ -26,6 +26,8 @@ public:
         string pregParamFile;
         string chrecogSymbolFile;
         string chrecogParamFile;
+        string colorSymbolFile;
+        string colorParamFile;
         int batchsize = 1;
         bool is_model_encrypt = true;
         int gpuId;
