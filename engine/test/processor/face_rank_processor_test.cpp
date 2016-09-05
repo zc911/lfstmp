@@ -103,7 +103,7 @@ bool readFeature(string basePath, int index) {
         candidates->push_back(frFeature);
     }
     Mat img;
-    FaceRankFrame *frame = new FaceRankFrame(index,img, *hotspots, *candidates);
+    FaceRankFrame *frame = new FaceRankFrame(index, img, *hotspots, *candidates);
     frame->set_operation(getOperation());
     fbhelper->getFrameBatch()->AddFrame(frame);
     frprocessor->Update(frame);
