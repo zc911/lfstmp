@@ -38,28 +38,6 @@ add_custom_target(test
         COMMAND echo -n "/release/data/matrix_apps_data_" >> task.txt
         COMMAND echo -n `cat version` >> task.txt
         COMMAND echo ".tar" >> task.txt
-        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
-            then echo "Loading models..."
-            && wget -rq -R html ${DATA_URL}/
-            && wget -rq -R html ${RELEASE_URL}/internal/data/
-            && wget -rqi task.txt -O matrix_models.tar
-            && tar -xf matrix_models.tar
-            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
-            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
-            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
-            && rm -rf bin matrix_models.tar \; fi
-        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version version > /dev/null
-            || (echo "Updating models..."
-            && rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data
-            && wget -rq -R html ${DATA_URL}/
-            && wget -rq -R html ${RELEASE_URL}/internal/data/
-            && wget -rqi task.txt -O matrix_models.tar
-            && tar -xf matrix_models.tar
-            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
-            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
-            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
-            && rm -rf bin matrix_models.tar
-            && mv version ${PROJECT_SOURCE_DIR}/bin/test/data/version)
         COMMAND rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data/testimg || true
         COMMAND echo "Loading data..." && wget -rq -R html ${DATA_URL}/testimg/
             && mv ${DATA_URL}/testimg ${PROJECT_SOURCE_DIR}/bin/test/data/testimg
