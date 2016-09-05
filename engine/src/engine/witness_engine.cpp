@@ -15,8 +15,8 @@ WitnessEngine::WitnessEngine(const Config &config) {
     vehicle_processor_ = NULL;
     face_processor_ = NULL;
     is_init_ = false;
-
     init(config);
+
 }
 
 WitnessEngine::~WitnessEngine() {

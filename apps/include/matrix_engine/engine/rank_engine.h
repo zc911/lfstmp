@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_ENGINE_RANK_ENGINE_H_
@@ -33,37 +33,41 @@ public:
         return max_candidates_size_;
     }
     int max_candidates_size_;
-    bool enable_ranker_;
 
 };
 
-class CarRankEngine: public RankEngine {
+class SimpleRankEngine: public RankEngine {
 public:
-    CarRankEngine(const Config &config);
-    virtual ~CarRankEngine();
+    SimpleRankEngine(const Config &config);
+    virtual ~SimpleRankEngine();
 
-    vector<Score> Rank(const Mat &image, const Rect &hotspot,
-                       const vector<CarRankFeature> &candidates);
+    void RankCar(CarRankFrame * frame);
+    void RankFace(FaceRankFrame * frame);
 
 private:
     Identification id_;
-    Processor *processor_;
+    Processor *car_ranker_ = NULL;
+    bool enable_ranker_face_;
+    bool enable_ranker_car_;
+    Processor *face_detector_ = NULL;
+    Processor *face_extractor_ = NULL;
+    Processor *face_ranker_ = NULL;
 };
 
-class FaceRankEngine: public RankEngine {
+// class FaceRankEngine: public RankEngine {
 
-public:
-    FaceRankEngine(const Config &config);
-    virtual ~FaceRankEngine();
-    vector<Score> Rank(const Mat &image, const Rect &hotspot,
-                       const vector<FaceRankFeature> &candidates);
-private:
-    void init(const Config &config);
-    Identification id_;
-    Processor *detector_;
-    Processor *extractor_;
-    Processor *ranker_;
-};
+// public:
+//     FaceRankEngine(const Config &config);
+//     virtual ~FaceRankEngine();
+//     vector<Score> Rank(const Mat &image, const Rect &hotspot,
+//                        const vector<FaceRankFeature> &candidates);
+// private:
+//     void init(const Config &config);
+//     Identification id_;
+//     Processor *detector_;
+//     Processor *extractor_;
+//     Processor *ranker_;
+// };
 
 }
 

@@ -1,5 +1,4 @@
 
-#include "LPDetectRecog.hpp"
 #include "LPFCNN.hpp"
 #include "LPRPN.hpp"
 #include "LPROIP.hpp"
@@ -7,6 +6,7 @@
 #include "LPCHRECOG.hpp"
 #include "LPThreadFuncs.hpp"
 #include "LPThreadFuncsQueue.hpp"
+#include "LPCOLOR.hpp"
 
 #define LPDR_CLASS_NUM 79
 
@@ -23,6 +23,7 @@ const char *paInv_chardict[LPDR_CLASS_NUM] = {"_", "0", "1", "2", "3", "4", "5",
 int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pstIIR, LPDRInfo_S *pstOut);
 int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNum, LPDR_OutputSet_S *pstOutputSet);
 int doRecogColors(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet);
+int doRecogColors_NN(LPDR_HANDLE hCOLOR, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_S *pstOutputSet);
 
 int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
 {
@@ -30,8 +31,8 @@ int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
     *pHandle = (LPDR_HANDLE)pstLPDR;
     int dwDevType = pstConfig->dwDevType;
     int dwDevID = pstConfig->dwDevID;
-		pstLPDR->dwDev_Type = dwDevType;
-		pstLPDR->dwDev_ID = dwDevID;
+    pstLPDR->dwDev_Type = dwDevType;
+    pstLPDR->dwDev_ID = dwDevID;
     
     int dwGroupSize = pstConfig->stFCNN.adwShape[0];
     pstLPDR->pvBBGroupOfROIP = new vector<LPRectInfo>[dwGroupSize];
@@ -85,6 +86,8 @@ int LPDR_Create(LPDR_HANDLE *pHandle, LPDRConfig_S *pstConfig)
     LPPREG_Create(pstConfig->stPREG, dwDevType, dwDevID, &pstLPDR->hPREG);
     LPCHRECOG_Create(pstConfig->stCHRECOG, dwDevType, dwDevID, &pstLPDR->hCHRECOG);
 #endif
+
+    LPCOLOR_Create(pstConfig->stCOLOR, dwDevType, dwDevID, &pstLPDR->hCOLOR);
 
     return 0;
 }
@@ -431,7 +434,9 @@ int LPDR_Process(LPDR_HANDLE handle, LPDR_ImageSet_S *pstImgSet, LPDR_OutputSet_
 #else
   doRecognitions(handle, pstFCNNImgSet, dwImgNum, pstOutputSet);
 #endif
-  doRecogColors(handle, pstImgSet, pstOutputSet);
+//  doRecogColors(handle, pstImgSet, pstOutputSet);
+
+  doRecogColors_NN(pstLPDR->hCOLOR, pstImgSet, pstOutputSet);
 
   ///////////////////////////////
   //release resources
@@ -506,6 +511,9 @@ int LPDR_Release(LPDR_HANDLE handle)
     LPPREG_Release(pstLPDR->hPREG);
     LPCHRECOG_Release(pstLPDR->hCHRECOG);
 #endif
+
+    LPCOLOR_Release(pstLPDR->hCOLOR);
+    
     return 0;
 }
 
@@ -651,8 +659,8 @@ int doRecognitions(LPDR_HANDLE handle, LPDR_ImageInner_S *pstImgSet, int dwImgNu
   delete []pfBlkBuffer_1;
 #if LPDR_TIME&1
   gettimeofday(&end, NULL);
-	diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
-	printf("doRecognitions cost:%.2fms\n", diff);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+end.tv_usec-start.tv_usec) / 1000.f;
+  printf("doRecognitions cost:%.2fms\n", diff);
 #endif
   return 0;
 }
@@ -823,7 +831,6 @@ int doRecogOne(LPDR_HANDLE hPolyReg, LPDR_HANDLE hChRecog, InputInfoRecog_S *pst
 }
 
 
-
 int mainlandLPCheck(LPDRInfo_S *pstOut)
 {
   int dwI;
@@ -870,8 +877,7 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
     
     pstOut->dwLPLen--;
   }
-
- 
+  
   //only WJ has 8 chars
   if (pstOut->dwLPLen==8 && (pstOut->adwLPNumber[1]!=19 && pstOut->adwLPNumber[0]!=31))
   {
@@ -894,7 +900,8 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
       return 3;
     }
   }
-  
+
+
   //there is no two province characters
   int dwNum = 0;
   for (dwI = 0; dwI < pstOut->dwLPLen; dwI++)
@@ -925,8 +932,8 @@ int mainlandLPCheck(LPDRInfo_S *pstOut)
         return 5;
       }
     }
-  } 
- 
+  }
+
   //mainlad only has 7 or 8 chars, but we allow it has 6 at least.
   if (pstOut->dwLPLen < 6 || pstOut->dwLPLen > 8) return 1;
   
@@ -974,9 +981,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   }
 
 #if LPDR_TIME&0
-	gettimeofday(&end, NULL);
-	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("doRectifyWithPolyReg_0 cost:%.2fms\n", diff);
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("doRectifyWithPolyReg_0 cost:%.2fms\n", diff);
 #endif
 
 #if LPDR_TIME&0
@@ -989,9 +996,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   int adwPolygonOut[12];
   LPPREG_Process(hPolyReg, &stImage, adwPolygonOut);
 #if LPDR_TIME&0
-	gettimeofday(&end, NULL);
-	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("doRectifyWithPolyReg_1 cost:%.2fms\n", diff);
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("doRectifyWithPolyReg_1 cost:%.2fms\n", diff);
 #endif
 
 #if LPDR_DBG
@@ -1035,9 +1042,9 @@ int doRectifyWithPolyReg(LPDR_HANDLE hPolyReg, InputInfoRecog_S *pstIIR, int adw
   pstIIR->dwSepY = dwSepY;
   
 #if LPDR_TIME&0
-	gettimeofday(&end, NULL);
-	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("doRectifyWithPolyReg_2 cost:%.2fms\n", diff);
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("doRectifyWithPolyReg_2 cost:%.2fms\n", diff);
 #endif
 #if LPDR_DBG
   {
@@ -1146,9 +1153,9 @@ int doRecogOneRow(LPDR_HANDLE hChRecog, LPDR_ImageInner_S *pstImage, LPRect rect
     }
   }
 #if LPDR_TIME&0
-	gettimeofday(&end, NULL);
-	diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
-	printf("doRecogOneRow cost:%.2fms\n", diff);
+  gettimeofday(&end, NULL);
+  diff = ((end.tv_sec-start.tv_sec)*1000000+ end.tv_usec-start.tv_usec) / 1000.f;
+  printf("doRecogOneRow cost:%.2fms\n", diff);
 #endif
 //  cout << pstOut->dwLPLen << endl;
   return dwBestRet;

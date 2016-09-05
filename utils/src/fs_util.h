@@ -48,9 +48,10 @@ static void ReadFromFile(string filePath, char *data, int &length, string mode) 
         return;
     }
     cout << "File len: " << length << endl;
-    data = new char[length];
+    data = (char *)malloc(length);
 
     length = fread(data, sizeof(char), length, file);
+    cout<<length<<endl;
     fclose(file);
     return;
 }
@@ -61,13 +62,12 @@ static string ReadStringFromFile(string filePath, string mode) {
     if (file == NULL) {
         return "";
     }
-    char data[length];
+    char *data = (char *)malloc(length);
     memset(data, 0, length);
-
     length = fread(data, sizeof(char), length, file);
-    data[length] = 0;
     fclose(file);
-    string result(data);
+    string result(data,length);
+    free(data);
     return result;
 }
 // TODO

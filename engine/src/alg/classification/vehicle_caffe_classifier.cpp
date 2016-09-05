@@ -6,6 +6,7 @@
  */
 
 #include "vehicle_caffe_classifier.h"
+#include "alg/caffe_helper.h"
 
 namespace dg {
 
@@ -26,17 +27,17 @@ VehicleCaffeClassifier::VehicleCaffeClassifier(const VehicleCaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
 
-#if DEBUG
-    net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
-    //   net_.reset(
-    //      new Net<float>(caffe_config_.deploy_file, TEST));
 
-    net_->CopyTrainedLayersFrom(caffe_config_.model_file);
+    string deploy_content;
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
+
+    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    net_.reset(
+        new Net<float>(config.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
     Blob<float> *input_layer = net_->input_blobs()[0];

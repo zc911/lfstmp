@@ -179,7 +179,7 @@ ifneq ($(CPU_ONLY), 1)
 endif
 
 #LIBRARIES += glog gflags protobuf boost_system boost_filesystem boost_regex m hdf5_hl hdf5
-LIBRARIES += glog gflags protobuf boost_system boost_filesystem boost_regex m hdf5_hl hdf5 watchdog hasp ssl crypto z
+LIBRARIES += glog gflags protobuf boost_system boost_filesystem boost_regex m hdf5_hl hdf5  hasp ssl crypto z
 
 # handle IO dependencies
 USE_LEVELDB ?= 1
@@ -417,7 +417,6 @@ else
 endif
 LDFLAGS += $(foreach librarydir,$(LIBRARY_DIRS),-L$(librarydir)) $(PKG_CONFIG) \
 		$(foreach library,$(LIBRARIES),-l$(library))
-LDFLAGS += -L../../watch_dog/dist/lib/Linux-x86_64
 PYTHON_LDFLAGS := $(LDFLAGS) $(foreach library,$(PYTHON_LIBRARIES),-l$(library))
 
 # 'superclean' target recursively* deletes all files ending with an extension
