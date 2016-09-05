@@ -44,7 +44,9 @@ public:
   }
 
   void Run() {
+
     func();
+
     Finish();
   }
 
@@ -84,14 +86,15 @@ public:
     for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
       config_->AddEntry("System/GpuId", AnyConversion(gpuId));
-      int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+
+           int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
       cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
       for (int i = 0; i < threadNum; ++i) {
         string name = "engines_" + to_string(gpuId) + "_" + to_string(i);
 
         EngineType *engine = new EngineType(*config_);
-        cout << "Start thread: " << name << endl;
+        cout << "Start thread: " << name<<" "<<engine << endl;
 
         workers_.emplace_back([this, engine, name] {
           for (; ;) {
@@ -115,9 +118,12 @@ public:
 
             // assign the current engine instance to task
             task->apps = (void *) engine;
+
             // task first binds the engine instance to the specific member methods
             // and then invoke the binded function
+
             task->Run();
+
 
           }
           cout << "end thread: " << name << endl;
@@ -127,7 +133,8 @@ public:
       }
 
     }
-
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
+    modelsMap->clearModels();
     cout << "Engine pool worker number: " << workers_.size() << endl;
     stop_ = false;
   }

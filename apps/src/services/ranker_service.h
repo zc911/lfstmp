@@ -16,6 +16,7 @@
 #include "common.pb.h"
 #include "ranker.grpc.pb.h" //from apps
 #include "engine/rank_engine.h"
+#include "engine_pool.h"
 using namespace cv;
 using namespace std;
 
@@ -33,8 +34,8 @@ public:
 private:
     string name_;
     const Config *config_;
-    CarRankEngine car_ranker_;
-    FaceRankEngine face_ranker_;
+    int limits_;
+
     MatrixError (RankerAppsService::*getRankedDefaultVector)(const FeatureRankingRequest *,
                                                              FeatureRankingResponse *);
     MatrixError getRankedCarVector(const FeatureRankingRequest *request,
