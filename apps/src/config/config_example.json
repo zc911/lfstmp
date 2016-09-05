@@ -37,8 +37,8 @@
   "Advanced": {
     "Detection": {
       "Rescale": 400,
-      "TargetMinSize": 300.0,
-      "TargetMaxSize": 450.0,
+      "TargetMinSize": 400.0,
+      "TargetMaxSize": 600.0,
       "CarOnly": false,
       "BatchSize": 1
     },

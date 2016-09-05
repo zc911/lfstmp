@@ -23,16 +23,18 @@ static void initConfig() {
     config->is_model_encrypt = true;
     baseModelPath = "data/1/";
 #endif
-    config->fcnnSymbolFile = baseModelPath + "801.txt";
-    config->fcnnParamFile = baseModelPath + "801.dat";
-    config->pregSymbolFile = baseModelPath + "802.txt";
-    config->pregParamFile = baseModelPath + "802.dat";
+    config->fcnnSymbolFile = baseModelPath + "802.txt";
+    config->fcnnParamFile = baseModelPath + "802.dat";
+    config->pregSymbolFile = baseModelPath + "803.txt";
+    config->pregParamFile = baseModelPath + "803.dat";
     config->chrecogSymbolFile = baseModelPath + "800.txt";
     config->chrecogParamFile = baseModelPath + "800.dat";
-    config->roipSymbolFile = baseModelPath + "803.txt";
-    config->roipParamFile = baseModelPath + "803.dat";
-    config->rpnSymbolFile = baseModelPath + "804.txt";
-    config->rpnParamFile = baseModelPath + "804.dat";
+    config->roipSymbolFile = baseModelPath + "804.txt";
+    config->roipParamFile = baseModelPath + "804.dat";
+    config->rpnSymbolFile = baseModelPath + "805.txt";
+    config->rpnParamFile = baseModelPath + "805.dat";
+    config->colorSymbolFile = baseModelPath + "801.txt";
+    config->colorParamFile = baseModelPath + "801.dat";
 
     config->gpuId = 0;
     config->imageSH = 600;

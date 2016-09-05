@@ -339,6 +339,10 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMx
     pConfig->chrecogSymbolFile = modelPath + (string) data_config_.Value(FILE_PLATE_CHRECOG_SYMBOL);
     pConfig->chrecogParamFile = modelPath + (string) data_config_.Value(FILE_PLATE_CHRECOG_PARAM);
 
+    pConfig->colorSymbolFile = modelPath + (string) data_config_.Value(FILE_PLATE_COLOR_SYMBOL);
+    pConfig->colorParamFile = modelPath + (string) data_config_.Value(FILE_PLATE_COLOR_PARAM);
+
+
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
     pConfig->gpuId = gpu_id;
     pConfig->imageSW = (int) cconfig.Value(ADVANCED_PLATE_MXNET_IMGSW);
