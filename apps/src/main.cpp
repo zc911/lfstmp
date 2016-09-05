@@ -103,7 +103,7 @@ void serveWitness(Config *config, int userPort = 0) {
 
 void serveRanker(Config *config, int userPort = 0) {
 
-    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance();
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
     engine_pool->Run(config);
 
     string protocolType = (string) config->Value("ProtocolType");

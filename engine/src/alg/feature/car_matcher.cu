@@ -29,7 +29,8 @@ CarMatcher::CarMatcher(unsigned int maxImageNum,int gpuid) {
     min_score_thr_ = 100;
     profile_time_ = false;
     max_image_num_ = maxImageNum;
-    cudaSetDevice(0);
+    gpu_id_=gpuid;
+    cudaSetDevice(gpu_id_);
     CUDA_CALL(cudaStreamCreate(&stream_));
     CUDA_CALL(
         cudaMallocManaged(&query_pos_cuda_, FEATURE_NUM_CUDA * sizeof(ushort) * 2, cudaMemAttachHost));
@@ -208,6 +209,7 @@ vector<int> CarMatcher::computeMatchScoreGpu(
             }
         }
     }
+    cudaSetDevice(gpu_id_);
 
     CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_pos_cuda_));
     CUDA_CALL(cudaStreamAttachMemAsync(stream_, query_desc_cuda_));

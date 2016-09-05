@@ -34,7 +34,6 @@ static const string BODY_RELATIVE_FACE_BOTTOM = "Advanced/FaceDetect/BodyRelativ
 
 static const string SYSTEM_THREADS = "System/Threads";
 
-static const string RANKER_DEFAULT_TYPE = "Ranker/DefaultType";
 static const string VERSION_MODEL = "Version/Model";
 static const string SERVICE_MODEL = "Version/Code";
 
