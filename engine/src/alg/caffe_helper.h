@@ -390,7 +390,69 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
 
     return fob;
 }
-
+// adaptive histogram equalization
+Mat adap_histeq(Mat& img) {
+    Mat bgr[] = { Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
+    CV_8UC1), Mat(img.rows, img.cols, CV_8UC1) };
+    split(img, bgr);
+    Ptr<CLAHE> clahe = createCLAHE(2.0, Size(8.0, 8.0));
+    clahe->apply(bgr[0], bgr[0]);
+    clahe->apply(bgr[1], bgr[1]);
+    clahe->apply(bgr[2], bgr[2]);
+    Mat hist_img(img.rows, img.cols, CV_8UC3);
+    merge(bgr, (size_t) 3, hist_img);
+    return hist_img;
+}
+// histogram equalization
+Mat histeq(Mat& img) {
+    Mat bgr[] = { Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
+    CV_8UC1), Mat(img.rows, img.cols, CV_8UC1) };
+    split(img, bgr);
+    Mat bbb(img.rows, img.cols, CV_8UC3);
+    int from_to[] = { 0, 0, 0, 1, 0, 2 };
+    mixChannels(&bgr[0], 1, &bbb, 1, from_to, 3);
+    cvtColor(bbb, bgr[0], CV_BGR2GRAY);
+    equalizeHist(bgr[0], bgr[0]);
+    mixChannels(&bgr[1], 1, &bbb, 1, from_to, 3);
+    cvtColor(bbb, bgr[1], CV_BGR2GRAY);
+    equalizeHist(bgr[1], bgr[1]);
+    mixChannels(&bgr[2], 1, &bbb, 1, from_to, 3);
+    cvtColor(bbb, bgr[2], CV_BGR2GRAY);
+    equalizeHist(bgr[2], bgr[2]);
+    Mat hist_img(img.rows, img.cols, CV_8UC3);
+    merge(bgr, (size_t) 3, hist_img);
+    return hist_img;
+}
+// random crop
+Mat random_crop(Mat& img, int border) {
+    if (border == 0) {
+        return img;
+    }
+    srand(time(NULL));
+    int start_w = rand() % border;
+    int width = img.cols - border;
+    int start_h = rand() % border;
+    int height = img.rows - border;
+    Rect rect = Rect(start_w, start_h, width, height);
+    return img(rect);
+}
+// center crop
+Mat center_crop(Mat& img, int border) {
+    if (border == 0) {
+        return img;
+    }
+    int start_w = border / 2;
+    int width = img.cols - border;
+    int start_h = border / 2;
+    int height = img.rows - border;
+    Rect rect = Rect(start_w, start_h, width, height);
+    return img(rect);
+}
+Mat flip_(Mat& img) {
+    Mat flipped_img(img.rows, img.cols, CV_8UC3);
+    flip(img, flipped_img, 1);
+    return flipped_img;
+}
 }
 
 #endif /* SRC_ALG_CAFFE_HELPER_H_ */
