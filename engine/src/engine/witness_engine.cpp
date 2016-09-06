@@ -299,12 +299,17 @@ void WitnessEngine::init(const Config &config) {
             } else {
                 VehicleCaffeDetectorConfig mConfig;
                 VehicleCaffeDetectorConfig wConfig;
+                VehicleBeltConfig bConfig;
+
                 configFilter->createMarkersConfig(config, mConfig);
                 configFilter->createWindowConfig(config, wConfig);
+                configFilter->createDriverBeltConfig(config, bConfig);
+                configFilter->createCoDriverBeltConfig(config, bConfig);
+
                 #if DEBUG
-                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,(bool) config.Value(DEBUG_VISUALIZATION));
+                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,bConfig,(bool) config.Value(DEBUG_VISUALIZATION));
                 #else 
-                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,false);
+                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,bConfig,false);
                 #endif
             }
 

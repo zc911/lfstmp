@@ -21,9 +21,6 @@ using namespace std;
 using namespace caffe;
 using namespace cv;
 namespace dg {
-
-class CaffeBeltClassifier {
-public:
     typedef struct {
 
         bool is_model_encrypt = true;
@@ -35,18 +32,21 @@ public:
         string deploy_file;
         string model_file;
     } VehicleBeltConfig;
-    CaffeBeltClassifier(const VehicleColorConfig &config);
+class CaffeBeltClassifier {
+public:
+
+    CaffeBeltClassifier(const VehicleBeltConfig &config);
     virtual ~CaffeBeltClassifier();
     vector<vector<Prediction> > ClassifyAutoBatch(const vector<Mat> &imgs);
 protected:
-    vector<vector<Prediction> > ClassifyBatch(const vector<Mat> &imgs);
+    vector<vector<float> > ClassifyBatch(const vector<Mat> &imgs);
 
     std::vector<Blob<float> *> PredictBatch(vector<Mat> imgs);
     boost::shared_ptr<caffe::Net<float> > net_;
     int num_channels_;
     cv::Size input_geometry_;
     bool device_setted_;
-    CaffeBeltClassifier caffe_config_;
+    VehicleBeltConfig caffe_config_;
     Mat means_;
     int rescale_;
 };

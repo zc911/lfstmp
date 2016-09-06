@@ -12,6 +12,7 @@
 #include "alg/detector/window_caffe_detector.h"
 #include "alg/detector/window_caffe_ssd_detector.h"
 #include "alg/detector/marker_caffe_ssd_detector.h"
+ #include "alg/classification/belt_classifier.h"
 namespace dg {
 
 class VehicleMarkerClassifierProcessor: public Processor {
@@ -20,7 +21,7 @@ public:
         WindowCaffeDetector::WindowCaffeConfig &wConfig,
         MarkerCaffeClassifier::MarkerConfig &mConfig);
     VehicleMarkerClassifierProcessor(VehicleCaffeDetectorConfig &wConfig,
-                                     VehicleCaffeDetectorConfig &mConfig,bool isVisualization);
+                                     VehicleCaffeDetectorConfig &mConfig,VehicleBeltConfig &bConfig,bool isVisualization);
     ~VehicleMarkerClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {
@@ -38,6 +39,8 @@ private:
     WindowCaffeDetector *detector_=NULL;
     WindowCaffeSsdDetector *ssd_window_detector_=NULL;
     MarkerCaffeSsdDetector *ssd_marker_detector_=NULL;
+    CaffeBeltClassifier *driver_belt_classifier_=NULL;
+
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;

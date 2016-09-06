@@ -36,7 +36,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     modelsMap->getModelContent(config.model_file,model_content);
         net_->CopyTrainedLayersFrom(config.model_file,model_content);
 
-
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
     input_geometry_ = cv::Size(config.target_max_size, config.target_min_size);
