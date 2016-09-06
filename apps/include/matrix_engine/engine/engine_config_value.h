@@ -66,6 +66,9 @@ static const string ADVANCED_STYLE_MODEL_NUM = "Advanced/Style/ModelNum";
 static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 
 static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
+
+static const string ADVANCED_DRIVER_BELT_BATCH_SIZE = "Advanced/DriverBelt/BatchSize";
+
 static const string ADVANCED_MARKER_MOT_CONFIDENCE =
     "Advanced/Marker/MOTConfidence";
 static const string ADVANCED_MARKER_BETLT_CONFIDENCE =
@@ -130,6 +133,10 @@ static const string FILE_MARKER_DEPLOY_MODEL = "File/Marker/DeployModel";
 static const string FILE_MARKER_ONLY_MODEL_PATH = "File/MarkerOnly/ModelPath";
 static const string FILE_MARKER_ONLY_TRAINED_MODEL = "File/MarkerOnly/TrainedModel";
 static const string FILE_MARKER_ONLY_DEPLOY_MODEL = "File/MarkerOnly/DeployModel";
+
+static const string FILE_DRIVER_BELT_MODEL_PATH = "File/DriverBelt/ModelPath";
+static const string FILE_DRIVER_BELT_TRAINED_MODEL = "File/DriverBelt/TrainedModel";
+static const string FILE_DRIVER_BELT_DEPLOY_MODEL = "File/DriverBelt/DeployModel";
 
 static const string FILE_PEDESTRIAN_ATTR_MODEL_PATH = "File/PedestrianAttr/ModelPath";
 static const string FILE_PEDESTRIAN_ATTR_TRAINED_MODEL = "File/PedestrianAttr/TrainedModel";

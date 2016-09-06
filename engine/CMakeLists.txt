@@ -48,4 +48,4 @@ LIST(APPEND LIBS pthread glog gflags leveldb jsoncpp crypto b64 snappy lmdb jpeg
 
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(test)
+#ADD_SUBDIRECTORY(test)
