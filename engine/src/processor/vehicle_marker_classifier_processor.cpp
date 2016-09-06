@@ -39,11 +39,13 @@ VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
 }
 VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
     VehicleCaffeDetectorConfig &wConfig,
-    VehicleCaffeDetectorConfig &mConfig, bool flag)
+    VehicleCaffeDetectorConfig &mConfig,VehicleBeltConfig &bConfig, bool flag)
     : Processor() {
 
     ssd_marker_detector_ = new MarkerCaffeSsdDetector(mConfig);
     ssd_window_detector_ = new WindowCaffeSsdDetector(wConfig);
+    driver_belt_classifier_ = new CaffeBeltClassifier(bConfig);
+
     window_target_min_ = wConfig.target_min_size;
     window_target_max_ = wConfig.target_max_size;
     marker_target_min_ = mConfig.target_min_size;
@@ -90,13 +92,21 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     if (isSsd) {
         vector<vector<Detection> > crops;
         vector<vector<Detection> > preds;
+        vector<Mat> window_images;
         ssd_window_detector_->DetectBatch(images_, crops);
         gettimeofday(&end, NULL);
         diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
                / 1000.f;
         VLOG(VLOG_PROCESS_COST) << "[Total] window cost: " << diff << "ms" << endl;
+        for(auto img:images_){
+            Mat window_img;
+            resize(img,window_img,Size(256,256));
+            window_images.push_back(window_img);
+        }
+        vector<vector<Prediction> > driver_belt_preds = driver_belt_classifier_->ClassifyAutoBatch(window_images);
 
         ssd_marker_detector_->DetectBatch(images_, crops, preds);
+
         int cnt = 0;
         struct timeval  end1;
 
