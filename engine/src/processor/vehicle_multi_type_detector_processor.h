@@ -41,9 +41,9 @@ protected:
 
 private:
 
-    VehicleCaffeDetector *vehicle_detector_;
-    CarOnlyCaffeDetector *car_only_detector_;
-    CarOnlyConfirmCaffeDetector *car_only_confirm_;
+    VehicleCaffeDetector *vehicle_detector_=NULL;
+    CarOnlyCaffeDetector *car_only_detector_=NULL;
+    CarOnlyConfirmCaffeDetector *car_only_confirm_=NULL;
     VehicleCaffeDetectorConfig config_;
     int base_id_;
 

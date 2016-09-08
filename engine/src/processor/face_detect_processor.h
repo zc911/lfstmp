@@ -30,7 +30,7 @@ protected:
 
 
 private:
-    FaceDetector *detector_;
+    FaceDetector *detector_=NULL;
     int base_id_;
 };
 

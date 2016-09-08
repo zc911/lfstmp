@@ -13,7 +13,7 @@ namespace dg {
 
 class VehicleWindowDetectorProcessor: public Processor {
 public:
-    VehicleWindowDetectorProcessor(VehicleCaffeDetectorConfig &wConfig);
+    VehicleWindowDetectorProcessor(const VehicleCaffeDetectorConfig &wConfig);
     ~VehicleWindowDetectorProcessor();
 protected:
     virtual bool process(Frame *frame) {
