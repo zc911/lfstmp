@@ -24,7 +24,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
         use_gpu_ = false;
 
     }
-
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
     ModelsMap *modelsMap = ModelsMap::GetInstance();

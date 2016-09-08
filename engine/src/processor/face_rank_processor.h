@@ -31,7 +31,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    FaceRanker *ranker_;
+    FaceRanker *ranker_=NULL;
 };
 
 } /* namespace dg */

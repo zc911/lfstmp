@@ -12,7 +12,7 @@
 
 namespace dg {
 VehicleWindowDetectorProcessor::VehicleWindowDetectorProcessor(
-    VehicleCaffeDetectorConfig &wConfig)
+    const VehicleCaffeDetectorConfig &wConfig)
     : Processor() {
 
     ssd_window_detector_ = new WindowCaffeSsdDetector(wConfig);
@@ -79,6 +79,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         resize(phone_img,phone_img,Size(256,512));
         resize(img,img,Size(target_col,target_row));
         Window *window=new Window(img,fob,params);
+        window->set_detection(crops[i][0]);
         window->set_resized_img(resized_img);
         window->set_phone_img(phone_img);
         Vehicle *v = (Vehicle *) objs_[i];
