@@ -42,6 +42,9 @@ private:
     bool enable_vehicle_plate_;
     bool enable_vehicle_plate_gpu_;
     bool enable_vehicle_marker_;
+    bool enable_vehicle_driver_belt_;
+    bool enable_vehicle_codriver_belt_;
+    bool enable_vehicle_driver_phone_;
     bool enable_vehicle_feature_vector_;
     bool enable_vehicle_pedestrian_attr_;
 

@@ -29,6 +29,7 @@ namespace dg {
         int target_max_size = 1000;
         int gpu_id = 0;
         bool use_gpu = true;
+        bool is_driver=true;
         string deploy_file;
         string model_file;
     } VehicleBeltConfig;
