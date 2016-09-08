@@ -33,7 +33,7 @@ private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);
     void filterVehicle(FrameBatch *frameBatch);
 private:
-    PlateRecognizer *recognizer_;
+    PlateRecognizer *recognizer_=NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
     bool enable_sharpen_;

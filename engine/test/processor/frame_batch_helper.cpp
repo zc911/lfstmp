@@ -77,7 +77,7 @@ void FrameBatchHelper::printFrame(Frame * frame) {
             }
             vector<Object *> markers = v->children();
             cout << "Vehicle Markers    : " << v->children().size() << "\t\t, Window     : "
-            << v->window().box.x << endl;
+            << v->child(OBJECT_WINDOW)->detection().box.x << endl;
 
             for (int i = 0; i < markers.size(); i++) {
                 Marker *m = (Marker *) markers[i];
