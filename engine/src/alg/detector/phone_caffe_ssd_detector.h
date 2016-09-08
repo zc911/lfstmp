@@ -28,11 +28,11 @@ public:
     PhoneCaffeSsdDetector(const VehicleCaffeDetectorConfig &config);
     virtual ~PhoneCaffeSsdDetector();
     virtual int DetectBatch(vector<cv::Mat> &img,
-                            vector<vector<Detection> > &detect_results);
+                            vector<vector<Prediction> > &detect_results);
 
 protected:
     vector<Blob<float>*> PredictBatch(const vector<Mat> &imgs);
-    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs,vector<vector<Detection> > &detect_results);
+    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs,vector<vector<Prediction> > &detect_results);
 
 private:
     boost::shared_ptr<caffe::Net<float>> net_;

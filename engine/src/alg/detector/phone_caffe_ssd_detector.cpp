@@ -46,10 +46,10 @@ PhoneCaffeSsdDetector::PhoneCaffeSsdDetector(const VehicleCaffeDetectorConfig &c
     target_col_ = config.target_min_size;
     target_row_ = config.target_max_size;
 
-    /*  input_layer->Reshape(batch_size_, num_channels_,
+      input_layer->Reshape(batch_size_, num_channels_,
                            input_geometry_.height,
                            input_geometry_.width);
-      net_->Reshape();*/
+      net_->Reshape();
 
     /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
         const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
@@ -65,15 +65,15 @@ PhoneCaffeSsdDetector::PhoneCaffeSsdDetector(const VehicleCaffeDetectorConfig &c
 PhoneCaffeSsdDetector::~PhoneCaffeSsdDetector() {
 
 }
-void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < float> *>&outputs_win, vector<vector<Detection> > &detect_results) {
+void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < float> *>&outputs, vector<vector<Prediction> > &detect_results) {
     int image_offset = detect_results.size();
     for (int i = 0; i < images_origin.size(); ++i) {
-        vector<Detection> imageDetection;
+        vector<Prediction> imageDetection;
         detect_results.push_back(imageDetection);
     }
     int tot_cnt = 0;
-    int box_num = outputs_win[tot_cnt]->height();
-    const float* top_data_win = outputs_win[tot_cnt]->cpu_data();
+    int box_num = outputs[tot_cnt]->height();
+    const float* top_data = outputs[tot_cnt]->cpu_data();
 
     for (int j = 0; j < box_num; j++) {
 
@@ -82,39 +82,26 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
         if ((img_id < 0) || ((img_id + image_offset) >= detect_results.size())) {
             continue;
         }
-        vector<Detection> &imageDetection = detect_results[image_offset + img_id];
+        vector<Prediction> &imageDetection = detect_results[image_offset + img_id];
         if (imageDetection.size() > 0) {
             continue;
         }
-//        int cls = top_data_win[j * 7 + 1];
+        int cls = top_data[j * 7 + 1];
         float score = top_data[j * 7 + 2];
-        float xmin = top_data[j * 7 + 3] * images_origin[img_id].cols;
-        float ymin = top_data[j * 7 + 4] * images_origin[img_id].rows;
-        float xmax = top_data[j * 7 + 5] * images_origin[img_id].cols;
-        float ymax = top_data[j * 7 + 6] * images_origin[img_id].rows;
-        xmin += img.cols / 2;
-        xmax += img.cols / 2;
-
-        xmin *= ratio_col_tiny;
-        xmax *= ratio_col_tiny;
-        ymin *= ratio_row_tiny;
-        ymax *= ratio_row_tiny;
-
-        xmin += crop_xmin;
-        xmax += crop_xmin;
-        ymin += crop_ymin;
-        ymax += crop_ymin;
+        if(cls!=1||cls!=5)
+            continue;
+        if(score<0.9)
+            continue;
         /*******************tiny object detector*********************/
-        Detection detection;
-        detection.box = Rect(xmin, ymin, xmax - xmin, ymax - ymin);
-        detection.id = img_id;
-        detection.confidence = score;
+        Prediction pred;
+        pred.first = cls;
+        pred.second = score;
+        imageDetection.push_back(pred);
 
-        imageDetection.push_back(detection);
     }
 }
 int PhoneCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
-                                       vector<vector<Detection> > &detect_results) {
+                                       vector<vector<Prediction> > &detect_results) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
@@ -134,20 +121,20 @@ int PhoneCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
         cvtColor(image, image, CV_BGR2GRAY);
         equalizeHist(image, image);
         toPredict.push_back(image);
-        origins.push_back(img[i]);
         if (toPredict.size() == batch_size_) {
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
-            Fullfil(origins, outputs, detect_results);
+            Fullfil(toPredict, outputs, detect_results);
             toPredict.clear();
-            origins.clear();
         }
     }
 
     if (toPredict.size() > 0) {
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
 
-        Fullfil(origins, outputs, detect_results);
+        Fullfil(toPredict, outputs, detect_results);
     }
+    SortPrediction(detect_results);
+
     gettimeofday(&end, NULL);
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
@@ -182,6 +169,7 @@ std::vector<Blob<float> *> PhoneCaffeSsdDetector::PredictBatch(const vector<Mat>
         if ((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
             cv::resize(sample, sample, Size(input_geometry_.width, input_geometry_.height));
         }
+
         float mean[3] = {104, 117, 123};
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {

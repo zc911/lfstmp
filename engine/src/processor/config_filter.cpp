@@ -350,19 +350,20 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.batch_size = batch_size;
     wConfig.gpu_id = gpu_id;
 }
-  void createPhoneConfig(const Config &cconfig,
-                         VehiclePhoneConfig &pConfig){
+  void ConfigFilter::createDriverPhoneConfig(const Config &cconfig,
+                         VehicleCaffeDetectorConfig &pConfig){
         int batch_size = (int) cconfig.Value(ADVANCED_PHONE_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
     string
-        modelPath = (string) data_config_.Value(FILE_PHONE_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
+        modelPath = (string) data_config_.Value(FILE_DRIVER_PHONE_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
 
     pConfig.model_file = modelPath
-        + (string) data_config_.Value(FILE_PHONE_TRAINED_MODEL);
+        + (string) data_config_.Value(FILE_DRIVER_PHONE_TRAINED_MODEL);
+        LOG(INFO)<<pConfig.model_file;
     pConfig.deploy_file = modelPath
-        + (string) data_config_.Value(FILE_PHONE_DEPLOY_MODEL);
+        + (string) data_config_.Value(FILE_DRIVER_PHONE_DEPLOY_MODEL);
     pConfig.target_max_size=256;
     pConfig.target_min_size=512;
     pConfig.threshold=0.0;
