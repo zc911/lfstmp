@@ -32,7 +32,7 @@ public:
 
     MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig &config);
     virtual ~MarkerCaffeSsdDetector();
-    virtual int DetectBatch(vector<cv::Mat> &img,vector<vector<Detection> > &window_detections,
+    virtual int DetectBatch(vector<cv::Mat> &img,vector<vector<Rect> >fobs,vector<vector<float> >params,
                             vector<vector<Detection> > &detect_results);
 
 protected:
@@ -50,8 +50,7 @@ private:
     int gpu_id_;
     int batch_size_;
     float threshold_;
-                float target_row = 256;
-            float target_col = 384;
+    int target_col=384;
 #ifdef SHOW_VIS
     vector<Scalar> color_;
     vector<string> tags_;

@@ -29,6 +29,12 @@ static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE =
     "Feature/Vehicle/EnableGpuPlate";
 static const string FEATURE_VEHICLE_ENABLE_MARKER =
     "Feature/Vehicle/EnableMarker";
+    static const string FEATURE_VEHICLE_ENABLE_DRIVERBELT =
+    "Feature/Vehicle/EnableDriverBelt";
+    static const string FEATURE_VEHICLE_ENABLE_CODRIVERBELT =
+    "Feature/Vehicle/EnableCoDriverBelt";
+    static const string FEATURE_VEHICLE_ENABLE_PHONE =
+    "Feature/Vehicle/EnablePhone";
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
     "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
@@ -68,6 +74,8 @@ static const string ADVANCED_WINDOW_BATCH_SIZE = "Advanced/Window/BatchSize";
 static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
 
 static const string ADVANCED_DRIVER_BELT_BATCH_SIZE = "Advanced/DriverBelt/BatchSize";
+static const string ADVANCED_CODRIVER_BELT_BATCH_SIZE = "Advanced/CoDriverBelt/BatchSize";
+static const string ADVANCED_PHONE_BATCH_SIZE = "Advanced/DriverPhone/BatchSize";
 
 static const string ADVANCED_MARKER_MOT_CONFIDENCE =
     "Advanced/Marker/MOTConfidence";
@@ -137,6 +145,15 @@ static const string FILE_MARKER_ONLY_DEPLOY_MODEL = "File/MarkerOnly/DeployModel
 static const string FILE_DRIVER_BELT_MODEL_PATH = "File/DriverBelt/ModelPath";
 static const string FILE_DRIVER_BELT_TRAINED_MODEL = "File/DriverBelt/TrainedModel";
 static const string FILE_DRIVER_BELT_DEPLOY_MODEL = "File/DriverBelt/DeployModel";
+
+static const string FILE_CODRIVER_BELT_MODEL_PATH = "File/CoDriverBelt/ModelPath";
+static const string FILE_CODRIVER_BELT_TRAINED_MODEL = "File/CoDriverBelt/TrainedModel";
+static const string FILE_CODRIVER_BELT_DEPLOY_MODEL = "File/CoDriverBelt/DeployModel";
+
+static const string FILE_DRIVER_PHONE_MODEL_PATH = "File/DriverPhone/ModelPath";
+static const string FILE_DRIVER_PHONE_TRAINED_MODEL = "File/DriverPhone/TrainedModel";
+static const string FILE_DRIVER_PHONE_DEPLOY_MODEL = "File/DriverPhone/DeployModel";
+
 
 static const string FILE_PEDESTRIAN_ATTR_MODEL_PATH = "File/PedestrianAttr/ModelPath";
 static const string FILE_PEDESTRIAN_ATTR_TRAINED_MODEL = "File/PedestrianAttr/TrainedModel";
