@@ -33,6 +33,7 @@ typedef enum {
     OBJECT_MARKER_2 = 16,
     OBJECT_MARKER_3 = 16,
     OBJECT_MARKER_4 = 16,
+    OBJECT_PEOPLE=32,
     OBJECT_DRIVER = 32,
     OBJECT_CODRIVER=64,
     OBJECT_FACE = 128,
@@ -115,6 +116,14 @@ public:
         }
         return NULL;
         
+    }
+    vector<Object *>children(ObjectType type)const{
+        vector<Object *> result;
+        for(auto *child:children_){
+            if(child->type()==type)
+                result.push_back(child);
+        }
+        return result;
     }
 
     Identification id() const {
@@ -224,6 +233,7 @@ public:
             m->set_confidence(detection.confidence);
             this->AddChild(m);
         }
+        LOG(INFO)<<this->children_.size();
     }
     vector<Rect> & fobbiden(){
         return fobbiden_;
