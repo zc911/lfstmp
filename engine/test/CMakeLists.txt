@@ -6,7 +6,7 @@ set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 #file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
 file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp
         processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp
-        processor/vehicle_belt_classifier_processor_test.cpp)
+        processor/vehicle_phone_detector_processor_test.cpp)
 
 IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
     ADD_DEFINITIONS( -DUNENCRYPTMODEL )

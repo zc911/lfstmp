@@ -78,9 +78,8 @@ public:
         genObj->set_bindata(bindata);
       }
     }
-
-
     unique_lock<mutex> lock(mtx);
+    LOG(INFO)<<address;
     map<string, std::unique_ptr<DataService::Stub> >::iterator it = stubs_.find(address);
     if (it == stubs_.end()) {
       if (-1 == CreateConnect(address)) {
@@ -125,7 +124,6 @@ public:
     shared_ptr<grpc::Channel> channel = grpc::CreateChannel(address, grpc::InsecureChannelCredentials());
 
     std::unique_ptr<DataService::Stub> stub(DataService::NewStub(channel));
-
     stubs_.insert(std::make_pair(address, std::move(stub)));
     if (stubs_.size() > 10) {
       unique_lock<mutex> lock(mtx);

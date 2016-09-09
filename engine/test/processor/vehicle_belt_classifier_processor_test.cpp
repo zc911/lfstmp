@@ -90,7 +90,7 @@ TEST(VehicleBeltClassifierTest, vehicleBeltClassifierTest) {
             if (v == NULL)
                 continue;
             v->vehicler_attr_.size();
-            //EXPECT_EQ(resultReader->getIntValue(s.str(),0), v->vehicler_attr_[Vehicler::Belt]) << "i = " << i << endl;
+            EXPECT_EQ(resultReader->getIntValue(s.str(),j), v->vehicler_attr_[Vehicler::Belt]) << "i = " << i << endl;
 
         }
 
