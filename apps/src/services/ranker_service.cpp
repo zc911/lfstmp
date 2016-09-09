@@ -53,7 +53,7 @@ MatrixError RankerAppsService::GetRankedVector(
             case dg::REC_TYPE_ALL:
                 return getRankedAllVector(request, response);
             case dg::REC_TYPE_DEFAULT:
-                return (this->*getRankedDefaultVector)(request, response);
+                return getRankedCarVector(request, response);
 
             default:
                 LOG(ERROR) << "bad request(" << request->reqid() << "), unknown action";
