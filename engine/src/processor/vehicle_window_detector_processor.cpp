@@ -75,9 +75,12 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         params.push_back(img.cols * 1.0 / target_col);
         vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
         Mat resized_img;
-        resize(img,resized_img,Size(256,512));
-        resize(phone_img,phone_img,Size(256,512));
+
+        resize(img,resized_img,Size(512,256));
+        resize(phone_img,phone_img,Size(512,256));
         resize(img,img,Size(target_col,target_row));
+                imwrite("b.jpg",img);
+        imwrite("c.jpg",resized_img);
         Window *window=new Window(img,fob,params);
         window->set_detection(crops[i][0]);
         window->set_resized_img(resized_img);

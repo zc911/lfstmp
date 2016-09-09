@@ -35,6 +35,7 @@ private:
     vector<vector<Rect> > fobs_;
     vector<vector<float> >params_;
     vector<Mat> images_;
+    bool is_driver=true;
     int marker_target_min_;
     int marker_target_max_;
 };
