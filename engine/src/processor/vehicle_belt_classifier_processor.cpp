@@ -48,13 +48,15 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
             }
             switch (preds[i][0].first) {
             case 0:
-                value = Vehicler::Yes;
+                                value = Vehicler::No;
+
                 break;
             case 1:
                 value = Vehicler::NotSure;
                 break;
             case 2:
-                value = Vehicler::No;
+                            value = Vehicler::No;
+
                 break;
             }
             if(preds[i][0].second<0.9)
@@ -73,13 +75,15 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
             }
             switch (preds[i][0].first) {
             case 0:
-                value = Vehicler::Yes;
+                            value = Vehicler::No;
+
                 break;
             case 2:
                 value = Vehicler::NotSure;
                 break;
             case 3:
-                value = Vehicler::No;
+                                value = Vehicler::Yes;
+
                 break;
             }
             if(preds[i][0].second<0.9)
