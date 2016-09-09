@@ -19,6 +19,7 @@ VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
 
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
+    is_driver=mConfig.is_driver;
 
 }
 VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
@@ -39,44 +40,50 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
         int value;
         Vehicle *v = (Vehicle *) objs_[i];
 
-        if (preds[i].size() == 3) {
-        Vehicler *vr =(Vehicler *) v->child(OBJECT_DRIVER);
-        if (!vr) {
-            vr = new Vehicler(OBJECT_DRIVER);
-            v->set_vehicler(vr);
-        }
+        if (is_driver) {
+            Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
+            if (!vr) {
+                vr = new Vehicler(OBJECT_DRIVER);
+                v->set_vehicler(vr);
+            }
             switch (preds[i][0].first) {
             case 0:
-                value = Vehicler::No;
+                value = Vehicler::Yes;
                 break;
             case 1:
                 value = Vehicler::NotSure;
                 break;
             case 2:
-                value = Vehicler::Yes;
+                value = Vehicler::No;
                 break;
             }
+            if(preds[i][0].second<0.9)
+                value=Vehicler::NotSure;
             vr->set_vehicler_attr(Vehicler::Belt, value);
 
-        } else if (preds[i].size() == 4) {
+        } else {
             if (preds[i][0].first == 1)
                 continue;
-        Vehicler *vr =(Vehicler *) v->child(OBJECT_DRIVER);
-        if (!vr) {
-            vr = new Vehicler(OBJECT_DRIVER);
-            v->set_vehicler(vr);
-        }
+            Vehicler *vr = (Vehicler *) v->child(OBJECT_CODRIVER);
+            preds[i][0].first == 1;
+            continue;
+            if (!vr) {
+                vr = new Vehicler(OBJECT_DRIVER);
+                v->set_vehicler(vr);
+            }
             switch (preds[i][0].first) {
             case 0:
-                value = Vehicler::No;
+                value = Vehicler::Yes;
                 break;
             case 2:
                 value = Vehicler::NotSure;
                 break;
             case 3:
-                value = Vehicler::Yes;
+                value = Vehicler::No;
                 break;
             }
+            if(preds[i][0].second<0.9)
+                value=Vehicler::NotSure;
             vr->set_vehicler_attr(Vehicler::Belt, value);
 
         }

@@ -101,6 +101,7 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     images_.clear();
     fobs_.clear();
     params_.clear();
+    draw_images_.clear();
     params_.resize(6);
     vector<Object *> objs = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER);
     vector<Object *>::iterator itr = objs.begin();

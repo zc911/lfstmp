@@ -92,6 +92,7 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
             continue;
         if(score<0.9)
             continue;
+        LOG(INFO)<<cls<<" "<<score;
         /*******************tiny object detector*********************/
         Prediction pred;
         pred.first = cls;

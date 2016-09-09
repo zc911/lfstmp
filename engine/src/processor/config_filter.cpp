@@ -297,6 +297,7 @@ void ConfigFilter::createDriverBeltConfig(const Config &cconfig,
     bConfig.is_model_encrypt = is_encrypted;
     bConfig.batch_size = batch_size;
     bConfig.gpu_id = gpu_id;
+    bConfig.is_driver=true;
 }
 void ConfigFilter::createCoDriverBeltConfig(const Config &cconfig,
                              VehicleBeltConfig &bConfig){
@@ -314,6 +315,8 @@ void ConfigFilter::createCoDriverBeltConfig(const Config &cconfig,
     bConfig.is_model_encrypt = is_encrypted;
     bConfig.batch_size = batch_size;
     bConfig.gpu_id = gpu_id;
+        bConfig.is_driver=false;
+
 }
 void ConfigFilter::createMarkersConfig(const Config &cconfig,
                          VehicleCaffeDetectorConfig &mConfig){

@@ -63,10 +63,14 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
     vector<Mat> images;
 
     for (auto sample : imgs) {
+
         if(caffe_config_.is_driver){
             sample = sample(Rect(sample.cols/2,0,sample.cols/2,sample.rows));
+            imwrite("a1.jpg",sample);
         }else{
             sample = sample(Rect(0,0,sample.cols/2,sample.rows));
+            imwrite("a2.jpg",sample);
+
         }
         Mat flipped_img = flip_(sample);
 
@@ -97,6 +101,7 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
         for(int j=0;j<class_num;j++){
             float tmp=(confidences[i][j]+confidences[i+1][j]+confidences[i+2][j]+confidences[i+3][j])/4;
             prediction_single.push_back(make_pair(j,tmp));
+            LOG(INFO)<<j<<" "<<i<<" "<<tmp;
         }
         prediction.push_back(prediction_single);
     }
