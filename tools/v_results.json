@@ -1,0 +1,246 @@
+{
+  "Vehicles": [
+    {
+      "Id": 0,
+      "ModelType": {
+        "Id": 0,
+        "BrandId": 33,
+        "SubBrandId": 24,
+        "ModelYearId": 3,
+        "Confidence": 0.30057916045188906,
+        "Type": "轿车",
+        "Brand": "大众",
+        "SubBrand": "迈腾",
+        "ModelYear": "2012_2015",
+        "TypeId": 0,
+        "Model": "",
+        "IsHead": 0
+      },
+      "Color": {
+        "ColorId": 0,
+        "Confidence": 0.438125342130661,
+        "ColorName": "黑"
+      },
+      "Plate": {
+        "PlateText": "津GWD626",
+        "Color": {
+          "ColorId": 1,
+          "Confidence": 0.9761481285095215,
+          "ColorName": "蓝"
+        },
+        "TypeId": 1,
+        "TypeName": "普通蓝牌",
+        "Confidence": 0.9761481285095215,
+        "Cutboard": {
+          "X": 370,
+          "Y": 512,
+          "Width": 112,
+          "Height": 26,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0
+        },
+        "LocalProvinceConfidence": 0.993969738483429
+      },
+      "Img": {
+        "Cutboard": {
+          "X": 861,
+          "Y": 1324,
+          "Width": 595,
+          "Height": 579,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0.9806528091430664
+        },
+        "Img": {
+          "Id": "",
+          "Width": 0,
+          "Height": 0,
+          "URI": "",
+          "BinData": ""
+        }
+      },
+      "Symbols": [],
+      "Features": "AAAAQCwBIwFAIAAACAQAAFsUfkw791nev2zerW/dt/SWff0ljtP33/P/Cbt21G5fPj16bbv3\nW3pf7N6tb/23dNZ//WWd0/Pc4/0pu2bnbte2d39svFdfed/s361e3L5x1v3/Z/3zu9zz+S2/\nT672d0a7kJqZzRKmqzmACa7CQJaBc+hTTkvadbmQHXsQFYcO2umQupnNEq6rPaAJrpJAloHz\n7FFOS9qxudAde5AFjw5ooZhhuU1UjyM9rBmPG0oSgZ/tEF5KwxHv1TV/wgCOCoaslJfJ/LSP\nvrdKEcz+TsuBX+sRNtzb4y02X0eAVI3OU6QqgIt9Wc+r940YjpJevqGH3ZEeS7zTmVSf94BE\nv2QJwUXbNMllr3ZxapCzIojgUwoiCFOYbxesrDZkNIjAqPlyaeUsXfkZb+i2XJsd1juMhX9t\n7Xbz0Mf5o7ROiFJxLzauuv39+9t7//0/TOz+rP/L9xW3c/76fl8/v99O/9dMeLt0Q+ozwumo\nLig+t0E6IvxgUAH5sGjxrAUCwnFnK4VomPFkjajcXitQUpWadSjZCBJZg7R4Ms2Ns2CUGVGI\nAR0f/bSGZTd0gFpGtTOgYUA+Hgh5mFEP5a62ADiIsSkKvpQVK7cdU6/ajnWuNoM/pzPuACHN\nI1HD0neSquQnf/Vl7WesL0+4c/q/TNNh2TNZxHxu6XbtOu7P5bTt+1Ig3ly89il8X567/rY9\n//dLW+f1/QJpR/vi8/t3n4L1B3u+pPz0jXTdz9v3vBNK/X6vyfe3kb5ne9Pb29V/x3z8dthQ\n/vwobF2au56mvX/3Q1t39f2KKEe7ydP7852i8SZ7bbS4QN190fnfe7UY3v1Or5kQ3jO3Y/qX\nX99Ff9pu3tcL/PIcV/GwR/tFeLcsmDaEqyuCkYa/hu82VR4Lz0Srz0AUvfY4bm8xOeqPjP9n\nEHOX130uKcHxTvW+ZRAK8IdwB3P/bWAPezg86HPk1T+dMDZdd2/B0GVIRr5rhEyjA/E5E1Ps\ndIdicEXI/+ZTG7DAfqwG7sm7JYzy6aCAf4p42XzknHaJbFW4or6mCdfxSxuBxG0qKGfbINvj\nZT3gcQZC0EhWTE4CuGh9gPICYKk1Q3r9asAA88PMVCpDC2WgYQoXIA+hOC9qSC6hw4HXDlhy\n/pV9twzV0QDV4auUJCMLgDHt7tfeC2fudqLvGvPhMGF57mpueP/ff/2uxwRl+/Kgmr//+/vX\nP/+/X1T3/f+u4P/7v4H3Sy////ev6zbErfeuYpO4bcm4SIsbETuM3WGPrxnbEQJngtAVUVqr\n1w0Pg2g8tDCL/RTHo7eEGa+9QpuFc/kBJkvSscvTXTv6XI+a0q6nHKv4FMerH5K5LL7k36d3\n/QU2T4LxunJ++wJUp18PbWhnNh5/uH3gT4LZX59wNl2R78SQfe5v7Y8FZ7dH4ETvn2e4Dn+8\ntJhu4Pd3iXI3d21qUNCrLevvZYTg8qchzX7lYah7X5o7/r/83zfbPxfU/S6pVO0i7ttltO71\ngnGGzYKf1KOu5xaCWBJg6jFAeWozw2K+Cv8oJo+AlXuwiCTtlh+NiYbs/7KoCOboTYeJYmpT\nZmmaM60WRT/Sf8uGQKiXcSrrMAf+uSI4tpJAO6M3ahASeJMRzZJRUsAAAwv/UXbuK1ZfOLXg\n94Nffz9z9vX97ujDOczz+8eWJ7dgcdi0vPapbVW9sn+nGf/3SluF1/0AOk/7M9vrdXmgQId7\nKJk4evn9ka+PHTwprr0mUIU74xASKFK1T9cQe9IIz9twSRa8HcdWZYWA4Ali2SHV2ODKYkyr\nkpyx8EQbcTp+DlHfHcmyj1e/ZCm+ZPczgHAWVlx424lxP+i/JdS4kIA5+jD2fTnzWFuX59ex\nTp22/Zc9/yWs17fcUntZi1aMfFdBoJsRCImgQ64xoliWgEAaIARqFRJtgxCcJBJ4wAADiKy1\nvVLp/XX7/389GN79Tr+TG+YQM32600/fVX/STs+3U/0omrndn++7f4QortbGNa+73Zf/S773\nuRaf+5BUj3+/PD1+oX9d+jn+dX3/do89l/vVJq3Wez3T23GmyvUHf+BXNVTsTLU1qPx0aNa1\nQD+EdGVo0XriQG24ZSpAOMfzbq3y+v313s/b17wb7P93puvz35M2a7rz+9/fe9d9/94Isr35\n7d2x319/NHi+vcwohxv3ELN8e9PP33X+0kiF+947/nSrWFwDs7amuS+Pwx+m9+1QbE+igNrR\ndbumtA5L/XftZbhfX7xz7r7s23/bMx/Ufe7t1v0q/99ltG/zRnEvlvRe4X5b+Hvf/b1KfJ+9\nv9/2Jr1yfukff1H/2+dO1/7/trK985bWH//9/86+5k3f/69T/3sJ97rWf/+eX6xfvAw+fp3t\nV+PXFuwZevkjGcn64wIo7zo/8+tRO3N5ZurSyQe6jIJNrZUWwhJhyihBaKMr4npNCv+5os5I\nNJi0CtvaDr4uBl20vR6Wt+9LMkvm5f3n7MUD7fLz6pE8tLlbO79qqfazvudOSVjnKdy2oP5r\nl9XXuQT9Lk2uw91e+Z3nUPvsfkef3D/u8v1d3bV4391/5+H3+fpRv7+WXbEne2eWe+v2J7v4\nHWnb7lz9nHD/X3e9sbPZ3n4/q8TNyzOxO//X3P3rz/+d7/5Obug2hLvn5mP9+znvOD8llM99\n9/0mtfDD/Dv62F/xPbvOfd04/51XP7JybdYeXon+1+9S1aCcgJv9pZTnnhtwEKD6NEDJaiIR\nMi5S9y0enmqQWPCKLzTw4/w/+thf+L27z33fPL/d1z+2cu3S3t8B9sfvUtd8dNFFS2gHynOz\nrRhS902+MdzoKil2+CIX7EU/43NGInCPSWUQCkK2daDqyHMhkNAw5mwsabhFL6jvIVBtolIo\nxKEXGgnFgOiOmIEJ5NBoE4FhalImQ9o1GRBNexAgB8ZNU2pFIlavMGDMVuTZNJunNkS07sGw\nNQhkK2KAb7Y9cdiynDCrKRCfuj+kvY+jSpunl+0QPk2LE9rBdf3qRI8byjH2bDnXWVu/7Va9\nT9325JY9/x2W27fSS/kZzwaEbvfE7d/b7Knv7r4TelK16lhZ6+t/2zN+ynN8jv/o1FnDqbt0\namV2HvtQKcZfp/ldnyR+vZfv5bR1zkZ9qoBvr1f1tknCmtyDzsSXgNgCYMg1QHjqF/Nqowr/\nOCyPCJU78IgFL0shlKtionSAasKTIZFgeO4i6Dm4RSysrKNE7elwiHjrGHo5yRKGqxWsKa7b\nQpCAO8lQWivKMfvVBXtSCo4KvUC0co17xMjT8qUYS9hzvxnk6HMtZ3+QEdNFPfN1XgZItZhh\n8mkwjyo9LTmeN0oatx/FEBJYiRDPxTV34ECPA1izWjCqqRBTo72tvQ/DShCnu+0EHkuCEdrB\nMftogI4TKH5oRWUb/hh0anbs+w2duD5c127htHU7R09hkW//XrEgboa/TCuizj6i6gLh4wla\neexqwiDyz2qUptMg4XtziHBKgp1GKKBCqIbiAqSiIVpo7GqAAPfCSJQk2gEBeCuIlc1L77Qq\nbrx0oltU82OIYHNuJur5lE0/7K+nwKz74Kh8QUbuDUJG6OWG6wNLeS3X+OWp4kyjGYyz6sUH\nI3t8Ap92U0dyHmr4feJ35ltCn/U2zBbu5bQ97jZpIYRvt2vVhQ6Xv+YuLBJ8ilN21eOh6Xdv\nNp6x1A9ihK57gIzxIaHYWt/2KVxdtLnetjz/N8F75/X9ymlH+uPX+3aYIvEme96klLKJ/VSP\nu7ekGY7/SpuB1+kRPk/as9vTXX+CRI9KlP/f7r4j7/i+ovviV/epQX/9f+N504tu+KbvhL37\nIbFFdv/3rG//mD/69/bf/9tr/99//7H0++DP+++ErPuF8x9dcsZXlv5wtcTfh03vN+R+/bfv\n5ZE07jNvj4Av9yn0AI2CnJSnLue2iloCqOIgQHlqIoAwugD/KTaWQJBYoIjavXjj99x6N+1N\nfhO5Hxb0prvfjdaY8ed3/ZLDJ4bP/9AaHvmqqDADrh+y8bXDAFunN22QMs2DccDjesmAQKUb\nUrgQM6vNEI6rfaC9rtZKkIeTzBUHStpxidAd/xoEh190SH9MA8oTYKWEZqBCl6EwInTsYkCh\nICwz42ADYTMGYyVlY0dU6+vodYBuAlNBnTR47ALqSbIsDi+MgQBju1KkPLx6ar/dW/inXL0r\nX/0qML/R3XIaIzq1280h/XOvZnMrtcFR0b2kz3t5KFwoqMy8mQrCEJd6tvMvXBRvy0TLnHx0\nlWaoD1e4KrqraNdxSRuVVGxiYWHZCPmrZTTI80MzRu2QGrnpFq6+H4g5pOJGloFz6FM2Scp3\nqBYPe5BXj0fbtua2q/Bc17v/l79O7s7fp+f9lb5PrsLac9/7ruSuVx9NbGcXWn+gbaBOAtl7\nF2Qy1dnvwJB97OftjwUnt10gXeudZSgOT7ggqKpo/3OBUzb1bGpIwYks6OtlFCizAyH6tv5Y\nq/lc37tftL8u7+4fr7PtEL5vrvPa21T798TuX9K+7pbq8DzXu9+Wvyzu/hvn9/+Vtk+u49oy\n//ulxK9fGLWwZb19Ub9vLbwojz9INJcf7AAaOPmV790Vd9JOh3sokblpfd2T308tPCiunW4g\nlhuHURIocrHv3TB70grF62Sg0UPQaUOJIrUpOFI3SD4RHEA6E1LoAE2EJXTi4sbiWHCTVmNI\ndZfpym4oPrcJNiJ3fAhB3LJJ9/5UCmLQhysZop9xIKphF2YRbkCzAIDtIC5oGBv4RwXM4XBA\n4ICBKC5pOopP3dFAiyS1CizbZ4roucvDRiP60FPRiztTH0/Cnlt2hVMSv/A95FbHTY63xDb9\nl+flkT3Odm+Pxy+3LdWH9mkFsm6vunjuXvTRZJ4kN0wUr+G0bW4kLi+EbfPTdYmPTLWECm0n\ndCJK0tUjkMFjLiKucJxFP6yn9kQs4NmIJmDW4CQr6Ei5oLNK18tVC7qlT7so50DIkJiLEOV5\nUwCUEs4lYio5UDied/dNA4MbNs3nJiDVgUBWo2OF6aEPE0UW50UkcuswdMrfZtB8tGZ8ZD6u\ngbWlSgYq4oRP4nB1KC0xQXHfYDdp4C4IizeFtAg+xAgJ+GEMJ90UEUKATjystbRy7f3xe///\nPTje/U4/hxvuELNnutLP31V/0kzH90rdsxXT2r+mueRKAay/A9Sjf/FBRJiwaqV0XoOCdId7\nXHC+9ClueRq7n6cd//dDW+f9/YooR7vA0/f7naL1J3vecv70amx5EqPepq0fl0Nb5tX9hghH\n8sDX8eq7ovUmcztbQy1yE29wJWh65jkGs7Q+6BbuzZIlfSZtoIBvt3L1qmBkeG39WRjP/NUd\nz80XvYIp/2+HB/qRR/mJv3aXX9dh8r3lPA9Jun75tkzTf9Fy3dR9PIl8+RzNr/f0iKhAeYFX\ndc10Du+8TGh25P0dnWVWVBfu4bRl3Wa4IoBeu1H5CfK9+/zd8Z9ffTR8vh3OKJcb/xizfGvX\nz9819tqIxfvlf+1lvE9fP3PuvuzTPZMzH9R97un09Q7u32W0bfBGeYTtm7/0qm++Pqp6QPXj\ngWB3fybaY9iJO+yuL8Cs84Opsk1Cnl2H7uSXANASYMg1QVjoE/Nqrxr/OSqPCBU6cIh4sVgh\n0klwnyo1LTkfE0oSs5/FMBJYmRX/xTV14ACOA4Goj1sEreiHdhNCULCAEGnJKiqdK/xTMYWq\n+kDISPGo3Vq/JypeP7Cg3pb133aDeyZ1/Oblxa0owuNvkCq1J3lmVP/tfke/2D7q+m7dP7Fg\n311/68H3ef71vr+QnfsneS+3U+v2J+v6XWl75l17vOR+Txf/kbIN/nz8q8TP6yOxCt033rv1\nv+efX1y1bP4mpIdz/5H3Czr/u38fy5ZUrd9LNikFYn4vEjDuX+TZFJslN0yULqXQtUhHKymE\nDuYfdVq/kDK7qRiPK30o/a6mQpCny8wVFkrKsbzUHf+YRItf1M5OvgwDT+6UNtISceM5S3nl\nL+toRwt/8CL/lDR4sAgo/zH5/d2Vv189PDiunQykzxuOAXIoY7fv3xR7UhzV75/bZ9u30771\nzdiS9ulctKfucZ/n/e0k/apa79Ifvbn9fCW8dIhsVRLirq4I17FDGoD2bAAYY9sA0+thOeBh\nRmIASt29UgqoBjSgYsLxIwFIeu0iyAD8RW4EpvIAZbEgiBC0mLqK7RFHqhWpCTefYBiHm30Q\nGiuSEdnFOHvwQKcy9sk2/g1EVujxkKEIavslU9j06WJoY9q9s/vHO1I7dgJcsLzyqG1XmbJ/\npRnX90pbldd9AjpH+zHb63V9oMOGc47YvZtp7b3+rt+3Nfz/TxuPc/8DpWU780cbd5Xa8W/T\nHz29d6l/Xbs5//18/n+fP4fX/Q+50nv509t9tsp1h3NmJPLCXW/qyHuyuQpK6V0I+e1zcyh3\n2+ofno08w/tSgqCklJv9rZCPHhtwGKS4SEnJCjMRMm5D8w0WXmrQSNGLdCiTiF1JYEgugeBL\nIuJlWPitatEO48JAnYSDO8EqYo4VRVtvtC5uuHSqe0TTY5lwc8YcbumQTS/sryeEKPPAIZ8E\naOVXdv9ZdcL/kllNHy1+jZOvrbZ1zndpiwVn7XbwP/ZmCP1T3vjv/J0vSsj/vf/I3vffY2zc\nOluH/9+3f1Urvz6c/fe/973O/q3s/KOk3373bvX7OO9/fy+DTv6v/+bet57tbLb+m/r5f2z/\n71/v9/dD9XeK4z84b7rOf+fTdHzRRUt6E8Jj82wIEjdFPiHc4AIJdvEiF6wFJ+NxRqL4j0RH\nEopDtHUg54BjIZT0OOxsaim4bS+i7oEQb4NSKDAgjy0KawFPdrHKEFNgAFhRTGgACNBXEUHj\nUQRgQDRgerMeMLuZHE+7MaD9D4tKm6eL7QUeS4IV2tN4+yoEixs5ePBlJT/+kHXqfuzbGZWs\nPtzXbsm0XYpG/yGUb/9amYow9mg999hfn23XNUydNuzGHf+RlP+z0lN5mevfxe/XKhV+zD//\nWV8/bf6tLr02dJa//wWM+7ff8/0Yu3fE59/8STruXddS6MWE5wpi2S3Q2PTrYkgjGr7z/YUb\nUzt8Ar9EZ0dHdu94deJnhllOv/1+zBLu7bY9zhdqwwRv93r0JaDQif0vqAseMzFezGheiNsK\nIjEWfNvXDB6bfNwI2YDefP7+aXx/lrvetDz/98t/p/X9giFHuuLT/3e7gvUne6TNip7Uo67l\nloJbEnDqMUB5ahPDcroK/2gnr4CVe7CIooyCnv2lqMeeC1AQrOowSMlrM5EyblL3LTaeypBI\n8Yo6uHL6b/XYUst9vbsPn16875v/lZ5v9vHb/Zr7941e189XtwWgfj+/Pe4e5fx+h9+2d/3n\n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\nYT3H+SCEbLtC+U4AOwBMADgASgA1ADsAbQA6AGsAOABoAPAAsQBeAHoAkgAPARcBnwAWAO8A\nRwDNAEEAvADmACoAPgCSAHoASgCVADYAdwAyAJUAKACVABQAgQAbAPAATQDoAEYA3gAxAO8A\nCAHhAAMB5wABARMADwEVAPUA1QAkAMkAHwDFAB4AjADbAHYA2QDTAM4AuwDBANEADAHBAAcB\nkwCjAHYArACbACMArQAZAJwAFgBWAEoARADdAJUAXgBdAGMAYwBVAPMAUQDiAFkAkwDEAIIA\n0ACBALwAGQArACQAHwAfABMAqwBGAKsANwCmADQARwAwAEIAKwAyAB8AmwCjALUAoQCaAKIA\nUQCNAEYAfQBAAHQAKABrACsAUgBSAEIAtwDOAKIA0gClAMIADwEpAAoBKwAYARoAMwBgACMA\nQwAeADgAsgDqAJkA6wCzANQAqgBoAKMAZgC1AF4AmgBdANAASwC/AEIAywA+ALwAOAC4AKQA\nFwG7ANsAzQAWAQYBDwHiAHMAzQByAKMAWAD8AHMA1wCXAIAAvwBgAIsA2gB1ANgAwQBjAL4A\nYACaACgAnAAiAEYA4QBFANIARADcANUAJgDAADIAxAAeABIBKwALAR4ADwHhAAwB2wACAdAA\nlABdAD0AkgCUACgAlAAiAIEAGgBYAFAAFAGjABABkQCSAMIAgAC7ALYAzQCkAMEANgBkAMgA\nBAHAAAUBRgAwAEAAKgA+ABwAJQBoAC4AWACqAEQAtQA3AKUAMwDxAAgB4AADAfMA/gCTAKYA\ndQCrAGYAYABjAFQAmQCkALUAoACpAOwAsgDUAKIA0gAZADEAMwAeABoAIgBQAIwARgB+AEAA\ndQAkAEQAHgA3AFQARQBOADoAqQBoAKMAZgCqAFIAmQBdALsAwAC3AKAAAgG9ANkAzADwALAA\nqADwAAsBCAFAALwAcwDNAHIAowAWAPIAlADzAFgA/AByANUAuwA3AOcARgDlACoA+ABgADMA\nYQAvAFoALgBXAMgABAG/AAYB3QAwAOcARgANAeIAAQHQAHQAqwC2AKEAtQCfAIoA2QCRAMIA\ngAC7AJQAXwBjAFQAtQA1AMMAHgCUABwAgAAbAKUANQCbACgAmwAcADMAHgAiAB4AQwDfAEMA\n3QA7AG0A0gDNALsAwAAoAE0AIgBCAOcAAAFGAC8APwApAEMAJACpAFMAqQA2AJIApQCEAKwA\npwChAJoAogC0AJwApQDLAKQAwgCVAL8AtQBnALUAXABPAIsASACAAEUAewBUAEgATQA7ALUA\nUgC2ADYAtADnAJoA6QCyANMAoQDSAKkAaQCpAF0AnABWAAoBBgFzAM0AlAD0AFcA/AALASgA\newBMAFYASgA9AJEADgGXAA==\n",
+      "VehicleType": 1,
+      "VehicleTypeName": "机动车",
+      "Plates": [
+        {
+          "PlateText": "津GWD626",
+          "Color": {
+            "ColorId": 1,
+            "Confidence": 0.9761481285095215,
+            "ColorName": "蓝"
+          },
+          "TypeId": 1,
+          "TypeName": "普通蓝牌",
+          "Confidence": 0.9761481285095215,
+          "Cutboard": {
+            "X": 370,
+            "Y": 512,
+            "Width": 112,
+            "Height": 26,
+            "ResWidth": 0,
+            "ResHeight": 0,
+            "Confidence": 0
+          },
+          "LocalProvinceConfidence": 0.993969738483429
+        }
+      ]
+    },
+    {
+      "Id": 0,
+      "ModelType": {
+        "Id": 0,
+        "BrandId": 147,
+        "SubBrandId": 16,
+        "ModelYearId": 3,
+        "Confidence": 0.9765398502349854,
+        "Type": "面包车",
+        "Brand": "五菱",
+        "SubBrand": "五菱之光",
+        "ModelYear": "2008_2010",
+        "TypeId": 1,
+        "Model": "",
+        "IsHead": 0
+      },
+      "Color": {
+        "ColorId": 9,
+        "Confidence": 0.5219361186027527,
+        "ColorName": "银"
+      },
+      "Plate": {
+        "PlateText": "",
+        "Color": {
+          "ColorId": -1,
+          "Confidence": 0,
+          "ColorName": ""
+        },
+        "TypeId": -1,
+        "TypeName": "",
+        "Confidence": 0,
+        "Cutboard": {
+          "X": 0,
+          "Y": 0,
+          "Width": 0,
+          "Height": 0,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0
+        },
+        "LocalProvinceConfidence": 0
+      },
+      "Img": {
+        "Cutboard": {
+          "X": 189,
+          "Y": 602,
+          "Width": 192,
+          "Height": 218,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0.9199212193489075
+        },
+        "Img": {
+          "Id": "",
+          "Width": 0,
+          "Height": 0,
+          "URI": "",
+          "BinData": ""
+        }
+      },
+      "Symbols": [],
+      "Features": "AAAAQAgBLAFADAAAiAEAANcs5gWYMmqoNrLKiNlikXMzxHn/JNTPTtxrzwQl5yMA1qzmdZwi\nbqh2ssKCwWMZY3PEee8o1M9qvmrPBaXzcgQDnSuJ9/e7Zx9NXCO8vjZk+zuTlZeYMP8vHJrD\nlU69/wqdesn387PnXw1cIqy9pmD7O5MRFrgg/28dqsOXTvXvKrQ5+/39sUtffX0bnPxuKNkb\nkxEXOnrXT98Tb9JM1/YusLnSTf2xyF9/tRic3U882ZvTETdm+tJfXxF/009H8gicO/jb5TlX\nn118FjzfYnjnO78Qsw8y19/fOuuaAKXzSb0/d7TueTf9SX58v/eAcKc+fwyz+LFv7/8wwErA\nx3vcNL33qWwVqrq+pxjef0lrhVf9IjhF++LL818/gnkFY86kvLeJfLSPu7eGGcz+TtuBV/kR\nNk37489zX3+CdI9KKcFRy9QPbr1FIHlC+UO89HqIEupRMH3/L4yDRD+L0KBQtP5lUmpxezqn\n9jg3NwASN7xvKCDfsU5fr3UF4eBH6992x7WiKi6aOvoT/d0myds3xf2npdWNSpxif4Ss9QtV\nJLbUE/orNJ8+uzn9xmHMm5df7ja2ZMszThZ198rxi5GLlT//ldf9dx1NXhe8/zJh3TuTjfe4\nc9/n/5rCHkyl+s11uWekDn+4eeo3fN93yTOUVH1u6fT5Cu/5ZbRK80JxbWX9Z6wOT7hxqrdI\n13PZexbkfG7p9Pko5/tlFGj7QyE9UXvvdEZvOGXI/+ZTX7lwfvwX7smQdYz37aOALbtw8Tz7\neet0z/v4b0z8LvtfmzD+2Vdry7J4ve/dJeR1m1b7fPn44vTdf9xr7fwtn/9eMP7f31ffOvjx\n/90n/ee7ztvu+KLa292UxpvftC8o/Gee7fvfUaZv+vM7X53701xe39ftjh/ZF+7stuLOh2Di\nf9R57nvv7dPf/z4uz4yPdzhcWri6+IvtUMerFagZrv9mGqO7+RAeS5Lx29UYe9JEr1vRga7f\njZ/E7d6AxgLz6DxnWeZ6yWhr/7v9OscZFCpwLDFiyQ8SC2IYdqDrztMBmFB4zGr+SfDNDIyu\noQRtqlKAZVdNZzQObzhw6n9M02GZcBbEfG7psG0O5K8lhGy7UiFv/f/+/E/f//vuvHx8/903\nv/d/KfFru//7/3fexvDne1qOJr0dkrgnHWfSl68uMsHrp7+FvN1Fz5732sOUDDlOm09u7haC\n7/DVRN6icc+zYX7oF+/psyzv8umqgDW7cPi17fdf3gPH/Vay71pz4Z0lWf5iavn77z85rmUU\n5frwqG11XWW0Dme4YOh/TNMxmTIUxHxu6fD9Dub/ZZRo81IxixZ75fZ2+zIdbH733T+2YPcf\nl62lkDHOZ/+qgg7ORfd4v/V2rUlRv+u9vDj/s8A3g1btGBpr6qDf2XX/4sDGK7XN917d88bs\n17LaUmL4vedZ9iJr/fcvvzt+xRb3+/Aku1Zj7XYybn4Vytb2WS+15X7NH6+ptmXO9v+qhC/9\n8HWa3HZ/o/L+t71SfpXtPxYvp3f1ouXcHe+n/96DL/Trnn1xeWU0Dk84Zcj3TFNTmXBe/Fzq\nybLxDPfpIZRru2IxPVF773RPbzhFaP9m81+5cH78F+rJsnkd9+2jgH27UDHwo4z+jZ1Gqda+\nknji8FjD2eZuA2pvy5u4sue/GCjcA1QshqVMKmoKtqLKiNEiEXpz5HmvKNPXTp2uzwGk8XMI\nRf3/zPx/7//L+rxu/f/1Jv93f2/ha/7/P9/nvN76w/lrtf38/G/f/3vrvnh8/5w0v/d/KfFr\n+////3/exuDnezWFSsPUB+b5VCj/QlNovGB4yAb6/bJNHjqNp0R5+/iAGLzYdXLqeTc0p26x\nvycCECe/Z4Aw3MEPz+cyAWKAB5vYu9R2Kglxu6u9tPyu88wXp1ftABJpy+He0HW7QoCPK9cW\n75emJi+3POpX9t02m293R32v4dWtTrQq/4Ss8KF1zXQ9d6QOf7h5+nd833fZO5fcfWrh9PkO\n5/tllErzwnHNdL13pA5/uHn6N1zff9k7l1V8aun0+Qrv+2WUSvNCcaXNl97dd4bs35JKUmL4\nfePZZiJj5eefvyk+RQ7Ve9iM5+2GH9kXruw28suXYPp/Rfnue+/k19//Pi7PjJ13+p49UWvt\ndEZvOEXIfuZTX7lgfvwX7smydcxnraOEP7tw8TT5eeE0z3/4Lmj8DfdfGTB+3V97y7J5Pf/N\nJ/Rsqkf7erm6uPvpEUerFawpLp9iEKO7zRAeS5Lx29Uae5IEr1san2rL9tO+5xwNXuNs/rZg\nfjuXodaYJf9+Za7DN469799e9+cmDv+Qucr25n1/lWt29T3v4dWl6rT67oAt82F53371d6J+\nfpA5+jf933/Dv7f1/f6l1K3qzttltO71A3GKvDLb7/W4559fVDOs32bN7zuzkTZeMvcPU9rr\nlgyt30OPNp00uLgn/Ela9Ky6tGDmJzsFtZglzwQ+WsIMRKENP01u/hSGz3DVxNeCce0zYXzg\nE+/oozzt8+vKCDe7cOiQU0ftNgJicGTI8uZRQqFBfuQu6smxBUw0oqOALaNhEUmUP/m07Hk/\nf1t+dP/3iHC3H30Ys7izV8//MsDKwON7JbfVE7orlr4++zj9z2TMm5dHbjS3eM8xLBZ19Mz9\ni9FlV11nNA5vOHDof0zTIZlwFsR8bumwfQ7kryWEbLNSMZ9MZ95P1//g3cbEk2nON+1s6bPv\nbfc+7nd7zws3/X3+7r3mGt/xluyb172bSPx/n9vT8/O2Yz73O1PNf9d//tatcL37bX352F9/\ntR7a3V8o2RlTE6NmetJf3xN+3UtW84KiqJt84bjKHh9RM4zOfgjZG5ORNn5K0w0Wmu+UCDXC\nkl9//DLCv/a0xlbnPa+hQWb3l8HhnSTvcCb+gi2wJXnS3R68M8S8Z7xJSjM8tiJBpjOfgXeJ\nEu+xIj6CCEClW10W78emEm+/dOpW9tk/m2t3zj2v4dSt6n4v/4Sv8PFxKvC23mv1vcybX7U/\nbPxuju3715OmT7rxO1vfuxddr98q8Lbeb/W9zJ9f9Dts3G6u7/v3k6ZLuvEfW9+7V12v36bg\nuZtMwbHAnhVRu5TebAnJOSORAnba8A0Q22uVCRXShvC7m0zBucgeF1ETlN5sCcsZM5ECdtrR\nDRCab5QJNdLCs1D46ok8/z86MP2v18SXp1/vANJNivGW8He6ToCLGfx33GesCke4caq3eNdz\niXPSxGxq6PTpKu77ZRRg80Yh7WT9Z6wOR7hxurdY13HZexPEfGrp9Okq5/tlFGDzQiHk7Zdf\n2Xum7lau6Rji8K3k2f5qYnv3+z8/Pkcu03v2pPfshp/dJ67uNuLJV2D6P135bnunZNfb/zw2\n3w6dd7qO5e2Xnt0nhuzek0lSYPh949lvYmNnZ5+/LTZFLtB72Yxu/OSay3WXzJv/tT9M/H+P\nvdP/87Zj+vM7U9//13+f1zVH6yrcI8fYVoT5RlPouUBZyAL/urJtPniOpxz1+3DAkMMtp7BC\nT72EpIqD92caQ0TmfedoiWkt4aHvlCQ6lXqKuDba7/W4x59fVDOs/mbv7zu3kTZPMvFfW9rr\nlgyt38K8vLKJ7ZSPu7eAGa7/RkuBd+sRNk3b899yX3+AVI9OvUhv/gXGy2DVxMcCce0zYXjg\nO+9pozzs0+vKCDWrdGD9ef1m7F/f+EH4tU5bXd07nMR9b+lj+6jz2WW8b7tS8U7/+MDrWb/e\nq/y8rwz/176n1//Tl0Oq4H5ZL/+v9Y//xVV9ZzQOZzh86H9E0zGZcBZEfG7psH0O5P8lhEiz\nUjFSuTq4+8kxZ6sdsCmsn2ZQorvP0VYLgvX70R77EASv2xLfQo82Er70DUxa521OtsB++Zfn\nxZgF/TQkroA9vjndFe2Ov5wqbvw24stE8/KbYXHmfO990d0++O/vFKzzuAAZ3/vntHZ/t23u\nfmZ/P5Pg/9eV7v24Oa7u/66Grv7seTlTe+10Dm84Zch+ZtNXsXB+vBfoybB1jGeto4RvunCx\nVCKPpYwvagRkqPpI8+MRWvjkbOgI09MolefvGIhzcwgJlD/79Ox5X39Zf3S/t4hwtxt/GLO8\nO1fP/zLM2oDj+99+93Sifj+Yufo3/Nx+1b+n9f0zocWpwpr7b4aO9QN1X53y/vf0f74/T3+3\nfP++dPf/v5O/+D/////fy6f37H+SAFcAkgBWACsANQArADIA7wBXAO0AVwAsAOUAKADkABgA\nsAAbAKwAfgDHAHcAuQCdAE0AmABQAPIAVABCAD0ARgA6ACIAZwAcAGQAGQBjAHMATgBvADMA\nIgBOAJcAVgDlAEkA2wA3ACsAxABxALcAZgCuAKcALgDYADQA3wApAKEAUwByADAAJAB7AKMA\nwgAgAGwAHwBnAJYAVQCSAFcAKADHACsAwwB+AMcAdgC4AKAAUgCgAEsAQgA9AEIAPABwAC4A\nbgAyACEAZgAaAGQAIQBOACsANADqAAAB5gAEATMArwBwALYAZgCuADcA2AAnAOIAmABQANoA\nNgDTAEUAgQBOAO0AVQDMAKkAcAC1AHcAtgCfAEoAdABNAHMATQDNAKgAywCoAKEAUwBIADgA\nRQA5AHYAMgBtADIAcAAuAIEATQB+AMYA1gChADMArwAbAKsAZgCuAOoAVADIAEoA2QA1ACEA\nTQArADMAUwA1ADAAlAAhAGYAkQBXACgA4wDmAAMBogDAAA==\n",
+      "VehicleType": 1,
+      "VehicleTypeName": "机动车",
+      "Plates": []
+    },
+    {
+      "Id": 0,
+      "ModelType": {
+        "Id": 0,
+        "BrandId": 25,
+        "SubBrandId": 3,
+        "ModelYearId": 3,
+        "Confidence": 0.9841745495796204,
+        "Type": "轿车",
+        "Brand": "标致",
+        "SubBrand": "207",
+        "ModelYear": "2009_2011_两厢",
+        "TypeId": 0,
+        "Model": "",
+        "IsHead": 0
+      },
+      "Color": {
+        "ColorId": 8,
+        "Confidence": 0.7012374401092529,
+        "ColorName": "红"
+      },
+      "Plate": {
+        "PlateText": "津GYZ820",
+        "Color": {
+          "ColorId": 1,
+          "Confidence": 0.8696427345275879,
+          "ColorName": "蓝"
+        },
+        "TypeId": 1,
+        "TypeName": "普通蓝牌",
+        "Confidence": 0.8696427345275879,
+        "Cutboard": {
+          "X": 129,
+          "Y": 198,
+          "Width": 74,
+          "Height": 16,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0
+        },
+        "LocalProvinceConfidence": 0.8537597060203552
+      },
+      "Img": {
+        "Cutboard": {
+          "X": 265,
+          "Y": 976,
+          "Width": 310,
+          "Height": 316,
+          "ResWidth": 0,
+          "ResHeight": 0,
+          "Confidence": 0.8405517339706421
+        },
+        "Img": {
+          "Id": "",
+          "Width": 0,
+          "Height": 0,
+          "URI": "",
+          "BinData": ""
+        }
+      },
+      "Symbols": [],
+      "Features": "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\nAQGbAI4AzQCLAMsA1wAdANoAGwAQAXEADwFvAKEAvQCfAMAArQDGALEAwQBGAFAAQwBPADYA\nJwCeAMkAlwDJAAEBTgADAUoAEwB+ABMAfACSAK0AiACuAL4AyQC1AMkA6gAvAOgAIgAdAFsA\nFwBXACYAowAiAJ4AvQDFALUAxgC+ALwAiADKAEoASwAzAK4AAQE7APsAQQADAToAIACmACAA\nmwAVAJcAjADEAIsAvgDaAEsA1gBGAKIAxwCXAMEAqgDGALEAvgA+ACYAFACVACEASwAYAEgA\nHAA+AEAATgA3ADcADwE5AIAAvwAKAZcApgCsAJ0ArQCyAMkACwGTADAAKwA/AFoAiwAUANQA\nhQAFAUoAAwFLADMAKAA2ACcAPwBUAD8ATgAAAToA/AA8ALwAwwC9ALwAwQDMALsAyACwAMEA\nsQC9ACEAnwAgAJoAFgCWAP0APQD6AEIAAgFOAP8ASADiAEkA2gBKADwASgBIAE8ASwBLAEUA\nIQBDAB8AGABIABsAPgA2ADcA5wCFANQAhQDqAC4A5wAiANkAGwDmAEoA3wBEAAMBOgCAAMkA\ngADAADIArgAkAKIAIADTACsAugCxAMgAngDIALwAqgCdAKwAkgCsAA4BbwBAAFgAHgBsAAkB\nlwDkAEkA4wBJADIAsgAyAK4AwADLALwAyACvAMAAqAC8AJ4AyACXAMYAAQFPAAEBTQDqAFAA\nIQBKADUANgAbAD0A6QAuAOcAIgDZABsA2QBKAPwAPACLAMUAfgDIAIoAvgCAAL8AIQCeAJUA\nvwC+ALsAuwCpAJwArAArALkATwBNABwAWgAEAWAACAGXAA==\n",
+      "VehicleType": 1,
+      "VehicleTypeName": "机动车",
+      "Plates": [
+        {
+          "PlateText": "津GYZ820",
+          "Color": {
+            "ColorId": 1,
+            "Confidence": 0.8696427345275879,
+            "ColorName": "蓝"
+          },
+          "TypeId": 1,
+          "TypeName": "普通蓝牌",
+          "Confidence": 0.8696427345275879,
+          "Cutboard": {
+            "X": 129,
+            "Y": 198,
+            "Width": 74,
+            "Height": 16,
+            "ResWidth": 0,
+            "ResHeight": 0,
+            "Confidence": 0
+          },
+          "LocalProvinceConfidence": 0.8537597060203552
+        }
+      ]
+    }
+  ]
+}

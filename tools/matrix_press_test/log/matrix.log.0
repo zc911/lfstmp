@@ -1,0 +1,78 @@
+[2016-09-10 11:37:58 MyLogger INFO] [[time.time:1473478678]]
+[2016-09-10 11:37:58 MyLogger INFO] [[loadtest start at 2016-09-10 11:37:58.961797]]
+[2016-09-10 11:37:58 MyLogger INFO] Timeout Threshold: 5000ms
+[2016-09-10 11:37:58 MyLogger INFO] threadNum: 2
+[2016-09-10 11:37:58 StatLogger INFO] [[time.time:1473478678]]
+[2016-09-10 11:37:58 StatLogger INFO] [[loadtest start at 2016-09-10 11:37:58.963007]]
+[2016-09-10 11:37:58 StatLogger INFO] Timeout Threshold: 5000ms
+[2016-09-10 11:37:58 StatLogger INFO] threadNum: 2
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg
+[2016-09-10 11:37:58 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//519020418005-20150101160821-9-1.jpg
+[2016-09-10 11:37:59 MyLogger INFO] raw query:/home/chenzhen/testimage/testImg-sz/dayfront//519020418005-20150101160821-9-1.jpg
+[2016-09-10 11:37:59 root ERROR] Exception deserializing message!
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 775, in FromString
+    message.MergeFromString(s)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1082, in MergeFromString
+    if self._InternalParse(serialized, 0, length) != length:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 502, in DecodeField
+    field_dict[key] = _ConvertToUnicode(buffer[pos:new_pos])
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 469, in _ConvertToUnicode
+    return local_unicode(byte_str, 'utf-8')
+UnicodeDecodeError: 'utf8' codec can't decode byte 0xc2 in position 4: 'utf8' codec can't decode byte 0xc2 in position 4: invalid continuation byte in field: dg.model.PedestrianAttr.AttrName
+[2016-09-10 11:37:59 root ERROR] Exception deserializing message!
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/grpc/_common.py", line 89, in _transform
+    return transformer(message)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 775, in FromString
+    message.MergeFromString(s)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1082, in MergeFromString
+    if self._InternalParse(serialized, 0, length) != length:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 612, in DecodeRepeatedField
+    if value.add()._InternalParse(buffer, pos, new_pos) != new_pos:
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/python_message.py", line 1118, in InternalParse
+    pos = field_decoder(buffer, new_pos, end, self, field_dict)
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 502, in DecodeField
+    field_dict[key] = _ConvertToUnicode(buffer[pos:new_pos])
+  File "/usr/local/lib/python2.7/dist-packages/google/protobuf/internal/decoder.py", line 469, in _ConvertToUnicode
+    return local_unicode(byte_str, 'utf-8')
+UnicodeDecodeError: 'utf8' codec can't decode byte 0xc2 in position 4: 'utf8' codec can't decode byte 0xc2 in position 4: invalid continuation byte in field: dg.model.PedestrianAttr.AttrName
