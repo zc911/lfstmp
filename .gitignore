@@ -21,3 +21,4 @@ util/.cproject
 engine/.project
 apps/.project
 .idea/Matrix.iml
+tools/*.json
