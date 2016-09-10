@@ -1,0 +1,58 @@
+[[time.time:1473478385]]
+[[loadtest start at 2016-09-10 11:33:05.149837]]
+Timeout Threshold: 5000ms
+threadNum: 30
+[[time.time:1473478387]]
+[[loadtest start at 2016-09-10 11:33:07.533856]]
+Timeout Threshold: 5000ms
+threadNum: 30
+##########################2016-09-10 11:33:12.554244##########################
+verbose:
+### Search time:110, ErrorCount:0, HttpErrorCount:0,
+### timeoutCount:0, avgTimeoutCount:0.00/s,
+### avgQPS/avgEffectiveQPS:22.00/22.00/s,
+### avgRequestTime/avgEffectiveRequestTime:1208.63ms/1208.63ms,
+### maxQPS/minQPS:22.00/22.00,
+### maxReqestTime/minRequestTime:2373.43ms/260.98ms,
+### Throughput per Day:1900800,
+### Timecost per 1W::454.55s,
+### colorCount:140,0.8235 plateCount:170,1.0000 carCount:170,
+### car per photo:1.55,
+### elapse:5s
+Time distro:              Car Num distro:         Http Code distro:         DeepV Status Code distro:   
+  0   - 500 ms: 8           [ 0   - 1  ): 0         200 : 110                 200 : 110                 
+  500 - 1000 ms: 29         [ 1   - 2  ): 50                                                            
+  1000 - 1500 ms: 42        [ 2   - 3  ): 60                                                            
+  1500 - 2000 ms: 29        [ 3   - 5  ): 0                                                             
+  2000 - 2500 ms: 2         [ 5   - 10 ): 0                                                             
+  2500 - 3000 ms: 0         [ 10  - 20 ): 0                                                             
+  3000 - 3500 ms: 0         >  20 : 0                                                                   
+  3500 - 4000 ms: 0                                                                                     
+  4000 - 4500 ms: 0                                                                                     
+  4500 - 5000 ms: 0                                                                                     
+  >  5000 ms  : 0                                                                                       
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+### Search time:110, ErrorCount:0, HttpErrorCount:0,
+### timeoutCount:0, avgTimeoutCount:0.00/s,
+### avgQPS/avgEffectiveQPS:22.00/22.00/s,
+### avgRequestTime/avgEffectiveRequestTime:1208.63ms/1208.63ms,
+### maxQPS/minQPS:22.00/22.00,
+### maxReqestTime/minRequestTime:2373.43ms/260.98ms,
+### Throughput per Day:1900800,
+### Timecost per 1W::454.55s,
+### colorCount:140,0.8235 plateCount:170,1.0000 carCount:170,
+### car per photo:1.55,
+### elapse:5s
+Time distro:              Car Num distro:         Http Code distro:         DeepV Status Code distro:   
+  0   - 500 ms: 8           [ 0   - 1  ): 0         200 : 110                 200 : 110                 
+  500 - 1000 ms: 29         [ 1   - 2  ): 50                                                            
+  1000 - 1500 ms: 42        [ 2   - 3  ): 60                                                            
+  1500 - 2000 ms: 29        [ 3   - 5  ): 0                                                             
+  2000 - 2500 ms: 2         [ 5   - 10 ): 0                                                             
+  2500 - 3000 ms: 0         [ 10  - 20 ): 0                                                             
+  3000 - 3500 ms: 0         >  20 : 0                                                                   
+  3500 - 4000 ms: 0                                                                                     
+  4000 - 4500 ms: 0                                                                                     
+  4500 - 5000 ms: 0                                                                                     
+  >  5000 ms  : 0                                                                                       
+
