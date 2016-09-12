@@ -311,8 +311,8 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
     return err;
 }
 MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecVehicle *vrec) {
-   auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value,string name) {
-        nac->set_name(name);
+   auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value) {
+        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(key));
         nac->set_confidence(value);
         nac->set_id(key);
     };
@@ -331,9 +331,10 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
             pa->set_id(obj->id());
             PeopleAttr* attr = pa->mutable_pedesattr();
             CategoryAndFeature *caf = attr->add_category();
+            caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
             NameAndConfidence *nac = caf->add_items();
-            SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt,NO_BELT);
-            SetNameAndConfidence(nac, Vehicler::Phone, phone,PHONE);
+            SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);
+            SetNameAndConfidence(nac, Vehicler::Phone, phone);
 
             break;
 

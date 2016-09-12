@@ -161,7 +161,7 @@ protected:
 class Vehicler: public Object{
     public:
 
-    enum{NoBelt=0,Phone=1};
+    enum{NoBelt=48,Phone=47};
     enum{Yes=1,No=0,NotSure=2,NoPerson=3};
     Vehicler(ObjectType type):Object(type){
 

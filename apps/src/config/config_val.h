@@ -52,7 +52,7 @@ static const string ENABLE_CUTBOARD = "Debug/EnableCutboard";
 static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
 static const string NO_BELT="NoBelt";
 static const string PHONE="Phone";
-
+static const int BEHAVIOR=11;
 }
 
 #endif /* CONFIG_VAL_H_ */
