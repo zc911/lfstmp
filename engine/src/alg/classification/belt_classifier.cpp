@@ -32,7 +32,7 @@ CaffeBeltClassifier::CaffeBeltClassifier(const VehicleBeltConfig &config)
     string model_content;
     modelsMap->getModelContent(config.model_file, model_content);
     net_->CopyTrainedLayersFrom(config.model_file, model_content);
-    LOG(INFO)<<"end load model";
+    LOG(INFO) << "end load model";
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -64,12 +64,12 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
 
     for (auto sample : imgs) {
 
-        if(caffe_config_.is_driver){
-            sample = sample(Rect(sample.cols/2,0,sample.cols/2,sample.rows));
-        //    imwrite("a1.jpg",sample);
-        }else{
-            sample = sample(Rect(0,0,sample.cols/2,sample.rows));
-         //   imwrite("a2.jpg",sample);
+        if (caffe_config_.is_driver) {
+            sample = sample(Rect(sample.cols / 2, 0, sample.cols / 2, sample.rows));
+            //    imwrite("a1.jpg",sample);
+        } else {
+            sample = sample(Rect(0, 0, sample.cols / 2, sample.rows));
+            //   imwrite("a2.jpg",sample);
 
         }
         Mat flipped_img = flip_(sample);
@@ -95,13 +95,13 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
                        % caffe_config_.batch_size;
     confidences.erase(confidences.end() - padding_size, confidences.end());
 
-    for(int i=0;i<confidences.size();i=i+4){
-        int class_num =confidences[i].size();
+    for (int i = 0; i < confidences.size(); i = i + 4) {
+        int class_num = confidences[i].size();
         vector<Prediction> prediction_single;
-        for(int j=0;j<class_num;j++){
-            float tmp=(confidences[i][j]+confidences[i+1][j]+confidences[i+2][j]+confidences[i+3][j])/4;
-            prediction_single.push_back(make_pair(j,tmp));
-            LOG(INFO)<<j<<" "<<i<<" "<<tmp;
+        for (int j = 0; j < class_num; j++) {
+            float tmp = (confidences[i][j] + confidences[i + 1][j] + confidences[i + 2][j] + confidences[i + 3][j]) / 4;
+            prediction_single.push_back(make_pair(j, tmp));
+            LOG(INFO) << j << " " << i << " " << tmp;
         }
         prediction.push_back(prediction_single);
     }
@@ -141,9 +141,9 @@ vector<Blob<float> *> CaffeBeltClassifier::PredictBatch(
     input_layer->Reshape(caffe_config_.batch_size, num_channels_, input_geometry_.height,
                          input_geometry_.width);
     float* input_data = input_layer->mutable_cpu_data();
-        int cnt = 0;
+    int cnt = 0;
 
-    for(int j=0;j<imgs.size();j++){
+    for (int j = 0; j < imgs.size(); j++) {
         Mat sample = imgs[j];
         if ((sample.rows != input_geometry_.height)
                 || (sample.cols != input_geometry_.width)) {

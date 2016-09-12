@@ -44,12 +44,8 @@ bool VehiclePhoneClassifierProcessor::process(FrameBatch *frameBatch) {
             vr = new Vehicler(OBJECT_DRIVER);
             v->set_vehicler(vr);
         }
-        LOG(INFO)<<preds[i].size();
         if (preds[i].size() > 0) {
-            vr->set_vehicler_attr(Vehicler::Phone, Vehicler::Yes);
-        }
-        else {
-            vr->set_vehicler_attr(Vehicler::Phone, Vehicler::No);
+            vr->set_vehicler_attr(Vehicler::Phone, preds[i][0].second);
         }
 
     }

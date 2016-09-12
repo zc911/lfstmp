@@ -155,7 +155,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     prec->set_confidence((float) pobj->confidence());
 
     RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
-    PedestrianAttr* attr = prec->mutable_pedesattr();
+    PeopleAttr* attr = prec->mutable_pedesattr();
 
     auto SetNameAndConfidence = [](NameAndConfidence* nac, Pedestrian::Attr& attribute) {
         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(attribute.mappingId));
@@ -241,10 +241,17 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
     err = RepoService::GetInstance().FillPlates(vobj->plates(), vrec);
     if (err.code() < 0)
         return err;
+    Window *window = (Window *)vobj->child(OBJECT_WINDOW);
+    if(window){
+        err = RepoService::GetInstance().FillSymbols(window->children(), vrec);
+        if (err.code() < 0)
+            return err;        
+    }
+            err = RepoService::GetInstance().FillPassengers(vobj->children(), vrec);
+        if (err.code() < 0)
+            return err;      
 
-    err = RepoService::GetInstance().FillSymbols(vobj->children(), vrec);
-    if (err.code() < 0)
-        return err;
+
 
     return err;
 }
