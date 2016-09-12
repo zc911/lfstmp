@@ -49,7 +49,6 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker processor" << endl;
     vector<vector<Detection> >preds;
-    LOG(INFO) << images_.size() << fobs_.size() << params_[0].size();
     ssd_marker_detector_->DetectBatch(images_, fobs_, params_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {

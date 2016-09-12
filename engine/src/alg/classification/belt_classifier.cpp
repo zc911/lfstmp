@@ -101,7 +101,6 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
         for (int j = 0; j < class_num; j++) {
             float tmp = (confidences[i][j] + confidences[i + 1][j] + confidences[i + 2][j] + confidences[i + 3][j]) / 4;
             prediction_single.push_back(make_pair(j, tmp));
-            LOG(INFO) << j << " " << i << " " << tmp;
         }
         prediction.push_back(prediction_single);
     }
