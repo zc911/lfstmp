@@ -161,7 +161,7 @@ protected:
 class Vehicler: public Object{
     public:
 
-    enum{Belt=0,Phone=1};
+    enum{NoBelt=0,Phone=1};
     enum{Yes=1,No=0,NotSure=2,NoPerson=3};
     Vehicler(ObjectType type):Object(type){
 
@@ -169,10 +169,17 @@ class Vehicler: public Object{
     ~Vehicler(){
 
     }
-    void set_vehicler_attr(int key,int value){
-        vehicler_attr_.insert(pair<int,int>(key,value));
+    void set_vehicler_attr(int key,float value){
+        vehicler_attr_.insert(pair<int,float>(key,value));
     }
-    map<int, int> vehicler_attr_;
+    float vehicler_attr_value(int key){
+        map<int,float>::iterator it = vehicler_attr_.find(key);
+        if(it!=vehicler_attr_.end()){
+            return it->second;
+        }
+        return 0;
+    }
+    map<int, float> vehicler_attr_;
 };
 
 class Marker: public Object {
@@ -233,7 +240,6 @@ public:
             m->set_confidence(detection.confidence);
             this->AddChild(m);
         }
-        LOG(INFO)<<this->children_.size();
     }
     vector<Rect> & fobbiden(){
         return fobbiden_;
