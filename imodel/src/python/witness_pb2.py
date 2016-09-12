@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='witness.proto',
   package='dg.model',
   syntax='proto3',
-  serialized_pb=_b('\n\rwitness.proto\x12\x08\x64g.model\x1a\x0c\x63ommon.proto\x1a\x11localcommon.proto\"6\n\x0cIndexRequest\x12&\n\tIndexType\x18\x01 \x01(\x0e\x32\x13.dg.model.IndexType\"9\n\x0fIndexTxtRequest\x12&\n\tIndexType\x18\x01 \x01(\x0e\x32\x13.dg.model.IndexType\"#\n\x10IndexTxtResponse\x12\x0f\n\x07\x43ontext\x18\x01 \x01(\t\"Z\n\x0b\x43ommonIndex\x12)\n\x05Items\x18\x01 \x03(\x0b\x32\x1a.dg.model.CommonIndex.Item\x1a \n\x04Item\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x0c\n\x04Name\x18\x02 \x01(\t\"\xc1\x01\n\nBrandIndex\x12(\n\x05Items\x18\x01 \x03(\x0b\x32\x19.dg.model.BrandIndex.Item\x1a\x88\x01\n\x04Item\x12\x13\n\x0bMainBrandId\x18\x02 \x01(\x05\x12\x12\n\nSubBrandId\x18\x03 \x01(\x05\x12\x13\n\x0bYearModelId\x18\x04 \x01(\x05\x12\x15\n\rMainBrandName\x18\x05 \x01(\t\x12\x14\n\x0cSubBrandName\x18\x06 \x01(\t\x12\x15\n\rYearModelName\x18\x07 \x01(\t\"t\n\rIndexResponse\x12&\n\x05Index\x18\x01 \x01(\x0b\x32\x15.dg.model.CommonIndexH\x00\x12*\n\nBrandIndex\x18\x02 \x01(\x0b\x32\x14.dg.model.BrandIndexH\x00\x42\x0f\n\rindex_content\"i\n\x0eWitnessRequest\x12\x30\n\x07\x43ontext\x18\x01 \x01(\x0b\x32\x1f.dg.model.WitnessRequestContext\x12%\n\x05Image\x18\x02 \x01(\x0b\x32\x16.dg.model.WitnessImage\"o\n\x13WitnessBatchRequest\x12\x30\n\x07\x43ontext\x18\x01 \x01(\x0b\x32\x1f.dg.model.WitnessRequestContext\x12&\n\x06Images\x18\x02 \x03(\x0b\x32\x16.dg.model.WitnessImage\"m\n\x0fWitnessResponse\x12\x31\n\x07\x43ontext\x18\x01 \x01(\x0b\x32 .dg.model.WitnessResponseContext\x12\'\n\x06Result\x18\x02 \x01(\x0b\x32\x17.dg.model.WitnessResult\"s\n\x14WitnessBatchResponse\x12\x31\n\x07\x43ontext\x18\x01 \x01(\x0b\x32 .dg.model.WitnessResponseContext\x12(\n\x07Results\x18\x02 \x03(\x0b\x32\x17.dg.model.WitnessResult\"O\n\x12WitnessRelativeROI\x12\x0c\n\x04PosX\x18\x01 \x01(\x05\x12\x0c\n\x04PosY\x18\x02 \x01(\x05\x12\r\n\x05Width\x18\x03 \x01(\x05\x12\x0e\n\x06Height\x18\x04 \x01(\x05\"L\n\x10WitnessMarginROI\x12\x0c\n\x04Left\x18\x01 \x01(\x05\x12\x0b\n\x03Top\x18\x02 \x01(\x05\x12\r\n\x05Right\x18\x03 \x01(\x05\x12\x0e\n\x06\x42ottom\x18\x04 \x01(\x05\"\xb9\x02\n\x15WitnessRequestContext\x12\x11\n\tSessionId\x18\x01 \x01(\t\x12\x10\n\x08UserName\x18\x02 \x01(\t\x12\r\n\x05Token\x18\x03 \x01(\t\x12/\n\tFunctions\x18\x04 \x03(\x0e\x32\x1c.dg.model.RecognizeFunctions\x12%\n\x04Type\x18\x05 \x01(\x0e\x32\x17.dg.model.RecognizeType\x12(\n\x07Storage\x18\x06 \x01(\x0b\x32\x17.dg.model.StorageConfig\x12;\n\x06Params\x18\x07 \x03(\x0b\x32+.dg.model.WitnessRequestContext.ParamsEntry\x1a-\n\x0bParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xbf\x01\n\x0cWitnessImage\x12\x1d\n\x04\x44\x61ta\x18\x01 \x01(\x0b\x32\x0f.dg.model.Image\x12.\n\x0fWitnessMetaData\x18\x02 \x01(\x0b\x32\x15.dg.model.SrcMetadata\x12\x31\n\x0bRelativeRoi\x18\x03 \x03(\x0b\x32\x1c.dg.model.WitnessRelativeROI\x12-\n\tMarginRoi\x18\x04 \x03(\x0b\x32\x1a.dg.model.WitnessMarginROI\"\x93\x02\n\x16WitnessResponseContext\x12\x11\n\tSessionId\x18\x01 \x01(\t\x12\x0e\n\x06Status\x18\x02 \x01(\t\x12\x0f\n\x07Message\x18\x03 \x01(\t\x12!\n\tRequestTs\x18\x04 \x01(\x0b\x32\x0e.dg.model.Time\x12\"\n\nResponseTs\x18\x05 \x01(\x0b\x32\x0e.dg.model.Time\x12>\n\x07\x44\x65\x62ugTs\x18\x06 \x03(\x0b\x32-.dg.model.WitnessResponseContext.DebugTsEntry\x1a>\n\x0c\x44\x65\x62ugTsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1d\n\x05value\x18\x02 \x01(\x0b\x32\x0e.dg.model.Time:\x02\x38\x01\"\xab\x01\n\rWitnessResult\x12\x13\n\x0bInnerStatus\x18\x01 \x01(\t\x12\x14\n\x0cInnerMessage\x18\x02 \x01(\t\x12%\n\x05Image\x18\x03 \x01(\x0b\x32\x16.dg.model.WitnessImage\x12&\n\x08Vehicles\x18\x04 \x03(\x0b\x32\x14.dg.model.RecVehicle\x12 \n\x05\x46\x61\x63\x65s\x18\x05 \x03(\x0b\x32\x11.dg.model.RecFace\"j\n\x11WitnessVehicleObj\x12+\n\rVehicleResult\x18\x01 \x01(\x0b\x32\x14.dg.model.VehicleObj\x12(\n\x07Storage\x18\x02 \x01(\x0b\x32\x17.dg.model.StorageConfig*\xcb\x01\n\tIndexType\x12\x11\n\rINDEX_DEFAULT\x10\x00\x12\x13\n\x0fINDEX_CAR_BRAND\x10\x01\x12\x12\n\x0eINDEX_CAR_TYPE\x10\x02\x12\x13\n\x0fINDEX_CAR_COLOR\x10\x03\x12\x14\n\x10INDEX_CAR_MARKER\x10\x04\x12\x18\n\x14INDEX_CAR_PLATE_TYPE\x10\x05\x12\x19\n\x15INDEX_CAR_PLATE_COLOR\x10\x06\x12\"\n\x1eINDEX_CAR_PEDESTRIAN_ATTR_TYPE\x10\x07\x32\xae\x02\n\x0eWitnessService\x12\x42\n\tRecognize\x12\x18.dg.model.WitnessRequest\x1a\x19.dg.model.WitnessResponse\"\x00\x12Q\n\x0e\x42\x61tchRecognize\x12\x1d.dg.model.WitnessBatchRequest\x1a\x1e.dg.model.WitnessBatchResponse\"\x00\x12=\n\x08GetIndex\x12\x16.dg.model.IndexRequest\x1a\x17.dg.model.IndexResponse\"\x00\x12\x46\n\x0bGetIndexTxt\x12\x19.dg.model.IndexTxtRequest\x1a\x1a.dg.model.IndexTxtResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rwitness.proto\x12\x08\x64g.model\x1a\x0c\x63ommon.proto\x1a\x11localcommon.proto\"6\n\x0cIndexRequest\x12&\n\tIndexType\x18\x01 \x01(\x0e\x32\x13.dg.model.IndexType\"9\n\x0fIndexTxtRequest\x12&\n\tIndexType\x18\x01 \x01(\x0e\x32\x13.dg.model.IndexType\"#\n\x10IndexTxtResponse\x12\x0f\n\x07\x43ontext\x18\x01 \x01(\t\"Z\n\x0b\x43ommonIndex\x12)\n\x05Items\x18\x01 \x03(\x0b\x32\x1a.dg.model.CommonIndex.Item\x1a \n\x04Item\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x0c\n\x04Name\x18\x02 \x01(\t\"\xc1\x01\n\nBrandIndex\x12(\n\x05Items\x18\x01 \x03(\x0b\x32\x19.dg.model.BrandIndex.Item\x1a\x88\x01\n\x04Item\x12\x13\n\x0bMainBrandId\x18\x02 \x01(\x05\x12\x12\n\nSubBrandId\x18\x03 \x01(\x05\x12\x13\n\x0bYearModelId\x18\x04 \x01(\x05\x12\x15\n\rMainBrandName\x18\x05 \x01(\t\x12\x14\n\x0cSubBrandName\x18\x06 \x01(\t\x12\x15\n\rYearModelName\x18\x07 \x01(\t\"t\n\rIndexResponse\x12&\n\x05Index\x18\x01 \x01(\x0b\x32\x15.dg.model.CommonIndexH\x00\x12*\n\nBrandIndex\x18\x02 \x01(\x0b\x32\x14.dg.model.BrandIndexH\x00\x42\x0f\n\rindex_content\"i\n\x0eWitnessRequest\x12\x30\n\x07\x43ontext\x18\x01 \x01(\x0b\x32\x1f.dg.model.WitnessRequestContext\x12%\n\x05Image\x18\x02 \x01(\x0b\x32\x16.dg.model.WitnessImage\"o\n\x13WitnessBatchRequest\x12\x30\n\x07\x43ontext\x18\x01 \x01(\x0b\x32\x1f.dg.model.WitnessRequestContext\x12&\n\x06Images\x18\x02 \x03(\x0b\x32\x16.dg.model.WitnessImage\"m\n\x0fWitnessResponse\x12\x31\n\x07\x43ontext\x18\x01 \x01(\x0b\x32 .dg.model.WitnessResponseContext\x12\'\n\x06Result\x18\x02 \x01(\x0b\x32\x17.dg.model.WitnessResult\"s\n\x14WitnessBatchResponse\x12\x31\n\x07\x43ontext\x18\x01 \x01(\x0b\x32 .dg.model.WitnessResponseContext\x12(\n\x07Results\x18\x02 \x03(\x0b\x32\x17.dg.model.WitnessResult\"O\n\x12WitnessRelativeROI\x12\x0c\n\x04PosX\x18\x01 \x01(\x05\x12\x0c\n\x04PosY\x18\x02 \x01(\x05\x12\r\n\x05Width\x18\x03 \x01(\x05\x12\x0e\n\x06Height\x18\x04 \x01(\x05\"L\n\x10WitnessMarginROI\x12\x0c\n\x04Left\x18\x01 \x01(\x05\x12\x0b\n\x03Top\x18\x02 \x01(\x05\x12\r\n\x05Right\x18\x03 \x01(\x05\x12\x0e\n\x06\x42ottom\x18\x04 \x01(\x05\"\xba\x02\n\x15WitnessRequestContext\x12\x11\n\tSessionId\x18\x01 \x01(\t\x12\x10\n\x08UserName\x18\x02 \x01(\t\x12\r\n\x05Token\x18\x03 \x01(\t\x12/\n\tFunctions\x18\x04 \x03(\x0e\x32\x1c.dg.model.RecognizeFunctions\x12%\n\x04Type\x18\x05 \x01(\x0e\x32\x17.dg.model.RecognizeType\x12)\n\x08Storages\x18\x06 \x03(\x0b\x32\x17.dg.model.StorageConfig\x12;\n\x06Params\x18\x07 \x03(\x0b\x32+.dg.model.WitnessRequestContext.ParamsEntry\x1a-\n\x0bParamsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xbf\x01\n\x0cWitnessImage\x12\x1d\n\x04\x44\x61ta\x18\x01 \x01(\x0b\x32\x0f.dg.model.Image\x12.\n\x0fWitnessMetaData\x18\x02 \x01(\x0b\x32\x15.dg.model.SrcMetadata\x12\x31\n\x0bRelativeRoi\x18\x03 \x03(\x0b\x32\x1c.dg.model.WitnessRelativeROI\x12-\n\tMarginRoi\x18\x04 \x03(\x0b\x32\x1a.dg.model.WitnessMarginROI\"\x93\x02\n\x16WitnessResponseContext\x12\x11\n\tSessionId\x18\x01 \x01(\t\x12\x0e\n\x06Status\x18\x02 \x01(\t\x12\x0f\n\x07Message\x18\x03 \x01(\t\x12!\n\tRequestTs\x18\x04 \x01(\x0b\x32\x0e.dg.model.Time\x12\"\n\nResponseTs\x18\x05 \x01(\x0b\x32\x0e.dg.model.Time\x12>\n\x07\x44\x65\x62ugTs\x18\x06 \x03(\x0b\x32-.dg.model.WitnessResponseContext.DebugTsEntry\x1a>\n\x0c\x44\x65\x62ugTsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x1d\n\x05value\x18\x02 \x01(\x0b\x32\x0e.dg.model.Time:\x02\x38\x01\"\xb6\x01\n\rWitnessResult\x12\x13\n\x0bInnerStatus\x18\x01 \x01(\t\x12\x14\n\x0cInnerMessage\x18\x02 \x01(\t\x12%\n\x05Image\x18\x03 \x01(\x0b\x32\x16.dg.model.WitnessImage\x12&\n\x08Vehicles\x18\x04 \x03(\x0b\x32\x14.dg.model.RecVehicle\x12+\n\nPedestrian\x18\x05 \x03(\x0b\x32\x17.dg.model.RecPedestrian*\xcb\x01\n\tIndexType\x12\x11\n\rINDEX_DEFAULT\x10\x00\x12\x13\n\x0fINDEX_CAR_BRAND\x10\x01\x12\x12\n\x0eINDEX_CAR_TYPE\x10\x02\x12\x13\n\x0fINDEX_CAR_COLOR\x10\x03\x12\x14\n\x10INDEX_CAR_MARKER\x10\x04\x12\x18\n\x14INDEX_CAR_PLATE_TYPE\x10\x05\x12\x19\n\x15INDEX_CAR_PLATE_COLOR\x10\x06\x12\"\n\x1eINDEX_CAR_PEDESTRIAN_ATTR_TYPE\x10\x07\x32\xae\x02\n\x0eWitnessService\x12\x42\n\tRecognize\x12\x18.dg.model.WitnessRequest\x1a\x19.dg.model.WitnessResponse\"\x00\x12Q\n\x0e\x42\x61tchRecognize\x12\x1d.dg.model.WitnessBatchRequest\x1a\x1e.dg.model.WitnessBatchResponse\"\x00\x12=\n\x08GetIndex\x12\x16.dg.model.IndexRequest\x1a\x17.dg.model.IndexResponse\"\x00\x12\x46\n\x0bGetIndexTxt\x12\x19.dg.model.IndexTxtRequest\x1a\x1a.dg.model.IndexTxtResponse\"\x00\x62\x06proto3')
   ,
   dependencies=[common__pb2.DESCRIPTOR,localcommon__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -68,8 +68,8 @@ _INDEXTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2296,
-  serialized_end=2499,
+  serialized_start=2200,
+  serialized_end=2403,
 )
 _sym_db.RegisterEnumDescriptor(_INDEXTYPE)
 
@@ -672,8 +672,8 @@ _WITNESSREQUESTCONTEXT_PARAMSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1494,
-  serialized_end=1539,
+  serialized_start=1495,
+  serialized_end=1540,
 )
 
 _WITNESSREQUESTCONTEXT = _descriptor.Descriptor(
@@ -719,9 +719,9 @@ _WITNESSREQUESTCONTEXT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='Storage', full_name='dg.model.WitnessRequestContext.Storage', index=5,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='Storages', full_name='dg.model.WitnessRequestContext.Storages', index=5,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -745,7 +745,7 @@ _WITNESSREQUESTCONTEXT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1226,
-  serialized_end=1539,
+  serialized_end=1540,
 )
 
 
@@ -796,8 +796,8 @@ _WITNESSIMAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1542,
-  serialized_end=1733,
+  serialized_start=1543,
+  serialized_end=1734,
 )
 
 
@@ -834,8 +834,8 @@ _WITNESSRESPONSECONTEXT_DEBUGTSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1949,
-  serialized_end=2011,
+  serialized_start=1950,
+  serialized_end=2012,
 )
 
 _WITNESSRESPONSECONTEXT = _descriptor.Descriptor(
@@ -899,8 +899,8 @@ _WITNESSRESPONSECONTEXT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1736,
-  serialized_end=2011,
+  serialized_start=1737,
+  serialized_end=2012,
 )
 
 
@@ -940,7 +940,7 @@ _WITNESSRESULT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='Faces', full_name='dg.model.WitnessResult.Faces', index=4,
+      name='Pedestrian', full_name='dg.model.WitnessResult.Pedestrian', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -958,46 +958,8 @@ _WITNESSRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2014,
-  serialized_end=2185,
-)
-
-
-_WITNESSVEHICLEOBJ = _descriptor.Descriptor(
-  name='WitnessVehicleObj',
-  full_name='dg.model.WitnessVehicleObj',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='VehicleResult', full_name='dg.model.WitnessVehicleObj.VehicleResult', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='Storage', full_name='dg.model.WitnessVehicleObj.Storage', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2187,
-  serialized_end=2293,
+  serialized_start=2015,
+  serialized_end=2197,
 )
 
 _INDEXREQUEST.fields_by_name['IndexType'].enum_type = _INDEXTYPE
@@ -1025,7 +987,7 @@ _WITNESSBATCHRESPONSE.fields_by_name['Results'].message_type = _WITNESSRESULT
 _WITNESSREQUESTCONTEXT_PARAMSENTRY.containing_type = _WITNESSREQUESTCONTEXT
 _WITNESSREQUESTCONTEXT.fields_by_name['Functions'].enum_type = localcommon__pb2._RECOGNIZEFUNCTIONS
 _WITNESSREQUESTCONTEXT.fields_by_name['Type'].enum_type = localcommon__pb2._RECOGNIZETYPE
-_WITNESSREQUESTCONTEXT.fields_by_name['Storage'].message_type = common__pb2._STORAGECONFIG
+_WITNESSREQUESTCONTEXT.fields_by_name['Storages'].message_type = common__pb2._STORAGECONFIG
 _WITNESSREQUESTCONTEXT.fields_by_name['Params'].message_type = _WITNESSREQUESTCONTEXT_PARAMSENTRY
 _WITNESSIMAGE.fields_by_name['Data'].message_type = common__pb2._IMAGE
 _WITNESSIMAGE.fields_by_name['WitnessMetaData'].message_type = common__pb2._SRCMETADATA
@@ -1038,9 +1000,7 @@ _WITNESSRESPONSECONTEXT.fields_by_name['ResponseTs'].message_type = localcommon_
 _WITNESSRESPONSECONTEXT.fields_by_name['DebugTs'].message_type = _WITNESSRESPONSECONTEXT_DEBUGTSENTRY
 _WITNESSRESULT.fields_by_name['Image'].message_type = _WITNESSIMAGE
 _WITNESSRESULT.fields_by_name['Vehicles'].message_type = common__pb2._RECVEHICLE
-_WITNESSRESULT.fields_by_name['Faces'].message_type = common__pb2._RECFACE
-_WITNESSVEHICLEOBJ.fields_by_name['VehicleResult'].message_type = common__pb2._VEHICLEOBJ
-_WITNESSVEHICLEOBJ.fields_by_name['Storage'].message_type = common__pb2._STORAGECONFIG
+_WITNESSRESULT.fields_by_name['Pedestrian'].message_type = common__pb2._RECPEDESTRIAN
 DESCRIPTOR.message_types_by_name['IndexRequest'] = _INDEXREQUEST
 DESCRIPTOR.message_types_by_name['IndexTxtRequest'] = _INDEXTXTREQUEST
 DESCRIPTOR.message_types_by_name['IndexTxtResponse'] = _INDEXTXTRESPONSE
@@ -1057,7 +1017,6 @@ DESCRIPTOR.message_types_by_name['WitnessRequestContext'] = _WITNESSREQUESTCONTE
 DESCRIPTOR.message_types_by_name['WitnessImage'] = _WITNESSIMAGE
 DESCRIPTOR.message_types_by_name['WitnessResponseContext'] = _WITNESSRESPONSECONTEXT
 DESCRIPTOR.message_types_by_name['WitnessResult'] = _WITNESSRESULT
-DESCRIPTOR.message_types_by_name['WitnessVehicleObj'] = _WITNESSVEHICLEOBJ
 DESCRIPTOR.enum_types_by_name['IndexType'] = _INDEXTYPE
 
 IndexRequest = _reflection.GeneratedProtocolMessageType('IndexRequest', (_message.Message,), dict(
@@ -1203,13 +1162,6 @@ WitnessResult = _reflection.GeneratedProtocolMessageType('WitnessResult', (_mess
   # @@protoc_insertion_point(class_scope:dg.model.WitnessResult)
   ))
 _sym_db.RegisterMessage(WitnessResult)
-
-WitnessVehicleObj = _reflection.GeneratedProtocolMessageType('WitnessVehicleObj', (_message.Message,), dict(
-  DESCRIPTOR = _WITNESSVEHICLEOBJ,
-  __module__ = 'witness_pb2'
-  # @@protoc_insertion_point(class_scope:dg.model.WitnessVehicleObj)
-  ))
-_sym_db.RegisterMessage(WitnessVehicleObj)
 
 
 _WITNESSREQUESTCONTEXT_PARAMSENTRY.has_options = True

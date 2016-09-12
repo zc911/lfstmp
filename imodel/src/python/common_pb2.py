@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='common.proto',
   package='dg.model',
   syntax='proto3',
-  serialized_pb=_b('\n\x0c\x63ommon.proto\x12\x08\x64g.model\"\x8d\x01\n\x0bSrcMetadata\x12\x11\n\tTimestamp\x18\x01 \x01(\x03\x12\x10\n\x08\x44uration\x18\x02 \x01(\x05\x12\x10\n\x08SensorId\x18\x03 \x01(\x05\x12\x12\n\nSensorName\x18\x04 \x01(\t\x12\x11\n\tSensorUrl\x18\x05 \x01(\t\x12\x0e\n\x06RepoId\x18\x06 \x01(\x05\x12\x10\n\x08RepoInfo\x18\x07 \x01(\t\"x\n\x08\x43utboard\x12\t\n\x01X\x18\x01 \x01(\r\x12\t\n\x01Y\x18\x02 \x01(\r\x12\r\n\x05Width\x18\x03 \x01(\r\x12\x0e\n\x06Height\x18\x04 \x01(\r\x12\x10\n\x08ResWidth\x18\x05 \x01(\r\x12\x11\n\tResHeight\x18\x06 \x01(\r\x12\x12\n\nConfidence\x18\x07 \x01(\x02\"S\n\rCutboardImage\x12$\n\x08\x43utboard\x18\x01 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x1c\n\x03Img\x18\x02 \x01(\x0b\x32\x0f.dg.model.Image\"?\n\x05\x43olor\x12\x0f\n\x07\x43olorId\x18\x01 \x01(\x05\x12\x12\n\nConfidence\x18\x02 \x01(\x02\x12\x11\n\tColorName\x18\x03 \x01(\t\",\n\rFeatureVector\x12\n\n\x02Id\x18\x01 \x01(\x03\x12\x0f\n\x07\x46\x65\x61ture\x18\x02 \x01(\t\"\r\n\x0bNullMessage\"P\n\x05Image\x12\n\n\x02Id\x18\x01 \x01(\t\x12\r\n\x05Width\x18\x02 \x01(\x05\x12\x0e\n\x06Height\x18\x03 \x01(\x05\x12\x0b\n\x03URI\x18\x04 \x01(\t\x12\x0f\n\x07\x42inData\x18\x05 \x01(\t\"a\n\x07RecFace\x12\n\n\x02Id\x18\x01 \x01(\x03\x12$\n\x03Img\x18\x02 \x01(\x0b\x32\x17.dg.model.CutboardImage\x12\x10\n\x08\x46\x65\x61tures\x18\x03 \x01(\t\x12\x12\n\nConfidence\x18\x04 \x01(\x02\"F\n\x0ePedestrianAttr\x12\x0e\n\x06\x41ttrId\x18\x01 \x01(\x05\x12\x10\n\x08\x41ttrName\x18\x02 \x01(\t\x12\x12\n\nConfidence\x18\x03 \x01(\x02\"\x8c\x03\n\nRecVehicle\x12\n\n\x02Id\x18\x01 \x01(\x03\x12-\n\tModelType\x18\x02 \x01(\x0b\x32\x1a.dg.model.VehicleModelType\x12\x1e\n\x05\x43olor\x18\x03 \x01(\x0b\x32\x0f.dg.model.Color\x12%\n\x05Plate\x18\x04 \x01(\x0b\x32\x16.dg.model.LicensePlate\x12$\n\x03Img\x18\x05 \x01(\x0b\x32\x17.dg.model.CutboardImage\x12(\n\x07Symbols\x18\x06 \x03(\x0b\x32\x17.dg.model.VehicleSymbol\x12\x10\n\x08\x46\x65\x61tures\x18\x07 \x01(\t\x12&\n\x0bVehicleType\x18\x08 \x01(\x0e\x32\x11.dg.model.ObjType\x12\x17\n\x0fVehicleTypeName\x18\t \x01(\t\x12\x31\n\x0fPedestrianAttrs\x18\n \x03(\x0b\x32\x18.dg.model.PedestrianAttr\x12&\n\x06Plates\x18\x0b \x03(\x0b\x32\x16.dg.model.LicensePlate\"\xdd\x01\n\x10VehicleModelType\x12\n\n\x02Id\x18\x01 \x01(\x03\x12\x0f\n\x07\x42randId\x18\x02 \x01(\x05\x12\x12\n\nSubBrandId\x18\x03 \x01(\x05\x12\x13\n\x0bModelYearId\x18\x04 \x01(\x05\x12\x12\n\nConfidence\x18\x05 \x01(\x02\x12\x0c\n\x04Type\x18\x06 \x01(\t\x12\r\n\x05\x42rand\x18\x07 \x01(\t\x12\x10\n\x08SubBrand\x18\x08 \x01(\t\x12\x11\n\tModelYear\x18\t \x01(\t\x12\x0e\n\x06TypeId\x18\n \x01(\x05\x12\r\n\x05Model\x18\x0b \x01(\t\x12\x0e\n\x06IsHead\x18\x0c \x01(\x05\"\xbe\x01\n\x0cLicensePlate\x12\x11\n\tPlateText\x18\x01 \x01(\t\x12\x1e\n\x05\x43olor\x18\x02 \x01(\x0b\x32\x0f.dg.model.Color\x12\x0e\n\x06TypeId\x18\x03 \x01(\x05\x12\x10\n\x08TypeName\x18\x04 \x01(\t\x12\x12\n\nConfidence\x18\x05 \x01(\x02\x12$\n\x08\x43utboard\x18\x06 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x1f\n\x17LocalProvinceConfidence\x18\x07 \x01(\x02\"X\n\rVehicleSymbol\x12\x10\n\x08SymbolId\x18\x01 \x01(\x05\x12\x12\n\nSymbolName\x18\x02 \x01(\t\x12!\n\x07Symbols\x18\x03 \x03(\x0b\x32\x10.dg.model.Symbol\"B\n\x06Symbol\x12$\n\x08\x43utboard\x18\x01 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x12\n\nConfidence\x18\x02 \x01(\x02\"N\n\rStorageConfig\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\t\x12\x1e\n\x04Type\x18\x02 \x01(\x0e\x32\x10.dg.model.DBType\x12\x0c\n\x04Tags\x18\x03 \x03(\t\"z\n\nVehicleObj\x12\'\n\x08Metadata\x18\x01 \x01(\x0b\x32\x15.dg.model.SrcMetadata\x12\x1c\n\x03Img\x18\x02 \x01(\x0b\x32\x0f.dg.model.Image\x12%\n\x07Vehicle\x18\x03 \x03(\x0b\x32\x14.dg.model.RecVehicle*\xc3\x03\n\x07ObjType\x12\x14\n\x10OBJ_TYPE_UNKNOWN\x10\x00\x12\x10\n\x0cOBJ_TYPE_CAR\x10\x01\x12\x14\n\x10OBJ_TYPE_BICYCLE\x10\x02\x12\x15\n\x11OBJ_TYPE_TRICYCLE\x10\x03\x12\x17\n\x13OBJ_TYPE_PEDESTRIAN\x10\x04\x12\x12\n\rOBJ_TYPE_FACE\x10\x80\x08\x12\x1c\n\x17OBJ_TYPE_VEHICLE_VECTOR\x10\x80\x10\x12\x1c\n\x17OBJ_TYPE_BICYCLE_VECTOR\x10\x81\x10\x12\x1d\n\x18OBJ_TYPE_TRICYCLE_VECTOR\x10\x82\x10\x12\x1f\n\x1aOBJ_TYPE_PEDESTRIAN_VECTOR\x10\x83\x10\x12\x19\n\x14OBJ_TYPE_FACE_VECTOR\x10\x80\x18\x12\x1e\n\x19OBJ_TYPE_VEHICLE_CUTBOARD\x10\x80 \x12\x1e\n\x19OBJ_TYPE_BICYCLE_CUTBOARD\x10\x81 \x12\x1f\n\x1aOBJ_TYPE_TRICYCLE_CUTBOARD\x10\x82 \x12!\n\x1cOBJ_TYPE_PEDESTRIAN_CUTBOARD\x10\x83 \x12\x1b\n\x16OBJ_TYPE_FACE_CUTBOARD\x10\x80(*G\n\x0b\x44\x61taFmtType\x12\x0e\n\nUNKNOWNFMT\x10\x00\x12\x08\n\x04JSON\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\x12\x07\n\x03\x43SV\x10\x03\x12\x07\n\x03PDF\x10\x04*\x13\n\x06\x44\x42Type\x12\t\n\x05KAFKA\x10\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x0c\x63ommon.proto\x12\x08\x64g.model\"\x8d\x01\n\x0bSrcMetadata\x12\x11\n\tTimestamp\x18\x01 \x01(\x03\x12\x10\n\x08\x44uration\x18\x02 \x01(\x05\x12\x10\n\x08SensorId\x18\x03 \x01(\x05\x12\x12\n\nSensorName\x18\x04 \x01(\t\x12\x11\n\tSensorUrl\x18\x05 \x01(\t\x12\x0e\n\x06RepoId\x18\x06 \x01(\x05\x12\x10\n\x08RepoInfo\x18\x07 \x01(\t\"x\n\x08\x43utboard\x12\t\n\x01X\x18\x01 \x01(\r\x12\t\n\x01Y\x18\x02 \x01(\r\x12\r\n\x05Width\x18\x03 \x01(\r\x12\x0e\n\x06Height\x18\x04 \x01(\r\x12\x10\n\x08ResWidth\x18\x05 \x01(\r\x12\x11\n\tResHeight\x18\x06 \x01(\r\x12\x12\n\nConfidence\x18\x07 \x01(\x02\"S\n\rCutboardImage\x12$\n\x08\x43utboard\x18\x01 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x1c\n\x03Img\x18\x02 \x01(\x0b\x32\x0f.dg.model.Image\"?\n\x05\x43olor\x12\x0f\n\x07\x43olorId\x18\x01 \x01(\x05\x12\x12\n\nConfidence\x18\x02 \x01(\x02\x12\x11\n\tColorName\x18\x03 \x01(\t\",\n\rFeatureVector\x12\n\n\x02Id\x18\x01 \x01(\x03\x12\x0f\n\x07\x46\x65\x61ture\x18\x02 \x01(\t\"\r\n\x0bNullMessage\"P\n\x05Image\x12\n\n\x02Id\x18\x01 \x01(\t\x12\r\n\x05Width\x18\x02 \x01(\x05\x12\x0e\n\x06Height\x18\x03 \x01(\x05\x12\x0b\n\x03URI\x18\x04 \x01(\t\x12\x0f\n\x07\x42inData\x18\x05 \x01(\t\"a\n\x07RecFace\x12\n\n\x02Id\x18\x01 \x01(\x03\x12$\n\x03Img\x18\x02 \x01(\x0b\x32\x17.dg.model.CutboardImage\x12\x10\n\x08\x46\x65\x61tures\x18\x03 \x01(\t\x12\x12\n\nConfidence\x18\x04 \x01(\x02\"A\n\x11NameAndConfidence\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x0c\n\x04Name\x18\x02 \x01(\t\x12\x12\n\nConfidence\x18\x03 \x01(\x02\"b\n\x12\x43\x61tegoryAndFeature\x12\n\n\x02Id\x18\x01 \x01(\x05\x12\x14\n\x0c\x43\x61tegoryName\x18\x02 \x01(\t\x12*\n\x05Items\x18\x03 \x03(\x0b\x32\x1b.dg.model.NameAndConfidence\"\xc3\x01\n\x0ePedestrianAttr\x12(\n\x03Sex\x18\x01 \x01(\x0b\x32\x1b.dg.model.NameAndConfidence\x12(\n\x03\x41ge\x18\x02 \x01(\x0b\x32\x1b.dg.model.NameAndConfidence\x12-\n\x08National\x18\x03 \x01(\x0b\x32\x1b.dg.model.NameAndConfidence\x12.\n\x08\x43\x61tegory\x18\x04 \x03(\x0b\x32\x1c.dg.model.CategoryAndFeature\"\xd9\x02\n\nRecVehicle\x12\n\n\x02Id\x18\x01 \x01(\x03\x12-\n\tModelType\x18\x02 \x01(\x0b\x32\x1a.dg.model.VehicleModelType\x12\x1e\n\x05\x43olor\x18\x03 \x01(\x0b\x32\x0f.dg.model.Color\x12%\n\x05Plate\x18\x04 \x01(\x0b\x32\x16.dg.model.LicensePlate\x12$\n\x03Img\x18\x05 \x01(\x0b\x32\x17.dg.model.CutboardImage\x12(\n\x07Symbols\x18\x06 \x03(\x0b\x32\x17.dg.model.VehicleSymbol\x12\x10\n\x08\x46\x65\x61tures\x18\x07 \x01(\t\x12&\n\x0bVehicleType\x18\x08 \x01(\x0e\x32\x11.dg.model.ObjType\x12\x17\n\x0fVehicleTypeName\x18\t \x01(\t\x12&\n\x06Plates\x18\n \x03(\x0b\x32\x16.dg.model.LicensePlate\"\xa3\x01\n\rRecPedestrian\x12\n\n\x02Id\x18\x01 \x01(\x03\x12$\n\x03Img\x18\x02 \x01(\x0b\x32\x17.dg.model.CutboardImage\x12\x12\n\nConfidence\x18\x03 \x01(\x02\x12+\n\tPedesAttr\x18\x04 \x01(\x0b\x32\x18.dg.model.PedestrianAttr\x12\x1f\n\x04\x46\x61\x63\x65\x18\x05 \x01(\x0b\x32\x11.dg.model.RecFace\"\xdd\x01\n\x10VehicleModelType\x12\n\n\x02Id\x18\x01 \x01(\x03\x12\x0f\n\x07\x42randId\x18\x02 \x01(\x05\x12\x12\n\nSubBrandId\x18\x03 \x01(\x05\x12\x13\n\x0bModelYearId\x18\x04 \x01(\x05\x12\x12\n\nConfidence\x18\x05 \x01(\x02\x12\x0c\n\x04Type\x18\x06 \x01(\t\x12\r\n\x05\x42rand\x18\x07 \x01(\t\x12\x10\n\x08SubBrand\x18\x08 \x01(\t\x12\x11\n\tModelYear\x18\t \x01(\t\x12\x0e\n\x06TypeId\x18\n \x01(\x05\x12\r\n\x05Model\x18\x0b \x01(\t\x12\x0e\n\x06IsHead\x18\x0c \x01(\x05\"\xbe\x01\n\x0cLicensePlate\x12\x11\n\tPlateText\x18\x01 \x01(\t\x12\x1e\n\x05\x43olor\x18\x02 \x01(\x0b\x32\x0f.dg.model.Color\x12\x0e\n\x06TypeId\x18\x03 \x01(\x05\x12\x10\n\x08TypeName\x18\x04 \x01(\t\x12\x12\n\nConfidence\x18\x05 \x01(\x02\x12$\n\x08\x43utboard\x18\x06 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x1f\n\x17LocalProvinceConfidence\x18\x07 \x01(\x02\"X\n\rVehicleSymbol\x12\x10\n\x08SymbolId\x18\x01 \x01(\x05\x12\x12\n\nSymbolName\x18\x02 \x01(\t\x12!\n\x07Symbols\x18\x03 \x03(\x0b\x32\x10.dg.model.Symbol\"B\n\x06Symbol\x12$\n\x08\x43utboard\x18\x01 \x01(\x0b\x32\x12.dg.model.Cutboard\x12\x12\n\nConfidence\x18\x02 \x01(\x02\"N\n\rStorageConfig\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\t\x12\x1e\n\x04Type\x18\x02 \x01(\x0e\x32\x10.dg.model.DBType\x12\x0c\n\x04Tags\x18\x03 \x03(\t\"z\n\nVehicleObj\x12\'\n\x08Metadata\x18\x01 \x01(\x0b\x32\x15.dg.model.SrcMetadata\x12\x1c\n\x03Img\x18\x02 \x01(\x0b\x32\x0f.dg.model.Image\x12%\n\x07Vehicle\x18\x03 \x03(\x0b\x32\x14.dg.model.RecVehicle\"\x83\x01\n\rPedestrianObj\x12\'\n\x08Metadata\x18\x01 \x01(\x0b\x32\x15.dg.model.SrcMetadata\x12\x1c\n\x03Img\x18\x02 \x01(\x0b\x32\x0f.dg.model.Image\x12+\n\nPedestrian\x18\x03 \x03(\x0b\x32\x17.dg.model.RecPedestrian*\xc3\x03\n\x07ObjType\x12\x14\n\x10OBJ_TYPE_UNKNOWN\x10\x00\x12\x10\n\x0cOBJ_TYPE_CAR\x10\x01\x12\x14\n\x10OBJ_TYPE_BICYCLE\x10\x02\x12\x15\n\x11OBJ_TYPE_TRICYCLE\x10\x03\x12\x17\n\x13OBJ_TYPE_PEDESTRIAN\x10\x04\x12\x12\n\rOBJ_TYPE_FACE\x10\x80\x08\x12\x1c\n\x17OBJ_TYPE_VEHICLE_VECTOR\x10\x80\x10\x12\x1c\n\x17OBJ_TYPE_BICYCLE_VECTOR\x10\x81\x10\x12\x1d\n\x18OBJ_TYPE_TRICYCLE_VECTOR\x10\x82\x10\x12\x1f\n\x1aOBJ_TYPE_PEDESTRIAN_VECTOR\x10\x83\x10\x12\x19\n\x14OBJ_TYPE_FACE_VECTOR\x10\x80\x18\x12\x1e\n\x19OBJ_TYPE_VEHICLE_CUTBOARD\x10\x80 \x12\x1e\n\x19OBJ_TYPE_BICYCLE_CUTBOARD\x10\x81 \x12\x1f\n\x1aOBJ_TYPE_TRICYCLE_CUTBOARD\x10\x82 \x12!\n\x1cOBJ_TYPE_PEDESTRIAN_CUTBOARD\x10\x83 \x12\x1b\n\x16OBJ_TYPE_FACE_CUTBOARD\x10\x80(*G\n\x0b\x44\x61taFmtType\x12\x0e\n\nUNKNOWNFMT\x10\x00\x12\x08\n\x04JSON\x10\x01\x12\x0c\n\x08PROTOBUF\x10\x02\x12\x07\n\x03\x43SV\x10\x03\x12\x07\n\x03PDF\x10\x04*G\n\x07SexType\x12\x14\n\x10SEX_TYPE_UNKNOWN\x10\x00\x12\x11\n\rSEX_TYPE_MALE\x10\x01\x12\x13\n\x0fSEX_TYPE_FEMALE\x10\x02*\\\n\x0cNationalType\x12\x19\n\x15NATIONAL_TYPE_UNKNOWN\x10\x00\x12\x15\n\x11NATIONAL_TYPE_HAN\x10\x01\x12\x1a\n\x16NATIONAL_TYPE_MINORITY\x10\x02*k\n\x07\x41geType\x12\x14\n\x10\x41GE_TYPE_UNKNOWN\x10\x00\x12\x11\n\rAGE_TYPE_LT15\x10\x01\x12\x11\n\rAGE_TYPE_1530\x10\x02\x12\x11\n\rAGE_TYPE_3050\x10\x03\x12\x11\n\rAGE_TYPE_50UP\x10\x04*0\n\x06\x44\x42Type\x12\t\n\x05KAFKA\x10\x00\x12\x0c\n\x08POSTGRES\x10\x01\x12\r\n\tFILEIMAGE\x10\x02\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -97,8 +97,8 @@ _OBJTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1935,
-  serialized_end=2386,
+  serialized_start=2477,
+  serialized_end=2928,
 )
 _sym_db.RegisterEnumDescriptor(_OBJTYPE)
 
@@ -132,12 +132,101 @@ _DATAFMTTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2388,
-  serialized_end=2459,
+  serialized_start=2930,
+  serialized_end=3001,
 )
 _sym_db.RegisterEnumDescriptor(_DATAFMTTYPE)
 
 DataFmtType = enum_type_wrapper.EnumTypeWrapper(_DATAFMTTYPE)
+_SEXTYPE = _descriptor.EnumDescriptor(
+  name='SexType',
+  full_name='dg.model.SexType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='SEX_TYPE_UNKNOWN', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SEX_TYPE_MALE', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SEX_TYPE_FEMALE', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=3003,
+  serialized_end=3074,
+)
+_sym_db.RegisterEnumDescriptor(_SEXTYPE)
+
+SexType = enum_type_wrapper.EnumTypeWrapper(_SEXTYPE)
+_NATIONALTYPE = _descriptor.EnumDescriptor(
+  name='NationalType',
+  full_name='dg.model.NationalType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='NATIONAL_TYPE_UNKNOWN', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NATIONAL_TYPE_HAN', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='NATIONAL_TYPE_MINORITY', index=2, number=2,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=3076,
+  serialized_end=3168,
+)
+_sym_db.RegisterEnumDescriptor(_NATIONALTYPE)
+
+NationalType = enum_type_wrapper.EnumTypeWrapper(_NATIONALTYPE)
+_AGETYPE = _descriptor.EnumDescriptor(
+  name='AgeType',
+  full_name='dg.model.AgeType',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='AGE_TYPE_UNKNOWN', index=0, number=0,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='AGE_TYPE_LT15', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='AGE_TYPE_1530', index=2, number=2,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='AGE_TYPE_3050', index=3, number=3,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='AGE_TYPE_50UP', index=4, number=4,
+      options=None,
+      type=None),
+  ],
+  containing_type=None,
+  options=None,
+  serialized_start=3170,
+  serialized_end=3277,
+)
+_sym_db.RegisterEnumDescriptor(_AGETYPE)
+
+AgeType = enum_type_wrapper.EnumTypeWrapper(_AGETYPE)
 _DBTYPE = _descriptor.EnumDescriptor(
   name='DBType',
   full_name='dg.model.DBType',
@@ -148,11 +237,19 @@ _DBTYPE = _descriptor.EnumDescriptor(
       name='KAFKA', index=0, number=0,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='POSTGRES', index=1, number=1,
+      options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FILEIMAGE', index=2, number=2,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
-  serialized_start=2461,
-  serialized_end=2480,
+  serialized_start=3279,
+  serialized_end=3327,
 )
 _sym_db.RegisterEnumDescriptor(_DBTYPE)
 
@@ -178,7 +275,20 @@ JSON = 1
 PROTOBUF = 2
 CSV = 3
 PDF = 4
+SEX_TYPE_UNKNOWN = 0
+SEX_TYPE_MALE = 1
+SEX_TYPE_FEMALE = 2
+NATIONAL_TYPE_UNKNOWN = 0
+NATIONAL_TYPE_HAN = 1
+NATIONAL_TYPE_MINORITY = 2
+AGE_TYPE_UNKNOWN = 0
+AGE_TYPE_LT15 = 1
+AGE_TYPE_1530 = 2
+AGE_TYPE_3050 = 3
+AGE_TYPE_50UP = 4
 KAFKA = 0
+POSTGRES = 1
+FILEIMAGE = 2
 
 
 
@@ -584,29 +694,29 @@ _RECFACE = _descriptor.Descriptor(
 )
 
 
-_PEDESTRIANATTR = _descriptor.Descriptor(
-  name='PedestrianAttr',
-  full_name='dg.model.PedestrianAttr',
+_NAMEANDCONFIDENCE = _descriptor.Descriptor(
+  name='NameAndConfidence',
+  full_name='dg.model.NameAndConfidence',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AttrId', full_name='dg.model.PedestrianAttr.AttrId', index=0,
+      name='Id', full_name='dg.model.NameAndConfidence.Id', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='AttrName', full_name='dg.model.PedestrianAttr.AttrName', index=1,
+      name='Name', full_name='dg.model.NameAndConfidence.Name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='Confidence', full_name='dg.model.PedestrianAttr.Confidence', index=2,
+      name='Confidence', full_name='dg.model.NameAndConfidence.Confidence', index=2,
       number=3, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -625,7 +735,104 @@ _PEDESTRIANATTR = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=684,
-  serialized_end=754,
+  serialized_end=749,
+)
+
+
+_CATEGORYANDFEATURE = _descriptor.Descriptor(
+  name='CategoryAndFeature',
+  full_name='dg.model.CategoryAndFeature',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Id', full_name='dg.model.CategoryAndFeature.Id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='CategoryName', full_name='dg.model.CategoryAndFeature.CategoryName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Items', full_name='dg.model.CategoryAndFeature.Items', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=751,
+  serialized_end=849,
+)
+
+
+_PEDESTRIANATTR = _descriptor.Descriptor(
+  name='PedestrianAttr',
+  full_name='dg.model.PedestrianAttr',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Sex', full_name='dg.model.PedestrianAttr.Sex', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Age', full_name='dg.model.PedestrianAttr.Age', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='National', full_name='dg.model.PedestrianAttr.National', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Category', full_name='dg.model.PedestrianAttr.Category', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=852,
+  serialized_end=1047,
 )
 
 
@@ -700,15 +907,8 @@ _RECVEHICLE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='PedestrianAttrs', full_name='dg.model.RecVehicle.PedestrianAttrs', index=9,
+      name='Plates', full_name='dg.model.RecVehicle.Plates', index=9,
       number=10, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='Plates', full_name='dg.model.RecVehicle.Plates', index=10,
-      number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -725,8 +925,67 @@ _RECVEHICLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=757,
-  serialized_end=1153,
+  serialized_start=1050,
+  serialized_end=1395,
+)
+
+
+_RECPEDESTRIAN = _descriptor.Descriptor(
+  name='RecPedestrian',
+  full_name='dg.model.RecPedestrian',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Id', full_name='dg.model.RecPedestrian.Id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Img', full_name='dg.model.RecPedestrian.Img', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Confidence', full_name='dg.model.RecPedestrian.Confidence', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='PedesAttr', full_name='dg.model.RecPedestrian.PedesAttr', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Face', full_name='dg.model.RecPedestrian.Face', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1398,
+  serialized_end=1561,
 )
 
 
@@ -833,8 +1092,8 @@ _VEHICLEMODELTYPE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1156,
-  serialized_end=1377,
+  serialized_start=1564,
+  serialized_end=1785,
 )
 
 
@@ -906,8 +1165,8 @@ _LICENSEPLATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1380,
-  serialized_end=1570,
+  serialized_start=1788,
+  serialized_end=1978,
 )
 
 
@@ -951,8 +1210,8 @@ _VEHICLESYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1572,
-  serialized_end=1660,
+  serialized_start=1980,
+  serialized_end=2068,
 )
 
 
@@ -989,8 +1248,8 @@ _SYMBOL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1662,
-  serialized_end=1728,
+  serialized_start=2070,
+  serialized_end=2136,
 )
 
 
@@ -1034,8 +1293,8 @@ _STORAGECONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1730,
-  serialized_end=1808,
+  serialized_start=2138,
+  serialized_end=2216,
 )
 
 
@@ -1079,21 +1338,73 @@ _VEHICLEOBJ = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1810,
-  serialized_end=1932,
+  serialized_start=2218,
+  serialized_end=2340,
+)
+
+
+_PEDESTRIANOBJ = _descriptor.Descriptor(
+  name='PedestrianObj',
+  full_name='dg.model.PedestrianObj',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Metadata', full_name='dg.model.PedestrianObj.Metadata', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Img', full_name='dg.model.PedestrianObj.Img', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='Pedestrian', full_name='dg.model.PedestrianObj.Pedestrian', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2343,
+  serialized_end=2474,
 )
 
 _CUTBOARDIMAGE.fields_by_name['Cutboard'].message_type = _CUTBOARD
 _CUTBOARDIMAGE.fields_by_name['Img'].message_type = _IMAGE
 _RECFACE.fields_by_name['Img'].message_type = _CUTBOARDIMAGE
+_CATEGORYANDFEATURE.fields_by_name['Items'].message_type = _NAMEANDCONFIDENCE
+_PEDESTRIANATTR.fields_by_name['Sex'].message_type = _NAMEANDCONFIDENCE
+_PEDESTRIANATTR.fields_by_name['Age'].message_type = _NAMEANDCONFIDENCE
+_PEDESTRIANATTR.fields_by_name['National'].message_type = _NAMEANDCONFIDENCE
+_PEDESTRIANATTR.fields_by_name['Category'].message_type = _CATEGORYANDFEATURE
 _RECVEHICLE.fields_by_name['ModelType'].message_type = _VEHICLEMODELTYPE
 _RECVEHICLE.fields_by_name['Color'].message_type = _COLOR
 _RECVEHICLE.fields_by_name['Plate'].message_type = _LICENSEPLATE
 _RECVEHICLE.fields_by_name['Img'].message_type = _CUTBOARDIMAGE
 _RECVEHICLE.fields_by_name['Symbols'].message_type = _VEHICLESYMBOL
 _RECVEHICLE.fields_by_name['VehicleType'].enum_type = _OBJTYPE
-_RECVEHICLE.fields_by_name['PedestrianAttrs'].message_type = _PEDESTRIANATTR
 _RECVEHICLE.fields_by_name['Plates'].message_type = _LICENSEPLATE
+_RECPEDESTRIAN.fields_by_name['Img'].message_type = _CUTBOARDIMAGE
+_RECPEDESTRIAN.fields_by_name['PedesAttr'].message_type = _PEDESTRIANATTR
+_RECPEDESTRIAN.fields_by_name['Face'].message_type = _RECFACE
 _LICENSEPLATE.fields_by_name['Color'].message_type = _COLOR
 _LICENSEPLATE.fields_by_name['Cutboard'].message_type = _CUTBOARD
 _VEHICLESYMBOL.fields_by_name['Symbols'].message_type = _SYMBOL
@@ -1102,6 +1413,9 @@ _STORAGECONFIG.fields_by_name['Type'].enum_type = _DBTYPE
 _VEHICLEOBJ.fields_by_name['Metadata'].message_type = _SRCMETADATA
 _VEHICLEOBJ.fields_by_name['Img'].message_type = _IMAGE
 _VEHICLEOBJ.fields_by_name['Vehicle'].message_type = _RECVEHICLE
+_PEDESTRIANOBJ.fields_by_name['Metadata'].message_type = _SRCMETADATA
+_PEDESTRIANOBJ.fields_by_name['Img'].message_type = _IMAGE
+_PEDESTRIANOBJ.fields_by_name['Pedestrian'].message_type = _RECPEDESTRIAN
 DESCRIPTOR.message_types_by_name['SrcMetadata'] = _SRCMETADATA
 DESCRIPTOR.message_types_by_name['Cutboard'] = _CUTBOARD
 DESCRIPTOR.message_types_by_name['CutboardImage'] = _CUTBOARDIMAGE
@@ -1110,16 +1424,23 @@ DESCRIPTOR.message_types_by_name['FeatureVector'] = _FEATUREVECTOR
 DESCRIPTOR.message_types_by_name['NullMessage'] = _NULLMESSAGE
 DESCRIPTOR.message_types_by_name['Image'] = _IMAGE
 DESCRIPTOR.message_types_by_name['RecFace'] = _RECFACE
+DESCRIPTOR.message_types_by_name['NameAndConfidence'] = _NAMEANDCONFIDENCE
+DESCRIPTOR.message_types_by_name['CategoryAndFeature'] = _CATEGORYANDFEATURE
 DESCRIPTOR.message_types_by_name['PedestrianAttr'] = _PEDESTRIANATTR
 DESCRIPTOR.message_types_by_name['RecVehicle'] = _RECVEHICLE
+DESCRIPTOR.message_types_by_name['RecPedestrian'] = _RECPEDESTRIAN
 DESCRIPTOR.message_types_by_name['VehicleModelType'] = _VEHICLEMODELTYPE
 DESCRIPTOR.message_types_by_name['LicensePlate'] = _LICENSEPLATE
 DESCRIPTOR.message_types_by_name['VehicleSymbol'] = _VEHICLESYMBOL
 DESCRIPTOR.message_types_by_name['Symbol'] = _SYMBOL
 DESCRIPTOR.message_types_by_name['StorageConfig'] = _STORAGECONFIG
 DESCRIPTOR.message_types_by_name['VehicleObj'] = _VEHICLEOBJ
+DESCRIPTOR.message_types_by_name['PedestrianObj'] = _PEDESTRIANOBJ
 DESCRIPTOR.enum_types_by_name['ObjType'] = _OBJTYPE
 DESCRIPTOR.enum_types_by_name['DataFmtType'] = _DATAFMTTYPE
+DESCRIPTOR.enum_types_by_name['SexType'] = _SEXTYPE
+DESCRIPTOR.enum_types_by_name['NationalType'] = _NATIONALTYPE
+DESCRIPTOR.enum_types_by_name['AgeType'] = _AGETYPE
 DESCRIPTOR.enum_types_by_name['DBType'] = _DBTYPE
 
 SrcMetadata = _reflection.GeneratedProtocolMessageType('SrcMetadata', (_message.Message,), dict(
@@ -1178,6 +1499,20 @@ RecFace = _reflection.GeneratedProtocolMessageType('RecFace', (_message.Message,
   ))
 _sym_db.RegisterMessage(RecFace)
 
+NameAndConfidence = _reflection.GeneratedProtocolMessageType('NameAndConfidence', (_message.Message,), dict(
+  DESCRIPTOR = _NAMEANDCONFIDENCE,
+  __module__ = 'common_pb2'
+  # @@protoc_insertion_point(class_scope:dg.model.NameAndConfidence)
+  ))
+_sym_db.RegisterMessage(NameAndConfidence)
+
+CategoryAndFeature = _reflection.GeneratedProtocolMessageType('CategoryAndFeature', (_message.Message,), dict(
+  DESCRIPTOR = _CATEGORYANDFEATURE,
+  __module__ = 'common_pb2'
+  # @@protoc_insertion_point(class_scope:dg.model.CategoryAndFeature)
+  ))
+_sym_db.RegisterMessage(CategoryAndFeature)
+
 PedestrianAttr = _reflection.GeneratedProtocolMessageType('PedestrianAttr', (_message.Message,), dict(
   DESCRIPTOR = _PEDESTRIANATTR,
   __module__ = 'common_pb2'
@@ -1191,6 +1526,13 @@ RecVehicle = _reflection.GeneratedProtocolMessageType('RecVehicle', (_message.Me
   # @@protoc_insertion_point(class_scope:dg.model.RecVehicle)
   ))
 _sym_db.RegisterMessage(RecVehicle)
+
+RecPedestrian = _reflection.GeneratedProtocolMessageType('RecPedestrian', (_message.Message,), dict(
+  DESCRIPTOR = _RECPEDESTRIAN,
+  __module__ = 'common_pb2'
+  # @@protoc_insertion_point(class_scope:dg.model.RecPedestrian)
+  ))
+_sym_db.RegisterMessage(RecPedestrian)
 
 VehicleModelType = _reflection.GeneratedProtocolMessageType('VehicleModelType', (_message.Message,), dict(
   DESCRIPTOR = _VEHICLEMODELTYPE,
@@ -1233,6 +1575,13 @@ VehicleObj = _reflection.GeneratedProtocolMessageType('VehicleObj', (_message.Me
   # @@protoc_insertion_point(class_scope:dg.model.VehicleObj)
   ))
 _sym_db.RegisterMessage(VehicleObj)
+
+PedestrianObj = _reflection.GeneratedProtocolMessageType('PedestrianObj', (_message.Message,), dict(
+  DESCRIPTOR = _PEDESTRIANOBJ,
+  __module__ = 'common_pb2'
+  # @@protoc_insertion_point(class_scope:dg.model.PedestrianObj)
+  ))
+_sym_db.RegisterMessage(PedestrianObj)
 
 
 import grpc
