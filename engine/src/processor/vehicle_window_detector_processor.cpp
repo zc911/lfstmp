@@ -79,8 +79,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         resize(img,resized_img,Size(512,256));
         resize(phone_img,phone_img,Size(512,256));
         resize(img,img,Size(target_col,target_row));
-                imwrite("b.jpg",img);
-        imwrite("c.jpg",resized_img);
+
         Window *window=new Window(img,fob,params);
         window->set_detection(crops[i][0]);
         window->set_resized_img(resized_img);

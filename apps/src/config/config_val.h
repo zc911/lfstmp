@@ -50,6 +50,8 @@ static const string STORAGE_DB_TYPE = "Storage/DBType";
 static const string IS_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
 static const string ENABLE_CUTBOARD = "Debug/EnableCutboard";
 static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
+static const string NO_BELT="NoBelt";
+static const string PHONE="Phone";
 
 }
 
