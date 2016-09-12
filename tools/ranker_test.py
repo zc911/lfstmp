@@ -9,6 +9,7 @@ from grpc.beta import implementations
 
 sys.path.append("matrix_service")
 import ranker_pb2
+
 sys.path.append("py-pb-converters")
 import pbjson
 
@@ -21,6 +22,8 @@ PortRestful = 6501
 PortGrpc = 6500
 RankerServiceRestful = "http://" + IP + ":" + str(PortRestful) + "/rank"
 CandidatesDataFile = "feature_modeltype.json"
+ReqDataFile = "req.json"
+RespDataFile = "resp.json"
 # Candidates number
 CandidatesCount = 10
 CandidatesStartIndex = 0
@@ -45,7 +48,7 @@ def start_grpc():
     grpc_req.Image.BinData = compare_image_content
 
     v_json_file = open(CandidatesDataFile)
-    json_data= json.load(v_json_file)
+    json_data = json.load(v_json_file)
 
     id = 1
     start = 0
@@ -69,10 +72,11 @@ def start_grpc():
     best_candidate.Feature = CompareImageFeature
 
     # write the request data into file in case debug
-    req_file = open('req.json', 'w')
+    req_file = open(ReqDataFile, 'w')
     post_json_data = pbjson.pb2json(grpc_req)
     json.dump(post_json_data, req_file)
     req_file.close()
+    print "Save the request data into file: %s " % (ReqDataFile)
 
     # call ranker service
     start_time = time.time()
@@ -83,9 +87,10 @@ def start_grpc():
     resp_json = pbjson.pb2json(resp)
 
     # write ranker results
-    resp_file = open("resp.json", 'w')
+    resp_file = open(RespDataFile, 'w')
     resp_file.write(resp_json)
     resp_file.close()
+    print "Save the response date into file: %s " % (RespDataFile)
 
 
 def start_restful():
@@ -134,9 +139,10 @@ def start_restful():
     post_json_data["Candidates"].append(best_candidate)
 
     # write the post data into file in case debug
-    req_file = open('req.json', 'w')
+    req_file = open(ReqDataFile, 'w')
     json.dump(post_json_data, req_file)
     req_file.close()
+    print "Save the request data into file: %s " % (ReqDataFile)
 
     # call ranker service
     start_time = time.time()
@@ -148,9 +154,10 @@ def start_restful():
     print "Ranker cost: %d ms with %d candidates" % ((end_time - start_time) * 1000, id - 1)
 
     # write ranker results in to file
-    resp_file = open("resp.json", 'w')
+    resp_file = open(RespDataFile, 'w')
     resp_file.write(resp.content)
     resp_file.close()
+    print "Save the response data into file: %s " % (RespDataFile)
 
 
 def print_usage():
