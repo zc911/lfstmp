@@ -233,7 +233,6 @@ public:
             m->set_confidence(detection.confidence);
             this->AddChild(m);
         }
-        LOG(INFO)<<this->children_.size();
     }
     vector<Rect> & fobbiden(){
         return fobbiden_;

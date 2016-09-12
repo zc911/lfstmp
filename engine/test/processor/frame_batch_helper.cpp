@@ -75,7 +75,7 @@ void FrameBatchHelper::printFrame(Frame * frame) {
                     << ", confidence: " << v->plates()[i].confidence << endl;
                 }
             }
-            vector<Object *> markers = v->children();
+        /*    vector<Object *> markers = v->children();
             cout << "Vehicle Markers    : " << v->children().size() << "\t\t, Window     : "
             << v->child(OBJECT_WINDOW)->detection().box.x << endl;
 
@@ -85,7 +85,7 @@ void FrameBatchHelper::printFrame(Frame * frame) {
                 cout << "Marker " << i << ": " << d << " class id: "
                 << m->class_id() << endl;
             }
-
+*/
             cout << "Feature Vector     : " << v->feature().Serialize().substr(0, 32)
             << "...    Len : " << v->feature().Serialize().size() << endl;
         }
