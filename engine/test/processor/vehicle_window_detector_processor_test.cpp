@@ -17,11 +17,9 @@ static void initConfig() {
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     wConfig.is_model_encrypt = false;
-    mConfig.is_model_encrypt = false;
     baseModelPath = "data/0/";
 #else
     wConfig.is_model_encrypt = true;
-    mConfig.is_model_encrypt = true;
     baseModelPath = "data/1/";
 #endif
 
@@ -64,7 +62,7 @@ static void destory() {
     }
 }
 
-TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
+TEST(VehicleWindowDetectorTest, windowDetectorTest) {
     init();
     fbhelper->setBasePath("data/testimg/windowDetector/");
     fbhelper->readImage(getOperation());

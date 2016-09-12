@@ -66,7 +66,7 @@ static void destory() {
     }
 }
 
-TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
+TEST(VehicleMarkerDetectorTest, markerDetectorTest) {
     init();
     fbhelper->setBasePath("data/testimg/markerDetector/");
     fbhelper->readImage(getOperation());
