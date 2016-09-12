@@ -66,10 +66,10 @@ vector<vector<Prediction> > CaffeBeltClassifier::ClassifyAutoBatch(const vector<
 
         if(caffe_config_.is_driver){
             sample = sample(Rect(sample.cols/2,0,sample.cols/2,sample.rows));
-            imwrite("a1.jpg",sample);
+        //    imwrite("a1.jpg",sample);
         }else{
             sample = sample(Rect(0,0,sample.cols/2,sample.rows));
-            imwrite("a2.jpg",sample);
+         //   imwrite("a2.jpg",sample);
 
         }
         Mat flipped_img = flip_(sample);

@@ -78,7 +78,6 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
     for (int j = 0; j < box_num; j++) {
 
         int img_id = top_data[j * 7 + 0];
-        LOG(INFO)<<img_id;
 
         if ((img_id < 0) || ((img_id + image_offset) >= detect_results.size())) {
             continue;
@@ -89,12 +88,13 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
         }
         int cls = top_data[j * 7 + 1];
         float score = top_data[j * 7 + 2];
-        LOG(INFO)<<cls<<" "<<score;
 
-        if(cls!=1||cls!=5)
+        if(!(cls==1||cls==5))
             continue;
+
         if(score<0.9)
             continue;
+
         /*******************tiny object detector*********************/
         Prediction pred;
         pred.first = cls;
@@ -119,10 +119,8 @@ int PhoneCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
     vector<cv::Mat> toPredict;
     vector<cv::Mat> origins;
     for (int i = 0; i < img.size(); ++i) {
-        cv::Mat image = img[i].clone();
+        Mat image=ycrbradapthist(img[i]);
 
-        cvtColor(image, image, CV_BGR2GRAY);
-        equalizeHist(image, image);
         toPredict.push_back(image);
         if (toPredict.size() == batch_size_) {
             vector<Blob<float> *> outputs = PredictBatch(toPredict);

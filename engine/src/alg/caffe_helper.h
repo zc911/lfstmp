@@ -244,7 +244,7 @@ static cv::Mat crop_phone_image(cv::Mat image, float xmin, float ymin, float xma
     int crop_xmin = xmin - width_add;
     int crop_xmax = xmax + width_add;
 
-    int height_add = height /5;
+    int height_add = height / 5;
     int crop_height = height + height_add * 2;
 //    int crop_height = crop_width * 2 / 3; // =height/1.5
     int crop_ymin = ymin - height_add;
@@ -488,6 +488,27 @@ static Mat histeq(Mat& img) {
     Mat hist_img(img.rows, img.cols, CV_8UC3);
     merge(bgr, (size_t) 3, hist_img);
     return hist_img;
+}
+static Mat ycrbradapthist(Mat const & img) {
+    cv::Mat image = img.clone();
+    cvtColor(image, image, CV_RGB2YCrCb); 
+    Mat equalized;
+    vector<Mat> planes;
+    vector<Mat> equalized_planes;
+    split(image, planes);
+    for (int i = 0; i < 3; ++i) {
+        Mat tmp = planes[i];
+        if (i == 0) {
+            Ptr<CLAHE> clahe = createCLAHE(2.0, Size(8.0, 8.0));
+            clahe->apply(tmp, tmp);
+        //    equalizeHist(planes[i], tmp);
+        }
+        equalized_planes.push_back(tmp);
+    }
+    merge(equalized_planes, equalized);
+    cvtColor(equalized, equalized, CV_YCrCb2RGB);
+
+    return equalized;
 }
 // random crop
 static Mat random_crop(Mat& img, int border) {
