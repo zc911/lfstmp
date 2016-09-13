@@ -183,6 +183,12 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
                               FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
     enable_face_feature_vector_ = (bool) config.Value(
                                       FEATURE_FACE_ENABLE_DETECTION) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
+    enable_vehicle_driver_belt_ = (bool) config.Value(
+                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
+    enable_vehicle_codriver_belt_ = (bool) config.Value(
+                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT) && (CheckFeature(FEATURE_CAR_BEHAVIOR_PHONE, false) == ERR_FEATURE_ON);
+    enable_vehicle_driver_phone_ = (bool) config.Value(
+                                       FEATURE_VEHICLE_ENABLE_PHONE) && (CheckFeature(FEATURE_CAR_BEHAVIOR_NOBELT, false) == ERR_FEATURE_ON);
 #endif
 
 }

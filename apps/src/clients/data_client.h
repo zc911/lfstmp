@@ -79,7 +79,6 @@ public:
       }
     }
     unique_lock<mutex> lock(mtx);
-    LOG(INFO)<<address;
     map<string, std::unique_ptr<DataService::Stub> >::iterator it = stubs_.find(address);
     if (it == stubs_.end()) {
       if (-1 == CreateConnect(address)) {

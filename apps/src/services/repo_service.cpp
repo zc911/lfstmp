@@ -311,38 +311,59 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
     return err;
 }
 MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecVehicle *vrec) {
-   auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value) {
-        nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(key));
-        nac->set_confidence(value);
-        nac->set_id(key);
+
+    auto FillPassengersAttr = [](RecVehicle * vrec, Vehicler * p, int is_driver) {
+
+        auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value) {
+            nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(key));
+            nac->set_confidence(value);
+            nac->set_id(key);
+        };
+        float nobelt = 0, phone = 0;
+
+
+        nobelt = p->vehicler_attr_value(Vehicler::NoBelt);
+        phone = p->vehicler_attr_value(Vehicler::Phone);
+
+        CategoryAndFeature *caf;
+        Passenger * pa;
+        PeopleAttr* attr;
+        if (nobelt > 0 || phone > 0) {
+        pa = vrec->add_passengers();
+        pa->set_id(p->id());
+        attr = pa->mutable_pedesattr();
+            caf = attr->add_category();
+            caf->set_id(BEHAVIOR);
+            caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
+
+        }
+        if (nobelt > 0) {
+            NameAndConfidence *nac = caf->add_items();
+            SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);
+        }
+        if (phone > 0) {
+            NameAndConfidence *nac = caf->add_items();
+            SetNameAndConfidence(nac, Vehicler::Phone, phone);
+        }
+
     };
     for (auto *obj : passengers) {
-        float nobelt = 0, phone = 0;
         int is_driver = 0;
         Vehicler *p = (Vehicler *)obj;
 
         switch (obj->type()) {
-        case OBJECT_DRIVER:
-            is_driver = 1;
         case OBJECT_CODRIVER:
-            nobelt = p->vehicler_attr_value(Vehicler::NoBelt);
-            phone = p->vehicler_attr_value(Vehicler::Phone);
-            Passenger * pa = vrec->add_passengers();
-            pa->set_id(obj->id());
-            PeopleAttr* attr = pa->mutable_pedesattr();
-            CategoryAndFeature *caf = attr->add_category();
-            caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
-            NameAndConfidence *nac = caf->add_items();
-            SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);
-            SetNameAndConfidence(nac, Vehicler::Phone, phone);
-
+            FillPassengersAttr(vrec, p, 0);
+            break;
+        case OBJECT_DRIVER:
+            FillPassengersAttr(vrec, p, 1);
             break;
 
         }
 
     }
-        MatrixError err;
-        return err;
+    MatrixError err;
+    return err;
 }
 
 MatrixError RepoService::Index(const IndexRequest *request,
