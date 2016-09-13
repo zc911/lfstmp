@@ -329,9 +329,9 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
         Passenger * pa;
         PeopleAttr* attr;
         if (nobelt > 0 || phone > 0) {
-        pa = vrec->add_passengers();
-        pa->set_id(p->id());
-        attr = pa->mutable_pedesattr();
+            pa = vrec->add_passengers();
+            pa->set_id(p->id());
+            attr = pa->mutable_pedesattr();
             caf = attr->add_category();
             caf->set_id(BEHAVIOR);
             caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
