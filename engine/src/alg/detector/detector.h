@@ -31,8 +31,8 @@ typedef struct {
     bool car_only = false;
     bool is_model_encrypt = true;
     int batch_size = 1;
-    float target_min_size;
-    float target_max_size;
+    float target_min_size=0.001;
+    float target_max_size=0.001;
     int gpu_id = 0;
     bool use_gpu = true;
     string deploy_file;

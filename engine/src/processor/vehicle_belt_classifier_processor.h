@@ -1,25 +1,22 @@
 /*
- * vehicle_marker_classifier_processor.h
+ * vehicle_belt_classifier_processor.h
  *
- *  Created on: Apr 26, 2016
+ *  Created on: Sep 6, 2016
  *      Author: jiajaichen
  */
 
-#ifndef SRC_PROCESSOR_VEHICLE_MARKER_CLASSIFIER_PROCESSOR_H_
-#define SRC_PROCESSOR_VEHICLE_MARKER_CLASSIFIER_PROCESSOR_H_
+#ifndef SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
+#define SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
-#include "alg/classification/marker_caffe_classifier.h"
-#include "alg/detector/window_caffe_detector.h"
 #include "alg/detector/window_caffe_ssd_detector.h"
-#include "alg/detector/marker_caffe_ssd_detector.h"
  #include "alg/classification/belt_classifier.h"
 namespace dg {
 
-class VehicleMarkerClassifierProcessor: public Processor {
+class VehicleBeltClassifierProcessor: public Processor {
 public:
 
-    VehicleMarkerClassifierProcessor(VehicleCaffeDetectorConfig &mConfig,bool isVisualization);
-    ~VehicleMarkerClassifierProcessor();
+    VehicleBeltClassifierProcessor(VehicleBeltConfig &bConfig);
+    ~VehicleBeltClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {
         return false;
@@ -32,17 +29,15 @@ protected:
 
 
 private:
-    MarkerCaffeSsdDetector *ssd_marker_detector_=NULL;
+    CaffeBeltClassifier *belt_classifier_=NULL;
 
     vector<Object *> objs_;
     vector<vector<Rect> > fobs_;
     vector<vector<float> >params_;
-    vector<Mat> draw_images_;
     vector<Mat> images_;
+    bool is_driver=true;
     int marker_target_min_;
     int marker_target_max_;
-    bool isVisualization_=false;
-    vector<Scalar> color_;
 };
 
 }

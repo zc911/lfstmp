@@ -42,9 +42,9 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    input_geometry_ = cv::Size(input_layer->width(),input_layer->height());
     target_col_=config.target_min_size;
     target_row_=config.target_max_size;
+    input_geometry_ = cv::Size(target_col_,target_row_);
 
   /*  input_layer->Reshape(batch_size_, num_channels_,
                          input_geometry_.height,
@@ -174,6 +174,7 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         if ((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
             cv::resize(sample, sample, Size(input_geometry_.width, input_geometry_.height));
         }
+
         float mean[3] = {104, 117, 123};
         for (int k = 0; k < sample.channels(); k++) {
             for (int i = 0; i < sample.rows; i++) {
