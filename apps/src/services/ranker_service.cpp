@@ -13,15 +13,13 @@
 #include "codec/base64.h"
 #include "image_service.h"
 namespace dg {
-
+//const int RANKER_MAXIMUM = 10000
 RankerAppsService::RankerAppsService(const Config *config, string name, int baseId)
     : name_(name),
-      config_(config),
-      car_ranker_(*config),
-      face_ranker_(*config) {
+      config_(config){
     config_ = config;
 
-    int type = (int) config->Value(RANKER_DEFAULT_TYPE);
+   /* int type = (int) config->Value(RANKER_DEFAULT_TYPE);
     switch (type) {
         case dg::REC_TYPE_VEHICLE:
             getRankedDefaultVector = &RankerAppsService::getRankedCarVector;
@@ -32,7 +30,9 @@ RankerAppsService::RankerAppsService(const Config *config, string name, int base
         case dg::REC_TYPE_ALL:
             getRankedDefaultVector = &RankerAppsService::getRankedAllVector;
             break;
-    }
+    }*/
+    limits_ = min(RANKER_MAXIMUM,(int)config->Value(ADVANCED_RANKER_MAXIMUM));
+
 }
 
 RankerAppsService::~RankerAppsService() {
@@ -53,7 +53,7 @@ MatrixError RankerAppsService::GetRankedVector(
             case dg::REC_TYPE_ALL:
                 return getRankedAllVector(request, response);
             case dg::REC_TYPE_DEFAULT:
-                return (this->*getRankedDefaultVector)(request, response);
+                return getRankedCarVector(request, response);
 
             default:
                 LOG(ERROR) << "bad request(" << request->reqid() << "), unknown action";
@@ -142,15 +142,35 @@ MatrixError RankerAppsService::getCarScoredVector(
 
     Rect hotspot = getHotspot(request, image);
 
-    int limits = car_ranker_.GetMaxCandidatesSize();
     vector<CarRankFeature> features;
-    err = extractFeatures(request, features, limits);
+    err = extractFeatures(request, features, limits_);
 
     if (err.code() != 0) {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
     }
-    scores = car_ranker_.Rank(image, hotspot, features);
+    vector<Rect> hotspots;
+    hotspots.push_back(hotspot);
+    CarRankFrame f(0, image, hotspots, features);
+
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
+
+        EngineData data;
+    data.func = [&f, &data]() -> void {
+        return (bind(&SimpleRankEngine::RankCar, (SimpleRankEngine *) data.apps,
+        placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+    engine_pool->enqueue(&data);
+        data.Wait();
+
+    scores=f.result_;
+
+    //scores = car_ranker_.Rank(image, hotspot, features);
     return err;
 }
 MatrixError RankerAppsService::getFaceScoredVector(
@@ -177,15 +197,40 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
     Rect hotspot = getHotspot(request, image);
 
-    int limits = face_ranker_.GetMaxCandidatesSize();
     vector<FaceRankFeature> features;
-    err = extractFeatures(request, features, limits);
+    err = extractFeatures(request, features, limits_);
     if (err.code() != 0) {
         LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
         return err;
     }
+    vector<Rect> hotspots;
+        hotspots.push_back(hotspot);
 
-    scores = face_ranker_.Rank(image, hotspot, features);
+    FaceRankFrame f(0, image, hotspots, features);
+    Operation op;
+
+    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+           | OPERATION_FACE_FEATURE_VECTOR);
+
+    f.set_operation(op);
+
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&f, &data]() -> void {
+        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
+        placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+        data.Wait();
+
+    scores=f.result_;
+ //   scores = face_ranker_.Rank(image, hotspot, features);
     return err;
 }
 MatrixError RankerAppsService::getRankedFaceVector(

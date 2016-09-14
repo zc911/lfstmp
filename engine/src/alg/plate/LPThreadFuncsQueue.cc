@@ -517,9 +517,9 @@ void *doRecogOne_ThreadQueue(void *pParam)
     cv::waitKey(0);
   #endif
     memcpy(pfBlkBuffer_1, pfBlkBuffer_0, sizeof(float) * dwBlkH * dwBlkW);
-
+    
 //    printf(">>>wwww:[%d/%d, %d]\n", dwNowMissionID, dwMissionNum, dwThreadID);
-
+    
     int dwRet = doRecogOne(hPREG, hCHRECOG, &stIIR, &stOut);
     
 //    printf(">>>dwRet:%d, [%d/%d, %d]\n", dwRet, dwNowMissionID, dwMissionNum, dwThreadID);
@@ -528,7 +528,7 @@ void *doRecogOne_ThreadQueue(void *pParam)
       //write data
       unique_lock<mutex> countlc2(*p_missionmt);
 //      p_missionmt->lock();
-
+      
       stOut.adwLPRect[0] = stIIR.rect.dwX0 + dwX0_0 - adwMarginHW[1];
       stOut.adwLPRect[1] = stIIR.rect.dwY0 + dwY0_0 - adwMarginHW[0];
       stOut.adwLPRect[2] = stIIR.rect.dwX1 + dwX0_0 - adwMarginHW[1];
@@ -536,7 +536,7 @@ void *doRecogOne_ThreadQueue(void *pParam)
       pstLPDRSetOne->astLPs[pstLPDRSetOne->dwLPNum++] = stOut;
       
 //      printf(">>>>dwLPNum:%x, %d[%d/%d]\n", &pstLPDRSetOne->dwLPNum, pstLPDRSetOne->dwLPNum, dwNowMissionID, dwThreadID);
-
+      
       countlc2.unlock();
 //      p_missionmt->unlock();
     }
@@ -557,12 +557,14 @@ void *doRecogOne_ThreadQueue(void *pParam)
     (*p_dwFinishCount)++;
   }
   dwFinishCount = (*p_dwFinishCount);
+//  printf("fucking finished thread_0:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
   if (dwFinishCount == dwNeedFinishNum) {
     p_cv->notify_all();
   }
 
   countlc.unlock();
-
+//  printf("fucking finished thread_1:%d, %d/%d\n", dwThreadID, *p_dwFinishCount, dwNeedFinishNum);
+  
   
   return 0;
 }

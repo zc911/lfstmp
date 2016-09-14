@@ -29,16 +29,16 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-#if DEBUG
+    string deploy_content;
+    modelsMap->getModelContent(config.deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
+        new Net<float>(config.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file,model_content);
+        net_->CopyTrainedLayersFrom(config.model_file,model_content);
 
-    net_->CopyTrainedLayersFrom(config.model_file);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
@@ -80,7 +80,6 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
         int img_id = top_data_win[j * 7 + 0];
 
         if ((img_id < 0) || ((img_id+image_offset) >= detect_results.size())) {
-            LOG(ERROR) << "Image id invalid: " << img_id << endl;
             continue;
         }
         vector<Detection> &imageDetection = detect_results[image_offset + img_id];

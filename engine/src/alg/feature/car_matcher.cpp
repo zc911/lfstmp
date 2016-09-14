@@ -12,7 +12,7 @@ namespace dg {
 #define FEATURE_NUM_CUDA 256
 
 #if not USE_CUDA
-CarMatcher::CarMatcher(unsigned int maxImageCount) {
+CarMatcher::CarMatcher(unsigned int maxImageCount,int gpuid) {
     feature_num_ = FEATURE_NUM_CUDA;
     max_resize_size_ = 300;
     max_mis_match_ = 50;
@@ -22,7 +22,7 @@ CarMatcher::CarMatcher(unsigned int maxImageCount) {
     min_score_thr_ = 100;
     profile_time_ = false;
     max_image_count_ = maxImageCount;
-
+    gpu_id_=gpuid;
 }
 
 CarMatcher::~CarMatcher() {

@@ -15,8 +15,8 @@ WitnessEngine::WitnessEngine(const Config &config) {
     vehicle_processor_ = NULL;
     face_processor_ = NULL;
     is_init_ = false;
-
     init(config);
+
 }
 
 WitnessEngine::~WitnessEngine() {
@@ -301,7 +301,11 @@ void WitnessEngine::init(const Config &config) {
                 VehicleCaffeDetectorConfig wConfig;
                 configFilter->createMarkersConfig(config, mConfig);
                 configFilter->createWindowConfig(config, wConfig);
-                p = new VehicleMarkerClassifierProcessor(wConfig, mConfig);
+                #if DEBUG
+                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,(bool) config.Value(DEBUG_VISUALIZATION));
+                #else 
+                    p = new VehicleMarkerClassifierProcessor(wConfig, mConfig,false);
+                #endif
             }
 
 
