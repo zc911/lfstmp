@@ -19,7 +19,7 @@ using namespace dg;
 
 string getServerAddress(Config *config, int userPort = 0) {
     if (userPort != 0) {
-        cout << "Use command line port instead of config file value" << endl;
+    //    cout << "Use command line port instead of config file value" << endl;
         config->AddEntry("System/Port", AnyConversion(userPort));
     }
 
