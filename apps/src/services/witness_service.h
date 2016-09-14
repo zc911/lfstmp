@@ -22,6 +22,7 @@
 #include "witness_bucket.h"
 #include "repo_service.h"
 #include "utils.h"
+#include "witness_collector.h"
 namespace dg {
 
 using namespace ::dg::model;
