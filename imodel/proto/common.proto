@@ -138,8 +138,9 @@ message RecVehicle {
 }
 message Passenger {
     int64 Id = 1;
-    PeopleAttr PedesAttr = 2;
+    PeopleAttr PassengerAttr = 2;
     RecFace Face = 3;
+    bool Driver = 4;
 }
 
 message RecPedestrian {

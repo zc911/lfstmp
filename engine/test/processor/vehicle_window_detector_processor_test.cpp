@@ -75,23 +75,23 @@ TEST(VehicleWindowDetectorTest, windowDetectorTest) {
 
     for (int i = 0; i < fb->batch_size(); ++i) {
         vector<Object *> vehicles = fb->frames()[i]->objects();
-        int cnt=0;
+        int cnt = 0;
         stringstream s;
-            s << i;
+        s << i;
         for (int j = 0; j < vehicles.size(); j++) {
             Vehicle *obj = (Vehicle *)vehicles[j];
             Window *w = (Window *)obj->child(OBJECT_WINDOW);
             if (w == NULL)
                 continue;
-            
+
             EXPECT_LE(0, w->detection().box.x);
             EXPECT_LE(0, w->detection().box.y);
             EXPECT_GE(obj->detection().box.width, w->detection().box.width + w->detection().box.x);
             EXPECT_GE(obj->detection().box.height, w->detection().box.height + w->detection().box.y);
-            cnt+=obj->children(OBJECT_WINDOW).size();
+            cnt += obj->children(OBJECT_WINDOW).size();
 
         }
-        EXPECT_EQ(resultReader->getIntValue(s.str(), 0),cnt ) << "i = " << i << endl;
+        EXPECT_EQ(resultReader->getIntValue(s.str(), 0), cnt ) << "i = " << i << endl;
 
 
     }
