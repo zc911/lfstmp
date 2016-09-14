@@ -23,6 +23,7 @@
 #include "witness_service.h"
 #include "image_service.h"
 #include "witness_bucket.h"
+#include "witness_collector.h"
 
 
 //
@@ -494,14 +495,22 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     frame->set_operation(getOperation(request->context()));
     frame->set_roi(roiimages.rois);
 
-    FrameBatch framebatch(curr_id * 10);
+    if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
+        timestamp = request->image().witnessmetadata().timestamp();
+    }
+    shared_ptr<RequestItem> requestItem(new RequestItem);
+    requestItem->frame=frame;
+    requestItem->isFinish=false;
+    WitnessCollector::Instance().Push(requestItem);
+
+
+
+/*    FrameBatch framebatch(curr_id * 10);
     framebatch.AddFrame(frame);
     gettimeofday(&start, NULL);
     //fill srcmetadata
 
-    if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
-        timestamp = request->image().witnessmetadata().timestamp();
-    }
+
     //engine_.Process(&framebatch);
     MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
 
@@ -513,7 +522,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     engine_pool->enqueue(&data);
 
-    data.Wait();
+    data.Wait();*/
 
 
     gettimeofday(&end, NULL);
@@ -573,7 +582,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
         } else {
             client_request_obj->storages.CopyFrom(storage_configs_);
         }
-        client_request_obj->imgs.push_back(framebatch.frames()[0]->payload()->data());
+        client_request_obj->imgs.push_back(frame->payload()->data());
         SrcMetadata metadata;
         metadata.set_timestamp(timestamp);
         client_request_obj->srcMetadatas.push_back(metadata);
