@@ -17,6 +17,7 @@
 #include "rank_feature.h"
 
 using namespace std;
+using namespace cv;
 namespace dg {
 
 typedef enum {
@@ -25,14 +26,17 @@ typedef enum {
     OBJECT_PEDESTRIAN = 2,
     OBJECT_BICYCLE = 3,
     OBJECT_TRICYCLE = 4,
+    OBJECT_WINDOW = 8,
     OBJECT_MARKER = 16,
     OBJECT_MARKER_0 = 16,
     OBJECT_MARKER_1 = 16,
     OBJECT_MARKER_2 = 16,
     OBJECT_MARKER_3 = 16,
     OBJECT_MARKER_4 = 16,
-    OBJECT_PEOPLE = 32,
-    OBJECT_FACE = 64,
+    OBJECT_PEOPLE=32,
+    OBJECT_DRIVER = 32,
+    OBJECT_CODRIVER=64,
+    OBJECT_FACE = 128,
 } ObjectType;
 
 enum DetectionTypeId {
@@ -65,6 +69,7 @@ typedef struct Detection {
     }
 
 } Detection;
+
 
 class Object {
 public:
@@ -102,6 +107,24 @@ public:
     void set_detection(const Detection &detection) {
         detection_ = detection;
     }
+    Object *child(ObjectType type) const{
+        for(int i=0;i<children_.size();i++){
+
+            if(children_[i]->type()==type){
+                return children_[i];
+            }
+        }
+        return NULL;
+        
+    }
+    vector<Object *>children(ObjectType type)const{
+        vector<Object *> result;
+        for(auto *child:children_){
+            if(child->type()==type)
+                result.push_back(child);
+        }
+        return result;
+    }
 
     Identification id() const {
         return id_;
@@ -135,6 +158,30 @@ protected:
     vector<Object *> children_;
 
 };
+class Vehicler: public Object{
+    public:
+
+    enum{NoBelt=48,Phone=47};
+    enum{Yes=1,No=0,NotSure=2,NoPerson=3};
+    Vehicler(ObjectType type):Object(type){
+
+    }
+    ~Vehicler(){
+
+    }
+    void set_vehicler_attr(int key,float value){
+        vehicler_attr_.insert(pair<int,float>(key,value));
+    }
+    float vehicler_attr_value(int key){
+        map<int,float>::iterator it = vehicler_attr_.find(key);
+        if(it!=vehicler_attr_.end()){
+            return it->second;
+        }
+        return 0;
+    }
+    map<int, float> vehicler_attr_;
+};
+
 class Marker: public Object {
 public:
     Marker(ObjectType type)
@@ -156,7 +203,67 @@ private:
     Identification class_id_;
 
 };
+typedef struct {
+    Identification id;
+    Timestamp timestamp;
+    MessageStatus status;
+    MetaData *video_meta_data;
+    Object *object;
+} Message;
+class Window: public Object {
+public:
+    Window(Mat &img, vector<Rect> &fobbiden, vector<float> &params): Object(OBJECT_WINDOW), image_(img), fobbiden_(fobbiden), params_(params), class_id_(-1) {
+        params_.resize(6);
+    }
+    ~Window() {
 
+    }
+    void set_resized_img(Mat &img){
+        resized_image_=img;
+    }
+    void set_phone_img(Mat &img){
+        phone_image_=img;
+    }
+    Identification class_id() const {
+        return class_id_;
+    }
+
+    void set_class_id(Identification id) {
+        class_id_ = id;
+    }
+    void set_markers(const vector<Detection> &markers) {
+
+        for (auto detection : markers) {
+            Marker *m = new Marker(OBJECT_MARKER_0);
+            m->set_detection(detection);
+            m->set_class_id(detection.id);
+            m->set_confidence(detection.confidence);
+            this->AddChild(m);
+        }
+    }
+    vector<Rect> & fobbiden(){
+        return fobbiden_;
+    }
+    vector<float> & params(){
+        return params_;
+    }
+    Mat & resized_image(){
+        return resized_image_;
+    }
+    Mat & phone_image(){
+        return phone_image_;
+    }
+    Mat & image(){
+        return image_;
+    }
+private:
+    Identification class_id_;
+    Mat resized_image_;
+    Mat image_;
+    Mat phone_image_;
+    vector<cv::Rect> fobbiden_;
+    vector<float> params_;
+};
 class Pedestrian: public Object {
 public:
     typedef struct {
@@ -188,7 +295,7 @@ public:
 
     const std::map<string, float> &threshold() const {
         return threshold_;
-    };
+    }
 
     void set_threshold(const std::map<string, float> &threshold) {
         threshold_ = threshold;
@@ -231,11 +338,12 @@ public:
     void set_color(const Color &color) {
         color_ = color;
     }
-    const Detection &window() const {
-        return window_;
+    void set_window( Window *window) {
+        this->AddChild(window);
     }
-    void set_window(const Detection &detection) {
-        window_ = detection;
+    void set_vehicler( Vehicler *vehicler){
+        this->AddChild(vehicler);
+
     }
 
     const cv::Mat &image() const {
@@ -249,26 +357,7 @@ public:
         cv::resize(image_, resized_image_, cv::Size(256, 256));
         resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
     }
-    void set_markers(const vector<Detection> &markers) {
 
-        for (auto detection : markers) {
-            Marker *m = new Marker(OBJECT_MARKER_0);
-            m->set_detection(detection);
-            m->set_class_id(detection.id);
-            m->set_confidence(detection.confidence);
-            this->AddChild(m);
-        }
-    }
-
-    /*
-        const Plate &plate() const {
-            return plate_;
-        }
-
-        void set_plate(const Plate &plate) {
-            plate_ = plate;
-        }
-    */
     const vector<Plate> &plates() const {
         return plates_;
     }
@@ -298,7 +387,6 @@ private:
     Identification class_id_;
     vector<Plate> plates_;
     Color color_;
-    Detection window_;
     CarRankFeature feature_;
 
 };
@@ -347,14 +435,6 @@ private:
     FaceRankFeature feature_;
 };
 
-typedef struct {
-    Identification id;
-    Timestamp timestamp;
-    MessageStatus status;
-    MetaData *video_meta_data;
-    Object *object;
-
-} Message;
 
 }
 #endif /* MODEL_H_ */

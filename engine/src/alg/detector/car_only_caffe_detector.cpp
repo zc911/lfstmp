@@ -24,14 +24,14 @@ CarOnlyCaffeDetector::CarOnlyCaffeDetector(const VehicleCaffeDetectorConfig &con
     }
 
     string deploy_content;
-        ModelsMap *modelsMap = ModelsMap::GetInstance();
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
@@ -81,7 +81,7 @@ int CarOnlyCaffeDetector::DetectBatch(const vector<Mat> &batch,
 
 }
 int CarOnlyCaffeDetector::DetectSolidBatch(const vector<Mat> &batch,
-                                           vector<vector<Detection> > &vvbbox) {
+        vector<vector<Detection> > &vvbbox) {
 
 
     vector<Mat> images(batch);
@@ -167,7 +167,7 @@ int CarOnlyCaffeDetector::DetectSolidBatch(const vector<Mat> &batch,
                     if (j == 1) {
                         float x1 = cls_cpu[cls_index];
                         float x0 = cls_cpu[cls_index
-                            - cls->height() * cls->width()];
+                                           - cls->height() * cls->width()];
                         confidence = exp(x1) / (exp(x1) + exp(x0));
                     }
                 }
@@ -276,7 +276,7 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
 
     float *input_data = input_layer->mutable_cpu_data();
     unsigned long long cnt = 0;
-    for (auto img:imgs) {
+    for (auto img : imgs) {
         cv::Mat sample;
 
         if (img.channels() == 3 && num_channels_ == 1)
@@ -305,8 +305,8 @@ vector<Blob<float> *> CarOnlyCaffeDetector::PredictBatch(vector<Mat> imgs) {
                     int indexi = (int) (i * global_ratio);
                     int indexj = (int) (j * global_ratio);
                     input_data[cnt + k * input_geometry_.width * input_geometry_.height + i * input_geometry_.width
-                        + j] = (float(sample.at<uchar>(indexi, indexj * 3 + k))
-                        - means_[k]);
+                               + j] = (float(sample.at<uchar>(indexi, indexj * 3 + k))
+                                       - means_[k]);
 
                 }
             }

@@ -38,7 +38,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    CarMatcher *car_matcher_;
+    CarMatcher *car_matcher_=NULL;
     CarFeatureExtractor car_feature_extractor_;
 
     vector<Score> rank(const Mat &image, const Rect &hotspot,
