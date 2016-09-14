@@ -180,6 +180,14 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stCHRECOG.adwShape[2] = 32;
     pstConfig->stCHRECOG.adwShape[3] = 32;
 
+
+            readModuleFile(config_->colorSymbolFile, config_->colorParamFile,
+                   &pstConfig->stCOLOR, config_->is_model_encrypt);
+        pstConfig->stCOLOR.adwShape[0] = 1;
+        pstConfig->stCOLOR.adwShape[1] = 3;
+        pstConfig->stCOLOR.adwShape[2] = 32;
+        pstConfig->stCOLOR.adwShape[3] = 32*4;
+
     pstConfig->dwDevType = 2;
     pstConfig->dwDevID = config_->gpuId;
 

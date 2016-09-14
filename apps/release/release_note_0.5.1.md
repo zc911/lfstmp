@@ -1,3 +1,35 @@
+# Matrix Apps
+### Version 0.5.1
+2016-08-29
+
+
+### Modules version
+| *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
+|:--------------:|:-------------:|:---------------:|:------------:|
+| 0.5.1 | 0.1.4 | 1.10 | * |
+
+
+### Bugs
+- Markers are incorrect
+- Pedestrian id is incorrect
+
+### How to Install/Update
+```
+$ wget -O install.sh http://192.168.2.119/matrix/install.sh
+$ chmod +x install.sh
+$ ./install.sh 
+```
+
+### How to Run
+```
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
+```
+
+### Config File
+```json
 {
   "Version": {
     "Code": "1.0.0",
@@ -6,7 +38,7 @@
   // "ProtocolType": "rpc",
   "ProtocolType": "rpc|restful",
   "InstanceType": "witness",
-//   "InstanceType" : "ranker",
+  // "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
@@ -37,8 +69,8 @@
   "Advanced": {
     "Detection": {
       "Rescale": 400,
-      "TargetMinSize": 400.0,
-      "TargetMaxSize": 600.0,
+      "TargetMinSize": 300.0,
+      "TargetMaxSize": 450.0,
       "CarOnly": false,
       "BatchSize": 1
     },
@@ -122,16 +154,16 @@
   "Debug": {
     "Enable": true,
     "EnableCutboard": true,
-    "Encrypt": false,
-    "Visualization":false
+    "Encrypt": false
   },
   "Storage": {
     "Enabled": false,
-    "Address": ["192.168.2.119:9004","192.168.2.132:9877"],
+    "Address": ["192.168.2.132:9877","192.168.2.119:9004"],
     "DBType": [0,1]
   },
-
-  //"DataPath": "data/data_tollgate.dat"
   "DataPath": "data/data.dat"
 }
 
+
+
+```

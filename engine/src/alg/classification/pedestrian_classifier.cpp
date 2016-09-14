@@ -7,6 +7,7 @@
  * Description : 
  * ==========================================================================*/
 #include "pedestrian_classifier.h"
+#include "alg/caffe_helper.h"
 
 namespace dg {
 
@@ -15,14 +16,17 @@ PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
     256), pixel_means_
         {104, 117, 123} {
     /* Load the network. */
-#if DEBUG
+
+        string deploy_content;
+            ModelsMap *modelsMap = ModelsMap::GetInstance();
+
+    modelsMap->getModelContent(pconf.deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(pconf.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(pconf.deploy_file, TEST, pconf.is_model_encrypt));
-#endif
-    net_->CopyTrainedLayersFrom(pconf.model_file);
+        new Net<float>(pconf.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(pconf.model_file,model_content);
+        net_->CopyTrainedLayersFrom(pconf.model_file,model_content);
+
     layer_name_ = pconf.layer_name;
 
     Blob<float> *input_blob = net_->input_blobs()[0];

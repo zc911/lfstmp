@@ -19,7 +19,7 @@ using namespace dg;
 
 string getServerAddress(Config *config, int userPort = 0) {
     if (userPort != 0) {
-        cout << "Use command line port instead of config file value" << endl;
+    //    cout << "Use command line port instead of config file value" << endl;
         config->AddEntry("System/Port", AnyConversion(userPort));
     }
 
@@ -103,7 +103,7 @@ void serveWitness(Config *config, int userPort = 0) {
 
 void serveRanker(Config *config, int userPort = 0) {
 
-    MatrixEnginesPool<RankEngine> *engine_pool = MatrixEnginesPool<RankEngine>::GetInstance();
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
     engine_pool->Run(config);
 
     string protocolType = (string) config->Value("ProtocolType");

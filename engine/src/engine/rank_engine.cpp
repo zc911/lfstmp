@@ -8,49 +8,43 @@
 
 namespace dg {
 
-CarRankEngine::CarRankEngine(const Config &config)
+SimpleRankEngine::SimpleRankEngine(const Config &config)
     : RankEngine(config),
       id_(0) {
+
+    int type = (int) config.Value(RANKER_DEFAULT_TYPE);
+    switch (type) {
+    case 0:
+    case 1:
+        enable_ranker_car_ = true;
+        enable_ranker_face_ = false;
+        break;
+    case 2:
+        enable_ranker_face_ = true;
+        enable_ranker_car_ = false;
+
+        break;
+    case 3:
+        enable_ranker_car_ = true;
+        enable_ranker_face_ = true;
+        break;
+    default:
+        enable_ranker_face_ = false;
+        enable_ranker_car_ = false;
+
+        break;
+    }
 #if DEBUG
 #else
-    enable_ranker_ = (CheckFeature(FEATURE_CAR_RANK, false) == ERR_FEATURE_ON);
+    enable_ranker_car_ = enable_ranker_car_ && (CheckFeature(FEATURE_CAR_RANK, false) == ERR_FEATURE_ON);
+    enable_ranker_face_ = enable_ranker_face_ && (CheckFeature(FEATURE_FACE_RANK, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+
 #endif
-    if (enable_ranker_) {
-        processor_ = new CarRankProcessor(config);
+
+    if (enable_ranker_car_) {
+        car_ranker_ = new CarRankProcessor(config);
     }
-}
-
-CarRankEngine::~CarRankEngine() {
-    if (processor_) {
-        delete processor_;
-    }
-}
-
-vector<Score> CarRankEngine::Rank(const Mat &image, const Rect &hotspot,
-                                  const vector<CarRankFeature> &candidates) {
-    if (processor_) {
-        vector<Rect> hotspots;
-        hotspots.push_back(hotspot);
-        CarRankFrame f(id_++, image, hotspots, candidates);
-        processor_->Update(&f);
-        return f.result_;
-    } else {
-        return vector<Score>();
-    }
-
-}
-
-FaceRankEngine::FaceRankEngine(const Config &config)
-    : RankEngine(config),
-      id_(0) {
-    init(config);
-}
-void FaceRankEngine::init(const Config &config) {
-#if DEBUG
-#else
-    enable_ranker_ = (CheckFeature(FEATURE_FACE_RANK, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
-#endif
-    if (enable_ranker_) {
+    if (enable_ranker_face_) {
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
         if (!configFilter->initDataConfig(config)) {
             LOG(ERROR) << "can not init data config" << endl;
@@ -59,59 +53,104 @@ void FaceRankEngine::init(const Config &config) {
         }
         FaceDetector::FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
-        detector_ = new FaceDetectProcessor(fdconfig);
+        face_detector_ = new FaceDetectProcessor(fdconfig);
 
         FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
         configFilter->createFaceExtractorConfig(config, feconfig);
-        extractor_ = new FaceFeatureExtractProcessor(feconfig);
-
-        ranker_ = new FaceRankProcessor();
+        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
+        face_ranker_ = new FaceRankProcessor();
     }
-
 }
 
-FaceRankEngine::~FaceRankEngine() {
-    delete detector_;
-    delete extractor_;
-    delete ranker_;
-}
-
-vector<Score> FaceRankEngine::Rank(const Mat &image, const Rect &hotspot,
-                                   const vector<FaceRankFeature> &candidates) {
-    vector<Score> result;
-    if (!enable_ranker_)
-        return result;
-
-    Frame *frame = new Frame(0, image);
-
-    Operation op;
-
-    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-           | OPERATION_FACE_FEATURE_VECTOR);
-
-    frame->set_operation(op);
-
-    detector_->Update(frame);
-    extractor_->Update(frame);
-
-    Face *face = (Face *) frame->get_object(0);
-    if (face != NULL) {
-
-        FaceRankFeature feature = face->feature();
-        vector<Rect> hotspots;
-        hotspots.push_back(hotspot);
-
-        FaceRankFrame *face_rank_frame = new FaceRankFrame(0, feature, hotspots,
-                candidates);
-
-        ranker_->Update(face_rank_frame);
-
-        result = face_rank_frame->result_;
-        delete face_rank_frame;
-
+SimpleRankEngine::~SimpleRankEngine() {
+    if (car_ranker_) {
+        delete car_ranker_;
     }
-    delete frame;
-    return result;
+    if (face_detector_) {
+        delete face_detector_;
+    }
+    if (face_extractor_) {
+        delete face_extractor_;
+    }
+    if (face_ranker_) {
+        delete face_ranker_;
+    }
 }
+
+void SimpleRankEngine::RankCar(CarRankFrame *f) {
+    if (enable_ranker_car_) {
+        f->set_id(id_++);
+        car_ranker_->Update(f);
+    }
+}
+void SimpleRankEngine::RankFace(FaceRankFrame * f) {
+    if (enable_ranker_face_) {
+        face_detector_->Update(f);
+        face_extractor_->Update(f);
+
+        Face *face = (Face *) f->get_object(0);
+        if (face != NULL) {
+
+            FaceRankFeature feature = face->feature();
+            f->set_feature(feature);
+
+            face_ranker_->Update(f);
+        }
+    }
+}
+// FaceRankEngine::FaceRankEngine(const Config & config)
+//     : RankEngine(config),
+//       id_(0) {
+//     init(config);
+// }
+// void FaceRankEngine::init(const Config & config) {
+// #if DEBUG
+//     enable_ranker_ = true;
+// #else
+//     enable_ranker_ = (CheckFeature(FEATURE_FACE_RANK, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+// #endif
+//     enable_ranker_ = true;
+
+//     if (enable_ranker_) {
+//         ConfigFilter *configFilter = ConfigFilter::GetInstance();
+//         if (!configFilter->initDataConfig(config)) {
+//             LOG(ERROR) << "can not init data config" << endl;
+//             DLOG(ERROR) << "can not init data config" << endl;
+//             return;
+//         }
+//         FaceDetector::FaceDetectorConfig fdconfig;
+//         configFilter->createFaceDetectorConfig(config, fdconfig);
+//         detector_ = new FaceDetectProcessor(fdconfig);
+
+//         FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
+//         configFilter->createFaceExtractorConfig(config, feconfig);
+//         extractor_ = new FaceFeatureExtractProcessor(feconfig);
+
+//         ranker_ = new FaceRankProcessor();
+//     }
+
+// }
+
+// FaceRankEngine::~FaceRankEngine() {
+//     delete detector_;
+//     delete extractor_;
+//     delete ranker_;
+// }
+
+// void FaceRankEngine::Rank(FaceRankFrame * face_rank_frame) {
+//     if (!enable_ranker_)
+//         return;
+//     detector_->Update(face_rank_frame);
+//     extractor_->Update(face_rank_frame);
+
+//     Face *face = (Face *) face_rank_frame->get_object(0);
+//     if (face != NULL) {
+
+//         FaceRankFeature feature = face->feature();
+//         face_rank_frame->set_feature(feature);
+
+//         ranker_->Update(face_rank_frame);
+//     }
+// }
 
 }

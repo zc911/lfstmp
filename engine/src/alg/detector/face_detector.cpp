@@ -12,6 +12,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
       batch_size_(config.batch_size),
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
+    gpu_id_=config.gpu_id;
     if (use_gpu_) {
         Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
@@ -21,16 +22,16 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
         use_gpu_ = false;
     }
 
-    LOG(INFO) << "loading model file: " << config.deploy_file;
-#if DEBUG
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
+    string deploy_content;
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(config.deploy_file, TEST, config.is_model_encrypt));
-#endif
-    LOG(INFO) << "loading trained file : " << config.model_file;
-    net_->CopyTrainedLayersFrom(config.model_file);
+        new Net<float>(config.deploy_file, deploy_content, TEST));
+    string model_content;
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
+
+
 
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
@@ -38,7 +39,7 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
 
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
-    << "Input layer should have 1 or 3 channels.";
+            << "Input layer should have 1 or 3 channels.";
     pixel_means_.push_back(102.9801);
     pixel_means_.push_back(115.9465);
     pixel_means_.push_back(122.7717);
@@ -60,12 +61,12 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
     shape.push_back(scale_);
     input_layer->Reshape(shape);
     net_->Reshape();
- /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }*/
+    /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+       const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+       const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+       for (int i = 0; i < layers.size(); ++i) {
+           layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+       }*/
 }
 
 FaceDetector::~FaceDetector() {
@@ -128,8 +129,8 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
                 size_t row_off = row * sample.cols;
                 for (int col = 0; col < sample.cols; ++col) {
                     input_data[image_off + channel_off + row_off + col] = float(
-                        sample.at<uchar>(row, col * 3 + k))
-                        - pixel_means_[k];
+                                sample.at<uchar>(row, col * 3 + k))
+                            - pixel_means_[k];
                 }
             }
         }
@@ -167,6 +168,12 @@ void FaceDetector::NMS(vector<Detection> &p, float threshold) {
 }
 
 vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
+    if (!device_setted_) {
+        Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
+        device_setted_ = true;
+    }
+
     vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
     vector<vector<Detection>> boxes;
@@ -228,15 +235,15 @@ void FaceDetector::GetDetection(vector<Blob<float> *> &outputs,
                         }
 
                         float shift_x = w * sliding_window_stride_
-                            + sliding_window_stride_ / 2.f - 1;
+                                        + sliding_window_stride_ / 2.f - 1;
                         float shift_y = h * sliding_window_stride_
-                            + sliding_window_stride_ / 2.f - 1;
+                                        + sliding_window_stride_ / 2.f - 1;
                         rect[2] = exp(rect[2]) * gt_ww[scale_idx];
                         rect[3] = exp(rect[3]) * gt_hh[scale_idx];
                         rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f
-                            + shift_x;
+                                  + shift_x;
                         rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f
-                            + shift_y;
+                                  + shift_y;
 
                         Detection bbox;
                         bbox.confidence = confidence;

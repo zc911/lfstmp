@@ -26,14 +26,16 @@ MarkerCaffeClassifier::MarkerCaffeClassifier(MarkerConfig &markerconfig)
     }
 
     /* Load the network. */
-#if DEBUG
+    string deploy_content;
+        ModelsMap *modelsMap = ModelsMap::GetInstance();
+
+    modelsMap->getModelContent(markerconfig.deploy_file,deploy_content);
     net_.reset(
-        new Net<float>(markerconfig.deploy_file, TEST));
-#else
-    net_.reset(
-            new Net<float>(markerconfig.deploy_file, TEST, markerconfig.is_model_encrypt));
-#endif
-   net_->CopyTrainedLayersFrom(marker_config_.model_file);
+        new Net<float>(markerconfig.deploy_file,deploy_content,TEST));
+    string model_content;
+    modelsMap->getModelContent(markerconfig.model_file,model_content);
+        net_->CopyTrainedLayersFrom(markerconfig.model_file,model_content);
+
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
 
