@@ -8,13 +8,13 @@ using namespace std;
 namespace dg {
 
 CarFeatureExtractor::CarFeatureExtractor() {
-    //orb_ = cv::ORB(CAR_FEATURE_ORB_ROWS_MAX);
+	//orb_ = cv::ORB(CAR_FEATURE_ORB_ROWS_MAX);
 	orb_extractor_ = ORBextractor(CAR_FEATURE_ORB_ROWS_MAX, 1.2, 3, 20, 10);
-    max_resize_size_ = 300;
+	max_resize_size_ = 300;
 }
 
 void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
-                                            CarRankFeature &des) {
+        CarRankFeature &des) {
 
 //    des.height_ = img.rows;
 //    des.width_ = img.cols;
@@ -49,9 +49,9 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 	cv::Size new_size;
 	calcNewSize(img.rows, img.cols, new_size);
 	if (img.channels() != 3)
-		LOG(WARNING)<<"Color image is required.";
+		LOG(WARNING) << "Color image is required.";
 	if ((img.rows < 10) || (img.cols < 10))
-		LOG(WARNING)<<"Image needs to be larger than 10*10 to extract enough feature.";
+		LOG(WARNING) << "Image needs to be larger than 10*10 to extract enough feature.";
 	resize(img, resize_img, new_size);
 
 	vector<cv::KeyPoint> key_point;
@@ -77,10 +77,10 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 void CarFeatureExtractor::calcNewSize(const ushort &ori_height,
                                       const ushort &ori_width,
                                       cv::Size &new_size) {
-    float resize_rto = max(ori_height, ori_width);
-    resize_rto = ((float) max_resize_size_) / resize_rto;
-    new_size.height = resize_rto * ori_height;
-    new_size.width = resize_rto * ori_width;
+	float resize_rto = max(ori_height, ori_width);
+	resize_rto = ((float) max_resize_size_) / resize_rto;
+	new_size.height = resize_rto * ori_height;
+	new_size.width = resize_rto * ori_width;
 
 }
 }
