@@ -88,8 +88,12 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #endif
     objs_.clear();
     images_.clear();
-
-    vector<Object *> objs = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER);
+    vector<Object *> objs;
+    if(is_driver){
+        objs = frameBatch->CollectObjects(OPERATION_DRIVER_BELT);
+    }else{
+        objs = frameBatch->CollectObjects(OPERATION_CODRIVER_BELT);
+    }
     vector<Object *>::iterator itr = objs.begin();
     while (itr != objs.end()) {
         Object *obj = *itr;
