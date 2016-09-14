@@ -32,7 +32,7 @@ protected:
 private:
     void extract(vector<Object *> &objs);
 
-    CarFeatureExtractor *extractor_;
+    CarFeatureExtractor *extractor_=NULL;
     vector<Object *> vehicle_to_processed_;
 };
 

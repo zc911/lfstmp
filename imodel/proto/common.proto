@@ -116,7 +116,7 @@ message CategoryAndFeature {
     repeated NameAndConfidence Items = 3;
 }
 
-message PedestrianAttr {
+message PeopleAttr {
     NameAndConfidence Sex = 1;
     NameAndConfidence Age = 2;
     NameAndConfidence National = 3;
@@ -134,13 +134,19 @@ message RecVehicle {
     ObjType VehicleType = 8;
     string VehicleTypeName = 9;
     repeated LicensePlate Plates = 10;
+    repeated Passenger Passengers = 11;
+}
+message Passenger {
+    int64 Id = 1;
+    PeopleAttr PedesAttr = 2;
+    RecFace Face = 3;
 }
 
 message RecPedestrian {
     int64 Id = 1;
     CutboardImage Img = 2;
     float Confidence = 3;
-    PedestrianAttr PedesAttr = 4;
+    PeopleAttr PedesAttr = 4;
     RecFace Face = 5;
 }
 

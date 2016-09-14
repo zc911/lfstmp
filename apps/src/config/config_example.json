@@ -3,17 +3,18 @@
     "Code": "1.0.0",
     "Model": "1.9"
   },
-  // "ProtocolType": "rpc",
-  "ProtocolType": "rpc|restful",
-  "InstanceType": "witness",
-//   "InstanceType" : "ranker",
+  "ProtocolType": "restful",
+//   "ProtocolType": "rpc|restful",
+
+ "InstanceType": "witness",
+//       "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
     "Threads": [1]
   },
   "Ranker": {
-    "DefaultType": 2
+    "DefaultType": 3
   },
   "Feature": {
     "Vehicle": {
@@ -25,6 +26,9 @@
       "EnableGpuPlate": true,
       "EnablePlateEnhanced": false,
       "EnableMarker": true,
+      "EnableDriverBelt": true,
+      "EnableCoDriverBelt": true,
+      "EnablePhone": true,
       "EnableFeatureVector": true,
       "EnablePedestrianAttr": true
     },
@@ -76,7 +80,16 @@
       "OthersConfidence": 0.8,
       "TissueBoxConfidence": 0.8,
       "SunVisorConfidence": 0.8,
-      "BatchSize": 1
+      "BatchSize": 2
+    },
+    "DriverBelt": {
+      "BatchSize": 2
+    },
+    "CoDriverBelt": {
+      "BatchSize": 2
+    },
+    "DriverPhone": {
+      "BatchSize": 2
     },
     "Window": {
       "BatchSize": 1
@@ -123,15 +136,15 @@
     "Enable": true,
     "EnableCutboard": true,
     "Encrypt": false,
-    "Visualization":false
+    "Visualization": true
   },
   "Storage": {
     "Enabled": false,
-    "Address": ["192.168.2.119:9004","192.168.2.132:9877"],
-    "DBType": [0,1]
+
+    "Address": ["192.168.2.16:9877"],
+    "DBType": [1]
   },
 
   //"DataPath": "data/data_tollgate.dat"
   "DataPath": "data/data.dat"
 }
-
