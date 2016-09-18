@@ -53,8 +53,8 @@ static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
 static const string NO_BELT="NoBelt";
 static const string PHONE="Phone";
 
-static const string PATCH_BATCHSIZE="Patch/BatchSize";
-static const string PATCH_TIMEOUT="Patch/TimeOut";
+static const string PACK_BATCHSIZE="Pack/BatchSize";
+static const string PACK_TIMEOUT="Pack/TimeOut";
 static const int BEHAVIOR=11;
 }
 
