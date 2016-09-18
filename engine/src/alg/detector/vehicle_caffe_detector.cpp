@@ -157,28 +157,6 @@ int VehicleCaffeDetector::DetectBatch(vector<cv::Mat> &img,
         Fullfil(toPredict, outputs, detect_results);
     }
 
-//    // make sure batch size is times of the batch size
-//    if (img.size() % batch_size_ != 0) {
-//        int batchShort = batch_size_ - (img.size() % batch_size_);
-//        for (int i = 0; i < batchShort; ++i) {
-//            DLOG(INFO) << "Input images size less than batch size" << endl;
-//            img.push_back(cv::Mat(1, 1, CV_8UC3));
-//        }
-//    }
-//
-//    detect_results.clear();
-//    vector<cv::Mat> toPredict;
-//    for (int i = 0; i < img.size(); ++i) {
-//        cv::Mat image = img[i];
-//        toPredict.push_back(image);
-//        if (toPredict.size() == batch_size_) {
-//            vector<Blob<float> *> outputs = PredictBatch(toPredict);
-//            Fullfil(toPredict, outputs, detect_results);
-//            toPredict.clear();
-//        }
-//
-//    }
-
 }
 
 std::vector<Blob<float> *> VehicleCaffeDetector::PredictBatch(const vector<Mat> &imgs) {
