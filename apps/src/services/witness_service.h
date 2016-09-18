@@ -78,7 +78,6 @@ private:
     static int parseInt(string str);
     static Operation getOperation(const WitnessRequestContext &ctx);
     static void copyCutboard(const Detection &d, Cutboard *cb);
-
 };
 
 }
