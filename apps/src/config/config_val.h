@@ -52,6 +52,9 @@ static const string ENABLE_CUTBOARD = "Debug/EnableCutboard";
 static const string PARSE_IMAGE_TIMEOUT = "Advanced/ParseImageTimeout";
 static const string NO_BELT="NoBelt";
 static const string PHONE="Phone";
+
+static const string PACK_BATCHSIZE="Pack/BatchSize";
+static const string PACK_TIMEOUT="Pack/TimeOut";
 static const int BEHAVIOR=11;
 }
 
