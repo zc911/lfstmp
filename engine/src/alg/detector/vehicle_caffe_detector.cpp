@@ -24,7 +24,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
         use_gpu_ = false;
 
     }
-
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
     ModelsMap *modelsMap = ModelsMap::GetInstance();
@@ -35,7 +34,6 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     string model_content;
     modelsMap->getModelContent(config.model_file,model_content);
         net_->CopyTrainedLayersFrom(config.model_file,model_content);
-
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
