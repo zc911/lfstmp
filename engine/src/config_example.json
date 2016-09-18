@@ -54,7 +54,7 @@
     },
     "Style": {
       "BatchSize": 8,
-      "ModelNum": 2
+      "ModelNum": 8
     },
     "Plate": {
       "LocalProvince": "",
