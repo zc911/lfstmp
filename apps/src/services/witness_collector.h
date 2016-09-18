@@ -55,9 +55,10 @@ public:
         lock.unlock();
         unique_lock <mutex> waitlc(mt_pop);
         vector<RequestItem* > *results = new vector<RequestItem*>();
-        cv_work.wait_for(waitlc,
+        if(cv_work.wait_for(waitlc,
                     std::chrono::milliseconds(timeout_),
-                    [this]() {return this->batch_size_ <= this->tasks_.size(); });
+                    [this]() {return this->batch_size_ <= this->tasks_.size(); })){
+        }
         while(tasks_.size()) {
             RequestItem *task = tasks_.front();
             results->push_back(task);
@@ -93,7 +94,6 @@ private:
     //WitnessBucket &operator=(const WitnessBucket &) { };
     queue<RequestItem* > tasks_;
     int max_size_ = 10;
-    int current_ = 0;
     int batch_size_ = 8;
     int timeout_ = 100;
 
@@ -107,10 +107,9 @@ public:
 
     void Run() {
       while(1){
-        VLOG(VLOG_SERVICE) << "========START REQUEST s " << WitnessCollector::Instance().Size() << "===========" << endl;
+    //    VLOG(VLOG_SERVICE) << "========START REQUEST " << WitnessCollector::Instance().Size() << "===========" << endl;
 
         vector<RequestItem * > *wv = WitnessCollector::Instance().Pop();
-        LOG(INFO)<<WitnessCollector::Instance().Size();
         pool_->enqueue([wv](){
           if(wv->size()>0) {
               FrameBatch framebatch(wv->at(0)->frame->id() * 10);
