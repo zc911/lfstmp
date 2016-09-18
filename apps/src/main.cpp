@@ -38,11 +38,11 @@ void serveWitness(Config *config, int userPort = 0) {
     string address = getServerAddress(config, userPort);
 
     WitnessBucket::Instance().SetMaxSize(100);
-    int batchsize = config->Value(PATCH_BATCHSIZE);
-    int timeout = config->Value(PATCH_TIMEOUT);
+    int batchsize = config->Value(PACK_BATCHSIZE);
+    int timeout = config->Value(PACK_TIMEOUT);
     WitnessCollector::Instance().SetBatchsize(batchsize);
     WitnessCollector::Instance().SetTimeout(timeout);
-    
+
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
