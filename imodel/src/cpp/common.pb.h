@@ -1607,14 +1607,14 @@ class Passenger : public ::google::protobuf::Message {
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // optional .dg.model.PeopleAttr PedesAttr = 2;
-  bool has_pedesattr() const;
-  void clear_pedesattr();
-  static const int kPedesAttrFieldNumber = 2;
-  const ::dg::model::PeopleAttr& pedesattr() const;
-  ::dg::model::PeopleAttr* mutable_pedesattr();
-  ::dg::model::PeopleAttr* release_pedesattr();
-  void set_allocated_pedesattr(::dg::model::PeopleAttr* pedesattr);
+  // optional .dg.model.PeopleAttr PassengerAttr = 2;
+  bool has_passengerattr() const;
+  void clear_passengerattr();
+  static const int kPassengerAttrFieldNumber = 2;
+  const ::dg::model::PeopleAttr& passengerattr() const;
+  ::dg::model::PeopleAttr* mutable_passengerattr();
+  ::dg::model::PeopleAttr* release_passengerattr();
+  void set_allocated_passengerattr(::dg::model::PeopleAttr* passengerattr);
 
   // optional .dg.model.RecFace Face = 3;
   bool has_face() const;
@@ -1625,14 +1625,21 @@ class Passenger : public ::google::protobuf::Message {
   ::dg::model::RecFace* release_face();
   void set_allocated_face(::dg::model::RecFace* face);
 
+  // optional bool Driver = 4;
+  void clear_driver();
+  static const int kDriverFieldNumber = 4;
+  bool driver() const;
+  void set_driver(bool value);
+
   // @@protoc_insertion_point(class_scope:dg.model.Passenger)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 id_;
-  ::dg::model::PeopleAttr* pedesattr_;
+  ::dg::model::PeopleAttr* passengerattr_;
   ::dg::model::RecFace* face_;
+  bool driver_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -4049,41 +4056,41 @@ inline void Passenger::set_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:dg.model.Passenger.Id)
 }
 
-// optional .dg.model.PeopleAttr PedesAttr = 2;
-inline bool Passenger::has_pedesattr() const {
-  return !_is_default_instance_ && pedesattr_ != NULL;
+// optional .dg.model.PeopleAttr PassengerAttr = 2;
+inline bool Passenger::has_passengerattr() const {
+  return !_is_default_instance_ && passengerattr_ != NULL;
 }
-inline void Passenger::clear_pedesattr() {
-  if (GetArenaNoVirtual() == NULL && pedesattr_ != NULL) delete pedesattr_;
-  pedesattr_ = NULL;
+inline void Passenger::clear_passengerattr() {
+  if (GetArenaNoVirtual() == NULL && passengerattr_ != NULL) delete passengerattr_;
+  passengerattr_ = NULL;
 }
-inline const ::dg::model::PeopleAttr& Passenger::pedesattr() const {
-  // @@protoc_insertion_point(field_get:dg.model.Passenger.PedesAttr)
-  return pedesattr_ != NULL ? *pedesattr_ : *default_instance_->pedesattr_;
+inline const ::dg::model::PeopleAttr& Passenger::passengerattr() const {
+  // @@protoc_insertion_point(field_get:dg.model.Passenger.PassengerAttr)
+  return passengerattr_ != NULL ? *passengerattr_ : *default_instance_->passengerattr_;
 }
-inline ::dg::model::PeopleAttr* Passenger::mutable_pedesattr() {
+inline ::dg::model::PeopleAttr* Passenger::mutable_passengerattr() {
   
-  if (pedesattr_ == NULL) {
-    pedesattr_ = new ::dg::model::PeopleAttr;
+  if (passengerattr_ == NULL) {
+    passengerattr_ = new ::dg::model::PeopleAttr;
   }
-  // @@protoc_insertion_point(field_mutable:dg.model.Passenger.PedesAttr)
-  return pedesattr_;
+  // @@protoc_insertion_point(field_mutable:dg.model.Passenger.PassengerAttr)
+  return passengerattr_;
 }
-inline ::dg::model::PeopleAttr* Passenger::release_pedesattr() {
+inline ::dg::model::PeopleAttr* Passenger::release_passengerattr() {
   
-  ::dg::model::PeopleAttr* temp = pedesattr_;
-  pedesattr_ = NULL;
+  ::dg::model::PeopleAttr* temp = passengerattr_;
+  passengerattr_ = NULL;
   return temp;
 }
-inline void Passenger::set_allocated_pedesattr(::dg::model::PeopleAttr* pedesattr) {
-  delete pedesattr_;
-  pedesattr_ = pedesattr;
-  if (pedesattr) {
+inline void Passenger::set_allocated_passengerattr(::dg::model::PeopleAttr* passengerattr) {
+  delete passengerattr_;
+  passengerattr_ = passengerattr;
+  if (passengerattr) {
     
   } else {
     
   }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.Passenger.PedesAttr)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.Passenger.PassengerAttr)
 }
 
 // optional .dg.model.RecFace Face = 3;
@@ -4121,6 +4128,20 @@ inline void Passenger::set_allocated_face(::dg::model::RecFace* face) {
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.Passenger.Face)
+}
+
+// optional bool Driver = 4;
+inline void Passenger::clear_driver() {
+  driver_ = false;
+}
+inline bool Passenger::driver() const {
+  // @@protoc_insertion_point(field_get:dg.model.Passenger.Driver)
+  return driver_;
+}
+inline void Passenger::set_driver(bool value) {
+  
+  driver_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.Passenger.Driver)
 }
 
 // -------------------------------------------------------------------

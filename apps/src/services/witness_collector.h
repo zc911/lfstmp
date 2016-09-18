@@ -17,6 +17,9 @@ namespace dg {
 typedef struct {
     Frame *frame;
     bool isFinish=false;
+    std::mutex mtx;
+    std::condition_variable cv;
+
 } RequestItem;
 class WitnessCollector {
 public:
@@ -30,46 +33,57 @@ public:
         max_size_ = num;
     }
 
-    void Push(shared_ptr<RequestItem> item) {
+    void Push(RequestItem * item) {
         unique_lock <mutex> lock(mtx);
         while (max_size_ == tasks_.size())
             not_full.wait(lock);
-        queue<shared_ptr<RequestItem> > tasks1;
 
         tasks_.push(item);
         not_empty.notify_all();
         lock.unlock();
+        if(tasks_.size()>=batch_size_&&batch_size_!=1)
+          cv_work.notify_all();
+
     }
 
-    vector<shared_ptr<RequestItem> > Pop() {
+    vector<RequestItem* > *Pop() {
         unique_lock <mutex> lock(mtx);
+
         while (tasks_.size() == 0) {
             not_empty.wait(lock);
         }
-        unique_lock <mutex> waitlc(mtx);
-        std::condition_variable cv;
-        vector<shared_ptr<RequestItem> > results;
-        cv.wait_for(waitlc,
-                    std::chrono::microseconds(timeout_),
-                    [&tasks_, &batch_size_]() { return batch_size_ <= tasks_.size(); });
-        for (int i = 0; i < batch_size_; i++) {
-            shared_ptr<RequestItem> task = tasks_.front();
+        lock.unlock();
+        unique_lock <mutex> waitlc(mt_pop);
+        vector<RequestItem* > *results = new vector<RequestItem*>();
+        cv_work.wait_for(waitlc,
+                    std::chrono::milliseconds(timeout_),
+                    [this]() {return this->batch_size_ <= this->tasks_.size(); });
+        while(tasks_.size()) {
+            RequestItem *task = tasks_.front();
+            results->push_back(task);
             tasks_.pop();
-            results.push_back(task);
         }
         not_full.notify_all();
         return results;
     }
 
     int Size() {
+
         return tasks_.size();
+    }
+    void SetBatchsize(int batchsize){
+      batch_size_=batchsize;
+    }
+    void SetTimeout(int timeout){
+      timeout_=timeout;
     }
 
     std::mutex mt_pop;
-    std::mutex mt_push;
     std::mutex mtx;
     condition_variable not_full;
     condition_variable not_empty;
+    std::condition_variable cv_work;
+
 
 private:
 
@@ -77,10 +91,10 @@ private:
     WitnessCollector() { };
     WitnessCollector(const WitnessCollector &) { };
     //WitnessBucket &operator=(const WitnessBucket &) { };
-    queue<shared_ptr<RequestItem> > tasks_;
+    queue<RequestItem* > tasks_;
     int max_size_ = 10;
     int current_ = 0;
-    int batch_size_ = 1;
+    int batch_size_ = 8;
     int timeout_ = 100;
 
 };
@@ -91,17 +105,18 @@ public:
         pool_ = new ThreadPool(worker_size);
     }
 
-    void batchRecognize() {
+    void Run() {
+      while(1){
+        VLOG(VLOG_SERVICE) << "========START REQUEST s " << WitnessCollector::Instance().Size() << "===========" << endl;
 
-        VLOG(VLOG_SERVICE) << "========START REQUEST " << WitnessCollector::Instance().Size() << "===========" << endl;
-
-        vector<shared_ptr<RequestItem> > wv = WitnessCollector::Instance().Pop();
-        pool_->enqueue([&wv](){
-          if(wv.size()>0) {
-              FrameBatch framebatch(wv[0]->frame->id() * 10);
-              for (int i = 0; i < wv.size(); i++) {
-                  Frame *frame = wv[i]->frame;
-                  framebatch.AddFrame(frame);
+        vector<RequestItem * > *wv = WitnessCollector::Instance().Pop();
+        LOG(INFO)<<WitnessCollector::Instance().Size();
+        pool_->enqueue([wv](){
+          if(wv->size()>0) {
+              FrameBatch framebatch(wv->at(0)->frame->id() * 10);
+              for (int i = 0; i < wv->size(); i++) {
+                  Frame *frame = wv->at(i)->frame;
+                  framebatch.AddFrame(frame,false);
               }
 
               MatrixEnginesPool <WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
@@ -114,21 +129,21 @@ public:
 
               if (engine_pool == NULL) {
                   LOG(ERROR) << "Engine pool not initailized. " << endl;
-                  return err;
+                  return ;
               }
 
               engine_pool->enqueue(&data);
-              gettimeofday(&start, NULL);
-
               data.Wait();
-              for(int i=0;i<wv.size();i++){
-                  wv[i]->isFinish=true;
+              for(int i=0;i<wv->size();i++){
+                  wv->at(i)->isFinish=true;
+                  wv->at(i)->cv.notify_all();
               }
           }
+          delete wv;
         });
-
+      }
     }
-    ~StorageRequest() {
+    ~WitnessAssembler() {
         if (pool_) {
             delete pool_;
         }
