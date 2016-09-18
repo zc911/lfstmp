@@ -13,7 +13,7 @@
 namespace dg {
 
 class RingBuffer {
- public:
+public:
     RingBuffer(unsigned int capacity);
     ~RingBuffer();
 
@@ -26,7 +26,7 @@ class RingBuffer {
     bool IsEmpty();
     unsigned int Size();
 
- private:
+private:
     boost::circular_buffer<Frame*> buffer_;
     unsigned int capacity_;
     Identification last_id_;

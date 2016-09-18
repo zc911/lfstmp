@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 #ifndef MATRIX_RANKER_FEATURE_SERIALIZER_H_
 #define MATRIX_RANKER_FEATURE_SERIALIZER_H_
