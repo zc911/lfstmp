@@ -30,14 +30,14 @@ MarkerCaffeSsdDetector::MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig 
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
     string deploy_content;
-        ModelsMap *modelsMap = ModelsMap::GetInstance();
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
 
@@ -113,7 +113,6 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
         float ymin = top_data[j * 7 + 4] * images_tiny[img_id].rows;
         float xmax = top_data[j * 7 + 5] * images_tiny[img_id].cols;
         float ymax = top_data[j * 7 + 6] * images_tiny[img_id].rows;
-
         if (score > cls_conf[cls]) {
 
             xmin *= col_ratio[img_id];
@@ -125,6 +124,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             xmax += crop_xmin[img_id];
             ymin += crop_ymin[img_id];
             ymax += crop_ymin[img_id];
+
             // exclude bboxes that lie outside car window.
             if ((thresh_ymin[img_id] - ymin) / (ymax - ymin) > 0.3 ||
                     (ymax - thresh_ymax[img_id]) / (ymax - ymin) > 0.3) {
@@ -166,6 +166,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
             }
             detection.confidence = score;
 
+
             imageDetection.push_back(detection);
 
         }
@@ -173,7 +174,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
     }
 
 }
-int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Detection> > &window_detections,
+int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Rect> > fobbiden_area,vector<vector<float> >params,
                                         vector<vector<Detection> > &detect_results) {
     float costtime, diff;
 
@@ -191,66 +192,24 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
     vector<cv::Mat> toPredict;
     vector<cv::Mat> origins;
 
-    vector<vector<float> > params;
-    params.resize(6);
-    vector<vector<Rect> > fobs;
+    vector<vector<float> > params_tmp;
+    params_tmp.resize(6);
+    vector<vector<Rect> > fobs_tmp;
     for (int i = 0; i < imgs.size(); ++i) {
-
-
-        // fobbiden areas
-        int xmin, ymin, xmax, ymax;
-
-        if (window_detections[i].size() > 0) {
-            cv::Mat image = imgs[i].clone();
-
-            xmin = window_detections[i][0].box.x;
-            ymin = window_detections[i][0].box.y;
-            xmax = window_detections[i][0].box.x + window_detections[i][0].box.width;
-            ymax = window_detections[i][0].box.y + window_detections[i][0].box.height;
-
-            vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
-            fobs.push_back(fob);
-
-            // crop and resize image for tiny.
-            int cxmin, cymin;
-            Mat img = crop_image(image, xmin, ymin, xmax, ymax, &cxmin, &cymin);
-            params[0].push_back(cxmin);
-            params[1].push_back(cymin);
-
-            // obtain y threshold for detected object that lies outside car window
-            int tymin;
-            int tymax;
-            float ratio = 0.15;
-            show_enlarged_box(imgs[i], image, xmin, ymin, xmax, ymax, &tymin, &tymax, ratio);
-
-            params[2].push_back(tymin);
-            params[3].push_back(tymax);
-
-
-            params[4].push_back(img.rows * 1.0 / target_row);
-            params[5].push_back(img.cols * 1.0 / target_col);
-            if (img.rows > 0 && img.cols > 0) {
-                resize(img, img, Size(target_col, target_row));
-                toPredict.push_back(img);
-
-            }
-
+        if (imgs[i].rows > 0 && imgs[i].cols > 0) {
+            toPredict.push_back(imgs[i]);
+            for (int j = 0; j < params.size(); j++)
+                params_tmp[j].push_back(params[j][i]);
+            fobs_tmp.push_back(fobbiden_area[i]);
         }
-        // only process images that has a car window.
-        // only count images that has a car window.
-
 
         if (toPredict.size() == batch_size_) {
 
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
-            Fullfil(toPredict, outputs, detect_results, fobs, params);
-            params[0].clear();
-            params[1].clear();
-            params[2].clear();
-            params[3].clear();
-            params[4].clear();
-            params[5].clear();
-            fobs.clear();
+            Fullfil(toPredict, outputs, detect_results, fobs_tmp, params_tmp);
+            for (int j = 0; j < params.size(); j++)
+                params_tmp[j].clear();
+            fobs_tmp.clear();
             toPredict.clear();
 
         }
@@ -260,7 +219,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
 
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
 
-        Fullfil(toPredict, outputs, detect_results, fobs, params);
+        Fullfil(toPredict, outputs, detect_results, fobs_tmp, params_tmp);
 
     }
     gettimeofday(&end, NULL);
@@ -269,32 +228,10 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Det
            / 1000.f;
     DLOG(INFO) << "        [Marker]  Detect batch : " << diff;
 
-//    // make sure batch size is times of the batch size
-//    if (img.size() % batch_size_ != 0) {
-//        int batchShort = batch_size_ - (img.size() % batch_size_);
-//        for (int i = 0; i < batchShort; ++i) {
-//            DLOG(INFO) << "Input images size less than batch size" << endl;
-//            img.push_back(cv::Mat(1, 1, CV_8UC3));
-//        }
-//    }
-//
-//    detect_results.clear();
-//    vector<cv::Mat> toPredict;
-//    for (int i = 0; i < img.size(); ++i) {
-//        cv::Mat image = img[i];
-//        toPredict.push_back(image);
-//        if (toPredict.size() == batch_size_) {
-//            vector<Blob<float> *> outputs = PredictBatch(toPredict);
-//            Fullfil(toPredict, outputs, detect_results);
-//            toPredict.clear();
-//        }
-//
-//    }
-
 }
 
 std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
-    float costtime, diff;
+   float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
     vector<Blob<float> *> outputs;
