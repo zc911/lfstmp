@@ -49,6 +49,8 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     parse_image_timeout_ = parse_image_timeout_ == 0 ? PARSE_IMAGE_TIMEOUT_DEFAULT : parse_image_timeout_;
 
     RepoService::GetInstance().Init(*config);
+
+
     enable_storage_ = (bool) config_->Value(STORAGE_ENABLED);
     fullimage_storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
     int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
@@ -120,9 +122,9 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                 op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
             break;
-        case RECFUNC_VEHICLE_PEDESTRIAN_ATTR:
+        case RECFUNC_PEDESTRIAN_ATTR:
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_PEDESTRIAN_ATTR);
+                op.Set(OPERATION_PEDESTRIAN_ATTR);
             break;
         case RECFUNC_FACE:
             if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
@@ -135,6 +137,18 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
         case RECFUNC_FACE_FEATURE_VECTOR:
             if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
                 op.Set(OPERATION_FACE_FEATURE_VECTOR);
+            break;
+        case RECFUNC_VEHICLE_DRIVER_NOBELT:
+            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                op.Set(OPERATION_DRIVER_BELT);
+            break;
+        case RECFUNC_VEHICLE_DRIVER_PHONE:
+            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                op.Set(OPERATION_CODRIVER_BELT);
+            break;
+        case RECFUNC_VEHICLE_CODRIVER_NOBELT:
+            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                op.Set(OPERATION_DRIVER_PHONE);
             break;
         default:
             break;
@@ -158,7 +172,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
     PeopleAttr* attr = prec->mutable_pedesattr();
 
-    auto SetNameAndConfidence = [](NameAndConfidence* nac, Pedestrian::Attr& attribute) {
+    auto SetNameAndConfidence = [](NameAndConfidence * nac, Pedestrian::Attr & attribute) {
         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(attribute.mappingId));
         nac->set_confidence(attribute.confidence);
         nac->set_id(attribute.index);
@@ -211,7 +225,7 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
                     caf = attr->add_category();
                     caf->set_id(attrs[i].categoryId);
                     caf->set_categoryname(
-                            RepoService::GetInstance().FindPedestrianAttrCatagory(attrs[i].categoryId));
+                        RepoService::GetInstance().FindPedestrianAttrCatagory(attrs[i].categoryId));
                 }
                 NameAndConfidence *nac = caf->add_items();
                 SetNameAndConfidence(nac, attrs[i]);
@@ -243,14 +257,14 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
     if (err.code() < 0)
         return err;
     Window *window = (Window *)vobj->child(OBJECT_WINDOW);
-    if(window){
+    if (window) {
         err = RepoService::GetInstance().FillSymbols(window->children(), vrec);
         if (err.code() < 0)
-            return err;        
+            return err;
     }
-            err = RepoService::GetInstance().FillPassengers(vobj->children(), vrec);
-        if (err.code() < 0)
-            return err;      
+    err = RepoService::GetInstance().FillPassengers(vobj->children(), vrec);
+    if (err.code() < 0)
+        return err;
 
 
 
@@ -330,8 +344,8 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             float bottomTimes = RepoService::GetInstance().FindBodyRelativeFace("bottom");
             pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
             pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
-            pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth -1 - pedCutboard->x()));
-            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes), imgHeight -1 - pedCutboard->y()));
+            pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
+            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes), imgHeight - 1 - pedCutboard->y()));
         }
         faceCutboard->set_x(Max(d.box.x - pedCutboard->x(), 0));
         faceCutboard->set_y(Max(d.box.y - pedCutboard->y(), 0));
@@ -498,11 +512,14 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    shared_ptr<RequestItem> requestItem(new RequestItem);
+    RequestItem *requestItem = new RequestItem;
     requestItem->frame=frame;
     requestItem->isFinish=false;
     WitnessCollector::Instance().Push(requestItem);
-
+    std::unique_lock<mutex> waitlc(requestItem->mtx);
+    while(!requestItem->isFinish){
+        requestItem->cv.wait(waitlc);
+    }
 
 
 /*    FrameBatch framebatch(curr_id * 10);
@@ -590,7 +607,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     }
 
-
+    delete frame;
     VLOG(VLOG_SERVICE) << "recognized objects: " << frame->objects().size() << endl;
     VLOG(VLOG_SERVICE) << "Finish processing: " << sessionid << "..." << endl;
     VLOG(VLOG_SERVICE) << "=======" << endl;

@@ -58,7 +58,7 @@ static void destory() {
 static Operation getOperation() {
     Operation op;
     op.Set( OPERATION_VEHICLE |
-            OPERATION_VEHICLE_PEDESTRIAN_ATTR |
+            OPERATION_PEDESTRIAN_ATTR |
             OPERATION_VEHICLE_DETECT );
     return op;
 }

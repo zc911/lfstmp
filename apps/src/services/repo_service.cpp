@@ -312,7 +312,7 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
 }
 MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecVehicle *vrec) {
 
-    auto FillPassengersAttr = [](RecVehicle * vrec, Vehicler * p, int is_driver) {
+    auto FillPassengersAttr = [](RecVehicle * vrec, Vehicler * p, bool is_driver) {
 
         auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value) {
             nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(key));
@@ -328,15 +328,13 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
         CategoryAndFeature *caf;
         Passenger * pa;
         PeopleAttr* attr;
-        if (nobelt > 0 || phone > 0) {
-            pa = vrec->add_passengers();
-            pa->set_id(p->id());
-            attr = pa->mutable_pedesattr();
-            caf = attr->add_category();
-            caf->set_id(BEHAVIOR);
-            caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
-
-        }
+        pa = vrec->add_passengers();
+        pa->set_id(p->id());
+        attr = pa->mutable_passengerattr();
+        caf = attr->add_category();
+        caf->set_id(BEHAVIOR);
+        caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
+        pa->set_driver(is_driver);
         if (nobelt > 0) {
             NameAndConfidence *nac = caf->add_items();
             SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);
@@ -348,15 +346,14 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
 
     };
     for (auto *obj : passengers) {
-        int is_driver = 0;
         Vehicler *p = (Vehicler *)obj;
 
         switch (obj->type()) {
         case OBJECT_CODRIVER:
-            FillPassengersAttr(vrec, p, 0);
+            FillPassengersAttr(vrec, p, false);
             break;
         case OBJECT_DRIVER:
-            FillPassengersAttr(vrec, p, 1);
+            FillPassengersAttr(vrec, p, true);
             break;
 
         }

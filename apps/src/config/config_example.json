@@ -4,10 +4,10 @@
     "Model": "1.9"
   },
   "ProtocolType": "restful",
-//   "ProtocolType": "rpc|restful",
+  //   "ProtocolType": "rpc|restful",
 
- "InstanceType": "witness",
-//       "InstanceType" : "ranker",
+  "InstanceType": "witness",
+  //       "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
@@ -140,9 +140,8 @@
   },
   "Storage": {
     "Enabled": false,
-
-    "Address": ["192.168.2.16:9877"],
-    "DBType": [1]
+    "Address": ["192.168.2.119:9004", "192.168.2.132:9877"],
+    "DBType": [0, 1]
   },
 
   //"DataPath": "data/data_tollgate.dat"
