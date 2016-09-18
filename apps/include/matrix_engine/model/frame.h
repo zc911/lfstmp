@@ -102,7 +102,7 @@ public:
 
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *old_obj = *itr;
 
             if (old_obj->id() == obj->id()) {
@@ -117,7 +117,7 @@ public:
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *obj = *itr;
             if (obj->id() == id) {
                 return *itr;
@@ -292,7 +292,7 @@ public:
     CarRankFrame(Identification id, const Mat &image,
                  const vector<Rect> &hotspots,
                  const vector<CarRankFeature> &candidates)
-        : Frame(id,image),
+        : Frame(id, image),
           hotspots_(hotspots),
           candidates_(candidates) {
     }
@@ -306,18 +306,18 @@ public:
 
 class FaceRankFrame: public Frame {
 public:
-    FaceRankFrame(Identification id,Mat &img,
+    FaceRankFrame(Identification id, Mat &img,
                   const vector<Rect> &hotspots,
                   const vector<FaceRankFeature> &candidates)
-        : Frame(id,img),
+        : Frame(id, img),
           hotspots_(hotspots),
           candidates_(candidates) {
     }
 
     ~FaceRankFrame() {
     }
-    void set_feature(FaceRankFeature feature){
-        datum_=feature;
+    void set_feature(FaceRankFeature feature) {
+        datum_ = feature;
     }
     vector<Rect> hotspots_;
     vector<FaceRankFeature> candidates_;
