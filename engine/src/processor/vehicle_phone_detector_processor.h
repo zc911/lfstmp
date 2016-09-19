@@ -8,7 +8,7 @@
 #ifndef SRC_PROCESSOR_VEHICLE_PHONE_DETECTOR_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_PHONE_DETECTOR_PROCESSOR_H_
 #include "processor/processor.h"
- #include "alg/detector/phone_caffe_ssd_detector.h"
+#include "alg/detector/phone_caffe_ssd_detector.h"
 namespace dg {
 
 class VehiclePhoneClassifierProcessor: public Processor {
@@ -28,7 +28,7 @@ protected:
 
 
 private:
-    PhoneCaffeSsdDetector *detector_=NULL;
+    PhoneCaffeSsdDetector *detector_ = NULL;
 
     vector<Object *> objs_;
     vector<Mat> images_;

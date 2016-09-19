@@ -126,16 +126,10 @@ void FrameBatchHelper::printFrame(Frame * frame) {
 string FrameBatchHelper::getType(ObjectType t) {
     string type;
     if (t == OBJECT_FACE) type = "face";
-    else if (t == OBJECT_PEOPLE) type = "people";
     else if (t == OBJECT_TRICYCLE) type = "tricycle";
     else if (t == OBJECT_BICYCLE) type = "bicycle";
     else if (t == OBJECT_PEDESTRIAN) type = "pedestrian";
     else if (t == OBJECT_MARKER) type = "marker";
-    else if (t == OBJECT_MARKER_0) type = "marker";
-    else if (t == OBJECT_MARKER_1) type = "marker";
-    else if (t == OBJECT_MARKER_2) type = "marker";
-    else if (t == OBJECT_MARKER_3) type = "marker";
-    else if (t == OBJECT_MARKER_4) type = "marker";
     else if (t == OBJECT_CAR) type = "car";
     else if (t == OBJECT_UNKNOWN) type = "unknown";
     else type = "None!!";

@@ -42,8 +42,8 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
     vector<Window> windows;
     ssd_window_detector_->DetectBatch(images_, crops);
 
-    int target_row=256;
-    int target_col=384;
+    int target_row = 256;
+    int target_col = 384;
     for (int i = 0; i < crops.size(); i++) {
         if (crops[i].size() <= 0)
             continue;
@@ -52,7 +52,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         int ymin = crops[i][0].box.y;
         int xmax = crops[i][0].box.x + crops[i][0].box.width;
         int ymax = crops[i][0].box.y + crops[i][0].box.height;
-        int cxmin, cymin,cpxmin,cpymin;
+        int cxmin, cymin, cpxmin, cpymin;
         cv::Mat image = images_[i].clone();
         cv::Mat phone_image = images_[i].clone();
 
@@ -76,11 +76,11 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
         Mat resized_img;
 
-        resize(img,resized_img,Size(512,256));
-        resize(phone_img,phone_img,Size(512,256));
-        resize(img,img,Size(target_col,target_row));
+        resize(img, resized_img, Size(512, 256));
+        resize(phone_img, phone_img, Size(512, 256));
+        resize(img, img, Size(target_col, target_row));
 
-        Window *window=new Window(img,fob,params);
+        Window *window = new Window(img, fob, params);
         window->set_detection(crops[i][0]);
         window->set_resized_img(resized_img);
         window->set_phone_img(phone_img);
