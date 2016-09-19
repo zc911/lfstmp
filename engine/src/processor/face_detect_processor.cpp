@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年3月2日 下午1:53:19
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #include "processor/face_detect_processor.h"
@@ -66,7 +66,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[i];
         if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
-                << endl;
+                                     << endl;
             continue;
         }
 
@@ -99,11 +99,11 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if DEBUG
 #else
-    if(performance_>RECORD_UNIT) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
-}
+    }
 #endif
 
     return true;

@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年6月30日 上午10:08:13
- * Description : 
+ * Description :
  * ==========================================================================*/
 #include "pedestrian_classifier.h"
 #include "alg/caffe_helper.h"
@@ -13,19 +13,19 @@ namespace dg {
 
 PedestrianClassifier::PedestrianClassifier(PedestrianConfig &pconf) :
     height_(360), width_(205), crop_height_(350), crop_width_(180), pixel_scale_(
-    256), pixel_means_
-        {104, 117, 123} {
+        256), pixel_means_
+{104, 117, 123} {
     /* Load the network. */
 
-        string deploy_content;
-            ModelsMap *modelsMap = ModelsMap::GetInstance();
+    string deploy_content;
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    modelsMap->getModelContent(pconf.deploy_file,deploy_content);
+    modelsMap->getModelContent(pconf.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(pconf.deploy_file,deploy_content,TEST));
+        new Net<float>(pconf.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(pconf.model_file,model_content);
-        net_->CopyTrainedLayersFrom(pconf.model_file,model_content);
+    modelsMap->getModelContent(pconf.model_file, model_content);
+    net_->CopyTrainedLayersFrom(pconf.model_file, model_content);
 
     layer_name_ = pconf.layer_name;
 
@@ -87,12 +87,12 @@ void PedestrianClassifier::LoadTagnames(const string &name_list) {
 }
 
 void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
-                                            vector<vector<float> > &results) {
+        vector<vector<float> > &results) {
     Blob<float> *input_blob = net_->input_blobs()[0];
     int num_imgs = static_cast<int>(imgs.size());
 //    assert(num_imgs <= batch_size_);
     vector<int> shape =
-        {num_imgs, 3, crop_height_, crop_width_};
+    {num_imgs, 3, crop_height_, crop_width_};
     input_blob->Reshape(shape);
     net_->Reshape();
     float *input_data = input_blob->mutable_cpu_data();
@@ -116,7 +116,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
             for (int row = 0; row < sample.rows; row++) {
                 for (int col = 0; col < sample.cols; col++) {
                     input_data[cnt] = (float(sample.at<uchar>(row, col * 3 + k))
-                        - pixel_means_[k]) / pixel_scale_;
+                                       - pixel_means_[k]) / pixel_scale_;
                     cnt++;
                 }
             }
@@ -145,7 +145,7 @@ void PedestrianClassifier::AttributePredict(const vector<Mat> &imgs,
 }
 
 std::vector<vector<PedestrianClassifier::PedestrianAttribute>> PedestrianClassifier::BatchClassify(
-    const vector<cv::Mat> &imgs) {
+const vector<cv::Mat> &imgs) {
     std::vector<vector<PedestrianClassifier::PedestrianAttribute>> attrc;
     if (imgs.size() == 0)
         return attrc;
