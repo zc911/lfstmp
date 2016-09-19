@@ -87,14 +87,14 @@ public:
 
       config_->AddEntry("System/GpuId", AnyConversion(gpuId));
 
-           int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+      int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
       cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
       for (int i = 0; i < threadNum; ++i) {
         string name = "engines_" + to_string(gpuId) + "_" + to_string(i);
 
         EngineType *engine = new EngineType(*config_);
-        cout << "Start thread: " << name<<" "<<engine << endl;
+        cout << "Start thread: " << name << " " << engine << endl;
 
         workers_.emplace_back([this, engine, name] {
           for (; ;) {

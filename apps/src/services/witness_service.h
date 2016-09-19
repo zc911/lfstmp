@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_APPS_WITNESS_SERVICE_H_
@@ -45,9 +45,9 @@ private:
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
                                         RecPedestrian *vrec);
     MatrixError getRecognizedFace(const vector<const Face *>faceVector,
-        ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
-        int width,
-        int height);
+                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+                                  int width,
+                                  int height);
     MatrixError getRecognizeResult(Frame *frame, WitnessResult *result);
 
     MatrixError checkRequest(const WitnessRequest &request);
@@ -69,7 +69,7 @@ private:
 
     unsigned int parse_image_timeout_;
     bool enable_storage_;
-    bool enable_fullimage_storage_=false;
+    bool enable_fullimage_storage_ = false;
     string fullimage_storage_address_;
     ::google::protobuf::RepeatedPtrField<StorageConfig > storage_configs_;
     bool enable_cutboard_;
