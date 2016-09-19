@@ -10,6 +10,7 @@
 #include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
+#include "check_file_exist.h"
 
 
 using namespace std;
@@ -201,7 +202,6 @@ DEFINE_string(config, "config.json", "Config file path");
 DEFINE_bool(showconfig, false, "Show config file content");
 DEFINE_bool(encrypt, false, "Use the encrype data, only valid in DEBUG mode");
 
-
 int main(int argc, char *argv[]) {
 
 #if false
@@ -229,6 +229,9 @@ int main(int argc, char *argv[]) {
     Config *config = new Config();
 
     config->Load(FLAGS_config);
+    if (FilesAllExist(config) == false) {
+        exit(-1);
+    }
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 
 #ifdef DEBUG
