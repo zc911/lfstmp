@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_ENGINE_CAR_RANK_PROCESSOR_H_
@@ -38,7 +38,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    CarMatcher *car_matcher_=NULL;
+    CarMatcher *car_matcher_ = NULL;
     CarFeatureExtractor car_feature_extractor_;
 
     vector<Score> rank(const Mat &image, const Rect &hotspot,

@@ -19,7 +19,7 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
- #include "processor/vehicle_phone_detector_processor.h"
+#include "processor/vehicle_phone_detector_processor.h"
 #include "plate_recognize_mxnet_processor.h"
 
 #include "config.h"
@@ -65,7 +65,7 @@ public:
   void createCoDriverBeltConfig(const Config &cconfig,
                                 VehicleBeltConfig &cbConfig);
   void createDriverPhoneConfig(const Config &cconfig,
-                         VehicleCaffeDetectorConfig &pConfig);
+                               VehicleCaffeDetectorConfig &pConfig);
   void createWindowConfig(const Config &cconfig,
                           VehicleCaffeDetectorConfig &wConfig);
   void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);

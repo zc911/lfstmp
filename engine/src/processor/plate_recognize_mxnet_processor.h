@@ -54,7 +54,7 @@ private:
     void vehiclesFilter(FrameBatch *frameBatch);
 
     void setConfig(LPDRConfig_S *pstConfig);
-    PlateRecognizeMxnetConfig *config_=NULL;
+    PlateRecognizeMxnetConfig *config_ = NULL;
     LPDR_HANDLE h_LPDR_Handle_ = 0;
     vector<Object *> objs_;
     LPDR_ImageSet_S stImgSet_;

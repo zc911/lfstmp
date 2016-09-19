@@ -24,14 +24,14 @@ CaffeVehicleColorClassifier::CaffeVehicleColorClassifier(const VehicleColorConfi
     }
 
     string deploy_content;
-        ModelsMap *modelsMap = ModelsMap::GetInstance();
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
 
@@ -43,12 +43,12 @@ CaffeVehicleColorClassifier::CaffeVehicleColorClassifier(const VehicleColorConfi
                          input_geometry_.height, input_geometry_.width);
     /* Forward dimension change to all layers. */
     net_->Reshape();
- /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }*/
+    /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+       const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+       const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+       for (int i = 0; i < layers.size(); ++i) {
+           layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+       }*/
 }
 CaffeVehicleColorClassifier::~CaffeVehicleColorClassifier() {
 
@@ -65,8 +65,8 @@ vector<vector<Prediction> > CaffeVehicleColorClassifier::ClassifyAutoBatch(const
         prediction.insert(prediction.end(), pred.begin(), pred.end());
     }
     int padding_size = (caffe_config_.batch_size
-        - imgs.size() % caffe_config_.batch_size)
-        % caffe_config_.batch_size;
+                        - imgs.size() % caffe_config_.batch_size)
+                       % caffe_config_.batch_size;
     prediction.erase(prediction.end() - padding_size, prediction.end());
     return prediction;
 }

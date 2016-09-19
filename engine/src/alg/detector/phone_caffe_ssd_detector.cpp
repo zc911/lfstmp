@@ -46,10 +46,10 @@ PhoneCaffeSsdDetector::PhoneCaffeSsdDetector(const VehicleCaffeDetectorConfig &c
     target_col_ = config.target_min_size;
     target_row_ = config.target_max_size;
 
-      input_layer->Reshape(batch_size_, num_channels_,
-                           input_geometry_.height,
-                           input_geometry_.width);
-      net_->Reshape();
+    input_layer->Reshape(batch_size_, num_channels_,
+                         input_geometry_.height,
+                         input_geometry_.width);
+    net_->Reshape();
 
     /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
         const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
@@ -89,10 +89,10 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
         int cls = top_data[j * 7 + 1];
         float score = top_data[j * 7 + 2];
 
-        if(!(cls==1||cls==5))
+        if (!(cls == 1 || cls == 5))
             continue;
 
-        if(score<0.9)
+        if (score < 0.9)
             continue;
 
         /*******************tiny object detector*********************/
@@ -119,7 +119,7 @@ int PhoneCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
     vector<cv::Mat> toPredict;
     vector<cv::Mat> origins;
     for (int i = 0; i < img.size(); ++i) {
-        Mat image=ycrbradapthist(img[i]);
+        Mat image = ycrbradapthist(img[i]);
 
         toPredict.push_back(image);
         if (toPredict.size() == batch_size_) {
