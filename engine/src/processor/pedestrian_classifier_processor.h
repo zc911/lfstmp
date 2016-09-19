@@ -31,7 +31,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    PedestrianClassifier *classifier_;
+    PedestrianClassifier *classifier_=NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
 };
