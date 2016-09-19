@@ -54,7 +54,7 @@ bool PlateRecognizerProcessor::beforeUpdate(FrameBatch *frameBatch) {
 }
 
 void PlateRecognizerProcessor::sharpenImage(const cv::Mat &image,
-                                            cv::Mat &result) {
+        cv::Mat &result) {
     Mat tmp;
     float wRate = (float) image.cols / 350.0;
     float hRate = (float) image.rows / 290.0;

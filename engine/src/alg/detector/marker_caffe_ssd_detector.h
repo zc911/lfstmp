@@ -20,25 +20,25 @@ using namespace cv;
 using namespace caffe;
 
 namespace dg {
-enum{
-    LeftBelt=7,
-    RightBelt=8,
-    LeftSunVisor=9,
-    RightSunVisor=10
+enum {
+    LeftBelt = 7,
+    RightBelt = 8,
+    LeftSunVisor = 9,
+    RightSunVisor = 10
 };
-class MarkerCaffeSsdDetector : public Detector{
+class MarkerCaffeSsdDetector : public Detector {
 
 public:
 
     MarkerCaffeSsdDetector(const VehicleCaffeDetectorConfig &config);
     virtual ~MarkerCaffeSsdDetector();
-    virtual int DetectBatch(vector<cv::Mat> &img,vector<vector<Rect> >fobs,vector<vector<float> >params,
+    virtual int DetectBatch(vector<cv::Mat> &img, vector<vector<Rect> >fobs, vector<vector<float> >params,
                             vector<vector<Detection> > &detect_results);
 
 protected:
 
     vector<Blob<float>*> PredictBatch(const vector<Mat> &imgs);
-    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs,vector<vector<Detection> > &detect_results,vector<vector<Rect> > &fobs,vector<vector<float> >&params);
+    void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs, vector<vector<Detection> > &detect_results, vector<vector<Rect> > &fobs, vector<vector<float> >&params);
 
 private:
     boost::shared_ptr<caffe::Net<float>> net_;
@@ -50,7 +50,7 @@ private:
     int gpu_id_;
     int batch_size_;
     float threshold_;
-    int target_col=384;
+    int target_col = 384;
 #ifdef SHOW_VIS
     vector<Scalar> color_;
     vector<string> tags_;

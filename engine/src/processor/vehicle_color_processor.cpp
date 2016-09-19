@@ -36,9 +36,9 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Start color process: " << frameBatch->id() << endl;
 
     vector<vector<Prediction> > result;
-    for_each(classifiers_.begin(), classifiers_.end(), [&](CaffeVehicleColorClassifier *elem) {
-      auto tmpPred = elem->ClassifyAutoBatch(images_);
-      vote(tmpPred, result, classifiers_.size());
+    for_each(classifiers_.begin(), classifiers_.end(), [&](CaffeVehicleColorClassifier * elem) {
+        auto tmpPred = elem->ClassifyAutoBatch(images_);
+        vote(tmpPred, result, classifiers_.size());
     });
 
     //set results

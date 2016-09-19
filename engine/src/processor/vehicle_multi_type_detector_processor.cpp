@@ -22,13 +22,13 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
 
 // TODO complete construction
 VehicleMultiTypeDetectorProcessor::~VehicleMultiTypeDetectorProcessor() {
-   if (vehicle_detector_)
+    if (vehicle_detector_)
         delete vehicle_detector_;
 
-   if(car_only_confirm_)
+    if (car_only_confirm_)
         delete car_only_confirm_;
 
-   if (car_only_detector_)
+    if (car_only_detector_)
         delete car_only_detector_;
 }
 
@@ -81,7 +81,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
     if (detect_results.size() < images.size()) {
         LOG(ERROR) << "Detection results size not equals to frame batch size: " << detect_results.size() << "-"
-            << frameBatch->frames().size() << endl;
+                   << frameBatch->frames().size() << endl;
         return false;
     }
 
@@ -137,8 +137,8 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             }
 
             if (obj) {
-           //     Mat tmp = frame->payload()->data();
-             //   rectangle(tmp,d.box,Scalar(255,0,0));
+                //     Mat tmp = frame->payload()->data();
+                //   rectangle(tmp,d.box,Scalar(255,0,0));
 
                 obj->set_detection(d);
                 frame->put_object(obj);
@@ -157,8 +157,8 @@ bool VehicleMultiTypeDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if DEBUG
 #else
 
-    if(performance_>RECORD_UNIT) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }

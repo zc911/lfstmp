@@ -6,7 +6,6 @@
  */
 
 #include "system_service.h"
-
 namespace dg {
 SystemAppsService::SystemAppsService(const Config *config, string name, int baseId) {
     config_ = config;
@@ -30,7 +29,7 @@ void SystemAppsService::initNetworkThread() {
 }
 
 MatrixError SystemAppsService::SystemStatus(const SystemStatusRequest *request,
-                                            SystemStatusResponse *response) {
+        SystemStatusResponse *response) {
     MatrixError err;
     std::string msgCpuUsage;
     std::string msgMemTotal;

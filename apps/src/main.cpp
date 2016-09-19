@@ -19,7 +19,7 @@ using namespace dg;
 
 string getServerAddress(Config *config, int userPort = 0) {
     if (userPort != 0) {
-    //    cout << "Use command line port instead of config file value" << endl;
+        //    cout << "Use command line port instead of config file value" << endl;
         config->AddEntry("System/Port", AnyConversion(userPort));
     }
 
@@ -38,8 +38,30 @@ void serveWitness(Config *config, int userPort = 0) {
     string address = getServerAddress(config, userPort);
 
     WitnessBucket::Instance().SetMaxSize(100);
+    bool enable_improve_throughput = (bool) config->Value(PACK_ENABLE);
+    int batchsize =1;
+    if(enable_improve_throughput){
+        batchsize = config->Value(PACK_BATCHSIZE);
+    }
+    int timeout = config->Value(PACK_TIMEOUT);
+    WitnessCollector::Instance().SetBatchsize(batchsize);
+    WitnessCollector::Instance().SetTimeout(timeout);
+
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
+
+    int thread_num = [](Config * config) {
+        int thread_num;
+        int gpuNum = config->Value(SYSTEM_THREADS + "/Size");
+        for (int i = 0; i < gpuNum; i++) {
+            thread_num += (int) config->Value(SYSTEM_THREADS + to_string(i));
+        }
+        return thread_num;
+    }(config);
+
+
+    WitnessAssembler *witness_assembler = new WitnessAssembler(thread_num);
+    std::thread assemblerTh(&WitnessAssembler::Run, witness_assembler);
 
     try {
 
