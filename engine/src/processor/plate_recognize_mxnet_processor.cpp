@@ -18,15 +18,15 @@ namespace dg {
         "青", "藏", "川", "宁", "琼", "使", "领", "试", "学", "临", "时", "警", "港", "O",
         "挂", "澳", "#" };*/
 const char *paInv_chardict[79] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", \
-                                              "A", "B", "C", "D", "E", "F", "G", "H", "J", \
-                                              "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
-                                              "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
-                                              "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
-                                              "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
-                                              "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
-                                              "青", "藏", "川", "宁", "琼", "使", "领", "试", \
-                                              "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
-                                             };
+                                  "A", "B", "C", "D", "E", "F", "G", "H", "J", \
+                                  "K", "L", "M", "N", "P", "Q", "R", "S", "T", \
+                                  "U", "V", "W", "X", "Y", "Z", "I", "京", "津", \
+                                  "沪", "渝", "冀", "豫", "云", "辽", "黑", "湘", \
+                                  "皖", "闽", "鲁", "新", "苏", "浙", "赣", "鄂", \
+                                  "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
+                                  "青", "藏", "川", "宁", "琼", "使", "领", "试", \
+                                  "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
+                                 };
 PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(PlateRecognizeMxnetConfig *config
                                                           )
     : config_(config), h_LPDR_Handle_(0) {
@@ -181,12 +181,12 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     pstConfig->stCHRECOG.adwShape[3] = 32;
 
 
-            readModuleFile(config_->colorSymbolFile, config_->colorParamFile,
+    readModuleFile(config_->colorSymbolFile, config_->colorParamFile,
                    &pstConfig->stCOLOR, config_->is_model_encrypt);
-        pstConfig->stCOLOR.adwShape[0] = 1;
-        pstConfig->stCOLOR.adwShape[1] = 3;
-        pstConfig->stCOLOR.adwShape[2] = 32;
-        pstConfig->stCOLOR.adwShape[3] = 32*4;
+    pstConfig->stCOLOR.adwShape[0] = 1;
+    pstConfig->stCOLOR.adwShape[1] = 3;
+    pstConfig->stCOLOR.adwShape[2] = 32;
+    pstConfig->stCOLOR.adwShape[3] = 32 * 4;
 
     pstConfig->dwDevType = 2;
     pstConfig->dwDevID = config_->gpuId;

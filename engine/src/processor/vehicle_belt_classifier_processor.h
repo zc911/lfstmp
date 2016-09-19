@@ -9,7 +9,7 @@
 #define SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
 #include "alg/detector/window_caffe_ssd_detector.h"
- #include "alg/classification/belt_classifier.h"
+#include "alg/classification/belt_classifier.h"
 namespace dg {
 
 class VehicleBeltClassifierProcessor: public Processor {
@@ -29,13 +29,13 @@ protected:
 
 
 private:
-    CaffeBeltClassifier *belt_classifier_=NULL;
+    CaffeBeltClassifier *belt_classifier_ = NULL;
 
     vector<Object *> objs_;
     vector<vector<Rect> > fobs_;
     vector<vector<float> >params_;
     vector<Mat> images_;
-    bool is_driver=true;
+    bool is_driver = true;
     int marker_target_min_;
     int marker_target_max_;
 };

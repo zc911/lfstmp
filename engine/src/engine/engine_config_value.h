@@ -29,11 +29,11 @@ static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE =
     "Feature/Vehicle/EnableGpuPlate";
 static const string FEATURE_VEHICLE_ENABLE_MARKER =
     "Feature/Vehicle/EnableMarker";
-    static const string FEATURE_VEHICLE_ENABLE_DRIVERBELT =
+static const string FEATURE_VEHICLE_ENABLE_DRIVERBELT =
     "Feature/Vehicle/EnableDriverBelt";
-    static const string FEATURE_VEHICLE_ENABLE_CODRIVERBELT =
+static const string FEATURE_VEHICLE_ENABLE_CODRIVERBELT =
     "Feature/Vehicle/EnableCoDriverBelt";
-    static const string FEATURE_VEHICLE_ENABLE_PHONE =
+static const string FEATURE_VEHICLE_ENABLE_PHONE =
     "Feature/Vehicle/EnablePhone";
 static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
     "Feature/Vehicle/EnableFeatureVector";
@@ -46,7 +46,7 @@ static const string FEATURE_FACE_ENABLE_DETECTION =
 static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
     "Feature/Face/EnableFeatureVector";
 
-static const string RANKER_DEFAULT_TYPE = "Ranker/DefaultType";
+static const string RANKER_DEFAULT_TYPE = "RankerType";
 
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
 static const string DEBUG_ENABLE = "Debug/Enable";

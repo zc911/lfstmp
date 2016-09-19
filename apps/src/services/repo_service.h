@@ -95,7 +95,7 @@ private:
     //string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
     vector<string> pedestrian_attr_catagory_repo_;
-    vector<pair<int,string> > symbol_repo_;
+    vector<pair<int, string> > symbol_repo_;
     string pedestrian_attr_mapping_data_;
     string pedestrian_attr_catagory_data_;
     float pBodyRelativeFaceLeft;
@@ -105,12 +105,12 @@ private:
     bool is_gpu_plate_;
 
     const string &lookup_string(const vector<string> &array, int index);
-    const pair<int,string> &lookup_int_string(const vector<pair<int,string> > &array, int index);
+    const pair<int, string> &lookup_int_string(const vector<pair<int, string> > &array, int index);
 
     const VehicleModelType &lookup_vehicle(const vector<VehicleModelType> &array,
                                            int index);
     void init_string_map(string filename, string sep, vector<string> &array);
-    void init_int_string_map(string filename, vector<pair<int,string> > &array);
+    void init_int_string_map(string filename, vector<pair<int, string> > &array);
 
     void init_vehicle_map(string filename, string sep,
                           vector<VehicleModelType> &array);

@@ -11,8 +11,8 @@
 namespace dg {
 
 enum ServiceStatus {
-    OK = 200,
-    SYS_ERROR = 400,
+	OK = 200,
+	SYS_ERROR = 400,
 };
 
 }

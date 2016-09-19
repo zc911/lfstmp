@@ -23,7 +23,7 @@ typedef struct {
     vector<Mat> imgs;
     vector<SrcMetadata> srcMetadatas;
 
-}WitnessVehicleObj;
+} WitnessVehicleObj;
 
 class WitnessBucket {
 public:
