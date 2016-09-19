@@ -17,6 +17,7 @@
     "DefaultType": 3
   },
   "Pack":{
+    "Enable":false,
     "BatchSize":1,
     "TimeOut":100
   },

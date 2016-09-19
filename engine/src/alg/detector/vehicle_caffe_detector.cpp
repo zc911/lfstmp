@@ -28,12 +28,12 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
     ModelsMap *modelsMap = ModelsMap::GetInstance();
     string deploy_content;
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
@@ -43,13 +43,13 @@ VehicleCaffeDetector::VehicleCaffeDetector(const VehicleCaffeDetectorConfig &con
                          input_geometry_.width);
     net_->Reshape();
 
-/*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
-*/
+    /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+        const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+        const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+        for (int i = 0; i < layers.size(); ++i) {
+            layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+        }
+    */
     device_setted_ = false;
 #ifdef SHOW_VIS
     color_.push_back(Scalar(255, 0, 0));
@@ -123,7 +123,7 @@ void VehicleCaffeDetector::Fullfil(vector<cv::Mat> &img,
         }
     }
 #ifdef  SHOW_VIS
-    for(int i = 0; i < img.size(); ++i){
+    for (int i = 0; i < img.size(); ++i) {
         cv::Mat image = img[i];
         imshow("debug.jpg", image);
         waitKey(-1);

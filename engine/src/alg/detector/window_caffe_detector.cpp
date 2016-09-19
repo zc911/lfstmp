@@ -6,7 +6,7 @@
  */
 
 #include "window_caffe_detector.h"
- #include "alg/caffe_helper.h"
+#include "alg/caffe_helper.h"
 
 namespace dg {
 
@@ -25,14 +25,14 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
         Caffe::set_mode(Caffe::CPU);
     }
     string deploy_content;
-        ModelsMap *modelsMap = ModelsMap::GetInstance();
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
     //   CHECK_EQ(net_->num_outputs(), 1)<< "Network should have exactly one output.";
@@ -44,20 +44,20 @@ WindowCaffeDetector::WindowCaffeDetector(WindowCaffeConfig &config)
     input_layer->Reshape(caffe_config_.batch_size, num_channels_,
                          input_geometry_.height, input_geometry_.width);
     net_->Reshape();
- /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }*/
+    /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+       const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+       const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+       for (int i = 0; i < layers.size(); ++i) {
+           layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+       }*/
 
 }
 vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resized_imgs,
-                                                   const vector<cv::Mat> &imgs) {
+        const vector<cv::Mat> &imgs) {
     vector<Detection> crops;
     int padding_size = (caffe_config_.batch_size
-        - imgs.size() % caffe_config_.batch_size)
-        % caffe_config_.batch_size;
+                        - imgs.size() % caffe_config_.batch_size)
+                       % caffe_config_.batch_size;
     auto images = PrepareBatch(imgs, caffe_config_.batch_size);
     auto resized_images = PrepareBatch(resized_imgs, caffe_config_.batch_size);
 
@@ -76,12 +76,12 @@ vector<Detection> WindowCaffeDetector::DetectBatch(const vector<cv::Mat> &resize
 }
 
 vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
-                                              vector<Mat> imgs) {
+        vector<Mat> imgs) {
     vector<Blob<float> *> window_outputs = PredictBatch(resized_imgs);
     Blob<float> *window_reg = window_outputs[0];
     const float *begin = window_reg->cpu_data();
     const float *end = begin
-        + window_outputs[0]->channels() * resized_imgs.size();
+                       + window_outputs[0]->channels() * resized_imgs.size();
 
     vector<float> output_batch = std::vector<float>(begin, end);
     vector<Detection> crops;
@@ -101,7 +101,7 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
             float x =
                 output_batch[id[i] * 2 + k * window_outputs[0]->channels()];
             float y = output_batch[id[i] * 2 + 1
-                + k * window_outputs[0]->channels()];
+                                   + k * window_outputs[0]->channels()];
             x *= 240;
             y *= 240;
             x += 8;
@@ -119,7 +119,7 @@ vector<Detection> WindowCaffeDetector::Detect(vector<Mat> resized_imgs,
         rx += pad;
         ry += pad;
         Rect crop = Rect(lx, ly, rx - lx, ry - ly)
-            & Rect(0, 0, imgs[k].cols, imgs[k].rows);
+                    & Rect(0, 0, imgs[k].cols, imgs[k].rows);
         Detection detection;
         detection.box = crop;
         crops.push_back(detection);

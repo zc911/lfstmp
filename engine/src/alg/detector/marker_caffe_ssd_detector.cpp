@@ -174,7 +174,7 @@ void MarkerCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_tiny,
     }
 
 }
-int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Rect> > fobbiden_area,vector<vector<float> >params,
+int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Rect> > fobbiden_area, vector<vector<float> >params,
                                         vector<vector<Detection> > &detect_results) {
     float costtime, diff;
 
@@ -231,7 +231,7 @@ int MarkerCaffeSsdDetector::DetectBatch(vector<cv::Mat> &imgs, vector<vector<Rec
 }
 
 std::vector<Blob<float> *> MarkerCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
-   float costtime, diff;
+    float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
     vector<Blob<float> *> outputs;
