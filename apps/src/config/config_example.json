@@ -5,17 +5,14 @@
   },
   "ProtocolType": "restful",
 //   "ProtocolType": "rpc|restful",
-
- "InstanceType": "witness",
-//       "InstanceType" : "ranker",
+// "InstanceType": "witness",
+  "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
-    "Threads": [2]
+    "Threads": [1]
   },
-  "Ranker": {
-    "DefaultType": 3
-  },
+  "RankerType": "car|face",
   "Pack":{
     "Enable":false,
     "BatchSize":1,
