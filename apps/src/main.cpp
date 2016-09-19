@@ -38,7 +38,11 @@ void serveWitness(Config *config, int userPort = 0) {
     string address = getServerAddress(config, userPort);
 
     WitnessBucket::Instance().SetMaxSize(100);
-    int batchsize = config->Value(PACK_BATCHSIZE);
+    bool enable_improve_throughput = (bool) config->Value(PACK_ENABLE);
+    int batchsize =1;
+    if(enable_improve_throughput){
+        batchsize = config->Value(PACK_BATCHSIZE);
+    }
     int timeout = config->Value(PACK_TIMEOUT);
     WitnessCollector::Instance().SetBatchsize(batchsize);
     WitnessCollector::Instance().SetTimeout(timeout);
