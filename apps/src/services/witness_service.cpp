@@ -513,33 +513,33 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
         timestamp = request->image().witnessmetadata().timestamp();
     }
     RequestItem *requestItem = new RequestItem;
-    requestItem->frame=frame;
-    requestItem->isFinish=false;
+    requestItem->frame = frame;
+    requestItem->isFinish = false;
     WitnessCollector::Instance().Push(requestItem);
     std::unique_lock<mutex> waitlc(requestItem->mtx);
-    while(!requestItem->isFinish){
+    while (!requestItem->isFinish) {
         requestItem->cv.wait(waitlc);
     }
 
 
-/*    FrameBatch framebatch(curr_id * 10);
-    framebatch.AddFrame(frame);
-    gettimeofday(&start, NULL);
-    //fill srcmetadata
+    /*    FrameBatch framebatch(curr_id * 10);
+        framebatch.AddFrame(frame);
+        gettimeofday(&start, NULL);
+        //fill srcmetadata
 
 
-    //engine_.Process(&framebatch);
-    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
+        //engine_.Process(&framebatch);
+        MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
 
-    EngineData data;
-    data.func = [&framebatch, &data]() -> void {
-        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-        placeholders::_1))(&framebatch);
-    };
+        EngineData data;
+        data.func = [&framebatch, &data]() -> void {
+            return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+            placeholders::_1))(&framebatch);
+        };
 
-    engine_pool->enqueue(&data);
+        engine_pool->enqueue(&data);
 
-    data.Wait();*/
+        data.Wait();*/
 
 
     gettimeofday(&end, NULL);
