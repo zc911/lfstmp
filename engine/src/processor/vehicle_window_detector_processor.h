@@ -24,7 +24,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    WindowCaffeSsdDetector *ssd_window_detector_=NULL;
+    WindowCaffeSsdDetector *ssd_window_detector_ = NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;

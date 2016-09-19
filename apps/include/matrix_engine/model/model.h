@@ -28,14 +28,8 @@ typedef enum {
     OBJECT_TRICYCLE = 4,
     OBJECT_WINDOW = 8,
     OBJECT_MARKER = 16,
-    OBJECT_MARKER_0 = 16,
-    OBJECT_MARKER_1 = 16,
-    OBJECT_MARKER_2 = 16,
-    OBJECT_MARKER_3 = 16,
-    OBJECT_MARKER_4 = 16,
-    OBJECT_PEOPLE=32,
     OBJECT_DRIVER = 32,
-    OBJECT_CODRIVER=64,
+    OBJECT_CODRIVER = 64,
     OBJECT_FACE = 128,
 } ObjectType;
 
@@ -107,20 +101,20 @@ public:
     void set_detection(const Detection &detection) {
         detection_ = detection;
     }
-    Object *child(ObjectType type) const{
-        for(int i=0;i<children_.size();i++){
+    Object *child(ObjectType type) const {
+        for (int i = 0; i < children_.size(); i++) {
 
-            if(children_[i]->type()==type){
+            if (children_[i]->type() == type) {
                 return children_[i];
             }
         }
         return NULL;
-        
+
     }
-    vector<Object *>children(ObjectType type)const{
+    vector<Object *>children(ObjectType type)const {
         vector<Object *> result;
-        for(auto *child:children_){
-            if(child->type()==type)
+        for (auto *child : children_) {
+            if (child->type() == type)
                 result.push_back(child);
         }
         return result;
@@ -158,23 +152,23 @@ protected:
     vector<Object *> children_;
 
 };
-class Vehicler: public Object{
-    public:
+class Vehicler: public Object {
+public:
 
-    enum{NoBelt=48,Phone=47};
-    enum{Yes=1,No=0,NotSure=2,NoPerson=3};
-    Vehicler(ObjectType type):Object(type){
-
-    }
-    ~Vehicler(){
+    enum {NoBelt = 48, Phone = 47};
+    enum {Yes = 1, No = 0, NotSure = 2, NoPerson = 3};
+    Vehicler(ObjectType type): Object(type) {
 
     }
-    void set_vehicler_attr(int key,float value){
-        vehicler_attr_.insert(pair<int,float>(key,value));
+    ~Vehicler() {
+
     }
-    float vehicler_attr_value(int key){
-        map<int,float>::iterator it = vehicler_attr_.find(key);
-        if(it!=vehicler_attr_.end()){
+    void set_vehicler_attr(int key, float value) {
+        vehicler_attr_.insert(pair<int, float>(key, value));
+    }
+    float vehicler_attr_value(int key) {
+        map<int, float>::iterator it = vehicler_attr_.find(key);
+        if (it != vehicler_attr_.end()) {
             return it->second;
         }
         return 0;
@@ -218,11 +212,11 @@ public:
     ~Window() {
 
     }
-    void set_resized_img(Mat &img){
-        resized_image_=img;
+    void set_resized_img(Mat &img) {
+        resized_image_ = img;
     }
-    void set_phone_img(Mat &img){
-        phone_image_=img;
+    void set_phone_img(Mat &img) {
+        phone_image_ = img;
     }
     Identification class_id() const {
         return class_id_;
@@ -234,26 +228,26 @@ public:
     void set_markers(const vector<Detection> &markers) {
 
         for (auto detection : markers) {
-            Marker *m = new Marker(OBJECT_MARKER_0);
+            Marker *m = new Marker(OBJECT_MARKER);
             m->set_detection(detection);
             m->set_class_id(detection.id);
             m->set_confidence(detection.confidence);
             this->AddChild(m);
         }
     }
-    vector<Rect> & fobbiden(){
+    vector<Rect> & fobbiden() {
         return fobbiden_;
     }
-    vector<float> & params(){
+    vector<float> & params() {
         return params_;
     }
-    Mat & resized_image(){
+    Mat & resized_image() {
         return resized_image_;
     }
-    Mat & phone_image(){
+    Mat & phone_image() {
         return phone_image_;
     }
-    Mat & image(){
+    Mat & image() {
         return image_;
     }
 private:
@@ -341,7 +335,7 @@ public:
     void set_window( Window *window) {
         this->AddChild(window);
     }
-    void set_vehicler( Vehicler *vehicler){
+    void set_vehicler( Vehicler *vehicler) {
         this->AddChild(vehicler);
 
     }

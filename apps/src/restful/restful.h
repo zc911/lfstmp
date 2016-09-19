@@ -26,9 +26,9 @@ using namespace std;
 using namespace ::dg::model;
 namespace dg {
 enum ErrorCode {
-    NoError = 200,
-    ServiceError = 500,
-    RequestError = 400
+  NoError = 200,
+  ServiceError = 500,
+  RequestError = 400
 };
 template<class request_type, class response_type>
 using BindFunction = std::function<MatrixError(const request_type *, response_type *)>;
@@ -36,116 +36,116 @@ using BindFunction = std::function<MatrixError(const request_type *, response_ty
 typedef SimpleWeb::Server<SimpleWeb::HTTP> HttpServer;
 static void responseText(HttpServer::Response &response, int code,
                          const string &text) {
-    response << "HTTP/1.1 " << std::to_string(code)
-        << "\r\nContent-Length: " << text.length()
-        << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
-        << text;
+  response << "HTTP/1.1 " << std::to_string(code)
+           << "\r\nContent-Length: " << text.length()
+           << "\r\nContent-Type: application/json; charset=utf-8\r\n\r\n"
+           << text;
 }
 class RestfulService {
 
 public:
 
-    RestfulService(Config config,
-                   string protocol = "HTTP/1.1",
-                   string mime_type =
+  RestfulService(Config config,
+                 string protocol = "HTTP/1.1",
+                 string mime_type =
                    "application/json; charset=utf-8")
-        : config_(config),
-          protocol_(protocol),
-          mime_type_(mime_type),
-          sys_apps_(&config, "witness system") { }
+    : config_(config),
+      protocol_(protocol),
+      mime_type_(mime_type),
+      sys_apps_(&config, "witness system") { }
 
-    virtual ~RestfulService() {
+  virtual ~RestfulService() {
+  }
+
+  void Run() {
+    int port = (int) config_.Value("System/Port");
+
+    int threadsInTotal = 0;
+    int gpuNum = (int) config_.Value(SYSTEM_THREADS + "/Size");
+    for (int i = 0; i < gpuNum; ++i) {
+      int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
+      threadsInTotal += threadsOnGpu;
     }
+    SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 20);
 
-    void Run() {
-        int port = (int) config_.Value("System/Port");
+    SystemAppsService sysApp(&config_, "SystemAppsService");
+    std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
+      std::bind(&SystemAppsService::Ping, sysApp, std::placeholders::_1, std::placeholders::_2);
+    bindFunc<PingRequest, PingResponse>(server, "^/ping$", "GET", pingBinder);
 
-        int threadsInTotal = 0;
-        int gpuNum = (int) config_.Value(SYSTEM_THREADS + "/Size");
-        for (int i = 0; i < gpuNum; ++i) {
-            int threadsOnGpu = (int) config_.Value(SYSTEM_THREADS + std::to_string(i));
-            threadsInTotal += threadsOnGpu;
-        }
-        SimpleWeb::Server<SimpleWeb::HTTP> server(port, threadsInTotal * 20);
-
-        SystemAppsService sysApp(&config_, "SystemAppsService");
-        std::function<MatrixError(const PingRequest *, PingResponse *)> pingBinder =
-            std::bind(&SystemAppsService::Ping, sysApp, std::placeholders::_1, std::placeholders::_2);
-        bindFunc<PingRequest, PingResponse>(server, "^/ping$", "GET", pingBinder);
-
-        Bind(server);
-        cout << " Server(RESTFUL) listening on " << port << endl;
-        try {
-            server.start();
-        }
-        catch (...) {
-            std::lock_guard<std::mutex> lock(g_mutex);
-            g_exceptions.push_back(std::current_exception());
-            return;
-        }
+    Bind(server);
+    cout << " Server(RESTFUL) listening on " << port << endl;
+    try {
+      server.start();
     }
-
-
-    virtual void Bind(HttpServer &server) = 0;
-
-    std::vector<std::exception_ptr> getExceptions() const {
-        return g_exceptions;
+    catch (...) {
+      std::lock_guard<std::mutex> lock(g_mutex);
+      g_exceptions.push_back(std::current_exception());
+      return;
     }
+  }
+
+
+  virtual void Bind(HttpServer &server) = 0;
+
+  std::vector<std::exception_ptr> getExceptions() const {
+    return g_exceptions;
+  }
 
 protected:
 
-    Config config_;
-    string protocol_;
-    string mime_type_;
-    std::mutex g_mutex;
-    std::vector<std::exception_ptr>  g_exceptions;
+  Config config_;
+  string protocol_;
+  string mime_type_;
+  std::mutex g_mutex;
+  std::vector<std::exception_ptr>  g_exceptions;
 
 
-    // This function binds request operation to specific processor
-    // There are two bindFunc implmentation and the differents between these two
-    // is the later one need to passed into an engine instance since the GPU
-    // thread limitation.
-    template<class request_type, class response_type>
-    void bindFunc(
-        HttpServer &server,
-        string endpoint,
-        string method,
-        std::function<MatrixError(const request_type *, response_type *)> func) {
+  // This function binds request operation to specific processor
+  // There are two bindFunc implmentation and the differents between these two
+  // is the later one need to passed into an engine instance since the GPU
+  // thread limitation.
+  template<class request_type, class response_type>
+  void bindFunc(
+    HttpServer &server,
+    string endpoint,
+    string method,
+    std::function<MatrixError(const request_type *, response_type *)> func) {
 
-        server.resource[endpoint][method] =
-            [func, endpoint, method](HttpServer::Response &response, std::shared_ptr<HttpServer::Request> request) {
-              request_type protobufRequestMessage;
-              response_type protobufResponseMessage;
-              try {
-                  string content = request->content.string();
-                  if (method == "POST") {
-                      string err;
-                      int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
-                      if (ret < 0) {
-                          responseText(response, 400, "parameter conversion failed: " + err);
-                          return;
-                      }
-                  }
+    server.resource[endpoint][method] =
+    [func, endpoint, method](HttpServer::Response & response, std::shared_ptr<HttpServer::Request> request) {
+      request_type protobufRequestMessage;
+      response_type protobufResponseMessage;
+      try {
+        string content = request->content.string();
+        if (method == "POST") {
+          string err;
+          int ret = pbjson::json2pb(content, &protobufRequestMessage, err);
+          if (ret < 0) {
+            responseText(response, 400, "parameter conversion failed: " + err);
+            return;
+          }
+        }
 
-                  MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
-                  if (error.code() != 0) {
-                      responseText(response, ServiceError, error.message());
-                      return;
-                  }
+        MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
+        if (error.code() != 0) {
+          responseText(response, ServiceError, error.message());
+          return;
+        }
 
-                  content = "";
-                  pbjson::pb2json(&protobufResponseMessage, content);
-                  responseText(response, NoError, content);
-              }
-              catch (exception &e) {
-                  responseText(response, ServiceError, e.what());
-              }
-            };
+        content = "";
+        pbjson::pb2json(&protobufResponseMessage, content);
+        responseText(response, NoError, content);
+      }
+      catch (exception &e) {
+        responseText(response, ServiceError, e.what());
+      }
+    };
 
-    }
+  }
 
-    // This function need to pass into an engine instance since
-    // GPU thread limitation. So this function only bind the recognize/batchRecognize/ranker etc.
+  // This function need to pass into an engine instance since
+  // GPU thread limitation. So this function only bind the recognize/batchRecognize/ranker etc.
 
 //  template<class apps_type, class request_type, class response_type>
 //  void bindFunc(HttpServer &server,
@@ -155,7 +155,7 @@ protected:
 //
 //  }
 private:
-    SystemAppsService sys_apps_;
+  SystemAppsService sys_apps_;
 
 };
 }
