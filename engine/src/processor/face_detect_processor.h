@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年3月2日 下午1:53:19
- * Description : 
+ * Description :
  * ==========================================================================*/
 #ifndef FACE_DETECT_PROCESSOR_H_
 #define FACE_DETECT_PROCESSOR_H_
@@ -18,20 +18,20 @@ namespace dg {
 
 class FaceDetectProcessor: public Processor {
 public:
-    FaceDetectProcessor(FaceDetector::FaceDetectorConfig config);
-    virtual ~FaceDetectProcessor();
+	FaceDetectProcessor(FaceDetector::FaceDetectorConfig config);
+	virtual ~FaceDetectProcessor();
 
 protected:
-    virtual bool process(Frame *frame);
-    virtual bool process(FrameBatch *frameBatch);
+	virtual bool process(Frame *frame);
+	virtual bool process(FrameBatch *frameBatch);
 
-    virtual bool RecordFeaturePerformance();
-    virtual bool beforeUpdate(FrameBatch *frameBatch);
+	virtual bool RecordFeaturePerformance();
+	virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 
 private:
-    FaceDetector *detector_=NULL;
-    int base_id_;
+	FaceDetector *detector_ = NULL;
+	int base_id_;
 };
 
 } /* namespace dg */

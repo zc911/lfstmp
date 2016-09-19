@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年4月21日 下午3:44:11
- * Description : 
+ * Description :
  * ==========================================================================*/
 #include "processor/face_feature_extract_processor.h"
 #include "processor_helper.h"
@@ -75,8 +75,8 @@ bool FaceFeatureExtractProcessor::RecordFeaturePerformance() {
 bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if DEBUG
 #else    //#if RELEASE
-    if(performance_>RECORD_UNIT) {
-        if(!RecordFeaturePerformance()) {
+    if (performance_ > RECORD_UNIT) {
+        if (!RecordFeaturePerformance()) {
             return false;
         }
     }
@@ -84,7 +84,7 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object *>::iterator itr = to_processed_.begin();
-         itr != to_processed_.end();) {
+            itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else {

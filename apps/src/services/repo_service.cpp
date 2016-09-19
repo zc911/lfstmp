@@ -118,19 +118,17 @@ void RepoService::init_string_map(string filename, string sep,
     }
 }
 void RepoService::init_int_string_map(string filename, vector<pair<int, string> > &array) {
-    ifstream fp(filename);
-    array.resize(0);
-    while (!fp.eof()) {
+    string sep = "=";
+    ifstream input(filename);
+    for (string line; std::getline(input, line);) {
+        vector<string> tokens;
+        boost::iter_split(tokens, line, boost::first_finder(sep));
+        assert(tokens.size() == 2);
 
-        string indexstr = "", name = "";
-        fp >> indexstr;
-        fp >> name;
-
-        if (name == "" || indexstr == "")
-            continue;
+        int index = parseInt(tokens[0]);
         pair<int, string> tag;
-        tag.first = atoi(indexstr.c_str());
-        tag.second = name;
+        tag.first = index;
+        tag.second = trimString(tokens[1]);
         array.push_back(tag);
     }
 }
