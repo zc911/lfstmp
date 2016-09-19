@@ -31,7 +31,7 @@ protected:
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 private:
-    FaceFeatureExtractor *extractor_;
+    FaceFeatureExtractor *extractor_=NULL;
     vector<Object *> to_processed_;
 };
 
