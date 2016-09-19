@@ -45,7 +45,6 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
       base_id_(baseId),
       name_(name) {
     enable_cutboard_ = (bool) config_->Value(ENABLE_CUTBOARD);
-    enable_improve_throughput = (bool) config_->Value(PACK_ENABLE);
     parse_image_timeout_ = (int) config_->Value(PARSE_IMAGE_TIMEOUT);
     parse_image_timeout_ = parse_image_timeout_ == 0 ? PARSE_IMAGE_TIMEOUT_DEFAULT : parse_image_timeout_;
 
@@ -513,40 +512,14 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    if (enable_improve_throughput) {
-        RequestItem *requestItem = new RequestItem;
-        requestItem->frame = frame;
-        requestItem->isFinish = false;
-        WitnessCollector::Instance().Push(requestItem);
-        std::unique_lock<mutex> waitlc(requestItem->mtx);
-        while (!requestItem->isFinish) {
-            requestItem->cv.wait(waitlc);
-        }
-    } else {
-        FrameBatch framebatch(curr_id * 10);
-        framebatch.AddFrame(frame);
-        gettimeofday(&start, NULL);
-        //fill srcmetadata
-
-
-        //engine_.Process(&framebatch);
-        MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
-
-        EngineData data;
-        data.func = [&framebatch, &data]() -> void {
-            return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-            placeholders::_1))(&framebatch);
-        };
-
-        engine_pool->enqueue(&data);
-
-        data.Wait();
+    RequestItem *requestItem = new RequestItem;
+    requestItem->frame = frame;
+    requestItem->isFinish = false;
+    WitnessCollector::Instance().Push(requestItem);
+    std::unique_lock<mutex> waitlc(requestItem->mtx);
+    while (!requestItem->isFinish) {
+        requestItem->cv.wait(waitlc);
     }
-
-
-
-
-
 
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec Image cost(pure): " << TimeCostInMs(start, end) << endl;
