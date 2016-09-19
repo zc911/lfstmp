@@ -73,7 +73,7 @@ bool PedestrianClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
 
-    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_PEDESTRIAN_ATTR);
+    objs_ = frameBatch->CollectObjects(OPERATION_PEDESTRIAN_ATTR);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;

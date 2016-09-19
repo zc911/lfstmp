@@ -67,23 +67,26 @@ inline bool RecognizeType_Parse(
 enum RecognizeFunctions {
   RECFUNC_NONE = 0,
   RECFUNC_VEHICLE = 1,
-  RECFUNC_VEHICLE_DETECT = 2,
-  RECFUNC_VEHICLE_TRACK = 3,
-  RECFUNC_VEHICLE_STYLE = 4,
-  RECFUNC_VEHICLE_COLOR = 5,
-  RECFUNC_VEHICLE_MARKER = 6,
-  RECFUNC_VEHICLE_PLATE = 7,
-  RECFUNC_VEHICLE_FEATURE_VECTOR = 8,
-  RECFUNC_FACE = 9,
-  RECFUNC_FACE_DETECTOR = 10,
-  RECFUNC_FACE_FEATURE_VECTOR = 11,
-  RECFUNC_VEHICLE_PEDESTRIAN_ATTR = 12,
+  RECFUNC_VEHICLE_DETECT = 10,
+  RECFUNC_VEHICLE_TRACK = 11,
+  RECFUNC_VEHICLE_STYLE = 12,
+  RECFUNC_VEHICLE_COLOR = 13,
+  RECFUNC_VEHICLE_MARKER = 14,
+  RECFUNC_VEHICLE_PLATE = 15,
+  RECFUNC_VEHICLE_FEATURE_VECTOR = 16,
+  RECFUNC_VEHICLE_DRIVER_NOBELT = 170,
+  RECFUNC_VEHICLE_DRIVER_PHONE = 171,
+  RECFUNC_VEHICLE_CODRIVER_NOBELT = 172,
+  RECFUNC_FACE = 2,
+  RECFUNC_FACE_DETECTOR = 20,
+  RECFUNC_FACE_FEATURE_VECTOR = 21,
+  RECFUNC_PEDESTRIAN_ATTR = 3,
   RecognizeFunctions_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   RecognizeFunctions_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool RecognizeFunctions_IsValid(int value);
 const RecognizeFunctions RecognizeFunctions_MIN = RECFUNC_NONE;
-const RecognizeFunctions RecognizeFunctions_MAX = RECFUNC_VEHICLE_PEDESTRIAN_ATTR;
+const RecognizeFunctions RecognizeFunctions_MAX = RECFUNC_VEHICLE_CODRIVER_NOBELT;
 const int RecognizeFunctions_ARRAYSIZE = RecognizeFunctions_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor();
