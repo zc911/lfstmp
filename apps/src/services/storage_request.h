@@ -37,9 +37,9 @@ public:
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecVehicle *v = wv->results.Mutable(k)->mutable_vehicles(i);
                 vector<uchar> data;
-                imencode(".jpg",roi,data);
+                imencode(".jpg", roi, data);
 
-             //   vector<uchar> data(roi.datastart, roi.dataend);
+                //   vector<uchar> data(roi.datastart, roi.dataend);
                 string imgdata = Base64::Encode(data);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 vo.mutable_vehicle()->Add()->CopyFrom(*v);
@@ -51,10 +51,10 @@ public:
                 Mat roi(wv->imgs[k], Rect(c.x(), c.y(), c.width(), c.height()));
                 RecPedestrian *v = wv->results.Mutable(k)->mutable_pedestrian(i);
                 po.mutable_pedestrian()->Add()->CopyFrom(*v);
-                                vector<uchar> data;
+                vector<uchar> data;
 
-                imencode(".jpg",roi,data);
-            //    vector<uchar> data(roi.datastart, roi.dataend);
+                imencode(".jpg", roi, data);
+                //    vector<uchar> data(roi.datastart, roi.dataend);
                 string imgdata = Base64::Encode(data);
                 v->mutable_img()->mutable_img()->set_bindata(imgdata);
                 po.mutable_pedestrian()->Add()->CopyFrom(*v);
