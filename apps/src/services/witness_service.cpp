@@ -23,6 +23,7 @@
 #include "witness_service.h"
 #include "image_service.h"
 #include "witness_bucket.h"
+#include "witness_collector.h"
 
 
 //
@@ -48,6 +49,8 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
     parse_image_timeout_ = parse_image_timeout_ == 0 ? PARSE_IMAGE_TIMEOUT_DEFAULT : parse_image_timeout_;
 
     RepoService::GetInstance().Init(*config);
+
+
     enable_storage_ = (bool) config_->Value(STORAGE_ENABLED);
     fullimage_storage_address_ = (string) config_->Value(STORAGE_ADDRESS);
     int typeNum = config_->Value(STORAGE_DB_TYPE + "/Size");
@@ -506,27 +509,17 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     frame->set_operation(getOperation(request->context()));
     frame->set_roi(roiimages.rois);
 
-    FrameBatch framebatch(curr_id * 10);
-    framebatch.AddFrame(frame);
-    gettimeofday(&start, NULL);
-    //fill srcmetadata
-
     if (request->image().has_witnessmetadata() && request->image().witnessmetadata().timestamp() != 0) {
         timestamp = request->image().witnessmetadata().timestamp();
     }
-    //engine_.Process(&framebatch);
-    MatrixEnginesPool<WitnessEngine> *engine_pool = MatrixEnginesPool<WitnessEngine>::GetInstance();
-
-    EngineData data;
-    data.func = [&framebatch, &data]() -> void {
-        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-        placeholders::_1))(&framebatch);
-    };
-
-    engine_pool->enqueue(&data);
-
-    data.Wait();
-
+    RequestItem *requestItem = new RequestItem;
+    requestItem->frame = frame;
+    requestItem->isFinish = false;
+    WitnessCollector::Instance().Push(requestItem);
+    std::unique_lock<mutex> waitlc(requestItem->mtx);
+    while (!requestItem->isFinish) {
+        requestItem->cv.wait(waitlc);
+    }
 
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec Image cost(pure): " << TimeCostInMs(start, end) << endl;
@@ -585,7 +578,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
         } else {
             client_request_obj->storages.CopyFrom(storage_configs_);
         }
-        client_request_obj->imgs.push_back(framebatch.frames()[0]->payload()->data());
+        client_request_obj->imgs.push_back(frame->payload()->data());
         SrcMetadata metadata;
         metadata.set_timestamp(timestamp);
         client_request_obj->srcMetadatas.push_back(metadata);
@@ -593,7 +586,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     }
 
-
+    delete frame;
     VLOG(VLOG_SERVICE) << "recognized objects: " << frame->objects().size() << endl;
     VLOG(VLOG_SERVICE) << "Finish processing: " << sessionid << "..." << endl;
     VLOG(VLOG_SERVICE) << "=======" << endl;

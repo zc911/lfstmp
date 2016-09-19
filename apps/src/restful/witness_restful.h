@@ -36,13 +36,13 @@ public:
         std::function<MatrixError(const WitnessRequest *, WitnessResponse *)> recBinder =
             std::bind(&WitnessAppsService::Recognize, service_, std::placeholders::_1, std::placeholders::_2);
         bindFunc<WitnessRequest, WitnessResponse>(server, "^/rec/image$",
-                                                  "POST", recBinder);
+                "POST", recBinder);
         std::function<MatrixError(const WitnessBatchRequest *, WitnessBatchResponse *)> recBatchBinder =
             std::bind(&WitnessAppsService::BatchRecognize, service_, std::placeholders::_1, std::placeholders::_2);
         bindFunc<WitnessBatchRequest, WitnessBatchResponse>(server,
-                                                            "/rec/image/batch$",
-                                                            "POST",
-                                                            recBatchBinder);
+                "/rec/image/batch$",
+                "POST",
+                recBatchBinder);
 
 
         std::function<MatrixError(const IndexRequest *, IndexResponse *)> indexBinder =

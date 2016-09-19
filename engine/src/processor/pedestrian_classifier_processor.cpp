@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : Jul 1, 2016 8:42:35 AM
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #include <alg/classification/pedestrian_classifier.h>
@@ -62,9 +62,9 @@ bool PedestrianClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
 #if DEBUG
 #else
-    if(performance_>RECORD_UNIT)
+    if (performance_ > RECORD_UNIT)
     {
-        if(!RecordFeaturePerformance())
+        if (!RecordFeaturePerformance())
         {
             return false;
         }

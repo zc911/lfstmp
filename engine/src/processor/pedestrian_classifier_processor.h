@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : Jul 1, 2016 8:42:35 AM
- * Description : 
+ * Description :
  * ==========================================================================*/
 #ifndef SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
@@ -31,7 +31,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    PedestrianClassifier *classifier_=NULL;
+    PedestrianClassifier *classifier_ = NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
 };
