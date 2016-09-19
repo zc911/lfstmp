@@ -28,12 +28,6 @@ typedef enum {
     OBJECT_TRICYCLE = 4,
     OBJECT_WINDOW = 8,
     OBJECT_MARKER = 16,
-    OBJECT_MARKER_0 = 16,
-    OBJECT_MARKER_1 = 16,
-    OBJECT_MARKER_2 = 16,
-    OBJECT_MARKER_3 = 16,
-    OBJECT_MARKER_4 = 16,
-    OBJECT_PEOPLE = 32,
     OBJECT_DRIVER = 32,
     OBJECT_CODRIVER = 64,
     OBJECT_FACE = 128,
@@ -234,7 +228,7 @@ public:
     void set_markers(const vector<Detection> &markers) {
 
         for (auto detection : markers) {
-            Marker *m = new Marker(OBJECT_MARKER_0);
+            Marker *m = new Marker(OBJECT_MARKER);
             m->set_detection(detection);
             m->set_class_id(detection.id);
             m->set_confidence(detection.confidence);

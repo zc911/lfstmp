@@ -24,13 +24,13 @@ namespace dg {
  */
 class Classifier {
 public:
-    Classifier() {
-    }
-    virtual ~Classifier() {
-    }
-    virtual int ClassifyBatch(
-        const vector<cv::Mat> &imgs,
-        vector<vector<Prediction> > &predict_results) = 0;
+	Classifier() {
+	}
+	virtual ~Classifier() {
+	}
+	virtual int ClassifyBatch(
+	    const vector<cv::Mat> &imgs,
+	    vector<vector<Prediction> > &predict_results) = 0;
 };
 }
 #endif /* CLASSIFIER_H_ */

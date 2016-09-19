@@ -29,35 +29,35 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 
     batch_size_ = config.batch_size;
     //  net_.reset(new Net<float>(config.deploy_file, TEST));
-        ModelsMap *modelsMap = ModelsMap::GetInstance();
+    ModelsMap *modelsMap = ModelsMap::GetInstance();
 
     string deploy_content;
-    modelsMap->getModelContent(config.deploy_file,deploy_content);
+    modelsMap->getModelContent(config.deploy_file, deploy_content);
     net_.reset(
-        new Net<float>(config.deploy_file,deploy_content,TEST));
+        new Net<float>(config.deploy_file, deploy_content, TEST));
     string model_content;
-    modelsMap->getModelContent(config.model_file,model_content);
-        net_->CopyTrainedLayersFrom(config.model_file,model_content);
+    modelsMap->getModelContent(config.model_file, model_content);
+    net_->CopyTrainedLayersFrom(config.model_file, model_content);
 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    target_col_=config.target_min_size;
-    target_row_=config.target_max_size;
-    input_geometry_ = cv::Size(target_col_,target_row_);
+    target_col_ = config.target_min_size;
+    target_row_ = config.target_max_size;
+    input_geometry_ = cv::Size(target_col_, target_row_);
 
-  /*  input_layer->Reshape(batch_size_, num_channels_,
-                         input_geometry_.height,
-                         input_geometry_.width);
-    net_->Reshape();*/
+    /*  input_layer->Reshape(batch_size_, num_channels_,
+                           input_geometry_.height,
+                           input_geometry_.width);
+      net_->Reshape();*/
 
-/*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
-    const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
-    const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
-    for (int i = 0; i < layers.size(); ++i) {
-        layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
-    }
-*/
+    /*    const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
+        const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
+        const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
+        for (int i = 0; i < layers.size(); ++i) {
+            layers[i]->Forward(bottom_vecs[i], top_vecs[i]);
+        }
+    */
     device_setted_ = false;
 
 }
@@ -65,7 +65,7 @@ WindowCaffeSsdDetector::WindowCaffeSsdDetector(const VehicleCaffeDetectorConfig 
 WindowCaffeSsdDetector::~WindowCaffeSsdDetector() {
 
 }
-void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < float> *>&outputs_win,vector<vector<Detection> > &detect_results) {
+void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < float> *>&outputs_win, vector<vector<Detection> > &detect_results) {
     int image_offset = detect_results.size();
     for (int i = 0; i < images_origin.size(); ++i) {
         vector<Detection> imageDetection;
@@ -75,15 +75,15 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
     int box_num_win = outputs_win[tot_cnt_win]->height();
     const float* top_data_win = outputs_win[tot_cnt_win]->cpu_data();
 
-    for(int j = 0; j < box_num_win; j++) {
+    for (int j = 0; j < box_num_win; j++) {
 
         int img_id = top_data_win[j * 7 + 0];
 
-        if ((img_id < 0) || ((img_id+image_offset) >= detect_results.size())) {
+        if ((img_id < 0) || ((img_id + image_offset) >= detect_results.size())) {
             continue;
         }
         vector<Detection> &imageDetection = detect_results[image_offset + img_id];
-        if(imageDetection.size()>0){
+        if (imageDetection.size() > 0) {
             continue;
         }
 //        int cls = top_data_win[j * 7 + 1];
@@ -98,7 +98,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
             detection.box = Rect(xmin, ymin, xmax - xmin, ymax - ymin);
             detection.id = img_id;
             detection.confidence = score;
-     
+
             imageDetection.push_back(detection);
 
 
@@ -106,7 +106,7 @@ void WindowCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob
     }
 }
 int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
-                                      vector<vector<Detection> > &detect_results) {
+                                        vector<vector<Detection> > &detect_results) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
@@ -122,9 +122,9 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
     vector<cv::Mat> origins;
     for (int i = 0; i < img.size(); ++i) {
         cv::Mat image = img[i].clone();
-        resize(image,image,Size(target_col_,target_row_));
-        cvtColor(image,image,CV_BGR2GRAY);
-        equalizeHist(image,image);
+        resize(image, image, Size(target_col_, target_row_));
+        cvtColor(image, image, CV_BGR2GRAY);
+        equalizeHist(image, image);
         toPredict.push_back(image);
         origins.push_back(img[i]);
         if (toPredict.size() == batch_size_) {
@@ -140,11 +140,11 @@ int WindowCaffeSsdDetector::DetectBatch(vector<cv::Mat> &img,
 
         Fullfil(origins, outputs, detect_results);
     }
-        gettimeofday(&end, NULL);
+    gettimeofday(&end, NULL);
 
-        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
-            DLOG(INFO)<<"       [window] detect batch "<<diff;
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+           / 1000.f;
+    DLOG(INFO) << "       [window] detect batch " << diff;
 }
 
 std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat> &imgs) {
@@ -196,11 +196,11 @@ std::vector<Blob<float> *> WindowCaffeSsdDetector::PredictBatch(const vector<Mat
         Blob<float> *output_layer = net_->output_blobs()[i];
         outputs.push_back(output_layer);
     }
-        gettimeofday(&end, NULL);
+    gettimeofday(&end, NULL);
 
-        diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-            / 1000.f;
-            DLOG(INFO)<<"       [window] predict batch "<<diff;
+    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
+           / 1000.f;
+    DLOG(INFO) << "       [window] predict batch " << diff;
     return outputs;
 }
 

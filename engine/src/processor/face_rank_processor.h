@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年4月28日 下午4:09:47
- * Description : 
+ * Description :
  * ==========================================================================*/
 #ifndef FACE_RANK_PROCESSOR_H_
 #define FACE_RANK_PROCESSOR_H_
@@ -18,20 +18,20 @@ namespace dg {
 
 class FaceRankProcessor: public Processor {
 public:
-    FaceRankProcessor();
-    virtual ~FaceRankProcessor();
+	FaceRankProcessor();
+	virtual ~FaceRankProcessor();
 protected:
-    virtual bool process(Frame *frame);
-    virtual bool process(FrameBatch *frameBatch) {
-        return false;
-    }
-    virtual bool beforeUpdate(FrameBatch *frameBatch);
+	virtual bool process(Frame *frame);
+	virtual bool process(FrameBatch *frameBatch) {
+		return false;
+	}
+	virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 
-    virtual bool RecordFeaturePerformance();
+	virtual bool RecordFeaturePerformance();
 
 private:
-    FaceRanker *ranker_=NULL;
+	FaceRanker *ranker_ = NULL;
 };
 
 } /* namespace dg */

@@ -55,6 +55,7 @@ static const string PHONE = "Phone";
 
 static const string PACK_BATCHSIZE = "Pack/BatchSize";
 static const string PACK_TIMEOUT = "Pack/TimeOut";
+static const string PACK_ENABLE = "Pack/Enable";
 static const int BEHAVIOR = 11;
 }
 

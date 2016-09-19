@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年4月28日 下午4:09:47
- * Description : 
+ * Description :
  * ==========================================================================*/
 #include "processor/face_rank_processor.h"
 #include "processor_helper.h"
