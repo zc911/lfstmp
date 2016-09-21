@@ -146,3 +146,7 @@ data/mapping/plate_type.txt filter=lfs diff=lfs merge=lfs -text
 data/mapping/vehicle_color.txt filter=lfs diff=lfs merge=lfs -text
 data/mapping/vehicle_symbol.txt filter=lfs diff=lfs merge=lfs -text
 data/mapping/vehicle_type.txt filter=lfs diff=lfs merge=lfs -text
+lib/dgcaffe/Linux-x86_64/7.0/libcaffe.so filter=lfs diff=lfs merge=lfs -text
+lib/dgcaffe/Linux-x86_64/7.0/libcaffe.so.1.0.0-rc3 filter=lfs diff=lfs merge=lfs -text
+lib/mxnet/Linux-x86_64/7.0/libmxnet.so filter=lfs diff=lfs merge=lfs -text
+data/mapping/pedestrian_attr_category.txt filter=lfs diff=lfs merge=lfs -text
