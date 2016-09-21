@@ -1,7 +1,7 @@
 #!/bin/bash
-cp build/lib/* ../apps/lib/dgcaffe/Linux-x86_64/
-cp build/lib/* ../engine/lib/dgcaffe/Linux-x86_64/
-cp build/lib/* ../apps/bin/Debug/libs/
-cp build/lib/* ../apps/bin/Release/libs/
-cp -r include/caffe ../engine/include/dgcaffe/
+cuda_version=$( nvcc --version | grep release | awk -F , '{print $2}' | awk '{print $2}' )
+echo "Current CUDA version:" $cuda_version
+cp build/lib/* ../lib/dgcaffe/Linux-x86_64/$cuda_version
+cp -r include ../include/dgcaffe
+
 
