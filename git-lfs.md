@@ -17,7 +17,7 @@ $ git lfs version
 2.配置lfs server
 
 ```shell
-$ git config --global --add lfs.url "http://192.168.2.119:9999"
+$ git config --global --add lfs.url "http://matrix:matrix@192.168.2.119:9999"
 $ git config -l
 # 查看配置是否生效
 ```
