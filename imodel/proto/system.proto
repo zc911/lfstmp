@@ -8,7 +8,12 @@ service SystemService {
     rpc Ping (PingRequest) returns (PingResponse) {
     }
 
+    rpc Version (VersionRequest) returns (VersionResponse) {
+
+    }
+
     rpc SystemStatus (SystemStatusRequest) returns (SystemStatusResponse) {
+
     }
 
     rpc GetInstances (GetInstancesRequest) returns (InstanceConfigureResponse) {
@@ -24,6 +29,15 @@ message PingRequest {
 
 message PingResponse {
     string Message = 1;
+}
+
+message VersionRequest {
+
+}
+
+message VersionResponse {
+    string CodeVersion = 1;
+    string ModelVersion = 2;
 }
 
 message SystemStatusRequest {

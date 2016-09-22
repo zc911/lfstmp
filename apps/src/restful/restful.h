@@ -73,6 +73,10 @@ public:
       std::bind(&SystemAppsService::Ping, sysApp, std::placeholders::_1, std::placeholders::_2);
     bindFunc<PingRequest, PingResponse>(server, "^/ping$", "GET", pingBinder);
 
+    std::function<MatrixError(const VersionRequest*, VersionResponse*)> versionBinder =
+      std::bind(&SystemAppsService::Version, sysApp, std::placeholders::_1, std::placeholders::_2);
+    bindFunc<VersionRequest, VersionResponse>(server, "^/version$", "GET", versionBinder);
+
     Bind(server);
     cout << " Server(RESTFUL) listening on " << port << endl;
     try {
