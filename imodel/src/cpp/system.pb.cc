@@ -28,6 +28,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* PingResponse_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PingResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* VersionRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  VersionRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor* VersionResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  VersionResponse_reflection_ = NULL;
 const ::google::protobuf::Descriptor* SystemStatusRequest_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SystemStatusRequest_reflection_ = NULL;
@@ -107,7 +113,37 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(PingResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PingResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PingResponse, _is_default_instance_));
-  SystemStatusRequest_descriptor_ = file->message_type(2);
+  VersionRequest_descriptor_ = file->message_type(2);
+  static const int VersionRequest_offsets_[1] = {
+  };
+  VersionRequest_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      VersionRequest_descriptor_,
+      VersionRequest::default_instance_,
+      VersionRequest_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(VersionRequest),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionRequest, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionRequest, _is_default_instance_));
+  VersionResponse_descriptor_ = file->message_type(3);
+  static const int VersionResponse_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionResponse, codeversion_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionResponse, modelversion_),
+  };
+  VersionResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      VersionResponse_descriptor_,
+      VersionResponse::default_instance_,
+      VersionResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(VersionResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionResponse, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VersionResponse, _is_default_instance_));
+  SystemStatusRequest_descriptor_ = file->message_type(4);
   static const int SystemStatusRequest_offsets_[1] = {
   };
   SystemStatusRequest_reflection_ =
@@ -121,7 +157,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(SystemStatusRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusRequest, _is_default_instance_));
-  SystemStatusResponse_descriptor_ = file->message_type(3);
+  SystemStatusResponse_descriptor_ = file->message_type(5);
   static const int SystemStatusResponse_offsets_[13] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusResponse, modelver_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusResponse, enginever_),
@@ -148,7 +184,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(SystemStatusResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SystemStatusResponse, _is_default_instance_));
-  InstanceConfigureRequest_descriptor_ = file->message_type(4);
+  InstanceConfigureRequest_descriptor_ = file->message_type(6);
   static const int InstanceConfigureRequest_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureRequest, recimagevconfig_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureRequest, recimagefconfig_),
@@ -168,7 +204,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(InstanceConfigureRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureRequest, _is_default_instance_));
-  GetInstancesRequest_descriptor_ = file->message_type(5);
+  GetInstancesRequest_descriptor_ = file->message_type(7);
   static const int GetInstancesRequest_offsets_[1] = {
   };
   GetInstancesRequest_reflection_ =
@@ -182,7 +218,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(GetInstancesRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetInstancesRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GetInstancesRequest, _is_default_instance_));
-  InstanceConfigureResponse_descriptor_ = file->message_type(6);
+  InstanceConfigureResponse_descriptor_ = file->message_type(8);
   static const int InstanceConfigureResponse_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureResponse, status_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureResponse, message_),
@@ -199,7 +235,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(InstanceConfigureResponse),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureResponse, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfigureResponse, _is_default_instance_));
-  InstanceConfig_descriptor_ = file->message_type(7);
+  InstanceConfig_descriptor_ = file->message_type(9);
   static const int InstanceConfig_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfig, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfig, count_),
@@ -217,7 +253,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(InstanceConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(InstanceConfig, _is_default_instance_));
-  RecImageVConfig_descriptor_ = file->message_type(8);
+  RecImageVConfig_descriptor_ = file->message_type(10);
   static const int RecImageVConfig_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageVConfig, instances_),
   };
@@ -232,7 +268,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RecImageVConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageVConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageVConfig, _is_default_instance_));
-  RecImageFConfig_descriptor_ = file->message_type(9);
+  RecImageFConfig_descriptor_ = file->message_type(11);
   static const int RecImageFConfig_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageFConfig, instances_),
   };
@@ -247,7 +283,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RecImageFConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageFConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecImageFConfig, _is_default_instance_));
-  RecVideoVConfig_descriptor_ = file->message_type(10);
+  RecVideoVConfig_descriptor_ = file->message_type(12);
   static const int RecVideoVConfig_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoVConfig, instances_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoVConfig, buffersize_),
@@ -266,7 +302,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RecVideoVConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoVConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoVConfig, _is_default_instance_));
-  RecVideoFConfig_descriptor_ = file->message_type(11);
+  RecVideoFConfig_descriptor_ = file->message_type(13);
   static const int RecVideoFConfig_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoFConfig, instances_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoFConfig, buffersize_),
@@ -285,7 +321,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RecVideoFConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoFConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVideoFConfig, _is_default_instance_));
-  RankVConfig_descriptor_ = file->message_type(12);
+  RankVConfig_descriptor_ = file->message_type(14);
   static const int RankVConfig_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankVConfig, instances_),
   };
@@ -300,7 +336,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RankVConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankVConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankVConfig, _is_default_instance_));
-  RankFConfig_descriptor_ = file->message_type(13);
+  RankFConfig_descriptor_ = file->message_type(15);
   static const int RankFConfig_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFConfig, instances_),
   };
@@ -315,7 +351,7 @@ void protobuf_AssignDesc_system_2eproto() {
       sizeof(RankFConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFConfig, _is_default_instance_));
-  EngineStatus_descriptor_ = file->message_type(14);
+  EngineStatus_descriptor_ = file->message_type(16);
   static const int EngineStatus_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EngineStatus, instances_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EngineStatus, rpcports_),
@@ -348,6 +384,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       PingRequest_descriptor_, &PingRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       PingResponse_descriptor_, &PingResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      VersionRequest_descriptor_, &VersionRequest::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      VersionResponse_descriptor_, &VersionResponse::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       SystemStatusRequest_descriptor_, &SystemStatusRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -383,6 +423,10 @@ void protobuf_ShutdownFile_system_2eproto() {
   delete PingRequest_reflection_;
   delete PingResponse::default_instance_;
   delete PingResponse_reflection_;
+  delete VersionRequest::default_instance_;
+  delete VersionRequest_reflection_;
+  delete VersionResponse::default_instance_;
+  delete VersionResponse_reflection_;
   delete SystemStatusRequest::default_instance_;
   delete SystemStatusRequest_reflection_;
   delete SystemStatusResponse::default_instance_;
@@ -422,7 +466,9 @@ void protobuf_AddDesc_system_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014system.proto\022\010dg.model\032\021localcommon.pr"
     "oto\032\014common.proto\"\r\n\013PingRequest\"\037\n\014Ping"
-    "Response\022\017\n\007Message\030\001 \001(\t\"\025\n\023SystemStatu"
+    "Response\022\017\n\007Message\030\001 \001(\t\"\020\n\016VersionRequ"
+    "est\"<\n\017VersionResponse\022\023\n\013CodeVersion\030\001 "
+    "\001(\t\022\024\n\014ModelVersion\030\002 \001(\t\"\025\n\023SystemStatu"
     "sRequest\"\215\002\n\024SystemStatusResponse\022\020\n\010Mod"
     "elVer\030\001 \001(\t\022\021\n\tEngineVer\030\002 \001(\t\022\022\n\nServic"
     "eVer\030\003 \001(\t\022\020\n\010CpuUsage\030\004 \001(\t\022\020\n\010AvailMem"
@@ -465,19 +511,23 @@ void protobuf_AddDesc_system_2eproto() {
     "\020\000\022\032\n\026CFG_TYPE_VEHICLE_VIDEO\020\001\022\033\n\027CFG_TY"
     "PE_VEHICLE_RANKER\020\002\022\027\n\023CFG_TYPE_FACE_IMA"
     "GE\020\003\022\027\n\023CFG_TYPE_FACE_VIDEO\020\004\022\030\n\024CFG_TYP"
-    "E_FACE_RANKER\020\0052\312\002\n\rSystemService\0227\n\004Pin"
+    "E_FACE_RANKER\020\0052\214\003\n\rSystemService\0227\n\004Pin"
     "g\022\025.dg.model.PingRequest\032\026.dg.model.Ping"
-    "Response\"\000\022O\n\014SystemStatus\022\035.dg.model.Sy"
-    "stemStatusRequest\032\036.dg.model.SystemStatu"
-    "sResponse\"\000\022T\n\014GetInstances\022\035.dg.model.G"
-    "etInstancesRequest\032#.dg.model.InstanceCo"
-    "nfigureResponse\"\000\022Y\n\014ConfigEngine\022\".dg.m"
-    "odel.InstanceConfigureRequest\032#.dg.model"
-    ".InstanceConfigureResponse\"\000b\006proto3", 2156);
+    "Response\"\000\022@\n\007Version\022\030.dg.model.Version"
+    "Request\032\031.dg.model.VersionResponse\"\000\022O\n\014"
+    "SystemStatus\022\035.dg.model.SystemStatusRequ"
+    "est\032\036.dg.model.SystemStatusResponse\"\000\022T\n"
+    "\014GetInstances\022\035.dg.model.GetInstancesReq"
+    "uest\032#.dg.model.InstanceConfigureRespons"
+    "e\"\000\022Y\n\014ConfigEngine\022\".dg.model.InstanceC"
+    "onfigureRequest\032#.dg.model.InstanceConfi"
+    "gureResponse\"\000b\006proto3", 2302);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "system.proto", &protobuf_RegisterTypes);
   PingRequest::default_instance_ = new PingRequest();
   PingResponse::default_instance_ = new PingResponse();
+  VersionRequest::default_instance_ = new VersionRequest();
+  VersionResponse::default_instance_ = new VersionResponse();
   SystemStatusRequest::default_instance_ = new SystemStatusRequest();
   SystemStatusResponse::default_instance_ = new SystemStatusResponse();
   InstanceConfigureRequest::default_instance_ = new InstanceConfigureRequest();
@@ -493,6 +543,8 @@ void protobuf_AddDesc_system_2eproto() {
   EngineStatus::default_instance_ = new EngineStatus();
   PingRequest::default_instance_->InitAsDefaultInstance();
   PingResponse::default_instance_->InitAsDefaultInstance();
+  VersionRequest::default_instance_->InitAsDefaultInstance();
+  VersionResponse::default_instance_->InitAsDefaultInstance();
   SystemStatusRequest::default_instance_->InitAsDefaultInstance();
   SystemStatusResponse::default_instance_->InitAsDefaultInstance();
   InstanceConfigureRequest::default_instance_->InitAsDefaultInstance();
@@ -980,6 +1032,543 @@ void PingResponse::clear_message() {
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:dg.model.PingResponse.Message)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+VersionRequest::VersionRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.VersionRequest)
+}
+
+void VersionRequest::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+VersionRequest::VersionRequest(const VersionRequest& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.VersionRequest)
+}
+
+void VersionRequest::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+}
+
+VersionRequest::~VersionRequest() {
+  // @@protoc_insertion_point(destructor:dg.model.VersionRequest)
+  SharedDtor();
+}
+
+void VersionRequest::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void VersionRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* VersionRequest::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return VersionRequest_descriptor_;
+}
+
+const VersionRequest& VersionRequest::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_system_2eproto();
+  return *default_instance_;
+}
+
+VersionRequest* VersionRequest::default_instance_ = NULL;
+
+VersionRequest* VersionRequest::New(::google::protobuf::Arena* arena) const {
+  VersionRequest* n = new VersionRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void VersionRequest::Clear() {
+}
+
+bool VersionRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.VersionRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.VersionRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.VersionRequest)
+  return false;
+#undef DO_
+}
+
+void VersionRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.VersionRequest)
+  // @@protoc_insertion_point(serialize_end:dg.model.VersionRequest)
+}
+
+::google::protobuf::uint8* VersionRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VersionRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VersionRequest)
+  return target;
+}
+
+int VersionRequest::ByteSize() const {
+  int total_size = 0;
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void VersionRequest::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const VersionRequest* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const VersionRequest>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void VersionRequest::MergeFrom(const VersionRequest& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+}
+
+void VersionRequest::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VersionRequest::CopyFrom(const VersionRequest& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VersionRequest::IsInitialized() const {
+
+  return true;
+}
+
+void VersionRequest::Swap(VersionRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void VersionRequest::InternalSwap(VersionRequest* other) {
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata VersionRequest::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = VersionRequest_descriptor_;
+  metadata.reflection = VersionRequest_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// VersionRequest
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int VersionResponse::kCodeVersionFieldNumber;
+const int VersionResponse::kModelVersionFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+VersionResponse::VersionResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.VersionResponse)
+}
+
+void VersionResponse::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+VersionResponse::VersionResponse(const VersionResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.VersionResponse)
+}
+
+void VersionResponse::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  codeversion_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelversion_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+VersionResponse::~VersionResponse() {
+  // @@protoc_insertion_point(destructor:dg.model.VersionResponse)
+  SharedDtor();
+}
+
+void VersionResponse::SharedDtor() {
+  codeversion_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelversion_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void VersionResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* VersionResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return VersionResponse_descriptor_;
+}
+
+const VersionResponse& VersionResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_system_2eproto();
+  return *default_instance_;
+}
+
+VersionResponse* VersionResponse::default_instance_ = NULL;
+
+VersionResponse* VersionResponse::New(::google::protobuf::Arena* arena) const {
+  VersionResponse* n = new VersionResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void VersionResponse::Clear() {
+  codeversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  modelversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool VersionResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.VersionResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string CodeVersion = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_codeversion()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->codeversion().data(), this->codeversion().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.VersionResponse.CodeVersion"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_ModelVersion;
+        break;
+      }
+
+      // optional string ModelVersion = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_ModelVersion:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_modelversion()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->modelversion().data(), this->modelversion().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.VersionResponse.ModelVersion"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.VersionResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.VersionResponse)
+  return false;
+#undef DO_
+}
+
+void VersionResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.VersionResponse)
+  // optional string CodeVersion = 1;
+  if (this->codeversion().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->codeversion().data(), this->codeversion().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VersionResponse.CodeVersion");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->codeversion(), output);
+  }
+
+  // optional string ModelVersion = 2;
+  if (this->modelversion().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelversion().data(), this->modelversion().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VersionResponse.ModelVersion");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->modelversion(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.VersionResponse)
+}
+
+::google::protobuf::uint8* VersionResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.VersionResponse)
+  // optional string CodeVersion = 1;
+  if (this->codeversion().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->codeversion().data(), this->codeversion().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VersionResponse.CodeVersion");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->codeversion(), target);
+  }
+
+  // optional string ModelVersion = 2;
+  if (this->modelversion().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->modelversion().data(), this->modelversion().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.VersionResponse.ModelVersion");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->modelversion(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.VersionResponse)
+  return target;
+}
+
+int VersionResponse::ByteSize() const {
+  int total_size = 0;
+
+  // optional string CodeVersion = 1;
+  if (this->codeversion().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->codeversion());
+  }
+
+  // optional string ModelVersion = 2;
+  if (this->modelversion().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->modelversion());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void VersionResponse::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const VersionResponse* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const VersionResponse>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void VersionResponse::MergeFrom(const VersionResponse& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.codeversion().size() > 0) {
+
+    codeversion_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.codeversion_);
+  }
+  if (from.modelversion().size() > 0) {
+
+    modelversion_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.modelversion_);
+  }
+}
+
+void VersionResponse::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void VersionResponse::CopyFrom(const VersionResponse& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VersionResponse::IsInitialized() const {
+
+  return true;
+}
+
+void VersionResponse::Swap(VersionResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void VersionResponse::InternalSwap(VersionResponse* other) {
+  codeversion_.Swap(&other->codeversion_);
+  modelversion_.Swap(&other->modelversion_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata VersionResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = VersionResponse_descriptor_;
+  metadata.reflection = VersionResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// VersionResponse
+
+// optional string CodeVersion = 1;
+void VersionResponse::clear_codeversion() {
+  codeversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& VersionResponse::codeversion() const {
+  // @@protoc_insertion_point(field_get:dg.model.VersionResponse.CodeVersion)
+  return codeversion_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VersionResponse::set_codeversion(const ::std::string& value) {
+  
+  codeversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.VersionResponse.CodeVersion)
+}
+ void VersionResponse::set_codeversion(const char* value) {
+  
+  codeversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.VersionResponse.CodeVersion)
+}
+ void VersionResponse::set_codeversion(const char* value, size_t size) {
+  
+  codeversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VersionResponse.CodeVersion)
+}
+ ::std::string* VersionResponse::mutable_codeversion() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.VersionResponse.CodeVersion)
+  return codeversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* VersionResponse::release_codeversion() {
+  
+  return codeversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VersionResponse::set_allocated_codeversion(::std::string* codeversion) {
+  if (codeversion != NULL) {
+    
+  } else {
+    
+  }
+  codeversion_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), codeversion);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VersionResponse.CodeVersion)
+}
+
+// optional string ModelVersion = 2;
+void VersionResponse::clear_modelversion() {
+  modelversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& VersionResponse::modelversion() const {
+  // @@protoc_insertion_point(field_get:dg.model.VersionResponse.ModelVersion)
+  return modelversion_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VersionResponse::set_modelversion(const ::std::string& value) {
+  
+  modelversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.VersionResponse.ModelVersion)
+}
+ void VersionResponse::set_modelversion(const char* value) {
+  
+  modelversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.VersionResponse.ModelVersion)
+}
+ void VersionResponse::set_modelversion(const char* value, size_t size) {
+  
+  modelversion_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.VersionResponse.ModelVersion)
+}
+ ::std::string* VersionResponse::mutable_modelversion() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.VersionResponse.ModelVersion)
+  return modelversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* VersionResponse::release_modelversion() {
+  
+  return modelversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void VersionResponse::set_allocated_modelversion(::std::string* modelversion) {
+  if (modelversion != NULL) {
+    
+  } else {
+    
+  }
+  modelversion_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), modelversion);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.VersionResponse.ModelVersion)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -23,6 +23,27 @@ MatrixError SystemAppsService::Ping(const PingRequest *request,
     response->set_message("Normal");
     return err;
 }
+
+MatrixError SystemAppsService::Version(const VersionRequest *request, VersionResponse *reponse) {
+	MatrixError err;
+	stringstream ss;
+#ifdef CODEVERSION
+    ss << CODEVERSION;
+    reponse->set_codeversion(ss.str());
+#else
+	reponse->set_codeversion("");
+#endif
+
+#ifdef MODELVERSION
+    ss.str("");
+	ss << MODELVERSION;
+    reponse->set_modelversion(ss.str());
+#else
+	reponse->set_modelversion("");
+#endif
+    return err;
+}
+
 void SystemAppsService::initNetworkThread() {
     //   std::thread network_th_(networkInfo, &rx_, &tx_);
     //  network_th_.detach();
