@@ -29,6 +29,7 @@ const ::google::protobuf::Descriptor* MatrixError_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   MatrixError_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* RankType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor_ = NULL;
 
 }  // namespace
@@ -73,7 +74,8 @@ void protobuf_AssignDesc_localcommon_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _is_default_instance_));
   RecognizeType_descriptor_ = file->enum_type(0);
-  RecognizeFunctions_descriptor_ = file->enum_type(1);
+  RankType_descriptor_ = file->enum_type(1);
+  RecognizeFunctions_descriptor_ = file->enum_type(2);
 }
 
 namespace {
@@ -113,17 +115,18 @@ void protobuf_AddDesc_localcommon_2eproto() {
     "ixError\022\014\n\004Code\030\001 \001(\005\022\017\n\007Message\030\002 \001(\t*`"
     "\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n"
     "\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020"
-    "\n\014REC_TYPE_ALL\020\003*\366\002\n\022RecognizeFunctions\022"
-    "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
-    "\n\026RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VE"
-    "HICLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004"
-    "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_V"
-    "EHICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE"
-    "\020\007\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020"
-    "\n\014RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTO"
-    "R\020\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013\022#\n\037"
-    "RECFUNC_VEHICLE_PEDESTRIAN_ATTR\020\014b\006proto"
-    "3", 601);
+    "\n\014REC_TYPE_ALL\020\003*L\n\010RankType\022\025\n\021RANK_TYP"
+    "E_DEFAULT\020\000\022\025\n\021RANK_TYPE_VEHICLE\020\001\022\022\n\016RA"
+    "NK_TYPE_FACE\020\002*\366\002\n\022RecognizeFunctions\022\020\n"
+    "\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032\n\026"
+    "RECFUNC_VEHICLE_DETECT\020\002\022\031\n\025RECFUNC_VEHI"
+    "CLE_TRACK\020\003\022\031\n\025RECFUNC_VEHICLE_STYLE\020\004\022\031"
+    "\n\025RECFUNC_VEHICLE_COLOR\020\005\022\032\n\026RECFUNC_VEH"
+    "ICLE_MARKER\020\006\022\031\n\025RECFUNC_VEHICLE_PLATE\020\007"
+    "\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\010\022\020\n\014"
+    "RECFUNC_FACE\020\t\022\031\n\025RECFUNC_FACE_DETECTOR\020"
+    "\n\022\037\n\033RECFUNC_FACE_FEATURE_VECTOR\020\013\022#\n\037RE"
+    "CFUNC_VEHICLE_PEDESTRIAN_ATTR\020\014b\006proto3", 679);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "localcommon.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -149,6 +152,21 @@ bool RecognizeType_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* RankType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankType_descriptor_;
+}
+bool RankType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -259,8 +277,17 @@ Time* Time::New(::google::protobuf::Arena* arena) const {
 }
 
 void Time::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.Time)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Time, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Time*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -276,7 +303,7 @@ void Time::Clear() {
 
 bool Time::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Time)
   for (;;) {
@@ -368,6 +395,7 @@ void Time::SerializeWithCachedSizes(
 }
 
 int Time::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.Time)
   int total_size = 0;
 
   // optional int64 Seconds = 1;
@@ -391,18 +419,22 @@ int Time::ByteSize() const {
 }
 
 void Time::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Time)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Time* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Time>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Time)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Time)
     MergeFrom(*source);
   }
 }
 
 void Time::MergeFrom(const Time& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Time)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.seconds() != 0) {
     set_seconds(from.seconds());
@@ -413,12 +445,14 @@ void Time::MergeFrom(const Time& from) {
 }
 
 void Time::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Time)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Time::CopyFrom(const Time& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Time)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -551,13 +585,14 @@ MatrixError* MatrixError::New(::google::protobuf::Arena* arena) const {
 }
 
 void MatrixError::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.MatrixError)
   code_ = 0;
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool MatrixError::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.MatrixError)
   for (;;) {
@@ -662,6 +697,7 @@ void MatrixError::SerializeWithCachedSizes(
 }
 
 int MatrixError::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.MatrixError)
   int total_size = 0;
 
   // optional int32 Code = 1;
@@ -685,18 +721,22 @@ int MatrixError::ByteSize() const {
 }
 
 void MatrixError::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.MatrixError)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MatrixError* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MatrixError>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.MatrixError)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.MatrixError)
     MergeFrom(*source);
   }
 }
 
 void MatrixError::MergeFrom(const MatrixError& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.MatrixError)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.code() != 0) {
     set_code(from.code());
@@ -708,12 +748,14 @@ void MatrixError::MergeFrom(const MatrixError& from) {
 }
 
 void MatrixError::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.MatrixError)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MatrixError::CopyFrom(const MatrixError& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.MatrixError)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -790,6 +832,7 @@ void MatrixError::clear_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* MatrixError::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.MatrixError.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

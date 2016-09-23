@@ -26,6 +26,8 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/map.h>
+#include <google/protobuf/map_field_inl.h>
 #include <google/protobuf/unknown_field_set.h>
 #include "common.pb.h"
 #include "localcommon.pb.h"
@@ -41,8 +43,737 @@ void protobuf_ShutdownFile_ranker_2eproto();
 
 class FeatureRankingRequest;
 class FeatureRankingResponse;
+class RankFeatureRequest;
+class RankFeatureResponse;
+class RankImageRequest;
+class RankImageResponse;
+class RankRequestContext;
+class RankResponseContext;
 
 // ===================================================================
+
+class RankRequestContext : public ::google::protobuf::Message {
+ public:
+  RankRequestContext();
+  virtual ~RankRequestContext();
+
+  RankRequestContext(const RankRequestContext& from);
+
+  inline RankRequestContext& operator=(const RankRequestContext& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankRequestContext& default_instance();
+
+  void Swap(RankRequestContext* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankRequestContext* New() const { return New(NULL); }
+
+  RankRequestContext* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankRequestContext& from);
+  void MergeFrom(const RankRequestContext& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankRequestContext* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // optional string SessionId = 1;
+  void clear_sessionid();
+  static const int kSessionIdFieldNumber = 1;
+  const ::std::string& sessionid() const;
+  void set_sessionid(const ::std::string& value);
+  void set_sessionid(const char* value);
+  void set_sessionid(const char* value, size_t size);
+  ::std::string* mutable_sessionid();
+  ::std::string* release_sessionid();
+  void set_allocated_sessionid(::std::string* sessionid);
+
+  // optional string UserName = 2;
+  void clear_username();
+  static const int kUserNameFieldNumber = 2;
+  const ::std::string& username() const;
+  void set_username(const ::std::string& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  ::std::string* mutable_username();
+  ::std::string* release_username();
+  void set_allocated_username(::std::string* username);
+
+  // optional string Token = 3;
+  void clear_token();
+  static const int kTokenFieldNumber = 3;
+  const ::std::string& token() const;
+  void set_token(const ::std::string& value);
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  ::std::string* mutable_token();
+  ::std::string* release_token();
+  void set_allocated_token(::std::string* token);
+
+  // optional .dg.model.RankType Type = 4;
+  void clear_type();
+  static const int kTypeFieldNumber = 4;
+  ::dg::model::RankType type() const;
+  void set_type(::dg::model::RankType value);
+
+  // map<string, string> Params = 5;
+  int params_size() const;
+  void clear_params();
+  static const int kParamsFieldNumber = 5;
+  const ::google::protobuf::Map< ::std::string, ::std::string >&
+      params() const;
+  ::google::protobuf::Map< ::std::string, ::std::string >*
+      mutable_params();
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankRequestContext)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr sessionid_;
+  ::google::protobuf::internal::ArenaStringPtr username_;
+  ::google::protobuf::internal::ArenaStringPtr token_;
+  typedef ::google::protobuf::internal::MapEntryLite<
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 >
+      RankRequestContext_ParamsEntry;
+  ::google::protobuf::internal::MapField<
+      ::std::string, ::std::string,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      0 > params_;
+  int type_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankRequestContext* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RankResponseContext : public ::google::protobuf::Message {
+ public:
+  RankResponseContext();
+  virtual ~RankResponseContext();
+
+  RankResponseContext(const RankResponseContext& from);
+
+  inline RankResponseContext& operator=(const RankResponseContext& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankResponseContext& default_instance();
+
+  void Swap(RankResponseContext* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankResponseContext* New() const { return New(NULL); }
+
+  RankResponseContext* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankResponseContext& from);
+  void MergeFrom(const RankResponseContext& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankResponseContext* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  // optional string SessionId = 1;
+  void clear_sessionid();
+  static const int kSessionIdFieldNumber = 1;
+  const ::std::string& sessionid() const;
+  void set_sessionid(const ::std::string& value);
+  void set_sessionid(const char* value);
+  void set_sessionid(const char* value, size_t size);
+  ::std::string* mutable_sessionid();
+  ::std::string* release_sessionid();
+  void set_allocated_sessionid(::std::string* sessionid);
+
+  // optional string Status = 2;
+  void clear_status();
+  static const int kStatusFieldNumber = 2;
+  const ::std::string& status() const;
+  void set_status(const ::std::string& value);
+  void set_status(const char* value);
+  void set_status(const char* value, size_t size);
+  ::std::string* mutable_status();
+  ::std::string* release_status();
+  void set_allocated_status(::std::string* status);
+
+  // optional string Message = 3;
+  void clear_message();
+  static const int kMessageFieldNumber = 3;
+  const ::std::string& message() const;
+  void set_message(const ::std::string& value);
+  void set_message(const char* value);
+  void set_message(const char* value, size_t size);
+  ::std::string* mutable_message();
+  ::std::string* release_message();
+  void set_allocated_message(::std::string* message);
+
+  // optional .dg.model.Time RequestTs = 4;
+  bool has_requestts() const;
+  void clear_requestts();
+  static const int kRequestTsFieldNumber = 4;
+  const ::dg::model::Time& requestts() const;
+  ::dg::model::Time* mutable_requestts();
+  ::dg::model::Time* release_requestts();
+  void set_allocated_requestts(::dg::model::Time* requestts);
+
+  // optional .dg.model.Time ResponseTs = 5;
+  bool has_responsets() const;
+  void clear_responsets();
+  static const int kResponseTsFieldNumber = 5;
+  const ::dg::model::Time& responsets() const;
+  ::dg::model::Time* mutable_responsets();
+  ::dg::model::Time* release_responsets();
+  void set_allocated_responsets(::dg::model::Time* responsets);
+
+  // map<string, .dg.model.Time> DebugTs = 6;
+  int debugts_size() const;
+  void clear_debugts();
+  static const int kDebugTsFieldNumber = 6;
+  const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
+      debugts() const;
+  ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
+      mutable_debugts();
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankResponseContext)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr sessionid_;
+  ::google::protobuf::internal::ArenaStringPtr status_;
+  ::google::protobuf::internal::ArenaStringPtr message_;
+  ::dg::model::Time* requestts_;
+  ::dg::model::Time* responsets_;
+  typedef ::google::protobuf::internal::MapEntryLite<
+      ::std::string, ::dg::model::Time,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+      0 >
+      RankResponseContext_DebugTsEntry;
+  ::google::protobuf::internal::MapField<
+      ::std::string, ::dg::model::Time,
+      ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+      ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+      0 > debugts_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankResponseContext* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RankFeatureRequest : public ::google::protobuf::Message {
+ public:
+  RankFeatureRequest();
+  virtual ~RankFeatureRequest();
+
+  RankFeatureRequest(const RankFeatureRequest& from);
+
+  inline RankFeatureRequest& operator=(const RankFeatureRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankFeatureRequest& default_instance();
+
+  void Swap(RankFeatureRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankFeatureRequest* New() const { return New(NULL); }
+
+  RankFeatureRequest* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankFeatureRequest& from);
+  void MergeFrom(const RankFeatureRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankFeatureRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.RankRequestContext Context = 1;
+  bool has_context() const;
+  void clear_context();
+  static const int kContextFieldNumber = 1;
+  const ::dg::model::RankRequestContext& context() const;
+  ::dg::model::RankRequestContext* mutable_context();
+  ::dg::model::RankRequestContext* release_context();
+  void set_allocated_context(::dg::model::RankRequestContext* context);
+
+  // optional .dg.model.FeatureVector Feature = 2;
+  bool has_feature() const;
+  void clear_feature();
+  static const int kFeatureFieldNumber = 2;
+  const ::dg::model::FeatureVector& feature() const;
+  ::dg::model::FeatureVector* mutable_feature();
+  ::dg::model::FeatureVector* release_feature();
+  void set_allocated_feature(::dg::model::FeatureVector* feature);
+
+  // optional int32 MaxCandidates = 3;
+  void clear_maxcandidates();
+  static const int kMaxCandidatesFieldNumber = 3;
+  ::google::protobuf::int32 maxcandidates() const;
+  void set_maxcandidates(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankFeatureRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::RankRequestContext* context_;
+  ::dg::model::FeatureVector* feature_;
+  ::google::protobuf::int32 maxcandidates_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankFeatureRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RankFeatureResponse : public ::google::protobuf::Message {
+ public:
+  RankFeatureResponse();
+  virtual ~RankFeatureResponse();
+
+  RankFeatureResponse(const RankFeatureResponse& from);
+
+  inline RankFeatureResponse& operator=(const RankFeatureResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankFeatureResponse& default_instance();
+
+  void Swap(RankFeatureResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankFeatureResponse* New() const { return New(NULL); }
+
+  RankFeatureResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankFeatureResponse& from);
+  void MergeFrom(const RankFeatureResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankFeatureResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.RankResponseContext Context = 1;
+  bool has_context() const;
+  void clear_context();
+  static const int kContextFieldNumber = 1;
+  const ::dg::model::RankResponseContext& context() const;
+  ::dg::model::RankResponseContext* mutable_context();
+  ::dg::model::RankResponseContext* release_context();
+  void set_allocated_context(::dg::model::RankResponseContext* context);
+
+  // repeated int64 Ids = 2;
+  int ids_size() const;
+  void clear_ids();
+  static const int kIdsFieldNumber = 2;
+  ::google::protobuf::int64 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int64 value);
+  void add_ids(::google::protobuf::int64 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      ids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_ids();
+
+  // repeated float Scores = 3;
+  int scores_size() const;
+  void clear_scores();
+  static const int kScoresFieldNumber = 3;
+  float scores(int index) const;
+  void set_scores(int index, float value);
+  void add_scores(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      scores() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_scores();
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankFeatureResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::RankResponseContext* context_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
+  mutable int _ids_cached_byte_size_;
+  ::google::protobuf::RepeatedField< float > scores_;
+  mutable int _scores_cached_byte_size_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankFeatureResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RankImageRequest : public ::google::protobuf::Message {
+ public:
+  RankImageRequest();
+  virtual ~RankImageRequest();
+
+  RankImageRequest(const RankImageRequest& from);
+
+  inline RankImageRequest& operator=(const RankImageRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankImageRequest& default_instance();
+
+  void Swap(RankImageRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankImageRequest* New() const { return New(NULL); }
+
+  RankImageRequest* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankImageRequest& from);
+  void MergeFrom(const RankImageRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankImageRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.RankRequestContext Context = 1;
+  bool has_context() const;
+  void clear_context();
+  static const int kContextFieldNumber = 1;
+  const ::dg::model::RankRequestContext& context() const;
+  ::dg::model::RankRequestContext* mutable_context();
+  ::dg::model::RankRequestContext* release_context();
+  void set_allocated_context(::dg::model::RankRequestContext* context);
+
+  // optional .dg.model.Image Image = 2;
+  bool has_image() const;
+  void clear_image();
+  static const int kImageFieldNumber = 2;
+  const ::dg::model::Image& image() const;
+  ::dg::model::Image* mutable_image();
+  ::dg::model::Image* release_image();
+  void set_allocated_image(::dg::model::Image* image);
+
+  // repeated .dg.model.Cutboard InterestedAreas = 3;
+  int interestedareas_size() const;
+  void clear_interestedareas();
+  static const int kInterestedAreasFieldNumber = 3;
+  const ::dg::model::Cutboard& interestedareas(int index) const;
+  ::dg::model::Cutboard* mutable_interestedareas(int index);
+  ::dg::model::Cutboard* add_interestedareas();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+      mutable_interestedareas();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+      interestedareas() const;
+
+  // repeated .dg.model.FeatureVector Candidates = 4;
+  int candidates_size() const;
+  void clear_candidates();
+  static const int kCandidatesFieldNumber = 4;
+  const ::dg::model::FeatureVector& candidates(int index) const;
+  ::dg::model::FeatureVector* mutable_candidates(int index);
+  ::dg::model::FeatureVector* add_candidates();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >*
+      mutable_candidates();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >&
+      candidates() const;
+
+  // optional int32 MaxCandidates = 5;
+  void clear_maxcandidates();
+  static const int kMaxCandidatesFieldNumber = 5;
+  ::google::protobuf::int32 maxcandidates() const;
+  void set_maxcandidates(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankImageRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::RankRequestContext* context_;
+  ::dg::model::Image* image_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard > interestedareas_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector > candidates_;
+  ::google::protobuf::int32 maxcandidates_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankImageRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RankImageResponse : public ::google::protobuf::Message {
+ public:
+  RankImageResponse();
+  virtual ~RankImageResponse();
+
+  RankImageResponse(const RankImageResponse& from);
+
+  inline RankImageResponse& operator=(const RankImageResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RankImageResponse& default_instance();
+
+  void Swap(RankImageResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RankImageResponse* New() const { return New(NULL); }
+
+  RankImageResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RankImageResponse& from);
+  void MergeFrom(const RankImageResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RankImageResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional .dg.model.RankResponseContext Context = 1;
+  bool has_context() const;
+  void clear_context();
+  static const int kContextFieldNumber = 1;
+  const ::dg::model::RankResponseContext& context() const;
+  ::dg::model::RankResponseContext* mutable_context();
+  ::dg::model::RankResponseContext* release_context();
+  void set_allocated_context(::dg::model::RankResponseContext* context);
+
+  // repeated int64 Ids = 2;
+  int ids_size() const;
+  void clear_ids();
+  static const int kIdsFieldNumber = 2;
+  ::google::protobuf::int64 ids(int index) const;
+  void set_ids(int index, ::google::protobuf::int64 value);
+  void add_ids(::google::protobuf::int64 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+      ids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+      mutable_ids();
+
+  // repeated float Scores = 3;
+  int scores_size() const;
+  void clear_scores();
+  static const int kScoresFieldNumber = 3;
+  float scores(int index) const;
+  void set_scores(int index, float value);
+  void add_scores(float value);
+  const ::google::protobuf::RepeatedField< float >&
+      scores() const;
+  ::google::protobuf::RepeatedField< float >*
+      mutable_scores();
+
+  // @@protoc_insertion_point(class_scope:dg.model.RankImageResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::dg::model::RankResponseContext* context_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int64 > ids_;
+  mutable int _ids_cached_byte_size_;
+  ::google::protobuf::RepeatedField< float > scores_;
+  mutable int _scores_cached_byte_size_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static RankImageResponse* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class FeatureRankingRequest : public ::google::protobuf::Message {
  public:
@@ -295,6 +1026,856 @@ class FeatureRankingResponse : public ::google::protobuf::Message {
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankRequestContext
+
+// optional string SessionId = 1;
+inline void RankRequestContext::clear_sessionid() {
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankRequestContext::sessionid() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.SessionId)
+  return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_sessionid(const ::std::string& value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.SessionId)
+}
+inline void RankRequestContext::set_sessionid(const char* value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.SessionId)
+}
+inline void RankRequestContext::set_sessionid(const char* value, size_t size) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.SessionId)
+}
+inline ::std::string* RankRequestContext::mutable_sessionid() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.SessionId)
+  return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankRequestContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.SessionId)
+  
+  return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_allocated_sessionid(::std::string* sessionid) {
+  if (sessionid != NULL) {
+    
+  } else {
+    
+  }
+  sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.SessionId)
+}
+
+// optional string UserName = 2;
+inline void RankRequestContext::clear_username() {
+  username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankRequestContext::username() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.UserName)
+  return username_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_username(const ::std::string& value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.UserName)
+}
+inline void RankRequestContext::set_username(const char* value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.UserName)
+}
+inline void RankRequestContext::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.UserName)
+}
+inline ::std::string* RankRequestContext::mutable_username() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.UserName)
+  return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankRequestContext::release_username() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.UserName)
+  
+  return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_allocated_username(::std::string* username) {
+  if (username != NULL) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.UserName)
+}
+
+// optional string Token = 3;
+inline void RankRequestContext::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankRequestContext::token() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.Token)
+  return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_token(const ::std::string& value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.Token)
+}
+inline void RankRequestContext::set_token(const char* value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.Token)
+}
+inline void RankRequestContext::set_token(const char* value, size_t size) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.Token)
+}
+inline ::std::string* RankRequestContext::mutable_token() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.Token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankRequestContext::release_token() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.Token)
+  
+  return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankRequestContext::set_allocated_token(::std::string* token) {
+  if (token != NULL) {
+    
+  } else {
+    
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.Token)
+}
+
+// optional .dg.model.RankType Type = 4;
+inline void RankRequestContext::clear_type() {
+  type_ = 0;
+}
+inline ::dg::model::RankType RankRequestContext::type() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.Type)
+  return static_cast< ::dg::model::RankType >(type_);
+}
+inline void RankRequestContext::set_type(::dg::model::RankType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.Type)
+}
+
+// map<string, string> Params = 5;
+inline int RankRequestContext::params_size() const {
+  return params_.size();
+}
+inline void RankRequestContext::clear_params() {
+  params_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::std::string >&
+RankRequestContext::params() const {
+  // @@protoc_insertion_point(field_map:dg.model.RankRequestContext.Params)
+  return params_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::std::string >*
+RankRequestContext::mutable_params() {
+  // @@protoc_insertion_point(field_mutable_map:dg.model.RankRequestContext.Params)
+  return params_.MutableMap();
+}
+
+// -------------------------------------------------------------------
+
+// RankResponseContext
+
+// optional string SessionId = 1;
+inline void RankResponseContext::clear_sessionid() {
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankResponseContext::sessionid() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.SessionId)
+  return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_sessionid(const ::std::string& value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.SessionId)
+}
+inline void RankResponseContext::set_sessionid(const char* value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.SessionId)
+}
+inline void RankResponseContext::set_sessionid(const char* value, size_t size) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.SessionId)
+}
+inline ::std::string* RankResponseContext::mutable_sessionid() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.SessionId)
+  return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankResponseContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.SessionId)
+  
+  return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_allocated_sessionid(::std::string* sessionid) {
+  if (sessionid != NULL) {
+    
+  } else {
+    
+  }
+  sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.SessionId)
+}
+
+// optional string Status = 2;
+inline void RankResponseContext::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankResponseContext::status() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.Status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.Status)
+}
+inline void RankResponseContext::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.Status)
+}
+inline void RankResponseContext::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.Status)
+}
+inline ::std::string* RankResponseContext::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.Status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankResponseContext::release_status() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Status)
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.Status)
+}
+
+// optional string Message = 3;
+inline void RankResponseContext::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankResponseContext::message() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.Message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.Message)
+}
+inline void RankResponseContext::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.Message)
+}
+inline void RankResponseContext::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.Message)
+}
+inline ::std::string* RankResponseContext::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.Message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankResponseContext::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Message)
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResponseContext::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.Message)
+}
+
+// optional .dg.model.Time RequestTs = 4;
+inline bool RankResponseContext::has_requestts() const {
+  return !_is_default_instance_ && requestts_ != NULL;
+}
+inline void RankResponseContext::clear_requestts() {
+  if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
+  requestts_ = NULL;
+}
+inline const ::dg::model::Time& RankResponseContext::requestts() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.RequestTs)
+  return requestts_ != NULL ? *requestts_ : *default_instance_->requestts_;
+}
+inline ::dg::model::Time* RankResponseContext::mutable_requestts() {
+  
+  if (requestts_ == NULL) {
+    requestts_ = new ::dg::model::Time;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.RequestTs)
+  return requestts_;
+}
+inline ::dg::model::Time* RankResponseContext::release_requestts() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.RequestTs)
+  
+  ::dg::model::Time* temp = requestts_;
+  requestts_ = NULL;
+  return temp;
+}
+inline void RankResponseContext::set_allocated_requestts(::dg::model::Time* requestts) {
+  delete requestts_;
+  requestts_ = requestts;
+  if (requestts) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.RequestTs)
+}
+
+// optional .dg.model.Time ResponseTs = 5;
+inline bool RankResponseContext::has_responsets() const {
+  return !_is_default_instance_ && responsets_ != NULL;
+}
+inline void RankResponseContext::clear_responsets() {
+  if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
+  responsets_ = NULL;
+}
+inline const ::dg::model::Time& RankResponseContext::responsets() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.ResponseTs)
+  return responsets_ != NULL ? *responsets_ : *default_instance_->responsets_;
+}
+inline ::dg::model::Time* RankResponseContext::mutable_responsets() {
+  
+  if (responsets_ == NULL) {
+    responsets_ = new ::dg::model::Time;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.ResponseTs)
+  return responsets_;
+}
+inline ::dg::model::Time* RankResponseContext::release_responsets() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.ResponseTs)
+  
+  ::dg::model::Time* temp = responsets_;
+  responsets_ = NULL;
+  return temp;
+}
+inline void RankResponseContext::set_allocated_responsets(::dg::model::Time* responsets) {
+  delete responsets_;
+  responsets_ = responsets;
+  if (responsets) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.ResponseTs)
+}
+
+// map<string, .dg.model.Time> DebugTs = 6;
+inline int RankResponseContext::debugts_size() const {
+  return debugts_.size();
+}
+inline void RankResponseContext::clear_debugts() {
+  debugts_.Clear();
+}
+inline const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
+RankResponseContext::debugts() const {
+  // @@protoc_insertion_point(field_map:dg.model.RankResponseContext.DebugTs)
+  return debugts_.GetMap();
+}
+inline ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
+RankResponseContext::mutable_debugts() {
+  // @@protoc_insertion_point(field_mutable_map:dg.model.RankResponseContext.DebugTs)
+  return debugts_.MutableMap();
+}
+
+// -------------------------------------------------------------------
+
+// RankFeatureRequest
+
+// optional .dg.model.RankRequestContext Context = 1;
+inline bool RankFeatureRequest::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+inline void RankFeatureRequest::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+inline const ::dg::model::RankRequestContext& RankFeatureRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+inline ::dg::model::RankRequestContext* RankFeatureRequest::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankRequestContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureRequest.Context)
+  return context_;
+}
+inline ::dg::model::RankRequestContext* RankFeatureRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Context)
+  
+  ::dg::model::RankRequestContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+inline void RankFeatureRequest::set_allocated_context(::dg::model::RankRequestContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureRequest.Context)
+}
+
+// optional .dg.model.FeatureVector Feature = 2;
+inline bool RankFeatureRequest::has_feature() const {
+  return !_is_default_instance_ && feature_ != NULL;
+}
+inline void RankFeatureRequest::clear_feature() {
+  if (GetArenaNoVirtual() == NULL && feature_ != NULL) delete feature_;
+  feature_ = NULL;
+}
+inline const ::dg::model::FeatureVector& RankFeatureRequest::feature() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.Feature)
+  return feature_ != NULL ? *feature_ : *default_instance_->feature_;
+}
+inline ::dg::model::FeatureVector* RankFeatureRequest::mutable_feature() {
+  
+  if (feature_ == NULL) {
+    feature_ = new ::dg::model::FeatureVector;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureRequest.Feature)
+  return feature_;
+}
+inline ::dg::model::FeatureVector* RankFeatureRequest::release_feature() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Feature)
+  
+  ::dg::model::FeatureVector* temp = feature_;
+  feature_ = NULL;
+  return temp;
+}
+inline void RankFeatureRequest::set_allocated_feature(::dg::model::FeatureVector* feature) {
+  delete feature_;
+  feature_ = feature;
+  if (feature) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureRequest.Feature)
+}
+
+// optional int32 MaxCandidates = 3;
+inline void RankFeatureRequest::clear_maxcandidates() {
+  maxcandidates_ = 0;
+}
+inline ::google::protobuf::int32 RankFeatureRequest::maxcandidates() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.MaxCandidates)
+  return maxcandidates_;
+}
+inline void RankFeatureRequest::set_maxcandidates(::google::protobuf::int32 value) {
+  
+  maxcandidates_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureRequest.MaxCandidates)
+}
+
+// -------------------------------------------------------------------
+
+// RankFeatureResponse
+
+// optional .dg.model.RankResponseContext Context = 1;
+inline bool RankFeatureResponse::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+inline void RankFeatureResponse::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+inline const ::dg::model::RankResponseContext& RankFeatureResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+inline ::dg::model::RankResponseContext* RankFeatureResponse::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankResponseContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureResponse.Context)
+  return context_;
+}
+inline ::dg::model::RankResponseContext* RankFeatureResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureResponse.Context)
+  
+  ::dg::model::RankResponseContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+inline void RankFeatureResponse::set_allocated_context(::dg::model::RankResponseContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureResponse.Context)
+}
+
+// repeated int64 Ids = 2;
+inline int RankFeatureResponse::ids_size() const {
+  return ids_.size();
+}
+inline void RankFeatureResponse::clear_ids() {
+  ids_.Clear();
+}
+inline ::google::protobuf::int64 RankFeatureResponse::ids(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Ids)
+  return ids_.Get(index);
+}
+inline void RankFeatureResponse::set_ids(int index, ::google::protobuf::int64 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureResponse.Ids)
+}
+inline void RankFeatureResponse::add_ids(::google::protobuf::int64 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankFeatureResponse.Ids)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+RankFeatureResponse::ids() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankFeatureResponse.Ids)
+  return ids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+RankFeatureResponse::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankFeatureResponse.Ids)
+  return &ids_;
+}
+
+// repeated float Scores = 3;
+inline int RankFeatureResponse::scores_size() const {
+  return scores_.size();
+}
+inline void RankFeatureResponse::clear_scores() {
+  scores_.Clear();
+}
+inline float RankFeatureResponse::scores(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Scores)
+  return scores_.Get(index);
+}
+inline void RankFeatureResponse::set_scores(int index, float value) {
+  scores_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureResponse.Scores)
+}
+inline void RankFeatureResponse::add_scores(float value) {
+  scores_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankFeatureResponse.Scores)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+RankFeatureResponse::scores() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankFeatureResponse.Scores)
+  return scores_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+RankFeatureResponse::mutable_scores() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankFeatureResponse.Scores)
+  return &scores_;
+}
+
+// -------------------------------------------------------------------
+
+// RankImageRequest
+
+// optional .dg.model.RankRequestContext Context = 1;
+inline bool RankImageRequest::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+inline void RankImageRequest::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+inline const ::dg::model::RankRequestContext& RankImageRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+inline ::dg::model::RankRequestContext* RankImageRequest::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankRequestContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Context)
+  return context_;
+}
+inline ::dg::model::RankRequestContext* RankImageRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Context)
+  
+  ::dg::model::RankRequestContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+inline void RankImageRequest::set_allocated_context(::dg::model::RankRequestContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageRequest.Context)
+}
+
+// optional .dg.model.Image Image = 2;
+inline bool RankImageRequest::has_image() const {
+  return !_is_default_instance_ && image_ != NULL;
+}
+inline void RankImageRequest::clear_image() {
+  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+  image_ = NULL;
+}
+inline const ::dg::model::Image& RankImageRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Image)
+  return image_ != NULL ? *image_ : *default_instance_->image_;
+}
+inline ::dg::model::Image* RankImageRequest::mutable_image() {
+  
+  if (image_ == NULL) {
+    image_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Image)
+  return image_;
+}
+inline ::dg::model::Image* RankImageRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Image)
+  
+  ::dg::model::Image* temp = image_;
+  image_ = NULL;
+  return temp;
+}
+inline void RankImageRequest::set_allocated_image(::dg::model::Image* image) {
+  delete image_;
+  image_ = image;
+  if (image) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageRequest.Image)
+}
+
+// repeated .dg.model.Cutboard InterestedAreas = 3;
+inline int RankImageRequest::interestedareas_size() const {
+  return interestedareas_.size();
+}
+inline void RankImageRequest::clear_interestedareas() {
+  interestedareas_.Clear();
+}
+inline const ::dg::model::Cutboard& RankImageRequest::interestedareas(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Get(index);
+}
+inline ::dg::model::Cutboard* RankImageRequest::mutable_interestedareas(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Mutable(index);
+}
+inline ::dg::model::Cutboard* RankImageRequest::add_interestedareas() {
+  // @@protoc_insertion_point(field_add:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+RankImageRequest::mutable_interestedareas() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageRequest.InterestedAreas)
+  return &interestedareas_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+RankImageRequest::interestedareas() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_;
+}
+
+// repeated .dg.model.FeatureVector Candidates = 4;
+inline int RankImageRequest::candidates_size() const {
+  return candidates_.size();
+}
+inline void RankImageRequest::clear_candidates() {
+  candidates_.Clear();
+}
+inline const ::dg::model::FeatureVector& RankImageRequest::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Candidates)
+  return candidates_.Get(index);
+}
+inline ::dg::model::FeatureVector* RankImageRequest::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Candidates)
+  return candidates_.Mutable(index);
+}
+inline ::dg::model::FeatureVector* RankImageRequest::add_candidates() {
+  // @@protoc_insertion_point(field_add:dg.model.RankImageRequest.Candidates)
+  return candidates_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >*
+RankImageRequest::mutable_candidates() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageRequest.Candidates)
+  return &candidates_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >&
+RankImageRequest::candidates() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageRequest.Candidates)
+  return candidates_;
+}
+
+// optional int32 MaxCandidates = 5;
+inline void RankImageRequest::clear_maxcandidates() {
+  maxcandidates_ = 0;
+}
+inline ::google::protobuf::int32 RankImageRequest::maxcandidates() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.MaxCandidates)
+  return maxcandidates_;
+}
+inline void RankImageRequest::set_maxcandidates(::google::protobuf::int32 value) {
+  
+  maxcandidates_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankImageRequest.MaxCandidates)
+}
+
+// -------------------------------------------------------------------
+
+// RankImageResponse
+
+// optional .dg.model.RankResponseContext Context = 1;
+inline bool RankImageResponse::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+inline void RankImageResponse::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+inline const ::dg::model::RankResponseContext& RankImageResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+inline ::dg::model::RankResponseContext* RankImageResponse::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankResponseContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageResponse.Context)
+  return context_;
+}
+inline ::dg::model::RankResponseContext* RankImageResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageResponse.Context)
+  
+  ::dg::model::RankResponseContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+inline void RankImageResponse::set_allocated_context(::dg::model::RankResponseContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageResponse.Context)
+}
+
+// repeated int64 Ids = 2;
+inline int RankImageResponse::ids_size() const {
+  return ids_.size();
+}
+inline void RankImageResponse::clear_ids() {
+  ids_.Clear();
+}
+inline ::google::protobuf::int64 RankImageResponse::ids(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Ids)
+  return ids_.Get(index);
+}
+inline void RankImageResponse::set_ids(int index, ::google::protobuf::int64 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankImageResponse.Ids)
+}
+inline void RankImageResponse::add_ids(::google::protobuf::int64 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankImageResponse.Ids)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+RankImageResponse::ids() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageResponse.Ids)
+  return ids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+RankImageResponse::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageResponse.Ids)
+  return &ids_;
+}
+
+// repeated float Scores = 3;
+inline int RankImageResponse::scores_size() const {
+  return scores_.size();
+}
+inline void RankImageResponse::clear_scores() {
+  scores_.Clear();
+}
+inline float RankImageResponse::scores(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Scores)
+  return scores_.Get(index);
+}
+inline void RankImageResponse::set_scores(int index, float value) {
+  scores_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankImageResponse.Scores)
+}
+inline void RankImageResponse::add_scores(float value) {
+  scores_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankImageResponse.Scores)
+}
+inline const ::google::protobuf::RepeatedField< float >&
+RankImageResponse::scores() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageResponse.Scores)
+  return scores_;
+}
+inline ::google::protobuf::RepeatedField< float >*
+RankImageResponse::mutable_scores() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageResponse.Scores)
+  return &scores_;
+}
+
+// -------------------------------------------------------------------
+
 // FeatureRankingRequest
 
 // optional int64 ReqId = 1;
@@ -346,6 +1927,7 @@ inline ::dg::model::Image* FeatureRankingRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::Image* FeatureRankingRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.FeatureRankingRequest.Image)
   
   ::dg::model::Image* temp = image_;
   image_ = NULL;
@@ -545,6 +2127,18 @@ FeatureRankingResponse::mutable_scores() {
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

@@ -22,6 +22,26 @@ namespace model {
 
 namespace {
 
+const ::google::protobuf::Descriptor* RankRequestContext_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankRequestContext_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RankRequestContext_ParamsEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* RankResponseContext_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankResponseContext_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RankResponseContext_DebugTsEntry_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* RankFeatureRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankFeatureRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RankFeatureResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankFeatureResponse_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RankImageRequest_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankImageRequest_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RankImageResponse_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RankImageResponse_reflection_ = NULL;
 const ::google::protobuf::Descriptor* FeatureRankingRequest_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   FeatureRankingRequest_reflection_ = NULL;
@@ -38,7 +58,118 @@ void protobuf_AssignDesc_ranker_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "ranker.proto");
   GOOGLE_CHECK(file != NULL);
-  FeatureRankingRequest_descriptor_ = file->message_type(0);
+  RankRequestContext_descriptor_ = file->message_type(0);
+  static const int RankRequestContext_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, sessionid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, username_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, token_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, params_),
+  };
+  RankRequestContext_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankRequestContext_descriptor_,
+      RankRequestContext::default_instance_,
+      RankRequestContext_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankRequestContext),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankRequestContext, _is_default_instance_));
+  RankRequestContext_ParamsEntry_descriptor_ = RankRequestContext_descriptor_->nested_type(0);
+  RankResponseContext_descriptor_ = file->message_type(1);
+  static const int RankResponseContext_offsets_[6] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, sessionid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, status_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, message_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, requestts_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, responsets_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, debugts_),
+  };
+  RankResponseContext_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankResponseContext_descriptor_,
+      RankResponseContext::default_instance_,
+      RankResponseContext_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankResponseContext),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResponseContext, _is_default_instance_));
+  RankResponseContext_DebugTsEntry_descriptor_ = RankResponseContext_descriptor_->nested_type(0);
+  RankFeatureRequest_descriptor_ = file->message_type(2);
+  static const int RankFeatureRequest_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, context_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, feature_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, maxcandidates_),
+  };
+  RankFeatureRequest_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankFeatureRequest_descriptor_,
+      RankFeatureRequest::default_instance_,
+      RankFeatureRequest_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankFeatureRequest),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, _is_default_instance_));
+  RankFeatureResponse_descriptor_ = file->message_type(3);
+  static const int RankFeatureResponse_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureResponse, context_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureResponse, ids_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureResponse, scores_),
+  };
+  RankFeatureResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankFeatureResponse_descriptor_,
+      RankFeatureResponse::default_instance_,
+      RankFeatureResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankFeatureResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureResponse, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureResponse, _is_default_instance_));
+  RankImageRequest_descriptor_ = file->message_type(4);
+  static const int RankImageRequest_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, context_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, image_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, interestedareas_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, candidates_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, maxcandidates_),
+  };
+  RankImageRequest_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankImageRequest_descriptor_,
+      RankImageRequest::default_instance_,
+      RankImageRequest_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankImageRequest),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageRequest, _is_default_instance_));
+  RankImageResponse_descriptor_ = file->message_type(5);
+  static const int RankImageResponse_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageResponse, context_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageResponse, ids_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageResponse, scores_),
+  };
+  RankImageResponse_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RankImageResponse_descriptor_,
+      RankImageResponse::default_instance_,
+      RankImageResponse_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RankImageResponse),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageResponse, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankImageResponse, _is_default_instance_));
+  FeatureRankingRequest_descriptor_ = file->message_type(6);
   static const int FeatureRankingRequest_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, reqid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, type_),
@@ -59,7 +190,7 @@ void protobuf_AssignDesc_ranker_2eproto() {
       sizeof(FeatureRankingRequest),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingRequest, _is_default_instance_));
-  FeatureRankingResponse_descriptor_ = file->message_type(1);
+  FeatureRankingResponse_descriptor_ = file->message_type(7);
   static const int FeatureRankingResponse_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, reqid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FeatureRankingResponse, ids_),
@@ -89,6 +220,36 @@ inline void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankRequestContext_descriptor_, &RankRequestContext::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        RankRequestContext_ParamsEntry_descriptor_,
+        ::google::protobuf::internal::MapEntry<
+            ::std::string,
+            ::std::string,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            0>::CreateDefaultInstance(
+                RankRequestContext_ParamsEntry_descriptor_));
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankResponseContext_descriptor_, &RankResponseContext::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+        RankResponseContext_DebugTsEntry_descriptor_,
+        ::google::protobuf::internal::MapEntry<
+            ::std::string,
+            ::dg::model::Time,
+            ::google::protobuf::internal::WireFormatLite::TYPE_STRING,
+            ::google::protobuf::internal::WireFormatLite::TYPE_MESSAGE,
+            0>::CreateDefaultInstance(
+                RankResponseContext_DebugTsEntry_descriptor_));
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankFeatureRequest_descriptor_, &RankFeatureRequest::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankFeatureResponse_descriptor_, &RankFeatureResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankImageRequest_descriptor_, &RankImageRequest::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RankImageResponse_descriptor_, &RankImageResponse::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       FeatureRankingRequest_descriptor_, &FeatureRankingRequest::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       FeatureRankingResponse_descriptor_, &FeatureRankingResponse::default_instance());
@@ -97,6 +258,18 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_ranker_2eproto() {
+  delete RankRequestContext::default_instance_;
+  delete RankRequestContext_reflection_;
+  delete RankResponseContext::default_instance_;
+  delete RankResponseContext_reflection_;
+  delete RankFeatureRequest::default_instance_;
+  delete RankFeatureRequest_reflection_;
+  delete RankFeatureResponse::default_instance_;
+  delete RankFeatureResponse_reflection_;
+  delete RankImageRequest::default_instance_;
+  delete RankImageRequest_reflection_;
+  delete RankImageResponse::default_instance_;
+  delete RankImageResponse_reflection_;
   delete FeatureRankingRequest::default_instance_;
   delete FeatureRankingRequest_reflection_;
   delete FeatureRankingResponse::default_instance_;
@@ -113,22 +286,64 @@ void protobuf_AddDesc_ranker_2eproto() {
   ::dg::model::protobuf_AddDesc_localcommon_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014ranker.proto\022\010dg.model\032\014common.proto\032\021"
-    "localcommon.proto\"\201\002\n\025FeatureRankingRequ"
-    "est\022\r\n\005ReqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027.dg.mo"
-    "del.RecognizeType\022\036\n\005Image\030\003 \001(\0132\017.dg.mo"
-    "del.Image\022+\n\017InterestedAreas\030\004 \003(\0132\022.dg."
-    "model.Cutboard\022)\n\rDisabledAreas\030\005 \003(\0132\022."
-    "dg.model.Cutboard\022+\n\nCandidates\030\006 \003(\0132\027."
-    "dg.model.FeatureVector\022\r\n\005Limit\030\007 \001(\005\"D\n"
-    "\026FeatureRankingResponse\022\r\n\005ReqId\030\001 \001(\003\022\013"
-    "\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022k\n\021Similarit"
-    "yService\022V\n\017GetRankedVector\022\037.dg.model.F"
-    "eatureRankingRequest\032 .dg.model.FeatureR"
-    "ankingResponse\"\000b\006proto3", 504);
+    "localcommon.proto\"\323\001\n\022RankRequestContext"
+    "\022\021\n\tSessionId\030\001 \001(\t\022\020\n\010UserName\030\002 \001(\t\022\r\n"
+    "\005Token\030\003 \001(\t\022 \n\004Type\030\004 \001(\0162\022.dg.model.Ra"
+    "nkType\0228\n\006Params\030\005 \003(\0132(.dg.model.RankRe"
+    "questContext.ParamsEntry\032-\n\013ParamsEntry\022"
+    "\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"\215\002\n\023Rank"
+    "ResponseContext\022\021\n\tSessionId\030\001 \001(\t\022\016\n\006St"
+    "atus\030\002 \001(\t\022\017\n\007Message\030\003 \001(\t\022!\n\tRequestTs"
+    "\030\004 \001(\0132\016.dg.model.Time\022\"\n\nResponseTs\030\005 \001"
+    "(\0132\016.dg.model.Time\022;\n\007DebugTs\030\006 \003(\0132*.dg"
+    ".model.RankResponseContext.DebugTsEntry\032"
+    ">\n\014DebugTsEntry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 "
+    "\001(\0132\016.dg.model.Time:\0028\001\"\204\001\n\022RankFeatureR"
+    "equest\022-\n\007Context\030\001 \001(\0132\034.dg.model.RankR"
+    "equestContext\022(\n\007Feature\030\002 \001(\0132\027.dg.mode"
+    "l.FeatureVector\022\025\n\rMaxCandidates\030\003 \001(\005\"b"
+    "\n\023RankFeatureResponse\022.\n\007Context\030\001 \001(\0132\035"
+    ".dg.model.RankResponseContext\022\013\n\003Ids\030\002 \003"
+    "(\003\022\016\n\006Scores\030\003 \003(\002\"\322\001\n\020RankImageRequest\022"
+    "-\n\007Context\030\001 \001(\0132\034.dg.model.RankRequestC"
+    "ontext\022\036\n\005Image\030\002 \001(\0132\017.dg.model.Image\022+"
+    "\n\017InterestedAreas\030\003 \003(\0132\022.dg.model.Cutbo"
+    "ard\022+\n\nCandidates\030\004 \003(\0132\027.dg.model.Featu"
+    "reVector\022\025\n\rMaxCandidates\030\005 \001(\005\"`\n\021RankI"
+    "mageResponse\022.\n\007Context\030\001 \001(\0132\035.dg.model"
+    ".RankResponseContext\022\013\n\003Ids\030\002 \003(\003\022\016\n\006Sco"
+    "res\030\003 \003(\002\"\201\002\n\025FeatureRankingRequest\022\r\n\005R"
+    "eqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027.dg.model.Reco"
+    "gnizeType\022\036\n\005Image\030\003 \001(\0132\017.dg.model.Imag"
+    "e\022+\n\017InterestedAreas\030\004 \003(\0132\022.dg.model.Cu"
+    "tboard\022)\n\rDisabledAreas\030\005 \003(\0132\022.dg.model"
+    ".Cutboard\022+\n\nCandidates\030\006 \003(\0132\027.dg.model"
+    ".FeatureVector\022\r\n\005Limit\030\007 \001(\005\"D\n\026Feature"
+    "RankingResponse\022\r\n\005ReqId\030\001 \001(\003\022\013\n\003Ids\030\002 "
+    "\003(\003\022\016\n\006Scores\030\003 \003(\0022\201\002\n\021SimilarityServic"
+    "e\022F\n\tRankImage\022\032.dg.model.RankImageReque"
+    "st\032\033.dg.model.RankImageResponse\"\000\022L\n\013Ran"
+    "kFeature\022\034.dg.model.RankFeatureRequest\032\035"
+    ".dg.model.RankFeatureResponse\"\000\022V\n\017GetRa"
+    "nkedVector\022\037.dg.model.FeatureRankingRequ"
+    "est\032 .dg.model.FeatureRankingResponse\"\000b"
+    "\006proto3", 1687);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ranker.proto", &protobuf_RegisterTypes);
+  RankRequestContext::default_instance_ = new RankRequestContext();
+  RankResponseContext::default_instance_ = new RankResponseContext();
+  RankFeatureRequest::default_instance_ = new RankFeatureRequest();
+  RankFeatureResponse::default_instance_ = new RankFeatureResponse();
+  RankImageRequest::default_instance_ = new RankImageRequest();
+  RankImageResponse::default_instance_ = new RankImageResponse();
   FeatureRankingRequest::default_instance_ = new FeatureRankingRequest();
   FeatureRankingResponse::default_instance_ = new FeatureRankingResponse();
+  RankRequestContext::default_instance_->InitAsDefaultInstance();
+  RankResponseContext::default_instance_->InitAsDefaultInstance();
+  RankFeatureRequest::default_instance_->InitAsDefaultInstance();
+  RankFeatureResponse::default_instance_->InitAsDefaultInstance();
+  RankImageRequest::default_instance_->InitAsDefaultInstance();
+  RankImageResponse::default_instance_->InitAsDefaultInstance();
   FeatureRankingRequest::default_instance_->InitAsDefaultInstance();
   FeatureRankingResponse::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ranker_2eproto);
@@ -150,6 +365,3203 @@ static void MergeFromFail(int line) {
 
 }  // namespace
 
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankRequestContext::kSessionIdFieldNumber;
+const int RankRequestContext::kUserNameFieldNumber;
+const int RankRequestContext::kTokenFieldNumber;
+const int RankRequestContext::kTypeFieldNumber;
+const int RankRequestContext::kParamsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankRequestContext::RankRequestContext()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankRequestContext)
+}
+
+void RankRequestContext::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
+RankRequestContext::RankRequestContext(const RankRequestContext& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankRequestContext)
+}
+
+void RankRequestContext::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  username_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_ = 0;
+  params_.SetAssignDescriptorCallback(
+      protobuf_AssignDescriptorsOnce);
+  params_.SetEntryDescriptor(
+      &::dg::model::RankRequestContext_ParamsEntry_descriptor_);
+}
+
+RankRequestContext::~RankRequestContext() {
+  // @@protoc_insertion_point(destructor:dg.model.RankRequestContext)
+  SharedDtor();
+}
+
+void RankRequestContext::SharedDtor() {
+  sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  username_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
+}
+
+void RankRequestContext::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankRequestContext::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankRequestContext_descriptor_;
+}
+
+const RankRequestContext& RankRequestContext::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankRequestContext* RankRequestContext::default_instance_ = NULL;
+
+RankRequestContext* RankRequestContext::New(::google::protobuf::Arena* arena) const {
+  RankRequestContext* n = new RankRequestContext;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankRequestContext::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankRequestContext)
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  type_ = 0;
+  params_.Clear();
+}
+
+bool RankRequestContext::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankRequestContext)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string SessionId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sessionid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankRequestContext.SessionId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_UserName;
+        break;
+      }
+
+      // optional string UserName = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_UserName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_username()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->username().data(), this->username().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankRequestContext.UserName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Token;
+        break;
+      }
+
+      // optional string Token = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Token:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_token()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->token().data(), this->token().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankRequestContext.Token"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_Type;
+        break;
+      }
+
+      // optional .dg.model.RankType Type = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_Type:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_type(static_cast< ::dg::model::RankType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_Params;
+        break;
+      }
+
+      // map<string, string> Params = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_Params:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Params:
+          ::google::protobuf::scoped_ptr<RankRequestContext_ParamsEntry> entry(params_.NewEntry());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, entry.get()));
+          (*mutable_params())[entry->key()] = *entry->mutable_value();
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->key().data(), entry->key().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankRequestContext.ParamsEntry.key"));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->mutable_value()->data(),
+            entry->mutable_value()->length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankRequestContext.ParamsEntry.value"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_loop_Params;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankRequestContext)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankRequestContext)
+  return false;
+#undef DO_
+}
+
+void RankRequestContext::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankRequestContext)
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sessionid().data(), this->sessionid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.SessionId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->sessionid(), output);
+  }
+
+  // optional string UserName = 2;
+  if (this->username().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), this->username().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.UserName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->username(), output);
+  }
+
+  // optional string Token = 3;
+  if (this->token().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.Token");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->token(), output);
+  }
+
+  // optional .dg.model.RankType Type = 4;
+  if (this->type() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      4, this->type(), output);
+  }
+
+  // map<string, string> Params = 5;
+  {
+    ::google::protobuf::scoped_ptr<RankRequestContext_ParamsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+        it = this->params().begin();
+        it != this->params().end(); ++it) {
+      entry.reset(params_.NewEntryWrapper(it->first, it->second));
+      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+          5, *entry, output);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankRequestContext.ParamsEntry.key");
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->second.data(), it->second.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankRequestContext.ParamsEntry.value");
+    }
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankRequestContext)
+}
+
+::google::protobuf::uint8* RankRequestContext::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankRequestContext)
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sessionid().data(), this->sessionid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.SessionId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->sessionid(), target);
+  }
+
+  // optional string UserName = 2;
+  if (this->username().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->username().data(), this->username().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.UserName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->username(), target);
+  }
+
+  // optional string Token = 3;
+  if (this->token().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->token().data(), this->token().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankRequestContext.Token");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->token(), target);
+  }
+
+  // optional .dg.model.RankType Type = 4;
+  if (this->type() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      4, this->type(), target);
+  }
+
+  // map<string, string> Params = 5;
+  {
+    ::google::protobuf::scoped_ptr<RankRequestContext_ParamsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+        it = this->params().begin();
+        it != this->params().end(); ++it) {
+      entry.reset(params_.NewEntryWrapper(it->first, it->second));
+      target = ::google::protobuf::internal::WireFormatLite::
+          WriteMessageNoVirtualToArray(
+              5, *entry, target);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankRequestContext.ParamsEntry.key");
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->second.data(), it->second.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankRequestContext.ParamsEntry.value");
+    }
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankRequestContext)
+  return target;
+}
+
+int RankRequestContext::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankRequestContext)
+  int total_size = 0;
+
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->sessionid());
+  }
+
+  // optional string UserName = 2;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->username());
+  }
+
+  // optional string Token = 3;
+  if (this->token().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->token());
+  }
+
+  // optional .dg.model.RankType Type = 4;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+  }
+
+  // map<string, string> Params = 5;
+  total_size += 1 * this->params_size();
+  {
+    ::google::protobuf::scoped_ptr<RankRequestContext_ParamsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::std::string >::const_iterator
+        it = this->params().begin();
+        it != this->params().end(); ++it) {
+      entry.reset(params_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankRequestContext::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankRequestContext)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankRequestContext* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankRequestContext>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankRequestContext)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankRequestContext)
+    MergeFrom(*source);
+  }
+}
+
+void RankRequestContext::MergeFrom(const RankRequestContext& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankRequestContext)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  params_.MergeFrom(from.params_);
+  if (from.sessionid().size() > 0) {
+
+    sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
+  }
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  if (from.token().size() > 0) {
+
+    token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
+  }
+  if (from.type() != 0) {
+    set_type(from.type());
+  }
+}
+
+void RankRequestContext::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankRequestContext)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankRequestContext::CopyFrom(const RankRequestContext& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankRequestContext)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankRequestContext::IsInitialized() const {
+
+  return true;
+}
+
+void RankRequestContext::Swap(RankRequestContext* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankRequestContext::InternalSwap(RankRequestContext* other) {
+  sessionid_.Swap(&other->sessionid_);
+  username_.Swap(&other->username_);
+  token_.Swap(&other->token_);
+  std::swap(type_, other->type_);
+  params_.Swap(&other->params_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankRequestContext::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankRequestContext_descriptor_;
+  metadata.reflection = RankRequestContext_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankRequestContext
+
+// optional string SessionId = 1;
+void RankRequestContext::clear_sessionid() {
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankRequestContext::sessionid() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.SessionId)
+  return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_sessionid(const ::std::string& value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.SessionId)
+}
+ void RankRequestContext::set_sessionid(const char* value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.SessionId)
+}
+ void RankRequestContext::set_sessionid(const char* value, size_t size) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.SessionId)
+}
+ ::std::string* RankRequestContext::mutable_sessionid() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.SessionId)
+  return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankRequestContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.SessionId)
+  
+  return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_allocated_sessionid(::std::string* sessionid) {
+  if (sessionid != NULL) {
+    
+  } else {
+    
+  }
+  sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.SessionId)
+}
+
+// optional string UserName = 2;
+void RankRequestContext::clear_username() {
+  username_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankRequestContext::username() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.UserName)
+  return username_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_username(const ::std::string& value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.UserName)
+}
+ void RankRequestContext::set_username(const char* value) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.UserName)
+}
+ void RankRequestContext::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.UserName)
+}
+ ::std::string* RankRequestContext::mutable_username() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.UserName)
+  return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankRequestContext::release_username() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.UserName)
+  
+  return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_allocated_username(::std::string* username) {
+  if (username != NULL) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.UserName)
+}
+
+// optional string Token = 3;
+void RankRequestContext::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankRequestContext::token() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.Token)
+  return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_token(const ::std::string& value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.Token)
+}
+ void RankRequestContext::set_token(const char* value) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankRequestContext.Token)
+}
+ void RankRequestContext::set_token(const char* value, size_t size) {
+  
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankRequestContext.Token)
+}
+ ::std::string* RankRequestContext::mutable_token() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankRequestContext.Token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankRequestContext::release_token() {
+  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.Token)
+  
+  return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankRequestContext::set_allocated_token(::std::string* token) {
+  if (token != NULL) {
+    
+  } else {
+    
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankRequestContext.Token)
+}
+
+// optional .dg.model.RankType Type = 4;
+void RankRequestContext::clear_type() {
+  type_ = 0;
+}
+ ::dg::model::RankType RankRequestContext::type() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankRequestContext.Type)
+  return static_cast< ::dg::model::RankType >(type_);
+}
+ void RankRequestContext::set_type(::dg::model::RankType value) {
+  
+  type_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankRequestContext.Type)
+}
+
+// map<string, string> Params = 5;
+int RankRequestContext::params_size() const {
+  return params_.size();
+}
+void RankRequestContext::clear_params() {
+  params_.Clear();
+}
+ const ::google::protobuf::Map< ::std::string, ::std::string >&
+RankRequestContext::params() const {
+  // @@protoc_insertion_point(field_map:dg.model.RankRequestContext.Params)
+  return params_.GetMap();
+}
+ ::google::protobuf::Map< ::std::string, ::std::string >*
+RankRequestContext::mutable_params() {
+  // @@protoc_insertion_point(field_mutable_map:dg.model.RankRequestContext.Params)
+  return params_.MutableMap();
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankResponseContext::kSessionIdFieldNumber;
+const int RankResponseContext::kStatusFieldNumber;
+const int RankResponseContext::kMessageFieldNumber;
+const int RankResponseContext::kRequestTsFieldNumber;
+const int RankResponseContext::kResponseTsFieldNumber;
+const int RankResponseContext::kDebugTsFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankResponseContext::RankResponseContext()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankResponseContext)
+}
+
+void RankResponseContext::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  requestts_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
+  responsets_ = const_cast< ::dg::model::Time*>(&::dg::model::Time::default_instance());
+}
+
+RankResponseContext::RankResponseContext(const RankResponseContext& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankResponseContext)
+}
+
+void RankResponseContext::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  sessionid_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  message_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  requestts_ = NULL;
+  responsets_ = NULL;
+  debugts_.SetAssignDescriptorCallback(
+      protobuf_AssignDescriptorsOnce);
+  debugts_.SetEntryDescriptor(
+      &::dg::model::RankResponseContext_DebugTsEntry_descriptor_);
+}
+
+RankResponseContext::~RankResponseContext() {
+  // @@protoc_insertion_point(destructor:dg.model.RankResponseContext)
+  SharedDtor();
+}
+
+void RankResponseContext::SharedDtor() {
+  sessionid_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  message_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+    delete requestts_;
+    delete responsets_;
+  }
+}
+
+void RankResponseContext::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankResponseContext::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankResponseContext_descriptor_;
+}
+
+const RankResponseContext& RankResponseContext::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankResponseContext* RankResponseContext::default_instance_ = NULL;
+
+RankResponseContext* RankResponseContext::New(::google::protobuf::Arena* arena) const {
+  RankResponseContext* n = new RankResponseContext;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankResponseContext::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankResponseContext)
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
+  requestts_ = NULL;
+  if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
+  responsets_ = NULL;
+  debugts_.Clear();
+}
+
+bool RankResponseContext::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankResponseContext)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string SessionId = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sessionid()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sessionid().data(), this->sessionid().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankResponseContext.SessionId"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Status;
+        break;
+      }
+
+      // optional string Status = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Status:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_status()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->status().data(), this->status().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankResponseContext.Status"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Message;
+        break;
+      }
+
+      // optional string Message = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Message:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_message()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->message().data(), this->message().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankResponseContext.Message"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_RequestTs;
+        break;
+      }
+
+      // optional .dg.model.Time RequestTs = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_RequestTs:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_requestts()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_ResponseTs;
+        break;
+      }
+
+      // optional .dg.model.Time ResponseTs = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_ResponseTs:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_responsets()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_DebugTs;
+        break;
+      }
+
+      // map<string, .dg.model.Time> DebugTs = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_DebugTs:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_DebugTs:
+          ::google::protobuf::scoped_ptr<RankResponseContext_DebugTsEntry> entry(debugts_.NewEntry());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+              input, entry.get()));
+          (*mutable_debugts())[entry->key()].Swap(entry->mutable_value());
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            entry->key().data(), entry->key().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankResponseContext.DebugTsEntry.key"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_loop_DebugTs;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankResponseContext)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankResponseContext)
+  return false;
+#undef DO_
+}
+
+void RankResponseContext::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankResponseContext)
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sessionid().data(), this->sessionid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.SessionId");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->sessionid(), output);
+  }
+
+  // optional string Status = 2;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.Status");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->status(), output);
+  }
+
+  // optional string Message = 3;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.Message");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->message(), output);
+  }
+
+  // optional .dg.model.Time RequestTs = 4;
+  if (this->has_requestts()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *this->requestts_, output);
+  }
+
+  // optional .dg.model.Time ResponseTs = 5;
+  if (this->has_responsets()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, *this->responsets_, output);
+  }
+
+  // map<string, .dg.model.Time> DebugTs = 6;
+  {
+    ::google::protobuf::scoped_ptr<RankResponseContext_DebugTsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
+        it = this->debugts().begin();
+        it != this->debugts().end(); ++it) {
+      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+      ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+          6, *entry, output);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankResponseContext.DebugTsEntry.key");
+    }
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankResponseContext)
+}
+
+::google::protobuf::uint8* RankResponseContext::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankResponseContext)
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sessionid().data(), this->sessionid().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.SessionId");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->sessionid(), target);
+  }
+
+  // optional string Status = 2;
+  if (this->status().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->status().data(), this->status().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.Status");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->status(), target);
+  }
+
+  // optional string Message = 3;
+  if (this->message().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->message().data(), this->message().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResponseContext.Message");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->message(), target);
+  }
+
+  // optional .dg.model.Time RequestTs = 4;
+  if (this->has_requestts()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, *this->requestts_, target);
+  }
+
+  // optional .dg.model.Time ResponseTs = 5;
+  if (this->has_responsets()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, *this->responsets_, target);
+  }
+
+  // map<string, .dg.model.Time> DebugTs = 6;
+  {
+    ::google::protobuf::scoped_ptr<RankResponseContext_DebugTsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
+        it = this->debugts().begin();
+        it != this->debugts().end(); ++it) {
+      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+      target = ::google::protobuf::internal::WireFormatLite::
+          WriteMessageNoVirtualToArray(
+              6, *entry, target);
+      ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        it->first.data(), it->first.length(),
+        ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+        "dg.model.RankResponseContext.DebugTsEntry.key");
+    }
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankResponseContext)
+  return target;
+}
+
+int RankResponseContext::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankResponseContext)
+  int total_size = 0;
+
+  // optional string SessionId = 1;
+  if (this->sessionid().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->sessionid());
+  }
+
+  // optional string Status = 2;
+  if (this->status().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->status());
+  }
+
+  // optional string Message = 3;
+  if (this->message().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->message());
+  }
+
+  // optional .dg.model.Time RequestTs = 4;
+  if (this->has_requestts()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->requestts_);
+  }
+
+  // optional .dg.model.Time ResponseTs = 5;
+  if (this->has_responsets()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->responsets_);
+  }
+
+  // map<string, .dg.model.Time> DebugTs = 6;
+  total_size += 1 * this->debugts_size();
+  {
+    ::google::protobuf::scoped_ptr<RankResponseContext_DebugTsEntry> entry;
+    for (::google::protobuf::Map< ::std::string, ::dg::model::Time >::const_iterator
+        it = this->debugts().begin();
+        it != this->debugts().end(); ++it) {
+      entry.reset(debugts_.NewEntryWrapper(it->first, it->second));
+      total_size += ::google::protobuf::internal::WireFormatLite::
+          MessageSizeNoVirtual(*entry);
+    }
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankResponseContext::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankResponseContext)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankResponseContext* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankResponseContext>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankResponseContext)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankResponseContext)
+    MergeFrom(*source);
+  }
+}
+
+void RankResponseContext::MergeFrom(const RankResponseContext& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankResponseContext)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  debugts_.MergeFrom(from.debugts_);
+  if (from.sessionid().size() > 0) {
+
+    sessionid_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sessionid_);
+  }
+  if (from.status().size() > 0) {
+
+    status_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.status_);
+  }
+  if (from.message().size() > 0) {
+
+    message_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.message_);
+  }
+  if (from.has_requestts()) {
+    mutable_requestts()->::dg::model::Time::MergeFrom(from.requestts());
+  }
+  if (from.has_responsets()) {
+    mutable_responsets()->::dg::model::Time::MergeFrom(from.responsets());
+  }
+}
+
+void RankResponseContext::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankResponseContext)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankResponseContext::CopyFrom(const RankResponseContext& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankResponseContext)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankResponseContext::IsInitialized() const {
+
+  return true;
+}
+
+void RankResponseContext::Swap(RankResponseContext* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankResponseContext::InternalSwap(RankResponseContext* other) {
+  sessionid_.Swap(&other->sessionid_);
+  status_.Swap(&other->status_);
+  message_.Swap(&other->message_);
+  std::swap(requestts_, other->requestts_);
+  std::swap(responsets_, other->responsets_);
+  debugts_.Swap(&other->debugts_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankResponseContext::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankResponseContext_descriptor_;
+  metadata.reflection = RankResponseContext_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankResponseContext
+
+// optional string SessionId = 1;
+void RankResponseContext::clear_sessionid() {
+  sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankResponseContext::sessionid() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.SessionId)
+  return sessionid_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_sessionid(const ::std::string& value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.SessionId)
+}
+ void RankResponseContext::set_sessionid(const char* value) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.SessionId)
+}
+ void RankResponseContext::set_sessionid(const char* value, size_t size) {
+  
+  sessionid_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.SessionId)
+}
+ ::std::string* RankResponseContext::mutable_sessionid() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.SessionId)
+  return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankResponseContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.SessionId)
+  
+  return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_allocated_sessionid(::std::string* sessionid) {
+  if (sessionid != NULL) {
+    
+  } else {
+    
+  }
+  sessionid_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sessionid);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.SessionId)
+}
+
+// optional string Status = 2;
+void RankResponseContext::clear_status() {
+  status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankResponseContext::status() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.Status)
+  return status_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_status(const ::std::string& value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.Status)
+}
+ void RankResponseContext::set_status(const char* value) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.Status)
+}
+ void RankResponseContext::set_status(const char* value, size_t size) {
+  
+  status_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.Status)
+}
+ ::std::string* RankResponseContext::mutable_status() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.Status)
+  return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankResponseContext::release_status() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Status)
+  
+  return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_allocated_status(::std::string* status) {
+  if (status != NULL) {
+    
+  } else {
+    
+  }
+  status_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), status);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.Status)
+}
+
+// optional string Message = 3;
+void RankResponseContext::clear_message() {
+  message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankResponseContext::message() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.Message)
+  return message_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_message(const ::std::string& value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResponseContext.Message)
+}
+ void RankResponseContext::set_message(const char* value) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResponseContext.Message)
+}
+ void RankResponseContext::set_message(const char* value, size_t size) {
+  
+  message_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResponseContext.Message)
+}
+ ::std::string* RankResponseContext::mutable_message() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.Message)
+  return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankResponseContext::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Message)
+  
+  return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResponseContext::set_allocated_message(::std::string* message) {
+  if (message != NULL) {
+    
+  } else {
+    
+  }
+  message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.Message)
+}
+
+// optional .dg.model.Time RequestTs = 4;
+bool RankResponseContext::has_requestts() const {
+  return !_is_default_instance_ && requestts_ != NULL;
+}
+void RankResponseContext::clear_requestts() {
+  if (GetArenaNoVirtual() == NULL && requestts_ != NULL) delete requestts_;
+  requestts_ = NULL;
+}
+const ::dg::model::Time& RankResponseContext::requestts() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.RequestTs)
+  return requestts_ != NULL ? *requestts_ : *default_instance_->requestts_;
+}
+::dg::model::Time* RankResponseContext::mutable_requestts() {
+  
+  if (requestts_ == NULL) {
+    requestts_ = new ::dg::model::Time;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.RequestTs)
+  return requestts_;
+}
+::dg::model::Time* RankResponseContext::release_requestts() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.RequestTs)
+  
+  ::dg::model::Time* temp = requestts_;
+  requestts_ = NULL;
+  return temp;
+}
+void RankResponseContext::set_allocated_requestts(::dg::model::Time* requestts) {
+  delete requestts_;
+  requestts_ = requestts;
+  if (requestts) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.RequestTs)
+}
+
+// optional .dg.model.Time ResponseTs = 5;
+bool RankResponseContext::has_responsets() const {
+  return !_is_default_instance_ && responsets_ != NULL;
+}
+void RankResponseContext::clear_responsets() {
+  if (GetArenaNoVirtual() == NULL && responsets_ != NULL) delete responsets_;
+  responsets_ = NULL;
+}
+const ::dg::model::Time& RankResponseContext::responsets() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResponseContext.ResponseTs)
+  return responsets_ != NULL ? *responsets_ : *default_instance_->responsets_;
+}
+::dg::model::Time* RankResponseContext::mutable_responsets() {
+  
+  if (responsets_ == NULL) {
+    responsets_ = new ::dg::model::Time;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResponseContext.ResponseTs)
+  return responsets_;
+}
+::dg::model::Time* RankResponseContext::release_responsets() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.ResponseTs)
+  
+  ::dg::model::Time* temp = responsets_;
+  responsets_ = NULL;
+  return temp;
+}
+void RankResponseContext::set_allocated_responsets(::dg::model::Time* responsets) {
+  delete responsets_;
+  responsets_ = responsets;
+  if (responsets) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResponseContext.ResponseTs)
+}
+
+// map<string, .dg.model.Time> DebugTs = 6;
+int RankResponseContext::debugts_size() const {
+  return debugts_.size();
+}
+void RankResponseContext::clear_debugts() {
+  debugts_.Clear();
+}
+ const ::google::protobuf::Map< ::std::string, ::dg::model::Time >&
+RankResponseContext::debugts() const {
+  // @@protoc_insertion_point(field_map:dg.model.RankResponseContext.DebugTs)
+  return debugts_.GetMap();
+}
+ ::google::protobuf::Map< ::std::string, ::dg::model::Time >*
+RankResponseContext::mutable_debugts() {
+  // @@protoc_insertion_point(field_mutable_map:dg.model.RankResponseContext.DebugTs)
+  return debugts_.MutableMap();
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankFeatureRequest::kContextFieldNumber;
+const int RankFeatureRequest::kFeatureFieldNumber;
+const int RankFeatureRequest::kMaxCandidatesFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankFeatureRequest::RankFeatureRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankFeatureRequest)
+}
+
+void RankFeatureRequest::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  context_ = const_cast< ::dg::model::RankRequestContext*>(&::dg::model::RankRequestContext::default_instance());
+  feature_ = const_cast< ::dg::model::FeatureVector*>(&::dg::model::FeatureVector::default_instance());
+}
+
+RankFeatureRequest::RankFeatureRequest(const RankFeatureRequest& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankFeatureRequest)
+}
+
+void RankFeatureRequest::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  context_ = NULL;
+  feature_ = NULL;
+  maxcandidates_ = 0;
+}
+
+RankFeatureRequest::~RankFeatureRequest() {
+  // @@protoc_insertion_point(destructor:dg.model.RankFeatureRequest)
+  SharedDtor();
+}
+
+void RankFeatureRequest::SharedDtor() {
+  if (this != default_instance_) {
+    delete context_;
+    delete feature_;
+  }
+}
+
+void RankFeatureRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankFeatureRequest::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankFeatureRequest_descriptor_;
+}
+
+const RankFeatureRequest& RankFeatureRequest::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankFeatureRequest* RankFeatureRequest::default_instance_ = NULL;
+
+RankFeatureRequest* RankFeatureRequest::New(::google::protobuf::Arena* arena) const {
+  RankFeatureRequest* n = new RankFeatureRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankFeatureRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankFeatureRequest)
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+  if (GetArenaNoVirtual() == NULL && feature_ != NULL) delete feature_;
+  feature_ = NULL;
+  maxcandidates_ = 0;
+}
+
+bool RankFeatureRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankFeatureRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.RankRequestContext Context = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_context()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Feature;
+        break;
+      }
+
+      // optional .dg.model.FeatureVector Feature = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Feature:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_feature()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_MaxCandidates;
+        break;
+      }
+
+      // optional int32 MaxCandidates = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_MaxCandidates:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &maxcandidates_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankFeatureRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankFeatureRequest)
+  return false;
+#undef DO_
+}
+
+void RankFeatureRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankFeatureRequest)
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->context_, output);
+  }
+
+  // optional .dg.model.FeatureVector Feature = 2;
+  if (this->has_feature()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->feature_, output);
+  }
+
+  // optional int32 MaxCandidates = 3;
+  if (this->maxcandidates() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->maxcandidates(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankFeatureRequest)
+}
+
+::google::protobuf::uint8* RankFeatureRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankFeatureRequest)
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->context_, target);
+  }
+
+  // optional .dg.model.FeatureVector Feature = 2;
+  if (this->has_feature()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->feature_, target);
+  }
+
+  // optional int32 MaxCandidates = 3;
+  if (this->maxcandidates() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->maxcandidates(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankFeatureRequest)
+  return target;
+}
+
+int RankFeatureRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankFeatureRequest)
+  int total_size = 0;
+
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->context_);
+  }
+
+  // optional .dg.model.FeatureVector Feature = 2;
+  if (this->has_feature()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->feature_);
+  }
+
+  // optional int32 MaxCandidates = 3;
+  if (this->maxcandidates() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->maxcandidates());
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankFeatureRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankFeatureRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankFeatureRequest* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankFeatureRequest>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankFeatureRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankFeatureRequest)
+    MergeFrom(*source);
+  }
+}
+
+void RankFeatureRequest::MergeFrom(const RankFeatureRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankFeatureRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  if (from.has_context()) {
+    mutable_context()->::dg::model::RankRequestContext::MergeFrom(from.context());
+  }
+  if (from.has_feature()) {
+    mutable_feature()->::dg::model::FeatureVector::MergeFrom(from.feature());
+  }
+  if (from.maxcandidates() != 0) {
+    set_maxcandidates(from.maxcandidates());
+  }
+}
+
+void RankFeatureRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankFeatureRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankFeatureRequest::CopyFrom(const RankFeatureRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankFeatureRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankFeatureRequest::IsInitialized() const {
+
+  return true;
+}
+
+void RankFeatureRequest::Swap(RankFeatureRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankFeatureRequest::InternalSwap(RankFeatureRequest* other) {
+  std::swap(context_, other->context_);
+  std::swap(feature_, other->feature_);
+  std::swap(maxcandidates_, other->maxcandidates_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankFeatureRequest::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankFeatureRequest_descriptor_;
+  metadata.reflection = RankFeatureRequest_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankFeatureRequest
+
+// optional .dg.model.RankRequestContext Context = 1;
+bool RankFeatureRequest::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+void RankFeatureRequest::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+const ::dg::model::RankRequestContext& RankFeatureRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+::dg::model::RankRequestContext* RankFeatureRequest::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankRequestContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureRequest.Context)
+  return context_;
+}
+::dg::model::RankRequestContext* RankFeatureRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Context)
+  
+  ::dg::model::RankRequestContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+void RankFeatureRequest::set_allocated_context(::dg::model::RankRequestContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureRequest.Context)
+}
+
+// optional .dg.model.FeatureVector Feature = 2;
+bool RankFeatureRequest::has_feature() const {
+  return !_is_default_instance_ && feature_ != NULL;
+}
+void RankFeatureRequest::clear_feature() {
+  if (GetArenaNoVirtual() == NULL && feature_ != NULL) delete feature_;
+  feature_ = NULL;
+}
+const ::dg::model::FeatureVector& RankFeatureRequest::feature() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.Feature)
+  return feature_ != NULL ? *feature_ : *default_instance_->feature_;
+}
+::dg::model::FeatureVector* RankFeatureRequest::mutable_feature() {
+  
+  if (feature_ == NULL) {
+    feature_ = new ::dg::model::FeatureVector;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureRequest.Feature)
+  return feature_;
+}
+::dg::model::FeatureVector* RankFeatureRequest::release_feature() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Feature)
+  
+  ::dg::model::FeatureVector* temp = feature_;
+  feature_ = NULL;
+  return temp;
+}
+void RankFeatureRequest::set_allocated_feature(::dg::model::FeatureVector* feature) {
+  delete feature_;
+  feature_ = feature;
+  if (feature) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureRequest.Feature)
+}
+
+// optional int32 MaxCandidates = 3;
+void RankFeatureRequest::clear_maxcandidates() {
+  maxcandidates_ = 0;
+}
+ ::google::protobuf::int32 RankFeatureRequest::maxcandidates() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureRequest.MaxCandidates)
+  return maxcandidates_;
+}
+ void RankFeatureRequest::set_maxcandidates(::google::protobuf::int32 value) {
+  
+  maxcandidates_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureRequest.MaxCandidates)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankFeatureResponse::kContextFieldNumber;
+const int RankFeatureResponse::kIdsFieldNumber;
+const int RankFeatureResponse::kScoresFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankFeatureResponse::RankFeatureResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankFeatureResponse)
+}
+
+void RankFeatureResponse::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  context_ = const_cast< ::dg::model::RankResponseContext*>(&::dg::model::RankResponseContext::default_instance());
+}
+
+RankFeatureResponse::RankFeatureResponse(const RankFeatureResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankFeatureResponse)
+}
+
+void RankFeatureResponse::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  context_ = NULL;
+}
+
+RankFeatureResponse::~RankFeatureResponse() {
+  // @@protoc_insertion_point(destructor:dg.model.RankFeatureResponse)
+  SharedDtor();
+}
+
+void RankFeatureResponse::SharedDtor() {
+  if (this != default_instance_) {
+    delete context_;
+  }
+}
+
+void RankFeatureResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankFeatureResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankFeatureResponse_descriptor_;
+}
+
+const RankFeatureResponse& RankFeatureResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankFeatureResponse* RankFeatureResponse::default_instance_ = NULL;
+
+RankFeatureResponse* RankFeatureResponse::New(::google::protobuf::Arena* arena) const {
+  RankFeatureResponse* n = new RankFeatureResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankFeatureResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankFeatureResponse)
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+  ids_.Clear();
+  scores_.Clear();
+}
+
+bool RankFeatureResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankFeatureResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.RankResponseContext Context = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_context()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Ids;
+        break;
+      }
+
+      // repeated int64 Ids = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Ids:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_ids())));
+        } else if (tag == 16) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 1, 18, input, this->mutable_ids())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Scores;
+        break;
+      }
+
+      // repeated float Scores = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Scores:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_scores())));
+        } else if (tag == 29) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 26, input, this->mutable_scores())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankFeatureResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankFeatureResponse)
+  return false;
+#undef DO_
+}
+
+void RankFeatureResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankFeatureResponse)
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->context_, output);
+  }
+
+  // repeated int64 Ids = 2;
+  if (this->ids_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_ids_cached_byte_size_);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+      this->ids(i), output);
+  }
+
+  // repeated float Scores = 3;
+  if (this->scores_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_scores_cached_byte_size_);
+  }
+  for (int i = 0; i < this->scores_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloatNoTag(
+      this->scores(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankFeatureResponse)
+}
+
+::google::protobuf::uint8* RankFeatureResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankFeatureResponse)
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->context_, target);
+  }
+
+  // repeated int64 Ids = 2;
+  if (this->ids_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      2,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _ids_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64NoTagToArray(this->ids(i), target);
+  }
+
+  // repeated float Scores = 3;
+  if (this->scores_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      3,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _scores_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->scores_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->scores(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankFeatureResponse)
+  return target;
+}
+
+int RankFeatureResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankFeatureResponse)
+  int total_size = 0;
+
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->context_);
+  }
+
+  // repeated int64 Ids = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->ids_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->ids(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _ids_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated float Scores = 3;
+  {
+    int data_size = 0;
+    data_size = 4 * this->scores_size();
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _scores_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankFeatureResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankFeatureResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankFeatureResponse* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankFeatureResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankFeatureResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankFeatureResponse)
+    MergeFrom(*source);
+  }
+}
+
+void RankFeatureResponse::MergeFrom(const RankFeatureResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankFeatureResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  ids_.MergeFrom(from.ids_);
+  scores_.MergeFrom(from.scores_);
+  if (from.has_context()) {
+    mutable_context()->::dg::model::RankResponseContext::MergeFrom(from.context());
+  }
+}
+
+void RankFeatureResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankFeatureResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankFeatureResponse::CopyFrom(const RankFeatureResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankFeatureResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankFeatureResponse::IsInitialized() const {
+
+  return true;
+}
+
+void RankFeatureResponse::Swap(RankFeatureResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankFeatureResponse::InternalSwap(RankFeatureResponse* other) {
+  std::swap(context_, other->context_);
+  ids_.UnsafeArenaSwap(&other->ids_);
+  scores_.UnsafeArenaSwap(&other->scores_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankFeatureResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankFeatureResponse_descriptor_;
+  metadata.reflection = RankFeatureResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankFeatureResponse
+
+// optional .dg.model.RankResponseContext Context = 1;
+bool RankFeatureResponse::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+void RankFeatureResponse::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+const ::dg::model::RankResponseContext& RankFeatureResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+::dg::model::RankResponseContext* RankFeatureResponse::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankResponseContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankFeatureResponse.Context)
+  return context_;
+}
+::dg::model::RankResponseContext* RankFeatureResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFeatureResponse.Context)
+  
+  ::dg::model::RankResponseContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+void RankFeatureResponse::set_allocated_context(::dg::model::RankResponseContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankFeatureResponse.Context)
+}
+
+// repeated int64 Ids = 2;
+int RankFeatureResponse::ids_size() const {
+  return ids_.size();
+}
+void RankFeatureResponse::clear_ids() {
+  ids_.Clear();
+}
+ ::google::protobuf::int64 RankFeatureResponse::ids(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Ids)
+  return ids_.Get(index);
+}
+ void RankFeatureResponse::set_ids(int index, ::google::protobuf::int64 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureResponse.Ids)
+}
+ void RankFeatureResponse::add_ids(::google::protobuf::int64 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankFeatureResponse.Ids)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+RankFeatureResponse::ids() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankFeatureResponse.Ids)
+  return ids_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+RankFeatureResponse::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankFeatureResponse.Ids)
+  return &ids_;
+}
+
+// repeated float Scores = 3;
+int RankFeatureResponse::scores_size() const {
+  return scores_.size();
+}
+void RankFeatureResponse::clear_scores() {
+  scores_.Clear();
+}
+ float RankFeatureResponse::scores(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankFeatureResponse.Scores)
+  return scores_.Get(index);
+}
+ void RankFeatureResponse::set_scores(int index, float value) {
+  scores_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankFeatureResponse.Scores)
+}
+ void RankFeatureResponse::add_scores(float value) {
+  scores_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankFeatureResponse.Scores)
+}
+ const ::google::protobuf::RepeatedField< float >&
+RankFeatureResponse::scores() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankFeatureResponse.Scores)
+  return scores_;
+}
+ ::google::protobuf::RepeatedField< float >*
+RankFeatureResponse::mutable_scores() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankFeatureResponse.Scores)
+  return &scores_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankImageRequest::kContextFieldNumber;
+const int RankImageRequest::kImageFieldNumber;
+const int RankImageRequest::kInterestedAreasFieldNumber;
+const int RankImageRequest::kCandidatesFieldNumber;
+const int RankImageRequest::kMaxCandidatesFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankImageRequest::RankImageRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankImageRequest)
+}
+
+void RankImageRequest::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  context_ = const_cast< ::dg::model::RankRequestContext*>(&::dg::model::RankRequestContext::default_instance());
+  image_ = const_cast< ::dg::model::Image*>(&::dg::model::Image::default_instance());
+}
+
+RankImageRequest::RankImageRequest(const RankImageRequest& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankImageRequest)
+}
+
+void RankImageRequest::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  context_ = NULL;
+  image_ = NULL;
+  maxcandidates_ = 0;
+}
+
+RankImageRequest::~RankImageRequest() {
+  // @@protoc_insertion_point(destructor:dg.model.RankImageRequest)
+  SharedDtor();
+}
+
+void RankImageRequest::SharedDtor() {
+  if (this != default_instance_) {
+    delete context_;
+    delete image_;
+  }
+}
+
+void RankImageRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankImageRequest::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankImageRequest_descriptor_;
+}
+
+const RankImageRequest& RankImageRequest::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankImageRequest* RankImageRequest::default_instance_ = NULL;
+
+RankImageRequest* RankImageRequest::New(::google::protobuf::Arena* arena) const {
+  RankImageRequest* n = new RankImageRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankImageRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankImageRequest)
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+  image_ = NULL;
+  maxcandidates_ = 0;
+  interestedareas_.Clear();
+  candidates_.Clear();
+}
+
+bool RankImageRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankImageRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.RankRequestContext Context = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_context()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Image;
+        break;
+      }
+
+      // optional .dg.model.Image Image = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Image:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_image()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_InterestedAreas;
+        break;
+      }
+
+      // repeated .dg.model.Cutboard InterestedAreas = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_InterestedAreas:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_InterestedAreas:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_interestedareas()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_loop_InterestedAreas;
+        if (input->ExpectTag(34)) goto parse_loop_Candidates;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.FeatureVector Candidates = 4;
+      case 4: {
+        if (tag == 34) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Candidates:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_candidates()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_loop_Candidates;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(40)) goto parse_MaxCandidates;
+        break;
+      }
+
+      // optional int32 MaxCandidates = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_MaxCandidates:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &maxcandidates_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankImageRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankImageRequest)
+  return false;
+#undef DO_
+}
+
+void RankImageRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankImageRequest)
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->context_, output);
+  }
+
+  // optional .dg.model.Image Image = 2;
+  if (this->has_image()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->image_, output);
+  }
+
+  // repeated .dg.model.Cutboard InterestedAreas = 3;
+  for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->interestedareas(i), output);
+  }
+
+  // repeated .dg.model.FeatureVector Candidates = 4;
+  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, this->candidates(i), output);
+  }
+
+  // optional int32 MaxCandidates = 5;
+  if (this->maxcandidates() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->maxcandidates(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankImageRequest)
+}
+
+::google::protobuf::uint8* RankImageRequest::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankImageRequest)
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->context_, target);
+  }
+
+  // optional .dg.model.Image Image = 2;
+  if (this->has_image()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->image_, target);
+  }
+
+  // repeated .dg.model.Cutboard InterestedAreas = 3;
+  for (unsigned int i = 0, n = this->interestedareas_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->interestedareas(i), target);
+  }
+
+  // repeated .dg.model.FeatureVector Candidates = 4;
+  for (unsigned int i = 0, n = this->candidates_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, this->candidates(i), target);
+  }
+
+  // optional int32 MaxCandidates = 5;
+  if (this->maxcandidates() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->maxcandidates(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankImageRequest)
+  return target;
+}
+
+int RankImageRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankImageRequest)
+  int total_size = 0;
+
+  // optional .dg.model.RankRequestContext Context = 1;
+  if (this->has_context()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->context_);
+  }
+
+  // optional .dg.model.Image Image = 2;
+  if (this->has_image()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->image_);
+  }
+
+  // optional int32 MaxCandidates = 5;
+  if (this->maxcandidates() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->maxcandidates());
+  }
+
+  // repeated .dg.model.Cutboard InterestedAreas = 3;
+  total_size += 1 * this->interestedareas_size();
+  for (int i = 0; i < this->interestedareas_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->interestedareas(i));
+  }
+
+  // repeated .dg.model.FeatureVector Candidates = 4;
+  total_size += 1 * this->candidates_size();
+  for (int i = 0; i < this->candidates_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->candidates(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankImageRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankImageRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankImageRequest* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankImageRequest>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankImageRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankImageRequest)
+    MergeFrom(*source);
+  }
+}
+
+void RankImageRequest::MergeFrom(const RankImageRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankImageRequest)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  interestedareas_.MergeFrom(from.interestedareas_);
+  candidates_.MergeFrom(from.candidates_);
+  if (from.has_context()) {
+    mutable_context()->::dg::model::RankRequestContext::MergeFrom(from.context());
+  }
+  if (from.has_image()) {
+    mutable_image()->::dg::model::Image::MergeFrom(from.image());
+  }
+  if (from.maxcandidates() != 0) {
+    set_maxcandidates(from.maxcandidates());
+  }
+}
+
+void RankImageRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankImageRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankImageRequest::CopyFrom(const RankImageRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankImageRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankImageRequest::IsInitialized() const {
+
+  return true;
+}
+
+void RankImageRequest::Swap(RankImageRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankImageRequest::InternalSwap(RankImageRequest* other) {
+  std::swap(context_, other->context_);
+  std::swap(image_, other->image_);
+  interestedareas_.UnsafeArenaSwap(&other->interestedareas_);
+  candidates_.UnsafeArenaSwap(&other->candidates_);
+  std::swap(maxcandidates_, other->maxcandidates_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankImageRequest::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankImageRequest_descriptor_;
+  metadata.reflection = RankImageRequest_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankImageRequest
+
+// optional .dg.model.RankRequestContext Context = 1;
+bool RankImageRequest::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+void RankImageRequest::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+const ::dg::model::RankRequestContext& RankImageRequest::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+::dg::model::RankRequestContext* RankImageRequest::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankRequestContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Context)
+  return context_;
+}
+::dg::model::RankRequestContext* RankImageRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Context)
+  
+  ::dg::model::RankRequestContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+void RankImageRequest::set_allocated_context(::dg::model::RankRequestContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageRequest.Context)
+}
+
+// optional .dg.model.Image Image = 2;
+bool RankImageRequest::has_image() const {
+  return !_is_default_instance_ && image_ != NULL;
+}
+void RankImageRequest::clear_image() {
+  if (GetArenaNoVirtual() == NULL && image_ != NULL) delete image_;
+  image_ = NULL;
+}
+const ::dg::model::Image& RankImageRequest::image() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Image)
+  return image_ != NULL ? *image_ : *default_instance_->image_;
+}
+::dg::model::Image* RankImageRequest::mutable_image() {
+  
+  if (image_ == NULL) {
+    image_ = new ::dg::model::Image;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Image)
+  return image_;
+}
+::dg::model::Image* RankImageRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Image)
+  
+  ::dg::model::Image* temp = image_;
+  image_ = NULL;
+  return temp;
+}
+void RankImageRequest::set_allocated_image(::dg::model::Image* image) {
+  delete image_;
+  image_ = image;
+  if (image) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageRequest.Image)
+}
+
+// repeated .dg.model.Cutboard InterestedAreas = 3;
+int RankImageRequest::interestedareas_size() const {
+  return interestedareas_.size();
+}
+void RankImageRequest::clear_interestedareas() {
+  interestedareas_.Clear();
+}
+const ::dg::model::Cutboard& RankImageRequest::interestedareas(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Get(index);
+}
+::dg::model::Cutboard* RankImageRequest::mutable_interestedareas(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Mutable(index);
+}
+::dg::model::Cutboard* RankImageRequest::add_interestedareas() {
+  // @@protoc_insertion_point(field_add:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >*
+RankImageRequest::mutable_interestedareas() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageRequest.InterestedAreas)
+  return &interestedareas_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::Cutboard >&
+RankImageRequest::interestedareas() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageRequest.InterestedAreas)
+  return interestedareas_;
+}
+
+// repeated .dg.model.FeatureVector Candidates = 4;
+int RankImageRequest::candidates_size() const {
+  return candidates_.size();
+}
+void RankImageRequest::clear_candidates() {
+  candidates_.Clear();
+}
+const ::dg::model::FeatureVector& RankImageRequest::candidates(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.Candidates)
+  return candidates_.Get(index);
+}
+::dg::model::FeatureVector* RankImageRequest::mutable_candidates(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageRequest.Candidates)
+  return candidates_.Mutable(index);
+}
+::dg::model::FeatureVector* RankImageRequest::add_candidates() {
+  // @@protoc_insertion_point(field_add:dg.model.RankImageRequest.Candidates)
+  return candidates_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >*
+RankImageRequest::mutable_candidates() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageRequest.Candidates)
+  return &candidates_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::FeatureVector >&
+RankImageRequest::candidates() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageRequest.Candidates)
+  return candidates_;
+}
+
+// optional int32 MaxCandidates = 5;
+void RankImageRequest::clear_maxcandidates() {
+  maxcandidates_ = 0;
+}
+ ::google::protobuf::int32 RankImageRequest::maxcandidates() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageRequest.MaxCandidates)
+  return maxcandidates_;
+}
+ void RankImageRequest::set_maxcandidates(::google::protobuf::int32 value) {
+  
+  maxcandidates_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RankImageRequest.MaxCandidates)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RankImageResponse::kContextFieldNumber;
+const int RankImageResponse::kIdsFieldNumber;
+const int RankImageResponse::kScoresFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RankImageResponse::RankImageResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RankImageResponse)
+}
+
+void RankImageResponse::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  context_ = const_cast< ::dg::model::RankResponseContext*>(&::dg::model::RankResponseContext::default_instance());
+}
+
+RankImageResponse::RankImageResponse(const RankImageResponse& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RankImageResponse)
+}
+
+void RankImageResponse::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  context_ = NULL;
+}
+
+RankImageResponse::~RankImageResponse() {
+  // @@protoc_insertion_point(destructor:dg.model.RankImageResponse)
+  SharedDtor();
+}
+
+void RankImageResponse::SharedDtor() {
+  if (this != default_instance_) {
+    delete context_;
+  }
+}
+
+void RankImageResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RankImageResponse::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RankImageResponse_descriptor_;
+}
+
+const RankImageResponse& RankImageResponse::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ranker_2eproto();
+  return *default_instance_;
+}
+
+RankImageResponse* RankImageResponse::default_instance_ = NULL;
+
+RankImageResponse* RankImageResponse::New(::google::protobuf::Arena* arena) const {
+  RankImageResponse* n = new RankImageResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RankImageResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankImageResponse)
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+  ids_.Clear();
+  scores_.Clear();
+}
+
+bool RankImageResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RankImageResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .dg.model.RankResponseContext Context = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_context()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Ids;
+        break;
+      }
+
+      // repeated int64 Ids = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Ids:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, this->mutable_ids())));
+        } else if (tag == 16) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 1, 18, input, this->mutable_ids())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Scores;
+        break;
+      }
+
+      // repeated float Scores = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Scores:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, this->mutable_scores())));
+        } else if (tag == 29) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 1, 26, input, this->mutable_scores())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RankImageResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RankImageResponse)
+  return false;
+#undef DO_
+}
+
+void RankImageResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RankImageResponse)
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      1, *this->context_, output);
+  }
+
+  // repeated int64 Ids = 2;
+  if (this->ids_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_ids_cached_byte_size_);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64NoTag(
+      this->ids(i), output);
+  }
+
+  // repeated float Scores = 3;
+  if (this->scores_size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteTag(3, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
+    output->WriteVarint32(_scores_cached_byte_size_);
+  }
+  for (int i = 0; i < this->scores_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloatNoTag(
+      this->scores(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RankImageResponse)
+}
+
+::google::protobuf::uint8* RankImageResponse::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankImageResponse)
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        1, *this->context_, target);
+  }
+
+  // repeated int64 Ids = 2;
+  if (this->ids_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      2,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _ids_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->ids_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteInt64NoTagToArray(this->ids(i), target);
+  }
+
+  // repeated float Scores = 3;
+  if (this->scores_size() > 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
+      3,
+      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
+      target);
+    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
+      _scores_cached_byte_size_, target);
+  }
+  for (int i = 0; i < this->scores_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteFloatNoTagToArray(this->scores(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankImageResponse)
+  return target;
+}
+
+int RankImageResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankImageResponse)
+  int total_size = 0;
+
+  // optional .dg.model.RankResponseContext Context = 1;
+  if (this->has_context()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->context_);
+  }
+
+  // repeated int64 Ids = 2;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->ids_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int64Size(this->ids(i));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _ids_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  // repeated float Scores = 3;
+  {
+    int data_size = 0;
+    data_size = 4 * this->scores_size();
+    if (data_size > 0) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
+    }
+    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+    _scores_cached_byte_size_ = data_size;
+    GOOGLE_SAFE_CONCURRENT_WRITES_END();
+    total_size += data_size;
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RankImageResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankImageResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RankImageResponse* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RankImageResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankImageResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankImageResponse)
+    MergeFrom(*source);
+  }
+}
+
+void RankImageResponse::MergeFrom(const RankImageResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankImageResponse)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  ids_.MergeFrom(from.ids_);
+  scores_.MergeFrom(from.scores_);
+  if (from.has_context()) {
+    mutable_context()->::dg::model::RankResponseContext::MergeFrom(from.context());
+  }
+}
+
+void RankImageResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankImageResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RankImageResponse::CopyFrom(const RankImageResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankImageResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RankImageResponse::IsInitialized() const {
+
+  return true;
+}
+
+void RankImageResponse::Swap(RankImageResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RankImageResponse::InternalSwap(RankImageResponse* other) {
+  std::swap(context_, other->context_);
+  ids_.UnsafeArenaSwap(&other->ids_);
+  scores_.UnsafeArenaSwap(&other->scores_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RankImageResponse::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RankImageResponse_descriptor_;
+  metadata.reflection = RankImageResponse_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RankImageResponse
+
+// optional .dg.model.RankResponseContext Context = 1;
+bool RankImageResponse::has_context() const {
+  return !_is_default_instance_ && context_ != NULL;
+}
+void RankImageResponse::clear_context() {
+  if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
+  context_ = NULL;
+}
+const ::dg::model::RankResponseContext& RankImageResponse::context() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Context)
+  return context_ != NULL ? *context_ : *default_instance_->context_;
+}
+::dg::model::RankResponseContext* RankImageResponse::mutable_context() {
+  
+  if (context_ == NULL) {
+    context_ = new ::dg::model::RankResponseContext;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RankImageResponse.Context)
+  return context_;
+}
+::dg::model::RankResponseContext* RankImageResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.RankImageResponse.Context)
+  
+  ::dg::model::RankResponseContext* temp = context_;
+  context_ = NULL;
+  return temp;
+}
+void RankImageResponse::set_allocated_context(::dg::model::RankResponseContext* context) {
+  delete context_;
+  context_ = context;
+  if (context) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankImageResponse.Context)
+}
+
+// repeated int64 Ids = 2;
+int RankImageResponse::ids_size() const {
+  return ids_.size();
+}
+void RankImageResponse::clear_ids() {
+  ids_.Clear();
+}
+ ::google::protobuf::int64 RankImageResponse::ids(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Ids)
+  return ids_.Get(index);
+}
+ void RankImageResponse::set_ids(int index, ::google::protobuf::int64 value) {
+  ids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankImageResponse.Ids)
+}
+ void RankImageResponse::add_ids(::google::protobuf::int64 value) {
+  ids_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankImageResponse.Ids)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::int64 >&
+RankImageResponse::ids() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageResponse.Ids)
+  return ids_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::int64 >*
+RankImageResponse::mutable_ids() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageResponse.Ids)
+  return &ids_;
+}
+
+// repeated float Scores = 3;
+int RankImageResponse::scores_size() const {
+  return scores_.size();
+}
+void RankImageResponse::clear_scores() {
+  scores_.Clear();
+}
+ float RankImageResponse::scores(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RankImageResponse.Scores)
+  return scores_.Get(index);
+}
+ void RankImageResponse::set_scores(int index, float value) {
+  scores_.Set(index, value);
+  // @@protoc_insertion_point(field_set:dg.model.RankImageResponse.Scores)
+}
+ void RankImageResponse::add_scores(float value) {
+  scores_.Add(value);
+  // @@protoc_insertion_point(field_add:dg.model.RankImageResponse.Scores)
+}
+ const ::google::protobuf::RepeatedField< float >&
+RankImageResponse::scores() const {
+  // @@protoc_insertion_point(field_list:dg.model.RankImageResponse.Scores)
+  return scores_;
+}
+ ::google::protobuf::RepeatedField< float >*
+RankImageResponse::mutable_scores() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RankImageResponse.Scores)
+  return &scores_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 
@@ -228,8 +3640,17 @@ FeatureRankingRequest* FeatureRankingRequest::New(::google::protobuf::Arena* are
 }
 
 void FeatureRankingRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.FeatureRankingRequest)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(FeatureRankingRequest, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<FeatureRankingRequest*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -251,7 +3672,7 @@ void FeatureRankingRequest::Clear() {
 
 bool FeatureRankingRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingRequest)
   for (;;) {
@@ -485,6 +3906,7 @@ void FeatureRankingRequest::SerializeWithCachedSizes(
 }
 
 int FeatureRankingRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.FeatureRankingRequest)
   int total_size = 0;
 
   // optional int64 ReqId = 1;
@@ -545,18 +3967,22 @@ int FeatureRankingRequest::ByteSize() const {
 }
 
 void FeatureRankingRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.FeatureRankingRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const FeatureRankingRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.FeatureRankingRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.FeatureRankingRequest)
     MergeFrom(*source);
   }
 }
 
 void FeatureRankingRequest::MergeFrom(const FeatureRankingRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.FeatureRankingRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   interestedareas_.MergeFrom(from.interestedareas_);
   disabledareas_.MergeFrom(from.disabledareas_);
@@ -576,12 +4002,14 @@ void FeatureRankingRequest::MergeFrom(const FeatureRankingRequest& from) {
 }
 
 void FeatureRankingRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.FeatureRankingRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void FeatureRankingRequest::CopyFrom(const FeatureRankingRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.FeatureRankingRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -668,6 +4096,7 @@ const ::dg::model::Image& FeatureRankingRequest::image() const {
   return image_;
 }
 ::dg::model::Image* FeatureRankingRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.FeatureRankingRequest.Image)
   
   ::dg::model::Image* temp = image_;
   image_ = NULL;
@@ -858,6 +4287,7 @@ FeatureRankingResponse* FeatureRankingResponse::New(::google::protobuf::Arena* a
 }
 
 void FeatureRankingResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.FeatureRankingResponse)
   reqid_ = GOOGLE_LONGLONG(0);
   ids_.Clear();
   scores_.Clear();
@@ -865,7 +4295,7 @@ void FeatureRankingResponse::Clear() {
 
 bool FeatureRankingResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.FeatureRankingResponse)
   for (;;) {
@@ -1016,6 +4446,7 @@ void FeatureRankingResponse::SerializeWithCachedSizes(
 }
 
 int FeatureRankingResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.FeatureRankingResponse)
   int total_size = 0;
 
   // optional int64 ReqId = 1;
@@ -1063,18 +4494,22 @@ int FeatureRankingResponse::ByteSize() const {
 }
 
 void FeatureRankingResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.FeatureRankingResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const FeatureRankingResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FeatureRankingResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.FeatureRankingResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.FeatureRankingResponse)
     MergeFrom(*source);
   }
 }
 
 void FeatureRankingResponse::MergeFrom(const FeatureRankingResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.FeatureRankingResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   ids_.MergeFrom(from.ids_);
   scores_.MergeFrom(from.scores_);
@@ -1084,12 +4519,14 @@ void FeatureRankingResponse::MergeFrom(const FeatureRankingResponse& from) {
 }
 
 void FeatureRankingResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.FeatureRankingResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void FeatureRankingResponse::CopyFrom(const FeatureRankingResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.FeatureRankingResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
