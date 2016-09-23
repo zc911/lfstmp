@@ -88,7 +88,6 @@ void PhoneCaffeSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob 
         }
         int cls = top_data[j * 7 + 1];
         float score = top_data[j * 7 + 2];
-
         if (!(cls == 1 || cls == 5))
             continue;
 
