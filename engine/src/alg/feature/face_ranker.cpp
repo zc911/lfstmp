@@ -16,6 +16,7 @@ FaceRanker::FaceRanker() {
 FaceRanker::~FaceRanker() {
 }
 
+
 void FaceRanker::Sort(vector<Score> &scores, int left, int right) {
     int i = left, j = right;
     Score tmp;
@@ -37,6 +38,10 @@ void FaceRanker::Sort(vector<Score> &scores, int left, int right) {
         Sort(scores, left, j);
     if (i < right)
         Sort(scores, i, right);
+}
+
+vector<Score> FaceRanker::Rank(const FaceRankFeature *datum) {
+
 }
 
 vector<Score> FaceRanker::Rank(const FaceRankFeature &datum,
