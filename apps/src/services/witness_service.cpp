@@ -144,11 +144,13 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             break;
         case RECFUNC_VEHICLE_DRIVER_PHONE:
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_CODRIVER_BELT);
+                op.Set(OPERATION_DRIVER_PHONE);
+
             break;
         case RECFUNC_VEHICLE_CODRIVER_NOBELT:
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_DRIVER_PHONE);
+                op.Set(OPERATION_CODRIVER_BELT);
+
             break;
         default:
             break;

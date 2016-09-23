@@ -111,7 +111,7 @@ bool VehicleWindowDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
 
-    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER);
+    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER | OPERATION_DRIVER_PHONE | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;
