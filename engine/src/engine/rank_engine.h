@@ -41,17 +41,17 @@ public:
     SimpleRankEngine(const Config &config);
     virtual ~SimpleRankEngine();
 
-    void RankCar(CarRankFrame * frame);
-    void RankFace(FaceRankFrame * frame);
+    void RankCar(CarRankFrame *frame);
+    void RankFace(FaceRankFrame *frame);
 
 private:
     Identification id_;
-    Processor *car_ranker_=NULL;
+    Processor *car_ranker_ = NULL;
     bool enable_ranker_face_;
     bool enable_ranker_car_;
-    Processor *face_detector_=NULL;
-    Processor *face_extractor_=NULL;
-    Processor *face_ranker_=NULL;
+//    Processor *face_detector_ = NULL;
+//    Processor *face_extractor_ = NULL;
+    Processor *face_ranker_ = NULL;
 };
 
 // class FaceRankEngine: public RankEngine {
@@ -69,6 +69,6 @@ private:
 //     Processor *ranker_;
 // };
 
- }
+}
 
 #endif //MATRIX_ENGINE_RANK_ENGINE_H_
