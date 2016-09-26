@@ -3,9 +3,10 @@
 //
 
 #include "face_dlib_detector.h"
+#include "alg/caffe_helper.h"
+
 /*======================= Dlib detector ========================= */
 namespace dg {
-typedef std::pair<float, cv::Rect> Bbox;
 FaceDlibDetector::FaceDlibDetector(FaceDetectorConfig &config)
     : img_scale_max_(config.img_scale_max), img_scale_min_(config.img_scale_min),
       _detector(dlib::get_frontal_face_detector()) {
@@ -17,7 +18,7 @@ FaceDlibDetector::~FaceDlibDetector() {
 int FaceDlibDetector::Detect( std::vector<cv::Mat> &imgs,vector<vector<Detection>> &detections) {
     for (size_t idx = 0; idx < imgs.size(); idx++) {
         Mat img = imgs[idx];
-        LOG(INFO)<<img.rows;
+        float resize_ratio = ReScaleImage(img, img_scale_min_,img_scale_max_);
         if (img.channels() == 4)
             cvtColor(img, img, COLOR_BGRA2GRAY);
         else if (img.channels() == 3)
@@ -36,11 +37,10 @@ int FaceDlibDetector::Detect( std::vector<cv::Mat> &imgs,vector<vector<Detection
             auto &det = dets[i];
             entry.confidence = det.first; //confidence
             dlib_rect2cv(det.second, entry.box); //bbox
-            LOG(INFO)<<det.first;
-            entry.box.x /= 2;
-            entry.box.y /= 2;
-            entry.box.width /= 2;
-            entry.box.height /= 2;
+            entry.box.x /= (2*resize_ratio);
+            entry.box.y /= (2*resize_ratio);
+            entry.box.width /= (2*resize_ratio);
+            entry.box.height /= (2*resize_ratio);
             boxes.push_back(entry);
         }
         detections.push_back(boxes);

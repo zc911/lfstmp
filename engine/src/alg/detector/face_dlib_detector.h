@@ -23,8 +23,8 @@ class FaceDlibDetector : public FaceDetector {
 
 public:
     typedef struct {
-        int img_scale_min = 30;
-        int img_scale_max = 40;
+        int img_scale_min = 240;
+        int img_scale_max = 640;
     } FaceDetectorConfig;
     FaceDlibDetector(FaceDetectorConfig &config);
     virtual ~FaceDlibDetector();
