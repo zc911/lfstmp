@@ -27,10 +27,26 @@ FaceDetectProcessor::~FaceDetectProcessor() {
         delete detector_;
 }
 
+static void noDetection(Frame *frame) {
+    cv::Mat data = frame->payload()->data();
+    Detection detection;
+    detection.id = DETECTION_FACE;
+    detection.box = cv::Rect(0, 0, data.rows, data.cols);
+    detection.confidence = 1.0;
+
+    Face *face = new Face(0, detection, 1.0);
+    face->set_image(frame->payload()->data());
+    frame->objects().push_back((Object *) face);
+}
+
 bool FaceDetectProcessor::process(Frame *frame) {
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
-        VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
+        VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << " does not need face detect" << endl;
+        if (frame->operation().Check(OPERATION_FACE_FEATURE_VECTOR)) {
+            noDetection(frame);
+            return true;
+        }
         return false;
     }
     Mat data = frame->payload()->data();
@@ -58,16 +74,25 @@ bool FaceDetectProcessor::process(Frame *frame) {
     }
 }
 
+
+
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
+    vector<Mat> imgs;
+    map<int, bool> withoutDetection;
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
         if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
-            VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
+            VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << " does not need face detect"
                 << endl;
+            if (frame->operation().Check(OPERATION_FACE_FEATURE_VECTOR)) {
+                noDetection(frame);
+            }
+            withoutDetection.insert(std::pair<int, bool>(i, true));
             continue;
+
         }
 
         Mat data = frame->payload()->data();
@@ -77,11 +102,24 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             continue;
         }
 
-        vector<Mat> imgs;
+
         imgs.push_back(data);
         performance_++;
 
-        vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+    }
+
+    if (imgs.size() == 0) {
+        return true;
+    }
+
+    vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+    for (int i = 0; i < frameBatch->frames().size(); ++i) {
+        // this frame was not detected
+        if (withoutDetection.count(i)) {
+            continue;
+        }
+
+        Frame *frame = frameBatch->frames()[i];
 
         for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
             Detection detection = boxes_in[0][bbox_id];
@@ -93,6 +131,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             frame->put_object(face);
         }
     }
+
 
     return true;
 }

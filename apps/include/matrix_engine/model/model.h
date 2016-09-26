@@ -40,9 +40,9 @@ enum DetectionTypeId {
     DETECTION_CAR = 1,
     DETECTION_PEDESTRIAN = 2,
     DETECTION_BICYCLE = 3,
-    DETECTION_TRICYCLE = 4
+    DETECTION_TRICYCLE = 4,
+    DETECTION_FACE = 5
 };
-
 
 
 typedef struct Detection {
@@ -60,14 +60,14 @@ typedef struct Detection {
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-               << det.box.y << "," << det.box.width << "," << det.box.height
-               << "] Conf: " << det.confidence;
+            << det.box.y << "," << det.box.width << "," << det.box.height
+            << "] Conf: " << det.confidence;
     }
 
 } Detection;
 
 class Object {
-public:
+ public:
     Object(ObjectType type)
         : id_(0),
           type_(type),
@@ -127,7 +127,7 @@ public:
         type_ = type;
     }
 
-protected:
+ protected:
     Identification id_;
     Confidence confidence_;
     ObjectType type_;
@@ -136,7 +136,7 @@ protected:
 
 };
 class Marker: public Object {
-public:
+ public:
     Marker(ObjectType type)
         : Object(type),
           class_id_(-1) {
@@ -152,13 +152,13 @@ public:
         class_id_ = id;
     }
 
-private:
+ private:
     Identification class_id_;
 
 };
 
 class Pedestrian: public Object {
-public:
+ public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -194,14 +194,14 @@ public:
         threshold_ = threshold;
     }
 
-private:
+ private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
     std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {
-public:
+ public:
 
     typedef struct {
         Identification class_id = -1;
@@ -291,7 +291,7 @@ public:
     void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
-private:
+ private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -305,7 +305,7 @@ private:
 
 class Face: public Object {
 
-public:
+ public:
     Face()
         : Object(OBJECT_FACE) {
 
@@ -342,7 +342,7 @@ public:
         image_ = image;
     }
 
-private:
+ private:
     cv::Mat image_;
     FaceRankFeature feature_;
 };
