@@ -191,14 +191,14 @@ static float ReScaleImage(Mat &img, unsigned int img_min, unsigned int img_max) 
 
     if (img.rows > img_max && img.cols > img_max) {
         resize_ratio = float(img_max) / min(img.cols, img.rows);
-        LOG(INFO)<<resize_ratio;
+        LOG(INFO) << resize_ratio;
         resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
 
         resize(img, img, resize_r_c);
 
     } else if (img.rows < img_min || img.cols < img_min) {
         resize_ratio = float(img_min) / min(img.cols, img.rows);
-                LOG(INFO)<<resize_ratio;
+        LOG(INFO) << resize_ratio;
 
         resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
 
@@ -564,6 +564,24 @@ static float ReScaleImage(Mat &img, unsigned int scale) {
     }
 
     return resize_ratio;
+}
+static pair<int, int> CatImg(cv::Mat &img, int target_cols, int target_rows) {
+    int origin_width = img.cols;
+    int origin_height = img.rows;
+    pair<int, int> added;
+    added.first = 0;
+    added.second = 0;
+    if (origin_height  < target_rows) {
+        Mat rows = Mat::zeros(target_rows - origin_height, target_cols, img.type()); // +1 for input > 0
+        img.push_back(rows);
+        added.second = target_rows - origin_height;
+    }
+    if (origin_width < target_cols) {
+        Mat cols = Mat::zeros(target_rows, target_cols - origin_width, img.type()); // +1 for input > 0
+        cv::hconcat(img, cols, img);
+        added.first = target_cols - origin_width;
+    }
+    return added;
 }
 }
 
