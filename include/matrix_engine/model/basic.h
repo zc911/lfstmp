@@ -126,7 +126,6 @@ typedef struct Operation {
     }
 
     bool Check(Operations op) {
-        LOG(INFO)<<operate;
         return (operate & op);
     }
 
