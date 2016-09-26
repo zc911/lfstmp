@@ -8,11 +8,15 @@ bool mycmp(Detection b1, Detection b2) {
 }
 
 FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
-    : layer_name_cls_(config.layer_name_cls),layer_name_reg_(config.layer_name_reg),scale_(config.scale),
+    : layer_name_cls_(config.layer_name_cls),
+      layer_name_reg_(config.layer_name_reg),
+      scale_(config.scale),
+      img_scale_max_(config.img_scale_max),
+      img_scale_min_(config.img_scale_min),
       batch_size_(config.batch_size),
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
-    gpu_id_=config.gpu_id;
+    gpu_id_ = config.gpu_id;
     if (use_gpu_) {
         Caffe::SetDevice(config.gpu_id);
         Caffe::set_mode(Caffe::GPU);
@@ -21,6 +25,7 @@ FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
         Caffe::set_mode(Caffe::CPU);
         use_gpu_ = false;
     }
+    LOG(INFO) << config.deploy_file << " " << config.model_file;
 
     ModelsMap *modelsMap = ModelsMap::GetInstance();
     string deploy_content;
@@ -30,7 +35,6 @@ FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
     string model_content;
     modelsMap->getModelContent(config.model_file, model_content);
     net_->CopyTrainedLayersFrom(config.model_file, model_content);
-
 
 
     CHECK_EQ(net_->num_inputs(), 1) << "Network should have exactly one input.";
@@ -53,12 +57,7 @@ FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
     area_.push_back(64 * 24 * 24);
 
     ratio_.push_back(1);
-    sliding_window_stride_=16;
-    vector<int> shape;
-    shape.push_back(batch_size_);
-    shape.push_back(3);
-    shape.push_back(scale_);
-    shape.push_back(scale_);
+    sliding_window_stride_ = 16;
 
     /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
        const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
@@ -72,8 +71,11 @@ FaceCaffeDetector::~FaceCaffeDetector() {
 
 }
 
-void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs,
-                           vector<Blob<float> *> &outputs) {
+void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs, vector<vector<Detection> > &final_vbbox) {
+    if (imgs.size() == 0)
+        return;
+        final_vbbox.resize(imgs.size());
+
     int scale_num = area_.size() * ratio_.size();
 
     Blob<float>* input_blob = net_->input_blobs()[0];
@@ -82,81 +84,48 @@ void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs,
     input_blob->Reshape(shape);
     net_->Reshape();
     float* input_data = input_blob->mutable_cpu_data();
-    for(size_t i = 0; i < imgs.size(); i++)
+    resize_ratios_.clear();
+
+    for (size_t i = 0; i < imgs.size(); i++)
     {
         Mat sample;
         Mat img = imgs[i];
         // images from the same batch should have the same size
-        GenerateSample(num_channels_, img, sample);
+        float resize_ratio = ReScaleImage(img, img_scale_min_, img_scale_max_ );
+        resize_ratios_.push_back(resize_ratio);
+        CheckChannel(img, num_channels_, sample);
+        assert(img.rows == image_size.height && img.cols == image_size.width);
+        //GenerateSample(num_channels_, img, sample);
 
         size_t image_off = i * sample.channels() * sample.rows * sample.cols;
-        for(int k = 0; k < sample.channels(); k++)
+        for (int k = 0; k < sample.channels(); k++)
         {
             size_t channel_off = k * sample.rows * sample.cols;
-            for(int row = 0; row < sample.rows; row++)
+            for (int row = 0; row < sample.rows; row++)
             {
                 size_t row_off = row * sample.cols;
-                for(int col = 0; col < sample.cols; col++)
+                for (int col = 0; col < sample.cols; col++)
                 {
                     input_data[image_off + channel_off + row_off + col] =
-                        (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k]) / scale_;
+                        (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k]) / 1;
+
                 }
             }
         }
     }
+    cout << endl;
     net_->ForwardPrefilled();
-    if(use_gpu_)
+    if (use_gpu_)
     {
         cudaDeviceSynchronize();
     }
 
-    outputs.resize(0);
-    Blob<float> *output_cls = net_->blob_by_name(layer_name_cls_).get();
-    Blob<float> *output_reg = net_->blob_by_name(layer_name_reg_).get();
-    outputs.push_back(output_cls);
-    outputs.push_back(output_reg);
-}
+    auto cls = net_->blob_by_name(layer_name_cls_);
+    auto reg = net_->blob_by_name(layer_name_reg_);
 
-void FaceCaffeDetector::NMS(vector<Detection> &p, float threshold) {
-    sort(p.begin(), p.end(), mycmp);
-    for (size_t i = 0; i < p.size(); ++i) {
-        if (p[i].deleted)
-            continue;
-        for (size_t j = i + 1; j < p.size(); ++j) {
-
-            if (!p[j].deleted) {
-                cv::Rect intersect = p[i].box & p[j].box;
-                float iou = intersect.area() * 1.0f / p[j].box.area();
-                if (iou > threshold) {
-                    p[j].deleted = true;
-                }
-            }
-        }
-    }
-}
-
-int FaceCaffeDetector::Detect(vector<cv::Mat> &imgs,
-                            vector<vector<Detection> > &boxes){
-    if (!device_setted_) {
-        Caffe::SetDevice(gpu_id_);
-        Caffe::set_mode(Caffe::GPU);
-        device_setted_ = true;
-    }
-
-    vector<Blob<float> *> outputs;
-    Forward(imgs, outputs);
-    GetDetection(outputs, boxes,imgs);
-    return 1;
-}
-
-void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
-                                vector<vector<Detection> > &final_vbbox,vector<cv::Mat> &imgs) {
-    Blob<float> *cls = outputs[0];
-    Blob<float> *reg = outputs[1];
     final_vbbox.clear();
     final_vbbox.resize(0);
     final_vbbox.resize(cls->num());
-    int scale_num = area_.size() * ratio_.size();
 
     assert(cls->channels() == scale_num * 2);
     assert(reg->channels() == scale_num * 4);
@@ -167,21 +136,15 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
     const float* cls_cpu = cls->cpu_data();
     const float* reg_cpu = reg->cpu_data();
 
-#ifdef SHOW_DEBUG
-    cout << "[debug num, channels, height, width] " << cls->num() << " " << cls->channels() << " " << cls->height() << " " << cls->width() << endl;
-    cout << "[scale_num]" << scale_num << endl;
-    cout << "[debug stride, h,w] " << _stride << " " << cls->height()  << " " << cls->width()<< endl;
-#endif
 
     vector<Detection> vbbox;
-    vector<bool> deleted_mark;
     vector<float> gt_ww, gt_hh;
     gt_ww.resize(scale_num);
     gt_hh.resize(scale_num);
 
-    for(size_t i = 0; i < area_.size(); i++)
+    for (size_t i = 0; i < area_.size(); i++)
     {
-        for(size_t j = 0; j < ratio_.size(); j++)
+        for (size_t j = 0; j < ratio_.size(); j++)
         {
             int index = i * ratio_.size() + j;
             gt_ww[index] = sqrt(area_[i] * ratio_[j]);
@@ -196,23 +159,25 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
         for (int scale_idx = 0; scale_idx < scale_num; scale_idx++)
         {
             int skip = cls->height() * cls->width();
-            for(int h = 0; h < cls->height(); h++)
+            for (int h = 0; h < cls->height(); h++)
             {
-                for(int w = 0; w < cls->width(); w++)
+                for (int w = 0; w < cls->width(); w++)
                 {
                     float confidence;
                     float rect[4] = {};
                     {
                         float x0 = cls_cpu[cls_index];
                         float x1 = cls_cpu[cls_index + skip];
+
                         float min_01 = min(x1, x0);
                         x0 -= min_01;
                         x1 -= min_01;
                         confidence = exp(x1) / (exp(x1) + exp(x0));
                     }
-                    if( confidence > conf_thres_)
+                    if ( confidence > conf_thres_)
                     {
-                        for(int j = 0; j < 4; j++)
+
+                        for (int j = 0; j < 4; j++)
                         {
                             rect[j] = reg_cpu[reg_index + j * skip];
                         }
@@ -227,8 +192,9 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
                         Detection bbox;
                         bbox.confidence   = confidence;
                         bbox.box  = Rect(rect[0], rect[1], rect[2], rect[3]);
-                        bbox.box &= Rect(0, 0, imgs[img_idx].rows,imgs[img_idx].cols);
-                        deleted_mark.push_back(false);
+                        bbox.box &= Rect(0, 0, imgs[img_idx].rows, imgs[img_idx].cols);
+                        bbox.deleted = false;
+                        vbbox.push_back(bbox);
                     }
 
                     cls_index += 1;
@@ -242,13 +208,53 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
         NMS(vbbox, 0.3);
         for (size_t i = 0; i < vbbox.size(); ++i) {
             Detection detection = vbbox[i];
-
             if (!detection.deleted) {
-
-                final_vbbox[img_idx].push_back(vbbox[i]);
+                float ratio = resize_ratios_[img_idx];
+                detection.Rescale(ratio);
+                final_vbbox[img_idx].push_back(detection);
             }
         }
     }
+}
+
+void FaceCaffeDetector::NMS(vector<Detection> &p, float threshold) {
+    sort(p.begin(), p.end(), mycmp);
+    for (size_t i = 0; i < p.size(); ++i) {
+        if (p[i].deleted)
+            continue;
+        for (size_t j = i + 1; j < p.size(); ++j) {
+
+            if (!p[j].deleted) {
+                cv::Rect intersect = p[i].box & p[j].box;
+                float iou = intersect.area() * 1.0f / (p[j].box.area() + p[i].box.area() - intersect.area());
+                if (iou > threshold) {
+                    p[j].deleted = true;
+                }
+            }
+        }
+    }
+}
+
+int FaceCaffeDetector::Detect(vector<cv::Mat> &imgs,
+                              vector<vector<Detection> > &boxes) {
+    if (!device_setted_) {
+        Caffe::SetDevice(gpu_id_);
+        Caffe::set_mode(Caffe::GPU);
+        device_setted_ = true;
+    }
+
+    //  vector<Blob<float> *> outputs;
+
+    Forward(imgs, boxes);
+
+    // GetDetection(outputs, boxes, imgs);
+
+    return 1;
+}
+
+void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
+                                     vector<vector<Detection> > &final_vbbox, vector<cv::Mat> &imgs) {
+
 }
 
 } /* namespace dg */

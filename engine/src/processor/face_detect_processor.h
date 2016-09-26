@@ -35,6 +35,9 @@ protected:
 private:
 	FaceDetector *detector_ = NULL;
 	int base_id_;
+	vector<Mat> imgs_;
+	vector<Object *> objs_;
+
 };
 
 } /* namespace dg */
