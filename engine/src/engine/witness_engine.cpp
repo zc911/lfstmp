@@ -409,12 +409,14 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        //FaceDetector::FaceDetectorConfig fdconfig;
-        //configFilter->createFaceDetectorConfig(config, fdconfig);
-        //face_processor_ = new FaceDetectProcessor(fdconfig);
-        FaceDlibDetector::FaceDetectorConfig fdconfig;
-        face_processor_ = new FaceDetectProcessor(fdconfig);
-
+        if(config.Value(ADVANCED_FACE_DETECT_METHOD)){
+            FaceCaffeDetector::FaceDetectorConfig fdconfig;
+            configFilter->createFaceDetectorConfig(config, fdconfig);
+            face_processor_ = new FaceDetectProcessor(fdconfig);
+        }else{
+            FaceDlibDetector::FaceDetectorConfig fdconfig;
+            face_processor_ = new FaceDetectProcessor(fdconfig);
+        }
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
