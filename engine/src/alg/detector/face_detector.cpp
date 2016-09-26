@@ -8,7 +8,7 @@ bool mycmp(Detection b1, Detection b2) {
 }
 
 FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
-    : scale_(config.scale),
+    : layer_name_cls_(config.layer_name_cls),layer_name_reg_(config.layer_name_reg),scale_(config.scale),
       batch_size_(config.batch_size),
       conf_thres_(config.confidence) {
     use_gpu_ = config.use_gpu;
@@ -40,27 +40,26 @@ FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
     num_channels_ = input_layer->channels();
     CHECK(num_channels_ == 3 || num_channels_ == 1)
             << "Input layer should have 1 or 3 channels.";
-    pixel_means_.push_back(102.9801);
-    pixel_means_.push_back(115.9465);
-    pixel_means_.push_back(122.7717);
+    pixel_means_.push_back(128);
+    pixel_means_.push_back(128);
+    pixel_means_.push_back(128);
 
-    layer_name_cls_ = "conv_face_16_cls";
-    layer_name_reg_ = "conv_face_16_reg";
-    sliding_window_stride_ = 16;
+    area_.push_back(1 * 24 * 24);
     area_.push_back(2 * 24 * 24);
-    area_.push_back(48 * 48);
-    area_.push_back(2 * 48 * 48);
-    area_.push_back(96 * 96);
-    area_.push_back(2 * 96 * 96);
-    ratio_.push_back(1);
+    area_.push_back(4 * 24 * 24);
+    area_.push_back(8 * 24 * 24);
+    area_.push_back(16 * 24 * 24);
+    area_.push_back(32 * 24 * 24);
+    area_.push_back(64 * 24 * 24);
 
+    ratio_.push_back(1);
+    sliding_window_stride_=16;
     vector<int> shape;
     shape.push_back(batch_size_);
     shape.push_back(3);
     shape.push_back(scale_);
     shape.push_back(scale_);
-    input_layer->Reshape(shape);
-    net_->Reshape();
+
     /*   const vector<boost::shared_ptr<Layer<float> > > &layers = net_->layers();
        const vector<vector<Blob<float> *> > &bottom_vecs = net_->bottom_vecs();
        const vector<vector<Blob<float> *> > &top_vecs = net_->top_vecs();
@@ -75,70 +74,39 @@ FaceCaffeDetector::~FaceCaffeDetector() {
 
 void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs,
                            vector<Blob<float> *> &outputs) {
-    Blob<float> *input_layer = net_->input_blobs()[0];
+    int scale_num = area_.size() * ratio_.size();
 
-    int max_width = 0;
-    int max_height = 0;
-    vector<Mat> samples;
-
-    for (int i = 0; i < imgs.size(); ++i) {
-        Mat img = imgs[i];
-        Mat sample;
-        float resize_ratio = ReScaleImage(img, scale_);
-        CheckChannel(img, num_channels_, sample);
-        resize_ratios_.push_back(resize_ratio);
-        samples.push_back(sample);
-
-        if (max_width < sample.cols) {
-            max_width = sample.cols;
-        }
-        if (max_height < sample.rows) {
-            max_height = sample.rows;
-        }
-    }
-
-    vector<int> shape;
-    shape.push_back(imgs.size());
-    shape.push_back(3);
-    shape.push_back(max_height);
-    shape.push_back(max_width);
-    input_layer->Reshape(shape);
+    Blob<float>* input_blob = net_->input_blobs()[0];
+    Size image_size = Size(imgs[0].cols, imgs[0].rows);
+    vector<int> shape = {static_cast<int>(imgs.size()), 3, image_size.height, image_size.width};
+    input_blob->Reshape(shape);
     net_->Reshape();
+    float* input_data = input_blob->mutable_cpu_data();
+    for(size_t i = 0; i < imgs.size(); i++)
+    {
+        Mat sample;
+        Mat img = imgs[i];
+        // images from the same batch should have the same size
+        GenerateSample(num_channels_, img, sample);
 
-    resize_ratios_.clear();
-
-    for (size_t i = 0; i < samples.size(); ++i) {
-
-//        if (resized.channels() == 3 && num_channels_ == 1)
-//            cvtColor(resized, sample, CV_BGR2GRAY);
-//        else if (resized.channels() == 4 && num_channels_ == 1)
-//            cvtColor(resized, sample, CV_BGRA2GRAY);
-//        else if (resized.channels() == 4 && num_channels_ == 3)
-//            cvtColor(resized, sample, CV_RGBA2BGR);
-//        else if (resized.channels() == 1 && num_channels_ == 3)
-//            cvtColor(resized, sample, CV_GRAY2BGR);
-//        else
-//            sample = resized;
-
-        Mat sample = samples[i];
-        float *input_data = input_layer->mutable_cpu_data();
         size_t image_off = i * sample.channels() * sample.rows * sample.cols;
-        for (int k = 0; k < sample.channels(); ++k) {
+        for(int k = 0; k < sample.channels(); k++)
+        {
             size_t channel_off = k * sample.rows * sample.cols;
-            for (int row = 0; row < sample.rows; ++row) {
+            for(int row = 0; row < sample.rows; row++)
+            {
                 size_t row_off = row * sample.cols;
-                for (int col = 0; col < sample.cols; ++col) {
-                    input_data[image_off + channel_off + row_off + col] = float(
-                                sample.at<uchar>(row, col * 3 + k))
-                            - pixel_means_[k];
+                for(int col = 0; col < sample.cols; col++)
+                {
+                    input_data[image_off + channel_off + row_off + col] =
+                        (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k]) / scale_;
                 }
             }
         }
     }
-
     net_->ForwardPrefilled();
-
-    if (use_gpu_ == true) {
+    if(use_gpu_)
+    {
         cudaDeviceSynchronize();
     }
 
@@ -177,12 +145,12 @@ int FaceCaffeDetector::Detect(vector<cv::Mat> &imgs,
 
     vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
-    GetDetection(outputs, boxes);
+    GetDetection(outputs, boxes,imgs);
     return 1;
 }
 
 void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
-                                vector<vector<Detection> > &final_vbbox) {
+                                vector<vector<Detection> > &final_vbbox,vector<cv::Mat> &imgs) {
     Blob<float> *cls = outputs[0];
     Blob<float> *reg = outputs[1];
     final_vbbox.clear();
@@ -196,16 +164,25 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
     assert(cls->height() == reg->height());
     assert(cls->width() == reg->width());
 
-    vector<Detection> vbbox;
-    const float *cls_cpu = cls->cpu_data();
-    const float *reg_cpu = reg->cpu_data();
+    const float* cls_cpu = cls->cpu_data();
+    const float* reg_cpu = reg->cpu_data();
 
+#ifdef SHOW_DEBUG
+    cout << "[debug num, channels, height, width] " << cls->num() << " " << cls->channels() << " " << cls->height() << " " << cls->width() << endl;
+    cout << "[scale_num]" << scale_num << endl;
+    cout << "[debug stride, h,w] " << _stride << " " << cls->height()  << " " << cls->width()<< endl;
+#endif
+
+    vector<Detection> vbbox;
+    vector<bool> deleted_mark;
     vector<float> gt_ww, gt_hh;
     gt_ww.resize(scale_num);
     gt_hh.resize(scale_num);
 
-    for (size_t i = 0; i < area_.size(); ++i) {
-        for (size_t j = 0; j < ratio_.size(); ++j) {
+    for(size_t i = 0; i < area_.size(); i++)
+    {
+        for(size_t j = 0; j < ratio_.size(); j++)
+        {
             int index = i * ratio_.size() + j;
             gt_ww[index] = sqrt(area_[i] * ratio_[j]);
             gt_hh[index] = gt_ww[index] / ratio_[j];
@@ -213,12 +190,16 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
     }
     int cls_index = 0;
     int reg_index = 0;
-    for (int img_idx = 0; img_idx < cls->num(); ++img_idx) {
-        vbbox.clear();
-        for (int scale_idx = 0; scale_idx < scale_num; ++scale_idx) {
+    for (int img_idx = 0; img_idx < cls->num(); img_idx++)
+    {
+        vbbox.resize(0);
+        for (int scale_idx = 0; scale_idx < scale_num; scale_idx++)
+        {
             int skip = cls->height() * cls->width();
-            for (int h = 0; h < cls->height(); ++h) {
-                for (int w = 0; w < cls->width(); ++w) {
+            for(int h = 0; h < cls->height(); h++)
+            {
+                for(int w = 0; w < cls->width(); w++)
+                {
                     float confidence;
                     float rect[4] = {};
                     {
@@ -229,28 +210,25 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
                         x1 -= min_01;
                         confidence = exp(x1) / (exp(x1) + exp(x0));
                     }
-                    if (confidence > conf_thres_) {
-                        for (int j = 0; j < 4; ++j) {
+                    if( confidence > conf_thres_)
+                    {
+                        for(int j = 0; j < 4; j++)
+                        {
                             rect[j] = reg_cpu[reg_index + j * skip];
                         }
 
-                        float shift_x = w * sliding_window_stride_
-                                        + sliding_window_stride_ / 2.f - 1;
-                        float shift_y = h * sliding_window_stride_
-                                        + sliding_window_stride_ / 2.f - 1;
+                        float shift_x = w * sliding_window_stride_ + sliding_window_stride_ / 2.f - 1;
+                        float shift_y = h * sliding_window_stride_ + sliding_window_stride_ / 2.f - 1;
                         rect[2] = exp(rect[2]) * gt_ww[scale_idx];
                         rect[3] = exp(rect[3]) * gt_hh[scale_idx];
-                        rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f
-                                  + shift_x;
-                        rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f
-                                  + shift_y;
+                        rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f + shift_x;
+                        rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f + shift_y;
 
                         Detection bbox;
-                        bbox.confidence = confidence;
-                        bbox.box = Rect(rect[0], rect[1], rect[2], rect[3]);
-                        //bbox.box &= Rect(0, 0, scale_, scale_);
-                        bbox.deleted = false;
-                        vbbox.push_back(bbox);
+                        bbox.confidence   = confidence;
+                        bbox.box  = Rect(rect[0], rect[1], rect[2], rect[3]);
+                        bbox.box &= Rect(0, 0, imgs[img_idx].rows,imgs[img_idx].cols);
+                        deleted_mark.push_back(false);
                     }
 
                     cls_index += 1;
@@ -260,14 +238,14 @@ void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
             cls_index += skip;
             reg_index += 3 * skip;
         }
-        NMS(vbbox, 0.2);
+
+        NMS(vbbox, 0.3);
         for (size_t i = 0; i < vbbox.size(); ++i) {
             Detection detection = vbbox[i];
 
             if (!detection.deleted) {
-                float ratio = resize_ratios_[img_idx];
-                detection.Rescale(ratio);
-                final_vbbox[img_idx].push_back(detection);
+
+                final_vbbox[img_idx].push_back(vbbox[i]);
             }
         }
     }
