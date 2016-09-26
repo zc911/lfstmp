@@ -16,7 +16,7 @@ ConfigFilter *ConfigFilter::instance_ = NULL;
 ConfigFilter::ConfigFilter() {
 }
 void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
-                                            FaceDetector::FaceDetectorConfig &config) {
+                                            FaceCaffeDetector::FaceDetectorConfig &config) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_FACE_DETECT_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");

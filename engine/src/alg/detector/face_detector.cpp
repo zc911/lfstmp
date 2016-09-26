@@ -7,7 +7,7 @@ bool mycmp(Detection b1, Detection b2) {
     return b1.confidence > b2.confidence;
 }
 
-FaceDetector::FaceDetector(const FaceDetectorConfig &config)
+FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
     : scale_(config.scale),
       batch_size_(config.batch_size),
       conf_thres_(config.confidence) {
@@ -69,11 +69,11 @@ FaceDetector::FaceDetector(const FaceDetectorConfig &config)
        }*/
 }
 
-FaceDetector::~FaceDetector() {
+FaceCaffeDetector::~FaceCaffeDetector() {
 
 }
 
-void FaceDetector::Forward(const vector<cv::Mat> &imgs,
+void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs,
                            vector<Blob<float> *> &outputs) {
     Blob<float> *input_layer = net_->input_blobs()[0];
 
@@ -149,7 +149,7 @@ void FaceDetector::Forward(const vector<cv::Mat> &imgs,
     outputs.push_back(output_reg);
 }
 
-void FaceDetector::NMS(vector<Detection> &p, float threshold) {
+void FaceCaffeDetector::NMS(vector<Detection> &p, float threshold) {
     sort(p.begin(), p.end(), mycmp);
     for (size_t i = 0; i < p.size(); ++i) {
         if (p[i].deleted)
@@ -167,7 +167,8 @@ void FaceDetector::NMS(vector<Detection> &p, float threshold) {
     }
 }
 
-vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
+int FaceCaffeDetector::Detect(vector<cv::Mat> &imgs,
+                            vector<vector<Detection> > &boxes){
     if (!device_setted_) {
         Caffe::SetDevice(gpu_id_);
         Caffe::set_mode(Caffe::GPU);
@@ -176,12 +177,11 @@ vector<vector<Detection>> FaceDetector::Detect(vector<Mat> imgs) {
 
     vector<Blob<float> *> outputs;
     Forward(imgs, outputs);
-    vector<vector<Detection>> boxes;
     GetDetection(outputs, boxes);
-    return boxes;
+    return 1;
 }
 
-void FaceDetector::GetDetection(vector<Blob<float> *> &outputs,
+void FaceCaffeDetector::GetDetection(vector<Blob<float> *> &outputs,
                                 vector<vector<Detection> > &final_vbbox) {
     Blob<float> *cls = outputs[0];
     Blob<float> *reg = outputs[1];
