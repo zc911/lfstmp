@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description :
+ * Description : 
  * ==========================================================================*/
 
 #ifndef MATRIX_ENGINE_RANK_ENGINE_H_
@@ -16,6 +16,7 @@
 #include "model/rank_feature.h"
 #include "config.h"
 #include "engine_config_value.h"
+#include "rank_candidates_repo.h"
 #define RANKER_MAXIMUM 10000
 
 namespace dg {
@@ -36,22 +37,24 @@ public:
 
 };
 
+
 class SimpleRankEngine: public RankEngine {
 public:
     SimpleRankEngine(const Config &config);
     virtual ~SimpleRankEngine();
 
-    void RankCar(CarRankFrame * frame);
-    void RankFace(FaceRankFrame * frame);
+    void RankCar(CarRankFrame *frame);
+    void RankFace(FaceRankFrame *frame);
 
 private:
     Identification id_;
     Processor *car_ranker_ = NULL;
     bool enable_ranker_face_;
     bool enable_ranker_car_;
-    Processor *face_detector_ = NULL;
-    Processor *face_extractor_ = NULL;
+//    Processor *face_detector_ = NULL;
+//    Processor *face_extractor_ = NULL;
     Processor *face_ranker_ = NULL;
+    RankCandidatesRepo *face_feature_repo_;
 };
 
 // class FaceRankEngine: public RankEngine {
