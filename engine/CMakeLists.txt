@@ -45,7 +45,7 @@ FIND_LIBRARY(LIB_GTEST_MAIN NAMES gtest_main PATHS ${LIBS_PATH}/gtest/${PLATFORM
 FIND_LIBRARY(LIB_GTEST NAMES gtest PATHS ${LIBS_PATH}/gtest/${PLATFORM})
 
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_DLIB} ${LIB_PROTOBUF} ${LIB_GTEST_MAIN} ${LIB_GTEST} ${LIB_CUDART} ${LIB_MXNET} ${LIB_CUDNN} ${LIB_CAFFE} ${LIB_DGMEDIA} ${LIB_THPLATEID} ${LIB_WATCHDOG} ${LIB_HASP})
-LIST(APPEND LIBS pthread glog gflags leveldb jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)
+LIST(APPEND LIBS pthread glog gflags leveldb jsoncpp crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype boost_filesystem boost_system hdf5_hl hdf5 m opencv_core opencv_highgui opencv_imgproc opencv_calib3d  opencv_features2d gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)
 
 
 ADD_SUBDIRECTORY(src)

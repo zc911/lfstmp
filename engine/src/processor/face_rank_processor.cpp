@@ -21,8 +21,8 @@ FaceRankProcessor::~FaceRankProcessor() {
 
 bool FaceRankProcessor::process(Frame *frame) {
     FaceRankFrame *fframe = (FaceRankFrame *) frame;
-    fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
-                                    fframe->candidates_);
+//    fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
+//                                    fframe->candidates_);
     performance_++;
 
     return true;

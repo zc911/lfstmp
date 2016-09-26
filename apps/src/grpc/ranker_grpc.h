@@ -24,38 +24,57 @@ public:
 
     GrpcRankerServiceImpl(Config config, string addr)
         : BasicGrpcService(config, addr) {
-            service_ = new RankerAppsService(&config,"WitnessAppsService"); 
- }
+        service_ = new RankerAppsService(&config, "WitnessAppsService");
+    }
 
-    virtual ~GrpcRankerServiceImpl() { 
-      delete service_;
-}
+    virtual ~GrpcRankerServiceImpl() {
+        delete service_;
+    }
     virtual ::grpc::Service *service() {
         return this;
     };
 
+    virtual grpc::Status RankImage(grpc::ServerContext *context,
+                                   const RankImageRequest *request,
+                                   RankImageResponse *response) {
+
+    }
+
+    virtual grpc::Status RankFeature(grpc::ServerContext *context,
+                                     const RankFeatureRequest *request,
+                                     RankFeatureResponse *response) {
+
+    }
+
+    /**
+     * @Deprecated
+     */
     virtual grpc::Status GetRankedVector(grpc::ServerContext *context,
                                          const FeatureRankingRequest *request,
                                          FeatureRankingResponse *response) override {
+        cout << "This service is Deprecated, use RankImage or RankFeature instead. " << endl;
+//        cout << "[GRPC] ========================" << endl;
+//        cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
+        /*  CallData data;
 
-        cout << "[GRPC] ========================" << endl;
-        cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
-      /*  CallData data;
+          data.func = [request, response, &data]() -> MatrixError {
+            return (bind(&RankerAppsService::GetRankedVector,
+                         (RankerAppsService *) data.apps,
+                         placeholders::_1,
+                         placeholders::_2))(request,
+                                            response);
+          };
 
-        data.func = [request, response, &data]() -> MatrixError {
-          return (bind(&RankerAppsService::GetRankedVector,
-                       (RankerAppsService *) data.apps,
-                       placeholders::_1,
-                       placeholders::_2))(request,
-                                          response);
-        };
-
-        service_pool_->enqueue(&data);
-        MatrixError error = data.Wait();
-        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-*/
-        MatrixError error = service_->GetRankedVector(request,response);
-        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+          service_pool_->enqueue(&data);
+          MatrixError error = data.Wait();
+          return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+  */
+//        MatrixError error = service_->GetRankedVector(request, response);
+//        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+        MatrixError error;
+        error.set_code(-1);
+        error.set_message("This service is Deprecated, use RankImage or RankFeature instead. ");
+        return grpc::Status::CANCELLED;
 
     }
     RankerAppsService *service_;
