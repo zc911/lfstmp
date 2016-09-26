@@ -184,21 +184,26 @@ static void NMS(vector<struct Bbox> &p, float threshold) {
     }
 }
 
-static float ReScaleImage(Mat &img, unsigned int scale) {
+static float ReScaleImage(Mat &img, unsigned int img_min, unsigned int img_max) {
 
     Size resize_r_c;
     float resize_ratio = 1;
 
-    if (img.rows > scale && img.cols > scale) {
-        if (img.rows < img.cols) {
-            resize_ratio = float(scale) / img.rows;
-            resize_r_c = Size(img.cols * resize_ratio, scale);
-            resize(img, img, resize_r_c);
-        } else {
-            resize_ratio = float(scale) / img.cols;
-            resize_r_c = Size(scale, img.rows * resize_ratio);
-            resize(img, img, resize_r_c);
-        }
+    if (img.rows > img_max && img.cols > img_max) {
+        resize_ratio = float(img_max) / min(img.cols, img.rows);
+        LOG(INFO)<<resize_ratio;
+        resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
+
+        resize(img, img, resize_r_c);
+
+    } else if (img.rows < img_min || img.cols < img_min) {
+        resize_ratio = float(img_min) / min(img.cols, img.rows);
+                LOG(INFO)<<resize_ratio;
+
+        resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
+
+        resize(img, img, resize_r_c);
+
     }
 
     return resize_ratio;
@@ -491,7 +496,7 @@ static Mat histeq(Mat& img) {
 }
 static Mat ycrbradapthist(Mat const & img) {
     cv::Mat image = img.clone();
-    cvtColor(image, image, CV_RGB2YCrCb); 
+    cvtColor(image, image, CV_RGB2YCrCb);
     Mat equalized;
     vector<Mat> planes;
     vector<Mat> equalized_planes;
@@ -501,7 +506,7 @@ static Mat ycrbradapthist(Mat const & img) {
         if (i == 0) {
             Ptr<CLAHE> clahe = createCLAHE(2.0, Size(8.0, 8.0));
             clahe->apply(tmp, tmp);
-        //    equalizeHist(planes[i], tmp);
+            //    equalizeHist(planes[i], tmp);
         }
         equalized_planes.push_back(tmp);
     }
@@ -539,6 +544,26 @@ static Mat flip_(Mat& img) {
     Mat flipped_img(img.rows, img.cols, CV_8UC3);
     flip(img, flipped_img, 1);
     return flipped_img;
+}
+
+static float ReScaleImage(Mat &img, unsigned int scale) {
+
+    Size resize_r_c;
+    float resize_ratio = 1;
+
+    if (img.rows > scale && img.cols > scale) {
+        if (img.rows < img.cols) {
+            resize_ratio = float(scale) / img.rows;
+            resize_r_c = Size(img.cols * resize_ratio, scale);
+            resize(img, img, resize_r_c);
+        } else {
+            resize_ratio = float(scale) / img.cols;
+            resize_r_c = Size(scale, img.rows * resize_ratio);
+            resize(img, img, resize_r_c);
+        }
+    }
+
+    return resize_ratio;
 }
 }
 

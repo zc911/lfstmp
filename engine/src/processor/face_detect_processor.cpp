@@ -38,7 +38,7 @@ FaceDetectProcessor::~FaceDetectProcessor() {
 }
 
 bool FaceDetectProcessor::process(Frame *frame) {
-    LOG(INFO)<<"HA";
+    LOG(INFO) << "HA";
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
@@ -56,7 +56,7 @@ bool FaceDetectProcessor::process(Frame *frame) {
     imgs.push_back(data);
 
     vector<vector<Detection> > boxes_in;
-    detector_->Detect(imgs,boxes_in);
+    detector_->Detect(imgs, boxes_in);
 
     for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
 
@@ -72,6 +72,9 @@ bool FaceDetectProcessor::process(Frame *frame) {
 
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
+    vector<Mat> imgs;
+    vector<int> frameIds;
+
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
@@ -87,25 +90,29 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
             continue;
         }
+        frameIds.push_back(i);
 
-        vector<Mat> imgs;
         imgs.push_back(data);
         performance_++;
 
-        vector<vector<Detection>> boxes_in;
-         detector_->Detect(imgs,boxes_in);
-
-        for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
-            Detection detection = boxes_in[0][bbox_id];
+    }
+    vector<vector<Detection>> boxes_in;
+    detector_->Detect(imgs, boxes_in);
+    for (int i = 0; i < frameIds.size(); ++i) {
+        int frameId = frameIds[i];
+        Frame *frame = frameBatch->frames()[frameId];
+        for (size_t bbox_id = 0; bbox_id < boxes_in[i].size(); bbox_id++) {
+            Detection detection = boxes_in[i][bbox_id];
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
             cv::Mat data = frame->payload()->data();
             cv::Mat image = data(detection.box);
+            //string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
+            //imwrite(name, image);
             face->set_image(image);
             frame->put_object(face);
         }
     }
-
     return true;
 }
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {

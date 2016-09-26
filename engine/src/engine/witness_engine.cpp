@@ -409,7 +409,8 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        if(config.Value(ADVANCED_FACE_DETECT_METHOD)){
+        bool method = (bool) config.Value(ADVANCED_FACE_DETECT_METHOD);
+        if(method){
             FaceCaffeDetector::FaceDetectorConfig fdconfig;
             configFilter->createFaceDetectorConfig(config, fdconfig);
             face_processor_ = new FaceDetectProcessor(fdconfig);

@@ -19,7 +19,7 @@ public:
         bool is_model_encrypt = false;
         int batch_size = 1;
         int gpu_id = 0;
-        int img_scale_max=720;
+        int img_scale_max=300;
         int img_scale_min=240;
         float scale=1.0f;
         float confidence = 0.7;
@@ -35,7 +35,7 @@ public:
 int Detect(vector<cv::Mat> &img,
                             vector<vector<Detection> > &detect_results);
 private:
-    void Forward(const vector<Mat> &imgs, vector<Blob<float> *> &outputs);
+    void Forward(const vector<Mat> &imgs,vector<vector<Detection> > &final_vbbox);
     void GetDetection(vector<Blob<float> *> &outputs,
                       vector<vector<Detection>> &final_vbbox,vector<cv::Mat> &imgs);
     void NMS(vector<Detection> &p, float threshold);
@@ -51,6 +51,8 @@ private:
     unsigned int scale_;
     string layer_name_cls_;
     string layer_name_reg_;
+    int img_scale_max_;
+    int img_scale_min_;
     int sliding_window_stride_;
     vector<float> area_;
     vector<float> ratio_;
