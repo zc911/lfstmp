@@ -43,8 +43,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
             DLOG(ERROR) << "can not init data config" << endl;
             return;
         }
-        FaceDetector::FaceDetectorConfig fdconfig;
-        configFilter->createFaceDetectorConfig(config, fdconfig);
+        FaceDlibDetector::FaceDetectorConfig fdconfig;
+        //configFilter->createFaceDetectorConfig(config, fdconfig);
         face_detector_ = new FaceDetectProcessor(fdconfig);
 
         FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;

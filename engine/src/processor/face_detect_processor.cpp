@@ -12,12 +12,22 @@
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
-    FaceDetector::FaceDetectorConfig config) {
+    FaceCaffeDetector::FaceDetectorConfig config) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
 
     //Initialize face detector
-    detector_ = new FaceDetector(config);
+    detector_ = new FaceCaffeDetector(config);
+    base_id_ = 5000;
+    DLOG(INFO) << "Face detector has been initialized" << std::endl;
+}
+FaceDetectProcessor::FaceDetectProcessor(
+    FaceDlibDetector::FaceDetectorConfig config) {
+    //Initialize face detection caffe model and arguments
+    DLOG(INFO) << "Start loading face detector model" << std::endl;
+
+    //Initialize face detector
+    detector_ = new FaceDlibDetector(config);
     base_id_ = 5000;
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
 }
@@ -28,6 +38,7 @@ FaceDetectProcessor::~FaceDetectProcessor() {
 }
 
 bool FaceDetectProcessor::process(Frame *frame) {
+    LOG(INFO)<<"HA";
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
@@ -44,7 +55,8 @@ bool FaceDetectProcessor::process(Frame *frame) {
     vector<Mat> imgs;
     imgs.push_back(data);
 
-    vector<vector<Detection> > boxes_in = detector_->Detect(imgs);
+    vector<vector<Detection> > boxes_in;
+    detector_->Detect(imgs,boxes_in);
 
     for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
 
@@ -60,7 +72,6 @@ bool FaceDetectProcessor::process(Frame *frame) {
 
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
-
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
@@ -81,7 +92,8 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         imgs.push_back(data);
         performance_++;
 
-        vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+        vector<vector<Detection>> boxes_in;
+         detector_->Detect(imgs,boxes_in);
 
         for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
             Detection detection = boxes_in[0][bbox_id];

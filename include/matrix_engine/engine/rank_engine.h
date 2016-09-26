@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_ENGINE_RANK_ENGINE_H_
@@ -46,12 +46,12 @@ public:
 
 private:
     Identification id_;
-    Processor *car_ranker_=NULL;
+    Processor *car_ranker_ = NULL;
     bool enable_ranker_face_;
     bool enable_ranker_car_;
-    Processor *face_detector_=NULL;
-    Processor *face_extractor_=NULL;
-    Processor *face_ranker_=NULL;
+    Processor *face_detector_ = NULL;
+    Processor *face_extractor_ = NULL;
+    Processor *face_ranker_ = NULL;
 };
 
 // class FaceRankEngine: public RankEngine {
@@ -69,6 +69,6 @@ private:
 //     Processor *ranker_;
 // };
 
- }
+}
 
 #endif //MATRIX_ENGINE_RANK_ENGINE_H_

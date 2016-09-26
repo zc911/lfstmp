@@ -12,7 +12,7 @@ static FileReader *resultReader;
 
 static void initConfig() {
     resultReader = NULL;
-    FaceDetector::FaceDetectorConfig config;
+    FaceCaffeDetector::FaceDetectorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
