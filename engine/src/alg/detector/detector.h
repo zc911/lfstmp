@@ -58,5 +58,13 @@ public:
     virtual int DetectBatch(vector<cv::Mat> &img,
                             vector<vector<Detection> > &detect_results) = 0;
 };
+class FaceDetector {
+public:
+
+
+    virtual int Detect(vector<cv::Mat> &img,
+                            vector<vector<Detection> > &detect_results) = 0;
+};
+
 }
 #endif /* DETECTOR_H_ */

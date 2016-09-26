@@ -4,7 +4,7 @@
 #include <string>
 #include <opencv2/opencv.hpp>
 #include <caffe/caffe.hpp>
-
+#include "detector.h"
 #include "model/model.h"
 
 using namespace std;
@@ -13,7 +13,7 @@ using namespace caffe;
 
 namespace dg {
 
-class FaceDetector {
+class FaceCaffeDetector:public FaceDetector {
 public:
     typedef struct {
         bool is_model_encrypt = false;
@@ -25,11 +25,11 @@ public:
         string deploy_file;
         string model_file;
     } FaceDetectorConfig;
-    FaceDetector(const FaceDetectorConfig &config);
+    FaceCaffeDetector(const FaceDetectorConfig &config);
 
-    virtual ~FaceDetector();
-    vector<vector<Detection>> Detect(vector<Mat> imgs);
-
+    virtual ~FaceCaffeDetector();
+int Detect(vector<cv::Mat> &img,
+                            vector<vector<Detection> > &detect_results);
 private:
     void Forward(const vector<Mat> &imgs, vector<Blob<float> *> &outputs);
     void GetDetection(vector<Blob<float> *> &outputs,

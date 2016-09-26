@@ -14,7 +14,7 @@ static FileReader *resultReader;
 
 static void initConfig() {
     resultReader = NULL;
-    FaceDetector::FaceDetectorConfig dConfig;
+    FaceCaffeDetector::FaceDetectorConfig dConfig;
     FaceFeatureExtractor::FaceFeatureExtractorConfig fConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
