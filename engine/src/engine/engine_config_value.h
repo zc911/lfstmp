@@ -94,6 +94,7 @@ static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
 
 static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
     "Advanced/FaceDetect/BatchSize";
+static const string ADVANCED_FACE_DETECT_METHOD="Advanced/Face/Detect/Method";
 static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
 static const string ADVANCED_FACE_DETECT_CONFIDENCE =
     "Advanced/FaceDetect/Confidence";
