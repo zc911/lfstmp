@@ -62,6 +62,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 //        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
         face_ranker_ = new FaceRankProcessor();
+        face_feature_repo_ = new RankCandidatesRepo();
+        face_feature_repo_->Load();
 
     }
 }
