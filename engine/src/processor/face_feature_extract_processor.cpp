@@ -25,6 +25,9 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
     int size = frame->objects().size();
 
+    cout << "Face size: " << size << endl;
+
+    vector<Mat> imgs;
     for (int i = 0; i < size; ++i) {
         Object *obj = (frame->objects())[i];
         if (obj && obj->type() == OBJECT_FACE) {
@@ -35,16 +38,29 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
             Mat img = frame->payload()->data();
             Mat cut = img(rect);
 
-            vector<Mat> imgs;
             imgs.push_back(cut);
-            vector<FaceRankFeature> features = extractor_->Extract(imgs);
-            FaceRankFeature feature = features[0];
-            face->set_feature(feature);
+
         } else {
             DLOG(WARNING) << "Object is not type of face: " << obj->id() << endl;
         }
 
     }
+    vector<FaceRankFeature> features = extractor_->Extract(imgs);
+    if (size != features.size()) {
+        LOG(ERROR) << "Face image size not equals to feature size: " << size << ":" << features.size() << endl;
+        return false;
+    }
+
+    for (int i = 0; i < size; ++i) {
+        Object *obj = (frame->objects())[i];
+        if (obj && obj->type() == OBJECT_FACE) {
+            Face *face = static_cast<Face *>(obj);
+
+            FaceRankFeature feature = features[i];
+            face->set_feature(feature);
+        }
+    }
+
     return true;
 }
 
