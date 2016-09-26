@@ -33,6 +33,9 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.confidence = confidence;
+                config.img_scale_min=(int)cconfig.Value(ADVANCED_FACE_DETECT_MIN);
+            config.img_scale_max=(int)cconfig.Value(ADVANCED_FACE_DETECT_MAX);
+
     config.scale = scale;
     config.gpu_id = gpu_id;
 

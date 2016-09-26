@@ -25,7 +25,6 @@ FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
         Caffe::set_mode(Caffe::CPU);
         use_gpu_ = false;
     }
-    LOG(INFO) << config.deploy_file << " " << config.model_file;
 
     ModelsMap *modelsMap = ModelsMap::GetInstance();
     string deploy_content;
@@ -71,15 +70,31 @@ FaceCaffeDetector::~FaceCaffeDetector() {
 
 }
 
-void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs, vector<vector<Detection> > &final_vbbox) {
+void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection> > &final_vbbox) {
     if (imgs.size() == 0)
         return;
-        final_vbbox.resize(imgs.size());
+    final_vbbox.resize(imgs.size());
 
     int scale_num = area_.size() * ratio_.size();
+    int max_col = 0, max_row = 0;
+    vector<pair<int, int> > addeds;
+    for (int i = 0; i < imgs.size(); i++) {
+        float resize_ratio = ReScaleImage(imgs[i], img_scale_min_, img_scale_max_ );
+        if (max_col < imgs[i].cols) {
+            max_col = imgs[i].cols;
+        }
+        if (max_row < imgs[i].rows) {
+            max_row = imgs[i].rows;
+        }
+
+        resize_ratios_.push_back(resize_ratio);
+    }
+    for (int i = 0; i < imgs.size(); i++) {
+        addeds.push_back(CatImg(imgs[i], max_col, max_row));
+    }
 
     Blob<float>* input_blob = net_->input_blobs()[0];
-    Size image_size = Size(imgs[0].cols, imgs[0].rows);
+    Size image_size = Size(max_col, max_row);
     vector<int> shape = {static_cast<int>(imgs.size()), 3, image_size.height, image_size.width};
     input_blob->Reshape(shape);
     net_->Reshape();
@@ -91,8 +106,7 @@ void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs, vector<vector<Detec
         Mat sample;
         Mat img = imgs[i];
         // images from the same batch should have the same size
-        float resize_ratio = ReScaleImage(img, img_scale_min_, img_scale_max_ );
-        resize_ratios_.push_back(resize_ratio);
+
         CheckChannel(img, num_channels_, sample);
         assert(img.rows == image_size.height && img.cols == image_size.width);
         //GenerateSample(num_channels_, img, sample);
@@ -113,7 +127,6 @@ void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs, vector<vector<Detec
             }
         }
     }
-    cout << endl;
     net_->ForwardPrefilled();
     if (use_gpu_)
     {
@@ -188,7 +201,10 @@ void FaceCaffeDetector::Forward(const vector<cv::Mat> &imgs, vector<vector<Detec
                         rect[3] = exp(rect[3]) * gt_hh[scale_idx];
                         rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f + shift_x;
                         rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f + shift_y;
-
+                        if (rect[0] + rect[2] > imgs[img_idx].cols + addeds[img_idx].first)
+                            continue;
+                        if (rect[1] + rect[3] > imgs[img_idx].rows + addeds[img_idx].second)
+                            continue;
                         Detection bbox;
                         bbox.confidence   = confidence;
                         bbox.box  = Rect(rect[0], rect[1], rect[2], rect[3]);

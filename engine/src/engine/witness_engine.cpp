@@ -416,6 +416,9 @@ void WitnessEngine::init(const Config &config) {
             face_processor_ = new FaceDetectProcessor(fdconfig);
         }else{
             FaceDlibDetector::FaceDetectorConfig fdconfig;
+            fdconfig.img_scale_min=(int)config.Value(ADVANCED_FACE_DETECT_MIN);
+            fdconfig.img_scale_max=(int)config.Value(ADVANCED_FACE_DETECT_MAX);
+
             face_processor_ = new FaceDetectProcessor(fdconfig);
         }
         if (enable_face_feature_vector_) {

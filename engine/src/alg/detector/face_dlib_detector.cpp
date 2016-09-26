@@ -10,6 +10,7 @@ namespace dg {
 FaceDlibDetector::FaceDlibDetector(FaceDetectorConfig &config)
     : img_scale_max_(config.img_scale_max), img_scale_min_(config.img_scale_min),
       _detector(dlib::get_frontal_face_detector()) {
+        LOG(INFO)<<img_scale_min_<<" "<<img_scale_max_;
 }
 
 FaceDlibDetector::~FaceDlibDetector() {
@@ -18,6 +19,7 @@ FaceDlibDetector::~FaceDlibDetector() {
 int FaceDlibDetector::Detect( std::vector<cv::Mat> &imgs,vector<vector<Detection>> &detections) {
     for (size_t idx = 0; idx < imgs.size(); idx++) {
         Mat img = imgs[idx];
+
         float resize_ratio = ReScaleImage(img, img_scale_min_,img_scale_max_);
         if (img.channels() == 4)
             cvtColor(img, img, COLOR_BGRA2GRAY);
