@@ -21,6 +21,8 @@ public:
     FaceRanker();
     virtual ~FaceRanker();
 
+    vector<Score> Rank(const FaceRankFeature *datum);
+
     vector<Score> Rank(const FaceRankFeature &datum,
                        const vector<Rect> &hotspots,
                        const vector<FaceRankFeature> &candidates);
