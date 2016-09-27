@@ -80,10 +80,15 @@ static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
 }
 
 static void ReshapeNetBatchSize(std::shared_ptr<caffe::Net<float>> net, int batchSize) {
+//    caffe::Blob<float> *input_layer = net->input_blobs()[0];
+//    std::vector<int> shape = input_layer->shape();
+//    shape[0] = batchSize;
+//    input_layer->Reshape(shape);
+//    net->Reshape();
+
     caffe::Blob<float> *input_layer = net->input_blobs()[0];
-    std::vector<int> shape = input_layer->shape();
-    shape[0] = batchSize;
-    input_layer->Reshape(shape);
+    input_layer->Reshape(batchSize, input_layer->channels(),
+                         input_layer->height(), input_layer->width());
     net->Reshape();
 }
 
@@ -207,7 +212,6 @@ static float ReScaleImage(Mat &img, unsigned int img_min, unsigned int img_max) 
 
     } else if (img.rows < img_min || img.cols < img_min) {
         resize_ratio = float(img_min) / min(img.cols, img.rows);
-        LOG(INFO) << resize_ratio;
 
         resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
 

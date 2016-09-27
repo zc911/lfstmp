@@ -12,27 +12,19 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
     : RankEngine(config),
       id_(0) {
 
-    int type = (int) config.Value(RANKER_DEFAULT_TYPE);
-    switch (type) {
-        case 0:
-        case 1:
-            enable_ranker_car_ = true;
-            enable_ranker_face_ = false;
-            break;
-        case 2:
-            enable_ranker_face_ = true;
-            enable_ranker_car_ = false;
-
-            break;
-        case 3:
-            enable_ranker_car_ = true;
-            enable_ranker_face_ = true;
-            break;
-        default:
-            enable_ranker_face_ = false;
-            enable_ranker_car_ = false;
-
-            break;
+    string type = (string) config.Value(RANKER_DEFAULT_TYPE);
+    if (type == "car") {
+        enable_ranker_car_ = true;
+        enable_ranker_face_ = false;
+    } else if (type == "face") {
+        enable_ranker_face_ = true;
+        enable_ranker_car_ = false;
+    } else if ((type == "car|face") || type == "face|car") {
+        enable_ranker_car_ = true;
+        enable_ranker_face_ = true;
+    } else {
+        enable_ranker_car_ = true;
+        enable_ranker_face_ = false;
     }
 #if DEBUG
 #else

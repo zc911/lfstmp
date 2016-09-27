@@ -9,6 +9,9 @@
 
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
+#include "debug_util.h"
+#include "log/log_val.h"
+
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
@@ -38,7 +41,6 @@ FaceDetectProcessor::~FaceDetectProcessor() {
 }
 
 bool FaceDetectProcessor::process(Frame *frame) {
-    LOG(INFO) << "HA";
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
@@ -99,8 +101,11 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
     vector<vector<Detection>> boxes_in;
 
-
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
     detector_->Detect(imgs, boxes_in);
+    gettimeofday(&finish, NULL);
+    VLOG(VLOG_PROCESS_COST) << "Faces detection costs: " << TimeCostInMs(start, finish) << endl;
 
 
     for (int i = 0; i < frameIds.size(); ++i) {
