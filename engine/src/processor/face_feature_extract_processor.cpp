@@ -66,16 +66,22 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
 bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
-
-    for (int i = 0; i < to_processed_.size(); ++i) {
-        Object *obj = to_processed_[i];
+    vector<Mat> imgs;
+    for (auto obj : to_processed_) {
         Face *face = static_cast<Face *>(obj);
-        performance_++;
-
-        vector<Mat> imgs;
         imgs.push_back(face->image());
-        vector<FaceRankFeature> features = extractor_->Extract(imgs);
-        FaceRankFeature feature = features[0];
+        performance_++;
+    }
+
+    vector<FaceRankFeature> features = extractor_->Extract(imgs);
+    if (features.size() != imgs.size()) {
+        LOG(ERROR) << "Face image size not equals to feature size: " << imgs.size() << ":" << features.size() << endl;
+        return false;
+    }
+
+    for (int i = 0; i < features.size(); ++i) {
+        FaceRankFeature feature = features[i];
+        Face *face = (Face*) to_processed_[i];
         face->set_feature(feature);
     }
 
@@ -100,7 +106,7 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object *>::iterator itr = to_processed_.begin();
-            itr != to_processed_.end();) {
+         itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else {
