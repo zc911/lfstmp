@@ -27,6 +27,7 @@ public:
         int img_scale_max = 640;
     } FaceDetectorConfig;
     FaceDlibDetector(FaceDetectorConfig &config);
+    FaceDlibDetector(int img_scale_min,int img_scale_max);
     virtual ~FaceDlibDetector();
     // detect only -> confidence, bbox
     int Detect(vector<cv::Mat> &img,
