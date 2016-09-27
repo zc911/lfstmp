@@ -49,7 +49,7 @@ class FaceFeatureExtractor {
     FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
 
     virtual ~FaceFeatureExtractor();
-    std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
+    std::vector<FaceRankFeature> Extract( std::vector<Mat> &imgs);
     std::vector<Mat> Align(std::vector<Mat> imgs);
 
  private:

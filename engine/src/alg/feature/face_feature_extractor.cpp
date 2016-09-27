@@ -14,8 +14,7 @@ namespace dg {
 FaceFeatureExtractor::FaceFeatureExtractor(
     const FaceFeatureExtractorConfig &config)
     : device_setted_(false),
-      batch_size_(config.batch_size),
-      detector_(dlib::get_frontal_face_detector()) {
+      batch_size_(config.batch_size) {
 
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
@@ -124,7 +123,7 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
 }
 
 std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
-    const std::vector<Mat> &align_imgs) {
+     std::vector<Mat> &align_imgs) {
 
     vector<FaceRankFeature> results;
     if(align_imgs.size() == 0){
