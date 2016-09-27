@@ -30,46 +30,48 @@ using namespace caffe;
 namespace dg {
 
 struct InnFaceFeature {
-  float data[256];
+    float data[256];
 };
 
 class FaceFeatureExtractor {
  public:
-  typedef struct {
+    typedef struct {
 
-    bool is_model_encrypt = true;
-    int batch_size = 1;
-    bool use_gpu = true;
-    int gpu_id = 0;
-    string align_model;
-    string align_deploy;
-    string deploy_file;
-    string model_file;
-  } FaceFeatureExtractorConfig;
-  FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
+        bool is_model_encrypt = true;
+        int batch_size = 1;
+        bool use_gpu = true;
+        int gpu_id = 0;
+        string align_model;
+        string align_deploy;
+        string deploy_file;
+        string model_file;
+    } FaceFeatureExtractorConfig;
+    FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
 
-  virtual ~FaceFeatureExtractor();
-  std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
-  std::vector<Mat> Align(std::vector<Mat> imgs);
-
- private:
-  void Detection2Points(const dlib::full_object_detection &detection,
-                        std::vector<dlib::point> &points);
+    virtual ~FaceFeatureExtractor();
+    std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
+    std::vector<Mat> Align(std::vector<Mat> imgs);
 
  private:
-  std::shared_ptr<Net<float> > net_;
-  bool device_setted_;
-  cv::Size input_geometry_;
-  int num_channels_;
-  int batch_size_;
-  string layer_name_;
-  bool use_gpu_;
-  int gpu_id_;
-  std::vector<float> pixel_means_;
-  float pixel_scale_;
-  dlib::shape_predictor sp_;
-  std::vector<dlib::point> avg_face_points_;
-  dlib::frontal_face_detector detector_;
+    void Detection2Points(const dlib::full_object_detection &detection,
+                          std::vector<dlib::point> &points);
+
+    void miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults);
+
+ private:
+    std::shared_ptr<Net<float>> net_;
+    bool device_setted_;
+    cv::Size input_geometry_;
+    int num_channels_;
+    int batch_size_;
+    string layer_name_;
+    bool use_gpu_;
+    int gpu_id_;
+    std::vector<float> pixel_means_;
+    float pixel_scale_;
+    dlib::shape_predictor sp_;
+    std::vector<dlib::point> avg_face_points_;
+    dlib::frontal_face_detector detector_;
 };
 
 } /* namespace dg */

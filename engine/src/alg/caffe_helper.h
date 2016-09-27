@@ -13,6 +13,7 @@
 #include <vector>
 #include <algorithm>
 #include <opencv2/core/core.hpp>
+#include <caffe/caffe.hpp>
 #include <watch_dog.h>
 #include "fs_util.h"
 #include "model/basic.h"
@@ -57,7 +58,7 @@ static void normalize_image(const Mat &input_img, Mat &result) {
 }
 
 static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
-        int batch_size) {
+                                         int batch_size) {
     vector<vector<Mat> > vimg;
     vector<Mat> img = image;
     if (img.size() == 0)
@@ -78,6 +79,14 @@ static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
     return vimg;
 }
 
+static void ReshapeNetBatchSize(std::shared_ptr<caffe::Net<float>> net, int batchSize) {
+    caffe::Blob<float> *input_layer = net->input_blobs()[0];
+    std::vector<int> shape = input_layer->shape();
+    shape[0] = batchSize;
+    input_layer->Reshape(shape);
+    net->Reshape();
+}
+
 static bool PredictionMoreCmp(const Prediction &b1, const Prediction &b2) {
     return b1.second > b2.second;
 }
@@ -96,7 +105,7 @@ static void SortPrediction(vector<vector<Prediction> > &dstPreds) {
 
 static Prediction MaxPrediction(vector<Prediction> &pre) {
     vector<Prediction>::iterator max = max_element(pre.begin(), pre.end(),
-                                       PredictionLessCmp);
+                                                   PredictionLessCmp);
     return *max;
 }
 
@@ -143,16 +152,16 @@ static void detectionNMS(vector<Detection> &p, float threshold) {
                 cv::Rect intersect = p[i].box & p[j].box;
                 float iou =
                     intersect.area() * 1.0
-                    / (p[i].box.area() + p[j].box.area()
-                       - intersect.area());
+                        / (p[i].box.area() + p[j].box.area()
+                            - intersect.area());
                 if (iou > threshold) {
                     p[j].deleted = true;
                 }
                 if (intersect.x >= p[i].box.x - 0.2
-                        && intersect.y >= p[i].box.y - 0.2
-                        && (intersect.x + intersect.width)
+                    && intersect.y >= p[i].box.y - 0.2
+                    && (intersect.x + intersect.width)
                         <= (p[i].box.x + p[i].box.width + 0.2)
-                        && (intersect.y + intersect.height)
+                    && (intersect.y + intersect.height)
                         <= (p[i].box.y + p[i].box.height + 0.2)) {
                     p[j].deleted = true;
 
@@ -235,7 +244,7 @@ static void GenerateSample(int num_channels_, cv::Mat &img, cv::Mat &sample) {
     else
         sample = img;
 }
-static cv::Mat crop_phone_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
+static cv::Mat crop_phone_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int *cxmin, int *cymin) {
     Mat img = image.clone();
     int img_width = img.cols;
     int img_height = img.rows;
@@ -300,7 +309,7 @@ static cv::Mat crop_phone_image(cv::Mat image, float xmin, float ymin, float xma
     *cymin = crop_ymin;
     return img;
 }
-static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
+static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, float ymax, int *cxmin, int *cymin) {
     Mat img = image.clone();
     int img_width = img.cols;
     int img_height = img.rows;
@@ -370,7 +379,15 @@ static cv::Mat crop_image(cv::Mat image, float xmin, float ymin, float xmax, flo
 }
 
 
-static void show_enlarged_box(cv::Mat tmp, cv::Mat image, float xmin, float ymin, float xmax, float ymax, int* cymin, int* cymax, float ratio) {
+static void show_enlarged_box(cv::Mat tmp,
+                              cv::Mat image,
+                              float xmin,
+                              float ymin,
+                              float xmax,
+                              float ymax,
+                              int *cymin,
+                              int *cymax,
+                              float ratio) {
     Mat img = image;
     float img_width = img.cols;
     float img_height = img.rows;
@@ -444,13 +461,13 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
     // background : not in all
     fob.push_back(Rect(xmin, ymin, width, height));
     // nianjianbiao: not in center
-    fob.push_back(Rect(centerx - width / 2 / 2 , centery - height / 3 / 2, width / 2, height / 3));
+    fob.push_back(Rect(centerx - width / 2 / 2, centery - height / 3 / 2, width / 2, height / 3));
     // zheyangban: not in bottom
     fob.push_back(Rect(xmin, ymin + height * 2 / 3, width, height / 3));
     // qita: not in upper
     fob.push_back(Rect(xmin, ymin, width, height / 3));
     // anquandai: not in center
-    fob.push_back(Rect(centerx - width / 10 / 2 , centery - height / 2, width / 10, height));
+    fob.push_back(Rect(centerx - width / 10 / 2, centery - height / 2, width / 10, height));
     // guazhui: not in left and right, only in right for programming simplicity
     fob.push_back(Rect(xmin, ymin, width / 4, height));
 //  Rect x6 = Rect(xmin + width/4*3, ymin, width/4, height);
@@ -460,10 +477,10 @@ static vector<Rect> forbidden_area(float xmin, float ymin, float xmax, float yma
     return fob;
 }
 // adaptive histogram equalization
-static Mat adap_histeq(Mat& img) {
-    Mat bgr[] = { Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
-                  CV_8UC1), Mat(img.rows, img.cols, CV_8UC1)
-                };
+static Mat adap_histeq(Mat &img) {
+    Mat bgr[] = {Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
+                                                       CV_8UC1), Mat(img.rows, img.cols, CV_8UC1)
+    };
     split(img, bgr);
     Ptr<CLAHE> clahe = createCLAHE(2.0, Size(8.0, 8.0));
     clahe->apply(bgr[0], bgr[0]);
@@ -474,13 +491,13 @@ static Mat adap_histeq(Mat& img) {
     return hist_img;
 }
 // histogram equalization
-static Mat histeq(Mat& img) {
-    Mat bgr[] = { Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
-                  CV_8UC1), Mat(img.rows, img.cols, CV_8UC1)
-                };
+static Mat histeq(Mat &img) {
+    Mat bgr[] = {Mat(img.rows, img.cols, CV_8UC1), Mat(img.rows, img.cols,
+                                                       CV_8UC1), Mat(img.rows, img.cols, CV_8UC1)
+    };
     split(img, bgr);
     Mat bbb(img.rows, img.cols, CV_8UC3);
-    int from_to[] = { 0, 0, 0, 1, 0, 2 };
+    int from_to[] = {0, 0, 0, 1, 0, 2};
     mixChannels(&bgr[0], 1, &bbb, 1, from_to, 3);
     cvtColor(bbb, bgr[0], CV_BGR2GRAY);
     equalizeHist(bgr[0], bgr[0]);
@@ -494,7 +511,7 @@ static Mat histeq(Mat& img) {
     merge(bgr, (size_t) 3, hist_img);
     return hist_img;
 }
-static Mat ycrbradapthist(Mat const & img) {
+static Mat ycrbradapthist(Mat const &img) {
     cv::Mat image = img.clone();
     cvtColor(image, image, CV_RGB2YCrCb);
     Mat equalized;
@@ -516,7 +533,7 @@ static Mat ycrbradapthist(Mat const & img) {
     return equalized;
 }
 // random crop
-static Mat random_crop(Mat& img, int border) {
+static Mat random_crop(Mat &img, int border) {
     if (border == 0) {
         return img;
     }
@@ -529,7 +546,7 @@ static Mat random_crop(Mat& img, int border) {
     return img(rect);
 }
 // center crop
-static Mat center_crop(Mat& img, int border) {
+static Mat center_crop(Mat &img, int border) {
     if (border == 0) {
         return img;
     }
@@ -540,7 +557,7 @@ static Mat center_crop(Mat& img, int border) {
     Rect rect = Rect(start_w, start_h, width, height);
     return img(rect);
 }
-static Mat flip_(Mat& img) {
+static Mat flip_(Mat &img) {
     Mat flipped_img(img.rows, img.cols, CV_8UC3);
     flip(img, flipped_img, 1);
     return flipped_img;
@@ -571,7 +588,7 @@ static pair<int, int> CatImg(cv::Mat &img, int target_cols, int target_rows) {
     pair<int, int> added;
     added.first = 0;
     added.second = 0;
-    if (origin_height  < target_rows) {
+    if (origin_height < target_rows) {
         Mat rows = Mat::zeros(target_rows - origin_height, target_cols, img.type()); // +1 for input > 0
         img.push_back(rows);
         added.second = target_rows - origin_height;
