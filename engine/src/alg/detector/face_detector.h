@@ -15,20 +15,7 @@ namespace dg {
 
 class FaceCaffeDetector: public FaceDetector {
 public:
-    typedef struct {
-        bool is_model_encrypt = false;
-        int batch_size = 1;
-        int gpu_id = 0;
-        int img_scale_max = 300;
-        int img_scale_min = 240;
-        float scale = 1.0f;
-        float confidence = 0.7;
-        bool use_gpu = true;
-        string deploy_file;
-        string model_file;
-        string layer_name_cls = "conv_face_16_cls";
-        string layer_name_reg = "conv_face_16_reg";
-    } FaceDetectorConfig;
+
     FaceCaffeDetector(const FaceDetectorConfig &config);
 
     virtual ~FaceCaffeDetector();
