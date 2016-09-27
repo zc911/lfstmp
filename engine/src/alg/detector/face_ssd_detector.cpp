@@ -5,11 +5,10 @@
 #include "face_ssd_detector.h"
 #include "alg/caffe_helper.h"
 namespace dg {
-FaceSsdDetector::FaceSsdDetector(const FaceDetectorConfig &config){
+FaceSsdDetector::FaceSsdDetector(const FaceDetectorConfig &config) {
 
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
-    threshold_ = config.threshold;
 
     if (use_gpu_) {
 
@@ -39,12 +38,12 @@ FaceSsdDetector::FaceSsdDetector(const FaceDetectorConfig &config){
 
     Blob<float> *input_layer = net_->input_blobs()[0];
     num_channels_ = input_layer->channels();
-    target_col_ = config.target_min_size;
-    target_row_ = config.target_max_size;
+    target_col_ = config.img_scale_max;
+    target_row_ = config.img_scale_min;
     input_geometry_ = cv::Size(target_col_, target_row_);
     threshold_ = config.confidence;
 }
-virtual ~FaceSsdDetector::FaceSsdDetector() {
+FaceSsdDetector::~FaceSsdDetector() {
 
 }
 
@@ -70,14 +69,16 @@ void FaceSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < floa
             continue;
         }
 //        int cls = top_data_win[j * 7 + 1];
+        float ratio = resized_ratio_[img_id];
         float score = top_data_win[j * 7 + 2];
-        float xmin = top_data_win[j * 7 + 3] * max_col_;
-        float ymin = top_data_win[j * 7 + 4] * max_row_;
-        float xmax = top_data_win[j * 7 + 5] * max_col_;
-        float ymax = top_data_win[j * 7 + 6] * max_row_;
-        if(ymax>max_row_)
+        float xmin = top_data_win[j * 7 + 3] * max_col_ / ratio;
+        float ymin = top_data_win[j * 7 + 4] * max_row_ / ratio;
+        float xmax = top_data_win[j * 7 + 5] * max_col_ / ratio;
+        float ymax = top_data_win[j * 7 + 6] * max_row_ / ratio;
+
+        if (ymax > images_origin[img_id].rows)
             continue;
-        if(xmax>max_col_)
+        if (xmax > images_origin[img_id].cols)
             continue;
         if (score > threshold_) {
             /*******************tiny object detector*********************/
@@ -93,7 +94,7 @@ void FaceSsdDetector::Fullfil(vector<cv::Mat> &images_origin, vector<Blob < floa
     }
 }
 int FaceSsdDetector::Detect(vector<cv::Mat> &img,
-                                        vector<vector<Detection> > &detect_results) {
+                            vector<vector<Detection> > &detect_results) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
@@ -103,12 +104,11 @@ int FaceSsdDetector::Detect(vector<cv::Mat> &img,
         device_setted_ = true;
     }
 
-
     detect_results.clear();
     vector<cv::Mat> toPredict;
     vector<cv::Mat> origins;
     for (int i = 0; i < img.size(); ++i) {
-        toPredict.push_back(image);
+        toPredict.push_back(img[i]);
         origins.push_back(img[i]);
         if (toPredict.size() == batch_size_) {
             vector<Blob<float> *> outputs = PredictBatch(toPredict);
@@ -117,7 +117,6 @@ int FaceSsdDetector::Detect(vector<cv::Mat> &img,
             origins.clear();
         }
     }
-
     if (toPredict.size() > 0) {
         vector<Blob<float> *> outputs = PredictBatch(toPredict);
 
@@ -126,20 +125,17 @@ int FaceSsdDetector::Detect(vector<cv::Mat> &img,
     gettimeofday(&end, NULL);
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
+           / 1000.f;
     DLOG(INFO) << "       [window] detect batch " << diff;
 }
 
-std::vector<Blob<float> *> FaceSsdDetector::PredictBatch(const vector<Mat> &imgs) {
-    if(imgs.size()==0)
-        return;
-    resize_ratios_.clear();
+std::vector<Blob<float> *> FaceSsdDetector::PredictBatch( vector<Mat> &imgs) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
     vector<Blob<float> *> outputs;
-
-    max_col_=0,max_row_=0;
+    max_col_ = 0, max_row_ = 0;
+    resized_ratio_.clear();
     for (int i = 0; i < imgs.size(); i++) {
         float resize_ratio = ReScaleImage(imgs[i], target_row_, target_col_ );
         if (max_col_ < imgs[i].cols) {
@@ -148,6 +144,7 @@ std::vector<Blob<float> *> FaceSsdDetector::PredictBatch(const vector<Mat> &imgs
         if (max_row_ < imgs[i].rows) {
             max_row_ = imgs[i].rows;
         }
+        resized_ratio_.push_back(resize_ratio);
     }
     for (int i = 0; i < imgs.size(); i++) {
         (CatImg(imgs[i], max_col_, max_row_));
@@ -155,7 +152,7 @@ std::vector<Blob<float> *> FaceSsdDetector::PredictBatch(const vector<Mat> &imgs
 
     Blob<float>* input_blob = net_->input_blobs()[0];
     Size image_size = Size(max_col_, max_row_);
-    vector<int> shape = {static_cast<int>(imgs.size()), 3, image_size.height, image_size.width};
+    vector<int> shape = {static_cast<int>(imgs.size()), num_channels_, image_size.height, image_size.width};
     input_blob->Reshape(shape);
     net_->Reshape();
 
@@ -169,9 +166,6 @@ std::vector<Blob<float> *> FaceSsdDetector::PredictBatch(const vector<Mat> &imgs
         cv::Mat img = imgs[i];
 
         GenerateSample(num_channels_, img, sample);
-        if ((sample.rows != input_geometry_.height) || (sample.cols != input_geometry_.width)) {
-            cv::resize(sample, sample, Size(input_geometry_.width, input_geometry_.height));
-        }
 
         float mean[3] = {104, 117, 123};
         for (int k = 0; k < sample.channels(); k++) {
@@ -197,7 +191,7 @@ std::vector<Blob<float> *> FaceSsdDetector::PredictBatch(const vector<Mat> &imgs
     gettimeofday(&end, NULL);
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
+           / 1000.f;
     DLOG(INFO) << "       [window] predict batch " << diff;
     return outputs;
 }

@@ -16,7 +16,7 @@ ConfigFilter *ConfigFilter::instance_ = NULL;
 ConfigFilter::ConfigFilter() {
 }
 void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
-        FaceCaffeDetector::FaceDetectorConfig &config) {
+        FaceDetectorConfig &config) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_FACE_DETECT_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -27,6 +27,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     int scale = (int) cconfig.Value(ADVANCED_FACE_DETECT_SCALE);
     float confidence = (float) cconfig.Value(ADVANCED_FACE_DETECT_CONFIDENCE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+
 
     config.model_file = model_path + trained_model;
     config.deploy_file = model_path + deploy_model;

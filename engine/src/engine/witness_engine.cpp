@@ -409,11 +409,11 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        bool method = (bool) config.Value(ADVANCED_FACE_DETECT_METHOD);
+        int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
         if (method) {
             FaceDetectorConfig fdconfig;
             configFilter->createFaceDetectorConfig(config, fdconfig);
-            face_processor_ = new FaceDetectProcessor(fdconfig,method);
+            face_processor_ = new FaceDetectProcessor(fdconfig, method);
         } else {
             FaceDlibDetector::FaceDetectorConfig fdconfig;
             fdconfig.img_scale_min = (int)config.Value(ADVANCED_FACE_DETECT_MIN);
