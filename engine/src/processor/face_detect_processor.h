@@ -20,7 +20,7 @@ namespace dg {
 
 class FaceDetectProcessor: public Processor {
 public:
-	FaceDetectProcessor(FaceDetectorConfig config,int method);
+	FaceDetectProcessor(FaceDetectorConfig config, int method);
 	FaceDetectProcessor(FaceDlibDetector::FaceDetectorConfig config);
 
 	virtual ~FaceDetectProcessor();

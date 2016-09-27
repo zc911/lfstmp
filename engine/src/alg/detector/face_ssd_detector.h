@@ -14,8 +14,8 @@
 using namespace std;
 using namespace cv;
 using namespace caffe;
-namespace dg{
-class FaceSsdDetector:public FaceDetector {
+namespace dg {
+class FaceSsdDetector: public FaceDetector {
 public:
     FaceSsdDetector(const FaceDetectorConfig &config);
     virtual ~FaceSsdDetector();
@@ -23,7 +23,7 @@ public:
                vector<vector<Detection> > &detect_results);
 
 protected:
-    vector<Blob<float>*> PredictBatch(const vector<Mat> &imgs);
+    vector<Blob<float>*> PredictBatch( vector<Mat> &imgs);
     void Fullfil(vector<cv::Mat> &img, vector<Blob<float> *> &outputs, vector<vector<Detection> > &detect_results);
     boost::shared_ptr<caffe::Net<float>> net_;
     int num_channels_;
@@ -38,6 +38,7 @@ protected:
     int target_row_;
     int max_row_;
     int max_col_;
+    vector<float> resized_ratio_;
 
 };
 }
