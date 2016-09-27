@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年4月21日 下午1:31:27
- * Description : 
+ * Description :
  * ==========================================================================*/
 #ifndef FACE_FEATURE_EXTRACTOR_H_
 #define FACE_FEATURE_EXTRACTOR_H_
@@ -34,7 +34,7 @@ struct InnFaceFeature {
 };
 
 class FaceFeatureExtractor {
- public:
+public:
     typedef struct {
 
         bool is_model_encrypt = true;
@@ -49,16 +49,16 @@ class FaceFeatureExtractor {
     FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
 
     virtual ~FaceFeatureExtractor();
-    std::vector<FaceRankFeature> Extract(const std::vector<Mat> &imgs);
+    std::vector<FaceRankFeature> Extract( std::vector<Mat> &imgs);
     std::vector<Mat> Align(std::vector<Mat> imgs);
 
- private:
+private:
     void Detection2Points(const dlib::full_object_detection &detection,
                           std::vector<dlib::point> &points);
 
     void miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults);
 
- private:
+private:
     std::shared_ptr<Net<float>> net_;
     bool device_setted_;
     cv::Size input_geometry_;

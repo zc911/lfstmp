@@ -20,7 +20,7 @@ namespace dg {
 class FaceFeatureExtractProcessor: public Processor {
 public:
 	FaceFeatureExtractProcessor(
-	    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config,const FaceAlignment::FaceAlignmentConfig &faConfig);
+	    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config, const FaceAlignment::FaceAlignmentConfig &faConfig);
 	virtual ~FaceFeatureExtractProcessor();
 
 protected:
@@ -33,7 +33,7 @@ protected:
 
 private:
 	FaceFeatureExtractor *extractor_ = NULL;
-	FaceAlignment *alignment_=NULL;
+	FaceAlignment *alignment_ = NULL;
 	vector<Object *> to_processed_;
 };
 

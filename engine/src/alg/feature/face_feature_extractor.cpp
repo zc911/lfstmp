@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 2016年4月21日 下午1:31:28
- * Description : 
+ * Description :
  * ==========================================================================*/
 #include "face_feature_extractor.h"
 #include "../caffe_helper.h"
@@ -14,8 +14,7 @@ namespace dg {
 FaceFeatureExtractor::FaceFeatureExtractor(
     const FaceFeatureExtractorConfig &config)
     : device_setted_(false),
-      batch_size_(config.batch_size),
-      detector_(dlib::get_frontal_face_detector()) {
+      batch_size_(config.batch_size) {
 
     use_gpu_ = config.use_gpu;
     gpu_id_ = config.gpu_id;
@@ -88,7 +87,7 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
                 for (int col = 0; col < sample.cols; col++) {
                     input_data[image_off + channel_off + row_off + col] =
                         (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k])
-                            / pixel_scale_;
+                        / pixel_scale_;
                 }
             }
         }
@@ -124,10 +123,10 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
 }
 
 std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
-    const std::vector<Mat> &align_imgs) {
+    std::vector<Mat> &align_imgs) {
 
     vector<FaceRankFeature> results;
-    if(align_imgs.size() == 0){
+    if (align_imgs.size() == 0) {
         LOG(ERROR) << "Faces is empty" << endl;
         return results;
     }
