@@ -201,14 +201,14 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
                         rect[3] = exp(rect[3]) * gt_hh[scale_idx];
                         rect[0] = rect[0] * gt_ww[scale_idx] - rect[2] / 2.f + shift_x;
                         rect[1] = rect[1] * gt_hh[scale_idx] - rect[3] / 2.f + shift_y;
-                        if (rect[0] + rect[2] > imgs[img_idx].cols + addeds[img_idx].first)
+                        if (rect[0]  > imgs[img_idx].cols )
                             continue;
-                        if (rect[1] + rect[3] > imgs[img_idx].rows + addeds[img_idx].second)
+                        if (rect[1]  > imgs[img_idx].rows )
                             continue;
                         Detection bbox;
                         bbox.confidence   = confidence;
                         bbox.box  = Rect(rect[0], rect[1], rect[2], rect[3]);
-                        bbox.box &= Rect(0, 0, imgs[img_idx].rows, imgs[img_idx].cols);
+                        bbox.box &= Rect(0, 0, imgs[img_idx].cols, imgs[img_idx].rows);
                         bbox.deleted = false;
                         vbbox.push_back(bbox);
                     }
