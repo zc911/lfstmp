@@ -67,6 +67,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     faConfig.align_deploy=config.align_deploy;
     faConfig.align_model=config.align_model;
     faConfig.is_model_encrypt=config.is_model_encrypt;
+    LOG(INFO)<<face_size_num;
     for(int i=0;i<face_size_num;i++){
         faConfig.face_size.push_back((int) cconfig.Value(ADVANCED_FACE_EXTRACT_ALIGNMENT_FACESIZE + to_string(i)));
     }

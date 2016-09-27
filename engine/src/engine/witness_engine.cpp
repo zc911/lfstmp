@@ -426,7 +426,7 @@ void WitnessEngine::init(const Config &config) {
             FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
             FaceAlignment::FaceAlignmentConfig faConfig;
             configFilter->createFaceExtractorConfig(config, feconfig,faConfig);
-            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig,faConfig));
         }
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
