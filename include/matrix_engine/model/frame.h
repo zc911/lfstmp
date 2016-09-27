@@ -102,7 +102,7 @@ public:
 
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *old_obj = *itr;
 
             if (old_obj->id() == obj->id()) {
@@ -117,7 +117,7 @@ public:
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *obj = *itr;
             if (obj->id() == id) {
                 return *itr;

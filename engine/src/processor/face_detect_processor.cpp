@@ -80,7 +80,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[i];
         if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
-                                     << endl;
+                << endl;
             continue;
         }
 
@@ -96,8 +96,13 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         performance_++;
 
     }
+
     vector<vector<Detection>> boxes_in;
+
+
     detector_->Detect(imgs, boxes_in);
+
+
     for (int i = 0; i < frameIds.size(); ++i) {
         int frameId = frameIds[i];
         Frame *frame = frameBatch->frames()[frameId];
@@ -113,6 +118,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             frame->put_object(face);
         }
     }
+
     return true;
 }
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {
