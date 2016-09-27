@@ -4,7 +4,7 @@
 #include "face_alignment.h"
 #include "../detector/face_dlib_detector.h"
 namespace dg {
-void FaceAlignment::Align(std::vector<Mat> imgs, std::vector<Mat> &results,bool adjust) {
+void FaceAlignment::Align(std::vector<Mat> imgs, std::vector<Mat> &results, bool adjust) {
     for (auto img_in : imgs) {
         Mat img;
         if (img_in.channels() == 4)
@@ -38,12 +38,12 @@ void FaceAlignment::Align(std::vector<Mat> imgs, std::vector<Mat> &results,bool 
 
         }
     }
-    for(int i=0;i<results.size();i++){
-        string name = to_string(i)+"align.jpg";
-                string name1 = to_string(i)+"align1.jpg";
+    for (int i = 0; i < results.size(); i++) {
+        string name = to_string(i) + "align.jpg";
+        string name1 = to_string(i) + "align1.jpg";
 
-        imwrite(name,results[i]);
-                imwrite(name1,imgs[i]);
+        imwrite(name, results[i]);
+        imwrite(name1, imgs[i]);
 
     }
 }
