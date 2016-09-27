@@ -124,7 +124,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
            / 1000.f;
-    DLOG(INFO) << " [witness engine ]: " << diff;
+    DLOG(INFO) << "witness engine cost: " << diff << " ms" << endl;
 
 //    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
 //        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
