@@ -32,10 +32,11 @@ static void initConfig() {
 
     fConfig.deploy_file = baseModelPath + "500.txt";
     fConfig.model_file = baseModelPath + "500.dat";
-    fConfig.align_deploy = baseModelPath + "avgface.jpg";
-    fConfig.align_model = baseModelPath + "501.dat";
 
-    ffeprocessor  = new FaceFeatureExtractProcessor(fConfig);
+    FaceAlignment::FaceAlignmentConfig faConfig;
+    faConfig.align_deploy = baseModelPath + "avgface.jpg";
+    faConfig.align_model = baseModelPath + "501.dat";
+    ffeprocessor  = new FaceFeatureExtractProcessor(fConfig,faConfig);
 
     fbhelper = new FrameBatchHelper(1);
 }

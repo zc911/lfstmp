@@ -410,22 +410,23 @@ void WitnessEngine::init(const Config &config) {
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
         bool method = (bool) config.Value(ADVANCED_FACE_DETECT_METHOD);
-        if(method){
+        if (method) {
             FaceCaffeDetector::FaceDetectorConfig fdconfig;
             configFilter->createFaceDetectorConfig(config, fdconfig);
             face_processor_ = new FaceDetectProcessor(fdconfig);
-        }else{
+        } else {
             FaceDlibDetector::FaceDetectorConfig fdconfig;
-            fdconfig.img_scale_min=(int)config.Value(ADVANCED_FACE_DETECT_MIN);
-            fdconfig.img_scale_max=(int)config.Value(ADVANCED_FACE_DETECT_MAX);
+            fdconfig.img_scale_min = (int)config.Value(ADVANCED_FACE_DETECT_MIN);
+            fdconfig.img_scale_max = (int)config.Value(ADVANCED_FACE_DETECT_MAX);
 
             face_processor_ = new FaceDetectProcessor(fdconfig);
         }
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-            configFilter->createFaceExtractorConfig(config, feconfig);
-            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
+            FaceAlignment::FaceAlignmentConfig faConfig;
+            configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig, faConfig));
         }
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
