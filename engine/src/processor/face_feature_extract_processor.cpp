@@ -6,13 +6,16 @@
  * Created on  : 2016年4月21日 下午3:44:11
  * Description :
  * ==========================================================================*/
+#include <alg/feature/face_alignment.h>
+#include <alg/feature/face_feature_extractor.h>
 #include "processor/face_feature_extract_processor.h"
 #include "processor_helper.h"
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
+    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config,const FaceAlignment::FaceAlignmentConfig &faConfig) {
     extractor_ = new FaceFeatureExtractor(config);
+    alignment_ = new FaceAlignment(faConfig);
 }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
@@ -43,7 +46,9 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
         }
 
     }
-    vector<FaceRankFeature> features = extractor_->Extract(imgs);
+    vector<Mat >align_imgs;
+    alignment_->Align(imgs,align_imgs);
+    vector<FaceRankFeature> features = extractor_->Extract(align_imgs);
     if (size != features.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << size << ":" << features.size() << endl;
         return false;
@@ -74,8 +79,9 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     if (imgs.size() == 0) {
         return false;
     }
-
-    vector<FaceRankFeature> features = extractor_->Extract(imgs);
+    vector<Mat >align_imgs;
+    alignment_->Align(imgs,align_imgs);
+    vector<FaceRankFeature> features = extractor_->Extract(align_imgs);
     if (features.size() != imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << imgs.size() << ":" << features.size() << endl;
         return false;
