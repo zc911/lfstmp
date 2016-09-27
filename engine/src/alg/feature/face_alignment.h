@@ -30,7 +30,7 @@ public:
         std::vector<cv::Point>  landmarks;
     FaceAlignment(const FaceAlignmentConfig &config);
 
-    std::vector<Mat> Align(std::vector<Mat> imgs);
+    void Align(std::vector<Mat> imgs,std::vector<Mat> results);
 private:
     void align_impl(const Mat &img, const Rect &bbox,std::vector<cv::Point> &landmarks);
     dlib::shape_predictor sp_;

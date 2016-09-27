@@ -104,7 +104,8 @@ static const string ADVANCED_FACE_DETECT_CONFIDENCE =
 
 static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
     "Advanced/FaceExtract/BatchSize";
-
+static const string ADVANCED_FACE_EXTRACT_ALIGNMENT_FACESIZE =
+    "Advanced/FaceExtract/AlignmentFaceSize";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
