@@ -51,6 +51,7 @@ FaceFeatureExtractor::FaceFeatureExtractor(
         input_layer->Reshape(shape);
         net_->Reshape();
     } while (0);
+
     num_channels_ = input_layer->channels();
 
     CHECK(num_channels_ == 1) << "Input layer should be gray scale.";
@@ -97,7 +98,6 @@ std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs) {
         dlib::transform_image(image, out, dlib::interpolate_bilinear(), trans);
         cv::Mat face = toMat(out).clone();
         result.push_back(face);
-
     }
 
     return result;
@@ -159,13 +159,16 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
             break;
         }
 
+        cout << "face feature len: " << feature_len << endl;
+
         for (size_t i = 0; i < align_imgs.size(); i++) {
             const float *data = output_data + i * feature_len;
             FaceRankFeature face_feature;
             for (int idx = 0; idx < feature_len; ++idx) {
                 face_feature.descriptor_.push_back(data[idx]);
             }
-
+            cout << "face feature vector: " << face_feature.descriptor_.size() << endl;
+            cout << "face feature string: " << face_feature.Serialize() << endl;
             miniBatchResults[i] = face_feature;
             results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
         }
