@@ -170,6 +170,12 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
     const std::vector<Mat> &faces) {
 
     vector<FaceRankFeature> results;
+    if(faces.size() == 0){
+        LOG(ERROR) << "Faces is empty" << endl;
+        return results;
+    }
+
+
     vector<FaceRankFeature> miniBatchResults;
 
     std::vector<Mat> align_imgs;
@@ -178,12 +184,8 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
     if (faces.size() <= batch_size_) {
 
         ReshapeNetBatchSize(net_, align_imgs.size());
-        cout << "align_images: " << align_imgs.size() << endl;
-
         miniBatchExtractor(align_imgs, miniBatchResults);
-        cout << "mini batch results" << miniBatchResults.size() << endl;
         results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
-        cout << "results: " << results.size() << endl;
     } else {
         vector<Mat> miniBatch;
         for (int i = 0; i < align_imgs.size(); ++i) {
