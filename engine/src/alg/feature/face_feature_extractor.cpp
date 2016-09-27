@@ -45,12 +45,13 @@ FaceFeatureExtractor::FaceFeatureExtractor(
 
 
     Blob<float> *input_layer = net_->input_blobs()[0];
-    do {
-        std::vector<int> shape = input_layer->shape();
-        shape[0] = batch_size_;
-        input_layer->Reshape(shape);
-        net_->Reshape();
-    } while (0);
+    ReshapeNetBatchSize(net_, batch_size_);
+//    do {
+//        std::vector<int> shape = input_layer->shape();
+//        shape[0] = batch_size_;
+//        input_layer->Reshape(shape);
+//        net_->Reshape();
+//    } while (0);
 
     num_channels_ = input_layer->channels();
 
@@ -103,77 +104,118 @@ std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs) {
     return result;
 }
 
-std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
-    const std::vector<Mat> &faces) {
-
-    std::vector<FaceRankFeature> results;
+void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults) {
 
     Blob<float> *input_blob = net_->input_blobs()[0];
 
-    for (auto miniBatch : PrepareBatch(faces, batch_size_)) {
+    float *input_data = input_blob->mutable_cpu_data();
+    for (size_t i = 0; i < alignImgs.size(); i++) {
+        Mat sample;
+        Mat face = alignImgs[i];
 
-        std::vector<FaceRankFeature> miniBatchResults;
-        std::vector<Mat> align_imgs = Align(miniBatch);
-        miniBatchResults.resize(align_imgs.size());
+        if (face.cols == 0 || face.rows == 0) {
+            face = cv::Mat::zeros(1, 1, CV_8UC3);
+        }
 
-        float *input_data = input_blob->mutable_cpu_data();
-        for (size_t i = 0; i < align_imgs.size(); i++) {
-            Mat sample;
-            Mat face = align_imgs[i];
-
-            if (face.cols == 0 || face.rows == 0) {
-                face = cv::Mat::zeros(1, 1, CV_8UC3);
-            }
-
-            if (face.cols != input_blob->width() || face.rows != input_blob->height())
-                resize(face, face, Size(input_blob->width(), input_blob->height()));
+        if (face.cols != input_blob->width() || face.rows != input_blob->height())
+            resize(face, face, Size(input_blob->width(), input_blob->height()));
 
 
-            GenerateSample(num_channels_, face, sample);
+        GenerateSample(num_channels_, face, sample);
+        size_t image_off = i * sample.channels() * sample.rows * sample.cols;
 
-            size_t image_off = i * sample.channels() * sample.rows * sample.cols;
-            for (int k = 0; k < sample.channels(); k++) {
-                size_t channel_off = k * sample.rows * sample.cols;
-                for (int row = 0; row < sample.rows; row++) {
-                    size_t row_off = row * sample.cols;
-                    for (int col = 0; col < sample.cols; col++) {
-                        input_data[image_off + channel_off + row_off + col] =
-                            (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k])
-                                / pixel_scale_;
-                    }
+        for (int k = 0; k < sample.channels(); k++) {
+            size_t channel_off = k * sample.rows * sample.cols;
+            for (int row = 0; row < sample.rows; row++) {
+                size_t row_off = row * sample.cols;
+                for (int col = 0; col < sample.cols; col++) {
+                    input_data[image_off + channel_off + row_off + col] =
+                        (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k])
+                            / pixel_scale_;
                 }
             }
         }
+    }
 
-        net_->ForwardPrefilled();
-        if (use_gpu_) {
-            cudaDeviceSynchronize();
+    net_->ForwardPrefilled();
+    if (use_gpu_) {
+        cudaDeviceSynchronize();
+    }
+
+    auto output_blob = net_->blob_by_name(layer_name_);
+    const float *output_data = output_blob->cpu_data();
+    const int feature_len = output_blob->channels();
+
+    if (feature_len <= 0) {
+        LOG(ERROR) << "Face feature len invalid: " << feature_len << endl;
+        return;
+    }
+
+    miniBatchResults.clear();
+    miniBatchResults.resize(alignImgs.size());
+
+    for (size_t i = 0; i < alignImgs.size(); i++) {
+        const float *data = output_data + i * feature_len;
+        FaceRankFeature face_feature;
+        for (int idx = 0; idx < feature_len; ++idx) {
+            face_feature.descriptor_.push_back(data[idx]);
         }
 
-        auto output_blob = net_->blob_by_name(layer_name_);
-        const float *output_data = output_blob->cpu_data();
-        const int feature_len = output_blob->channels();
-
-        if (feature_len <= 0) {
-            LOG(ERROR) << "Face feature len invalid: " << feature_len << endl;
-            break;
-        }
-
-        cout << "face feature len: " << feature_len << endl;
-
-        for (size_t i = 0; i < align_imgs.size(); i++) {
-            const float *data = output_data + i * feature_len;
-            FaceRankFeature face_feature;
-            for (int idx = 0; idx < feature_len; ++idx) {
-                face_feature.descriptor_.push_back(data[idx]);
-            }
-            cout << "face feature vector: " << face_feature.descriptor_.size() << endl;
-            cout << "face feature string: " << face_feature.Serialize() << endl;
-            miniBatchResults[i] = face_feature;
-            results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
-        }
+        miniBatchResults[i] = face_feature;
 
     }
+}
+
+std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
+    const std::vector<Mat> &faces) {
+
+    vector<FaceRankFeature> results;
+    if(faces.size() == 0){
+        LOG(ERROR) << "Faces is empty" << endl;
+        return results;
+    }
+
+
+    vector<FaceRankFeature> miniBatchResults;
+
+    std::vector<Mat> align_imgs;
+    align_imgs = Align(faces);
+
+    if (faces.size() <= batch_size_) {
+
+        ReshapeNetBatchSize(net_, align_imgs.size());
+        miniBatchExtractor(align_imgs, miniBatchResults);
+        results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
+    } else {
+        vector<Mat> miniBatch;
+        for (int i = 0; i < align_imgs.size(); ++i) {
+            miniBatch.push_back(align_imgs[i]);
+            if (miniBatch.size() == batch_size_) {
+                ReshapeNetBatchSize(net_, miniBatch.size());
+                miniBatchExtractor(miniBatch, miniBatchResults);
+                results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
+                miniBatch.clear();
+                miniBatchResults.clear();
+            }
+        }
+        if (miniBatch.size() > 0) {
+            ReshapeNetBatchSize(net_, miniBatch.size());
+            miniBatchExtractor(miniBatch, miniBatchResults);
+            results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
+        }
+    }
+
+    return results;
+
+
+
+//    for (auto miniBatch : PrepareBatch(faces, batch_size_)) {
+//        cout << "mini batch size: " << miniBatch.size() << endl;
+//        std::vector<FaceRankFeature> miniBatchResults;
+
+
+
+//    }
 
     return results;
 
