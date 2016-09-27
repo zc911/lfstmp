@@ -25,8 +25,6 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
     int size = frame->objects().size();
 
-    cout << "Face size: " << size << endl;
-
     vector<Mat> imgs;
     for (int i = 0; i < size; ++i) {
         Object *obj = (frame->objects())[i];
@@ -73,6 +71,10 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         performance_++;
     }
 
+    if (imgs.size() == 0) {
+        return false;
+    }
+
     vector<FaceRankFeature> features = extractor_->Extract(imgs);
     if (features.size() != imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << imgs.size() << ":" << features.size() << endl;
@@ -81,7 +83,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
     for (int i = 0; i < features.size(); ++i) {
         FaceRankFeature feature = features[i];
-        Face *face = (Face*) to_processed_[i];
+        Face *face = (Face *) to_processed_[i];
         face->set_feature(feature);
     }
 
