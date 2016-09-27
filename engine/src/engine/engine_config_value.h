@@ -94,7 +94,7 @@ static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
 
 static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
     "Advanced/FaceDetect/BatchSize";
-static const string ADVANCED_FACE_DETECT_METHOD="Advanced/FaceDetect/Method";
+static const string ADVANCED_FACE_DETECT_METHOD = "Advanced/FaceDetect/Method";
 static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
 static const string ADVANCED_FACE_DETECT_MIN = "Advanced/FaceDetect/Min";
 static const string ADVANCED_FACE_DETECT_MAX = "Advanced/FaceDetect/Max";
@@ -104,7 +104,8 @@ static const string ADVANCED_FACE_DETECT_CONFIDENCE =
 
 static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
     "Advanced/FaceExtract/BatchSize";
-
+static const string ADVANCED_FACE_EXTRACT_ALIGNMENT_FACESIZE =
+    "Advanced/FaceExtract/AlignmentFaceSize";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";

@@ -10,6 +10,7 @@
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
 #include "alg/feature/face_feature_extractor.h"
+#include "alg/feature/face_alignment.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
@@ -19,7 +20,7 @@ namespace dg {
 class FaceFeatureExtractProcessor: public Processor {
 public:
 	FaceFeatureExtractProcessor(
-	    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+	    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config, const FaceAlignment::FaceAlignmentConfig &faConfig);
 	virtual ~FaceFeatureExtractProcessor();
 
 protected:
@@ -32,6 +33,7 @@ protected:
 
 private:
 	FaceFeatureExtractor *extractor_ = NULL;
+	FaceAlignment *alignment_ = NULL;
 	vector<Object *> to_processed_;
 };
 
