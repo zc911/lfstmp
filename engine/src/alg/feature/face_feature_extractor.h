@@ -69,9 +69,6 @@ class FaceFeatureExtractor {
     int gpu_id_;
     std::vector<float> pixel_means_;
     float pixel_scale_;
-    dlib::shape_predictor sp_;
-    std::vector<dlib::point> avg_face_points_;
-    dlib::frontal_face_detector detector_;
 };
 
 } /* namespace dg */

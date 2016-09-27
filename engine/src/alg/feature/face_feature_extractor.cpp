@@ -58,51 +58,8 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     CHECK(num_channels_ == 1) << "Input layer should be gray scale.";
     input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
 
-    dlib::deserialize(config.align_model) >> sp_;
-    cv::Mat avg_face_img = cv::imread(config.align_deploy);
-    dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
-
-    std::vector<dlib::rectangle> avg_face_bbox = detector_(avg_face_image);
-    assert(avg_face_bbox.size() == 1);
-    dlib::full_object_detection shape = sp_(avg_face_image, avg_face_bbox[0]);
-    Detection2Points(shape, avg_face_points_);
-
 }
 
-void FaceFeatureExtractor::Detection2Points(
-    const dlib::full_object_detection &detection,
-    std::vector<dlib::point> &points) {
-    points.resize(0);
-    for (unsigned long i = 0; i < detection.num_parts(); i++) {
-        points.push_back(detection.part(i));
-    }
-}
-
-std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs) {
-    std::vector<Mat> result;
-    for (int i = 0; i < imgs.size(); i++) {
-        std::vector<dlib::point> points;
-        dlib::full_object_detection shape;
-        dlib::point_transform_affine trans;
-        dlib::cv_image<dlib::bgr_pixel> image(imgs[i]);
-
-        dlib::rectangle bbox(0, 0, imgs[i].cols, imgs[i].rows);
-        shape = sp_(image, bbox);
-        if (shape.num_parts() != avg_face_points_.size()) {
-            cv::Mat face = cv::Mat::zeros(128, 128, CV_8UC3);
-            continue;
-        }
-        Detection2Points(shape, points);
-        trans = find_affine_transform(avg_face_points_, points);
-
-        dlib::array2d<dlib::bgr_pixel> out(128, 128);
-        dlib::transform_image(image, out, dlib::interpolate_bilinear(), trans);
-        cv::Mat face = toMat(out).clone();
-        result.push_back(face);
-    }
-
-    return result;
-}
 
 void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults) {
 
@@ -167,21 +124,15 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
 }
 
 std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
-    const std::vector<Mat> &faces) {
+    const std::vector<Mat> &align_imgs) {
 
     vector<FaceRankFeature> results;
-    if(faces.size() == 0){
+    if(align_imgs.size() == 0){
         LOG(ERROR) << "Faces is empty" << endl;
         return results;
     }
-
-
     vector<FaceRankFeature> miniBatchResults;
-
-    std::vector<Mat> align_imgs;
-    align_imgs = Align(faces);
-
-    if (faces.size() <= batch_size_) {
+    if (align_imgs.size() <= batch_size_) {
 
         ReshapeNetBatchSize(net_, align_imgs.size());
         miniBatchExtractor(align_imgs, miniBatchResults);

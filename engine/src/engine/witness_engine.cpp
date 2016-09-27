@@ -424,7 +424,8 @@ void WitnessEngine::init(const Config &config) {
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-            configFilter->createFaceExtractorConfig(config, feconfig);
+            FaceAlignment::FaceAlignmentConfig faConfig;
+            configFilter->createFaceExtractorConfig(config, feconfig,faConfig);
             face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig));
         }
 
