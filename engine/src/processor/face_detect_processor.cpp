@@ -12,19 +12,19 @@
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
-    FaceDetectorConfig config,int method) {
+    FaceDetectorConfig config, int method) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
 
     //Initialize face detector
-    switch(method){
-        case 1:
-            detector_ = new FaceCaffeDetector(config);
-            break;
-        case 2:
-            detector_ = new FaceSsdDetector(config);
-
-            break;
+    switch (method) {
+    case 1:
+        detector_ = new FaceCaffeDetector(config);
+        break;
+    case 2:
+        detector_ = new FaceSsdDetector(config);
+        LOG(INFO) << "SSD";
+        break;
     }
     base_id_ = 5000;
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
@@ -104,7 +104,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         performance_++;
 
     }
-
+    LOG(INFO) << imgs.size();
     vector<vector<Detection>> boxes_in;
 
 
