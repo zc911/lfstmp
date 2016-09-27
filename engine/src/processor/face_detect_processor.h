@@ -11,6 +11,7 @@
 
 #include "processor/processor.h"
 #include "alg/detector/face_detector.h"
+#include "alg/detector/face_ssd_detector.h"
 #include "alg/detector/face_dlib_detector.h"
 #include "model/frame.h"
 #include "model/model.h"
@@ -19,7 +20,7 @@ namespace dg {
 
 class FaceDetectProcessor: public Processor {
 public:
-	FaceDetectProcessor(FaceCaffeDetector::FaceDetectorConfig config);
+	FaceDetectProcessor(FaceDetectorConfig config,int method);
 	FaceDetectProcessor(FaceDlibDetector::FaceDetectorConfig config);
 
 	virtual ~FaceDetectProcessor();

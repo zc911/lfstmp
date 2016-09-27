@@ -8,8 +8,8 @@ bool mycmp(Detection b1, Detection b2) {
 }
 
 FaceCaffeDetector::FaceCaffeDetector(const FaceDetectorConfig &config)
-    : layer_name_cls_(config.layer_name_cls),
-      layer_name_reg_(config.layer_name_reg),
+    : layer_name_cls_("conv_face_16_cls"),
+      layer_name_reg_("conv_face_16_reg"),
       scale_(config.scale),
       img_scale_max_(config.img_scale_max),
       img_scale_min_(config.img_scale_min),
@@ -73,6 +73,8 @@ FaceCaffeDetector::~FaceCaffeDetector() {
 void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection> > &final_vbbox) {
     if (imgs.size() == 0)
         return;
+    resize_ratios_.clear();
+
     final_vbbox.resize(imgs.size());
 
     int scale_num = area_.size() * ratio_.size();
@@ -99,7 +101,6 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
     input_blob->Reshape(shape);
     net_->Reshape();
     float* input_data = input_blob->mutable_cpu_data();
-    resize_ratios_.clear();
 
     for (size_t i = 0; i < imgs.size(); i++)
     {
