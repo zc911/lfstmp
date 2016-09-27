@@ -13,7 +13,7 @@
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config,const FaceAlignment::FaceAlignmentConfig &faConfig) {
+    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config, const FaceAlignment::FaceAlignmentConfig &faConfig) {
     extractor_ = new FaceFeatureExtractor(config);
     alignment_ = new FaceAlignment(faConfig);
 }
@@ -47,7 +47,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
     }
     vector<Mat >align_imgs;
-    alignment_->Align(imgs,align_imgs);
+    alignment_->Align(imgs, align_imgs);
     vector<FaceRankFeature> features = extractor_->Extract(align_imgs);
     if (size != features.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << size << ":" << features.size() << endl;
@@ -80,7 +80,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         return false;
     }
     vector<Mat >align_imgs;
-    alignment_->Align(imgs,align_imgs);
+    alignment_->Align(imgs, align_imgs);
     vector<FaceRankFeature> features = extractor_->Extract(align_imgs);
     if (features.size() != imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << imgs.size() << ":" << features.size() << endl;
@@ -114,7 +114,7 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object *>::iterator itr = to_processed_.begin();
-         itr != to_processed_.end();) {
+            itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else {

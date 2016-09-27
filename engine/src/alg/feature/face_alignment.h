@@ -27,12 +27,12 @@ public:
         string align_deploy;
         vector<int> face_size;
     } FaceAlignmentConfig;
-        std::vector<cv::Point>  landmarks;
+    std::vector<cv::Point>  landmarks;
     FaceAlignment(const FaceAlignmentConfig &config);
 
-    void Align(std::vector<Mat> imgs,std::vector<Mat> &results,bool adjust=true);
+    void Align(std::vector<Mat> imgs, std::vector<Mat> &results, bool adjust = true);
 private:
-    void align_impl(const Mat &img, const Rect &bbox,std::vector<cv::Point> &landmarks);
+    void align_impl(const Mat &img, const Rect &bbox, std::vector<cv::Point> &landmarks);
     dlib::shape_predictor sp_;
     std::vector<cv::Point>  avg_points_;
     vector<int> face_size_;
