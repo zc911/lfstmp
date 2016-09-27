@@ -40,6 +40,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
 
 }
+
 void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
         FaceFeatureExtractor::FaceFeatureExtractorConfig &config, FaceAlignment::FaceAlignmentConfig &faConfig) {
 
