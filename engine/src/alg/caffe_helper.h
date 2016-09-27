@@ -207,8 +207,6 @@ static float ReScaleImage(Mat &img, unsigned int img_min, unsigned int img_max) 
 
     } else if (img.rows < img_min || img.cols < img_min) {
         resize_ratio = float(img_min) / min(img.cols, img.rows);
-        LOG(INFO) << resize_ratio;
-
         resize_r_c = Size(img.cols * resize_ratio, img.rows * resize_ratio);
 
         resize(img, img, resize_r_c);
