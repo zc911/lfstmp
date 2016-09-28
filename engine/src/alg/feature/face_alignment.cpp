@@ -38,14 +38,6 @@ void FaceAlignment::Align(std::vector<Mat> imgs, std::vector<Mat> &results, bool
 
         }
     }
-    for (int i = 0; i < results.size(); i++) {
-        string name = to_string(i) + "align.jpg";
-        string name1 = to_string(i) + "align1.jpg";
-
-        imwrite(name, results[i]);
-        imwrite(name1, imgs[i]);
-
-    }
 }
 void FaceAlignment::align_impl(const Mat &img, const Rect &bbox, std::vector<cv::Point> &landmarks) {
     dlib::cv_image<dlib::bgr_pixel> dlib_img(img);
