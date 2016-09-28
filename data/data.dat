@@ -75,8 +75,8 @@
     },
     "FaceDetect": {
       "ModelPath": "data/",
-      "TrainedModel": "400.dat",
-      "DeployModel": "400.txt"
+      "TrainedModel": "VGG_ssd_original_iter_90000.caffemodel",
+      "DeployModel": "test_ssd_original.prototxt"
     },
     "FaceExtract": {
       "ModelPath": "data/",
