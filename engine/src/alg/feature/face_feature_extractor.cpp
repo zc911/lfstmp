@@ -51,62 +51,18 @@ FaceFeatureExtractor::FaceFeatureExtractor(
     num_channels_ = input_layer->channels();
 
     CHECK(num_channels_ == 1) << "Input layer should be gray scale.";
-    input_geometry_ = cv::Size(input_layer->width(), input_layer->height());
-
-    dlib::deserialize(config.align_model) >> sp_;
-    cv::Mat avg_face_img = cv::imread(config.align_deploy);
-    dlib::cv_image<dlib::bgr_pixel> avg_face_image(avg_face_img);
-
-    std::vector<dlib::rectangle> avg_face_bbox = detector_(avg_face_image);
-    assert(avg_face_bbox.size() == 1);
-    dlib::full_object_detection shape = sp_(avg_face_image, avg_face_bbox[0]);
-    Detection2Points(shape, avg_face_points_);
 
 }
 
-void FaceFeatureExtractor::Detection2Points(
-    const dlib::full_object_detection &detection,
-    std::vector<dlib::point> &points) {
-    points.resize(0);
-    for (unsigned long i = 0; i < detection.num_parts(); i++) {
-        points.push_back(detection.part(i));
-    }
-}
 
-std::vector<Mat> FaceFeatureExtractor::Align(std::vector<Mat> imgs) {
-    std::vector<Mat> result;
-    for (int i = 0; i < imgs.size(); i++) {
-        std::vector<dlib::point> points;
-        dlib::full_object_detection shape;
-        dlib::point_transform_affine trans;
-        dlib::cv_image<dlib::bgr_pixel> image(imgs[i]);
-
-        dlib::rectangle bbox(0, 0, imgs[i].cols, imgs[i].rows);
-        shape = sp_(image, bbox);
-        if (shape.num_parts() != avg_face_points_.size()) {
-            cv::Mat face = cv::Mat::zeros(128, 128, CV_8UC3);
-            continue;
-        }
-        Detection2Points(shape, points);
-        trans = find_affine_transform(avg_face_points_, points);
-
-        dlib::array2d<dlib::bgr_pixel> out(128, 128);
-        dlib::transform_image(image, out, dlib::interpolate_bilinear(), trans);
-        cv::Mat face = toMat(out).clone();
-        result.push_back(face);
-    }
-
-    return result;
-}
-
-void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults) {
+void FaceFeatureExtractor::miniBatchExtractor(const vector<Mat> &faces, vector<FaceRankFeature> &miniBatchResults) {
 
     Blob<float> *input_blob = net_->input_blobs()[0];
 
     float *input_data = input_blob->mutable_cpu_data();
-    for (size_t i = 0; i < alignImgs.size(); i++) {
+    for (size_t i = 0; i < faces.size(); i++) {
         Mat sample;
-        Mat face = alignImgs[i];
+        Mat face = faces[i];
 
         if (face.cols == 0 || face.rows == 0) {
             face = cv::Mat::zeros(1, 1, CV_8UC3);
@@ -126,7 +82,7 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
                 for (int col = 0; col < sample.cols; col++) {
                     input_data[image_off + channel_off + row_off + col] =
                         (float(sample.at<uchar>(row, col * sample.channels() + k)) - pixel_means_[k])
-                        / pixel_scale_;
+                            / pixel_scale_;
                 }
             }
         }
@@ -147,13 +103,15 @@ void FaceFeatureExtractor::miniBatchExtractor(vector<Mat> &alignImgs, vector<Fac
     }
 
     miniBatchResults.clear();
-    miniBatchResults.resize(alignImgs.size());
+    miniBatchResults.resize(faces.size());
 
-    for (size_t i = 0; i < alignImgs.size(); i++) {
+    for (size_t i = 0; i < faces.size(); i++) {
         const float *data = output_data + i * feature_len;
         FaceRankFeature face_feature;
+//        cout << "feature float: " << endl;
         for (int idx = 0; idx < feature_len; ++idx) {
             face_feature.descriptor_.push_back(data[idx]);
+//            cout << data[idx] << " ";
         }
 
         miniBatchResults[i] = face_feature;
@@ -173,28 +131,21 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
 
     vector<FaceRankFeature> miniBatchResults;
 
-    std::vector<Mat> align_imgs;
 
     struct timeval start, finish;
-    gettimeofday(&start, NULL);
-
-    align_imgs = Align(faces);
-    gettimeofday(&finish, NULL);
-
-    VLOG(VLOG_PROCESS_COST) << "Faces align cost: " << TimeCostInMs(start, finish) << endl;
 
     gettimeofday(&start, NULL);
     if (faces.size() <= batch_size_) {
-        // BUG
-        ReshapeNetBatchSize(net_, align_imgs.size());
-        miniBatchExtractor(align_imgs, miniBatchResults);
+        // BUG here when reshap the net
+//        ReshapeNetBatchSize(net_, faces.size());
+        miniBatchExtractor(faces, miniBatchResults);
         results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
 
     } else {
         vector<Mat> miniBatch;
 
-        for (int i = 0; i < align_imgs.size(); ++i) {
-            miniBatch.push_back(align_imgs[i]);
+        for (int i = 0; i < faces.size(); ++i) {
+            miniBatch.push_back(faces[i]);
             if (miniBatch.size() == batch_size_) {
 
                 // BUG here when reshap the net
@@ -206,6 +157,7 @@ std::vector<FaceRankFeature> FaceFeatureExtractor::Extract(
             }
         }
         if (miniBatch.size() > 0) {
+            // BUG here when reshap the net
 //            ReshapeNetBatchSize(net_, miniBatch.size());
             miniBatchExtractor(miniBatch, miniBatchResults);
             results.insert(results.end(), miniBatchResults.begin(), miniBatchResults.end());
