@@ -26,53 +26,21 @@ typedef struct {
 class RankCandidatesRepo {
 
  public:
-    RankCandidatesRepo() { }
-    ~RankCandidatesRepo() { }
+    RankCandidatesRepo(const string &repoPath);
+    ~RankCandidatesRepo();
 
-    void Load() {
-        loadFromFile("./repo");
-    }
-    RankCandidatesItem Get(unsigned int id) {
+    void Load();
+    RankCandidatesItem Get(unsigned int id);
 
+    const vector<RankCandidatesItem> &candidates() const {
+        return candidates_;
     }
+
+
  private:
-    void loadFromFile(const string &folderPath) {
-        boost::filesystem::path folder(folderPath);
-        if (boost::filesystem::exists(folder) && boost::filesystem::is_directory(folder)) {
-            boost::filesystem::directory_iterator itr(folder);
-            boost::filesystem::directory_iterator end;
-            boost::char_separator<char> sep(" , ");
 
-            typedef boost::tokenizer<boost::char_separator<char>> MyTokenizer;
-            string id, feature;
-
-            for (; itr != end; ++itr) {
-                LOG(INFO) << "Candidates repo data file: " << *itr << endl;
-                string fileName = "./repo/1.txt";
-                ifstream file;
-                file.open(fileName.c_str());
-                string line;
-                while (!file.eof()) {
-                    getline(file, line);
-                    cout << line << endl;
-                    MyTokenizer tok(line, sep);
-                    MyTokenizer::iterator item = tok.begin();
-                    if (item != tok.end()) {
-                        id = *item;
-                        ++item;
-                        if (item != tok.end()) {
-                            feature = *item;
-                        }
-                    }
-                    cout << id << " : " << feature << endl;
-
-                }
-
-            }
-        } else {
-            cout << "Invalid folder path: " << folderPath << endl;
-        }
-    }
+    void loadFromFile(const string &folderPath);
+    string repo_path_;
     vector<RankCandidatesItem> candidates_;
 };
 
