@@ -42,9 +42,10 @@ public:
   void createAccelerateConfig(const Config &cconfig,
                               VehicleCaffeDetectorConfig &config);
   void createFaceDetectorConfig(const Config &cconfig,
-                                FaceCaffeDetector::FaceDetectorConfig &config);
+                                FaceDetectorConfig &config);
+
   void createFaceExtractorConfig(const Config &cconfig,
-                                 FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+                                 FaceFeatureExtractor::FaceFeatureExtractorConfig &config, FaceAlignment::FaceAlignmentConfig &faConfig);
   void createVehicleConfig(const Config &cconfig,
                            vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
   void createVehicleColorConfig(const Config &cconfig,
