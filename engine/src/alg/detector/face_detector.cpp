@@ -227,7 +227,6 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
             Detection detection = vbbox[i];
 
             if (!detection.deleted) {
-                cout << detection << endl;
                 float ratio = resize_ratios_[img_idx];
                 detection.Rescale(ratio);
                 final_vbbox[img_idx].push_back(detection);

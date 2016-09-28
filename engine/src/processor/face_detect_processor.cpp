@@ -10,7 +10,6 @@
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
 #include "debug_util.h"
-#include "log/log_val.h"
 
 namespace dg {
 
@@ -21,13 +20,13 @@ FaceDetectProcessor::FaceDetectProcessor(
 
     //Initialize face detector
     switch (method) {
-    case 1:
-        detector_ = new FaceCaffeDetector(config);
-        break;
-    case 2:
-        detector_ = new FaceSsdDetector(config);
-        LOG(INFO) << "SSD";
-        break;
+        case 1:
+            detector_ = new FaceCaffeDetector(config);
+            break;
+        case 2:
+            detector_ = new FaceSsdDetector(config);
+            LOG(INFO) << "SSD";
+            break;
     }
     base_id_ = 5000;
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
@@ -48,10 +47,33 @@ FaceDetectProcessor::~FaceDetectProcessor() {
         delete detector_;
 }
 
+
+static void noDetectionButFeature(Frame *frame) {
+    Mat data = frame->payload()->data();
+    if (data.rows == 0 || data.cols == 0) {
+        LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
+        return;
+    }
+    Detection det;
+    det.id = DETECTION_FACE;
+    det.box = cv::Rect(0, 0, data.cols, data.rows);
+    Face *face = new Face(0, det, 1.0);
+    face->set_image(data);
+    frame->put_object((Object *) face);
+}
+
+
 bool FaceDetectProcessor::process(Frame *frame) {
 
     if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
+
+        if (frame->operation().Check(OPERATION_FACE_FEATURE_VECTOR)) {
+            noDetectionButFeature(frame);
+            return false;
+        }
+
+
         return false;
     }
     Mat data = frame->payload()->data();
@@ -80,8 +102,8 @@ bool FaceDetectProcessor::process(Frame *frame) {
     }
 }
 
-// TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
+
     vector<Mat> imgs;
     vector<int> frameIds;
 
@@ -90,7 +112,10 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[i];
         if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
-                                     << endl;
+                << endl;
+            if (frame->operation().Check(OPERATION_FACE_FEATURE_VECTOR)) {
+                noDetectionButFeature(frame);
+            }
             continue;
         }
 
