@@ -502,9 +502,20 @@ class RankResult : public ::google::protobuf::Message {
   float score() const;
   void set_score(float value);
 
-  // optional string Uri = 3;
+  // optional string Name = 3;
+  void clear_name();
+  static const int kNameFieldNumber = 3;
+  const ::std::string& name() const;
+  void set_name(const ::std::string& value);
+  void set_name(const char* value);
+  void set_name(const char* value, size_t size);
+  ::std::string* mutable_name();
+  ::std::string* release_name();
+  void set_allocated_name(::std::string* name);
+
+  // optional string Uri = 4;
   void clear_uri();
-  static const int kUriFieldNumber = 3;
+  static const int kUriFieldNumber = 4;
   const ::std::string& uri() const;
   void set_uri(const ::std::string& value);
   void set_uri(const char* value);
@@ -513,9 +524,9 @@ class RankResult : public ::google::protobuf::Message {
   ::std::string* release_uri();
   void set_allocated_uri(::std::string* uri);
 
-  // optional string Data = 4;
+  // optional string Data = 5;
   void clear_data();
-  static const int kDataFieldNumber = 4;
+  static const int kDataFieldNumber = 5;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   void set_data(const char* value);
@@ -531,6 +542,7 @@ class RankResult : public ::google::protobuf::Message {
   bool _is_default_instance_;
   ::google::protobuf::int32 id_;
   float score_;
+  ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr uri_;
   ::google::protobuf::internal::ArenaStringPtr data_;
   mutable int _cached_size_;
@@ -1628,7 +1640,51 @@ inline void RankResult::set_score(float value) {
   // @@protoc_insertion_point(field_set:dg.model.RankResult.Score)
 }
 
-// optional string Uri = 3;
+// optional string Name = 3;
+inline void RankResult::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RankResult::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResult.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResult::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResult.Name)
+}
+inline void RankResult::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResult.Name)
+}
+inline void RankResult::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResult.Name)
+}
+inline ::std::string* RankResult::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResult.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankResult::release_name() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResult.Name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankResult::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResult.Name)
+}
+
+// optional string Uri = 4;
 inline void RankResult::clear_uri() {
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1672,7 +1728,7 @@ inline void RankResult::set_allocated_uri(::std::string* uri) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RankResult.Uri)
 }
 
-// optional string Data = 4;
+// optional string Data = 5;
 inline void RankResult::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

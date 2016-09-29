@@ -14,14 +14,10 @@
 namespace dg {
 
 FaceRankProcessor::FaceRankProcessor() {
-//    ranker_ = new FaceRanker();
-    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
-    repo.Init("./repo");
+
 }
 
 FaceRankProcessor::~FaceRankProcessor() {
-//    if (ranker_)
-//        delete ranker_;
 }
 
 bool FaceRankProcessor::process(Frame *frame) {

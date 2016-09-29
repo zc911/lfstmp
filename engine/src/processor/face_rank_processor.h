@@ -29,8 +29,6 @@ protected:
 
 	virtual bool RecordFeaturePerformance();
 
-//private:
-//	FaceRanker *ranker_ = NULL;
 };
 
 } /* namespace dg */

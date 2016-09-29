@@ -120,9 +120,10 @@ void protobuf_AssignDesc_ranker_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankFeatureRequest, _is_default_instance_));
   RankResult_descriptor_ = file->message_type(3);
-  static const int RankResult_offsets_[4] = {
+  static const int RankResult_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResult, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResult, score_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResult, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResult, uri_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RankResult, data_),
   };
@@ -324,35 +325,35 @@ void protobuf_AddDesc_ranker_2eproto() {
     "\001(\0132\016.dg.model.Time:\0028\001\"\204\001\n\022RankFeatureR"
     "equest\022-\n\007Context\030\001 \001(\0132\034.dg.model.RankR"
     "equestContext\022(\n\007Feature\030\002 \001(\0132\027.dg.mode"
-    "l.FeatureVector\022\025\n\rMaxCandidates\030\003 \001(\005\"B"
+    "l.FeatureVector\022\025\n\rMaxCandidates\030\003 \001(\005\"P"
     "\n\nRankResult\022\n\n\002Id\030\001 \001(\005\022\r\n\005Score\030\002 \001(\002\022"
-    "\013\n\003Uri\030\003 \001(\t\022\014\n\004Data\030\004 \001(\t\"o\n\023RankFeatur"
-    "eResponse\022.\n\007Context\030\001 \001(\0132\035.dg.model.Ra"
-    "nkResponseContext\022(\n\nCandidates\030\002 \003(\0132\024."
-    "dg.model.RankResult\"\322\001\n\020RankImageRequest"
-    "\022-\n\007Context\030\001 \001(\0132\034.dg.model.RankRequest"
-    "Context\022\036\n\005Image\030\002 \001(\0132\017.dg.model.Image\022"
-    "+\n\017InterestedAreas\030\003 \003(\0132\022.dg.model.Cutb"
-    "oard\022+\n\nCandidates\030\004 \003(\0132\027.dg.model.Feat"
-    "ureVector\022\025\n\rMaxCandidates\030\005 \001(\005\"m\n\021Rank"
-    "ImageResponse\022.\n\007Context\030\001 \001(\0132\035.dg.mode"
-    "l.RankResponseContext\022(\n\nCandidates\030\002 \003("
-    "\0132\024.dg.model.RankResult\"\201\002\n\025FeatureRanki"
-    "ngRequest\022\r\n\005ReqId\030\001 \001(\003\022%\n\004Type\030\002 \001(\0162\027"
-    ".dg.model.RecognizeType\022\036\n\005Image\030\003 \001(\0132\017"
-    ".dg.model.Image\022+\n\017InterestedAreas\030\004 \003(\013"
-    "2\022.dg.model.Cutboard\022)\n\rDisabledAreas\030\005 "
-    "\003(\0132\022.dg.model.Cutboard\022+\n\nCandidates\030\006 "
-    "\003(\0132\027.dg.model.FeatureVector\022\r\n\005Limit\030\007 "
-    "\001(\005\"D\n\026FeatureRankingResponse\022\r\n\005ReqId\030\001"
-    " \001(\003\022\013\n\003Ids\030\002 \003(\003\022\016\n\006Scores\030\003 \003(\0022\201\002\n\021Si"
-    "milarityService\022F\n\tRankImage\022\032.dg.model."
-    "RankImageRequest\032\033.dg.model.RankImageRes"
-    "ponse\"\000\022L\n\013RankFeature\022\034.dg.model.RankFe"
-    "atureRequest\032\035.dg.model.RankFeatureRespo"
-    "nse\"\000\022V\n\017GetRankedVector\022\037.dg.model.Feat"
-    "ureRankingRequest\032 .dg.model.FeatureRank"
-    "ingResponse\"\000b\006proto3", 1781);
+    "\014\n\004Name\030\003 \001(\t\022\013\n\003Uri\030\004 \001(\t\022\014\n\004Data\030\005 \001(\t"
+    "\"o\n\023RankFeatureResponse\022.\n\007Context\030\001 \001(\013"
+    "2\035.dg.model.RankResponseContext\022(\n\nCandi"
+    "dates\030\002 \003(\0132\024.dg.model.RankResult\"\322\001\n\020Ra"
+    "nkImageRequest\022-\n\007Context\030\001 \001(\0132\034.dg.mod"
+    "el.RankRequestContext\022\036\n\005Image\030\002 \001(\0132\017.d"
+    "g.model.Image\022+\n\017InterestedAreas\030\003 \003(\0132\022"
+    ".dg.model.Cutboard\022+\n\nCandidates\030\004 \003(\0132\027"
+    ".dg.model.FeatureVector\022\025\n\rMaxCandidates"
+    "\030\005 \001(\005\"m\n\021RankImageResponse\022.\n\007Context\030\001"
+    " \001(\0132\035.dg.model.RankResponseContext\022(\n\nC"
+    "andidates\030\002 \003(\0132\024.dg.model.RankResult\"\201\002"
+    "\n\025FeatureRankingRequest\022\r\n\005ReqId\030\001 \001(\003\022%"
+    "\n\004Type\030\002 \001(\0162\027.dg.model.RecognizeType\022\036\n"
+    "\005Image\030\003 \001(\0132\017.dg.model.Image\022+\n\017Interes"
+    "tedAreas\030\004 \003(\0132\022.dg.model.Cutboard\022)\n\rDi"
+    "sabledAreas\030\005 \003(\0132\022.dg.model.Cutboard\022+\n"
+    "\nCandidates\030\006 \003(\0132\027.dg.model.FeatureVect"
+    "or\022\r\n\005Limit\030\007 \001(\005\"D\n\026FeatureRankingRespo"
+    "nse\022\r\n\005ReqId\030\001 \001(\003\022\013\n\003Ids\030\002 \003(\003\022\016\n\006Score"
+    "s\030\003 \003(\0022\201\002\n\021SimilarityService\022F\n\tRankIma"
+    "ge\022\032.dg.model.RankImageRequest\032\033.dg.mode"
+    "l.RankImageResponse\"\000\022L\n\013RankFeature\022\034.d"
+    "g.model.RankFeatureRequest\032\035.dg.model.Ra"
+    "nkFeatureResponse\"\000\022V\n\017GetRankedVector\022\037"
+    ".dg.model.FeatureRankingRequest\032 .dg.mod"
+    "el.FeatureRankingResponse\"\000b\006proto3", 1795);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ranker.proto", &protobuf_RegisterTypes);
   RankRequestContext::default_instance_ = new RankRequestContext();
@@ -2166,6 +2167,7 @@ void RankFeatureRequest::clear_maxcandidates() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RankResult::kIdFieldNumber;
 const int RankResult::kScoreFieldNumber;
+const int RankResult::kNameFieldNumber;
 const int RankResult::kUriFieldNumber;
 const int RankResult::kDataFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -2194,6 +2196,7 @@ void RankResult::SharedCtor() {
   _cached_size_ = 0;
   id_ = 0;
   score_ = 0;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2204,6 +2207,7 @@ RankResult::~RankResult() {
 }
 
 void RankResult::SharedDtor() {
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
@@ -2254,6 +2258,7 @@ void RankResult::Clear() {
 } while (0)
 
   ZR_(id_, score_);
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
@@ -2297,13 +2302,30 @@ bool RankResult::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(26)) goto parse_Uri;
+        if (input->ExpectTag(26)) goto parse_Name;
         break;
       }
 
-      // optional string Uri = 3;
+      // optional string Name = 3;
       case 3: {
         if (tag == 26) {
+         parse_Name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankResult.Name"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_Uri;
+        break;
+      }
+
+      // optional string Uri = 4;
+      case 4: {
+        if (tag == 34) {
          parse_Uri:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_uri()));
@@ -2314,13 +2336,13 @@ bool RankResult::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(34)) goto parse_Data;
+        if (input->ExpectTag(42)) goto parse_Data;
         break;
       }
 
-      // optional string Data = 4;
-      case 4: {
-        if (tag == 34) {
+      // optional string Data = 5;
+      case 5: {
+        if (tag == 42) {
          parse_Data:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_data()));
@@ -2369,24 +2391,34 @@ void RankResult::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->score(), output);
   }
 
-  // optional string Uri = 3;
+  // optional string Name = 3;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResult.Name");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->name(), output);
+  }
+
+  // optional string Uri = 4;
   if (this->uri().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->uri().data(), this->uri().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "dg.model.RankResult.Uri");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->uri(), output);
+      4, this->uri(), output);
   }
 
-  // optional string Data = 4;
+  // optional string Data = 5;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), this->data().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
       "dg.model.RankResult.Data");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      4, this->data(), output);
+      5, this->data(), output);
   }
 
   // @@protoc_insertion_point(serialize_end:dg.model.RankResult)
@@ -2405,7 +2437,18 @@ void RankResult::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->score(), target);
   }
 
-  // optional string Uri = 3;
+  // optional string Name = 3;
+  if (this->name().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankResult.Name");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->name(), target);
+  }
+
+  // optional string Uri = 4;
   if (this->uri().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->uri().data(), this->uri().length(),
@@ -2413,10 +2456,10 @@ void RankResult::SerializeWithCachedSizes(
       "dg.model.RankResult.Uri");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        3, this->uri(), target);
+        4, this->uri(), target);
   }
 
-  // optional string Data = 4;
+  // optional string Data = 5;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->data().data(), this->data().length(),
@@ -2424,7 +2467,7 @@ void RankResult::SerializeWithCachedSizes(
       "dg.model.RankResult.Data");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        4, this->data(), target);
+        5, this->data(), target);
   }
 
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.RankResult)
@@ -2447,14 +2490,21 @@ int RankResult::ByteSize() const {
     total_size += 1 + 4;
   }
 
-  // optional string Uri = 3;
+  // optional string Name = 3;
+  if (this->name().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  // optional string Uri = 4;
   if (this->uri().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->uri());
   }
 
-  // optional string Data = 4;
+  // optional string Data = 5;
   if (this->data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -2490,6 +2540,10 @@ void RankResult::MergeFrom(const RankResult& from) {
   }
   if (from.score() != 0) {
     set_score(from.score());
+  }
+  if (from.name().size() > 0) {
+
+    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
   if (from.uri().size() > 0) {
 
@@ -2527,6 +2581,7 @@ void RankResult::Swap(RankResult* other) {
 void RankResult::InternalSwap(RankResult* other) {
   std::swap(id_, other->id_);
   std::swap(score_, other->score_);
+  name_.Swap(&other->name_);
   uri_.Swap(&other->uri_);
   data_.Swap(&other->data_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -2572,7 +2627,51 @@ void RankResult::clear_score() {
   // @@protoc_insertion_point(field_set:dg.model.RankResult.Score)
 }
 
-// optional string Uri = 3;
+// optional string Name = 3;
+void RankResult::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RankResult::name() const {
+  // @@protoc_insertion_point(field_get:dg.model.RankResult.Name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResult::set_name(const ::std::string& value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RankResult.Name)
+}
+ void RankResult::set_name(const char* value) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankResult.Name)
+}
+ void RankResult::set_name(const char* value, size_t size) {
+  
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankResult.Name)
+}
+ ::std::string* RankResult::mutable_name() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankResult.Name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankResult::release_name() {
+  // @@protoc_insertion_point(field_release:dg.model.RankResult.Name)
+  
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankResult::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    
+  } else {
+    
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankResult.Name)
+}
+
+// optional string Uri = 4;
 void RankResult::clear_uri() {
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2616,7 +2715,7 @@ void RankResult::clear_uri() {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RankResult.Uri)
 }
 
-// optional string Data = 4;
+// optional string Data = 5;
 void RankResult::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

@@ -58,6 +58,8 @@ class RankCandidatesRepo {
  private:
     RankCandidatesRepo();
     void loadFromFile(const string &folderPath);
+    void initFaceRankDatabase(unsigned int batchSize);
+
     CDatabase *face_ranker_;
     vector<RankCandidatesItem> candidates_;
     bool is_init_;
