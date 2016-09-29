@@ -28,7 +28,58 @@ void RankCandidatesRepo::Init(const string &repoPath) {
     face_ranker_ = new CDatabase();
     face_ranker_->SetWorkingGPUs(1);
     loadFromFile(repoPath);
+    initFaceRankDatabase(1024);
 
+}
+
+void RankCandidatesRepo::initFaceRankDatabase(unsigned int batchSize) {
+    // BASE64 decode bug here, the last item was duplicated
+    int featureLen = candidates_[0].feature.size() - 1;
+    LOG(INFO) << "Feature length is " << featureLen << endl;
+
+    face_ranker_->Initialize(candidates_.size(), featureLen);
+
+    int batchCount = candidates_.size() / batchSize;
+
+    LOG(INFO) << "Batch size: " << batchSize << " and batch count: " << batchCount << endl;
+
+    float *batchFeatures = new float[batchSize * featureLen];
+    int64_t *batchIds = new int64_t[batchSize];
+
+    int64_t id = 0;
+    for (int i = 0; i < batchCount; ++i) {
+        for (int j = 0; j < batchSize; ++j) {
+            id = i * batchSize + j;
+            RankCandidatesItem &item = candidates_[id];
+            memcpy((char *) (batchFeatures + j * featureLen),
+                   (char *) item.feature.data(),
+                   featureLen * sizeof(float));
+            batchIds[j] = id;
+        }
+        face_ranker_->AddItems(batchFeatures, batchIds, batchSize);
+    }
+
+
+    LOG(INFO) << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
+    int remains = candidates_.size() - id - 1;
+    int remains2 = candidates_.size() % batchSize;
+
+    if (remains > 0) {
+        LOG(INFO) << "Some candidates remains " << remains << "," << remains2 << endl;
+        for (int i = 0; i < remains; ++i) {
+            ++id;
+            RankCandidatesItem &item = candidates_[id];
+            memcpy((char *) batchFeatures + i * featureLen,
+                   (char *) item.feature.data(),
+                   featureLen * sizeof(float));
+            batchIds[i] = id;
+        }
+        face_ranker_->AddItems(batchFeatures, batchIds, remains);
+    }
+
+
+    delete[] batchFeatures;
+    delete[] batchIds;
 }
 
 void RankCandidatesRepo::loadFromFile(const string &folderPath) {
@@ -39,7 +90,6 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
         boost::char_separator<char> sep(" ");
 
         typedef boost::tokenizer<boost::char_separator<char>> MyTokenizer;
-        string idString, feature;
 
         for (; itr != end; ++itr) {
 
@@ -77,71 +127,14 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     Base64::Decode(tokens[3], item.feature);
                     vector<uchar> imageContent;
                     UriReader::Read(item.image_uri, imageContent, 5);
-                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(32,32));
+                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(32, 32));
                     candidates_.push_back(item);
                 }
 
             }
         }
 
-        cout << "Candidates repo size: " << candidates_.size() << endl;
-        // BASE64 decode bug here, the last item was duplicated
-        int featureLen = candidates_[0].feature.size() - 1;
-        cout << "Feature length is " << featureLen << endl;
-
-        face_ranker_->Initialize(candidates_.size(), featureLen);
-
-        int batchSize = 1024;
-        int batchCount = candidates_.size() / batchSize;
-
-        cout << "Batch size: " << batchSize << " and batch count: " << batchCount << endl;
-
-        float *batchFeatures = new float[batchSize * featureLen];
-        int64_t *batchIds = new int64_t[batchSize];
-
-        int64_t id = 0;
-        for (int i = 0; i < batchCount; ++i) {
-            for (int j = 0; j < batchSize; ++j) {
-                id = i * batchSize + j;
-                RankCandidatesItem &item = candidates_[id];
-                memcpy((char *) (batchFeatures + j * featureLen),
-                       (char *) item.feature.data(),
-                       featureLen * sizeof(float));
-                batchIds[j] = id;
-            }
-            face_ranker_->AddItems(batchFeatures, batchIds, batchSize);
-        }
-
-
-        cout << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
-        int remains = candidates_.size() - id - 1;
-        int remains2 = candidates_.size() % batchSize;
-
-        if (remains > 0) {
-            cout << "Some candidates remains " << remains << "," << remains2 << endl;
-            for (int i = 0; i < remains; ++i) {
-                ++id;
-                RankCandidatesItem &item = candidates_[id];
-                memcpy((char *) batchFeatures + i * featureLen,
-                       (char *) item.feature.data(),
-                       featureLen * sizeof(float));
-                batchIds[i] = id;
-            }
-            face_ranker_->AddItems(batchFeatures, batchIds, remains);
-        }
-
-        cout << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
-
-        delete[] batchFeatures;
-        delete[] batchIds;
-
-//        cout << "Rank it" << endl;
-//        vector<float> a(256);
-//        vector<int64_t> results(10);
-//        database_->NearestN(a.data(), 10, results.data());
-//        for (auto r:results) {
-//            cout << r << endl;
-//        }
+        LOG(INFO) << "Candidates repo size: " << candidates_.size() << endl;
 
     } else {
         cout << "Invalid folder path: " << folderPath << endl;

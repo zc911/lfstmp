@@ -202,7 +202,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.descriptor_);
-    cout << "input feature size: " << feature.descriptor_.size() << endl;
 
     FaceRankFrame f(0, feature);
     Operation op;
@@ -234,6 +233,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
         result->set_score(1.0);
         vector<uchar> data(item.image.datastart, item.image.dataend);
         result->set_data(Base64::Encode<uchar>(data));
+        result->set_name(item.name);
     }
 
 

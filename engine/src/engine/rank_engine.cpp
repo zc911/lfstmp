@@ -1,10 +1,10 @@
 #include "rank_engine.h"
 
 #include "processor/face_detect_processor.h"
-#include "processor/face_feature_extract_processor.h"
 #include "processor/car_rank_processor.h"
 #include "processor/face_rank_processor.h"
 #include "processor/config_filter.h"
+#include "io/rank_candidates_repo.h"
 
 namespace dg {
 
@@ -54,8 +54,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 //        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
         face_ranker_ = new FaceRankProcessor();
-
-
+        RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+        repo.Init("./repo");
 
     }
 }
@@ -64,12 +64,6 @@ SimpleRankEngine::~SimpleRankEngine() {
     if (car_ranker_) {
         delete car_ranker_;
     }
-//    if (face_detector_) {
-//        delete face_detector_;
-//    }
-//    if (face_extractor_) {
-//        delete face_extractor_;
-//    }
     if (face_ranker_) {
         delete face_ranker_;
     }
@@ -84,17 +78,7 @@ void SimpleRankEngine::RankCar(CarRankFrame *f) {
 void SimpleRankEngine::RankFace(FaceRankFrame *f) {
 
     if (enable_ranker_face_) {
-//        face_detector_->Update(f);
-//        face_extractor_->Update(f);
-
-//        Face *face = (Face *) f->get_object(0);
-//        if (face != NULL) {
-
-//        FaceRankFeature feature = face->feature();
-//        f->set_feature(feature);
-        cout << "RankFace(FaceRankFrame *f) " << f->datum_.descriptor_.size() << endl;
         face_ranker_->Update(f);
-//        }
     }
 }
 

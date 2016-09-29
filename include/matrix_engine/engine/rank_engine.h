@@ -51,8 +51,6 @@ private:
     Processor *car_ranker_ = NULL;
     bool enable_ranker_face_;
     bool enable_ranker_car_;
-//    Processor *face_detector_ = NULL;
-//    Processor *face_extractor_ = NULL;
     Processor *face_ranker_ = NULL;
 };
 

@@ -45,8 +45,9 @@ message RankFeatureRequest {
 message RankResult {
     int32 Id = 1;
     float Score = 2;
-    string Uri = 3;
-    string Data = 4;
+    string Name = 3;
+    string Uri = 4;
+    string Data = 5;
 }
 
 message RankFeatureResponse {
