@@ -51,18 +51,7 @@ typedef struct {
     string deploy_file;
     string model_file;
 } CaffeDetectorConfig;
-typedef struct {
-    bool is_model_encrypt = false;
-    int batch_size = 1;
-    int gpu_id = 0;
-    int img_scale_max = 300;
-    int img_scale_min = 240;
-    float scale = 1.0f;
-    float confidence = 0.7;
-    bool use_gpu = true;
-    string deploy_file;
-    string model_file;
-} FaceDetectorConfig;
+
 class VehicleDetector {
 public:
 

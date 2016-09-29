@@ -10,18 +10,34 @@
 #define FACE_DETECT_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/detector/face_detector.h"
-#include "alg/detector/face_ssd_detector.h"
-#include "alg/detector/face_dlib_detector.h"
 #include "model/frame.h"
 #include "model/model.h"
+#include "dgface/detector/det_dlib.h"
+#include "dgface/detector/det_rpn.h"
+#include "dgface/detector/det_ssd.h"
+#include "dgface/detector.h"
+
 
 namespace dg {
-
+typedef struct {
+    bool is_model_encrypt = false;
+    int batch_size = 1;
+    int gpu_id = 0;
+    int img_scale_max = 300;
+    int img_scale_min = 240;
+    float scale = 1.0f;
+    float confidence = 0.7;
+    bool use_gpu = true;
+    string deploy_file;
+    string model_file;
+} FaceDetectorConfig;
 class FaceDetectProcessor: public Processor {
+
 public:
-	FaceDetectProcessor(FaceDetectorConfig config, int method);
-	FaceDetectProcessor(FaceDlibDetector::FaceDetectorConfig config);
+	enum{DlibMethod=0,RpnMethod=1,SsdMethod=2};
+
+	//FaceDetectProcessor(FaceDetectorConfig config, int method);
+	FaceDetectProcessor(FaceDetectorConfig config,int method);
 
 	virtual ~FaceDetectProcessor();
 
@@ -31,10 +47,11 @@ protected:
 
 	virtual bool RecordFeaturePerformance();
 	virtual bool beforeUpdate(FrameBatch *frameBatch);
-
+	int DetectResult2Detection(const vector<DGFace::DetectResult> &detect_result,vector< vector<Detection> > &detections);
 
 private:
-	FaceDetector *detector_ = NULL;
+	DGFace::Detector *detector_=NULL;
+	//FaceDetector *detector_ = NULL;
 	int base_id_;
 	vector<Mat> imgs_;
 	vector<Object *> objs_;
