@@ -41,10 +41,10 @@ private:
     virtual grpc::Status Recognize(grpc::ServerContext *context,
                                    const WitnessRequest *request,
                                    WitnessResponse *response);
-    virtual grpc::Status Index(grpc::ServerContext *context,
+    virtual grpc::Status GetIndex(grpc::ServerContext *context,
                                const IndexRequest *request,
                                IndexResponse *response);
-    virtual grpc::Status IndexTxt(grpc::ServerContext *context,
+    virtual grpc::Status GetIndexTxt(grpc::ServerContext *context,
                                   const IndexTxtRequest *request,
                                   IndexTxtResponse *response);
 
