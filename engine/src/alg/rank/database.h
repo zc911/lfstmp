@@ -11,6 +11,7 @@
 
 namespace dg {
 
+
 class CDatabase {
  public:
     enum QUERY_PARAMS {
@@ -79,7 +80,10 @@ class CDatabase {
     void _DumpResults(std::vector<DIST> &results);
 };
 
+
 void LoadDatabaseFromFile(const std::string &strFile, CDatabase &db);
 
 }
+
+
 #endif /* DATABASE_H_ */

@@ -19,7 +19,8 @@ using namespace std;
 namespace dg {
 
 typedef struct {
-    unsigned int id;
+    unsigned int id = -1;
+    string name;
     vector<float> feature;
     cv::Mat image;
     string image_uri;
@@ -30,23 +31,36 @@ class CDatabase;
 class RankCandidatesRepo {
 
  public:
-    RankCandidatesRepo(const string &repoPath);
+    static RankCandidatesRepo &GetInstance() {
+        static RankCandidatesRepo repo;
+        return repo;
+    }
     ~RankCandidatesRepo();
 
-    void Load();
-    RankCandidatesItem Get(unsigned int id);
+    void Init(const string &repoPath);
+
+    const RankCandidatesItem &Get(unsigned int id) const {
+        if (id >= candidates_.size()) {
+            return RankCandidatesItem();
+        }
+        return candidates_[id];
+
+    }
+
+    CDatabase &GetFaceRanker() {
+        return *face_ranker_;
+    }
 
     const vector<RankCandidatesItem> &candidates() const {
         return candidates_;
     }
 
-
  private:
-
+    RankCandidatesRepo();
     void loadFromFile(const string &folderPath);
-    string repo_path_;
-    CDatabase *database_;
+    CDatabase *face_ranker_;
     vector<RankCandidatesItem> candidates_;
+    bool is_init_;
 };
 
 }

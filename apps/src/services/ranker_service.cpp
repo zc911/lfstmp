@@ -8,10 +8,11 @@
  * ==========================================================================*/
 
 #include <glog/logging.h>
-
 #include "ranker_service.h"
 #include "codec/base64.h"
 #include "image_service.h"
+#include "../../../engine/src/io/rank_candidates_repo.h"
+
 namespace dg {
 //const int RANKER_MAXIMUM = 10000
 RankerAppsService::RankerAppsService(const Config *config, string name, int baseId)
@@ -186,65 +187,56 @@ MatrixError RankerAppsService::getFaceScoredVector(
     vector<Score> &scores, const RankFeatureRequest *request,
     RankFeatureResponse *response) {
 
-//    string prefix = requestPrefix(request);
-
-    string prefix = "";
-    LOG(INFO) << prefix << "started";
 
     response->mutable_context()->set_sessionid(request->context().sessionid());
 
     MatrixError err;
 
-    if (request->feature().ByteSize() == 0) {
+    if (request->feature().feature().size() == 0) {
         LOG(ERROR) << "Compared feature vector is empty" << endl;
         err.set_code(-1);
         err.set_message("Compared feature vector is empty");
         return err;
     }
 
-//    Mat image;
-//    err = ImageService::ParseImage(request->image(), image);
-//    if (err.code() != 0) {
-//        LOG(ERROR) << prefix << "parse image failed, " << err.message();
-//        return err;
-//    }
-//
-//    Rect hotspot = getHotspot(request, image);
 
-//    vector<FaceRankFeature> features;
-//    err = extractFeatures(request, features, limits_);
-//    if (err.code() != 0) {
-//        LOG(ERROR) << prefix << "parse candidates failed, " << err.message();
-//        return err;
-//    }
-//    vector<Rect> hotspots;
-//    hotspots.push_back(hotspot);
-//
-//    FaceRankFrame f(0, image, hotspots, features);
-//    Operation op;
-//
-//    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
-//               | OPERATION_FACE_FEATURE_VECTOR);
-//
-//    f.set_operation(op);
-//
-//    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
-//    EngineData data;
-//    data.func = [&f, &data]() -> void {
-//      return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
-//                   placeholders::_1))(&f);
-//    };
-//
-//    if (engine_pool == NULL) {
-//        LOG(ERROR) << "Engine pool not initailized. " << endl;
-//        return err;
-//    }
-//
-//    engine_pool->enqueue(&data);
-//    data.Wait();
+    FaceRankFeature feature;
+    Base64::Decode(request->feature().feature(), feature.descriptor_);
+    cout << "input feature size: " << feature.descriptor_.size() << endl;
 
-//    scores = f.result_;
-    //   scores = face_ranker_.Rank(image, hotspot, features);
+    FaceRankFrame f(0, feature);
+    Operation op;
+
+    op.Set(OPERATION_FACE_FEATURE_VECTOR);
+
+    f.set_operation(op);
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&f, &data]() -> void {
+        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
+                     placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+    data.Wait();
+
+    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+    for (auto r : f.result_) {
+        RankResult *result = response->mutable_candidates()->Add();
+        const RankCandidatesItem &item = repo.Get(r.index_);
+        result->set_uri(item.image_uri);
+        result->set_id(r.index_);
+        result->set_score(1.0);
+        vector<uchar> data(item.image.datastart, item.image.dataend);
+        result->set_data(Base64::Encode<uchar>(data));
+    }
+
+
     return err;
 }
 
@@ -256,8 +248,7 @@ MatrixError RankerAppsService::getRankedFaceVector(
 
     vector<Score> scores;
     err = getFaceScoredVector(scores, request, response);
-    //sort & fill
-//    sortAndFillResponse(request, scores, response);
+
     return err;
 }
 

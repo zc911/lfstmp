@@ -6,12 +6,13 @@
 #include <glog/logging.h>
 #include "codec/base64.h"
 #include "alg/rank/database.h"
+#include "matrix_util/io/uri_reader.h"
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
 namespace dg {
 
-RankCandidatesRepo::RankCandidatesRepo(const string &repoPath) : repo_path_(repoPath) {
-    database_ = new CDatabase();
-    database_->SetWorkingGPUs(1);
+RankCandidatesRepo::RankCandidatesRepo() : is_init_(false) {
 
 }
 
@@ -19,8 +20,15 @@ RankCandidatesRepo::~RankCandidatesRepo() {
     candidates_.clear();
 }
 
-void RankCandidatesRepo::Load() {
-    loadFromFile(repo_path_);
+void RankCandidatesRepo::Init(const string &repoPath) {
+    if (is_init_) {
+        return;
+    }
+    is_init_ = true;
+    face_ranker_ = new CDatabase();
+    face_ranker_->SetWorkingGPUs(1);
+    loadFromFile(repoPath);
+
 }
 
 void RankCandidatesRepo::loadFromFile(const string &folderPath) {
@@ -45,21 +53,31 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
             ifstream file;
             file.open(fileName.c_str());
             string line;
+            vector<string> tokens(4);
             while (!file.eof()) {
                 getline(file, line);
                 if (line.size() > 0) {
                     MyTokenizer tok(line, sep);
                     MyTokenizer::iterator col = tok.begin();
-                    if (col != tok.end()) {
-                        idString = *col;
-                        ++col;
-                        if (col != tok.end()) {
-                            feature = *col;
+                    int tokenIndex = 0;
+                    while (col != tok.end()) {
+                        if (tokenIndex >= 4) {
+                            LOG(ERROR) << "Line format invalid read from repo file" << endl;
+                            break;
                         }
+                        tokens[tokenIndex] = *col;
+                        col++;
+                        tokenIndex++;
+
                     }
                     RankCandidatesItem item;
-                    item.image_uri = idString;
-                    Base64::Decode(feature, item.feature);
+
+                    item.name = tokens[1];
+                    item.image_uri = tokens[2];
+                    Base64::Decode(tokens[3], item.feature);
+                    vector<uchar> imageContent;
+                    UriReader::Read(item.image_uri, imageContent, 5);
+                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(32,32));
                     candidates_.push_back(item);
                 }
 
@@ -71,7 +89,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
         int featureLen = candidates_[0].feature.size() - 1;
         cout << "Feature length is " << featureLen << endl;
 
-        database_->Initialize(candidates_.size(), featureLen);
+        face_ranker_->Initialize(candidates_.size(), featureLen);
 
         int batchSize = 1024;
         int batchCount = candidates_.size() / batchSize;
@@ -91,11 +109,11 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                        featureLen * sizeof(float));
                 batchIds[j] = id;
             }
-            database_->AddItems(batchFeatures, batchIds, batchSize);
+            face_ranker_->AddItems(batchFeatures, batchIds, batchSize);
         }
 
 
-        cout << "CDATABASE: " << database_->GetItemCount() << endl;
+        cout << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
         int remains = candidates_.size() - id - 1;
         int remains2 = candidates_.size() % batchSize;
 
@@ -109,15 +127,21 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                        featureLen * sizeof(float));
                 batchIds[i] = id;
             }
-            database_->AddItems(batchFeatures, batchIds, remains);
+            face_ranker_->AddItems(batchFeatures, batchIds, remains);
         }
 
-        cout << "CDATABASE: " << database_->GetItemCount() << endl;
+        cout << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
 
         delete[] batchFeatures;
         delete[] batchIds;
 
-
+//        cout << "Rank it" << endl;
+//        vector<float> a(256);
+//        vector<int64_t> results(10);
+//        database_->NearestN(a.data(), 10, results.data());
+//        for (auto r:results) {
+//            cout << r << endl;
+//        }
 
     } else {
         cout << "Invalid folder path: " << folderPath << endl;

@@ -54,8 +54,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 //        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
         face_ranker_ = new FaceRankProcessor();
-        face_feature_repo_ = new RankCandidatesRepo("./repo");
-        face_feature_repo_->Load();
+
+
 
     }
 }
@@ -92,7 +92,7 @@ void SimpleRankEngine::RankFace(FaceRankFrame *f) {
 
 //        FaceRankFeature feature = face->feature();
 //        f->set_feature(feature);
-
+        cout << "RankFace(FaceRankFrame *f) " << f->datum_.descriptor_.size() << endl;
         face_ranker_->Update(f);
 //        }
     }

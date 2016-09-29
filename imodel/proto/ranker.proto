@@ -42,10 +42,18 @@ message RankFeatureRequest {
     int32 MaxCandidates = 3; // 比对输出条目限制（0为不限制）
 }
 
+message RankResult {
+    int32 Id = 1;
+    float Score = 2;
+    string Uri = 3;
+    string Data = 4;
+}
+
 message RankFeatureResponse {
     RankResponseContext Context = 1;
-    repeated int64 Ids = 2; //比对返回的排序结果
-    repeated float Scores = 3; //比对返回的相关性分值
+    repeated RankResult Candidates = 2;
+    //    repeated int64 Ids = 2; //比对返回的排序结果
+    //    repeated float Scores = 3; //比对返回的相关性分值
 }
 
 message RankImageRequest {
@@ -58,8 +66,9 @@ message RankImageRequest {
 
 message RankImageResponse {
     RankResponseContext Context = 1;
-    repeated int64 Ids = 2; //比对返回的排序结果
-    repeated float Scores = 3; //比对返回的相关性分值
+    repeated RankResult Candidates = 2;
+    //    repeated int64 Ids = 2; //比对返回的排序结果
+    //    repeated float Scores = 3; //比对返回的相关性分值
 }
 
 // Deprecated

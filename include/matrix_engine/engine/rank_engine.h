@@ -16,7 +16,7 @@
 #include "model/rank_feature.h"
 #include "config.h"
 #include "engine_config_value.h"
-#include "rank_candidates_repo.h"
+
 #define RANKER_MAXIMUM 10000
 
 namespace dg {
@@ -54,7 +54,6 @@ private:
 //    Processor *face_detector_ = NULL;
 //    Processor *face_extractor_ = NULL;
     Processor *face_ranker_ = NULL;
-    RankCandidatesRepo *face_feature_repo_;
 };
 
 // class FaceRankEngine: public RankEngine {
