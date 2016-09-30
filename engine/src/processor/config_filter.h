@@ -45,7 +45,7 @@ public:
                                 FaceDetectorConfig &config);
 
   void createFaceExtractorConfig(const Config &cconfig,
-                                 FaceFeatureExtractor::FaceFeatureExtractorConfig &config/*, FaceAlignment::FaceAlignmentConfig &faConfig*/);
+                                 FaceFeatureExtractorConfig &config, FaceAlignmentConfig &faConfig);
   void createVehicleConfig(const Config &cconfig,
                            vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
   void createVehicleColorConfig(const Config &cconfig,
