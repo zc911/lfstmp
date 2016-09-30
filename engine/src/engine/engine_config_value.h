@@ -189,9 +189,9 @@ static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
     "File/FaceExtract/TrainedModel";
 static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
     "File/FaceExtract/DeployModel";
-static const string FILE_FACE_EXTRACT_LAYERNAME="File/FaceExtract/LayerName";
-static const string FILE_FACE_EXTRACT_MEAN="File/FaceExtract/Mean";
-static const string FILE_FACE_EXTRACT_PIXEL_SCALE="File/FaceExtract/PixelScale";
+static const string FILE_FACE_EXTRACT_LAYERNAME = "File/FaceExtract/LayerName";
+static const string FILE_FACE_EXTRACT_MEAN = "File/FaceExtract/Mean";
+static const string FILE_FACE_EXTRACT_PIXEL_SCALE = "File/FaceExtract/PixelScale";
 
 static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
     "File/FaceExtract/AlignModel";
