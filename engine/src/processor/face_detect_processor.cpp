@@ -15,9 +15,6 @@ FaceDetectProcessor::FaceDetectProcessor(
     FaceDetectorConfig config, int method) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
-
-
-
     //Initialize face detector
     switch (method) {
     case DlibMethod:
@@ -119,7 +116,6 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     LOG(INFO) << imgs.size();
     vector<vector<Detection>> boxes_in;
     vector<DGFace::DetectResult> detect_result;
-        //    detector_ = new DGFace::DlibDetector(30,40);
 
     detector_->detect(imgs, detect_result);
     DetectResult2Detection(detect_result,boxes_in);

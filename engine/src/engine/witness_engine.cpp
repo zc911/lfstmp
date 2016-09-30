@@ -417,10 +417,10 @@ void WitnessEngine::init(const Config &config) {
         
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
-            FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-          //  FaceAlignment::FaceAlignmentConfig faConfig;
-            configFilter->createFaceExtractorConfig(config, feconfig/*, faConfig*/);
-            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig/*, faConfig*/));
+            FaceFeatureExtractorConfig feconfig;
+            FaceAlignmentConfig faConfig;
+            configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
+            face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig, faConfig));
         }
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
