@@ -37,7 +37,7 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
     vector<vector<Prediction> > preds = belt_classifier_->ClassifyAutoBatch(images_);
 
     for (int i = 0; i < objs_.size(); i++) {
-        int value;
+        float value;
         Vehicle *v = (Vehicle *) objs_[i];
 
         if (is_driver) {
@@ -58,7 +58,7 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
                 continue;
             Vehicler *vr = (Vehicler *) v->child(OBJECT_CODRIVER);
             if (!vr) {
-                vr = new Vehicler(OBJECT_DRIVER);
+                vr = new Vehicler(OBJECT_CODRIVER);
                 v->set_vehicler(vr);
             }
             switch (preds[i][0].first) {

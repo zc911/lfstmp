@@ -42,7 +42,7 @@ grpc::Status GrpcWitnessServiceImpl::Recognize(grpc::ServerContext *context,
     return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 
 }
-grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
+grpc::Status GrpcWitnessServiceImpl::GetIndex(grpc::ServerContext *context,
                                            const IndexRequest *request,
                                            IndexResponse *response) {
 
@@ -55,7 +55,7 @@ grpc::Status GrpcWitnessServiceImpl::Index(grpc::ServerContext *context,
 
 }
 
-grpc::Status GrpcWitnessServiceImpl::IndexTxt(grpc::ServerContext *context,
+grpc::Status GrpcWitnessServiceImpl::GetIndexTxt(grpc::ServerContext *context,
                                               const IndexTxtRequest *request,
                                               IndexTxtResponse *response) {
 
