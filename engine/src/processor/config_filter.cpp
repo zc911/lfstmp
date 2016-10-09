@@ -17,7 +17,6 @@ ConfigFilter::ConfigFilter() {
 }
 void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
         FaceDetectorConfig &config) {
-    LOG(INFO)<<config.model_file;
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     string model_path = (string) data_config_.Value(FILE_FACE_DETECT_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -28,11 +27,11 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     int scale = (int) cconfig.Value(ADVANCED_FACE_DETECT_SCALE);
     float confidence = (float) cconfig.Value(ADVANCED_FACE_DETECT_CONFIDENCE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-        int method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
+    int method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
 
 
-    config.model_file = model_path + trained_model+to_string(method)+".dat";
-    config.deploy_file = model_path + deploy_model+to_string(method)+".txt";
+    config.model_file = model_path + trained_model + to_string(method) + ".dat";
+    config.deploy_file = model_path + deploy_model + to_string(method) + ".txt";
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.confidence = confidence;
@@ -78,25 +77,19 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.pre_process = (string)cconfig.Value(ADVANCED_FACE_EXTRACT_PRE_PROCESS);
     config.use_GPU = true;
     config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
-    config.model_config=model_path+(string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG);
-    config.model_dir=model_path;
+    config.model_config = model_path + (string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG);
+    config.model_dir = model_path;
     faConfig.align_deploy = model_path + align_deploy;
     faConfig.method = (int)cconfig.Value(ADVANCED_FACE_ALIGN_METHOD);
-    if(faConfig.method==FaceFeatureExtractProcessor::CdnnAlign){
-    faConfig.align_model = model_path;
+    if (faConfig.method == FaceFeatureExtractProcessor::CdnnAlign) {
+        faConfig.align_model = model_path;
 
-    }else{
-            faConfig.align_model = model_path + align_model;
+    } else {
+        faConfig.align_model = model_path + align_model;
 
     }
     faConfig.is_model_encrypt = config.is_model_encrypt;
     faConfig.face_size = face_size;
-
-    int scale_size = (int) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_SCALE + "/Size");
-    for (int i = 0; i < scale_size; i++) {
-        LOG(INFO)<<(float)data_config_.Value(FILE_FACE_EXTRACT_ALIGN_SCALE + to_string(i));
-        faConfig.scales.push_back((float)data_config_.Value(FILE_FACE_EXTRACT_ALIGN_SCALE + to_string(i)));
-    }
 
 }
 
