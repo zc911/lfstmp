@@ -127,7 +127,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     Base64::Decode(tokens[3], item.feature);
                     vector<uchar> imageContent;
                     UriReader::Read(item.image_uri, imageContent, 5);
-                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(32, 32));
+                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(64, 64));
                     candidates_.push_back(item);
                 }
 

@@ -375,6 +375,7 @@ void CDatabase::NearestN(const float *pItem, int64_t N, int64_t *pOutIds) {
     CUASSERT(m_nGPUs > 0);        //To make sure the host at least one GPU
     CUASSERT(m_nItemCnt != 0);    //To make sure the database has initialized
     // To make sure the database has filled
+    std::cout << m_nPosition << " " << m_nItemCnt << " " << m_nGPUs << std::endl;
     CUASSERT(m_nPosition == m_nItemCnt / m_nGPUs);
 
     CUASSERT(pItem != 0);

@@ -11,7 +11,9 @@
 #include "ranker_service.h"
 #include "codec/base64.h"
 #include "image_service.h"
+#include "string_util.h"
 #include "../../../engine/src/io/rank_candidates_repo.h"
+
 
 namespace dg {
 //const int RANKER_MAXIMUM = 10000
@@ -21,7 +23,6 @@ RankerAppsService::RankerAppsService(const Config *config, string name, int base
     config_ = config;
 
     limits_ = min(RANKER_MAXIMUM, (int) config->Value(ADVANCED_RANKER_MAXIMUM));
-
 }
 
 RankerAppsService::~RankerAppsService() {
@@ -231,8 +232,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
         result->set_uri(item.image_uri);
         result->set_id(r.index_);
         result->set_score(1.0);
-        vector<uchar> data(item.image.datastart, item.image.dataend);
-        result->set_data(Base64::Encode<uchar>(data));
+        result->set_data(encode2JPEGInBase64(item.image));
         result->set_name(item.name);
     }
 
