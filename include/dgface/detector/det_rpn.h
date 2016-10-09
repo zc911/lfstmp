@@ -19,7 +19,8 @@ class RpnDetector : public Detector {
                     const size_t max_per_img = 100,
                     const size_t stride      = 16,
                     const float  pixel_scale = 1.0f,
-                    const bool   use_GPU = true);
+                    const bool   use_GPU = true,
+                    const int    gpu_id  = 0);
         virtual ~RpnDetector(void);
         // detect only -> confidence, bbox
         void detect_impl(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results);

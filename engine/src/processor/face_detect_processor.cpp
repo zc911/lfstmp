@@ -27,22 +27,23 @@ FaceDetectProcessor::FaceDetectProcessor(
         vector<float> area = {576, 1152, 2304, 4608, 9216, 18432, 36864};
         vector<float> ratio = {1};
         vector<float> mean = {128, 128, 128};
-
+        LOG(INFO)<<config.use_gpu<<" "<<config.gpu_id;
         detector_ = new DGFace::RpnDetector(config.img_scale_max,
                                             config.img_scale_min,
                                             config.deploy_file, config.model_file, "conv_face_16_cls",
                                             "conv_face_16_reg", area,
                                             ratio, mean, config.confidence, max_per_img,
-                                            stride, config.scale, config.use_gpu);
+                                            stride, config.scale, config.use_gpu,config.gpu_id);
         break;
     }
     case SsdMethod: {
 
         vector<float> mean = {104, 117, 123};
+        LOG(INFO)<<config.use_gpu<<" "<<config.gpu_id;
 
         detector_ = new DGFace::SSDDetector(config.img_scale_max,
                                             config.img_scale_min,
-                                            config.deploy_file, config.model_file, mean, config.confidence, config.scale, config.use_gpu);
+                                            config.deploy_file, config.model_file, mean, config.confidence, config.scale, config.use_gpu,config.gpu_id);
         break;
     }
     }
@@ -114,11 +115,12 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         performance_++;
 
     }
-    LOG(INFO) << imgs.size();
     vector<vector<Detection>> boxes_in;
     vector<DGFace::DetectResult> detect_result;
+        LOG(INFO)<<"detect begin";
 
     detector_->detect(imgs, detect_result);
+
     DetectResult2Detection(detect_result, boxes_in);
 
     for (int i = 0; i < frameIds.size(); ++i) {
@@ -130,13 +132,13 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
                                   detection.confidence);
             cv::Mat data = frame->payload()->data();
             cv::Mat image = data(detection.box);
-            //string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
-            //imwrite(name, image);
+            string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
+            imwrite(name, image);
             face->set_image(image);
             frame->put_object(face);
         }
     }
-
+    LOG(INFO)<<"detect end";
     return true;
 }
 int FaceDetectProcessor::DetectResult2Detection(const vector<DGFace::DetectResult> &detect_results, vector< vector<Detection> > &detections) {

@@ -2,8 +2,8 @@
 #define _dgfacesdk_tracking_track_det_based_h_
 
 #include <tracking.h>
-namespace DGFace{
 
+namespace DGFace{
 class Detector;
 
 class DetectionBasedTracking : public Tracking {

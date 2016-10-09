@@ -5,6 +5,7 @@
 
 #include <list>
 #include <map>
+
 namespace DGFace{
 struct TrackedObj {
     size_t   last_seen;

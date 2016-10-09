@@ -11,12 +11,17 @@
 
 #include "dgface/alignment.h"
 #include "dgface/alignment/align_dlib.h"
+#include "dgface/alignment/align_cdnn.h"
+
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
 #include "dgface/recognition/recog_cnn.h"
 #include "dgface/recognition/recog_lbp.h"
+#include "dgface/recognition/recog_cdnn.h"
+
 #include "dgface/recognition.h"
+#include "dgface/cdnn_score.h"
 namespace dg {
 typedef struct {
     bool is_model_encrypt = true;
@@ -24,6 +29,7 @@ typedef struct {
     string align_model;
     string align_deploy;
     vector<int> face_size;
+    vector<float> scales;
     int method;
 } FaceAlignmentConfig;
 typedef struct {
@@ -39,11 +45,13 @@ typedef struct {
     bool use_GPU;
     int gpu_id;
     int method;
+    string model_dir;
+    string model_config;
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1};
-    enum {DlibAlign = 0};
+    enum {CNNRecog = 0, LBPRecog = 1,CDNNRecog=2};
+    enum {DlibAlign = 0,CdnnAlign=1};
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
     virtual ~FaceFeatureExtractProcessor();

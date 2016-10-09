@@ -11,9 +11,10 @@ class CNNRecog: public Recognition {
                  const std::string& layer_name,
                  const std::vector <float> mean,
                  const float pixel_scale = 256.0f,
-                 const bool use_GPU = true);
+                 const bool use_GPU = true,
+                 const int gpu_id   = 0);
         virtual ~CNNRecog(void);
-        void recog_impl(const std::vector<cv::Mat> &faces, std::vector<RecogResult> &results); 
+        void recog_impl(const std::vector<cv::Mat> &faces, std::vector<RecogResult> &results);
     private:
         caffe::shared_ptr<caffe::Net<float> > _net;
         bool _useGPU;
