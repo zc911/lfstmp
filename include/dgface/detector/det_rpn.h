@@ -40,6 +40,8 @@ class RpnDetector : public Detector {
         int _num_channels;
         int _batch_size;
         cv::Size _image_size;
+                        bool device_setted_=false;
+
 };
 }
 #endif

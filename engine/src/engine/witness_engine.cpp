@@ -153,10 +153,10 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
                                           FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
-    enable_face_feature_vector_= (bool) config.Value(
-                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+    enable_face_feature_vector_ = (bool) config.Value(
+                                      FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_detect_ = (bool) config.Value(
-                                      FEATURE_FACE_ENABLE_DETECTION);
+                              FEATURE_FACE_ENABLE_DETECTION);
     enable_vehicle_driver_belt_ = (bool) config.Value(
                                       FEATURE_VEHICLE_ENABLE_DRIVERBELT);
     enable_vehicle_codriver_belt_ = (bool) config.Value(

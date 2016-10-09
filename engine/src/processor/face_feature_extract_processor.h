@@ -29,7 +29,6 @@ typedef struct {
     string align_model;
     string align_deploy;
     vector<int> face_size;
-    vector<float> scales;
     int method;
 } FaceAlignmentConfig;
 typedef struct {
@@ -50,8 +49,8 @@ typedef struct {
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1,CDNNRecog=2};
-    enum {DlibAlign = 0,CdnnAlign=1};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2};
+    enum {DlibAlign = 0, CdnnAlign = 1};
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
     virtual ~FaceFeatureExtractProcessor();
@@ -71,6 +70,7 @@ private:
     DGFace::Alignment *alignment_ = NULL;
     vector<Object *> to_processed_;
     string pre_process_;
+    int align_method_;
 };
 
 } /* namespace dg */
