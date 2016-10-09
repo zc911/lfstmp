@@ -12,6 +12,7 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <b64/encode.h>
 #include <b64/decode.h>
 #include <boost/locale/encoding_utf.hpp>
@@ -69,6 +70,12 @@ static string encode2base64(const char *filePath) {
     length = fread(data, sizeof(char), length, file);
     fclose(file);
     return encode2base64(data, length);
+}
+
+static string encode2JPEGInBase64(const cv::Mat &data) {
+    vector<uchar> buff;
+    cv::imencode(".jpg", data, buff);
+    return encode2base64((char*) buff.data(), buff.size());
 }
 
 static void trimLR(string &s) {
