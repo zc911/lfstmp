@@ -38,6 +38,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     case DlibAlign: {
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
+        adjust_box(faConfig.detect_type,avgfacebbox);
         alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model,faConfig.detect_type);
         alignment_->set_avgface(avg_face, avgfacebbox);
         break;
@@ -51,6 +52,33 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
     pre_process_ = config.pre_process;
 }
+    void FaceFeatureExtractProcessor::adjust_box(string detect_type,Rect &adjust_box){
+        if(detect_type=="rpn"){
+
+                ///////////////////////////////////////////////////
+                // adjust bounding box
+                const float h_rate = 0.30;
+                const float w_rate = 0.15;
+                
+                float a_dist = adjust_box.height * h_rate;
+
+                adjust_box.y += a_dist;
+                adjust_box.height -= a_dist;
+
+                a_dist = adjust_box.width * w_rate; 
+                adjust_box.x += a_dist;
+                adjust_box.width -= a_dist*2;
+            }else if(detect_type=="ssd"){
+            float a_dist = adjust_box.height * 0.40;
+
+            adjust_box.y += a_dist;
+            adjust_box.height -= a_dist;
+
+            a_dist = adjust_box.width * 0.1; 
+            adjust_box.x += a_dist;
+            adjust_box.width -= a_dist*2;
+            }
+    }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
     if (recognition_)
@@ -85,6 +113,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
             Face *face = static_cast<Face *>(obj);
             Rect rect;
             rect = face->detection().box;
+            LOG(INFO)<<face->detection();
             Mat img = frame->payload()->data();
             alignment_->align(img, rect, align_result);
 
@@ -127,7 +156,9 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         DGFace::AlignResult align_result;
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
-        Rect rect = Rect(Point(0, 0), img.size());
+        LOG(INFO)<<img.rows<<" "<<img.cols;
+        Rect rect = face->detection().box;
+        LOG(INFO)<<face->detection();
         switch (align_method_) {
         case DlibAlign:
             alignment_->align(img, rect, align_result, true);

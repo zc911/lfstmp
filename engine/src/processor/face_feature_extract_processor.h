@@ -67,7 +67,7 @@ protected:
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     int AlignResult2MatrixAlign(const vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
     int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features);
-
+    void adjust_box(string detect_type,Rect &box);
 private:
     DGFace::Recognition *recognition_ = NULL;
     DGFace::Alignment *alignment_ = NULL;
