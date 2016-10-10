@@ -49,14 +49,10 @@ public:
     FaceFeatureExtractor(const FaceFeatureExtractorConfig &config);
 
     virtual ~FaceFeatureExtractor();
-    std::vector<FaceRankFeature> Extract( std::vector<Mat> &imgs);
-    std::vector<Mat> Align(std::vector<Mat> imgs);
+    std::vector<FaceRankFeature> Extract(const std::vector<Mat> &faces);
 
 private:
-    void Detection2Points(const dlib::full_object_detection &detection,
-                          std::vector<dlib::point> &points);
-
-    void miniBatchExtractor(vector<Mat> &alignImgs, vector<FaceRankFeature> &miniBatchResults);
+    void miniBatchExtractor(const vector<Mat> &faces, vector<FaceRankFeature> &miniBatchResults);
 
 private:
     std::shared_ptr<Net<float>> net_;

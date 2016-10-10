@@ -12,7 +12,9 @@
 #include <vector>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 #include <b64/encode.h>
+#include <b64/decode.h>
 #include <boost/locale/encoding_utf.hpp>
 #include "fs_util.h"
 
@@ -25,11 +27,11 @@ static wstring utf8_to_wstring(const string &str) {
     return boost::locale::conv::utf_to_utf<wchar_t>(str.c_str(),
                                                     str.c_str() + str.size());
 }
-static string i2string(int id){
-        stringstream ss;
-        ss<<id;
-        string   s=ss.str();
-        return s;
+static string i2string(int id) {
+    stringstream ss;
+    ss << id;
+    string s = ss.str();
+    return s;
 }
 static string findPrefix(const string s, const char sep) {
     int pos = s.find_first_of(sep);
@@ -55,6 +57,8 @@ static string encode2base64(char *data, int size) {
     base64Encoder.encode(ss, encoded);
     return encoded.str();
 }
+
+
 static string encode2base64(const char *filePath) {
     int length = FileSize(string(filePath));
     FILE *file = fopen(filePath, "rb");
@@ -68,6 +72,12 @@ static string encode2base64(const char *filePath) {
     return encode2base64(data, length);
 }
 
+static string encode2JPEGInBase64(const cv::Mat &data) {
+    vector<uchar> buff;
+    cv::imencode(".jpg", data, buff);
+    return encode2base64((char*) buff.data(), buff.size());
+}
+
 static void trimLR(string &s) {
 
     if (!s.empty() && (s[0] == ' ' || s[s.length() - 1] == ' ')) {
@@ -76,36 +86,36 @@ static void trimLR(string &s) {
     }
 
 }
-static void splitSpace(vector<string> &strs,string src){
+static void splitSpace(vector<string> &strs, string src) {
     std::istringstream iss(src);
-    do{
+    do {
         std::string sub;
-        iss>>sub;
+        iss >> sub;
         strs.push_back(sub);
-    }while(iss);
+    } while (iss);
 }
-static void splitForMap(map<int,string> &collect,string src,char c){
+static void splitForMap(map<int, string> &collect, string src, char c) {
     std::stringstream ss(src);
-    std::string item="";
-    std::getline(ss,item,c);
-    if(item==""){
-       return;
-    }
-    int key = atoi(item.c_str());
-    std::getline(ss,item,c);
-    if(item==""){
+    std::string item = "";
+    std::getline(ss, item, c);
+    if (item == "") {
         return;
     }
-    collect.insert(pair<int,string>(key,item));
+    int key = atoi(item.c_str());
+    std::getline(ss, item, c);
+    if (item == "") {
+        return;
+    }
+    collect.insert(pair<int, string>(key, item));
 }
-static void split(string src,vector<string> &collect,char c){
+static void split(string src, vector<string> &collect, char c) {
     std::stringstream ss(src);
     std::string item;
-    do{
-        getline(ss,item,c);
-        if(item!="")
+    do {
+        getline(ss, item, c);
+        if (item != "")
             collect.push_back(item);
-    }while(item!="");
+    } while (item != "");
 }
 //static string encode2JPEGInBase64(cv::Mat &data) {
 //    vector < uchar > buff;

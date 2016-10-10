@@ -11,7 +11,6 @@
 #include <opencv2/core/core.hpp>
 #include "rank_feature.h"
 #include "codec/base64.h"
-
 using namespace cv;
 using namespace dg;
 
@@ -103,6 +102,7 @@ string FaceRankFeature::Serialize() const {
     if (descriptor_.size() == 0) {
         return "";
     }
+
     return Base64::Encode<float>(descriptor_);
 }
 

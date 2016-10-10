@@ -130,8 +130,6 @@ typedef struct Operation {
     }
 
     bool Check(OperationValue opv) {
-                LOG(INFO)<<operate;
-
         return (operate & opv);
     }
 

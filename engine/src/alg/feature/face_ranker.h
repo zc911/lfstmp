@@ -16,21 +16,21 @@ using namespace cv;
 
 namespace dg {
 
-class FaceRanker {
-public:
-    FaceRanker();
-    virtual ~FaceRanker();
-
-    vector<Score> Rank(const FaceRankFeature *datum);
-
-    vector<Score> Rank(const FaceRankFeature &datum,
-                       const vector<Rect> &hotspots,
-                       const vector<FaceRankFeature> &candidates);
-
-private:
-    float CosSimilarity(const FaceRankFeature &A, const FaceRankFeature &B);
-    void Sort(vector<Score> &scores, int left, int right);
-};
+//class FaceRanker {
+//public:
+//    FaceRanker();
+//    virtual ~FaceRanker();
+//
+//    vector<Score> Rank(const FaceRankFeature *datum);
+//
+//    vector<Score> Rank(const FaceRankFeature &datum,
+//                       const vector<Rect> &hotspots,
+//                       const vector<FaceRankFeature> &candidates);
+//
+//private:
+//    float CosSimilarity(const FaceRankFeature &A, const FaceRankFeature &B);
+//    void Sort(vector<Score> &scores, int left, int right);
+//};
 
 } /* namespace dg */
 

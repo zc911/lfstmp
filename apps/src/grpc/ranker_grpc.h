@@ -20,11 +20,11 @@ using namespace ::dg::model;
 namespace dg {
 
 class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilarityService::Service {
-public:
+ public:
 
     GrpcRankerServiceImpl(Config config, string addr)
         : BasicGrpcService(config, addr) {
-        service_ = new RankerAppsService(&config, "WitnessAppsService");
+        service_ = new RankerAppsService(&config, "RankerAppsService");
     }
 
     virtual ~GrpcRankerServiceImpl() {
@@ -37,13 +37,18 @@ public:
     virtual grpc::Status RankImage(grpc::ServerContext *context,
                                    const RankImageRequest *request,
                                    RankImageResponse *response) {
-
+        cout << "This service is not implemented now, use RankFeature instead." << endl;
+        return grpc::Status::CANCELLED;
     }
 
     virtual grpc::Status RankFeature(grpc::ServerContext *context,
                                      const RankFeatureRequest *request,
                                      RankFeatureResponse *response) {
 
+        cout << "[GRPC] ========================" << endl;
+        cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
+        MatrixError error = service_->RankFeature(request, response);
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
     }
 
     /**
