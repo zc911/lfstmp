@@ -91,8 +91,11 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
 
         resize_ratios_.push_back(resize_ratio);
     }
+
     for (int i = 0; i < imgs.size(); i++) {
+        cout << "image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
         addeds.push_back(CatImg(imgs[i], max_col, max_row));
+        cout << "cat image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
     }
 
     Blob<float>* input_blob = net_->input_blobs()[0];
@@ -101,7 +104,6 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
     input_blob->Reshape(shape);
     net_->Reshape();
     float* input_data = input_blob->mutable_cpu_data();
-
     for (size_t i = 0; i < imgs.size(); i++)
     {
         Mat sample;
@@ -133,7 +135,6 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
     {
         cudaDeviceSynchronize();
     }
-
     auto cls = net_->blob_by_name(layer_name_cls_);
     auto reg = net_->blob_by_name(layer_name_reg_);
 
