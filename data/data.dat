@@ -75,15 +75,19 @@
     },
     "FaceDetect": {
       "ModelPath": "data/",
-      "TrainedModel": "VGG_ssd_original_iter_90000.caffemodel",
-      "DeployModel": "test_ssd_original.prototxt"
+      "TrainedModel": "40",
+      "DeployModel": "40"
     },
     "FaceExtract": {
       "ModelPath": "data/",
-      "TrainedModel": "500.dat",
-      "DeployModel": "500.txt",
+      "TrainedModel": "lcnn.caffemodel",
+      "DeployModel": "lcnn.prototxt",
       "AlignModel": "501.dat",
-      "AlignPic": "avgface.jpg"
+      "AlignPic": "avgface.jpg",
+      "LayerName":"eltwise6",
+      "Mean":[128,128,128],
+      "PixelScale":256,
+      "ModelConfig":"0.config"
     },
     "Plate": {
       "ModelPath": "data/",
