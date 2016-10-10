@@ -50,7 +50,7 @@ protected:
 	virtual bool RecordFeaturePerformance();
 	virtual bool beforeUpdate(FrameBatch *frameBatch);
 	int DetectResult2Detection(const vector<DGFace::DetectResult> &detect_result, vector< vector<Detection> > &detections);
-
+	void enlarge_box(vector<vector<Detection>> boxes, vector<vector<Detection>> enlarge_boxes) ;
 private:
 	DGFace::Detector *detector_ = NULL;
 	//FaceDetector *detector_ = NULL;

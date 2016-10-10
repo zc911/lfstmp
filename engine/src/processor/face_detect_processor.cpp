@@ -29,11 +29,11 @@ FaceDetectProcessor::FaceDetectProcessor(
     vector<float> area = {576, 1152, 2304, 4608, 9216, 18432, 36864};
     vector<float> ratio = {1};
     vector<float> mean = {128, 128, 128};
-    string clsname= "conv_face_16_cls";
+    string clsname = "conv_face_16_cls";
     string regname = "conv_face_16_reg";
     detector_ = new DGFace::RpnDetector(config.img_scale_max,
                                         config.img_scale_min,
-                                        config.deploy_file, config.model_file,clsname,
+                                        config.deploy_file, config.model_file, clsname,
                                         regname, area,
                                         ratio, mean, config.confidence, max_per_img,
                                         stride, config.scale, config.use_gpu, config.gpu_id);
@@ -63,17 +63,17 @@ FaceDetectProcessor::~FaceDetectProcessor() {
 
 
 static void noDetectionButFeature(Frame *frame) {
-    Mat data = frame->payload()->data();
-    if (data.rows == 0 || data.cols == 0) {
-        LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
-        return;
-    }
-    Detection det;
-    det.id = DETECTION_FACE;
-    det.box = cv::Rect(0, 0, data.cols, data.rows);
-    Face *face = new Face(0, det, 1.0);
-    face->set_image(data);
-    frame->put_object((Object *) face);
+  Mat data = frame->payload()->data();
+  if (data.rows == 0 || data.cols == 0) {
+    LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
+    return;
+  }
+  Detection det;
+  det.id = DETECTION_FACE;
+  det.box = cv::Rect(0, 0, data.cols, data.rows);
+  Face *face = new Face(0, det, 1.0);
+  face->set_image(data);
+  frame->put_object((Object *) face);
 }
 
 
@@ -143,14 +143,14 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
   vector<DGFace::DetectResult> detect_result;
 
   detector_->detect(imgs, detect_result);
-
   DetectResult2Detection(detect_result, boxes_in);
-
+  vector<vector<Detection>> enlarge_boxes;
+  enlarge_box(boxes_in, enlarge_boxes);
   for (int i = 0; i < frameIds.size(); ++i) {
     int frameId = frameIds[i];
     Frame *frame = frameBatch->frames()[frameId];
-    for (size_t bbox_id = 0; bbox_id < boxes_in[i].size(); bbox_id++) {
-      Detection detection = boxes_in[i][bbox_id];
+    for (size_t bbox_id = 0; bbox_id < enlarge_boxes[i].size(); bbox_id++) {
+      Detection detection = enlarge_boxes[i][bbox_id];
       Face *face = new Face(base_id_ + bbox_id, detection,
                             detection.confidence);
       cv::Mat data = frame->payload()->data();
@@ -162,6 +162,25 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     }
   }
   return true;
+}
+void enlarge_box(vector<vector<Detection>> boxes, vector<vector<Detection>> enlarge_boxes) {
+  enlarge_boxes.resize(boxes.size());
+  for (int i = 0; i < enlarge_boxes.size(); i++) {
+    for (auto bbox : boxes[i]) {
+      Rect adjust_box = bbox.box;
+      Rect reverse_box;
+      const float h_rate = 0.3;
+      reverse_box.height = adjust_box.height / (1 - h_rate);
+      reverse_box.y = adjust_box.y - reverse_box.height * h_rate;
+
+      const float w_rate = 0.15;
+      reverse_box.width = adjust_box.width / (1 - w_rate * 2);
+      reverse_box.x = adjust_box.x - reverse_box.width * w_rate;
+      enlarge_boxes[i].push_back(reverse_box);
+    }
+  }
+
+  return 1;
 }
 int FaceDetectProcessor::DetectResult2Detection(const vector<DGFace::DetectResult> &detect_results, vector< vector<Detection> > &detections) {
   for (auto detect_result : detect_results) {

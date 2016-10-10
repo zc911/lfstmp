@@ -10,9 +10,7 @@ namespace DGFace{
 class CdnnAlignment : public Alignment{
 	public:
 		CdnnAlignment(vector<int> face_size, 
-                            string modelDir, 
-                            string det_type, 
-                            vector<float> scale);
+                            string modelDir);
 		virtual ~CdnnAlignment(void);
 	
 	void align_impl(const cv::Mat &img, const cv::Rect& bbox,
