@@ -32,6 +32,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
 
     config.model_file = model_path + trained_model + to_string(method) + ".dat";
     config.deploy_file = model_path + deploy_model + to_string(method) + ".txt";
+
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.confidence = confidence;
@@ -90,7 +91,6 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     }
     faConfig.is_model_encrypt = config.is_model_encrypt;
     faConfig.face_size = face_size;
-
 }
 
 void ConfigFilter::createVehicleConfig(const Config &cconfig,

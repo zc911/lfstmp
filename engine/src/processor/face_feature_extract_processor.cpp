@@ -17,6 +17,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     switch (config.method) {
     case CNNRecog:
         recognition_ = new DGFace::CNNRecog(config.deploy_file, config.model_file, config.layer_name, config.mean, config.pixel_scale, config.use_GPU, config.gpu_id);
+
         break;
     case LBPRecog: {
         int radius = 1;
@@ -33,6 +34,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
     }
     switch (faConfig.method) {
+
     case DlibAlign: {
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
@@ -120,6 +122,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     if (to_processed_.size() == 0)
         return true;
+
     vector<DGFace::AlignResult> align_results;
     for (auto *obj : to_processed_) {
         DGFace::AlignResult align_result;
@@ -139,6 +142,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         //   draw_landmarks(img_draw, align_result);
         //   string draw_name = "test_draw.jpg";
         //  imwrite(draw_name, img_draw);
+
         performance_++;
         align_results.push_back(align_result);
     }
