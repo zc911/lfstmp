@@ -70,6 +70,8 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.batch_size = batch_size;
     config.gpu_id = gpu_id;
     config.layer_name = (string)data_config_.Value(FILE_FACE_EXTRACT_LAYERNAME);
+    int detect_method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
+
     for (int i = 0; i < mean_size; i++) {
         config.mean.push_back((int)data_config_.Value(FILE_FACE_EXTRACT_MEAN + to_string(i)));
     }
@@ -88,6 +90,18 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     } else {
         faConfig.align_model = model_path + align_model;
 
+    }
+    switch(detect_method){
+        case FaceDetectProcessor::DlibMethod:
+            faConfig.detect_type="";
+        break;
+        case FaceDetectProcessor::RpnMethod:
+            faConfig.detect_type="rpn";
+        break;
+        case FaceDetectProcessor::SsdMethod:
+            faConfig.detect_type="ssd";
+
+        break;
     }
     faConfig.is_model_encrypt = config.is_model_encrypt;
     faConfig.face_size = face_size;

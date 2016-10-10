@@ -30,6 +30,8 @@ typedef struct {
     string align_deploy;
     vector<int> face_size;
     int method;
+    string detect_type;
+
 } FaceAlignmentConfig;
 typedef struct {
     bool is_model_encrypt = true;

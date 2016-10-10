@@ -32,18 +32,18 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
 
     }
+    LOG(INFO)<<faConfig.detect_type;
     switch (faConfig.method) {
 
     case DlibAlign: {
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
-        alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model);
+        alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model,faConfig.detect_type);
         alignment_->set_avgface(avg_face, avgfacebbox);
         break;
     }
     case CdnnAlign: {
-        vector<float> scales = {0.2, 0.2, 0.2, 0.2};
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_model, "", scales);
+        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_model);
         break;
     }
     }
