@@ -147,7 +147,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
   detector_->detect(imgs, detect_result);
   DetectResult2Detection(detect_result, boxes_in);
   vector<vector<Rect>> enlarge_boxes;
-  enlarge_box(boxes_in, enlarge_boxes);
+  //enlarge_box(boxes_in, enlarge_boxes);
   for (int i = 0; i < frameIds.size(); ++i) {
     int frameId = frameIds[i];
     Frame *frame = frameBatch->frames()[frameId];
@@ -156,9 +156,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
       Face *face = new Face(base_id_ + bbox_id, detection,
                             detection.confidence);
       cv::Mat data = frame->payload()->data();
-      LOG(INFO) << detection << " " << enlarge_boxes[i].size();
-      LOG(INFO) << enlarge_boxes[i][bbox_id].x << " " << enlarge_boxes[i][bbox_id].y << " " << enlarge_boxes[i][bbox_id].width << " " << enlarge_boxes[i][bbox_id].height;
-      cv::Mat image = data(enlarge_boxes[i][bbox_id]);
+      cv::Mat image = data;
       // string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
       // imwrite(name, image);
       face->set_image(image);
@@ -172,7 +170,6 @@ void FaceDetectProcessor::enlarge_box(vector<vector<Detection>> boxes, vector<ve
     return;
 
   enlarge_boxes.resize(boxes.size());
-  LOG(INFO) << enlarge_boxes.size() << " " << boxes.size();
   for (int i = 0; i < enlarge_boxes.size(); i++) {
     for (auto bbox : boxes[i]) {
       Rect adjust_box = bbox.box;
