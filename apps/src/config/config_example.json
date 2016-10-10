@@ -97,20 +97,23 @@
       "BatchSize": 1
     },
     "FaceDetect": {
-      "BatchSize": 20,
+      "BatchSize": 5,
       "Confidence": 0.7,
-      "Method":2,
+      "Method":0,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
       "BodyRelativeFaceBottom": 6.0,
       "Scale":1, 
       "Min":240,
-      "Max":640
+      "Max":340
     },
     "FaceExtract": {
-      "BatchSize": 1,
-      "AlignmentFaceSize":[128]
+      "BatchSize": 5,
+      "FaceSize":[128],
+      "Method":0,
+      "PreProcess":"CLAHE",
+      "AlignMethod":0
     },
     "Ranker": {
       "Maximum": 100000
