@@ -131,7 +131,6 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         performance_++;
 
     }
-    LOG(INFO) << imgs.size();
     vector<vector<Detection>> boxes_in;
 
     struct timeval start, finish;
@@ -149,11 +148,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
             cv::Mat data = frame->payload()->data();
-            cout << "detection " << i << detection << endl;
-            cout << "data: " << data.cols << " " << data.rows << endl;
             cv::Mat image = data(detection.box);
-//            string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
-//            imwrite(name, image);
             face->set_image(image);
             frame->put_object(face);
         }
