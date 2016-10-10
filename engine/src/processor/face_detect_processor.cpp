@@ -21,7 +21,7 @@ FaceDetectProcessor::FaceDetectProcessor(
   switch (method) {
   case DlibMethod:
     detector_ = new DGFace::DlibDetector(config.img_scale_max, config.img_scale_min);
-
+    detect_type_ = "";
     break;
   case RpnMethod: {
     size_t stride = 16;
@@ -37,6 +37,7 @@ FaceDetectProcessor::FaceDetectProcessor(
                                         regname, area,
                                         ratio, mean, config.confidence, max_per_img,
                                         stride, config.scale, config.use_gpu, config.gpu_id);
+    detect_type_ = "rpn";
     break;
   }
   case SsdMethod: {
@@ -46,6 +47,7 @@ FaceDetectProcessor::FaceDetectProcessor(
     detector_ = new DGFace::SSDDetector(config.img_scale_max,
                                         config.img_scale_min,
                                         config.deploy_file, config.model_file, mean, config.confidence, config.scale, config.use_gpu, config.gpu_id);
+    detect_type_ = "ssd";
     break;
   }
   }
@@ -144,17 +146,19 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
   detector_->detect(imgs, detect_result);
   DetectResult2Detection(detect_result, boxes_in);
-  vector<vector<Detection>> enlarge_boxes;
+  vector<vector<Rect>> enlarge_boxes;
   enlarge_box(boxes_in, enlarge_boxes);
   for (int i = 0; i < frameIds.size(); ++i) {
     int frameId = frameIds[i];
     Frame *frame = frameBatch->frames()[frameId];
-    for (size_t bbox_id = 0; bbox_id < enlarge_boxes[i].size(); bbox_id++) {
-      Detection detection = enlarge_boxes[i][bbox_id];
+    for (size_t bbox_id = 0; bbox_id < boxes_in[i].size(); bbox_id++) {
+      Detection detection = boxes_in[i][bbox_id];
       Face *face = new Face(base_id_ + bbox_id, detection,
                             detection.confidence);
       cv::Mat data = frame->payload()->data();
-      cv::Mat image = data(detection.box);
+      LOG(INFO) << detection << " " << enlarge_boxes[i].size();
+      LOG(INFO) << enlarge_boxes[i][bbox_id].x << " " << enlarge_boxes[i][bbox_id].y << " " << enlarge_boxes[i][bbox_id].width << " " << enlarge_boxes[i][bbox_id].height;
+      cv::Mat image = data(enlarge_boxes[i][bbox_id]);
       // string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
       // imwrite(name, image);
       face->set_image(image);
@@ -163,24 +167,36 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
   }
   return true;
 }
-void enlarge_box(vector<vector<Detection>> boxes, vector<vector<Detection>> enlarge_boxes) {
+void FaceDetectProcessor::enlarge_box(vector<vector<Detection>> boxes, vector<vector<Rect>> &enlarge_boxes) {
+  if (detect_type_ == "")
+    return;
+
   enlarge_boxes.resize(boxes.size());
+  LOG(INFO) << enlarge_boxes.size() << " " << boxes.size();
   for (int i = 0; i < enlarge_boxes.size(); i++) {
     for (auto bbox : boxes[i]) {
       Rect adjust_box = bbox.box;
       Rect reverse_box;
-      const float h_rate = 0.3;
-      reverse_box.height = adjust_box.height / (1 - h_rate);
-      reverse_box.y = adjust_box.y - reverse_box.height * h_rate;
+      if (detect_type_ == "ssd") {
+        const float h_rate = 0.42;
+        reverse_box.height = adjust_box.height / (1 - h_rate);
+        reverse_box.y = adjust_box.y - reverse_box.height * h_rate;
 
-      const float w_rate = 0.15;
-      reverse_box.width = adjust_box.width / (1 - w_rate * 2);
-      reverse_box.x = adjust_box.x - reverse_box.width * w_rate;
+        const float w_rate = 0.12;
+        reverse_box.width = adjust_box.width / (1 - w_rate * 2);
+        reverse_box.x = adjust_box.x - reverse_box.width * w_rate;
+      } else if (detect_type_ == "rpn") {
+        const float h_rate = 0.32;
+        reverse_box.height = adjust_box.height / (1 - h_rate);
+        reverse_box.y = adjust_box.y - reverse_box.height * h_rate;
+
+        const float w_rate = 0.16;
+        reverse_box.width = adjust_box.width / (1 - w_rate * 2);
+        reverse_box.x = adjust_box.x - reverse_box.width * w_rate;
+      }
       enlarge_boxes[i].push_back(reverse_box);
     }
   }
-
-  return 1;
 }
 int FaceDetectProcessor::DetectResult2Detection(const vector<DGFace::DetectResult> &detect_results, vector< vector<Detection> > &detections) {
   for (auto detect_result : detect_results) {
