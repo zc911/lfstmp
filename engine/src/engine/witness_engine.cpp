@@ -153,10 +153,11 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
         FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
-    enable_face_detect_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_DETECTION);
+                                      FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+    enable_face_detect_ = (bool) config.Value(
+                              FEATURE_FACE_ENABLE_DETECTION);
+
     enable_vehicle_driver_belt_ = (bool) config.Value(
         FEATURE_VEHICLE_ENABLE_DRIVERBELT);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
@@ -411,21 +412,15 @@ void WitnessEngine::init(const Config &config) {
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
         int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
-        if (method) {
-            FaceDetectorConfig fdconfig;
-            configFilter->createFaceDetectorConfig(config, fdconfig);
-            face_processor_ = new FaceDetectProcessor(fdconfig, method);
-        } else {
-            FaceDlibDetector::FaceDetectorConfig fdconfig;
-            fdconfig.img_scale_min = (int) config.Value(ADVANCED_FACE_DETECT_MIN);
-            fdconfig.img_scale_max = (int) config.Value(ADVANCED_FACE_DETECT_MAX);
 
-            face_processor_ = new FaceDetectProcessor(fdconfig);
-        }
+        FaceDetectorConfig fdconfig;
+        configFilter->createFaceDetectorConfig(config, fdconfig);
+        face_processor_ = new FaceDetectProcessor(fdconfig, method);
+
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
-            FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-            FaceAlignment::FaceAlignmentConfig faConfig;
+            FaceFeatureExtractorConfig feconfig;
+            FaceAlignmentConfig faConfig;
             configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
             face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig, faConfig));
         }
