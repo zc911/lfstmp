@@ -9,6 +9,8 @@
 
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
+#include "debug_util.h"
+
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
@@ -51,12 +53,29 @@ FaceDetectProcessor::FaceDetectProcessor(
   DLOG(INFO) << "Face detector has been initialized" << std::endl;
 
 
+
 }
 
 FaceDetectProcessor::~FaceDetectProcessor() {
   if (detector_)
     delete detector_;
 }
+
+
+static void noDetectionButFeature(Frame *frame) {
+    Mat data = frame->payload()->data();
+    if (data.rows == 0 || data.cols == 0) {
+        LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
+        return;
+    }
+    Detection det;
+    det.id = DETECTION_FACE;
+    det.box = cv::Rect(0, 0, data.cols, data.rows);
+    Face *face = new Face(0, det, 1.0);
+    face->set_image(data);
+    frame->put_object((Object *) face);
+}
+
 
 bool FaceDetectProcessor::process(Frame *frame) {
   /*   LOG(INFO) << "HA";
@@ -90,6 +109,7 @@ bool FaceDetectProcessor::process(Frame *frame) {
      }*/
 }
 
+
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
   vector<Mat> imgs;
@@ -102,6 +122,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
       VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
                                << endl;
       continue;
+
     }
 
     Mat data = frame->payload()->data();
@@ -153,6 +174,7 @@ int FaceDetectProcessor::DetectResult2Detection(const vector<DGFace::DetectResul
     }
     detections.push_back(detection_tmp);
   }
+
 }
 
 bool FaceDetectProcessor::beforeUpdate(FrameBatch *frameBatch) {

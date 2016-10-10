@@ -679,8 +679,8 @@ MatrixError WitnessAppsService::BatchRecognize(
                 uuid_t uuidGenerated;
                 uuid_generate_random(uuidGenerated);
                 uuid_unparse(uuidGenerated, uuidBuff);
-                string name = path + "/" + uuidBuff + ".jpg";
-                imwrite(name, roiimages[i].data);
+//                string name = path + "/" + uuidBuff + ".jpg";
+//                imwrite(name, roiimages[i].data);
             }
 
         });

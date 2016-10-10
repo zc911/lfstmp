@@ -70,8 +70,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 string id = i2string(d.id);
                 cv::putText(draw_images_[i], id, cv::Point(midx, midy), FONT_HERSHEY_COMPLEX_SMALL, 1, color_[d.id]);
             }
-            string name = "marker" + to_string(i) + to_string(draw_images_[i].rows) + ".jpg";
-            imwrite(name, draw_images_[i]);
+//            string name = "marker" + to_string(i) + to_string(draw_images_[i].rows) + ".jpg";
+//            imwrite(name, draw_images_[i]);
         } else {
             for (int j = 0; j < preds[i].size(); j++) {
                 markers_cutborad.push_back(preds[i][j]);

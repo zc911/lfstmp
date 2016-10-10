@@ -8,21 +8,39 @@
  * ==========================================================================*/
 #include "processor/face_rank_processor.h"
 #include "processor_helper.h"
+#include "io/rank_candidates_repo.h"
+#include "alg/rank/database.h"
+
 namespace dg {
 
 FaceRankProcessor::FaceRankProcessor() {
-    ranker_ = new FaceRanker();
+
 }
 
 FaceRankProcessor::~FaceRankProcessor() {
-    if (ranker_)
-        delete ranker_;
 }
 
 bool FaceRankProcessor::process(Frame *frame) {
     FaceRankFrame *fframe = (FaceRankFrame *) frame;
-//    fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
-//                                    fframe->candidates_);
+
+
+    const RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+    CDatabase &ranker = RankCandidatesRepo::GetInstance().GetFaceRanker();
+
+    vector<float> &feature = fframe->datum_.descriptor_;
+
+
+    int candidatesNum = 10;
+    vector<int64_t> results(candidatesNum);
+
+
+    ranker.NearestN(feature.data(), candidatesNum, results.data());
+    for (int64_t r: results) {
+        Score score;
+        score.index_ = r;
+        fframe->result_.push_back(score);
+    }
+
     performance_++;
 
     return true;

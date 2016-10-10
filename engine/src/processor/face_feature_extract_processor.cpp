@@ -7,7 +7,6 @@
  * Description :
  * ==========================================================================*/
 //#include <alg/feature/face_alignment.h>
-#include <alg/feature/face_feature_extractor.h>
 #include "processor/face_feature_extract_processor.h"
 #include "processor_helper.h"
 namespace dg {
@@ -155,6 +154,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size() << endl;
+
         return false;
     }
 
@@ -192,7 +192,7 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object *>::iterator itr = to_processed_.begin();
-            itr != to_processed_.end();) {
+         itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else if (((Face *)(*itr))->image().rows == 0 || ((Face *)(*itr))->image().cols == 0) {
