@@ -22,6 +22,7 @@ class Recognition {
         virtual void recog_impl(const std::vector<cv::Mat> &faces, const std::vector<AlignResult>& alignment, std::vector<RecogResult> &results) {}
 
 };
+
 Recognition *create_recognition(const std::string &prefix = std::string());
 }
 #endif

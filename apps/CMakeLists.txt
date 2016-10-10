@@ -51,6 +51,7 @@ FIND_LIBRARY(LIB_CDNN_SCORE NAMES cdnn-score PATHS ${LIBS_PATH}/dgface/${PLATFOR
 FIND_LIBRARY(LIB_DGFACE NAMES dgface cdnn-score PATHS ${LIBS_PATH}/dgface/${PLATFORM}/${CUDA_VERSION})
 
 LIST(APPEND LIBS ${LIB_GTEST_MAIN} ${LIB_GTEST} ${LIB_MATRIX} ${LIB_WATCHDOG} ${LIB_HASP} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${LIB_THPLATEID} ${LIB_DGFACE} ${LIB_CDNN_SCORE} ${LIB_DLIB})
+
 LIST(APPEND LIBS ${LIB_TBB} ${LIB_GRPC++} ${LIB_GRPC} ${LIB_PROTOBUF} ${LIB_CUDART} ${LIB_CUDNN} ${LIB_MXNET} ${LIB_CAFFE} ${LIB_PBJSON} ${Boost_LIBRARIES})
 LIST(APPEND LIBS glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
 freetype hdf5_hl hdf5 m crypto opencv_core opencv_highgui opencv_imgproc opencv_calib3d opencv_features2d gstreamer-0.10

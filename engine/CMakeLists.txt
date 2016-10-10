@@ -18,6 +18,7 @@ SET(LIBS_PATH ${PROJECT_SOURCE_DIR}/../lib)
 INCLUDE_DIRECTORIES(${INCLUDE_PATH} src ${INCLUDE_PATH}/dgcaffe ${INCLUDE_PATH}/mxnet ${INCLUDE_PATH}/watchdog ${INCLUDE_PATH}/matrix_util ${INCLUDE_PATH}/dgmedia-1.8.0 ${INCLUDE_PATH}/dgface
         /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/include/opencv /usr/include/libxml2 /usr/include/freetype2 ${INCLUDE_PATH}/dgcdnn/cdnn_predict_src/convnet_predict_alignment ${INCLUDE_PATH}/dgcdnn/cdnn_predict_src/extract_metric_learning_feature)
 
+
 SET(CUDA_LIB_PATH /usr/local/cuda/lib64)
 
 IF (${PLATFORM} STREQUAL "Linux-armv7l")

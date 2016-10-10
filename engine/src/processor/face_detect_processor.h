@@ -17,7 +17,6 @@
 #include "dgface/detector/det_ssd.h"
 #include "dgface/detector.h"
 
-
 namespace dg {
 typedef struct {
 	bool is_model_encrypt = false;
@@ -29,6 +28,7 @@ typedef struct {
 	float confidence = 0.7;
 	bool use_gpu = true;
 
+
 	string deploy_file;
 	string model_file;
 } FaceDetectorConfig;
@@ -36,6 +36,7 @@ class FaceDetectProcessor: public Processor {
 
 public:
 	enum {DlibMethod = 2, RpnMethod = 0, SsdMethod = 1};
+
 
 	//FaceDetectProcessor(FaceDetectorConfig config, int method);
 	FaceDetectProcessor(FaceDetectorConfig config, int method);

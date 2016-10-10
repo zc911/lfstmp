@@ -112,6 +112,7 @@ static const string ADVANCED_FACE_EXTRACT_METHOD =
     "Advanced/FaceExtract/Method";
 static const string ADVANCED_FACE_ALIGN_METHOD =
     "Advanced/FaceExtract/AlignMethod";
+
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
@@ -191,8 +192,10 @@ static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
     "File/FaceExtract/TrainedModel";
 static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
     "File/FaceExtract/DeployModel";
+
 static const string FILE_FACE_EXTRACT_MODEL_CONFIG =
     "File/FaceExtract/ModelConfig";
+
 static const string FILE_FACE_EXTRACT_LAYERNAME = "File/FaceExtract/LayerName";
 static const string FILE_FACE_EXTRACT_MEAN = "File/FaceExtract/Mean";
 static const string FILE_FACE_EXTRACT_PIXEL_SCALE = "File/FaceExtract/PixelScale";

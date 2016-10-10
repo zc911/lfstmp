@@ -50,6 +50,7 @@ FaceDetectProcessor::FaceDetectProcessor(
   base_id_ = 5000;
   DLOG(INFO) << "Face detector has been initialized" << std::endl;
 
+
 }
 
 FaceDetectProcessor::~FaceDetectProcessor() {

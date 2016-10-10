@@ -51,6 +51,7 @@ class FaceFeatureExtractProcessor: public Processor {
 public:
     enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2};
     enum {DlibAlign = 0, CdnnAlign = 1};
+
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
     virtual ~FaceFeatureExtractProcessor();
