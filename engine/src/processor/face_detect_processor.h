@@ -58,7 +58,7 @@ private:
 	vector<Mat> imgs_;
 	vector<Object *> objs_;
 
-	string detect_type_="";
+	string detect_type_ = "";
 };
 
 } /* namespace dg */
