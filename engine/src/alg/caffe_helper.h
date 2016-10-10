@@ -592,8 +592,9 @@ static pair<int, int> CatImg(cv::Mat &img, int target_cols, int target_rows) {
     pair<int, int> added;
     added.first = 0;
     added.second = 0;
+
     if (origin_height < target_rows) {
-        Mat rows = Mat::zeros(target_rows - origin_height, target_cols, img.type()); // +1 for input > 0
+        Mat rows = Mat::zeros(target_rows - origin_height, origin_width, img.type()); // +1 for input > 0
         img.push_back(rows);
         added.second = target_rows - origin_height;
     }
