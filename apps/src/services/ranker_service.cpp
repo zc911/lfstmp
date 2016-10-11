@@ -48,6 +48,13 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 
 }
 
+
+MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response) {
+    MatrixError err;
+    cout << "Get add features request: " << request->features().size() << endl;
+    return err;
+}
+
 //
 //MatrixError RankerAppsService::GetRankedVector(
 //    const FeatureRankingRequest *request,
@@ -227,7 +234,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
     RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
     for (auto r : f.result_) {
-        RankResult *result = response->mutable_candidates()->Add();
+        RankItem *result = response->mutable_candidates()->Add();
         const RankCandidatesItem &item = repo.Get(r.index_);
         result->set_uri(item.image_uri);
         result->set_id(r.index_);

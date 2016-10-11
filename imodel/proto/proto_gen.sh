@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-    echo "Usage: proto_gen.sh cpp|python"
+    echo "Usage: proto_gen.sh cpp|python|golang"
     exit
 fi
 
@@ -25,8 +25,16 @@ elif [ "$1" == "python" ]; then
     target="--python_out"
     target_dir="../src/python"
     python -m grpc.tools.protoc -I . --python_out=$target_dir --grpc_python_out=$target_dir *.proto
+elif [ "$1" == "golang" ]; then
+    target="--go_out"
+    target_dir="../src/golang"
+    protoc -I . $target=$target_dir common.proto
+    protoc -I . $target=$target_dir localcommon.proto
+    protoc ranker.proto $target=plugins=grpc:$target_dir
+    protoc witness.proto $target=plugins=grpc:$target_dir
+    protoc system.proto $target=plugins=grpc:$target_dir
 else
-    echo "Usage: proto_gen.sh [cpp|python]"
+    echo "Usage: proto_gen.sh [cpp|python|golang]"
     exit
 fi
 
