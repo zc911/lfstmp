@@ -35,10 +35,18 @@ public:
         std::function<MatrixError(const RankFeatureRequest *, RankFeatureResponse *)> rankBinder =
             std::bind(&RankerAppsService::RankFeature, service_, std::placeholders::_1, std::placeholders::_2);
 
+        std::function<MatrixError(const AddFeaturesRequest *, AddFeaturesResponse *)> addFeaturesBinder =
+            std::bind(&RankerAppsService::AddFeatures, service_, std::placeholders::_1, std::placeholders::_2);
+
         bindFunc<RankFeatureRequest, RankFeatureResponse>(server,
                                                           "/rank$",
                                                           "POST",
                                                           rankBinder);
+
+        bindFunc<AddFeaturesRequest, AddFeaturesResponse>(server,
+                                                          "/rank/add",
+                                                          "POST",
+                                                          addFeaturesBinder);
 
     }
 

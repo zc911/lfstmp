@@ -14,6 +14,10 @@ service SimilarityService {
 
     }
 
+    rpc AddFeatures (AddFeaturesRequest) returns (AddFeaturesResponse) {
+
+    }
+
     // Deprecated
     rpc GetRankedVector (FeatureRankingRequest) returns (FeatureRankingResponse) {
     }
@@ -42,7 +46,7 @@ message RankFeatureRequest {
     int32 MaxCandidates = 3; // 比对输出条目限制（0为不限制）
 }
 
-message RankResult {
+message RankItem {
     int32 Id = 1;
     float Score = 2;
     string Name = 3;
@@ -52,7 +56,7 @@ message RankResult {
 
 message RankFeatureResponse {
     RankResponseContext Context = 1;
-    repeated RankResult Candidates = 2;
+    repeated RankItem Candidates = 2;
     //    repeated int64 Ids = 2; //比对返回的排序结果
     //    repeated float Scores = 3; //比对返回的相关性分值
 }
@@ -67,7 +71,7 @@ message RankImageRequest {
 
 message RankImageResponse {
     RankResponseContext Context = 1;
-    repeated RankResult Candidates = 2;
+    repeated RankItem Candidates = 2;
     //    repeated int64 Ids = 2; //比对返回的排序结果
     //    repeated float Scores = 3; //比对返回的相关性分值
 }
@@ -88,4 +92,18 @@ message FeatureRankingResponse {
     int64 ReqId = 1; //比对返回的请求Id(对应请求的ReqId)
     repeated int64 Ids = 2; //比对返回的排序结果
     repeated float Scores = 3; //比对返回的相关性分值
+}
+
+message InfoAndFeature {
+    RankItem Info = 1;
+    FeatureVector Feature = 2;
+}
+
+message AddFeaturesRequest {
+    RankRequestContext Context = 1;
+    repeated InfoAndFeature Features = 2;
+}
+
+message AddFeaturesResponse {
+    RankResponseContext Context = 1;
 }
