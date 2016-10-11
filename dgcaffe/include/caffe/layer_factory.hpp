@@ -1,6 +1,6 @@
 /**
  * @brief A layer factory that allows one to register layers.
- * During runtime, registered layers could be called by passing a LayerParameter
+ * During runtime, registered layers can be called by passing a LayerParameter
  * protobuffer to the CreateLayer function:
  *
  *     LayerRegistry<Dtype>::CreateLayer(param);
@@ -74,7 +74,7 @@ class LayerRegistry {
   // Get a layer using a LayerParameter.
   static shared_ptr<Layer<Dtype> > CreateLayer(const LayerParameter& param) {
     if (Caffe::root_solver()) {
-      DLOG(INFO) << "Creating layer " << param.name();
+      LOG(INFO) << "Creating layer " << param.name();
     }
     const string& type = param.type();
     CreatorRegistry& registry = Registry();
