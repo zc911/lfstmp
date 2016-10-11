@@ -23,11 +23,10 @@ class CdnnAlignment : public Alignment{
 		// FaceHandler _handler;
 		// FacePara _param;
 
-		sKeyPointsModel _keyPointsModel;
-		MPMetricFeature::ExtractMPMetricFeature _transform;
+		Cdnn::sKeyPointsModel _keyPointsModel;
+		Cdnn::MPMetricFeature::ExtractMPMetricFeature _transform;
 
-		std::string _det_type;
-		std::vector<float> _scale;
+	
 
 };
 }

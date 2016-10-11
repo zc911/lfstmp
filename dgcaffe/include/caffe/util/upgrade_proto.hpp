@@ -16,9 +16,12 @@ bool UpgradeNetAsNeeded(const string& param_file, NetParameter* param);
 // Read parameters from a file into a NetParameter proto message.
 void ReadNetParamsFromTextFileOrDie(const string& param_file,
                                     NetParameter* param);
+void ReadNetParamsFromTextMemoryOrDie(const string& param_file, 
+ 				const string & input, NetParameter* param);
 void ReadNetParamsFromBinaryFileOrDie(const string& param_file,
                                       NetParameter* param);
-
+void ReadNetParamsFromBinaryMemoryOrDie(const string& param_file, 
+				unsigned char *buffer, int len, NetParameter* param);
 // Return true iff any layer contains parameters specified using
 // deprecated V0LayerParameter.
 bool NetNeedsV0ToV1Upgrade(const NetParameter& net_param);

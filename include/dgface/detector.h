@@ -24,6 +24,7 @@ class Detector {
         Detector(int img_scale_max, int img_scale_min);
         // detect only -> confidence, bbox
         virtual void detect_impl(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results) = 0;
+
         // find landmark only -> landmarks
         //virtual void landmark_impl(const cv::Mat &img, std::vector<DetectResult> &result) = 0; 
     private:
