@@ -14,94 +14,44 @@
 
 #include "caffe/layers/detection_output_layer.hpp"
 
-#include <sys/time.h>
-#include <ctype.h>
-
 namespace caffe {
 
 template <typename Dtype>
 void DetectionOutputLayer<Dtype>::Forward_gpu(
     const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top) {
-
-  //struct timeval start_all;
-  //struct timeval end_all;
-  //gettimeofday(&start_all, NULL);
-
-  //struct timeval start;
-  //struct timeval end;
-  //gettimeofday(&start, NULL);
-
   const Dtype* loc_data = bottom[0]->gpu_data();
   const Dtype* prior_data = bottom[2]->gpu_data();
   const int num = bottom[0]->num();
 
-  //Decode predictions.
-  //Blob<Dtype> bbox_preds;
-  //bbox_preds.ReshapeLike(*(bottom[0]));
-
-  //std::cout << "[Debug 0]" <<  bottom[0]->num() << " " << bottom[0]->channels() << " " << bottom[0]->height() << " " << bottom[0]->width() << std::endl;
-  //std::cout << "[Debug 1]" <<  bottom[1]->num() << " " << bottom[1]->channels() << " " << bottom[1]->height() << " " << bottom[1]->width() << std::endl;
-    
-    
+  // Decode predictions.
+  Blob<Dtype> bbox_preds;
+  bbox_preds.ReshapeLike(*(bottom[0]));
   Dtype* bbox_data = bbox_preds.mutable_gpu_data();
   const int loc_count = bbox_preds.count();
   DecodeBBoxesGPU<Dtype>(loc_count, loc_data, prior_data, code_type_,
       variance_encoded_in_target_, num_priors_, share_location_,
       num_loc_classes_, background_label_id_, bbox_data);
-
-
- // cudaDeviceSynchronize();
- // gettimeofday(&end, NULL);
- // std::cout << "decode bbox: time cost" << (1000*1000*(end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / 1000 << std::endl;
- // gettimeofday(&start, NULL);
-
   // Retrieve all decoded location predictions.
   const Dtype* bbox_cpu_data = bbox_preds.cpu_data();
   vector<LabelBBox> all_decode_bboxes;
-  //GetLocPredictions(bbox_cpu_data, num, num_priors_, num_loc_classes_,
-  //    share_location_, &all_decode_bboxes);
-
-
- // cudaDeviceSynchronize();
- // gettimeofday(&end, NULL);
- // std::cout << "get loc prediction: time cost" << (1000*1000*(end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / 1000 << std::endl;
- // gettimeofday(&start, NULL);
+  GetLocPredictions(bbox_cpu_data, num, num_priors_, num_loc_classes_,
+      share_location_, &all_decode_bboxes);
 
   // Retrieve all confidences.
   const Dtype* conf_data;
-  //Blob<Dtype> conf_permute;
-  //conf_permute.ReshapeLike(*(bottom[1]));
+  Blob<Dtype> conf_permute;
+  conf_permute.ReshapeLike(*(bottom[1]));
   Dtype* conf_permute_data = conf_permute.mutable_gpu_data();
   PermuteDataGPU<Dtype>(conf_permute.count(), bottom[1]->gpu_data(),
       num_classes_, num_priors_, 1, conf_permute_data);
-
-
-  //cudaDeviceSynchronize();
-  //gettimeofday(&end, NULL);
-  //std::cout << "PermuteDataGPU: time cost" << (1000*1000*(end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / 1000 << std::endl;
-  //gettimeofday(&start, NULL);
-
   conf_data = conf_permute.cpu_data();
   const bool class_major = true;
   vector<map<int, vector<float> > > all_conf_scores;
-  //GetConfidenceScores(conf_data, num, num_priors_, num_classes_,
-  //   class_major, &all_conf_scores);
-  GetLocAndScores(bbox_cpu_data, num, num_priors_, num_loc_classes_,
-        share_location_, &all_decode_bboxes, conf_data, num_classes_, class_major, &all_conf_scores,&thresholds_);
+  GetConfidenceScores(conf_data, num, num_priors_, num_classes_,
+      class_major, &all_conf_scores);
 
   int num_kept = 0;
   vector<map<int, vector<int> > > all_indices;
-
-  //cudaDeviceSynchronize();
-  //gettimeofday(&end, NULL);
-  //std::cout << "GetLocAndScores: time cost" << (1000*1000*(end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / 1000 << std::endl;
-  //gettimeofday(&start, NULL);
-
-
-
-
-
-
   for (int i = 0; i < num; ++i) {
     const LabelBBox& decode_bboxes = all_decode_bboxes[i];
     const map<int, vector<float> >& conf_scores = all_conf_scores[i];
@@ -114,35 +64,20 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
       }
       if (conf_scores.find(c) == conf_scores.end()) {
         // Something bad happened if there are no predictions for current label.
-        //LOG(FATAL) << "Could not find confidence predictions for label " << c;
-        continue;
+        LOG(FATAL) << "Could not find confidence predictions for label " << c;
       }
       const vector<float>& scores = conf_scores.find(c)->second;
       int label = share_location_ ? -1 : c;
       if (decode_bboxes.find(label) == decode_bboxes.end()) {
         // Something bad happened if there are no predictions for current label.
-        //LOG(FATAL) << "Could not find location predictions for label " << label;
+        LOG(FATAL) << "Could not find location predictions for label " << label;
         continue;
       }
       const vector<NormalizedBBox>& bboxes = decode_bboxes.find(label)->second;
-      
-      //struct timeval start1;
-      //struct timeval end1;
-      //gettimeofday(&start1, NULL);
-
       ApplyNMSFast(bboxes, scores, confidence_threshold_, nms_threshold_,
           top_k_, &(indices[c]));
-
-
-      //gettimeofday(&end1, NULL);
-      //std::cout << "Fast: time cost" << (1000*1000*(end1.tv_sec - start1.tv_sec) + end1.tv_usec - start1.tv_usec)  << std::endl;
-    
       num_det += indices[c].size();
     }
-
-
-
-
     if (keep_top_k_ > -1 && num_det > keep_top_k_) {
       vector<pair<float, pair<int, int> > > score_index_pairs;
       for (map<int, vector<int> >::iterator it = indices.begin();
@@ -181,21 +116,16 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
     }
   }
 
-  //cudaDeviceSynchronize();
-  //gettimeofday(&end, NULL);
-  //std::cout << "second part: time cost" << (1000*1000*(end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec) / 1000 << std::endl;
-
-  if (num_kept == 0) {
-  	vector<int> top_shape(2, 1);
-  	top_shape.push_back(num_kept);
-  	top_shape.push_back(7);
-  	top[0]->Reshape(top_shape);
-    LOG(INFO) << "Couldn't find any detections";
-    return;
-  }
   vector<int> top_shape(2, 1);
   top_shape.push_back(num_kept);
   top_shape.push_back(7);
+  if (num_kept == 0) {
+    LOG(INFO) << "Couldn't find any detections";
+    top_shape[2] = 1;
+    top[0]->Reshape(top_shape);
+    caffe_set<Dtype>(top[0]->count(), -1, top[0]->mutable_cpu_data());
+    return;
+  }
   top[0]->Reshape(top_shape);
   Dtype* top_data = top[0]->mutable_cpu_data();
 
@@ -371,8 +301,6 @@ void DetectionOutputLayer<Dtype>::Forward_gpu(
         label_to_display_name_);
 #endif  // USE_OPENCV
   }
-  //gettimeofday(&end_all, NULL);
-  //std::cout << "total: time cost" << (1000*1000*(end_all.tv_sec - start_all.tv_sec) + end_all.tv_usec - start_all.tv_usec) / 1000 << std::endl;
 }
 
 INSTANTIATE_LAYER_GPU_FUNCS(DetectionOutputLayer);

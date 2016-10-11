@@ -161,15 +161,6 @@ void GetConfidenceScores(const Dtype* conf_data, const int num,
       const int num_preds_per_class, const int num_classes,
       vector<map<int, vector<float> > >* conf_scores);
 
-template <typename Dtype>
-void GetLocAndScores(const Dtype* loc_data, const int num,
-      const int num_preds_per_class, const int num_loc_classes, 
-      const bool share_location, vector<LabelBBox>* loc_preds, 
-      const Dtype* conf_data, const int num_classes, const bool class_major,
-      vector<map<int, vector<float> > >* conf_scores,vector<float> *thresh_hold);
-
-
-
 // Get confidence predictions from conf_data.
 //    conf_data: num x num_preds_per_class * num_classes blob.
 //    num: the number of images.

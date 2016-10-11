@@ -17,5 +17,6 @@
 #include "caffe/util/benchmark.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/util/upgrade_proto.hpp"
+#include "caffe/util/im2col.hpp"
 
 #endif  // CAFFE_CAFFE_HPP_

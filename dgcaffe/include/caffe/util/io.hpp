@@ -111,18 +111,6 @@ inline void ReadProtoFromBinaryFileOrDie(const char* filename, Message* proto) {
   CHECK(ReadProtoFromBinaryFile(filename, proto));
 }
 
-bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto);
-
-inline void ReadProtoFromBinaryMemoryOrDie(unsigned char* buffer, int len, Message* proto) {
-  CHECK(ReadProtoFromBinaryMemory(buffer, len, proto));
-}
-
-bool ReadProtoFromTextMemory(const string & input, Message* proto);
-
-inline bool ReadProtoFromTextMemoryOrDie(const string & input, Message* proto) {
-  return ReadProtoFromTextMemory(input, proto);
-}
-
 inline void ReadProtoFromBinaryFileOrDie(const string& filename,
                                          Message* proto) {
   ReadProtoFromBinaryFileOrDie(filename.c_str(), proto);
@@ -196,6 +184,8 @@ bool DecodeDatumNative(Datum* datum);
 bool DecodeDatum(Datum* datum, bool is_color);
 
 
+void GetImageSize(const string& filename, int* height, int* width);
+
 bool ReadRichImageToAnnotatedDatum(const string& filename,
     const string& labelname, const int height, const int width,
     const int min_dim, const int max_dim, const bool is_color,
@@ -220,6 +210,9 @@ bool ReadXMLToAnnotatedDatum(const string& labelname, const int img_height,
 bool ReadJSONToAnnotatedDatum(const string& labelname, const int img_height,
     const int img_width, const std::map<string, int>& name_to_label,
     AnnotatedDatum* anno_datum);
+
+bool ReadTxtToAnnotatedDatum(const string& labelname, const int height,
+    const int width, AnnotatedDatum* anno_datum);
 
 bool ReadLabelFileToLabelMap(const string& filename, bool include_background,
     const string& delimiter, LabelMap* map);
@@ -282,8 +275,6 @@ void EncodeCVMatToDatum(const cv::Mat& cv_img, const string& encoding,
                         Datum* datum);
 
 void CVMatToDatum(const cv::Mat& cv_img, Datum* datum);
-
-void GetImageSize(const string& filename, int* height, int* width);
 #endif  // USE_OPENCV
 
 }  // namespace caffe

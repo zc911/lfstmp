@@ -16,12 +16,8 @@ bool UpgradeNetAsNeeded(const string& param_file, NetParameter* param);
 // Read parameters from a file into a NetParameter proto message.
 void ReadNetParamsFromTextFileOrDie(const string& param_file,
                                     NetParameter* param);
-void ReadNetParamsFromTextMemoryOrDie(const string& param_file, 
-				const string & input, NetParameter* param);
 void ReadNetParamsFromBinaryFileOrDie(const string& param_file,
                                       NetParameter* param);
-void ReadNetParamsFromBinaryMemoryOrDie(const string& param_file, 
-				unsigned char *buffer, int len, NetParameter* param);
 
 // Return true iff any layer contains parameters specified using
 // deprecated V0LayerParameter.
@@ -68,6 +64,12 @@ bool NetNeedsInputUpgrade(const NetParameter& net_param);
 
 // Perform all necessary transformations to upgrade input fields into layers.
 void UpgradeNetInput(NetParameter* net_param);
+
+// Return true iff the Net contains batch norm layers with manual local LRs.
+bool NetNeedsBatchNormUpgrade(const NetParameter& net_param);
+
+// Perform all necessary transformations to upgrade batch norm layers.
+void UpgradeNetBatchNorm(NetParameter* net_param);
 
 // Return true iff the solver contains any old solver_type specified as enums
 bool SolverNeedsTypeUpgrade(const SolverParameter& solver_param);

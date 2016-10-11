@@ -453,9 +453,9 @@ void DataTransformer<Dtype>::Transform(const cv::Mat& cv_img,
   cv::Mat cv_resized_image, cv_noised_image, cv_cropped_image;
 
   *crop_bbox = UnitBBox();
-  if (param_.has_resize_param()) {
-    cv_resized_image = ApplyResize(cv_img, param_.resize_param());
-    UpdateBBoxByResizePolicy(param_.resize_param(), img_width, img_height,
+  if (param_.has_old_resize_param()) {
+    cv_resized_image = ApplyResize(cv_img, param_.old_resize_param());
+    UpdateBBoxByResizePolicy(param_.old_resize_param(), img_width, img_height,
                              crop_bbox);
   } else {
     cv_resized_image = cv_img;
@@ -604,8 +604,8 @@ void DataTransformer<Dtype>::TransformInv(const Dtype* data, cv::Mat* cv_img,
     }
   }
 
-  if (param_.has_resize_param()) {
-    *cv_img = ApplyResize(orig_img, param_.resize_param());
+  if (param_.has_old_resize_param()) {
+    *cv_img = ApplyResize(orig_img, param_.old_resize_param());
   } else {
     *cv_img = orig_img;
   }
@@ -808,14 +808,14 @@ vector<int> DataTransformer<Dtype>::InferBlobShape(const Datum& datum) {
 
   // Check dimensions.
   CHECK_GT(datum_channels, 0);
-  if (param_.has_resize_param()) {
-    if (param_.resize_param().has_height() &&
-        param_.resize_param().height() > 0) {
-      datum_height = param_.resize_param().height();
+  if (param_.has_old_resize_param()) {
+    if (param_.old_resize_param().has_height() &&
+        param_.old_resize_param().height() > 0) {
+      datum_height = param_.old_resize_param().height();
     }
-    if (param_.resize_param().has_width() &&
-        param_.resize_param().width() > 0) {
-      datum_width = param_.resize_param().width();
+    if (param_.old_resize_param().has_width() &&
+        param_.old_resize_param().width() > 0) {
+      datum_width = param_.old_resize_param().width();
     }
   }
   CHECK_GE(datum_height, crop_h);
@@ -857,14 +857,14 @@ vector<int> DataTransformer<Dtype>::InferBlobShape(const cv::Mat& cv_img) {
   int img_width = cv_img.cols;
   // Check dimensions.
   CHECK_GT(img_channels, 0);
-  if (param_.has_resize_param()) {
-    if (param_.resize_param().has_height() &&
-        param_.resize_param().height() > 0) {
-      img_height = param_.resize_param().height();
+  if (param_.has_old_resize_param()) {
+    if (param_.old_resize_param().has_height() &&
+        param_.old_resize_param().height() > 0) {
+      img_height = param_.old_resize_param().height();
     }
-    if (param_.resize_param().has_width() &&
-        param_.resize_param().width() > 0) {
-      img_width = param_.resize_param().width();
+    if (param_.old_resize_param().has_width() &&
+        param_.old_resize_param().width() > 0) {
+      img_width = param_.old_resize_param().width();
     }
   }
   CHECK_GE(img_height, crop_h);
