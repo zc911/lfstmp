@@ -15,6 +15,7 @@
 #include "dgface/detector/det_dlib.h"
 #include "dgface/detector/det_rpn.h"
 #include "dgface/detector/det_ssd.h"
+#include "dgface/detector/det_fcn.h"
 #include "dgface/detector.h"
 
 namespace dg {
@@ -35,7 +36,7 @@ typedef struct {
 class FaceDetectProcessor: public Processor {
 
 public:
-	enum {DlibMethod = 2, RpnMethod = 0, SsdMethod = 1};
+	enum {DlibMethod = 2, RpnMethod = 0, SsdMethod = 1,FcnMethod=2};
 
 
 	//FaceDetectProcessor(FaceDetectorConfig config, int method);

@@ -29,6 +29,10 @@ void DetectionOutputLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
   confidence_threshold_ = detection_output_param.has_confidence_threshold() ?
       detection_output_param.confidence_threshold() : -FLT_MAX;
   // Parameters used in nms.
+        int size = detection_output_param.thresholds_size();
+  for(int i=0;i<size;i++){
+    thresholds_.push_back(detection_output_param.thresholds(i));
+  }
   nms_threshold_ = detection_output_param.nms_param().nms_threshold();
   CHECK_GE(nms_threshold_, 0.) << "nms_threshold must be non negative.";
   top_k_ = -1;
@@ -147,6 +151,8 @@ void DetectionOutputLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
   // [image_id, label, confidence, xmin, ymin, xmax, ymax]
   top_shape.push_back(7);
   top[0]->Reshape(top_shape);
+    bbox_preds.ReshapeLike(*(bottom[0]));
+  conf_permute.ReshapeLike(*(bottom[1]));
 }
 
 template <typename Dtype>

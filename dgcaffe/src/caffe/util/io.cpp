@@ -35,6 +35,7 @@ using namespace boost::property_tree;  // NOLINT(build/namespaces)
 using google::protobuf::io::FileInputStream;
 using google::protobuf::io::FileOutputStream;
 using google::protobuf::io::ZeroCopyInputStream;
+using google::protobuf::io::ArrayInputStream;
 using google::protobuf::io::CodedInputStream;
 using google::protobuf::io::ZeroCopyOutputStream;
 using google::protobuf::io::CodedOutputStream;
@@ -77,7 +78,22 @@ void WriteProtoToBinaryFile(const Message& proto, const char* filename) {
   fstream output(filename, ios::out | ios::trunc | ios::binary);
   CHECK(proto.SerializeToOstream(&output));
 }
+bool ReadProtoFromTextMemory(const string & input, Message* proto) {
+  bool success = google::protobuf::TextFormat::ParseFromString(input, proto);
+  return success;
+}
 
+bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto) {
+  ZeroCopyInputStream* raw_input = new ArrayInputStream(buffer, len);
+  CodedInputStream* coded_input = new CodedInputStream(raw_input);
+  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
+
+  bool success = proto->ParseFromCodedStream(coded_input);
+
+  delete coded_input;
+  delete raw_input;
+  return success;
+}
 #ifdef USE_OPENCV
 cv::Mat ReadImageToCVMat(const string& filename, const int height,
     const int width, const int min_dim, const int max_dim,

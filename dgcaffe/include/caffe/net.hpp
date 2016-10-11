@@ -27,6 +27,10 @@ class Net {
   explicit Net(const string& param_file, Phase phase,
       const int level = 0, const vector<string>* stages = NULL,
       const Net* root_net = NULL);
+  explicit Net(const string& param_file, Phase phase, const Net* root_net = NULL);
+
+  explicit Net(const string & param_name, string& param_content, Phase phase, const Net* root_net=NULL);
+
   virtual ~Net() {}
 
   /// @brief Initialize a network with a NetParameter.
@@ -111,6 +115,7 @@ class Net {
    * @brief For an already initialized net, copies the pre-trained layers from
    *        another Net.
    */
+  void CopyTrainedLayersFrom(const string trained_name, string &trained_content);
   void CopyTrainedLayersFrom(const NetParameter& param);
   void CopyTrainedLayersFrom(const string trained_filename);
   void CopyTrainedLayersFromBinaryProto(const string trained_filename);

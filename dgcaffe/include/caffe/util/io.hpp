@@ -111,6 +111,17 @@ inline void ReadProtoFromBinaryFileOrDie(const char* filename, Message* proto) {
   CHECK(ReadProtoFromBinaryFile(filename, proto));
 }
 
+ bool ReadProtoFromBinaryMemory(unsigned char* buffer, int len, Message* proto);
+ 
+ inline void ReadProtoFromBinaryMemoryOrDie(unsigned char* buffer, int len, Message* proto) {
+   CHECK(ReadProtoFromBinaryMemory(buffer, len, proto));
+ }
+ 
+ bool ReadProtoFromTextMemory(const string & input, Message* proto);
+ 
+ inline bool ReadProtoFromTextMemoryOrDie(const string & input, Message* proto) {
+   return ReadProtoFromTextMemory(input, proto);
+ }
 inline void ReadProtoFromBinaryFileOrDie(const string& filename,
                                          Message* proto) {
   ReadProtoFromBinaryFileOrDie(filename.c_str(), proto);

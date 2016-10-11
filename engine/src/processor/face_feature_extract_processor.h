@@ -51,8 +51,8 @@ typedef struct {
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2};
-    enum {DlibAlign = 0, CdnnAlign = 1};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2,CdnnCaffeRecog=3};
+    enum {DlibAlign = 0, CdnnAlign = 1,CdnnCaffeAlign = 2};
 
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);

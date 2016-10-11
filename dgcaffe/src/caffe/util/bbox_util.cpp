@@ -676,6 +676,75 @@ void GetConfidenceScores(const Dtype* conf_data, const int num,
   }
 }
 
+
+template void GetLocAndScores(const float* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const float* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
+
+template void GetLocAndScores(const double* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const double* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
+
+
+template <typename Dtype>
+void GetLocAndScores(const Dtype* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const Dtype* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold) {
+  conf_preds->clear();
+  conf_preds->resize(num);
+
+  loc_preds->clear();
+  if (share_location) {
+    CHECK_EQ(num_loc_classes, 1);
+  }
+  loc_preds->resize(num);
+
+  //float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
+ // float thresh_hold=0.3;
+  //LOG(INFO) << "num_classes " << num_classes<<thresh_hold->size() << std::endl;
+  for (int i = 0; i < num; ++i) { // batch size
+    LabelBBox& label_bbox = (*loc_preds)[i];
+    int label = share_location ? -1 : 0;
+    //std::cout << "share_location " << label << std::endl;
+    //label_bbox[label].resize(num_preds_per_class);
+    map<int, vector<float> >& label_scores = (*conf_preds)[i];
+
+    
+    for (int p = 0; p < num_preds_per_class; ++p) { // number of anchors
+        bool is_push = false;
+        int start_idx_loc = p * 4;
+        for(int c = 1; c < num_classes; c++) {
+         
+            if (conf_data[c*num_preds_per_class + p] > thresh_hold->at(c)) {
+                is_push = true; 
+                break;
+            }
+        }
+        if(is_push) {
+                  for(int c = 0; c < num_classes; c++) {
+            label_scores[c].push_back(conf_data[c*num_preds_per_class + p]);
+        }
+                  NormalizedBBox nbbox;
+        nbbox.set_xmin(loc_data[start_idx_loc]);
+        nbbox.set_ymin(loc_data[start_idx_loc+1]);
+        nbbox.set_xmax(loc_data[start_idx_loc+2]);
+        nbbox.set_ymax(loc_data[start_idx_loc+3]);
+        label_bbox[label].push_back(nbbox);
+        }
+
+    }
+    conf_data += num_preds_per_class * num_classes;
+    loc_data += num_preds_per_class * (num_loc_classes << 2);
+  }
+    //LOG(INFO) << "FINISH " << num_classes << std::endl;
+
+}
+
+
+
 // Explicit initialization.
 template void GetConfidenceScores(const float* conf_data, const int num,
       const int num_preds_per_class, const int num_classes,

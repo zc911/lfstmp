@@ -41,11 +41,11 @@ cv::Mat AspectKeepingResizeBySmall(const cv::Mat& in_img,
 
 void constantNoise(const int n, const vector<uchar>& val, cv::Mat* image);
 
-void UpdateBBoxByResizePolicy(const ResizeParameter& param,
+void UpdateBBoxByResizePolicy(const OldResizeParameter& param,
                               const int old_width, const int old_height,
                               NormalizedBBox* bbox);
 
-cv::Mat ApplyResize(const cv::Mat& in_img, const ResizeParameter& param);
+cv::Mat ApplyResize(const cv::Mat& in_img, const OldResizeParameter& param);
 
 cv::Mat ApplyNoise(const cv::Mat& in_img, const NoiseParameter& param);
 

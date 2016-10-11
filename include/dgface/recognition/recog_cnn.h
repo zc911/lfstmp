@@ -15,7 +15,9 @@ class CNNRecog: public Recognition {
                  const int gpu_id   = 0);
         virtual ~CNNRecog(void);
         void recog_impl(const std::vector<cv::Mat> &faces, std::vector<RecogResult> &results);
-
+                void recog_impl(const std::vector<cv::Mat>& faces, 
+            const std::vector<AlignResult>& alignment,
+            std::vector<RecogResult>& results);
     private:
         caffe::shared_ptr<caffe::Net<float> > _net;
         bool _useGPU;
