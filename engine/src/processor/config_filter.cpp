@@ -84,7 +84,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.model_dir = model_path;
     faConfig.align_deploy = model_path + align_deploy;
     faConfig.method = (int)cconfig.Value(ADVANCED_FACE_ALIGN_METHOD);
-    if (faConfig.method == FaceFeatureExtractProcessor::CdnnAlign) {
+    if (config.method == FaceFeatureExtractProcessor::CDNNRecog) {
         faConfig.align_model = model_path;
 
     } else {

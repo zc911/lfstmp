@@ -32,22 +32,26 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
 
     }
-    switch (faConfig.method) {
+    switch (config.method) {
 
-    case DlibAlign: {
+    case CDNNRecog: {
+        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_model);
+        align_method_ = CdnnAlign;
+
+        break;
+
+    }
+    default: {
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
         adjust_box(faConfig.detect_type, avgfacebbox);
         alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
         alignment_->set_avgface(avg_face, avgfacebbox);
-        break;
-    }
-    case CdnnAlign: {
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_model);
-        break;
-    }
-    }
+        align_method_ = DlibAlign;
 
+        break;
+    }
+    }
 
     pre_process_ = config.pre_process;
 }
@@ -112,7 +116,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
             Face *face = static_cast<Face *>(obj);
             Rect rect;
             rect = face->detection().box;
-            LOG(INFO) << face->detection();
+
             Mat img = frame->payload()->data();
             alignment_->align(img, rect, align_result);
 
@@ -126,7 +130,7 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<DGFace::RecogResult> results;
     vector<FaceRankFeature> features;
-    recognition_->recog(align_imgs, results, pre_process_);
+    recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
 
     if (size != features.size()) {
@@ -156,6 +160,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
         Rect rect = face->detection().box;
+        LOG(INFO) << align_method_;
         switch (align_method_) {
         case DlibAlign:
             alignment_->align(img, rect, align_result, true);
@@ -164,11 +169,12 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             alignment_->align(img, rect, align_result, false);
             break;
         }
-
-//       Mat img_draw = align_result.face_image.clone();
-        //   draw_landmarks(img_draw, align_result);
-        //   string draw_name = "test_draw.jpg";
-        //  imwrite(draw_name, img_draw);
+        rectangle(img, rect, Scalar(255, 0, 0));
+        imwrite("rect.jpg", img);
+        Mat img_draw = align_result.face_image.clone();
+        draw_landmarks(img_draw, align_result);
+        string draw_name = "test_draw.jpg";
+        imwrite(draw_name, img_draw);
 
         performance_++;
         align_results.push_back(align_result);
@@ -178,7 +184,9 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
-    recognition_->recog(align_imgs, results, pre_process_);
+    imwrite("input1.jpg", align_imgs[0]);
+
+    recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size() << endl;
