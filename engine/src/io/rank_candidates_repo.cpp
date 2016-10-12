@@ -7,6 +7,7 @@
 #include "alg/rank/database.h"
 #include "matrix_util/io/uri_reader.h"
 #include <opencv2/highgui/highgui.hpp>
+#include "log/log_val.h"
 
 namespace dg {
 
@@ -33,7 +34,7 @@ void RankCandidatesRepo::Init(const string &repoPath,
     capacity_ = capacity;
 
 
-    cout << "gpu num: " << gpu_num_ << " capacity: " << capacity << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Find gpu num: " << gpu_num_ << " capacity: " << capacity << endl;
     gpu_num_ = face_ranker_->GetGpuCount();
     face_ranker_->Initialize(capacity / gpu_num_ + 1, feature_len_);
 
@@ -169,7 +170,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
         LOG(INFO) << "Candidates repo size: " << candidates_.size() << endl;
 
     } else {
-        cout << "Invalid folder path: " << folderPath << endl;
+        LOG(ERROR) << "Invalid folder path: " << folderPath << endl;
     }
 }
 
@@ -189,14 +190,13 @@ int RankCandidatesRepo::AddFeatures(const FeaturesFrame &frame) {
     int fromIndex = candidates_.size();
     for (auto f : frame.features_) {
         candidates_.push_back(f);
-        cout << f.image_uri_ << endl;
     }
-    cout << "add features to repo:" << frame.features_.size() << endl;
-    cout << "The repo size: " << candidates_.size() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "add features to repo:" << frame.features_.size() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "The repo size: " << candidates_.size() << endl;
 
-    cout << "Before Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Before Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
     addDataToFaceRankDatabase(1024, frame.features_.size(), fromIndex);
-    cout << "After Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "After Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
 }
 
 }
