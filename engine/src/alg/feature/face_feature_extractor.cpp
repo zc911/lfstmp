@@ -110,7 +110,7 @@ void FaceFeatureExtractor::miniBatchExtractor(const vector<Mat> &faces, vector<F
         FaceRankFeature face_feature;
 //        cout << "feature float: " << endl;
         for (int idx = 0; idx < feature_len; ++idx) {
-            face_feature.feature_.push_back(data[idx]);
+            face_feature.descriptor_.push_back(data[idx]);
 //            cout << data[idx] << " ";
         }
 

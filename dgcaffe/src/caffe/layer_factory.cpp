@@ -14,6 +14,9 @@
 #include "caffe/layers/sigmoid_layer.hpp"
 #include "caffe/layers/softmax_layer.hpp"
 #include "caffe/layers/tanh_layer.hpp"
+#include "caffe/layers/batch_norm_layer.hpp"
+//#include "caffe/util/insert_inceptions.hpp"
+#include "caffe/layers/resize_layer.hpp"
 #include "caffe/proto/caffe.pb.h"
 
 #ifdef USE_CUDNN
@@ -43,6 +46,7 @@ shared_ptr<Layer<Dtype> > GetConvolutionLayer(
   bool use_dilation = false;
   for (int i = 0; i < conv_param.dilation_size(); ++i) {
     if (conv_param.dilation(i) > 1) {
+      std::cout << "using dilation" << std::endl;
       use_dilation = true;
     }
   }
@@ -71,6 +75,7 @@ shared_ptr<Layer<Dtype> > GetConvolutionLayer(
 }
 
 REGISTER_LAYER_CREATOR(Convolution, GetConvolutionLayer);
+// REGISTER_LAYER_CREATOR(Inception, InsertInceptions);
 
 // Get pooling layer according to engine.
 template <typename Dtype>

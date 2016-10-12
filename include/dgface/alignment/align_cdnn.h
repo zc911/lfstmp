@@ -10,9 +10,7 @@ namespace DGFace{
 class CdnnAlignment : public Alignment{
 	public:
 		CdnnAlignment(vector<int> face_size, 
-                            string modelDir, 
-                            string det_type, 
-                            vector<float> scale);
+                            string modelDir);
 		virtual ~CdnnAlignment(void);
 	
 	void align_impl(const cv::Mat &img, const cv::Rect& bbox,
@@ -25,11 +23,10 @@ class CdnnAlignment : public Alignment{
 		// FaceHandler _handler;
 		// FacePara _param;
 
-		sKeyPointsModel _keyPointsModel;
-		MPMetricFeature::ExtractMPMetricFeature _transform;
+		Cdnn::sKeyPointsModel _keyPointsModel;
+		Cdnn::MPMetricFeature::ExtractMPMetricFeature _transform;
 
-		std::string _det_type;
-		std::vector<float> _scale;
+	
 
 };
 }

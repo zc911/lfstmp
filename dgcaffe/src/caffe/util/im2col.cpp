@@ -16,6 +16,42 @@ inline bool is_a_ge_zero_and_a_lt_b(int a, int b) {
 }
 
 template <typename Dtype>
+void im2col_v2_cpu(const Dtype* data_im, const int channels,
+    const int height, const int width, const int kernel_h, const int kernel_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, Dtype* data_col){
+
+	int height_col = (height + 2 * pad_h - kernel_h) / stride_h + 1;
+	int width_col = (width + 2 * pad_w - kernel_w) / stride_w + 1;
+	int channels_col = height_col * width_col;
+	for(int c= 0 ; c < channels_col; ++c){
+		int out_w_offset = c % width_col;
+		int out_h_offset = (c/width_col)%height_col;
+		//int c_im = c / width_col / height_col;
+		for(int c_im = 0; c_im < channels; c_im++)
+		{
+			for(int h=0; h < kernel_h; ++h){
+				for(int w = 0; w < kernel_w; ++w){
+					int h_pad = out_h_offset * stride_h - pad_h + h ;
+					int w_pad = out_w_offset * stride_w - pad_w + w;
+					data_col[((c*channels + c_im) * kernel_h + h)*kernel_w + w ] = (h_pad >= 0 && h_pad < height && w_pad >= 0 && w_pad < width) ?
+							data_im[(c_im*height +h_pad)*width+w_pad] : 0;
+				}
+			}
+		}
+	}
+}
+template void im2col_v2_cpu<float>(const float* data_im, const int channels,
+    const int height, const int width, const int kernel_h, const int kernel_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, float* data_col);
+template void im2col_v2_cpu<double>(const double* data_im, const int channels,
+    const int height, const int width, const int kernel_h, const int kernel_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, double* data_col);
+
+
+template <typename Dtype>
 void im2col_cpu(const Dtype* data_im, const int channels,
     const int height, const int width, const int kernel_h, const int kernel_w,
     const int pad_h, const int pad_w,
@@ -65,6 +101,44 @@ template void im2col_cpu<double>(const double* data_im, const int channels,
     const int pad_h, const int pad_w, const int stride_h,
     const int stride_w, const int dilation_h, const int dilation_w,
     double* data_col);
+
+
+
+template <typename Dtype>
+void col2im_v2_cpu(const Dtype* data_col, const int channels,
+    const int height, const int width, const int patch_h, const int patch_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, Dtype* data_im){
+	caffe_set(height * width * channels, Dtype(0), data_im);
+	int height_col = (height + 2 * pad_h - patch_h) / stride_h + 1;
+	int width_col = (width + 2 * pad_w - patch_w) / stride_w + 1;
+	int channels_col = height_col * width_col;
+	for(int c= 0 ; c < channels_col; ++c){
+		int col_w_offset = c % width_col;
+		int col_h_offset = (c/width_col)%height_col;
+
+		for(int c_im =0 ; c_im < channels; ++c_im)
+		{
+			for(int h=0; h < patch_h; ++h){
+				for(int w = 0; w < patch_w; ++w){
+					int h_pad = col_h_offset * stride_h - pad_h + h ;
+					int w_pad = col_w_offset * stride_w - pad_w + w;
+					data_im[(c_im*height +h_pad)*width+w_pad] += (h_pad >= 0 && h_pad < height && w_pad >= 0 && w_pad < width)?
+							data_col[((c*channels+c_im) * patch_h + h)*patch_w + w ] :0;
+				}
+			}
+		}
+	}
+}
+template void col2im_v2_cpu(const double* data_col, const int channels,
+    const int height, const int width, const int patch_h, const int patch_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, double* data_im);
+template void col2im_v2_cpu(const float* data_col, const int channels,
+    const int height, const int width, const int patch_h, const int patch_w,
+    const int pad_h, const int pad_w, const int stride_h,
+    const int stride_w, float* data_im);
+
 
 template <typename Dtype>
 inline void im2col_nd_core_cpu(const Dtype* data_input, const bool im2col,

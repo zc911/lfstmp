@@ -451,6 +451,12 @@ template <typename Dtype>
 inline Dtype Layer<Dtype>::Forward(const vector<Blob<Dtype>*>& bottom,
     const vector<Blob<Dtype>*>& top) {
   // Lock during forward to ensure sequential forward
+  //std::cout << "Bottom Size: " << bottom.size() << std::endl;
+  //std::cout << "In layer forward: bottom[0].shape[0] " << std::endl; //<< bottom[0]->shape()[0] << " " << std::endl;
+  //std::cout << bottom[0]->shape()[0] << std::endl;
+  //std::cout << bottom[0]->shape()[1] << std::endl;
+  //std::cout << bottom[0]->shape()[2] << std::endl;
+  //std::cout << bottom[0]->shape()[3] << std::endl;
   Lock();
   Dtype loss = 0;
   Reshape(bottom, top);

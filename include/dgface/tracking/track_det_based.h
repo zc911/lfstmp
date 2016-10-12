@@ -4,7 +4,6 @@
 #include <tracking.h>
 
 namespace DGFace{
-
 class Detector;
 
 class DetectionBasedTracking : public Tracking {

@@ -1,5 +1,6 @@
 #include <boost/thread.hpp>
 #include <glog/logging.h>
+
 #include <cmath>
 #include <cstdio>
 #include <ctime>
@@ -39,14 +40,17 @@ int64_t cluster_seedgen(void) {
   return seed;
 }
 
+static bool glog_initialized = false;
 
 void GlobalInit(int* pargc, char*** pargv) {
+  if(glog_initialized) return;
   // Google flags.
   ::gflags::ParseCommandLineFlags(pargc, pargv, true);
   // Google logging.
   ::google::InitGoogleLogging(*(pargv)[0]);
   // Provide a backtrace on segfault.
   ::google::InstallFailureSignalHandler();
+  glog_initialized = true;
 }
 
 #ifdef CPU_ONLY  // CPU-only Caffe.

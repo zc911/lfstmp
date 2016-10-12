@@ -12,6 +12,7 @@
 #include "dgface/alignment.h"
 #include "dgface/alignment/align_dlib.h"
 #include "dgface/alignment/align_cdnn.h"
+#include "dgface/alignment/align_cdnn_caffe.h"
 
 #include "model/frame.h"
 #include "model/model.h"
@@ -19,6 +20,7 @@
 #include "dgface/recognition/recog_cnn.h"
 #include "dgface/recognition/recog_lbp.h"
 #include "dgface/recognition/recog_cdnn.h"
+#include "dgface/recognition/recog_cdnn_caffe.h"
 
 #include "dgface/recognition.h"
 #include "dgface/cdnn_score.h"
@@ -28,8 +30,13 @@ typedef struct {
     int batch_size = 1;
     string align_model;
     string align_deploy;
+    string align_cfg;
+    string align_path;
     vector<int> face_size;
     int method;
+    string detect_type;
+    int gpu_id;
+
 } FaceAlignmentConfig;
 typedef struct {
     bool is_model_encrypt = true;
@@ -49,8 +56,8 @@ typedef struct {
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2};
-    enum {DlibAlign = 0, CdnnAlign = 1};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2,CdnnCaffeRecog=3};
+    enum {DlibAlign = 0, CdnnAlign = 1,CdnnCaffeAlign = 2};
 
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
@@ -63,9 +70,9 @@ protected:
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
-    int AlignResult2MatrixAlign(const vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
+    int AlignResult2MatrixAlign( vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
     int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features);
-
+    void adjust_box(string detect_type, Rect &box);
 private:
     DGFace::Recognition *recognition_ = NULL;
     DGFace::Alignment *alignment_ = NULL;
