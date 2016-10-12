@@ -184,7 +184,6 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     if (to_processed_.size() == 0)
         return true;
-
     vector<DGFace::AlignResult> align_results;
     for (auto *obj : to_processed_) {
         DGFace::AlignResult align_result;
@@ -199,12 +198,12 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             alignment_->align(img, rect, align_result, false);
             break;
         }
-        //rectangle(img, rect, Scalar(255, 0, 0));
-        //imwrite("rect.jpg", img);
-        //Mat img_draw = align_result.face_image.clone();
-        //draw_landmarks(img_draw, align_result);
-        //string draw_name = "test_draw.jpg";
-        //imwrite(draw_name, img_draw);
+//        rectangle(img, rect, Scalar(255, 0, 0));
+//        imwrite("rect.jpg", img);
+ //       Mat img_draw = align_result.face_image.clone();
+  //      draw_landmarks(img_draw, align_result);
+  //      string draw_name = "test_draw"+to_string(performance_)+".jpg";
+  //      imwrite(draw_name, img_draw);
 
         performance_++;
         align_results.push_back(align_result);
@@ -215,7 +214,6 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
     //imwrite("input1.jpg", align_imgs[0]);
-
     recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
@@ -228,6 +226,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         FaceRankFeature feature = features[i];
         Face *face = (Face *) to_processed_[i];
         face->set_feature(feature);
+        break;
     }
 
     return true;
