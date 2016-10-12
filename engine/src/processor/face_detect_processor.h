@@ -15,6 +15,7 @@
 #include "dgface/detector/det_dlib.h"
 #include "dgface/detector/det_rpn.h"
 #include "dgface/detector/det_ssd.h"
+#include "dgface/detector/det_fcn.h"
 #include "dgface/detector.h"
 
 namespace dg {
@@ -35,7 +36,7 @@ typedef struct {
 class FaceDetectProcessor: public Processor {
 
 public:
-	enum {DlibMethod = 2, RpnMethod = 0, SsdMethod = 1};
+	enum {DlibMethod = 0, RpnMethod = 1, SsdMethod = 2,FcnMethod=3};
 
 
 	//FaceDetectProcessor(FaceDetectorConfig config, int method);
@@ -50,7 +51,7 @@ protected:
 	virtual bool RecordFeaturePerformance();
 	virtual bool beforeUpdate(FrameBatch *frameBatch);
 	int DetectResult2Detection(const vector<DGFace::DetectResult> &detect_result, vector< vector<Detection> > &detections);
-
+	void enlarge_box(vector<vector<Detection>> boxes, vector<vector<Rect>> &enlarge_boxes) ;
 private:
 	DGFace::Detector *detector_ = NULL;
 	//FaceDetector *detector_ = NULL;
@@ -58,6 +59,7 @@ private:
 	vector<Mat> imgs_;
 	vector<Object *> objs_;
 
+	string detect_type_ = "";
 };
 
 } /* namespace dg */

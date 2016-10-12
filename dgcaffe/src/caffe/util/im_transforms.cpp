@@ -248,7 +248,7 @@ void constantNoise(const int n, const vector<uchar>& val, cv::Mat* image) {
   }
 }
 
-void UpdateBBoxByResizePolicy(const ResizeParameter& param,
+void UpdateBBoxByResizePolicy(const OldResizeParameter& param,
                               const int old_width, const int old_height,
                               NormalizedBBox* bbox) {
   float new_height = param.height();
@@ -262,13 +262,13 @@ void UpdateBBoxByResizePolicy(const ResizeParameter& param,
   float y_max = bbox->ymax() * old_height;
   float padding;
   switch (param.resize_mode()) {
-    case ResizeParameter_Resize_mode_WARP:
+    case OldResizeParameter_Resize_mode_WARP:
       x_min = std::max(0.f, x_min * new_width / old_width);
       x_max = std::min(new_width, x_max * new_width / old_width);
       y_min = std::max(0.f, y_min * new_height / old_height);
       y_max = std::min(new_height, y_max * new_height / old_height);
       break;
-    case ResizeParameter_Resize_mode_FIT_LARGE_SIZE_AND_PAD:
+    case OldResizeParameter_Resize_mode_FIT_LARGE_SIZE_AND_PAD:
       if (orig_aspect > new_aspect) {
         padding = (new_height - new_width / orig_aspect) / 2;
         x_min = std::max(0.f, x_min * new_width / old_width);
@@ -287,7 +287,7 @@ void UpdateBBoxByResizePolicy(const ResizeParameter& param,
         y_max = std::min(new_height, y_max * new_height / old_height);
       }
       break;
-    case ResizeParameter_Resize_mode_FIT_SMALL_SIZE:
+    case OldResizeParameter_Resize_mode_FIT_SMALL_SIZE:
       if (orig_aspect < new_aspect) {
         new_height = new_width / orig_aspect;
       } else {
@@ -307,7 +307,7 @@ void UpdateBBoxByResizePolicy(const ResizeParameter& param,
   bbox->set_ymax(y_max / new_height);
 }
 
-cv::Mat ApplyResize(const cv::Mat& in_img, const ResizeParameter& param) {
+cv::Mat ApplyResize(const cv::Mat& in_img, const OldResizeParameter& param) {
   cv::Mat out_img;
 
   // Reading parameters
@@ -316,12 +316,12 @@ cv::Mat ApplyResize(const cv::Mat& in_img, const ResizeParameter& param) {
 
   int pad_mode = cv::BORDER_CONSTANT;
   switch (param.pad_mode()) {
-    case ResizeParameter_Pad_mode_CONSTANT:
+    case OldResizeParameter_Pad_mode_CONSTANT:
       break;
-    case ResizeParameter_Pad_mode_MIRRORED:
+    case OldResizeParameter_Pad_mode_MIRRORED:
       pad_mode = cv::BORDER_REFLECT101;
       break;
-    case ResizeParameter_Pad_mode_REPEAT_NEAREST:
+    case OldResizeParameter_Pad_mode_REPEAT_NEAREST:
       pad_mode = cv::BORDER_REPLICATE;
       break;
     default:
@@ -334,19 +334,19 @@ cv::Mat ApplyResize(const cv::Mat& in_img, const ResizeParameter& param) {
     vector<float> probs(num_interp_mode, 1.f / num_interp_mode);
     int prob_num = roll_weighted_die(probs);
     switch (param.interp_mode(prob_num)) {
-      case ResizeParameter_Interp_mode_AREA:
+      case OldResizeParameter_Interp_mode_AREA:
         interp_mode = cv::INTER_AREA;
         break;
-      case ResizeParameter_Interp_mode_CUBIC:
+      case OldResizeParameter_Interp_mode_CUBIC:
         interp_mode = cv::INTER_CUBIC;
         break;
-      case ResizeParameter_Interp_mode_LINEAR:
+      case OldResizeParameter_Interp_mode_LINEAR:
         interp_mode = cv::INTER_LINEAR;
         break;
-      case ResizeParameter_Interp_mode_NEAREST:
+      case OldResizeParameter_Interp_mode_NEAREST:
         interp_mode = cv::INTER_NEAREST;
         break;
-      case ResizeParameter_Interp_mode_LANCZOS4:
+      case OldResizeParameter_Interp_mode_LANCZOS4:
         interp_mode = cv::INTER_LANCZOS4;
         break;
       default:
@@ -374,15 +374,15 @@ cv::Mat ApplyResize(const cv::Mat& in_img, const ResizeParameter& param) {
   }
 
   switch (param.resize_mode()) {
-    case ResizeParameter_Resize_mode_WARP:
+    case OldResizeParameter_Resize_mode_WARP:
       cv::resize(in_img, out_img, cv::Size(new_width, new_height), 0, 0,
                  interp_mode);
       break;
-    case ResizeParameter_Resize_mode_FIT_LARGE_SIZE_AND_PAD:
+    case OldResizeParameter_Resize_mode_FIT_LARGE_SIZE_AND_PAD:
       out_img = AspectKeepingResizeAndPad(in_img, new_width, new_height,
                                           pad_mode, pad_val, interp_mode);
       break;
-    case ResizeParameter_Resize_mode_FIT_SMALL_SIZE:
+    case OldResizeParameter_Resize_mode_FIT_SMALL_SIZE:
       out_img = AspectKeepingResizeBySmall(in_img, new_width, new_height,
                                            interp_mode);
       break;

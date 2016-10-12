@@ -1,0 +1,11 @@
+using dilation
+filename img/010274.jpg
+pure model predict time cost: 52
+net_outputs: 1
+1 1 10 7
+total time cost: 77
+filename img/000497.jpg
+pure model predict time cost: 22
+net_outputs: 1
+1 1 11 7
+total time cost: 26

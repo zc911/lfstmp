@@ -5,8 +5,6 @@
 #include "Util.h"
 #include "ExtractMPMetricFeature.h"
 
-using namespace Util;
-using namespace MPMetricFeature;
 
 namespace DGFace{
 class CdnnRecog: public Recognition {
@@ -19,7 +17,7 @@ class CdnnRecog: public Recognition {
 	private:
 		// FaceHandler _handler;
 		// FacePara _param;
-		ExtractMPMetricFeature _extractor;
+		Cdnn::MPMetricFeature::ExtractMPMetricFeature _extractor;
 
 };
 }
