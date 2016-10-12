@@ -160,9 +160,9 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                         LOG(ERROR) << "The invalid feature info: " << item.name_ << " " << item.image_uri_ << endl;
                     }
 
-                    vector<uchar> imageContent;
-                    UriReader::Read(item.image_uri_, imageContent, 5);
-                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image_, cv::Size(64, 64));
+                    //vector<uchar> imageContent;
+                    //UriReader::Read(item.image_uri_, imageContent, 5);
+                    //cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image_, cv::Size(64, 64));
                     candidates_.push_back(item);
                 }
 
