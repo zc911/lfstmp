@@ -93,13 +93,15 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
 
         for (int i = 0; i < remains; ++i) {
             RankCandidatesItem &item = candidates_[id];
-            memcpy((char *) batchFeatures + i * feature_len_,
+            memcpy((char *) batchFeatures + (i * feature_len_ * sizeof(float)),
                    (char *) item.feature_.data(),
                    feature_len_ * sizeof(float));
             batchIds[i] = id;
             ++id;
         }
+        VLOG(VLOG_RUNTIME_DEBUG) << "add items " << remains << " " << batchIds[0] << batchIds[1] << " " << batchFeatures[0] << batchFeatures[1] << endl;
         face_ranker_->AddItems(batchFeatures, batchIds, remains);
+
     }
 
     LOG(ERROR) << "Repo size in total: " << face_ranker_->GetTotalItems() << endl;

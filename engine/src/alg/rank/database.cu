@@ -445,6 +445,43 @@ float CDatabase::_SampleMaxDist(int64_t N, int64_t nSampleInterval) {
     }
     return maxN[N - 1].dist;
 }
+
+__device__ bool operator == (const CDatabase::DIST &d1, const CDatabase::DIST &d2)
+{
+    return d1.id == d2.id;
+}
+bool CDatabase::RetrieveItemById(int64_t nId, float *pItem)
+{
+    std::lock_guard<std::mutex> locker(m_Mutex);
+    CUCHECK(cudaDeviceSynchronize());
+    CUASSERT(m_nCapacity > 0);
+    // Checking parameters
+    CUASSERT(pItem != 0);
+
+    DIST d = {nId, 0.0f};
+    for (int32_t iGpu = 0; iGpu < (int32_t)m_ItemCnts.size(); ++iGpu)
+    {
+        if (_UseGpu(iGpu))
+        {
+            auto iSrcBeg = thrust::device_pointer_cast(m_QueryResults[iGpu]);
+            auto iFound = thrust::find(iSrcBeg, iSrcBeg + m_ItemCnts[iGpu], d);
+            if (iFound != iSrcBeg + m_ItemCnts[iGpu])
+            {
+                int64_t nIdx = iFound - iSrcBeg;
+                CUCHECK(cudaMemcpy(
+                    pItem,
+                    m_ItemSets[iGpu] + nIdx * m_nItemLen,
+                    m_nItemLen * sizeof(float),
+                    cudaMemcpyDeviceToHost
+                ));
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 //-----------------------------------------------------------------------------
 void CDatabase::_DownloadResults(float fMaxDist, std::vector<DIST> &results) {
     CUCHECK(cudaDeviceSynchronize());

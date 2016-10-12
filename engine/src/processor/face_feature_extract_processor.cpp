@@ -194,10 +194,12 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
 bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
-    if (to_processed_.size() == 0){
+    if (to_processed_.size() == 0) {
         LOG(ERROR) << "There no frame to extract feature" << endl;
         return true;
     }
+
+    int toProcessSize = to_processed_.size();
 
 
     vector<DGFace::AlignResult> align_results;
@@ -211,7 +213,14 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
                 alignment_->align(img, rect, align_result, true);
                 break;
             default:
+                cout << 2 << endl;
                 alignment_->align(img, rect, align_result, false);
+                cout << "aligment result: " << align_result.bbox.x << " " << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
+                cout << "aligment result2: ";
+                for(auto p:align_result.landmarks){
+                    cout << p.x << " " << p.y << ",";
+                }
+                cout << endl;
                 break;
         }
 //        rectangle(img, rect, Scalar(255, 0, 0));
@@ -228,9 +237,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<Mat> align_imgs;
     AlignResult2MatrixAlign(align_results, align_imgs);
 
-
     if (align_imgs.size() == 0) {
-        LOG(ERROR) << "alignment images size is empty but should be " << to_processed_.size() << endl;
+        LOG(ERROR) << "Alignment images size is empty but should be " << toProcessSize << endl;
         return false;
     }
 
@@ -242,7 +250,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     RecognResult2MatrixRecogn(results, features);
 
     if (features.size() != align_imgs.size()) {
-        LOG(ERROR) << "Face image size not equals to feature size: " << to_processed_.size() << ":" << features.size()
+        LOG(ERROR) << "Face image size not equals to feature size: " << toProcessSize << ":" << features.size()
             << endl;
         return false;
     }
