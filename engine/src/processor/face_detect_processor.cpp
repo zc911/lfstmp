@@ -50,6 +50,10 @@ FaceDetectProcessor::FaceDetectProcessor(
     detect_type_ = "ssd";
     break;
   }
+  case FcnMethod:{
+    detector_=new DGFace::FcnDetector(config.img_scale_max, config.img_scale_min, config.deploy_file,config.model_file, config.gpu_id);
+    break;
+  }
   }
   base_id_ = 5000;
   DLOG(INFO) << "Face detector has been initialized" << std::endl;

@@ -13,6 +13,7 @@ namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig) {
+    LOG(INFO)<<config.model_config<<" "<<config.model_dir;
     switch (config.method) {
     case CNNRecog:
         recognition_ = new DGFace::CNNRecog(config.deploy_file, config.model_file, config.layer_name, config.mean, config.pixel_scale, config.use_GPU, config.gpu_id);
@@ -30,8 +31,12 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
         break;
     }
+    case CdnnCaffeRecog:{
+        recognition_=new DGFace::CdnnCaffeRecog(config.model_config,config.gpu_id);
+    }
 
     }
+    LOG(INFO)<<faConfig.align_model<<" "<<faConfig.align_path<<" "<<faConfig.align_cfg<<" "<<faConfig.align_deploy<<faConfig.detect_type;
     switch (config.method) {
 
     case CDNNRecog: {
@@ -40,6 +45,13 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
         break;
 
+    }
+    case CdnnCaffeRecog:{
+        LOG(INFO)<<faConfig.align_cfg;
+        alignment_=new DGFace::CdnnCaffeAlignment(faConfig.face_size,faConfig.align_path,faConfig.align_cfg,faConfig.gpu_id);
+                align_method_ = CdnnCaffeAlign;
+
+        break;
     }
     default: {
         Mat avg_face = imread(faConfig.align_deploy);
@@ -159,6 +171,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         DGFace::AlignResult align_result;
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
+        LOG(INFO)<<(img.type()==CV_8UC3);
         Rect rect = face->detection().box;
         LOG(INFO) << align_method_;
         switch (align_method_) {

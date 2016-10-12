@@ -12,6 +12,7 @@
 #include "dgface/alignment.h"
 #include "dgface/alignment/align_dlib.h"
 #include "dgface/alignment/align_cdnn.h"
+#include "dgface/alignment/align_cdnn_caffe.h"
 
 #include "model/frame.h"
 #include "model/model.h"
@@ -19,6 +20,7 @@
 #include "dgface/recognition/recog_cnn.h"
 #include "dgface/recognition/recog_lbp.h"
 #include "dgface/recognition/recog_cdnn.h"
+#include "dgface/recognition/recog_cdnn_caffe.h"
 
 #include "dgface/recognition.h"
 #include "dgface/cdnn_score.h"
@@ -28,9 +30,12 @@ typedef struct {
     int batch_size = 1;
     string align_model;
     string align_deploy;
+    string align_cfg;
+    string align_path;
     vector<int> face_size;
     int method;
     string detect_type;
+    int gpu_id;
 
 } FaceAlignmentConfig;
 typedef struct {

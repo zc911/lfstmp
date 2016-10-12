@@ -36,7 +36,7 @@ typedef struct {
 class FaceDetectProcessor: public Processor {
 
 public:
-	enum {DlibMethod = 2, RpnMethod = 0, SsdMethod = 1,FcnMethod=2};
+	enum {DlibMethod = 0, RpnMethod = 1, SsdMethod = 2,FcnMethod=3};
 
 
 	//FaceDetectProcessor(FaceDetectorConfig config, int method);
