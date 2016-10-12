@@ -27,6 +27,7 @@ class RpnDetector : public Detector {
     private:
         void nms(std::vector<Bbox>& p, std::vector<bool>& deleted_mark, float threshold);
         caffe::shared_ptr<caffe::Net<float> > _net;
+
         std::string _layer_name_cls;
         std::string _layer_name_reg;
         std::vector <float> _area;

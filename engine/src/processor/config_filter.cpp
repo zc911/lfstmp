@@ -55,6 +55,8 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     string deploy_model = (string) data_config_.Value(FILE_FACE_EXTRACT_DEPLOY_MODEL);
     string align_model = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_MODEL);
     string align_deploy = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_DEPLOY);
+    string align_config = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_CONFIG);
+    string align_path = (string)data_config_.Value(FILE_FACE_EXTRACT_ALIGN_PATH);
 
     int batch_size = (int) cconfig.Value(ADVANCED_FACE_EXTRACT_BATCH_SIZE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
@@ -80,10 +82,13 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.pre_process = (string)cconfig.Value(ADVANCED_FACE_EXTRACT_PRE_PROCESS);
     config.use_GPU = true;
     config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
-    config.model_config = model_path + (string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG);
-    config.model_dir = model_path;
+    config.model_config = model_path + (string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG)+to_string(config.method) + ".cfg";
+    config.model_dir = model_path ;
     faConfig.align_deploy = model_path + align_deploy;
+    faConfig.align_cfg=model_path+align_config;
     faConfig.method = (int)cconfig.Value(ADVANCED_FACE_ALIGN_METHOD);
+    faConfig.gpu_id=gpu_id;
+    faConfig.align_path = model_path+align_path;
     if (config.method == FaceFeatureExtractProcessor::CDNNRecog) {
         faConfig.align_model = model_path;
 

@@ -203,7 +203,9 @@ static const string FILE_FACE_EXTRACT_PIXEL_SCALE = "File/FaceExtract/PixelScale
 static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
     "File/FaceExtract/AlignModel";
 static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
-
+static const string FILE_FACE_EXTRACT_ALIGN_CONFIG =
+    "File/FaceExtract/AlignConfig";
+static const string FILE_FACE_EXTRACT_ALIGN_PATH = "File/FaceExtract/AlignPath";
 static const string FILE_PLATE_MODEL_PATH = "File/Plate/ModelPath";
 static const string FILE_PLATE_FCN_SYMBOL = "File/Plate/FcnSymbol";
 static const string FILE_PLATE_FCN_PARAM = "File/Plate/FcnParam";
