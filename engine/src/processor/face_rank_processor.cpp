@@ -29,9 +29,6 @@ bool FaceRankProcessor::process(Frame *frame) {
     CDatabase &ranker = RankCandidatesRepo::GetInstance().GetFaceRanker();
 
     vector<float> &feature = fframe->datum_.feature_;
-    for(int i = 0; i < 128; ++i){
-        feature.push_back(feature[i]);
-    }
 
     cout << "feature size: " << feature.size() << endl;
 
