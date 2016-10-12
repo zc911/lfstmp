@@ -79,6 +79,7 @@ private:
     vector<Object *> to_processed_;
     string pre_process_;
     int align_method_;
+    int face_size_length_;
 };
 
 } /* namespace dg */
