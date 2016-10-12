@@ -50,15 +50,14 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
         MatrixError error = service_->RankFeature(request, response);
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
     }
-
-    virtual ::grpc::Status AddFeatures(::grpc::ClientContext *context,
-                                       const ::dg::model::AddFeaturesRequest &request,
+    virtual ::grpc::Status AddFeatures(::grpc::ServerContext *context,
+                                       const ::dg::model::AddFeaturesRequest *request,
                                        ::dg::model::AddFeaturesResponse *response) {
         cout << "[GRPC] ========================" << endl;
         cout << "[GRPC] Add features in runtime" << endl;
-        cout << "Add feature size: " << request.features().size() << endl;
-        cout << "The first feature sample: " << request.features().Get(0).feature().feature() << endl;
-        return grpc::Status::OK;
+        MatrixError error = service_->AddFeatures(request, response);
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
     }
 
     /**

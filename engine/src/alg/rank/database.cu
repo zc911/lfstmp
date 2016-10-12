@@ -13,19 +13,16 @@
 #include "database.h"
 
 namespace dg {
-
 //***************************************************************************//
 //**  Error Handling Macros and Function									 //
 //***************************************************************************//
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 #define CUABORT(msg)                        \
 {                                            \
     cuPrintError(msg, __FILE__, __LINE__);    \
     exit(-1);                                \
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 #define CUASSERT(exp)                        \
 {                                            \
     if (!(exp))                                \
@@ -33,8 +30,7 @@ namespace dg {
         CUABORT(#exp);                        \
     }                                        \
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 #define CUCHECK(exp)                        \
 {                                            \
     cudaError_t err = (exp);                \
@@ -43,25 +39,20 @@ namespace dg {
         CUABORT(cudaGetErrorString(err));    \
     }                                        \
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 inline void cuPrintFileLine(const char *pFile, int nLine) {
     std::cout << "\"" << pFile << "\"(" << nLine << ")";
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 inline void cuPrintError(const char *pMsg, const char *pFile, int nLine) {
     std::cerr << "An error occured at ";
     cuPrintFileLine(pFile, nLine);
     std::cerr << ": " << pMsg << std::endl;
 }
-
-
 //***************************************************************************//
 //**  Device Kernal Functions												 //
 //***************************************************************************//
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // TODO: Comments for DIST_CMP
 struct DIST_CMP {
     __host__ __device__ bool operator()(
@@ -70,8 +61,7 @@ struct DIST_CMP {
         return d1.dist < d2.dist;
     }
 };
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // TODO: Comments for cuDistances
 __global__ void cuDistances(const float *pDatabase,
                             const float *pItem,
@@ -85,38 +75,17 @@ __global__ void cuDistances(const float *pDatabase,
         pResults[iItem].dist += fDiff * fDiff;
     }
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 __global__ void cuGetSamples(const CDatabase::DIST *pResults,
                              int64_t nSampleInterval,
-                             CDatabase::DIST *pSamples) {
-    int64_t iDstItem = blockIdx.x * blockDim.x + threadIdx.x;
+                             CDatabase::DIST *pSamples,
+                             int64_t nBaseIdx) {
+    int64_t iDstItem = nBaseIdx + blockIdx.x * blockDim.x + threadIdx.x;
     int64_t iSrcItem = iDstItem * nSampleInterval;
     pSamples[iDstItem].id = pResults[iSrcItem].id;
     pSamples[iDstItem].dist = pResults[iSrcItem].dist;
 }
-
-
-//***************************************************************************//
-//**  Helper Functions														 //
-//***************************************************************************//
-
-//---------------------------------------------------------------------------
-template<typename _Ty, typename _Cmp>
-void gpuSort(std::vector<_Ty> &ary, _Cmp cmp) {
-    thrust::device_vector<_Ty> devBuf;
-    try {
-        devBuf.resize(ary.size());
-    }
-    catch (...) {
-        CUABORT("Out of Memory!");
-    }
-    thrust::copy(ary.begin(), ary.end(), devBuf.begin());
-    thrust::sort(devBuf.begin(), devBuf.end(), DIST_CMP());
-    thrust::copy(devBuf.begin(), devBuf.end(), ary.begin());
-}
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 template<typename _Ty>
 _Ty *cuMalloc0(int64_t nUnitCnt) {
     _Ty *pDevMem = 0;
@@ -124,90 +93,51 @@ _Ty *cuMalloc0(int64_t nUnitCnt) {
     CUCHECK(cudaMemset((void *) pDevMem, 0, sizeof(_Ty) * nUnitCnt));
     return pDevMem;
 }
-
-//---------------------------------------------------------------------------
-// TODO: Comments for cuDistances
-template<typename _Ty, typename _Cmp>
-void cpuSort(_Ty *data, int64_t len, int grainsize, _Cmp cmp) {
-    if (len < grainsize) {
-        std::sort(data, data + len, cmp);
-    }
-    else {
-        auto future = std::async(
-            cpuSort < _Ty, _Cmp > ,
-            data,
-            len / 2,
-            grainsize,
-            cmp
-        );
-        cpuSort(data + len / 2, len / 2, grainsize, cmp);
-        future.wait();
-        std::inplace_merge(data, data + len / 2, data + len, cmp);
-    }
-}
-
-//template<typename _Mutex>
-typedef std::mutex _Mutex;
-class lock_guard {
- public:
-    typedef _Mutex mutex_type;
-
-    lock_guard(std::mutex &__m) : _M_device(__m) { _M_device.lock(); }
-
-    ~lock_guard() { _M_device.unlock(); }
-
-    lock_guard(const lock_guard &) = delete;
-    lock_guard &operator=(const lock_guard &) = delete;
-
- private:
-    mutex_type &_M_device;
-};
-
-
 //***************************************************************************//
 //**  CDatabase Implementation												 //
 //***************************************************************************//
-
 //-----------------------------------------------------------------------------
 // Constructor
 CDatabase::CDatabase()
-    : m_nCapacity(0), m_nItemLen(0) {
+    : m_nCapacity(0), m_nItemLen(0), m_nCuThreads(0), m_nCuBlocks(0) {
     int32_t nGpuCnt = GetGpuCount();
     CUASSERT(nGpuCnt > 0);
-
     m_ItemCnts.resize(nGpuCnt, 0);
-}
 
+    for (int32_t i = 0; i < nGpuCnt; ++i) {
+        cudaDeviceProp devProp;
+        CUCHECK(cudaGetDeviceProperties(&devProp, i));
+        if (m_nCuThreads < devProp.maxThreadsPerBlock || m_nCuThreads == 0) {
+            const_cast<int32_t &>(m_nCuThreads) = devProp.maxThreadsPerBlock;
+        }
+        if (m_nCuBlocks < devProp.maxGridSize[2] || m_nCuBlocks == 0) {
+            const_cast<int32_t &>(m_nCuBlocks) = devProp.maxGridSize[2];
+        }
+    }
+}
 //-----------------------------------------------------------------------------
 // Deconstructor
 CDatabase::~CDatabase() {
     Clear();
 }
-
 //-----------------------------------------------------------------------------
 // Get total number of installed GPUs
 int32_t CDatabase::GetGpuCount() const {
     std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
-
     int32_t nGpuCnt = 0;
     CUCHECK(cudaGetDeviceCount(&nGpuCnt));
-
     return nGpuCnt;
 }
-
-//-------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // Get item length
 int32_t CDatabase::GetItemLength() const {
     std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
-
     return m_nItemLen;
 }
-
 //-----------------------------------------------------------------------------
 // Get total number of items added to all GPUs
 int64_t CDatabase::GetTotalItems() const {
     std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
-
     int64_t nTotalItems = 0;
     for (auto &nGpuItemCnt : m_ItemCnts) {
         if (nGpuItemCnt >= 0) {
@@ -216,133 +146,97 @@ int64_t CDatabase::GetTotalItems() const {
     }
     return nTotalItems;
 }
-
-//-----------------------------------------------------------------------------
-// Set working GPUs by bit-mask
-void CDatabase::SetGpuMask(int32_t nGpuMask) {
-    std::lock_guard<std::mutex> locker(m_Mutex);
-
-    CUASSERT(nGpuMask != 0); // Checking Parameter
-    CUASSERT(m_nCapacity == 0);    // database uninitialized
-
-    int32_t nGpuCnt = (int32_t) m_ItemCnts.size();
-    CUASSERT((nGpuMask >> nGpuCnt) == 0);
-
-    for (int32_t iGpu = 0; iGpu < nGpuCnt; ++iGpu) {
-        if (nGpuMask & (1 << iGpu)) {
-            m_ItemCnts[iGpu] = 0;
-        }
-        else {
-            m_ItemCnts[iGpu] = -1;
-        }
-    }
-}
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for Initialize
-bool CDatabase::Initialize(int64_t nCapacity, int32_t nItemLen) {
+bool CDatabase::Initialize(int64_t nCapacity, int32_t nItemLen,
+                           int32_t nGpuMask) {
     std::lock_guard<std::mutex> locker(m_Mutex);
-
     // Checking Parameters
     if (m_nCapacity != 0) {
         return false;
     }
     CUASSERT(nCapacity > 0);
     CUASSERT(nItemLen > 0);
-
     int32_t nGpuCnt = (int32_t) m_ItemCnts.size();
 
+    if (nGpuMask < 0) {
+        std::fill(m_ItemCnts.begin(), m_ItemCnts.end(), 0);
+    }
+    else {
+        CUASSERT((nGpuMask >> nGpuCnt) == 0);
+
+        for (int32_t iGpu = 0; iGpu < nGpuCnt; ++iGpu) {
+            if (nGpuMask & (1 << iGpu)) {
+                m_ItemCnts[iGpu] = 0;
+            }
+            else {
+                m_ItemCnts[iGpu] = -1;
+            }
+        }
+    }
     m_ItemSets.resize(nGpuCnt, 0);
     m_QueryItem.resize(nGpuCnt, 0);
     m_QueryResults.resize(nGpuCnt, 0);
-
     for (int32_t iGpu = 0; iGpu < nGpuCnt; ++iGpu) {
         if (_UseGpu(iGpu)) {
-            // Create device memory for database on devices
             m_ItemSets[iGpu] = cuMalloc0<float>(nCapacity * nItemLen);
-
-            // Create device memory for passing query item to devices
             m_QueryItem[iGpu] = cuMalloc0<float>(nItemLen);
-
-            // Create device memory for store query results on devices
             m_QueryResults[iGpu] = cuMalloc0<DIST>(nCapacity);
         }
     }
-
     m_nCapacity = nCapacity;
     m_nItemLen = nItemLen;
-
     return true;
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // TODO: Comment for Initialize
 void CDatabase::Clear() {
     std::lock_guard<std::mutex> locker(m_Mutex);
-
     if (m_nCapacity > 0) {
         CUCHECK(cudaDeviceSynchronize());
         for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
             if (_UseGpu(iGpu)) {
                 CUCHECK(cudaFree(m_ItemSets[iGpu]));
-                m_ItemSets[iGpu] = 0;
-
                 CUCHECK(cudaFree(m_QueryItem[iGpu]));
-                m_QueryItem[iGpu] = 0;
-
                 CUCHECK(cudaFree(m_QueryResults[iGpu]));
-                m_QueryResults[iGpu] = 0;
-
-                m_ItemCnts[iGpu] = 0;
             }
         }
         m_ItemSets.clear();
         m_QueryItem.clear();
         m_QueryResults.clear();
-
         m_nCapacity = 0;
         m_nItemLen = 0;
     }
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 // TODO: Comment for ResetItems
 void CDatabase::ResetItems() {
     std::lock_guard<std::mutex> locker(m_Mutex);
-
     CUCHECK(cudaDeviceSynchronize());
-
     for (auto &iGpuItemCnt : m_ItemCnts) {
         if (iGpuItemCnt > 0) {
             iGpuItemCnt = 0;
         }
     }
 }
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for AddItems
-void CDatabase::AddItems(const float *pBatchItems,
-                         const int64_t *pBatchIds,
+void CDatabase::AddItems(const float *pBatchItems, const int64_t *pBatchIds,
                          int64_t nBatchItemCnt) {
     std::lock_guard<std::mutex> locker(m_Mutex);
-
     CUCHECK(cudaDeviceSynchronize());
-
     //Checking Parameter list
     if (nBatchItemCnt == 0) {
         return;
     }
     CUASSERT(pBatchItems != 0);
     CUASSERT(pBatchIds != 0);
-
     std::vector<int64_t> gpuAddItems(m_ItemCnts);
-
     // Determin the number of items add for each gpu
     {
         int64_t nUsedGpuCnt = 0;
         int64_t nTotalCap = 0;
         int64_t nTotalItems = 0;
-
         for (auto &nGpuItemCnt : m_ItemCnts) {
             if (nGpuItemCnt >= 0) {
                 ++nUsedGpuCnt;
@@ -351,7 +245,6 @@ void CDatabase::AddItems(const float *pBatchItems,
             }
         }
         CUASSERT(nTotalItems + nBatchItemCnt <= nTotalCap);
-
         for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
             if (m_ItemCnts[iGpu] >= 0) {
                 gpuAddItems[iGpu] += nBatchItemCnt / nUsedGpuCnt;
@@ -373,7 +266,6 @@ void CDatabase::AddItems(const float *pBatchItems,
             }
         }
     }
-
     int64_t nInputBaseIdx = 0;
     std::vector<DIST> resBuf;
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
@@ -402,56 +294,39 @@ void CDatabase::AddItems(const float *pBatchItems,
         }
     }
 }
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for NearestN
 void CDatabase::NearestN(const float *pItem, int64_t N, DIST *pResults) {
     std::lock_guard<std::mutex> locker(m_Mutex);
-
     CUCHECK(cudaDeviceSynchronize());
-
     CUASSERT(m_nCapacity > 0);
-
     // Checking parameters
     CUASSERT(pItem != 0);
     CUASSERT(N > 0);
     CUASSERT(pResults != 0);
-
     int64_t nTotalItems = 0;
     for (auto &nGpuItemCnt : m_ItemCnts) {
         if (nGpuItemCnt >= 0) {
             nTotalItems += nGpuItemCnt;
         }
     }
-
     CUASSERT(N <= nTotalItems);
-
     _UploadQueryItem(pItem);
-
     _DoQuery();
-
     float fMaxDist = std::numeric_limits<float>::max();
     int64_t nSamples = (int64_t) std::sqrt((float) nTotalItems * N) * 2.0f;
     int64_t nSampleInterval = nTotalItems / nSamples;
     if (nSampleInterval > 2) {
         fMaxDist = _SampleMaxDist(N, nSampleInterval);
     }
-
     std::vector<DIST> results(nTotalItems);
     _DownloadResults(fMaxDist, results);
-
     // Sorting results
-    thrust::device_vector<DIST> devBuf;
-    devBuf.resize(results.size());
-    thrust::copy(results.begin(), results.end(), devBuf.begin());
+    thrust::device_vector<DIST> devBuf(results.begin(), results.end());
     thrust::sort(devBuf.begin(), devBuf.end(), DIST_CMP());
-    thrust::copy(devBuf.begin(), devBuf.end(), results.begin());
-
-    for (int64_t i = 0; i < N; ++i) {
-        pResults[i] = results[i];
-    }
+    devBuf.resize(N);
+    thrust::copy(devBuf.begin(), devBuf.end(), pResults);
 }
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for _UploadQueryItem
 void CDatabase::_UploadQueryItem(const float *pItem) {
@@ -466,17 +341,16 @@ void CDatabase::_UploadQueryItem(const float *pItem) {
         }
     }
 }
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for _DoQuery
 void CDatabase::_DoQuery() {
     CUCHECK(cudaDeviceSynchronize());
-    int64_t nItemsPerQuery = CUDA_BLOCKS * CUDA_THREADS;
+    int64_t nItemsPerQuery = m_nCuBlocks * m_nCuThreads;
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
         if (_UseGpu(iGpu)) {
             int64_t nQueryCnt = m_ItemCnts[iGpu] / nItemsPerQuery;
             for (int64_t iQuery = 0; iQuery < nQueryCnt; ++iQuery) {
-                cuDistances << < CUDA_BLOCKS, CUDA_THREADS >> > (
+                cuDistances << < m_nCuBlocks, m_nCuThreads >> > (
                     m_ItemSets[iGpu],
                         m_QueryItem[iGpu],
                         m_QueryResults[iGpu],
@@ -485,9 +359,9 @@ void CDatabase::_DoQuery() {
                 );
             }
             int64_t nRemainBlocks = (m_ItemCnts[iGpu] % nItemsPerQuery)
-                / CUDA_THREADS;
+                / m_nCuThreads;
             if (nRemainBlocks > 0) {
-                cuDistances << < nRemainBlocks, CUDA_THREADS >> > (
+                cuDistances << < nRemainBlocks, m_nCuThreads >> > (
                     m_ItemSets[iGpu],
                         m_QueryItem[iGpu],
                         m_QueryResults[iGpu],
@@ -495,7 +369,7 @@ void CDatabase::_DoQuery() {
                         nQueryCnt * nItemsPerQuery
                 );
             }
-            int64_t nItemsRemains = m_ItemCnts[iGpu] % CUDA_THREADS;
+            int64_t nItemsRemains = m_ItemCnts[iGpu] % m_nCuThreads;
             if (nItemsRemains > 0) {
                 cuDistances << < 1, nItemsRemains >> > (
                     m_ItemSets[iGpu],
@@ -508,7 +382,6 @@ void CDatabase::_DoQuery() {
         }
     }
 }
-
 //-----------------------------------------------------------------------------
 // TODO: Comment for _SampleMaxDist
 float CDatabase::_SampleMaxDist(int64_t N, int64_t nSampleInterval) {
@@ -517,44 +390,46 @@ float CDatabase::_SampleMaxDist(int64_t N, int64_t nSampleInterval) {
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
         if (_UseGpu(iGpu)) {
             int64_t nSamples = m_ItemCnts[iGpu] / nSampleInterval;
-            if (nSamples >= CUDA_BLOCKS * CUDA_THREADS) {
+            if (nSamples >= m_nCuBlocks * m_nCuThreads) {
                 return std::numeric_limits<float>::max();
             }
             samples[iGpu].resize(nSamples);
         }
     }
-
     CUCHECK(cudaDeviceSynchronize());
-
     // Retrieve samples
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
         if (_UseGpu(iGpu)) {
             DIST *pSamples = thrust::raw_pointer_cast(samples[iGpu].data());
-            int32_t nCudaBlks = (int32_t) samples[iGpu].size() / CUDA_THREADS;
-            cuGetSamples << < nCudaBlks, CUDA_THREADS >> > (
+            int32_t nCudaBlks = (int32_t) samples[iGpu].size() / m_nCuThreads;
+            cuGetSamples << < nCudaBlks, m_nCuThreads >> > (
                 m_QueryResults[iGpu],
                     nSampleInterval,
-                    pSamples
+                    pSamples,
+                    0
             );
+            int32_t nRemains = (int32_t) (samples[iGpu].size() % m_nCuThreads);
+            if (nRemains > 0) {
+                cuGetSamples << < 1, nRemains >> > (
+                    m_QueryResults[iGpu],
+                        nSampleInterval,
+                        pSamples,
+                        samples[iGpu].size() - nRemains
+                );
+            }
         }
     }
-
     CUCHECK(cudaDeviceSynchronize());
-
     thrust::host_vector<DIST> maxN;
     thrust::host_vector<DIST> merged;
-
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
         if (_UseGpu(iGpu)) {
-            thrust::sort(samples[iGpu].begin(), samples[iGpu].end(), DIST_CMP());
+            auto &gpuSmp = samples[iGpu];
+            thrust::sort(gpuSmp.begin(), gpuSmp.end(), DIST_CMP());
 
-            int64_t nTop = std::min((int64_t) samples[iGpu].size(), N);
-
-            thrust::host_vector<DIST> src(
-                samples[iGpu].begin(),
-                samples[iGpu].begin() + nTop
-            );
-
+            int64_t nTop = std::min((int64_t) gpuSmp.size(), N);
+            gpuSmp.resize(nTop);
+            thrust::host_vector<DIST> src(gpuSmp.begin(), gpuSmp.end());
             merged.resize(maxN.size() + src.size());
             thrust::merge(
                 maxN.begin(),
@@ -570,25 +445,19 @@ float CDatabase::_SampleMaxDist(int64_t N, int64_t nSampleInterval) {
     }
     return maxN[N - 1].dist;
 }
-
 //-----------------------------------------------------------------------------
 void CDatabase::_DownloadResults(float fMaxDist, std::vector<DIST> &results) {
     CUCHECK(cudaDeviceSynchronize());
-
     int64_t nCopied = 0;
     for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
         if (_UseGpu(iGpu)) {
             auto iSrcBeg = thrust::device_pointer_cast(m_QueryResults[iGpu]);
             auto iSrcEnd = iSrcBeg + m_ItemCnts[iGpu];
-
             thrust::copy(iSrcBeg, iSrcEnd, results.data() + nCopied);
-
             auto iDstBeg = results.begin() + nCopied;
-            auto iDstEnd = iDstBeg + m_ItemCnts[iGpu];
-
             auto iNewEnd = std::remove_if(
                 iDstBeg,
-                iDstEnd,
+                iDstBeg + m_ItemCnts[iGpu],
                 [&fMaxDist](const DIST &d1) -> bool {
                     return d1.dist > fMaxDist;
                 });
@@ -598,7 +467,6 @@ void CDatabase::_DownloadResults(float fMaxDist, std::vector<DIST> &results) {
     }
     results.resize(nCopied);
 }
-
 //-----------------------------------------------------------------------------
 bool CDatabase::_UseGpu(int32_t iGpu) {
     if (m_ItemCnts[iGpu] >= 0) {
@@ -607,25 +475,18 @@ bool CDatabase::_UseGpu(int32_t iGpu) {
     }
     return false;
 }
-
-//---------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void LoadDatabaseFromFile(const std::string &strFile, CDatabase &db) {
-    const int64_t nItemsPerBatch = 997;
-
+    const int64_t nItemsPerBatch = 1024 * 1024;
     std::ifstream dataFile(strFile, std::ios::out | std::ios::binary);
     CUASSERT(dataFile.is_open());
-
     int64_t nItemCnt;
     CUASSERT(dataFile.read((char *) &nItemCnt, sizeof(nItemCnt)));
-
     int32_t nItemLen;
     CUASSERT(dataFile.read((char *) &nItemLen, sizeof(nItemLen)));
-
     db.Initialize(nItemCnt, nItemLen);
-
     int64_t nBatchCnt = nItemCnt / nItemsPerBatch;
     int64_t nFloatsPerBatch = nItemLen * nItemsPerBatch;
-
     std::vector<float> itemsBuf(nFloatsPerBatch);
     std::vector<int64_t> idsBuf(nItemsPerBatch);
     for (int64_t iBatch = 0; iBatch < nBatchCnt; ++iBatch) {
@@ -662,5 +523,6 @@ void LoadDatabaseFromFile(const std::string &strFile, CDatabase &db) {
         db.AddItems(itemsBuf.data(), idsBuf.data(), nRemains);
     }
 }
+
 }
 //===========================================================================//
