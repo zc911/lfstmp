@@ -1,0 +1,176 @@
+/***************************************************************************
+ * 
+ * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
+ * 
+ **************************************************************************/
+ 
+ 
+ 
+/**
+ * @file constants.h
+ * @author dingerrui(com@baidu.com)
+ * @date 2013/03/11 16:46:30
+ * @brief 
+ *  
+ **/
+
+
+
+
+#ifndef  __CONSTANTS_H_
+#define  __CONSTANTS_H_
+
+#include <math.h>
+
+#ifndef M_E
+#define M_E        2.7182818284590452354  /* e */
+#endif
+#ifndef M_LOG2E
+#define M_LOG2E    1.4426950408889634074  /* log_2 e */
+#endif
+#ifndef M_LOG10E
+#define M_LOG10E   0.43429448190325182765 /* log_10 e */
+#endif
+#ifndef M_LN2
+#define M_LN2      0.69314718055994530942 /* log_e 2 */
+#endif
+#ifndef M_LN10
+#define M_LN10     2.30258509299404568402 /* log_e 10 */
+#endif
+#ifndef M_PI
+#define M_PI       3.14159265358979323846 /* pi */
+#endif
+#ifndef M_PI_2
+#define M_PI_2     1.57079632679489661923 /* pi/2 */
+#endif
+#ifndef M_PI_4
+#define M_PI_4     0.78539816339744830962 /* pi/4 */
+#endif
+#ifndef M_1_PI
+#define M_1_PI     0.31830988618379067154 /* 1/pi */
+#endif
+#ifndef M_2_PI
+#define M_2_PI     0.63661977236758134308 /* 2/pi */
+#endif
+#ifndef M_2_SQRTPI
+#define M_2_SQRTPI 1.12837916709551257390 /* 2/sqrt(pi) */
+#endif
+#ifndef M_SQRT2
+#define M_SQRT2    1.41421356237309504880 /* sqrt(2) */
+#endif
+#ifndef M_SQRT1_2
+#define M_SQRT1_2  0.70710678118654752440 /* 1/sqrt(2) */
+#endif
+
+_PS_CONST(1  , 1.0f);
+_PS_CONST(0p5, 0.5f);
+_PS_CONST(1p5, 1.5f);
+/* the smallest non denormalized float number */
+_PS_CONST_TYPE(min_norm_pos, int, 0x00800000);
+_PS_CONST_TYPE(mant_mask, int, 0x7f800000);
+_PS_CONST_TYPE(inv_mant_mask, int, ~0x7f800000);
+
+_PS_CONST_TYPE(sign_mask, int, 0x80000000);
+_PS_CONST_TYPE(inv_sign_mask, int, ~0x80000000);
+
+_PI32_CONST(1, 1);
+_PI32_CONST(inv1, ~1);
+_PI32_CONST(2, 2);
+_PI32_CONST(4, 4);
+_PI32_CONST(0x7f, 0x7f);
+
+_PS_CONST(minus_cephes_DP1, -0.78515625);
+_PS_CONST(minus_cephes_DP2, -2.4187564849853515625e-4);
+_PS_CONST(minus_cephes_DP3, -3.77489497744594108e-8);
+_PS_CONST(minus_cephes_PIO2F, -1.570796326794896619);
+_PS_CONST(cephes_PI, M_PI);
+_PS_CONST(cephes_FOPI, 1.27323954473516); // 4 / M_PI
+_PS_CONST(cephes_PIO2F, M_PI_2);
+_PS_CONST(cephes_PIO4F, M_PI_4);
+_PS_CONST(cephes_T3PIO8, 2.414213562373095);
+_PS_CONST(cephes_TPIO8, 0.4142135623730950);
+
+_PS_CONST(cephes_SQRTHF, 0.707106781186547524);
+_PS_CONST(cephes_log_p0, 7.0376836292E-2);
+_PS_CONST(cephes_log_p1, - 1.1514610310E-1);
+_PS_CONST(cephes_log_p2, 1.1676998740E-1);
+_PS_CONST(cephes_log_p3, - 1.2420140846E-1);
+_PS_CONST(cephes_log_p4, + 1.4249322787E-1);
+_PS_CONST(cephes_log_p5, - 1.6668057665E-1);
+_PS_CONST(cephes_log_p6, + 2.0000714765E-1);
+_PS_CONST(cephes_log_p7, - 2.4999993993E-1);
+_PS_CONST(cephes_log_p8, + 3.3333331174E-1);
+_PS_CONST(cephes_log_q1, -2.12194440e-4);
+_PS_CONST(cephes_log_q2, 0.693359375);
+
+_PS_CONST(exp_hi,	88.3762626647949f);
+_PS_CONST(exp_lo,	-88.3762626647949f);
+
+_PS_CONST(cephes_LOG2EF, 1.44269504088896341);
+_PS_CONST(cephes_exp_C1, 0.693359375);
+_PS_CONST(cephes_exp_C2, -2.12194440e-4);
+
+_PS_CONST(cephes_exp_p0, 1.9875691500E-4);
+_PS_CONST(cephes_exp_p1, 1.3981999507E-3);
+_PS_CONST(cephes_exp_p2, 8.3334519073E-3);
+_PS_CONST(cephes_exp_p3, 4.1665795894E-2);
+_PS_CONST(cephes_exp_p4, 1.6666665459E-1);
+_PS_CONST(cephes_exp_p5, 5.0000001201E-1);
+
+_PS_CONST(sincof_p0, -1.9515295891E-4);
+_PS_CONST(sincof_p1,  8.3321608736E-3);
+_PS_CONST(sincof_p2, -1.6666654611E-1);
+_PS_CONST(coscof_p0,  2.443315711809948E-005);
+_PS_CONST(coscof_p1, -1.388731625493765E-003);
+_PS_CONST(coscof_p2,  4.166664568298827E-002);
+
+_PS_CONST(asinf_p0,  4.2163199048E-2);
+_PS_CONST(asinf_p1,  2.4181311049E-2);
+_PS_CONST(asinf_p2,  4.5470025998E-2);
+_PS_CONST(asinf_p3,  7.4953002686E-2);
+_PS_CONST(asinf_p4,  1.6666752422E-1);
+_PS_CONST(asinf_p5,  1.0E-4);
+
+_PS_CONST(tanf_p0,   9.38540185543E-3);
+_PS_CONST(tanf_p1,   3.11992232697E-3);
+_PS_CONST(tanf_p2,   2.44301354525E-2);
+_PS_CONST(tanf_p3,   5.34112807005E-2);
+_PS_CONST(tanf_p4,   1.33387994085E-1);
+_PS_CONST(tanf_p5,   3.33331568548E-1);
+
+_PS_CONST(sinfastcof_p0, -1.66666666666666666667e-1);
+_PS_CONST(sinfastcof_p1, 8.33333333333333333333e-3);
+_PS_CONST(sinfastcof_p2, -1.98412698412698412698e-4);
+_PS_CONST(sinfastcof_p3, 2.75573192239858906526e-6);
+_PS_CONST(sinfastcof_p4, -2.50521083854417187751e-8);
+_PS_CONST(sinfastcof_p5, 1.60590438368216145994e-10);
+
+_PS_CONST(cosfastcof_p0, -5e-1);
+_PS_CONST(cosfastcof_p1, 4.16666666666666666667e-2);
+_PS_CONST(cosfastcof_p2, -1.38888888888888888889e-3);
+_PS_CONST(cosfastcof_p3, 2.48015873015873015873e-5);
+_PS_CONST(cosfastcof_p4, -2.75573192239858906526e-7);
+_PS_CONST(cosfastcof_p5, 2.08767569878680989792e-9);
+
+_PS_CONST(atanf_p0, 8.05374449538e-2);
+_PS_CONST(atanf_p1, -1.38776856032e-1);
+_PS_CONST(atanf_p2, 1.99777106478e-1);
+_PS_CONST(atanf_p3, -3.33329491539e-1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif  //__CONSTANTS_H_
+
+/* vim: set expandtab ts=4 sw=4 sts=4 tw=100: */
