@@ -29,7 +29,11 @@ bool FaceRankProcessor::process(Frame *frame) {
     CDatabase &ranker = RankCandidatesRepo::GetInstance().GetFaceRanker();
 
     vector<float> &feature = fframe->datum_.feature_;
+    for(int i = 0; i < 128; ++i){
+        feature.push_back(feature[i]);
+    }
 
+    cout << "feature size: " << feature.size() << endl;
 
     int candidatesNum = 10;
     vector<CDatabase::DIST> results(candidatesNum);
@@ -39,6 +43,9 @@ bool FaceRankProcessor::process(Frame *frame) {
     for (auto r: results) {
         Score score;
         score.index_ = r.id;
+        vector<float> abc(256);
+        ranker.RetrieveItemById(r.id, abc.data());
+        cout << r.id << ", " << r.dist << ", " << abc[0] << abc[1] << abc[2] << endl;
         fframe->result_.push_back(score);
     }
 

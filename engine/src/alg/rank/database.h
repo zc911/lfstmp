@@ -41,6 +41,9 @@ class CDatabase
     int32_t	GetItemLength() const;
     // Get total number of items added to all GPUs
     int64_t	GetTotalItems() const;
+
+    bool RetrieveItemById(int64_t nId, float *pItem);
+
     bool	Initialize(int64_t nCapacity, int32_t nItemLen,
                        int32_t nGpuMask = -1);
     void	Clear();
