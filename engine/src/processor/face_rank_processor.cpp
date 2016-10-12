@@ -21,23 +21,24 @@ FaceRankProcessor::~FaceRankProcessor() {
 }
 
 bool FaceRankProcessor::process(Frame *frame) {
+
     FaceRankFrame *fframe = (FaceRankFrame *) frame;
 
 
     const RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
     CDatabase &ranker = RankCandidatesRepo::GetInstance().GetFaceRanker();
 
-    vector<float> &feature = fframe->datum_.descriptor_;
+    vector<float> &feature = fframe->datum_.feature_;
 
 
     int candidatesNum = 10;
-    vector<int64_t> results(candidatesNum);
+    vector<CDatabase::DIST> results(candidatesNum);
 
 
     ranker.NearestN(feature.data(), candidatesNum, results.data());
-    for (int64_t r: results) {
+    for (auto r: results) {
         Score score;
-        score.index_ = r;
+        score.index_ = r.id;
         fframe->result_.push_back(score);
     }
 

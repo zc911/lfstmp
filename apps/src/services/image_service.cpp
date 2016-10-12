@@ -177,22 +177,14 @@ MatrixError ImageService::getMarginROIs(
   return ok;
 
 }
-static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
-  if (data.size() >= 0) {
-    try {
-      imgMat = ::cv::imdecode(::cv::Mat(data), 1);
-    } catch (exception &e) {
-      LOG(WARNING) << "decode image failed: " << e.what() << endl;
-    }
-  }
-}
+
 
 MatrixError ImageService::getImageFromData(const string &img64,
     ::cv::Mat &imgMat) {
   MatrixError ok;
   vector<uchar> bin;
   Base64::Decode(img64, bin);
-  decodeDataToMat(bin, imgMat);
+  DecodeDataToMat(bin, imgMat);
 
   if ((imgMat.rows & imgMat.cols) == 0) {
     LOG(WARNING) << "Image is empty from BASE64" << endl;
@@ -207,7 +199,7 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
   vector<uchar> bin;
   int ret = UriReader::Read(uri, bin, timeout);
   if (ret == 0) {
-    decodeDataToMat(bin, imgMat);
+    DecodeDataToMat(bin, imgMat);
   } else {
     ok.set_code(-1);
     ok.set_message("Read image failed: " + uri);

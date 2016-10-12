@@ -1,23 +1,24 @@
+#define __cplusplus 201103L
+
 #include <algorithm>
-#include <cmath>
 #include <fstream>
 #include <future>
 #include <iostream>
 #include <iomanip>
 
 #include <thrust/device_vector.h>
-#include <thrust/host_vector.h>
 #include <thrust/sort.h>
 
+//#include "mytimer.h"
 #include "database.h"
 
 namespace dg {
+
 //***************************************************************************//
 //**  Error Handling Macros and Function									 //
 //***************************************************************************//
 
 //---------------------------------------------------------------------------
-// TODO: Comments for CUABORT
 #define CUABORT(msg)                        \
 {                                            \
     cuPrintError(msg, __FILE__, __LINE__);    \
@@ -25,7 +26,6 @@ namespace dg {
 }
 
 //---------------------------------------------------------------------------
-// TODO: Comments for CUASSERT
 #define CUASSERT(exp)                        \
 {                                            \
     if (!(exp))                                \
@@ -35,7 +35,6 @@ namespace dg {
 }
 
 //---------------------------------------------------------------------------
-// TODO: Comments for CUCHECK
 #define CUCHECK(exp)                        \
 {                                            \
     cudaError_t err = (exp);                \
@@ -46,12 +45,16 @@ namespace dg {
 }
 
 //---------------------------------------------------------------------------
-// TODO: Comments for cuPrintError
-inline void cuPrintError(const char *pMsg, const char *pFile, int nLine) {
-    std::cerr << "An error occured at \"" << pFile << "\"(" << nLine;
-    std::cerr << "): " << pMsg << std::endl;
+inline void cuPrintFileLine(const char *pFile, int nLine) {
+    std::cout << "\"" << pFile << "\"(" << nLine << ")";
 }
 
+//---------------------------------------------------------------------------
+inline void cuPrintError(const char *pMsg, const char *pFile, int nLine) {
+    std::cerr << "An error occured at ";
+    cuPrintFileLine(pFile, nLine);
+    std::cerr << ": " << pMsg << std::endl;
+}
 
 
 //***************************************************************************//
@@ -65,38 +68,6 @@ struct DIST_CMP {
         const CDatabase::DIST &d1,
         const CDatabase::DIST &d2) const {
         return d1.dist < d2.dist;
-    }
-};
-
-//---------------------------------------------------------------------------
-// TODO: Comments for DIST_CUT
-struct DIST_CUT {
-    float *m_pMaxDist;
-    __host__ __device__ DIST_CUT(float *pMaxDist)
-        : m_pMaxDist(pMaxDist) {
-    }
-    __host__ __device__ bool operator()(const CDatabase::DIST &d) const {
-        return d.dist <= *m_pMaxDist;
-    }
-};
-
-//---------------------------------------------------------------------------
-struct DIST_GATHER {
-    CDatabase::DIST *m_pFiltered;
-    float m_fCutVal;
-    unsigned int *m_pCurIdx;
-
-    __host__ __device__ DIST_GATHER(float fCutVal, CDatabase::DIST *pFiltered,
-                                    unsigned int *pCurIdx)
-        : m_fCutVal(fCutVal), m_pFiltered(pFiltered), m_pCurIdx(pCurIdx) {
-    }
-
-    __device__ void operator()(const CDatabase::DIST &d) const {
-        if (d.dist <= m_fCutVal) {
-            int idx = atomicInc(m_pCurIdx, 0XFFFFFFFF);
-            m_pFiltered[idx].id = d.id;
-            m_pFiltered[idx].dist = d.dist;
-        }
     }
 };
 
@@ -124,6 +95,7 @@ __global__ void cuGetSamples(const CDatabase::DIST *pResults,
     pSamples[iDstItem].id = pResults[iSrcItem].id;
     pSamples[iDstItem].dist = pResults[iSrcItem].dist;
 }
+
 
 //***************************************************************************//
 //**  Helper Functions														 //
@@ -174,10 +146,471 @@ void cpuSort(_Ty *data, int64_t len, int grainsize, _Cmp cmp) {
     }
 }
 
+//template<typename _Mutex>
+typedef std::mutex _Mutex;
+class lock_guard {
+ public:
+    typedef _Mutex mutex_type;
+
+    lock_guard(std::mutex &__m) : _M_device(__m) { _M_device.lock(); }
+
+    ~lock_guard() { _M_device.unlock(); }
+
+    lock_guard(const lock_guard &) = delete;
+    lock_guard &operator=(const lock_guard &) = delete;
+
+ private:
+    mutex_type &_M_device;
+};
+
+
+//***************************************************************************//
+//**  CDatabase Implementation												 //
+//***************************************************************************//
+
+//-----------------------------------------------------------------------------
+// Constructor
+CDatabase::CDatabase()
+    : m_nCapacity(0), m_nItemLen(0) {
+    int32_t nGpuCnt = GetGpuCount();
+    CUASSERT(nGpuCnt > 0);
+
+    m_ItemCnts.resize(nGpuCnt, 0);
+}
+
+//-----------------------------------------------------------------------------
+// Deconstructor
+CDatabase::~CDatabase() {
+    Clear();
+}
+
+//-----------------------------------------------------------------------------
+// Get total number of installed GPUs
+int32_t CDatabase::GetGpuCount() const {
+    std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
+
+    int32_t nGpuCnt = 0;
+    CUCHECK(cudaGetDeviceCount(&nGpuCnt));
+
+    return nGpuCnt;
+}
+
+//-------------------------------------------------------------------------------
+// Get item length
+int32_t CDatabase::GetItemLength() const {
+    std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
+
+    return m_nItemLen;
+}
+
+//-----------------------------------------------------------------------------
+// Get total number of items added to all GPUs
+int64_t CDatabase::GetTotalItems() const {
+    std::lock_guard<std::mutex> locker(const_cast<std::mutex &>(m_Mutex));
+
+    int64_t nTotalItems = 0;
+    for (auto &nGpuItemCnt : m_ItemCnts) {
+        if (nGpuItemCnt >= 0) {
+            nTotalItems += nGpuItemCnt;
+        }
+    }
+    return nTotalItems;
+}
+
+//-----------------------------------------------------------------------------
+// Set working GPUs by bit-mask
+void CDatabase::SetGpuMask(int32_t nGpuMask) {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    CUASSERT(nGpuMask != 0); // Checking Parameter
+    CUASSERT(m_nCapacity == 0);    // database uninitialized
+
+    int32_t nGpuCnt = (int32_t) m_ItemCnts.size();
+    CUASSERT((nGpuMask >> nGpuCnt) == 0);
+
+    for (int32_t iGpu = 0; iGpu < nGpuCnt; ++iGpu) {
+        if (nGpuMask & (1 << iGpu)) {
+            m_ItemCnts[iGpu] = 0;
+        }
+        else {
+            m_ItemCnts[iGpu] = -1;
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for Initialize
+bool CDatabase::Initialize(int64_t nCapacity, int32_t nItemLen) {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    // Checking Parameters
+    if (m_nCapacity != 0) {
+        return false;
+    }
+    CUASSERT(nCapacity > 0);
+    CUASSERT(nItemLen > 0);
+
+    int32_t nGpuCnt = (int32_t) m_ItemCnts.size();
+
+    m_ItemSets.resize(nGpuCnt, 0);
+    m_QueryItem.resize(nGpuCnt, 0);
+    m_QueryResults.resize(nGpuCnt, 0);
+
+    for (int32_t iGpu = 0; iGpu < nGpuCnt; ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            // Create device memory for database on devices
+            m_ItemSets[iGpu] = cuMalloc0<float>(nCapacity * nItemLen);
+
+            // Create device memory for passing query item to devices
+            m_QueryItem[iGpu] = cuMalloc0<float>(nItemLen);
+
+            // Create device memory for store query results on devices
+            m_QueryResults[iGpu] = cuMalloc0<DIST>(nCapacity);
+        }
+    }
+
+    m_nCapacity = nCapacity;
+    m_nItemLen = nItemLen;
+
+    return true;
+}
+
+//---------------------------------------------------------------------------
+// TODO: Comment for Initialize
+void CDatabase::Clear() {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    if (m_nCapacity > 0) {
+        CUCHECK(cudaDeviceSynchronize());
+        for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+            if (_UseGpu(iGpu)) {
+                CUCHECK(cudaFree(m_ItemSets[iGpu]));
+                m_ItemSets[iGpu] = 0;
+
+                CUCHECK(cudaFree(m_QueryItem[iGpu]));
+                m_QueryItem[iGpu] = 0;
+
+                CUCHECK(cudaFree(m_QueryResults[iGpu]));
+                m_QueryResults[iGpu] = 0;
+
+                m_ItemCnts[iGpu] = 0;
+            }
+        }
+        m_ItemSets.clear();
+        m_QueryItem.clear();
+        m_QueryResults.clear();
+
+        m_nCapacity = 0;
+        m_nItemLen = 0;
+    }
+}
+
+//---------------------------------------------------------------------------
+// TODO: Comment for ResetItems
+void CDatabase::ResetItems() {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    CUCHECK(cudaDeviceSynchronize());
+
+    for (auto &iGpuItemCnt : m_ItemCnts) {
+        if (iGpuItemCnt > 0) {
+            iGpuItemCnt = 0;
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for AddItems
+void CDatabase::AddItems(const float *pBatchItems,
+                         const int64_t *pBatchIds,
+                         int64_t nBatchItemCnt) {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    CUCHECK(cudaDeviceSynchronize());
+
+    //Checking Parameter list
+    if (nBatchItemCnt == 0) {
+        return;
+    }
+    CUASSERT(pBatchItems != 0);
+    CUASSERT(pBatchIds != 0);
+
+    std::vector<int64_t> gpuAddItems(m_ItemCnts);
+
+    // Determin the number of items add for each gpu
+    {
+        int64_t nUsedGpuCnt = 0;
+        int64_t nTotalCap = 0;
+        int64_t nTotalItems = 0;
+
+        for (auto &nGpuItemCnt : m_ItemCnts) {
+            if (nGpuItemCnt >= 0) {
+                ++nUsedGpuCnt;
+                nTotalItems += nGpuItemCnt;
+                nTotalCap += m_nCapacity;
+            }
+        }
+        CUASSERT(nTotalItems + nBatchItemCnt <= nTotalCap);
+
+        for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+            if (m_ItemCnts[iGpu] >= 0) {
+                gpuAddItems[iGpu] += nBatchItemCnt / nUsedGpuCnt;
+            }
+            else {
+                gpuAddItems[iGpu] = nTotalCap;
+            }
+        }
+        for (int64_t iRem = 0; iRem < nBatchItemCnt % nUsedGpuCnt; ++iRem) {
+            int32_t iMinGpu = std::min_element(
+                gpuAddItems.begin(),
+                gpuAddItems.end()
+            ) - gpuAddItems.begin();
+            ++gpuAddItems[iMinGpu];
+        }
+        for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+            if (m_ItemCnts[iGpu] >= 0) {
+                gpuAddItems[iGpu] -= m_ItemCnts[iGpu];
+            }
+        }
+    }
+
+    int64_t nInputBaseIdx = 0;
+    std::vector<DIST> resBuf;
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            CUCHECK(cudaMemcpyAsync(
+                m_ItemSets[iGpu] + m_ItemCnts[iGpu] * m_nItemLen,
+                pBatchItems + nInputBaseIdx * m_nItemLen,
+                gpuAddItems[iGpu] * m_nItemLen * sizeof(float), //In bytes
+                cudaMemcpyHostToDevice
+            ));
+
+            resBuf.resize(gpuAddItems[iGpu]);
+            for (int64_t iItem = 0; iItem < (int64_t) resBuf.size(); ++iItem) {
+                resBuf[iItem].id = pBatchIds[nInputBaseIdx + iItem];
+            }
+
+            CUCHECK(cudaMemcpyAsync(
+                m_QueryResults[iGpu] + m_ItemCnts[iGpu],
+                resBuf.data(),
+                gpuAddItems[iGpu] * sizeof(DIST),
+                cudaMemcpyHostToDevice
+            ));
+
+            nInputBaseIdx += gpuAddItems[iGpu];
+            m_ItemCnts[iGpu] += gpuAddItems[iGpu];
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for NearestN
+void CDatabase::NearestN(const float *pItem, int64_t N, DIST *pResults) {
+    std::lock_guard<std::mutex> locker(m_Mutex);
+
+    CUCHECK(cudaDeviceSynchronize());
+
+    CUASSERT(m_nCapacity > 0);
+
+    // Checking parameters
+    CUASSERT(pItem != 0);
+    CUASSERT(N > 0);
+    CUASSERT(pResults != 0);
+
+    int64_t nTotalItems = 0;
+    for (auto &nGpuItemCnt : m_ItemCnts) {
+        if (nGpuItemCnt >= 0) {
+            nTotalItems += nGpuItemCnt;
+        }
+    }
+
+    CUASSERT(N <= nTotalItems);
+
+    _UploadQueryItem(pItem);
+
+    _DoQuery();
+
+    float fMaxDist = std::numeric_limits<float>::max();
+    int64_t nSamples = (int64_t) std::sqrt((float) nTotalItems * N) * 2.0f;
+    int64_t nSampleInterval = nTotalItems / nSamples;
+    if (nSampleInterval > 2) {
+        fMaxDist = _SampleMaxDist(N, nSampleInterval);
+    }
+
+    std::vector<DIST> results(nTotalItems);
+    _DownloadResults(fMaxDist, results);
+
+    // Sorting results
+    thrust::device_vector<DIST> devBuf;
+    devBuf.resize(results.size());
+    thrust::copy(results.begin(), results.end(), devBuf.begin());
+    thrust::sort(devBuf.begin(), devBuf.end(), DIST_CMP());
+    thrust::copy(devBuf.begin(), devBuf.end(), results.begin());
+
+    for (int64_t i = 0; i < N; ++i) {
+        pResults[i] = results[i];
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for _UploadQueryItem
+void CDatabase::_UploadQueryItem(const float *pItem) {
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            CUCHECK(cudaMemcpyAsync(
+                m_QueryItem[iGpu],
+                pItem,
+                sizeof(float) * m_nItemLen,
+                cudaMemcpyHostToDevice
+            ));
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for _DoQuery
+void CDatabase::_DoQuery() {
+    CUCHECK(cudaDeviceSynchronize());
+    int64_t nItemsPerQuery = CUDA_BLOCKS * CUDA_THREADS;
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            int64_t nQueryCnt = m_ItemCnts[iGpu] / nItemsPerQuery;
+            for (int64_t iQuery = 0; iQuery < nQueryCnt; ++iQuery) {
+                cuDistances << < CUDA_BLOCKS, CUDA_THREADS >> > (
+                    m_ItemSets[iGpu],
+                        m_QueryItem[iGpu],
+                        m_QueryResults[iGpu],
+                        m_nItemLen,
+                        iQuery * nItemsPerQuery
+                );
+            }
+            int64_t nRemainBlocks = (m_ItemCnts[iGpu] % nItemsPerQuery)
+                / CUDA_THREADS;
+            if (nRemainBlocks > 0) {
+                cuDistances << < nRemainBlocks, CUDA_THREADS >> > (
+                    m_ItemSets[iGpu],
+                        m_QueryItem[iGpu],
+                        m_QueryResults[iGpu],
+                        m_nItemLen,
+                        nQueryCnt * nItemsPerQuery
+                );
+            }
+            int64_t nItemsRemains = m_ItemCnts[iGpu] % CUDA_THREADS;
+            if (nItemsRemains > 0) {
+                cuDistances << < 1, nItemsRemains >> > (
+                    m_ItemSets[iGpu],
+                        m_QueryItem[iGpu],
+                        m_QueryResults[iGpu],
+                        m_nItemLen,
+                        m_ItemCnts[iGpu] - nItemsRemains
+                );
+            }
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------
+// TODO: Comment for _SampleMaxDist
+float CDatabase::_SampleMaxDist(int64_t N, int64_t nSampleInterval) {
+    // Alloc buffer for store samples
+    std::vector<thrust::device_vector<DIST>> samples(m_ItemCnts.size());
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            int64_t nSamples = m_ItemCnts[iGpu] / nSampleInterval;
+            if (nSamples >= CUDA_BLOCKS * CUDA_THREADS) {
+                return std::numeric_limits<float>::max();
+            }
+            samples[iGpu].resize(nSamples);
+        }
+    }
+
+    CUCHECK(cudaDeviceSynchronize());
+
+    // Retrieve samples
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            DIST *pSamples = thrust::raw_pointer_cast(samples[iGpu].data());
+            int32_t nCudaBlks = (int32_t) samples[iGpu].size() / CUDA_THREADS;
+            cuGetSamples << < nCudaBlks, CUDA_THREADS >> > (
+                m_QueryResults[iGpu],
+                    nSampleInterval,
+                    pSamples
+            );
+        }
+    }
+
+    CUCHECK(cudaDeviceSynchronize());
+
+    thrust::host_vector<DIST> maxN;
+    thrust::host_vector<DIST> merged;
+
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            thrust::sort(samples[iGpu].begin(), samples[iGpu].end(), DIST_CMP());
+
+            int64_t nTop = std::min((int64_t) samples[iGpu].size(), N);
+
+            thrust::host_vector<DIST> src(
+                samples[iGpu].begin(),
+                samples[iGpu].begin() + nTop
+            );
+
+            merged.resize(maxN.size() + src.size());
+            thrust::merge(
+                maxN.begin(),
+                maxN.end(),
+                src.begin(),
+                src.end(),
+                merged.begin(),
+                DIST_CMP()
+            );
+            merged.resize(N);
+            merged.swap(maxN);
+        }
+    }
+    return maxN[N - 1].dist;
+}
+
+//-----------------------------------------------------------------------------
+void CDatabase::_DownloadResults(float fMaxDist, std::vector<DIST> &results) {
+    CUCHECK(cudaDeviceSynchronize());
+
+    int64_t nCopied = 0;
+    for (int32_t iGpu = 0; iGpu < (int32_t) m_ItemCnts.size(); ++iGpu) {
+        if (_UseGpu(iGpu)) {
+            auto iSrcBeg = thrust::device_pointer_cast(m_QueryResults[iGpu]);
+            auto iSrcEnd = iSrcBeg + m_ItemCnts[iGpu];
+
+            thrust::copy(iSrcBeg, iSrcEnd, results.data() + nCopied);
+
+            auto iDstBeg = results.begin() + nCopied;
+            auto iDstEnd = iDstBeg + m_ItemCnts[iGpu];
+
+            auto iNewEnd = std::remove_if(
+                iDstBeg,
+                iDstEnd,
+                [&fMaxDist](const DIST &d1) -> bool {
+                    return d1.dist > fMaxDist;
+                });
+
+            nCopied += (iNewEnd - iDstBeg);
+        }
+    }
+    results.resize(nCopied);
+}
+
+//-----------------------------------------------------------------------------
+bool CDatabase::_UseGpu(int32_t iGpu) {
+    if (m_ItemCnts[iGpu] >= 0) {
+        CUCHECK(cudaSetDevice(iGpu));
+        return true;
+    }
+    return false;
+}
 
 //---------------------------------------------------------------------------
 void LoadDatabaseFromFile(const std::string &strFile, CDatabase &db) {
-    const int64_t nItemsPerBatch = 1024LL * 1024LL;
+    const int64_t nItemsPerBatch = 997;
 
     std::ifstream dataFile(strFile, std::ios::out | std::ios::binary);
     CUASSERT(dataFile.is_open());
@@ -227,402 +660,6 @@ void LoadDatabaseFromFile(const std::string &strFile, CDatabase &db) {
             ));
         }
         db.AddItems(itemsBuf.data(), idsBuf.data(), nRemains);
-    }
-}
-
-//***************************************************************************//
-//**  CDatabase Implementation												 //
-//***************************************************************************//
-
-//---------------------------------------------------------------------------
-// Constructor
-CDatabase::CDatabase()
-    : m_nGPUs(0), m_nItemCnt(0), m_nItemLen(0), m_nPosition(0) {
-    CUCHECK(cudaGetDeviceCount(&m_nGPUs));
-    CUASSERT(m_nGPUs >= 1);
-}
-
-//---------------------------------------------------------------------------
-// Deconstructor
-CDatabase::~CDatabase() {
-    Clear();
-}
-
-//---------------------------------------------------------------------------
-// TODO: Comment for SetItemCnt
-void CDatabase::SetWorkingGPUs(int32_t nGPUs) {
-    CUASSERT(m_nItemCnt == 0); //Make sure the database is empty
-    CUASSERT(nGPUs > 0);
-
-    int32_t nAvailableGPUs = 0;
-    CUCHECK(cudaGetDeviceCount(&nAvailableGPUs));
-
-    CUASSERT(nGPUs <= nAvailableGPUs);
-    m_nGPUs = nGPUs;
-}
-
-//---------------------------------------------------------------------------
-// TODO: Comment for SetItemCnt
-void CDatabase::Initialize(int64_t nItemCnt, int64_t nItemLen) {
-    CUASSERT(m_nGPUs > 0);        //To make sure the host at least one GPU
-    CUASSERT(m_nItemCnt == 0);    //To make sure the database is empty
-
-    // Checking Parameters
-    CUASSERT(nItemCnt > 0);
-    CUASSERT(nItemCnt % m_nGPUs == 0);
-    CUASSERT(nItemLen > 0);
-
-    CUCHECK(cudaDeviceSynchronize());
-
-    int64_t nItemsPerGPU = nItemCnt / m_nGPUs;
-    for (int64_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-
-        // Create device memory for database on devices
-        m_ItemSets.push_back(cuMalloc0<float>(nItemsPerGPU * nItemLen));
-
-        // Create device memory for passing query item to devices
-        m_QueryItem.push_back(cuMalloc0<float>(nItemLen));
-
-        // Create device memory for store query results on devices
-        m_QueryResults.push_back(cuMalloc0<DIST>(nItemsPerGPU));
-    }
-    CUCHECK(cudaDeviceSynchronize());
-
-    m_nItemCnt = nItemCnt;
-    m_nItemLen = nItemLen;
-    m_nPosition = 0;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::Clear() {
-    CUASSERT(m_nGPUs > 0);        //To make sure the host at least one GPU
-
-    if (m_nItemCnt != 0) {
-        for (int64_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-            CUCHECK(cudaSetDevice(iGpu));
-
-            CUCHECK(cudaFree(m_ItemSets[iGpu]));
-            m_ItemSets[iGpu] = 0;
-
-            CUCHECK(cudaFree(m_QueryResults[iGpu]));
-            m_QueryResults[iGpu] = 0;
-
-            CUCHECK(cudaFree(m_QueryItem[iGpu]));
-            m_QueryItem[iGpu] = 0;
-        }
-    }
-    m_ItemSets.clear();
-    m_QueryResults.clear();
-    m_SampleIdx.clear();
-
-    m_nPosition = 0;
-    m_nItemCnt = 0;
-    m_nItemLen = 0;
-}
-
-//---------------------------------------------------------------------------
-// TODO: Comment for AddItems
-void CDatabase::AddItems(const float *pBatchItems,
-                         const int64_t *pBatchIds,
-                         int64_t nBatchItemCnt) {
-    CUASSERT(m_nGPUs > 0);        //To make sure the host at least one GPU
-    CUASSERT(m_nItemCnt > 0);    //To make sure the database has initialized
-
-    //Checking Parameter list
-    CUASSERT(pBatchItems != 0);
-    CUASSERT(pBatchIds != 0);
-
-    CUCHECK(cudaDeviceSynchronize());
-
-    int64_t nBatchItemsPerGPU = nBatchItemCnt / m_nGPUs;
-    CUASSERT(m_nPosition + nBatchItemsPerGPU <= m_nItemCnt);
-
-    int64_t nBatchFloatsPerGPU = nBatchItemsPerGPU * m_nItemLen;
-
-    // Buffer for initializing item ID in results
-    std::vector<DIST> resBuf(nBatchItemsPerGPU);
-    for (int64_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-
-        CUCHECK(cudaMemcpyAsync(
-            m_ItemSets[iGpu] + m_nPosition * m_nItemLen, // offset in floats
-            pBatchItems + iGpu * nBatchFloatsPerGPU, // offset in floats
-            nBatchFloatsPerGPU * sizeof(float), //In bytes
-            cudaMemcpyHostToDevice
-        ));
-
-        for (int64_t iItem = 0; iItem < nBatchItemsPerGPU; ++iItem) {
-            resBuf[iItem].id = pBatchIds[iGpu * nBatchItemsPerGPU + iItem];
-        }
-        CUCHECK(cudaMemcpyAsync(
-            m_QueryResults[iGpu] + m_nPosition,
-            resBuf.data(),
-            sizeof(DIST) * nBatchItemsPerGPU,
-            cudaMemcpyHostToDevice
-        ));
-    }
-    m_nPosition += nBatchItemsPerGPU;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::ResetItems() {
-    m_nPosition = 0;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::NearestN(const float *pItem, int64_t N, int64_t *pOutIds) {
-    CUASSERT(m_nGPUs > 0);        //To make sure the host at least one GPU
-    CUASSERT(m_nItemCnt != 0);    //To make sure the database has initialized
-    // To make sure the database has filled
-    std::cout << m_nPosition << " " << m_nItemCnt << " " << m_nGPUs << std::endl;
-    CUASSERT(m_nPosition == m_nItemCnt / m_nGPUs);
-
-    CUASSERT(pItem != 0);
-    CUASSERT(N > 0);
-    CUASSERT(N < m_nItemCnt / 10);
-    CUASSERT(pOutIds != 0);
-
-    _UploadQueryItem(pItem);
-
-    _DoQuery();
-
-    std::vector<DIST> results;
-    results.reserve(m_nItemCnt);
-
-    _DownloadResults(results, N);
-
-    gpuSort(results, DIST_CMP());
-
-    for (int64_t i = 0; i < N; ++i) {
-        pOutIds[i] = results[i].id;
-    }
-}
-
-//---------------------------------------------------------------------------
-int32_t CDatabase::GetGPUCount() {
-    return m_nGPUs;
-}
-
-//---------------------------------------------------------------------------
-int64_t CDatabase::GetItemCount() {
-    return m_nItemCnt;
-}
-
-//---------------------------------------------------------------------------
-int64_t CDatabase::GetItemLength() {
-    return m_nItemLen;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::_UploadQueryItem(const float *pItem) {
-    CUCHECK(cudaDeviceSynchronize());
-    for (int64_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        CUCHECK(cudaMemcpyAsync(
-            m_QueryItem[iGpu],
-            pItem,
-            sizeof(float) * m_nItemLen,
-            cudaMemcpyHostToDevice
-        ));
-    }
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::GetItem(int iGpu, int iPos, float *pItem, int64_t *pId) {
-    CUASSERT(iGpu >= 0 && iGpu < m_nGPUs);
-    CUASSERT(iPos >= 0 && iPos < m_nItemCnt / m_nGPUs);
-    CUASSERT(pItem != 0);
-    CUASSERT(pId != 0);
-
-    CUCHECK(cudaSetDevice(iGpu));
-    std::vector<float> item(m_nItemLen);
-    CUCHECK(cudaMemcpy(
-        pItem,
-        m_ItemSets[iGpu] + iPos * m_nItemLen,
-        m_nItemLen * sizeof(float),
-        cudaMemcpyDeviceToHost)
-    );
-    DIST dist;
-    CUCHECK(cudaMemcpy(
-        &dist,
-        m_QueryResults[iGpu] + iPos,
-        sizeof(dist),
-        cudaMemcpyDeviceToHost)
-    );
-    *pId = dist.id;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::_DoQuery() {
-    CUCHECK(cudaDeviceSynchronize());
-
-    // m_nItemCnt must can be divided exactly by m_nGPUs
-    int64_t nItemsPerGPU = m_nItemCnt / m_nGPUs;
-    int64_t nItemsPerQuery = CUDA_BLOCKS * CUDA_THREADS;
-    int64_t nQueryCnt = nItemsPerGPU / nItemsPerQuery;
-    for (int64_t iQuery = 0; iQuery < nQueryCnt; ++iQuery) {
-        _GPUQuery(CUDA_BLOCKS, CUDA_THREADS, iQuery * nItemsPerQuery);
-    }
-
-    int64_t nItemsRemains = nItemsPerGPU % nItemsPerQuery;
-    if (nItemsRemains > 0) {
-        int64_t nRemainBlocks = nItemsRemains / CUDA_THREADS;
-
-        if (nRemainBlocks > 0) {
-            _GPUQuery(
-                nRemainBlocks,                    // nCudaBlocks
-                CUDA_THREADS,                    // nCudaThreads
-                nItemsPerGPU - nItemsRemains    // nBaseIdx
-            );
-            nItemsRemains -= nRemainBlocks * CUDA_THREADS;
-        }
-
-        if (nItemsRemains > 0) {
-            _GPUQuery(1, nItemsRemains, nItemsPerGPU - nItemsRemains);
-        }
-    }
-    CUCHECK(cudaDeviceSynchronize());
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::_GPUQuery(int64_t nCudaBlocks,
-                          int64_t nCudaThreads,
-                          int64_t nBaseIdx) {
-    CUCHECK(cudaDeviceSynchronize());
-    for (int64_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        cuDistances << < nCudaBlocks, nCudaThreads >> > (
-            m_ItemSets[iGpu],
-                m_QueryItem[iGpu],
-                m_QueryResults[iGpu],
-                m_nItemLen,
-                nBaseIdx
-        );
-    }
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::_DownloadResults(std::vector<DIST> &results, int64_t N) {
-
-    CUCHECK(cudaDeviceSynchronize());
-
-    int64_t nItemsPerGPU = m_nItemCnt / m_nGPUs;
-    int64_t nSamples = (int64_t) std::sqrt((float) m_nItemCnt * N) * 2.0f;
-    nSamples /= CUDA_THREADS * m_nGPUs;
-    nSamples *= CUDA_THREADS * m_nGPUs;
-
-    float fMaxDist = _SampleMaxDist(N, nSamples);
-
-    std::vector<int64_t> gatherCnts;
-    _CountForGather(fMaxDist, gatherCnts);
-
-    std::vector<thrust::device_vector<DIST>> gatherBufs(m_nGPUs);
-    std::vector<unsigned int *> gatherBufIdx(m_nGPUs);
-    int nTotalGathered = 0;
-
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        int nGathered = gatherCnts[iGpu];
-        gatherBufs[iGpu].resize(nGathered);
-        CUCHECK(cudaMalloc((void **) &gatherBufIdx[iGpu], sizeof(int)));
-        CUCHECK(cudaMemset((void *) gatherBufIdx[iGpu], 0, sizeof(int)));
-        nTotalGathered += nGathered;
-    }
-    CUCHECK(cudaDeviceSynchronize());
-
-    int nGathered = 0;
-    results.resize(nTotalGathered);
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        auto pResBeg = m_QueryResults[iGpu];
-        auto pResEnd = m_QueryResults[iGpu] + nItemsPerGPU;
-        DIST *pGatherBuf = thrust::raw_pointer_cast(
-            gatherBufs[iGpu].data());
-        thrust::for_each(
-            thrust::device_pointer_cast(pResBeg),
-            thrust::device_pointer_cast(pResEnd),
-            DIST_GATHER(fMaxDist, pGatherBuf, gatherBufIdx[iGpu])
-        );
-        CUCHECK(cudaMemcpy(
-            results.data() + nGathered,
-            pGatherBuf,
-            gatherBufs[iGpu].size() * sizeof(DIST),
-            cudaMemcpyDeviceToHost
-        ));
-        CUCHECK(cudaFree(gatherBufIdx[iGpu]));
-        nGathered += gatherBufs[iGpu].size();
-    }
-    CUCHECK(cudaDeviceSynchronize());
-}
-
-//---------------------------------------------------------------------------
-float CDatabase::_SampleMaxDist(int64_t N, int64_t nSamples) {
-    CUASSERT(nSamples > N);
-    CUASSERT((nSamples / m_nGPUs) % CUDA_THREADS == 0);
-    CUASSERT(nSamples / CUDA_THREADS <= CUDA_BLOCKS);
-
-    CUCHECK(cudaDeviceSynchronize());
-    int64_t nSampleInterval = m_nItemCnt / nSamples;
-    int64_t nSamplesPerGPU = nSamples / m_nGPUs;
-    std::vector<float> maxVals;
-
-    std::vector<thrust::device_vector<DIST>> samples(m_nGPUs);
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        samples[iGpu].resize(nSamplesPerGPU);
-    }
-    CUCHECK(cudaDeviceSynchronize());
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        DIST *pGpuSamples = thrust::raw_pointer_cast(samples[iGpu].data());
-        cuGetSamples << < nSamplesPerGPU / CUDA_THREADS, CUDA_THREADS >> > (
-            m_QueryResults[iGpu],
-                nSampleInterval,
-                pGpuSamples
-        );
-    }
-    CUCHECK(cudaDeviceSynchronize());
-
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        thrust::sort(samples[iGpu].begin(), samples[iGpu].end(), DIST_CMP());
-        DIST maxDist = samples[iGpu][N];
-        maxVals.push_back(maxDist.dist);
-    }
-    float fMaxVal = *std::max_element(maxVals.begin(), maxVals.end());
-    CUCHECK(cudaDeviceSynchronize());
-    return fMaxVal;
-}
-
-//---------------------------------------------------------------------------
-void CDatabase::_CountForGather(float fMaxDist,
-                                std::vector<int64_t> &gatherCnts) {
-    CUCHECK(cudaDeviceSynchronize());
-    int64_t nItemsPerGPU = m_nItemCnt / m_nGPUs;
-    std::vector<float *> maxDists(m_nGPUs, 0);
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        auto pResBeg = m_QueryResults[iGpu];
-        auto pResEnd = m_QueryResults[iGpu] + nItemsPerGPU;
-        CUCHECK(cudaMalloc((void **) &maxDists[iGpu], sizeof(float)));
-        CUCHECK(cudaMemcpy(
-            maxDists[iGpu],
-            &fMaxDist,
-            sizeof(fMaxDist),
-            cudaMemcpyHostToDevice
-        ));
-        int64_t nGathered = thrust::count_if(
-            thrust::device_pointer_cast(pResBeg),
-            thrust::device_pointer_cast(pResEnd),
-            DIST_CUT(maxDists[iGpu])
-        );
-        gatherCnts.push_back(nGathered);
-    }
-    CUCHECK(cudaDeviceSynchronize());
-    for (int32_t iGpu = 0; iGpu < m_nGPUs; ++iGpu) {
-        CUCHECK(cudaSetDevice(iGpu));
-        CUCHECK(cudaFree(maxDists[iGpu]));
     }
 }
 }

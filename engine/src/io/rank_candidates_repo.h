@@ -13,18 +13,20 @@
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
 #include <opencv2/core/core.hpp>
+#include "model/frame.h"
 
 using namespace std;
 
 namespace dg {
 
-typedef struct {
-    unsigned int id = -1;
-    string name;
-    vector<float> feature;
-    cv::Mat image;
-    string image_uri;
-} RankCandidatesItem;
+typedef FaceRankFeature RankCandidatesItem;
+//typedef struct {
+//    unsigned int id = -1;
+//    string name;
+//    vector<float> feature;
+//    cv::Mat image;
+//    string image_uri;
+//} RankCandidatesItem;
 
 class CDatabase;
 
@@ -37,7 +39,7 @@ class RankCandidatesRepo {
     }
     ~RankCandidatesRepo();
 
-    void Init(const string &repoPath);
+    void Init(const string &repoPath, const string &imageRootPath, unsigned int capacity, unsigned int featureLen);
 
     const RankCandidatesItem &Get(unsigned int id) const {
         if (id >= candidates_.size()) {
@@ -55,13 +57,20 @@ class RankCandidatesRepo {
         return candidates_;
     }
 
+    int AddFeatures(const FeaturesFrame &frame);
+
  private:
     RankCandidatesRepo();
     void loadFromFile(const string &folderPath);
-    void initFaceRankDatabase(unsigned int batchSize);
+    void addDataToFaceRankDatabase(unsigned int batchSize, unsigned int totalSize, unsigned int fromIndex = 0);
 
     CDatabase *face_ranker_;
     vector<RankCandidatesItem> candidates_;
+    string repo_path_;
+    string image_root_path_;
+    unsigned int feature_len_;
+    unsigned int gpu_num_;
+    unsigned int capacity_;
     bool is_init_;
 };
 

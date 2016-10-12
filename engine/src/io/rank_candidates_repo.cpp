@@ -3,12 +3,10 @@
 //
 
 #include "rank_candidates_repo.h"
-#include <glog/logging.h>
 #include "codec/base64.h"
 #include "alg/rank/database.h"
 #include "matrix_util/io/uri_reader.h"
 #include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 
 namespace dg {
 
@@ -20,62 +18,90 @@ RankCandidatesRepo::~RankCandidatesRepo() {
     candidates_.clear();
 }
 
-void RankCandidatesRepo::Init(const string &repoPath) {
+void RankCandidatesRepo::Init(const string &repoPath,
+                              const string &imageRootPath,
+                              unsigned int capacity,
+                              unsigned int featureLen) {
     if (is_init_) {
         return;
     }
     is_init_ = true;
     face_ranker_ = new CDatabase();
-    face_ranker_->SetWorkingGPUs(1);
-    loadFromFile(repoPath);
-    initFaceRankDatabase(1024);
+    repo_path_ = repoPath;
+    image_root_path_ = imageRootPath;
+    feature_len_ = featureLen;
+    capacity_ = capacity;
+
+
+    cout << "gpu num: " << gpu_num_ << " capacity: " << capacity << endl;
+    gpu_num_ = face_ranker_->GetGpuCount();
+    face_ranker_->Initialize(capacity / gpu_num_ + 1, feature_len_);
+
+    loadFromFile(repo_path_);
+    addDataToFaceRankDatabase(1024, candidates_.size());
 
 }
 
-void RankCandidatesRepo::initFaceRankDatabase(unsigned int batchSize) {
-    // BASE64 decode bug here, the last item was duplicated
-    int featureLen = candidates_[0].feature.size() - 1;
-    LOG(INFO) << "Feature length is " << featureLen << endl;
+void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
+                                                   unsigned int totalSize,
+                                                   unsigned int fromIndex) {
 
-    face_ranker_->Initialize(candidates_.size(), featureLen);
+    if (totalSize == 0) {
+        LOG(ERROR) << "Add data to face ranker database failed, empty data" << endl;
+        return;
+    }
+    if (totalSize + face_ranker_->GetTotalItems() > capacity_) {
+        LOG(ERROR) << "Exceeds the face ranker database capacity, current size: " << face_ranker_->GetTotalItems()
+            << " and new features size: " << totalSize << endl;
+        return;
+    }
 
-    int batchCount = candidates_.size() / batchSize;
+    int batchCount = totalSize / batchSize;
 
     LOG(INFO) << "Batch size: " << batchSize << " and batch count: " << batchCount << endl;
 
-    float *batchFeatures = new float[batchSize * featureLen];
+    float *batchFeatures = new float[batchSize * feature_len_];
     int64_t *batchIds = new int64_t[batchSize];
 
-    int64_t id = 0;
+    int64_t id = fromIndex;
     for (int i = 0; i < batchCount; ++i) {
         for (int j = 0; j < batchSize; ++j) {
-            id = i * batchSize + j;
+
             RankCandidatesItem &item = candidates_[id];
-            memcpy((char *) (batchFeatures + j * featureLen),
-                   (char *) item.feature.data(),
-                   featureLen * sizeof(float));
+            if (item.feature_.size() != feature_len_) {
+                LOG(ERROR) << "The input feature length not equals to initial feature length " << item.feature_.size()
+                    << ":" << feature_len_ << endl;
+            }
+            memcpy((char *) (batchFeatures + j * feature_len_),
+                   (char *) item.feature_.data(),
+                   feature_len_ * sizeof(float));
             batchIds[j] = id;
+            ++id;
         }
         face_ranker_->AddItems(batchFeatures, batchIds, batchSize);
     }
 
 
-    LOG(INFO) << "CDATABASE: " << face_ranker_->GetItemCount() << endl;
-    int remains = candidates_.size() - id - 1;
+    LOG(INFO) << "CDATABASE: " << face_ranker_->GetTotalItems() << endl;
+    int remains = candidates_.size() - id;
     int remains2 = candidates_.size() % batchSize;
 
+    LOG(INFO) << "Some candidates remains " << remains << "," << remains2 << endl;
+
     if (remains > 0) {
-        LOG(INFO) << "Some candidates remains " << remains << "," << remains2 << endl;
+
         for (int i = 0; i < remains; ++i) {
-            ++id;
             RankCandidatesItem &item = candidates_[id];
-            memcpy((char *) batchFeatures + i * featureLen,
-                   (char *) item.feature.data(),
-                   featureLen * sizeof(float));
+            memcpy((char *) batchFeatures + i * feature_len_,
+                   (char *) item.feature_.data(),
+                   feature_len_ * sizeof(float));
             batchIds[i] = id;
+            ++id;
         }
         face_ranker_->AddItems(batchFeatures, batchIds, remains);
     }
+
+    LOG(ERROR) << "Repo size in total: " << face_ranker_->GetTotalItems() << endl;
 
 
     delete[] batchFeatures;
@@ -122,12 +148,18 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     }
                     RankCandidatesItem item;
 
-                    item.name = tokens[1];
-                    item.image_uri = tokens[2];
-                    Base64::Decode(tokens[3], item.feature);
+                    item.name_ = tokens[1];
+                    item.image_uri_ = image_root_path_ + "/" + tokens[2];
+                    Base64::Decode(tokens[3], item.feature_);
+                    if (item.feature_.size() != feature_len_) {
+                        LOG(ERROR) << "Feature length load from repo file not equals to initial feature size "
+                            << item.feature_.size() << ":" << feature_len_ << endl;
+                        LOG(ERROR) << "The invalid feature info: " << item.name_ << " " << item.image_uri_ << endl;
+                    }
+
                     vector<uchar> imageContent;
-                    UriReader::Read(item.image_uri, imageContent, 5);
-                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image, cv::Size(64, 64));
+                    UriReader::Read(item.image_uri_, imageContent, 5);
+                    cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image_, cv::Size(64, 64));
                     candidates_.push_back(item);
                 }
 
@@ -139,6 +171,32 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
     } else {
         cout << "Invalid folder path: " << folderPath << endl;
     }
+}
+
+int RankCandidatesRepo::AddFeatures(const FeaturesFrame &frame) {
+
+    if (frame.features_.size() == 0) {
+        LOG(ERROR) << "The features frame is empty: " << frame.id() << endl;
+        return -1;
+    }
+
+    if (frame.features_.size() + face_ranker_->GetTotalItems() >= capacity_) {
+        LOG(ERROR) << "Exceeds the ranker repo capacity, current size: " << face_ranker_->GetTotalItems()
+            << " and new features size: " << frame.features_.size() << endl;
+        return -2;
+    }
+
+    int fromIndex = candidates_.size();
+    for (auto f : frame.features_) {
+        candidates_.push_back(f);
+        cout << f.image_uri_ << endl;
+    }
+    cout << "add features to repo:" << frame.features_.size() << endl;
+    cout << "The repo size: " << candidates_.size() << endl;
+
+    cout << "Before Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
+    addDataToFaceRankDatabase(1024, frame.features_.size(), fromIndex);
+    cout << "After Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
 }
 
 }

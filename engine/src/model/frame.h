@@ -321,6 +321,18 @@ class FaceRankFrame: public Frame {
     FaceRankFeature datum_;
 };
 
+class FeaturesFrame: public Frame {
+ public:
+    FeaturesFrame(Identification id) : Frame(id) {
+
+    }
+    void AddFeature(const FaceRankFeature &feature) {
+        features_.push_back(feature);
+    }
+
+    vector<FaceRankFeature> features_;
+};
+
 }
 
 #endif /* FRAME_H_ */

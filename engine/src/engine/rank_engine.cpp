@@ -55,7 +55,13 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 
         face_ranker_ = new FaceRankProcessor();
         RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
-        repo.Init("./repo");
+        unsigned int capacity = (int) config.Value(ADVANCED_RANKER_MAXIMUM);
+        capacity = capacity <= 0 ? 1 : capacity;
+        unsigned int featureLen = (int) config.Value(ADVANCED_RANKER_FEATURE_LENGTH);
+        featureLen = featureLen <= 0 ? 256 : featureLen;
+        string repoPath = (string) config.Value(ADVANCED_RANKER_REPO_PATH);
+        string imageRootPath = (string) config.Value(ADVANCED_RANKER_IMAGE_ROOT_PATH);
+        repo.Init(repoPath, imageRootPath, capacity, featureLen);
 
     }
 }
@@ -80,6 +86,11 @@ void SimpleRankEngine::RankFace(FaceRankFrame *f) {
     if (enable_ranker_face_) {
         face_ranker_->Update(f);
     }
+}
+
+void SimpleRankEngine::AddFeatures(FeaturesFrame *f) {
+    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+    repo.AddFeatures(*f);
 }
 
 }
