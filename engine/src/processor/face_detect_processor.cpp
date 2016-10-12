@@ -31,6 +31,7 @@ FaceDetectProcessor::FaceDetectProcessor(
     vector<float> mean = {128, 128, 128};
     string clsname = "conv_face_16_cls";
     string regname = "conv_face_16_reg";
+
     detector_ = new DGFace::RpnDetector(config.img_scale_max,
                                         config.img_scale_min,
                                         config.deploy_file, config.model_file, clsname,
@@ -43,7 +44,6 @@ FaceDetectProcessor::FaceDetectProcessor(
   case SsdMethod: {
 
     vector<float> mean = {104, 117, 123};
-
     detector_ = new DGFace::SSDDetector(config.img_scale_max,
                                         config.img_scale_min,
                                         config.deploy_file, config.model_file, mean, config.confidence, config.scale, config.use_gpu, config.gpu_id);

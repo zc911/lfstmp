@@ -108,23 +108,29 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
     }
     vector<Object *>::iterator itr = to_processed_.begin();
     for (vector<DGFace::AlignResult>::iterator aitr = align_results.begin(); aitr != align_results.end();) {
-        bool isValid = true;
-        for (auto landmark : aitr->landmarks) {
-            if (!landmark.inside(Rect(0, 0, face_size_length_, face_size_length_))) {
-                isValid = false;
-                LOG(ERROR) << "landmarks is errors";
-                break;
+        if (align_method_==DlibAlign) {
+            imgs.push_back(aitr->face_image);
+        }else{
+            bool isValid = true;
+            for (auto landmark : aitr->landmarks) {
+                if (!landmark.inside(Rect(0, 0, face_size_length_, face_size_length_))) {
+                    isValid = false;
+                    LOG(ERROR) << "landmarks is errors";
+                    break;
+                }
             }
-        }
-        if ((aitr->landmarks.size() == 0) || (aitr->face_image.rows == 0) || (aitr->face_image.cols == 0) || (!isValid)) {
-            itr = to_processed_.erase(itr);
-            aitr = align_results.erase(aitr);
+            if ((aitr->landmarks.size() == 0) || (aitr->face_image.rows == 0) || (aitr->face_image.cols == 0) || (!isValid)) {
+                itr = to_processed_.erase(itr);
+                aitr = align_results.erase(aitr);
 
-            continue;
-        }
-        imgs.push_back(aitr->face_image);
-        itr++;
-        aitr++;
+                continue;
+            }
+            imgs.push_back(aitr->face_image);
+
+  
+        } 
+                    itr++;
+            aitr++;   
     }
 }
 static void draw_landmarks(Mat& img, const DGFace::AlignResult &align_result) {
@@ -191,6 +197,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
         Rect rect = face->detection().box;
+        rectangle(img, rect, Scalar(255, 0, 0));
+        imwrite("rect.jpg", img);
         switch (align_method_) {
         case DlibAlign:
             alignment_->align(img, rect, align_result, true);
@@ -199,8 +207,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             alignment_->align(img, rect, align_result, false);
             break;
         }
-//        rectangle(img, rect, Scalar(255, 0, 0));
-//        imwrite("rect.jpg", img);
+ //       rectangle(img, rect, Scalar(255, 0, 0));
+ //       imwrite("rect.jpg", img);
 //        Mat img_draw = align_result.face_image.clone();
 //        draw_landmarks(img_draw, align_result);
 //        string draw_name = "test_draw"+to_string(performance_)+".jpg";
