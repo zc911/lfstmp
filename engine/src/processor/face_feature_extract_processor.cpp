@@ -178,7 +178,7 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
                                                            vector<FaceRankFeature> &features) {
     for (auto result : recog_results) {
         FaceRankFeature feature;
-        feature.descriptor_ = (result.face_feat);
+        feature.feature_ = (result.face_feat);
         features.push_back(feature);
     }
 }

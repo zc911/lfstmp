@@ -23,7 +23,7 @@ const int CAR_FEATURE_ORB_COLS_MAX = 32;
 const int CAR_FEATURE_DES_MAX_SIZE = CAR_FEATURE_ORB_ROWS_MAX * CAR_FEATURE_ORB_COLS_MAX;
 
 class Score {
-public:
+ public:
     int index_;
     float score_;
 
@@ -51,13 +51,13 @@ public:
 };
 
 class RankFeature {
-public:
+ public:
     virtual string Serialize() const {
     };
     virtual bool Deserialize(string featureStr) {
     };
 
-protected:
+ protected:
     template<typename T>
     static void ConvertToByte(T value, vector<uchar> &data) {
         uchar *ptr = (uchar *) (&value);
@@ -74,7 +74,7 @@ protected:
 };
 
 class CarRankFeature final: public RankFeature {
-public:
+ public:
     ushort width_;
     ushort height_;
     cv::Mat descriptor_;
@@ -85,8 +85,12 @@ public:
 };
 
 class FaceRankFeature final: public RankFeature {
-public:
-    std::vector<float> descriptor_;
+ public:
+    int id_;
+    std::vector<float> feature_;
+    std::string name_;
+    std::string image_uri_;
+    cv::Mat image_;
 
     virtual string Serialize() const override;
     virtual bool Deserialize(string featureStr) override;

@@ -45,6 +45,7 @@ public:
 
     void RankCar(CarRankFrame *frame);
     void RankFace(FaceRankFrame *frame);
+    void AddFeatures(FeaturesFrame *frame);
 
 private:
     Identification id_;

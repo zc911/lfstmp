@@ -120,7 +120,11 @@
       "AlignMethod": 0
     },
     "Ranker": {
-      "Maximum": 100000
+      "Maximum": 1000000,
+      "FeatureLen": 256,
+      "RepoPath": "./Repo",
+      // must be absolutely path if use file://
+      "ImageRootPath": "file:///home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/FaceImage"
     },
     "ParseImageTimeout": 60
   },

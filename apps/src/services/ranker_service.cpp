@@ -50,8 +50,51 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 
 
 MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response) {
-    MatrixError err;
+
     cout << "Get add features request: " << request->features().size() << endl;
+
+    MatrixError err;
+    if(request->features().size() == 0){
+        err.set_code(-1);
+        err.set_message("Add features request is empty");
+        return err;
+    }
+
+    response->mutable_context()->set_sessionid(request->context().sessionid());
+    FeaturesFrame frame(0);
+
+
+    for (auto f:request->features()) {
+
+        FaceRankFeature feature;
+        feature.Deserialize(f.feature().feature());
+        feature.id_ = f.info().id();
+        feature.name_ = f.info().name();
+        feature.image_uri_ = f.info().uri();
+        if(f.info().data().size() != 0){
+            vector<uchar> imageContent;
+            Base64::Decode<uchar>(f.info().data(), imageContent);
+            ImageService::DecodeDataToMat(imageContent, feature.image_);
+        }
+
+        frame.AddFeature(feature);
+    }
+
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&frame, &data]() -> void {
+        return (bind(&SimpleRankEngine::AddFeatures, (SimpleRankEngine *) data.apps,
+                     placeholders::_1))(&frame);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+    data.Wait();
+
     return err;
 }
 
@@ -209,7 +252,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
 
     FaceRankFeature feature;
-    Base64::Decode(request->feature().feature(), feature.descriptor_);
+    Base64::Decode(request->feature().feature(), feature.feature_);
 
     FaceRankFrame f(0, feature);
     Operation op;
@@ -236,11 +279,12 @@ MatrixError RankerAppsService::getFaceScoredVector(
     for (auto r : f.result_) {
         RankItem *result = response->mutable_candidates()->Add();
         const RankCandidatesItem &item = repo.Get(r.index_);
-        result->set_uri(item.image_uri);
+        result->set_uri(item.image_uri_);
         result->set_id(r.index_);
         result->set_score(1.0);
-        result->set_data(encode2JPEGInBase64(item.image));
-        result->set_name(item.name);
+        if((item.image_.cols & item.image_.rows) != 0)
+            result->set_data(encode2JPEGInBase64(item.image_));
+        result->set_name(item.name_);
     }
 
 
