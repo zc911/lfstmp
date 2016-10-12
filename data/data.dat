@@ -87,7 +87,9 @@
       "LayerName":"eltwise6",
       "Mean":[128,128,128],
       "PixelScale":256,
-      "ModelConfig":"0.config"
+      "ModelConfig":"face_recognit",
+      "AlignConfig":"warp.cfg",
+      "AlignPath":"multi_view$"
     },
     "Plate": {
       "ModelPath": "data/",
