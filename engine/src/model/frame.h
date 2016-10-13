@@ -99,7 +99,17 @@ class Frame {
     vector<Object *> &objects() {
         return objects_;
     }
-
+    void DeleteInvalidObjects(){
+        for (vector<Object *>::iterator itr = objects_.begin();itr != objects_.end();) {
+            if ((*itr)->type() == OBJECT_FACE) {
+                if(!((Face *)(*itr))->IsValid()){
+                    itr=objects_.erase(itr);
+                    continue;
+                }
+            }
+            itr++;
+        }
+    }
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
              itr != objects_.end(); ++itr) {

@@ -389,12 +389,12 @@ class Face: public Object {
 
  public:
     Face()
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE),is_valid_(true) {
 
     }
 
     Face(Identification id, Detection detection, Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE),is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_ = detection;
@@ -402,7 +402,7 @@ class Face: public Object {
 
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE),is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_.box = Box(x, y, width, height);
@@ -423,10 +423,16 @@ class Face: public Object {
     void set_image(const cv::Mat &image) {
         image_ = image;
     }
-
+    bool IsValid(){
+        return is_valid_;
+    }
+    void set_valid(bool flag){
+        is_valid_=flag;
+    }
  private:
     cv::Mat image_;
     FaceRankFeature feature_;
+    bool is_valid_;
 };
 
 
