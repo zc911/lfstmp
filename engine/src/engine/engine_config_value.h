@@ -112,7 +112,8 @@ static const string ADVANCED_FACE_EXTRACT_METHOD =
     "Advanced/FaceExtract/Method";
 static const string ADVANCED_FACE_ALIGN_METHOD =
     "Advanced/FaceExtract/AlignMethod";
-
+static const string ADVANCED_FACE_ALIGN_THRESHOLD =
+    "Advanced/FaceExtract/AlignThreshold";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";

@@ -88,6 +88,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     faConfig.align_cfg=model_path+align_config;
     faConfig.method = (int)cconfig.Value(ADVANCED_FACE_ALIGN_METHOD);
     faConfig.gpu_id=gpu_id;
+    faConfig.threshold=(float)cconfig.Value(ADVANCED_FACE_ALIGN_THRESHOLD);
     faConfig.align_path = model_path+align_path;
     if (config.method == FaceFeatureExtractProcessor::CDNNRecog) {
         faConfig.align_model = model_path;

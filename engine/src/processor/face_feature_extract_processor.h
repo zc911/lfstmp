@@ -36,6 +36,7 @@ typedef struct {
     int method;
     string detect_type;
     int gpu_id;
+    float threshold=0;
 
 } FaceAlignmentConfig;
 typedef struct {
@@ -73,6 +74,7 @@ protected:
     int AlignResult2MatrixAlign( vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
     int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features);
     void adjust_box(string detect_type, Rect &box);
+    void facefilter(FrameBatch *frameBatch);
 private:
     DGFace::Recognition *recognition_ = NULL;
     DGFace::Alignment *alignment_ = NULL;
@@ -80,6 +82,7 @@ private:
     string pre_process_;
     int align_method_;
     int face_size_length_;
+    float align_threshold_;
 };
 
 } /* namespace dg */
