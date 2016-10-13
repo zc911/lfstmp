@@ -251,7 +251,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
         return err;
     }
 
-    int maxCandidates = 0;
+    int maxCandidates = 10;
     auto itr = request->context().params().find("MaxCandidates");
     if(itr != request->context().params().end()){
         string mcs = itr->second;
@@ -259,7 +259,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
         maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
     }
 
-    bool needImageData = false;
+    bool needImageData = true;
     itr = request->context().params().find("ImageData");
     if(itr != request->context().params().end()){
         string needImageDataString = itr->second;
@@ -270,10 +270,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
             needImageData = true;
         }
     }
-
-
-
-    cout << "maxCandidates" << maxCandidates << endl;
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.feature_);
