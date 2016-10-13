@@ -317,6 +317,7 @@ class FaceRankFrame: public Frame {
         datum_ = feature;
     }
 
+    unsigned int max_candidates_;
     vector<Score> result_;
     FaceRankFeature datum_;
 };

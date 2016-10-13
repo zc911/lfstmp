@@ -493,11 +493,16 @@ class RankItem : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // optional int32 Id = 1;
+  // optional string Id = 1;
   void clear_id();
   static const int kIdFieldNumber = 1;
-  ::google::protobuf::int32 id() const;
-  void set_id(::google::protobuf::int32 value);
+  const ::std::string& id() const;
+  void set_id(const ::std::string& value);
+  void set_id(const char* value);
+  void set_id(const char* value, size_t size);
+  ::std::string* mutable_id();
+  ::std::string* release_id();
+  void set_allocated_id(::std::string* id);
 
   // optional float Score = 2;
   void clear_score();
@@ -543,11 +548,11 @@ class RankItem : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::int32 id_;
-  float score_;
+  ::google::protobuf::internal::ArenaStringPtr id_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr uri_;
   ::google::protobuf::internal::ArenaStringPtr data_;
+  float score_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_ranker_2eproto();
   friend void protobuf_AssignDesc_ranker_2eproto();
@@ -1881,18 +1886,48 @@ inline void RankFeatureRequest::set_maxcandidates(::google::protobuf::int32 valu
 
 // RankItem
 
-// optional int32 Id = 1;
+// optional string Id = 1;
 inline void RankItem::clear_id() {
-  id_ = 0;
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::google::protobuf::int32 RankItem::id() const {
+inline const ::std::string& RankItem::id() const {
   // @@protoc_insertion_point(field_get:dg.model.RankItem.Id)
-  return id_;
+  return id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void RankItem::set_id(::google::protobuf::int32 value) {
+inline void RankItem::set_id(const ::std::string& value) {
   
-  id_ = value;
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.RankItem.Id)
+}
+inline void RankItem::set_id(const char* value) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankItem.Id)
+}
+inline void RankItem::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankItem.Id)
+}
+inline ::std::string* RankItem::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankItem.Id)
+  return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RankItem::release_id() {
+  // @@protoc_insertion_point(field_release:dg.model.RankItem.Id)
+  
+  return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RankItem::set_allocated_id(::std::string* id) {
+  if (id != NULL) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankItem.Id)
 }
 
 // optional float Score = 2;

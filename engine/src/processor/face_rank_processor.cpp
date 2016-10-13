@@ -30,19 +30,16 @@ bool FaceRankProcessor::process(Frame *frame) {
 
     vector<float> &feature = fframe->datum_.feature_;
 
-    cout << "feature size: " << feature.size() << endl;
-
     int candidatesNum = 10;
     vector<CDatabase::DIST> results(candidatesNum);
 
 
     ranker.NearestN(feature.data(), candidatesNum, results.data());
+    fframe->result_.clear();
     for (auto r: results) {
         Score score;
         score.index_ = r.id;
-        vector<float> abc(256);
-        ranker.RetrieveItemById(r.id, abc.data());
-        cout << r.id << ", " << r.dist << ", " << abc[0] << abc[1] << abc[2] << endl;
+        score.score_ = r.dist;
         fframe->result_.push_back(score);
     }
 

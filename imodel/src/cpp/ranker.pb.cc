@@ -394,7 +394,7 @@ void protobuf_AddDesc_ranker_2eproto() {
     "equest\022-\n\007Context\030\001 \001(\0132\034.dg.model.RankR"
     "equestContext\022(\n\007Feature\030\002 \001(\0132\027.dg.mode"
     "l.FeatureVector\022\025\n\rMaxCandidates\030\003 \001(\005\"N"
-    "\n\010RankItem\022\n\n\002Id\030\001 \001(\005\022\r\n\005Score\030\002 \001(\002\022\014\n"
+    "\n\010RankItem\022\n\n\002Id\030\001 \001(\t\022\r\n\005Score\030\002 \001(\002\022\014\n"
     "\004Name\030\003 \001(\t\022\013\n\003Uri\030\004 \001(\t\022\014\n\004Data\030\005 \001(\t\"m"
     "\n\023RankFeatureResponse\022.\n\007Context\030\001 \001(\0132\035"
     ".dg.model.RankResponseContext\022&\n\nCandida"
@@ -2277,7 +2277,7 @@ void RankItem::SharedCtor() {
     _is_default_instance_ = false;
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  id_ = 0;
+  id_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   score_ = 0;
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2290,6 +2290,7 @@ RankItem::~RankItem() {
 }
 
 void RankItem::SharedDtor() {
+  id_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -2324,30 +2325,11 @@ RankItem* RankItem::New(::google::protobuf::Arena* arena) const {
 
 void RankItem::Clear() {
 // @@protoc_insertion_point(message_clear_start:dg.model.RankItem)
-#if defined(__clang__)
-#define ZR_HELPER_(f) \
-  _Pragma("clang diagnostic push") \
-  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
-  __builtin_offsetof(RankItem, f) \
-  _Pragma("clang diagnostic pop")
-#else
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<RankItem*>(16)->f)
-#endif
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(id_, score_);
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  score_ = 0;
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-
-#undef ZR_HELPER_
-#undef ZR_
-
 }
 
 bool RankItem::MergePartialFromCodedStream(
@@ -2360,13 +2342,15 @@ bool RankItem::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 Id = 1;
+      // optional string Id = 1;
       case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &id_)));
-
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_id()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->id().data(), this->id().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RankItem.Id"));
         } else {
           goto handle_unusual;
         }
@@ -2464,9 +2448,14 @@ failure:
 void RankItem::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:dg.model.RankItem)
-  // optional int32 Id = 1;
-  if (this->id() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
+  // optional string Id = 1;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), this->id().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankItem.Id");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->id(), output);
   }
 
   // optional float Score = 2;
@@ -2510,9 +2499,15 @@ void RankItem::SerializeWithCachedSizes(
 ::google::protobuf::uint8* RankItem::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:dg.model.RankItem)
-  // optional int32 Id = 1;
-  if (this->id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
+  // optional string Id = 1;
+  if (this->id().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->id().data(), this->id().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RankItem.Id");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        1, this->id(), target);
   }
 
   // optional float Score = 2;
@@ -2561,10 +2556,10 @@ int RankItem::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:dg.model.RankItem)
   int total_size = 0;
 
-  // optional int32 Id = 1;
-  if (this->id() != 0) {
+  // optional string Id = 1;
+  if (this->id().size() > 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
+      ::google::protobuf::internal::WireFormatLite::StringSize(
         this->id());
   }
 
@@ -2618,8 +2613,9 @@ void RankItem::MergeFrom(const ::google::protobuf::Message& from) {
 void RankItem::MergeFrom(const RankItem& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankItem)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  if (from.id() != 0) {
-    set_id(from.id());
+  if (from.id().size() > 0) {
+
+    id_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.id_);
   }
   if (from.score() != 0) {
     set_score(from.score());
@@ -2662,7 +2658,7 @@ void RankItem::Swap(RankItem* other) {
   InternalSwap(other);
 }
 void RankItem::InternalSwap(RankItem* other) {
-  std::swap(id_, other->id_);
+  id_.Swap(&other->id_);
   std::swap(score_, other->score_);
   name_.Swap(&other->name_);
   uri_.Swap(&other->uri_);
@@ -2682,18 +2678,48 @@ void RankItem::InternalSwap(RankItem* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // RankItem
 
-// optional int32 Id = 1;
+// optional string Id = 1;
 void RankItem::clear_id() {
-  id_ = 0;
+  id_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- ::google::protobuf::int32 RankItem::id() const {
+ const ::std::string& RankItem::id() const {
   // @@protoc_insertion_point(field_get:dg.model.RankItem.Id)
-  return id_;
+  return id_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
- void RankItem::set_id(::google::protobuf::int32 value) {
+ void RankItem::set_id(const ::std::string& value) {
   
-  id_ = value;
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:dg.model.RankItem.Id)
+}
+ void RankItem::set_id(const char* value) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RankItem.Id)
+}
+ void RankItem::set_id(const char* value, size_t size) {
+  
+  id_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankItem.Id)
+}
+ ::std::string* RankItem::mutable_id() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RankItem.Id)
+  return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RankItem::release_id() {
+  // @@protoc_insertion_point(field_release:dg.model.RankItem.Id)
+  
+  return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RankItem::set_allocated_id(::std::string* id) {
+  if (id != NULL) {
+    
+  } else {
+    
+  }
+  id_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), id);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankItem.Id)
 }
 
 // optional float Score = 2;
