@@ -86,7 +86,7 @@ class CarRankFeature final: public RankFeature {
 
 class FaceRankFeature final: public RankFeature {
  public:
-    int id_;
+    string id_;
     std::vector<float> feature_;
     std::string name_;
     std::string image_uri_;

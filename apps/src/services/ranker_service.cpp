@@ -12,6 +12,7 @@
 #include "codec/base64.h"
 #include "image_service.h"
 #include "string_util.h"
+#include "io/uri_reader.h"
 #include "../../../engine/src/io/rank_candidates_repo.h"
 
 
@@ -54,7 +55,7 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
     cout << "Get add features request: " << request->features().size() << endl;
 
     MatrixError err;
-    if(request->features().size() == 0){
+    if (request->features().size() == 0) {
         err.set_code(-1);
         err.set_message("Add features request is empty");
         return err;
@@ -71,7 +72,7 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
         feature.id_ = f.info().id();
         feature.name_ = f.info().name();
         feature.image_uri_ = f.info().uri();
-        if(f.info().data().size() != 0){
+        if (f.info().data().size() != 0) {
             vector<uchar> imageContent;
             Base64::Decode<uchar>(f.info().data(), imageContent);
             ImageService::DecodeDataToMat(imageContent, feature.image_);
@@ -250,6 +251,15 @@ MatrixError RankerAppsService::getFaceScoredVector(
         return err;
     }
 
+    auto itr = request->context().params().find("MaxCandidates");
+    cout << itr->second << endl;
+
+//    ::google::protobuf::Map< ::std::string, ::std::string >::const_iterator itra = request->context().params().find("MaxCandidates");
+//    if(itra != request->context().params().end()){
+//        LOG(ERROR) << "maxCandidateNum: " << *itr << endl;
+//    }
+
+
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.feature_);
@@ -278,12 +288,29 @@ MatrixError RankerAppsService::getFaceScoredVector(
     RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
     for (auto r : f.result_) {
         RankItem *result = response->mutable_candidates()->Add();
+
+
         const RankCandidatesItem &item = repo.Get(r.index_);
+
+        VLOG(VLOG_RUNTIME_DEBUG) << r.index_ << " " << r.score_ << "" <<  item.id_ << " " <<item.image_uri_ << endl;
+
         result->set_uri(item.image_uri_);
-        result->set_id(r.index_);
-        result->set_score(1.0);
-        if((item.image_.cols & item.image_.rows) != 0)
+        result->set_id(item.id_);
+        result->set_score(r.score_);
+        vector<uchar> imageContent;
+
+        if ((item.image_.cols & item.image_.rows) != 0) {
             result->set_data(encode2JPEGInBase64(item.image_));
+        } else {
+            try {
+                if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
+                    result->set_data(Base64::Encode<uchar>(imageContent));
+                }
+            } catch (exception &e) {
+                LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;
+            }
+        }
+
         result->set_name(item.name_);
     }
 

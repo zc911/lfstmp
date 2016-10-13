@@ -63,6 +63,7 @@ class RankCandidatesRepo {
     RankCandidatesRepo();
     void loadFromFile(const string &folderPath);
     void addDataToFaceRankDatabase(unsigned int batchSize, unsigned int totalSize, unsigned int fromIndex = 0);
+    bool checkData(unsigned int index);
 
     CDatabase *face_ranker_;
     vector<RankCandidatesItem> candidates_;
