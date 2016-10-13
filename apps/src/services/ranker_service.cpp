@@ -251,20 +251,35 @@ MatrixError RankerAppsService::getFaceScoredVector(
         return err;
     }
 
+    int maxCandidates = 0;
     auto itr = request->context().params().find("MaxCandidates");
-    cout << itr->second << endl;
+    if(itr != request->context().params().end()){
+        string mcs = itr->second;
+        maxCandidates = atoi(mcs.c_str());
+        maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
+    }
 
-//    ::google::protobuf::Map< ::std::string, ::std::string >::const_iterator itra = request->context().params().find("MaxCandidates");
-//    if(itra != request->context().params().end()){
-//        LOG(ERROR) << "maxCandidateNum: " << *itr << endl;
-//    }
+    bool needImageData = false;
+    itr = request->context().params().find("ImageData");
+    if(itr != request->context().params().end()){
+        string needImageDataString = itr->second;
+        if(needImageDataString == "false"){
+            needImageData = false;
+        }
+        if(needImageDataString == "true"){
+            needImageData = true;
+        }
+    }
 
 
+
+    cout << "maxCandidates" << maxCandidates << endl;
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.feature_);
 
     FaceRankFrame f(0, feature);
+    f.max_candidates_ = maxCandidates;
     Operation op;
 
     op.Set(OPERATION_FACE_FEATURE_VECTOR);
@@ -299,17 +314,22 @@ MatrixError RankerAppsService::getFaceScoredVector(
         result->set_score(r.score_);
         vector<uchar> imageContent;
 
-        if ((item.image_.cols & item.image_.rows) != 0) {
-            result->set_data(encode2JPEGInBase64(item.image_));
-        } else {
-            try {
-                if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
-                    result->set_data(Base64::Encode<uchar>(imageContent));
+        if(needImageData){
+
+            if ((item.image_.cols & item.image_.rows) != 0) {
+                result->set_data(encode2JPEGInBase64(item.image_));
+            } else {
+                try {
+                    if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
+                        result->set_data(Base64::Encode<uchar>(imageContent));
+                    }
+                } catch (exception &e) {
+                    LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;
                 }
-            } catch (exception &e) {
-                LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;
             }
         }
+
+
 
         result->set_name(item.name_);
     }

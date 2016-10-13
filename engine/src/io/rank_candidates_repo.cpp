@@ -194,7 +194,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     RankCandidatesItem item;
                     item.id_ = tokens[0];
                     item.name_ = tokens[1];
-                    item.image_uri_ = image_root_path_ + "/" + tokens[2];
+                    item.image_uri_ = image_root_path_ + tokens[2];
                     Base64::Decode(tokens[3], item.feature_);
                     if (item.feature_.size() != feature_len_) {
                         LOG(ERROR) << "Feature length load from repo file not equals to initial feature size "
@@ -209,6 +209,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                 }
 
             }
+            file.close();
         }
 
         LOG(INFO) << "Candidates repo size: " << candidates_.size() << endl;

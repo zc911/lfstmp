@@ -30,7 +30,7 @@ bool FaceRankProcessor::process(Frame *frame) {
 
     vector<float> &feature = fframe->datum_.feature_;
 
-    int candidatesNum = 10;
+    int candidatesNum = fframe->max_candidates_;
     vector<CDatabase::DIST> results(candidatesNum);
 
 
