@@ -244,6 +244,10 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
+        //for(int i=0;i<result.face_feat.size();i++){
+        //    cout<<result.face_feat[i]<<" ";
+        //}
+        //cout<<endl;
         features.push_back(feature);
     }
 }
