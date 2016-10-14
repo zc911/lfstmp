@@ -58,15 +58,15 @@ typedef struct Detection {
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-            << det.box.y << "," << det.box.width << "," << det.box.height
-            << "] Conf: " << det.confidence;
+               << det.box.y << "," << det.box.width << "," << det.box.height
+               << "] Conf: " << det.confidence;
     }
 
 } Detection;
 
 
 class Object {
- public:
+public:
     Object(ObjectType type)
         : id_(0),
           type_(type),
@@ -144,7 +144,7 @@ class Object {
         type_ = type;
     }
 
- protected:
+protected:
     Identification id_;
     Confidence confidence_;
     ObjectType type_;
@@ -177,7 +177,7 @@ public:
 };
 
 class Marker: public Object {
- public:
+public:
     Marker(ObjectType type)
         : Object(type),
           class_id_(-1) {
@@ -193,7 +193,7 @@ class Marker: public Object {
         class_id_ = id;
     }
 
- private:
+private:
     Identification class_id_;
 
 };
@@ -259,7 +259,7 @@ private:
     vector<float> params_;
 };
 class Pedestrian: public Object {
- public:
+public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -295,14 +295,14 @@ class Pedestrian: public Object {
         threshold_ = threshold;
     }
 
- private:
+private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
     std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {
- public:
+public:
 
     typedef struct {
         Identification class_id = -1;
@@ -374,7 +374,7 @@ class Vehicle: public Object {
     void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
- private:
+private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -387,14 +387,14 @@ class Vehicle: public Object {
 
 class Face: public Object {
 
- public:
+public:
     Face()
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
 
     }
 
     Face(Identification id, Detection detection, Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_ = detection;
@@ -402,7 +402,7 @@ class Face: public Object {
 
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_.box = Box(x, y, width, height);
@@ -423,10 +423,16 @@ class Face: public Object {
     void set_image(const cv::Mat &image) {
         image_ = image;
     }
-
- private:
+    bool IsValid() {
+        return is_valid_;
+    }
+    void set_valid(bool flag) {
+        is_valid_ = flag;
+    }
+private:
     cv::Mat image_;
     FaceRankFeature feature_;
+    bool is_valid_;
 };
 
 

@@ -43,7 +43,7 @@ enum FrameStatusValue {
 /// which is the data will be computed and processed. The processed data
 /// will also be found from this class.
 class Frame {
- public:
+public:
 
     Frame(const Identification id)
         : id_(id),
@@ -99,10 +99,20 @@ class Frame {
     vector<Object *> &objects() {
         return objects_;
     }
-
+    void DeleteInvalidObjects() {
+        for (vector<Object *>::iterator itr = objects_.begin(); itr != objects_.end();) {
+            if ((*itr)->type() == OBJECT_FACE) {
+                if (!((Face *)(*itr))->IsValid()) {
+                    itr = objects_.erase(itr);
+                    continue;
+                }
+            }
+            itr++;
+        }
+    }
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *old_obj = *itr;
 
             if (old_obj->id() == obj->id()) {
@@ -117,7 +127,7 @@ class Frame {
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
-             itr != objects_.end(); ++itr) {
+                itr != objects_.end(); ++itr) {
             Object *obj = *itr;
             if (obj->id() == id) {
                 return *itr;
@@ -197,7 +207,7 @@ class Frame {
         rois_.clear();
     }
 
- protected:
+protected:
     Identification id_;
     Timestamp timestamp_;
     volatile FrameStatus status_;
@@ -209,16 +219,16 @@ class Frame {
 };
 
 class RenderableFrame: public Frame {
- public:
+public:
     RenderableFrame();
     ~RenderableFrame();
- private:
+private:
     cv::Mat render_data_;
 };
 
 // just derive the base class
 class FrameBatch {
- public:
+public:
     FrameBatch(const Identification id)
         : id_(id), delegate_(true) {
 
@@ -281,14 +291,14 @@ class FrameBatch {
         return id_;
     }
 
- private:
+private:
     Identification id_;
     vector<Frame *> frames_;
     bool delegate_;
 };
 
 class CarRankFrame: public Frame {
- public:
+public:
     CarRankFrame(Identification id, const Mat &image,
                  const vector<Rect> &hotspots,
                  const vector<CarRankFeature> &candidates)
@@ -305,7 +315,7 @@ class CarRankFrame: public Frame {
 };
 
 class FaceRankFrame: public Frame {
- public:
+public:
     FaceRankFrame(Identification id, const FaceRankFeature &feature) : Frame(id) {
         datum_ = feature;
     }
