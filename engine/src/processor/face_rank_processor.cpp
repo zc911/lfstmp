@@ -10,6 +10,7 @@
 #include "processor_helper.h"
 #include "io/rank_candidates_repo.h"
 #include "alg/rank/database.h"
+//#include "codec/base64.h"
 
 namespace dg {
 
@@ -19,6 +20,13 @@ FaceRankProcessor::FaceRankProcessor() {
 
 FaceRankProcessor::~FaceRankProcessor() {
 }
+
+static float score_normalize(float euclid_dist) {
+    const float alpha = -0.04;
+    const float beta = 1;
+    return alpha * euclid_dist + beta;
+}
+
 
 bool FaceRankProcessor::process(Frame *frame) {
 
@@ -33,13 +41,37 @@ bool FaceRankProcessor::process(Frame *frame) {
     int candidatesNum = fframe->max_candidates_;
     vector<CDatabase::DIST> results(candidatesNum);
 
-
+    if(candidatesNum >= ranker.GetTotalItems()){
+        candidatesNum = ranker.GetTotalItems() - 1;
+        LOG(WARNING) << "Candidate number exceeds the ranker database size " << candidatesNum << ":" << ranker.GetTotalItems() << endl;
+        LOG(WARNING) << "We will use the top (size - 1) in default" << candidatesNum << endl;
+    }
+    if(candidatesNum <= 0){
+        LOG(ERROR) << "Candidates id less than 0 " << endl;
+        return false;
+    }
     ranker.NearestN(feature.data(), candidatesNum, results.data());
     fframe->result_.clear();
+
+//    cout << "input: " << endl;
+//    for(auto v:feature){
+//        cout << v << ",";
+//    }
+//    cout << endl;
     for (auto r: results) {
         Score score;
         score.index_ = r.id;
-        score.score_ = r.dist;
+        score.score_ = score_normalize(r.dist);
+//        score.score_ = r.dist;
+//        vector<float> a(128);
+//        ranker.RetrieveItemById(r.id, a.data());
+//        cout <<  r.id << " " << r.dist << " : " << endl;
+//        for(auto v:a){
+//            cout << v << ",";
+//        }
+//        cout << endl;
+
+//        score.score_ = score_normalize(r.dist);
         fframe->result_.push_back(score);
     }
 
