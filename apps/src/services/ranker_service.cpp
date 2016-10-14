@@ -52,7 +52,7 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 
 MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response) {
 
-    cout << "Get add features request: " << request->features().size() << endl;
+    LOG(INFO) << "Get add features request: " << request->features().size() << endl;
 
     MatrixError err;
     if (request->features().size() == 0) {
@@ -66,6 +66,12 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
 
 
     for (auto f:request->features()) {
+
+        if(f.feature().feature().size() == 0){
+            err.set_code(-1);
+            err.set_message("Feature vector is empty");
+            return err;
+        }
 
         FaceRankFeature feature;
         feature.Deserialize(f.feature().feature());
@@ -95,6 +101,117 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
 
     engine_pool->enqueue(&data);
     data.Wait();
+
+    return err;
+}
+
+
+MatrixError RankerAppsService::getFaceScoredVector(
+    vector<Score> &scores, const RankFeatureRequest *request,
+    RankFeatureResponse *response) {
+
+
+    response->mutable_context()->set_sessionid(request->context().sessionid());
+
+    MatrixError err;
+
+    if (request->feature().feature().size() == 0) {
+        LOG(ERROR) << "Compared feature vector is empty" << endl;
+        err.set_code(-1);
+        err.set_message("Compared feature vector is empty");
+        return err;
+    }
+
+    int maxCandidates = 10;
+    auto itr = request->context().params().find("MaxCandidates");
+    if(itr != request->context().params().end()){
+        string mcs = itr->second;
+        maxCandidates = atoi(mcs.c_str());
+        maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
+    }
+
+    bool needImageData = true;
+    itr = request->context().params().find("ImageData");
+    if(itr != request->context().params().end()){
+        string needImageDataString = itr->second;
+        if(needImageDataString == "false"){
+            needImageData = false;
+        }
+        if(needImageDataString == "true"){
+            needImageData = true;
+        }
+    }
+
+    FaceRankFeature feature;
+    Base64::Decode(request->feature().feature(), feature.feature_);
+
+    FaceRankFrame f(0, feature);
+    f.max_candidates_ = maxCandidates;
+    Operation op;
+
+    op.Set(OPERATION_FACE_FEATURE_VECTOR);
+
+    f.set_operation(op);
+    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
+    EngineData data;
+    data.func = [&f, &data]() -> void {
+        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
+                     placeholders::_1))(&f);
+    };
+
+    if (engine_pool == NULL) {
+        LOG(ERROR) << "Engine pool not initailized. " << endl;
+        return err;
+    }
+
+    engine_pool->enqueue(&data);
+    data.Wait();
+
+    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+    for (auto r : f.result_) {
+        RankItem *result = response->mutable_candidates()->Add();
+
+        const RankCandidatesItem &item = repo.Get(r.index_);
+
+        VLOG(VLOG_RUNTIME_DEBUG) << r.index_ << " " << r.score_ << "" <<  item.id_ << " " <<item.image_uri_ << endl;
+
+        result->set_uri(item.image_uri_);
+        result->set_id(item.id_);
+        result->set_score(r.score_);
+        vector<uchar> imageContent;
+
+        if(needImageData){
+
+            if ((item.image_.cols & item.image_.rows) != 0) {
+                result->set_data(encode2JPEGInBase64(item.image_));
+            } else {
+                try {
+                    if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
+                        result->set_data(Base64::Encode<uchar>(imageContent));
+                    }
+                } catch (exception &e) {
+                    LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;
+                }
+            }
+        }
+
+
+
+        result->set_name(item.name_);
+    }
+
+
+    return err;
+}
+
+MatrixError RankerAppsService::getRankedFaceVector(
+    const RankFeatureRequest *request,
+    RankFeatureResponse *response) {
+
+    MatrixError err;
+
+    vector<Score> scores;
+    err = getFaceScoredVector(scores, request, response);
 
     return err;
 }
@@ -235,116 +352,6 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
 //    return err;
 //}
 
-MatrixError RankerAppsService::getFaceScoredVector(
-    vector<Score> &scores, const RankFeatureRequest *request,
-    RankFeatureResponse *response) {
-
-
-    response->mutable_context()->set_sessionid(request->context().sessionid());
-
-    MatrixError err;
-
-    if (request->feature().feature().size() == 0) {
-        LOG(ERROR) << "Compared feature vector is empty" << endl;
-        err.set_code(-1);
-        err.set_message("Compared feature vector is empty");
-        return err;
-    }
-
-    int maxCandidates = 10;
-    auto itr = request->context().params().find("MaxCandidates");
-    if(itr != request->context().params().end()){
-        string mcs = itr->second;
-        maxCandidates = atoi(mcs.c_str());
-        maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
-    }
-
-    bool needImageData = true;
-    itr = request->context().params().find("ImageData");
-    if(itr != request->context().params().end()){
-        string needImageDataString = itr->second;
-        if(needImageDataString == "false"){
-            needImageData = false;
-        }
-        if(needImageDataString == "true"){
-            needImageData = true;
-        }
-    }
-
-    FaceRankFeature feature;
-    Base64::Decode(request->feature().feature(), feature.feature_);
-
-    FaceRankFrame f(0, feature);
-    f.max_candidates_ = maxCandidates;
-    Operation op;
-
-    op.Set(OPERATION_FACE_FEATURE_VECTOR);
-
-    f.set_operation(op);
-    MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
-    EngineData data;
-    data.func = [&f, &data]() -> void {
-        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
-                     placeholders::_1))(&f);
-    };
-
-    if (engine_pool == NULL) {
-        LOG(ERROR) << "Engine pool not initailized. " << endl;
-        return err;
-    }
-
-    engine_pool->enqueue(&data);
-    data.Wait();
-
-    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
-    for (auto r : f.result_) {
-        RankItem *result = response->mutable_candidates()->Add();
-
-
-        const RankCandidatesItem &item = repo.Get(r.index_);
-
-        VLOG(VLOG_RUNTIME_DEBUG) << r.index_ << " " << r.score_ << "" <<  item.id_ << " " <<item.image_uri_ << endl;
-
-        result->set_uri(item.image_uri_);
-        result->set_id(item.id_);
-        result->set_score(r.score_);
-        vector<uchar> imageContent;
-
-        if(needImageData){
-
-            if ((item.image_.cols & item.image_.rows) != 0) {
-                result->set_data(encode2JPEGInBase64(item.image_));
-            } else {
-                try {
-                    if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
-                        result->set_data(Base64::Encode<uchar>(imageContent));
-                    }
-                } catch (exception &e) {
-                    LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;
-                }
-            }
-        }
-
-
-
-        result->set_name(item.name_);
-    }
-
-
-    return err;
-}
-
-MatrixError RankerAppsService::getRankedFaceVector(
-    const RankFeatureRequest *request,
-    RankFeatureResponse *response) {
-
-    MatrixError err;
-
-    vector<Score> scores;
-    err = getFaceScoredVector(scores, request, response);
-
-    return err;
-}
 
 //void RankerAppsService::sortAndFillResponse(
 //    const FeatureRankingRequest *request, vector<Score> &scores,
