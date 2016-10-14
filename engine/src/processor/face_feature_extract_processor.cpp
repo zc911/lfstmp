@@ -65,7 +65,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
     }
     face_size_length_ = faConfig.face_size[0];
-    align_threshold_=faConfig.threshold;
+    align_threshold_ = faConfig.threshold;
     pre_process_ = config.pre_process;
 }
 void FaceFeatureExtractProcessor::adjust_box(string detect_type, Rect &adjust_box) {
@@ -109,12 +109,12 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
     }
     vector<Object *>::iterator itr = to_processed_.begin();
     for (vector<DGFace::AlignResult>::iterator aitr = align_results.begin(); aitr != align_results.end();) {
-        /*if(align_threshold_>0.5){
+        if (align_threshold_ > 0.5) {
             ((Face *)(*itr))->set_valid(false);
             itr = to_processed_.erase(itr);
             aitr = align_results.erase(aitr);
             continue;
-        }*/
+        }
         if (align_method_ == DlibAlign) {
             imgs.push_back(aitr->face_image.clone());
         } else {
@@ -210,7 +210,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             break;
         default:
             alignment_->align(img, rect, align_result, false);
-           // alignment_->align(img, rect, align_result, false);
+            // alignment_->align(img, rect, align_result, false);
 
             break;
         }
@@ -235,7 +235,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
-    LOG(INFO)<<align_imgs.size()<<" "<<align_results.size();
+    LOG(INFO) << align_imgs.size() << " " << align_results.size();
     recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
@@ -261,10 +261,10 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
-        for(int i=0;i<result.face_feat.size();i++){
-            cout<<result.face_feat[i]<<" ";
+        for (int i = 0; i < result.face_feat.size(); i++) {
+            cout << result.face_feat[i] << " ";
         }
-        cout<<endl;
+        cout << endl;
         features.push_back(feature);
     }
 }

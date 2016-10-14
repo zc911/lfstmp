@@ -36,7 +36,7 @@ typedef struct {
     int method;
     string detect_type;
     int gpu_id;
-    float threshold=0;
+    float threshold = 0;
 
 } FaceAlignmentConfig;
 typedef struct {
@@ -57,8 +57,8 @@ typedef struct {
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2,CdnnCaffeRecog=3};
-    enum {DlibAlign = 0, CdnnAlign = 1,CdnnCaffeAlign = 2};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3};
+    enum {DlibAlign = 0, CdnnAlign = 1, CdnnCaffeAlign = 2};
 
     FaceFeatureExtractProcessor(
         const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
