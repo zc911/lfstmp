@@ -73,7 +73,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
-    int AlignResult2MatrixAlign( vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
+    int AlignResult2MatrixAlign(vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
     int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features);
     void adjust_box(string detect_type, Rect &box);
     void facefilter(FrameBatch *frameBatch);

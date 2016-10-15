@@ -8,6 +8,7 @@ struct AlignResult {
     std::vector<cv::Point>  landmarks;
     cv::Mat                 face_image;
     cv::Rect                bbox;
+    float                   score;
 };
 
 class Alignment{
@@ -16,6 +17,7 @@ class Alignment{
         void align(const cv::Mat &img, const cv::Rect &bbox, AlignResult &result,
             bool adjust = true);
         void set_avgface(const cv::Mat &img, const cv::Rect &bbox);
+        bool is_face(float det_score, float landmark_score, float det_thresh);
     protected:
         std::vector<cv::Point> _avg_points;
         Alignment(std::vector<int> face_size);
