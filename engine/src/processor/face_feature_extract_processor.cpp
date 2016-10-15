@@ -109,8 +109,14 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
         return -1;
     }
     vector<Object *>::iterator itr = to_processed_.begin();
+    //vector<float>::iterator ditr = det_scores.begin();
+
     for (vector<DGFace::AlignResult>::iterator aitr = align_results.begin(); aitr != align_results.end();) {
-        if (align_threshold_ > 0.5) {
+            //    Face *face = static_cast<Face *>(obj);
+        //Mat img = face->image();
+        float det_threshold  = ((Face *)(*itr))->detection().confidence;
+        //LOG(INFO)<<(float)(aitr->score)<<" "<<(float)(((Face *)(*itr))->detection().confidence);
+        if (!alignment_->is_face(det_threshold,aitr->score,align_threshold_)) {
             ((Face *)(*itr))->set_valid(false);
             itr = to_processed_.erase(itr);
             aitr = align_results.erase(aitr);
@@ -149,49 +155,7 @@ static void draw_landmarks(Mat& img, const DGFace::AlignResult &align_result) {
 }
 
 bool FaceFeatureExtractProcessor::process(Frame *frame) {
-    /*   int size = frame->objects().size();
 
-       vector<DGFace::AlignResult> align_results;
-
-       for (int i = 0; i < size; ++i) {
-           Object *obj = (frame->objects())[i];
-           Rect bbox;
-           DGFace::AlignResult align_result;
-           if (obj && obj->type() == OBJECT_FACE) {
-               Face *face = static_cast<Face *>(obj);
-               Rect rect;
-               rect = face->detection().box;
-
-               Mat img = frame->payload()->data();
-               alignment_->align(img, rect, align_result);
-
-           } else {
-               DLOG(WARNING) << "Object is not type of face: " << obj->id() << endl;
-           }
-           align_results.push_back(align_result);
-
-       }
-       vector<Mat >align_imgs;
-       AlignResult2MatrixAlign(align_results, align_imgs);
-       vector<DGFace::RecogResult> results;
-       vector<FaceRankFeature> features;
-       recognition_->recog(align_imgs, align_results, results, pre_process_);
-       RecognResult2MatrixRecogn(results, features);
-
-       if (size != features.size()) {
-           LOG(ERROR) << "Face image size not equals to feature size: " << size << ":" << features.size() << endl;
-           return false;
-       }
-
-       for (int i = 0; i < size; ++i) {
-           Object *obj = (frame->objects())[i];
-           if (obj && obj->type() == OBJECT_FACE) {
-               Face *face = static_cast<Face *>(obj);
-               FaceRankFeature feature = features[i];
-               face->set_feature(feature);
-           }
-       }
-    */
     return true;
 }
 
@@ -199,6 +163,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     if (to_processed_.size() == 0)
         return true;
     vector<DGFace::AlignResult> align_results;
+    //vector<float> det_scores;
     for (auto *obj : to_processed_) {
         DGFace::AlignResult align_result;
         Face *face = static_cast<Face *>(obj);
@@ -211,17 +176,22 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             break;
         default:
             alignment_->align(img, rect, align_result, false);
-             alignment_->align(img, rect, align_result, false);
-
+            // alignment_->align(img, rect, align_result, false);
+            //cout<<"waiting"<<endl;
             break;
         }
-        //    rectangle(img, rect, Scalar(255, 0, 0));
-        //    imwrite("rect.jpg", img);
-        //    Mat img_draw = align_result.face_image.clone();
 
-        //    draw_landmarks(img_draw, align_result);
-        //    string draw_name = "test_draw"+to_string(performance_)+".jpg";
-        //    imwrite(draw_name, img_draw);
+        //det_scores.push_back(face->detection().confidence);
+        if(islog_){
+                    rectangle(img, rect, Scalar(255, 0, 0));
+            Mat img_draw = align_result.face_image.clone();
+
+            draw_landmarks(img_draw, align_result);
+            string draw_name = "test_draw"+to_string(performance_)+".jpg";
+            imwrite(draw_name, img_draw);
+           imwrite("rect.jpg", img);
+
+        }
 //LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
 //LOG(INFO)  << "align result image: " << align_result.face_image.cols << " " << align_result.face_image.rows << endl;
 //LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[1].x << " " << align_result.landmarks[1].y << endl;
