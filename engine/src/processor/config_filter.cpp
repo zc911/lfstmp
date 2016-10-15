@@ -72,6 +72,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.batch_size = batch_size;
     config.gpu_id = gpu_id;
     config.layer_name = (string)data_config_.Value(FILE_FACE_EXTRACT_LAYERNAME);
+    config.islog=(bool)cconfig.Value(DEBUG_ENABLE);
     int detect_method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
 
     for (int i = 0; i < mean_size; i++) {

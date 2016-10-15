@@ -14,6 +14,7 @@ namespace dg {
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig) {
     LOG(INFO) << config.model_config << " " << config.model_dir;
+    islog_=config.islog;
     switch (config.method) {
     case CNNRecog:
         recognition_ = new DGFace::CNNRecog(config.deploy_file, config.model_file, config.layer_name, config.mean, config.pixel_scale, config.use_GPU, config.gpu_id);
@@ -210,7 +211,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             break;
         default:
             alignment_->align(img, rect, align_result, false);
-            // alignment_->align(img, rect, align_result, false);
+             alignment_->align(img, rect, align_result, false);
 
             break;
         }
@@ -261,10 +262,11 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
+        if(islog_){
         for (int i = 0; i < result.face_feat.size(); i++) {
             cout << result.face_feat[i] << " ";
         }
-        cout << endl;
+        cout << endl;}
         features.push_back(feature);
     }
 }

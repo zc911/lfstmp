@@ -54,6 +54,8 @@ typedef struct {
     int method;
     string model_dir;
     string model_config;
+    bool islog=false;
+
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
@@ -83,6 +85,7 @@ private:
     int align_method_;
     int face_size_length_;
     float align_threshold_;
+    bool islog_;
 };
 
 } /* namespace dg */
