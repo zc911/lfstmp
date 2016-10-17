@@ -14,7 +14,7 @@
 #include "string_util.h"
 #include "io/uri_reader.h"
 #include "../../../engine/src/io/rank_candidates_repo.h"
-
+#include <sys/time.h>
 
 namespace dg {
 //const int RANKER_MAXIMUM = 10000
@@ -33,18 +33,30 @@ RankerAppsService::~RankerAppsService() {
 MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, RankFeatureResponse *response) {
 
     MatrixError err;
-
+    LOG(INFO) << "Get Ranker feature request: " << request->context().sessionid() << endl;
+    struct timeval ts;
+    gettimeofday(&ts, NULL);
+    response->mutable_context()->mutable_requestts()->set_seconds(ts.tv_sec);
+    response->mutable_context()->mutable_requestts()->set_nanosecs(ts.tv_usec * 1000);
+    response->mutable_context()->set_sessionid(request->context().sessionid());
     switch (request->context().type()) {
         case dg::RANK_TYPE_FACE:
-            return getRankedFaceVector(request, response);
+            err = getRankedFaceVector(request, response);
+            LOG(INFO) << "Ranker feature finish: " << request->context().sessionid() << endl;
+            break;
         default:
             LOG(ERROR) << "bad request(" << request->context().sessionid() << "), unknown rank type "
                 << request->context().type();
             err.set_code(-1);
             err.set_message("bad request, unknown action");
-            return err;
+            break;
     }
 
+    gettimeofday(&ts, NULL);
+    response->mutable_context()->mutable_responsets()->set_seconds(ts.tv_sec);
+    response->mutable_context()->mutable_responsets()->set_nanosecs(ts.tv_usec * 1000);
+    response->mutable_context()->set_status("200");
+    response->mutable_context()->set_message("SUCCESS");
     return err;
 
 }
@@ -53,6 +65,12 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response) {
 
     LOG(INFO) << "Get add features request: " << request->features().size() << endl;
+
+    struct timeval ts;
+    gettimeofday(&ts, NULL);
+    response->mutable_context()->mutable_requestts()->set_seconds(ts.tv_sec);
+    response->mutable_context()->mutable_requestts()->set_nanosecs(ts.tv_usec * 1000);
+    response->mutable_context()->set_sessionid(request->context().sessionid());
 
     MatrixError err;
     if (request->features().size() == 0) {
@@ -102,6 +120,12 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
     engine_pool->enqueue(&data);
     data.Wait();
 
+    gettimeofday(&ts, NULL);
+    response->mutable_context()->mutable_responsets()->set_seconds(ts.tv_sec);
+    response->mutable_context()->mutable_responsets()->set_nanosecs(ts.tv_usec * 1000);
+    response->mutable_context()->set_status("200");
+    response->mutable_context()->set_message("SUCCESS");
+
     return err;
 }
 
@@ -109,9 +133,6 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
 MatrixError RankerAppsService::getFaceScoredVector(
     vector<Score> &scores, const RankFeatureRequest *request,
     RankFeatureResponse *response) {
-
-
-    response->mutable_context()->set_sessionid(request->context().sessionid());
 
     MatrixError err;
 
