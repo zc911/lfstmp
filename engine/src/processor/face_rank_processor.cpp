@@ -24,7 +24,7 @@ FaceRankProcessor::~FaceRankProcessor() {
 static float score_normalize(float euclid_dist) {
     const float alpha = -0.04;
     const float beta = 1;
-    return alpha * euclid_dist + beta;
+    return (alpha * euclid_dist + beta) < 0 ? 0.0f : (alpha * euclid_dist + beta);
 }
 
 
@@ -39,10 +39,9 @@ bool FaceRankProcessor::process(Frame *frame) {
     vector<float> &feature = fframe->datum_.feature_;
 
     int candidatesNum = fframe->max_candidates_;
-    vector<CDatabase::DIST> results(candidatesNum);
 
-    if(candidatesNum >= ranker.GetTotalItems()){
-        candidatesNum = ranker.GetTotalItems() - 1;
+    if(candidatesNum > ranker.GetTotalItems()){
+        candidatesNum = ranker.GetTotalItems();
         LOG(WARNING) << "Candidate number exceeds the ranker database size " << candidatesNum << ":" << ranker.GetTotalItems() << endl;
         LOG(WARNING) << "We will use the top (size - 1) in default" << candidatesNum << endl;
     }
@@ -50,6 +49,8 @@ bool FaceRankProcessor::process(Frame *frame) {
         LOG(ERROR) << "Candidates id less than 0 " << endl;
         return false;
     }
+
+    vector<CDatabase::DIST> results(candidatesNum);
     ranker.NearestN(feature.data(), candidatesNum, results.data());
     fframe->result_.clear();
 

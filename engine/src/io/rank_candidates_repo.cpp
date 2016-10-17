@@ -6,11 +6,14 @@
 #include "codec/base64.h"
 #include "alg/rank/database.h"
 #include "log/log_val.h"
+#include <thread>
 
 namespace dg {
 
 RankCandidatesRepo::RankCandidatesRepo() : is_init_(false) {
-
+    need_save_to_file_ = false;
+    save_iterval_ = 30 * 60;
+    new_added_index_ = 0;
 }
 
 RankCandidatesRepo::~RankCandidatesRepo() {
@@ -20,7 +23,9 @@ RankCandidatesRepo::~RankCandidatesRepo() {
 void RankCandidatesRepo::Init(const string &repoPath,
                               const string &imageRootPath,
                               unsigned int capacity,
-                              unsigned int featureLen) {
+                              unsigned int featureLen,
+                              bool needSaveToFile,
+                              unsigned int saveIterval) {
     if (is_init_) {
         return;
     }
@@ -30,6 +35,8 @@ void RankCandidatesRepo::Init(const string &repoPath,
     image_root_path_ = imageRootPath;
     feature_len_ = featureLen;
     capacity_ = capacity;
+    need_save_to_file_ = needSaveToFile;
+    save_iterval_ = saveIterval;
 
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Find gpu num: " << gpu_num_ << " capacity: " << capacity << endl;
@@ -38,6 +45,62 @@ void RankCandidatesRepo::Init(const string &repoPath,
 
     loadFromFile(repo_path_);
     addDataToFaceRankDatabase(1024, candidates_.size());
+    if (need_save_to_file_) {
+        std::thread saveThread(&RankCandidatesRepo::save, this, repo_path_, save_iterval_);
+        saveThread.detach();
+    }
+
+}
+
+void RankCandidatesRepo::save(const string &repoPath, unsigned int saveIterval) {
+    while (1) {
+        sleep(saveIterval);
+        // there is no new added data
+        if (new_added_index_ == candidates_.size()) {
+            LOG(WARNING) << "There is not new data save to file, wait for another " << saveIterval << " seconds"
+                << endl;
+            continue;
+        }
+
+        saveToFile(repoPath, new_added_index_, candidates_.size());
+        //TODO need a lock
+        new_added_index_ = candidates_.size();
+    }
+
+}
+
+void RankCandidatesRepo::saveToFile(const string &repoPath, unsigned int startIndex, unsigned int endIndex) {
+
+    const time_t t = time(NULL);
+    struct tm *current_time = localtime(&t);
+    char fileName[256];
+    sprintf(fileName,
+            "%s/data_%d_%d_%d:%d:%d_from_%d_to_%d.txt",
+            repoPath.c_str(),
+            current_time->tm_mon + 1,
+            current_time->tm_mday,
+            current_time->tm_hour,
+            current_time->tm_min,
+            current_time->tm_sec,
+            startIndex,
+            endIndex - 1);
+
+    LOG(INFO) << "Save new added data into file " << fileName << endl;
+
+    ofstream file;
+    file.open(fileName);
+    for (int i = startIndex; i < endIndex; ++i) {
+        RankCandidatesItem &item = candidates_[i];
+        file << item.id_;
+        file << " ";
+        file << item.name_ << " ";
+        file << item.image_uri_ << " ";
+        string feature = Base64::Encode<float>(item.feature_);
+        boost::replace_all(feature, "\n", "");
+        file << feature << endl;
+    }
+    file.flush();
+    file.close();
 
 }
 
@@ -193,6 +256,9 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     }
                     RankCandidatesItem item;
                     item.id_ = tokens[0];
+                    if (item.id_.size() == 0) {
+                        item.id_ = "0";
+                    }
                     item.name_ = tokens[1];
                     item.image_uri_ = image_root_path_ + tokens[2];
                     Base64::Decode(tokens[3], item.feature_);
@@ -211,7 +277,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
             }
             file.close();
         }
-
+        new_added_index_ = candidates_.size();
         LOG(INFO) << "Candidates repo size: " << candidates_.size() << endl;
 
     } else {
@@ -233,17 +299,20 @@ int RankCandidatesRepo::AddFeatures(const FeaturesFrame &frame) {
     }
 
 
-
     int fromIndex = candidates_.size();
     for (auto f : frame.features_) {
-        if(f.feature_.size() != feature_len_){
-            LOG(ERROR) << "Feature len invalid, will not add to database " << f.feature_.size() << ":" << feature_len_ << endl;
+        if (f.feature_.size() != feature_len_) {
+            LOG(ERROR) << "Feature len invalid, will not add to database " << f.feature_.size() << ":" << feature_len_
+                << endl;
             continue;
+        }
+        if (f.id_.size() == 0) {
+            f.id_ = "0";
         }
         candidates_.push_back(f);
     }
 
-    if(candidates_.size() == 0){
+    if (candidates_.size() == 0) {
         LOG(WARNING) << "No features will be added into ranker database " << endl;
         return -1;
     }
