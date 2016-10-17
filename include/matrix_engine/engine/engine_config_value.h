@@ -235,6 +235,9 @@ static const string ADVANCED_RANKER_REPO_PATH = "Advanced/Ranker/RepoPath";
 static const string ADVANCED_RANKER_IMAGE_ROOT_PATH = "Advanced/Ranker/ImageRootPath";
 static const string ADVANCED_RANKER_FEATURE_LENGTH = "Advanced/Ranker/FeatureLen";
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
+static const string ADVANCED_RANKER_NEED_SAVE_TO_FILE = "Advanced/Ranker/SaveToFile";
+static const string ADVANCED_RANKER_SAVE_TO_FILE_ITERVAL = "Advanced/Ranker/SaveToFileIterval";
+
 
 static const string DEBUG_VISUALIZATION = "Debug/Visualization";
 

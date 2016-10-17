@@ -61,7 +61,12 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
         featureLen = featureLen <= 0 ? 256 : featureLen;
         string repoPath = (string) config.Value(ADVANCED_RANKER_REPO_PATH);
         string imageRootPath = (string) config.Value(ADVANCED_RANKER_IMAGE_ROOT_PATH);
-        repo.Init(repoPath, imageRootPath, capacity, featureLen);
+        bool needSave = (bool) config.Value(ADVANCED_RANKER_NEED_SAVE_TO_FILE);
+        unsigned int saveIterval = (int) config.Value(ADVANCED_RANKER_SAVE_TO_FILE_ITERVAL);
+        if(saveIterval < SAVE_TO_FILE_ITERVAL) {
+            saveIterval = SAVE_TO_FILE_ITERVAL;
+        }
+        repo.Init(repoPath, imageRootPath, capacity, featureLen, needSave, saveIterval);
 
     }
 }

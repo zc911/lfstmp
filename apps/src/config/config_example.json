@@ -122,6 +122,8 @@
     "Ranker": {
       "Maximum": 1000000,
       "FeatureLen": 256,
+      "SaveToFile": true,
+      "SaveToFileIterval": 60, // seconds
       "RepoPath": "./Repo",
       // must be absolutely path if use file://
       "ImageRootPath": "file:///home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/FaceImage"
