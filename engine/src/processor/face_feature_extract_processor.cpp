@@ -14,7 +14,7 @@ namespace dg {
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig) {
     LOG(INFO) << config.model_config << " " << config.model_dir;
-    islog_=config.islog;
+    islog_ = config.islog;
     switch (config.method) {
     case CNNRecog:
         recognition_ = new DGFace::CNNRecog(config.deploy_file, config.model_file, config.layer_name, config.mean, config.pixel_scale, config.use_GPU, config.gpu_id);
@@ -112,11 +112,11 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
     //vector<float>::iterator ditr = det_scores.begin();
 
     for (vector<DGFace::AlignResult>::iterator aitr = align_results.begin(); aitr != align_results.end();) {
-            //    Face *face = static_cast<Face *>(obj);
+        //    Face *face = static_cast<Face *>(obj);
         //Mat img = face->image();
         float det_threshold  = ((Face *)(*itr))->detection().confidence;
         //LOG(INFO)<<(float)(aitr->score)<<" "<<(float)(((Face *)(*itr))->detection().confidence);
-        if (!alignment_->is_face(det_threshold,aitr->score,align_threshold_)) {
+        if (!alignment_->is_face(det_threshold, aitr->score, align_threshold_)) {
             ((Face *)(*itr))->set_valid(false);
             itr = to_processed_.erase(itr);
             aitr = align_results.erase(aitr);
@@ -182,14 +182,14 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         }
 
         //det_scores.push_back(face->detection().confidence);
-        if(islog_){
-                    rectangle(img, rect, Scalar(255, 0, 0));
+        if (islog_) {
+            rectangle(img, rect, Scalar(255, 0, 0));
             Mat img_draw = align_result.face_image.clone();
 
             draw_landmarks(img_draw, align_result);
-            string draw_name = "test_draw"+to_string(performance_)+".jpg";
+            string draw_name = "test_draw" + to_string(performance_) + ".jpg";
             imwrite(draw_name, img_draw);
-           imwrite("rect.jpg", img);
+            imwrite("rect.jpg", img);
 
         }
 //LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
@@ -206,7 +206,6 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
-    LOG(INFO) << align_imgs.size() << " " << align_results.size();
     recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
@@ -232,11 +231,12 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
-        if(islog_){
-        for (int i = 0; i < result.face_feat.size(); i++) {
-            cout << result.face_feat[i] << " ";
+        if (islog_) {
+            for (int i = 0; i < result.face_feat.size(); i++) {
+                cout << result.face_feat[i] << " ";
+            }
+            cout << endl;
         }
-        cout << endl;}
         features.push_back(feature);
     }
 }
