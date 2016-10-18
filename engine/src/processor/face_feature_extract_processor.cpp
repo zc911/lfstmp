@@ -34,6 +34,12 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
     case CdnnCaffeRecog: {
         recognition_ = new DGFace::CdnnCaffeRecog(config.model_config, config.gpu_id);
+        break;
+    }
+    case CdnnFuse:{
+        LOG(INFO)<<config.concurrency;
+        recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id,  config.concurrency);
+
     }
 
     }
@@ -50,6 +56,15 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     case CdnnCaffeRecog: {
         LOG(INFO) << faConfig.align_cfg;
         alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+        align_method_ = CdnnCaffeAlign;
+
+        break;
+    }
+    case CdnnFuse: {
+        LOG(INFO) << faConfig.align_cfg;
+        alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+           //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+
         align_method_ = CdnnCaffeAlign;
 
         break;
@@ -183,13 +198,13 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
         //det_scores.push_back(face->detection().confidence);
         if (islog_) {
-            rectangle(img, rect, Scalar(255, 0, 0));
-            Mat img_draw = align_result.face_image.clone();
+            // rectangle(img, rect, Scalar(255, 0, 0));
+            // Mat img_draw = align_result.face_image.clone();
 
-            draw_landmarks(img_draw, align_result);
-            string draw_name = "test_draw" + to_string(performance_) + ".jpg";
-            imwrite(draw_name, img_draw);
-            imwrite("rect.jpg", img);
+            // draw_landmarks(img_draw, align_result);
+            // string draw_name = "test_draw" + to_string(performance_) + ".jpg";
+            // imwrite(draw_name, img_draw);
+            // imwrite("rect.jpg", img);
 
         }
 //LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
@@ -232,6 +247,7 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
         if (islog_) {
+            LOG(INFO)<<result.face_feat.size();
             for (int i = 0; i < result.face_feat.size(); i++) {
                 cout << result.face_feat[i] << " ";
             }

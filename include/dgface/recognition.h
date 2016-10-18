@@ -13,11 +13,11 @@ struct RecogResult {
 
 class Recognition {
     public:
+        Recognition(void);
         virtual ~Recognition(void);
         virtual void recog(const std::vector<cv::Mat> &faces, std::vector<RecogResult> &results, const std::string &pre_process);
         virtual void recog(const std::vector<cv::Mat> &faces, const std::vector<AlignResult>& alignment, std::vector<RecogResult> &results, const std::string &pre_process);
     protected:
-        Recognition(void);
         virtual void recog_impl(const std::vector<cv::Mat> &faces, std::vector<RecogResult> &results) {}
         virtual void recog_impl(const std::vector<cv::Mat> &faces, const std::vector<AlignResult>& alignment, std::vector<RecogResult> &results) {}
 

@@ -90,6 +90,9 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
     config.model_config = model_path + (string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG)+to_string(config.method) + ".cfg";
     config.model_dir = model_path ;
+    config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
+    config.concurrency=(bool)cconfig.Value(ADVANCED_FACE_ENABLE_CONCURRENCY);
+
     faConfig.align_deploy = model_path + align_deploy;
     faConfig.align_cfg=model_path+align_config;
     faConfig.method = (int)cconfig.Value(ADVANCED_FACE_ALIGN_METHOD);

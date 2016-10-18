@@ -61,8 +61,9 @@ public:
     ~ExtractMPMetricFeature();
 
     int InitModels(const char* configPath, const char* modelDir);
-    int ExtractFeature(std::vector<float>& metricFeature, const IplImage* srcImage, const std::vector<double>& landmarks);
-    int ExtractFeatureRaw(std::vector<float>& metricFeature, const IplImage* srcImage, const std::vector<double>& landmarks);
+    void ReleaseModels();
+    int ExtractFeature(std::vector<float>& metricFeature, const IplImage* srcImage, const std::vector<double>& landmarks, bool multi_thread);
+    int ExtractFeatureRaw(std::vector<float>& metricFeature, const IplImage* srcImage, const std::vector<double>& landmarks, bool multi_thread);
 
     static float ComputeSimilarity(const float* feature0, const float* feature1, int nFeatureLen);
     bool AffineTransform(const IplImage* src, IplImage*& desImage, const std::vector<double>& srcLandmark, std::vector<double>& desLandmark);
@@ -76,7 +77,7 @@ protected:
     bool LoadConfig(sMultiPatchPara& multiPatchModelParas, std::string configPath);
     void ReleaseMultiCDNNMetricModels(sMultiPatchCDNNModel& multiPatchModels);
     void ReleaseModel(sMultiPatchCDNNModel& models);
-    int ExtractMPFeature(std::vector<float>& metricFeature, sMultiPatchCDNNModel& models, const IplImage* srcImage, const std::vector<double>& landmarks);
+    int ExtractMPFeature(std::vector<float>& metricFeature, sMultiPatchCDNNModel& models, const IplImage* srcImage, const std::vector<double>& landmarks, bool multi_thread);
     void GetMirrorKeyPoints(float& flipPointX, float&flipPointY, int idx1, int idx2, const std::vector<double>& keyPoints);
     static float ComputeL2Dis(const float* feature0, const float* feature1, int nLen);
     static float CompuCosSim(const float* pFeat0, const float* pFeat1, int featDim);
@@ -88,9 +89,9 @@ protected:
     bool SaveMeanImage(char* filePath, float* mean, int width, int height);
     CvRect GetCropRect(int width, int height, CvRect rect, bool isCenter=false, double ratio = 2.0);
 
-protected:
-
+public:
     sMultiPatchCDNNModel models;
+    bool m_bInitModels;
 };
 
 }

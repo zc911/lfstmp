@@ -21,6 +21,7 @@
 #include "dgface/recognition/recog_lbp.h"
 #include "dgface/recognition/recog_cdnn.h"
 #include "dgface/recognition/recog_cdnn_caffe.h"
+#include "dgface/recognition/recog_fuse.h"
 
 #include "dgface/recognition.h"
 #include "dgface/cdnn_score.h"
@@ -55,11 +56,12 @@ typedef struct {
     string model_dir;
     string model_config;
     bool islog=false;
+    bool concurrency=false;
 
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3,CdnnFuse=4};
     enum {DlibAlign = 0, CdnnAlign = 1, CdnnCaffeAlign = 2};
 
     FaceFeatureExtractProcessor(
