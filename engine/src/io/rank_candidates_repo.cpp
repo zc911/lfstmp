@@ -182,7 +182,7 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
     }
 
 
-    LOG(INFO) << "CDATABASE: " << face_ranker_->GetTotalItems() << endl;
+    LOG(INFO) << "CDATABASE size: " << face_ranker_->GetTotalItems() << endl;
     int remains = candidates_.size() - id;
     int remains2 = candidates_.size() % batchSize;
 
@@ -199,7 +199,7 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
             ++id;
         }
         VLOG(VLOG_RUNTIME_DEBUG)
-        << "Add items " << remains << " " << batchIds[0] << batchIds[1] << " " << batchFeatures[0] << batchFeatures[1]
+        << "Add items " << remains << " " << batchIds[0] << " " << batchIds[1] << " " << batchFeatures[0] << batchFeatures[1]
             << endl;
         face_ranker_->AddItems(batchFeatures, batchIds, remains);
     }
@@ -322,7 +322,9 @@ int RankCandidatesRepo::AddFeatures(const FeaturesFrame &frame) {
 
     VLOG(VLOG_RUNTIME_DEBUG)
     << "Before Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
-    addDataToFaceRankDatabase(1024, candidates_.size(), fromIndex);
+    VLOG(VLOG_RUNTIME_DEBUG)
+    << "Add features to repo: " << candidates_.size() - fromIndex << endl;
+    addDataToFaceRankDatabase(1024, candidates_.size() - fromIndex, fromIndex);
     VLOG(VLOG_RUNTIME_DEBUG)
     << "After Add data to ranker and ranker database size: " << face_ranker_->GetTotalItems() << endl;
 }
