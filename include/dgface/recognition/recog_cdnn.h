@@ -9,7 +9,7 @@
 namespace DGFace{
 class CdnnRecog: public Recognition {
 	public:
-		CdnnRecog(std::string configPath, std::string modelDir);
+		CdnnRecog(std::string configPath, std::string modelDir, bool multi_thread = true);
 		virtual ~CdnnRecog();
 		void recog_impl(const std::vector<cv::Mat>& faces, 
 			const std::vector<AlignResult>& alignment,
@@ -18,7 +18,7 @@ class CdnnRecog: public Recognition {
 		// FaceHandler _handler;
 		// FacePara _param;
 		Cdnn::MPMetricFeature::ExtractMPMetricFeature _extractor;
-
+        bool _multi_thread;
 };
 }
 #endif
