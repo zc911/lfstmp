@@ -48,8 +48,8 @@ void serveWitness(Config *config, int userPort = 0) {
     WitnessCollector::Instance().SetBatchsize(batchsize);
     WitnessCollector::Instance().SetTimeout(timeout);
 
-    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
-    std::thread springTh(&SpringGrpcClientImpl::Run, client);
+  //  SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
+  //  std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
     int thread_num = [](Config * config) {
         int thread_num;
@@ -120,7 +120,7 @@ void serveWitness(Config *config, int userPort = 0) {
         cout << e.what() << endl;
         quick_exit(EXIT_FAILURE);
     }
-    springTh.join();
+  //  springTh.join();
     //  network_th_.join();
 }
 
@@ -248,10 +248,10 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
-    if (FLAGS_showconfig) {
+/*    if (FLAGS_showconfig) {
         config->DumpValues();
     }
-
+*/
 
     string instType = (string) config->Value("InstanceType");
 

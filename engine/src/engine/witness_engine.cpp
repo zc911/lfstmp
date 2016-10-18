@@ -431,17 +431,17 @@ void WitnessEngine::init(const Config &config) {
         performance_ = RECORD_UNIT;
     }
 
-    Mat image = Mat::zeros(100, 100, CV_8UC3);
-    FrameBatch framebatch(0);
-    Frame *frame = new Frame(0, image);
-    framebatch.AddFrame(frame);
-    this->Process(&framebatch);
+    // Mat image = Mat::zeros(100, 100, CV_8UC3);
+    // FrameBatch framebatch(0);
+    // Frame *frame = new Frame(0, image);
+    // framebatch.AddFrame(frame);
+    // this->Process(&framebatch);
 
     if (vehicle_processor_)
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
 
 //    initGpuMemory(framebatch);
-    this->Process(&framebatch);
+//    this->Process(&framebatch);
 
     is_init_ = true;
 

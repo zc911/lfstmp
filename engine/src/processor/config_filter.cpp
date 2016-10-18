@@ -30,9 +30,14 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     int method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
 
 
+
+    if(trained_model.at(trained_model.size()-1)=='$'){
+    config.model_file = model_path + trained_model.substr(0,trained_model.size()-1) + to_string(method) + ".dat$";
+    config.deploy_file = model_path + deploy_model.substr(0,deploy_model.size()-1) + to_string(method) + ".txt$";
+    }else{
     config.model_file = model_path + trained_model + to_string(method) + ".dat";
     config.deploy_file = model_path + deploy_model + to_string(method) + ".txt";
-
+    }
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.confidence = confidence;
