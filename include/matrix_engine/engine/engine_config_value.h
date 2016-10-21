@@ -190,6 +190,7 @@ static const string FILE_FACE_DETECT_DEPLOY_MODEL =
     "File/FaceDetect/DeployModel";
 
 static const string FILE_FACE_EXTRACT_MODEL_PATH = "File/FaceExtract/ModelPath";
+static const string FILE_FACE_EXTRACT_MODEL_DIR = "File/FaceExtract/ModelDir";
 static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
     "File/FaceExtract/TrainedModel";
 static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =

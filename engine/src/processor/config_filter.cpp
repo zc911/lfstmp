@@ -28,16 +28,10 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     float confidence = (float) cconfig.Value(ADVANCED_FACE_DETECT_CONFIDENCE);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
     int method = (int) cconfig.Value(ADVANCED_FACE_DETECT_METHOD);
+    cout<<" "<<deploy_model<<" "<< trained_model<<endl;
+    config.model_file = model_path + trained_model;
+    config.deploy_file = model_path + deploy_model;
 
-
-
-    if(trained_model.at(trained_model.size()-1)=='$'){
-    config.model_file = model_path + trained_model.substr(0,trained_model.size()-1) + to_string(method) + ".dat$";
-    config.deploy_file = model_path + deploy_model.substr(0,deploy_model.size()-1) + to_string(method) + ".txt$";
-    }else{
-    config.model_file = model_path + trained_model + to_string(method) + ".dat";
-    config.deploy_file = model_path + deploy_model + to_string(method) + ".txt";
-    }
     config.is_model_encrypt = is_encrypted;
     config.batch_size = batch_size;
     config.confidence = confidence;
@@ -58,6 +52,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
 
     string trained_model = (string) data_config_.Value(FILE_FACE_EXTRACT_TRAINED_MODEL);
     string deploy_model = (string) data_config_.Value(FILE_FACE_EXTRACT_DEPLOY_MODEL);
+    string model_dir = (string) data_config_.Value(FILE_FACE_EXTRACT_MODEL_DIR);
     string align_model = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_MODEL);
     string align_deploy = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_DEPLOY);
     string align_config = (string) data_config_.Value(FILE_FACE_EXTRACT_ALIGN_CONFIG);
@@ -89,7 +84,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.use_GPU = true;
     config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
     config.model_config = model_path + (string)data_config_.Value(FILE_FACE_EXTRACT_MODEL_CONFIG)+to_string(config.method) + ".cfg";
-    config.model_dir = model_path ;
+    config.model_dir = model_path+model_dir ;
     config.method = (int)cconfig.Value(ADVANCED_FACE_EXTRACT_METHOD);
     config.concurrency=(bool)cconfig.Value(ADVANCED_FACE_ENABLE_CONCURRENCY);
 
@@ -99,13 +94,10 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     faConfig.gpu_id=gpu_id;
     faConfig.threshold=(float)cconfig.Value(ADVANCED_FACE_ALIGN_THRESHOLD);
     faConfig.align_path = model_path+align_path;
-    if (config.method == FaceFeatureExtractProcessor::CDNNRecog) {
         faConfig.align_model = model_path;
+        faConfig.align_model_path = model_path ;
 
-    } else {
-        faConfig.align_model = model_path + align_model;
-
-    }
+    
     switch(detect_method){
         case FaceDetectProcessor::DlibMethod:
             faConfig.detect_type="";
