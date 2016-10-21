@@ -38,7 +38,7 @@ typedef struct {
     string detect_type;
     int gpu_id;
     float threshold = 0;
-
+    string align_model_path;
 } FaceAlignmentConfig;
 typedef struct {
     bool is_model_encrypt = true;

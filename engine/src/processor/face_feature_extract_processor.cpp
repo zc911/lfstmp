@@ -47,7 +47,9 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     switch (config.method) {
 
     case CDNNRecog: {
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_model);
+        LOG(INFO) << faConfig.align_model;
+
+        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
         align_method_ = CdnnAlign;
 
         break;
@@ -61,11 +63,14 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         break;
     }
     case CdnnFuse: {
-        LOG(INFO) << faConfig.align_cfg;
-        alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+        LOG(INFO) << faConfig.align_model;
+        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+
+        //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
            //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
 
         align_method_ = CdnnCaffeAlign;
+        align_method_ = CdnnAlign;
 
         break;
     }
@@ -130,7 +135,7 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
         //    Face *face = static_cast<Face *>(obj);
         //Mat img = face->image();
         float det_threshold  = ((Face *)(*itr))->detection().confidence;
-        //LOG(INFO)<<(float)(aitr->score)<<" "<<(float)(((Face *)(*itr))->detection().confidence);
+        LOG(INFO)<<(float)(aitr->score)<<" "<<(float)(((Face *)(*itr))->detection().confidence);
         if (!alignment_->is_face(det_threshold, aitr->score, align_threshold_)) {
             ((Face *)(*itr))->set_valid(false);
             itr = to_processed_.erase(itr);
