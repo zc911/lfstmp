@@ -189,7 +189,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
         Rect rect = face->detection().box;
-
+        LOG(INFO)<<face->detection();
         switch (align_method_) {
         case DlibAlign:
             alignment_->align(img, rect, align_result, true);
@@ -203,13 +203,14 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
         //det_scores.push_back(face->detection().confidence);
         if (islog_) {
-            // rectangle(img, rect, Scalar(255, 0, 0));
-            // Mat img_draw = align_result.face_image.clone();
 
-            // draw_landmarks(img_draw, align_result);
-            // string draw_name = "test_draw" + to_string(performance_) + ".jpg";
-            // imwrite(draw_name, img_draw);
-            // imwrite("rect.jpg", img);
+            rectangle(img, rect, Scalar(255, 0, 0));
+            Mat img_draw = align_result.face_image.clone();
+
+            draw_landmarks(img_draw, align_result);
+            string draw_name = "test_draw" + to_string(performance_) + ".jpg";
+            imwrite(draw_name, img_draw);
+            imwrite("rect.jpg", img);
 
         }
 //LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;

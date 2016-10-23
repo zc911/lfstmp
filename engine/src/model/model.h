@@ -429,10 +429,17 @@ public:
     void set_valid(bool flag) {
         is_valid_ = flag;
     }
+    void set_qualities(int type,float score){
+        qualities_[type]=score;
+    }
+    map<int,float> &get_qualities(){
+        return qualities_;
+    }
 private:
     cv::Mat image_;
     FaceRankFeature feature_;
     bool is_valid_;
+    map<int,float> qualities_;
 };
 
 
