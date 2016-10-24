@@ -45,7 +45,8 @@ static const string FEATURE_FACE_ENABLE_DETECTION =
     "Feature/Face/EnableDetection";
 static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
     "Feature/Face/EnableFeatureVector";
-
+static const string FEATURE_FACE_ENABLE_QUALITY =
+    "Feature/Face/EnableQuality";
 static const string RANKER_DEFAULT_TYPE = "RankerType";
 
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
@@ -114,6 +115,8 @@ static const string ADVANCED_FACE_ALIGN_METHOD =
     "Advanced/FaceExtract/AlignMethod";
 static const string ADVANCED_FACE_ALIGN_THRESHOLD =
     "Advanced/FaceExtract/AlignThreshold";
+    static const string ADVANCED_FACE_QUALITY_THRESHOLD =
+    "Advanced/FaceQuality/Threshold";
 static const string ADVANCED_FACE_ENABLE_CONCURRENCY = "Advanced/FaceExtract/EnableConcurrency";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";

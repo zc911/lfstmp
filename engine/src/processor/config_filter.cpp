@@ -42,7 +42,10 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
 
 }
-
+void ConfigFilter::createFaceQualityConfig(const Config &cconfig,FaceQualityConfig &fqConfig){
+    fqConfig.frontalThreshold=(float)cconfig.Value(ADVANCED_FACE_QUALITY_THRESHOLD);
+    fqConfig.frontalMethod=FaceQualityProcessor::FrontalDlib;
+}
 void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
         FaceFeatureExtractorConfig &config, FaceAlignmentConfig &faConfig) {
 

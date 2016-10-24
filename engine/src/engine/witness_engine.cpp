@@ -155,8 +155,11 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
     enable_face_feature_vector_ = (bool) config.Value(
                                       FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+    LOG(INFO)<<enable_face_feature_vector_;
     enable_face_detect_ = (bool) config.Value(
                               FEATURE_FACE_ENABLE_DETECTION);
+    enable_face_quality_ = (bool) config.Value( FEATURE_FACE_ENABLE_QUALITY);
+
 
     enable_vehicle_driver_belt_ = (bool) config.Value(
         FEATURE_VEHICLE_ENABLE_DRIVERBELT);
@@ -183,8 +186,9 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
     enable_face_detect_ = (bool) config.Value(
                               FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+    enable_face_quality_ = (bool) config.Value( FEATURE_FACE_ENABLE_QUALITY);
     enable_face_feature_vector_ = (bool) config.Value(
-                                      FEATURE_FACE_ENABLE_DETECTION) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
+                                      FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
     enable_vehicle_driver_belt_ = (bool) config.Value(
                                       FEATURE_VEHICLE_ENABLE_DRIVERBELT) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
@@ -416,7 +420,13 @@ void WitnessEngine::init(const Config &config) {
         FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
         face_processor_ = new FaceDetectProcessor(fdconfig, method);
-
+        
+        if (enable_face_quality_) {
+            LOG(INFO) << "Enable face feature vector processor." << endl;
+            FaceQualityConfig fqConfig;
+            configFilter->createFaceQualityConfig(config, fqConfig);
+            face_processor_->SetNextProcessor(new FaceQualityProcessor(fqConfig));
+        }
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             FaceFeatureExtractorConfig feconfig;
@@ -424,6 +434,7 @@ void WitnessEngine::init(const Config &config) {
             configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
             face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor(feconfig, faConfig));
         }
+
 
         LOG(INFO) << "Init face processor pipeline finished. " << endl;
     }
