@@ -22,9 +22,17 @@ FaceRankProcessor::~FaceRankProcessor() {
 }
 
 static float score_normalize(float euclid_dist) {
-    const float alpha = -0.04;
-    const float beta = 1;
-    return (alpha * euclid_dist + beta) < 0 ? 0.0f : (alpha * euclid_dist + beta);
+    const float alpha = -0.02;
+    const float beta = 1.1;
+    float r = alpha * euclid_dist + beta;
+
+    if (r <= 0.0f) {
+        r = 0.0f;
+    } else if (r > 1.0f) {
+        r = 1.0f;
+    }
+
+    return r;
 }
 
 
