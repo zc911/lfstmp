@@ -53,7 +53,17 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 //        configFilter->createFaceExtractorConfig(config, feconfig);
 //        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
-        face_ranker_ = new FaceRankProcessor();
+        float normalize_alpha = (float) config.Value(ADVANCED_RANKER_NORMALIZE_ALPHA);
+        float normalize_beta = (float) config.Value(ADVANCED_RANKER_NORMALIZE_BETA);
+
+        if(normalize_alpha == 0.0f){
+            normalize_alpha = -0.05;
+        }
+        if(normalize_beta == 0.0f){
+            normalize_beta = 1.1;
+        }
+
+        face_ranker_ = new FaceRankProcessor(normalize_alpha, normalize_beta);
         RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
         unsigned int capacity = (int) config.Value(ADVANCED_RANKER_MAXIMUM);
         capacity = capacity <= 0 ? 1 : capacity;

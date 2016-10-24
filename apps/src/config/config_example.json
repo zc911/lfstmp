@@ -120,6 +120,8 @@
       "AlignMethod": 0
     },
     "Ranker": {
+      "NormalizeAlpha": -0.02,
+      "NormalizeBeta": 1.1,
       "Maximum": 1000000,
       "FeatureLen": 256,
       "SaveToFile": true,

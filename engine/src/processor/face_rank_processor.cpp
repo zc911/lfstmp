@@ -18,12 +18,17 @@ FaceRankProcessor::FaceRankProcessor() {
 
 }
 
+FaceRankProcessor::FaceRankProcessor(float alpha, float beta) {
+    alpha_ = alpha;
+    beta_ = beta;
+}
+
 FaceRankProcessor::~FaceRankProcessor() {
 }
 
-static float score_normalize(float euclid_dist) {
-    const float alpha = -0.02;
-    const float beta = 1.1;
+static float score_normalize(float euclid_dist, float alpha, float beta) {
+//    const float alpha = -0.05;
+//    const float beta = 1.1;
     float r = alpha * euclid_dist + beta;
 
     if (r <= 0.0f) {
@@ -48,12 +53,13 @@ bool FaceRankProcessor::process(Frame *frame) {
 
     int candidatesNum = fframe->max_candidates_;
 
-    if(candidatesNum > ranker.GetTotalItems()){
+    if (candidatesNum > ranker.GetTotalItems()) {
         candidatesNum = ranker.GetTotalItems();
-        LOG(WARNING) << "Candidate number exceeds the ranker database size " << candidatesNum << ":" << ranker.GetTotalItems() << endl;
+        LOG(WARNING) << "Candidate number exceeds the ranker database size " << candidatesNum << ":"
+            << ranker.GetTotalItems() << endl;
         LOG(WARNING) << "We will use the top (size - 1) in default" << candidatesNum << endl;
     }
-    if(candidatesNum <= 0){
+    if (candidatesNum <= 0) {
         LOG(ERROR) << "Candidates id less than 0 " << endl;
         return false;
     }
@@ -62,25 +68,11 @@ bool FaceRankProcessor::process(Frame *frame) {
     ranker.NearestN(feature.data(), candidatesNum, results.data());
     fframe->result_.clear();
 
-//    cout << "input: " << endl;
-//    for(auto v:feature){
-//        cout << v << ",";
-//    }
-//    cout << endl;
+
     for (auto r: results) {
         Score score;
         score.index_ = r.id;
-        score.score_ = score_normalize(r.dist);
-//        score.score_ = r.dist;
-//        vector<float> a(128);
-//        ranker.RetrieveItemById(r.id, a.data());
-//        cout <<  r.id << " " << r.dist << " : " << endl;
-//        for(auto v:a){
-//            cout << v << ",";
-//        }
-//        cout << endl;
-
-//        score.score_ = score_normalize(r.dist);
+        score.score_ = score_normalize(r.dist, alpha_, beta_);
         fframe->result_.push_back(score);
     }
 
