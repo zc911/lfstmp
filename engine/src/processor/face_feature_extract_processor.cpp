@@ -37,7 +37,6 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         break;
     }
     case CdnnFuse:{
-        LOG(INFO)<<config.concurrency;
         recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id,  config.concurrency);
 
     }
@@ -57,8 +56,11 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
     case CdnnCaffeRecog: {
         LOG(INFO) << faConfig.align_cfg;
-        alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-        align_method_ = CdnnCaffeAlign;
+
+        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+        align_method_ = CdnnAlign;
+       // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+        //align_method_ = CdnnCaffeAlign;
 
         break;
     }

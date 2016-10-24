@@ -386,8 +386,9 @@ private:
 };
 
 class Face: public Object {
-
 public:
+        enum{BlurM=0,Frontal=1};
+
     Face()
         : Object(OBJECT_FACE), is_valid_(true) {
 

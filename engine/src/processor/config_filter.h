@@ -20,6 +20,7 @@
 #include "processor/face_feature_extract_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
 #include "processor/vehicle_phone_detector_processor.h"
+#include "processor/face_quality_processor.h"
 #include "plate_recognize_mxnet_processor.h"
 
 #include "config.h"
@@ -43,6 +44,7 @@ public:
                               VehicleCaffeDetectorConfig &config);
   void createFaceDetectorConfig(const Config &cconfig,
                                 FaceDetectorConfig &config);
+  void createFaceQualityConfig(const Config &cconfig,FaceQualityConfig &fqConfig);
 
   void createFaceExtractorConfig(const Config &cconfig,
                                  FaceFeatureExtractorConfig &config, FaceAlignmentConfig &faConfig);

@@ -3,12 +3,12 @@
 
 #include <opencv2/opencv.hpp>
 #include "common.h"
-namespace DGFace{
 
+namespace DGFace{
 class Quality {
     public:
         virtual ~Quality(void) {}
-        virtual double quality(const cv::Mat &image) = 0;
+        virtual float quality(const cv::Mat &image) = 0;
     protected:
         Quality(void) {}
 };
