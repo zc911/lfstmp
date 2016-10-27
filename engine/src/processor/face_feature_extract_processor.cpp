@@ -33,7 +33,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         break;
     }
     case CdnnCaffeRecog: {
-        recognition_ = new DGFace::CdnnCaffeRecog(config.model_config, config.gpu_id);
+        recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
         break;
     }
     case CdnnFuse:{
