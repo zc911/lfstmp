@@ -21,7 +21,13 @@ This repo is the SDK warpper for face detection, alignment, tracking and feature
 - protobuf
 TBD
 
+
+
 ### How to build
 
-TBD
+1. Install Cmake
+2. Install git-lfs for large file support, refer to doc/git-lfs.md
+3. Install conan for libraries management, refer to doc/conan.md
+4. $ mkdir build && cd build && conan install .. && cmake ..
+5. $ make
 
