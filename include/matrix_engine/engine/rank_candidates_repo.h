@@ -6,13 +6,7 @@
 #define PROJECT_RANKCANDIDATESREPO_H
 
 #include <vector>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <boost/filesystem.hpp>
-#include <boost/tokenizer.hpp>
-#include <boost/algorithm/string.hpp>
-#include <opencv2/core/core.hpp>
 
 using namespace std;
 
@@ -20,32 +14,35 @@ namespace dg {
 
 typedef struct {
     unsigned int id;
-    vector<float> feature;
-    cv::Mat image;
+    string feature;
     string image_uri;
 } RankCandidatesItem;
 
-class CDatabase;
-
 class RankCandidatesRepo {
 
- public:
-    RankCandidatesRepo(const string &repoPath);
-    ~RankCandidatesRepo();
+public:
+    RankCandidatesRepo() { }
+    ~RankCandidatesRepo() { }
 
-    void Load();
-    RankCandidatesItem Get(unsigned int id);
-
-    const vector<RankCandidatesItem> &candidates() const {
-        return candidates_;
+    void Load() {
+        loadFromFile("./repo");
     }
+    RankCandidatesItem Get(unsigned int id) {
 
-
- private:
-
-    void loadFromFile(const string &folderPath);
-    string repo_path_;
-    CDatabase *database_;
+    }
+private:
+    void loadFromFile(const string &folderPath) {
+        boost::filesystem::path folder(folderPath);
+        if (boost::filesystem::exists(folder) && boost::filesystem::is_directory(folder)) {
+            boost::filesystem::directory_iterator itr(folder);
+            boost::filesystem::directory_iterator end;
+            for (; itr != end; ++itr) {
+                cout << "File: " << *itr << endl;
+            }
+        } else {
+            cout << "Invalid folder path: " << folderPath << endl;
+        }
+    }
     vector<RankCandidatesItem> candidates_;
 };
 
