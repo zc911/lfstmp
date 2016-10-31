@@ -35,6 +35,15 @@ class ImageService {
                                   vector<ROIImages> &imgMats,
                                   unsigned int timeout, bool concurrent = true);
     static MatrixError ParseImage(const Image &imgDes, ::cv::Mat &imgMat);
+    static void DecodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
+        if (data.size() >= 0) {
+            try {
+                imgMat = ::cv::imdecode(::cv::Mat(data), 1);
+            } catch (exception &e) {
+                LOG(WARNING) << "decode image failed: " << e.what() << endl;
+            }
+        }
+    }
 
  private:
     static MatrixError getImageFromUri(const std::string uri, ::cv::Mat &imgMat,

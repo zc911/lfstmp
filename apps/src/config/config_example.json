@@ -4,19 +4,21 @@
     "Model": "1.9"
   },
   "ProtocolType": "restful",
-//   "ProtocolType": "rpc|restful",
- "InstanceType": "witness",
-//  "InstanceType" : "ranker",
+  //   "ProtocolType": "rpc|restful",
+  "InstanceType": "witness",
+  //  "InstanceType" : "ranker",
   "System": {
     "Ip": "0.0.0.0",
     "Port": 6500,
-    "Threads": [1]
+    "Threads": [
+      1
+    ]
   },
   "RankerType": "car|face",
-  "Pack":{
-    "Enable":false,
-    "BatchSize":1,
-    "TimeOut":100
+  "Pack": {
+    "Enable": false,
+    "BatchSize": 1,
+    "TimeOut": 100
   },
   "Feature": {
     "Vehicle": {
@@ -99,23 +101,34 @@
     "FaceDetect": {
       "BatchSize": 5,
       "Confidence": 0.7,
-      "Method":3,
+      "Method": 0,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
       "BodyRelativeFaceBottom": 6.0,
-      "Scale":1, 
-      "Min":240,
-      "Max":340
+      "Scale": 1,
+      "Min": 240,
+      "Max": 340
     },
     "FaceExtract": {
       "BatchSize": 5,
-      "FaceSize":[600],
-      "Method":3,
-      "PreProcess":""
+      "FaceSize": [
+        128
+      ],
+      "Method": 0,
+      "PreProcess": "CLAHE",
+      "AlignMethod": 0
     },
     "Ranker": {
-      "Maximum": 100000
+      "NormalizeAlpha": -0.02,
+      "NormalizeBeta": 1.1,
+      "Maximum": 1000000,
+      "FeatureLen": 256,
+      "SaveToFile": true,
+      "SaveToFileIterval": 60, // seconds
+      "RepoPath": "./Repo",
+      // must be absolutely path if use file://
+      "ImageRootPath": "file:///home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/FaceImage"
     },
     "ParseImageTimeout": 60
   },
@@ -148,10 +161,13 @@
   },
   "Storage": {
     "Enabled": false,
-    "Address": ["192.168.2.16:9877"],
-    "DBType": [1]
+    "Address": [
+      "192.168.2.16:9877"
+    ],
+    "DBType": [
+      1
+    ]
   },
-
   //"DataPath": "data/data_tollgate.dat"
   "DataPath": "data/data.dat"
 }

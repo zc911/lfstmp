@@ -60,10 +60,10 @@
 //float FaceRanker::CosSimilarity(const FaceRankFeature &A,
 //                                const FaceRankFeature &B) {
 //    float dot = 0.0, denom_a = 0.0, denom_b = 0.0;
-//    for (unsigned int i = 0; i < A.descriptor_.size(); ++i) {
-//        dot += A.descriptor_[i] * B.descriptor_[i];
-//        denom_a += A.descriptor_[i] * A.descriptor_[i];
-//        denom_b += B.descriptor_[i] * B.descriptor_[i];
+//    for (unsigned int i = 0; i < A.feature_.size(); ++i) {
+//        dot += A.feature_[i] * B.feature_[i];
+//        denom_a += A.feature_[i] * A.feature_[i];
+//        denom_b += B.feature_[i] * B.feature_[i];
 //    }
 //    return abs(dot) / (sqrt(denom_a) * sqrt(denom_b));
 //}

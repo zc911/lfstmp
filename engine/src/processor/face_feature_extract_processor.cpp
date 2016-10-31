@@ -16,8 +16,14 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     LOG(INFO) << config.model_config << " " << config.model_dir;
     islog_ = config.islog;
     switch (config.method) {
-    case CNNRecog:
-        recognition_ = new DGFace::CNNRecog(config.deploy_file, config.model_file, config.layer_name, config.mean, config.pixel_scale, config.use_GPU, config.gpu_id);
+        case CNNRecog:
+            recognition_ = new DGFace::CNNRecog(config.deploy_file,
+                                                config.model_file,
+                                                config.layer_name,
+                                                config.mean,
+                                                config.pixel_scale,
+                                                config.use_GPU,
+                                                config.gpu_id);
 
         break;
     case LBPRecog: {
@@ -41,8 +47,10 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
     }
 
+
     }
-    LOG(INFO) << faConfig.align_model << " " << faConfig.align_path << " " << faConfig.align_cfg << " " << faConfig.align_deploy << faConfig.detect_type;
+    LOG(INFO) << faConfig.align_model << " " << faConfig.align_path << " " << faConfig.align_cfg << " "
+        << faConfig.align_deploy << faConfig.detect_type;
     switch (config.method) {
 
     case CDNNRecog: {
@@ -51,7 +59,8 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
         align_method_ = CdnnAlign;
 
-        break;
+
+            break;
 
     }
     case CdnnCaffeRecog: {
@@ -74,18 +83,19 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         align_method_ = CdnnCaffeAlign;
         align_method_ = CdnnAlign;
 
-        break;
-    }
-    default: {
-        Mat avg_face = imread(faConfig.align_deploy);
-        Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
-        adjust_box(faConfig.detect_type, avgfacebbox);
-        alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
-        alignment_->set_avgface(avg_face, avgfacebbox);
-        align_method_ = DlibAlign;
 
-        break;
-    }
+            break;
+        }
+        default: {
+            Mat avg_face = imread(faConfig.align_deploy);
+            Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
+            adjust_box(faConfig.detect_type, avgfacebbox);
+            alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
+            alignment_->set_avgface(avg_face, avgfacebbox);
+            align_method_ = DlibAlign;
+
+            break;
+        }
     }
     face_size_length_ = faConfig.face_size[0];
     align_threshold_ = faConfig.threshold;
@@ -126,7 +136,8 @@ FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
         delete alignment_;
     to_processed_.clear();
 }
-int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignResult> &align_results, vector< Mat > &imgs) {
+int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignResult> &align_results,
+                                                         vector<Mat> &imgs) {
     if (align_results.size() != to_processed_.size()) {
         return -1;
     }
@@ -139,6 +150,7 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
         float det_threshold  = ((Face *)(*itr))->detection().confidence;
         if (!alignment_->is_face(det_threshold, aitr->score, align_threshold_)) {
             ((Face *)(*itr))->set_valid(false);
+
             itr = to_processed_.erase(itr);
             aitr = align_results.erase(aitr);
             continue;
@@ -166,10 +178,9 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
         aitr++;
     }
 }
-static void draw_landmarks(Mat& img, const DGFace::AlignResult &align_result) {
+static void draw_landmarks(Mat &img, const DGFace::AlignResult &align_result) {
     auto &landmarks = align_result.landmarks;
-    for (auto pt = landmarks.begin(); pt != landmarks.end(); ++pt)
-    {
+    for (auto pt = landmarks.begin(); pt != landmarks.end(); ++pt) {
         circle(img, *pt, 2, Scalar(0, 255, 0), -1);
     }
 }
@@ -186,6 +197,15 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     //vector<float> det_scores;
     for (auto *obj : to_processed_) {
         DGFace::AlignResult align_result;
+//        align_result.bbox.x = 0;
+//        align_result.bbox.y = 0;
+//        align_result.bbox.width = 0;
+//        align_result.bbox.height = 0;
+//
+//        align_result.landmarks.clear();
+//        align_result.landmarks.resize(0);
+//
+//        align_result.face_image = cv::Mat::zeros(1,1,CV_8UC3);
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
         Rect rect = face->detection().box;
@@ -218,12 +238,14 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 //LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[3].x << " " << align_result.landmarks[3].y << endl;
 //LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[13].x << " " << align_result.landmarks[13].y << endl;
 
+
         performance_++;
         align_results.push_back(align_result);
     }
 
     vector<Mat >align_imgs;
     Mat img_draw = align_results[0].face_image.clone();
+
 
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<FaceRankFeature> features;
@@ -232,7 +254,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
-        LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size() << endl;
+        LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size()
+            << endl;
 
         return false;
     }
@@ -255,7 +278,7 @@ void FaceFeatureExtractProcessor::facefilter(FrameBatch *frameBatch) {
 int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features) {
     for (auto result : recog_results) {
         FaceRankFeature feature;
-        feature.descriptor_ = (result.face_feat);
+        feature.feature_ = (result.face_feat);
         if (islog_) {
             LOG(INFO) << result.face_feat.size();
             for (int i = 0; i < result.face_feat.size(); i++) {
@@ -263,6 +286,7 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
             }
             cout << endl;
         }
+
         features.push_back(feature);
     }
 }
@@ -285,10 +309,10 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
     for (vector<Object *>::iterator itr = to_processed_.begin();
-            itr != to_processed_.end();) {
+         itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
-        } else if (((Face *)(*itr))->image().rows == 0 || ((Face *)(*itr))->image().cols == 0) {
+        } else if (((Face *) (*itr))->image().rows == 0 || ((Face *) (*itr))->image().cols == 0) {
             itr = to_processed_.erase(itr);
 
         } else {

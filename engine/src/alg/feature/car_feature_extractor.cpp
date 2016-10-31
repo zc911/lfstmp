@@ -38,7 +38,7 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 //    if (key_point.size() < 50)
 //        LOG(WARNING) << "Not enough feature extracted.";
 //
-//    descriptor.copyTo(des.descriptor_);
+//    descriptor.copyTo(des.feature_);
 //
 //    des.position_ = cv::Mat::zeros(key_point.size(), 2, CV_16UC1);
 //    for (int i = 0; i < key_point.size(); i++) {
@@ -58,7 +58,7 @@ void CarFeatureExtractor::ExtractDescriptor(const cv::Mat &img,
 	cv::Mat descriptor;
 	//normalize_img(resize_img);
 	orb_extractor_(resize_img, cv::Mat(), key_point, descriptor);
-	//orb_(resize_img, Mat(), key_point_, descriptor_);
+	//orb_(resize_img, Mat(), key_point_, feature_);
 	// std::fstream f("feature_num_new.txt", ios::app|ios::out);
 	// f<<key_point_.size()<<endl;
 	// f.close();
