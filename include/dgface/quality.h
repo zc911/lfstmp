@@ -3,12 +3,14 @@
 
 #include <opencv2/opencv.hpp>
 #include "common.h"
+#include <alignment.h>
 
 namespace DGFace{
 class Quality {
     public:
         virtual ~Quality(void) {}
-        virtual float quality(const cv::Mat &image) = 0;
+        virtual float quality(const cv::Mat &image) {}
+        virtual std::vector<float> quality(const AlignResult &align_result) {}
     protected:
         Quality(void) {}
 };

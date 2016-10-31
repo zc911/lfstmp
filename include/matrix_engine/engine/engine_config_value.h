@@ -47,6 +47,8 @@ static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
     "Feature/Face/EnableFeatureVector";
 static const string FEATURE_FACE_ENABLE_QUALITY =
     "Feature/Face/EnableQuality";
+static const string FEATURE_FACE_ENABLE_POSE =
+    "Feature/Face/EnablePose";
 static const string RANKER_DEFAULT_TYPE = "RankerType";
 
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";

@@ -15,6 +15,7 @@
 
 #include "basic.h"
 #include "rank_feature.h"
+#include "dgface/alignment.h"
 
 using namespace std;
 using namespace cv;
@@ -63,7 +64,10 @@ typedef struct Detection {
     }
 
 } Detection;
-
+typedef struct FacePose{
+    int type;
+    vector<float> angles;
+} FacePose;
 
 class Object {
 public:
@@ -387,8 +391,10 @@ private:
 
 class Face: public Object {
 public:
-        enum{BlurM=0,Frontal=1};
-
+    enum{BlurM=0,Frontal=1};
+    enum{NotFrontalType=1,FrontalType = 0};
+    const float Pitch = 30;
+    const float Yaw = 30;
     Face()
         : Object(OBJECT_FACE), is_valid_(true) {
 
@@ -436,11 +442,30 @@ public:
     map<int,float> &get_qualities(){
         return qualities_;
     }
+    void set_pose( vector<float> angles){
+        face_pose_.angles=angles;
+        if((abs(angles[0])<=Pitch)||(abs(angles[1])<=Yaw)){
+            face_pose_.type=FrontalType;
+        }else{
+            face_pose_.type=NotFrontalType;
+        }
+    }
+     FacePose get_pose() const {
+        return face_pose_;
+    }
+    void set_align_result(DGFace::AlignResult align_result){
+        align_result_ = align_result;
+    }
+    DGFace::AlignResult &get_align_result(){
+        return align_result_;
+    }
 private:
     cv::Mat image_;
     FaceRankFeature feature_;
     bool is_valid_;
     map<int,float> qualities_;
+    FacePose face_pose_;
+    DGFace::AlignResult align_result_;
 };
 
 

@@ -1,9 +1,9 @@
 /*============================================================================
  * File Name   : face_feature_extract_processor.cpp
- * Author      : tongliu@deepglint.com
+ * Author      : jiajiachen@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 2016年4月21日 下午3:44:11
+ * Created on  : 2016年10月21日 下午3:44:11
  * Description :
  * ==========================================================================*/
 //#include <alg/feature/face_alignment.h>
@@ -36,7 +36,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
         break;
     }
-    case CdnnFuse:{
+    case CdnnFuse: {
         recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id,  config.concurrency);
 
     }
@@ -59,7 +59,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
         alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
         align_method_ = CdnnAlign;
-       // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+        // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
         //align_method_ = CdnnCaffeAlign;
 
         break;
@@ -69,7 +69,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
 
         //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-           //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+        //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
 
         align_method_ = CdnnCaffeAlign;
         align_method_ = CdnnAlign;
@@ -137,7 +137,6 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
         //    Face *face = static_cast<Face *>(obj);
         //Mat img = face->image();
         float det_threshold  = ((Face *)(*itr))->detection().confidence;
-        LOG(INFO)<<(float)(aitr->score)<<" "<<(float)(((Face *)(*itr))->detection().confidence);
         if (!alignment_->is_face(det_threshold, aitr->score, align_threshold_)) {
             ((Face *)(*itr))->set_valid(false);
             itr = to_processed_.erase(itr);
@@ -159,7 +158,6 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
             if ((aitr->landmarks.size() == 0) || (aitr->face_image.rows == 0) || (aitr->face_image.cols == 0) || (!isValid)) {
                 itr = to_processed_.erase(itr);
                 aitr = align_results.erase(aitr);
-
                 continue;
             }
             imgs.push_back(aitr->face_image.clone());
@@ -191,7 +189,6 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         Face *face = static_cast<Face *>(obj);
         Mat img = face->image();
         Rect rect = face->detection().box;
-        LOG(INFO)<<face->detection();
         switch (align_method_) {
         case DlibAlign:
             alignment_->align(img, rect, align_result, true);
@@ -226,9 +223,12 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     }
 
     vector<Mat >align_imgs;
+    Mat img_draw = align_results[0].face_image.clone();
+
     AlignResult2MatrixAlign(align_results, align_imgs);
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
+
     recognition_->recog(align_imgs, align_results, results, pre_process_);
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
@@ -241,6 +241,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         FaceRankFeature feature = features[i];
         Face *face = (Face *) to_processed_[i];
         face->set_feature(feature);
+        face->set_align_result(align_results[i]);
+
     }
 
     return true;
@@ -255,7 +257,7 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
         FaceRankFeature feature;
         feature.descriptor_ = (result.face_feat);
         if (islog_) {
-            LOG(INFO)<<result.face_feat.size();
+            LOG(INFO) << result.face_feat.size();
             for (int i = 0; i < result.face_feat.size(); i++) {
                 cout << result.face_feat[i] << " ";
             }

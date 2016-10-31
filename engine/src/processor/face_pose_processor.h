@@ -3,33 +3,30 @@
  * Author      : jiajiachen@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 2016年10月21日 下午6:44:11
+ * Created on  : 2016年10月27日 下午2:44:11
  * Description :
  * ==========================================================================*/
-#ifndef FACE_QUALITY_PROCESSOR_H_
-#define FACE_QUALITY_PROCESSOR_H_
+#ifndef FACE_POSE_PROCESSOR_H_
+#define FACE_POSE_PROCESSOR_H_
 
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
-#include "dgface/quality/qual_frontalm.h"
+#include "dgface/quality/qual_posem.h"
 
 
 namespace dg {
 typedef struct {
-    int blurMMethod;
-    int frontalMethod;
-    float frontalThreshold;
-} FaceQualityConfig;
-class FaceQualityProcessor: public Processor {
+
+} FacePoseConfig;
+class FacePoseProcessor: public Processor {
 public:
-	enum{FrontalDlib=0};
-	FaceQualityProcessor(
-	    const FaceQualityConfig &config);
-	virtual ~FaceQualityProcessor();
+	FacePoseProcessor(
+	    const FacePoseConfig &config);
+	virtual ~FacePoseProcessor();
 
 protected:
-	virtual bool process(Frame *frame){};
+	virtual bool process(Frame *frame) {};
 	virtual bool process(FrameBatch *frameBatch);
 
 	virtual bool RecordFeaturePerformance();
@@ -38,8 +35,7 @@ protected:
 
 private:
 	vector<Object *> to_processed_;
-	DGFace::FrontalMQuality *fq_;
-	float frontalThreshold_;
+	DGFace::PoseQuality *fp_;
 };
 
 } /* namespace dg */

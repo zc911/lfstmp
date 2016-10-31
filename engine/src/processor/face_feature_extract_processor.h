@@ -3,7 +3,7 @@
  * Author      : tongliu@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 2016年4月21日 下午3:44:11
+ * Created on  : 2016年10月21日 下午3:44:11
  * Description :
  * ==========================================================================*/
 #ifndef FACE_FEATURE_EXTRACT_PROCESSOR_H_
@@ -55,13 +55,13 @@ typedef struct {
     int method;
     string model_dir;
     string model_config;
-    bool islog=false;
-    bool concurrency=false;
+    bool islog = false;
+    bool concurrency = false;
 
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
 public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3,CdnnFuse=4};
+    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4};
     enum {DlibAlign = 0, CdnnAlign = 1, CdnnCaffeAlign = 2};
 
     FaceFeatureExtractProcessor(
