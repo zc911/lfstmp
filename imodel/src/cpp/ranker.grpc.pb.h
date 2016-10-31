@@ -39,6 +39,10 @@ class SimilarityService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::RankFeatureResponse>> AsyncRankFeature(::grpc::ClientContext* context, const ::dg::model::RankFeatureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::RankFeatureResponse>>(AsyncRankFeatureRaw(context, request, cq));
     }
+    virtual ::grpc::Status AddFeatures(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::dg::model::AddFeaturesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::AddFeaturesResponse>> AsyncAddFeatures(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::AddFeaturesResponse>>(AsyncAddFeaturesRaw(context, request, cq));
+    }
     // Deprecated
     virtual ::grpc::Status GetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::dg::model::FeatureRankingResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::FeatureRankingResponse>> AsyncGetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
@@ -47,6 +51,7 @@ class SimilarityService GRPC_FINAL {
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::RankImageResponse>* AsyncRankImageRaw(::grpc::ClientContext* context, const ::dg::model::RankImageRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::RankFeatureResponse>* AsyncRankFeatureRaw(::grpc::ClientContext* context, const ::dg::model::RankFeatureRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::AddFeaturesResponse>* AsyncAddFeaturesRaw(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::FeatureRankingResponse>* AsyncGetRankedVectorRaw(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub GRPC_FINAL : public StubInterface {
@@ -60,6 +65,10 @@ class SimilarityService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::RankFeatureResponse>> AsyncRankFeature(::grpc::ClientContext* context, const ::dg::model::RankFeatureRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::RankFeatureResponse>>(AsyncRankFeatureRaw(context, request, cq));
     }
+    ::grpc::Status AddFeatures(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::dg::model::AddFeaturesResponse* response) GRPC_OVERRIDE;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::AddFeaturesResponse>> AsyncAddFeatures(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::AddFeaturesResponse>>(AsyncAddFeaturesRaw(context, request, cq));
+    }
     ::grpc::Status GetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::dg::model::FeatureRankingResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::FeatureRankingResponse>> AsyncGetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::FeatureRankingResponse>>(AsyncGetRankedVectorRaw(context, request, cq));
@@ -69,9 +78,11 @@ class SimilarityService GRPC_FINAL {
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::dg::model::RankImageResponse>* AsyncRankImageRaw(::grpc::ClientContext* context, const ::dg::model::RankImageRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::model::RankFeatureResponse>* AsyncRankFeatureRaw(::grpc::ClientContext* context, const ::dg::model::RankFeatureRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
+    ::grpc::ClientAsyncResponseReader< ::dg::model::AddFeaturesResponse>* AsyncAddFeaturesRaw(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::model::FeatureRankingResponse>* AsyncGetRankedVectorRaw(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_RankImage_;
     const ::grpc::RpcMethod rpcmethod_RankFeature_;
+    const ::grpc::RpcMethod rpcmethod_AddFeatures_;
     const ::grpc::RpcMethod rpcmethod_GetRankedVector_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -82,6 +93,7 @@ class SimilarityService GRPC_FINAL {
     virtual ~Service();
     virtual ::grpc::Status RankImage(::grpc::ServerContext* context, const ::dg::model::RankImageRequest* request, ::dg::model::RankImageResponse* response);
     virtual ::grpc::Status RankFeature(::grpc::ServerContext* context, const ::dg::model::RankFeatureRequest* request, ::dg::model::RankFeatureResponse* response);
+    virtual ::grpc::Status AddFeatures(::grpc::ServerContext* context, const ::dg::model::AddFeaturesRequest* request, ::dg::model::AddFeaturesResponse* response);
     // Deprecated
     virtual ::grpc::Status GetRankedVector(::grpc::ServerContext* context, const ::dg::model::FeatureRankingRequest* request, ::dg::model::FeatureRankingResponse* response);
   };
@@ -126,12 +138,32 @@ class SimilarityService GRPC_FINAL {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_AddFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithAsyncMethod_AddFeatures() {
+      ::grpc::Service::MarkMethodAsync(2);
+    }
+    ~WithAsyncMethod_AddFeatures() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddFeatures(::grpc::ServerContext* context, const ::dg::model::AddFeaturesRequest* request, ::dg::model::AddFeaturesResponse* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAddFeatures(::grpc::ServerContext* context, ::dg::model::AddFeaturesRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::AddFeaturesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_GetRankedVector : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetRankedVector() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_GetRankedVector() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -142,10 +174,10 @@ class SimilarityService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetRankedVector(::grpc::ServerContext* context, ::dg::model::FeatureRankingRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::FeatureRankingResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_RankImage<WithAsyncMethod_RankFeature<WithAsyncMethod_GetRankedVector<Service > > > AsyncService;
+  typedef WithAsyncMethod_RankImage<WithAsyncMethod_RankFeature<WithAsyncMethod_AddFeatures<WithAsyncMethod_GetRankedVector<Service > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_RankImage : public BaseClass {
    private:
@@ -181,12 +213,29 @@ class SimilarityService GRPC_FINAL {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_AddFeatures : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service *service) {}
+   public:
+    WithGenericMethod_AddFeatures() {
+      ::grpc::Service::MarkMethodGeneric(2);
+    }
+    ~WithGenericMethod_AddFeatures() GRPC_OVERRIDE {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddFeatures(::grpc::ServerContext* context, const ::dg::model::AddFeaturesRequest* request, ::dg::model::AddFeaturesResponse* response) GRPC_FINAL GRPC_OVERRIDE {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_GetRankedVector : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetRankedVector() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_GetRankedVector() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);

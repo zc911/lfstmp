@@ -327,8 +327,21 @@ public:
         datum_ = feature;
     }
 
+    unsigned int max_candidates_;
     vector<Score> result_;
     FaceRankFeature datum_;
+};
+
+class FeaturesFrame: public Frame {
+ public:
+    FeaturesFrame(Identification id) : Frame(id) {
+
+    }
+    void AddFeature(const FaceRankFeature &feature) {
+        features_.push_back(feature);
+    }
+
+    vector<FaceRankFeature> features_;
 };
 
 }

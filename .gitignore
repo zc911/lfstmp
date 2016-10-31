@@ -1,4 +1,6 @@
 build/
+lib/matrix_engine/Linux-x86_64/libmatrix.a
+lib/matrix_engine/Linux-x86_64/libmatrix_cuda.a
 .idea/workspace.xml
 utils/dist/
 bin/

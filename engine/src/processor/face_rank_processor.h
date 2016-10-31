@@ -16,18 +16,23 @@
 namespace dg {
 
 class FaceRankProcessor: public Processor {
-public:
-	FaceRankProcessor();
-	virtual ~FaceRankProcessor();
-protected:
-	virtual bool process(Frame *frame);
-	virtual bool process(FrameBatch *frameBatch) {
-		return false;
-	}
-	virtual bool beforeUpdate(FrameBatch *frameBatch);
+ public:
+    FaceRankProcessor();
+    FaceRankProcessor(float alpha = -0.05, float beta = 1.1);
+    virtual ~FaceRankProcessor();
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch) {
+        return false;
+    }
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 
-	virtual bool RecordFeaturePerformance();
+    virtual bool RecordFeaturePerformance();
+
+ private:
+    float alpha_;
+    float beta_;
 
 };
 

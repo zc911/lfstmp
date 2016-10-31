@@ -53,9 +53,30 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 //        configFilter->createFaceExtractorConfig(config, feconfig);
 //        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
 
-        face_ranker_ = new FaceRankProcessor();
+        float normalize_alpha = (float) config.Value(ADVANCED_RANKER_NORMALIZE_ALPHA);
+        float normalize_beta = (float) config.Value(ADVANCED_RANKER_NORMALIZE_BETA);
+
+        if(normalize_alpha == 0.0f){
+            normalize_alpha = -0.05;
+        }
+        if(normalize_beta == 0.0f){
+            normalize_beta = 1.1;
+        }
+
+        face_ranker_ = new FaceRankProcessor(normalize_alpha, normalize_beta);
         RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
-        repo.Init("./repo");
+        unsigned int capacity = (int) config.Value(ADVANCED_RANKER_MAXIMUM);
+        capacity = capacity <= 0 ? 1 : capacity;
+        unsigned int featureLen = (int) config.Value(ADVANCED_RANKER_FEATURE_LENGTH);
+        featureLen = featureLen <= 0 ? 256 : featureLen;
+        string repoPath = (string) config.Value(ADVANCED_RANKER_REPO_PATH);
+        string imageRootPath = (string) config.Value(ADVANCED_RANKER_IMAGE_ROOT_PATH);
+        bool needSave = (bool) config.Value(ADVANCED_RANKER_NEED_SAVE_TO_FILE);
+        unsigned int saveIterval = (int) config.Value(ADVANCED_RANKER_SAVE_TO_FILE_ITERVAL);
+        if(saveIterval < SAVE_TO_FILE_ITERVAL) {
+            saveIterval = SAVE_TO_FILE_ITERVAL;
+        }
+        repo.Init(repoPath, imageRootPath, capacity, featureLen, needSave, saveIterval);
 
     }
 }
@@ -80,6 +101,11 @@ void SimpleRankEngine::RankFace(FaceRankFrame *f) {
     if (enable_ranker_face_) {
         face_ranker_->Update(f);
     }
+}
+
+void SimpleRankEngine::AddFeatures(FeaturesFrame *f) {
+    RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+    repo.AddFeatures(*f);
 }
 
 }

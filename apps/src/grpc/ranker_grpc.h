@@ -48,7 +48,20 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
         cout << "[GRPC] ========================" << endl;
         cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
         MatrixError error = service_->RankFeature(request, response);
+        response->mutable_context()->set_message(error.message());
+        response->mutable_context()->set_status(std::to_string(error.code()));
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    }
+    virtual ::grpc::Status AddFeatures(::grpc::ServerContext *context,
+                                       const ::dg::model::AddFeaturesRequest *request,
+                                       ::dg::model::AddFeaturesResponse *response) {
+        cout << "[GRPC] ========================" << endl;
+        cout << "[GRPC] Add features in runtime" << endl;
+        MatrixError error = service_->AddFeatures(request, response);
+        response->mutable_context()->set_message(error.message());
+        response->mutable_context()->set_status(std::to_string(error.code()));
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
     }
 
     /**

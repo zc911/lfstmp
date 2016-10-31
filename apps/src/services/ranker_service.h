@@ -24,7 +24,7 @@ namespace dg {
 using namespace ::dg::model;
 
 class RankerAppsService {
-public:
+ public:
     RankerAppsService(const Config *config, string name, int baseId = 0);
     virtual ~RankerAppsService();
 
@@ -33,8 +33,9 @@ public:
 
     MatrixError RankImage(const RankImageRequest *request, RankImageResponse *response);
     MatrixError RankFeature(const RankFeatureRequest *request, RankFeatureResponse *response);
+    MatrixError AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response);
 
-private:
+ private:
     string name_;
     const Config *config_;
     int limits_;

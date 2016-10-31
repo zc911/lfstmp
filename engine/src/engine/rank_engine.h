@@ -18,6 +18,7 @@
 #include "engine_config_value.h"
 
 #define RANKER_MAXIMUM 10000
+#define SAVE_TO_FILE_ITERVAL 5
 
 namespace dg {
 
@@ -45,6 +46,7 @@ public:
 
     void RankCar(CarRankFrame *frame);
     void RankFace(FaceRankFrame *frame);
+    void AddFeatures(FeaturesFrame *frame);
 
 private:
     Identification id_;
