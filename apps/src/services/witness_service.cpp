@@ -331,6 +331,14 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         face->set_id(fobj->id());
         face->set_confidence((float) fobj->confidence());
         face->set_features(fobj->feature().Serialize());
+        RecFacePose *face_pose = face->mutable_pose();
+        const FacePose fp = fobj->get_pose();
+        face_pose->set_type(fp.type);
+        for (int i = 0; i < fp.angles.size(); i++) {
+            face_pose->add_angles(fp.angles[i]);
+
+        }
+
         const Detection &d = fobj->detection();
         auto faceCutboard = face->mutable_img()->mutable_cutboard();
         auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();

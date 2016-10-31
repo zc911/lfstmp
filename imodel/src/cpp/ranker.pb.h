@@ -1150,7 +1150,6 @@ inline ::std::string* RankRequestContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankRequestContext::release_sessionid() {
-  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1194,7 +1193,6 @@ inline ::std::string* RankRequestContext::mutable_username() {
   return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankRequestContext::release_username() {
-  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.UserName)
   
   return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1238,7 +1236,6 @@ inline ::std::string* RankRequestContext::mutable_token() {
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankRequestContext::release_token() {
-  // @@protoc_insertion_point(field_release:dg.model.RankRequestContext.Token)
   
   return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1318,7 +1315,6 @@ inline ::std::string* RankResponseContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResponseContext::release_sessionid() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1362,7 +1358,6 @@ inline ::std::string* RankResponseContext::mutable_status() {
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResponseContext::release_status() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Status)
   
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1406,7 +1401,6 @@ inline ::std::string* RankResponseContext::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResponseContext::release_message() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1441,7 +1435,6 @@ inline ::dg::model::Time* RankResponseContext::mutable_requestts() {
   return requestts_;
 }
 inline ::dg::model::Time* RankResponseContext::release_requestts() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.RequestTs)
   
   ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
@@ -1479,7 +1472,6 @@ inline ::dg::model::Time* RankResponseContext::mutable_responsets() {
   return responsets_;
 }
 inline ::dg::model::Time* RankResponseContext::release_responsets() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResponseContext.ResponseTs)
   
   ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
@@ -1539,7 +1531,6 @@ inline ::dg::model::RankRequestContext* RankFeatureRequest::mutable_context() {
   return context_;
 }
 inline ::dg::model::RankRequestContext* RankFeatureRequest::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Context)
   
   ::dg::model::RankRequestContext* temp = context_;
   context_ = NULL;
@@ -1577,7 +1568,6 @@ inline ::dg::model::FeatureVector* RankFeatureRequest::mutable_feature() {
   return feature_;
 }
 inline ::dg::model::FeatureVector* RankFeatureRequest::release_feature() {
-  // @@protoc_insertion_point(field_release:dg.model.RankFeatureRequest.Feature)
   
   ::dg::model::FeatureVector* temp = feature_;
   feature_ = NULL;
@@ -1670,7 +1660,6 @@ inline ::std::string* RankResult::mutable_name() {
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResult::release_name() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResult.Name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1714,7 +1703,6 @@ inline ::std::string* RankResult::mutable_uri() {
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResult::release_uri() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResult.Uri)
   
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1758,7 +1746,6 @@ inline ::std::string* RankResult::mutable_data() {
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankResult::release_data() {
-  // @@protoc_insertion_point(field_release:dg.model.RankResult.Data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1797,7 +1784,6 @@ inline ::dg::model::RankResponseContext* RankFeatureResponse::mutable_context() 
   return context_;
 }
 inline ::dg::model::RankResponseContext* RankFeatureResponse::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.RankFeatureResponse.Context)
   
   ::dg::model::RankResponseContext* temp = context_;
   context_ = NULL;
@@ -1869,7 +1855,6 @@ inline ::dg::model::RankRequestContext* RankImageRequest::mutable_context() {
   return context_;
 }
 inline ::dg::model::RankRequestContext* RankImageRequest::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Context)
   
   ::dg::model::RankRequestContext* temp = context_;
   context_ = NULL;
@@ -1907,7 +1892,6 @@ inline ::dg::model::Image* RankImageRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::Image* RankImageRequest::release_image() {
-  // @@protoc_insertion_point(field_release:dg.model.RankImageRequest.Image)
   
   ::dg::model::Image* temp = image_;
   image_ = NULL;
@@ -2023,7 +2007,6 @@ inline ::dg::model::RankResponseContext* RankImageResponse::mutable_context() {
   return context_;
 }
 inline ::dg::model::RankResponseContext* RankImageResponse::release_context() {
-  // @@protoc_insertion_point(field_release:dg.model.RankImageResponse.Context)
   
   ::dg::model::RankResponseContext* temp = context_;
   context_ = NULL;
@@ -2123,7 +2106,6 @@ inline ::dg::model::Image* FeatureRankingRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::Image* FeatureRankingRequest::release_image() {
-  // @@protoc_insertion_point(field_release:dg.model.FeatureRankingRequest.Image)
   
   ::dg::model::Image* temp = image_;
   image_ = NULL;

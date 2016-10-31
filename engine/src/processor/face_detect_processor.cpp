@@ -114,8 +114,8 @@ bool FaceDetectProcessor::process(Frame *frame) {
          frame->put_object(face);
      }*/
 }
-static bool BoxCmp(const Detection &d1,const Detection &d2){
-    return d1.box.area()>d2.box.area();
+static bool BoxCmp(const Detection &d1, const Detection &d2) {
+  return d1.box.area() > d2.box.area();
 }
 
 // TODO change to "real" batch
@@ -157,7 +157,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
   for (int i = 0; i < frameIds.size(); ++i) {
     int frameId = frameIds[i];
     Frame *frame = frameBatch->frames()[frameId];
-    sort(boxes_in[i].begin(),boxes_in[i].end(),BoxCmp);
+    sort(boxes_in[i].begin(), boxes_in[i].end(), BoxCmp);
 
     /* if (boxes_in[i].size() == 0)
        continue;
@@ -183,8 +183,8 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
                             detection.confidence);
       cv::Mat data = frame->payload()->data();
       cv::Mat image = data;
-  //    string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
-   //   imwrite(name, image);
+      //    string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
+      //   imwrite(name, image);
       face->set_image(image);
       frame->put_object(face);
     }

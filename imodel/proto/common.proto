@@ -77,11 +77,16 @@ message Image {
     string BinData = 5; // base64 format image
 }
 
+message RecFacePose{
+    int32 Type = 1;
+    repeated float Angles = 2;
+}
 message RecFace {
     int64 Id = 1;
     CutboardImage Img = 2;
     string Features = 3;
     float Confidence = 4;
+    RecFacePose Pose = 5;
 }
 
 enum SexType {
