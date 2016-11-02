@@ -8,7 +8,6 @@
  * ==========================================================================*/
 
 #include <glog/logging.h>
-#include <sstream>
 #include "ranker_service.h"
 #include "codec/base64.h"
 #include "image_service.h"
@@ -19,6 +18,12 @@
 
 namespace dg {
 //const int RANKER_MAXIMUM = 10000
+
+
+const static int PAGE_SIZE_DEFAULT = 100;
+const static float CONFIDENCE_THRESHOLD_DEFAULT = 0.0f;
+const static int MAX_CANDIDATES_DEFAULT = 10;
+
 RankerAppsService::RankerAppsService(const Config *config, string name, int baseId)
     : name_(name),
       config_(config) {
@@ -154,7 +159,6 @@ static MatrixError genFilters(const RankRequestContext &ctx, map<string, set<str
                     filters.insert(*col);
                     stringFilters.insert(make_pair(key, filters));
                 }
-//                cout << "Filter: " << key << " : " << *col << endl;
                 col++;
             }
 
@@ -176,17 +180,6 @@ static MatrixError genFilters(const RankRequestContext &ctx, map<string, set<str
             cout << key << "-" << rangeStart << rangeEnd << endl;
             rangeFilters.insert(make_pair(key, make_pair(rangeStart, rangeEnd)));
 
-//            auto rangeItemItr = rangeFilters.find(key);
-//            if (rangeItemItr != rangeFilters.end()) {
-//
-//            } else {
-//
-//                rangeFilters.insert(make_pair(key, make_pair(rangeStart, rangeEnd)));
-////                rangeItemItr->second.first = rangeStart;
-////                rangeItemItr->second.second = rangeEnd;
-//            }
-
-//            cout << "Range: " << key << ": " << rangeStart << "-" << rangeEnd << endl;
         }
     }
 
@@ -201,8 +194,6 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
     }
 
     // apply the string filter
-
-//    cout << "apply value filter: " << endl;
     for (auto itr = valueFilters.begin(); itr != valueFilters.end(); ++itr) {
         string filterName = itr->first;
         filterName = filterName.substr(0, 6);
@@ -211,14 +202,6 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 
             auto specAttrItr = attributeSetItr->second;
 
-//            for(auto i = specAttrItr.begin(); i != specAttrItr.end(); ++i){
-//                cout << "attr: " << *i;
-//            }
-//            cout << endl;
-//            for(auto i = itr->second.begin(); i != itr->second.end(); ++i){
-//                cout << "filter: " << *i;
-//            }
-//            cout << endl;
 
             set<string> intersectionResult;
             std::set_intersection(specAttrItr.begin(),
@@ -226,7 +209,7 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
                                   itr->second.begin(),
                                   itr->second.end(),
                                   insert_iterator<set<string> >(intersectionResult, intersectionResult.begin()));
-            if(intersectionResult.size() == 0){
+            if (intersectionResult.size() == 0) {
 
                 return false;
             }
@@ -237,31 +220,39 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 
     }
 
-//    cout << "apply range filter: " << endl;
-    for(auto itr = rangeFilters.begin(); itr != rangeFilters.end(); ++itr){
+    for (auto itr = rangeFilters.begin(); itr != rangeFilters.end(); ++itr) {
         string filterName = itr->first;
         int rangeStart = itr->second.first;
         int rangeEnd = itr->second.second;
 
         auto attributeSetItr = item.attributes_.find(filterName);
-        if(attributeSetItr != item.attributes_.end()){
-            if(attributeSetItr->second.size() != 0){
+        if (attributeSetItr != item.attributes_.end()) {
+            if (attributeSetItr->second.size() != 0) {
                 string valueString = *(attributeSetItr->second.begin());
                 int value = atoi(valueString.c_str());
 //                cout << "value: " << value << " range: " << rangeStart << "- " << rangeEnd << endl;
-                if(value < rangeStart || value > rangeEnd)
+                if (value < rangeStart || value > rangeEnd)
                     return false;
             }
-        }else{
+        } else {
             return false;
         }
-
 
     }
 
     return true;
 }
 
+
+static void resizeByRatio(cv::Mat &image, unsigned int maxLen){
+    if(image.cols & image.rows == 0){
+        return;
+    }
+    float ratio = (float)maxLen / ((float)((image.cols >= image.rows) ? image.cols : image.rows));
+    cv::resize(image, image, cv::Size(image.cols * ratio, image.rows * ratio));
+
+
+}
 
 MatrixError RankerAppsService::getFaceScoredVector(
     vector<Score> &scores, const RankFeatureRequest *request,
@@ -277,17 +268,15 @@ MatrixError RankerAppsService::getFaceScoredVector(
     }
 
 
-
     const RankRequestContext &ctx = request->context();
-    int maxCandidates = 10;
 
+    int maxCandidates = MAX_CANDIDATES_DEFAULT;
     auto itr = ctx.params().find("MaxCandidates");
     if (itr != request->context().params().end()) {
         string mcs = itr->second;
         maxCandidates = atoi(mcs.c_str());
-        maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
+        maxCandidates = maxCandidates <= 0 ? MAX_CANDIDATES_DEFAULT : maxCandidates;
     }
-
 
     bool needImageData = true;
     itr = ctx.params().find("ImageData");
@@ -296,39 +285,59 @@ MatrixError RankerAppsService::getFaceScoredVector(
         if (needImageDataString == "false") {
             needImageData = false;
         }
-        if (needImageDataString == "true") {
-            needImageData = true;
+    }
+
+    double confidenceThreshold = CONFIDENCE_THRESHOLD_DEFAULT;
+    itr = ctx.params().find("ConfidenceThreshold");
+    if (itr != ctx.params().end()) {
+        string confidenceThresholdStr = itr->second;
+        confidenceThreshold = atof(confidenceThresholdStr.c_str());
+        if (confidenceThreshold < 0.0f) {
+            confidenceThreshold = 0.0f;
+        } else if (confidenceThreshold > 1.0f) {
+            confidenceThreshold = 1.0f;
         }
     }
 
-//    cout << "The filter params size: " << ctx.params().size() << endl;
-//
-//    map<string, set<string>> stringFilters;
-//    map<string, pair<int, int>> rangeFilters;
-//    genFilters(ctx, stringFilters, rangeFilters);
-//
-//    cout << "String filter from request" << endl;
-//    for (auto itr = stringFilters.begin(); itr != stringFilters.end(); ++itr) {
-//        cout << itr->first << ": [";
-//        for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
-//            cout << *itr2 << ",";
-//        }
-//        cout << "]";
-//    }
-//    cout << endl;
-//    cout << "Range filter from request" << endl;
-//    for (auto itr3 = rangeFilters.begin(); itr3 != rangeFilters.end(); ++itr3) {
-//        cout << itr3->first << ": [";
-//        cout << itr3->second.first << "," << itr3->second.second;
-//        cout << "]";
-//    }
-//    cout << endl;
+    int pageSize = PAGE_SIZE_DEFAULT;
+    itr = ctx.params().find("PageSize");
+    if(itr != ctx.params().end()){
+        string pageSizeStr = itr->second;
+        int pageSizeInt = atoi(pageSizeStr.c_str());
+        if(pageSizeInt > 0){
+            pageSize = pageSizeInt;
+        }
+    }
+
+    int pageIndex = 0;
+    itr = ctx.params().find("PageIndex");
+    if(itr != ctx.params().end()){
+        string pageIndexStr = itr->second;
+        int pageIndexInt = atoi(pageIndexStr.c_str());
+        if(pageIndexInt > 0){
+            pageIndex = pageIndexInt;
+        }
+    }
+
+    bool useThumbnail = true;
+    itr = ctx.params().find("Thumbnail");
+    if(itr != ctx.params().end()){
+        string thumbnailStr = itr->second;
+        if(thumbnailStr == "false"){
+            useThumbnail = false;
+        }
+    }
+
+
+    map<string, set<string>> stringFilters;
+    map<string, pair<int, int>> rangeFilters;
+    genFilters(ctx, stringFilters, rangeFilters);
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.feature_);
 
     FaceRankFrame f(0, feature);
-    f.max_candidates_ = maxCandidates * 100;
+    f.max_candidates_ = maxCandidates * 100 >= 100 * 1000 ? 100 * 1000 : maxCandidates * 100 ;
     Operation op;
 
     op.Set(OPERATION_FACE_FEATURE_VECTOR);
@@ -350,14 +359,46 @@ MatrixError RankerAppsService::getFaceScoredVector(
     data.Wait();
 
     RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
+
+    // calculate the page size, page count and page index
+    int resultCount = f.result_.size();
+    int pageCount = 0;
+    if(resultCount < pageSize){
+        pageSize = resultCount;
+        pageIndex = 0;
+    }else {
+        pageCount = resultCount / pageSize + ((resultCount % pageSize == 0) ? 0 : 1);
+    }
+    int startIndex = pageIndex * pageSize;
+
+    int currentResultIndex = -1;
+    int candidatesCount = 0;
     for (auto r : f.result_) {
 
+        if (r.score_ < confidenceThreshold) {
+            LOG(WARNING) << "Ranker result item score is lower than confidence threshold " << r.score_ << ":"
+                << confidenceThreshold << endl;
+            continue;
+        }
 
         const RankCandidatesItem &item = repo.Get(r.index_);
 
-        if(!applyFilters(item, stringFilters, rangeFilters)){
+        if (!applyFilters(item, stringFilters, rangeFilters)) {
             continue;
         }
+
+        currentResultIndex++;
+        if(currentResultIndex < startIndex || currentResultIndex >= startIndex + pageSize){
+            cout << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
+            continue;
+        }
+
+        candidatesCount++;
+        if(candidatesCount > maxCandidates){
+            cout << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
+            return err;
+        }
+
 
         VLOG(VLOG_RUNTIME_DEBUG) << r.index_ << " " << r.score_ << "" << item.id_ << " " << item.image_uri_ << endl;
 
@@ -366,10 +407,10 @@ MatrixError RankerAppsService::getFaceScoredVector(
         result->set_id(item.id_);
         result->set_score(r.score_);
         map<string, set<string>> attrs = item.attributes_;
-        for(auto itr = attrs.begin(); itr != attrs.end(); ++itr){
+        for (auto itr = attrs.begin(); itr != attrs.end(); ++itr) {
             std::stringstream ss;
-            for(auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2){
-                if(itr2 != itr->second.begin()){
+            for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
+                if (itr2 != itr->second.begin()) {
                     ss << ",";
                 }
                 ss << *itr2;
@@ -382,10 +423,28 @@ MatrixError RankerAppsService::getFaceScoredVector(
         if (needImageData) {
 
             if ((item.image_.cols & item.image_.rows) != 0) {
-                result->set_data(encode2JPEGInBase64(item.image_));
+                cv::Mat imageMat;
+                item.image_.copyTo(imageMat);
+                if(useThumbnail){
+                    resizeByRatio(imageMat, 80);
+                }
+                result->set_data(encode2JPEGInBase64(imageMat));
             } else {
                 try {
                     if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
+                        Mat imageMat = cv::imdecode(imageContent, CV_LOAD_IMAGE_COLOR);
+                        if(useThumbnail){
+                            resizeByRatio(imageMat, 50);
+                        }
+
+                        imageContent.clear();
+                        if(imageMat.isContinuous())
+                            imageContent.assign(imageMat.datastart, imageMat.dataend);
+                        else{
+                            for (int i = 0; i < imageMat.rows; ++i) {
+                                imageContent.insert(imageContent.end(), imageMat.ptr<uchar>(i), imageMat.ptr<uchar>(i)+imageMat.cols);
+                            }
+                        }
                         result->set_data(Base64::Encode<uchar>(imageContent));
                     }
                 } catch (exception &e) {
