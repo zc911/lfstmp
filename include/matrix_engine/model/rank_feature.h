@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <glog/logging.h>
 #include <opencv2/core/core.hpp>
 
@@ -89,11 +90,28 @@ class FaceRankFeature final: public RankFeature {
     string id_;
     std::vector<float> feature_;
     std::string name_;
+    std::map<string, std::set<string>> attributes_;
     std::string image_uri_;
     cv::Mat image_;
 
     virtual string Serialize() const override;
     virtual bool Deserialize(string featureStr) override;
+
+    friend ostream &operator<<(std::ostream &os, const FaceRankFeature &f) {
+        os << "ID: " << f.id_ << ", feature:" << f.feature_.size() << ", image uri: " << f.image_uri_
+            << ", attributes: {";
+        for (auto itr = f.attributes_.begin(); itr != f.attributes_.end(); ++itr) {
+            os << "\"" << itr->first << "\"" << ":" << "[";
+            for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
+                os << *itr2 << ",";
+            }
+            os << "]";
+
+        }
+        os << "}" << endl;
+        return os;
+
+    }
 };
 
 }
