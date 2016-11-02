@@ -202,7 +202,7 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 
     // apply the string filter
 
-    cout << "apply value filter: " << endl;
+//    cout << "apply value filter: " << endl;
     for (auto itr = valueFilters.begin(); itr != valueFilters.end(); ++itr) {
         string filterName = itr->first;
         filterName = filterName.substr(0, 6);
@@ -211,14 +211,14 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 
             auto specAttrItr = attributeSetItr->second;
 
-            for(auto i = specAttrItr.begin(); i != specAttrItr.end(); ++i){
-                cout << "attr: " << *i;
-            }
-            cout << endl;
-            for(auto i = itr->second.begin(); i != itr->second.end(); ++i){
-                cout << "filter: " << *i;
-            }
-            cout << endl;
+//            for(auto i = specAttrItr.begin(); i != specAttrItr.end(); ++i){
+//                cout << "attr: " << *i;
+//            }
+//            cout << endl;
+//            for(auto i = itr->second.begin(); i != itr->second.end(); ++i){
+//                cout << "filter: " << *i;
+//            }
+//            cout << endl;
 
             set<string> intersectionResult;
             std::set_intersection(specAttrItr.begin(),
@@ -237,7 +237,7 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 
     }
 
-    cout << "apply range filter: " << endl;
+//    cout << "apply range filter: " << endl;
     for(auto itr = rangeFilters.begin(); itr != rangeFilters.end(); ++itr){
         string filterName = itr->first;
         int rangeStart = itr->second.first;
@@ -248,7 +248,7 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
             if(attributeSetItr->second.size() != 0){
                 string valueString = *(attributeSetItr->second.begin());
                 int value = atoi(valueString.c_str());
-                cout << "value: " << value << " range: " << rangeStart << "- " << rangeEnd << endl;
+//                cout << "value: " << value << " range: " << rangeStart << "- " << rangeEnd << endl;
                 if(value < rangeStart || value > rangeEnd)
                     return false;
             }
@@ -277,7 +277,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
     }
 
 
-//    RankRequestContext *ctx = const_cast<RankRequestContext &>(request->context());
 
     const RankRequestContext &ctx = request->context();
     int maxCandidates = 10;
@@ -287,7 +286,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
         string mcs = itr->second;
         maxCandidates = atoi(mcs.c_str());
         maxCandidates = maxCandidates <= 0 ? 10 : maxCandidates;
-//        ctx->mutable_params()->erase(itr);
     }
 
 
@@ -301,31 +299,30 @@ MatrixError RankerAppsService::getFaceScoredVector(
         if (needImageDataString == "true") {
             needImageData = true;
         }
-//        ctx->mutable_params()->erase(itr);
     }
 
-    cout << "The filter params size: " << ctx.params().size() << endl;
-
-    map<string, set<string>> stringFilters;
-    map<string, pair<int, int>> rangeFilters;
-    genFilters(ctx, stringFilters, rangeFilters);
-
-    cout << "String filter from request" << endl;
-    for (auto itr = stringFilters.begin(); itr != stringFilters.end(); ++itr) {
-        cout << itr->first << ": [";
-        for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
-            cout << *itr2 << ",";
-        }
-        cout << "]";
-    }
-    cout << endl;
-    cout << "Range filter from request" << endl;
-    for (auto itr3 = rangeFilters.begin(); itr3 != rangeFilters.end(); ++itr3) {
-        cout << itr3->first << ": [";
-        cout << itr3->second.first << "," << itr3->second.second;
-        cout << "]";
-    }
-    cout << endl;
+//    cout << "The filter params size: " << ctx.params().size() << endl;
+//
+//    map<string, set<string>> stringFilters;
+//    map<string, pair<int, int>> rangeFilters;
+//    genFilters(ctx, stringFilters, rangeFilters);
+//
+//    cout << "String filter from request" << endl;
+//    for (auto itr = stringFilters.begin(); itr != stringFilters.end(); ++itr) {
+//        cout << itr->first << ": [";
+//        for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
+//            cout << *itr2 << ",";
+//        }
+//        cout << "]";
+//    }
+//    cout << endl;
+//    cout << "Range filter from request" << endl;
+//    for (auto itr3 = rangeFilters.begin(); itr3 != rangeFilters.end(); ++itr3) {
+//        cout << itr3->first << ": [";
+//        cout << itr3->second.first << "," << itr3->second.second;
+//        cout << "]";
+//    }
+//    cout << endl;
 
     FaceRankFeature feature;
     Base64::Decode(request->feature().feature(), feature.feature_);
@@ -359,7 +356,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
         const RankCandidatesItem &item = repo.Get(r.index_);
 
         if(!applyFilters(item, stringFilters, rangeFilters)){
-            cout << "Filter failed: " << item.id_ << "," << item.name_ << endl;
             continue;
         }
 
