@@ -845,8 +845,17 @@ VehicleModelType* VehicleModelType::New(::google::protobuf::Arena* arena) const 
 }
 
 void VehicleModelType::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.VehicleModelType)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(VehicleModelType, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<VehicleModelType*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -864,7 +873,7 @@ void VehicleModelType::Clear() {
 
 bool VehicleModelType::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.VehicleModelType)
   for (;;) {
@@ -1094,6 +1103,7 @@ void VehicleModelType::SerializeWithCachedSizes(
 }
 
 int VehicleModelType::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.VehicleModelType)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -1150,18 +1160,22 @@ int VehicleModelType::ByteSize() const {
 }
 
 void VehicleModelType::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.VehicleModelType)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VehicleModelType* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VehicleModelType>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.VehicleModelType)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.VehicleModelType)
     MergeFrom(*source);
   }
 }
 
 void VehicleModelType::MergeFrom(const VehicleModelType& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.VehicleModelType)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -1188,12 +1202,14 @@ void VehicleModelType::MergeFrom(const VehicleModelType& from) {
 }
 
 void VehicleModelType::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.VehicleModelType)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VehicleModelType::CopyFrom(const VehicleModelType& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.VehicleModelType)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1345,6 +1361,7 @@ void VehicleModelType::clear_model() {
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleModelType::release_model() {
+  // @@protoc_insertion_point(field_release:model.VehicleModelType.Model)
   
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1440,8 +1457,17 @@ LicensePlate* LicensePlate::New(::google::protobuf::Arena* arena) const {
 }
 
 void LicensePlate::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.LicensePlate)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(LicensePlate, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<LicensePlate*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -1462,7 +1488,7 @@ void LicensePlate::Clear() {
 
 bool LicensePlate::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.LicensePlate)
   for (;;) {
@@ -1644,6 +1670,7 @@ void LicensePlate::SerializeWithCachedSizes(
 }
 
 int LicensePlate::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.LicensePlate)
   int total_size = 0;
 
   // optional string PlateText = 1;
@@ -1686,18 +1713,22 @@ int LicensePlate::ByteSize() const {
 }
 
 void LicensePlate::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.LicensePlate)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const LicensePlate* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const LicensePlate>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.LicensePlate)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.LicensePlate)
     MergeFrom(*source);
   }
 }
 
 void LicensePlate::MergeFrom(const LicensePlate& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.LicensePlate)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.platetext().size() > 0) {
 
@@ -1718,12 +1749,14 @@ void LicensePlate::MergeFrom(const LicensePlate& from) {
 }
 
 void LicensePlate::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.LicensePlate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void LicensePlate::CopyFrom(const LicensePlate& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.LicensePlate)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1789,6 +1822,7 @@ void LicensePlate::clear_platetext() {
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* LicensePlate::release_platetext() {
+  // @@protoc_insertion_point(field_release:model.LicensePlate.PlateText)
   
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1823,6 +1857,7 @@ const ::model::Color& LicensePlate::color() const {
   return color_;
 }
 ::model::Color* LicensePlate::release_color() {
+  // @@protoc_insertion_point(field_release:model.LicensePlate.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -1888,6 +1923,7 @@ const ::model::Cutboard& LicensePlate::cutboard() const {
   return cutboard_;
 }
 ::model::Cutboard* LicensePlate::release_cutboard() {
+  // @@protoc_insertion_point(field_release:model.LicensePlate.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -1984,8 +2020,17 @@ VehicleSymbol* VehicleSymbol::New(::google::protobuf::Arena* arena) const {
 }
 
 void VehicleSymbol::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.VehicleSymbol)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(VehicleSymbol, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<VehicleSymbol*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -2005,7 +2050,7 @@ void VehicleSymbol::Clear() {
 
 bool VehicleSymbol::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.VehicleSymbol)
   for (;;) {
@@ -2186,6 +2231,7 @@ void VehicleSymbol::SerializeWithCachedSizes(
 }
 
 int VehicleSymbol::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.VehicleSymbol)
   int total_size = 0;
 
   // optional int32 Id = 1;
@@ -2228,18 +2274,22 @@ int VehicleSymbol::ByteSize() const {
 }
 
 void VehicleSymbol::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.VehicleSymbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VehicleSymbol* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VehicleSymbol>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.VehicleSymbol)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.VehicleSymbol)
     MergeFrom(*source);
   }
 }
 
 void VehicleSymbol::MergeFrom(const VehicleSymbol& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.VehicleSymbol)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -2260,12 +2310,14 @@ void VehicleSymbol::MergeFrom(const VehicleSymbol& from) {
 }
 
 void VehicleSymbol::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.VehicleSymbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VehicleSymbol::CopyFrom(const VehicleSymbol& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.VehicleSymbol)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2373,6 +2425,7 @@ void VehicleSymbol::clear_name() {
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VehicleSymbol::release_name() {
+  // @@protoc_insertion_point(field_release:model.VehicleSymbol.Name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2407,6 +2460,7 @@ const ::model::Cutboard& VehicleSymbol::cutboard() const {
   return cutboard_;
 }
 ::model::Cutboard* VehicleSymbol::release_cutboard() {
+  // @@protoc_insertion_point(field_release:model.VehicleSymbol.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2522,8 +2576,17 @@ Vehicle* Vehicle::New(::google::protobuf::Arena* arena) const {
 }
 
 void Vehicle::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Vehicle)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Vehicle, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Vehicle*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -2552,7 +2615,7 @@ void Vehicle::Clear() {
 
 bool Vehicle::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Vehicle)
   for (;;) {
@@ -2880,6 +2943,7 @@ void Vehicle::SerializeWithCachedSizes(
 }
 
 int Vehicle::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Vehicle)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -2963,18 +3027,22 @@ int Vehicle::ByteSize() const {
 }
 
 void Vehicle::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Vehicle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Vehicle* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Vehicle>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Vehicle)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Vehicle)
     MergeFrom(*source);
   }
 }
 
 void Vehicle::MergeFrom(const Vehicle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Vehicle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   symbols_.MergeFrom(from.symbols_);
   if (from.id() != 0) {
@@ -3011,12 +3079,14 @@ void Vehicle::MergeFrom(const Vehicle& from) {
 }
 
 void Vehicle::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Vehicle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Vehicle::CopyFrom(const Vehicle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Vehicle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3093,6 +3163,7 @@ const ::model::VideoMetadata& Vehicle::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* Vehicle::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -3130,6 +3201,7 @@ const ::model::VehicleModelType& Vehicle::modeltype() const {
   return modeltype_;
 }
 ::model::VehicleModelType* Vehicle::release_modeltype() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.ModelType)
   
   ::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
@@ -3167,6 +3239,7 @@ const ::model::Color& Vehicle::color() const {
   return color_;
 }
 ::model::Color* Vehicle::release_color() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -3232,6 +3305,7 @@ const ::model::LicensePlate& Vehicle::plate() const {
   return plate_;
 }
 ::model::LicensePlate* Vehicle::release_plate() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.Plate)
   
   ::model::LicensePlate* temp = plate_;
   plate_ = NULL;
@@ -3283,6 +3357,7 @@ const ::model::CutboardImage& Vehicle::img() const {
   return img_;
 }
 ::model::CutboardImage* Vehicle::release_img() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3359,6 +3434,7 @@ void Vehicle::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Vehicle::release_feature() {
+  // @@protoc_insertion_point(field_release:model.Vehicle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3439,12 +3515,13 @@ Vehicles* Vehicles::New(::google::protobuf::Arena* arena) const {
 }
 
 void Vehicles::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Vehicles)
   vehicle_.Clear();
 }
 
 bool Vehicles::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Vehicles)
   for (;;) {
@@ -3516,6 +3593,7 @@ void Vehicles::SerializeWithCachedSizes(
 }
 
 int Vehicles::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Vehicles)
   int total_size = 0;
 
   // repeated .model.Vehicle Vehicle = 1;
@@ -3533,29 +3611,35 @@ int Vehicles::ByteSize() const {
 }
 
 void Vehicles::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Vehicles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Vehicles* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Vehicles>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Vehicles)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Vehicles)
     MergeFrom(*source);
   }
 }
 
 void Vehicles::MergeFrom(const Vehicles& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Vehicles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   vehicle_.MergeFrom(from.vehicle_);
 }
 
 void Vehicles::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Vehicles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Vehicles::CopyFrom(const Vehicles& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Vehicles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3701,6 +3785,7 @@ Tricycle* Tricycle::New(::google::protobuf::Arena* arena) const {
 }
 
 void Tricycle::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Tricycle)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
@@ -3713,7 +3798,7 @@ void Tricycle::Clear() {
 
 bool Tricycle::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Tricycle)
   for (;;) {
@@ -3884,6 +3969,7 @@ void Tricycle::SerializeWithCachedSizes(
 }
 
 int Tricycle::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Tricycle)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -3928,18 +4014,22 @@ int Tricycle::ByteSize() const {
 }
 
 void Tricycle::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Tricycle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Tricycle* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Tricycle>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Tricycle)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Tricycle)
     MergeFrom(*source);
   }
 }
 
 void Tricycle::MergeFrom(const Tricycle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Tricycle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -3960,12 +4050,14 @@ void Tricycle::MergeFrom(const Tricycle& from) {
 }
 
 void Tricycle::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Tricycle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Tricycle::CopyFrom(const Tricycle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Tricycle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4036,6 +4128,7 @@ const ::model::VideoMetadata& Tricycle::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* Tricycle::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.Tricycle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4073,6 +4166,7 @@ const ::model::CutboardImage& Tricycle::img() const {
   return img_;
 }
 ::model::CutboardImage* Tricycle::release_img() {
+  // @@protoc_insertion_point(field_release:model.Tricycle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -4119,6 +4213,7 @@ void Tricycle::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Tricycle::release_feature() {
+  // @@protoc_insertion_point(field_release:model.Tricycle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4153,6 +4248,7 @@ const ::model::Color& Tricycle::color() const {
   return color_;
 }
 ::model::Color* Tricycle::release_color() {
+  // @@protoc_insertion_point(field_release:model.Tricycle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -4236,12 +4332,13 @@ Tricycles* Tricycles::New(::google::protobuf::Arena* arena) const {
 }
 
 void Tricycles::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Tricycles)
   tricycle_.Clear();
 }
 
 bool Tricycles::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Tricycles)
   for (;;) {
@@ -4313,6 +4410,7 @@ void Tricycles::SerializeWithCachedSizes(
 }
 
 int Tricycles::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Tricycles)
   int total_size = 0;
 
   // repeated .model.Tricycle Tricycle = 1;
@@ -4330,29 +4428,35 @@ int Tricycles::ByteSize() const {
 }
 
 void Tricycles::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Tricycles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Tricycles* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Tricycles>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Tricycles)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Tricycles)
     MergeFrom(*source);
   }
 }
 
 void Tricycles::MergeFrom(const Tricycles& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Tricycles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   tricycle_.MergeFrom(from.tricycle_);
 }
 
 void Tricycles::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Tricycles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Tricycles::CopyFrom(const Tricycles& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Tricycles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4498,6 +4602,7 @@ Bicycle* Bicycle::New(::google::protobuf::Arena* arena) const {
 }
 
 void Bicycle::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Bicycle)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
@@ -4510,7 +4615,7 @@ void Bicycle::Clear() {
 
 bool Bicycle::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Bicycle)
   for (;;) {
@@ -4681,6 +4786,7 @@ void Bicycle::SerializeWithCachedSizes(
 }
 
 int Bicycle::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Bicycle)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -4725,18 +4831,22 @@ int Bicycle::ByteSize() const {
 }
 
 void Bicycle::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Bicycle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Bicycle* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Bicycle>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Bicycle)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Bicycle)
     MergeFrom(*source);
   }
 }
 
 void Bicycle::MergeFrom(const Bicycle& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Bicycle)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -4757,12 +4867,14 @@ void Bicycle::MergeFrom(const Bicycle& from) {
 }
 
 void Bicycle::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Bicycle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Bicycle::CopyFrom(const Bicycle& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Bicycle)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4833,6 +4945,7 @@ const ::model::VideoMetadata& Bicycle::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* Bicycle::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.Bicycle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4870,6 +4983,7 @@ const ::model::CutboardImage& Bicycle::img() const {
   return img_;
 }
 ::model::CutboardImage* Bicycle::release_img() {
+  // @@protoc_insertion_point(field_release:model.Bicycle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -4916,6 +5030,7 @@ void Bicycle::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Bicycle::release_feature() {
+  // @@protoc_insertion_point(field_release:model.Bicycle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4950,6 +5065,7 @@ const ::model::Color& Bicycle::color() const {
   return color_;
 }
 ::model::Color* Bicycle::release_color() {
+  // @@protoc_insertion_point(field_release:model.Bicycle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -5033,12 +5149,13 @@ Bicycles* Bicycles::New(::google::protobuf::Arena* arena) const {
 }
 
 void Bicycles::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Bicycles)
   tricycle_.Clear();
 }
 
 bool Bicycles::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Bicycles)
   for (;;) {
@@ -5110,6 +5227,7 @@ void Bicycles::SerializeWithCachedSizes(
 }
 
 int Bicycles::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Bicycles)
   int total_size = 0;
 
   // repeated .model.Bicycle Tricycle = 1;
@@ -5127,29 +5245,35 @@ int Bicycles::ByteSize() const {
 }
 
 void Bicycles::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Bicycles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Bicycles* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Bicycles>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Bicycles)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Bicycles)
     MergeFrom(*source);
   }
 }
 
 void Bicycles::MergeFrom(const Bicycles& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Bicycles)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   tricycle_.MergeFrom(from.tricycle_);
 }
 
 void Bicycles::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Bicycles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Bicycles::CopyFrom(const Bicycles& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Bicycles)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5309,8 +5433,17 @@ Pedestrian* Pedestrian::New(::google::protobuf::Arena* arena) const {
 }
 
 void Pedestrian::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Pedestrian)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Pedestrian, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Pedestrian*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -5333,7 +5466,7 @@ void Pedestrian::Clear() {
 
 bool Pedestrian::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Pedestrian)
   for (;;) {
@@ -5703,6 +5836,7 @@ void Pedestrian::SerializeWithCachedSizes(
 }
 
 int Pedestrian::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Pedestrian)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -5799,18 +5933,22 @@ int Pedestrian::ByteSize() const {
 }
 
 void Pedestrian::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Pedestrian)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Pedestrian* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Pedestrian>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Pedestrian)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Pedestrian)
     MergeFrom(*source);
   }
 }
 
 void Pedestrian::MergeFrom(const Pedestrian& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Pedestrian)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -5855,12 +5993,14 @@ void Pedestrian::MergeFrom(const Pedestrian& from) {
 }
 
 void Pedestrian::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Pedestrian)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Pedestrian::CopyFrom(const Pedestrian& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Pedestrian)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5939,6 +6079,7 @@ const ::model::VideoMetadata& Pedestrian::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* Pedestrian::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.Pedestrian.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -5976,6 +6117,7 @@ const ::model::CutboardImage& Pedestrian::img() const {
   return img_;
 }
 ::model::CutboardImage* Pedestrian::release_img() {
+  // @@protoc_insertion_point(field_release:model.Pedestrian.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -6148,6 +6290,7 @@ void Pedestrian::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Pedestrian::release_feature() {
+  // @@protoc_insertion_point(field_release:model.Pedestrian.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6228,12 +6371,13 @@ Pedestrians* Pedestrians::New(::google::protobuf::Arena* arena) const {
 }
 
 void Pedestrians::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Pedestrians)
   pedestrian_.Clear();
 }
 
 bool Pedestrians::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Pedestrians)
   for (;;) {
@@ -6305,6 +6449,7 @@ void Pedestrians::SerializeWithCachedSizes(
 }
 
 int Pedestrians::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Pedestrians)
   int total_size = 0;
 
   // repeated .model.Pedestrian Pedestrian = 1;
@@ -6322,29 +6467,35 @@ int Pedestrians::ByteSize() const {
 }
 
 void Pedestrians::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Pedestrians)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Pedestrians* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Pedestrians>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Pedestrians)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Pedestrians)
     MergeFrom(*source);
   }
 }
 
 void Pedestrians::MergeFrom(const Pedestrians& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Pedestrians)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   pedestrian_.MergeFrom(from.pedestrian_);
 }
 
 void Pedestrians::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Pedestrians)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Pedestrians::CopyFrom(const Pedestrians& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Pedestrians)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6486,6 +6637,7 @@ Face* Face::New(::google::protobuf::Arena* arena) const {
 }
 
 void Face::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Face)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
@@ -6496,7 +6648,7 @@ void Face::Clear() {
 
 bool Face::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Face)
   for (;;) {
@@ -6641,6 +6793,7 @@ void Face::SerializeWithCachedSizes(
 }
 
 int Face::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Face)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -6678,18 +6831,22 @@ int Face::ByteSize() const {
 }
 
 void Face::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Face)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Face* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Face>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Face)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Face)
     MergeFrom(*source);
   }
 }
 
 void Face::MergeFrom(const Face& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Face)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -6707,12 +6864,14 @@ void Face::MergeFrom(const Face& from) {
 }
 
 void Face::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Face)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Face::CopyFrom(const Face& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Face)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6782,6 +6941,7 @@ const ::model::VideoMetadata& Face::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* Face::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.Face.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -6819,6 +6979,7 @@ const ::model::CutboardImage& Face::img() const {
   return img_;
 }
 ::model::CutboardImage* Face::release_img() {
+  // @@protoc_insertion_point(field_release:model.Face.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -6865,6 +7026,7 @@ void Face::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Face::release_feature() {
+  // @@protoc_insertion_point(field_release:model.Face.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -6945,12 +7107,13 @@ Faces* Faces::New(::google::protobuf::Arena* arena) const {
 }
 
 void Faces::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Faces)
   face_.Clear();
 }
 
 bool Faces::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Faces)
   for (;;) {
@@ -7022,6 +7185,7 @@ void Faces::SerializeWithCachedSizes(
 }
 
 int Faces::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Faces)
   int total_size = 0;
 
   // repeated .model.Face Face = 1;
@@ -7039,29 +7203,35 @@ int Faces::ByteSize() const {
 }
 
 void Faces::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Faces)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Faces* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Faces>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Faces)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Faces)
     MergeFrom(*source);
   }
 }
 
 void Faces::MergeFrom(const Faces& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Faces)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   face_.MergeFrom(from.face_);
 }
 
 void Faces::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Faces)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Faces::CopyFrom(const Faces& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Faces)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7202,8 +7372,17 @@ VideoMetadata* VideoMetadata::New(::google::protobuf::Arena* arena) const {
 }
 
 void VideoMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.VideoMetadata)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(VideoMetadata, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<VideoMetadata*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -7221,7 +7400,7 @@ void VideoMetadata::Clear() {
 
 bool VideoMetadata::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.VideoMetadata)
   for (;;) {
@@ -7414,6 +7593,7 @@ void VideoMetadata::SerializeWithCachedSizes(
 }
 
 int VideoMetadata::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.VideoMetadata)
   int total_size = 0;
 
   // optional int64 Timestamp = 1;
@@ -7458,18 +7638,22 @@ int VideoMetadata::ByteSize() const {
 }
 
 void VideoMetadata::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.VideoMetadata)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VideoMetadata* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VideoMetadata>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.VideoMetadata)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.VideoMetadata)
     MergeFrom(*source);
   }
 }
 
 void VideoMetadata::MergeFrom(const VideoMetadata& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.VideoMetadata)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.timestamp() != 0) {
     set_timestamp(from.timestamp());
@@ -7491,12 +7675,14 @@ void VideoMetadata::MergeFrom(const VideoMetadata& from) {
 }
 
 void VideoMetadata::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.VideoMetadata)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VideoMetadata::CopyFrom(const VideoMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.VideoMetadata)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -7604,6 +7790,7 @@ void VideoMetadata::clear_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VideoMetadata::release_sensorname() {
+  // @@protoc_insertion_point(field_release:model.VideoMetadata.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7647,6 +7834,7 @@ void VideoMetadata::clear_sensorurl() {
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VideoMetadata::release_sensorurl() {
+  // @@protoc_insertion_point(field_release:model.VideoMetadata.SensorUrl)
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -7737,8 +7925,17 @@ Image* Image::New(::google::protobuf::Arena* arena) const {
 }
 
 void Image::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Image)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Image, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Image*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -7756,7 +7953,7 @@ void Image::Clear() {
 
 bool Image::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Image)
   for (;;) {
@@ -7912,6 +8109,7 @@ void Image::SerializeWithCachedSizes(
 }
 
 int Image::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Image)
   int total_size = 0;
 
   // optional string Id = 1;
@@ -7949,18 +8147,22 @@ int Image::ByteSize() const {
 }
 
 void Image::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Image)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Image* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Image>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Image)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Image)
     MergeFrom(*source);
   }
 }
 
 void Image::MergeFrom(const Image& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Image)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id().size() > 0) {
 
@@ -7979,12 +8181,14 @@ void Image::MergeFrom(const Image& from) {
 }
 
 void Image::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Image)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Image::CopyFrom(const Image& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Image)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8049,6 +8253,7 @@ void Image::clear_id() {
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Image::release_id() {
+  // @@protoc_insertion_point(field_release:model.Image.Id)
   
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8120,6 +8325,7 @@ void Image::clear_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Image::release_bindata() {
+  // @@protoc_insertion_point(field_release:model.Image.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -8211,6 +8417,7 @@ CutboardImage* CutboardImage::New(::google::protobuf::Arena* arena) const {
 }
 
 void CutboardImage::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.CutboardImage)
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
   if (GetArenaNoVirtual() == NULL && cutboard_ != NULL) delete cutboard_;
@@ -8221,7 +8428,7 @@ void CutboardImage::Clear() {
 
 bool CutboardImage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.CutboardImage)
   for (;;) {
@@ -8341,6 +8548,7 @@ void CutboardImage::SerializeWithCachedSizes(
 }
 
 int CutboardImage::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.CutboardImage)
   int total_size = 0;
 
   // optional .model.VideoMetadata Metadata = 1;
@@ -8371,18 +8579,22 @@ int CutboardImage::ByteSize() const {
 }
 
 void CutboardImage::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.CutboardImage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const CutboardImage* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const CutboardImage>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.CutboardImage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.CutboardImage)
     MergeFrom(*source);
   }
 }
 
 void CutboardImage::MergeFrom(const CutboardImage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.CutboardImage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_metadata()) {
     mutable_metadata()->::model::VideoMetadata::MergeFrom(from.metadata());
@@ -8396,12 +8608,14 @@ void CutboardImage::MergeFrom(const CutboardImage& from) {
 }
 
 void CutboardImage::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.CutboardImage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void CutboardImage::CopyFrom(const CutboardImage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.CutboardImage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8456,6 +8670,7 @@ const ::model::VideoMetadata& CutboardImage::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* CutboardImage::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.CutboardImage.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -8493,6 +8708,7 @@ const ::model::Cutboard& CutboardImage::cutboard() const {
   return cutboard_;
 }
 ::model::Cutboard* CutboardImage::release_cutboard() {
+  // @@protoc_insertion_point(field_release:model.CutboardImage.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -8530,6 +8746,7 @@ const ::model::Image& CutboardImage::img() const {
   return img_;
 }
 ::model::Image* CutboardImage::release_img() {
+  // @@protoc_insertion_point(field_release:model.CutboardImage.Img)
   
   ::model::Image* temp = img_;
   img_ = NULL;
@@ -8620,8 +8837,17 @@ Color* Color::New(::google::protobuf::Arena* arena) const {
 }
 
 void Color::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Color)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Color, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Color*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -8638,7 +8864,7 @@ void Color::Clear() {
 
 bool Color::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Color)
   for (;;) {
@@ -8768,6 +8994,7 @@ void Color::SerializeWithCachedSizes(
 }
 
 int Color::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Color)
   int total_size = 0;
 
   // optional int32 Id = 1;
@@ -8796,18 +9023,22 @@ int Color::ByteSize() const {
 }
 
 void Color::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Color)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Color* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Color>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Color)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Color)
     MergeFrom(*source);
   }
 }
 
 void Color::MergeFrom(const Color& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Color)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -8822,12 +9053,14 @@ void Color::MergeFrom(const Color& from) {
 }
 
 void Color::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Color::CopyFrom(const Color& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Color)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -8919,6 +9152,7 @@ void Color::clear_colorname() {
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* Color::release_colorname() {
+  // @@protoc_insertion_point(field_release:model.Color.ColorName)
   
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -9010,8 +9244,17 @@ Cutboard* Cutboard::New(::google::protobuf::Arena* arena) const {
 }
 
 void Cutboard::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.Cutboard)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Cutboard, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Cutboard*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -9027,7 +9270,7 @@ void Cutboard::Clear() {
 
 bool Cutboard::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.Cutboard)
   for (;;) {
@@ -9219,6 +9462,7 @@ void Cutboard::SerializeWithCachedSizes(
 }
 
 int Cutboard::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.Cutboard)
   int total_size = 0;
 
   // optional uint32 X = 1;
@@ -9270,18 +9514,22 @@ int Cutboard::ByteSize() const {
 }
 
 void Cutboard::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.Cutboard)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Cutboard* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Cutboard>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.Cutboard)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.Cutboard)
     MergeFrom(*source);
   }
 }
 
 void Cutboard::MergeFrom(const Cutboard& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.Cutboard)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.x() != 0) {
     set_x(from.x());
@@ -9304,12 +9552,14 @@ void Cutboard::MergeFrom(const Cutboard& from) {
 }
 
 void Cutboard::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.Cutboard)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Cutboard::CopyFrom(const Cutboard& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.Cutboard)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -9506,6 +9756,7 @@ BaseEntity* BaseEntity::New(::google::protobuf::Arena* arena) const {
 }
 
 void BaseEntity::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.BaseEntity)
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && metadata_ != NULL) delete metadata_;
   metadata_ = NULL;
@@ -9515,7 +9766,7 @@ void BaseEntity::Clear() {
 
 bool BaseEntity::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.BaseEntity)
   for (;;) {
@@ -9634,6 +9885,7 @@ void BaseEntity::SerializeWithCachedSizes(
 }
 
 int BaseEntity::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.BaseEntity)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -9664,18 +9916,22 @@ int BaseEntity::ByteSize() const {
 }
 
 void BaseEntity::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.BaseEntity)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const BaseEntity* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const BaseEntity>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.BaseEntity)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.BaseEntity)
     MergeFrom(*source);
   }
 }
 
 void BaseEntity::MergeFrom(const BaseEntity& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.BaseEntity)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -9689,12 +9945,14 @@ void BaseEntity::MergeFrom(const BaseEntity& from) {
 }
 
 void BaseEntity::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.BaseEntity)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void BaseEntity::CopyFrom(const BaseEntity& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.BaseEntity)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -9763,6 +10021,7 @@ const ::model::VideoMetadata& BaseEntity::metadata() const {
   return metadata_;
 }
 ::model::VideoMetadata* BaseEntity::release_metadata() {
+  // @@protoc_insertion_point(field_release:model.BaseEntity.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -9800,6 +10059,7 @@ const ::model::CutboardImage& BaseEntity::img() const {
   return img_;
 }
 ::model::CutboardImage* BaseEntity::release_img() {
+  // @@protoc_insertion_point(field_release:model.BaseEntity.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -9888,13 +10148,14 @@ FeatureVector* FeatureVector::New(::google::protobuf::Arena* arena) const {
 }
 
 void FeatureVector::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.FeatureVector)
   id_ = GOOGLE_LONGLONG(0);
   feature_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool FeatureVector::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.FeatureVector)
   for (;;) {
@@ -9987,6 +10248,7 @@ void FeatureVector::SerializeWithCachedSizes(
 }
 
 int FeatureVector::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.FeatureVector)
   int total_size = 0;
 
   // optional int64 Id = 1;
@@ -10010,18 +10272,22 @@ int FeatureVector::ByteSize() const {
 }
 
 void FeatureVector::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.FeatureVector)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const FeatureVector* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const FeatureVector>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.FeatureVector)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.FeatureVector)
     MergeFrom(*source);
   }
 }
 
 void FeatureVector::MergeFrom(const FeatureVector& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.FeatureVector)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.id() != 0) {
     set_id(from.id());
@@ -10033,12 +10299,14 @@ void FeatureVector::MergeFrom(const FeatureVector& from) {
 }
 
 void FeatureVector::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.FeatureVector)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void FeatureVector::CopyFrom(const FeatureVector& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.FeatureVector)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -10115,6 +10383,7 @@ void FeatureVector::clear_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* FeatureVector::release_feature() {
+  // @@protoc_insertion_point(field_release:model.FeatureVector.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -10194,11 +10463,12 @@ NullMessage* NullMessage::New(::google::protobuf::Arena* arena) const {
 }
 
 void NullMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:model.NullMessage)
 }
 
 bool NullMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:model.NullMessage)
   for (;;) {
@@ -10236,6 +10506,7 @@ void NullMessage::SerializeWithCachedSizes(
 }
 
 int NullMessage::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:model.NullMessage)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -10245,28 +10516,34 @@ int NullMessage::ByteSize() const {
 }
 
 void NullMessage::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:model.NullMessage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const NullMessage* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const NullMessage>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:model.NullMessage)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:model.NullMessage)
     MergeFrom(*source);
   }
 }
 
 void NullMessage::MergeFrom(const NullMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:model.NullMessage)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void NullMessage::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:model.NullMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void NullMessage::CopyFrom(const NullMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:model.NullMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
