@@ -67,6 +67,23 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 
 }
 
+MatrixError RankerAppsService::GetImageContent(const GetImageContentRequest *request, GetImageContentResponse *response) {
+
+    MatrixError msg;
+    string imageUri = request->uri();
+    if (imageUri.size() > 0) {
+        vector<uchar> bin;
+        int ret = UriReader::Read(imageUri, bin, 10);
+        if (ret != -1) {
+            response->set_data(Base64::Encode(bin));
+            return msg;
+        }
+    }
+    msg.set_code(-1);
+    msg.set_message("Get image content failed: " + imageUri);
+    return msg;
+}
+
 
 MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response) {
 
@@ -436,16 +453,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
                         if(useThumbnail){
                             resizeByRatio(imageMat, 50);
                         }
-
-                        imageContent.clear();
-                        if(imageMat.isContinuous())
-                            imageContent.assign(imageMat.datastart, imageMat.dataend);
-                        else{
-                            for (int i = 0; i < imageMat.rows; ++i) {
-                                imageContent.insert(imageContent.end(), imageMat.ptr<uchar>(i), imageMat.ptr<uchar>(i)+imageMat.cols);
-                            }
-                        }
-                        result->set_data(Base64::Encode<uchar>(imageContent));
+                        result->set_data(encode2JPEGInBase64(imageMat));
                     }
                 } catch (exception &e) {
                     LOG(ERROR) << "Uri read failed: " << item.image_uri_ << endl;

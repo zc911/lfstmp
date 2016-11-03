@@ -16,6 +16,7 @@
 #include "services/system_service.h"
 #include "basic_grpc.h"
 
+
 using namespace ::dg::model;
 namespace dg {
 
@@ -60,6 +61,27 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
         MatrixError error = service_->AddFeatures(request, response);
         response->mutable_context()->set_message(error.message());
         response->mutable_context()->set_status(std::to_string(error.code()));
+        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
+    }
+
+    virtual ::grpc::Status GetImageContent(::grpc::ServerContext *context,
+                                           const ::dg::model::GetImageContentRequest *request,
+                                           ::dg::model::GetImageContentResponse *response) {
+//        MatrixError msg;
+//        string imageUri = request->uri();
+//        if (imageUri.size() > 0) {
+//            vector<uchar> bin;
+//            int ret = UriReader::Read(uri, bin, 10);
+//            if (ret != -1) {
+//                response->set_data(Base64::Encode(bin));
+//                return msg;
+//            }
+//        }
+//        msg.set_code(-1);
+//        msg.set_message("Get image content failed: " + imageUri);
+
+        MatrixError error = service_->GetImageContent(request, response);
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 
     }
