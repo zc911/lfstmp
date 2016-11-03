@@ -34,6 +34,7 @@ class RankerAppsService {
     MatrixError RankImage(const RankImageRequest *request, RankImageResponse *response);
     MatrixError RankFeature(const RankFeatureRequest *request, RankFeatureResponse *response);
     MatrixError AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response);
+    MatrixError GetImageContent(const GetImageContentRequest *request, GetImageContentResponse *response);
 
  private:
     string name_;

@@ -45,6 +45,8 @@ class AddFeaturesRequest;
 class AddFeaturesResponse;
 class FeatureRankingRequest;
 class FeatureRankingResponse;
+class GetImageContentRequest;
+class GetImageContentResponse;
 class InfoAndFeature;
 class RankFeatureRequest;
 class RankFeatureResponse;
@@ -522,9 +524,9 @@ class RankItem : public ::google::protobuf::Message {
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // optional string Uri = 4;
+  // optional string URI = 4;
   void clear_uri();
-  static const int kUriFieldNumber = 4;
+  static const int kURIFieldNumber = 4;
   const ::std::string& uri() const;
   void set_uri(const ::std::string& value);
   void set_uri(const char* value);
@@ -893,6 +895,172 @@ class RankImageResponse : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static RankImageResponse* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class GetImageContentRequest : public ::google::protobuf::Message {
+ public:
+  GetImageContentRequest();
+  virtual ~GetImageContentRequest();
+
+  GetImageContentRequest(const GetImageContentRequest& from);
+
+  inline GetImageContentRequest& operator=(const GetImageContentRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetImageContentRequest& default_instance();
+
+  void Swap(GetImageContentRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline GetImageContentRequest* New() const { return New(NULL); }
+
+  GetImageContentRequest* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GetImageContentRequest& from);
+  void MergeFrom(const GetImageContentRequest& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetImageContentRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string URI = 1;
+  void clear_uri();
+  static const int kURIFieldNumber = 1;
+  const ::std::string& uri() const;
+  void set_uri(const ::std::string& value);
+  void set_uri(const char* value);
+  void set_uri(const char* value, size_t size);
+  ::std::string* mutable_uri();
+  ::std::string* release_uri();
+  void set_allocated_uri(::std::string* uri);
+
+  // @@protoc_insertion_point(class_scope:dg.model.GetImageContentRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr uri_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static GetImageContentRequest* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class GetImageContentResponse : public ::google::protobuf::Message {
+ public:
+  GetImageContentResponse();
+  virtual ~GetImageContentResponse();
+
+  GetImageContentResponse(const GetImageContentResponse& from);
+
+  inline GetImageContentResponse& operator=(const GetImageContentResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const GetImageContentResponse& default_instance();
+
+  void Swap(GetImageContentResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline GetImageContentResponse* New() const { return New(NULL); }
+
+  GetImageContentResponse* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const GetImageContentResponse& from);
+  void MergeFrom(const GetImageContentResponse& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetImageContentResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string Data = 1;
+  void clear_data();
+  static const int kDataFieldNumber = 1;
+  const ::std::string& data() const;
+  void set_data(const ::std::string& value);
+  void set_data(const char* value);
+  void set_data(const char* value, size_t size);
+  ::std::string* mutable_data();
+  ::std::string* release_data();
+  void set_allocated_data(::std::string* data);
+
+  // @@protoc_insertion_point(class_scope:dg.model.GetImageContentResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::internal::ArenaStringPtr data_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ranker_2eproto();
+  friend void protobuf_AssignDesc_ranker_2eproto();
+  friend void protobuf_ShutdownFile_ranker_2eproto();
+
+  void InitAsDefaultInstance();
+  static GetImageContentResponse* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2009,37 +2177,37 @@ inline void RankItem::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:dg.model.RankItem.Name)
 }
 
-// optional string Uri = 4;
+// optional string URI = 4;
 inline void RankItem::clear_uri() {
   uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline const ::std::string& RankItem::uri() const {
-  // @@protoc_insertion_point(field_get:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_get:dg.model.RankItem.URI)
   return uri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline void RankItem::set_uri(const ::std::string& value) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_set:dg.model.RankItem.URI)
 }
 inline void RankItem::set_uri(const char* value) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_set_char:dg.model.RankItem.URI)
 }
 inline void RankItem::set_uri(const char* value, size_t size) {
   
   uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RankItem.URI)
 }
 inline ::std::string* RankItem::mutable_uri() {
   
-  // @@protoc_insertion_point(field_mutable:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_mutable:dg.model.RankItem.URI)
   return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* RankItem::release_uri() {
-  // @@protoc_insertion_point(field_release:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_release:dg.model.RankItem.URI)
   
   return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2050,7 +2218,7 @@ inline void RankItem::set_allocated_uri(::std::string* uri) {
     
   }
   uri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uri);
-  // @@protoc_insertion_point(field_set_allocated:dg.model.RankItem.Uri)
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RankItem.URI)
 }
 
 // optional string Data = 5;
@@ -2411,6 +2579,102 @@ inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RankItem >&
 RankImageResponse::candidates() const {
   // @@protoc_insertion_point(field_list:dg.model.RankImageResponse.Candidates)
   return candidates_;
+}
+
+// -------------------------------------------------------------------
+
+// GetImageContentRequest
+
+// optional string URI = 1;
+inline void GetImageContentRequest::clear_uri() {
+  uri_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GetImageContentRequest::uri() const {
+  // @@protoc_insertion_point(field_get:dg.model.GetImageContentRequest.URI)
+  return uri_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetImageContentRequest::set_uri(const ::std::string& value) {
+  
+  uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.GetImageContentRequest.URI)
+}
+inline void GetImageContentRequest::set_uri(const char* value) {
+  
+  uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.GetImageContentRequest.URI)
+}
+inline void GetImageContentRequest::set_uri(const char* value, size_t size) {
+  
+  uri_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.GetImageContentRequest.URI)
+}
+inline ::std::string* GetImageContentRequest::mutable_uri() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.GetImageContentRequest.URI)
+  return uri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GetImageContentRequest::release_uri() {
+  // @@protoc_insertion_point(field_release:dg.model.GetImageContentRequest.URI)
+  
+  return uri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetImageContentRequest::set_allocated_uri(::std::string* uri) {
+  if (uri != NULL) {
+    
+  } else {
+    
+  }
+  uri_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), uri);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.GetImageContentRequest.URI)
+}
+
+// -------------------------------------------------------------------
+
+// GetImageContentResponse
+
+// optional string Data = 1;
+inline void GetImageContentResponse::clear_data() {
+  data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& GetImageContentResponse::data() const {
+  // @@protoc_insertion_point(field_get:dg.model.GetImageContentResponse.Data)
+  return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetImageContentResponse::set_data(const ::std::string& value) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.GetImageContentResponse.Data)
+}
+inline void GetImageContentResponse::set_data(const char* value) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.GetImageContentResponse.Data)
+}
+inline void GetImageContentResponse::set_data(const char* value, size_t size) {
+  
+  data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.GetImageContentResponse.Data)
+}
+inline ::std::string* GetImageContentResponse::mutable_data() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.GetImageContentResponse.Data)
+  return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* GetImageContentResponse::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.GetImageContentResponse.Data)
+  
+  return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void GetImageContentResponse::set_allocated_data(::std::string* data) {
+  if (data != NULL) {
+    
+  } else {
+    
+  }
+  data_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), data);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.GetImageContentResponse.Data)
 }
 
 // -------------------------------------------------------------------
@@ -2860,6 +3124,10 @@ inline void AddFeaturesResponse::set_allocated_context(::dg::model::RankResponse
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

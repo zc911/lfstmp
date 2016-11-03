@@ -20,6 +20,7 @@ static const char* SimilarityService_method_names[] = {
   "/dg.model.SimilarityService/RankImage",
   "/dg.model.SimilarityService/RankFeature",
   "/dg.model.SimilarityService/AddFeatures",
+  "/dg.model.SimilarityService/GetImageContent",
   "/dg.model.SimilarityService/GetRankedVector",
 };
 
@@ -32,7 +33,8 @@ SimilarityService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   : channel_(channel), rpcmethod_RankImage_(SimilarityService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_RankFeature_(SimilarityService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_AddFeatures_(SimilarityService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetRankedVector_(SimilarityService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetImageContent_(SimilarityService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRankedVector_(SimilarityService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status SimilarityService::Stub::RankImage(::grpc::ClientContext* context, const ::dg::model::RankImageRequest& request, ::dg::model::RankImageResponse* response) {
@@ -57,6 +59,14 @@ SimilarityService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
 
 ::grpc::ClientAsyncResponseReader< ::dg::model::AddFeaturesResponse>* SimilarityService::Stub::AsyncAddFeaturesRaw(::grpc::ClientContext* context, const ::dg::model::AddFeaturesRequest& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::dg::model::AddFeaturesResponse>(channel_.get(), cq, rpcmethod_AddFeatures_, context, request);
+}
+
+::grpc::Status SimilarityService::Stub::GetImageContent(::grpc::ClientContext* context, const ::dg::model::GetImageContentRequest& request, ::dg::model::GetImageContentResponse* response) {
+  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_GetImageContent_, context, request, response);
+}
+
+::grpc::ClientAsyncResponseReader< ::dg::model::GetImageContentResponse>* SimilarityService::Stub::AsyncGetImageContentRaw(::grpc::ClientContext* context, const ::dg::model::GetImageContentRequest& request, ::grpc::CompletionQueue* cq) {
+  return new ::grpc::ClientAsyncResponseReader< ::dg::model::GetImageContentResponse>(channel_.get(), cq, rpcmethod_GetImageContent_, context, request);
 }
 
 ::grpc::Status SimilarityService::Stub::GetRankedVector(::grpc::ClientContext* context, const ::dg::model::FeatureRankingRequest& request, ::dg::model::FeatureRankingResponse* response) {
@@ -87,6 +97,11 @@ SimilarityService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       SimilarityService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
+      new ::grpc::RpcMethodHandler< SimilarityService::Service, ::dg::model::GetImageContentRequest, ::dg::model::GetImageContentResponse>(
+          std::mem_fn(&SimilarityService::Service::GetImageContent), this)));
+  AddMethod(new ::grpc::RpcServiceMethod(
+      SimilarityService_method_names[4],
+      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SimilarityService::Service, ::dg::model::FeatureRankingRequest, ::dg::model::FeatureRankingResponse>(
           std::mem_fn(&SimilarityService::Service::GetRankedVector), this)));
 }
@@ -109,6 +124,13 @@ SimilarityService::Service::~Service() {
 }
 
 ::grpc::Status SimilarityService::Service::AddFeatures(::grpc::ServerContext* context, const ::dg::model::AddFeaturesRequest* request, ::dg::model::AddFeaturesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status SimilarityService::Service::GetImageContent(::grpc::ServerContext* context, const ::dg::model::GetImageContentRequest* request, ::dg::model::GetImageContentResponse* response) {
   (void) context;
   (void) request;
   (void) response;

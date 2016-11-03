@@ -18,9 +18,15 @@ service SimilarityService {
 
     }
 
+    rpc GetImageContent (GetImageContentRequest) returns (GetImageContentResponse) {
+
+    }
+
     // Deprecated
     rpc GetRankedVector (FeatureRankingRequest) returns (FeatureRankingResponse) {
     }
+
+
 }
 
 message RankRequestContext {
@@ -50,7 +56,7 @@ message RankItem {
     string Id = 1;
     float Score = 2;
     string Name = 3;
-    string Uri = 4;
+    string URI = 4;
     string Data = 5;
     map<string, string> Attributes = 6;
 }
@@ -75,6 +81,14 @@ message RankImageResponse {
     repeated RankItem Candidates = 2;
     //    repeated int64 Ids = 2; //比对返回的排序结果
     //    repeated float Scores = 3; //比对返回的相关性分值
+}
+
+message GetImageContentRequest {
+    string URI = 1;
+}
+
+message GetImageContentResponse {
+    string Data = 1;
 }
 
 // Deprecated
