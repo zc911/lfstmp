@@ -382,11 +382,16 @@ MatrixError RankerAppsService::getFaceScoredVector(
     int pageCount = 0;
     if(resultCount < pageSize){
         pageSize = resultCount;
+        pageCount = 1;
+        if(pageIndex >= pageCount){
+            return err;
+        }
         pageIndex = 0;
     }else {
         pageCount = resultCount / pageSize + ((resultCount % pageSize == 0) ? 0 : 1);
     }
     int startIndex = pageIndex * pageSize;
+    cout << "startIndex: " << startIndex << endl;
 
     int currentResultIndex = -1;
     int candidatesCount = 0;
@@ -411,7 +416,8 @@ MatrixError RankerAppsService::getFaceScoredVector(
         }
 
         candidatesCount++;
-        if(candidatesCount > maxCandidates){
+        cout << candidatesCount + pageSize * pageIndex << endl;
+        if(candidatesCount + pageSize * pageIndex > maxCandidates){
             cout << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
             return err;
         }
