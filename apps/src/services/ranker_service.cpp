@@ -194,7 +194,6 @@ static MatrixError genFilters(const RankRequestContext &ctx, map<string, set<str
                 LOG(ERROR) << "Range filter invalid: " << key << " : " << value;
                 continue;
             }
-            cout << key << "-" << rangeStart << rangeEnd << endl;
             rangeFilters.insert(make_pair(key, make_pair(rangeStart, rangeEnd)));
 
         }
@@ -247,7 +246,6 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
             if (attributeSetItr->second.size() != 0) {
                 string valueString = *(attributeSetItr->second.begin());
                 int value = atoi(valueString.c_str());
-//                cout << "value: " << value << " range: " << rangeStart << "- " << rangeEnd << endl;
                 if (value < rangeStart || value > rangeEnd)
                     return false;
             }
@@ -391,7 +389,6 @@ MatrixError RankerAppsService::getFaceScoredVector(
         pageCount = resultCount / pageSize + ((resultCount % pageSize == 0) ? 0 : 1);
     }
     int startIndex = pageIndex * pageSize;
-    cout << "startIndex: " << startIndex << endl;
 
     int currentResultIndex = -1;
     int candidatesCount = 0;
@@ -411,14 +408,13 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
         currentResultIndex++;
         if(currentResultIndex < startIndex || currentResultIndex >= startIndex + pageSize){
-            cout << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
+            LOG(WARNING) << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
             continue;
         }
 
         candidatesCount++;
-        cout << candidatesCount + pageSize * pageIndex << endl;
         if(candidatesCount + pageSize * pageIndex > maxCandidates){
-            cout << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
+            LOG(WARNING) << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
             return err;
         }
 
