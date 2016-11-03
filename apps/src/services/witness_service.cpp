@@ -740,7 +740,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     WitnessResponseContext *ctx = batchResponse->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
+    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
