@@ -538,7 +538,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     WitnessResponseContext *ctx = response->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
+    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
@@ -575,7 +575,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
     VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
     if (enable_storage_) {
         shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
@@ -776,7 +776,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
 
     if (enable_storage_) {
         VLOG(VLOG_PROCESS_COST) << "enable storage";
