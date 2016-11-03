@@ -283,8 +283,17 @@ Time* Time::New(::google::protobuf::Arena* arena) const {
 }
 
 void Time::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.Time)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Time, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<Time*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -300,7 +309,7 @@ void Time::Clear() {
 
 bool Time::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.Time)
   for (;;) {
@@ -392,6 +401,7 @@ void Time::SerializeWithCachedSizes(
 }
 
 int Time::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.Time)
   int total_size = 0;
 
   // optional int64 Seconds = 1;
@@ -415,18 +425,22 @@ int Time::ByteSize() const {
 }
 
 void Time::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.Time)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const Time* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Time>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.Time)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.Time)
     MergeFrom(*source);
   }
 }
 
 void Time::MergeFrom(const Time& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.Time)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.seconds() != 0) {
     set_seconds(from.seconds());
@@ -437,12 +451,14 @@ void Time::MergeFrom(const Time& from) {
 }
 
 void Time::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.Time)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void Time::CopyFrom(const Time& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.Time)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -575,13 +591,14 @@ MatrixError* MatrixError::New(::google::protobuf::Arena* arena) const {
 }
 
 void MatrixError::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.MatrixError)
   code_ = 0;
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool MatrixError::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.MatrixError)
   for (;;) {
@@ -686,6 +703,7 @@ void MatrixError::SerializeWithCachedSizes(
 }
 
 int MatrixError::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.MatrixError)
   int total_size = 0;
 
   // optional int32 Code = 1;
@@ -709,18 +727,22 @@ int MatrixError::ByteSize() const {
 }
 
 void MatrixError::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.MatrixError)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const MatrixError* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MatrixError>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.MatrixError)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.MatrixError)
     MergeFrom(*source);
   }
 }
 
 void MatrixError::MergeFrom(const MatrixError& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.MatrixError)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.code() != 0) {
     set_code(from.code());
@@ -732,12 +754,14 @@ void MatrixError::MergeFrom(const MatrixError& from) {
 }
 
 void MatrixError::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.MatrixError)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void MatrixError::CopyFrom(const MatrixError& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.MatrixError)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -814,6 +838,7 @@ void MatrixError::clear_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* MatrixError::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.MatrixError.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
