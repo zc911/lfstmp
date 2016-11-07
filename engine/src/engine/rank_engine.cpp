@@ -64,7 +64,6 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
         }
 
         face_ranker_ = new FaceRankProcessor(normalize_alpha, normalize_beta);
-        RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
         unsigned int capacity = (int) config.Value(ADVANCED_RANKER_MAXIMUM);
         capacity = capacity <= 0 ? 1 : capacity;
         unsigned int featureLen = (int) config.Value(ADVANCED_RANKER_FEATURE_LENGTH);
@@ -76,7 +75,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
         if(saveIterval < SAVE_TO_FILE_ITERVAL) {
             saveIterval = SAVE_TO_FILE_ITERVAL;
         }
-        repo.Init(repoPath, imageRootPath, capacity, featureLen, needSave, saveIterval);
+
+        RankCandidatesRepo::GetInstance().Init(repoPath, imageRootPath, capacity, featureLen, needSave, saveIterval);
 
     }
 }

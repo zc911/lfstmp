@@ -38,6 +38,9 @@ public:
         std::function<MatrixError(const AddFeaturesRequest *, AddFeaturesResponse *)> addFeaturesBinder =
             std::bind(&RankerAppsService::AddFeatures, service_, std::placeholders::_1, std::placeholders::_2);
 
+        std::function<MatrixError(const GetImageContentRequest *, GetImageContentResponse *)> getImageContentBinder =
+            std::bind(&RankerAppsService::GetImageContent, service_, std::placeholders::_1, std::placeholders::_2);
+
         bindFunc<RankFeatureRequest, RankFeatureResponse>(server,
                                                           "/rank$",
                                                           "POST",
@@ -47,6 +50,11 @@ public:
                                                           "/rank/add",
                                                           "POST",
                                                           addFeaturesBinder);
+
+        bindFunc<GetImageContentRequest, GetImageContentResponse>(server,
+                                                          "/rank/getImageContent",
+                                                          "POST",
+                                                          getImageContentBinder);
 
     }
 

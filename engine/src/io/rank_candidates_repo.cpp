@@ -7,6 +7,7 @@
 #include "alg/rank/database.h"
 #include "log/log_val.h"
 #include <thread>
+#include <jsoncpp/json/json.h>
 
 namespace dg {
 
@@ -199,7 +200,8 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
             ++id;
         }
         VLOG(VLOG_RUNTIME_DEBUG)
-        << "Add items " << remains << " " << batchIds[0] << " " << batchIds[1] << " " << batchFeatures[0] << batchFeatures[1]
+        << "Add items " << remains << " " << batchIds[0] << " " << batchIds[1] << " " << batchFeatures[0]
+            << batchFeatures[1]
             << endl;
         face_ranker_->AddItems(batchFeatures, batchIds, remains);
     }
@@ -221,8 +223,8 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
     if (boost::filesystem::exists(folder) && boost::filesystem::is_directory(folder)) {
         boost::filesystem::directory_iterator itr(folder);
         boost::filesystem::directory_iterator end;
-        boost::char_separator<char> sep(" ");
 
+        boost::char_separator<char> sep(" ");
         typedef boost::tokenizer<boost::char_separator<char>> MyTokenizer;
 
         for (; itr != end; ++itr) {
@@ -237,7 +239,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
             ifstream file;
             file.open(fileName.c_str());
             string line;
-            vector<string> tokens(4);
+            vector<string> tokens(5);
             while (!file.eof()) {
                 getline(file, line);
                 if (line.size() > 0) {
@@ -245,7 +247,7 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                     MyTokenizer::iterator col = tok.begin();
                     int tokenIndex = 0;
                     while (col != tok.end()) {
-                        if (tokenIndex >= 4) {
+                        if (tokenIndex >= 5) {
                             LOG(ERROR) << "Line format invalid read from repo file" << endl;
                             break;
                         }
@@ -267,6 +269,43 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
                             << item.feature_.size() << ":" << feature_len_ << endl;
                         LOG(ERROR) << "The invalid feature info: " << item.name_ << " " << item.image_uri_ << endl;
                     }
+
+                    // parse the person attributes in json format
+                    string attributes = tokens[4];
+                    Json::Value root;
+                    Json::Reader reader;
+                    if (reader.parse(attributes, root)) {
+                        Json::Value::Members children = root.getMemberNames();
+                        for (auto itr = children.begin(); itr != children.end(); ++itr) {
+                            string keyName = *itr;
+                            Json::Value value = root[keyName];
+                            auto attrItr = item.attributes_.find(keyName);
+                            if (attrItr != item.attributes_.end()) {
+                                if (value.isString())
+                                    attrItr->second.insert(value.asString());
+                                else if (value.isArray()) {
+                                    for (int i = 0; i < value.size(); ++i) {
+                                        Json::Value arrayValue = value[i];
+                                        attrItr->second.insert(arrayValue.asString());
+                                    }
+                                }
+                            } else {
+                                set<string> attrSet;
+
+                                if (value.isString()) {
+                                    attrSet.insert(value.asString());
+                                } else if (value.isArray()) {
+                                    for (int i = 0; i < value.size(); ++i) {
+                                        Json::Value arrayValue = value[i];
+                                        attrSet.insert(arrayValue.asString());
+                                    }
+                                }
+                                item.attributes_.insert(make_pair(keyName, attrSet));
+                            }
+
+                        }
+                    }
+                    VLOG(VLOG_RUNTIME_DEBUG) << "Face info: " << item << endl;
 
                     //vector<uchar> imageContent;
                     //UriReader::Read(item.image_uri_, imageContent, 5);
