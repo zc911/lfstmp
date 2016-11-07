@@ -183,8 +183,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
                             detection.confidence);
       cv::Mat data = frame->payload()->data();
       cv::Mat image = data;
-      //    string name = to_string(bbox_id)+to_string(frameId) + "face.jpg";
-      //   imwrite(name, image);
+
       face->set_image(image);
       frame->put_object(face);
     }
