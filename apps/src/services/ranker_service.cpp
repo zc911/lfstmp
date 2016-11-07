@@ -395,7 +395,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
     for (auto r : f.result_) {
 
         if (r.score_ < confidenceThreshold) {
-            LOG(WARNING) << "Ranker result item score is lower than confidence threshold " << r.score_ << ":"
+            VLOG(VLOG_RUNTIME_DEBUG) << "Ranker result item score is lower than confidence threshold " << r.score_ << ":"
                 << confidenceThreshold << endl;
             continue;
         }
@@ -408,13 +408,13 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
         currentResultIndex++;
         if(currentResultIndex < startIndex || currentResultIndex >= startIndex + pageSize){
-            LOG(WARNING) << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
             continue;
         }
 
         candidatesCount++;
         if(candidatesCount + pageSize * pageIndex > maxCandidates){
-            LOG(WARNING) << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
             return err;
         }
 
