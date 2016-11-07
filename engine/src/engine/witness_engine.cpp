@@ -424,6 +424,7 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
         int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
 
+        VLOG(VLOG_RUNTIME_DEBUG) << "Start load face detection model" << endl;
         FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
         face_processor_ = new FaceDetectProcessor(fdconfig, method);
@@ -431,6 +432,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_face_quality_) {
             LOG(INFO) << "Enable face quality processor." << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face quality model" << endl;
             FaceQualityConfig fqConfig;
             configFilter->createFaceQualityConfig(config, fqConfig);
             Processor *p = new FaceQualityProcessor(fqConfig);
@@ -438,8 +440,8 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         if (enable_face_feature_vector_) {
-
             LOG(INFO) << "Enable face feature vector processor." << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face feature extract model" << endl;
             FaceFeatureExtractorConfig feconfig;
             FaceAlignmentConfig faConfig;
             configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
@@ -449,6 +451,7 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face pose processor." << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face pose model" << endl;
             FacePoseConfig fpconfig;
             Processor *p = new FacePoseProcessor(fpconfig);
             last->SetNextProcessor(p);
@@ -463,17 +466,8 @@ void WitnessEngine::init(const Config &config) {
         performance_ = RECORD_UNIT;
     }
 
-    // Mat image = Mat::zeros(100, 100, CV_8UC3);
-    // FrameBatch framebatch(0);
-    // Frame *frame = new Frame(0, image);
-    // framebatch.AddFrame(frame);
-    // this->Process(&framebatch);
-
     if (vehicle_processor_)
         vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-
-//    initGpuMemory(framebatch);
-//    this->Process(&framebatch);
 
     is_init_ = true;
 
