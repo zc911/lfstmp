@@ -13,10 +13,11 @@ namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig) {
-    LOG(INFO) << config.model_config << " " << config.model_dir;
     islog_ = config.islog;
+
     switch (config.method) {
         case CNNRecog:
+            cout << 1 << endl;
             recognition_ = new DGFace::CNNRecog(config.deploy_file,
                                                 config.model_file,
                                                 config.layer_name,
@@ -24,64 +25,74 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
                                                 config.pixel_scale,
                                                 config.use_GPU,
                                                 config.gpu_id);
+            cout << 11 << endl;
 
-        break;
-    case LBPRecog: {
-        int radius = 1;
-        int neighbors = 8;
-        int grid_x = 8;
-        int grid_y = 8;
-        recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
-        break;
-    }
-    case CDNNRecog: {
-        recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
-        break;
-    }
-    case CdnnCaffeRecog: {
-        recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
-        break;
-    }
-    case CdnnFuse: {
-        recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id,  config.concurrency);
+            break;
+        case LBPRecog: {
+            int radius = 1;
+            int neighbors = 8;
+            int grid_x = 8;
+            int grid_y = 8;
+            cout << 2 << endl;
+            recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
+            cout << 22 << endl;
+            break;
+        }
+        case CDNNRecog: {
+            cout << 3 << endl;
+            recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
+            cout << 33 << endl;
+            break;
+        }
+        case CdnnCaffeRecog: {
+            cout << 4 << endl;
+            recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
+            cout << 44 << endl;
+            break;
+        }
+        case CdnnFuse: {
+            cout << 5 << endl;
+            recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
+            cout << 55 << endl;
+        }
 
     }
-
-
-    }
-    LOG(INFO) << faConfig.align_model << " " << faConfig.align_path << " " << faConfig.align_cfg << " "
-        << faConfig.align_deploy << faConfig.detect_type;
+//    LOG(INFO) << faConfig.align_model << " " << faConfig.align_path << " " << faConfig.align_cfg << " "
+//        << faConfig.align_deploy << faConfig.detect_type;
     switch (config.method) {
 
-    case CDNNRecog: {
-        LOG(INFO) << faConfig.align_model;
-
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-        align_method_ = CdnnAlign;
+        case CDNNRecog: {
+            cout << 6 << endl;
+//            LOG(INFO) << faConfig.align_model;
+            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+            cout << 66 << endl;
+            align_method_ = CdnnAlign;
 
 
             break;
 
-    }
-    case CdnnCaffeRecog: {
-        LOG(INFO) << faConfig.align_cfg;
+        }
+        case CdnnCaffeRecog: {
+//            LOG(INFO) << faConfig.align_cfg;
+            cout << 7 << endl;
+            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+            cout << 77 << endl;
+            align_method_ = CdnnAlign;
+            // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+            //align_method_ = CdnnCaffeAlign;
 
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-        align_method_ = CdnnAlign;
-        // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-        //align_method_ = CdnnCaffeAlign;
+            break;
+        }
+        case CdnnFuse: {
+//            LOG(INFO) << faConfig.align_model;
+            cout << 8 << endl;
+            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+            cout << 88 << endl;
+            //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
+            //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
 
-        break;
-    }
-    case CdnnFuse: {
-        LOG(INFO) << faConfig.align_model;
-        alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-
-        //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-        //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-
-        align_method_ = CdnnCaffeAlign;
-        align_method_ = CdnnAlign;
+            align_method_ = CdnnCaffeAlign;
+            align_method_ = CdnnAlign;
 
 
             break;
@@ -147,9 +158,9 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
     for (vector<DGFace::AlignResult>::iterator aitr = align_results.begin(); aitr != align_results.end();) {
         //    Face *face = static_cast<Face *>(obj);
         //Mat img = face->image();
-        float det_threshold  = ((Face *)(*itr))->detection().confidence;
+        float det_threshold = ((Face *) (*itr))->detection().confidence;
         if (!alignment_->is_face(det_threshold, aitr->score, align_threshold_)) {
-            ((Face *)(*itr))->set_valid(false);
+            ((Face *) (*itr))->set_valid(false);
 
             itr = to_processed_.erase(itr);
             aitr = align_results.erase(aitr);
@@ -167,7 +178,8 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
                     break;
                 }
             }
-            if ((aitr->landmarks.size() == 0) || (aitr->face_image.rows == 0) || (aitr->face_image.cols == 0) || (!isValid)) {
+            if ((aitr->landmarks.size() == 0) || (aitr->face_image.rows == 0) || (aitr->face_image.cols == 0)
+                || (!isValid)) {
                 itr = to_processed_.erase(itr);
                 aitr = align_results.erase(aitr);
                 continue;
@@ -210,14 +222,14 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         Mat img = face->image();
         Rect rect = face->detection().box;
         switch (align_method_) {
-        case DlibAlign:
-            alignment_->align(img, rect, align_result, true);
-            break;
-        default:
-            alignment_->align(img, rect, align_result, false);
-            // alignment_->align(img, rect, align_result, false);
-            //cout<<"waiting"<<endl;
-            break;
+            case DlibAlign:
+                alignment_->align(img, rect, align_result, true);
+                break;
+            default:
+                alignment_->align(img, rect, align_result, false);
+                // alignment_->align(img, rect, align_result, false);
+                //cout<<"waiting"<<endl;
+                break;
         }
 
         //det_scores.push_back(face->detection().confidence);
@@ -243,7 +255,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
         align_results.push_back(align_result);
     }
 
-    vector<Mat >align_imgs;
+    vector<Mat> align_imgs;
     Mat img_draw = align_results[0].face_image.clone();
 
 
@@ -275,7 +287,8 @@ void FaceFeatureExtractProcessor::facefilter(FrameBatch *frameBatch) {
         frame->DeleteInvalidObjects();
     }
 }
-int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features) {
+int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results,
+                                                           vector<FaceRankFeature> &features) {
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.feature_ = (result.face_feat);
