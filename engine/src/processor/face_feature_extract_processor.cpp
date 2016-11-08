@@ -157,6 +157,8 @@ int FaceFeatureExtractProcessor::AlignResult2MatrixAlign(vector<DGFace::AlignRes
             for (auto landmark : aitr->landmarks) {
                 if (!landmark.inside(Rect(0, 0, face_size_length_, face_size_length_))) {
                     isValid = false;
+                    ((Face *) (*itr))->set_valid(false);
+
                     //   LOG(INFO)<<landmark.x<<" "<<landmark.y;
                     LOG(ERROR) << "landmarks is errors";
                     break;
