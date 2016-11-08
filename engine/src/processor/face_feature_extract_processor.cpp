@@ -17,7 +17,6 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
     switch (config.method) {
         case CNNRecog:
-            cout << 1 << endl;
             recognition_ = new DGFace::CNNRecog(config.deploy_file,
                                                 config.model_file,
                                                 config.layer_name,
@@ -25,7 +24,6 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
                                                 config.pixel_scale,
                                                 config.use_GPU,
                                                 config.gpu_id);
-            cout << 11 << endl;
 
             break;
         case LBPRecog: {
@@ -33,27 +31,19 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
             int neighbors = 8;
             int grid_x = 8;
             int grid_y = 8;
-            cout << 2 << endl;
             recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
-            cout << 22 << endl;
             break;
         }
         case CDNNRecog: {
-            cout << 3 << endl;
             recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
-            cout << 33 << endl;
             break;
         }
         case CdnnCaffeRecog: {
-            cout << 4 << endl;
             recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
-            cout << 44 << endl;
             break;
         }
         case CdnnFuse: {
-            cout << 5 << endl;
             recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
-            cout << 55 << endl;
         }
 
     }
@@ -62,10 +52,8 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     switch (config.method) {
 
         case CDNNRecog: {
-            cout << 6 << endl;
 //            LOG(INFO) << faConfig.align_model;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            cout << 66 << endl;
             align_method_ = CdnnAlign;
 
 
@@ -74,9 +62,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         }
         case CdnnCaffeRecog: {
 //            LOG(INFO) << faConfig.align_cfg;
-            cout << 7 << endl;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            cout << 77 << endl;
             align_method_ = CdnnAlign;
             // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
             //align_method_ = CdnnCaffeAlign;
@@ -85,9 +71,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         }
         case CdnnFuse: {
 //            LOG(INFO) << faConfig.align_model;
-            cout << 8 << endl;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            cout << 88 << endl;
             //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
             //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
 
@@ -292,13 +276,13 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
     for (auto result : recog_results) {
         FaceRankFeature feature;
         feature.feature_ = (result.face_feat);
-        if (islog_) {
-            LOG(INFO) << result.face_feat.size();
-            for (int i = 0; i < result.face_feat.size(); i++) {
-                cout << result.face_feat[i] << " ";
-            }
-            cout << endl;
-        }
+//        if (islog_) {
+//            LOG(INFO) << result.face_feat.size();
+//            for (int i = 0; i < result.face_feat.size(); i++) {
+//                cout << result.face_feat[i] << " ";
+//            }
+//            cout << endl;
+//        }
 
         features.push_back(feature);
     }

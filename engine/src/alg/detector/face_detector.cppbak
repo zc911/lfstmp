@@ -93,9 +93,9 @@ void FaceCaffeDetector::Forward( vector<cv::Mat> &imgs, vector<vector<Detection>
     }
 
     for (int i = 0; i < imgs.size(); i++) {
-        cout << "image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
+//        cout << "image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
         addeds.push_back(CatImg(imgs[i], max_col, max_row));
-        cout << "cat image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
+//        cout << "cat image " << i << " " << imgs[i].cols << ", " << imgs[i].rows << endl;
     }
 
     Blob<float>* input_blob = net_->input_blobs()[0];

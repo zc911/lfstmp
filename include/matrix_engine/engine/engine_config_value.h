@@ -117,7 +117,7 @@ static const string ADVANCED_FACE_ALIGN_METHOD =
     "Advanced/FaceExtract/AlignMethod";
 static const string ADVANCED_FACE_ALIGN_THRESHOLD =
     "Advanced/FaceExtract/AlignThreshold";
-    static const string ADVANCED_FACE_QUALITY_THRESHOLD =
+static const string ADVANCED_FACE_QUALITY_THRESHOLD =
     "Advanced/FaceQuality/Threshold";
 static const string ADVANCED_FACE_ENABLE_CONCURRENCY = "Advanced/FaceExtract/EnableConcurrency";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
@@ -243,6 +243,8 @@ static const string ADVANCED_RANKER_REPO_PATH = "Advanced/Ranker/RepoPath";
 static const string ADVANCED_RANKER_IMAGE_ROOT_PATH = "Advanced/Ranker/ImageRootPath";
 static const string ADVANCED_RANKER_FEATURE_LENGTH = "Advanced/Ranker/FeatureLen";
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
+static const string ADVANCED_RANKER_NORMALIZE_ALPHA = "Advanced/Ranker/NormalizeAlpha";
+static const string ADVANCED_RANKER_NORMALIZE_BETA = "Advanced/Ranker/NormalizeBeta";
 static const string ADVANCED_RANKER_NEED_SAVE_TO_FILE = "Advanced/Ranker/SaveToFile";
 static const string ADVANCED_RANKER_SAVE_TO_FILE_ITERVAL = "Advanced/Ranker/SaveToFileIterval";
 
