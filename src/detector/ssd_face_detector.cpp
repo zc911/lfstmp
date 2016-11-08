@@ -3,6 +3,8 @@
 //
 
 #include "ssd_face_detector.h"
+#include <string>
+#include <vector>
 
 namespace dgface {
 
@@ -10,6 +12,9 @@ SsdFaceDetector::SsdFaceDetector() { }
 
 SsdFaceDetector::~SsdFaceDetector() { }
 
-void SsdFaceDetector::Update() { }
+void SsdFaceDetector::Update() {
+    std::vector <std::string> ss;
+    auto itr = ss.begin();
+}
 
 }

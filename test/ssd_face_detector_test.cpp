@@ -3,8 +3,11 @@
 //
 
 #include "gtest/gtest.h"
+#include <iostream>
+
 using namespace std;
 
 TEST(SsdFaceDetectorTest, basicTest) {
-    EXPECT_TRUE(1);
+    cout << "SsdFaceDetectorTest" << endl;
+    EXPECT_TRUE(1) << "success" << endl;
 }
