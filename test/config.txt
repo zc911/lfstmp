@@ -1,0 +1,115 @@
+# =========== detector ==============
+# detector = rpn
+# detector.img_scale_max = 300
+# detector.img_scale_min = 240
+# detector = ssd
+# detector.img_scale_max = 180
+# detector.img_scale_min = 150
+# detector = dlib
+# detector.img_scale_max = 480 
+# detector.img_scale_min = 240
+
+# ssd detector related
+# detector.ssd.model_file   = /home/zz/code/ssd/ssd-face/ssd_face_models/test_ssd_original.prototxt
+# detector.ssd.trained_file = /home/zz/code/ssd/ssd-face/ssd_face_models/VGG_ssd_original_iter_90000.caffemodel
+# detector.ssd.det_thresh = 0.3
+
+# rpn detector related
+# detector.rpn.model_file   = /home/zz/code/rpn_zz/models/GoogleNetHalf_7win/FDDB_FaceCollBatch1_2/test.prototxt
+# detector.rpn.trained_file = /home/zz/code/rpn_zz/output/GoogleNetHalf_7win/FDDB_FaceCollBatch1_2/googlenet_face_iter_100000.caffemodel
+# detector.area = 576, 1152, 2304, 4608, 9216, 18432, 36864
+# detector.ratio = 1
+#detector.rpn.model_file   = /home/zz/code/rpn_zz/models/GoogleNet/test.prototxt
+#detector.rpn.trained_file = /home/zz/code/rpn_zz/output/GoogleNet/FDDB/googlenet_face_iter_100000.caffemodel
+# detector.rpn.layer_name_cls = conv_face_16_cls
+# detector.rpn.layer_name_reg = conv_face_16_reg
+# detector.rpn.det_thresh = 0.7
+detector = fcn
+detector.fcn.model_dir = models/detector_0.4.5
+#detector.fcn.model_dir = models/detector_0.1.0
+detector.fcn.gpu_id = 1
+# =========== alignment ===============
+# alignment = dlib
+#alignment.face_size = 112, 96
+#alignment.avg_face  = /home/zz/code/FaceVeri/DeepID/models/DeepID_LiuXuebo/deepid/avgface.jpg
+# alignment.face_size = 128
+# alignment.avg_face  = /home/zz/code/FaceVeri/FaceGuard/models/alignment/avgface.jpg
+# 
+# alignment.dlib.model = /home/zz/code/FaceVeri/FaceGuard/models/alignment/shape_predictor_68_face_landmarks.dat
+# ----------------------------------------
+alignment = cdnn_caffe
+alignment.face_size = 600
+alignment.cdnn_caffe.model_dir = models/alignment_0.4.1
+alignment.cdnn_caffe.gpu_id = 1
+#--------------------------------------
+# alignment = cdnn
+# alignment.face_size = 600
+# alignment.cdnn.model_dir = models/alignment_0.4.2/
+
+# =========== transformation =============
+transformation = cdnn
+
+# =========== recognition ===============
+# recognition = cnn
+# recognition.mean = 93, 104, 129
+# 
+# recognition.cnn.model_file   = /home/zz/code/vgg_face/VGG_FACE_4096f.prototxt
+# recognition.cnn.trained_file = /home/zz/code/vgg_face/VGG_FACE.caffemodel
+# recognition.cnn.layer_name   = fc7
+# recognition.cnn.pixel_scale  = 255 
+# recognition.cnn.use_GPU      = true
+#-------------------------------------------
+# recognition = cdnn
+# recognition.cdnn.model_dir = ./models/recognition_0.3.4
+# recognition.cdnn.multi_thread =true 
+#-------------------------------------------
+
+# recognition = cdnn_caffe
+# recognition.cdnn_caffe.model_dir = ./models/recognition_0.3.3
+# recognition.dnn_caffe.gpu_id = 1
+##-------------------------------------------
+
+recognition = fusion
+recognition.fusion.model_dir = ./models/recognition_0.4.1
+recognition.fusion.gpu_id = 1
+recognition.fusion.multi_thread = true
+ =========== verifier ===============
+# verifier = cos
+verifier = euclid
+
+# =========== database ===============
+database = simple
+database.db_path = feature_db.bin 
+
+# =========== tracking ===============
+tracking = detect_based 
+
+# ssd detector related
+tracking.thresh = 0.2
+tracking.detector = ssd 
+tracking.detector.img_scale_max = 180 
+tracking.detector.img_scale_min = 150
+# tracking.detector.ssd.model_file   = /home/zz/code/ssd/ssd-face/ssd_face_models/test_ssd_original.prototxt
+# tracking.detector.ssd.trained_file = /home/zz/code/ssd/ssd-face/ssd_face_models/VGG_ssd_original_iter_90000.caffemodel
+tracking.detector.ssd.model_file   = /home/zz/code/ssd/ssd-face/ssd_face_models/test_googlenet_3.prototxt
+tracking.detector.ssd.trained_file = /home/zz/code/ssd/ssd-face/ssd_face_models/ssd_googlenet_3_iter_90000.caffemodel
+tracking.detector.ssd.det_thresh = 0.2
+
+# rpn detector related
+# tracking.thresh = 0.7
+# tracking.detector = rpn 
+# tracking.detector.img_scale_max = 640 
+# tracking.detector.img_scale_min = 240
+# tracking.detector.rpn.model_file   = /home/zz/code/rpn_zz/models/GoogleNetHalf_7win/FDDB_FaceCollBatch1_2/test.prototxt
+# tracking.detector.rpn.trained_file = /home/zz/code/rpn_zz/output/GoogleNetHalf_7win/FDDB_FaceCollBatch1_2/googlenet_face_iter_100000.caffemodel
+# tracking.detector.area = 576, 1152, 2304, 4608, 9216, 18432, 36864
+# tracking.detector.ratio = 1
+# tracking.detector.rpn.layer_name_cls = conv_face_16_cls
+# tracking.detector.rpn.layer_name_reg = conv_face_16_reg
+# tracking.detector.rpn.det_thresh = 0.9 
+tracking.recognition = lbp 
+tracking.verifier = cos
+
+# =========== quality ================
+# quality = blurm
+quality = frontalm
