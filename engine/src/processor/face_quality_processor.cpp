@@ -23,8 +23,7 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
 
 	for (vector<Object *>::iterator itr = to_processed_.begin(); itr != to_processed_.end();) {
 		Mat img = ((Face *)(*itr))->image();
-		float score = fq_->quality(img);
-		LOG(INFO) << score;
+		float score = fq_->quality(img((((Face*)(*itr))->detection()).box));
 		if (frontalThreshold_ > score) {
 			((Face *)(*itr))->set_valid(false);
 
