@@ -29,10 +29,10 @@ sys.setdefaultencoding("utf-8")
 ## global configure infomation
 conf = dict(
         #address = "http://192.168.2.21:8600/rec/image",     # service address
-        address = "http://192.168.5.51:6500/rec/image",     # service address
+        address = "http://192.168.2.148:6500/rec/image",     # service address
         batch_num = 1,                 # batch num
-        thread_num = 12,                 # thread num
-        photo_path = "/mnt/ssd/DeepV/server/face_anbo/face_anbo_1026",           # image path
+        thread_num = 20,                 # thread num
+        photo_path = "/home/chenzhen/data/changshashijv/images",           # image path
         input_path = "input",           # file input path
         mode = 1,                       # 0 means single, 1 means batch
         read_method = 1,                # 0 means read from files, 1 means read from folder
@@ -145,7 +145,7 @@ class QueryThread(threading.Thread):
         self.svr_type = conf['svr_type']
         self.stopped = False
         self.name = threadname
-        self.index = '0'
+        self.index = threadname
         self.cnt = 0
 
 
@@ -348,9 +348,11 @@ class QueryThread(threading.Thread):
     def batch_run(self, batch_num):
         while True:
             fileCreatMutex.acquire()
-            status, fileCnt = commands.getstatusoutput("ls -l " + conf['feature_file'] + "| grep ^- | wc -l")
-            self.index = str(fileCnt)
+            # status, fileCnt = commands.getstatusoutput("ls -l " + conf['feature_file'] + "| grep ^- | wc -l")
+            # print("File count: ", fileCnt)
+            # self.index = str(fileCnt)
             filename = conf['feature_file'] + '/' + self.index + ".txt"
+            print("!!!!!filename:   ", filename)
             fileCreatMutex.release()
             with open(filename, "a") as f:
                 batch_list = []
