@@ -7,6 +7,7 @@
  * Description : 
  * ==========================================================================*/
 
+#include <sys/time.h>
 #include <glog/logging.h>
 #include "ranker_service.h"
 #include "codec/base64.h"
@@ -14,7 +15,7 @@
 #include "string_util.h"
 #include "io/uri_reader.h"
 #include "../../../engine/src/io/rank_candidates_repo.h"
-#include <sys/time.h>
+#include "debug_util.h"
 
 namespace dg {
 //const int RANKER_MAXIMUM = 10000
@@ -356,7 +357,8 @@ MatrixError RankerAppsService::getFaceScoredVector(
     Operation op;
 
     op.Set(OPERATION_FACE_FEATURE_VECTOR);
-
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
     f.set_operation(op);
     MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
     EngineData data;
@@ -372,7 +374,8 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
     engine_pool->enqueue(&data);
     data.Wait();
-
+    gettimeofday(&finish, NULL);
+    VLOG(VLOG_PROCESS_COST) << "Ranker alg cost: " << TimeCostInMs(start, finish) << " ms" << endl;
     RankCandidatesRepo &repo = RankCandidatesRepo::GetInstance();
 
     // calculate the page size, page count and page index

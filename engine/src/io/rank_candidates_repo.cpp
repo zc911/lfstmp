@@ -8,6 +8,8 @@
 #include "log/log_val.h"
 #include <thread>
 #include <jsoncpp/json/json.h>
+#include <sys/time.h>
+#include "debug_util.h"
 
 namespace dg {
 
@@ -43,8 +45,11 @@ void RankCandidatesRepo::Init(const string &repoPath,
     VLOG(VLOG_RUNTIME_DEBUG) << "Find gpu num: " << gpu_num_ << " capacity: " << capacity << endl;
     gpu_num_ = face_ranker_->GetGpuCount();
     face_ranker_->Initialize(capacity / gpu_num_ + 1, feature_len_);
-
+    struct timeval start, finish;
+    gettimeofday(&start, NULL);
     loadFromFile(repo_path_);
+    gettimeofday(&finish, NULL);
+    LOG(INFO) << "Load features from file cost: " << TimeCostInMs(start, finish) << " ms" << endl;
     addDataToFaceRankDatabase(1024, candidates_.size());
     if (need_save_to_file_) {
         std::thread saveThread(&RankCandidatesRepo::save, this, repo_path_, save_iterval_);
@@ -218,14 +223,100 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
     delete[] batchIds;
 }
 
+
+typedef boost::tokenizer<boost::char_separator<char>> MyTokenizer;
+
+void RankCandidatesRepo::loadFileThread(const string fileName) {
+    cout << "load file in thread: " << fileName << endl;
+    boost::char_separator<char> sep(" ");
+    ifstream file;
+    file.open(fileName.c_str());
+    string line;
+    vector<string> tokens(5);
+    while (!file.eof()) {
+        getline(file, line);
+        if (line.size() > 0) {
+            MyTokenizer tok(line, sep);
+            MyTokenizer::iterator col = tok.begin();
+            int tokenIndex = 0;
+            while (col != tok.end()) {
+                if (tokenIndex >= 5) {
+                    LOG(ERROR) << "Line format invalid read from repo file" << endl;
+                    break;
+                }
+                tokens[tokenIndex] = *col;
+                col++;
+                tokenIndex++;
+
+            }
+            RankCandidatesItem item;
+            item.id_ = tokens[0];
+            if (item.id_.size() == 0) {
+                item.id_ = "0";
+            }
+            item.name_ = tokens[1];
+            item.image_uri_ = image_root_path_ + tokens[2];
+            Base64::Decode(tokens[3], item.feature_);
+            if (item.feature_.size() != feature_len_) {
+                LOG(ERROR) << "Feature length load from repo file not equals to initial feature size "
+                    << item.feature_.size() << ":" << feature_len_ << endl;
+                LOG(ERROR) << "The invalid feature info: " << item.name_ << " " << item.image_uri_ << endl;
+            }
+
+            // parse the person attributes in json format
+            string attributes = tokens[4];
+            Json::Value root;
+            Json::Reader reader;
+            if (reader.parse(attributes, root)) {
+                Json::Value::Members children = root.getMemberNames();
+                for (auto itr = children.begin(); itr != children.end(); ++itr) {
+                    string keyName = *itr;
+                    Json::Value value = root[keyName];
+                    auto attrItr = item.attributes_.find(keyName);
+                    if (attrItr != item.attributes_.end()) {
+                        if (value.isString())
+                            attrItr->second.insert(value.asString());
+                        else if (value.isArray()) {
+                            for (int i = 0; i < value.size(); ++i) {
+                                Json::Value arrayValue = value[i];
+                                attrItr->second.insert(arrayValue.asString());
+                            }
+                        }
+                    } else {
+                        set<string> attrSet;
+
+                        if (value.isString()) {
+                            attrSet.insert(value.asString());
+                        } else if (value.isArray()) {
+                            for (int i = 0; i < value.size(); ++i) {
+                                Json::Value arrayValue = value[i];
+                                attrSet.insert(arrayValue.asString());
+                            }
+                        }
+                        item.attributes_.insert(make_pair(keyName, attrSet));
+                    }
+
+                }
+            }
+            VLOG(VLOG_RUNTIME_DEBUG) << "Face info: " << item << endl;
+
+            {
+                std::lock_guard<std::mutex> lock(put_mutex_);
+                candidates_.push_back(item);
+            }
+
+        }
+
+    }
+    file.close();
+}
+
 void RankCandidatesRepo::loadFromFile(const string &folderPath) {
     boost::filesystem::path folder(folderPath);
     if (boost::filesystem::exists(folder) && boost::filesystem::is_directory(folder)) {
         boost::filesystem::directory_iterator itr(folder);
         boost::filesystem::directory_iterator end;
-
-        boost::char_separator<char> sep(" ");
-        typedef boost::tokenizer<boost::char_separator<char>> MyTokenizer;
+        vector<std::thread> allThreads;
 
         for (; itr != end; ++itr) {
 
@@ -236,86 +327,14 @@ void RankCandidatesRepo::loadFromFile(const string &folderPath) {
             LOG(INFO) << "Load candidates repo data file: " << *itr << endl;
 
             string fileName = itr->path().string();
-            ifstream file;
-            file.open(fileName.c_str());
-            string line;
-            vector<string> tokens(5);
-            while (!file.eof()) {
-                getline(file, line);
-                if (line.size() > 0) {
-                    MyTokenizer tok(line, sep);
-                    MyTokenizer::iterator col = tok.begin();
-                    int tokenIndex = 0;
-                    while (col != tok.end()) {
-                        if (tokenIndex >= 5) {
-                            LOG(ERROR) << "Line format invalid read from repo file" << endl;
-                            break;
-                        }
-                        tokens[tokenIndex] = *col;
-                        col++;
-                        tokenIndex++;
+            allThreads.emplace_back(std::thread(&RankCandidatesRepo::loadFileThread, this, fileName));
 
-                    }
-                    RankCandidatesItem item;
-                    item.id_ = tokens[0];
-                    if (item.id_.size() == 0) {
-                        item.id_ = "0";
-                    }
-                    item.name_ = tokens[1];
-                    item.image_uri_ = image_root_path_ + tokens[2];
-                    Base64::Decode(tokens[3], item.feature_);
-                    if (item.feature_.size() != feature_len_) {
-                        LOG(ERROR) << "Feature length load from repo file not equals to initial feature size "
-                            << item.feature_.size() << ":" << feature_len_ << endl;
-                        LOG(ERROR) << "The invalid feature info: " << item.name_ << " " << item.image_uri_ << endl;
-                    }
-
-                    // parse the person attributes in json format
-                    string attributes = tokens[4];
-                    Json::Value root;
-                    Json::Reader reader;
-                    if (reader.parse(attributes, root)) {
-                        Json::Value::Members children = root.getMemberNames();
-                        for (auto itr = children.begin(); itr != children.end(); ++itr) {
-                            string keyName = *itr;
-                            Json::Value value = root[keyName];
-                            auto attrItr = item.attributes_.find(keyName);
-                            if (attrItr != item.attributes_.end()) {
-                                if (value.isString())
-                                    attrItr->second.insert(value.asString());
-                                else if (value.isArray()) {
-                                    for (int i = 0; i < value.size(); ++i) {
-                                        Json::Value arrayValue = value[i];
-                                        attrItr->second.insert(arrayValue.asString());
-                                    }
-                                }
-                            } else {
-                                set<string> attrSet;
-
-                                if (value.isString()) {
-                                    attrSet.insert(value.asString());
-                                } else if (value.isArray()) {
-                                    for (int i = 0; i < value.size(); ++i) {
-                                        Json::Value arrayValue = value[i];
-                                        attrSet.insert(arrayValue.asString());
-                                    }
-                                }
-                                item.attributes_.insert(make_pair(keyName, attrSet));
-                            }
-
-                        }
-                    }
-                    VLOG(VLOG_RUNTIME_DEBUG) << "Face info: " << item << endl;
-
-                    //vector<uchar> imageContent;
-                    //UriReader::Read(item.image_uri_, imageContent, 5);
-                    //cv::resize(cv::imdecode(cv::Mat(imageContent), 1), item.image_, cv::Size(64, 64));
-                    candidates_.push_back(item);
-                }
-
-            }
-            file.close();
         }
+
+        for(int i = 0; i < allThreads.size(); ++i)
+            allThreads[i].join();
+
+
         new_added_index_ = candidates_.size();
         LOG(INFO) << "Candidates repo size: " << candidates_.size() << endl;
 
