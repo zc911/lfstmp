@@ -145,7 +145,7 @@ class QueryThread(threading.Thread):
         self.svr_type = conf['svr_type']
         self.stopped = False
         self.name = threadname
-        self.index = threadname
+        self.index = '0'
         self.cnt = 0
 
 
@@ -158,7 +158,7 @@ class QueryThread(threading.Thread):
         query_dict = {}
         if conf['uri_type'] == 0:
             #query_dict = {'URI': 'file:' + query}
-            query_dict = {'URI': os.path.join(conf['file_header'], query)}
+            query_dict = {'URI': 'file:' + os.path.join(conf['file_header'], query)}
         elif conf['uri_type'] == 1:
             #query_dict =  {'URI': conf['uri_header'] + query[query.index('/'):]}
             query_dict =  {'URI': conf['uri_header'] + query}
@@ -348,11 +348,9 @@ class QueryThread(threading.Thread):
     def batch_run(self, batch_num):
         while True:
             fileCreatMutex.acquire()
-            # status, fileCnt = commands.getstatusoutput("ls -l " + conf['feature_file'] + "| grep ^- | wc -l")
-            # print("File count: ", fileCnt)
-            # self.index = str(fileCnt)
+            status, fileCnt = commands.getstatusoutput("ls -l " + conf['feature_file'] + "| grep ^- | wc -l")
+            self.index = str(fileCnt)
             filename = conf['feature_file'] + '/' + self.index + ".txt"
-            print("!!!!!filename:   ", filename)
             fileCreatMutex.release()
             with open(filename, "a") as f:
                 batch_list = []
@@ -375,7 +373,7 @@ class QueryThread(threading.Thread):
                                     if feature == "":
                                         self.Error(conf['nofeature_file'], batch_list)
                                         continue
-                                    f.write(batch_list[0] + " " + feature + ' {}'+ '\n')
+                                    f.write(batch_list[0] + " " + feature + '\n')
                                     self.cnt += 1
                                 else:
                                     self.Error(conf['nofeature_file'], batch_list)
@@ -396,7 +394,7 @@ class QueryThread(threading.Thread):
                                         if feature == "":
                                             self.Error(conf['nofeature_file'], batch_list[i])
                                             continue
-                                        f.write(batch_list[i] + " " + feature + ' {}' + '\n')
+                                        f.write(batch_list[i] + " " + feature + '\n')
                                         self.cnt += 1
                                     else:
                                         self.Error(conf['nofeature_file'], batch_list[i])
