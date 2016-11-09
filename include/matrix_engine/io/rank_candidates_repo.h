@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <mutex>
 #include <boost/filesystem.hpp>
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
@@ -64,11 +65,13 @@ class RankCandidatesRepo {
  private:
     RankCandidatesRepo();
     void loadFromFile(const string &folderPath);
+    void loadFileThread(const string filePath);
     void addDataToFaceRankDatabase(unsigned int batchSize, unsigned int totalSize, unsigned int fromIndex = 0);
     bool checkData(unsigned int index);
 
     CDatabase *face_ranker_;
     vector<RankCandidatesItem> candidates_;
+    std::mutex put_mutex_;
     string repo_path_;
     string image_root_path_;
     unsigned int feature_len_;
