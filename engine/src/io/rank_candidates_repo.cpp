@@ -298,7 +298,7 @@ void RankCandidatesRepo::loadFileThread(const string fileName) {
 
                 }
             }
-            VLOG(VLOG_RUNTIME_DEBUG) << "Face info: " << item << endl;
+//            VLOG(VLOG_RUNTIME_DEBUG) << "Face info: " << item << endl;
 
             {
                 std::lock_guard<std::mutex> lock(put_mutex_);

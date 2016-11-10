@@ -213,7 +213,6 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
     // apply the string filter
     for (auto itr = valueFilters.begin(); itr != valueFilters.end(); ++itr) {
         string filterName = itr->first;
-        filterName = filterName.substr(0, 6);
         auto attributeSetItr = item.attributes_.find(filterName);
         if (attributeSetItr != item.attributes_.end()) {
 
