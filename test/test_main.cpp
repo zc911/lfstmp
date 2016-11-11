@@ -2,23 +2,22 @@
 #include "time.h"
 #include <iostream>
 #include <fstream>
+#include <string>
+
+#include <opencv2/opencv.hpp>
+
 #include <config.h>
 #include <detector.h>
-#include <detector/det_fcn.h>
 #include <alignment.h>
-#include <opencv2/opencv.hpp>
 #include <recognition.h>
 #include <verification.h>
-#include <verification/veri_euclid.h>
 #include <database.h>
 #include <transformation.h>
-#include <string>
 #include "dgface_utils.h"
+
 using namespace cv;
 using namespace std;
 using namespace DGFace;
-
-
 
 bool valid_landmarks(const AlignResult &align_result) {
 	auto &landmarks = align_result.landmarks;
@@ -62,10 +61,15 @@ Bbox max_box(vector<Bbox> boundingBox) {
 
 int main(int argc, char const *argv[])
 {
-	if (argc != 3)
+	if (argc > 3 || argc == 1)
 	{
 		cout << "Number of argments not match." << endl;
 		exit(-1);
+	}
+    string name_txt = argv[1];
+	string fea_dir;
+	if (argc == 3) {
+		fea_dir = argv[2];
 	}
 
 	FileConfig config("config.txt");
@@ -75,9 +79,8 @@ int main(int argc, char const *argv[])
     }
     
     vector<string> names;
-    string name_txt = argv[1];
-	string fea_dir = argv[2];
     load_names(name_txt, names);
+
     Detector  *detector 		= create_detector();
 	Alignment *alignment 		= create_alignment();
 	Transformation *transformation   = create_transformation();
@@ -169,11 +172,14 @@ int main(int argc, char const *argv[])
         string des = names[i].substr(pos + 1, names[i].length() - 4);
 		string draw_name0 = des + "_det_test_draw_" + to_string(i) + ".png";
 		// imwrite(draw_name0, img_draw);
-		// bool save_ret = saveFeature(fea_dir + des + ".fea", one_img_recog);
-		// if(save_ret == false) {
-		// 	cout << "can't save feature" << endl;
-		// 	return -1;
-		// }
+		if(!fea_dir.empty()) {
+			bool save_ret = saveFeature(fea_dir + des + ".fea", one_img_recog);
+			if(save_ret == false) {
+				cout << "can't save feature" << endl;
+				return -1;
+			}
+		}
+		
 	    
     }
     not_det.close();
