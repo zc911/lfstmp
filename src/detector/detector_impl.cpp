@@ -483,7 +483,7 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min,std::string deploy
 
 }
 
-FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, std::string& model_dir, int gpu_id)
+FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id)
                 : Detector(img_scale_max, img_scale_min) {
 
     int argc = 1;
@@ -626,6 +626,22 @@ Detector *create_detector(const string &prefix) {
         return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
     }
     throw new runtime_error("unknown detector");
+}
+Detector *create_detector(const string& method, const string& model_dir, int gpu_id) {
+	int img_scale_max = 720;
+	int img_scale_min = 240;
+	if(method == "fcn") {
+        return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
+	} else if(method == "ssd") {
+		throw new runtime_error("don't use ssd!");
+	} else if(method == "rpn") {
+		throw new runtime_error("don't use rpn!");
+	} else if (method == "dlib") {
+		throw new runtime_error("don't use dlib!");
+        return new DlibDetector(img_scale_max, img_scale_min);
+	}
+    throw new runtime_error("unknown detector");
+
 }
 
 }

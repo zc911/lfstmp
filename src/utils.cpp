@@ -27,10 +27,10 @@ vector<T> split(const string &str, char delimiter) {
     return tokens;
 }
 }
-int main(int argc, const char *argv[]) {
-    string values = "1,2,3,4";
-    vector<int> sep = split<int>(values, ',');
-    for(auto t : sep) {
-        cout << t << endl;
-    }
-}
+// int main(int argc, const char *argv[]) {
+//     string values = "1,2,3,4";
+//     vector<int> sep = split<int>(values, ',');
+//     for(auto t : sep) {
+//         cout << t << endl;
+//     }
+// }

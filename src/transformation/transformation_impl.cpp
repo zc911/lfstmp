@@ -115,4 +115,12 @@ Transformation *create_transformation(const string &prefix) {
 	throw new runtime_error("unknown transformation");
 }
 
+Transformation *create_transformation(const std::string& method, const std::string& model_dir) {
+	if(method == "cdnn") {
+		return new CdnnTransformation();
+	} else if(method == "cdnn_caffe") {
+		return new CdnnCaffeTransformation();
+	}
+	throw new runtime_error("unknown transformation");
+}
 }

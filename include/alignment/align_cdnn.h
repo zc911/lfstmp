@@ -5,7 +5,6 @@
 #include <alignment.h>
 #include "CdnnPosition.h"
 #include "ExtractMPMetricFeature.h"
-#include "Util.h"
 namespace DGFace{
 class CdnnAlignment : public Alignment{
 	public:

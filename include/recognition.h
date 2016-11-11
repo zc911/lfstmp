@@ -20,7 +20,9 @@ class Recognition {
 
 		Transformation* _transformation;
 };
+
 Recognition *create_recognition(const std::string &prefix = std::string());
+Recognition *create_recognition(const std::string& method, const std::string& model_dir, int gpu_id, bool multi_thread);
 }
 #endif
 

@@ -657,4 +657,18 @@ Recognition *create_recognition(const string & prefix) {
     }
     throw new runtime_error("unknown recognition");
 }
+Recognition *create_recognition(const string& method, const string& model_dir, int gpu_id, bool multi_thread) {
+	if (method == "cdnn_caffe") {
+        return new CdnnCaffeRecog(model_dir, gpu_id);
+	} else if (method == "cdnn") {
+        return new CdnnRecog(model_dir, multi_thread);
+	} else if (method == "fusion") {
+        return new FuseRecog(model_dir, gpu_id, multi_thread);
+	} else if (method == "lbp") {
+		throw new runtime_error("don't use lbp!");
+	} else if (method == "cnn") {
+		throw new runtime_error("don't use cnn!");
+	}
+    throw new runtime_error("unknown recognition");
+}
 }

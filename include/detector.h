@@ -28,6 +28,7 @@ class Detector {
         void edge_complete(std::vector<cv::Mat> &imgs);
 };
 Detector *create_detector(const std::string &prefix = std::string());
+Detector *create_detector(const std::string& method, const std::string& model_dir, int gpu_id);
 }
 
 #endif

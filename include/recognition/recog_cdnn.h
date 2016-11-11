@@ -2,7 +2,6 @@
 #define _dgfacesdk_recognition_cdnn_h_
 #include <string>
 #include <recognition.h>
-#include "Util.h"
 #include "ExtractMPMetricFeature.h"
 
 

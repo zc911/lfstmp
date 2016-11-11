@@ -1,7 +1,7 @@
 #ifndef _dgfacesdk_detector_dlib_h_
 #define _dgfacesdk_detector_dlib_h_
 #include <detector.h>
-#include "../dlib/image_processing/frontal_face_detector.h"
+#include "dlib/image_processing/frontal_face_detector.h"
 namespace DGFace{
 
 class DlibDetector : public Detector {

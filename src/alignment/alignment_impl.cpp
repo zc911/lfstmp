@@ -319,4 +319,18 @@ Alignment *create_alignment(const string &prefix) {
     throw new runtime_error("unknown alignment");
 }
 
+Alignment *create_alignment(const string& method, const string& model_dir, int gpu_id) {
+	vector<int> face_size = {128};
+	
+	if(method == "cdnn") {
+		face_size[0] = 600;
+        return new CdnnAlignment(face_size, model_dir);
+	} else if(method == "cdnn_caffe") {
+		face_size[0] = 600;
+        return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
+	} else if(method == "dlib") {
+		throw new runtime_error("don't use dlib");
+	}
+    throw new runtime_error("unknown alignment");
+}
 }

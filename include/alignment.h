@@ -27,5 +27,7 @@ class Alignment{
 
 
 Alignment *create_alignment(const std::string &prefix = std::string());
+Alignment *create_alignment(const std::string& method, const std::string& model_dir, int gpu_id);
+
 }
 #endif

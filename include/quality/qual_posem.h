@@ -2,7 +2,7 @@
 #define _dgfacesdk_quality_posem_h_
 
 #include <quality.h>
-#include <face_align/headPose.h>
+#include <headPose.h>
 #include <face_inf.h>
 
 namespace DGFace {

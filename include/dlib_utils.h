@@ -2,7 +2,7 @@
 #define _DGFACESDK_DLIB_UTILS_H_
 
 #include "common.h"
-#include "../dlib/geometry.h"
+#include "dlib/geometry.h"
 namespace DGFace{
 
 void dlib_point2cv(const std::vector<dlib::point> &input, std::vector<cv::Point> &output);

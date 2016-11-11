@@ -21,6 +21,7 @@ class Transformation{
 };
 
 Transformation *create_transformation(const std::string &prefix = std::string());
+Transformation *create_transformation(const std::string& method, const std::string& model_dir);
 
 }
 #endif

@@ -16,5 +16,7 @@ class Quality {
 };
 
 Quality *create_quality(const std::string &prefix = std::string());
+Quality *create_quality(const std::string& method, const std::string& model_dir, int gpu_id);
+
 }
 #endif
