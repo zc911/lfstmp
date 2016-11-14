@@ -19,13 +19,13 @@ using namespace cv;
 using namespace std;
 using namespace DGFace;
 
-bool valid_landmarks(const AlignResult &align_result) {
+bool valid_landmarks(const AlignResult &align_result, const Size& img_size) {
 	auto &landmarks = align_result.landmarks;
 	for (auto pt = landmarks.begin(); pt != landmarks.end(); ++pt)
 	{
 		// circle(img, *pt, 2, Scalar(0,255,0), -1);
 		
-		if (!pt->inside(Rect(0,0,600,600)))
+		if (!pt->inside(Rect(0,0,img_size.width,img_size.height)))
 		{
 			return false;
 		}
@@ -126,12 +126,12 @@ int main(int argc, char const *argv[])
 		    alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
 		    // alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
 
-			Mat transformed_img;
-			AlignResult transformed_align_result = {};
-			transformation->transform(img, align_result, transformed_img, transformed_align_result);
-			Mat draw_transformed = transformed_img.clone();
-			drawLandmarks(draw_transformed, transformed_align_result);
-			imwrite("trans_test.png", draw_transformed);
+			// Mat transformed_img;
+			// AlignResult transformed_align_result = {};
+			// transformation->transform(img, align_result, transformed_img, transformed_align_result);
+			// Mat draw_transformed = transformed_img.clone();
+			// drawLandmarks(draw_transformed, transformed_align_result);
+			// imwrite("trans_test.png", draw_transformed);
 
 		    // alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
             // putText(img_draw, to_string(align_result.score), Point(face_crop.x, face_crop.y+20),  FONT_HERSHEY_SIMPLEX, 1, Scalar(0,0,255));
@@ -141,7 +141,7 @@ int main(int argc, char const *argv[])
             cout << "det_score: " << det_score << endl;
             cout << "align_score: " << align_score << endl;
             cout << "fuse_score: "  << det_score + align_score * 5 << endl;
-            if(!alignment->is_face(det_score, align_score, 0.8)) {
+            if(!alignment->is_face(det_score, align_score, 1.4)) {
                 cout << "not face " << names[i]<< endl;
                 continue;
             }
@@ -150,7 +150,7 @@ int main(int argc, char const *argv[])
 		    // draw_landmarks(img_draw_landmarks, align_result);
 		    // string draw_name = "test_draw_" + to_string(i) + "_" + to_string(det) + ".png";
 		    // imwrite(draw_name, img_draw_landmarks);
-		    if(!valid_landmarks(align_result)) {
+		    if(!valid_landmarks(align_result, img.size())) {
 			cerr << "can't align image!" <<endl;
 			continue;
 		    }
