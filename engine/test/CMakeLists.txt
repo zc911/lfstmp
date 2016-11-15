@@ -29,7 +29,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDL
 include_directories( ../src )
 target_link_libraries(${PROJECT_TEST_NAME} ${LIBS} ${PROJECT_ENGINE_CUDA_LIB_TEST})
 
-install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_TEST_NAME} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test )
+install(TARGETS ${PROJECT_TEST_NAME} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/test )
 
 add_custom_target(test
         COMMAND make -j8 install
