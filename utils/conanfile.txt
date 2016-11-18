@@ -1,0 +1,5 @@
+[requires]
+OpenCV/2.4.8@deepglint/stable
+
+[generators]
+cmake
