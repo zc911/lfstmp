@@ -1,4 +1,6 @@
 build/
 .idea
+release
 dist
 bin
+dep

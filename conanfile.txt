@@ -1,5 +1,8 @@
 [requires]
+Cdnn/0.1.0@deepglint/stable
+CdnnCaffe/0.1.0@deepglint/stable
 Cudnn/4.0.7@deepglint/stable
+Cudart/7.0@deepglint/stable
 Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
 Dlib/0.1.0@deepglint/stable
 Grpc/0.14.0@deepglint/stable
@@ -8,9 +11,10 @@ Hasp/1.0.0@deepglint/stable
 Mxnet/0.1.0@deepglint/stable_cuda_7.0
 Protobuf/3.0.0@deepglint/stable
 Thplateid/1.0.0@deepglint/stable
-Watchdog/0.1.0@deepglint/stable
 OpenCV/2.4.8@deepglint/stable
 Pbjson/1.0.0@deepglint/stable
+Watchdog/0.1.0@deepglint/stable
+Cuda/7.0@deepglint/stable_cuda_7.0
 
 [generators]
 cmake
