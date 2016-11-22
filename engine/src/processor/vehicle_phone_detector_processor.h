@@ -8,13 +8,14 @@
 #ifndef SRC_PROCESSOR_VEHICLE_PHONE_DETECTOR_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_PHONE_DETECTOR_PROCESSOR_H_
 #include "processor/processor.h"
-#include "alg/detector/phone_caffe_ssd_detector.h"
+//#include "alg/detector/phone_caffe_ssd_detector.h"
+#include "algorithm_factory.h"
 namespace dg {
 
 class VehiclePhoneClassifierProcessor: public Processor {
 public:
 
-    VehiclePhoneClassifierProcessor(VehicleCaffeDetectorConfig &pConfig);
+    VehiclePhoneClassifierProcessor();
     ~VehiclePhoneClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {
@@ -28,12 +29,12 @@ protected:
 
 
 private:
-    PhoneCaffeSsdDetector *detector_ = NULL;
+    dgvehicle::AlgorithmProcessor *detector_ = NULL;
 
     vector<Object *> objs_;
     vector<Mat> images_;
-    int marker_target_min_;
-    int marker_target_max_;
+//    int marker_target_min_;
+//    int marker_target_max_;
 };
 
 }

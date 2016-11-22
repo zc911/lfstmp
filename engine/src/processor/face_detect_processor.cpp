@@ -9,15 +9,18 @@
 
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
+#include "algorithm_def.h"
+#include "util/convert_util.h"
+
+using namespace dgvehicle;
 namespace dg {
 
-FaceDetectProcessor::FaceDetectProcessor(
-    FaceDetector::FaceDetectorConfig config) {
+FaceDetectProcessor::FaceDetectProcessor() {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
 
     //Initialize face detector
-    detector_ = new FaceDetector(config);
+    detector_ = AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_faceDetector);
     base_id_ = 5000;
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
 }
@@ -44,13 +47,13 @@ bool FaceDetectProcessor::process(Frame *frame) {
     vector<Mat> imgs;
     imgs.push_back(data);
 
-    vector<vector<Detection> > boxes_in = detector_->Detect(imgs);
+    vector<vector<dgvehicle::Detection> > boxes_in;
+    detector_->BatchProcess(imgs, boxes_in);
 
     for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
 
-        Detection detection = boxes_in[0][bbox_id];
-        Face *face = new Face(base_id_ + bbox_id, detection,
-                              detection.confidence);
+        Detection detection = ConvertDgvehicleDetection(boxes_in[0][bbox_id]);
+        Face *face = new Face(base_id_ + bbox_id, detection, detection.confidence);
         cv::Mat data = frame->payload()->data();
         cv::Mat image = data(detection.box);
         face->set_image(image);
@@ -81,10 +84,11 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
         imgs.push_back(data);
         performance_++;
 
-        vector<vector<Detection>> boxes_in = detector_->Detect(imgs);
+        vector<vector<dgvehicle::Detection> > boxes_in;
+        detector_->BatchProcess(imgs, boxes_in);
 
         for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
-            Detection detection = boxes_in[0][bbox_id];
+            Detection detection = ConvertDgvehicleDetection(boxes_in[0][bbox_id]);
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
             cv::Mat data = frame->payload()->data();
