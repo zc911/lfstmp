@@ -13,7 +13,7 @@ static VehicleMarkerClassifierProcessor *vmcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    VehicleCaffeDetectorConfig mConfig;
+/*    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     mConfig.is_model_encrypt = false;
@@ -24,9 +24,9 @@ static void initConfig() {
 #endif
 
     mConfig.deploy_file = baseModelPath + "601.txt";
-    mConfig.model_file = baseModelPath + "601.dat";
+    mConfig.model_file = baseModelPath + "601.dat"; */
 
-    vmcprocessor = new VehicleMarkerClassifierProcessor(mConfig, false);
+    vmcprocessor = new VehicleMarkerClassifierProcessor(false);
 }
 
 static Operation getOperation() {

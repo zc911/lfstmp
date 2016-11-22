@@ -9,10 +9,11 @@
 #ifndef FACE_RANK_PROCESSOR_H_
 #define FACE_RANK_PROCESSOR_H_
 
-#include "alg/feature/face_ranker.h"
+//#include "alg/feature/face_ranker.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
@@ -31,7 +32,7 @@ protected:
 	virtual bool RecordFeaturePerformance();
 
 private:
-	FaceRanker *ranker_ = NULL;
+	dgvehicle::IFaceRanker *ranker_ = NULL;
 };
 
 } /* namespace dg */

@@ -16,7 +16,7 @@ static vector<vector<CarRankFeature> *> vCandidates;
 static void initConfig() {
     Config config;
     //config.Load("data/config.json");
-    crprocessor = new CarRankProcessor(config);
+    crprocessor = new CarRankProcessor();
 }
 
 static void init() {
@@ -62,7 +62,8 @@ bool readImg(string basePath, int index) {
     stringstream s;
     s << index;
     string imageName = basePath + s.str() + ".jpg";
-    cv::Mat tmpMat = cv::imread(imageName.c_str());
+//    cv::Mat tmpMat = cv::imread(imageName.c_str());
+    cv::Mat tmpMat;
     if (tmpMat.empty()) {
         return false;
     }

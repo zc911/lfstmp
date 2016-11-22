@@ -10,15 +10,16 @@
 #define FACE_DETECT_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/detector/face_detector.h"
+//#include "alg/detector/face_detector.h"
 #include "model/frame.h"
 #include "model/model.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
 class FaceDetectProcessor: public Processor {
 public:
-	FaceDetectProcessor(FaceDetector::FaceDetectorConfig config);
+	FaceDetectProcessor();
 	virtual ~FaceDetectProcessor();
 
 protected:
@@ -30,7 +31,7 @@ protected:
 
 
 private:
-	FaceDetector *detector_ = NULL;
+	dgvehicle::AlgorithmProcessor *detector_ = NULL;
 	int base_id_;
 };
 

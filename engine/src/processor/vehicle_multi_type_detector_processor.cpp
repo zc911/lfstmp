@@ -1,20 +1,24 @@
-#include <alg/detector/detector.h>
-#include "alg/detector/vehicle_caffe_detector.h"
+//#include <alg/detector/detector.h>
+//#include "alg/detector/vehicle_caffe_detector.h"
 #include "vehicle_multi_type_detector_processor.h"
 #include "processor_helper.h"
+#include "algorithm_def.h"
+#include "util/convert_util.h"
+
+using namespace dgvehicle;
 
 namespace dg {
 
+using namespace AlgorithmProcessorType;
+
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-    const VehicleCaffeDetectorConfig &config)
+    const VehicleCaffeDetectorConfig &config, bool accelate)
     : Processor(), config_(config) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
     if (config.car_only) {
-        car_only_detector_ = new CarOnlyCaffeDetector(config);
-        car_only_confirm_ = new CarOnlyConfirmCaffeDetector(config);
+        car_only_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyCaffeDetector, accelate);
+        car_only_confirm_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyConfirmCaffeDetector, accelate);
     } else {
-
-        vehicle_detector_ = new VehicleCaffeDetector(config);
-
+        vehicle_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_vehicleCaffeDetector, accelate);
     }
 
     base_id_ = 0;
@@ -38,7 +42,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
     vector<int> frameIds;
     vector<Mat> images;
-    vector<vector<Detection> > detect_results;
+    vector<vector<dgvehicle::Detection> > detect_results;
 
     for (int i = 0; i < frameBatch->frames().size(); i++) {
         Frame *frame = frameBatch->frames()[i];
@@ -71,12 +75,12 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
     if (config_.car_only) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Car only detection and confirm. " << endl;
-        car_only_detector_->DetectBatch(images, detect_results);
-        car_only_confirm_->Confirm(images, detect_results);
+        car_only_detector_->BatchProcess(images, detect_results);
+        car_only_confirm_->BatchProcess(images, detect_results);
 
     } else {
         VLOG(VLOG_RUNTIME_DEBUG) << "Multi detection " << endl;
-        vehicle_detector_->DetectBatch(images, detect_results);
+        vehicle_detector_->BatchProcess(images, detect_results);
     }
 
     if (detect_results.size() < images.size()) {
@@ -89,12 +93,12 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
     for (int i = 0; i < frameIds.size(); ++i) {
 
         int frameId = frameIds[i];
-        vector<Detection> &imageDetection = detect_results[i];
+        vector<dgvehicle::Detection> &imageDetection = detect_results[i];
 
         Frame *frame = frameBatch->frames()[frameId];
 
         for (int j = 0; j < imageDetection.size(); ++j) {
-            Detection d = imageDetection[j];
+            Detection d = ConvertDgvehicleDetection(imageDetection[j]);
             if (!roiFilter(frame->get_rois(), d.box))
                 continue;
             Object *obj = NULL;
