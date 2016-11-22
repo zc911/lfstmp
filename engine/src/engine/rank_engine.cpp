@@ -34,7 +34,7 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 #endif
 
     if (enable_ranker_car_) {
-        car_ranker_ = new CarRankProcessor(config);
+        car_ranker_ = new CarRankProcessor();
     }
     if (enable_ranker_face_) {
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
@@ -43,13 +43,13 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
             DLOG(ERROR) << "can not init data config" << endl;
             return;
         }
-        FaceDetector::FaceDetectorConfig fdconfig;
-        configFilter->createFaceDetectorConfig(config, fdconfig);
-        face_detector_ = new FaceDetectProcessor(fdconfig);
+    //    FaceDetector::FaceDetectorConfig fdconfig;
+    //    configFilter->createFaceDetectorConfig(config, fdconfig);
+        face_detector_ = new FaceDetectProcessor();
 
-        FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-        configFilter->createFaceExtractorConfig(config, feconfig);
-        face_extractor_ = new FaceFeatureExtractProcessor(feconfig);
+    //    FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
+    //    configFilter->createFaceExtractorConfig(config, feconfig);
+        face_extractor_ = new FaceFeatureExtractProcessor();
         face_ranker_ = new FaceRankProcessor();
     }
 }
