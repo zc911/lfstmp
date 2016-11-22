@@ -8,12 +8,13 @@
 #ifndef SRC_PROCESSOR_VEHICLE_WINDOW_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_WINDOW_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
-#include "alg/detector/window_caffe_ssd_detector.h"
+//#include "alg/detector/window_caffe_ssd_detector.h"
+#include "algorithm_factory.h"
 namespace dg {
 
 class VehicleWindowDetectorProcessor: public Processor {
 public:
-    VehicleWindowDetectorProcessor(const VehicleCaffeDetectorConfig &wConfig);
+    VehicleWindowDetectorProcessor();
     ~VehicleWindowDetectorProcessor();
 protected:
     virtual bool process(Frame *frame) {
@@ -24,12 +25,12 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    WindowCaffeSsdDetector *ssd_window_detector_ = NULL;
+    dgvehicle::AlgorithmProcessor *ssd_window_detector_ = NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
     vector<Mat> resized_images_;
-    int window_target_min_;
-    int window_target_max_;
+ //   int window_target_min_;
+ //   int window_target_max_;
 };
 
 }

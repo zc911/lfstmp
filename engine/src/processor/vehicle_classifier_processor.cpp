@@ -1,19 +1,13 @@
 #include "vehicle_classifier_processor.h"
+#include "algorithm_def.h"
+#include "util/caffe_helper.h"
 
+using namespace dgvehicle;
 namespace dg {
 
-VehicleClassifierProcessor::VehicleClassifierProcessor(
-    const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs) {
+VehicleClassifierProcessor::VehicleClassifierProcessor() {
 
-    for (int i = 0; i < configs.size(); i++) {
-
-        VehicleCaffeClassifier *classifier = new VehicleCaffeClassifier(
-            configs[i]);
-
-        classifiers_.push_back(classifier);
-
-    }
-
+    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier, classifiers_);
 }
 
 VehicleClassifierProcessor::~VehicleClassifierProcessor() {
@@ -31,12 +25,11 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
     vector<vector<Prediction> > result;
 
-    /*   for_each(classifiers_.begin(), classifiers_.end(), [&](VehicleCaffeClassifier *elem) {
-         auto tmpPred = elem->ClassifyAutoBatch(images_);
-         vote(tmpPred, result, classifiers_.size());
-       });*/
-    for (auto *elem:classifiers_) {
-        auto tmpPred = elem->ClassifyAutoBatch(images_);
+    for (auto *elem : classifiers_) {
+        
+        std::vector<vector<Prediction>> tmpPred;
+        elem->BatchProcess(images_, tmpPred);
+
         vote(tmpPred, result, classifiers_.size());
 
     }

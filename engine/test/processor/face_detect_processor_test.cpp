@@ -12,7 +12,7 @@ static FileReader *resultReader;
 
 static void initConfig() {
     resultReader = NULL;
-    FaceDetector::FaceDetectorConfig config;
+/*    FaceDetector::FaceDetectorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
@@ -22,8 +22,8 @@ static void initConfig() {
     baseModelPath = "data/1/";
 #endif
     config.deploy_file = baseModelPath + "400.txt";
-    config.model_file = baseModelPath + "400.dat";
-    fdprocessor = new FaceDetectProcessor(config);
+    config.model_file = baseModelPath + "400.dat"; */
+    fdprocessor = new FaceDetectProcessor();
     fbhelper = new FrameBatchHelper(1);
 }
 

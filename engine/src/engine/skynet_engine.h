@@ -12,12 +12,14 @@
 #include "io/stream_tube.h"
 #include "io/ringbuffer.h"
 #include "vis/display.h"
-#include "alg/detector/detector.h"
+//#include "alg/detector/detector.h"
 #include "processor/processor.h"
 #include "processor/config_filter.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/parallel/parallel_node.h"
 #include "processor/parallel/basic_parallel_processor.h"
+
+#include "model/alg_config.h"
 
 using namespace std;
 namespace dg {
