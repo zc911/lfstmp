@@ -1,5 +1,6 @@
 #include <config.h>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 namespace DGFace{
@@ -38,6 +39,29 @@ bool FileConfig::Parse(void) {
         return false;
     }
     for (string line; getline(fin, line); ) {
+        line = trim_string(line);
+        if (line.size() < 1 || line[0] == '#')
+            continue;
+
+        size_t index = line.find('=');
+        if (std::string::npos == index) {
+            cerr << "Failed to parse line: " << line << endl;
+            continue;
+        }
+        string key   = trim_string(line.substr(0, index));
+        string value = trim_string(line.substr(index + 1));
+        AddConfig(key, value);
+    }
+    return true;
+}
+
+StringConfig::StringConfig(const string &content) {
+    _content = content;
+}
+
+bool StringConfig::Parse(void) {
+    istringstream ssin(_content);
+    for (string line; getline(ssin, line); ) {
         line = trim_string(line);
         if (line.size() < 1 || line[0] == '#')
             continue;

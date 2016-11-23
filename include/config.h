@@ -74,6 +74,13 @@ class FileConfig : public virtual Config {
     private:
         std::string _filename;
 };
+class StringConfig : public virtual Config {
+    public:
+        StringConfig(const std::string &content);
+        virtual bool Parse(void);
+    private:
+        std::string _content;
+};
 }
 #include "config.inl.h"
 
