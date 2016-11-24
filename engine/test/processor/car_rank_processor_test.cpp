@@ -2,6 +2,8 @@
 #include "frame_batch_helper.h"
 #include "processor/car_rank_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
+#include <opencv/highgui.h>
 
 using namespace std;
 using namespace dg;
@@ -14,7 +16,8 @@ static vector<vector<Rect> *> vHotspots;
 static vector<vector<CarRankFeature> *> vCandidates;
 
 static void initConfig() {
-    Config config;
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    //Config config;
     //config.Load("data/config.json");
     crprocessor = new CarRankProcessor();
 }
@@ -62,8 +65,7 @@ bool readImg(string basePath, int index) {
     stringstream s;
     s << index;
     string imageName = basePath + s.str() + ".jpg";
-//    cv::Mat tmpMat = cv::imread(imageName.c_str());
-    cv::Mat tmpMat;
+    cv::Mat tmpMat = cv::imread(imageName.c_str());
     if (tmpMat.empty()) {
         return false;
     }
