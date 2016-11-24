@@ -11,10 +11,11 @@
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
 #include "check_file_exist.h"
-
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
+using namespace dgvehicle;
 
 #define BOOST_SPIRIT_THREADSAFE
 
@@ -226,8 +227,8 @@ int main(int argc, char *argv[]) {
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
     curl_global_init(CURL_GLOBAL_ALL);
 
+    AlgorithmFactory::GetInstance()->Initialize(FLAGS_config);
     Config *config = new Config();
-
     config->Load(FLAGS_config);
     if (FilesAllExist(config) == false) {
         exit(-1);

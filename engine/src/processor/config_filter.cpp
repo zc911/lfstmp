@@ -5,8 +5,8 @@
  *      Author: jiajaichen
  */
 
-#include <alg/detector/detector.h>
-#include <alg/classification/pedestrian_classifier.h>
+//#include <alg/detector/detector.h>
+//#include <alg/classification/pedestrian_classifier.h>
 #include "config_filter.h"
 
 namespace dg {
@@ -15,6 +15,8 @@ ConfigFilter *ConfigFilter::instance_ = NULL;
 
 ConfigFilter::ConfigFilter() {
 }
+
+/*
 void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
                                             FaceDetector::FaceDetectorConfig &config) {
 
@@ -37,6 +39,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
 
 }
+
 void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
                                              FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
 
@@ -111,7 +114,7 @@ void ConfigFilter::createVehicleColorConfig(const Config &cconfig,
         config.gpu_id = gpu_id;
         configs.push_back(config);
     }
-}
+} */
 
 void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
                                             PlateRecognizer::PlateConfig &pConfig) {
@@ -172,6 +175,7 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
 
 }
+
 void ConfigFilter::createAccelerateConfig(const Config &cconfig,
                                           VehicleCaffeDetectorConfig &config) {
 
@@ -195,7 +199,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
 
 }
 
-
+/*
 void ConfigFilter::createMarkersConfig(const Config &cconfig,
                                        MarkerCaffeClassifier::MarkerConfig &mConfig) {
 
@@ -281,6 +285,8 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.gpu_id = gpu_id;
 
 }
+*/
+
 void ConfigFilter::createDriverBeltConfig(const Config &cconfig,
                              VehicleBeltConfig &bConfig){
         int batch_size = (int) cconfig.Value(ADVANCED_DRIVER_BELT_BATCH_SIZE);

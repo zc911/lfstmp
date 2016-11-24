@@ -13,7 +13,7 @@ static VehicleClassifierProcessor *vcfprocessor;
 static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
-    VehicleCaffeClassifier::VehicleCaffeConfig config;
+/*    VehicleCaffeClassifier::VehicleCaffeConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
@@ -29,8 +29,8 @@ static void initConfig() {
         config.model_file = baseModelPath + "10" + string(index) + ".dat";
     }
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-    configs.push_back(config);
-    vcfprocessor = new VehicleClassifierProcessor(configs);
+    configs.push_back(config); */
+    vcfprocessor = new VehicleClassifierProcessor();
 }
 
 static void init() {

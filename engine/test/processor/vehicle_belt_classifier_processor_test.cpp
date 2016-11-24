@@ -26,7 +26,7 @@ static void initConfig() {
     mConfig.deploy_file = baseModelPath + "602.txt";
     mConfig.model_file = baseModelPath + "602.dat";
 
-    vbcprocessor = new VehicleBeltClassifierProcessor(mConfig);
+    vbcprocessor = new VehicleBeltClassifierProcessor(mConfig, true);
 }
 
 static Operation getOperation() {

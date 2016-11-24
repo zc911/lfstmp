@@ -13,7 +13,7 @@ static VehiclePhoneClassifierProcessor *vbcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    VehicleCaffeDetectorConfig mConfig;
+/*    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     mConfig.is_model_encrypt = false;
@@ -24,9 +24,9 @@ static void initConfig() {
 #endif
 
     mConfig.deploy_file = baseModelPath + "604.txt";
-    mConfig.model_file = baseModelPath + "604.dat";
+    mConfig.model_file = baseModelPath + "604.dat"; */
 
-    vbcprocessor = new VehiclePhoneClassifierProcessor(mConfig);
+    vbcprocessor = new VehiclePhoneClassifierProcessor();
 }
 
 static Operation getOperation() {

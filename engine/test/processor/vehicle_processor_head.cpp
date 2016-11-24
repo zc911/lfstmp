@@ -48,7 +48,8 @@ VehicleWindowProcessor::~VehicleWindowProcessor() {
     }
 }
 void VehicleWindowProcessor::init() {
-    processor = new VehicleWindowDetectorProcessor(getConfig());
+ //   processor = new VehicleWindowDetectorProcessor(getConfig());
+    processor = new VehicleWindowDetectorProcessor();
 }
 
 VehicleCaffeDetectorConfig VehicleWindowProcessor::getConfig() {
