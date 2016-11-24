@@ -8,11 +8,13 @@
  * ==========================================================================*/
 #include "processor/face_feature_extract_processor.h"
 #include "processor_helper.h"
+#include "util/convert_util.h"
+
+using namespace dgvehicle;
 namespace dg {
 
-FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config) {
-    extractor_ = new FaceFeatureExtractor(config);
+FaceFeatureExtractProcessor::FaceFeatureExtractProcessor() {
+    extractor_ = AlgorithmFactory::GetInstance()->CreateFaceFeatureExtractor();
 }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
@@ -37,8 +39,8 @@ bool FaceFeatureExtractProcessor::process(Frame *frame) {
 
             vector<Mat> imgs;
             imgs.push_back(cut);
-            vector<FaceRankFeature> features = extractor_->Extract(imgs);
-            FaceRankFeature feature = features[0];
+            vector<dgvehicle::FaceRankFeature> features = extractor_->Extract(imgs);
+            FaceRankFeature feature = ConvertDgvehicleFaceRankFeature(features[0]);
             face->set_feature(feature);
         } else {
             DLOG(WARNING) << "Object is not type of face: " << obj->id() << endl;
@@ -58,8 +60,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
         vector<Mat> imgs;
         imgs.push_back(face->image());
-        vector<FaceRankFeature> features = extractor_->Extract(imgs);
-        FaceRankFeature feature = features[0];
+        vector<dgvehicle::FaceRankFeature> features = extractor_->Extract(imgs);
+        FaceRankFeature feature = ConvertDgvehicleFaceRankFeature(features[0]);
         face->set_feature(feature);
     }
 

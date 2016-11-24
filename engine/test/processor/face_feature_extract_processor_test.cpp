@@ -14,7 +14,7 @@ static FileReader *resultReader;
 
 static void initConfig() {
     resultReader = NULL;
-    FaceDetector::FaceDetectorConfig dConfig;
+/*    FaceDetector::FaceDetectorConfig dConfig;
     FaceFeatureExtractor::FaceFeatureExtractorConfig fConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -27,15 +27,15 @@ static void initConfig() {
     baseModelPath = "data/1/";
 #endif
     dConfig.deploy_file = baseModelPath + "400.txt";
-    dConfig.model_file = baseModelPath + "400.dat";
-    fdprocessor = new FaceDetectProcessor(dConfig);
+    dConfig.model_file = baseModelPath + "400.dat"; */
+    fdprocessor = new FaceDetectProcessor();
 
-    fConfig.deploy_file = baseModelPath + "500.txt";
+/*    fConfig.deploy_file = baseModelPath + "500.txt";
     fConfig.model_file = baseModelPath + "500.dat";
     fConfig.align_deploy = baseModelPath + "avgface.jpg";
-    fConfig.align_model = baseModelPath + "501.dat";
+    fConfig.align_model = baseModelPath + "501.dat"; */
 
-    ffeprocessor  = new FaceFeatureExtractProcessor(fConfig);
+    ffeprocessor  = new FaceFeatureExtractProcessor();
 
     fbhelper = new FrameBatchHelper(1);
 }

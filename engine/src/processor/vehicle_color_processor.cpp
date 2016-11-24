@@ -6,20 +6,14 @@
  */
 
 #include "vehicle_color_processor.h"
+#include "algorithm_def.h"
 
+using namespace dgvehicle;
 namespace dg {
 
-VehicleColorProcessor::VehicleColorProcessor(
-    const vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs) {
+VehicleColorProcessor::VehicleColorProcessor() {
 
-    for (int i = 0; i < configs.size(); i++) {
-
-        CaffeVehicleColorClassifier *classifier = new CaffeVehicleColorClassifier(
-            configs[i]);
-
-        classifiers_.push_back(classifier);
-
-    }
+    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_caffeVehicleColorClassifier, classifiers_);
 }
 
 VehicleColorProcessor::~VehicleColorProcessor() {
@@ -36,10 +30,12 @@ bool VehicleColorProcessor::process(FrameBatch *frameBatch) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Start color process: " << frameBatch->id() << endl;
 
     vector<vector<Prediction> > result;
-    for_each(classifiers_.begin(), classifiers_.end(), [&](CaffeVehicleColorClassifier * elem) {
-        auto tmpPred = elem->ClassifyAutoBatch(images_);
+    for (auto *elem : classifiers_) {
+     //   auto tmpPred = elem->ClassifyAutoBatch(images_);
+        std::vector<vector<Prediction>> tmpPred;
+        elem->BatchProcess(images_, tmpPred);
         vote(tmpPred, result, classifiers_.size());
-    });
+    }
 
     //set results
     for (int i = 0; i < objs_.size(); i++) {

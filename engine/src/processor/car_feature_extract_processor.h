@@ -8,10 +8,11 @@
 #ifndef CAR_FEATURE_EXTRACT_PROCESSOR_H_
 #define CAR_FEATURE_EXTRACT_PROCESSOR_H_
 
-#include "alg/feature/car_feature_extractor.h"
+//#include "alg/feature/car_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
@@ -32,7 +33,7 @@ protected:
 private:
     void extract(vector<Object *> &objs);
 
-    CarFeatureExtractor *extractor_ = NULL;
+    dgvehicle::ICarFeatureExtractor *extractor_ = NULL;
     vector<Object *> vehicle_to_processed_;
 };
 

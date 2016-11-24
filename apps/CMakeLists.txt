@@ -50,7 +50,8 @@ FIND_LIBRARY(LIB_MATRIX_UTILS NAMES matrix_util PATHS ${LIBS_PATH}/matrix_util/$
 FIND_LIBRARY(LIB_MATRIX matrix PATHS ${LIBS_PATH}/matrix_engine/${PLATFORM})
 FIND_LIBRARY(LIB_MATRIX_CUDA matrix_cuda PATHS ${LIBS_PATH}/matrix_engine/${PLATFORM})
 
-LIST(APPEND LIBS ${CONAN_LIBS_PBJSON}
+LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
+                 ${CONAN_LIBS_PBJSON}
                  ${CONAN_LIBS_PROTOBUF}
                  ${CONAN_LIBS_OPENCV}
                  ${CONAN_LIBS_WATCHDOG}
@@ -60,9 +61,10 @@ LIST(APPEND LIBS ${CONAN_LIBS_PBJSON}
                  ${CONAN_LIBS_GTEST}
                  ${CONAN_LIBS_CUDNN}
                  ${CONAN_LIBS_THPLATEID}
-                 ${CONAN_LIBS_CUDART} ${CONAN_LIBS_CUDA})
+                 ${CONAN_LIBS_CUDART} 
+                 ${CONAN_LIBS_CUDA})
 
-LIST(APPEND LIBS ${LIB_MATRIX} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${CONAN_LIBS_DLIB} ${CONAN_LIBS_OPENCV})
+LIST(APPEND LIBS ${LIB_MATRIX} ${LIB_MATRIX_CUDA} ${LIB_MATRIX_UTILS} ${CONAN_LIBS_DLIB} ${CONAN_LIBS_OPENCV} ${CONAN_LIBS_DGLP})
 LIST(APPEND LIBS ${Boost_LIBRARIES} ${CONAN_LIBS_GRPC} ${CONAN_LIBS_GRPCPP})
 LIST(APPEND LIBS glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
 freetype hdf5_hl hdf5 m crypto gstreamer-0.10 gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl pthread)

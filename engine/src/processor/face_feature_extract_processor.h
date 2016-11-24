@@ -9,17 +9,17 @@
 #ifndef FACE_FEATURE_EXTRACT_PROCESSOR_H_
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
-#include "alg/feature/face_feature_extractor.h"
+//#include "alg/feature/face_feature_extractor.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
 class FaceFeatureExtractProcessor: public Processor {
 public:
-	FaceFeatureExtractProcessor(
-	    const FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+	FaceFeatureExtractProcessor();
 	virtual ~FaceFeatureExtractProcessor();
 
 protected:
@@ -31,7 +31,7 @@ protected:
 	virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 private:
-	FaceFeatureExtractor *extractor_ = NULL;
+	dgvehicle::IFaceFeatureExtractor *extractor_ = NULL;
 	vector<Object *> to_processed_;
 };
 

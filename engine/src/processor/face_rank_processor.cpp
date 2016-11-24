@@ -8,10 +8,13 @@
  * ==========================================================================*/
 #include "processor/face_rank_processor.h"
 #include "processor_helper.h"
+#include "util/convert_util.h"
+
+using namespace dgvehicle;
 namespace dg {
 
 FaceRankProcessor::FaceRankProcessor() {
-    ranker_ = new FaceRanker();
+    ranker_ = AlgorithmFactory::GetInstance()->CreateFaceRanker();
 }
 
 FaceRankProcessor::~FaceRankProcessor() {
@@ -21,18 +24,28 @@ FaceRankProcessor::~FaceRankProcessor() {
 
 bool FaceRankProcessor::process(Frame *frame) {
     FaceRankFrame *fframe = (FaceRankFrame *) frame;
-    fframe->result_ = ranker_->Rank(fframe->datum_, fframe->hotspots_,
-                                    fframe->candidates_);
+
+    vector<dgvehicle::FaceRankFeature> faceCandidates;
+    dgvehicle::FaceRankFeature faceDatum = ConvertToDgvehicleFaceRankFeature(fframe->datum_);
+    for (auto candidate : fframe->candidates_) {
+        faceCandidates.push_back(ConvertToDgvehicleFaceRankFeature(candidate));
+    }
+    vector<dgvehicle::Score> results = ranker_->Rank(faceDatum, fframe->hotspots_, faceCandidates);
+    fframe->result_.clear();
+    for (auto result : results) {
+        fframe->result_.push_back(ConvertDgvehicleScore(result));
+    }
     performance_++;
 
     return true;
-
 }
+
 bool FaceRankProcessor::RecordFeaturePerformance() {
 
     return RecordPerformance(FEATURE_FACE_RANK, performance_);
 
 }
+
 bool FaceRankProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if RELEASE
     if (performance_ > RECORD_UNIT) {
