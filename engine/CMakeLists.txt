@@ -29,14 +29,14 @@ FIND_PACKAGE(CUDA REQUIRED)
 LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
                  ${CONAN_LIBS_DGLP}
                  ${CONAN_LIBS_DLIB}
-                 ${CONAN_LIBS_PROTOBUF} 
+                 ${CONAN_LIBS_PROTOBUF}
+                 ${CONAN_LIBS_GTEST}
                  ${CONAN_LIBS_OPENCV} 
                  ${CONAN_LIBS_WATCHDOG} 
                  ${CONAN_LIBS_HASP} 
                  ${CONAN_LIBS_DGCAFFE}
                  ${CONAN_LIBS_MXNET}
                  ${CONAN_LIBS_DGMEDIA}
-                 ${CONAN_LIBS_GTEST}
                  ${CONAN_LIBS_CUDNN}
                  ${CONAN_LIBS_THPLATEID}
                  ${CONAN_LIBS_CUDART})

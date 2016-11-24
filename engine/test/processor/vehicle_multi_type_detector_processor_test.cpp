@@ -4,6 +4,7 @@
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static VehicleProcessorHead *head;
 static FileReader *resultReader;
 
 static void init() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     resultReader = NULL;

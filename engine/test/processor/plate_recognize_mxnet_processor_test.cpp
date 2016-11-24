@@ -39,12 +39,12 @@ static void initConfig() {
     config->gpuId = 0;
     config->imageSH = 600;
     config->imageSW = 400;
-    config->numsPlates = 2;
+    config->numsPlates = 4;
     config->numsProposal = 20;
-    config->plateSH = 100;
-    config->plateSW = 300;
+    config->plateSH = 150;
+    config->plateSW = 250;
     config->enableLocalProvince = true;
-    config->localProvinceText = "";
+    config->localProvinceText = "\u4eac";
     config->localProvinceConfidence = 0;
 }
 
