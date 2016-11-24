@@ -12,9 +12,11 @@
 #include <glog/logging.h>
 #include "util/debug_util.h"
 #include "processor.h"
-#include "alg/detector/vehicle_caffe_detector.h"
-#include "alg/detector/car_only_confirm_caffe_detector.h"
-#include "alg/detector/car_only_caffe_detector.h"
+//#include "alg/detector/vehicle_caffe_detector.h"
+//#include "alg/detector/car_only_confirm_caffe_detector.h"
+//#include "alg/detector/car_only_caffe_detector.h"
+#include "algorithm_factory.h"
+#include "model/alg_config.h"
 
 using namespace std;
 namespace dg {
@@ -22,8 +24,7 @@ namespace dg {
 class VehicleMultiTypeDetectorProcessor: public Processor {
 public:
 
-    VehicleMultiTypeDetectorProcessor(
-        const VehicleCaffeDetectorConfig &config);
+    VehicleMultiTypeDetectorProcessor(const VehicleCaffeDetectorConfig &config, bool accelate = true);
 
     ~VehicleMultiTypeDetectorProcessor();
 
@@ -41,9 +42,9 @@ protected:
 
 private:
 
-    VehicleCaffeDetector *vehicle_detector_ = NULL;
-    CarOnlyCaffeDetector *car_only_detector_ = NULL;
-    CarOnlyConfirmCaffeDetector *car_only_confirm_ = NULL;
+    dgvehicle::AlgorithmProcessor *vehicle_detector_ = NULL;
+    dgvehicle::AlgorithmProcessor *car_only_detector_ = NULL;
+    dgvehicle::AlgorithmProcessor *car_only_confirm_ = NULL;
     VehicleCaffeDetectorConfig config_;
     int base_id_;
 

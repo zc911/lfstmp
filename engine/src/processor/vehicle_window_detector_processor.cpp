@@ -7,19 +7,20 @@
 
 #include "vehicle_window_detector_processor.h"
 #include "processor_helper.h"
-#include "alg/caffe_helper.h"
+#include "util/caffe_helper.h"
 #include "string_util.h"
+#include "algorithm_def.h"
+#include "util/convert_util.h"
 
+using namespace dgvehicle;
 namespace dg {
-VehicleWindowDetectorProcessor::VehicleWindowDetectorProcessor(
-    const VehicleCaffeDetectorConfig &wConfig)
+VehicleWindowDetectorProcessor::VehicleWindowDetectorProcessor()
     : Processor() {
 
-    ssd_window_detector_ = new WindowCaffeSsdDetector(wConfig);
+    ssd_window_detector_ = AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_windowCaffeSsdDetector);
 
-    window_target_min_ = wConfig.target_min_size;
-    window_target_max_ = wConfig.target_max_size;
-
+ //   window_target_min_ = wConfig.target_min_size;
+ //   window_target_max_ = wConfig.target_max_size;
 }
 
 VehicleWindowDetectorProcessor::~VehicleWindowDetectorProcessor() {
@@ -38,9 +39,9 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
     float costtime, diff;
     struct timeval start, end;
     gettimeofday(&start, NULL);
-    vector<vector<Detection> > crops;
+    vector<vector<dgvehicle::Detection> > crops;
     vector<Window> windows;
-    ssd_window_detector_->DetectBatch(images_, crops);
+    ssd_window_detector_->BatchProcess(images_, crops);
 
     int target_row = 256;
     int target_col = 384;
@@ -81,7 +82,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         resize(img, img, Size(target_col, target_row));
 
         Window *window = new Window(img, fob, params);
-        window->set_detection(crops[i][0]);
+        window->set_detection(ConvertDgvehicleDetection(crops[i][0]));
         window->set_resized_img(resized_img);
         window->set_phone_img(phone_img);
         Vehicle *v = (Vehicle *) objs_[i];

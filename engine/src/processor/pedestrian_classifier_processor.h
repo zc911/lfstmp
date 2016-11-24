@@ -9,15 +9,16 @@
 #ifndef SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_PEDESTRIAN_CLASSIFIER_PROCESSOR_H_
 
-#include "alg/classification/pedestrian_classifier.h"
+//#include "alg/classification/pedestrian_classifier.h"
 #include "processor/processor.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
 class PedestrianClassifierProcessor: public Processor {
 
 public:
-    PedestrianClassifierProcessor(PedestrianClassifier::PedestrianConfig &config);
+    PedestrianClassifierProcessor();
     virtual ~PedestrianClassifierProcessor();
 
 protected:
@@ -31,7 +32,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    PedestrianClassifier *classifier_ = NULL;
+    dgvehicle::IPedestrianClassifier *classifier_ = NULL;
     vector<Object *> objs_;
     vector<Mat> images_;
 };
