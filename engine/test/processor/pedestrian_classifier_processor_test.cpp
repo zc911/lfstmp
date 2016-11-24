@@ -4,6 +4,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/pedestrian_classifier_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -14,6 +15,7 @@ static PedestrianClassifierProcessor *pcprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
  /*   PedestrianClassifier::PedestrianConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL

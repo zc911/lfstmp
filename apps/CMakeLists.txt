@@ -53,12 +53,12 @@ FIND_LIBRARY(LIB_MATRIX_CUDA matrix_cuda PATHS ${LIBS_PATH}/matrix_engine/${PLAT
 LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
                  ${CONAN_LIBS_PBJSON}
                  ${CONAN_LIBS_PROTOBUF}
+                 ${CONAN_LIBS_GTEST}
                  ${CONAN_LIBS_OPENCV}
                  ${CONAN_LIBS_WATCHDOG}
                  ${CONAN_LIBS_HASP}
                  ${CONAN_LIBS_DGCAFFE}
                  ${CONAN_LIBS_MXNET}            
-                 ${CONAN_LIBS_GTEST}
                  ${CONAN_LIBS_CUDNN}
                  ${CONAN_LIBS_THPLATEID}
                  ${CONAN_LIBS_CUDART} 

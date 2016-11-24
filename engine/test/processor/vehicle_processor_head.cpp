@@ -1,4 +1,5 @@
 #include "vehicle_processor_head.h"
+#include "algorithm_factory.h"
 
 using namespace dg;
 
@@ -14,7 +15,8 @@ VehicleProcessorHead::~VehicleProcessorHead() {
 }
 
 void VehicleProcessorHead::init() {
-    processor = new VehicleMultiTypeDetectorProcessor(getConfig());
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    processor = new VehicleMultiTypeDetectorProcessor(getConfig(), false);
 }
 
 VehicleCaffeDetectorConfig VehicleProcessorHead::getConfig() {
