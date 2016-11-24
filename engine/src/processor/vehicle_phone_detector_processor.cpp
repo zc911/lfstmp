@@ -8,17 +8,18 @@
 #include "vehicle_phone_detector_processor.h"
 #include "processor_helper.h"
 #include "string_util.h"
+#include "algorithm_def.h"
 
+using namespace dgvehicle;
 namespace dg {
 
-VehiclePhoneClassifierProcessor::VehiclePhoneClassifierProcessor(
-    VehicleCaffeDetectorConfig &mConfig)
+VehiclePhoneClassifierProcessor::VehiclePhoneClassifierProcessor()
     : Processor() {
 
-    detector_ = new PhoneCaffeSsdDetector(mConfig);
+    detector_ = AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_phoneCaffeSsdDetector);
 
-    marker_target_min_ = mConfig.target_min_size;
-    marker_target_max_ = mConfig.target_max_size;
+//    marker_target_min_ = mConfig.target_min_size;
+//    marker_target_max_ = mConfig.target_max_size;
 
 }
 VehiclePhoneClassifierProcessor::~VehiclePhoneClassifierProcessor() {
@@ -34,7 +35,7 @@ bool VehiclePhoneClassifierProcessor::process(FrameBatch *frameBatch) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker processor" << endl;
     vector<vector<Prediction> > preds;
-    detector_->DetectBatch(images_, preds);
+    detector_->BatchProcess(images_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {
         int value;

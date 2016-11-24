@@ -13,7 +13,7 @@ static VehicleColorProcessor *vcprocessor;
 static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
-    CaffeVehicleColorClassifier::VehicleColorConfig config;
+/*    CaffeVehicleColorClassifier::VehicleColorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
@@ -23,10 +23,10 @@ static void initConfig() {
     baseModelPath = "data/1/";
 #endif
     config.deploy_file = baseModelPath + "200.txt";
-    config.model_file = baseModelPath + "200.dat";
-    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
-    configs.push_back(config);
-    vcprocessor = new VehicleColorProcessor(configs);
+    config.model_file = baseModelPath + "200.dat"; */
+//    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
+//    configs.push_back(config);
+    vcprocessor = new VehicleColorProcessor();
 }
 
 static void init() {

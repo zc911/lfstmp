@@ -11,9 +11,11 @@ Pbjson/1.0.0@deepglint/stable
 Grpc/0.14.1@deepglint/stable
 Grpcpp/0.14.1@deepglint/stable
 Cudart/7.0@deepglint/stable
-Mxnet/0.1.0@deepglint/stable_cuda_7.0
+Mxnet/0.7.0.4@deepglint/stable_cuda_7.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
 Cuda/7.0@deepglint/stable
+dgvehicle/0.1.0@deepglint/stable_cuda_7.0
+dgLP/2.2.4.4@deepglint/stable
 
 [generators]
 cmake
