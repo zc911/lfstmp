@@ -1,10 +1,7 @@
 #include <sstream>
-/*
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/core/core.hpp>
-#include <opencv/cv.hpp> */
 
 #include "frame_batch_helper.h"
+#include <opencv/highgui.h>
 
 using namespace dg;
 
@@ -26,8 +23,7 @@ FrameBatchHelper::~FrameBatchHelper() {
 bool FrameBatchHelper::setImage(const dg::Operation &op,
                                 const dg::Identification &id,
                                 const string &imgName) {
- //   cv::Mat image = cv::imread(imgName.c_str());
-    cv::Mat image;
+    cv::Mat image = cv::imread(imgName.c_str());
     if (image.empty()) {
         return false;
     }
