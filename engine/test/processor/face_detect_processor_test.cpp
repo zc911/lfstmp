@@ -11,6 +11,7 @@ static FaceDetectProcessor *fdprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     resultReader = NULL;
 /*    FaceDetector::FaceDetectorConfig config;
     string baseModelPath;

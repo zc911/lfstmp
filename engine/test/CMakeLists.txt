@@ -5,12 +5,15 @@ set(PROJECT_TEST_NAME test_${PROJECT_NAME})
 
 file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp *.c *.cc *.cpp)
 #file(GLOB_RECURSE TEST_SRC_FILES ../src/*.c ../src/*.cc ../src/*.cpp
- #       processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp
-  #      processor/vehicle_phone_detector_processor_test.cpp)
+#       processor/frame_batch_helper.cpp processor/vehicle_processor_head.cpp
+#       processor/vehicle_phone_detector_processor_test.cpp)
 
 IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
     ADD_DEFINITIONS( -DUNENCRYPTMODEL )
 ENDIF()
+
+SET(CMAKE_INSTALL_RPATH ./libs)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 AUX_SOURCE_DIRECTORY(../../utils/src/ UTILS)
 LIST(APPEND ALL_SRC_FILES ${UTILS})
@@ -29,7 +32,11 @@ SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDL
 include_directories( ../src )
 target_link_libraries(${PROJECT_TEST_NAME} ${LIBS} ${PROJECT_ENGINE_CUDA_LIB_TEST})
 
+set(PROJECT_TEST_CONFIG ${PROJECT_SOURCE_DIR}/test/config.json)
 install(TARGETS ${PROJECT_TEST_NAME} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/test )
+FILE(GLOB_RECURSE RUNTIME_LIBS ${CONAN_LIB_DIRS_DGCAFFE}/${PLATFORM}/* ${CONAN_LIB_DIRS_MXNET}/${PLATFORM}/* ${CONAN_LIB_DIRS_GRPC}/${PLATFORM}/* ${CONAN_LIB_DIRS_GRPCPP}/${PLATFORM}/* ${CONAN_LIB_DIRS_PROTOBUF}/${PLATFORM}/* ${CONAN_LIB_DIRS_DGVEHICLE}/${PLATFORM}/* ${CONAN_LIB_DIRS_DGLP}/${PLATFORM}/*)
+install(FILES ${RUNTIME_LIBS} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test/libs)
+install(FILES ${PROJECT_TEST_CONFIG} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test)
 
 add_custom_target(test
         COMMAND make -j8 install

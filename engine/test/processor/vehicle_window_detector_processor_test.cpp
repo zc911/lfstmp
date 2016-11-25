@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_window_detector_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static VehicleWindowDetectorProcessor *vwdprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
 /*    VehicleCaffeDetectorConfig wConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL

@@ -2,6 +2,7 @@
 #include "frame_batch_helper.h"
 #include "processor/face_rank_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -14,6 +15,7 @@ static vector<vector<Rect> *> vHotspots;
 static vector<vector<FaceRankFeature> *> vCandidates;
 
 static void init() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     frprocessor = new FaceRankProcessor();
     fbhelper = new FrameBatchHelper(1);
 }
