@@ -3,6 +3,7 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static FaceFeatureExtractProcessor *ffeprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     resultReader = NULL;
 /*    FaceDetector::FaceDetectorConfig dConfig;
     FaceFeatureExtractor::FaceFeatureExtractorConfig fConfig;

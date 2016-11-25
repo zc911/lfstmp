@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_classifier_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static VehicleClassifierProcessor *vcfprocessor;
 static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
 /*    VehicleCaffeClassifier::VehicleCaffeConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
