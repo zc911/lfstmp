@@ -11,6 +11,9 @@ Thplateid/1.0.0@deepglint/stable
 Dgmedia/1.8.0@deepglint/stable
 Gtest/1.7@deepglint/stable
 Cudnn/5.0.5@deepglint/stable
+dgvehicle/0.1.0@deepglint/stable_cuda_8.0
+dgLP/2.2.4.4@deepglint/stable
+DGFace/0.1.0@deepglint/test
 
 [generators]
 cmake
