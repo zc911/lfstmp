@@ -72,7 +72,7 @@ private:
         VehicleCaffeDetectorConfig dConfig;
         string dataPath = (string) config.Value("DataPath");
         configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
-        processor_ = new VehicleMultiTypeDetectorProcessor(dConfig);
+        processor_ = new VehicleMultiTypeDetectorProcessor(dConfig, false);
 
     }
 

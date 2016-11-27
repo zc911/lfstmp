@@ -24,7 +24,7 @@ namespace dg {
 class VehicleMultiTypeDetectorProcessor: public Processor {
 public:
 
-    VehicleMultiTypeDetectorProcessor(const VehicleCaffeDetectorConfig &config, bool accelate = true);
+    VehicleMultiTypeDetectorProcessor(const VehicleCaffeDetectorConfig &config, bool accelate);
 
     ~VehicleMultiTypeDetectorProcessor();
 

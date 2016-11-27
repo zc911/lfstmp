@@ -16,7 +16,7 @@ VehicleProcessorHead::~VehicleProcessorHead() {
 
 void VehicleProcessorHead::init() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
-    processor = new VehicleMultiTypeDetectorProcessor(getConfig());
+    processor = new VehicleMultiTypeDetectorProcessor(getConfig(), false);
 }
 
 VehicleCaffeDetectorConfig VehicleProcessorHead::getConfig() {
