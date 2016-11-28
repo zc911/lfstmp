@@ -5,9 +5,9 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehicleClassifierProcessor::VehicleClassifierProcessor() {
+VehicleClassifierProcessor::VehicleClassifierProcessor(bool test) {
 
-    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier, classifiers_);
+    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier, classifiers_, test);
 }
 
 VehicleClassifierProcessor::~VehicleClassifierProcessor() {
