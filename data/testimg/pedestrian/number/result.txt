@@ -1,0 +1,11 @@
+picture_id,number_of_pedestrian
+0,2
+1,4
+2,3
+3,4
+4,2
+5,1
+6,5
+7,1
+8,3
+9,6

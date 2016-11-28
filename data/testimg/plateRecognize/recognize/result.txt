@@ -1,0 +1,12 @@
+picture_id,plate,plate,...
+0,蒙GUT288
+1,京P0SG96
+2
+3,贵A01P89
+4,贵JAB353
+5,苏DW7782
+6 
+7,京PM8P28
+8,京NFA261
+9,京N9D3H9
+10,鄂AX7D07,鄂AX0468,鄂ATT967
