@@ -24,6 +24,8 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
                                                 config.pixel_scale,
                                                 config.use_GPU,
                                                 config.gpu_id);
+            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+            align_method_ = CdnnAlign;
 
             break;
         case LBPRecog: {
@@ -32,6 +34,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
             int grid_x = 8;
             int grid_y = 8;
             recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
+
             break;
         }
         case CDNNRecog: {
@@ -40,58 +43,29 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         }
         case CdnnCaffeRecog: {
             recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
+            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
+            align_method_ = CdnnAlign;
             break;
         }
         case CdnnFuse: {
             recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
-        }
-
-    }
-//    LOG(INFO) << faConfig.align_model << " " << faConfig.align_path << " " << faConfig.align_cfg << " "
-//        << faConfig.align_deploy << faConfig.detect_type;
-    switch (config.method) {
-
-        case CDNNRecog: {
-//            LOG(INFO) << faConfig.align_model;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            align_method_ = CdnnAlign;
-
-
-            break;
-
-        }
-        case CdnnCaffeRecog: {
-//            LOG(INFO) << faConfig.align_cfg;
-            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            align_method_ = CdnnAlign;
-            // alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-            //align_method_ = CdnnCaffeAlign;
-
-            break;
-        }
-        case CdnnFuse: {
-//            LOG(INFO) << faConfig.align_model;
-            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            //alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-            //     alignment_ = new DGFace::CdnnCaffeAlignment(faConfig.face_size, faConfig.align_path, faConfig.align_cfg, faConfig.gpu_id);
-
             align_method_ = CdnnCaffeAlign;
             align_method_ = CdnnAlign;
-
-
-            break;
         }
-        default: {
-            Mat avg_face = imread(faConfig.align_deploy);
-            Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
-            adjust_box(faConfig.detect_type, avgfacebbox);
-            alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
-            alignment_->set_avgface(avg_face, avgfacebbox);
-            align_method_ = DlibAlign;
 
-            break;
-        }
     }
+
+    // For other method, use dlib alignment as default
+    if (config.method == CDNNRecog || config.method == CdnnCaffeRecog) {
+        Mat avg_face = imread(faConfig.align_deploy);
+        Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
+        adjust_box(faConfig.detect_type, avgfacebbox);
+        alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
+        alignment_->set_avgface(avg_face, avgfacebbox);
+        align_method_ = DlibAlign;
+    }
+
     face_size_length_ = faConfig.face_size[0];
     align_threshold_ = faConfig.threshold;
     pre_process_ = config.pre_process;
