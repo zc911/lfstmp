@@ -8,8 +8,8 @@
             "BatchSize": 1, 
             "CarOnly": false, 
             "Rescale": 400, 
-            "TargetMaxSize": 450.0, 
-            "TargetMinSize": 300.0
+            "TargetMaxSize": 600.0, 
+            "TargetMinSize": 400.0
         }, 
         "FaceDetect": {
             "BatchSize": 1, 
@@ -21,6 +21,12 @@
             "Scale": 640
         }, 
         "FaceExtract": {
+            "BatchSize": 1
+        }, 
+        "DriverBelt": {
+            "BatchSize": 1
+        },
+        "DriverPhone": {
             "BatchSize": 1
         }, 
         "Marker": {
