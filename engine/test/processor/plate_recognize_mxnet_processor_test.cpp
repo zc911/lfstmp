@@ -3,6 +3,7 @@
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -14,6 +15,7 @@ static FileReader *resultReader;
 static PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *config;
 
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     config = new PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig();
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
