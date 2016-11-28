@@ -32,45 +32,16 @@ SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDL
 include_directories( ../src )
 target_link_libraries(${PROJECT_TEST_NAME} ${LIBS} ${PROJECT_ENGINE_CUDA_LIB_TEST})
 
+set(PROJECT_TEST_Model ${PROJECT_SOURCE_DIR}/../data)
 set(PROJECT_TEST_CONFIG ${PROJECT_SOURCE_DIR}/test/config.json)
 install(TARGETS ${PROJECT_TEST_NAME} RUNTIME DESTINATION ${PROJECT_SOURCE_DIR}/bin/test )
 FILE(GLOB_RECURSE RUNTIME_LIBS ${CONAN_LIB_DIRS_DGCAFFE}/${PLATFORM}/* ${CONAN_LIB_DIRS_MXNET}/${PLATFORM}/* ${CONAN_LIB_DIRS_GRPC}/${PLATFORM}/* ${CONAN_LIB_DIRS_GRPCPP}/${PLATFORM}/* ${CONAN_LIB_DIRS_PROTOBUF}/${PLATFORM}/* ${CONAN_LIB_DIRS_DGVEHICLE}/${PLATFORM}/* ${CONAN_LIB_DIRS_DGLP}/${PLATFORM}/*)
 install(FILES ${RUNTIME_LIBS} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test/libs)
 install(FILES ${PROJECT_TEST_CONFIG} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test)
+install(DIRECTORY ${PROJECT_TEST_Model} DESTINATION ${PROJECT_SOURCE_DIR}/bin/test)
 
 add_custom_target(test
         COMMAND make -j8 install
-        COMMAND wget -rq -R html ${RELEASE_URL}/version -O version
-        COMMAND echo -n ${RELEASE_URL} > task.txt
-        COMMAND echo -n "/release/data/matrix_apps_data_" >> task.txt
-        COMMAND echo -n `cat version` >> task.txt
-        COMMAND echo ".tar" >> task.txt
-        COMMAND if [ ! -d ${PROJECT_SOURCE_DIR}/bin/test/data ]\;
-            then echo "Loading models..."
-            && wget -rq -R html ${DATA_URL}/
-            && wget -rq -R html ${RELEASE_URL}/internal/data/
-            && wget -rqi task.txt -O matrix_models.tar
-            && tar -xf matrix_models.tar
-            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
-            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
-            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
-            && rm -rf bin matrix_models.tar \; fi
-        COMMAND diff ${PROJECT_SOURCE_DIR}/bin/test/data/version version > /dev/null
-            || (echo "Updating models..."
-            && rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data
-            && wget -rq -R html ${DATA_URL}/
-            && wget -rq -R html ${RELEASE_URL}/internal/data/
-            && wget -rqi task.txt -O matrix_models.tar
-            && tar -xf matrix_models.tar
-            && mv ${DATA_URL} ${PROJECT_SOURCE_DIR}/bin/test
-            && mv ${RELEASE_URL}/internal/data/* ${PROJECT_SOURCE_DIR}/bin/test/data
-            && mv bin/Release/data/1 ${PROJECT_SOURCE_DIR}/bin/test/data/1
-            && rm -rf bin matrix_models.tar
-            && mv version ${PROJECT_SOURCE_DIR}/bin/test/data/version)
-        COMMAND rm -rf ${PROJECT_SOURCE_DIR}/bin/test/data/testimg || true
-        COMMAND echo "Loading data..." && wget -rq -R html ${DATA_URL}/testimg/
-            && mv ${DATA_URL}/testimg ${PROJECT_SOURCE_DIR}/bin/test/data/testimg
-            && rm -rf ${BASE_URL} \; fi
         COMMAND cd ${PROJECT_SOURCE_DIR}/bin/test/ && ./${PROJECT_TEST_NAME}
         )
 
