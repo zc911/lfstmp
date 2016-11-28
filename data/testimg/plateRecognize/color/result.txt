@@ -1,0 +1,3 @@
+picture_id,plate_color
+0,黄
+1,蓝
