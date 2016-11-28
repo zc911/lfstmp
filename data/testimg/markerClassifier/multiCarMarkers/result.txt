@@ -1,0 +1,6 @@
+picture_id,number_of_cars,marker_numbers_of_car0,marker_numbers_of_car1,...
+0,7,0,0,0,1,1,2,3
+1,6,0,0,0,0,2,0
+2,4,0,0,1,0
+3,10,0,0,0,0,0,0,0,2,2,7
+4,0
