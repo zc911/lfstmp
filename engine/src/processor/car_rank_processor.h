@@ -15,16 +15,17 @@
 #include "processor.h"
 #include "model/frame.h"
 #include "model/rank_feature.h"
-#include "alg/feature/car_matcher.h"
-#include "alg/feature/car_feature_extractor.h"
+//#include "alg/feature/car_matcher.h"
+//#include "alg/feature/car_feature_extractor.h"
 #include "config.h"
 #include "timing_profiler.h"
+#include "algorithm_factory.h"
 
 namespace dg {
 
 class CarRankProcessor: public Processor {
 public:
-    CarRankProcessor(const Config &config);
+    CarRankProcessor();
     virtual ~CarRankProcessor();
 
 protected:
@@ -38,8 +39,8 @@ protected:
     virtual bool RecordFeaturePerformance();
 
 private:
-    CarMatcher *car_matcher_ = NULL;
-    CarFeatureExtractor car_feature_extractor_;
+    dgvehicle::ICarMatcher *car_matcher_ = NULL;
+    dgvehicle::ICarFeatureExtractor* car_feature_extractor_ = nullptr;
 
     vector<Score> rank(const Mat &image, const Rect &hotspot,
                        const vector<CarRankFeature> &candidates);

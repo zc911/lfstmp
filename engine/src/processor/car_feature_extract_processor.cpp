@@ -7,10 +7,13 @@
 
 #include "car_feature_extract_processor.h"
 #include "processor_helper.h"
+#include "util/convert_util.h"
+
+using namespace dgvehicle;
 namespace dg {
 
 CarFeatureExtractProcessor::CarFeatureExtractProcessor() {
-    extractor_ = new CarFeatureExtractor();
+    extractor_ = AlgorithmFactory::GetInstance()->CreateCarFeatureExtractor();
 }
 
 CarFeatureExtractProcessor::~CarFeatureExtractProcessor() {
@@ -21,9 +24,9 @@ void CarFeatureExtractProcessor::extract(vector<Object *> &objs) {
     for (int i = 0; i < objs.size(); ++i) {
         Object *obj = objs[i];
         Vehicle *v = static_cast<Vehicle *>(obj);
-        CarRankFeature feature;
+        dgvehicle::CarRankFeature feature;
         extractor_->ExtractDescriptor(v->image(), feature);
-        v->set_feature(feature);
+        v->set_feature(ConvertDgvehicleCarRankFeature(feature));
     }
 }
 

@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <csignal>
 #include <ctime>
 #include <map>
 #include <string>
@@ -8,6 +7,7 @@
 
 #include "boost/iterator/counting_iterator.hpp"
 
+#include "caffe/3rdparty/hungarian.h"
 #include "caffe/util/bbox_util.hpp"
 
 namespace caffe {
@@ -519,7 +519,7 @@ void GetGroundTruth(const Dtype* gt_data, const int num_gt,
     int start_idx = i * 8;
     int item_id = gt_data[start_idx];
     if (item_id == -1) {
-      continue;
+      break;
     }
     int label = gt_data[start_idx + 1];
     CHECK_NE(background_label_id, label)
@@ -589,6 +589,75 @@ template void GetGroundTruth(const double* gt_data, const int num_gt,
       const int background_label_id, const bool use_difficult_gt,
       map<int, LabelBBox>* all_gt_bboxes);
 
+
+
+template void GetLocAndScores(const float* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const float* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
+
+template void GetLocAndScores(const double* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const double* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
+
+
+template <typename Dtype>
+void GetLocAndScores(const Dtype* loc_data, const int num,
+      const int num_preds_per_class, const int num_loc_classes,
+      const bool share_location, vector<LabelBBox>* loc_preds, const Dtype* conf_data, 
+      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold) {
+  conf_preds->clear();
+  conf_preds->resize(num);
+
+  loc_preds->clear();
+  if (share_location) {
+    CHECK_EQ(num_loc_classes, 1);
+  }
+  loc_preds->resize(num);
+
+  //float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
+ // float thresh_hold=0.3;
+  //LOG(INFO) << "num_classes " << num_classes<<thresh_hold->size() << std::endl;
+  for (int i = 0; i < num; ++i) { // batch size
+    LabelBBox& label_bbox = (*loc_preds)[i];
+    int label = share_location ? -1 : 0;
+    //std::cout << "share_location " << label << std::endl;
+    //label_bbox[label].resize(num_preds_per_class);
+    map<int, vector<float> >& label_scores = (*conf_preds)[i];
+
+    
+    for (int p = 0; p < num_preds_per_class; ++p) { // number of anchors
+        bool is_push = false;
+        int start_idx_loc = p * 4;
+        for(int c = 1; c < num_classes; c++) {
+         
+            if (conf_data[c*num_preds_per_class + p] > thresh_hold->at(c)) {
+                is_push = true; 
+                break;
+            }
+        }
+        if(is_push) {
+                  for(int c = 0; c < num_classes; c++) {
+            label_scores[c].push_back(conf_data[c*num_preds_per_class + p]);
+        }
+                  NormalizedBBox nbbox;
+        nbbox.set_xmin(loc_data[start_idx_loc]);
+        nbbox.set_ymin(loc_data[start_idx_loc+1]);
+        nbbox.set_xmax(loc_data[start_idx_loc+2]);
+        nbbox.set_ymax(loc_data[start_idx_loc+3]);
+        label_bbox[label].push_back(nbbox);
+        }
+
+    }
+    conf_data += num_preds_per_class * num_classes;
+    loc_data += num_preds_per_class * (num_loc_classes << 2);
+  }
+    //LOG(INFO) << "FINISH " << num_classes << std::endl;
+
+}
+
+
 template <typename Dtype>
 void GetLocPredictions(const Dtype* loc_data, const int num,
       const int num_preds_per_class, const int num_loc_classes,
@@ -598,13 +667,31 @@ void GetLocPredictions(const Dtype* loc_data, const int num,
     CHECK_EQ(num_loc_classes, 1);
   }
   loc_preds->resize(num);
+
+  //std::cout << "[debug] num= " << num  << std::endl;
+  //std::cout << "[debug] num_preds_per_classes= " << num_preds_per_class  << std::endl;
+  //std::cout << "[debug] num_loc_classes= " << num_loc_classes  << std::endl;
+
+  assert(num_loc_classes == 1);
   for (int i = 0; i < num; ++i) {
     LabelBBox& label_bbox = (*loc_preds)[i];
+    //std::cout << "share_location " << label << std::endl;
+    //label_bbox[label].resize(num_preds_per_class);
+    //int start_idx = 0;
     for (int p = 0; p < num_preds_per_class; ++p) {
-      int start_idx = p * num_loc_classes * 4;
+      int start_idx = p * 4;
+      //label_bbox[label][p].set_xmin(loc_data[start_idx]);
+      //label_bbox[label][p].set_ymin(loc_data[start_idx+1]);
+      //label_bbox[label][p].set_xmax(loc_data[start_idx+2]);
+      //label_bbox[label][p].set_ymax(loc_data[start_idx+3]);
+      //start_idx += 4;
       for (int c = 0; c < num_loc_classes; ++c) {
         int label = share_location ? -1 : c;
         if (label_bbox.find(label) == label_bbox.end()) {
+        //if (i+p+c==0) {
+        //  std::cout << "[debug 0,0,0] find label = " << label <<  std::endl;
+        //}
+        //std::cout << "i=" << i << "p="  << p << "c=" << c << std::endl;
           label_bbox[label].resize(num_preds_per_class);
         }
         label_bbox[label][p].set_xmin(loc_data[start_idx + c * 4]);
@@ -675,75 +762,6 @@ void GetConfidenceScores(const Dtype* conf_data, const int num,
     }
   }
 }
-
-
-template void GetLocAndScores(const float* loc_data, const int num,
-      const int num_preds_per_class, const int num_loc_classes,
-      const bool share_location, vector<LabelBBox>* loc_preds, const float* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
-
-template void GetLocAndScores(const double* loc_data, const int num,
-      const int num_preds_per_class, const int num_loc_classes,
-      const bool share_location, vector<LabelBBox>* loc_preds, const double* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold);
-
-
-template <typename Dtype>
-void GetLocAndScores(const Dtype* loc_data, const int num,
-      const int num_preds_per_class, const int num_loc_classes,
-      const bool share_location, vector<LabelBBox>* loc_preds, const Dtype* conf_data, 
-      const int num_classes, const bool class_major, vector<map<int, vector<float> > >* conf_preds,vector<float> *thresh_hold) {
-  conf_preds->clear();
-  conf_preds->resize(num);
-
-  loc_preds->clear();
-  if (share_location) {
-    CHECK_EQ(num_loc_classes, 1);
-  }
-  loc_preds->resize(num);
-
-  //float thresh_hold[5] = {0.8, 0.8, 0.6, 0.6, 0.6}; // car person bicyble tricycle
- // float thresh_hold=0.3;
-  //LOG(INFO) << "num_classes " << num_classes<<thresh_hold->size() << std::endl;
-  for (int i = 0; i < num; ++i) { // batch size
-    LabelBBox& label_bbox = (*loc_preds)[i];
-    int label = share_location ? -1 : 0;
-    //std::cout << "share_location " << label << std::endl;
-    //label_bbox[label].resize(num_preds_per_class);
-    map<int, vector<float> >& label_scores = (*conf_preds)[i];
-
-    
-    for (int p = 0; p < num_preds_per_class; ++p) { // number of anchors
-        bool is_push = false;
-        int start_idx_loc = p * 4;
-        for(int c = 1; c < num_classes; c++) {
-         
-            if (conf_data[c*num_preds_per_class + p] > thresh_hold->at(c)) {
-                is_push = true; 
-                break;
-            }
-        }
-        if(is_push) {
-                  for(int c = 0; c < num_classes; c++) {
-            label_scores[c].push_back(conf_data[c*num_preds_per_class + p]);
-        }
-                  NormalizedBBox nbbox;
-        nbbox.set_xmin(loc_data[start_idx_loc]);
-        nbbox.set_ymin(loc_data[start_idx_loc+1]);
-        nbbox.set_xmax(loc_data[start_idx_loc+2]);
-        nbbox.set_ymax(loc_data[start_idx_loc+3]);
-        label_bbox[label].push_back(nbbox);
-        }
-
-    }
-    conf_data += num_preds_per_class * num_classes;
-    loc_data += num_preds_per_class * (num_loc_classes << 2);
-  }
-    //LOG(INFO) << "FINISH " << num_classes << std::endl;
-
-}
-
-
 
 // Explicit initialization.
 template void GetConfidenceScores(const float* conf_data, const int num,
@@ -845,9 +863,6 @@ void GetDetectionResults(const Dtype* det_data, const int num_det,
   for (int i = 0; i < num_det; ++i) {
     int start_idx = i * 7;
     int item_id = det_data[start_idx];
-    if (item_id == -1) {
-      continue;
-    }
     int label = det_data[start_idx + 1];
     CHECK_NE(background_label_id, label)
         << "Found background label in the detection results.";
@@ -998,6 +1013,8 @@ void GetMaxScoreIndex(const vector<float>& scores, const float threshold,
       score_index_vec->push_back(std::make_pair(scores[i], i));
     }
   }
+  
+  //std::cout << "before sort size: " << scores.size() << std::endl;
 
   // Sort the score pair according to the scores in descending order
   std::stable_sort(score_index_vec->begin(), score_index_vec->end(),
@@ -1018,7 +1035,18 @@ void ApplyNMSFast(const vector<NormalizedBBox>& bboxes,
 
   // Get top_k scores (with corresponding indices).
   vector<pair<float, int> > score_index_vec;
+
+  //struct timeval start1;
+  //struct timeval end1;
+  //gettimeofday(&start1, NULL);
   GetMaxScoreIndex(scores, score_threshold, top_k, &score_index_vec);
+  //gettimeofday(&end1, NULL);
+  //std::cout << "Sort: time cost" << (1000*1000*(end1.tv_sec - start1.tv_sec) + end1.tv_usec - start1.tv_usec)  << std::endl;
+    
+
+  //struct timeval start1;
+  //struct timeval end1;
+  //gettimeofday(&start1, NULL);
 
   // Do nms.
   indices->clear();
@@ -1039,6 +1067,9 @@ void ApplyNMSFast(const vector<NormalizedBBox>& bboxes,
     }
     score_index_vec.erase(score_index_vec.begin());
   }
+  //gettimeofday(&end1, NULL);
+  //std::cout << "NMS: time cost" << (1000*1000*(end1.tv_sec - start1.tv_sec) + end1.tv_usec - start1.tv_usec)  << std::endl;
+   
 }
 
 void CumSum(const vector<pair<float, int> >& pairs, vector<int>* cumsum) {
@@ -1210,6 +1241,7 @@ void VisualizeBBox(const vector<cv::Mat>& images, const Blob<Dtype>* detections,
   // Comute FPS.
   float fps = num_img / (static_cast<double>(clock() - start_clock) /
           CLOCKS_PER_SEC);
+  start_clock = clock();
 
   const Dtype* detections_data = detections->cpu_data();
   const int width = images[0].cols;
@@ -1278,10 +1310,9 @@ void VisualizeBBox(const vector<cv::Mat>& images, const Blob<Dtype>* detections,
     }
     cv::imshow("detections", image);
     if (cv::waitKey(1) == 27) {
-      raise(SIGINT);
+      exit(-1);
     }
   }
-  start_clock = clock();
 }
 
 template

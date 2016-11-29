@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_belt_classifier_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static VehicleBeltClassifierProcessor *vbcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     VehicleBeltConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -26,7 +28,7 @@ static void initConfig() {
     mConfig.deploy_file = baseModelPath + "602.txt";
     mConfig.model_file = baseModelPath + "602.dat";
 
-    vbcprocessor = new VehicleBeltClassifierProcessor(mConfig);
+    vbcprocessor = new VehicleBeltClassifierProcessor(mConfig, true);
 }
 
 static Operation getOperation() {

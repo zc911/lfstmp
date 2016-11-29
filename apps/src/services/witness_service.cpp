@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description :
+ * Description : 
  * ==========================================================================*/
 
 #include <fstream>
@@ -274,6 +274,243 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
 }
 
 MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
+                                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+                                                  int imgWidth,
+                                                  int imgHeight) {
+
+    MatrixError err;
+    recPedestrian->mutable_data();
+    for (int i = 0; i < faceVector.size(); ++i) {
+        const Face * fobj = faceVector[i];
+        struct result {
+            RecPedestrian* recP;
+            double coincidence;
+            double distance;
+        };
+        auto findCandidate = [ = ](RecPedestrian * recP) {
+            result info;
+            info.recP = recP;
+            info.recP = recP;
+            Rect FaceBox = fobj->detection().box;
+            Rect BodyBox = Rect(recP->img().cutboard().x(), recP->img().cutboard().y(),
+                                recP->img().cutboard().width(), recP->img().cutboard().height());
+            Rect overLap = FaceBox & BodyBox;
+            info.coincidence = (double)overLap.area() * 100.0 / FaceBox.area();
+            info.distance = abs(FaceBox.x - BodyBox.x) + abs(FaceBox.y - FaceBox.y);
+
+            return info;
+        };
+        auto Max = [](int x, int y) {return x > y ? x : y;};
+        auto Min = [](int x, int y) {return x < y ? x : y;};
+        vector<result> candidates;
+        for (int j = 0; j < recPedestrian->size(); ++j) {
+            if (!recPedestrian->Mutable(j)->has_face()) {
+                result tmp = findCandidate(recPedestrian->Mutable(j));
+                if (tmp.coincidence > 20) {
+                    candidates.push_back(tmp);
+                }
+            }
+        }
+        RecPedestrian* MatchedPedestrian = NULL;
+        bool findMatched = false;
+        if (candidates.empty()) {
+            MatchedPedestrian = recPedestrian->Add();
+        } else {
+            findMatched = true;
+            result MatchedResult = candidates[0];
+            for (int j = 1; j < candidates.size(); ++j) {
+                if (candidates[j].coincidence > MatchedResult.coincidence) {
+                    MatchedResult = candidates[j];
+                } else if (abs(candidates[j].coincidence - MatchedResult.coincidence) < 0.1) {
+                    if (candidates[j].distance < MatchedResult.distance) {
+                        MatchedResult = candidates[j];
+                    }
+                }
+            }
+            MatchedPedestrian = MatchedResult.recP;
+        }
+        RecFace* face = MatchedPedestrian->mutable_face();
+        face->set_id(fobj->id());
+        face->set_confidence((float) fobj->confidence());
+        face->set_features(fobj->feature().Serialize());
+        const Detection &d = fobj->detection();
+        auto faceCutboard = face->mutable_img()->mutable_cutboard();
+        auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();
+        //RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
+        if (findMatched == false) {
+            MatchedPedestrian->set_id(fobj->id());
+            MatchedPedestrian->set_confidence((float)fobj->confidence());
+            float leftTimes = RepoService::GetInstance().FindBodyRelativeFace("left");
+            float rightTimes = RepoService::GetInstance().FindBodyRelativeFace("right");
+            float topTimes = RepoService::GetInstance().FindBodyRelativeFace("top");
+            float bottomTimes = RepoService::GetInstance().FindBodyRelativeFace("bottom");
+            pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
+            pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
+            pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
+            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes), imgHeight - 1 - pedCutboard->y()));
+        }
+        faceCutboard->set_x(Max(d.box.x - pedCutboard->x(), 0));
+        faceCutboard->set_y(Max(d.box.y - pedCutboard->y(), 0));
+        faceCutboard->set_width(Min(d.box.width, pedCutboard->x() + pedCutboard->width() - d.box.x));
+        faceCutboard->set_height(Min(d.box.height, pedCutboard->y() + pedCutboard->height() - d.box.y));
+        faceCutboard->set_confidence(d.confidence);
+    }
+
+    return err;
+}
+
+MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * vobj,
+        RecNonMotorVehicle * vrec) {
+
+    MatrixError err;
+    const Detection &d = vobj->detection();
+    RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
+    vrec->set_id(vobj->id());
+    dg::model::NonMotorVehicleType type = TRANSPORTATION_SEAL;
+    vrec->set_nmvehicletype(type);
+    vrec->set_nmvehicletypename("FUCK");
+
+    auto SetNameAndConfidence = [](NameAndConfidence * nac, NonMotorVehicle::Attr & attribute) {
+        nac->set_name(RepoService::GetInstance().FindNonMotorAttrName(attribute.mappingId));
+        nac->set_confidence(attribute.confidence);
+        nac->set_id(attribute.index);
+    };
+
+    vector<NonMotorVehicle::Attr> attrs(vobj->attrs());
+    float NonMotorVehicleConfidence = -2.0;
+    float NonMotorVehicleGestureConfidence = -2.0;
+    for (int i = 0; i < attrs.size(); ++i) {
+        // type judge
+        if (attrs[i].categoryId == 0) {
+            if (attrs[i].confidence >= NonMotorVehicleConfidence) {
+                NonMotorVehicleConfidence = attrs[i].confidence;
+                enum NonMotorVehicleType nonMotorVehicleType;
+                int mappingId = attrs[i].mappingId;
+                if (mappingId == 10) {
+                    nonMotorVehicleType = TRANSPORTATION_ROOF;
+                } else if (mappingId == 11) {
+                    nonMotorVehicleType = TRANSPORTATION_SEAL;
+                } else if (mappingId == 41) {
+                    nonMotorVehicleType = TRANSPORTATION_BICYCLE;
+                } else if (mappingId == 42) {
+                    nonMotorVehicleType = TRANSPORTATION_VEHICLE2;
+                } else if (mappingId == 43) {
+                    nonMotorVehicleType = TRANSPORTATION_VEHICLE3;
+                }
+                vrec->set_nmvehicletype(nonMotorVehicleType);
+                vrec->set_nmvehicletypename(attrs[i].tagname);
+            }
+
+        } else if (attrs[i].categoryId == 1) {
+            //gesture judge
+            enum NonMotorVehicleGesture NMVehicleGesture;
+            if (attrs[i].confidence >= NonMotorVehicleGestureConfidence) {
+                NonMotorVehicleGestureConfidence = attrs[i].confidence;
+                int mappingId = attrs[i].mappingId;
+                if (mappingId == 0) {
+                    NMVehicleGesture = ATTITUDE_POSITIVE;
+                } else if (mappingId == 1) {
+                    NMVehicleGesture = ATTITUDE_RIGHT;
+                } else if (mappingId == 2) {
+                    NMVehicleGesture = ATTITUDE_LEFT;
+                } else if (mappingId == 3) {
+                    NMVehicleGesture = ATTITUDE_BACK;
+                }
+                vrec->set_nmvehiclegesture(NMVehicleGesture);
+            }
+        } else if (attrs[i].categoryId == 2) {
+            RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+
+            if (vrec->passenger_size() == 0) {
+                nmp = vrec->add_passenger();
+                nmp->set_id(0);
+            } else {
+                nmp = vrec->mutable_passenger(0);
+            }
+            NameAndConfidence *caf = nmp->mutable_sex();
+            caf->set_id(0);
+            caf->set_confidence(attrs[i].confidence);
+            if (attrs[i].confidence < 0.5) {
+                caf->set_name(PEDESTRIAN_ATTR_FEMALE_);
+            } else {
+                caf->set_name(PEDESTRIAN_ATTR_MALE_);
+            }
+        } else {
+             if (attrs[i].categoryId == 3) {
+                RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+
+                if (vrec->passenger_size() == 0) {
+                    nmp = vrec->add_passenger();
+                    nmp->set_id(0);
+                } else {
+                    nmp = vrec->mutable_passenger(0);
+                }
+                CategoryAndFeature *caf = nmp->add_attribute();
+                caf->set_id(attrs[i].categoryId);
+                caf->set_categoryname("minzu");
+                NameAndConfidence *nac = caf->add_items();
+                nac->set_id(attrs[i].mappingId);
+                nac->set_confidence(attrs[i].confidence);
+                if (attrs[i].confidence < 0.5) {
+                    nac->set_name(PEDESTRIAN_ATTR_HAN_);
+                } else {
+                    nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
+                }
+            } else if (attrs[i].confidence >= attrs[i].threshold_lower) {
+                // others judge
+         //       if (filter_flag == false || attrs[i].confidence >= attrs[i].threshold_upper) {
+
+                int categoryId = attrs[i].categoryId;
+                if (categoryId == 8) {
+                    CategoryAndFeature *caf = NULL;
+                    for (int j = 0; j < vrec->nmvehicle_size(); ++j) {
+                        if (attrs[i].categoryId == vrec->mutable_nmvehicle(j)->id()) {
+                            caf = vrec->mutable_nmvehicle(j);
+                            break;
+                        }
+                    }
+                    if (caf == NULL) {
+                        caf = vrec->add_nmvehicle();
+                        caf->set_id(attrs[i].categoryId);
+                        caf->set_categoryname(
+                            RepoService::GetInstance().FindNonMotorAttrCategory(attrs[i].categoryId));
+                    }
+
+                    NameAndConfidence *nac = caf->add_items();
+                    SetNameAndConfidence(nac, attrs[i]);
+                } else {
+                    RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+                    if (vrec->passenger_size() == 0) {
+                        nmp = vrec->add_passenger();
+                        nmp->set_id(0);
+                    } else {
+                        nmp = vrec->mutable_passenger(0);
+                    }
+                    CategoryAndFeature *caf = NULL;
+                    for (int j = 0; j < nmp->attribute_size(); ++j) {
+                        if (attrs[i].categoryId == nmp->mutable_attribute(j)->id()) {
+                            caf = nmp->mutable_attribute(j);
+                            break;
+                        }
+                    }
+                    if (caf == NULL) {
+                        caf = nmp->add_attribute();
+                        caf->set_id(attrs[i].categoryId);
+                        caf->set_categoryname(
+                            RepoService::GetInstance().FindNonMotorAttrCategory(attrs[i].categoryId));
+                    }
+
+                    NameAndConfidence *nac = caf->add_items();
+                    SetNameAndConfidence(nac, attrs[i]);
+                }
+     //           }
+            }
+        }
+    }
+    return err;
+}
+
+MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
         ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
         int imgWidth,
         int imgHeight) {
@@ -368,10 +605,12 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame * frame,
         //  DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
         case OBJECT_CAR:
+            err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+            break;
         case OBJECT_BICYCLE:
         case OBJECT_TRICYCLE:
 
-            err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+            err = getRecognizedNonMotorVehicle((NonMotorVehicle *) object, result->add_nonmotorvehicles());
             break;
         case OBJECT_PEDESTRIAN:
             err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());

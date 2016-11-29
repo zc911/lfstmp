@@ -29,11 +29,12 @@ void DetectionOutputLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
   confidence_threshold_ = detection_output_param.has_confidence_threshold() ?
       detection_output_param.confidence_threshold() : -FLT_MAX;
   // Parameters used in nms.
-        int size = detection_output_param.thresholds_size();
+  nms_threshold_ = detection_output_param.nms_param().nms_threshold();
+  int size = detection_output_param.thresholds_size();
   for(int i=0;i<size;i++){
     thresholds_.push_back(detection_output_param.thresholds(i));
   }
-  nms_threshold_ = detection_output_param.nms_param().nms_threshold();
+
   CHECK_GE(nms_threshold_, 0.) << "nms_threshold must be non negative.";
   top_k_ = -1;
   if (detection_output_param.nms_param().has_top_k()) {
@@ -111,31 +112,31 @@ void DetectionOutputLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& bottom,
                                    this->phase_));
     data_transformer_->InitRand();
   }
+
+
+  //vector<int> bbox_preds_shape;
+  //bbox_preds.ReshapeLike(*(bottom[0]));
+  //bbox_preds_shape.push_back(10);
+  //bbox_preds_shape.push_back(75912);
+  //bbox_preds_shape.push_back(1);
+  //bbox_preds_shape.push_back(1);
+  //bbox_preds.Reshape(bbox_preds_shape);
+    
+  //bbox_preds.ReshapeLike(*(bottom[0]));
+  //conf_permute.ReshapeLike(*(bottom[1]));
+  //conf_permute_shape.push_back(10);
+  //conf_permute_shape.push_back(94890);
+  //conf_permute_shape.push_back(1);
+  //conf_permute_shape.push_back(1);
+  //conf_permute.Reshape(conf_permute_shape);
+  
 }
 
 template <typename Dtype>
 void DetectionOutputLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
       const vector<Blob<Dtype>*>& top) {
-  if (need_save_) {
-    CHECK_LE(name_count_, names_.size());
-    if (name_count_ % num_test_image_ == 0) {
-      // Clean all outputs.
-      if (output_format_ == "VOC") {
-        boost::filesystem::path output_directory(output_directory_);
-        for (map<int, string>::iterator it = label_to_name_.begin();
-             it != label_to_name_.end(); ++it) {
-          if (it->first == background_label_id_) {
-            continue;
-          }
-          std::ofstream outfile;
-          boost::filesystem::path file(
-              output_name_prefix_ + it->second + ".txt");
-          boost::filesystem::path out_file = output_directory / file;
-          outfile.open(out_file.string().c_str(), std::ofstream::out);
-        }
-      }
-    }
-  }
+
+
   CHECK_EQ(bottom[0]->num(), bottom[1]->num());
   num_priors_ = bottom[2]->height() / 4;
   CHECK_EQ(num_priors_ * num_loc_classes_ * 4, bottom[0]->channels())
@@ -151,7 +152,9 @@ void DetectionOutputLayer<Dtype>::Reshape(const vector<Blob<Dtype>*>& bottom,
   // [image_id, label, confidence, xmin, ymin, xmax, ymax]
   top_shape.push_back(7);
   top[0]->Reshape(top_shape);
-    bbox_preds.ReshapeLike(*(bottom[0]));
+
+  //std::cout << "bottom[0] size: " << bottom[0]->num() << "x" << bottom[0]->channels() << std::endl;
+  bbox_preds.ReshapeLike(*(bottom[0]));
   conf_permute.ReshapeLike(*(bottom[1]));
 }
 
@@ -251,16 +254,13 @@ void DetectionOutputLayer<Dtype>::Forward_cpu(
     }
   }
 
+  if (num_kept == 0) {
+    LOG(INFO) << "Couldn't find any detections";
+    return;
+  }
   vector<int> top_shape(2, 1);
   top_shape.push_back(num_kept);
   top_shape.push_back(7);
-  if (num_kept == 0) {
-    LOG(INFO) << "Couldn't find any detections";
-    top_shape[2] = 1;
-    top[0]->Reshape(top_shape);
-    caffe_set<Dtype>(top[0]->count(), -1, top[0]->mutable_cpu_data());
-    return;
-  }
   top[0]->Reshape(top_shape);
   Dtype* top_data = top[0]->mutable_cpu_data();
 

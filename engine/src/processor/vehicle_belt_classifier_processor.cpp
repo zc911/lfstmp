@@ -9,13 +9,14 @@
 #include "processor_helper.h"
 #include "string_util.h"
 
+using namespace dgvehicle;
 namespace dg {
 
 VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
-    VehicleBeltConfig &mConfig)
+    VehicleBeltConfig &mConfig, bool drive)
     : Processor() {
 
-    belt_classifier_ = new CaffeBeltClassifier(mConfig);
+    belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(drive);
 
     marker_target_min_ = mConfig.target_min_size;
     marker_target_max_ = mConfig.target_max_size;
@@ -34,10 +35,11 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start belt and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start belt processor" << endl;
-    vector<vector<Prediction> > preds = belt_classifier_->ClassifyAutoBatch(images_);
+    vector<vector<Prediction> > preds;
+    belt_classifier_->BatchProcess(images_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {
-        int value;
+        float value;
         Vehicle *v = (Vehicle *) objs_[i];
 
         if (is_driver) {
@@ -58,7 +60,7 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
                 continue;
             Vehicler *vr = (Vehicler *) v->child(OBJECT_CODRIVER);
             if (!vr) {
-                vr = new Vehicler(OBJECT_DRIVER);
+                vr = new Vehicler(OBJECT_CODRIVER);
                 v->set_vehicler(vr);
             }
             switch (preds[i][0].first) {

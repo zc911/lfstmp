@@ -953,7 +953,6 @@ inline ::model::GenericObj* DataRequest::mutable_entity() {
   return entity_;
 }
 inline ::model::GenericObj* DataRequest::release_entity() {
-  // @@protoc_insertion_point(field_release:model.DataRequest.Entity)
   
   ::model::GenericObj* temp = entity_;
   entity_ = NULL;
@@ -1052,7 +1051,6 @@ inline ::std::string* DataResponse::mutable_msg() {
   return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DataResponse::release_msg() {
-  // @@protoc_insertion_point(field_release:model.DataResponse.Msg)
   
   return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1096,7 +1094,6 @@ inline ::std::string* DataResponse::mutable_data() {
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* DataResponse::release_data() {
-  // @@protoc_insertion_point(field_release:model.DataResponse.Data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1135,7 +1132,6 @@ inline ::model::GenericQuery* SearchRequest::mutable_query() {
   return query_;
 }
 inline ::model::GenericQuery* SearchRequest::release_query() {
-  // @@protoc_insertion_point(field_release:model.SearchRequest.Query)
   
   ::model::GenericQuery* temp = query_;
   query_ = NULL;
@@ -1214,7 +1210,6 @@ inline ::std::string* GenericQuery::mutable_strdata() {
   return strdata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* GenericQuery::release_strdata() {
-  // @@protoc_insertion_point(field_release:model.GenericQuery.StrData)
   
   return strdata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1258,7 +1253,6 @@ inline ::std::string* GenericQuery::mutable_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* GenericQuery::release_bindata() {
-  // @@protoc_insertion_point(field_release:model.GenericQuery.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1334,7 +1328,6 @@ inline ::std::string* GenericObj::mutable_strdata() {
   return strdata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* GenericObj::release_strdata() {
-  // @@protoc_insertion_point(field_release:model.GenericObj.StrData)
   
   return strdata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1378,7 +1371,6 @@ inline ::std::string* GenericObj::mutable_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* GenericObj::release_bindata() {
-  // @@protoc_insertion_point(field_release:model.GenericObj.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1440,7 +1432,6 @@ inline ::std::string* HttpResp::mutable_msg() {
   return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* HttpResp::release_msg() {
-  // @@protoc_insertion_point(field_release:model.HttpResp.Msg)
   
   return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1484,7 +1475,6 @@ inline ::std::string* HttpResp::mutable_data() {
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* HttpResp::release_data() {
-  // @@protoc_insertion_point(field_release:model.HttpResp.Data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1580,7 +1570,6 @@ inline ::std::string* InsertResp::mutable_msg() {
   return msg_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InsertResp::release_msg() {
-  // @@protoc_insertion_point(field_release:model.InsertResp.Msg)
   
   return msg_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1624,7 +1613,6 @@ inline ::std::string* InsertResp::mutable_data() {
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InsertResp::release_data() {
-  // @@protoc_insertion_point(field_release:model.InsertResp.Data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

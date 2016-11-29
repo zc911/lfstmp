@@ -5,21 +5,22 @@
  *      Author: jiajaichen
  */
 
-#include <alg/classification/marker_caffe_classifier.h>
+//#include <alg/classification/marker_caffe_classifier.h>
 #include "vehicle_marker_classifier_processor.h"
 #include "processor_helper.h"
 #include "string_util.h"
+#include "util/convert_util.h"
 
+using namespace dgvehicle;
 namespace dg {
 
-VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(
-    VehicleCaffeDetectorConfig &mConfig, bool flag)
+VehicleMarkerClassifierProcessor::VehicleMarkerClassifierProcessor(bool flag)
     : Processor() {
 
-    ssd_marker_detector_ = new MarkerCaffeSsdDetector(mConfig);
+    ssd_marker_detector_ = AlgorithmFactory::GetInstance()->CreateMarkerCaffeSsdDetector();
 
-    marker_target_min_ = mConfig.target_min_size;
-    marker_target_max_ = mConfig.target_max_size;
+//    marker_target_min_ = mConfig.target_min_size;
+//    marker_target_max_ = mConfig.target_max_size;
     isVisualization_ = flag;
     color_.push_back(Scalar(15, 115, 190));
     color_.push_back(Scalar(230, 2, 0));
@@ -48,8 +49,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker processor" << endl;
-    vector<vector<Detection> >preds;
-    ssd_marker_detector_->DetectBatch(images_, fobs_, params_, preds);
+    vector<vector<dgvehicle::Detection> >preds;
+    ssd_marker_detector_->BatchDetect(images_, fobs_, params_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {
 
@@ -59,7 +60,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
         if (isVisualization_) {
             for (int j = 0; j < preds[i].size(); j++) {
-                Detection d(preds[i][j]);
+                Detection d = ConvertDgvehicleDetection(preds[i][j]);
 
                 markers_cutborad.push_back(d);
                 if (d.id > color_.size())
@@ -70,11 +71,11 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 string id = i2string(d.id);
                 cv::putText(draw_images_[i], id, cv::Point(midx, midy), FONT_HERSHEY_COMPLEX_SMALL, 1, color_[d.id]);
             }
-//            string name = "marker" + to_string(i) + to_string(draw_images_[i].rows) + ".jpg";
-//            imwrite(name, draw_images_[i]);
+            string name = "marker" + to_string(i) + to_string(draw_images_[i].rows) + ".jpg";
+            imwrite(name, draw_images_[i]);
         } else {
             for (int j = 0; j < preds[i].size(); j++) {
-                markers_cutborad.push_back(preds[i][j]);
+                markers_cutborad.push_back(ConvertDgvehicleDetection(preds[i][j]));
             }
         }
         v->set_markers(markers_cutborad);

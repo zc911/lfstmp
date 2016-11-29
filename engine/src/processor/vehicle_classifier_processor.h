@@ -9,15 +9,15 @@
 #define VEHICLE_CLASSIFIER_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/classification/vehicle_caffe_classifier.h"
+//#include "alg/classification/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
+#include "algorithm_factory.h"
 namespace dg {
 
 class VehicleClassifierProcessor: public Processor {
 public:
 
-    VehicleClassifierProcessor(
-        const vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+    VehicleClassifierProcessor(bool test = false);
 
     ~VehicleClassifierProcessor();
 
@@ -31,7 +31,7 @@ protected:
 private:
     void vehiclesResizedMat(FrameBatch *frameBatch);
 
-    vector<VehicleCaffeClassifier *> classifiers_;
+    vector<dgvehicle::AlgorithmProcessor *> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;
 

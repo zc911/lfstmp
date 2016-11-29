@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description :
+ * Description : 
  * ==========================================================================*/
 
 #ifndef MATRIX_APPS_WITNESS_SERVICE_H_
@@ -42,6 +42,8 @@ public:
 private:
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
                                      RecVehicle *vrec);
+    MatrixError getRecognizedNonMotorVehicle(NonMotorVehicle * vobj,
+                                     RecNonMotorVehicle * vrec);
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
                                         RecPedestrian *vrec);
     MatrixError getRecognizedFace(const vector<const Face *>faceVector,

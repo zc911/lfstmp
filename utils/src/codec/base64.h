@@ -312,8 +312,6 @@ public:
         T temp;
         while (ss_out.good()) {
             ss_out.read((char *) (&temp), sizeof(T));
-            if(!ss_out.good())
-                break;
             result_array.push_back(temp);
         }
     }

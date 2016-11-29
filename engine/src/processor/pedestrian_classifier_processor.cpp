@@ -7,15 +7,13 @@
  * Description :
  * ==========================================================================*/
 
-#include <alg/classification/pedestrian_classifier.h>
 #include "pedestrian_classifier_processor.h"
-
 #include "processor_helper.h"
 
+using namespace dgvehicle;
 namespace dg {
-PedestrianClassifierProcessor::PedestrianClassifierProcessor(
-    PedestrianClassifier::PedestrianConfig &config) {
-    classifier_ = new PedestrianClassifier(config);
+PedestrianClassifierProcessor::PedestrianClassifierProcessor() {
+    classifier_ = AlgorithmFactory::GetInstance()->CreatePedestrianClassifier();
 }
 
 PedestrianClassifierProcessor::~PedestrianClassifierProcessor() {
@@ -34,11 +32,11 @@ bool PedestrianClassifierProcessor::process(FrameBatch *frameBatch) {
         }
     }
 
-    std::vector<std::vector<PedestrianClassifier::PedestrianAttribute>> attrc = classifier_->BatchClassify(images_);
+    std::vector<std::vector<dgvehicle::PedestrianAttribute>> attrc = classifier_->BatchClassify(images_);
 
     for (int i = 0; i < objs_.size(); i++) {
         Pedestrian *p = (Pedestrian *) objs_[i];
-        std::vector<PedestrianClassifier::PedestrianAttribute> attrs_i = attrc[i];
+        std::vector<dgvehicle::PedestrianAttribute> attrs_i = attrc[i];
         std::vector<Pedestrian::Attr> attrs_o;
         for (int j = 0; j < attrs_i.size(); j++) {
             Pedestrian::Attr attr;

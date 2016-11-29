@@ -1,0 +1,153 @@
+{
+    "Advanced": {
+        "Color": {
+            "BatchSize": 1, 
+            "ModelNum": 1
+        }, 
+        "Detection": {
+            "BatchSize": 1, 
+            "CarOnly": false, 
+            "Rescale": 400, 
+            "TargetMaxSize": 600.0, 
+            "TargetMinSize": 400.0
+        }, 
+        "FaceDetect": {
+            "BatchSize": 1, 
+            "BodyRelativeFaceBottom": 6.0, 
+            "BodyRelativeFaceLeft": 0.2, 
+            "BodyRelativeFaceRight": 0.2, 
+            "BodyRelativeFaceTop": 0.2, 
+            "Confidence": 0.7, 
+            "Scale": 640
+        }, 
+        "FaceExtract": {
+            "BatchSize": 1
+        }, 
+        "DriverBelt": {
+            "BatchSize": 1
+        },
+        "DriverPhone": {
+            "BatchSize": 1
+        }, 
+        "Marker": {
+            "AccessoriesConfidence": 0.8, 
+            "BatchSize": 1, 
+            "BeltConfidence": 0.8, 
+            "GlobalConfidence": 0.8, 
+            "MOTConfidence": 0.6, 
+            "OthersConfidence": 0.8, 
+            "SunVisorConfidence": 0.8, 
+            "TissueBoxConfidence": 0.8
+        }, 
+        "ParseImageTimeout": 60, 
+        "Plate": {
+            "EnableSharp": false, 
+            "LocalProvince": "", 
+            "Locate": 5, 
+            "OCR": 1
+        }, 
+        "PlateMxnet": {
+            "BatchSize": 1, 
+            "EnableLocalProvince": false, 
+            "ImgStandardHeight": 600, 
+            "ImgStandardWidth": 400, 
+            "LocalProvinceConfidence": 0.6, 
+            "LocalProvinceText": "\u4eac", 
+            "NumsProposal": 20, 
+            "PlateNums": 4, 
+            "PlateStandardHeight": 150, 
+            "PlateStandardWidth": 250
+        }, 
+        "Ranker": {
+            "Maximum": 100000
+        }, 
+        "Style": {
+            "BatchSize": 1, 
+            "ModelNum": 1
+        }, 
+        "Window": {
+            "BatchSize": 1
+        }
+    }, 
+    "DataPath": "data/data.dat", 
+    "Debug": {
+        "Enable": true, 
+        "EnableCutboard": true, 
+        "Encrypt": false, 
+        "Visualization": false
+    }, 
+    "Feature": {
+        "Face": {
+            "Enable": true, 
+            "EnableDetection": true, 
+            "EnableFeatureVector": true
+        }, 
+        "Vehicle": {
+            "Enable": true,
+            "EnableNonMotorVehicle": true, 
+            "EnableColor": true, 
+            "EnableDetection": true, 
+            "EnableFeatureVector": true, 
+            "EnableGpuPlate": true, 
+            "EnableMarker": true, 
+            "EnablePedestrianAttr": true, 
+            "EnablePlate": false, 
+            "EnablePlateEnhanced": false, 
+            "EnableType": true
+        }
+    }, 
+    "InstanceType": "witness", 
+    "Log": {
+        "Dir": "", 
+        "Level": ""
+    }, 
+    "ProtocolType": "rpc|restful", 
+    "Ranker": {
+        "DefaultType": 2
+    }, 
+    "Render": {
+        "Pedestrian": {
+            "PedestrianAttr": "data/mapping/pedestrian_attr_type.txt", 
+            "PedestrianCategory": "data/mapping/pedestrian_attr_category.txt"
+        }, 
+        "Vehicle": {
+            "Color": "data/mapping/vehicle_color.txt", 
+            "Model": "data/mapping/vehicle_style_v1.12_4063.txt", 
+            "Plate": {
+                "Color": "data/mapping/plate_color.txt", 
+                "ColorGpu": "data/mapping/plate_gpu_color.txt", 
+                "Type": "data/mapping/plate_type.txt"
+            }, 
+            "Symbol": "data/mapping/vehicle_symbol.txt", 
+            "Type": "data/mapping/vehicle_type.txt"
+        },
+        "NonMotorVehicle": {
+            "NonMotorAttr": "data/mapping/bitri_attr_type.txt",
+            "NonMotorCategory": "data/mapping/bitri_attr_category.txt"
+        }
+    }, 
+    "Storage": {
+        "Address": [
+            "192.168.2.119:9004", 
+            "192.168.2.132:9877", 
+            "./"
+        ], 
+        "DBType": [
+            0, 
+            1, 
+            2
+        ], 
+        "Enabled": false
+    }, 
+    "System": {
+        "Ip": "0.0.0.0", 
+        "Port": 6800, 
+        "Threads": [
+            2
+        ]
+    }, 
+    "Version": {
+        "Code": "1.0.0", 
+        "Model": "1.9"
+    }
+}
