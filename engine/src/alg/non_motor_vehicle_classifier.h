@@ -80,6 +80,7 @@ class CaffeAttribute {
                 const int crop_width,
                 const int pixel_scale,
                 const bool use_GPU = 1);
+        void BatchAttributePredict(const vector<Mat> &imgs, vector<vector<float> > &results);
         void AttributePredict(const vector<Mat> &imgs, vector<vector<float> > &results);
         vector<Attrib> _attrib_table;
         int _batch_size;
@@ -119,6 +120,7 @@ public:
 	~NonMotorVehicleClassifier();
 
 	void BatchClassify(const vector<cv::Mat> &imgs, vector<vector<CaffeAttribute::Attrib> > &results);
+    void BatchPredict(const vector<cv::Mat> &imgs, vector<vector<CaffeAttribute::Attrib> > &results);
 
 private:
     void process_batch_after_det(CaffeAttribute &upper_attrib, 
