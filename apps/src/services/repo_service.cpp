@@ -34,6 +34,8 @@ void RepoService::Init(const Config &config) {
         string pVtypeFile = (string) config.Value(VEHICLE_TYPE_MAPPING_FILE);
         string pPtypeFile = (string) config.Value(PEDESTRIAN_ATTR_TYPE);
         string pAttrCatagoryFile = (string) config.Value(PEDESTRIAN_ATTR_CATAGORY);
+        string nonMotorAttr = (string) config.Value(NONMOTORVEHICLE_ATTR_TYPE);
+        string nonMotorCategory = (string) config.Value(NONMOTORVEHICLE_ATTR_CATEGORY);
         pBodyRelativeFaceLeft = (float) config.Value(BODY_RELATIVE_FACE_LEFT);
         pBodyRelativeFaceRight = (float) config.Value(BODY_RELATIVE_FACE_RIGHT);
         pBodyRelativeFaceTop = (float) config.Value(BODY_RELATIVE_FACE_TOP);
@@ -47,6 +49,8 @@ void RepoService::Init(const Config &config) {
         init_string_map(pVtypeFile, "=", vehicle_type_repo_);
         init_string_map(pPtypeFile, "=", pedestrian_attr_type_repo_);
         init_string_map(pAttrCatagoryFile, "=", pedestrian_attr_catagory_repo_);
+        init_string_map(nonMotorAttr, "=", nonMotor_attr_mapping_repo_);
+        init_string_map(nonMotorCategory, "=", nonMotor_attr_category_repo_);
         model_mapping_data_ = ReadStringFromFile(vModelFile, "r");
         color_mapping_data_ = ReadStringFromFile(vColorFile, "r");
         symbol_mapping_data_ = ReadStringFromFile(vSymbolFile, "r");

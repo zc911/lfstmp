@@ -20,6 +20,7 @@
 #include "processor/face_feature_extract_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
 #include "processor/vehicle_phone_detector_processor.h"
+#include "processor/non_motor_vehicle_classifier_processor.h"
 #include "plate_recognize_mxnet_processor.h"
 
 #include "model/alg_config.h"
@@ -69,6 +70,8 @@ public:
                           VehicleCaffeDetectorConfig &wConfig);
   void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
 //  void createPedestrianConfig(const Config &cconfig, PedestrianClassifier::PedestrianConfig &pConfig);
+  void createPedestrianConfig(const Config &cconfig,
+                              NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
   int initDataConfig(const Config &config);
 private:
   ConfigFilter();
