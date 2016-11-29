@@ -5,7 +5,7 @@ Hasp/1.0.0@deepglint/stable
 Dlib/0.1.0@deepglint/stable
 OpenCV/2.4.8@deepglint/stable
 Cudart/8.0@deepglint/stable
-Mxnet/0.7.0.4@deepglint/stable_cuda8.0
+Mxnet/0.7.0.4@deepglint/stable_cuda_8.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_8.0
 Thplateid/1.0.0@deepglint/stable
 Dgmedia/1.8.0@deepglint/stable
