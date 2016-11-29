@@ -68,10 +68,10 @@ bool NonMotorVehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
         }
     }
 #endif
-    for (size_t i = 0; i < objs_.size(); ++i) {
+/*    for (size_t i = 0; i < objs_.size(); ++i) {
         delete objs_[i];
         objs_[i] = NULL;
-    }
+    } */
     objs_.clear();
     images_.clear();
 
