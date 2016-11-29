@@ -144,11 +144,13 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             break;
         case RECFUNC_VEHICLE_DRIVER_PHONE:
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_CODRIVER_BELT);
+                op.Set(OPERATION_DRIVER_PHONE);
+
             break;
         case RECFUNC_VEHICLE_CODRIVER_NOBELT:
             if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_DRIVER_PHONE);
+                op.Set(OPERATION_CODRIVER_BELT);
+
             break;
         default:
             break;
@@ -331,14 +333,6 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         face->set_id(fobj->id());
         face->set_confidence((float) fobj->confidence());
         face->set_features(fobj->feature().Serialize());
-        RecFacePose *face_pose = face->mutable_pose();
-        const FacePose fp = fobj->get_pose();
-        face_pose->set_type(fp.type);
-        for (int i = 0; i < fp.angles.size(); i++) {
-            face_pose->add_angles(fp.angles[i]);
-
-        }
-
         const Detection &d = fobj->detection();
         auto faceCutboard = face->mutable_img()->mutable_cutboard();
         auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();
@@ -538,7 +532,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     WitnessResponseContext *ctx = response->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
+    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
@@ -575,7 +569,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
     VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
     if (enable_storage_) {
         shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
@@ -687,8 +681,8 @@ MatrixError WitnessAppsService::BatchRecognize(
                 uuid_t uuidGenerated;
                 uuid_generate_random(uuidGenerated);
                 uuid_unparse(uuidGenerated, uuidBuff);
-//                string name = path + "/" + uuidBuff + ".jpg";
-//                imwrite(name, roiimages[i].data);
+                string name = path + "/" + uuidBuff + ".jpg";
+                imwrite(name, roiimages[i].data);
             }
 
         });
@@ -740,7 +734,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     WitnessResponseContext *ctx = batchResponse->mutable_context();
     ctx->set_sessionid(sessionid);
     ctx->mutable_requestts()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
+    ctx->mutable_requestts()->set_nanosecs((int64_t) curr_time.tv_usec);
     ctx->set_status("200");
     ctx->set_message("SUCCESS");
 
@@ -776,7 +770,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     gettimeofday(&curr_time, NULL);
     ctx->mutable_responsets()->set_seconds((int64_t) curr_time.tv_sec);
-    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec * 1000);
+    ctx->mutable_responsets()->set_nanosecs((int64_t) curr_time.tv_usec);
 
     if (enable_storage_) {
         VLOG(VLOG_PROCESS_COST) << "enable storage";

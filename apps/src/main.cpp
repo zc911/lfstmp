@@ -11,10 +11,11 @@
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
 #include "check_file_exist.h"
-
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
+using namespace dgvehicle;
 
 #define BOOST_SPIRIT_THREADSAFE
 
@@ -40,16 +41,16 @@ void serveWitness(Config *config, int userPort = 0) {
 
     WitnessBucket::Instance().SetMaxSize(100);
     bool enable_improve_throughput = (bool) config->Value(PACK_ENABLE);
-    int batchsize = 1;
-    if (enable_improve_throughput) {
+    int batchsize =1;
+    if(enable_improve_throughput){
         batchsize = config->Value(PACK_BATCHSIZE);
     }
     int timeout = config->Value(PACK_TIMEOUT);
     WitnessCollector::Instance().SetBatchsize(batchsize);
     WitnessCollector::Instance().SetTimeout(timeout);
 
-    //  SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
-    //  std::thread springTh(&SpringGrpcClientImpl::Run, client);
+    SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
+    std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
     int thread_num = [](Config * config) {
         int thread_num;
@@ -120,7 +121,7 @@ void serveWitness(Config *config, int userPort = 0) {
         cout << e.what() << endl;
         quick_exit(EXIT_FAILURE);
     }
-    //  springTh.join();
+    springTh.join();
     //  network_th_.join();
 }
 
@@ -226,10 +227,12 @@ int main(int argc, char *argv[]) {
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
     curl_global_init(CURL_GLOBAL_ALL);
 
+    AlgorithmFactory::GetInstance()->Initialize(FLAGS_config);
     Config *config = new Config();
-
     config->Load(FLAGS_config);
-
+    if (FilesAllExist(config) == false) {
+        exit(-1);
+    }
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 
 #ifdef DEBUG
@@ -246,10 +249,10 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
-    /*    if (FLAGS_showconfig) {
-            config->DumpValues();
-        }
-    */
+    if (FLAGS_showconfig) {
+        config->DumpValues();
+    }
+
 
     string instType = (string) config->Value("InstanceType");
 
