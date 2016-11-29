@@ -385,12 +385,13 @@ void protobuf_AssignDesc_witness_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResponseContext, _is_default_instance_));
   WitnessResponseContext_DebugTsEntry_descriptor_ = WitnessResponseContext_descriptor_->nested_type(0);
   WitnessResult_descriptor_ = file->message_type(15);
-  static const int WitnessResult_offsets_[5] = {
+  static const int WitnessResult_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innerstatus_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, innermessage_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, image_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, vehicles_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, pedestrian_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(WitnessResult, nonmotorvehicles_),
   };
   WitnessResult_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -573,24 +574,26 @@ void protobuf_AddDesc_witness_2eproto() {
     "Time\022>\n\007DebugTs\030\006 \003(\0132-.dg.model.Witness"
     "ResponseContext.DebugTsEntry\032>\n\014DebugTsE"
     "ntry\022\013\n\003key\030\001 \001(\t\022\035\n\005value\030\002 \001(\0132\016.dg.mo"
-    "del.Time:\0028\001\"\266\001\n\rWitnessResult\022\023\n\013InnerS"
+    "del.Time:\0028\001\"\356\001\n\rWitnessResult\022\023\n\013InnerS"
     "tatus\030\001 \001(\t\022\024\n\014InnerMessage\030\002 \001(\t\022%\n\005Ima"
     "ge\030\003 \001(\0132\026.dg.model.WitnessImage\022&\n\010Vehi"
     "cles\030\004 \003(\0132\024.dg.model.RecVehicle\022+\n\nPede"
-    "strian\030\005 \003(\0132\027.dg.model.RecPedestrian*\313\001"
-    "\n\tIndexType\022\021\n\rINDEX_DEFAULT\020\000\022\023\n\017INDEX_"
-    "CAR_BRAND\020\001\022\022\n\016INDEX_CAR_TYPE\020\002\022\023\n\017INDEX"
-    "_CAR_COLOR\020\003\022\024\n\020INDEX_CAR_MARKER\020\004\022\030\n\024IN"
-    "DEX_CAR_PLATE_TYPE\020\005\022\031\n\025INDEX_CAR_PLATE_"
-    "COLOR\020\006\022\"\n\036INDEX_CAR_PEDESTRIAN_ATTR_TYP"
-    "E\020\0072\256\002\n\016WitnessService\022B\n\tRecognize\022\030.dg"
-    ".model.WitnessRequest\032\031.dg.model.Witness"
-    "Response\"\000\022Q\n\016BatchRecognize\022\035.dg.model."
-    "WitnessBatchRequest\032\036.dg.model.WitnessBa"
-    "tchResponse\"\000\022=\n\010GetIndex\022\026.dg.model.Ind"
-    "exRequest\032\027.dg.model.IndexResponse\"\000\022F\n\013"
-    "GetIndexTxt\022\031.dg.model.IndexTxtRequest\032\032"
-    ".dg.model.IndexTxtResponse\"\000b\006proto3", 2716);
+    "strian\030\005 \003(\0132\027.dg.model.RecPedestrian\0226\n"
+    "\020NonMotorVehicles\030\006 \003(\0132\034.dg.model.RecNo"
+    "nMotorVehicle*\313\001\n\tIndexType\022\021\n\rINDEX_DEF"
+    "AULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001\022\022\n\016INDEX_CAR"
+    "_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020\003\022\024\n\020INDEX_CA"
+    "R_MARKER\020\004\022\030\n\024INDEX_CAR_PLATE_TYPE\020\005\022\031\n\025"
+    "INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036INDEX_CAR_PED"
+    "ESTRIAN_ATTR_TYPE\020\0072\256\002\n\016WitnessService\022B"
+    "\n\tRecognize\022\030.dg.model.WitnessRequest\032\031."
+    "dg.model.WitnessResponse\"\000\022Q\n\016BatchRecog"
+    "nize\022\035.dg.model.WitnessBatchRequest\032\036.dg"
+    ".model.WitnessBatchResponse\"\000\022=\n\010GetInde"
+    "x\022\026.dg.model.IndexRequest\032\027.dg.model.Ind"
+    "exResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.model.I"
+    "ndexTxtRequest\032\032.dg.model.IndexTxtRespon"
+    "se\"\000b\006proto3", 2772);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -7347,6 +7350,7 @@ const int WitnessResult::kInnerMessageFieldNumber;
 const int WitnessResult::kImageFieldNumber;
 const int WitnessResult::kVehiclesFieldNumber;
 const int WitnessResult::kPedestrianFieldNumber;
+const int WitnessResult::kNonMotorVehiclesFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 WitnessResult::WitnessResult()
@@ -7422,6 +7426,7 @@ void WitnessResult::Clear() {
   image_ = NULL;
   vehicles_.Clear();
   pedestrian_.Clear();
+  nonmotorvehicles_.Clear();
 }
 
 bool WitnessResult::MergePartialFromCodedStream(
@@ -7508,6 +7513,22 @@ bool WitnessResult::MergePartialFromCodedStream(
           goto handle_unusual;
         }
         if (input->ExpectTag(42)) goto parse_loop_Pedestrian;
+        if (input->ExpectTag(50)) goto parse_loop_NonMotorVehicles;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+      case 6: {
+        if (tag == 50) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_NonMotorVehicles:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_nonmotorvehicles()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_loop_NonMotorVehicles;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -7575,6 +7596,12 @@ void WitnessResult::SerializeWithCachedSizes(
       5, this->pedestrian(i), output);
   }
 
+  // repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+  for (unsigned int i = 0, n = this->nonmotorvehicles_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->nonmotorvehicles(i), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.WitnessResult)
 }
 
@@ -7624,6 +7651,13 @@ void WitnessResult::SerializeWithCachedSizes(
         5, this->pedestrian(i), target);
   }
 
+  // repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+  for (unsigned int i = 0, n = this->nonmotorvehicles_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->nonmotorvehicles(i), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.WitnessResult)
   return target;
 }
@@ -7668,6 +7702,14 @@ int WitnessResult::ByteSize() const {
         this->pedestrian(i));
   }
 
+  // repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+  total_size += 1 * this->nonmotorvehicles_size();
+  for (int i = 0; i < this->nonmotorvehicles_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->nonmotorvehicles(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -7690,6 +7732,7 @@ void WitnessResult::MergeFrom(const WitnessResult& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   vehicles_.MergeFrom(from.vehicles_);
   pedestrian_.MergeFrom(from.pedestrian_);
+  nonmotorvehicles_.MergeFrom(from.nonmotorvehicles_);
   if (from.innerstatus().size() > 0) {
 
     innerstatus_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.innerstatus_);
@@ -7730,6 +7773,7 @@ void WitnessResult::InternalSwap(WitnessResult* other) {
   std::swap(image_, other->image_);
   vehicles_.UnsafeArenaSwap(&other->vehicles_);
   pedestrian_.UnsafeArenaSwap(&other->pedestrian_);
+  nonmotorvehicles_.UnsafeArenaSwap(&other->nonmotorvehicles_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -7926,6 +7970,36 @@ const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
 WitnessResult::pedestrian() const {
   // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Pedestrian)
   return pedestrian_;
+}
+
+// repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+int WitnessResult::nonmotorvehicles_size() const {
+  return nonmotorvehicles_.size();
+}
+void WitnessResult::clear_nonmotorvehicles() {
+  nonmotorvehicles_.Clear();
+}
+const ::dg::model::RecNonMotorVehicle& WitnessResult::nonmotorvehicles(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Get(index);
+}
+::dg::model::RecNonMotorVehicle* WitnessResult::mutable_nonmotorvehicles(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Mutable(index);
+}
+::dg::model::RecNonMotorVehicle* WitnessResult::add_nonmotorvehicles() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >*
+WitnessResult::mutable_nonmotorvehicles() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.NonMotorVehicles)
+  return &nonmotorvehicles_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >&
+WitnessResult::nonmotorvehicles() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

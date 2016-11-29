@@ -58,6 +58,12 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* RecVehicle_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RecVehicle_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecNonMotorVehicle_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RecNonMotorVehicle_reflection_ = NULL;
+const ::google::protobuf::Descriptor* RecNonMotorVehicle_NonMotorPedestrian_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  RecNonMotorVehicle_NonMotorPedestrian_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Passenger_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Passenger_reflection_ = NULL;
@@ -90,6 +96,8 @@ const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* SexType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* NationalType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* AgeType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleGesture_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DBType_descriptor_ = NULL;
 
 }  // namespace
@@ -320,7 +328,45 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _is_default_instance_));
-  Passenger_descriptor_ = file->message_type(12);
+  RecNonMotorVehicle_descriptor_ = file->message_type(12);
+  static const int RecNonMotorVehicle_offsets_[7] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, nmvehicletype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, nmvehicletypename_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, img_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, nmvehiclegesture_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, passenger_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, nmvehicle_),
+  };
+  RecNonMotorVehicle_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RecNonMotorVehicle_descriptor_,
+      RecNonMotorVehicle::default_instance_,
+      RecNonMotorVehicle_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RecNonMotorVehicle),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, _is_default_instance_));
+  RecNonMotorVehicle_NonMotorPedestrian_descriptor_ = RecNonMotorVehicle_descriptor_->nested_type(0);
+  static const int RecNonMotorVehicle_NonMotorPedestrian_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, sex_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, attribute_),
+  };
+  RecNonMotorVehicle_NonMotorPedestrian_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      RecNonMotorVehicle_NonMotorPedestrian_descriptor_,
+      RecNonMotorVehicle_NonMotorPedestrian::default_instance_,
+      RecNonMotorVehicle_NonMotorPedestrian_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(RecNonMotorVehicle_NonMotorPedestrian),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, _is_default_instance_));
+  Passenger_descriptor_ = file->message_type(13);
   static const int Passenger_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, passengerattr_),
@@ -338,7 +384,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Passenger),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, _is_default_instance_));
-  RecPedestrian_descriptor_ = file->message_type(13);
+  RecPedestrian_descriptor_ = file->message_type(14);
   static const int RecPedestrian_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, img_),
@@ -357,7 +403,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecPedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _is_default_instance_));
-  VehicleModelType_descriptor_ = file->message_type(14);
+  VehicleModelType_descriptor_ = file->message_type(15);
   static const int VehicleModelType_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, brandid_),
@@ -383,7 +429,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleModelType),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(15);
+  LicensePlate_descriptor_ = file->message_type(16);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
@@ -404,7 +450,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  VehicleSymbol_descriptor_ = file->message_type(16);
+  VehicleSymbol_descriptor_ = file->message_type(17);
   static const int VehicleSymbol_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolname_),
@@ -421,7 +467,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleSymbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(17);
+  Symbol_descriptor_ = file->message_type(18);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -437,7 +483,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  StorageConfig_descriptor_ = file->message_type(18);
+  StorageConfig_descriptor_ = file->message_type(19);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
@@ -454,7 +500,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
-  VehicleObj_descriptor_ = file->message_type(19);
+  VehicleObj_descriptor_ = file->message_type(20);
   static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
@@ -471,7 +517,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleObj),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _is_default_instance_));
-  PedestrianObj_descriptor_ = file->message_type(20);
+  PedestrianObj_descriptor_ = file->message_type(21);
   static const int PedestrianObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianObj, img_),
@@ -493,7 +539,9 @@ void protobuf_AssignDesc_common_2eproto() {
   SexType_descriptor_ = file->enum_type(2);
   NationalType_descriptor_ = file->enum_type(3);
   AgeType_descriptor_ = file->enum_type(4);
-  DBType_descriptor_ = file->enum_type(5);
+  NonMotorVehicleType_descriptor_ = file->enum_type(5);
+  NonMotorVehicleGesture_descriptor_ = file->enum_type(6);
+  DBType_descriptor_ = file->enum_type(7);
 }
 
 namespace {
@@ -530,6 +578,10 @@ void protobuf_RegisterTypes(const ::std::string&) {
       PeopleAttr_descriptor_, &PeopleAttr::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecVehicle_descriptor_, &RecVehicle::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RecNonMotorVehicle_descriptor_, &RecNonMotorVehicle::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      RecNonMotorVehicle_NonMotorPedestrian_descriptor_, &RecNonMotorVehicle_NonMotorPedestrian::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Passenger_descriptor_, &Passenger::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -577,6 +629,10 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete PeopleAttr_reflection_;
   delete RecVehicle::default_instance_;
   delete RecVehicle_reflection_;
+  delete RecNonMotorVehicle::default_instance_;
+  delete RecNonMotorVehicle_reflection_;
+  delete RecNonMotorVehicle_NonMotorPedestrian::default_instance_;
+  delete RecNonMotorVehicle_NonMotorPedestrian_reflection_;
   delete Passenger::default_instance_;
   delete Passenger_reflection_;
   delete RecPedestrian::default_instance_;
@@ -639,59 +695,77 @@ void protobuf_AddDesc_common_2eproto() {
     "\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model.O"
     "bjType\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Plate"
     "s\030\n \003(\0132\026.dg.model.LicensePlate\022\'\n\nPasse"
-    "ngers\030\013 \003(\0132\023.dg.model.Passenger\"u\n\tPass"
-    "enger\022\n\n\002Id\030\001 \001(\003\022+\n\rPassengerAttr\030\002 \001(\013"
-    "2\024.dg.model.PeopleAttr\022\037\n\004Face\030\003 \001(\0132\021.d"
-    "g.model.RecFace\022\016\n\006Driver\030\004 \001(\010\"\237\001\n\rRecP"
-    "edestrian\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg."
-    "model.CutboardImage\022\022\n\nConfidence\030\003 \001(\002\022"
-    "\'\n\tPedesAttr\030\004 \001(\0132\024.dg.model.PeopleAttr"
-    "\022\037\n\004Face\030\005 \001(\0132\021.dg.model.RecFace\"\335\001\n\020Ve"
-    "hicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030\002 "
-    "\001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId\030\004"
-    " \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r"
-    "\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tModel"
-    "Year\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 \001("
-    "\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\tPl"
-    "ateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.model."
-    "Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001(\t\022"
-    "\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132\022."
-    "dg.model.Cutboard\022\037\n\027LocalProvinceConfid"
-    "ence\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolId\030"
-    "\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003 \003"
-    "(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutboa"
-    "rd\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfiden"
-    "ce\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001 \001"
-    "(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004Ta"
-    "gs\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001(\013"
-    "2\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.d"
-    "g.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mode"
-    "l.RecVehicle\"\203\001\n\rPedestrianObj\022\'\n\010Metada"
-    "ta\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002"
-    " \001(\0132\017.dg.model.Image\022+\n\nPedestrian\030\003 \003("
-    "\0132\027.dg.model.RecPedestrian*\303\003\n\007ObjType\022\024"
-    "\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024"
-    "\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICYCL"
-    "E\020\003\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TYPE"
-    "_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020\022\034"
-    "\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TYPE"
-    "_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDESTRI"
-    "AN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200\030\022"
-    "\036\n\031OBJ_TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ_T"
-    "YPE_BICYCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TRIC"
-    "YCLE_CUTBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIAN_"
-    "CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020\200("
-    "*G\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSON\020"
-    "\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*G\n\007Sex"
-    "Type\022\024\n\020SEX_TYPE_UNKNOWN\020\000\022\021\n\rSEX_TYPE_M"
-    "ALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020\002*\\\n\014NationalTy"
-    "pe\022\031\n\025NATIONAL_TYPE_UNKNOWN\020\000\022\025\n\021NATIONA"
-    "L_TYPE_HAN\020\001\022\032\n\026NATIONAL_TYPE_MINORITY\020\002"
-    "*k\n\007AgeType\022\024\n\020AGE_TYPE_UNKNOWN\020\000\022\021\n\rAGE"
-    "_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_1530\020\002\022\021\n\rAGE_T"
-    "YPE_3050\020\003\022\021\n\rAGE_TYPE_50UP\020\004*0\n\006DBType\022"
-    "\t\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE\020\002b"
-    "\006proto3", 3487);
+    "ngers\030\013 \003(\0132\023.dg.model.Passenger\"\305\003\n\022Rec"
+    "NonMotorVehicle\022\n\n\002Id\030\001 \001(\003\0224\n\rNMVehicle"
+    "Type\030\002 \001(\0162\035.dg.model.NonMotorVehicleTyp"
+    "e\022\031\n\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img\030\004 \001("
+    "\0132\027.dg.model.CutboardImage\022:\n\020NMVehicleG"
+    "esture\030\005 \001(\0162 .dg.model.NonMotorVehicleG"
+    "esture\022B\n\tPassenger\030\006 \003(\0132/.dg.model.Rec"
+    "NonMotorVehicle.NonMotorPedestrian\022/\n\tNM"
+    "Vehicle\030\007 \003(\0132\034.dg.model.CategoryAndFeat"
+    "ure\032{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001(\003\022(\n"
+    "\003Sex\030\002 \001(\0132\033.dg.model.NameAndConfidence\022"
+    "/\n\tAttribute\030\003 \003(\0132\034.dg.model.CategoryAn"
+    "dFeature\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+\n\rPas"
+    "sengerAttr\030\002 \001(\0132\024.dg.model.PeopleAttr\022\037"
+    "\n\004Face\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006Drive"
+    "r\030\004 \001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022$\n"
+    "\003Img\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n\nC"
+    "onfidence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132\024.dg."
+    "model.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg.mode"
+    "l.RecFace\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001 \001"
+    "(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022"
+    "\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002"
+    "\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBran"
+    "d\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n \001"
+    "(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014Li"
+    "censePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color\030\002"
+    " \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n"
+    "\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010C"
+    "utboard\030\006 \001(\0132\022.dg.model.Cutboard\022\037\n\027Loc"
+    "alProvinceConfidence\030\007 \001(\002\"X\n\rVehicleSym"
+    "bol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001("
+    "\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006"
+    "Symbol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutb"
+    "oard\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorageConfi"
+    "g\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.mo"
+    "del.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'"
+    "\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMetadata\022"
+    "\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022%\n\007Vehicle"
+    "\030\003 \003(\0132\024.dg.model.RecVehicle\"\203\001\n\rPedestr"
+    "ianObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcM"
+    "etadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022+\n"
+    "\nPedestrian\030\003 \003(\0132\027.dg.model.RecPedestri"
+    "an*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014"
+    "OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021"
+    "OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRI"
+    "AN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEH"
+    "ICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTO"
+    "R\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032O"
+    "BJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE"
+    "_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTB"
+    "OARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022"
+    "\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_"
+    "TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_"
+    "FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNO"
+    "WNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003"
+    "\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN"
+    "\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE"
+    "\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKN"
+    "OWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL"
+    "_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_"
+    "UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE"
+    "_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_5"
+    "0UP\020\004*\235\001\n\023NonMotorVehicleType\022\032\n\026TRANSPO"
+    "RTATION_BICYCLE\020\000\022\033\n\027TRANSPORTATION_VEHI"
+    "CLE2\020\001\022\033\n\027TRANSPORTATION_VEHICLE3\020\002\022\027\n\023T"
+    "RANSPORTATION_ROOF\020\003\022\027\n\023TRANSPORTATION_S"
+    "EAL\020\004*i\n\026NonMotorVehicleGesture\022\025\n\021ATTIT"
+    "UDE_POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022\021\n\rAT"
+    "TITUDE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n\006DBTy"
+    "pe\022\t\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE"
+    "\020\002b\006proto3", 4210);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -706,6 +780,8 @@ void protobuf_AddDesc_common_2eproto() {
   CategoryAndFeature::default_instance_ = new CategoryAndFeature();
   PeopleAttr::default_instance_ = new PeopleAttr();
   RecVehicle::default_instance_ = new RecVehicle();
+  RecNonMotorVehicle::default_instance_ = new RecNonMotorVehicle();
+  RecNonMotorVehicle_NonMotorPedestrian::default_instance_ = new RecNonMotorVehicle_NonMotorPedestrian();
   Passenger::default_instance_ = new Passenger();
   RecPedestrian::default_instance_ = new RecPedestrian();
   VehicleModelType::default_instance_ = new VehicleModelType();
@@ -727,6 +803,8 @@ void protobuf_AddDesc_common_2eproto() {
   CategoryAndFeature::default_instance_->InitAsDefaultInstance();
   PeopleAttr::default_instance_->InitAsDefaultInstance();
   RecVehicle::default_instance_->InitAsDefaultInstance();
+  RecNonMotorVehicle::default_instance_->InitAsDefaultInstance();
+  RecNonMotorVehicle_NonMotorPedestrian::default_instance_->InitAsDefaultInstance();
   Passenger::default_instance_->InitAsDefaultInstance();
   RecPedestrian::default_instance_->InitAsDefaultInstance();
   VehicleModelType::default_instance_->InitAsDefaultInstance();
@@ -831,6 +909,39 @@ bool AgeType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NonMotorVehicleType_descriptor_;
+}
+bool NonMotorVehicleType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleGesture_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NonMotorVehicleGesture_descriptor_;
+}
+bool NonMotorVehicleGesture_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -6621,6 +6732,1052 @@ const ::google::protobuf::RepeatedPtrField< ::dg::model::Passenger >&
 RecVehicle::passengers() const {
   // @@protoc_insertion_point(field_list:dg.model.RecVehicle.Passengers)
   return passengers_;
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RecNonMotorVehicle_NonMotorPedestrian::kIdFieldNumber;
+const int RecNonMotorVehicle_NonMotorPedestrian::kSexFieldNumber;
+const int RecNonMotorVehicle_NonMotorPedestrian::kAttributeFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RecNonMotorVehicle_NonMotorPedestrian::RecNonMotorVehicle_NonMotorPedestrian()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  sex_ = const_cast< ::dg::model::NameAndConfidence*>(&::dg::model::NameAndConfidence::default_instance());
+}
+
+RecNonMotorVehicle_NonMotorPedestrian::RecNonMotorVehicle_NonMotorPedestrian(const RecNonMotorVehicle_NonMotorPedestrian& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::SharedCtor() {
+    _is_default_instance_ = false;
+  _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
+  sex_ = NULL;
+}
+
+RecNonMotorVehicle_NonMotorPedestrian::~RecNonMotorVehicle_NonMotorPedestrian() {
+  // @@protoc_insertion_point(destructor:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  SharedDtor();
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::SharedDtor() {
+  if (this != default_instance_) {
+    delete sex_;
+  }
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RecNonMotorVehicle_NonMotorPedestrian::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecNonMotorVehicle_NonMotorPedestrian_descriptor_;
+}
+
+const RecNonMotorVehicle_NonMotorPedestrian& RecNonMotorVehicle_NonMotorPedestrian::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle_NonMotorPedestrian::default_instance_ = NULL;
+
+RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle_NonMotorPedestrian::New(::google::protobuf::Arena* arena) const {
+  RecNonMotorVehicle_NonMotorPedestrian* n = new RecNonMotorVehicle_NonMotorPedestrian;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::Clear() {
+  id_ = GOOGLE_LONGLONG(0);
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
+  attribute_.Clear();
+}
+
+bool RecNonMotorVehicle_NonMotorPedestrian::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int64 Id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_Sex;
+        break;
+      }
+
+      // optional .dg.model.NameAndConfidence Sex = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_Sex:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_sex()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_Attribute;
+        break;
+      }
+
+      // repeated .dg.model.CategoryAndFeature Attribute = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_Attribute:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Attribute:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_attribute()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_loop_Attribute;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  return false;
+#undef DO_
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
+  }
+
+  // optional .dg.model.NameAndConfidence Sex = 2;
+  if (this->has_sex()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, *this->sex_, output);
+  }
+
+  // repeated .dg.model.CategoryAndFeature Attribute = 3;
+  for (unsigned int i = 0, n = this->attribute_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->attribute(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+}
+
+::google::protobuf::uint8* RecNonMotorVehicle_NonMotorPedestrian::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
+  }
+
+  // optional .dg.model.NameAndConfidence Sex = 2;
+  if (this->has_sex()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, *this->sex_, target);
+  }
+
+  // repeated .dg.model.CategoryAndFeature Attribute = 3;
+  for (unsigned int i = 0, n = this->attribute_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->attribute(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+  return target;
+}
+
+int RecNonMotorVehicle_NonMotorPedestrian::ByteSize() const {
+  int total_size = 0;
+
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->id());
+  }
+
+  // optional .dg.model.NameAndConfidence Sex = 2;
+  if (this->has_sex()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->sex_);
+  }
+
+  // repeated .dg.model.CategoryAndFeature Attribute = 3;
+  total_size += 1 * this->attribute_size();
+  for (int i = 0; i < this->attribute_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->attribute(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RecNonMotorVehicle_NonMotorPedestrian* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecNonMotorVehicle_NonMotorPedestrian>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::MergeFrom(const RecNonMotorVehicle_NonMotorPedestrian& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  attribute_.MergeFrom(from.attribute_);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.has_sex()) {
+    mutable_sex()->::dg::model::NameAndConfidence::MergeFrom(from.sex());
+  }
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::CopyFrom(const RecNonMotorVehicle_NonMotorPedestrian& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RecNonMotorVehicle_NonMotorPedestrian::IsInitialized() const {
+
+  return true;
+}
+
+void RecNonMotorVehicle_NonMotorPedestrian::Swap(RecNonMotorVehicle_NonMotorPedestrian* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RecNonMotorVehicle_NonMotorPedestrian::InternalSwap(RecNonMotorVehicle_NonMotorPedestrian* other) {
+  std::swap(id_, other->id_);
+  std::swap(sex_, other->sex_);
+  attribute_.UnsafeArenaSwap(&other->attribute_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RecNonMotorVehicle_NonMotorPedestrian::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RecNonMotorVehicle_NonMotorPedestrian_descriptor_;
+  metadata.reflection = RecNonMotorVehicle_NonMotorPedestrian_reflection_;
+  return metadata;
+}
+
+
+// -------------------------------------------------------------------
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RecNonMotorVehicle::kIdFieldNumber;
+const int RecNonMotorVehicle::kNMVehicleTypeFieldNumber;
+const int RecNonMotorVehicle::kNMVehicleTypeNameFieldNumber;
+const int RecNonMotorVehicle::kImgFieldNumber;
+const int RecNonMotorVehicle::kNMVehicleGestureFieldNumber;
+const int RecNonMotorVehicle::kPassengerFieldNumber;
+const int RecNonMotorVehicle::kNMVehicleFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RecNonMotorVehicle::RecNonMotorVehicle()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:dg.model.RecNonMotorVehicle)
+}
+
+void RecNonMotorVehicle::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
+}
+
+RecNonMotorVehicle::RecNonMotorVehicle(const RecNonMotorVehicle& from)
+  : ::google::protobuf::Message(),
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:dg.model.RecNonMotorVehicle)
+}
+
+void RecNonMotorVehicle::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
+  nmvehicletype_ = 0;
+  nmvehicletypename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  img_ = NULL;
+  nmvehiclegesture_ = 0;
+}
+
+RecNonMotorVehicle::~RecNonMotorVehicle() {
+  // @@protoc_insertion_point(destructor:dg.model.RecNonMotorVehicle)
+  SharedDtor();
+}
+
+void RecNonMotorVehicle::SharedDtor() {
+  nmvehicletypename_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+    delete img_;
+  }
+}
+
+void RecNonMotorVehicle::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* RecNonMotorVehicle::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return RecNonMotorVehicle_descriptor_;
+}
+
+const RecNonMotorVehicle& RecNonMotorVehicle::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
+  return *default_instance_;
+}
+
+RecNonMotorVehicle* RecNonMotorVehicle::default_instance_ = NULL;
+
+RecNonMotorVehicle* RecNonMotorVehicle::New(::google::protobuf::Arena* arena) const {
+  RecNonMotorVehicle* n = new RecNonMotorVehicle;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RecNonMotorVehicle::Clear() {
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<RecNonMotorVehicle*>(16)->f)
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(nmvehicletype_, nmvehiclegesture_);
+  id_ = GOOGLE_LONGLONG(0);
+  nmvehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+
+#undef ZR_HELPER_
+#undef ZR_
+
+  passenger_.Clear();
+  nmvehicle_.Clear();
+}
+
+bool RecNonMotorVehicle::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:dg.model.RecNonMotorVehicle)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int64 Id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &id_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_NMVehicleType;
+        break;
+      }
+
+      // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_NMVehicleType:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_nmvehicletype(static_cast< ::dg::model::NonMotorVehicleType >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_NMVehicleTypeName;
+        break;
+      }
+
+      // optional string NMVehicleTypeName = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_NMVehicleTypeName:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_nmvehicletypename()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->nmvehicletypename().data(), this->nmvehicletypename().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.RecNonMotorVehicle.NMVehicleTypeName"));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_Img;
+        break;
+      }
+
+      // optional .dg.model.CutboardImage Img = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_Img:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_img()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_NMVehicleGesture;
+        break;
+      }
+
+      // optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_NMVehicleGesture:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_nmvehiclegesture(static_cast< ::dg::model::NonMotorVehicleGesture >(value));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_Passenger;
+        break;
+      }
+
+      // repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_Passenger:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_Passenger:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_passenger()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_loop_Passenger;
+        if (input->ExpectTag(58)) goto parse_loop_NMVehicle;
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      // repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+      case 7: {
+        if (tag == 58) {
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_NMVehicle:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_nmvehicle()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(58)) goto parse_loop_NMVehicle;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:dg.model.RecNonMotorVehicle)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:dg.model.RecNonMotorVehicle)
+  return false;
+#undef DO_
+}
+
+void RecNonMotorVehicle::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:dg.model.RecNonMotorVehicle)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
+  }
+
+  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  if (this->nmvehicletype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->nmvehicletype(), output);
+  }
+
+  // optional string NMVehicleTypeName = 3;
+  if (this->nmvehicletypename().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->nmvehicletypename().data(), this->nmvehicletypename().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecNonMotorVehicle.NMVehicleTypeName");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->nmvehicletypename(), output);
+  }
+
+  // optional .dg.model.CutboardImage Img = 4;
+  if (this->has_img()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      4, *this->img_, output);
+  }
+
+  // optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+  if (this->nmvehiclegesture() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      5, this->nmvehiclegesture(), output);
+  }
+
+  // repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+  for (unsigned int i = 0, n = this->passenger_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      6, this->passenger(i), output);
+  }
+
+  // repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+  for (unsigned int i = 0, n = this->nmvehicle_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      7, this->nmvehicle(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:dg.model.RecNonMotorVehicle)
+}
+
+::google::protobuf::uint8* RecNonMotorVehicle::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecNonMotorVehicle)
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
+  }
+
+  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  if (this->nmvehicletype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      2, this->nmvehicletype(), target);
+  }
+
+  // optional string NMVehicleTypeName = 3;
+  if (this->nmvehicletypename().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->nmvehicletypename().data(), this->nmvehicletypename().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.RecNonMotorVehicle.NMVehicleTypeName");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->nmvehicletypename(), target);
+  }
+
+  // optional .dg.model.CutboardImage Img = 4;
+  if (this->has_img()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        4, *this->img_, target);
+  }
+
+  // optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+  if (this->nmvehiclegesture() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      5, this->nmvehiclegesture(), target);
+  }
+
+  // repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+  for (unsigned int i = 0, n = this->passenger_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        6, this->passenger(i), target);
+  }
+
+  // repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+  for (unsigned int i = 0, n = this->nmvehicle_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        7, this->nmvehicle(i), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecNonMotorVehicle)
+  return target;
+}
+
+int RecNonMotorVehicle::ByteSize() const {
+  int total_size = 0;
+
+  // optional int64 Id = 1;
+  if (this->id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->id());
+  }
+
+  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  if (this->nmvehicletype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->nmvehicletype());
+  }
+
+  // optional string NMVehicleTypeName = 3;
+  if (this->nmvehicletypename().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->nmvehicletypename());
+  }
+
+  // optional .dg.model.CutboardImage Img = 4;
+  if (this->has_img()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->img_);
+  }
+
+  // optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+  if (this->nmvehiclegesture() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->nmvehiclegesture());
+  }
+
+  // repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+  total_size += 1 * this->passenger_size();
+  for (int i = 0; i < this->passenger_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->passenger(i));
+  }
+
+  // repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+  total_size += 1 * this->nmvehicle_size();
+  for (int i = 0; i < this->nmvehicle_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->nmvehicle(i));
+  }
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RecNonMotorVehicle::MergeFrom(const ::google::protobuf::Message& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  const RecNonMotorVehicle* source = 
+      ::google::protobuf::internal::DynamicCastToGenerated<const RecNonMotorVehicle>(
+          &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void RecNonMotorVehicle::MergeFrom(const RecNonMotorVehicle& from) {
+  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
+  passenger_.MergeFrom(from.passenger_);
+  nmvehicle_.MergeFrom(from.nmvehicle_);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
+  if (from.nmvehicletype() != 0) {
+    set_nmvehicletype(from.nmvehicletype());
+  }
+  if (from.nmvehicletypename().size() > 0) {
+
+    nmvehicletypename_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.nmvehicletypename_);
+  }
+  if (from.has_img()) {
+    mutable_img()->::dg::model::CutboardImage::MergeFrom(from.img());
+  }
+  if (from.nmvehiclegesture() != 0) {
+    set_nmvehiclegesture(from.nmvehiclegesture());
+  }
+}
+
+void RecNonMotorVehicle::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void RecNonMotorVehicle::CopyFrom(const RecNonMotorVehicle& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RecNonMotorVehicle::IsInitialized() const {
+
+  return true;
+}
+
+void RecNonMotorVehicle::Swap(RecNonMotorVehicle* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RecNonMotorVehicle::InternalSwap(RecNonMotorVehicle* other) {
+  std::swap(id_, other->id_);
+  std::swap(nmvehicletype_, other->nmvehicletype_);
+  nmvehicletypename_.Swap(&other->nmvehicletypename_);
+  std::swap(img_, other->img_);
+  std::swap(nmvehiclegesture_, other->nmvehiclegesture_);
+  passenger_.UnsafeArenaSwap(&other->passenger_);
+  nmvehicle_.UnsafeArenaSwap(&other->nmvehicle_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata RecNonMotorVehicle::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = RecNonMotorVehicle_descriptor_;
+  metadata.reflection = RecNonMotorVehicle_reflection_;
+  return metadata;
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RecNonMotorVehicle_NonMotorPedestrian
+
+// optional int64 Id = 1;
+void RecNonMotorVehicle_NonMotorPedestrian::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 RecNonMotorVehicle_NonMotorPedestrian::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Id)
+  return id_;
+}
+ void RecNonMotorVehicle_NonMotorPedestrian::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Id)
+}
+
+// optional .dg.model.NameAndConfidence Sex = 2;
+bool RecNonMotorVehicle_NonMotorPedestrian::has_sex() const {
+  return !_is_default_instance_ && sex_ != NULL;
+}
+void RecNonMotorVehicle_NonMotorPedestrian::clear_sex() {
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
+}
+const ::dg::model::NameAndConfidence& RecNonMotorVehicle_NonMotorPedestrian::sex() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+  return sex_ != NULL ? *sex_ : *default_instance_->sex_;
+}
+::dg::model::NameAndConfidence* RecNonMotorVehicle_NonMotorPedestrian::mutable_sex() {
+  
+  if (sex_ == NULL) {
+    sex_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+  return sex_;
+}
+::dg::model::NameAndConfidence* RecNonMotorVehicle_NonMotorPedestrian::release_sex() {
+  
+  ::dg::model::NameAndConfidence* temp = sex_;
+  sex_ = NULL;
+  return temp;
+}
+void RecNonMotorVehicle_NonMotorPedestrian::set_allocated_sex(::dg::model::NameAndConfidence* sex) {
+  delete sex_;
+  sex_ = sex;
+  if (sex) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+}
+
+// repeated .dg.model.CategoryAndFeature Attribute = 3;
+int RecNonMotorVehicle_NonMotorPedestrian::attribute_size() const {
+  return attribute_.size();
+}
+void RecNonMotorVehicle_NonMotorPedestrian::clear_attribute() {
+  attribute_.Clear();
+}
+const ::dg::model::CategoryAndFeature& RecNonMotorVehicle_NonMotorPedestrian::attribute(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Get(index);
+}
+::dg::model::CategoryAndFeature* RecNonMotorVehicle_NonMotorPedestrian::mutable_attribute(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Mutable(index);
+}
+::dg::model::CategoryAndFeature* RecNonMotorVehicle_NonMotorPedestrian::add_attribute() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+RecNonMotorVehicle_NonMotorPedestrian::mutable_attribute() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return &attribute_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+RecNonMotorVehicle_NonMotorPedestrian::attribute() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_;
+}
+
+// -------------------------------------------------------------------
+
+// RecNonMotorVehicle
+
+// optional int64 Id = 1;
+void RecNonMotorVehicle::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+ ::google::protobuf::int64 RecNonMotorVehicle::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Id)
+  return id_;
+}
+ void RecNonMotorVehicle::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.Id)
+}
+
+// optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+void RecNonMotorVehicle::clear_nmvehicletype() {
+  nmvehicletype_ = 0;
+}
+ ::dg::model::NonMotorVehicleType RecNonMotorVehicle::nmvehicletype() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleType)
+  return static_cast< ::dg::model::NonMotorVehicleType >(nmvehicletype_);
+}
+ void RecNonMotorVehicle::set_nmvehicletype(::dg::model::NonMotorVehicleType value) {
+  
+  nmvehicletype_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleType)
+}
+
+// optional string NMVehicleTypeName = 3;
+void RecNonMotorVehicle::clear_nmvehicletypename() {
+  nmvehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& RecNonMotorVehicle::nmvehicletypename() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+  return nmvehicletypename_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RecNonMotorVehicle::set_nmvehicletypename(const ::std::string& value) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+ void RecNonMotorVehicle::set_nmvehicletypename(const char* value) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+ void RecNonMotorVehicle::set_nmvehicletypename(const char* value, size_t size) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+ ::std::string* RecNonMotorVehicle::mutable_nmvehicletypename() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+  return nmvehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RecNonMotorVehicle::release_nmvehicletypename() {
+  
+  return nmvehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RecNonMotorVehicle::set_allocated_nmvehicletypename(::std::string* nmvehicletypename) {
+  if (nmvehicletypename != NULL) {
+    
+  } else {
+    
+  }
+  nmvehicletypename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), nmvehicletypename);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+
+// optional .dg.model.CutboardImage Img = 4;
+bool RecNonMotorVehicle::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+void RecNonMotorVehicle::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+const ::dg::model::CutboardImage& RecNonMotorVehicle::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+::dg::model::CutboardImage* RecNonMotorVehicle::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::CutboardImage;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.Img)
+  return img_;
+}
+::dg::model::CutboardImage* RecNonMotorVehicle::release_img() {
+  
+  ::dg::model::CutboardImage* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+void RecNonMotorVehicle::set_allocated_img(::dg::model::CutboardImage* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.Img)
+}
+
+// optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+void RecNonMotorVehicle::clear_nmvehiclegesture() {
+  nmvehiclegesture_ = 0;
+}
+ ::dg::model::NonMotorVehicleGesture RecNonMotorVehicle::nmvehiclegesture() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleGesture)
+  return static_cast< ::dg::model::NonMotorVehicleGesture >(nmvehiclegesture_);
+}
+ void RecNonMotorVehicle::set_nmvehiclegesture(::dg::model::NonMotorVehicleGesture value) {
+  
+  nmvehiclegesture_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleGesture)
+}
+
+// repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+int RecNonMotorVehicle::passenger_size() const {
+  return passenger_.size();
+}
+void RecNonMotorVehicle::clear_passenger() {
+  passenger_.Clear();
+}
+const ::dg::model::RecNonMotorVehicle_NonMotorPedestrian& RecNonMotorVehicle::passenger(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Get(index);
+}
+::dg::model::RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle::mutable_passenger(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Mutable(index);
+}
+::dg::model::RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle::add_passenger() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >*
+RecNonMotorVehicle::mutable_passenger() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.Passenger)
+  return &passenger_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >&
+RecNonMotorVehicle::passenger() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_;
+}
+
+// repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+int RecNonMotorVehicle::nmvehicle_size() const {
+  return nmvehicle_.size();
+}
+void RecNonMotorVehicle::clear_nmvehicle() {
+  nmvehicle_.Clear();
+}
+const ::dg::model::CategoryAndFeature& RecNonMotorVehicle::nmvehicle(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Get(index);
+}
+::dg::model::CategoryAndFeature* RecNonMotorVehicle::mutable_nmvehicle(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Mutable(index);
+}
+::dg::model::CategoryAndFeature* RecNonMotorVehicle::add_nmvehicle() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+RecNonMotorVehicle::mutable_nmvehicle() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.NMVehicle)
+  return &nmvehicle_;
+}
+const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+RecNonMotorVehicle::nmvehicle() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

@@ -1932,6 +1932,18 @@ class WitnessResult : public ::google::protobuf::Message {
   const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
       pedestrian() const;
 
+  // repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+  int nonmotorvehicles_size() const;
+  void clear_nonmotorvehicles();
+  static const int kNonMotorVehiclesFieldNumber = 6;
+  const ::dg::model::RecNonMotorVehicle& nonmotorvehicles(int index) const;
+  ::dg::model::RecNonMotorVehicle* mutable_nonmotorvehicles(int index);
+  ::dg::model::RecNonMotorVehicle* add_nonmotorvehicles();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >*
+      mutable_nonmotorvehicles();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >&
+      nonmotorvehicles() const;
+
   // @@protoc_insertion_point(class_scope:dg.model.WitnessResult)
  private:
 
@@ -1942,6 +1954,7 @@ class WitnessResult : public ::google::protobuf::Message {
   ::dg::model::WitnessImage* image_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecVehicle > vehicles_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian > pedestrian_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle > nonmotorvehicles_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_witness_2eproto();
   friend void protobuf_AssignDesc_witness_2eproto();
@@ -3639,6 +3652,36 @@ inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >&
 WitnessResult::pedestrian() const {
   // @@protoc_insertion_point(field_list:dg.model.WitnessResult.Pedestrian)
   return pedestrian_;
+}
+
+// repeated .dg.model.RecNonMotorVehicle NonMotorVehicles = 6;
+inline int WitnessResult::nonmotorvehicles_size() const {
+  return nonmotorvehicles_.size();
+}
+inline void WitnessResult::clear_nonmotorvehicles() {
+  nonmotorvehicles_.Clear();
+}
+inline const ::dg::model::RecNonMotorVehicle& WitnessResult::nonmotorvehicles(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Get(index);
+}
+inline ::dg::model::RecNonMotorVehicle* WitnessResult::mutable_nonmotorvehicles(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Mutable(index);
+}
+inline ::dg::model::RecNonMotorVehicle* WitnessResult::add_nonmotorvehicles() {
+  // @@protoc_insertion_point(field_add:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >*
+WitnessResult::mutable_nonmotorvehicles() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.WitnessResult.NonMotorVehicles)
+  return &nonmotorvehicles_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle >&
+WitnessResult::nonmotorvehicles() const {
+  // @@protoc_insertion_point(field_list:dg.model.WitnessResult.NonMotorVehicles)
+  return nonmotorvehicles_;
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

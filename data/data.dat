@@ -99,6 +99,16 @@
       "ColorParam": "801.dat",
       "ChrecogSymbol": "800.txt",
       "ChrecogParam": "800.dat"
+    },
+    "NonMotorVehicle": {
+      "ModelPath": "data/",
+      "BitriTrainedModel": "1100.dat",
+      "BitriDeployModel": "1100.txt",
+      "UpperTrainedModel": "1101.dat",
+      "UpperDeployModel": "1101.txt",
+      "RpnTrainedModel": "1102.dat",
+      "RpnDeployModel": "1102.txt",
+      "AttributeFile": "bitri_threshold.txt"
     }
   }
 }

@@ -385,6 +385,56 @@ private:
 
 };
 
+class NonMotorVehicle: public Object {
+public:
+    typedef struct {
+        int index = 0;
+        string tagname = "";
+        Confidence confidence = 0;
+        float threshold_lower = 0;
+        float threshold_upper = 0;
+        int mappingId = 0;
+        int categoryId = 0;
+    } Attr;
+
+    NonMotorVehicle(ObjectType type) : Object(type) {
+    }
+
+    ~NonMotorVehicle() {
+
+    }
+
+    const cv::Mat &image() const {
+        return image_;
+    }
+
+    const cv::Mat &resized_image() const {
+        return resized_image_;
+    }
+
+    void set_image(const cv::Mat &image) {
+        image_ = image;
+        cv::resize(image_, resized_image_, cv::Size(256, 256));
+        resized_image_ = resized_image_(cv::Rect(8, 8, 240, 240));
+    }
+
+    map<string, float> &threshold() {
+        return threshold_;
+    };
+
+    vector<Attr> &attrs() {
+        return attrs_;
+    }
+
+private:
+
+    cv::Mat image_;
+    cv::Mat resized_image_;
+    std::vector<Attr> attrs_;
+    std::map<string, float> threshold_;
+
+};
+
 class Face: public Object {
 
 public:
