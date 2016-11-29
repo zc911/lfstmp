@@ -4,7 +4,7 @@
 #include "processor/vehicle_color_processor.h"
 #include "processor/vehicle_marker_classifier_processor.h"
 #include "processor/vehicle_belt_classifier_processor.h"
-
+#include "processor/non_motor_vehicle_classifier_processor.h"
 #include "processor/vehicle_plate_recognizer_processor.h"
 #include "processor/car_feature_extract_processor.h"
 #include "processor/face_detect_processor.h"
@@ -393,6 +393,19 @@ void WitnessEngine::init(const Config &config) {
                 vehicle_processor_ = p;
             }
             else {
+                last->SetNextProcessor(p);
+            }
+            last = p;
+        }
+
+        if (true) {
+            LOG(INFO) << "Enable non-motor vehicle attribute processor" << endl;
+            NonMotorVehicleClassifier::NonMotorVehicleConfig configs;
+            configFilter->createPedestrianConfig(config, configs);
+            Processor *p = new NonMotorVehicleClassifierProcessor(configs);
+            if (last == NULL) {
+                vehicle_processor_ = p;
+            } else {
                 last->SetNextProcessor(p);
             }
             last = p;
