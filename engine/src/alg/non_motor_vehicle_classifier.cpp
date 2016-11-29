@@ -484,15 +484,6 @@ CaffeAttribute::CaffeAttribute(const string& attrib_table_path,
 }
 
 void CaffeAttribute::load_names(const string &name_list, vector<CaffeAttribute::Attrib> &attribs) {
-    /**
-        string name;
-    float thresh_low;
-    float thresh_high;
-    int idx;
-    float confidence;
-    int mappingId;
-    int categoryId;
-*/
     ifstream fp(name_list);
     attribs.resize(0);
     while (!fp.eof()) {
@@ -516,7 +507,7 @@ void CaffeAttribute::load_names(const string &name_list, vector<CaffeAttribute::
     }
 }
 
-void CaffeAttribute::AttributePredict(const vector<Mat> &imgs, vector<vector<float> > &results) {
+void CaffeAttribute::BatchAttributePredict(const vector<Mat> &imgs, vector<vector<float> > &results) {
     Blob<float>* input_blob = _net->input_blobs()[0];
     int num_imgs = static_cast<int>(imgs.size());
     assert(num_imgs <= _batch_size);
@@ -572,7 +563,27 @@ void CaffeAttribute::AttributePredict(const vector<Mat> &imgs, vector<vector<flo
         for (int idx = 0; idx < feature_len; ++idx) {
             feature[idx] = data[idx];
         }   
-    }   
+    }
+}
+
+void CaffeAttribute::AttributePredict(const vector<Mat> &imgs, vector<vector<float> > &results) {
+
+    results.clear();
+    vector<Mat> toPredict;
+    for (auto i : imgs) {
+        toPredict.push_back(i);
+        if (toPredict.size() == _batch_size) {
+            vector<vector<float>> predict_result;
+            BatchAttributePredict(toPredict, predict_result);
+            results.insert(results.end(), predict_result.begin(), predict_result.end());
+            toPredict.clear();
+        }
+    }
+    if (toPredict.size() > 0) {
+        vector<vector<float>> predict_result;
+        BatchAttributePredict(toPredict, predict_result);
+        results.insert(results.end(), predict_result.begin(), predict_result.end());
+    }
 }
 
 } /* namespace dg */
