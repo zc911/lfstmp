@@ -4,6 +4,7 @@
 #include "frame_batch_helper.h"
 #include "vehicle_processor_head.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,7 @@ static VehicleProcessorHead *head;
 static FileReader *resultReader;
 
 static void init() {
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     resultReader = NULL;
@@ -157,7 +159,7 @@ TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     config.confirm_deploy_file = baseModelPath + "311.txt";
     config.confirm_model_file = baseModelPath + "311.dat";
     VehicleMultiTypeDetectorProcessor *carOnlyProcessor =
-            new VehicleMultiTypeDetectorProcessor(config);
+            new VehicleMultiTypeDetectorProcessor(config, false);
 
 
     fbhelper = new FrameBatchHelper(1);

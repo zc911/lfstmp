@@ -1,0 +1,3 @@
+picture_id,candidate_number,best_candidate_index,Roi_X,Roi_Y,Roi_width,Roi_height
+0,2,1,1,1,260,190
+1,2,1,1,1,260,190

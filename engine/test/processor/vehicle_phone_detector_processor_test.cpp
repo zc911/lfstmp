@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_phone_detector_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,7 +14,8 @@ static VehiclePhoneClassifierProcessor *vbcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    VehicleCaffeDetectorConfig mConfig;
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+/*    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     mConfig.is_model_encrypt = false;
@@ -24,9 +26,9 @@ static void initConfig() {
 #endif
 
     mConfig.deploy_file = baseModelPath + "604.txt";
-    mConfig.model_file = baseModelPath + "604.dat";
+    mConfig.model_file = baseModelPath + "604.dat"; */
 
-    vbcprocessor = new VehiclePhoneClassifierProcessor(mConfig);
+    vbcprocessor = new VehiclePhoneClassifierProcessor();
 }
 
 static Operation getOperation() {

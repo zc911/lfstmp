@@ -9,7 +9,7 @@
 #define SRC_PROCESSOR_VEHICLE_PLATE_RECOGNIZER_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/plate/plate_recognizer.h"
+#include "plate_recognizer.h"
 namespace dg {
 
 class PlateRecognizerProcessor: public Processor {

@@ -64,28 +64,6 @@ inline bool RecognizeType_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<RecognizeType>(
     RecognizeType_descriptor(), name, value);
 }
-enum RankType {
-  RANK_TYPE_DEFAULT = 0,
-  RANK_TYPE_VEHICLE = 1,
-  RANK_TYPE_FACE = 2,
-  RankType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  RankType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool RankType_IsValid(int value);
-const RankType RankType_MIN = RANK_TYPE_DEFAULT;
-const RankType RankType_MAX = RANK_TYPE_FACE;
-const int RankType_ARRAYSIZE = RankType_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* RankType_descriptor();
-inline const ::std::string& RankType_Name(RankType value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    RankType_descriptor(), value);
-}
-inline bool RankType_Parse(
-    const ::std::string& name, RankType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<RankType>(
-    RankType_descriptor(), name, value);
-}
 enum RecognizeFunctions {
   RECFUNC_NONE = 0,
   RECFUNC_VEHICLE = 1,
@@ -380,7 +358,6 @@ inline ::std::string* MatrixError::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MatrixError::release_message() {
-  // @@protoc_insertion_point(field_release:dg.model.MatrixError.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -411,11 +388,6 @@ template <> struct is_proto_enum< ::dg::model::RecognizeType> : ::google::protob
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::RecognizeType>() {
   return ::dg::model::RecognizeType_descriptor();
-}
-template <> struct is_proto_enum< ::dg::model::RankType> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::RankType>() {
-  return ::dg::model::RankType_descriptor();
 }
 template <> struct is_proto_enum< ::dg::model::RecognizeFunctions> : ::google::protobuf::internal::true_type {};
 template <>

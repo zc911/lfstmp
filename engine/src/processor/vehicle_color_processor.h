@@ -9,16 +9,18 @@
 #define SRC_PROCESSOR_VEHICLE_COLOR_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/classification/vehicle_caffe_classifier.h"
+//#include "alg/classification/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
-#include "alg/classification/caffe_vehicle_color_classifier.h"
+//#include "alg/classification/caffe_vehicle_color_classifier.h"
 #include "model/basic.h"
+#include "algorithm_factory.h"
+#include "util/caffe_helper.h"
+
 namespace dg {
 static int SHIFT_COLOR = 1000;
 class VehicleColorProcessor: public Processor {
 public:
-    VehicleColorProcessor(
-        const vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+    VehicleColorProcessor();
     ~VehicleColorProcessor();
 
 protected:
@@ -75,7 +77,7 @@ protected:
     void vehiclesResizedMat(FrameBatch *frameBatch);
 private:
 
-    vector<CaffeVehicleColorClassifier *> classifiers_;
+    vector<dgvehicle::AlgorithmProcessor *> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;
     float color_low_thr_ = 0.3;

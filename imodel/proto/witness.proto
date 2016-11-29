@@ -136,6 +136,7 @@ message WitnessResult {
     WitnessImage Image = 3; //响应的图片信息
     repeated RecVehicle Vehicles = 4; //识别的车辆列表
     repeated RecPedestrian Pedestrian = 5; //识别的行人列表
+    repeated RecNonMotorVehicle NonMotorVehicles = 6;
 }
 
 

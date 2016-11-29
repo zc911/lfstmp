@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/car_feature_extract_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,6 +14,9 @@ static CarFeatureExtractProcessor *cfeprocessor;
 static FileReader *resultReader;
 
 static void init() {
+
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+
     resultReader = NULL;
     cfeprocessor = new CarFeatureExtractProcessor();
     head = new VehicleProcessorHead();

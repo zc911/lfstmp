@@ -3,6 +3,7 @@
 #include "vehicle_processor_head.h"
 #include "processor/vehicle_color_processor.h"
 #include "file_reader.h"
+#include "algorithm_factory.h"
 
 using namespace std;
 using namespace dg;
@@ -13,7 +14,8 @@ static VehicleColorProcessor *vcprocessor;
 static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
-    CaffeVehicleColorClassifier::VehicleColorConfig config;
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+/*    CaffeVehicleColorClassifier::VehicleColorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
@@ -23,10 +25,10 @@ static void initConfig() {
     baseModelPath = "data/1/";
 #endif
     config.deploy_file = baseModelPath + "200.txt";
-    config.model_file = baseModelPath + "200.dat";
-    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
-    configs.push_back(config);
-    vcprocessor = new VehicleColorProcessor(configs);
+    config.model_file = baseModelPath + "200.dat"; */
+//    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
+//    configs.push_back(config);
+    vcprocessor = new VehicleColorProcessor();
 }
 
 static void init() {
