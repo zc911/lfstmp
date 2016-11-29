@@ -62,6 +62,14 @@ public:
         return lookup_string(pedestrian_attr_catagory_repo_, attrId);
     }
 
+    string FindNonMotorAttrName(int attrId) {
+        return lookup_string(nonMotor_attr_mapping_repo_, attrId);
+    }
+
+    string FindNonMotorAttrCategory(int attrId) {
+        return lookup_string(nonMotor_attr_category_repo_, attrId);
+    }
+
     static void CopyCutboard(const Detection &b, Cutboard *cb) {
         cb->set_x(b.box.x);
         cb->set_y(b.box.y);
@@ -95,9 +103,13 @@ private:
     //string plate_color_gpu_mapping_data_;
     vector<string> pedestrian_attr_type_repo_;
     vector<string> pedestrian_attr_catagory_repo_;
+    vector<string> nonMotor_attr_mapping_repo_;
+    vector<string> nonMotor_attr_category_repo_;
     vector<pair<int, string> > symbol_repo_;
     string pedestrian_attr_mapping_data_;
     string pedestrian_attr_catagory_data_;
+    string nonMotor_attr_mapping_data_;
+    string nonMotor_attr_category_data_;
     float pBodyRelativeFaceLeft;
     float pBodyRelativeFaceRight;
     float pBodyRelativeFaceTop;

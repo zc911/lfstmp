@@ -83,7 +83,8 @@
             "EnableFeatureVector": true
         }, 
         "Vehicle": {
-            "Enable": true, 
+            "Enable": true,
+            "EnableNonMotorVehicle": true, 
             "EnableColor": true, 
             "EnableDetection": true, 
             "EnableFeatureVector": true, 
@@ -119,6 +120,10 @@
             }, 
             "Symbol": "data/mapping/vehicle_symbol.txt", 
             "Type": "data/mapping/vehicle_type.txt"
+        },
+        "NonMotorVehicle": {
+            "NonMotorAttr": "data/mapping/bitri_attr_type.txt",
+            "NonMotorCategory": "data/mapping/bitri_attr_category.txt"
         }
     }, 
     "Storage": {
