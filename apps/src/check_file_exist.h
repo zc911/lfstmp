@@ -51,10 +51,11 @@ bool FilesAllExist(Config *config) {
     model_num = model_num == 0 ? 1 : model_num;
     for (int i = 0; i < model_num; ++i) {
         flag = flag && fileExist(((modelPath)
-                                  + (string) dataConfig->Value(FILE_STYLE_TRAINED_MODEL) + std::to_string(i) + ".dat").c_str());
+            + (string) dataConfig->Value(FILE_STYLE_TRAINED_MODEL) + std::to_string(i) + ".dat").c_str());
         flag = flag && fileExist(((modelPath)
-                                  + (string) dataConfig->Value(FILE_STYLE_DEPLOY_MODEL) + std::to_string(i) + ".txt").c_str());
+            + (string) dataConfig->Value(FILE_STYLE_DEPLOY_MODEL) + std::to_string(i) + ".txt").c_str());
     }
+
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_DETECTION_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_DETECTION_DEPLOY_MODEL)).c_str());
 
@@ -71,7 +72,7 @@ bool FilesAllExist(Config *config) {
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_MARKER_DEPLOY_MODEL)).c_str());
 
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_MARKER_ONLY_TRAINED_MODEL)).c_str());
-    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_MARKER_ONLY_DEPLOY_MODEL)).c_str());
+    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_MARKER_ONLY_DEPLOY_MODEL)).c_str()); 
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_DRIVER_BELT_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_DRIVER_BELT_DEPLOY_MODEL)).c_str());
 
@@ -90,12 +91,9 @@ bool FilesAllExist(Config *config) {
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_WINDOW_ONLY_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_WINDOW_ONLY_DEPLOY_MODEL)).c_str());
 
-    int method = (int) config->Value(ADVANCED_FACE_DETECT_METHOD);
-    flag = flag && fileExist((modelPath
-                             + (string) dataConfig->Value(FILE_FACE_DETECT_TRAINED_MODEL) + to_string(method) + ".dat").c_str());
-    flag = flag && fileExist((modelPath
-                             + (string) dataConfig->Value(FILE_FACE_DETECT_DEPLOY_MODEL) + to_string(method) + ".txt").c_str());
 
+    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_DETECT_TRAINED_MODEL)).c_str());
+    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_DETECT_DEPLOY_MODEL)).c_str());
 
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_DEPLOY_MODEL)).c_str());

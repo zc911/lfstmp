@@ -5,9 +5,9 @@
 #include <vector>
 #include <sys/time.h>
 #include <grpc++/grpc++.h>
-#include "witness.grpc.pb.h"
-#include "spring.grpc.pb.h"
-#include "system.grpc.pb.h"
+#include "model/witness.grpc.pb.h"
+#include "model/spring.grpc.pb.h"
+#include "model/system.grpc.pb.h"
 #include "pbjson/pbjson.hpp"
 #include "codec/base64.h"
 #include "string_util.h"
@@ -22,16 +22,13 @@ using namespace dg;
 using namespace dg::model;
 
 static void SetFunctions(WitnessRequestContext *ctx) {
-   /* ctx->mutable_functions()->Add(1);
+    ctx->mutable_functions()->Add(1);
     ctx->mutable_functions()->Add(2);
     ctx->mutable_functions()->Add(3);
     ctx->mutable_functions()->Add(4);
     ctx->mutable_functions()->Add(5);
     ctx->mutable_functions()->Add(6);
-    ctx->mutable_functions()->Add(7);*/
-    ctx->mutable_functions()->Add(2);
-    ctx->mutable_functions()->Add(20);
-    ctx->mutable_functions()->Add(21);
+    ctx->mutable_functions()->Add(7);
 //    ctx->mutable_functions()->Add(8);
 }
 
@@ -72,7 +69,79 @@ static void Print(const WitnessRequest &req) {
 static void PrintCost(string s, struct timeval &start, struct timeval &end) {
     cout << s << (end.tv_sec - start.tv_sec) * 1000 + (end.tv_usec - start.tv_usec) / 1000 << endl;
 }
+class SystemClient {
+public:
+    SystemClient(std::shared_ptr<Channel> channel) : stub_(SystemService::NewStub(channel)) {
 
+    }
+    void Ping() {
+        cout << "hello ping" << endl;
+        PingRequest req;
+        PingResponse resp;
+        ClientContext context;
+        Status status = stub_->Ping(&context, req, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << resp.message() << endl;
+        } else {
+            cout << " pint error" << endl;
+        }
+    }
+    void Info() {
+        cout << "hello ping" << endl;
+        SystemStatusRequest req;
+        SystemStatusResponse resp;
+        ClientContext context;
+        Status status = stub_->SystemStatus(&context, req, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << resp.gpuusage() << endl;
+        } else {
+            cout << " pint error" << endl;
+        }
+    }
+private:
+    std::unique_ptr<SystemService::Stub> stub_;
+
+};
+class SpringClient {
+public:
+    SpringClient(std::shared_ptr<Channel> channel) : stub_(SpringService::NewStub(channel)) {
+
+    }
+    void IndexVehicle() {
+        VehicleObj v;
+        NullMessage resp;
+        ClientContext context;
+        RecVehicle *vehicle = v.add_vehicle();
+        vehicle->mutable_modeltype()->set_brandid(23);
+        vehicle->mutable_color()->set_colorname("1234");
+        vehicle->mutable_plate()->set_platetext("djhf");
+        //     vehicle->set_vehicletypename("34");
+        v.mutable_img()->set_id("slkdjg");
+        //  plate.set_platetext("123456");
+        //  vehicle->mutable_plate()->set_platetext(test);
+        //   rapidjson::Value *value = pbjson::pb2jsonobject(&v);
+        string s;
+        //   pbjson::json2string(value, s);
+        v.SerializeToString(&s);
+
+        for (int i = 0; i < s.size(); i++) {
+            cout << (int)s[i] << " ";
+        }
+        cout << endl;
+        //  string s;
+        //   google::protobuf::TextFormat::PrintToString(v,&s);
+        //   cout<<s<<endl;
+        Status status = stub_->IndexVehicle(&context, v, &resp);
+        if (status.ok()) {
+            cout << "ping finish: " << endl;
+        } else {
+            cout << " pint error" << status.error_code() << endl;
+        }
+    }
+private:
+    std::unique_ptr<SpringService::Stub> stub_;
+
+};
 class WitnessClient {
 public:
     WitnessClient(std::shared_ptr<Channel> channel)
@@ -331,6 +400,19 @@ void callA(string address, string image_file_path, bool batch) {
     }
 }
 
+void callP(string address) {
+    SystemClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    client.Ping();
+}
+
+void callI(string address) {
+    SystemClient client(
+        grpc::CreateChannel(string(address),
+                            grpc::InsecureChannelCredentials()));
+    client.Info();
+}
 
 void callS(string address, string image_file_path, bool batch, bool uri) {
     WitnessClient client(
@@ -355,6 +437,10 @@ void callS(string address, string image_file_path, bool batch, bool uri) {
             client.Recognize(image_file_path, id, uri);
         }
     }
+}
+void callSP(string address) {
+    SpringClient client(grpc::CreateChannel(string(address), grpc::InsecureChannelCredentials()));
+    client.IndexVehicle();
 }
 int main(int argc, char *argv[]) {
     if (argc != 7) {
@@ -395,6 +481,11 @@ int main(int argc, char *argv[]) {
 
     } else {
         switch (status) {
+        case 0: {
+            thread t(callP, address);
+            t.join();
+        }
+        break;
         case 1: {
             thread t(callS, address, image_file_path, batch, true);
             t.join();
