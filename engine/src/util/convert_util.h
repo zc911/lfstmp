@@ -49,8 +49,8 @@ std::vector<float> descriptor_;
 */
 static FaceRankFeature ConvertDgvehicleFaceRankFeature(dgvehicle::FaceRankFeature dgFeature) {
     FaceRankFeature faceRankFeature;
-    faceRankFeature.descriptor_.clear();
-    faceRankFeature.descriptor_.assign(dgFeature.descriptor_.begin(), dgFeature.descriptor_.end());
+    faceRankFeature.feature_.clear();
+    faceRankFeature.feature_.assign(dgFeature.descriptor_.begin(), dgFeature.descriptor_.end());
     
     return faceRankFeature;
 }
@@ -58,7 +58,7 @@ static FaceRankFeature ConvertDgvehicleFaceRankFeature(dgvehicle::FaceRankFeatur
 static dgvehicle::FaceRankFeature ConvertToDgvehicleFaceRankFeature(FaceRankFeature feature) {
     dgvehicle::FaceRankFeature faceRankFeature;
     faceRankFeature.descriptor_.clear();
-    faceRankFeature.descriptor_.assign(feature.descriptor_.begin(), feature.descriptor_.end());
+    faceRankFeature.descriptor_.assign(feature.feature_.begin(), feature.feature_.end());
     
     return faceRankFeature;
 }

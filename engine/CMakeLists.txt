@@ -16,6 +16,8 @@ SET(PLATFORM ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR})
 SET(INCLUDE_PATH ${PROJECT_SOURCE_DIR}/../include)
 SET(LIBS_PATH ${PROJECT_SOURCE_DIR}/../lib)
 
+message(${CONAN_INCLUDE_DIRS})
+
 INCLUDE_DIRECTORIES(${CONAN_INCLUDE_DIRS} ${INCLUDE_PATH}/matrix_util src /usr/include/glib-2.0 /usr/lib/x86_64-linux-gnu/glib-2.0/include /usr/include/gstreamer-0.10 /usr/include/glib-2.0 /usr/include/libxml2 /usr/include/freetype2)
 
 foreach(libdir ${CONAN_LIB_DIRS})

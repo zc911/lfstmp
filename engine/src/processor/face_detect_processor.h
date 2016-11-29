@@ -12,10 +12,7 @@
 #include "processor/processor.h"
 #include "model/frame.h"
 #include "model/model.h"
-#include "dgface/detector/det_dlib.h"
-#include "dgface/detector/det_rpn.h"
-#include "dgface/detector/det_ssd.h"
-#include "dgface/detector/det_fcn.h"
+
 #include "dgface/detector.h"
 
 namespace dg {
