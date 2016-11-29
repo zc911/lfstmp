@@ -57,7 +57,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     }
 
     // For other method, use dlib alignment as default
-    if (config.method == CDNNRecog || config.method == CdnnCaffeRecog) {
+    if (config.method == CDNNRecog || config.method == LBPRecog) {
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
         adjust_box(faConfig.detect_type, avgfacebbox);
