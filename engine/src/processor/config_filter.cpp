@@ -324,6 +324,27 @@ void ConfigFilter::createCoDriverBeltConfig(const Config &cconfig,
         bConfig.is_driver=false;
 
 }
+void ConfigFilter::createPedestrianConfig(const Config &cconfig,
+                          NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig) {
+    bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+    string modelPath = (string) data_config_.Value(FILE_NONMOTORVEHICLE_MODEL_PATH) 
+                            + (is_encrypted == true ? "1/" : "0/");
+                            
+    nmConfig.is_model_encrypt = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
+    nmConfig.gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+    nmConfig.use_gpu = true;
+    nmConfig.bitri_trained_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_BITRI_TRAINED_MODEL);
+    nmConfig.bitri_deploy_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_BITRI_DEPLOY_MODEL);
+    nmConfig.upper_trained_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_UPPER_TRAINED_MODEL);
+    nmConfig.upper_deploy_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_UPPER_DEPLOY_MODEL);
+    nmConfig.rpn_trained_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_RPN_TRAINED_MODEL);
+    nmConfig.rpn_deploy_file = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_RPN_DEPLOY_MODEL);
+    nmConfig.bitri_layer_name = "loss3/classifier_bitriattrib_46";
+    nmConfig.upper_layer_name = "loss3/classifier_bitriattrib_46";
+    nmConfig.attrib_table_path = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_ATTRIBUTE_FILE);
+    
+}
 void ConfigFilter::createMarkersConfig(const Config &cconfig,
                          VehicleCaffeDetectorConfig &mConfig){
     int batch_size = (int) cconfig.Value(ADVANCED_MARKER_BATCH_SIZE);

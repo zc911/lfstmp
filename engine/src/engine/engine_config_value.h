@@ -18,6 +18,8 @@ static const string SYSTEM_GPUID = "System/GpuId";
 
 // feature/vehicle
 static const string FEATURE_VEHICLE_ENABLE = "Feature/Vehicle/Enable";
+static const string FEATURE_VEHICLE_ENABLE_NONMOTORVEHICLE =
+    "Feature/Vehicle/EnableNonMotorVehicle";
 static const string FEATURE_VEHICLE_ENABLE_DETECTION =
     "Feature/Vehicle/EnableDetection";
 static const string FEATURE_VEHICLE_ENABLE_TYPE = "Feature/Vehicle/EnableType";
@@ -168,6 +170,14 @@ static const string FILE_WINDOW_ONLY_MODEL_PATH = "File/WindowOnly/ModelPath";
 static const string FILE_WINDOW_ONLY_TRAINED_MODEL = "File/WindowOnly/TrainedModel";
 static const string FILE_WINDOW_ONLY_DEPLOY_MODEL = "File/WindowOnly/DeployModel";
 
+static const string FILE_NONMOTORVEHICLE_MODEL_PATH = "File/NonMotorVehicle/ModelPath";
+static const string FILE_NONMOTORVEHICLE_BITRI_TRAINED_MODEL = "File/NonMotorVehicle/BitriTrainedModel";
+static const string FILE_NONMOTORVEHICLE_BITRI_DEPLOY_MODEL = "File/NonMotorVehicle/BitriDeployModel";
+static const string FILE_NONMOTORVEHICLE_UPPER_TRAINED_MODEL = "File/NonMotorVehicle/UpperTrainedModel";
+static const string FILE_NONMOTORVEHICLE_UPPER_DEPLOY_MODEL = "File/NonMotorVehicle/UpperDeployModel";
+static const string FILE_NONMOTORVEHICLE_RPN_TRAINED_MODEL = "File/NonMotorVehicle/RpnTrainedModel";
+static const string FILE_NONMOTORVEHICLE_RPN_DEPLOY_MODEL = "File/NonMotorVehicle/RpnDeployModel";
+static const string FILE_NONMOTORVEHICLE_ATTRIBUTE_FILE = "File/NonMotorVehicle/AttributeFile";
 
 static const string FILE_FACE_DETECT_MODEL_PATH = "File/FaceDetect/ModelPath";
 static const string FILE_FACE_DETECT_TRAINED_MODEL =
