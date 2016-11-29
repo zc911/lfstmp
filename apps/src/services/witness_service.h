@@ -42,6 +42,8 @@ public:
 private:
     MatrixError getRecognizedVehicle(const Vehicle *vobj,
                                      RecVehicle *vrec);
+    MatrixError getRecognizedNonMotorVehicle(NonMotorVehicle * vobj,
+                                     RecNonMotorVehicle * vrec);
     MatrixError getRecognizedPedestrian(const Pedestrian *pobj,
                                         RecPedestrian *vrec);
     MatrixError getRecognizedFace(const vector<const Face *>faceVector,

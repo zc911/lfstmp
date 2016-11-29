@@ -51,6 +51,8 @@ class Passenger;
 class PedestrianObj;
 class PeopleAttr;
 class RecFace;
+class RecNonMotorVehicle;
+class RecNonMotorVehicle_NonMotorPedestrian;
 class RecPedestrian;
 class RecVehicle;
 class SrcMetadata;
@@ -186,6 +188,53 @@ inline bool AgeType_Parse(
     const ::std::string& name, AgeType* value) {
   return ::google::protobuf::internal::ParseNamedEnum<AgeType>(
     AgeType_descriptor(), name, value);
+}
+enum NonMotorVehicleType {
+  TRANSPORTATION_BICYCLE = 0,
+  TRANSPORTATION_VEHICLE2 = 1,
+  TRANSPORTATION_VEHICLE3 = 2,
+  TRANSPORTATION_ROOF = 3,
+  TRANSPORTATION_SEAL = 4,
+  NonMotorVehicleType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  NonMotorVehicleType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool NonMotorVehicleType_IsValid(int value);
+const NonMotorVehicleType NonMotorVehicleType_MIN = TRANSPORTATION_BICYCLE;
+const NonMotorVehicleType NonMotorVehicleType_MAX = TRANSPORTATION_SEAL;
+const int NonMotorVehicleType_ARRAYSIZE = NonMotorVehicleType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor();
+inline const ::std::string& NonMotorVehicleType_Name(NonMotorVehicleType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    NonMotorVehicleType_descriptor(), value);
+}
+inline bool NonMotorVehicleType_Parse(
+    const ::std::string& name, NonMotorVehicleType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<NonMotorVehicleType>(
+    NonMotorVehicleType_descriptor(), name, value);
+}
+enum NonMotorVehicleGesture {
+  ATTITUDE_POSITIVE = 0,
+  ATTITUDE_RIGHT = 1,
+  ATTITUDE_LEFT = 2,
+  ATTITUDE_BACK = 3,
+  NonMotorVehicleGesture_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  NonMotorVehicleGesture_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool NonMotorVehicleGesture_IsValid(int value);
+const NonMotorVehicleGesture NonMotorVehicleGesture_MIN = ATTITUDE_POSITIVE;
+const NonMotorVehicleGesture NonMotorVehicleGesture_MAX = ATTITUDE_BACK;
+const int NonMotorVehicleGesture_ARRAYSIZE = NonMotorVehicleGesture_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* NonMotorVehicleGesture_descriptor();
+inline const ::std::string& NonMotorVehicleGesture_Name(NonMotorVehicleGesture value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    NonMotorVehicleGesture_descriptor(), value);
+}
+inline bool NonMotorVehicleGesture_Parse(
+    const ::std::string& name, NonMotorVehicleGesture* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<NonMotorVehicleGesture>(
+    NonMotorVehicleGesture_descriptor(), name, value);
 }
 enum DBType {
   KAFKA = 0,
@@ -1542,6 +1591,249 @@ class RecVehicle : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static RecVehicle* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RecNonMotorVehicle_NonMotorPedestrian : public ::google::protobuf::Message {
+ public:
+  RecNonMotorVehicle_NonMotorPedestrian();
+  virtual ~RecNonMotorVehicle_NonMotorPedestrian();
+
+  RecNonMotorVehicle_NonMotorPedestrian(const RecNonMotorVehicle_NonMotorPedestrian& from);
+
+  inline RecNonMotorVehicle_NonMotorPedestrian& operator=(const RecNonMotorVehicle_NonMotorPedestrian& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecNonMotorVehicle_NonMotorPedestrian& default_instance();
+
+  void Swap(RecNonMotorVehicle_NonMotorPedestrian* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecNonMotorVehicle_NonMotorPedestrian* New() const { return New(NULL); }
+
+  RecNonMotorVehicle_NonMotorPedestrian* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecNonMotorVehicle_NonMotorPedestrian& from);
+  void MergeFrom(const RecNonMotorVehicle_NonMotorPedestrian& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecNonMotorVehicle_NonMotorPedestrian* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional int64 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
+
+  // optional .dg.model.NameAndConfidence Sex = 2;
+  bool has_sex() const;
+  void clear_sex();
+  static const int kSexFieldNumber = 2;
+  const ::dg::model::NameAndConfidence& sex() const;
+  ::dg::model::NameAndConfidence* mutable_sex();
+  ::dg::model::NameAndConfidence* release_sex();
+  void set_allocated_sex(::dg::model::NameAndConfidence* sex);
+
+  // repeated .dg.model.CategoryAndFeature Attribute = 3;
+  int attribute_size() const;
+  void clear_attribute();
+  static const int kAttributeFieldNumber = 3;
+  const ::dg::model::CategoryAndFeature& attribute(int index) const;
+  ::dg::model::CategoryAndFeature* mutable_attribute(int index);
+  ::dg::model::CategoryAndFeature* add_attribute();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+      mutable_attribute();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+      attribute() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.RecNonMotorVehicle.NonMotorPedestrian)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 id_;
+  ::dg::model::NameAndConfidence* sex_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature > attribute_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static RecNonMotorVehicle_NonMotorPedestrian* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class RecNonMotorVehicle : public ::google::protobuf::Message {
+ public:
+  RecNonMotorVehicle();
+  virtual ~RecNonMotorVehicle();
+
+  RecNonMotorVehicle(const RecNonMotorVehicle& from);
+
+  inline RecNonMotorVehicle& operator=(const RecNonMotorVehicle& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const RecNonMotorVehicle& default_instance();
+
+  void Swap(RecNonMotorVehicle* other);
+
+  // implements Message ----------------------------------------------
+
+  inline RecNonMotorVehicle* New() const { return New(NULL); }
+
+  RecNonMotorVehicle* New(::google::protobuf::Arena* arena) const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const RecNonMotorVehicle& from);
+  void MergeFrom(const RecNonMotorVehicle& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecNonMotorVehicle* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _internal_metadata_.arena();
+  }
+  inline void* MaybeArenaPtr() const {
+    return _internal_metadata_.raw_arena_ptr();
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  typedef RecNonMotorVehicle_NonMotorPedestrian NonMotorPedestrian;
+
+  // accessors -------------------------------------------------------
+
+  // optional int64 Id = 1;
+  void clear_id();
+  static const int kIdFieldNumber = 1;
+  ::google::protobuf::int64 id() const;
+  void set_id(::google::protobuf::int64 value);
+
+  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  void clear_nmvehicletype();
+  static const int kNMVehicleTypeFieldNumber = 2;
+  ::dg::model::NonMotorVehicleType nmvehicletype() const;
+  void set_nmvehicletype(::dg::model::NonMotorVehicleType value);
+
+  // optional string NMVehicleTypeName = 3;
+  void clear_nmvehicletypename();
+  static const int kNMVehicleTypeNameFieldNumber = 3;
+  const ::std::string& nmvehicletypename() const;
+  void set_nmvehicletypename(const ::std::string& value);
+  void set_nmvehicletypename(const char* value);
+  void set_nmvehicletypename(const char* value, size_t size);
+  ::std::string* mutable_nmvehicletypename();
+  ::std::string* release_nmvehicletypename();
+  void set_allocated_nmvehicletypename(::std::string* nmvehicletypename);
+
+  // optional .dg.model.CutboardImage Img = 4;
+  bool has_img() const;
+  void clear_img();
+  static const int kImgFieldNumber = 4;
+  const ::dg::model::CutboardImage& img() const;
+  ::dg::model::CutboardImage* mutable_img();
+  ::dg::model::CutboardImage* release_img();
+  void set_allocated_img(::dg::model::CutboardImage* img);
+
+  // optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+  void clear_nmvehiclegesture();
+  static const int kNMVehicleGestureFieldNumber = 5;
+  ::dg::model::NonMotorVehicleGesture nmvehiclegesture() const;
+  void set_nmvehiclegesture(::dg::model::NonMotorVehicleGesture value);
+
+  // repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+  int passenger_size() const;
+  void clear_passenger();
+  static const int kPassengerFieldNumber = 6;
+  const ::dg::model::RecNonMotorVehicle_NonMotorPedestrian& passenger(int index) const;
+  ::dg::model::RecNonMotorVehicle_NonMotorPedestrian* mutable_passenger(int index);
+  ::dg::model::RecNonMotorVehicle_NonMotorPedestrian* add_passenger();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >*
+      mutable_passenger();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >&
+      passenger() const;
+
+  // repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+  int nmvehicle_size() const;
+  void clear_nmvehicle();
+  static const int kNMVehicleFieldNumber = 7;
+  const ::dg::model::CategoryAndFeature& nmvehicle(int index) const;
+  ::dg::model::CategoryAndFeature* mutable_nmvehicle(int index);
+  ::dg::model::CategoryAndFeature* add_nmvehicle();
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+      mutable_nmvehicle();
+  const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+      nmvehicle() const;
+
+  // @@protoc_insertion_point(class_scope:dg.model.RecNonMotorVehicle)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  bool _is_default_instance_;
+  ::google::protobuf::int64 id_;
+  ::google::protobuf::internal::ArenaStringPtr nmvehicletypename_;
+  int nmvehicletype_;
+  int nmvehiclegesture_;
+  ::dg::model::CutboardImage* img_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian > passenger_;
+  ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature > nmvehicle_;
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_common_2eproto();
+  friend void protobuf_AssignDesc_common_2eproto();
+  friend void protobuf_ShutdownFile_common_2eproto();
+
+  void InitAsDefaultInstance();
+  static RecNonMotorVehicle* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -4040,6 +4332,277 @@ RecVehicle::passengers() const {
 
 // -------------------------------------------------------------------
 
+// RecNonMotorVehicle_NonMotorPedestrian
+
+// optional int64 Id = 1;
+inline void RecNonMotorVehicle_NonMotorPedestrian::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 RecNonMotorVehicle_NonMotorPedestrian::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Id)
+  return id_;
+}
+inline void RecNonMotorVehicle_NonMotorPedestrian::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Id)
+}
+
+// optional .dg.model.NameAndConfidence Sex = 2;
+inline bool RecNonMotorVehicle_NonMotorPedestrian::has_sex() const {
+  return !_is_default_instance_ && sex_ != NULL;
+}
+inline void RecNonMotorVehicle_NonMotorPedestrian::clear_sex() {
+  if (GetArenaNoVirtual() == NULL && sex_ != NULL) delete sex_;
+  sex_ = NULL;
+}
+inline const ::dg::model::NameAndConfidence& RecNonMotorVehicle_NonMotorPedestrian::sex() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+  return sex_ != NULL ? *sex_ : *default_instance_->sex_;
+}
+inline ::dg::model::NameAndConfidence* RecNonMotorVehicle_NonMotorPedestrian::mutable_sex() {
+  
+  if (sex_ == NULL) {
+    sex_ = new ::dg::model::NameAndConfidence;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+  return sex_;
+}
+inline ::dg::model::NameAndConfidence* RecNonMotorVehicle_NonMotorPedestrian::release_sex() {
+  
+  ::dg::model::NameAndConfidence* temp = sex_;
+  sex_ = NULL;
+  return temp;
+}
+inline void RecNonMotorVehicle_NonMotorPedestrian::set_allocated_sex(::dg::model::NameAndConfidence* sex) {
+  delete sex_;
+  sex_ = sex;
+  if (sex) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Sex)
+}
+
+// repeated .dg.model.CategoryAndFeature Attribute = 3;
+inline int RecNonMotorVehicle_NonMotorPedestrian::attribute_size() const {
+  return attribute_.size();
+}
+inline void RecNonMotorVehicle_NonMotorPedestrian::clear_attribute() {
+  attribute_.Clear();
+}
+inline const ::dg::model::CategoryAndFeature& RecNonMotorVehicle_NonMotorPedestrian::attribute(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Get(index);
+}
+inline ::dg::model::CategoryAndFeature* RecNonMotorVehicle_NonMotorPedestrian::mutable_attribute(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Mutable(index);
+}
+inline ::dg::model::CategoryAndFeature* RecNonMotorVehicle_NonMotorPedestrian::add_attribute() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+RecNonMotorVehicle_NonMotorPedestrian::mutable_attribute() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return &attribute_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+RecNonMotorVehicle_NonMotorPedestrian::attribute() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.NonMotorPedestrian.Attribute)
+  return attribute_;
+}
+
+// -------------------------------------------------------------------
+
+// RecNonMotorVehicle
+
+// optional int64 Id = 1;
+inline void RecNonMotorVehicle::clear_id() {
+  id_ = GOOGLE_LONGLONG(0);
+}
+inline ::google::protobuf::int64 RecNonMotorVehicle::id() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Id)
+  return id_;
+}
+inline void RecNonMotorVehicle::set_id(::google::protobuf::int64 value) {
+  
+  id_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.Id)
+}
+
+// optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+inline void RecNonMotorVehicle::clear_nmvehicletype() {
+  nmvehicletype_ = 0;
+}
+inline ::dg::model::NonMotorVehicleType RecNonMotorVehicle::nmvehicletype() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleType)
+  return static_cast< ::dg::model::NonMotorVehicleType >(nmvehicletype_);
+}
+inline void RecNonMotorVehicle::set_nmvehicletype(::dg::model::NonMotorVehicleType value) {
+  
+  nmvehicletype_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleType)
+}
+
+// optional string NMVehicleTypeName = 3;
+inline void RecNonMotorVehicle::clear_nmvehicletypename() {
+  nmvehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& RecNonMotorVehicle::nmvehicletypename() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+  return nmvehicletypename_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RecNonMotorVehicle::set_nmvehicletypename(const ::std::string& value) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+inline void RecNonMotorVehicle::set_nmvehicletypename(const char* value) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+inline void RecNonMotorVehicle::set_nmvehicletypename(const char* value, size_t size) {
+  
+  nmvehicletypename_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+inline ::std::string* RecNonMotorVehicle::mutable_nmvehicletypename() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+  return nmvehicletypename_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RecNonMotorVehicle::release_nmvehicletypename() {
+  
+  return nmvehicletypename_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RecNonMotorVehicle::set_allocated_nmvehicletypename(::std::string* nmvehicletypename) {
+  if (nmvehicletypename != NULL) {
+    
+  } else {
+    
+  }
+  nmvehicletypename_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), nmvehicletypename);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.NMVehicleTypeName)
+}
+
+// optional .dg.model.CutboardImage Img = 4;
+inline bool RecNonMotorVehicle::has_img() const {
+  return !_is_default_instance_ && img_ != NULL;
+}
+inline void RecNonMotorVehicle::clear_img() {
+  if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
+  img_ = NULL;
+}
+inline const ::dg::model::CutboardImage& RecNonMotorVehicle::img() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Img)
+  return img_ != NULL ? *img_ : *default_instance_->img_;
+}
+inline ::dg::model::CutboardImage* RecNonMotorVehicle::mutable_img() {
+  
+  if (img_ == NULL) {
+    img_ = new ::dg::model::CutboardImage;
+  }
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.Img)
+  return img_;
+}
+inline ::dg::model::CutboardImage* RecNonMotorVehicle::release_img() {
+  
+  ::dg::model::CutboardImage* temp = img_;
+  img_ = NULL;
+  return temp;
+}
+inline void RecNonMotorVehicle::set_allocated_img(::dg::model::CutboardImage* img) {
+  delete img_;
+  img_ = img;
+  if (img) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_set_allocated:dg.model.RecNonMotorVehicle.Img)
+}
+
+// optional .dg.model.NonMotorVehicleGesture NMVehicleGesture = 5;
+inline void RecNonMotorVehicle::clear_nmvehiclegesture() {
+  nmvehiclegesture_ = 0;
+}
+inline ::dg::model::NonMotorVehicleGesture RecNonMotorVehicle::nmvehiclegesture() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleGesture)
+  return static_cast< ::dg::model::NonMotorVehicleGesture >(nmvehiclegesture_);
+}
+inline void RecNonMotorVehicle::set_nmvehiclegesture(::dg::model::NonMotorVehicleGesture value) {
+  
+  nmvehiclegesture_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleGesture)
+}
+
+// repeated .dg.model.RecNonMotorVehicle.NonMotorPedestrian Passenger = 6;
+inline int RecNonMotorVehicle::passenger_size() const {
+  return passenger_.size();
+}
+inline void RecNonMotorVehicle::clear_passenger() {
+  passenger_.Clear();
+}
+inline const ::dg::model::RecNonMotorVehicle_NonMotorPedestrian& RecNonMotorVehicle::passenger(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Get(index);
+}
+inline ::dg::model::RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle::mutable_passenger(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Mutable(index);
+}
+inline ::dg::model::RecNonMotorVehicle_NonMotorPedestrian* RecNonMotorVehicle::add_passenger() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >*
+RecNonMotorVehicle::mutable_passenger() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.Passenger)
+  return &passenger_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian >&
+RecNonMotorVehicle::passenger() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.Passenger)
+  return passenger_;
+}
+
+// repeated .dg.model.CategoryAndFeature NMVehicle = 7;
+inline int RecNonMotorVehicle::nmvehicle_size() const {
+  return nmvehicle_.size();
+}
+inline void RecNonMotorVehicle::clear_nmvehicle() {
+  nmvehicle_.Clear();
+}
+inline const ::dg::model::CategoryAndFeature& RecNonMotorVehicle::nmvehicle(int index) const {
+  // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Get(index);
+}
+inline ::dg::model::CategoryAndFeature* RecNonMotorVehicle::mutable_nmvehicle(int index) {
+  // @@protoc_insertion_point(field_mutable:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Mutable(index);
+}
+inline ::dg::model::CategoryAndFeature* RecNonMotorVehicle::add_nmvehicle() {
+  // @@protoc_insertion_point(field_add:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >*
+RecNonMotorVehicle::mutable_nmvehicle() {
+  // @@protoc_insertion_point(field_mutable_list:dg.model.RecNonMotorVehicle.NMVehicle)
+  return &nmvehicle_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature >&
+RecNonMotorVehicle::nmvehicle() const {
+  // @@protoc_insertion_point(field_list:dg.model.RecNonMotorVehicle.NMVehicle)
+  return nmvehicle_;
+}
+
+// -------------------------------------------------------------------
+
 // Passenger
 
 // optional int64 Id = 1;
@@ -5328,6 +5891,10 @@ PedestrianObj::pedestrian() const {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -5362,6 +5929,16 @@ template <> struct is_proto_enum< ::dg::model::AgeType> : ::google::protobuf::in
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::AgeType>() {
   return ::dg::model::AgeType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::NonMotorVehicleType> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::NonMotorVehicleType>() {
+  return ::dg::model::NonMotorVehicleType_descriptor();
+}
+template <> struct is_proto_enum< ::dg::model::NonMotorVehicleGesture> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::NonMotorVehicleGesture>() {
+  return ::dg::model::NonMotorVehicleGesture_descriptor();
 }
 template <> struct is_proto_enum< ::dg::model::DBType> : ::google::protobuf::internal::true_type {};
 template <>

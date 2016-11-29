@@ -129,15 +129,23 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                 else
                     objectType = OBJECT_UNKNOWN;
 
-                Vehicle *v = new Vehicle(objectType);
                 Mat roi = CutImage(frame->payload()->data(), d.box);
 
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
                 }
-                v->set_image(roi);
-                v->set_id(base_id_ + id++);
-                obj = static_cast<Object *>(v);
+                
+                if (objectType == OBJECT_BICYCLE || objectType == OBJECT_TRICYCLE) {
+                    NonMotorVehicle *v = new NonMotorVehicle(objectType);
+                    v->set_image(roi);
+                    v->set_id(base_id_ + id++);
+                    obj = static_cast<Object *>(v);
+                } else {
+                    Vehicle *v = new Vehicle(objectType);
+                    v->set_image(roi);
+                    v->set_id(base_id_ + id++);
+                    obj = static_cast<Object *>(v);
+                }
             }
 
             if (obj) {
