@@ -16,13 +16,6 @@ using namespace caffe;
 #define NON_MOTOR_VEHICLE_CLASSIFIER_H_
 
 namespace dg {
-/**
-struct Bbox {
-    float confidence;
-    Rect rect;
-    bool deleted;
-};
-**/
 
 class Faster_rcnn {
 public:
@@ -120,7 +113,6 @@ public:
 	~NonMotorVehicleClassifier();
 
 	void BatchClassify(const vector<cv::Mat> &imgs, vector<vector<CaffeAttribute::Attrib> > &results);
-    void BatchPredict(const vector<cv::Mat> &imgs, vector<vector<CaffeAttribute::Attrib> > &results);
 
 private:
     void process_batch_after_det(CaffeAttribute &upper_attrib, 
