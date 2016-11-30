@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_APPS_RANKER_SERVICE_H_
@@ -24,41 +24,51 @@ namespace dg {
 using namespace ::dg::model;
 
 class RankerAppsService {
-public:
+ public:
     RankerAppsService(const Config *config, string name, int baseId = 0);
     virtual ~RankerAppsService();
 
-    MatrixError GetRankedVector(const FeatureRankingRequest *request,
-                                FeatureRankingResponse *response);
+//    MatrixError GetRankedVector(const FeatureRankingRequest *request,
+//                                FeatureRankingResponse *response);
 
-private:
+    MatrixError RankImage(const RankImageRequest *request, RankImageResponse *response);
+    MatrixError RankFeature(const RankFeatureRequest *request, RankFeatureResponse *response);
+    MatrixError AddFeatures(const AddFeaturesRequest *request, AddFeaturesResponse *response);
+    MatrixError GetImageContent(const GetImageContentRequest *request, GetImageContentResponse *response);
+
+ private:
     string name_;
     const Config *config_;
     int limits_;
 
-    MatrixError (RankerAppsService::*getRankedDefaultVector)(const FeatureRankingRequest *,
-                                                             FeatureRankingResponse *);
-    MatrixError getRankedCarVector(const FeatureRankingRequest *request,
-                                   FeatureRankingResponse *response);
+//    MatrixError (RankerAppsService::*getRankedDefaultVector)(const FeatureRankingRequest *,
+//                                                             FeatureRankingResponse *);
+//    MatrixError getRankedCarVector(const FeatureRankingRequest *request,
+//                                   FeatureRankingResponse *response);
 
-    MatrixError getRankedFaceVector(const FeatureRankingRequest *request,
-                                    FeatureRankingResponse *response);
-    MatrixError getRankedAllVector(const FeatureRankingRequest *request,
-                                   FeatureRankingResponse *response);
-    MatrixError getCarScoredVector(vector<Score> &scores, const FeatureRankingRequest *request,
-                                   FeatureRankingResponse *response);
-    MatrixError getFaceScoredVector(vector<Score> &scores, const FeatureRankingRequest *request,
-                                    FeatureRankingResponse *response);
-    static void sortAndFillResponse(const FeatureRankingRequest *request,
-                                    vector<Score> &scores,
-                                    FeatureRankingResponse *response);
 
-    static string requestPrefix(const FeatureRankingRequest *request);
+    MatrixError getRankedFaceVector(const RankFeatureRequest *request,
+                                    RankFeatureResponse *response);
 
-    static Rect getHotspot(const FeatureRankingRequest *request,
-                           const Mat &image);
+    MatrixError getFaceScoredVector(vector<Score> &scores, const RankFeatureRequest *request,
+                                    RankFeatureResponse *response);
 
-    static int getLimit(const FeatureRankingRequest *request);
+
+//    MatrixError getRankedAllVector(const FeatureRankingRequest *request,
+//                                   FeatureRankingResponse *response);
+//    MatrixError getCarScoredVector(vector<Score> &scores, const FeatureRankingRequest *request,
+//                                   FeatureRankingResponse *response);
+
+//    static void sortAndFillResponse(const FeatureRankingRequest *request,
+//                                    vector<Score> &scores,
+//                                    FeatureRankingResponse *response);
+//
+//    static string requestPrefix(const FeatureRankingRequest *request);
+//
+//    static Rect getHotspot(const FeatureRankingRequest *request,
+//                           const Mat &image);
+//
+//    static int getLimit(const FeatureRankingRequest *request);
 
     template<typename F>
     static MatrixError extractFeatures(const FeatureRankingRequest *request,

@@ -2037,6 +2037,7 @@ inline ::std::string* IndexTxtResponse::mutable_context() {
   return context_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* IndexTxtResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.IndexTxtResponse.Context)
   
   return context_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2098,6 +2099,7 @@ inline ::std::string* CommonIndex_Item::mutable_name() {
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* CommonIndex_Item::release_name() {
+  // @@protoc_insertion_point(field_release:dg.model.CommonIndex.Item.Name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2221,6 +2223,7 @@ inline ::std::string* BrandIndex_Item::mutable_mainbrandname() {
   return mainbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BrandIndex_Item::release_mainbrandname() {
+  // @@protoc_insertion_point(field_release:dg.model.BrandIndex.Item.MainBrandName)
   
   return mainbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2264,6 +2267,7 @@ inline ::std::string* BrandIndex_Item::mutable_subbrandname() {
   return subbrandname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BrandIndex_Item::release_subbrandname() {
+  // @@protoc_insertion_point(field_release:dg.model.BrandIndex.Item.SubBrandName)
   
   return subbrandname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2307,6 +2311,7 @@ inline ::std::string* BrandIndex_Item::mutable_yearmodelname() {
   return yearmodelname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* BrandIndex_Item::release_yearmodelname() {
+  // @@protoc_insertion_point(field_release:dg.model.BrandIndex.Item.YearModelName)
   
   return yearmodelname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2387,6 +2392,7 @@ inline ::dg::model::CommonIndex* IndexResponse::mutable_index() {
   return index_content_.index_;
 }
 inline ::dg::model::CommonIndex* IndexResponse::release_index() {
+  // @@protoc_insertion_point(field_release:dg.model.IndexResponse.Index)
   if (has_index()) {
     clear_has_index_content();
     ::dg::model::CommonIndex* temp = index_content_.index_;
@@ -2434,6 +2440,7 @@ inline ::dg::model::BrandIndex* IndexResponse::mutable_brandindex() {
   return index_content_.brandindex_;
 }
 inline ::dg::model::BrandIndex* IndexResponse::release_brandindex() {
+  // @@protoc_insertion_point(field_release:dg.model.IndexResponse.BrandIndex)
   if (has_brandindex()) {
     clear_has_index_content();
     ::dg::model::BrandIndex* temp = index_content_.brandindex_;
@@ -2486,6 +2493,7 @@ inline ::dg::model::WitnessRequestContext* WitnessRequest::mutable_context() {
   return context_;
 }
 inline ::dg::model::WitnessRequestContext* WitnessRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessRequest.Context)
   
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
@@ -2523,6 +2531,7 @@ inline ::dg::model::WitnessImage* WitnessRequest::mutable_image() {
   return image_;
 }
 inline ::dg::model::WitnessImage* WitnessRequest::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessRequest.Image)
   
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;
@@ -2564,6 +2573,7 @@ inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::mutable_context(
   return context_;
 }
 inline ::dg::model::WitnessRequestContext* WitnessBatchRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessBatchRequest.Context)
   
   ::dg::model::WitnessRequestContext* temp = context_;
   context_ = NULL;
@@ -2635,6 +2645,7 @@ inline ::dg::model::WitnessResponseContext* WitnessResponse::mutable_context() {
   return context_;
 }
 inline ::dg::model::WitnessResponseContext* WitnessResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponse.Context)
   
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
@@ -2672,6 +2683,7 @@ inline ::dg::model::WitnessResult* WitnessResponse::mutable_result() {
   return result_;
 }
 inline ::dg::model::WitnessResult* WitnessResponse::release_result() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponse.Result)
   
   ::dg::model::WitnessResult* temp = result_;
   result_ = NULL;
@@ -2713,6 +2725,7 @@ inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::mutable_contex
   return context_;
 }
 inline ::dg::model::WitnessResponseContext* WitnessBatchResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessBatchResponse.Context)
   
   ::dg::model::WitnessResponseContext* temp = context_;
   context_ = NULL;
@@ -2913,6 +2926,7 @@ inline ::std::string* WitnessRequestContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2956,6 +2970,7 @@ inline ::std::string* WitnessRequestContext::mutable_username() {
   return username_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_username() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.UserName)
   
   return username_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2999,6 +3014,7 @@ inline ::std::string* WitnessRequestContext::mutable_token() {
   return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessRequestContext::release_token() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessRequestContext.Token)
   
   return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3129,6 +3145,7 @@ inline ::dg::model::Image* WitnessImage::mutable_data() {
   return data_;
 }
 inline ::dg::model::Image* WitnessImage::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessImage.Data)
   
   ::dg::model::Image* temp = data_;
   data_ = NULL;
@@ -3166,6 +3183,7 @@ inline ::dg::model::SrcMetadata* WitnessImage::mutable_witnessmetadata() {
   return witnessmetadata_;
 }
 inline ::dg::model::SrcMetadata* WitnessImage::release_witnessmetadata() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessImage.WitnessMetaData)
   
   ::dg::model::SrcMetadata* temp = witnessmetadata_;
   witnessmetadata_ = NULL;
@@ -3276,6 +3294,7 @@ inline ::std::string* WitnessResponseContext::mutable_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3319,6 +3338,7 @@ inline ::std::string* WitnessResponseContext::mutable_status() {
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_status() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.Status)
   
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3362,6 +3382,7 @@ inline ::std::string* WitnessResponseContext::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResponseContext::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3396,6 +3417,7 @@ inline ::dg::model::Time* WitnessResponseContext::mutable_requestts() {
   return requestts_;
 }
 inline ::dg::model::Time* WitnessResponseContext::release_requestts() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.RequestTs)
   
   ::dg::model::Time* temp = requestts_;
   requestts_ = NULL;
@@ -3433,6 +3455,7 @@ inline ::dg::model::Time* WitnessResponseContext::mutable_responsets() {
   return responsets_;
 }
 inline ::dg::model::Time* WitnessResponseContext::release_responsets() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResponseContext.ResponseTs)
   
   ::dg::model::Time* temp = responsets_;
   responsets_ = NULL;
@@ -3501,6 +3524,7 @@ inline ::std::string* WitnessResult::mutable_innerstatus() {
   return innerstatus_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innerstatus() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.InnerStatus)
   
   return innerstatus_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3544,6 +3568,7 @@ inline ::std::string* WitnessResult::mutable_innermessage() {
   return innermessage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* WitnessResult::release_innermessage() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.InnerMessage)
   
   return innermessage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3578,6 +3603,7 @@ inline ::dg::model::WitnessImage* WitnessResult::mutable_image() {
   return image_;
 }
 inline ::dg::model::WitnessImage* WitnessResult::release_image() {
+  // @@protoc_insertion_point(field_release:dg.model.WitnessResult.Image)
   
   ::dg::model::WitnessImage* temp = image_;
   image_ = NULL;

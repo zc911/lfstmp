@@ -1,3 +1,3 @@
-picture_id,candidate_number,best_candidate_index,Roi_X,Roi_Y,Roi_width,Roi_height
-0,2,1,1,1,260,190
-1,2,1,1,1,260,190
+version https://git-lfs.github.com/spec/v1
+oid sha256:1d78d3ea67ec791c48a34b3b66cb4e733acc5e3b76ca96532c1cbe6b87eec4da
+size 118

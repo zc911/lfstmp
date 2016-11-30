@@ -8,6 +8,14 @@
  * ==========================================================================*/
 //#include <alg/feature/face_alignment.h>
 #include "processor/face_feature_extract_processor.h"
+#include "dgface/recognition/recog_cnn.h"
+#include "dgface/recognition/recog_lbp.h"
+#include "dgface/recognition/recog_cdnn.h"
+#include "dgface/recognition/recog_cdnn_caffe.h"
+#include "dgface/recognition/recog_fuse.h"
+#include "dgface/alignment/align_dlib.h"
+#include "dgface/alignment/align_cdnn.h"
+#include "dgface/alignment/align_cdnn_caffe.h"
 #include "processor_helper.h"
 namespace dg {
 
@@ -34,7 +42,6 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
             int grid_x = 8;
             int grid_y = 8;
             recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
-
             break;
         }
         case CDNNRecog: {
@@ -42,6 +49,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
             break;
         }
         case CdnnCaffeRecog: {
+            cout << "Cdnn Caffe Recog: " << config.model_dir << endl;
             recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
             align_method_ = CdnnAlign;
@@ -50,7 +58,6 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
         case CdnnFuse: {
             recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            align_method_ = CdnnCaffeAlign;
             align_method_ = CdnnAlign;
         }
 
@@ -58,6 +65,7 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
 
     // For other method, use dlib alignment as default
     if (config.method == CDNNRecog || config.method == LBPRecog) {
+        VLOG(VLOG_RUNTIME_DEBUG) << "Use dlib alignment " << endl;
         Mat avg_face = imread(faConfig.align_deploy);
         Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
         adjust_box(faConfig.detect_type, avgfacebbox);
@@ -204,11 +212,12 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
             imwrite("rect.jpg", img);
 
         }
-//LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
-//LOG(INFO)  << "align result image: " << align_result.face_image.cols << " " << align_result.face_image.rows << endl;
-//LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[1].x << " " << align_result.landmarks[1].y << endl;
-//LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[3].x << " " << align_result.landmarks[3].y << endl;
-//LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[13].x << " " << align_result.landmarks[13].y << endl;
+
+LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
+LOG(INFO)  << "align result image: " << align_result.face_image.cols << " " << align_result.face_image.rows << endl;
+LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[1].x << " " << align_result.landmarks[1].y << endl;
+LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[3].x << " " << align_result.landmarks[3].y << endl;
+LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[13].x << " " << align_result.landmarks[13].y << endl;
 
 
         performance_++;
@@ -224,6 +233,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<DGFace::RecogResult> results;
 
     recognition_->recog(align_imgs, align_results, results, pre_process_);
+
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {
         LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size()

@@ -1,3 +1,3 @@
-picture_id,x,y,height,width,x,y,height,width,...
-0,54,347,455,514,777,445,528,530
-1,390,183,571,506
+version https://git-lfs.github.com/spec/v1
+oid sha256:fe8c96ffbe6936e26c447d0d98c62f17415ed3f536a02917e04bc22ecb3431a5
+size 100

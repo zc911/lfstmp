@@ -1,6 +1,3 @@
-picture_id,number_of_cars,marker_numbers_of_car0,marker_numbers_of_car1,...
-0,7,0,0,0,1,1,2,3
-1,6,0,0,0,0,2,0
-2,4,0,0,1,0
-3,10,0,0,0,0,0,0,0,2,2,7
-4,0
+version https://git-lfs.github.com/spec/v1
+oid sha256:d02115d48ca2201cb43156fb6b03bae6a94f8017242bc717be31aeead1f6ab6c
+size 151

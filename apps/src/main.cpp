@@ -230,9 +230,9 @@ int main(int argc, char *argv[]) {
     AlgorithmFactory::GetInstance()->Initialize(FLAGS_config);
     Config *config = new Config();
     config->Load(FLAGS_config);
-    if (FilesAllExist(config) == false) {
-        exit(-1);
-    }
+//    if (FilesAllExist(config) == false) {
+//        exit(-1);
+//    }
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 
 #ifdef DEBUG

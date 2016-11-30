@@ -9,10 +9,10 @@
 
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
-//#include "dgface/detector/det_dlib.h"
-//#include "dgface/detector/det_rpn.h"
-//#include "dgface/detector/det_ssd.h"
-//#include "dgface/detector/det_fcn.h"
+#include "dgface/detector/det_dlib.h"
+#include "dgface/detector/det_rpn.h"
+#include "dgface/detector/det_ssd.h"
+#include "dgface/detector/det_fcn.h"
 
 namespace dg {
 

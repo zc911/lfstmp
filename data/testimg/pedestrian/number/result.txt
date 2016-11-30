@@ -1,11 +1,3 @@
-picture_id,number_of_pedestrian
-0,2
-1,4
-2,3
-3,4
-4,2
-5,1
-6,5
-7,1
-8,3
-9,6
+version https://git-lfs.github.com/spec/v1
+oid sha256:844e454fbb9f3e868f0bda1167bf8d9f766dcb19701280cfcc947d630bc64b5e
+size 72
