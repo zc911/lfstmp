@@ -135,6 +135,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
 void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
     enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
+    enable_non_motor_vehicle_ = (bool) config.Value(FEATURE_NON_MOTOR_VEHICLE_ENABLE);
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
@@ -398,11 +399,11 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
 
-        if (true) {
+        if (enable_non_motor_vehicle_) {
             LOG(INFO) << "Enable non-motor vehicle attribute processor" << endl;
-            NonMotorVehicleClassifier::NonMotorVehicleConfig configs;
-            configFilter->createPedestrianConfig(config, configs);
-            Processor *p = new NonMotorVehicleClassifierProcessor(configs);
+        //    NonMotorVehicleClassifier::NonMotorVehicleConfig configs;
+        //    configFilter->createPedestrianConfig(config, configs);
+            Processor *p = new NonMotorVehicleClassifierProcessor();
             if (last == NULL) {
                 vehicle_processor_ = p;
             } else {
