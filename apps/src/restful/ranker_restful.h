@@ -20,29 +20,47 @@ typedef MatrixError (*RankFunc)(RankerAppsService *, const FeatureRankingRequest
 
 class RestRankerServiceImpl final: public RestfulService {
 
-public:
+ public:
 
-  RestRankerServiceImpl(Config config,
-                        string addr)
-    : RestfulService(config) {
-    service_ = new RankerAppsService(&config, "RankerAppsService");
-  }
+    RestRankerServiceImpl(Config config,
+                          string addr)
+        : RestfulService(config) {
+        service_ = new RankerAppsService(&config, "RankerAppsService");
+    }
 
-  virtual ~RestRankerServiceImpl() {delete service_; }
+    virtual ~RestRankerServiceImpl() { delete service_; }
 
-  void Bind(HttpServer &server) {
-    std::function<MatrixError( const FeatureRankingRequest *, FeatureRankingResponse *)> rankBinder = std::bind(&RankerAppsService::GetRankedVector, service_, std::placeholders::_1, std::placeholders::_2);
-    bindFunc< FeatureRankingRequest, FeatureRankingResponse>(server,
-        "/rank$",
-        "POST",
-        rankBinder);
+    void Bind(HttpServer &server) {
+
+        std::function<MatrixError(const RankFeatureRequest *, RankFeatureResponse *)> rankBinder =
+            std::bind(&RankerAppsService::RankFeature, service_, std::placeholders::_1, std::placeholders::_2);
+
+        std::function<MatrixError(const AddFeaturesRequest *, AddFeaturesResponse *)> addFeaturesBinder =
+            std::bind(&RankerAppsService::AddFeatures, service_, std::placeholders::_1, std::placeholders::_2);
+
+        std::function<MatrixError(const GetImageContentRequest *, GetImageContentResponse *)> getImageContentBinder =
+            std::bind(&RankerAppsService::GetImageContent, service_, std::placeholders::_1, std::placeholders::_2);
+
+        bindFunc<RankFeatureRequest, RankFeatureResponse>(server,
+                                                          "/rank$",
+                                                          "POST",
+                                                          rankBinder);
+
+        bindFunc<AddFeaturesRequest, AddFeaturesResponse>(server,
+                                                          "/rank/add",
+                                                          "POST",
+                                                          addFeaturesBinder);
+
+        bindFunc<GetImageContentRequest, GetImageContentResponse>(server,
+                                                                  "/rank/getImageContent",
+                                                                  "POST",
+                                                                  getImageContentBinder);
+
+    }
 
 
-  }
-
-
-private:
-  RankerAppsService *service_;
+ private:
+    RankerAppsService *service_;
 
 };
 

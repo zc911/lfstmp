@@ -1,7 +1,3 @@
-picture_id,number_of_objects_in_picture
-0,3
-1,3
-2,0
-3,0
-4,4
-5,7
+version https://git-lfs.github.com/spec/v1
+oid sha256:36c45f46f448e272b570fcc27befdaf04212b870b24de63586962dbeacf98517
+size 64

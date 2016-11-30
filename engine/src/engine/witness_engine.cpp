@@ -411,7 +411,7 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
 
-        if (true) {
+        if (false) {
             LOG(INFO) << "Enable non-motor vehicle attribute processor" << endl;
             NonMotorVehicleClassifier::NonMotorVehicleConfig configs;
             configFilter->createPedestrianConfig(config, configs);

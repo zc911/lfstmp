@@ -18,7 +18,7 @@ namespace dg {
 class FaceRankProcessor: public Processor {
  public:
     FaceRankProcessor();
-    FaceRankProcessor(float alpha = -0.05, float beta = 1.1);
+    FaceRankProcessor(float alpha, float beta);
     virtual ~FaceRankProcessor();
  protected:
     virtual bool process(Frame *frame);

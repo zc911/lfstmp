@@ -36,7 +36,7 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
 #endif
 
     if (enable_ranker_car_) {
-        car_ranker_ = new CarRankProcessor(config);
+//        car_ranker_ = new CarRankProcessor(config);
     }
     if (enable_ranker_face_) {
         ConfigFilter *configFilter = ConfigFilter::GetInstance();

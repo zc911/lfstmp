@@ -15,7 +15,7 @@ static FileReader *resultReader;
 static void initConfig() {
     resultReader = NULL;
     FaceDetectorConfig dConfig;
-    FaceFeatureExtractor::FaceFeatureExtractorConfig fConfig;
+    FaceFeatureExtractorConfig fConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     dConfig.is_model_encrypt = false;
@@ -33,7 +33,7 @@ static void initConfig() {
     fConfig.deploy_file = baseModelPath + "500.txt";
     fConfig.model_file = baseModelPath + "500.dat";
 
-    FaceAlignment::FaceAlignmentConfig faConfig;
+    FaceAlignmentConfig faConfig;
     faConfig.align_deploy = baseModelPath + "avgface.jpg";
     faConfig.align_model = baseModelPath + "501.dat";
     ffeprocessor  = new FaceFeatureExtractProcessor(fConfig,faConfig);

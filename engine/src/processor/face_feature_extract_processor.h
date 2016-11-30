@@ -10,21 +10,12 @@
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
 #include "dgface/alignment.h"
-//#include "dgface/alignment/align_dlib.h"
-//#include "dgface/alignment/align_cdnn.h"
-//#include "dgface/alignment/align_cdnn_caffe.h"
-
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
-//#include "dgface/recognition/recog_cnn.h"
-//#include "dgface/recognition/recog_lbp.h"
-//#include "dgface/recognition/recog_cdnn.h"
-//#include "dgface/recognition/recog_cdnn_caffe.h"
-//#include "dgface/recognition/recog_fuse.h"
-
 #include "dgface/recognition.h"
 #include "dgface/cdnn_score.h"
+
 namespace dg {
 typedef struct {
     bool is_model_encrypt = true;

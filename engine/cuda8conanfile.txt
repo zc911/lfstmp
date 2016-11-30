@@ -1,4 +1,4 @@
-[requires]
+ [requires]
 Protobuf/3.0.0@deepglint/stable
 Watchdog/0.1.0@deepglint/stable
 Hasp/1.0.0@deepglint/stable
