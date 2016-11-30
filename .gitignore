@@ -1,5 +1,5 @@
-lib
-include
+lib/
+include/
 build/
 .idea/workspace.xml
 utils/dist/
