@@ -47,6 +47,7 @@ private:
     bool enable_vehicle_driver_phone_;
     bool enable_vehicle_feature_vector_;
     bool enable_vehicle_pedestrian_attr_;
+    bool enable_non_motor_vehicle_;
 
     bool enable_face_;
     bool enable_face_detect_;
