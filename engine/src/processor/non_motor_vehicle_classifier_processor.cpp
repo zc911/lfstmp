@@ -2,11 +2,10 @@
 
 namespace dg {
 
-NonMotorVehicleClassifierProcessor::NonMotorVehicleClassifierProcessor(
-    NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig) {
-    nonMotorVehicleClassifier = 
-            new NonMotorVehicleClassifier(nmConfig);
+using namespace dgvehicle;
 
+NonMotorVehicleClassifierProcessor::NonMotorVehicleClassifierProcessor() {
+    nonMotorVehicleClassifier = AlgorithmFactory::GetInstance()->CreateNonMotorVehicleClassifier();
 }
 
 NonMotorVehicleClassifierProcessor::~NonMotorVehicleClassifierProcessor() {
@@ -33,7 +32,7 @@ bool NonMotorVehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         }
     }
 
-    vector<vector<CaffeAttribute::Attrib> > results;
+    vector<vector<NonMotorAttribute> > results;
     nonMotorVehicleClassifier->BatchClassify(images_, results);
 
     for (size_t i = 0; i < objs_.size(); ++i) {
