@@ -382,8 +382,7 @@ void ConfigFilter::createPedestrianConfig(const Config &cconfig,
                           NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-    string modelPath = (string) data_config_.Value(FILE_NONMOTORVEHICLE_MODEL_PATH) 
-                            + (is_encrypted == true ? "1/" : "0/");
+    string modelPath = (string) data_config_.Value(FILE_NONMOTORVEHICLE_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
                             
     nmConfig.is_model_encrypt = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     nmConfig.gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
