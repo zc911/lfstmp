@@ -97,7 +97,7 @@ void NonMotorVehicleClassifier::process_batch_after_det(CaffeAttribute &upper_at
         images.push_back(image);
     }
     // fill dummy images for batch (only need to be applied for the upper body attrib recognizer)
-    while (images.size() < batch_size) {
+    while (images.size() < batch_size && images.size() > 0) {
         images.push_back(images[0]);
     }
     upper_attrib.AttributePredict(images, results);
