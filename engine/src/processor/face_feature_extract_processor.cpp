@@ -213,12 +213,6 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
 
         }
 
-LOG(INFO) << "align result box: " << align_result.bbox.x << align_result.bbox.y << " " << align_result.bbox.width << " " << align_result.bbox.height << endl;
-LOG(INFO)  << "align result image: " << align_result.face_image.cols << " " << align_result.face_image.rows << endl;
-LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[1].x << " " << align_result.landmarks[1].y << endl;
-LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[3].x << " " << align_result.landmarks[3].y << endl;
-LOG(INFO)  << "align result landmarks: " << align_result.landmarks.size() << " " << align_result.landmarks[13].x << " " << align_result.landmarks[13].y << endl;
-
 
         performance_++;
         align_results.push_back(align_result);
