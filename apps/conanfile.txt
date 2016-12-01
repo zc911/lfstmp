@@ -7,7 +7,7 @@ OpenCV/2.4.8@deepglint/stable
 Thplateid/1.0.0@deepglint/stable
 Gtest/1.7@deepglint/stable
 Cudnn/4.0.7@deepglint/stable
-Pbjson/1.0.0@deepglint/stable
+Pbjson/2.0.0@deepglint/stable
 Grpc/0.14.1@deepglint/stable
 Grpcpp/0.14.1@deepglint/stable
 Cudart/7.0@deepglint/stable
