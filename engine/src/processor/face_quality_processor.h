@@ -23,13 +23,13 @@ typedef struct {
 } FaceQualityConfig;
 class FaceQualityProcessor: public Processor {
  public:
-    enum{FrontalDlib=0};
+    enum { FrontalDlib = 0 };
     FaceQualityProcessor(
         const FaceQualityConfig &config);
     virtual ~FaceQualityProcessor();
 
  protected:
-    virtual bool process(Frame *frame){};
+    virtual bool process(Frame *frame) { };
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
