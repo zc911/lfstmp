@@ -41,6 +41,7 @@ static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
     "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
     "Feature/Vehicle/EnablePedestrianAttr";
+static const string FEATURE_NON_MOTOR_VEHICLE_ENABLE = "Feature/Vehicle/EnableNonMotorVehicle";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =
@@ -237,8 +238,6 @@ static const string FILE_PLATE_CHRECOG_SYMBOL = "File/Plate/ChrecogSymbol";
 static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
 static const string FILE_PLATE_COLOR_SYMBOL = "File/Plate/ColorSymbol";
 static const string FILE_PLATE_COLOR_PARAM = "File/Plate/ColorParam";
-
-
 
 
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";

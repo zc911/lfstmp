@@ -80,10 +80,10 @@ static void destory() {
 
 static Operation getOperation() {
     Operation op;
-    op.Set( OPERATION_VEHICLE |
-            OPERATION_VEHICLE_PLATE |
-            OPERATION_VEHICLE_TRACK |
-            OPERATION_VEHICLE_DETECT );
+    op.Set(OPERATION_VEHICLE |
+        OPERATION_VEHICLE_PLATE |
+        OPERATION_VEHICLE_TRACK |
+        OPERATION_VEHICLE_DETECT);
     return op;
 }
 
@@ -108,7 +108,7 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
             Object *obj = fb->frames()[i]->objects()[j];
             if (obj->type() == OBJECT_CAR) {
-                Vehicle *v = (Vehicle *)obj;
+                Vehicle *v = (Vehicle *) obj;
                 for (int k = 0; k < v->plates().size(); ++k) {
                     realPlate.push_back(v->plates()[k].plate_num);
                 }
@@ -178,7 +178,7 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
             Object *obj = fb->frames()[i]->objects()[j];
             if (obj->type() == OBJECT_CAR) {
-                Vehicle *v = (Vehicle *)obj;
+                Vehicle *v = (Vehicle *) obj;
                 for (int k = 0; k < v->plates().size(); ++k) {
                     realPlate.push_back(v->plates()[k].plate_num);
                 }
@@ -225,7 +225,7 @@ TEST(PlateRecognizeMxnetTest, plateColorTest) {
         }
         s.str("");
 
-        Vehicle *obj = (Vehicle*)fb->frames()[i]->objects()[0];
+        Vehicle *obj = (Vehicle *) fb->frames()[i]->objects()[0];
         s << obj->plates()[0].color_id;
         vector<string> realColor = mapping.getValue(s.str());
         EXPECT_EQ(expectColor[0], realColor[0]) << "i = " << i << realColor[0] << " " << expectColor[0] << endl;
