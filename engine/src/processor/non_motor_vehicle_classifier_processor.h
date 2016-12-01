@@ -9,15 +9,14 @@
 #define NON_MOTOR_VEHICLE_CLASSIFIER_PROCESSOR_H_
 
 #include "processor/processor.h"
-#include "alg/non_motor_vehicle_classifier.h"
+#include "algorithm_factory.h"
 #include "processor_helper.h"
 namespace dg {
 
 class NonMotorVehicleClassifierProcessor: public Processor {
 public:
 
-    NonMotorVehicleClassifierProcessor(
-        NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
+    NonMotorVehicleClassifierProcessor();
 
     ~NonMotorVehicleClassifierProcessor();
 
@@ -30,7 +29,7 @@ protected:
     virtual bool RecordFeaturePerformance();
 private:
     void vehiclesResizedMat(FrameBatch *frameBatch);
-    NonMotorVehicleClassifier *nonMotorVehicleClassifier = NULL;
+    dgvehicle::INonMotorVehicleClassifier *nonMotorVehicleClassifier = nullptr;
     vector<Object *> objs_;
     vector<Mat> images_;
 };
