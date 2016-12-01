@@ -41,6 +41,7 @@ static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
     "Feature/Vehicle/EnableFeatureVector";
 static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
     "Feature/Vehicle/EnablePedestrianAttr";
+static const string FEATURE_NON_MOTOR_VEHICLE_ENABLE = "Feature/Vehicle/EnableNonMotorVehicle";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
 static const string FEATURE_FACE_ENABLE_DETECTION =
