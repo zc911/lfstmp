@@ -366,9 +366,6 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
     const Detection &d = vobj->detection();
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
     vrec->set_id(vobj->id());
-    dg::model::NonMotorVehicleType type = TRANSPORTATION_SEAL;
-    vrec->set_nmvehicletype(type);
-    vrec->set_nmvehicletypename("FUCK");
 
     auto SetNameAndConfidence = [](NameAndConfidence * nac, NonMotorVehicle::Attr & attribute) {
         nac->set_name(RepoService::GetInstance().FindNonMotorAttrName(attribute.mappingId));
@@ -398,7 +395,8 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                     nonMotorVehicleType = TRANSPORTATION_VEHICLE3;
                 }
                 vrec->set_nmvehicletype(nonMotorVehicleType);
-                vrec->set_nmvehicletypename(attrs[i].tagname);
+                vrec->set_nmvehicletypename(
+                    RepoService::GetInstance().FindNonMotorAttrName(mappingId));
             }
 
         } else if (attrs[i].categoryId == 1) {
@@ -447,7 +445,8 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                 }
                 CategoryAndFeature *caf = nmp->add_attribute();
                 caf->set_id(attrs[i].categoryId);
-                caf->set_categoryname("minzu");
+                caf->set_categoryname(
+                            RepoService::GetInstance().FindNonMotorAttrCategory(attrs[i].categoryId));
                 NameAndConfidence *nac = caf->add_items();
                 nac->set_id(attrs[i].mappingId);
                 nac->set_confidence(attrs[i].confidence);
