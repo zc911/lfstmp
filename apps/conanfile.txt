@@ -14,11 +14,11 @@ Cudart/7.0@deepglint/stable
 Mxnet/0.7.0.4@deepglint/stable_cuda_7.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
 dgvehicle/0.1.0@deepglint/stable_cuda_7.0
-dgLP/2.2.4.4@deepglint/stable
+dgLP/2.2.4.5@deepglint/stable_cuda_7.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
 CdnnCaffe/0.1.0@deepglint/stable
 Cdnn/0.1.0@deepglint/stable
-dgface/0.0.1@deepglint/old
+dgface/0.0.2@deepglint/old
 
 [generators]
 cmake

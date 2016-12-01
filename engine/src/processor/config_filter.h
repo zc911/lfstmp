@@ -74,12 +74,11 @@ class ConfigFilter {
     void
         createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
 //  void createPedestrianConfig(const Config &cconfig, PedestrianClassifier::PedestrianConfig &pConfig);
-    void createPedestrianConfig(const Config &cconfig,
-                                NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
-    int initDataConfig(const Config &config);
- private:
-    ConfigFilter();
-    static ConfigFilter *instance_;
+//  void createPedestrianConfig(const Config &cconfig, NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
+  int initDataConfig(const Config &config);
+private:
+  ConfigFilter();
+  static ConfigFilter *instance_;
 
     Config data_config_;
 };
