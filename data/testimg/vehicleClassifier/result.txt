@@ -1,6 +1,6 @@
 picture_id,vehicle_id,vehicle_sub_id,years_stype_id
 0,24,1,1
-1,169,43,1
+1,169,43,2
 2
 3,80,23,6
 4,7,9,3
