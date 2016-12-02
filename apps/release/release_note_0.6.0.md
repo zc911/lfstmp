@@ -1,3 +1,53 @@
+# Matrix Apps
+### Version 0.6.0
+2016-12-02
+
+```
+同时支持CUDA 7.0 和CUDA 8.0
+增加车辆相关的多个功能
+更新多个模型，包括车辆检测、车身颜色、车牌、行人属性等模型
+增加非机动车属性分类功能
+移植车辆相关算法代码到SDK，修改Matrix调用算法的方式
+使用conan管理Matrix的依赖库
+```
+
+### Modules version
+| *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
+|:--------------:|:-------------:|:---------------:|:------------:|
+| 0.6.0 | 0.1.5 | 1.10 | * |
+
+### Feature
+- DEEPVIDEO-691	升级Matrix车型车款model到1.2
+- DEEPVIDEO-602	实现Single打包到Batch模式的缓冲机制
+- DEEPVIDEO-601	更新行人属性model
+- DEEPVIDEO-600	修改车辆的grpc接口描述，增加乘客、驾驶员、打电话、安全带等属性
+- DEEPVIDEO-585	实现驾驶员打电话检测
+- DEEPVIDEO-584	实现左右安全带的检测识别
+
+
+### Bugs
+- DEEPVIDEO-649	matrix grpc ranker无法完成getrankervector功能
+- DEEPVIDEO-648 matrix grpc witnessservice 两个接口定义错误getindex,getindextxt
+- DEEPVIDEO-610	Matrix 检测车辆，cutboard标识车辆有偏移，设别准确率也不同
+
+
+### How to Install/Update
+```
+$ wget -O install.sh http://192.168.2.119/matrix/install.sh
+$ chmod +x install.sh
+$ ./install.sh 
+```
+
+### How to Run
+```
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
+```
+
+### Config File
+```json
 {
     "Version": {
         "Code": "1.0.0", 
@@ -158,7 +208,9 @@
         ], 
         "Enabled": false
     },
-
-    //"DataPath": "data/data_tollgate.dat"
     "DataPath": "data/data.dat"
 }
+
+
+
+```
