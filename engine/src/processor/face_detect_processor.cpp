@@ -95,35 +95,6 @@ static void noDetectionButFeature(Frame *frame) {
 
 
 bool FaceDetectProcessor::process(Frame *frame) {
-    /*   LOG(INFO) << "HA";
-
-       if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
-           VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect" << endl;
-           return false;
-       }
-       Mat data = frame->payload()->data();
-
-       if (data.rows == 0 || data.cols == 0) {
-           LOG(ERROR) << "Frame data is NULL: " << frame->id() << endl;
-           return false;
-       }
-
-       vector<Mat> imgs;
-       imgs.push_back(data);
-
-       vector<vector<Detection> > boxes_in;
-       detector_->Detect(imgs, boxes_in);
-
-       for (size_t bbox_id = 0; bbox_id < boxes_in[0].size(); bbox_id++) {
-
-           Detection detection = boxes_in[0][bbox_id];
-           Face *face = new Face(base_id_ + bbox_id, detection,
-                                 detection.confidence);
-           cv::Mat data = frame->payload()->data();
-           cv::Mat image = data(detection.box);
-           face->set_image(image);
-           frame->put_object(face);
-       }*/
 }
 static bool BoxCmp(const Detection &d1, const Detection &d2) {
     return d1.box.area() > d2.box.area();
@@ -131,6 +102,9 @@ static bool BoxCmp(const Detection &d1, const Detection &d2) {
 
 // TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
+
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start face detector " << endl;
+
     vector<Mat> imgs;
     vector<int> frameIds;
 
@@ -162,8 +136,10 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     vector<DGFace::DetectResult> detect_result;
 
     detector_->detect(imgs, detect_result);
+
     DetectResult2Detection(detect_result, boxes_in);
-    vector<vector<Rect>> enlarge_boxes;
+
+//    vector<vector<Rect>> enlarge_boxes;
     //enlarge_box(boxes_in, enlarge_boxes);
     for (int i = 0; i < frameIds.size(); ++i) {
         int frameId = frameIds[i];
@@ -192,11 +168,13 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             Detection detection = boxes_in[i][bbox_id];
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
+            VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << endl;
             cv::Mat data = frame->payload()->data();
-            cv::Mat image = data;
-
+            cv::Mat image = data(detection.box);
+            face->set_full_image(data);
             face->set_image(image);
             frame->put_object(face);
+
         }
     }
     return true;

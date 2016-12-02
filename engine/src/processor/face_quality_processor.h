@@ -12,20 +12,21 @@
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
+#include "dgface/quality/qual_blurm.h"
+#include "dgface/quality/qual_posem.h"
 #include "dgface/quality/qual_frontalm.h"
 
 
 namespace dg {
+
 typedef struct {
     int blurMMethod;
-    int frontalMethod;
-    float frontalThreshold;
+    float blur_threshold;
 } FaceQualityConfig;
+
 class FaceQualityProcessor: public Processor {
  public:
-    enum { FrontalDlib = 0 };
-    FaceQualityProcessor(
-        const FaceQualityConfig &config);
+    FaceQualityProcessor(const FaceQualityConfig &config);
     virtual ~FaceQualityProcessor();
 
  protected:
@@ -33,13 +34,14 @@ class FaceQualityProcessor: public Processor {
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
-
     virtual bool beforeUpdate(FrameBatch *frameBatch);
 
  private:
     vector<Object *> to_processed_;
-    DGFace::FrontalMQuality *fq_;
-    float frontalThreshold_;
+    DGFace::BlurMQuality *blur_quality_;
+    DGFace::PoseQuality *pose_quality_;
+    float blur_threshold_;
+
 };
 
 } /* namespace dg */

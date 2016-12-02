@@ -64,10 +64,8 @@ bool FacePoseProcessor::beforeUpdate(FrameBatch *frameBatch) {
             itr = to_processed_.erase(itr);
         } else if (((Face *)(*itr))->image().rows == 0 || ((Face *)(*itr))->image().cols == 0) {
             itr = to_processed_.erase(itr);
-
         } else {
             itr++;
-
         }
     }
     //LOG(INFO) << to_processed_.size();

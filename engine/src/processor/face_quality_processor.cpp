@@ -3,50 +3,68 @@
 #include "processor_helper.h"
 namespace dg {
 
-FaceQualityProcessor::FaceQualityProcessor( const FaceQualityConfig &config) {
-    switch (config.frontalMethod) {
-        case FrontalDlib:
-            fq_ = new DGFace::FrontalMQuality();
-            frontalThreshold_ = config.frontalThreshold;
-            break;
+FaceQualityProcessor::FaceQualityProcessor(const FaceQualityConfig &config) {
+    blur_quality_ = new DGFace::BlurMQuality();
+    pose_quality_ = new DGFace::PoseQuality();
 
-    }
-
+    blur_threshold_ = config.blur_threshold;
 }
+
 FaceQualityProcessor::~FaceQualityProcessor() {
 
-    delete fq_;
+//    delete frontal_quality_;
+    delete blur_quality_;
+    delete pose_quality_;
 }
+
 bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
-    if (!fq_)
+
+    if (!(blur_quality_ && pose_quality_)) {
+        LOG(ERROR) << "Quality processor init error, skip" << endl;
         return false;
+    }
 
-    for (vector<Object *>::iterator itr = to_processed_.begin(); itr != to_processed_.end();) {
-        Mat img = ((Face *)(*itr))->image();
-        float score = fq_->quality(img((((Face*)(*itr))->detection()).box));
-        if (frontalThreshold_ > score) {
-            ((Face *)(*itr))->set_valid(false);
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start face quality filter " << endl;
 
+    for (vector<Object *>::iterator itr = to_processed_.begin(); itr != to_processed_.end(); itr++) {
+
+        Face *face = (Face *) (*itr);
+        Mat faceImg = face->image();
+
+
+        // apply blur quality filter
+        float blur_score = blur_quality_->quality(faceImg);
+        if (blur_threshold_ > blur_score) {
+            VLOG(VLOG_RUNTIME_DEBUG) << "Blur filter failed, score is " << blur_score << " and threshold is "
+                << blur_threshold_ << endl;
+            face->set_valid(false);
             itr = to_processed_.erase(itr);
-        } else {
-            ((Face *)(*itr))->set_qualities(Face::Frontal, score);
-            itr++;
+            continue;
         }
+        face->set_qualities(Face::BlurM, blur_score);
+
+        // get face pose
+        vector<float> scores = pose_quality_->quality(face->get_align_result());
+        cout << scores[1] << scores[2] << scores[0] << endl;
+        cout << face->IsValid() << endl;
+        face->set_pose(scores);
+
         performance_++;
     }
-    for (auto *frame : frameBatch->frames()) {
-        frame->DeleteInvalidObjects();
-    }
+
+    frameBatch->FilterInvalid();
+
     return true;
 }
+
 bool FaceQualityProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #if DEBUG
 #else
     if (performance_ > RECORD_UNIT) {
-		if (!RecordFeaturePerformance()) {
-			return false;
-		}
-	}
+        if (!RecordFeaturePerformance()) {
+            return false;
+        }
+    }
 #endif
     to_processed_.clear();
     to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);

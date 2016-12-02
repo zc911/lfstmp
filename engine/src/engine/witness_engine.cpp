@@ -10,8 +10,8 @@
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
 #include "processor/vehicle_window_detector_processor.h"
-#include "processor/face_pose_processor.h"
 #include "processor/face_quality_processor.h"
+#include "processor/face_alignment_processor.h"
 
 #include "processor/config_filter.h"
 
@@ -361,6 +361,16 @@ void WitnessEngine::init(const Config &config) {
         face_processor_ = new FaceDetectProcessor(fdconfig, method);
         Processor *last = face_processor_;
 
+        if (1) {
+            LOG(INFO) << "Enable face alignment processor." << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
+            FaceAlignmentConfig faConfig;
+            configFilter->createFaceAlignmentConfig(config, faConfig);
+            Processor *p = new FaceAlignmentProcessor(faConfig);
+            last->SetNextProcessor(p);
+            last = p;
+        }
+
         if (enable_face_quality_) {
             LOG(INFO) << "Enable face quality processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face quality model" << endl;
@@ -370,24 +380,25 @@ void WitnessEngine::init(const Config &config) {
             last->SetNextProcessor(p);
             last = p;
         }
+
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face feature extract model" << endl;
             FaceFeatureExtractorConfig feconfig;
             FaceAlignmentConfig faConfig;
-            configFilter->createFaceExtractorConfig(config, feconfig, faConfig);
-            Processor *p = new FaceFeatureExtractProcessor(feconfig, faConfig);
+            configFilter->createFaceExtractorConfig(config, feconfig);
+            Processor *p = new FaceFeatureExtractProcessor(feconfig);
             last->SetNextProcessor(p);
             last = p;
         }
-        if (enable_face_feature_vector_) {
-            LOG(INFO) << "Enable face pose processor." << endl;
-            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face pose model" << endl;
-            FacePoseConfig fpconfig;
-            Processor *p = new FacePoseProcessor(fpconfig);
-            last->SetNextProcessor(p);
-            last = p;
-        }
+//        if (enable_face_feature_vector_) {
+//            LOG(INFO) << "Enable face pose processor." << endl;
+//            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face pose model" << endl;
+//            FacePoseConfig fpconfig;
+//            Processor *p = new FacePoseProcessor(fpconfig);
+//            last->SetNextProcessor(p);
+//            last = p;
+//        }
         last->SetNextProcessor(NULL);
 
 

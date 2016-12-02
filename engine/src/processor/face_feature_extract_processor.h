@@ -9,7 +9,7 @@
 #ifndef FACE_FEATURE_EXTRACT_PROCESSOR_H_
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
-#include "dgface/alignment.h"
+
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
@@ -17,27 +17,14 @@
 #include "dgface/cdnn_score.h"
 
 namespace dg {
-typedef struct {
-    bool is_model_encrypt = true;
-    int batch_size = 1;
-    string align_model;
-    string align_deploy;
-    string align_cfg;
-    string align_path;
-    vector<int> face_size;
-    int method;
-    string detect_type;
-    int gpu_id;
-    float threshold = 0;
-    string align_model_path;
-} FaceAlignmentConfig;
+
 typedef struct {
     bool is_model_encrypt = true;
     int batch_size = 1;
     string model_file;
     string deploy_file;
     string layer_name;
-    vector <float> mean;
+    vector<float> mean;
     float pixel_scale;
     vector<int> face_size;
     string pre_process;
@@ -51,33 +38,29 @@ typedef struct {
 
 } FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
-public:
-    enum {CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4};
-    enum {DlibAlign = 0, CdnnAlign = 1, CdnnCaffeAlign = 2};
+ public:
+    enum { CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4 };
+
 
     FaceFeatureExtractProcessor(
-        const FaceFeatureExtractorConfig &config, const FaceAlignmentConfig &faConfig);
+        const FaceFeatureExtractorConfig &config);
     virtual ~FaceFeatureExtractProcessor();
 
-protected:
+ protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
-    int AlignResult2MatrixAlign(vector<DGFace::AlignResult> &align_result, vector< Mat > &imgs);
-    int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector< FaceRankFeature > &features);
-    void adjust_box(string detect_type, Rect &box);
-    void facefilter(FrameBatch *frameBatch);
-private:
+    int toAlignmentImages(vector<Mat> &imgs, vector<DGFace::AlignResult> &align_results);
+    int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector<FaceRankFeature> &features);
+
+ private:
     DGFace::Recognition *recognition_ = NULL;
-    DGFace::Alignment *alignment_ = NULL;
     vector<Object *> to_processed_;
     string pre_process_;
-    int align_method_;
     int face_size_length_;
-    float align_threshold_;
     bool islog_;
 };
 
