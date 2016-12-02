@@ -22,8 +22,6 @@
 #include "debug_util.h"
 #include "witness_service.h"
 #include "image_service.h"
-#include "witness_bucket.h"
-#include "witness_collector.h"
 
 
 //
@@ -70,7 +68,7 @@ WitnessAppsService::WitnessAppsService(Config *config, string name, int baseId)
             }
             StorageConfig *sc = storage_configs_.Add();
             sc->set_address(address);
-            sc->set_type((DBType )type);
+            sc->set_type((DBType) type);
         }
         pool_ = new ThreadPool(1);
     }
@@ -87,73 +85,73 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
     int type = ctx.type();
     for (int i = 0; i < ctx.functions_size(); i++) {
         switch (ctx.functions(i)) {
-        case RECFUNC_NONE:
-            op.Set(OPERATION_NONE);
-            break;
-        case RECFUNC_VEHICLE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE);
-            break;
-        case RECFUNC_VEHICLE_DETECT:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_DETECT);
-            break;
-        case RECFUNC_VEHICLE_TRACK:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_TRACK);
-            break;
-        case RECFUNC_VEHICLE_STYLE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_STYLE);
-            break;
-        case RECFUNC_VEHICLE_COLOR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_COLOR);
-            break;
-        case RECFUNC_VEHICLE_MARKER:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_MARKER);
-            break;
-        case RECFUNC_VEHICLE_PLATE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_PLATE);
-            break;
-        case RECFUNC_VEHICLE_FEATURE_VECTOR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
-            break;
-        case RECFUNC_PEDESTRIAN_ATTR:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_PEDESTRIAN_ATTR);
-            break;
-        case RECFUNC_FACE:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE);
-            break;
-        case RECFUNC_FACE_DETECTOR:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_DETECTOR);
-            break;
-        case RECFUNC_FACE_FEATURE_VECTOR:
-            if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                op.Set(OPERATION_FACE_FEATURE_VECTOR);
-            break;
-        case RECFUNC_VEHICLE_DRIVER_NOBELT:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_DRIVER_BELT);
-            break;
-        case RECFUNC_VEHICLE_DRIVER_PHONE:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_DRIVER_PHONE);
+            case RECFUNC_NONE:
+                op.Set(OPERATION_NONE);
+                break;
+            case RECFUNC_VEHICLE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE);
+                break;
+            case RECFUNC_VEHICLE_DETECT:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_DETECT);
+                break;
+            case RECFUNC_VEHICLE_TRACK:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_TRACK);
+                break;
+            case RECFUNC_VEHICLE_STYLE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_STYLE);
+                break;
+            case RECFUNC_VEHICLE_COLOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_COLOR);
+                break;
+            case RECFUNC_VEHICLE_MARKER:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_MARKER);
+                break;
+            case RECFUNC_VEHICLE_PLATE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_PLATE);
+                break;
+            case RECFUNC_VEHICLE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_VEHICLE_FEATURE_VECTOR);
+                break;
+            case RECFUNC_PEDESTRIAN_ATTR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_PEDESTRIAN_ATTR);
+                break;
+            case RECFUNC_FACE:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE);
+                break;
+            case RECFUNC_FACE_DETECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_DETECTOR);
+                break;
+            case RECFUNC_FACE_FEATURE_VECTOR:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_FEATURE_VECTOR);
+                break;
+            case RECFUNC_VEHICLE_DRIVER_NOBELT:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_DRIVER_BELT);
+                break;
+            case RECFUNC_VEHICLE_DRIVER_PHONE:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_DRIVER_PHONE);
 
-            break;
-        case RECFUNC_VEHICLE_CODRIVER_NOBELT:
-            if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
-                op.Set(OPERATION_CODRIVER_BELT);
+                break;
+            case RECFUNC_VEHICLE_CODRIVER_NOBELT:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_CODRIVER_BELT);
 
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
     }
 
@@ -162,7 +160,7 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
 
 
 MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
-        RecPedestrian *prec) {
+                                                        RecPedestrian *prec) {
 
     MatrixError err;
     const Detection &d = pobj->detection();
@@ -172,9 +170,9 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     prec->set_confidence((float) pobj->confidence());
 
     RepoService::CopyCutboard(d, prec->mutable_img()->mutable_cutboard());
-    PeopleAttr* attr = prec->mutable_pedesattr();
+    PeopleAttr *attr = prec->mutable_pedesattr();
 
-    auto SetNameAndConfidence = [](NameAndConfidence * nac, Pedestrian::Attr & attribute) {
+    auto SetNameAndConfidence = [](NameAndConfidence *nac, Pedestrian::Attr &attribute) {
         nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(attribute.mappingId));
         nac->set_confidence(attribute.confidence);
         nac->set_id(attribute.index);
@@ -238,8 +236,8 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
-        RecVehicle * vrec) {
+MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle *vobj,
+                                                     RecVehicle *vrec) {
     MatrixError err;
     vrec->set_features(vobj->feature().Serialize());
 
@@ -258,7 +256,7 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
     err = RepoService::GetInstance().FillPlates(vobj->plates(), vrec);
     if (err.code() < 0)
         return err;
-    Window *window = (Window *)vobj->child(OBJECT_WINDOW);
+    Window *window = (Window *) vobj->child(OBJECT_WINDOW);
     if (window) {
         err = RepoService::GetInstance().FillSymbols(window->children(), vrec);
         if (err.code() < 0)
@@ -269,25 +267,24 @@ MatrixError WitnessAppsService::getRecognizedVehicle(const Vehicle * vobj,
         return err;
 
 
-
     return err;
 }
 
 MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> faceVector,
-                                                  ::google::protobuf::RepeatedPtrField< ::dg::model::RecPedestrian >* recPedestrian,
+                                                  ::google::protobuf::RepeatedPtrField<::dg::model::RecPedestrian> *recPedestrian,
                                                   int imgWidth,
                                                   int imgHeight) {
 
     MatrixError err;
     recPedestrian->mutable_data();
     for (int i = 0; i < faceVector.size(); ++i) {
-        const Face * fobj = faceVector[i];
+        const Face *fobj = faceVector[i];
         struct result {
-            RecPedestrian* recP;
+            RecPedestrian *recP;
             double coincidence;
             double distance;
         };
-        auto findCandidate = [ = ](RecPedestrian * recP) {
+        auto findCandidate = [=](RecPedestrian *recP) {
             result info;
             info.recP = recP;
             info.recP = recP;
@@ -295,13 +292,13 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             Rect BodyBox = Rect(recP->img().cutboard().x(), recP->img().cutboard().y(),
                                 recP->img().cutboard().width(), recP->img().cutboard().height());
             Rect overLap = FaceBox & BodyBox;
-            info.coincidence = (double)overLap.area() * 100.0 / FaceBox.area();
+            info.coincidence = (double) overLap.area() * 100.0 / FaceBox.area();
             info.distance = abs(FaceBox.x - BodyBox.x) + abs(FaceBox.y - FaceBox.y);
 
             return info;
         };
-        auto Max = [](int x, int y) {return x > y ? x : y;};
-        auto Min = [](int x, int y) {return x < y ? x : y;};
+        auto Max = [](int x, int y) { return x > y ? x : y; };
+        auto Min = [](int x, int y) { return x < y ? x : y; };
         vector<result> candidates;
         for (int j = 0; j < recPedestrian->size(); ++j) {
             if (!recPedestrian->Mutable(j)->has_face()) {
@@ -311,7 +308,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
                 }
             }
         }
-        RecPedestrian* MatchedPedestrian = NULL;
+        RecPedestrian *MatchedPedestrian = NULL;
         bool findMatched = false;
         if (candidates.empty()) {
             MatchedPedestrian = recPedestrian->Add();
@@ -329,17 +326,22 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             }
             MatchedPedestrian = MatchedResult.recP;
         }
-        RecFace* face = MatchedPedestrian->mutable_face();
+        RecFace *face = MatchedPedestrian->mutable_face();
         face->set_id(fobj->id());
         face->set_confidence((float) fobj->confidence());
         face->set_features(fobj->feature().Serialize());
+        ::dg::model::RecFacePose *pose = face->mutable_pose();
+        pose->set_type(fobj->get_pose().type);
+        pose->mutable_angles()->Add(fobj->get_pose().angles[0]);
+        pose->mutable_angles()->Add(fobj->get_pose().angles[1]);
+        pose->mutable_angles()->Add(fobj->get_pose().angles[2]);
         const Detection &d = fobj->detection();
         auto faceCutboard = face->mutable_img()->mutable_cutboard();
         auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();
         //RepoService::CopyCutboard(d, face->mutable_img()->mutable_cutboard());
         if (findMatched == false) {
             MatchedPedestrian->set_id(fobj->id());
-            MatchedPedestrian->set_confidence((float)fobj->confidence());
+            MatchedPedestrian->set_confidence((float) fobj->confidence());
             float leftTimes = RepoService::GetInstance().FindBodyRelativeFace("left");
             float rightTimes = RepoService::GetInstance().FindBodyRelativeFace("right");
             float topTimes = RepoService::GetInstance().FindBodyRelativeFace("top");
@@ -347,7 +349,8 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
             pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
             pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
-            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes), imgHeight - 1 - pedCutboard->y()));
+            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes),
+                                        imgHeight - 1 - pedCutboard->y()));
         }
         faceCutboard->set_x(Max(d.box.x - pedCutboard->x(), 0));
         faceCutboard->set_y(Max(d.box.y - pedCutboard->y(), 0));
@@ -359,15 +362,15 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * vobj,
-        RecNonMotorVehicle * vrec) {
+MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle *vobj,
+                                                             RecNonMotorVehicle *vrec) {
 
     MatrixError err;
     const Detection &d = vobj->detection();
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
     vrec->set_id(vobj->id());
 
-    auto SetNameAndConfidence = [](NameAndConfidence * nac, NonMotorVehicle::Attr & attribute) {
+    auto SetNameAndConfidence = [](NameAndConfidence *nac, NonMotorVehicle::Attr &attribute) {
         nac->set_name(RepoService::GetInstance().FindNonMotorAttrName(attribute.mappingId));
         nac->set_confidence(attribute.confidence);
         nac->set_id(attribute.index);
@@ -434,7 +437,7 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                 caf->set_name(PEDESTRIAN_ATTR_MALE_);
             }
         } else {
-             if (attrs[i].categoryId == 3) {
+            if (attrs[i].categoryId == 3) {
                 RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
 
                 if (vrec->passenger_size() == 0) {
@@ -446,7 +449,7 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                 CategoryAndFeature *caf = nmp->add_attribute();
                 caf->set_id(attrs[i].categoryId);
                 caf->set_categoryname(
-                            RepoService::GetInstance().FindNonMotorAttrCategory(attrs[i].categoryId));
+                    RepoService::GetInstance().FindNonMotorAttrCategory(attrs[i].categoryId));
                 NameAndConfidence *nac = caf->add_items();
                 nac->set_id(attrs[i].mappingId);
                 nac->set_confidence(attrs[i].confidence);
@@ -457,7 +460,7 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                 }
             } else if (attrs[i].confidence >= attrs[i].threshold_lower) {
                 // others judge
-         //       if (filter_flag == false || attrs[i].confidence >= attrs[i].threshold_upper) {
+                //       if (filter_flag == false || attrs[i].confidence >= attrs[i].threshold_upper) {
 
                 int categoryId = attrs[i].categoryId;
                 if (categoryId == 8) {
@@ -502,7 +505,7 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
                     NameAndConfidence *nac = caf->add_items();
                     SetNameAndConfidence(nac, attrs[i]);
                 }
-     //           }
+                //           }
             }
         }
     }
@@ -510,32 +513,31 @@ MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle * v
 }
 
 
-
-MatrixError WitnessAppsService::getRecognizeResult(Frame * frame,
-        WitnessResult * result) {
+MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
+                                                   WitnessResult *result) {
     MatrixError err;
     vector<const Face *> FacesVector;
 
     for (const Object *object : frame->objects()) {
         //  DLOG(INFO) << "recognized object: " << object->id() << ", type: " << object->type();
         switch (object->type()) {
-        case OBJECT_CAR:
-            err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
-            break;
-        case OBJECT_BICYCLE:
-        case OBJECT_TRICYCLE:
+            case OBJECT_CAR:
+                err = getRecognizedVehicle((Vehicle *) object, result->add_vehicles());
+                break;
+            case OBJECT_BICYCLE:
+            case OBJECT_TRICYCLE:
 
-            err = getRecognizedNonMotorVehicle((NonMotorVehicle *) object, result->add_nonmotorvehicles());
-            break;
-        case OBJECT_PEDESTRIAN:
-            err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());
-            break;
-        case OBJECT_FACE:
-            FacesVector.push_back((Face *) object);
-            break;
-        default:
-            LOG(WARNING) << "unknown object type: " << object->type();
-            break;
+                err = getRecognizedNonMotorVehicle((NonMotorVehicle *) object, result->add_nonmotorvehicles());
+                break;
+            case OBJECT_PEDESTRIAN:
+                err = getRecognizedPedestrian((Pedestrian *) object, result->add_pedestrian());
+                break;
+            case OBJECT_FACE:
+                FacesVector.push_back((Face *) object);
+                break;
+            default:
+                LOG(WARNING) << "unknown object type: " << object->type();
+                break;
 
         }
 
@@ -544,17 +546,17 @@ MatrixError WitnessAppsService::getRecognizeResult(Frame * frame,
         }
     }
 
-    err =  getRecognizedFace(FacesVector, result->mutable_pedestrian(),
-                             result->image().data().width(),
-                             result->image().data().height());
+    err = getRecognizedFace(FacesVector, result->mutable_pedestrian(),
+                            result->image().data().width(),
+                            result->image().data().height());
 
     return err;
 }
 
-MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage & wImage) {
+MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage &wImage) {
     MatrixError err;
     if (wImage.data().uri().size() == 0
-            && wImage.data().bindata().size() == 0) {
+        && wImage.data().bindata().size() == 0) {
         LOG(ERROR) << "image uri and bindata are empty both";
         err.set_code(-1);
         err.set_message("image uri and bindata are empty both");
@@ -573,7 +575,7 @@ MatrixError WitnessAppsService::checkWitnessImage(const WitnessImage & wImage) {
     return err;
 }
 
-MatrixError WitnessAppsService::checkRequest(const WitnessRequest & request) {
+MatrixError WitnessAppsService::checkRequest(const WitnessRequest &request) {
     MatrixError err;
     if (!request.has_image() || !request.image().has_data()) {
         LOG(ERROR) << "image descriptor does not exist";
@@ -589,7 +591,7 @@ MatrixError WitnessAppsService::checkRequest(const WitnessRequest & request) {
 }
 
 MatrixError WitnessAppsService::checkRequest(
-    const WitnessBatchRequest & requests) {
+    const WitnessBatchRequest &requests) {
     MatrixError err;
     int size = requests.images().size();
     if (size == 0) {
@@ -609,13 +611,13 @@ MatrixError WitnessAppsService::checkRequest(
     return err;
 }
 
-void storage(Frame * frame, VehicleObj * client_request_obj, string storageAddress) {
+void storage(Frame *frame, VehicleObj *client_request_obj, string storageAddress) {
     /*   */
 
 }
 
-MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
-        WitnessResponse * response) {
+MatrixError WitnessAppsService::Recognize(const WitnessRequest *request,
+                                          WitnessResponse *response) {
     VLOG(VLOG_RUNTIME_DEBUG) << "Recognize using WitnessAppsService" << name_ << endl;
     struct timeval curr_time;
     gettimeofday(&curr_time, NULL);
@@ -629,7 +631,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     }
 
     VLOG(VLOG_SERVICE) << "Get Recognize request: " << sessionid
-                       << ", Image URI:" << request->image().data().uri();
+        << ", Image URI:" << request->image().data().uri();
     VLOG(VLOG_SERVICE) << "Start processing: " << sessionid << "...";
 
     struct timeval start, end;
@@ -647,8 +649,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
             string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
             string dir = "mkdir -p " + path;
             const int dir_err = system(dir.c_str());
-            if (-1 == dir_err)
-            {
+            if (-1 == dir_err) {
                 printf("Error creating directory!n");
             }
             string name = path + "/" + to_string(timestamp) + ".jpg";
@@ -692,7 +693,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-            ->mutable_debugts();
+        ->mutable_debugts();
     WitnessResult *result = response->mutable_result();
     result->mutable_image()->mutable_data()->set_uri(
         request->image().data().uri());
@@ -727,7 +728,7 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
     VLOG(VLOG_PROCESS_COST) << "Parse results cost: " << TimeCostInMs(start, end) << endl;
     if (enable_storage_) {
         shared_ptr<WitnessVehicleObj> client_request_obj(new WitnessVehicleObj);
-        WitnessResult * result = client_request_obj->results.Add();
+        WitnessResult *result = client_request_obj->results.Add();
         result->CopyFrom(response->result());
         if (request->context().storages_size() > 0) {
             client_request_obj->storages.CopyFrom(request->context().storages());
@@ -752,8 +753,8 @@ MatrixError WitnessAppsService::Recognize(const WitnessRequest * request,
 }
 
 MatrixError WitnessAppsService::BatchRecognize(
-    const WitnessBatchRequest * batchRequest,
-    WitnessBatchResponse * batchResponse) {
+    const WitnessBatchRequest *batchRequest,
+    WitnessBatchResponse *batchResponse) {
 
 
     struct timeval curr_time;
@@ -766,11 +767,11 @@ MatrixError WitnessAppsService::BatchRecognize(
         batchRequest->images();
     Identification curr_id = base_id_ * 10000 + id_++;
     VLOG(VLOG_SERVICE)
-            << "Batch recognize using " << name_ << " and batch id: "
-            << curr_id << endl;
+    << "Batch recognize using " << name_ << " and batch id: "
+        << curr_id << endl;
     VLOG(VLOG_SERVICE)
-            << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << " and batch id: "
-            << curr_id << endl;
+    << "Get Batch Recognize request: " << sessionid << ", batch size:" << images.size() << " and batch id: "
+        << curr_id << endl;
 
 
     err = checkRequest(*batchRequest);
@@ -787,12 +788,12 @@ MatrixError WitnessAppsService::BatchRecognize(
     vector<WitnessImage> imgDesc;
     vector<ROIImages> roiimages;
     vector<SrcMetadata> srcMetadatas;
-    vector <
-    ::google::protobuf::RepeatedPtrField <
-    const ::dg::model::WitnessRelativeROI > > roisr;
-    vector <
-    ::google::protobuf::RepeatedPtrField <
-    const ::dg::model::WitnessMarginROI > > roism;
+    vector<
+        ::google::protobuf::RepeatedPtrField<
+            const ::dg::model::WitnessRelativeROI> > roisr;
+    vector<
+        ::google::protobuf::RepeatedPtrField<
+            const ::dg::model::WitnessMarginROI> > roism;
 
     ::google::protobuf::RepeatedPtrField<const ::dg::model::WitnessImage>::iterator itr =
         images.begin();
@@ -825,8 +826,7 @@ MatrixError WitnessAppsService::BatchRecognize(
             string path = this->fullimage_storage_address_ + "/" + GetLatestMinute();
             string dir = "mkdir -p " + path;
             const int dir_err = system(dir.c_str());
-            if (-1 == dir_err)
-            {
+            if (-1 == dir_err) {
                 LOG(WARNING) << ("Error creating directory!n");
             }
             for (int i = 0; i < roiimages.size(); i++) {
@@ -865,7 +865,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     EngineData data;
     data.func = [&framebatch, &data]() -> void {
         return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
-        placeholders::_1))(&framebatch);
+                     placeholders::_1))(&framebatch);
     };
 
     if (engine_pool == NULL) {
@@ -894,7 +894,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     //debug information of this request
     ::google::protobuf::Map<::std::string, ::dg::Time> &debugTs = *ctx
-            ->mutable_debugts();
+        ->mutable_debugts();
 
     vector<Frame *> frames = framebatch.frames();
     for (int i = 0; i < frames.size(); ++i) {
@@ -913,7 +913,7 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     if (frames.size() != batchResponse->results().size()) {
         LOG(ERROR) << "Input frame size not equal to results size." << frames.size() << "-"
-                   << batchResponse->results().size() << endl;
+            << batchResponse->results().size() << endl;
         err.set_code(-1);
         err.set_message("Input frame size not equal to results size.");
         return err;

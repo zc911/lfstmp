@@ -44,8 +44,6 @@ enum DetectionTypeId {
 };
 
 
-
-
 typedef struct Detection {
     int id = -1;
     bool deleted;
@@ -61,19 +59,20 @@ typedef struct Detection {
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-               << det.box.y << "," << det.box.width << "," << det.box.height
-               << "] Conf: " << det.confidence;
+            << det.box.y << "," << det.box.width << "," << det.box.height
+            << "] Conf: " << det.confidence;
     }
 
 } Detection;
-typedef struct FacePose{
+
+typedef struct FacePose {
     int type;
     vector<float> angles;
 } FacePose;
 
-
 class Object {
-public:
+ public:
+
     Object(ObjectType type)
         : id_(0),
           type_(type),
@@ -81,6 +80,7 @@ public:
         children_.clear();
 
     }
+
     virtual ~Object() {
         // here we only take care of children but not parent
         for (int i = 0; i < children_.size(); ++i) {
@@ -108,6 +108,7 @@ public:
     void set_detection(const Detection &detection) {
         detection_ = detection;
     }
+
     Object *child(ObjectType type) const {
         for (int i = 0; i < children_.size(); i++) {
 
@@ -118,7 +119,7 @@ public:
         return NULL;
 
     }
-    vector<Object *>children(ObjectType type)const {
+    vector<Object *> children(ObjectType type) const {
         vector<Object *> result;
         for (auto *child : children_) {
             if (child->type() == type)
@@ -151,7 +152,7 @@ public:
         type_ = type;
     }
 
-protected:
+ protected:
     Identification id_;
     Confidence confidence_;
     ObjectType type_;
@@ -160,11 +161,11 @@ protected:
 
 };
 class Vehicler: public Object {
-public:
+ public:
 
-    enum {NoBelt = 48, Phone = 47};
-    enum {Yes = 1, No = 0, NotSure = 2, NoPerson = 3};
-    Vehicler(ObjectType type): Object(type) {
+    enum { NoBelt = 48, Phone = 47 };
+    enum { Yes = 1, No = 0, NotSure = 2, NoPerson = 3 };
+    Vehicler(ObjectType type) : Object(type) {
 
     }
     ~Vehicler() {
@@ -184,7 +185,7 @@ public:
 };
 
 class Marker: public Object {
-public:
+ public:
     Marker(ObjectType type)
         : Object(type),
           class_id_(-1) {
@@ -200,7 +201,7 @@ public:
         class_id_ = id;
     }
 
-private:
+ private:
     Identification class_id_;
 
 };
@@ -212,8 +213,9 @@ typedef struct {
     Object *object;
 } Message;
 class Window: public Object {
-public:
-    Window(Mat &img, vector<Rect> &fobbiden, vector<float> &params): Object(OBJECT_WINDOW), image_(img), fobbiden_(fobbiden), params_(params), class_id_(-1) {
+ public:
+    Window(Mat &img, vector<Rect> &fobbiden, vector<float> &params)
+        : Object(OBJECT_WINDOW), image_(img), fobbiden_(fobbiden), params_(params), class_id_(-1) {
         params_.resize(6);
     }
     ~Window() {
@@ -242,22 +244,22 @@ public:
             this->AddChild(m);
         }
     }
-    vector<Rect> & fobbiden() {
+    vector<Rect> &fobbiden() {
         return fobbiden_;
     }
-    vector<float> & params() {
+    vector<float> &params() {
         return params_;
     }
-    Mat & resized_image() {
+    Mat &resized_image() {
         return resized_image_;
     }
-    Mat & phone_image() {
+    Mat &phone_image() {
         return phone_image_;
     }
-    Mat & image() {
+    Mat &image() {
         return image_;
     }
-private:
+ private:
     Identification class_id_;
     Mat resized_image_;
     Mat image_;
@@ -266,7 +268,7 @@ private:
     vector<float> params_;
 };
 class Pedestrian: public Object {
-public:
+ public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -302,14 +304,14 @@ public:
         threshold_ = threshold;
     }
 
-private:
+ private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
     std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {
-public:
+ public:
 
     typedef struct {
         Identification class_id = -1;
@@ -339,10 +341,10 @@ public:
     void set_color(const Color &color) {
         color_ = color;
     }
-    void set_window( Window *window) {
+    void set_window(Window *window) {
         this->AddChild(window);
     }
-    void set_vehicler( Vehicler *vehicler) {
+    void set_vehicler(Vehicler *vehicler) {
         this->AddChild(vehicler);
 
     }
@@ -381,7 +383,7 @@ public:
     void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
-private:
+ private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -393,7 +395,7 @@ private:
 };
 
 class NonMotorVehicle: public Object {
-public:
+ public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -433,7 +435,7 @@ public:
         return attrs_;
     }
 
-private:
+ private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -443,9 +445,9 @@ private:
 };
 
 class Face: public Object {
-public:
-    enum{BlurM=0,Frontal=1};
-    enum{NotFrontalType=1,FrontalType = 0};
+ public:
+    enum { BlurM = 0, Frontal = 1 };
+    enum { NotFrontalType = 1, FrontalType = 0 };
     const float Pitch = 30;
     const float Yaw = 30;
     Face()
@@ -476,6 +478,14 @@ public:
         feature_ = feature;
     }
 
+    const cv::Mat &full_image() const {
+        return full_image_;
+    }
+
+    void set_full_image(const cv::Mat image) {
+        full_image_ = image;
+    }
+
     const cv::Mat &image() const {
         return image_;
     }
@@ -489,38 +499,38 @@ public:
     void set_valid(bool flag) {
         is_valid_ = flag;
     }
-    void set_qualities(int type,float score){
-        qualities_[type]=score;
+    void set_qualities(int type, float score) {
+        qualities_[type] = score;
     }
-    map<int,float> &get_qualities(){
+    map<int, float> &get_qualities() {
         return qualities_;
     }
-    void set_pose( vector<float> angles){
-        face_pose_.angles=angles;
-        if((abs(angles[0])<=Pitch)||(abs(angles[1])<=Yaw)){
-            face_pose_.type=FrontalType;
-        }else{
-            face_pose_.type=NotFrontalType;
+    void set_pose(vector<float> angles) {
+        face_pose_.angles = angles;
+        if ((abs(angles[0]) <= Pitch) || (abs(angles[1]) <= Yaw)) {
+            face_pose_.type = FrontalType;
+        } else {
+            face_pose_.type = NotFrontalType;
         }
     }
-     FacePose get_pose() const {
+    FacePose get_pose() const {
         return face_pose_;
     }
-    void set_align_result(DGFace::AlignResult align_result){
+    void set_align_result(DGFace::AlignResult align_result) {
         align_result_ = align_result;
     }
-    DGFace::AlignResult &get_align_result(){
+    DGFace::AlignResult &get_align_result() {
         return align_result_;
     }
-private:
+ private:
+    cv::Mat full_image_;
     cv::Mat image_;
     FaceRankFeature feature_;
     bool is_valid_;
-    map<int,float> qualities_;
+    map<int, float> qualities_;
     FacePose face_pose_;
     DGFace::AlignResult align_result_;
 };
-
 
 }
 #endif /* MODEL_H_ */

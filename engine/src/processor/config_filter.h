@@ -23,6 +23,7 @@
 #include "processor/vehicle_phone_detector_processor.h"
 #include "processor/non_motor_vehicle_classifier_processor.h"
 #include "plate_recognize_mxnet_processor.h"
+#include "processor/face_alignment_processor.h"
 
 #include "model/alg_config.h"
 #include "config.h"
@@ -48,8 +49,11 @@ class ConfigFilter {
                                   FaceDetectorConfig &config);
     void createFaceQualityConfig(const Config &cconfig, FaceQualityConfig &fqConfig);
 
+    void createFaceAlignmentConfig(const Config &cconfig,
+                                   FaceAlignmentConfig &faConfig);
+
     void createFaceExtractorConfig(const Config &cconfig,
-                                   FaceFeatureExtractorConfig &config, FaceAlignmentConfig &faConfig);
+                                   FaceFeatureExtractorConfig &config);
     // void createVehicleConfig(const Config &cconfig,
     //                          vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
     //void createVehicleColorConfig(const Config &cconfig, vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
@@ -75,10 +79,10 @@ class ConfigFilter {
         createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
 //  void createPedestrianConfig(const Config &cconfig, PedestrianClassifier::PedestrianConfig &pConfig);
 //  void createPedestrianConfig(const Config &cconfig, NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
-  int initDataConfig(const Config &config);
-private:
-  ConfigFilter();
-  static ConfigFilter *instance_;
+    int initDataConfig(const Config &config);
+ private:
+    ConfigFilter();
+    static ConfigFilter *instance_;
 
     Config data_config_;
 };
