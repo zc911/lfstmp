@@ -109,6 +109,16 @@
       "RpnTrainedModel": "1102.dat",
       "RpnDeployModel": "1102.txt",
       "AttributeFile": "bitri_threshold.txt"
+    },
+    "PersonReid": {
+      "ModelPath": "data/",
+      "DeployModel": "1200.txt",
+      "TrainedModel": "1200.dat"
+    },
+    "CarReid": {
+      "ModelPath": "data/",
+      "DeployModel": "1300.txt",
+      "TrainedModel": "1300.dat"
     }
   }
 }
