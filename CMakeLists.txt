@@ -31,7 +31,7 @@ LIST(APPEND LIBS glog  boost_filesystem boost_system ${CONAN_LIBS_CDNN}
 				${CONAN_LIBS_HASP} 
 				${CONAN_LIBS_DGCAFFE} 
 				${CONAN_LIBS_CUDART})
-LIST(APPEND LIBS pthread cblas crypto )
+LIST(APPEND LIBS pthread cblas crypto jsoncpp)
 
 # TODO make release VERSION to upload the lib and headers to conan server
 # add_custom_target(release COMMAND conan upload ${PROJECT_NAME}/${VERSION}@deepglint/demo)

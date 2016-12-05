@@ -1,4 +1,3 @@
-#include <config.h>
 #include <detector/det_dlib.h>
 #include <detector/det_rpn.h>
 #include <detector/det_ssd.h>
@@ -11,6 +10,7 @@
 #include "caffe_interface.h"
 #include "face_inf.h"
 #include "dgface_utils.h"
+#include "dgface_config.h"
 using namespace cv;
 using namespace std;
 using namespace caffe;
@@ -483,6 +483,7 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min,std::string deploy
 
 }
 
+/*
 FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id)
                 : Detector(img_scale_max, img_scale_min) {
 
@@ -502,21 +503,50 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
     _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
 
 }
+*/
+
+FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id)
+                : Detector(img_scale_max, img_scale_min) {
+
+    int argc = 1;
+    char* argv[] = {""};
+    vis::initcaffeglobal(argc, argv, gpu_id);
+	
+	string cfg_file;
+	string deploy_file, model_file;
+	addNameToPath(model_dir, "/det_fcn.json", cfg_file);	
+	
+	ParseConfigFile(cfg_file, deploy_file, model_file);
+
+	string full_deploy_file, full_model_file;
+	addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
+	addNameToPath(model_dir, "/" + model_file, full_model_file);
+	
+    _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
+
+}
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
 
 	string cfg_content;
 	int ret = getConfigContent(cfg_file, cfg_content);
-	if(ret != 0 ) {
+	if(ret != 0) {
 		cout << "fail to decrypt config file." << endl;
 		deploy_file.clear();
 		model_file.clear();
 		return;
 	}
 
-	stringstream ssin(cfg_content);
-	getline(ssin, deploy_file);
-	getline(ssin, model_file);
+	Config fcn_cfg;
+	if(!fcn_cfg.LoadString(cfg_content)) {
+		cout << "fail to parse " << cfg_file << endl;
+		deploy_file.clear();
+		model_file.clear();
+		return;
+	}
+
+	deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
+	model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
 }
 
 FcnDetector::~FcnDetector() {
@@ -574,6 +604,7 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 }
 
 /*====================== select detector ======================== */
+/*----------------------
 Detector *create_detector(const string &prefix) {
     Config *config    = Config::instance();
     string type       = config->GetConfig<string>(prefix + "detector", "dlib");
@@ -627,20 +658,42 @@ Detector *create_detector(const string &prefix) {
     }
     throw new runtime_error("unknown detector");
 }
-Detector *create_detector(const string& method, const string& model_dir, int gpu_id) {
+*/
+
+Detector *create_detector(const det_method& method, const string& model_dir, int gpu_id) {
 	int img_scale_max = 720;
 	int img_scale_min = 240;
-	if(method == "fcn") {
-        return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
-	} else if(method == "ssd") {
-		throw new runtime_error("don't use ssd!");
-	} else if(method == "rpn") {
-		throw new runtime_error("don't use rpn!");
-	} else if (method == "dlib") {
-		throw new runtime_error("don't use dlib!");
-        return new DlibDetector(img_scale_max, img_scale_min);
+	switch(method) {
+		case det_method::FCN: {
+			return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
+			break;
+		}
+		case det_method::DLIB: {
+			throw new runtime_error("don't use dlib!");
+			break;
+		}
+		case det_method::RPN: {
+			throw new runtime_error("don't use rpn!");
+			break;
+		}
+		case det_method::SSD: {
+			throw new runtime_error("don't use ssd!");
+			break;
+		}
+		default:
+			throw new runtime_error("unknown detector");
 	}
-    throw new runtime_error("unknown detector");
+	// if(method == "fcn") {
+    //     return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
+	// } else if(method == "ssd") {
+	// 	throw new runtime_error("don't use ssd!");
+	// } else if(method == "rpn") {
+	// 	throw new runtime_error("don't use rpn!");
+	// } else if (method == "dlib") {
+	// 	throw new runtime_error("don't use dlib!");
+    //     return new DlibDetector(img_scale_max, img_scale_min);
+	// }
+    // throw new runtime_error("unknown detector");
 
 }
 

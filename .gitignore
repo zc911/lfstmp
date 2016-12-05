@@ -1,6 +1,7 @@
 build/
 .idea
 release
+models
 dist
 bin
 dep

@@ -6,7 +6,6 @@
 
 #include <opencv2/opencv.hpp>
 
-#include <config.h>
 #include <detector.h>
 #include <alignment.h>
 #include <recognition.h>
@@ -14,6 +13,8 @@
 #include <database.h>
 #include <transformation.h>
 #include "dgface_utils.h"
+#include "dgface_config.h"
+
 
 using namespace cv;
 using namespace std;
@@ -72,20 +73,20 @@ int main(int argc, char const *argv[])
 		fea_dir = argv[2];
 	}
 
-	FileConfig config("config.txt");
-    if (!config.Parse()) {
-        cerr << "Failed to parse config file." << endl;
-        exit(1);
-    }
+	// FileConfig config("config.txt");
+    // if (!config.Parse()) {
+    //     cerr << "Failed to parse config file." << endl;
+    //     exit(1);
+    // }
     
     vector<string> names;
     load_names(name_txt, names);
 
-    Detector  *detector 		= create_detector();
-	Alignment *alignment 		= create_alignment();
-	Transformation *transformation   = create_transformation();
-	Recognition *recognition 	= create_recognition();
-	// Verification *verification 	= create_verifier();
+    Detector  *detector 		= create_detector(det_method::FCN, "models/detetor_0.1.0", 0);
+	Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
+	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
+	Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
+	// Verification *verification 	= create_verifier(verif_method::EUCLID);
 
 	vector<RecogResult> recognitions(names.size());
     ofstream not_det("not_det.log");

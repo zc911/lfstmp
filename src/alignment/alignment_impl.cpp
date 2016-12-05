@@ -1,7 +1,6 @@
 #include <alignment/align_dlib.h>
 #include <alignment/align_cdnn.h>
 #include <alignment/align_cdnn_caffe.h>
-#include <config.h>
 #include <stdexcept>
 #include "dlib/image_processing.h"
 #include "dlib/opencv.h"
@@ -11,6 +10,7 @@
 #include "face_inf.h"
 #include "post_filter.h"
 #include "dgface_utils.h"
+#include "dgface_config.h"
 
 using namespace cv;
 using namespace std;
@@ -71,9 +71,11 @@ void DlibAlignment::align_impl(const Mat &img, const Rect &bbox, AlignResult &re
     }
 }
 
+///////////////////////////////////////////////////////////////////////
 CdnnAlignment::CdnnAlignment(vector<int> face_size, string modelDir):Alignment(face_size) {
-    if(!Cdnn::InitFacialLandmarkModel(modelDir.c_str(), _keyPointsModel)) {
-        cout << "Fail to init from " << modelDir << endl;
+	string real_model_dir = (modelDir.back() != '/') ? modelDir + "/" : modelDir;
+    if(!Cdnn::InitFacialLandmarkModel(real_model_dir.c_str(), _keyPointsModel)) {
+        cout << "Fail to init from " << real_model_dir << endl;
         exit(-1);
     }
 }
@@ -298,6 +300,7 @@ void CdnnCaffeAlignment::align_impl(const cv::Mat &img,
 }
 
 ///////////////////////////////////////////////////////////////
+/*--------------------
 Alignment *create_alignment(const string &prefix) {
     Config *config = Config::instance();
     string type    = config->GetConfig<string>(prefix + "alignment", "dlib");
@@ -318,19 +321,38 @@ Alignment *create_alignment(const string &prefix) {
     }
     throw new runtime_error("unknown alignment");
 }
+*/
 
-Alignment *create_alignment(const string& method, const string& model_dir, int gpu_id) {
+Alignment *create_alignment(const align_method& method, const string& model_dir, int gpu_id) {
 	vector<int> face_size = {128};
 	
-	if(method == "cdnn") {
-		face_size[0] = 600;
-        return new CdnnAlignment(face_size, model_dir);
-	} else if(method == "cdnn_caffe") {
-		face_size[0] = 600;
-        return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
-	} else if(method == "dlib") {
-		throw new runtime_error("don't use dlib");
+	switch(method) {
+		case align_method::CDNN: {
+			face_size[0] = 600;
+			return new CdnnAlignment(face_size, model_dir);
+			break;
+		}
+		case align_method::CDNN_CAFFE: {
+			face_size[0] = 600;
+			return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
+			break;
+		}
+		case align_method::DLIB: {
+			throw new runtime_error("don't use dlib");
+			break;
+		}
+		default:
+			throw new runtime_error("unknown alignment");
 	}
-    throw new runtime_error("unknown alignment");
+	// if(method == "cdnn") {
+	// 	face_size[0] = 600;
+    //     return new CdnnAlignment(face_size, model_dir);
+	// } else if(method == "cdnn_caffe") {
+	// 	face_size[0] = 600;
+    //     return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
+	// } else if(method == "dlib") {
+	// 	throw new runtime_error("don't use dlib");
+	// }
+    // throw new runtime_error("unknown alignment");
 }
 }

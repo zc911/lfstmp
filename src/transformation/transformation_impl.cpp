@@ -1,6 +1,5 @@
 #include <transformation/trans_cdnn.h>
 #include <transformation/trans_cdnn_caffe.h>
-#include <config.h>
 #include <stdexcept>
 #include "face_para.h"
 #include "dgface_utils.h"
@@ -104,6 +103,7 @@ void CdnnCaffeTransformation::transform_impl(const Mat& img, const LandMarkInfo&
 }
 
 ////////////////////////////////////////////////////////////////////
+/*----------
 Transformation *create_transformation(const string &prefix) {
 	Config *config = Config::instance();
 	string type = config->GetConfig<string>(prefix + "transformation", "cdnn");
@@ -114,13 +114,27 @@ Transformation *create_transformation(const string &prefix) {
 	}
 	throw new runtime_error("unknown transformation");
 }
+*/
 
-Transformation *create_transformation(const std::string& method, const std::string& model_dir) {
-	if(method == "cdnn") {
-		return new CdnnTransformation();
-	} else if(method == "cdnn_caffe") {
-		return new CdnnCaffeTransformation();
+Transformation *create_transformation(const transform_method& method, const std::string& model_dir) {
+	switch(method) {
+		case transform_method::CDNN: {
+			return new CdnnTransformation();
+			break;
+		}
+		case transform_method::CDNN_CAFFE: {
+			return new CdnnCaffeTransformation();
+			break;
+		}
+		default:
+			throw new runtime_error("unknown transformation");
 	}
-	throw new runtime_error("unknown transformation");
+	
+	//if(method == "cdnn") {
+	//	return new CdnnTransformation();
+	//} else if(method == "cdnn_caffe") {
+	//	return new CdnnCaffeTransformation();
+	//}
+	//throw new runtime_error("unknown transformation");
 }
 }

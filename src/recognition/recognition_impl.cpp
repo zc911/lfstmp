@@ -3,13 +3,13 @@
 #include <recognition/recog_cdnn.h>
 #include <recognition/recog_cdnn_caffe.h>
 #include <recognition/recog_fuse.h>
-#include <config.h>
 #include <stdexcept>
 #include "caffe_interface.h"
 
 #include <transformation/trans_cdnn.h>
 #include <transformation/trans_cdnn_caffe.h>
 #include "dgface_utils.h"
+#include "dgface_config.h"
 
 using namespace std;
 using namespace cv;
@@ -507,7 +507,7 @@ FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread) {
 	string cdnn_model_dir, cdnn_caffe_model_dir;
 	string cfg_file;
 	addNameToPath(model_dir, "/recog_fuse.cfg", cfg_file);
-	ParseConfigFile(cfg_file, cdnn_model_dir, cdnn_caffe_model_dir);
+	ParseConfigFile(cfg_file, cdnn_model_dir, cdnn_caffe_model_dir, fuse_weight_0, fuse_weight_1);
 
 	string full_cdnn_model_dir, full_cdnn_caffe_model_dir;
 	addNameToPath(model_dir, "/" + cdnn_model_dir, full_cdnn_model_dir);
@@ -528,7 +528,7 @@ FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread) {
     }
 }
 
-void FuseRecog::ParseConfigFile(string cfg_file, string& cdnn_model_dir, string& cdnn_caffe_model_dir) {
+void FuseRecog::ParseConfigFile(string cfg_file, string& cdnn_model_dir, string& cdnn_caffe_model_dir, float& cdnn_weight, float& cdnn_caffe_weight) {
 	string cfg_content;
 	int ret = getConfigContent(cfg_file, cfg_content);
 	if(ret != 0 ) {
@@ -538,9 +538,17 @@ void FuseRecog::ParseConfigFile(string cfg_file, string& cdnn_model_dir, string&
 		return;
 	}
 
-	stringstream ssin(cfg_content);
-	getline(ssin, cdnn_model_dir);
-	getline(ssin, cdnn_caffe_model_dir);
+	Config fuse_cfg;
+	if(!fuse_cfg.LoadString(cfg_content)) {
+		cout << "fail to parse " << cfg_file << endl;
+		cdnn_model_dir.clear();
+		cdnn_caffe_model_dir.clear();
+		return;
+	}
+	cdnn_model_dir = static_cast<string>(fuse_cfg.Value("cdnnFolder"));
+	cdnn_weight = static_cast<float>(fuse_cfg.Value("cdnnWeight"));
+	cdnn_caffe_model_dir = static_cast<string>(fuse_cfg.Value("cdnnCaffeFolder"));
+	cdnn_caffe_weight = static_cast<float>(fuse_cfg.Value("cdnnCaffeWeight"));
 }
 
 FuseRecog::~FuseRecog() {
@@ -618,10 +626,11 @@ void FuseRecog::recog_impl(const vector<cv::Mat>& faces,
     recog_0->recog(faces, alignment, recog_0_result,"NONE");
     recog_1->recog(faces, alignment, recog_1_result,"NONE");
 
-    feature_combine(recog_0_result, recog_1_result, sqrt(0.5), sqrt(0.5), results);
+    feature_combine(recog_0_result, recog_1_result, fuse_weight_0, fuse_weight_1, results);
 }
 
 /*====================== select recognizer ======================== */
+/*------------
 Recognition *create_recognition(const string & prefix) {
     Config *config = Config::instance();
     string type    = config->GetConfig<string>(prefix + "recognition", "cnn");
@@ -657,18 +666,45 @@ Recognition *create_recognition(const string & prefix) {
     }
     throw new runtime_error("unknown recognition");
 }
-Recognition *create_recognition(const string& method, const string& model_dir, int gpu_id, bool multi_thread) {
-	if (method == "cdnn_caffe") {
-        return new CdnnCaffeRecog(model_dir, gpu_id);
-	} else if (method == "cdnn") {
-        return new CdnnRecog(model_dir, multi_thread);
-	} else if (method == "fusion") {
-        return new FuseRecog(model_dir, gpu_id, multi_thread);
-	} else if (method == "lbp") {
-		throw new runtime_error("don't use lbp!");
-	} else if (method == "cnn") {
-		throw new runtime_error("don't use cnn!");
+*/
+
+Recognition *create_recognition(const recog_method& method, const string& model_dir, int gpu_id, bool multi_thread) {
+	switch(method) {
+		case recog_method::FUSION: {
+        	return new FuseRecog(model_dir, gpu_id, multi_thread);
+			break;	
+		}
+		case recog_method::CDNN_CAFFE: {
+        	return new CdnnCaffeRecog(model_dir, gpu_id);
+			break;	
+		}
+		case recog_method::CDNN: {
+        	return new CdnnRecog(model_dir, multi_thread);
+			break;
+		}
+		case recog_method::CNN: {
+			throw new runtime_error("don't use cnn!");
+			break;
+		}
+		case recog_method::LBP: {
+			throw new runtime_error("don't use lbp!");
+			break;
+		}
+		default:
+    		throw new runtime_error("unknown recognition");
 	}
-    throw new runtime_error("unknown recognition");
+
+	// if (method == "cdnn_caffe") {
+    //     return new CdnnCaffeRecog(model_dir, gpu_id);
+	// } else if (method == "cdnn") {
+    //     return new CdnnRecog(model_dir, multi_thread);
+	// } else if (method == "fusion") {
+    //     return new FuseRecog(model_dir, gpu_id, multi_thread);
+	// } else if (method == "lbp") {
+	// 	throw new runtime_error("don't use lbp!");
+	// } else if (method == "cnn") {
+	// 	throw new runtime_error("don't use cnn!");
+	// }
+    // throw new runtime_error("unknown recognition");
 }
 }

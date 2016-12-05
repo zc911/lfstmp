@@ -6,6 +6,12 @@
 #include "common.h"
 namespace DGFace{
 
+enum class det_method : unsigned char{
+	DLIB,
+	SSD,
+	RPN,
+	FCN,
+};
 
 class Detector {
     public:
@@ -27,8 +33,8 @@ class Detector {
         cv::Size _max_image_size;
         void edge_complete(std::vector<cv::Mat> &imgs);
 };
-Detector *create_detector(const std::string &prefix = std::string());
-Detector *create_detector(const std::string& method, const std::string& model_dir, int gpu_id);
+//Detector *create_detector(const std::string &prefix = std::string());
+Detector *create_detector(const det_method& method, const std::string& model_dir, int gpu_id);
 }
 
 #endif

@@ -4,7 +4,11 @@
 #include "common.h"
 namespace DGFace{
 
-
+enum class align_method : unsigned char{
+	DLIB,
+	CDNN,
+	CDNN_CAFFE,
+};
 
 class Alignment{
     public:
@@ -26,8 +30,8 @@ class Alignment{
 };
 
 
-Alignment *create_alignment(const std::string &prefix = std::string());
-Alignment *create_alignment(const std::string& method, const std::string& model_dir, int gpu_id);
+//Alignment *create_alignment(const std::string &prefix = std::string());
+Alignment *create_alignment(const align_method& method, const std::string& model_dir, int gpu_id);
 
 }
 #endif

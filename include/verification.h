@@ -3,6 +3,12 @@
 
 #include "common.h"
 namespace DGFace{
+
+enum class verif_method : unsigned char{
+	COS,
+	EUCLID,
+};
+
 class Verification {
     public:
         virtual ~Verification(void) {}
@@ -11,7 +17,8 @@ class Verification {
         Verification(void) {}
 };
 
-Verification *create_verifier(const std::string &prefix = std::string());
+//Verification *create_verifier(const std::string &prefix = std::string());
+Verification *create_verifier(const verif_method& method);
 }
 #endif
 

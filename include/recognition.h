@@ -7,6 +7,13 @@
 #include <string>
 #include <vector>
 namespace DGFace{
+enum class recog_method : unsigned char{
+	LBP,
+	CNN,
+	CDNN,
+	CDNN_CAFFE,
+	FUSION,
+};
 
 class Recognition {
     public:
@@ -21,8 +28,8 @@ class Recognition {
 		Transformation* _transformation;
 };
 
-Recognition *create_recognition(const std::string &prefix = std::string());
-Recognition *create_recognition(const std::string& method, const std::string& model_dir, int gpu_id, bool multi_thread);
+//Recognition *create_recognition(const std::string &prefix = std::string());
+Recognition *create_recognition(const recog_method& method, const std::string& model_dir, int gpu_id, bool multi_thread);
 }
 #endif
 

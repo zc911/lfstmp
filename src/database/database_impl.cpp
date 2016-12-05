@@ -1,6 +1,5 @@
 #include <memory>
 #include <database/db_simple.h>
-#include <config.h>
 
 using namespace std;
 namespace DGFace{
@@ -80,16 +79,22 @@ cleanup:
     fclose(fp);
 }
 
-Database *create_database(const string &prefix) {
+Database *create_database() {
+    throw new runtime_error("database module will be removed");
+}
+/*
+Database *create_database() {
+	string prefix = "";
     Config *config = Config::instance();
     string type    = config->GetConfig<string>(prefix + "database", "simple");
     if (type == "simple") {
         string db_path = config->GetConfig<string>(prefix + "database.db_path", "feature_db.bin");
-        Verification* verifier = create_verifier(prefix + "database.");
+        Verification* verifier = create_verifier(verif_method::EUCLID);
         Database *db = new SimpleDatabase(db_path, verifier);
         db->init();
         return db;
     }
     throw new runtime_error("unknown database");
 }
+*/
 }

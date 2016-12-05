@@ -1,11 +1,12 @@
 #include <verification/veri_cos.h>
 #include <verification/veri_euclid.h>
-#include <config.h>
 #include <stdexcept>
 #include <string>
 
 using namespace std;
 namespace DGFace{
+
+///////////////////////////////////////////////////////////////
 CosVerification::CosVerification(void) {
 }
 
@@ -26,15 +27,6 @@ float CosVerification::verify(const FeatureType &feature1, const FeatureType &fe
     return dot / (sqrt(denom_a) * sqrt(denom_b));
 }
 
-Verification *create_verifier(const string &prefix) {
-    Config *config = Config::instance();
-    string type    = config->GetConfig<string>(prefix + "verifier", "cos");
-    if (type == "cos")
-        return new CosVerification();
-    else if(type == "euclid")
-        return new EuclidVerification();
-    throw new runtime_error("unknown verifier");
-}
 
 ///////////////////////////////////////////////////////////////
 EuclidVerification::EuclidVerification() {
@@ -69,4 +61,36 @@ float EuclidVerification::score_normalize(float euclid_dist) {
          
 }
 
+/*--------------------------verification-------------------*/
+/*
+Verification *create_verifier(const string &prefix) {
+    Config *config = Config::instance();
+    string type    = config->GetConfig<string>(prefix + "verifier", "cos");
+    if (type == "cos")
+        return new CosVerification();
+    else if(type == "euclid")
+        return new EuclidVerification();
+    throw new runtime_error("unknown verifier");
+}
+*/
+
+Verification *create_verifier(const verif_method& method) {
+	switch(method) {
+		case verif_method::COS: {
+			return new CosVerification();
+			break;
+		}
+		case verif_method::EUCLID: {
+			return new EuclidVerification();
+			break;
+		}
+		default:
+			throw new runtime_error("unknown verifier");
+	}
+    // if (type == "cos")
+    //     return new CosVerification();
+    // else if(type == "euclid")
+    //     return new EuclidVerification();
+    // throw new runtime_error("unknown verifier");
+}
 }

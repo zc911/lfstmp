@@ -18,12 +18,13 @@ class FuseRecog: public Recognition {
         int cdnn_init(string model_dir, bool multi_thread);
         int cdnn_caffe_init(string model_dir, int gpu_id);
 		
-		void ParseConfigFile(std::string cfg_file, std::string& cdnn_model_dir, std::string& cdnn_caffe_model_dir);
+		void ParseConfigFile(std::string cfg_file, std::string& cdnn_model_dir, std::string& cdnn_caffe_model_dir, float& cdnn_weight, float& cdnn_caffe_weight);
 
         void feature_combine(const RecogResult& result_0, const RecogResult& result_1, float wright_0, float weight_1, RecogResult& combined_result);
         void feature_combine(const vector<RecogResult>& results_0, const vector<RecogResult>& results_1, float wright_0, float weight_1, vector<RecogResult>& combined_results);
 
         Recognition *recog_0, *recog_1;
+		float fuse_weight_0, fuse_weight_1;
 
 };
 }
