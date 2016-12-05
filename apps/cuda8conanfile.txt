@@ -7,16 +7,18 @@ OpenCV/2.4.8@deepglint/stable
 Thplateid/1.0.0@deepglint/stable
 Gtest/1.7@deepglint/stable
 Cudnn/5.0.5@deepglint/stable
-Pbjson/1.0.0@deepglint/stable
+Pbjson/2.0.0@deepglint/stable
 Grpc/0.14.1@deepglint/stable
 Grpcpp/0.14.1@deepglint/stable
 Cudart/8.0@deepglint/stable
-Cuda/8.0@deepglint/stable
 Mxnet/0.7.0.4@deepglint/stable_cuda_8.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_8.0
 dgvehicle/0.1.0@deepglint/stable_cuda_8.0
-dgLP/2.2.4.4@deepglint/stable
-DGFace/0.1.0@deepglint/test
+dgLP/2.2.4.5@deepglint/stable_cuda_8.0
+Dgcaffe/0.1.0@deepglint/stable_cuda_8.0
+CdnnCaffe/0.1.0@deepglint/stable
+dgface/0.0.2@deepglint/old
+Cdnn/0.1.0@deepglint/stable
 
 [generators]
 cmake
