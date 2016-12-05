@@ -502,7 +502,7 @@ class Face: public Object {
     void set_qualities(int type, float score) {
         qualities_[type] = score;
     }
-    map<int, float> &get_qualities() {
+    const map<int, float> &get_qualities() const{
         return qualities_;
     }
     void set_pose(vector<float> angles) {
@@ -519,7 +519,7 @@ class Face: public Object {
     void set_align_result(DGFace::AlignResult align_result) {
         align_result_ = align_result;
     }
-    DGFace::AlignResult &get_align_result() {
+    const DGFace::AlignResult &get_align_result() const{
         return align_result_;
     }
  private:

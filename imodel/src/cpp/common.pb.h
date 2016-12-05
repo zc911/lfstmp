@@ -1175,6 +1175,18 @@ class RecFace : public ::google::protobuf::Message {
   ::dg::model::RecFacePose* release_pose();
   void set_allocated_pose(::dg::model::RecFacePose* pose);
 
+  // optional float BlurScore = 6;
+  void clear_blurscore();
+  static const int kBlurScoreFieldNumber = 6;
+  float blurscore() const;
+  void set_blurscore(float value);
+
+  // optional float AlignScore = 7;
+  void clear_alignscore();
+  static const int kAlignScoreFieldNumber = 7;
+  float alignscore() const;
+  void set_alignscore(float value);
+
   // @@protoc_insertion_point(class_scope:dg.model.RecFace)
  private:
 
@@ -1185,6 +1197,8 @@ class RecFace : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr features_;
   ::dg::model::RecFacePose* pose_;
   float confidence_;
+  float blurscore_;
+  float alignscore_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3862,6 +3876,34 @@ inline void RecFace::set_allocated_pose(::dg::model::RecFacePose* pose) {
     
   }
   // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Pose)
+}
+
+// optional float BlurScore = 6;
+inline void RecFace::clear_blurscore() {
+  blurscore_ = 0;
+}
+inline float RecFace::blurscore() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecFace.BlurScore)
+  return blurscore_;
+}
+inline void RecFace::set_blurscore(float value) {
+  
+  blurscore_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecFace.BlurScore)
+}
+
+// optional float AlignScore = 7;
+inline void RecFace::clear_alignscore() {
+  alignscore_ = 0;
+}
+inline float RecFace::alignscore() const {
+  // @@protoc_insertion_point(field_get:dg.model.RecFace.AlignScore)
+  return alignscore_;
+}
+inline void RecFace::set_alignscore(float value) {
+  
+  alignscore_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.RecFace.AlignScore)
 }
 
 // -------------------------------------------------------------------
