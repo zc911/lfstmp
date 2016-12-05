@@ -74,7 +74,7 @@ LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_CDNN}
         ${CONAN_LIBS_MXNET}
         ${CONAN_LIBS_DGCAFFE}
-        ${LIB_CUDART})
+        ${CONAN_LIBS_CUDART})
 
 
 LIST(APPEND LIBS cblas ${Boost_LIBRARIES} glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
