@@ -185,9 +185,9 @@ MatrixError WitnessAppsService::getRecognizedPedestrian(const Pedestrian *pobj,
         if (attrs[i].categoryId == 9) {
             NameAndConfidence *nac = attr->mutable_sex();
             if (attrs[i].confidence < attrs[i].threshold_lower) {
-                nac->set_name(PEDESTRIAN_ATTR_MALE_);
-            } else if (attrs[i].confidence > attrs[i].threshold_upper) {
                 nac->set_name(PEDESTRIAN_ATTR_FEMALE_);
+            } else if (attrs[i].confidence > attrs[i].threshold_upper) {
+                nac->set_name(PEDESTRIAN_ATTR_MALE_);
             } else {
                 nac->set_name(PEDESTRIAN_ATTR_UNKNOWN_);
             }
