@@ -70,12 +70,13 @@ enum IndexType {
   INDEX_CAR_PLATE_TYPE = 5,
   INDEX_CAR_PLATE_COLOR = 6,
   INDEX_CAR_PEDESTRIAN_ATTR_TYPE = 7,
+  INDEX_NONMOTORVEHICLE_ATTR_TYPE = 8,
   IndexType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   IndexType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool IndexType_IsValid(int value);
 const IndexType IndexType_MIN = INDEX_DEFAULT;
-const IndexType IndexType_MAX = INDEX_CAR_PEDESTRIAN_ATTR_TYPE;
+const IndexType IndexType_MAX = INDEX_NONMOTORVEHICLE_ATTR_TYPE;
 const int IndexType_ARRAYSIZE = IndexType_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* IndexType_descriptor();
