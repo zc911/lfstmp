@@ -38,15 +38,13 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Blur filter failed, score is " << blur_score << " and threshold is "
                 << blur_threshold_ << endl;
             face->set_valid(false);
-            itr = to_processed_.erase(itr);
+            //itr = to_processed_.erase(itr);
             continue;
         }
         face->set_qualities(Face::BlurM, blur_score);
 
         // get face pose
         vector<float> scores = pose_quality_->quality(face->get_align_result());
-        cout << scores[1] << scores[2] << scores[0] << endl;
-        cout << face->IsValid() << endl;
         face->set_pose(scores);
 
         performance_++;

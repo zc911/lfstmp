@@ -87,6 +87,8 @@ message RecFace {
     string Features = 3;
     float Confidence = 4;
     RecFacePose Pose = 5;
+    float BlurScore = 6;
+    float AlignScore = 7;
 }
 
 enum SexType {

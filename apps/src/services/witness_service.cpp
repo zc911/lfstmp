@@ -329,12 +329,19 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         RecFace *face = MatchedPedestrian->mutable_face();
         face->set_id(fobj->id());
         face->set_confidence((float) fobj->confidence());
+        face->set_alignscore(fobj->get_align_result().score);
+        if(fobj->get_qualities().count(Face::BlurM) > 0) {
+            face->set_blurscore(fobj->get_qualities().find(Face::BlurM)->second);
+        }
         face->set_features(fobj->feature().Serialize());
         ::dg::model::RecFacePose *pose = face->mutable_pose();
-        pose->set_type(fobj->get_pose().type);
-        pose->mutable_angles()->Add(fobj->get_pose().angles[0]);
-        pose->mutable_angles()->Add(fobj->get_pose().angles[1]);
-        pose->mutable_angles()->Add(fobj->get_pose().angles[2]);
+        if(fobj->get_pose().angles.size() > 0) {
+            pose->set_type(fobj->get_pose().type);
+            pose->mutable_angles()->Add(fobj->get_pose().angles[0]);
+            pose->mutable_angles()->Add(fobj->get_pose().angles[1]);
+            pose->mutable_angles()->Add(fobj->get_pose().angles[2]);
+        }
+
         const Detection &d = fobj->detection();
         auto faceCutboard = face->mutable_img()->mutable_cutboard();
         auto pedCutboard = MatchedPedestrian->mutable_img()->mutable_cutboard();
