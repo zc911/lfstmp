@@ -580,20 +580,21 @@ void protobuf_AddDesc_witness_2eproto() {
     "cles\030\004 \003(\0132\024.dg.model.RecVehicle\022+\n\nPede"
     "strian\030\005 \003(\0132\027.dg.model.RecPedestrian\0226\n"
     "\020NonMotorVehicles\030\006 \003(\0132\034.dg.model.RecNo"
-    "nMotorVehicle*\313\001\n\tIndexType\022\021\n\rINDEX_DEF"
+    "nMotorVehicle*\360\001\n\tIndexType\022\021\n\rINDEX_DEF"
     "AULT\020\000\022\023\n\017INDEX_CAR_BRAND\020\001\022\022\n\016INDEX_CAR"
     "_TYPE\020\002\022\023\n\017INDEX_CAR_COLOR\020\003\022\024\n\020INDEX_CA"
     "R_MARKER\020\004\022\030\n\024INDEX_CAR_PLATE_TYPE\020\005\022\031\n\025"
     "INDEX_CAR_PLATE_COLOR\020\006\022\"\n\036INDEX_CAR_PED"
-    "ESTRIAN_ATTR_TYPE\020\0072\256\002\n\016WitnessService\022B"
-    "\n\tRecognize\022\030.dg.model.WitnessRequest\032\031."
-    "dg.model.WitnessResponse\"\000\022Q\n\016BatchRecog"
-    "nize\022\035.dg.model.WitnessBatchRequest\032\036.dg"
-    ".model.WitnessBatchResponse\"\000\022=\n\010GetInde"
-    "x\022\026.dg.model.IndexRequest\032\027.dg.model.Ind"
-    "exResponse\"\000\022F\n\013GetIndexTxt\022\031.dg.model.I"
-    "ndexTxtRequest\032\032.dg.model.IndexTxtRespon"
-    "se\"\000b\006proto3", 2772);
+    "ESTRIAN_ATTR_TYPE\020\007\022#\n\037INDEX_NONMOTORVEH"
+    "ICLE_ATTR_TYPE\020\0102\256\002\n\016WitnessService\022B\n\tR"
+    "ecognize\022\030.dg.model.WitnessRequest\032\031.dg."
+    "model.WitnessResponse\"\000\022Q\n\016BatchRecogniz"
+    "e\022\035.dg.model.WitnessBatchRequest\032\036.dg.mo"
+    "del.WitnessBatchResponse\"\000\022=\n\010GetIndex\022\026"
+    ".dg.model.IndexRequest\032\027.dg.model.IndexR"
+    "esponse\"\000\022F\n\013GetIndexTxt\022\031.dg.model.Inde"
+    "xTxtRequest\032\032.dg.model.IndexTxtResponse\""
+    "\000b\006proto3", 2809);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "witness.proto", &protobuf_RegisterTypes);
   IndexRequest::default_instance_ = new IndexRequest();
@@ -656,6 +657,7 @@ bool IndexType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;

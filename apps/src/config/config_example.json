@@ -19,12 +19,6 @@
     "TimeOut":100
   },
   "Feature": {
-    "Face": {
-      "Enable": true,
-      "EnableDetection": true,
-      "EnableQuality":false,
-      "EnableFeatureVector": true
-    },
     "Vehicle": {
       "Enable": true,
       "EnableDetection": true,
@@ -39,6 +33,12 @@
       "EnablePhone": true,
       "EnableFeatureVector": true,
       "EnablePedestrianAttr": true
+    },
+    "Face": {
+      "Enable": true,
+      "EnableDetection": true,
+      "EnableQuality":false,
+      "EnableFeatureVector": true
     }
   },
   "Advanced": {
@@ -100,25 +100,14 @@
     "FaceDetect": {
       "BatchSize": 1,
       "Confidence": 0.7,
-      "Method": 3,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
       "BodyRelativeFaceBottom": 6.0,
-      "Scale":1,
-      "Min":240,
-      "Max":720
-    },
-    "FaceQuality":{
-      "Threshold":0
+      "Scale": 640
     },
     "FaceExtract": {
-      "BatchSize": 1,
-      "FaceSize":[600],
-      "Method": 3,
-      "PreProcess":"",
-      "AlignThreshold":0.8,
-      "EnableConcurrency": false
+      "BatchSize": 1
     },
     "Ranker": {
       "Maximum": 100000
