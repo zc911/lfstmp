@@ -59,6 +59,8 @@ void RepoService::Init(const Config &config) {
         vehicle_type_mapping_data_ = ReadStringFromFile(pVtypeFile, "r");
         pedestrian_attr_mapping_data_ = ReadStringFromFile(pPtypeFile, "r");
         pedestrian_attr_catagory_data_ = ReadStringFromFile(pAttrCatagoryFile, "r");
+        nonMotor_attr_mapping_data_ = ReadStringFromFile(nonMotorAttr, "r");
+        nonMotor_attr_category_data_ = ReadStringFromFile(nonMotorCategory, "r");
         is_gpu_plate_ = (bool) config.Value(IS_GPU_PLATE);
 
         is_init_ = true;
@@ -87,6 +89,9 @@ MatrixError RepoService::IndexTxt(const IndexTxtRequest *request,
         break;
     case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
         data = pedestrian_attr_mapping_data_;
+        break;
+    case INDEX_NONMOTORVEHICLE_ATTR_TYPE:
+        data = nonMotor_attr_mapping_data_;
         break;
     }
     response->set_context(data);
@@ -456,6 +461,18 @@ MatrixError RepoService::Index(const IndexRequest *request,
         CommonIndex *cIndex = response->mutable_index();
         for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
             string value = pedestrian_attr_type_repo_[i].data();
+            CommonIndex_Item *item = cIndex->add_items();
+            item->set_id(i);
+            item->set_name(value);
+        }
+        break;
+    }
+    case INDEX_NONMOTORVEHICLE_ATTR_TYPE: {
+        if (response->has_brandindex())
+            break;
+        CommonIndex *cIndex = response->mutable_index();
+        for (int i = 0; i < nonMotor_attr_mapping_repo_.size(); ++i) {
+            string value = nonMotor_attr_mapping_repo_[i].data();
             CommonIndex_Item *item = cIndex->add_items();
             item->set_id(i);
             item->set_name(value);
