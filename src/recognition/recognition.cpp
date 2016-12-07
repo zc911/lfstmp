@@ -4,7 +4,8 @@ using namespace std;
 using namespace cv;
 namespace DGFace{
 
-Recognition::Recognition(void) {
+Recognition::Recognition(bool is_encrypt)
+						: _is_encrypt(is_encrypt) {
 }
 
 Recognition::~Recognition(void) {

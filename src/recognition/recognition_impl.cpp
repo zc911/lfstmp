@@ -24,7 +24,7 @@ CNNRecog::CNNRecog(const string& model_file,
                    const float pixel_scale,
                    const bool use_GPU,
                    const int  gpu_id)
-    : _net(nullptr), _useGPU(use_GPU), _pixel_means(mean),
+    : Recognition(false), _net(nullptr), _useGPU(use_GPU), _pixel_means(mean),
       _pixel_scale(pixel_scale), _layer_name(layer_name) {
     if (use_GPU) {
         Caffe::set_mode(Caffe::GPU);
@@ -211,7 +211,7 @@ static void elbp(const Mat &src, Mat &dst, int radius, int neighbors) {
 }
 
 LbpRecog::LbpRecog(int radius, int neighbors, int grid_x, int grid_y)
-    : _radius(radius), _neighbors(neighbors), _grid_x(grid_x), _grid_y(grid_y) {
+    : Recognition(false), _radius(radius), _neighbors(neighbors), _grid_x(grid_x), _grid_y(grid_y) {
 }
 void LbpRecog::recog_impl(const std::vector<cv::Mat>& faces,
                           const std::vector<AlignResult>& alignment,
@@ -266,7 +266,8 @@ void LbpRecog::recog_impl(const vector<Mat> &faces, vector<RecogResult> &results
 }*/
 
 /*======================= CDNN recognition  ========================= */
-CdnnRecog::CdnnRecog(string configPath, string modelDir, bool multi_thread) {
+CdnnRecog::CdnnRecog(string configPath, string modelDir, 
+					bool multi_thread, bool is_encrypt): Recognition(is_encrypt) {
     bool bRet = _extractor.InitModels(configPath.c_str(), modelDir.c_str());
     if (!bRet)
     {
@@ -278,14 +279,16 @@ CdnnRecog::CdnnRecog(string configPath, string modelDir, bool multi_thread) {
 	_transformation = new CdnnTransformation();
 }
 
-CdnnRecog::CdnnRecog(const string& model_dir, bool multi_thread) {
+CdnnRecog::CdnnRecog(const string& model_dir, 
+					bool multi_thread, 
+					bool is_encrypt) : Recognition(is_encrypt) {
 	string config_file, real_model_dir;
 	addNameToPath(model_dir, "/0.config", config_file);
 	real_model_dir = (model_dir.back() == '$') ? model_dir.substr(0, model_dir.length()-1) : model_dir;
 
 	// decrypt config file
 	string cfg_content;
-	int ret = getConfigContent(config_file, cfg_content);
+	int ret = getConfigContent(config_file, _is_encrypt, cfg_content);
 	if(ret != 0) {
 		cout << "fail to decrypt config file." << endl;
 		exit(-1);
@@ -399,7 +402,10 @@ void CdnnCaffeRecog::ParseConfigFile(const string& cfg_content,
     }
 }
 
-CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir, int gpu_id) {
+CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir, 
+								int gpu_id,
+								bool is_encrypt, 
+								int batch_size) : Recognition(is_encrypt) {
     _param.gpu      = gpu_id;
     int argc = 1;
     char* argv[] = {""};
@@ -407,11 +413,11 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir, int gpu_id) {
     vis::initcaffeglobal(argc, argv, gpu_id);
 
 	string cfg_file;
-	addNameToPath(model_dir, "/recog_cdnn_caffe.cfg", cfg_file);
+	addNameToPath(model_dir, "/recog_cdnn_caffe.json", cfg_file);
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, cfg_content);
+	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
 	if(ret != 0) {
-		cerr << "can't decrypt the recog_cdnn_caffe.cfg" << endl;
+		cerr << "can't decrypt the recog_cdnn_caffe.json" << endl;
 		return;
 	}
 	
@@ -503,10 +509,11 @@ void CdnnCaffeRecog::recog_impl(const vector<cv::Mat>& faces,
 
 /////////////////////////////////////////////////////////////////////
 // ----------------------recogintion fusion-----------------------//
-FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread) {
+FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread, 
+					bool is_encrypt, int batch_size) : Recognition(is_encrypt) {
 	string cdnn_model_dir, cdnn_caffe_model_dir;
 	string cfg_file;
-	addNameToPath(model_dir, "/recog_fuse.cfg", cfg_file);
+	addNameToPath(model_dir, "/recog_fuse.json", cfg_file);
 	ParseConfigFile(cfg_file, cdnn_model_dir, cdnn_caffe_model_dir, fuse_weight_0, fuse_weight_1);
 
 	string full_cdnn_model_dir, full_cdnn_caffe_model_dir;
@@ -514,14 +521,14 @@ FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread) {
 	addNameToPath(model_dir, "/" + cdnn_caffe_model_dir, full_cdnn_caffe_model_dir);
 
 	recog_0 = NULL;
-	recog_0 = new CdnnRecog(full_cdnn_model_dir, multi_thread);
+	recog_0 = new CdnnRecog(full_cdnn_model_dir, multi_thread, is_encrypt);
 	if(recog_0 == NULL) {
         cout << "cdnn in fuse recognition init failed!" << endl;
 		return;
 	}
 
   	recog_1 = NULL;
-	recog_1 = new CdnnCaffeRecog(full_cdnn_caffe_model_dir, gpu_id);
+	recog_1 = new CdnnCaffeRecog(full_cdnn_caffe_model_dir, gpu_id, is_encrypt, batch_size);
     if(recog_1 == NULL) {
         cout << "cdnn_caffe in fuse recognition init failed!" << endl;
 		return;
@@ -530,7 +537,7 @@ FuseRecog::FuseRecog(string model_dir, int gpu_id, bool multi_thread) {
 
 void FuseRecog::ParseConfigFile(string cfg_file, string& cdnn_model_dir, string& cdnn_caffe_model_dir, float& cdnn_weight, float& cdnn_caffe_weight) {
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, cfg_content);
+	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
 	if(ret != 0 ) {
 		cout << "fail to decrypt config file: " << cfg_file << endl;
 		cdnn_model_dir.clear();
@@ -559,34 +566,6 @@ FuseRecog::~FuseRecog() {
     recog_1 = NULL;
 }
 
-int FuseRecog::cdnn_init(string model_dir, bool multi_thread) {
-    string real_dir;
-    if(model_dir[model_dir.length()-1] == '$' ) {
-        real_dir = model_dir.substr(0, model_dir.length()-1);
-    } else {
-        real_dir = model_dir;
-    }
-
-    string cdnn_model_dir = real_dir + "/recognition_0.3.4/";
-    string cdnn_config_file = cdnn_model_dir + "0.config";
-    recog_0 = new CdnnRecog(cdnn_config_file, cdnn_model_dir, multi_thread);
-    return 0;
-}
-
-int FuseRecog::cdnn_caffe_init(string model_dir, int gpu_id) {
-    string real_dir;
-    string cdnn_caffe_model_dir;
-    if(model_dir[model_dir.length()-1] == '$' ) {
-        real_dir = model_dir.substr(0, model_dir.length()-1);
-        cdnn_caffe_model_dir = real_dir + "/recognition_0.3.3$";
-    } else {
-        real_dir = model_dir;
-        cdnn_caffe_model_dir = real_dir + "/recognition_0.3.3";
-    }
-
-    recog_1 = new CdnnCaffeRecog(cdnn_caffe_model_dir, gpu_id);
-    return 0;
-}
 
 void FuseRecog::feature_combine(const RecogResult& result_0, const RecogResult& result_1, float weight_0, float weight_1, RecogResult& combined_result) {
     combined_result.face_feat.clear();
@@ -668,18 +647,49 @@ Recognition *create_recognition(const string & prefix) {
 }
 */
 
-Recognition *create_recognition(const recog_method& method, const string& model_dir, int gpu_id, bool multi_thread) {
+Recognition *create_recognition_with_config(const recog_method& method, 
+										const string& config_file,
+										int gpu_id,
+										bool multi_thread,
+										bool is_encrypt,
+										int batch_size) {
+
+const std::map<recog_method, std::string> recog_map {
+	{recog_method::LBP, "LBP"},
+	{recog_method::CNN, "CNN"},
+	{recog_method::CDNN, "CDNN"},
+	{recog_method::CDNN_CAFFE, "CDNN_CAFFE"},
+	{recog_method::FUSION, "FUSION"}
+};
+	string recog_key = "FaceRecognition";
+	string full_key = recog_key + "/" + recog_map.at(method);
+
+	Config path_cfg;
+	path_cfg.Load(config_file);
+	string model_path = static_cast<string>(path_cfg.Value(full_key));
+	if(model_path != ""){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		return create_recognition(method, model_path, gpu_id, multi_thread, is_encrypt, batch_size);
+	}
+}
+Recognition *create_recognition(const recog_method& method, 
+								const string& model_dir,
+								int gpu_id,
+								bool multi_thread,
+								bool is_encrypt,
+								int batch_size) {
 	switch(method) {
 		case recog_method::FUSION: {
-        	return new FuseRecog(model_dir, gpu_id, multi_thread);
+        	return new FuseRecog(model_dir, gpu_id, multi_thread, is_encrypt, batch_size);
 			break;	
 		}
 		case recog_method::CDNN_CAFFE: {
-        	return new CdnnCaffeRecog(model_dir, gpu_id);
+        	return new CdnnCaffeRecog(model_dir, gpu_id, is_encrypt, batch_size);
 			break;	
 		}
 		case recog_method::CDNN: {
-        	return new CdnnRecog(model_dir, multi_thread);
+        	return new CdnnRecog(model_dir, multi_thread, is_encrypt);
 			break;
 		}
 		case recog_method::CNN: {

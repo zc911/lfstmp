@@ -9,7 +9,7 @@ namespace DGFace{
 
 class FuseRecog: public Recognition {
 	public:
-		FuseRecog(std::string config_file, int gpu_id, bool multi_thread);
+		FuseRecog(std::string config_file, int gpu_id, bool multi_thread, bool is_encrypt, int batch_size);
 		virtual ~FuseRecog();
 		void recog_impl(const std::vector<cv::Mat>& faces, 
 			const std::vector<AlignResult>& alignment,
