@@ -10,7 +10,9 @@ using namespace std;
 using namespace cv;
 namespace DGFace{
 
-Alignment::Alignment(vector<int> face_size) : _face_size(face_size) {
+Alignment::Alignment(vector<int> face_size, bool is_encrypt) 
+					: _face_size(face_size), 
+					_is_encrypt(is_encrypt) {
     assert(_face_size.size() == 1 || _face_size.size() == 2);
     if (_face_size.size() == 1) {
         _face_size.push_back(_face_size[0]);

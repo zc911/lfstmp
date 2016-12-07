@@ -21,7 +21,9 @@ class Alignment{
         bool is_face(float det_score, float landmark_score, float det_thresh);
     protected:
         std::vector<cv::Point> _avg_points;
-        Alignment(std::vector<int> face_size);
+        Alignment(std::vector<int> face_size, bool is_encrypt);
+		bool _is_encrypt;
+
         // find landmark only -> landmarks
         virtual void align_impl(const cv::Mat &img, const cv::Rect& bbox, AlignResult &result) = 0; 
         virtual void align_impl(const cv::Mat &img, const cv::RotatedRect& rot_bbox, AlignResult &result) = 0; 
@@ -31,7 +33,10 @@ class Alignment{
 
 
 //Alignment *create_alignment(const std::string &prefix = std::string());
-Alignment *create_alignment(const align_method& method, const std::string& model_dir, int gpu_id);
+Alignment *create_alignment(const align_method& method, const std::string& model_dir, 
+							int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
+Alignment *create_alignment_with_config(const align_method& method, const std::string& config_file, 
+							int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
 
 }
 #endif
