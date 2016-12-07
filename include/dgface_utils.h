@@ -8,7 +8,7 @@
 
 namespace DGFace {
 // decrypt config file
-int getConfigContent(std::string file, std::string& content);
+int getConfigContent(std::string file, bool is_encrypt, std::string& content);
 void addNameToPath(const std::string& model_dir, const std::string& name, std::string& appended_dir);
 
 //

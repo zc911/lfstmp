@@ -13,7 +13,7 @@ namespace DGFace {
 //////////////////////////////////////////////////////////////////
 // decrypt function
 //////////////////////////////////////////////////////////////////
-int getConfigContent(string file, string& content) {
+int getConfigContent(string file, bool is_encrypt, string& content) {
 	FILE *fp = fopen(file.c_str(), "rb");
 	if(fp == NULL) {
 		return -1;
@@ -27,7 +27,7 @@ int getConfigContent(string file, string& content) {
 	unsigned char *src = (unsigned char *)calloc(length, 1);
 	length = fread(src, sizeof(char), length, fp);
 	
-	if (file.at(file.size()-1)== '$'){
+	if (is_encrypt){
 		unsigned char * dst = (unsigned char *)calloc(length, 1);
 		DecryptModel((unsigned char *)src, length, dst);
 		// content((const char *)dst);
