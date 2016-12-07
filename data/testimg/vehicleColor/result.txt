@@ -1,11 +1,3 @@
-picture_id,color
-0,黑
-1,黄
-2,红
-3,银
-4,银
-5,白
-6,蓝
-7,绿
-8
-9
+version https://git-lfs.github.com/spec/v1
+oid sha256:f44e9e57040d06051bb13d62cfc08ab9ca54d60f1b1c3e38e3a26778c02e3415
+size 69
