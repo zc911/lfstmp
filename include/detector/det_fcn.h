@@ -8,8 +8,8 @@ namespace DGFace{
 
 class FcnDetector : public Detector {
     public:
-        FcnDetector(int img_scale_max, int img_scale_min,std::string deploy_file, std::string model_file, int gpu_id );
-        FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id );
+        FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, 
+					int gpu_id, bool is_encrypt, int batch_size);
         virtual ~FcnDetector(void);
         // detect only -> confidence, bbox
         void detect_impl(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results);

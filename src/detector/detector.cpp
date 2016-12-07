@@ -10,8 +10,10 @@ using namespace std;
 using namespace cv;
 namespace DGFace{
 
-Detector::Detector(int img_scale_max, int img_scale_min)
-        : _img_scale_max(img_scale_max), _img_scale_min(img_scale_min) {
+Detector::Detector(int img_scale_max, int img_scale_min, bool is_encrypt)
+        : _img_scale_max(img_scale_max), 
+		_img_scale_min(img_scale_min),
+		_is_encrypt(is_encrypt){
     assert(img_scale_min < img_scale_max);
 }
 
