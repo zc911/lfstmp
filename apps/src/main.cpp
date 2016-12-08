@@ -15,7 +15,6 @@
 
 using namespace std;
 using namespace dg;
-using namespace dgvehicle;
 
 #define BOOST_SPIRIT_THREADSAFE
 
@@ -222,12 +221,10 @@ int main(int argc, char *argv[]) {
     google::ParseCommandLineFlags(&argc, &argv, false);
 
 
-
     // init curl in the main thread
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
     curl_global_init(CURL_GLOBAL_ALL);
 
-    AlgorithmFactory::GetInstance()->Initialize(FLAGS_config);
     Config *config = new Config();
     config->Load(FLAGS_config);
     if (FilesAllExist(config) == false) {
@@ -249,6 +246,10 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
+    int gpu_id = (int) config->Value(SYSTEM_GPUID);
+    bool is_encrypted = (bool) config->Value(DEBUG_MODEL_ENCRYPT);
+    string dgvehiclePath = (string) config->Value(DGVEHICLE_MODEL_PATH);
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
     if (FLAGS_showconfig) {
         config->DumpValues();
     }

@@ -215,10 +215,12 @@ void WitnessEngine::init(const Config &config) {
 
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
-        VehicleCaffeDetectorConfig dConfig;
-        configFilter->createAccelerateConfig(config, dConfig);
+        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
 
-        Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, true);
+    //    VehicleCaffeDetectorConfig dConfig;
+    //    configFilter->createAccelerateConfig(config, dConfig);
+
+        Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
 
         if (last == NULL) {
             vehicle_processor_ = p;
@@ -231,9 +233,9 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-            VehicleCaffeDetectorConfig dConfig;
-            configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
-            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, false);
+       //     VehicleCaffeDetectorConfig dConfig;
+       //     configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
+            Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
             if (last == NULL) {
                 vehicle_processor_ = p;
             } else {
@@ -335,9 +337,9 @@ void WitnessEngine::init(const Config &config) {
         } 
         if (enable_vehicle_driver_belt_) {
 
-            VehicleBeltConfig bConfig;
-            configFilter->createDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, true);
+        //    VehicleBeltConfig bConfig;
+        //    configFilter->createDriverBeltConfig(config, bConfig);
+            p = new VehicleBeltClassifierProcessor(true);
 
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -349,9 +351,9 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_codriver_belt_) {
 
-            VehicleBeltConfig bConfig;
-            configFilter->createCoDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, false);
+        //    VehicleBeltConfig bConfig;
+        //    configFilter->createCoDriverBeltConfig(config, bConfig);
+            p = new VehicleBeltClassifierProcessor(false);
             if (last == NULL) {
                 vehicle_processor_ = p;
             }
