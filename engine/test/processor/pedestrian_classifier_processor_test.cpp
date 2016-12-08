@@ -15,7 +15,7 @@ static PedestrianClassifierProcessor *pcprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
  /*   PedestrianClassifier::PedestrianConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
