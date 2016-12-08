@@ -851,7 +851,7 @@ Detector *create_detector(const det_method& method,
 			break;
 		}
 		case det_method::SSD: {
-			throw new runtime_error("don't use ssd!");
+			return new SSDDetector(img_scale_max, img_scale_min, model_dir, gpu_id, is_encrypt, batch_size);
 			break;
 		}
 		default:
