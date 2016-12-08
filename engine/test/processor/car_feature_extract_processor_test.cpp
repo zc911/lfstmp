@@ -15,7 +15,7 @@ static FileReader *resultReader;
 
 static void init() {
 
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 
     resultReader = NULL;
     cfeprocessor = new CarFeatureExtractProcessor();

@@ -12,15 +12,14 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
-    VehicleBeltConfig &mConfig, bool drive)
+VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(bool drive)
     : Processor() {
 
     belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(drive);
 
-    marker_target_min_ = mConfig.target_min_size;
-    marker_target_max_ = mConfig.target_max_size;
-    is_driver = mConfig.is_driver;
+//    marker_target_min_ = mConfig.target_min_size;
+//    marker_target_max_ = mConfig.target_max_size;
+    is_driver = drive;
 
 }
 VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {

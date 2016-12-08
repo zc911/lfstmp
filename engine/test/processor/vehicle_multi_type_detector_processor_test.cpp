@@ -14,7 +14,7 @@ static VehicleProcessorHead *head;
 static FileReader *resultReader;
 
 static void init() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     resultReader = NULL;
@@ -142,7 +142,7 @@ TEST(VehicleMultiTypeDectorTest, strangeInputTest) {
 }
 
 TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
-    VehicleCaffeDetectorConfig config;
+/*    VehicleCaffeDetectorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
     config.is_model_encrypt = false;
@@ -157,9 +157,8 @@ TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     config.deploy_file = baseModelPath + "310.txt";
     config.model_file = baseModelPath + "310.dat";
     config.confirm_deploy_file = baseModelPath + "311.txt";
-    config.confirm_model_file = baseModelPath + "311.dat";
-    VehicleMultiTypeDetectorProcessor *carOnlyProcessor =
-            new VehicleMultiTypeDetectorProcessor(config, false);
+    config.confirm_model_file = baseModelPath + "311.dat"; */
+    VehicleMultiTypeDetectorProcessor *carOnlyProcessor = new VehicleMultiTypeDetectorProcessor(true, false);
 
 
     fbhelper = new FrameBatchHelper(1);

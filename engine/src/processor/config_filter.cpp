@@ -114,15 +114,6 @@ void ConfigFilter::createVehicleColorConfig(const Config &cconfig,
         config.gpu_id = gpu_id;
         configs.push_back(config);
     }
-} */
-
-void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
-                                            PlateRecognizer::PlateConfig &pConfig) {
-
-    pConfig.LocalProvince = (const string &) cconfig.Value(ADVANCED_PLATE_LOCAL_PROVINCE);
-    pConfig.OCR = (int) cconfig.Value(ADVANCED_PLATE_OCR);
-    pConfig.PlateLocate = (int) cconfig.Value(ADVANCED_PLATE_LOCATE);
-    pConfig.isSharpen = (bool) cconfig.Value(ADVANCED_PLATE_ENBALE_SHARPEN);
 }
 
 void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
@@ -199,7 +190,6 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
 
 }
 
-/*
 void ConfigFilter::createMarkersConfig(const Config &cconfig,
                                        MarkerCaffeClassifier::MarkerConfig &mConfig) {
 
@@ -306,7 +296,6 @@ void ConfigFilter::createPedestrianConfig(const Config &cconfig,
     nmConfig.attrib_table_path = modelPath + (string) data_config_.Value(FILE_NONMOTORVEHICLE_ATTRIBUTE_FILE);
     
 }
-*/
 
 void ConfigFilter::createDriverBeltConfig(const Config &cconfig,
                              VehicleBeltConfig &bConfig){
@@ -361,6 +350,7 @@ void ConfigFilter::createMarkersConfig(const Config &cconfig,
     mConfig.batch_size = batch_size;
     mConfig.gpu_id = gpu_id;
 }
+
 void ConfigFilter::createWindowConfig(const Config &cconfig,
                         VehicleCaffeDetectorConfig &wConfig){
     int batch_size = (int) cconfig.Value(ADVANCED_WINDOW_BATCH_SIZE);
@@ -381,6 +371,7 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
     wConfig.batch_size = batch_size;
     wConfig.gpu_id = gpu_id;
 }
+
 void ConfigFilter::createDriverPhoneConfig(const Config &cconfig,
                          VehicleCaffeDetectorConfig &pConfig){
         int batch_size = (int) cconfig.Value(ADVANCED_PHONE_BATCH_SIZE);
@@ -401,7 +392,17 @@ void ConfigFilter::createDriverPhoneConfig(const Config &cconfig,
     pConfig.is_model_encrypt = is_encrypted;
     pConfig.batch_size = batch_size;
     pConfig.gpu_id = gpu_id;
+} */
+
+void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
+                                            PlateRecognizer::PlateConfig &pConfig) {
+
+    pConfig.LocalProvince = (const string &) cconfig.Value(ADVANCED_PLATE_LOCAL_PROVINCE);
+    pConfig.OCR = (int) cconfig.Value(ADVANCED_PLATE_OCR);
+    pConfig.PlateLocate = (int) cconfig.Value(ADVANCED_PLATE_LOCATE);
+    pConfig.isSharpen = (bool) cconfig.Value(ADVANCED_PLATE_ENBALE_SHARPEN);
 }
+
 void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 
@@ -441,14 +442,9 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMx
     pConfig->localProvinceText=(string)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT);
     pConfig->localProvinceConfidence=(float)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE);
 
-
     int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
 
-
     pConfig->batchsize = batch_size;
-
-
-
 }
 int ConfigFilter::initDataConfig(const Config &config) {
     string data_config_path = (string) config.Value(DATAPATH);
