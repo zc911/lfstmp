@@ -9,7 +9,7 @@ namespace DGFace{
 
 class CdnnCaffeRecog: public Recognition {
 	public:
-		CdnnCaffeRecog(const std::string& model_dir, int gpu_id);
+		CdnnCaffeRecog(const std::string& model_dir, int gpu_id, bool is_encrypt, int batch_size);
 		virtual ~CdnnCaffeRecog();
 		void recog_impl(const std::vector<cv::Mat>& faces, 
 			const std::vector<AlignResult>& alignment,

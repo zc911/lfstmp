@@ -1,4 +1,3 @@
-#include <config.h>
 #include <detector/det_dlib.h>
 #include <detector/det_rpn.h>
 #include <detector/det_ssd.h>
@@ -11,6 +10,7 @@
 #include "caffe_interface.h"
 #include "face_inf.h"
 #include "dgface_utils.h"
+#include "dgface_config.h"
 using namespace cv;
 using namespace std;
 using namespace caffe;
@@ -18,7 +18,7 @@ namespace DGFace{
 
 /*======================= Dlib detector ========================= */
 DlibDetector::DlibDetector(int img_scale_max, int img_scale_min)
-        : Detector(img_scale_max, img_scale_min),
+        : Detector(img_scale_max, img_scale_min, false),
         _detector(dlib::get_frontal_face_detector()) {
 }
 
@@ -76,7 +76,7 @@ RpnDetector::RpnDetector(int img_scale_max,
         const float  pixel_scale,
         const bool   use_GPU,
         const int    gpu_id)
-         : Detector(img_scale_max, img_scale_min), _net(nullptr),
+         : Detector(img_scale_max, img_scale_min, false), _net(nullptr),
         _layer_name_cls(layer_name_cls), _layer_name_reg(layer_name_reg),
         _area(area), _ratio(ratio),
         _pixel_means(mean), _det_thresh(det_thresh), _max_per_img(max_per_img),
@@ -314,6 +314,87 @@ void RpnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 }
 
 /*======================= SSD detector ========================== */
+SSDDetector::SSDDetector(int img_scale_max,
+						int img_scale_min,
+						const string& model_dir,
+						int gpu_id,
+						bool is_encrypt,
+						int batch_size)
+						:Detector(img_scale_max, img_scale_min, is_encrypt), 
+						_net(nullptr), _gpuid(gpu_id) {
+						
+	if (_gpuid < 0) {
+		_useGPU = false;
+		Caffe::set_mode(Caffe::GPU);
+		Caffe::SetDevice(gpu_id);
+	} else {
+		_useGPU = true;
+		Caffe::set_mode(Caffe::CPU);
+	}
+
+	string cfg_file;
+	addNameToPath(model_dir, "/det_ssd.json", cfg_file);	
+
+	string deploy_file, model_file;
+	// parse config file and read parameters(pixel_scale, det_thresh, mean)
+	ParseConfigFile(cfg_file, deploy_file, model_file);
+	addNameToPath(model_dir, "/" + deploy_file, deploy_file);
+	addNameToPath(model_dir, "/" + model_file, model_file);
+
+
+	/* Load the network. */
+	cout<<"loading "<<deploy_file<<endl;
+	_net.reset(new Net<float>(deploy_file, TEST));
+	cout<<"loading "<<model_file<<endl;
+	_net->CopyTrainedLayersFrom(model_file);
+
+	//CHECK_EQ(_net->num_inputs(), 1) << "Network should have exactly one input.";
+	Blob<float>* input_blob = _net->input_blobs()[0];
+	_batch_size = batch_size;
+	if(input_blob->num() != batch_size) {
+		vector<int> org_shape = input_blob->shape();
+		org_shape[0] = batch_size;
+		input_blob->Reshape(org_shape);
+		_net->Reshape();
+	} 
+	cout << "batch size : " << input_blob->num() << endl;
+
+	_num_channels = input_blob->channels();
+	CHECK(_num_channels == 3 || _num_channels == 1)
+	   << "Input layer should have 1 or 3 channels.";
+	if(_num_channels == 3) {
+		if(_pixel_means.size() == 1) {
+			_pixel_means.resize(_num_channels, _pixel_means[0]);
+		}
+	} else {
+		CHECK(_num_channels == _pixel_means.size())
+		   << "Mean vector size and input channels not match.";
+	}
+}
+
+int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, string& model_file) {
+		
+	Config ssd_cfg;
+	if(!ssd_cfg.Load(cfg_file)) {
+		cout << "fail to parse " << cfg_file << endl;
+		deploy_file.clear();
+		model_file.clear();
+	}
+	
+	deploy_file = static_cast<string>(ssd_cfg.Value("deployfile"));
+	model_file = static_cast<string>(ssd_cfg.Value("modelfile"));
+	_pixel_scale = static_cast<float>(ssd_cfg.Value("pixel_scale"));
+	_det_thresh = static_cast<float>(ssd_cfg.Value("det_thresh"));
+	
+	int mean_vec_size = static_cast<int>(ssd_cfg.Value("mean/Size"));
+	CHECK(mean_vec_size == 3 || mean_vec_size == 1)
+	   << "Mean vector should have 1 or 3 entries.";
+	_pixel_means.resize(mean_vec_size);
+	for(int i = 0; i < mean_vec_size; ++i) {
+		_pixel_means[i] = static_cast<float>(ssd_cfg.Value("mean/" + to_string(i)));
+	}
+}
+
 SSDDetector::SSDDetector(int   img_scale_max,
                         int   img_scale_min,
                         const string& model_file,
@@ -323,7 +404,7 @@ SSDDetector::SSDDetector(int   img_scale_max,
                         const float pixel_scale,
                         const bool  use_GPU,
                         const int   gpu_id)
-                        :Detector(img_scale_max, img_scale_min), _net(nullptr), 
+                        :Detector(img_scale_max, img_scale_min, false), _net(nullptr), 
                         _pixel_means(mean), _det_thresh(det_thresh),
                         _pixel_scale(pixel_scale), _useGPU(use_GPU),_gpuid(gpu_id) {
    if (_useGPU) {
@@ -350,9 +431,70 @@ SSDDetector::SSDDetector(int   img_scale_max,
 }
 
 SSDDetector::~SSDDetector(void){
+
 }
 
-void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
+void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results){
+    vector<Mat> resized_imgs;
+    resized_imgs.reserve(imgs.size());
+    vector<float> scale_ratios;
+    resized_imgs.resize(imgs.size());
+    scale_ratios.resize(imgs.size());
+    results.resize(imgs.size());
+    _max_image_size = Size(0, 0);
+    for (size_t idx = 0; idx < imgs.size(); idx++) {
+        Mat img = imgs[idx];
+        Mat resized_img;
+        results[idx].image_size = Size(img.cols, img.rows); //record the original img size
+        Size image_resize;
+        // image resize, short edge is up to _img_scale
+        float resize_ratio = 1;
+        if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
+            resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
+        } else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
+            resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
+        }
+        //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
+        int width  = img.cols * resize_ratio;
+        int height = img.rows * resize_ratio;
+
+        // record the maximum width and height as mask
+        _max_image_size.width  = max(_max_image_size.width, width);
+        _max_image_size.height = max(_max_image_size.height, height);
+        image_resize = Size(width, height);
+        resize(img, resized_img, image_resize);
+       
+        resized_imgs[idx] = resized_img;
+        scale_ratios[idx] = resize_ratio;
+        // cout << "ratio = " << resize_ratio << "w = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
+    }
+
+    // Add black edge to support batch process for images with different sizes 
+    edge_complete(resized_imgs);
+
+    detect_impl_kernel(resized_imgs, results);
+    for (size_t idx = 0; idx < imgs.size(); idx++) {
+        Rect img_bbox = Rect(0, 0, imgs[idx].cols, imgs[idx].rows);
+        auto &bboxes = results[idx].boundingBox;
+        float ratio  = scale_ratios[idx];
+        for (size_t i = 0; i < bboxes.size(); i++) {
+            auto &bbox   = bboxes[i].second;
+            bbox.center.x    /= ratio;
+            bbox.center.y    /= ratio;
+            bbox.size.width  /= ratio;
+            bbox.size.height /= ratio;
+            // bbox &= img_bbox;
+            // assert(bbox.x >= 0);
+            // assert(bbox.y >= 0);
+            // assert(bbox.x + bbox.width <= imgs[idx].cols);
+            // assert(bbox.y + bbox.height <= imgs[idx].rows);
+
+            // Rect rect = results[idx].boundingBox[0].second;
+            // cout << "bboxes: x=" << rect.x << ", y = " << rect.y << ", width = " << rect.width << ", height = " << rect.height << endl;
+        }
+    }
+}
+void SSDDetector::detect_impl_kernel(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
     if (!device_setted_) {
         Caffe::SetDevice(_gpuid);
@@ -473,6 +615,7 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 }
 
 /*====================== fcn detector ======================== */
+/*
 FcnDetector::FcnDetector(int img_scale_max, int img_scale_min,std::string deploy_file, std::string model_file, int gpu_id)
                 : Detector(img_scale_max, img_scale_min) {
 
@@ -482,7 +625,9 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min,std::string deploy
     _fcn_detecror = new FCNFaceDetector(deploy_file,model_file);
 
 }
+*/
 
+/*
 FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id)
                 : Detector(img_scale_max, img_scale_min) {
 
@@ -502,21 +647,52 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
     _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
 
 }
+*/
+
+FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, 
+						int gpu_id, bool is_encrypt, int batch_size)
+                : Detector(img_scale_max, img_scale_min, is_encrypt) {
+
+    int argc = 1;
+    char* argv[] = {""};
+    vis::initcaffeglobal(argc, argv, gpu_id);
+	int _batch_size = batch_size;
+	
+	string cfg_file;
+	string deploy_file, model_file;
+	addNameToPath(model_dir, "/det_fcn.json", cfg_file);	
+	
+	ParseConfigFile(cfg_file, deploy_file, model_file);
+
+	string full_deploy_file, full_model_file;
+	addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
+	addNameToPath(model_dir, "/" + model_file, full_model_file);
+	
+    _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
+
+}
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
 
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, cfg_content);
-	if(ret != 0 ) {
+	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
+	if(ret != 0) {
 		cout << "fail to decrypt config file." << endl;
 		deploy_file.clear();
 		model_file.clear();
 		return;
 	}
 
-	stringstream ssin(cfg_content);
-	getline(ssin, deploy_file);
-	getline(ssin, model_file);
+	Config fcn_cfg;
+	if(!fcn_cfg.LoadString(cfg_content)) {
+		cout << "fail to parse " << cfg_file << endl;
+		deploy_file.clear();
+		model_file.clear();
+		return;
+	}
+
+	deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
+	model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
 }
 
 FcnDetector::~FcnDetector() {
@@ -574,6 +750,7 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 }
 
 /*====================== select detector ======================== */
+/*----------------------
 Detector *create_detector(const string &prefix) {
     Config *config    = Config::instance();
     string type       = config->GetConfig<string>(prefix + "detector", "dlib");
@@ -627,20 +804,70 @@ Detector *create_detector(const string &prefix) {
     }
     throw new runtime_error("unknown detector");
 }
-Detector *create_detector(const string& method, const string& model_dir, int gpu_id) {
+*/
+
+Detector *create_detector_with_config(const det_method& method, 
+									const string& config_file,
+									int gpu_id, 
+									bool is_encrypt, 
+									int batch_size) {
+const std::map<det_method, std::string> det_map {
+	{det_method::DLIB, "DLIB"},
+	{det_method::SSD, "SSD"},
+	{det_method::RPN, "RPN"},
+	{det_method::FCN, "FCN"}
+};
+	string det_key = "FaceDetector";
+	string full_key = det_key + "/" + det_map.at(method);
+
+	Config path_cfg;
+	path_cfg.Load(config_file);
+	string model_path = static_cast<string>(path_cfg.Value(full_key));
+	if(model_path != ""){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
+
+}
+Detector *create_detector(const det_method& method, 
+							const string& model_dir, 
+							int gpu_id, 
+							bool is_encrypt, 
+							int batch_size) {
 	int img_scale_max = 720;
 	int img_scale_min = 240;
-	if(method == "fcn") {
-        return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
-	} else if(method == "ssd") {
-		throw new runtime_error("don't use ssd!");
-	} else if(method == "rpn") {
-		throw new runtime_error("don't use rpn!");
-	} else if (method == "dlib") {
-		throw new runtime_error("don't use dlib!");
-        return new DlibDetector(img_scale_max, img_scale_min);
+	switch(method) {
+		case det_method::FCN: {
+			return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id, is_encrypt, batch_size);
+	break;
+}
+		case det_method::DLIB: {
+			throw new runtime_error("don't use dlib!");
+			break;
+		}
+		case det_method::RPN: {
+			throw new runtime_error("don't use rpn!");
+			break;
+		}
+		case det_method::SSD: {
+			return new SSDDetector(img_scale_max, img_scale_min, model_dir, gpu_id, is_encrypt, batch_size);
+			break;
+		}
+		default:
+			throw new runtime_error("unknown detector");
 	}
-    throw new runtime_error("unknown detector");
+	// if(method == "fcn") {
+    //     return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
+	// } else if(method == "ssd") {
+	// 	throw new runtime_error("don't use ssd!");
+	// } else if(method == "rpn") {
+	// 	throw new runtime_error("don't use rpn!");
+	// } else if (method == "dlib") {
+	// 	throw new runtime_error("don't use dlib!");
+    //     return new DlibDetector(img_scale_max, img_scale_min);
+	// }
+    // throw new runtime_error("unknown detector");
 
 }
 

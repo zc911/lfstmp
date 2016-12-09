@@ -60,7 +60,8 @@ class Tracking {
         std::vector<std::vector<float> > _similariy_cache;
 };
 
-Tracking *create_tracker(const std::string &prefix = std::string());
+//Tracking *create_tracker(const std::string &prefix = std::string());
+Tracking *create_tracker();
 }
 #endif
 

@@ -1,7 +1,6 @@
 #include <alignment/align_dlib.h>
 #include <alignment/align_cdnn.h>
 #include <alignment/align_cdnn_caffe.h>
-#include <config.h>
 #include <stdexcept>
 #include "dlib/image_processing.h"
 #include "dlib/opencv.h"
@@ -11,12 +10,13 @@
 #include "face_inf.h"
 #include "post_filter.h"
 #include "dgface_utils.h"
+#include "dgface_config.h"
 
 using namespace cv;
 using namespace std;
 namespace DGFace{
 DlibAlignment::DlibAlignment(vector<int> face_size, const string &align_model, const std::string &det_type)
-        : Alignment(face_size) {
+        : Alignment(face_size, false) {
     dlib::deserialize(align_model) >> _sp;
     _det_type = det_type;
 }
@@ -71,9 +71,11 @@ void DlibAlignment::align_impl(const Mat &img, const Rect &bbox, AlignResult &re
     }
 }
 
-CdnnAlignment::CdnnAlignment(vector<int> face_size, string modelDir):Alignment(face_size) {
-    if(!Cdnn::InitFacialLandmarkModel(modelDir.c_str(), _keyPointsModel)) {
-        cout << "Fail to init from " << modelDir << endl;
+///////////////////////////////////////////////////////////////////////
+CdnnAlignment::CdnnAlignment(vector<int> face_size, string modelDir):Alignment(face_size, false) {
+	string real_model_dir = (modelDir.back() != '/') ? modelDir + "/" : modelDir;
+    if(!Cdnn::InitFacialLandmarkModel(real_model_dir.c_str(), _keyPointsModel)) {
+        cout << "Fail to init from " << real_model_dir << endl;
         exit(-1);
     }
 }
@@ -160,7 +162,8 @@ void CdnnAlignment::align_impl(const cv::Mat &img,
 ///////////////////////////////////////////////////////////////////////
 CdnnCaffeAlignment::CdnnCaffeAlignment(vector<int> face_size, 
 									string model_dir, 
-									int gpu_id):Alignment(face_size) {
+									int gpu_id, 
+									bool is_encrypt):Alignment(face_size, is_encrypt) {
 
     int argc = 1;
     char* argv[] = {""};
@@ -170,7 +173,7 @@ CdnnCaffeAlignment::CdnnCaffeAlignment(vector<int> face_size,
 
 	string cfg_file;
 	vector<string> deploy_files, model_files;
-	addNameToPath(model_dir, "/align_cdnn_caffe.cfg", cfg_file);
+	addNameToPath(model_dir, "/align_cdnn_caffe.json", cfg_file);
 	ParseConfigFile(cfg_file, deploy_files, model_files);
 
 	for(int i = 0; i < 2; ++i) {
@@ -192,7 +195,7 @@ void CdnnCaffeAlignment::ParseConfigFile(const string& cfg_file,
 	model_files.clear();
 
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, cfg_content);
+	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
 	if(ret != 0) {
 		cout << "fail to decrypt config file." << endl;
 		return;
@@ -298,6 +301,7 @@ void CdnnCaffeAlignment::align_impl(const cv::Mat &img,
 }
 
 ///////////////////////////////////////////////////////////////
+/*--------------------
 Alignment *create_alignment(const string &prefix) {
     Config *config = Config::instance();
     string type    = config->GetConfig<string>(prefix + "alignment", "dlib");
@@ -318,19 +322,64 @@ Alignment *create_alignment(const string &prefix) {
     }
     throw new runtime_error("unknown alignment");
 }
+*/
 
-Alignment *create_alignment(const string& method, const string& model_dir, int gpu_id) {
+Alignment *create_alignment_with_config(const align_method& method, 
+									const string& config_file,
+									int gpu_id, 
+									bool is_encrypt, 
+									int batch_size) {
+const std::map<align_method, std::string> align_map {
+	{align_method::DLIB, "DLIB"},
+	{align_method::CDNN, "CDNN"},
+	{align_method::CDNN_CAFFE, "CDNN_CAFFE"}
+};
+	string align_key = "FaceAlignment";
+	string full_key = align_key + "/" + align_map.at(method);
+
+	Config path_cfg;
+	path_cfg.Load(config_file);
+	string model_path = static_cast<string>(path_cfg.Value(full_key));
+	if(model_path != ""){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		return create_alignment(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
+}
+Alignment *create_alignment(const align_method& method, 
+							const string& model_dir,
+							int gpu_id, 
+							bool is_encrypt, 
+							int batch_size) {
 	vector<int> face_size = {128};
 	
-	if(method == "cdnn") {
-		face_size[0] = 600;
-        return new CdnnAlignment(face_size, model_dir);
-	} else if(method == "cdnn_caffe") {
-		face_size[0] = 600;
-        return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
-	} else if(method == "dlib") {
-		throw new runtime_error("don't use dlib");
+	switch(method) {
+		case align_method::CDNN: {
+			face_size[0] = 600;
+			return new CdnnAlignment(face_size, model_dir);
+			break;
+		}
+		case align_method::CDNN_CAFFE: {
+			face_size[0] = 600;
+			return new CdnnCaffeAlignment(face_size, model_dir, gpu_id, is_encrypt);
+			break;
+		}
+		case align_method::DLIB: {
+			throw new runtime_error("don't use dlib");
+			break;
+		}
+		default:
+			throw new runtime_error("unknown alignment");
 	}
-    throw new runtime_error("unknown alignment");
+	// if(method == "cdnn") {
+	// 	face_size[0] = 600;
+    //     return new CdnnAlignment(face_size, model_dir);
+	// } else if(method == "cdnn_caffe") {
+	// 	face_size[0] = 600;
+    //     return new CdnnCaffeAlignment(face_size, model_dir, gpu_id);
+	// } else if(method == "dlib") {
+	// 	throw new runtime_error("don't use dlib");
+	// }
+    // throw new runtime_error("unknown alignment");
 }
 }

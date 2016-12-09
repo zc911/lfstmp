@@ -4,6 +4,10 @@
 #include "common.h"
 #include "face_inf.h"
 namespace DGFace{
+enum class transform_method : unsigned char{
+	CDNN,
+	CDNN_CAFFE,
+};
 
 class Transformation{
 	public:
@@ -20,8 +24,8 @@ class Transformation{
 									cv::Mat& transformed_img, std::vector<double>& transformed_landmarks) = 0;
 };
 
-Transformation *create_transformation(const std::string &prefix = std::string());
-Transformation *create_transformation(const std::string& method, const std::string& model_dir);
+//Transformation *create_transformation(const std::string &prefix = std::string());
+Transformation *create_transformation(const transform_method& method, const std::string& model_dir);
 
 }
 #endif

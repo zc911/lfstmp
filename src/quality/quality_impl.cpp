@@ -1,7 +1,6 @@
 #include <quality/qual_blurm.h>
 #include <quality/qual_frontalm.h>
 #include <quality/qual_posem.h>
-#include <config.h> 
 #include <stdexcept>
 #include <string>
 #include <memory>
@@ -171,6 +170,7 @@ vector<float> PoseQuality::quality(const AlignResult &align_result) {
 }
 
 /*====================== select detector ======================== */
+/*
 Quality *create_quality(const string &prefix) {
     Config *config    = Config::instance();
     string type       = config->GetConfig<string>(prefix + "quality", "blurm");
@@ -185,15 +185,32 @@ Quality *create_quality(const string &prefix) {
 		return new PoseQuality();
     throw new runtime_error("unknown quality measure");
 }
-Quality *create_quality(const std::string& method, const std::string& model_dir, int gpu_id) {
-	if (method == "blurm")
-        return new BlurMQuality();
-    else if (method == "frontalm")
-        // create dlib frontal face detector
-        return new FrontalMQuality();
-	else if (method == "posem")
-	    // create pose estimation
-		return new PoseQuality();
-    throw new runtime_error("unknown quality measure");
+*/
+Quality *create_quality(const quality_method& method, const std::string& model_dir, int gpu_id) {
+	switch(method) {
+		case BLURM: {
+        	return new BlurMQuality();
+			break;
+		}
+		case FRONT: {
+        	return new FrontalMQuality();
+			break;
+		}
+		case POSE: {
+			return new PoseQuality();
+			break;
+		}
+		default:
+			throw new runtime_error("unknown quality measure");
+	}
+	// if (method == "blurm")
+    //     return new BlurMQuality();
+    // else if (method == "frontalm")
+    //     // create dlib frontal face detector
+    //     return new FrontalMQuality();
+	// else if (method == "posem")
+	//     // create pose estimation
+	// 	return new PoseQuality();
+    // throw new runtime_error("unknown quality measure");
 }
 }

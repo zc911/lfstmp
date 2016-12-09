@@ -6,6 +6,13 @@
 #include <alignment.h>
 
 namespace DGFace{
+
+enum quality_method {
+	BLURM,
+	FRONT,
+	POSE,
+};
+
 class Quality {
     public:
         virtual ~Quality(void) {}
@@ -15,8 +22,8 @@ class Quality {
         Quality(void) {}
 };
 
-Quality *create_quality(const std::string &prefix = std::string());
-Quality *create_quality(const std::string& method, const std::string& model_dir, int gpu_id);
+//Quality *create_quality(const std::string &prefix = std::string());
+Quality *create_quality(const quality_method& method, const std::string& model_dir, int gpu_id);
 
 }
 #endif

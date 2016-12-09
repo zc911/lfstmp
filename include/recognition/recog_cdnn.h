@@ -8,8 +8,8 @@
 namespace DGFace{
 class CdnnRecog: public Recognition {
 	public:
-		CdnnRecog(std::string configPath, std::string modelDir, bool multi_thread );
-		CdnnRecog(const std::string& model_dir, bool multi_thread );
+		CdnnRecog(std::string configPath, std::string modelDir, bool multi_thread, bool is_encrypt);
+		CdnnRecog(const std::string& model_dir, bool multi_thread, bool is_encrypt);
 		virtual ~CdnnRecog();
 
 		void recog_impl(const std::vector<cv::Mat>& faces, 

@@ -10,7 +10,7 @@ namespace DGFace{
 
 class CdnnCaffeAlignment : public Alignment{
 	public:
-		CdnnCaffeAlignment(std::vector<int> face_size, std::string model_dir, int gpu_id);
+		CdnnCaffeAlignment(std::vector<int> face_size, std::string model_dir, int gpu_id, bool is_encrypt);
 		virtual ~CdnnCaffeAlignment(void);
 	
 		void align_impl(const cv::Mat &img, const cv::Rect& bbox,

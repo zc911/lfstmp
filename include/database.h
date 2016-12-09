@@ -25,7 +25,8 @@ class Database {
         virtual void save() = 0;
 };
 
-Database *create_database(const std::string &prefix = std::string());
+//Database *create_database(const std::string &prefix = std::string());
+Database *create_database();
 }
 #endif
 

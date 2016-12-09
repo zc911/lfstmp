@@ -1,4 +1,3 @@
-#include <config.h>
 #include <detector.h>
 #include <recognition.h>
 #include <tracking.h>
@@ -37,6 +36,7 @@ void DetectionBasedTracking::find_objects(const Mat &img, vector<RotatedRect> &r
         rot_bboxes.push_back(result.second);
     }
 }
+/*
 Tracking *create_tracker(const std::string &prefix) {
     Config *config = Config::instance();
     string type    = config->GetConfig<string>(prefix + "tracking", "detect_based");
@@ -48,5 +48,9 @@ Tracking *create_tracker(const std::string &prefix) {
         return new DetectionBasedTracking(recog, verify, thresh, detector);
     }
     throw new runtime_error("unknown tracking");
+}
+*/
+Tracking *create_tracker() {
+    throw new runtime_error("tracking module will be removed");
 }
 }
