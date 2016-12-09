@@ -16,7 +16,7 @@ static vector<vector<Rect> *> vHotspots;
 static vector<vector<CarRankFeature> *> vCandidates;
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     //Config config;
     //config.Load("data/config.json");
     crprocessor = new CarRankProcessor();
