@@ -18,7 +18,7 @@ namespace dg {
 class VehicleBeltClassifierProcessor: public Processor {
 public:
 
-    VehicleBeltClassifierProcessor(VehicleBeltConfig &bConfig, bool drive);
+    VehicleBeltClassifierProcessor(bool drive);
     ~VehicleBeltClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {
@@ -39,8 +39,8 @@ private:
     vector<vector<float> >params_;
     vector<Mat> images_;
     bool is_driver = true;
-    int marker_target_min_;
-    int marker_target_max_;
+//    int marker_target_min_;
+//    int marker_target_max_;
 };
 
 }

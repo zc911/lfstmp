@@ -11,10 +11,9 @@ namespace dg {
 
 using namespace AlgorithmProcessorType;
 
-VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
-    const VehicleCaffeDetectorConfig &config, bool accelate)
-    : Processor(), config_(config) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
-    if (config.car_only) {
+VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate)
+    : Processor(), car_only_(car_only) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
+    if (car_only_) {
         car_only_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyCaffeDetector, accelate);
         car_only_confirm_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyConfirmCaffeDetector, accelate);
     } else {
@@ -73,7 +72,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         return false;
     }
 
-    if (config_.car_only) {
+    if (car_only_) {
         VLOG(VLOG_RUNTIME_DEBUG) << "Car only detection and confirm. " << endl;
         car_only_detector_->BatchProcess(images, detect_results);
         car_only_confirm_->BatchProcess(images, detect_results);
