@@ -14,7 +14,7 @@ static VehicleColorProcessor *vcprocessor;
 static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    CaffeVehicleColorClassifier::VehicleColorConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
