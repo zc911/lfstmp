@@ -47,6 +47,7 @@ private:
     dgvehicle::AlgorithmProcessor *car_only_confirm_ = NULL;
     VehicleCaffeDetectorConfig config_;
     int base_id_;
+    float threshold_;
 
 };
 

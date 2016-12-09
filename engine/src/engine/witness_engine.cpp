@@ -68,6 +68,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
         if (!enable_vehicle_detect_
             || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+
             if (frames->CheckFrameBatchOperation(OPERATION_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
