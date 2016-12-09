@@ -32,7 +32,8 @@ static void initConfig() {
     }
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
     configs.push_back(config); */
-    vcfprocessor = new VehicleClassifierProcessor(true);
+    string mappingFilePath = "";
+    vcfprocessor = new VehicleClassifierProcessor(mappingFilePath, true);
 }
 
 static void init() {
