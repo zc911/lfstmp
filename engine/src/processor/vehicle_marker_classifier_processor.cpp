@@ -49,7 +49,7 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
     VLOG(VLOG_SERVICE) << "Start marker processor" << endl;
-    vector<vector<dgvehicle::Detection> >preds;
+    vector<vector<dgvehicle::Detection> > preds;
     ssd_marker_detector_->BatchDetect(images_, fobs_, params_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {
@@ -75,6 +75,10 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
             imwrite(name, draw_images_[i]);
         } else {
             for (int j = 0; j < preds[i].size(); j++) {
+                if (preds[i][j].id == 7 || preds[i][j].id == 8) {
+                    VLOG(VLOG_RUNTIME_DEBUG) << "Omit the belts found by marker classifier" << endl;
+                    continue;
+                }
                 markers_cutborad.push_back(ConvertDgvehicleDetection(preds[i][j]));
             }
         }
@@ -121,7 +125,7 @@ bool VehicleMarkerClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
                     performance_++;
                 }
             }
-            draw_images_.push_back(((Vehicle *)obj)->image());
+            draw_images_.push_back(((Vehicle *) obj)->image());
         } else {
             DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << " " << endl;
         }

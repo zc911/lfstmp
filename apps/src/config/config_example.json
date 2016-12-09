@@ -86,10 +86,12 @@
             "BatchSize": 2
         },
         "DriverBelt": {
-            "BatchSize": 2
+            "BatchSize": 2,
+            "Threshold": 0.0
         },
         "CoDriverBelt": {
-            "BatchSize": 2
+            "BatchSize": 2,
+            "Threshold": 0.0
         },
         "DriverPhone": {
             "BatchSize": 2

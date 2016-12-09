@@ -15,6 +15,7 @@ typedef struct {
     int gpu_id = 0;
     bool use_gpu = true;
     bool is_driver = true;
+    float threshold = 0.0;
     string deploy_file;
     string model_file;
 } VehicleBeltConfig;

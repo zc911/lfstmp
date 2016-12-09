@@ -39,6 +39,7 @@ private:
     vector<vector<float> >params_;
     vector<Mat> images_;
     bool is_driver = true;
+    float threshold_;
     int marker_target_min_;
     int marker_target_max_;
 };
