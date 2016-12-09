@@ -2,6 +2,7 @@
 // Created by chenzhen on 7/18/16.
 //
 #include "repo_service.h"
+#include "string_util.h"
 
 namespace dg {
 
