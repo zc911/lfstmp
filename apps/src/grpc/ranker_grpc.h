@@ -68,23 +68,27 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
     virtual ::grpc::Status GetImageContent(::grpc::ServerContext *context,
                                            const ::dg::model::GetImageContentRequest *request,
                                            ::dg::model::GetImageContentResponse *response) {
-//        MatrixError msg;
-//        string imageUri = request->uri();
-//        if (imageUri.size() > 0) {
-//            vector<uchar> bin;
-//            int ret = UriReader::Read(uri, bin, 10);
-//            if (ret != -1) {
-//                response->set_data(Base64::Encode(bin));
-//                return msg;
-//            }
-//        }
-//        msg.set_code(-1);
-//        msg.set_message("Get image content failed: " + imageUri);
-
         MatrixError error = service_->GetImageContent(request, response);
         return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
 
     }
+
+    virtual ::grpc::Status Search(::grpc::ServerContext *context,
+                                  const ::dg::model::SearchRequest *request,
+                                  ::dg::model::SearchResponse *response) {
+        MatrixError err = service_->Search(request, response);
+        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+    }
+
+    virtual ::grpc::Status RankRepoSize(::grpc::ServerContext *context,
+                                        const ::dg::model::RankRepoSizeRequest *request,
+                                        ::dg::model::RankRepoSizeResponse *response) {
+
+        MatrixError err = service_->RepoSize(request, response);
+        return err.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
+
+    }
+
 
     /**
      * @Deprecated
@@ -93,24 +97,6 @@ class GrpcRankerServiceImpl final: public BasicGrpcService, public SimilaritySer
                                          const FeatureRankingRequest *request,
                                          FeatureRankingResponse *response) override {
         cout << "This service is Deprecated, use RankImage or RankFeature instead. " << endl;
-//        cout << "[GRPC] ========================" << endl;
-//        cout << "[GRPC] Get rank request, thread id: " << this_thread::get_id() << endl;
-        /*  CallData data;
-
-          data.func = [request, response, &data]() -> MatrixError {
-            return (bind(&RankerAppsService::GetRankedVector,
-                         (RankerAppsService *) data.apps,
-                         placeholders::_1,
-                         placeholders::_2))(request,
-                                            response);
-          };
-
-          service_pool_->enqueue(&data);
-          MatrixError error = data.Wait();
-          return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
-  */
-//        MatrixError error = service_->GetRankedVector(request, response);
-//        return error.code() == 0 ? grpc::Status::OK : grpc::Status::CANCELLED;
         MatrixError error;
         error.set_code(-1);
         error.set_message("This service is Deprecated, use RankImage or RankFeature instead. ");

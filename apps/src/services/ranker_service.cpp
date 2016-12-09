@@ -37,6 +37,13 @@ RankerAppsService::~RankerAppsService() {
 
 }
 
+MatrixError RankerAppsService::RepoSize(const RankRepoSizeRequest *request, RankRepoSizeResponse *response) {
+    MatrixError err;
+    response->set_size(RankCandidatesRepo::GetInstance().RepoSize());
+    response->set_capacity(RankCandidatesRepo::GetInstance().RepoCapacity());
+    return err;
+}
+
 MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, RankFeatureResponse *response) {
 
     MatrixError err;
@@ -68,7 +75,8 @@ MatrixError RankerAppsService::RankFeature(const RankFeatureRequest *request, Ra
 
 }
 
-MatrixError RankerAppsService::GetImageContent(const GetImageContentRequest *request, GetImageContentResponse *response) {
+MatrixError RankerAppsService::GetImageContent(const GetImageContentRequest *request,
+                                               GetImageContentResponse *response) {
 
     MatrixError msg;
     string imageUri = request->uri();
@@ -83,6 +91,51 @@ MatrixError RankerAppsService::GetImageContent(const GetImageContentRequest *req
     msg.set_code(-1);
     msg.set_message("Get image content failed: " + imageUri);
     return msg;
+}
+
+MatrixError RankerAppsService::Search(const SearchRequest *request, SearchResponse *response) {
+    MatrixError err;
+
+    string findBy = request->col();
+    string findKey = request->key();
+
+    if (findKey == "" || findKey.size() == 0) {
+        err.set_code(-1);
+        err.set_message("Empty search condition");
+        return err;
+    }
+
+    vector<RankCandidatesItem> result;
+    if (findBy == "ID") {
+        RankCandidatesRepo::GetInstance().FindCandidatesInfoById(findKey, result);
+    } else if (findBy == "NAME") {
+        RankCandidatesRepo::GetInstance().FindCandidatesInfoByName(findKey, result);
+    } else {
+        err.set_code(-1);
+        err.set_message("Invalid colume name: " + findBy);
+        return err;
+    }
+
+    for (auto item: result) {
+        ::dg::model::RankItem *newItem = response->mutable_results()->Add();
+        newItem->set_id(item.id_);
+        newItem->set_name(item.name_);
+        newItem->set_uri(item.image_uri_);
+        map<string, set<string>> attrs = item.attributes_;
+        for (auto itr = attrs.begin(); itr != attrs.end(); ++itr) {
+            std::stringstream ss;
+            for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
+                if (itr2 != itr->second.begin()) {
+                    ss << ",";
+                }
+                ss << *itr2;
+            }
+            (*newItem->mutable_attributes())[itr->first] = ss.str();
+        }
+    }
+
+    return err;
+
 }
 
 
@@ -259,13 +312,12 @@ static bool applyFilters(const RankCandidatesItem &item, const map<string, set<s
 }
 
 
-static void resizeByRatio(cv::Mat &image, unsigned int maxLen){
-    if(image.cols & image.rows == 0){
+static void resizeByRatio(cv::Mat &image, unsigned int maxLen) {
+    if (image.cols & image.rows == 0) {
         return;
     }
-    float ratio = (float)maxLen / ((float)((image.cols >= image.rows) ? image.cols : image.rows));
+    float ratio = (float) maxLen / ((float) ((image.cols >= image.rows) ? image.cols : image.rows));
     cv::resize(image, image, cv::Size(image.cols * ratio, image.rows * ratio));
-
 
 }
 
@@ -316,29 +368,29 @@ MatrixError RankerAppsService::getFaceScoredVector(
 
     int pageSize = PAGE_SIZE_DEFAULT;
     itr = ctx.params().find("PageSize");
-    if(itr != ctx.params().end()){
+    if (itr != ctx.params().end()) {
         string pageSizeStr = itr->second;
         int pageSizeInt = atoi(pageSizeStr.c_str());
-        if(pageSizeInt > 0){
+        if (pageSizeInt > 0) {
             pageSize = pageSizeInt;
         }
     }
 
     int pageIndex = 0;
     itr = ctx.params().find("PageIndex");
-    if(itr != ctx.params().end()){
+    if (itr != ctx.params().end()) {
         string pageIndexStr = itr->second;
         int pageIndexInt = atoi(pageIndexStr.c_str());
-        if(pageIndexInt > 0){
+        if (pageIndexInt > 0) {
             pageIndex = pageIndexInt;
         }
     }
 
     bool useThumbnail = true;
     itr = ctx.params().find("Thumbnail");
-    if(itr != ctx.params().end()){
+    if (itr != ctx.params().end()) {
         string thumbnailStr = itr->second;
-        if(thumbnailStr == "false"){
+        if (thumbnailStr == "false") {
             useThumbnail = false;
         }
     }
@@ -352,7 +404,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
     Base64::Decode(request->feature().feature(), feature.feature_);
 
     FaceRankFrame f(0, feature);
-    f.max_candidates_ = maxCandidates * 100 >= 100 * 1000 ? 100 * 1000 : maxCandidates * 100 ;
+    f.max_candidates_ = maxCandidates * 100 >= 100 * 1000 ? 100 * 1000 : maxCandidates * 100;
     Operation op;
 
     op.Set(OPERATION_FACE_FEATURE_VECTOR);
@@ -380,14 +432,14 @@ MatrixError RankerAppsService::getFaceScoredVector(
     // calculate the page size, page count and page index
     int resultCount = f.result_.size();
     int pageCount = 0;
-    if(resultCount < pageSize){
+    if (resultCount < pageSize) {
         pageSize = resultCount;
         pageCount = 1;
-        if(pageIndex >= pageCount){
+        if (pageIndex >= pageCount) {
             return err;
         }
         pageIndex = 0;
-    }else {
+    } else {
         pageCount = resultCount / pageSize + ((resultCount % pageSize == 0) ? 0 : 1);
     }
     int startIndex = pageIndex * pageSize;
@@ -397,7 +449,8 @@ MatrixError RankerAppsService::getFaceScoredVector(
     for (auto r : f.result_) {
 
         if (r.score_ < confidenceThreshold) {
-            VLOG(VLOG_RUNTIME_DEBUG) << "Ranker result item score is lower than confidence threshold " << r.score_ << ":"
+            VLOG(VLOG_RUNTIME_DEBUG)
+            << "Ranker result item score is lower than confidence threshold " << r.score_ << ":"
                 << confidenceThreshold << endl;
             continue;
         }
@@ -409,13 +462,14 @@ MatrixError RankerAppsService::getFaceScoredVector(
         }
 
         currentResultIndex++;
-        if(currentResultIndex < startIndex || currentResultIndex >= startIndex + pageSize){
-            VLOG(VLOG_RUNTIME_DEBUG) << "Page fault " << currentResultIndex << " " << startIndex << " "<< startIndex + pageSize << endl;
+        if (currentResultIndex < startIndex || currentResultIndex >= startIndex + pageSize) {
+            VLOG(VLOG_RUNTIME_DEBUG)
+            << "Page fault " << currentResultIndex << " " << startIndex << " " << startIndex + pageSize << endl;
             continue;
         }
 
         candidatesCount++;
-        if(candidatesCount + pageSize * pageIndex > maxCandidates){
+        if (candidatesCount + pageSize * pageIndex > maxCandidates) {
             VLOG(VLOG_RUNTIME_DEBUG) << "exceed max candidates " << candidatesCount << ":" << maxCandidates << endl;
             return err;
         }
@@ -446,7 +500,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
             if ((item.image_.cols & item.image_.rows) != 0) {
                 cv::Mat imageMat;
                 item.image_.copyTo(imageMat);
-                if(useThumbnail){
+                if (useThumbnail) {
                     resizeByRatio(imageMat, 80);
                 }
                 result->set_data(encode2JPEGInBase64(imageMat));
@@ -454,7 +508,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
                 try {
                     if (UriReader::Read(item.image_uri_, imageContent, 3) >= 0) {
                         Mat imageMat = cv::imdecode(imageContent, CV_LOAD_IMAGE_COLOR);
-                        if(useThumbnail){
+                        if (useThumbnail) {
                             resizeByRatio(imageMat, 50);
                         }
                         result->set_data(encode2JPEGInBase64(imageMat));

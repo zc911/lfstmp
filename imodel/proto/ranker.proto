@@ -7,6 +7,8 @@ import "localcommon.proto";
 
 service SimilarityService {
 
+
+
     rpc RankImage (RankImageRequest) returns (RankImageResponse) {
     }
 
@@ -22,11 +24,29 @@ service SimilarityService {
 
     }
 
+    rpc Search (SearchRequest) returns (SearchResponse) {
+
+    }
+
+
+    rpc RankRepoSize (RankRepoSizeRequest) returns (RankRepoSizeResponse){
+
+    }
+
     // Deprecated
     rpc GetRankedVector (FeatureRankingRequest) returns (FeatureRankingResponse) {
     }
 
 
+}
+
+message RankRepoSizeRequest{
+}
+
+message RankRepoSizeResponse{
+    RankResponseContext Context = 1;
+    int32 Size = 2;
+    int32 Capacity = 3;
 }
 
 message RankRequestContext {
@@ -59,6 +79,17 @@ message RankItem {
     string URI = 4;
     string Data = 5;
     map<string, string> Attributes = 6;
+}
+
+message SearchRequest {
+    RankRequestContext Context = 1;
+    string Col = 2;
+    string Key = 3;
+}
+
+message SearchResponse {
+    RankResponseContext Context = 1;
+    repeated RankItem Results = 2;
 }
 
 message RankFeatureResponse {
