@@ -10,6 +10,8 @@
 #include <jsoncpp/json/json.h>
 #include <sys/time.h>
 #include "debug_util.h"
+#include <boost/regex.hpp>
+#include "string_util.h"
 
 namespace dg {
 
@@ -221,6 +223,30 @@ void RankCandidatesRepo::addDataToFaceRankDatabase(unsigned int batchSize,
 
     delete[] batchFeatures;
     delete[] batchIds;
+}
+
+void  RankCandidatesRepo::FindCandidatesInfoById(const string &idRegExp, vector<RankCandidatesItem> &results){
+    results.clear();
+    boost::regex reg(idRegExp);
+    for(int i = 0; i < candidates_.size(); ++i){
+        RankCandidatesItem &item = candidates_[i];
+        if(boost::regex_search(item.id_, reg)){
+            results.push_back(item);
+        }
+    }
+}
+void RankCandidatesRepo::FindCandidatesInfoByName(const string &nameRegExp,  vector<RankCandidatesItem> &results){
+    results.clear();
+    boost::regex reg(nameRegExp);
+    int count = 0;
+    for(int i = 0; i < candidates_.size(); ++i){
+        RankCandidatesItem &item = candidates_[i];
+        if(boost::regex_search(item.name_ , reg)){
+            ++count;
+            results.push_back(item);
+        }
+    }
+
 }
 
 

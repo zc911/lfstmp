@@ -2509,7 +2509,6 @@ inline ::std::string* VehicleModelType::mutable_model() {
   return model_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleModelType::release_model() {
-  // @@protoc_insertion_point(field_release:model.VehicleModelType.Model)
   
   return model_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2557,7 +2556,6 @@ inline ::std::string* LicensePlate::mutable_platetext() {
   return platetext_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* LicensePlate::release_platetext() {
-  // @@protoc_insertion_point(field_release:model.LicensePlate.PlateText)
   
   return platetext_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2592,7 +2590,6 @@ inline ::model::Color* LicensePlate::mutable_color() {
   return color_;
 }
 inline ::model::Color* LicensePlate::release_color() {
-  // @@protoc_insertion_point(field_release:model.LicensePlate.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -2658,7 +2655,6 @@ inline ::model::Cutboard* LicensePlate::mutable_cutboard() {
   return cutboard_;
 }
 inline ::model::Cutboard* LicensePlate::release_cutboard() {
-  // @@protoc_insertion_point(field_release:model.LicensePlate.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2751,7 +2747,6 @@ inline ::std::string* VehicleSymbol::mutable_name() {
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VehicleSymbol::release_name() {
-  // @@protoc_insertion_point(field_release:model.VehicleSymbol.Name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2786,7 +2781,6 @@ inline ::model::Cutboard* VehicleSymbol::mutable_cutboard() {
   return cutboard_;
 }
 inline ::model::Cutboard* VehicleSymbol::release_cutboard() {
-  // @@protoc_insertion_point(field_release:model.VehicleSymbol.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -2842,7 +2836,6 @@ inline ::model::VideoMetadata* Vehicle::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* Vehicle::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -2880,7 +2873,6 @@ inline ::model::VehicleModelType* Vehicle::mutable_modeltype() {
   return modeltype_;
 }
 inline ::model::VehicleModelType* Vehicle::release_modeltype() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.ModelType)
   
   ::model::VehicleModelType* temp = modeltype_;
   modeltype_ = NULL;
@@ -2918,7 +2910,6 @@ inline ::model::Color* Vehicle::mutable_color() {
   return color_;
 }
 inline ::model::Color* Vehicle::release_color() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -2984,7 +2975,6 @@ inline ::model::LicensePlate* Vehicle::mutable_plate() {
   return plate_;
 }
 inline ::model::LicensePlate* Vehicle::release_plate() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.Plate)
   
   ::model::LicensePlate* temp = plate_;
   plate_ = NULL;
@@ -3036,7 +3026,6 @@ inline ::model::CutboardImage* Vehicle::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* Vehicle::release_img() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3113,7 +3102,6 @@ inline ::std::string* Vehicle::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Vehicle::release_feature() {
-  // @@protoc_insertion_point(field_release:model.Vehicle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3200,7 +3188,6 @@ inline ::model::VideoMetadata* Tricycle::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* Tricycle::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.Tricycle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -3238,7 +3225,6 @@ inline ::model::CutboardImage* Tricycle::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* Tricycle::release_img() {
-  // @@protoc_insertion_point(field_release:model.Tricycle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3285,7 +3271,6 @@ inline ::std::string* Tricycle::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Tricycle::release_feature() {
-  // @@protoc_insertion_point(field_release:model.Tricycle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3320,7 +3305,6 @@ inline ::model::Color* Tricycle::mutable_color() {
   return color_;
 }
 inline ::model::Color* Tricycle::release_color() {
-  // @@protoc_insertion_point(field_release:model.Tricycle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -3410,7 +3394,6 @@ inline ::model::VideoMetadata* Bicycle::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* Bicycle::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.Bicycle.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -3448,7 +3431,6 @@ inline ::model::CutboardImage* Bicycle::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* Bicycle::release_img() {
-  // @@protoc_insertion_point(field_release:model.Bicycle.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3495,7 +3477,6 @@ inline ::std::string* Bicycle::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Bicycle::release_feature() {
-  // @@protoc_insertion_point(field_release:model.Bicycle.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3530,7 +3511,6 @@ inline ::model::Color* Bicycle::mutable_color() {
   return color_;
 }
 inline ::model::Color* Bicycle::release_color() {
-  // @@protoc_insertion_point(field_release:model.Bicycle.Color)
   
   ::model::Color* temp = color_;
   color_ = NULL;
@@ -3620,7 +3600,6 @@ inline ::model::VideoMetadata* Pedestrian::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* Pedestrian::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.Pedestrian.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -3658,7 +3637,6 @@ inline ::model::CutboardImage* Pedestrian::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* Pedestrian::release_img() {
-  // @@protoc_insertion_point(field_release:model.Pedestrian.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -3831,7 +3809,6 @@ inline ::std::string* Pedestrian::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Pedestrian::release_feature() {
-  // @@protoc_insertion_point(field_release:model.Pedestrian.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3918,7 +3895,6 @@ inline ::model::VideoMetadata* Face::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* Face::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.Face.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -3956,7 +3932,6 @@ inline ::model::CutboardImage* Face::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* Face::release_img() {
-  // @@protoc_insertion_point(field_release:model.Face.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -4003,7 +3978,6 @@ inline ::std::string* Face::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Face::release_feature() {
-  // @@protoc_insertion_point(field_release:model.Face.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4127,7 +4101,6 @@ inline ::std::string* VideoMetadata::mutable_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VideoMetadata::release_sensorname() {
-  // @@protoc_insertion_point(field_release:model.VideoMetadata.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4171,7 +4144,6 @@ inline ::std::string* VideoMetadata::mutable_sensorurl() {
   return sensorurl_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VideoMetadata::release_sensorurl() {
-  // @@protoc_insertion_point(field_release:model.VideoMetadata.SensorUrl)
   
   return sensorurl_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4219,7 +4191,6 @@ inline ::std::string* Image::mutable_id() {
   return id_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_id() {
-  // @@protoc_insertion_point(field_release:model.Image.Id)
   
   return id_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4291,7 +4262,6 @@ inline ::std::string* Image::mutable_bindata() {
   return bindata_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Image::release_bindata() {
-  // @@protoc_insertion_point(field_release:model.Image.BinData)
   
   return bindata_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4330,7 +4300,6 @@ inline ::model::VideoMetadata* CutboardImage::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* CutboardImage::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.CutboardImage.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4368,7 +4337,6 @@ inline ::model::Cutboard* CutboardImage::mutable_cutboard() {
   return cutboard_;
 }
 inline ::model::Cutboard* CutboardImage::release_cutboard() {
-  // @@protoc_insertion_point(field_release:model.CutboardImage.Cutboard)
   
   ::model::Cutboard* temp = cutboard_;
   cutboard_ = NULL;
@@ -4406,7 +4374,6 @@ inline ::model::Image* CutboardImage::mutable_img() {
   return img_;
 }
 inline ::model::Image* CutboardImage::release_img() {
-  // @@protoc_insertion_point(field_release:model.CutboardImage.Img)
   
   ::model::Image* temp = img_;
   img_ = NULL;
@@ -4485,7 +4452,6 @@ inline ::std::string* Color::mutable_colorname() {
   return colorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* Color::release_colorname() {
-  // @@protoc_insertion_point(field_release:model.Color.ColorName)
   
   return colorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4626,7 +4592,6 @@ inline ::model::VideoMetadata* BaseEntity::mutable_metadata() {
   return metadata_;
 }
 inline ::model::VideoMetadata* BaseEntity::release_metadata() {
-  // @@protoc_insertion_point(field_release:model.BaseEntity.Metadata)
   
   ::model::VideoMetadata* temp = metadata_;
   metadata_ = NULL;
@@ -4664,7 +4629,6 @@ inline ::model::CutboardImage* BaseEntity::mutable_img() {
   return img_;
 }
 inline ::model::CutboardImage* BaseEntity::release_img() {
-  // @@protoc_insertion_point(field_release:model.BaseEntity.Img)
   
   ::model::CutboardImage* temp = img_;
   img_ = NULL;
@@ -4729,7 +4693,6 @@ inline ::std::string* FeatureVector::mutable_feature() {
   return feature_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* FeatureVector::release_feature() {
-  // @@protoc_insertion_point(field_release:model.FeatureVector.Feature)
   
   return feature_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }

@@ -41,6 +41,13 @@ class RestRankerServiceImpl final: public RestfulService {
         std::function<MatrixError(const GetImageContentRequest *, GetImageContentResponse *)> getImageContentBinder =
             std::bind(&RankerAppsService::GetImageContent, service_, std::placeholders::_1, std::placeholders::_2);
 
+        std::function<MatrixError(const SearchRequest *, SearchResponse *)> searchBinder =
+            std::bind(&RankerAppsService::Search, service_, std::placeholders::_1, std::placeholders::_2);
+
+        std::function<MatrixError(const RankRepoSizeRequest *, RankRepoSizeResponse *)> repoSizeBinder =
+            std::bind(&RankerAppsService::RepoSize, service_, std::placeholders::_1, std::placeholders::_2);
+
+
         bindFunc<RankFeatureRequest, RankFeatureResponse>(server,
                                                           "/rank$",
                                                           "POST",
@@ -55,6 +62,16 @@ class RestRankerServiceImpl final: public RestfulService {
                                                                   "/rank/getImageContent",
                                                                   "POST",
                                                                   getImageContentBinder);
+
+        bindFunc<SearchRequest, SearchResponse>(server,
+                                                "/rank/search",
+                                                "POST",
+                                                searchBinder);
+
+        bindFunc<RankRepoSizeRequest, RankRepoSizeResponse>(server,
+                                                "/rank/size",
+                                                "GET",
+                                                repoSizeBinder);
 
     }
 

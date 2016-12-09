@@ -40,7 +40,12 @@ class RankCandidatesRepo {
     }
     ~RankCandidatesRepo();
 
-    void Init(const string &repoPath, const string &imageRootPath, unsigned int capacity, unsigned int featureLen, bool needSaveToFile, unsigned int saveIterval);
+    void Init(const string &repoPath,
+              const string &imageRootPath,
+              unsigned int capacity,
+              unsigned int featureLen,
+              bool needSaveToFile,
+              unsigned int saveIterval);
 
     const RankCandidatesItem &Get(unsigned int id) const {
         if (id >= candidates_.size()) {
@@ -58,7 +63,18 @@ class RankCandidatesRepo {
         return candidates_;
     }
 
+    int RepoSize() {
+        return candidates_.size();
+    }
+
+    int RepoCapacity() {
+        return capacity_;
+    };
+
     int AddFeatures(const FeaturesFrame &frame);
+
+    void FindCandidatesInfoById(const string &idRegExp, vector<RankCandidatesItem> &results);
+    void FindCandidatesInfoByName(const string &nameRegExp, vector<RankCandidatesItem> &results);
 
     void save(const string &repoPath, unsigned int saveIterval);
     void saveToFile(const string &repoPath, unsigned int startIndex, unsigned int endIndex);

@@ -49,7 +49,7 @@ LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_CUDART}
         ${CONAN_LIBS})
 
-LIST(APPEND LIBS pthread glog gflags leveldb jsoncpp cblas
+LIST(APPEND LIBS boost_regex pthread glog gflags leveldb jsoncpp cblas
         crypto b64 snappy lmdb jpeg png GL glut curl uuid freetype
         boost_system boost_filesystem hdf5_hl hdf5 m gstreamer-0.10
         gobject-2.0 gmodule-2.0 gthread-2.0 xml2 glib-2.0 gstapp-0.10 z dl)

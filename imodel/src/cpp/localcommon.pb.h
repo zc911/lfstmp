@@ -380,7 +380,6 @@ inline ::std::string* MatrixError::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* MatrixError::release_message() {
-  // @@protoc_insertion_point(field_release:dg.model.MatrixError.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
