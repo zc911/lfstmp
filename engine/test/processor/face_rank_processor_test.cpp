@@ -15,7 +15,7 @@ static vector<vector<Rect> *> vHotspots;
 static vector<vector<FaceRankFeature> *> vCandidates;
 
 static void init() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     frprocessor = new FaceRankProcessor();
     fbhelper = new FrameBatchHelper(1);
 }
