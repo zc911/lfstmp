@@ -1,5 +1,6 @@
 //#include <alg/detector/detector.h>
 //#include "alg/detector/vehicle_caffe_detector.h"
+#include <model/alg_config.h>
 #include "vehicle_multi_type_detector_processor.h"
 #include "processor_helper.h"
 #include "algorithm_def.h"
@@ -13,15 +14,17 @@ using namespace AlgorithmProcessorType;
 
 VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(
     const VehicleCaffeDetectorConfig &config, bool accelate)
-    : Processor(), config_(config) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
+    : Processor(), config_(config), car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
     if (config.car_only) {
         car_only_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyCaffeDetector, accelate);
-        car_only_confirm_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyConfirmCaffeDetector, accelate);
+        car_only_confirm_ =
+            AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyConfirmCaffeDetector, accelate);
     } else {
         vehicle_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_vehicleCaffeDetector, accelate);
     }
 
     base_id_ = 0;
+    threshold_ = config_.threshold;
 }
 
 // TODO complete construction
@@ -85,7 +88,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
 
     if (detect_results.size() < images.size()) {
         LOG(ERROR) << "Detection results size not equals to frame batch size: " << detect_results.size() << "-"
-                   << frameBatch->frames().size() << endl;
+            << frameBatch->frames().size() << endl;
         return false;
     }
 
@@ -98,6 +101,14 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[frameId];
 
         for (int j = 0; j < imageDetection.size(); ++j) {
+
+            if (imageDetection[j].confidence < threshold_) {
+                VLOG(VLOG_RUNTIME_DEBUG)
+                << "Detection confidence is low than threshold " << imageDetection[j].confidence << ":" << threshold_
+                    << endl;
+                continue;
+            }
+
             Detection d = ConvertDgvehicleDetection(imageDetection[j]);
             if (!roiFilter(frame->get_rois(), d.box))
                 continue;
@@ -134,7 +145,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
                 }
-                
+
                 if (objectType == OBJECT_BICYCLE || objectType == OBJECT_TRICYCLE) {
                     NonMotorVehicle *v = new NonMotorVehicle(objectType);
                     v->set_image(roi);

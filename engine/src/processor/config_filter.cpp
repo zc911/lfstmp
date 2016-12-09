@@ -186,6 +186,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
         FILE_ACCELERATE_TRAINED_MODEL);
     string deploy_model = (string) data_config_.Value(
         FILE_ACCELERATE_DEPLOY_MODEL);
+    float threshold = (float) cconfig.Value(ADVANCED_DETECTION_THRESHOLD);
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -197,6 +198,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
     config.target_min_size = 4;
     config.target_max_size = 6;
+    config.threshold = threshold;
 
 }
 
