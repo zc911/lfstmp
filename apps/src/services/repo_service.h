@@ -22,7 +22,7 @@ using namespace ::dg::model;
 namespace dg {
 
 class RepoService {
-public:
+ public:
     static RepoService &GetInstance() {
         static RepoService instance;
         return instance;
@@ -49,6 +49,11 @@ public:
     string FindPedestrianAttrName(int attrId) {
         return lookup_string(pedestrian_attr_type_repo_, attrId);
     }
+
+    const vector<unsigned int> &GetVehicleIsHeadRepo() const {
+        return vehicle_is_head_repo;
+    }
+
 
     float FindBodyRelativeFace(string dir) {
         if (dir == "left") return pBodyRelativeFaceLeft;
@@ -78,7 +83,7 @@ public:
         cb->set_confidence(b.confidence);
     }
 
-private:
+ private:
     RepoService();
 
 
@@ -88,6 +93,7 @@ private:
     string unknown_string_;
     VehicleModelType unknown_vehicle_;
     vector<VehicleModelType> vehicle_repo_;
+    vector<unsigned int> vehicle_is_head_repo;
     vector<string> car_type_repo_;
     vector<string> vehicle_type_repo_;
     vector<string> color_repo_;
@@ -127,19 +133,19 @@ private:
     void init_vehicle_map(string filename, string sep,
                           vector<VehicleModelType> &array);
 
-    int parseInt(string str) {
-        return std::stoi(trimString(str), nullptr, 10);
-    }
-
-    float parseFloat(string str) {
-        return std::stof(trimString(str), nullptr);
-    }
-
-    string trimString(string str) {
-        str.erase(0, str.find_first_not_of(" \n\r\t"));  //prefixing spaces
-        str.erase(str.find_last_not_of(" \n\r\t") + 1);   //surfixing spaces
-        return str;
-    }
+//    int parseInt(string str) {
+//        return std::stoi(trimString(str), nullptr, 10);
+//    }
+//
+//    float parseFloat(string str) {
+//        return std::stof(trimString(str), nullptr);
+//    }
+//
+//    string trimString(string str) {
+//        str.erase(0, str.find_first_not_of(" \n\r\t"));  //prefixing spaces
+//        str.erase(str.find_last_not_of(" \n\r\t") + 1);   //surfixing spaces
+//        return str;
+//    }
 
     void filterPlateType(string color, string plateNum, int &type);
     static void resetModel(RecVehicle *vrec) {

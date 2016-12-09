@@ -107,6 +107,22 @@ static void split(string src,vector<string> &collect,char c){
             collect.push_back(item);
     }while(item!="");
 }
+
+static string trimString(string &str) {
+    str.erase(0, str.find_first_not_of(" \n\r\t"));  //prefixing spaces
+    str.erase(str.find_last_not_of(" \n\r\t") + 1);   //surfixing spaces
+    return str;
+}
+
+static int parseInt(string &str) {
+    return std::stoi(trimString(str), nullptr, 10);
+}
+
+static float parseFloat(string &str) {
+    return std::stof(trimString(str), nullptr);
+}
+
+
 //static string encode2JPEGInBase64(cv::Mat &data) {
 //    vector < uchar > buff;
 //    cv::imencode(".jpg", data, buff);
