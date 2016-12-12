@@ -380,18 +380,25 @@ int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, st
 		deploy_file.clear();
 		model_file.clear();
 	}
-	
+
 	deploy_file = static_cast<string>(ssd_cfg.Value("deployfile"));
 	model_file = static_cast<string>(ssd_cfg.Value("modelfile"));
 	_pixel_scale = static_cast<float>(ssd_cfg.Value("pixel_scale"));
 	_det_thresh = static_cast<float>(ssd_cfg.Value("det_thresh"));
+
+	if(!static_cast<string>(ssd_cfg.Value("img_scale_max")).empty()) {
+		_img_scale_max = static_cast<int>(ssd_cfg.Value("img_scale_max"));
+	}
+	if(!static_cast<string>(ssd_cfg.Value("img_scale_min")).empty()) {
+		_img_scale_min = static_cast<int>(ssd_cfg.Value("img_scale_min"));
+	}
 	
 	int mean_vec_size = static_cast<int>(ssd_cfg.Value("mean/Size"));
 	CHECK(mean_vec_size == 3 || mean_vec_size == 1)
 	   << "Mean vector should have 1 or 3 entries.";
 	_pixel_means.resize(mean_vec_size);
 	for(int i = 0; i < mean_vec_size; ++i) {
-		_pixel_means[i] = static_cast<float>(ssd_cfg.Value("mean/" + to_string(i)));
+		_pixel_means[i] = static_cast<float>(ssd_cfg.Value("mean" + to_string(i)));
 	}
 }
 
@@ -677,7 +684,7 @@ void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& 
 	string cfg_content;
 	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
 	if(ret != 0) {
-		cout << "fail to decrypt config file." << endl;
+		cout << "fail to decrypt " << cfg_file << endl;
 		deploy_file.clear();
 		model_file.clear();
 		return;
