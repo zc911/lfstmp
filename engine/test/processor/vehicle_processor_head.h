@@ -37,8 +37,8 @@ private:
 class VehicleWindowProcessor {
 
 public:
-    VehicleWindowProcessor();
     ~VehicleWindowProcessor();
+    VehicleWindowProcessor();
 
 //    dg::VehicleCaffeDetectorConfig getConfig();
     void init();
