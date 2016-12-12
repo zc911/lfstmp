@@ -45,7 +45,6 @@ private:
     dgvehicle::AlgorithmProcessor *vehicle_detector_ = NULL;
     dgvehicle::AlgorithmProcessor *car_only_detector_ = NULL;
     dgvehicle::AlgorithmProcessor *car_only_confirm_ = NULL;
-    VehicleCaffeDetectorConfig config_;
     int base_id_;
     bool car_only_;
 
