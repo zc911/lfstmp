@@ -8,8 +8,6 @@
 #ifndef SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
-//#include "alg/detector/window_caffe_ssd_detector.h"
-//#include "alg/classification/belt_classifier.h"
 #include "algorithm_factory.h"
 #include "model/alg_config.h"
 
@@ -18,7 +16,7 @@ namespace dg {
 class VehicleBeltClassifierProcessor: public Processor {
 public:
 
-    VehicleBeltClassifierProcessor(VehicleBeltConfig &bConfig, bool drive);
+    VehicleBeltClassifierProcessor(float threshold, bool drive);
     ~VehicleBeltClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {

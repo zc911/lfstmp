@@ -28,7 +28,7 @@ static void initConfig() {
     mConfig.deploy_file = baseModelPath + "604.txt";
     mConfig.model_file = baseModelPath + "604.dat"; */
 
-    vbcprocessor = new VehiclePhoneClassifierProcessor();
+    vbcprocessor = new VehiclePhoneClassifierProcessor(0.0);
 }
 
 static Operation getOperation() {
