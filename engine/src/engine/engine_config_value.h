@@ -55,6 +55,7 @@ static const string ADVANCED_DETECTION_TARGET_MAX_SIZE =
     "Advanced/Detection/TargetMaxSize";
 static const string ADVANCED_DETECTION_CAR_ONLY =
     "Advanced/Detection/CarOnly";
+static const string ADVANCED_DETECTION_THRESHOLD = "Advanced/Detection/Threshold";
 
 
 static const string ADVANCED_COLOR_BATCH_SIZE = "Advanced/Color/BatchSize";
