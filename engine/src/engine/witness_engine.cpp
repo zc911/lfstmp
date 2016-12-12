@@ -67,6 +67,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
 
         if (!enable_vehicle_detect_
             || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+
             if (frames->CheckFrameBatchOperation(OPERATION_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
@@ -225,11 +226,7 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
             Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
-            if (last == NULL) {
-                vehicle_processor_ = p;
-            } else {
-                last->SetNextProcessor(p);
-            }
+            last->SetNextProcessor(p);
             last = p;
         }
 
