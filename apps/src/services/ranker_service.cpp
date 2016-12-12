@@ -209,7 +209,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
     FaceRankFrame f(0, image, hotspots, features);
     Operation op;
 
-    op.Set(OPERATION_FACE | OPERATION_FACE_DETECTOR
+    op.Set(OPERATION_FACE | OPERATION_FACE_DETECT
            | OPERATION_FACE_FEATURE_VECTOR);
 
     f.set_operation(op);

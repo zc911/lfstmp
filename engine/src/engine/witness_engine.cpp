@@ -11,6 +11,7 @@
 #include "processor/face_feature_extract_processor.h"
 #include "processor/vehicle_window_detector_processor.h"
 #include "processor/config_filter.h"
+#include "debug_util.h"
 
 namespace dg {
 
@@ -48,6 +49,44 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
+void WitnessEngine::withoutDetection(FrameBatch *frames) {
+
+    Identification baseid = 0;
+    for (auto frame: frames->frames()) {
+        Operation op = frame->operation();
+        Mat tmp = frame->payload()->data();
+
+        if (tmp.empty()) {
+            LOG(ERROR) << "Mat is empty" << endl;
+            continue;
+        }
+
+        Detection d;
+        d.box = Rect(0, 0, tmp.cols, tmp.rows);
+        Object *obj;
+
+        if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
+            obj = new Pedestrian();
+        } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
+            obj = new NonMotorVehicle(OBJECT_BICYCLE);
+        } else if (op.Check(
+            OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
+                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
+                | OPERATION_DRIVER_PHONE)) {
+            obj = new Vehicle(OBJECT_CAR);
+        } else if (op.Check(OPERATION_FACE_FEATURE_VECTOR)) {
+            obj = new Face();
+        } else {
+            continue;
+        }
+        obj->set_id(baseid++);
+        obj->set_image(tmp);
+        obj->set_detection(d);
+        frame->put_object(obj);
+    }
+
+}
+
 void WitnessEngine::Process(FrameBatch *frames) {
     float costtime, diff;
     struct timeval start, end;
@@ -63,55 +102,17 @@ void WitnessEngine::Process(FrameBatch *frames) {
     }
 #endif
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
+
+
+    if (!enable_vehicle_detect_ || !enable_face_detect_
+        || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)
+        || !frames->CheckFrameBatchOperation(OPERATION_FACE_DETECT)) {
+
+        withoutDetection(frames);
+    }
+
+
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
-
-        if (!enable_vehicle_detect_
-            || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
-
-            if (frames->CheckFrameBatchOperation(OPERATION_PEDESTRIAN_ATTR)) {
-                Identification baseid = 0;
-                for (auto frame : frames->frames()) {
-                    Pedestrian *p = new Pedestrian();
-                    Mat tmp = frame->payload()->data();
-                    if (tmp.empty()) {
-                        LOG(ERROR) << "Mat is empty" << endl;
-                        return;
-                    }
-                    p->set_image(tmp);
-                    p->set_id(baseid);
-                    baseid++;
-                    Object *obj = static_cast<Object *>(p);
-                    if (obj) {
-                        Detection d;
-                        d.box = Rect(0, 0, tmp.cols, tmp.rows);
-                        obj->set_detection(d);
-                        frame->put_object(obj);
-                    }
-                }
-            }
-            else {
-                Identification baseid = 0;
-                for (auto frame : frames->frames()) {
-                    Vehicle *v = new Vehicle(OBJECT_CAR);
-                    Mat tmp = frame->payload()->data();
-                    if (tmp.empty()) {
-                        LOG(ERROR) << "Mat is empty" << endl;
-                        return;
-                    }
-                    v->set_image(tmp);
-                    v->set_id(baseid);
-                    baseid++;
-                    Object *obj = static_cast<Object *>(v);
-
-                    if (obj) {
-                        Detection d;
-                        d.box = Rect(0, 0, tmp.cols, tmp.rows);
-                        obj->set_detection(d);
-                        frame->put_object(obj);
-                    }
-                }
-            }
-        }
         if (vehicle_processor_) {
             vehicle_processor_->Update(frames);
         }
@@ -120,16 +121,11 @@ void WitnessEngine::Process(FrameBatch *frames) {
         if (face_processor_)
             face_processor_->Update(frames);
     }
+
     gettimeofday(&end, NULL);
 
-    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
-    DLOG(INFO) << " [witness engine ]: " << diff;
-
-//    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
-//        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-//        isWarmuped_ = true;
-//    }
+    int cost = TimeCostInMs(start, end);
+    VLOG(VLOG_RUNTIME_DEBUG) << " [witness engine cost]: " << cost;
 
 }
 
@@ -140,30 +136,30 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
-                                 FEATURE_VEHICLE_ENABLE_DETECTION);
+        FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
+        FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
     enable_face_detect_ = (bool) config.Value(
-                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-                                      FEATURE_FACE_ENABLE_DETECTION);
+        FEATURE_FACE_ENABLE_DETECTION);
     enable_vehicle_driver_belt_ = (bool) config.Value(
-                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT);
+        FEATURE_VEHICLE_ENABLE_DRIVERBELT);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
-                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
+        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
     enable_vehicle_driver_phone_ = (bool) config.Value(
-                                       FEATURE_VEHICLE_ENABLE_PHONE);
+        FEATURE_VEHICLE_ENABLE_PHONE);
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
