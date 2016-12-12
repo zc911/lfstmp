@@ -30,7 +30,7 @@
       "EnableGpuPlate": true,
       "EnablePlateEnhanced": false,
       "EnableMarker": true,
-      "EnableDriverBelt": false,
+      "EnableDriverBelt": true,
       "EnableCoDriverBelt": true,
       "EnablePhone": true,
       "EnableFeatureVector": true,
