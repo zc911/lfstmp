@@ -8,7 +8,6 @@
 #ifndef SRC_PROCESSOR_VEHICLE_WINDOW_CLASSIFIER_PROCESSOR_H_
 #define SRC_PROCESSOR_VEHICLE_WINDOW_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
-//#include "alg/detector/window_caffe_ssd_detector.h"
 #include "algorithm_factory.h"
 namespace dg {
 
