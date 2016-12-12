@@ -19,29 +19,19 @@ static const string DGVEHICLE_MODEL_PATH = "ModelPath/dgvehicle";
 
 // feature/vehicle
 static const string FEATURE_VEHICLE_ENABLE = "Feature/Vehicle/Enable";
-static const string FEATURE_VEHICLE_ENABLE_NONMOTORVEHICLE =
-    "Feature/Vehicle/EnableNonMotorVehicle";
-static const string FEATURE_VEHICLE_ENABLE_DETECTION =
-    "Feature/Vehicle/EnableDetection";
+static const string FEATURE_VEHICLE_ENABLE_NONMOTORVEHICLE = "Feature/Vehicle/EnableNonMotorVehicle";
+static const string FEATURE_VEHICLE_ENABLE_DETECTION = "Feature/Vehicle/EnableDetection";
 static const string FEATURE_VEHICLE_ENABLE_TYPE = "Feature/Vehicle/EnableType";
 static const string FEATURE_VEHICLE_ENABLE_COLOR = "Feature/Vehicle/EnableColor";
 static const string FEATURE_VEHICLE_ENABLE_PLATE = "Feature/Vehicle/EnablePlate";
-static const string FEATURE_VEHICLE_ENABLE_PLATE_ENHANCED =
-    "Feature/Vehicle/EnablePlateEnhanced";
-static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE =
-    "Feature/Vehicle/EnableGpuPlate";
-static const string FEATURE_VEHICLE_ENABLE_MARKER =
-    "Feature/Vehicle/EnableMarker";
-static const string FEATURE_VEHICLE_ENABLE_DRIVERBELT =
-    "Feature/Vehicle/EnableDriverBelt";
-static const string FEATURE_VEHICLE_ENABLE_CODRIVERBELT =
-    "Feature/Vehicle/EnableCoDriverBelt";
-static const string FEATURE_VEHICLE_ENABLE_PHONE =
-    "Feature/Vehicle/EnablePhone";
-static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR =
-    "Feature/Vehicle/EnableFeatureVector";
-static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR =
-    "Feature/Vehicle/EnablePedestrianAttr";
+static const string FEATURE_VEHICLE_ENABLE_PLATE_ENHANCED = "Feature/Vehicle/EnablePlateEnhanced";
+static const string FEATURE_VEHICLE_ENABLE_GPU_PLATE = "Feature/Vehicle/EnableGpuPlate";
+static const string FEATURE_VEHICLE_ENABLE_MARKER = "Feature/Vehicle/EnableMarker";
+static const string FEATURE_VEHICLE_ENABLE_DRIVERBELT = "Feature/Vehicle/EnableDriverBelt";
+static const string FEATURE_VEHICLE_ENABLE_CODRIVERBELT = "Feature/Vehicle/EnableCoDriverBelt";
+static const string FEATURE_VEHICLE_ENABLE_PHONE = "Feature/Vehicle/EnablePhone";
+static const string FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR = "Feature/Vehicle/EnableFeatureVector";
+static const string FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR = "Feature/Vehicle/EnablePedestrianAttr";
 static const string FEATURE_NON_MOTOR_VEHICLE_ENABLE = "Feature/Vehicle/EnableNonMotorVehicle";
 // feature/face
 static const string FEATURE_FACE_ENABLE = "Feature/Face/Enable";
@@ -79,7 +69,10 @@ static const string ADVANCED_MARKER_BATCH_SIZE = "Advanced/Marker/BatchSize";
 
 static const string ADVANCED_DRIVER_BELT_BATCH_SIZE = "Advanced/DriverBelt/BatchSize";
 static const string ADVANCED_CODRIVER_BELT_BATCH_SIZE = "Advanced/CoDriverBelt/BatchSize";
+static const string ADVANCED_DRIVER_BELT_THRESHOLD = "Advanced/DriverBelt/Threshold";
+static const string ADVANCED_CODRIVER_BELT_THRESHOLD = "Advanced/CoDriverBelt/Threshold";
 static const string ADVANCED_PHONE_BATCH_SIZE = "Advanced/DriverPhone/BatchSize";
+static const string ADVANCED_PHONE_THRESHOLD = "Advanced/DriverPhone/Threshold";
 
 static const string ADVANCED_MARKER_MOT_CONFIDENCE =
     "Advanced/Marker/MOTConfidence";

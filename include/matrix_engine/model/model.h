@@ -42,7 +42,6 @@ enum DetectionTypeId {
 };
 
 
-
 typedef struct Detection {
     int id = -1;
     bool deleted;
@@ -58,15 +57,15 @@ typedef struct Detection {
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
         return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-               << det.box.y << "," << det.box.width << "," << det.box.height
-               << "] Conf: " << det.confidence;
+            << det.box.y << "," << det.box.width << "," << det.box.height
+            << "] Conf: " << det.confidence;
     }
 
 } Detection;
 
 
 class Object {
-public:
+ public:
     Object(ObjectType type)
         : id_(0),
           type_(type),
@@ -111,7 +110,7 @@ public:
         return NULL;
 
     }
-    vector<Object *>children(ObjectType type)const {
+    vector<Object *> children(ObjectType type) const {
         vector<Object *> result;
         for (auto *child : children_) {
             if (child->type() == type)
@@ -144,7 +143,7 @@ public:
         type_ = type;
     }
 
-protected:
+ protected:
     Identification id_;
     Confidence confidence_;
     ObjectType type_;
@@ -153,11 +152,11 @@ protected:
 
 };
 class Vehicler: public Object {
-public:
+ public:
 
-    enum {NoBelt = 48, Phone = 47};
-    enum {Yes = 1, No = 0, NotSure = 2, NoPerson = 3};
-    Vehicler(ObjectType type): Object(type) {
+    enum { NoBelt = 48, Phone = 47 };
+    enum { Yes = 1, No = 0, NotSure = 2, NoPerson = 3 };
+    Vehicler(ObjectType type) : Object(type) {
 
     }
     ~Vehicler() {
@@ -177,7 +176,7 @@ public:
 };
 
 class Marker: public Object {
-public:
+ public:
     Marker(ObjectType type)
         : Object(type),
           class_id_(-1) {
@@ -193,7 +192,7 @@ public:
         class_id_ = id;
     }
 
-private:
+ private:
     Identification class_id_;
 
 };
@@ -205,8 +204,9 @@ typedef struct {
     Object *object;
 } Message;
 class Window: public Object {
-public:
-    Window(Mat &img, vector<Rect> &fobbiden, vector<float> &params): Object(OBJECT_WINDOW), image_(img), fobbiden_(fobbiden), params_(params), class_id_(-1) {
+ public:
+    Window(Mat &img, vector<Rect> &fobbiden, vector<float> &params)
+        : Object(OBJECT_WINDOW), image_(img), fobbiden_(fobbiden), params_(params), class_id_(-1) {
         params_.resize(6);
     }
     ~Window() {
@@ -235,22 +235,22 @@ public:
             this->AddChild(m);
         }
     }
-    vector<Rect> & fobbiden() {
+    vector<Rect> &fobbiden() {
         return fobbiden_;
     }
-    vector<float> & params() {
+    vector<float> &params() {
         return params_;
     }
-    Mat & resized_image() {
+    Mat &resized_image() {
         return resized_image_;
     }
-    Mat & phone_image() {
+    Mat &phone_image() {
         return phone_image_;
     }
-    Mat & image() {
+    Mat &image() {
         return image_;
     }
-private:
+ private:
     Identification class_id_;
     Mat resized_image_;
     Mat image_;
@@ -259,7 +259,7 @@ private:
     vector<float> params_;
 };
 class Pedestrian: public Object {
-public:
+ public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -295,14 +295,19 @@ public:
         threshold_ = threshold;
     }
 
-private:
+ private:
     cv::Mat image_;
     std::vector<Attr> attrs_;
     std::map<string, float> threshold_;
 };
 
 class Vehicle: public Object {
-public:
+ public:
+
+    typedef enum {
+        VEHICLE_POSE_HEAD = 1,
+        VEHICLE_POSE_TAIL = 2
+    } VehiclePose;
 
     typedef struct {
         Identification class_id = -1;
@@ -332,10 +337,10 @@ public:
     void set_color(const Color &color) {
         color_ = color;
     }
-    void set_window( Window *window) {
+    void set_window(Window *window) {
         this->AddChild(window);
     }
-    void set_vehicler( Vehicler *vehicler) {
+    void set_vehicler(Vehicler *vehicler) {
         this->AddChild(vehicler);
 
     }
@@ -374,7 +379,16 @@ public:
     void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
-private:
+
+    const VehiclePose pose() const {
+        return pose_;
+    }
+
+    void set_pose(VehiclePose pose) {
+        pose_ = pose;
+    }
+
+ private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -382,11 +396,12 @@ private:
     vector<Plate> plates_;
     Color color_;
     CarRankFeature feature_;
+    VehiclePose pose_;
 
 };
 
 class NonMotorVehicle: public Object {
-public:
+ public:
     typedef struct {
         int index = 0;
         string tagname = "";
@@ -426,7 +441,7 @@ public:
         return attrs_;
     }
 
-private:
+ private:
 
     cv::Mat image_;
     cv::Mat resized_image_;
@@ -437,7 +452,7 @@ private:
 
 class Face: public Object {
 
-public:
+ public:
     Face()
         : Object(OBJECT_FACE) {
 
@@ -474,11 +489,10 @@ public:
         image_ = image;
     }
 
-private:
+ private:
     cv::Mat image_;
     FaceRankFeature feature_;
 };
-
 
 }
 #endif /* MODEL_H_ */
