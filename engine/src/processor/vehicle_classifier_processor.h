@@ -12,28 +12,32 @@
 //#include "alg/classification/vehicle_caffe_classifier.h"
 #include "processor_helper.h"
 #include "algorithm_factory.h"
+
 namespace dg {
 
 class VehicleClassifierProcessor: public Processor {
-public:
+ public:
 
-    VehicleClassifierProcessor(bool test = false);
+    VehicleClassifierProcessor(string &mappingFilePath, bool encrypt = false);
 
     ~VehicleClassifierProcessor();
 
-protected:
+ protected:
     virtual bool process(Frame *frame) {
         return false;
     }
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
-private:
+
+ private:
     void vehiclesResizedMat(FrameBatch *frameBatch);
+    void initIsHeadRepo(string &mapFilePath);
 
     vector<dgvehicle::AlgorithmProcessor *> classifiers_;
     vector<Object *> objs_;
     vector<Mat> images_;
+    vector<unsigned short> vehicle_is_head_repo_;
 
 };
 
