@@ -24,7 +24,7 @@ namespace dg {
 class VehicleMultiTypeDetectorProcessor: public Processor {
 public:
 
-    VehicleMultiTypeDetectorProcessor(const VehicleCaffeDetectorConfig &config, bool accelate);
+    VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate);
 
     ~VehicleMultiTypeDetectorProcessor();
 
@@ -47,6 +47,7 @@ private:
     dgvehicle::AlgorithmProcessor *car_only_confirm_ = NULL;
     VehicleCaffeDetectorConfig config_;
     int base_id_;
+    bool car_only_;
 
 };
 
