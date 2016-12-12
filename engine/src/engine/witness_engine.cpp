@@ -12,7 +12,6 @@
 #include "processor/vehicle_window_detector_processor.h"
 #include "processor/config_filter.h"
 
-
 namespace dg {
 
 WitnessEngine::WitnessEngine(const Config &config) {
@@ -67,7 +66,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
 
         if (!enable_vehicle_detect_
-            || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+                || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
             if (frames->CheckFrameBatchOperation(OPERATION_PEDESTRIAN_ATTR)) {
                 Identification baseid = 0;
                 for (auto frame : frames->frames()) {
@@ -123,7 +122,7 @@ void WitnessEngine::Process(FrameBatch *frames) {
     gettimeofday(&end, NULL);
 
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
+           / 1000.f;
     DLOG(INFO) << " [witness engine ]: " << diff;
 
 //    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
@@ -140,30 +139,30 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DETECTION);
+                                 FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
+                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
     enable_face_detect_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_DETECTION);
+                                      FEATURE_FACE_ENABLE_DETECTION);
     enable_vehicle_driver_belt_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DRIVERBELT);
+                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
+                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
     enable_vehicle_driver_phone_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_PHONE);
+                                       FEATURE_VEHICLE_ENABLE_PHONE);
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
@@ -215,10 +214,12 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
-        VehicleCaffeDetectorConfig dConfig;
-        configFilter->createAccelerateConfig(config, dConfig);
+        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
 
-        Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, true);
+    //    VehicleCaffeDetectorConfig dConfig;
+    //    configFilter->createAccelerateConfig(config, dConfig);
+
+        Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
 
         vehicle_processor_ = p;
         last = p;
@@ -226,10 +227,14 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-            VehicleCaffeDetectorConfig dConfig;
-            configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
-            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, false);
-            last->SetNextProcessor(p);
+       //     VehicleCaffeDetectorConfig dConfig;
+       //     configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
+            Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
+            if (last == NULL) {
+                vehicle_processor_ = p;
+            } else {
+                last->SetNextProcessor(p);
+            }
             last = p;
         }
 
@@ -289,18 +294,18 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_driver_belt_) {
 
-            VehicleBeltConfig bConfig;
-            configFilter->createDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, true);
+        //    VehicleBeltConfig bConfig;
+        //    configFilter->createDriverBeltConfig(config, bConfig);
+            p = new VehicleBeltClassifierProcessor(true);
 
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_codriver_belt_) {
 
-            VehicleBeltConfig bConfig;
-            configFilter->createCoDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, false);
+        //    VehicleBeltConfig bConfig;
+        //    configFilter->createCoDriverBeltConfig(config, bConfig);
+            p = new VehicleBeltClassifierProcessor(false);
             last->SetNextProcessor(p);
             last = p;
         }

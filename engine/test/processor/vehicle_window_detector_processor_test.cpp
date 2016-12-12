@@ -14,7 +14,7 @@ static VehicleWindowDetectorProcessor *vwdprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    VehicleCaffeDetectorConfig wConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
