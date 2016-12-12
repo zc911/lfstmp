@@ -1,0 +1,5 @@
+/home/chenzhen/dgface/328.jpg
+/home/chenzhen/dgface/856.jpg
+/home/chenzhen/dgface/胡彬.jpg
+/home/chenzhen/dgface/Thumbs.db
+/home/chenzhen/dgface/2731.jpg
