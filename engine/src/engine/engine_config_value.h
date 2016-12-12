@@ -72,6 +72,7 @@ static const string ADVANCED_CODRIVER_BELT_BATCH_SIZE = "Advanced/CoDriverBelt/B
 static const string ADVANCED_DRIVER_BELT_THRESHOLD = "Advanced/DriverBelt/Threshold";
 static const string ADVANCED_CODRIVER_BELT_THRESHOLD = "Advanced/CoDriverBelt/Threshold";
 static const string ADVANCED_PHONE_BATCH_SIZE = "Advanced/DriverPhone/BatchSize";
+static const string ADVANCED_PHONE_THRESHOLD = "Advanced/DriverPhone/Threshold";
 
 static const string ADVANCED_MARKER_MOT_CONFIDENCE =
     "Advanced/Marker/MOTConfidence";

@@ -15,7 +15,7 @@ namespace dg {
 class VehiclePhoneClassifierProcessor: public Processor {
 public:
 
-    VehiclePhoneClassifierProcessor();
+    VehiclePhoneClassifierProcessor(float threshold);
     ~VehiclePhoneClassifierProcessor();
 protected:
     virtual bool process(Frame *frame) {
@@ -30,7 +30,7 @@ protected:
 
 private:
     dgvehicle::AlgorithmProcessor *detector_ = NULL;
-
+    float threshold_;
     vector<Object *> objs_;
     vector<Mat> images_;
 //    int marker_target_min_;

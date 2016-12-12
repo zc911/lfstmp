@@ -16,7 +16,7 @@ public:
     VehicleProcessorHead();
     ~VehicleProcessorHead();
 
-    dg::VehicleCaffeDetectorConfig getConfig();
+//    dg::VehicleCaffeDetectorConfig getConfig();
     void init();
 
     dg::Processor *getProcessor() {
@@ -40,7 +40,7 @@ public:
     VehicleWindowProcessor();
     ~VehicleWindowProcessor();
 
-    dg::VehicleCaffeDetectorConfig getConfig();
+//    dg::VehicleCaffeDetectorConfig getConfig();
     void init();
 
     dg::Processor *getProcessor() {
