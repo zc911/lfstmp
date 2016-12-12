@@ -80,6 +80,7 @@ TEST(VehicleWindowDetectorTest, windowDetectorTest) {
         int cnt = 0;
         stringstream s;
         s << i;
+
         for (int j = 0; j < vehicles.size(); j++) {
             Vehicle *obj = (Vehicle *)vehicles[j];
             Window *w = (Window *)obj->child(OBJECT_WINDOW);
