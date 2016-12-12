@@ -1,13 +1,20 @@
 #include "vehicle_classifier_processor.h"
+#include <boost/algorithm/string/split.hpp>
 #include "algorithm_def.h"
 #include "util/caffe_helper.h"
+#include "string_util.h"
+
 
 using namespace dgvehicle;
 namespace dg {
 
-VehicleClassifierProcessor::VehicleClassifierProcessor(bool test) {
+VehicleClassifierProcessor::VehicleClassifierProcessor(string &mappingFilePath, bool encrypt) {
 
-    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier, classifiers_, test);
+    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier,
+                                                          classifiers_,
+                                                          encrypt);
+
+    initIsHeadRepo(mappingFilePath);
 }
 
 VehicleClassifierProcessor::~VehicleClassifierProcessor() {
@@ -19,6 +26,30 @@ VehicleClassifierProcessor::~VehicleClassifierProcessor() {
     images_.clear();
 }
 
+void VehicleClassifierProcessor::initIsHeadRepo(string &mapFilePath) {
+    ifstream input(mapFilePath);
+
+    int max = 0;
+    vector<std::pair<int, int>> pairs;
+    for (string line; std::getline(input, line);) {
+        vector<string> tokens;
+        boost::iter_split(tokens, line, boost::first_finder(","));
+        assert(tokens.size() == 10);
+
+        int index = parseInt(tokens[0]);
+        if (index > max)
+            max = index;
+        int isHead = parseInt(tokens[3]);
+        pairs.push_back(std::pair<int, int>(index, isHead));
+    }
+
+    vehicle_is_head_repo_.resize(max + 1);
+    for (const std::pair<int, int> &p : pairs) {
+        vehicle_is_head_repo_[p.first] = p.second;
+    }
+
+}
+
 bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start vehicle classify process" << frameBatch->id() << endl;
@@ -26,7 +57,7 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
     vector<vector<Prediction> > result;
 
     for (auto *elem : classifiers_) {
-        
+
         std::vector<vector<Prediction>> tmpPred;
         elem->BatchProcess(images_, tmpPred);
 
@@ -44,6 +75,13 @@ bool VehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         Prediction max = MaxPrediction(result[i]);
         v->set_class_id(max.first);
         v->set_confidence(max.second);
+        Vehicle::VehiclePose pose;
+        if (vehicle_is_head_repo_.size() >= max.first && vehicle_is_head_repo_[max.first] == 0) {
+            pose = Vehicle::VEHICLE_POSE_TAIL;
+        } else {
+            pose = Vehicle::VEHICLE_POSE_HEAD;
+        }
+        v->set_pose(pose);
     }
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Finish vehicle classify process" << frameBatch->id() << endl;
