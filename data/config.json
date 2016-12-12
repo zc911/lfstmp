@@ -18,6 +18,9 @@
         "BatchSize":1,
         "TimeOut":100
     },
+    "ModelPath": {
+        "dgvehicle":"data/dgvehicle"
+    },
     "Feature": {
         "Vehicle": {
             "Enable": true,

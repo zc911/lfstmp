@@ -44,7 +44,7 @@ bool FilesAllExist(Config *config) {
     dataConfig->LoadString(json_data);
 
 
-    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_COLOR_TRAINED_MODEL)).c_str());
+ /*   flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_COLOR_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_COLOR_DEPLOY_MODEL)).c_str());
 
     int model_num = (int) config->Value(ADVANCED_STYLE_MODEL_NUM);
@@ -98,7 +98,7 @@ bool FilesAllExist(Config *config) {
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_TRAINED_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_DEPLOY_MODEL)).c_str());
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_ALIGN_MODEL)).c_str());
-    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_ALIGN_DEPLOY)).c_str());
+    flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_FACE_EXTRACT_ALIGN_DEPLOY)).c_str()); */
 
 
     flag = flag && fileExist((modelPath + (string)dataConfig->Value(FILE_PLATE_FCN_SYMBOL)).c_str());

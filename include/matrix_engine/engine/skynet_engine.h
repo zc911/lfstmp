@@ -69,10 +69,11 @@ private:
 
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
         configFilter->initDataConfig(config);
-        VehicleCaffeDetectorConfig dConfig;
-        string dataPath = (string) config.Value("DataPath");
-        configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
-        processor_ = new VehicleMultiTypeDetectorProcessor(dConfig, false);
+      //  VehicleCaffeDetectorConfig dConfig;
+      //  string dataPath = (string) config.Value("DataPath");
+     //   configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
+        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+        processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
 
     }
 
