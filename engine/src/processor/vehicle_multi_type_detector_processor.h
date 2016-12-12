@@ -12,11 +12,7 @@
 #include <glog/logging.h>
 #include "util/debug_util.h"
 #include "processor.h"
-//#include "alg/detector/vehicle_caffe_detector.h"
-//#include "alg/detector/car_only_confirm_caffe_detector.h"
-//#include "alg/detector/car_only_caffe_detector.h"
 #include "algorithm_factory.h"
-#include "model/alg_config.h"
 
 using namespace std;
 namespace dg {
@@ -47,6 +43,7 @@ private:
     dgvehicle::AlgorithmProcessor *car_only_confirm_ = NULL;
     int base_id_;
     bool car_only_;
+    float threshold_;
 
 };
 
