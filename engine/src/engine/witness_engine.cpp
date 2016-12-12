@@ -140,30 +140,30 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DETECTION);
+                                 FEATURE_VEHICLE_ENABLE_DETECTION);
     enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE);
 
     enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR);
     enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_GPU_PLATE);
+                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE);
 
     enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
+                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
+                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR);
 
     enable_face_detect_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_FEATURE_VECTOR);
+                              FEATURE_FACE_ENABLE_FEATURE_VECTOR);
     enable_face_feature_vector_ = (bool) config.Value(
-        FEATURE_FACE_ENABLE_DETECTION);
+                                      FEATURE_FACE_ENABLE_DETECTION);
     enable_vehicle_driver_belt_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_DRIVERBELT);
+                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
+                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
     enable_vehicle_driver_phone_ = (bool) config.Value(
-        FEATURE_VEHICLE_ENABLE_PHONE);
+                                       FEATURE_VEHICLE_ENABLE_PHONE);
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
@@ -252,6 +252,7 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
+
             Processor *p = new VehicleColorProcessor();
             last->SetNextProcessor(p);
             last = p;
@@ -275,6 +276,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_marker_ || enable_vehicle_driver_belt_ || enable_vehicle_codriver_belt_
             || enable_vehicle_driver_phone_) {
             LOG(INFO) << "Enable vehicle window processor." << endl;
+
             p = new VehicleWindowDetectorProcessor();
             last->SetNextProcessor(p);
             last = p;

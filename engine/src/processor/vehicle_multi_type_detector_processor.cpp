@@ -150,6 +150,8 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                     Vehicle *v = new Vehicle(objectType);
                     v->set_image(roi);
                     v->set_id(base_id_ + id++);
+                    // set pose head in default
+                    v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
                     obj = static_cast<Object *>(v);
                 }
             }
