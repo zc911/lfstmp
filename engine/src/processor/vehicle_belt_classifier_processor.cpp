@@ -5,6 +5,7 @@
  *      Author: jiajaichen
  */
 
+#include <model/alg_config.h>
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
 #include "string_util.h"
@@ -12,14 +13,12 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(bool drive)
+VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
+    float threshold, bool drive)
     : Processor() {
 
     belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(drive);
-
-//    marker_target_min_ = mConfig.target_min_size;
-//    marker_target_max_ = mConfig.target_max_size;
-    is_driver = drive;
+    threshold_ = threshold;
 
 }
 VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
@@ -41,33 +40,26 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
         float value;
         Vehicle *v = (Vehicle *) objs_[i];
 
-        if (is_driver) {
-            Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
-            if (!vr) {
-                vr = new Vehicler(OBJECT_DRIVER);
-                v->set_vehicler(vr);
-            }
-            switch (preds[i][0].first) {
-            case 0:
-                value = preds[i][0].second;
-                vr->set_vehicler_attr(Vehicler::NoBelt, value);
-                break;
-            }
+        if (preds[i][0].second < threshold_)
+            continue;
 
-        } else {
-            if (preds[i][0].first == 1)
-                continue;
-            Vehicler *vr = (Vehicler *) v->child(OBJECT_CODRIVER);
-            if (!vr) {
-                vr = new Vehicler(OBJECT_CODRIVER);
-                v->set_vehicler(vr);
-            }
-            switch (preds[i][0].first) {
-            case 0:
+        switch (preds[i][0].first) {
+            case 0: {
+                ObjectType driverType = OBJECT_DRIVER;
+                if (!is_driver) {
+                    driverType = OBJECT_CODRIVER;
+                }
+                Vehicler *vr = (Vehicler *) v->child(driverType);
+                if (!vr) {
+                    vr = new Vehicler(driverType);
+                    v->set_vehicler(vr);
+                }
                 value = preds[i][0].second;
                 vr->set_vehicler_attr(Vehicler::NoBelt, value);
                 break;
             }
+            default:
+                break;
         }
 
     }
@@ -90,9 +82,9 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
     vector<Object *> objs;
-    if(is_driver){
+    if (is_driver) {
         objs = frameBatch->CollectObjects(OPERATION_DRIVER_BELT);
-    }else{
+    } else {
         objs = frameBatch->CollectObjects(OPERATION_CODRIVER_BELT);
     }
     vector<Object *>::iterator itr = objs.begin();
