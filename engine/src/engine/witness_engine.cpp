@@ -217,9 +217,6 @@ void WitnessEngine::init(const Config &config) {
 
         bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
 
-    //    VehicleCaffeDetectorConfig dConfig;
-    //    configFilter->createAccelerateConfig(config, dConfig);
-
         Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
 
         if (last == NULL) {
@@ -233,8 +230,6 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-       //     VehicleCaffeDetectorConfig dConfig;
-       //     configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
             Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -262,8 +257,6 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_type_) {
             LOG(INFO) << "Enable vehicle type classification processor." << endl;
-        //    vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-        //    configFilter->createVehicleConfig(config, configs);
 
             Processor *p = new VehicleClassifierProcessor();
             if (last == NULL) {
@@ -277,8 +270,6 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
-        //    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
-        //    configFilter->createVehicleColorConfig(config, configs);
 
             Processor *p = new VehicleColorProcessor();
             if (last == NULL) {
@@ -307,9 +298,6 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_marker_ || enable_vehicle_driver_belt_ || enable_vehicle_codriver_belt_ || enable_vehicle_driver_phone_) {
             LOG(INFO) << "Enable vehicle window processor." << endl;
 
-        //    Processor *p;
-        //    VehicleCaffeDetectorConfig wConfig;
-        //    configFilter->createWindowConfig(config, wConfig);
             p = new VehicleWindowDetectorProcessor();
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -320,8 +308,6 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         if (enable_vehicle_marker_) {
-      //      VehicleCaffeDetectorConfig mConfig;
-      //      configFilter->createMarkersConfig(config, mConfig);
 #if DEBUG
             p = new VehicleMarkerClassifierProcessor((bool) config.Value(DEBUG_VISUALIZATION));
 #else
@@ -337,8 +323,6 @@ void WitnessEngine::init(const Config &config) {
         } 
         if (enable_vehicle_driver_belt_) {
 
-        //    VehicleBeltConfig bConfig;
-        //    configFilter->createDriverBeltConfig(config, bConfig);
             p = new VehicleBeltClassifierProcessor(true);
 
             if (last == NULL) {
@@ -351,8 +335,6 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_codriver_belt_) {
 
-        //    VehicleBeltConfig bConfig;
-        //    configFilter->createCoDriverBeltConfig(config, bConfig);
             p = new VehicleBeltClassifierProcessor(false);
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -364,8 +346,6 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_driver_phone_) {
 
-        //    VehicleCaffeDetectorConfig bConfig;
-        //    configFilter->createDriverPhoneConfig(config, bConfig);
             p = new VehiclePhoneClassifierProcessor();
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -389,8 +369,6 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_vehicle_pedestrian_attr_) {
             LOG(INFO) << "Enable vehicle pedestrian attr processor." << endl;
-        //    PedestrianClassifier::PedestrianConfig pConfig;
-        //    configFilter->createPedestrianConfig(config, pConfig);
             Processor *p = new PedestrianClassifierProcessor();
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -403,8 +381,6 @@ void WitnessEngine::init(const Config &config) {
 
         if (enable_non_motor_vehicle_) {
             LOG(INFO) << "Enable non-motor vehicle attribute processor" << endl;
-        //    NonMotorVehicleClassifier::NonMotorVehicleConfig configs;
-        //    configFilter->createPedestrianConfig(config, configs);
             Processor *p = new NonMotorVehicleClassifierProcessor();
             if (last == NULL) {
                 vehicle_processor_ = p;
@@ -420,14 +396,10 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-    //    FaceDetector::FaceDetectorConfig fdconfig;
-    //    configFilter->createFaceDetectorConfig(config, fdconfig);
         face_processor_ = new FaceDetectProcessor();
 
         if (enable_face_feature_vector_) {
             LOG(INFO) << "Enable face feature vector processor." << endl;
-        //    FaceFeatureExtractor::FaceFeatureExtractorConfig feconfig;
-        //    configFilter->createFaceExtractorConfig(config, feconfig);
             face_processor_->SetNextProcessor(new FaceFeatureExtractProcessor());
         }
 
