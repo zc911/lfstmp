@@ -7,6 +7,7 @@
 
 //#include <alg/detector/detector.h>
 //#include <alg/classification/pedestrian_classifier.h>
+#include <model/alg_config.h>
 #include "config_filter.h"
 
 namespace dg {
@@ -156,8 +157,8 @@ void ConfigFilter::createVehicleCaffeDetectorConfig(const Config &cconfig,
     } else {
         config.model_file = model_path + trained_model;
         config.deploy_file = model_path + deploy_model;
-        config.target_min_size=minSize;
-        config.target_max_size=maxSize;
+        config.target_min_size = minSize;
+        config.target_max_size = maxSize;
     }
 
 
@@ -176,6 +177,7 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
         FILE_ACCELERATE_TRAINED_MODEL);
     string deploy_model = (string) data_config_.Value(
         FILE_ACCELERATE_DEPLOY_MODEL);
+    float threshold = (float) cconfig.Value(ADVANCED_DETECTION_THRESHOLD);
 
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -185,8 +187,9 @@ void ConfigFilter::createAccelerateConfig(const Config &cconfig,
     config.is_model_encrypt = is_encrypted;
     config.batch_size = 1;
     config.gpu_id = gpu_id;
-    config.target_min_size=4;
-    config.target_max_size=6;
+    config.target_min_size = 4;
+    config.target_max_size = 6;
+    config.threshold = threshold;
 
 }
 
@@ -298,10 +301,11 @@ void ConfigFilter::createPedestrianConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createDriverBeltConfig(const Config &cconfig,
-                             VehicleBeltConfig &bConfig){
-        int batch_size = (int) cconfig.Value(ADVANCED_DRIVER_BELT_BATCH_SIZE);
+                                          VehicleBeltConfig &bConfig) {
+    int batch_size = (int) cconfig.Value(ADVANCED_DRIVER_BELT_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+    float threshold = (float) cconfig.Value(ADVANCED_DRIVER_BELT_THRESHOLD);
 
     string
         modelPath = (string) data_config_.Value(FILE_DRIVER_BELT_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -313,13 +317,17 @@ void ConfigFilter::createDriverBeltConfig(const Config &cconfig,
     bConfig.is_model_encrypt = is_encrypted;
     bConfig.batch_size = batch_size;
     bConfig.gpu_id = gpu_id;
-    bConfig.is_driver=true;
+    bConfig.is_driver = true;
+    bConfig.threshold = threshold;
 }
+
 void ConfigFilter::createCoDriverBeltConfig(const Config &cconfig,
-                             VehicleBeltConfig &bConfig){
-        int batch_size = (int) cconfig.Value(ADVANCED_CODRIVER_BELT_BATCH_SIZE);
+                                            VehicleBeltConfig &bConfig) {
+
+    int batch_size = (int) cconfig.Value(ADVANCED_CODRIVER_BELT_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
+    float threshold = (float) cconfig.Value(ADVANCED_CODRIVER_BELT_THRESHOLD);
 
     string
         modelPath = (string) data_config_.Value(FILE_CODRIVER_BELT_MODEL_PATH) + (is_encrypted == true ? "1/" : "0/");
@@ -336,7 +344,7 @@ void ConfigFilter::createCoDriverBeltConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createMarkersConfig(const Config &cconfig,
-                         VehicleCaffeDetectorConfig &mConfig){
+                                       VehicleCaffeDetectorConfig &mConfig) {
     int batch_size = (int) cconfig.Value(ADVANCED_MARKER_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
@@ -352,7 +360,7 @@ void ConfigFilter::createMarkersConfig(const Config &cconfig,
 }
 
 void ConfigFilter::createWindowConfig(const Config &cconfig,
-                        VehicleCaffeDetectorConfig &wConfig){
+                                      VehicleCaffeDetectorConfig &wConfig) {
     int batch_size = (int) cconfig.Value(ADVANCED_WINDOW_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
@@ -364,17 +372,17 @@ void ConfigFilter::createWindowConfig(const Config &cconfig,
         + (string) data_config_.Value(FILE_WINDOW_TRAINED_MODEL);
     wConfig.deploy_file = modelPath
         + (string) data_config_.Value(FILE_WINDOW_DEPLOY_MODEL);
-    wConfig.target_max_size=160;
-    wConfig.target_min_size=80;
-    wConfig.threshold=0.4;
+    wConfig.target_max_size = 160;
+    wConfig.target_min_size = 80;
+    wConfig.threshold = 0.4;
     wConfig.is_model_encrypt = is_encrypted;
     wConfig.batch_size = batch_size;
     wConfig.gpu_id = gpu_id;
 }
 
 void ConfigFilter::createDriverPhoneConfig(const Config &cconfig,
-                         VehicleCaffeDetectorConfig &pConfig){
-        int batch_size = (int) cconfig.Value(ADVANCED_PHONE_BATCH_SIZE);
+                                           VehicleCaffeDetectorConfig &pConfig) {
+    int batch_size = (int) cconfig.Value(ADVANCED_PHONE_BATCH_SIZE);
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
 
@@ -383,12 +391,12 @@ void ConfigFilter::createDriverPhoneConfig(const Config &cconfig,
 
     pConfig.model_file = modelPath
         + (string) data_config_.Value(FILE_DRIVER_PHONE_TRAINED_MODEL);
-        LOG(INFO)<<pConfig.model_file;
+    LOG(INFO) << pConfig.model_file;
     pConfig.deploy_file = modelPath
         + (string) data_config_.Value(FILE_DRIVER_PHONE_DEPLOY_MODEL);
-    pConfig.target_max_size=256;
-    pConfig.target_min_size=512;
-    pConfig.threshold=0.0;
+    pConfig.target_max_size = 256;
+    pConfig.target_min_size = 512;
+    pConfig.threshold = 0.0;
     pConfig.is_model_encrypt = is_encrypted;
     pConfig.batch_size = batch_size;
     pConfig.gpu_id = gpu_id;
@@ -402,8 +410,8 @@ void ConfigFilter::createVehiclePlateConfig(const Config &cconfig,
     pConfig.PlateLocate = (int) cconfig.Value(ADVANCED_PLATE_LOCATE);
     pConfig.isSharpen = (bool) cconfig.Value(ADVANCED_PLATE_ENBALE_SHARPEN);
 }
-
-void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
+void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,
+                                          PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig) {
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 
     pConfig->is_model_encrypt = is_encrypted;
@@ -438,13 +446,14 @@ void ConfigFilter::createPlateMxnetConfig(const Config &cconfig,PlateRecognizeMx
     pConfig->plateSH = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATESH);
     pConfig->numsProposal = (int) cconfig.Value(ADVANCED_PLATE_MXNET_NUMSPROPOSAL);
     pConfig->numsPlates = (int) cconfig.Value(ADVANCED_PLATE_MXNET_PLATENUMS);
-    pConfig->enableLocalProvince=(bool)cconfig.Value(ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE);
-    pConfig->localProvinceText=(string)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT);
-    pConfig->localProvinceConfidence=(float)cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE);
+    pConfig->enableLocalProvince = (bool) cconfig.Value(ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE);
+    pConfig->localProvinceText = (string) cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT);
+    pConfig->localProvinceConfidence = (float) cconfig.Value(ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE);
 
     int batch_size = (int) cconfig.Value(ADVANCED_PLATE_MXNET_BATCHSIZE);
 
     pConfig->batchsize = batch_size;
+
 }
 int ConfigFilter::initDataConfig(const Config &config) {
     string data_config_path = (string) config.Value(DATAPATH);

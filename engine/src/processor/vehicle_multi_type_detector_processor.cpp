@@ -1,5 +1,3 @@
-//#include <alg/detector/detector.h>
-//#include "alg/detector/vehicle_caffe_detector.h"
 #include "vehicle_multi_type_detector_processor.h"
 #include "processor_helper.h"
 #include "algorithm_def.h"
@@ -21,6 +19,7 @@ VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(bool car_on
     }
 
     base_id_ = 0;
+    threshold_ = 0.0f;
 }
 
 // TODO complete construction
@@ -97,6 +96,14 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
         Frame *frame = frameBatch->frames()[frameId];
 
         for (int j = 0; j < imageDetection.size(); ++j) {
+
+            if (imageDetection[j].confidence < threshold_) {
+                VLOG(VLOG_RUNTIME_DEBUG)
+                << "Detection confidence is low than threshold " << imageDetection[j].confidence << ":" << threshold_
+                    << endl;
+                continue;
+            }
+
             Detection d = ConvertDgvehicleDetection(imageDetection[j]);
             if (!roiFilter(frame->get_rois(), d.box))
                 continue;
@@ -133,7 +140,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
                 }
-                
+
                 if (objectType == OBJECT_BICYCLE || objectType == OBJECT_TRICYCLE) {
                     NonMotorVehicle *v = new NonMotorVehicle(objectType);
                     v->set_image(roi);
@@ -143,6 +150,8 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                     Vehicle *v = new Vehicle(objectType);
                     v->set_image(roi);
                     v->set_id(base_id_ + id++);
+                    // set pose head in default
+                    v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
                     obj = static_cast<Object *>(v);
                 }
             }

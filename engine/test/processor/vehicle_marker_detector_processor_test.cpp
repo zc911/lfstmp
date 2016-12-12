@@ -94,7 +94,9 @@ TEST(VehicleMarkerDetectorTest, markerDetectorTest) {
 
             if (w == NULL)
                 continue;
+
             vector<Object *>ms = w->children();
+
             for (int k = 0; k < ms.size(); k++) {
                 Marker * m = (Marker * )ms[k];
                 EXPECT_LE(0, w->detection().box.x);
