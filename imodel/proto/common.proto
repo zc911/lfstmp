@@ -10,6 +10,7 @@ message SrcMetadata {
     string SensorUrl = 5;
     int32 RepoId = 6;
     string RepoInfo = 7;
+    ObjType ObjType = 8;
 }
 
 message Cutboard {

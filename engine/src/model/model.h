@@ -24,13 +24,13 @@ typedef enum {
     OBJECT_UNKNOWN = 0,
     OBJECT_CAR = 1,
     OBJECT_PEDESTRIAN = 2,
-    OBJECT_BICYCLE = 3,
-    OBJECT_TRICYCLE = 4,
-    OBJECT_WINDOW = 8,
-    OBJECT_MARKER = 16,
-    OBJECT_DRIVER = 32,
-    OBJECT_CODRIVER = 64,
-    OBJECT_FACE = 128,
+    OBJECT_BICYCLE = 4,
+    OBJECT_TRICYCLE = 8,
+    OBJECT_WINDOW = 16,
+    OBJECT_MARKER = 32,
+    OBJECT_DRIVER = 64,
+    OBJECT_CODRIVER = 128,
+    OBJECT_FACE = 256,
 } ObjectType;
 
 enum DetectionTypeId {
@@ -88,6 +88,10 @@ class Object {
     const vector<Object *> &children() const {
         return children_;
     }
+
+    virtual void set_image(const cv::Mat &image) {
+        // empty implements
+    };
 
     void AddChild(Object *child) {
         children_.push_back(child);
