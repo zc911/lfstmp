@@ -28,6 +28,7 @@ private:
     void initFeatureOptions(const Config &config);
     void initGpuMemory(FrameBatch &batch);
     void formatPipeline(Processor *last, Processor *p);
+    void withoutDetection(FrameBatch *frames);
 
     void recordPerformance();
     Processor *vehicle_processor_;
