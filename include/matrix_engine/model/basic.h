@@ -50,11 +50,12 @@ enum Operations
     OPERATION_VEHICLE_FEATURE_VECTOR = 1 << 7,
     OPERATION_PEDESTRIAN_ATTR = 1 << 8,
     OPERATION_FACE = 1 << 9,
-    OPERATION_FACE_DETECTOR = 1 << 10,
+    OPERATION_FACE_DETECT = 1 << 10,
     OPERATION_FACE_FEATURE_VECTOR = 1 << 11,
     OPERATION_DRIVER_BELT = 1 << 12,
     OPERATION_CODRIVER_BELT = 1 << 13,
     OPERATION_DRIVER_PHONE = 1 << 14,
+    OPERATION_NON_VEHICLE_ATTR = 1 << 15,
     OPERATION_MAX = 1 << 63
 };
 
@@ -139,7 +140,7 @@ typedef struct Operation {
                 && op <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
-        if (op >= OPERATION_FACE_DETECTOR
+        if (op >= OPERATION_FACE_DETECT
                 && op <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }
@@ -151,7 +152,7 @@ typedef struct Operation {
                 && opv <= OPERATION_VEHICLE_FEATURE_VECTOR) {
             Set(OPERATION_VEHICLE);
         }
-        if (opv >= OPERATION_FACE_DETECTOR
+        if (opv >= OPERATION_FACE_DETECT
                 && opv <= OPERATION_FACE_FEATURE_VECTOR) {
             Set(OPERATION_FACE);
         }

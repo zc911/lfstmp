@@ -8,7 +8,6 @@
 #include <model/alg_config.h>
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
-#include "string_util.h"
 
 using namespace dgvehicle;
 namespace dg {
@@ -31,8 +30,8 @@ VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
 
 bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start belt and window processor" << frameBatch->id() << endl;
-    VLOG(VLOG_SERVICE) << "Start belt processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start belt processor " << frameBatch->id() << endl;
+    VLOG(VLOG_SERVICE) << "Start belt processor" << frameBatch->id() << endl;
     vector<vector<Prediction> > preds;
     belt_classifier_->BatchProcess(images_, preds);
 
@@ -40,8 +39,11 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
         float value;
         Vehicle *v = (Vehicle *) objs_[i];
 
-        if (preds[i][0].second < threshold_)
+        if (preds[i][0].second < threshold_) {
+            VLOG(VLOG_RUNTIME_DEBUG)
+            << "Belt detection confidence is lower than threshold " << preds[i][0].second << ":" << threshold_ << endl;
             continue;
+        }
 
         switch (preds[i][0].first) {
             case 0: {
@@ -65,7 +67,7 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
     }
     objs_.clear();
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Finish marker and window processor" << frameBatch->id() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish Start belt processor " << frameBatch->id() << endl;
     return true;
 }
 
@@ -91,7 +93,6 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     while (itr != objs.end()) {
         Object *obj = *itr;
         if (obj->type() == OBJECT_CAR) {
-
             for (int i = 0; i < obj->children().size(); i++) {
                 Object *obj_child = obj->children()[i];
                 if (obj_child->type() == OBJECT_WINDOW) {
@@ -104,7 +105,6 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             }
 
         } else {
-            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << " " << endl;
         }
         ++itr;
 
