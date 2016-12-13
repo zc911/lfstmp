@@ -15,6 +15,11 @@ namespace dg {
 
 class VehicleBeltClassifierProcessor: public Processor {
 public:
+    enum BeltLable{
+        BELT_LABLE_NO = 0,
+        BELT_NOT_SURE = 1,
+        BELT_YES = 2
+    };
 
     VehicleBeltClassifierProcessor(float threshold, bool drive);
     ~VehicleBeltClassifierProcessor();
@@ -33,13 +38,10 @@ private:
     dgvehicle::AlgorithmProcessor *belt_classifier_ = NULL;
 
     vector<Object *> objs_;
-    vector<vector<Rect> > fobs_;
     vector<vector<float> >params_;
     vector<Mat> images_;
-    bool is_driver = true;
+    bool is_driver_;
     float threshold_;
-    int marker_target_min_;
-    int marker_target_max_;
 };
 
 }
