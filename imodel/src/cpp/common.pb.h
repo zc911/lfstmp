@@ -373,6 +373,12 @@ class SrcMetadata : public ::google::protobuf::Message {
   ::std::string* release_repoinfo();
   void set_allocated_repoinfo(::std::string* repoinfo);
 
+  // optional .dg.model.ObjType ObjType = 8;
+  void clear_objtype();
+  static const int kObjTypeFieldNumber = 8;
+  ::dg::model::ObjType objtype() const;
+  void set_objtype(::dg::model::ObjType value);
+
   // @@protoc_insertion_point(class_scope:dg.model.SrcMetadata)
  private:
 
@@ -385,6 +391,7 @@ class SrcMetadata : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr sensorurl_;
   ::google::protobuf::internal::ArenaStringPtr repoinfo_;
   ::google::protobuf::int32 repoid_;
+  int objtype_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3068,6 +3075,20 @@ inline void SrcMetadata::set_allocated_repoinfo(::std::string* repoinfo) {
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
   // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.RepoInfo)
+}
+
+// optional .dg.model.ObjType ObjType = 8;
+inline void SrcMetadata::clear_objtype() {
+  objtype_ = 0;
+}
+inline ::dg::model::ObjType SrcMetadata::objtype() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.ObjType)
+  return static_cast< ::dg::model::ObjType >(objtype_);
+}
+inline void SrcMetadata::set_objtype(::dg::model::ObjType value) {
+  
+  objtype_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.ObjType)
 }
 
 // -------------------------------------------------------------------

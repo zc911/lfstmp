@@ -12,6 +12,7 @@
 #include "algorithm_def.h"
 #include "util/convert_util.h"
 
+
 using namespace dgvehicle;
 namespace dg {
 VehicleWindowDetectorProcessor::VehicleWindowDetectorProcessor()
@@ -32,8 +33,8 @@ VehicleWindowDetectorProcessor::~VehicleWindowDetectorProcessor() {
 
 bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
-    VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start window processor" << frameBatch->id() << endl;
+    VLOG(VLOG_SERVICE) << "Start marker and window processor " << frameBatch->id() << endl;
 
     float costtime, diff;
     struct timeval start, end;
@@ -44,9 +45,12 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
     int target_row = 256;
     int target_col = 384;
+
     for (int i = 0; i < crops.size(); i++) {
-        if (crops[i].size() <= 0)
+        if (crops[i].size() <= 0){
             continue;
+        }
+
 
         int xmin = crops[i][0].box.x;
         int ymin = crops[i][0].box.y;
@@ -113,6 +117,7 @@ bool VehicleWindowDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
 
     objs_ = frameBatch->CollectObjects(
         OPERATION_VEHICLE_MARKER | OPERATION_DRIVER_PHONE | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT);
+
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;
