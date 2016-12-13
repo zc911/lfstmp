@@ -74,6 +74,9 @@ void WitnessEngine::withoutDetection(FrameBatch *frames) {
                 | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
                 | OPERATION_DRIVER_PHONE)) {
             obj = new Vehicle(OBJECT_CAR);
+            // set pose head in default
+            Vehicle *v = (Vehicle*) obj;
+            v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
         } else if (op.Check(OPERATION_FACE_FEATURE_VECTOR)) {
             obj = new Face();
         } else {
