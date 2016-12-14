@@ -13,11 +13,12 @@ using namespace dgvehicle;
 namespace dg {
 
 VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
-    float threshold, bool drive)
+    float threshold, bool driver)
     : Processor() {
 
-    belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(drive);
+    belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(driver);
     threshold_ = threshold;
+    is_driver_ = driver;
 
 }
 VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
@@ -46,9 +47,9 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
         }
 
         switch (preds[i][0].first) {
-            case 0: {
+            case BELT_LABLE_NO: {
                 ObjectType driverType = OBJECT_DRIVER;
-                if (!is_driver) {
+                if (!is_driver_) {
                     driverType = OBJECT_CODRIVER;
                 }
                 Vehicler *vr = (Vehicler *) v->child(driverType);
@@ -84,7 +85,7 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
     vector<Object *> objs;
-    if (is_driver) {
+    if (is_driver_) {
         objs = frameBatch->CollectObjects(OPERATION_DRIVER_BELT);
     } else {
         objs = frameBatch->CollectObjects(OPERATION_CODRIVER_BELT);
