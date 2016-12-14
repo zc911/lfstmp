@@ -5,12 +5,19 @@
 #include "processor/car_rank_processor.h"
 #include "processor/face_rank_processor.h"
 #include "processor/config_filter.h"
+#include "algorithm_factory.h"
+#include "engine_config_value.h"
 
 namespace dg {
 
 SimpleRankEngine::SimpleRankEngine(const Config &config)
     : RankEngine(config),
       id_(0) {
+
+    int gpu_id = (bool) config.Value(SYSTEM_GPUID);
+    bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+    string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
     string type = (string) config.Value(RANKER_DEFAULT_TYPE);
     if (type == "car") {
