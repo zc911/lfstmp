@@ -15,6 +15,7 @@
 
 #include "basic.h"
 #include "rank_feature.h"
+#include "dgface/alignment.h"
 
 using namespace std;
 using namespace cv;
@@ -38,7 +39,8 @@ enum DetectionTypeId {
     DETECTION_CAR = 1,
     DETECTION_PEDESTRIAN = 2,
     DETECTION_BICYCLE = 3,
-    DETECTION_TRICYCLE = 4
+    DETECTION_TRICYCLE = 4,
+    DETECTION_FACE = 5
 };
 
 
@@ -63,8 +65,14 @@ typedef struct Detection {
 
 } Detection;
 
+typedef struct FacePose {
+    int type;
+    vector<float> angles;
+} FacePose;
 
 class Object {
+ public:
+
  public:
     Object(ObjectType type)
         : id_(0),
@@ -73,6 +81,7 @@ class Object {
         children_.clear();
 
     }
+
     virtual ~Object() {
         // here we only take care of children but not parent
         for (int i = 0; i < children_.size(); ++i) {
@@ -104,6 +113,7 @@ class Object {
     void set_detection(const Detection &detection) {
         detection_ = detection;
     }
+
     Object *child(ObjectType type) const {
         for (int i = 0; i < children_.size(); i++) {
 
@@ -457,13 +467,18 @@ class NonMotorVehicle: public Object {
 class Face: public Object {
 
  public:
+ public:
+    enum { BlurM = 0, Frontal = 1 };
+    enum { NotFrontalType = 1, FrontalType = 0 };
+    const float Pitch = 30;
+    const float Yaw = 30;
     Face()
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
 
     }
 
     Face(Identification id, Detection detection, Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_ = detection;
@@ -471,7 +486,7 @@ class Face: public Object {
 
     Face(Identification id, int x, int y, int width, int height,
          Confidence confidence)
-        : Object(OBJECT_FACE) {
+        : Object(OBJECT_FACE), is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
         detection_.box = Box(x, y, width, height);
@@ -485,6 +500,14 @@ class Face: public Object {
         feature_ = feature;
     }
 
+    const cv::Mat &full_image() const {
+        return full_image_;
+    }
+
+    void set_full_image(const cv::Mat image) {
+        full_image_ = image;
+    }
+
     const cv::Mat &image() const {
         return image_;
     }
@@ -493,9 +516,44 @@ class Face: public Object {
         image_ = image;
     }
 
+    bool IsValid() {
+        return is_valid_;
+    }
+    void set_valid(bool flag) {
+        is_valid_ = flag;
+    }
+
+    void set_qualities(int type, float score) {
+        qualities_[type] = score;
+    }
+    const map<int, float> &get_qualities() const{
+        return qualities_;
+    }
+    void set_pose(vector<float> angles) {
+        face_pose_.angles = angles;
+        if ((abs(angles[0]) <= Pitch) || (abs(angles[1]) <= Yaw)) {
+            face_pose_.type = FrontalType;
+        } else {
+            face_pose_.type = NotFrontalType;
+        }
+    }
+    FacePose get_pose() const {
+        return face_pose_;
+    }
+    void set_align_result(DGFace::AlignResult align_result) {
+        align_result_ = align_result;
+    }
+    const DGFace::AlignResult &get_align_result() const{
+        return align_result_;
+    }
  private:
+    cv::Mat full_image_;
     cv::Mat image_;
     FaceRankFeature feature_;
+    bool is_valid_;
+    map<int, float> qualities_;
+    FacePose face_pose_;
+    DGFace::AlignResult align_result_;
 };
 
 }

@@ -1,151 +1,153 @@
 {
-    "Version": {
-        "Code": "1.0.0", 
-        "Model": "1.9"
+  "Version": {
+    "Code": "1.0.0",
+    "Model": "1.9"
+  },
+  "ProtocolType": "restful",
+  //   "ProtocolType": "rpc|restful",
+  "InstanceType": "witness",
+  // "InstanceType" : "ranker",
+  "System": {
+    "Ip": "0.0.0.0",
+    "Port": 6500,
+    "Threads": [1]
+  },
+  "RankerType": "car|face",
+  "Pack":{
+    "Enable":false,
+    "BatchSize":1,
+    "TimeOut":100
+  },
+  "Feature": {
+    "Vehicle": {
+      "Enable": true,
+      "EnableDetection": true,
+      "EnableType": true,
+      "EnableColor": true,
+      "EnablePlate": false,
+      "EnableGpuPlate": true,
+      "EnablePlateEnhanced": false,
+      "EnableMarker": true,
+      "EnableDriverBelt": true,
+      "EnableCoDriverBelt": true,
+      "EnablePhone": true,
+      "EnableFeatureVector": true,
+      "EnableNonMotorVehicle": true,
+      "EnablePedestrianAttr": true
     },
-    "ProtocolType": "restful",
-   //   "ProtocolType": "rpc|restful",
-    "InstanceType": "witness",
-   // "InstanceType" : "ranker",
-    "System": {
-        "Ip": "0.0.0.0",
-        "Port": 6500,
-        "Threads": [1]
+    "Face": {
+      "Enable": true,
+      "EnableDetection": true,
+      "EnableQuality":false,
+      "EnableFeatureVector": true
+    }
+  },
+  "Advanced": {
+    "Plate": {
+      "LocalProvince": "",
+      "OCR": 1,
+      "Locate": 5,
+      "EnableSharp": false
     },
-    "RankerType": "car|face",
-    "Pack":{
-        "Enable":false,
-        "BatchSize":1,
-        "TimeOut":100
+    "PlateMxnet": {
+      "BatchSize": 1,
+      "EnableLocalProvince": false,
+      "ImgStandardHeight": 600,
+      "ImgStandardWidth": 400,
+      "LocalProvinceConfidence": 0.6,
+      "LocalProvinceText": "\u4eac",
+      "NumsProposal": 20,
+      "PlateNums": 4,
+      "PlateStandardHeight": 150,
+      "PlateStandardWidth": 250
     },
-    "Feature": {
-        "Vehicle": {
-          "Enable": true,
-          "EnableDetection": true,
-          "EnableType": true,
-          "EnableColor": true,
-          "EnablePlate": false,
-          "EnableGpuPlate": true,
-          "EnablePlateEnhanced": false,
-          "EnableMarker": true,
-          "EnableDriverBelt": true,
-          "EnableCoDriverBelt": true,
-          "EnablePhone": true,
-          "EnableFeatureVector": true,
-          "EnableNonMotorVehicle": true,
-          "EnablePedestrianAttr": true
-        },
-        "Face": {
-          "Enable": true,
-          "EnableDetection": true,
-          "EnableQuality":false,
-          "EnableFeatureVector": true
-        }
+    "DriverPhone":{
+      "Threshold": 0.0
     },
-    "Advanced": {
-        "Plate": {
-            "LocalProvince": "",
-            "OCR": 1,
-            "Locate": 5,
-            "EnableSharp": false
-        },
-        "PlateMxnet": {
-            "BatchSize": 1, 
-            "EnableLocalProvince": false, 
-            "ImgStandardHeight": 600, 
-            "ImgStandardWidth": 400, 
-            "LocalProvinceConfidence": 0.6, 
-            "LocalProvinceText": "\u4eac", 
-            "NumsProposal": 20, 
-            "PlateNums": 4, 
-            "PlateStandardHeight": 150, 
-            "PlateStandardWidth": 250
-        },
-      "DriverPhone":{
-        "Threshold": 0.0
-      },
-      "DriverBelt": {
-        "Threshold": 0.0
-      },
-      "CoDriverBelt": {
-        "Threshold": 0.0
-      },
-      "FaceDetect": {
-        "BatchSize": 1,
-        "Confidence": 0.7,
-        "Method": 3,
-        "BodyRelativeFaceLeft": 0.2,
-        "BodyRelativeFaceRight": 0.2,
-        "BodyRelativeFaceTop": 0.2,
-        "BodyRelativeFaceBottom": 6.0,
-        "Scale": 1,
-        "Min": 240,
-        "Max": 720
-      },
-      "FaceQuality": {
-        "Threshold":0
-      },
-      "FaceExtract": {
-        "BatchSize": 1,
-        "FaceSize": [
-          600
-        ],
-        "Method": 3,
-        "PreProcess": "",
-        "AlignThreshold": 0.8,
-        "EnableConcurrency": false
-      },
-
-        "Ranker": {
-            "Maximum": 100000
-        },
-        "ParseImageTimeout": 60
+    "DriverBelt": {
+      "Threshold": 0.0
     },
-    "Log": {
-        "Dir": "",
-        "Level": ""
+    "CoDriverBelt": {
+      "Threshold": 0.0
     },
-    "Render": {
-        "NonMotorVehicle": {
-            "NonMotorAttr": "data/mapping/bitri_attr_type.txt", 
-            "NonMotorCategory": "data/mapping/bitri_attr_category.txt"
-        }, 
-        "Pedestrian": {
-            "PedestrianAttr": "data/mapping/pedestrian_attr_type.txt", 
-            "PedestrianCategory": "data/mapping/pedestrian_attr_category.txt"
-        }, 
-        "Vehicle": {
-            "Color": "data/mapping/vehicle_color.txt", 
-            "Model": "data/mapping/vehicle_style_v1.12_4063.txt", 
-            "Plate": {
-                "Color": "data/mapping/plate_color.txt", 
-                "ColorGpu": "data/mapping/plate_gpu_color.txt", 
-                "Type": "data/mapping/plate_type.txt"
-            }, 
-            "Symbol": "data/mapping/vehicle_symbol.txt", 
-            "Type": "data/mapping/vehicle_type.txt"
-        }
+    "FaceDetect": {
+      "BatchSize": 1,
+      "Confidence": 0.7,
+      "Method": 3,
+      "BodyRelativeFaceLeft": 0.2,
+      "BodyRelativeFaceRight": 0.2,
+      "BodyRelativeFaceTop": 0.2,
+      "BodyRelativeFaceBottom": 6.0,
+      "Scale": 1,
+      "Min": 240,
+      "Max": 720
     },
-    "Debug": {
-        "Enable": true,
-        "EnableCutboard": true,
-        "Encrypt": false,
-        "Visualization": false
+    "FaceQuality": {
+      "Threshold":0
     },
-    "Storage": {
-        "Address": [
-            "192.168.2.119:9004", 
-            "192.168.2.132:9877", 
-            "./"
-        ], 
-        "DBType": [
-            0, 
-            1, 
-            2
-        ], 
-        "Enabled": false
+    "FaceExtract": {
+      "BatchSize": 1,
+      "FaceSize": [
+        600
+      ],
+      "Method": 3,
+      "PreProcess": "",
+      "AlignThreshold": 0.8,
+      "EnableConcurrency": false
     },
 
-    //"DataPath": "data/data_tollgate.dat"
-    "DataPath": "data/data.dat"
+    "Ranker": {
+      "Maximum": 100000
+    },
+    "ParseImageTimeout": 60
+  },
+  "Log": {
+    "Dir": "",
+    "Level": ""
+  },
+  "Render": {
+    "NonMotorVehicle": {
+      "NonMotorAttr": "data/mapping/bitri_attr_type.txt",
+      "NonMotorCategory": "data/mapping/bitri_attr_category.txt"
+    },
+    "Pedestrian": {
+      "PedestrianAttr": "data/mapping/pedestrian_attr_type.txt",
+      "PedestrianCategory": "data/mapping/pedestrian_attr_category.txt"
+    },
+    "Vehicle": {
+      "Color": "data/mapping/vehicle_color.txt",
+      "Model": "data/mapping/vehicle_style_v1.12_4063.txt",
+      "Plate": {
+        "Color": "data/mapping/plate_color.txt",
+        "ColorGpu": "data/mapping/plate_gpu_color.txt",
+        "Type": "data/mapping/plate_type.txt"
+      },
+      "Symbol": "data/mapping/vehicle_symbol.txt",
+      "Type": "data/mapping/vehicle_type.txt"
+    }
+  },
+  "Debug": {
+    "Enable": true,
+    "EnableCutboard": true,
+    "Encrypt": false,
+    "Visualization": false
+  },
+  "Storage": {
+    "Address": [
+      "192.168.2.119:9004",
+      "192.168.2.132:9877",
+      "./"
+    ],
+    "DBType": [
+      0,
+      1,
+      2
+    ],
+    "Enabled": false
+  },
+  "ModelPath":{
+    "dgvehicle": "data/dgvehicle"
+  },
+  //"DataPath": "data/data_tollgate.dat"
+  "DataPath": "data/data.dat"
 }

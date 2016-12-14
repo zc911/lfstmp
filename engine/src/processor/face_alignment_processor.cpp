@@ -28,6 +28,8 @@ FaceAlignmentProcessor::FaceAlignmentProcessor(const FaceAlignmentConfig &faConf
         }
         case CdnnCaffeAlign: {
             LOG(ERROR) << "CdnnCaffeAlign method has bug, use cdnn instead currently" << endl;
+            cout << "faConfig.face_size " << faConfig.face_size.size() << endl;
+            cout << "faConfig.align_path " << faConfig.align_path << endl;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
             align_method_ = CdnnAlign;
             break;
@@ -71,7 +73,10 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
                 alignment_->align(img, rect, align_result, true);
                 break;
             default:
+                cout << "Img size:  " << img.size << endl;
+                cout << "rect: " << rect.x << rect.y << rect.width << rect.height << endl;
                 alignment_->align(img, rect, align_result, false);
+                cout << "align result: " << align_result.score << endl;
                 break;
         }
 
