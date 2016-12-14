@@ -12,6 +12,8 @@
 #include "processor/vehicle_window_detector_processor.h"
 #include "processor/config_filter.h"
 #include "debug_util.h"
+#include "algorithm_factory.h"
+#include "engine_config_value.h"
 
 namespace dg {
 
@@ -199,6 +201,11 @@ void WitnessEngine::recordPerformance() {
 }
 
 void WitnessEngine::init(const Config &config) {
+
+    int gpu_id = (bool) config.Value(SYSTEM_GPUID);
+    bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+    string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
     ConfigFilter *configFilter = ConfigFilter::GetInstance();
     if (!configFilter->initDataConfig(config)) {
