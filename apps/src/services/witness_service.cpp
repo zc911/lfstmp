@@ -134,7 +134,15 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                 break;
             case RECFUNC_FACE_FEATURE_VECTOR:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                    op.Set(OPERATION_FACE_FEATURE_VECTOR);
+                    op.Set(OPERATION_FACE_ALIGNMENT | OPERATION_FACE_FEATURE_VECTOR);
+                break;
+            case RECFUNC_FACE_ALIGNMENT:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_ALIGNMENT);
+                break;
+            case RECFUNC_FACE_QUALITY:
+                if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
+                    op.Set(OPERATION_FACE_ALIGNMENT | OPERATION_FACE_QUALITY);
                 break;
             case RECFUNC_VEHICLE_DRIVER_NOBELT:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))

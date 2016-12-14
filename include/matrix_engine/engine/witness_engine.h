@@ -28,7 +28,9 @@ private:
     void initFeatureOptions(const Config &config);
     void initGpuMemory(FrameBatch &batch);
     void formatPipeline(Processor *last, Processor *p);
-    void withoutDetection(FrameBatch *frames);
+    void withoutDetection(FrameBatch *frames, Operations op);
+//    void withoutVehicleDetection(FrameBatch *frames);
+//    void withoutFaceDetection(FrameBatch *frames);
 
     void recordPerformance();
     Processor *vehicle_processor_;
@@ -53,7 +55,7 @@ private:
 
     bool enable_face_;
     bool enable_face_detect_;
-    bool enbale_face_alignment_;
+    bool enable_face_alignment_;
     bool enable_face_quality_;
     bool enable_face_feature_vector_;
     bool enable_face_pose_;

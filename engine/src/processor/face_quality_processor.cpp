@@ -38,7 +38,6 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Blur filter failed, score is " << blur_score << " and threshold is "
                 << blur_threshold_ << endl;
             face->set_valid(false);
-            //itr = to_processed_.erase(itr);
             continue;
         }
         face->set_qualities(Face::BlurM, blur_score);
@@ -65,7 +64,7 @@ bool FaceQualityProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
 #endif
     to_processed_.clear();
-    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
+    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_QUALITY);
     for (vector<Object *>::iterator itr = to_processed_.begin();
          itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {

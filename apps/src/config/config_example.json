@@ -24,7 +24,6 @@
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
-      "EnablePlate": false,
       "EnableGpuPlate": true,
       "EnablePlateEnhanced": false,
       "EnableMarker": true,
@@ -38,7 +37,8 @@
     "Face": {
       "Enable": true,
       "EnableDetection": true,
-      "EnableQuality":false,
+      "EnableAlignment": true,
+      "EnableQuality": true,
       "EnableFeatureVector": true
     }
   },
@@ -83,7 +83,7 @@
       "Max": 720
     },
     "FaceQuality": {
-      "Threshold":0
+      "Threshold": 0
     },
     "FaceExtract": {
       "BatchSize": 1,

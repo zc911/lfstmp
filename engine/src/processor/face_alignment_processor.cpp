@@ -28,8 +28,6 @@ FaceAlignmentProcessor::FaceAlignmentProcessor(const FaceAlignmentConfig &faConf
         }
         case CdnnCaffeAlign: {
             LOG(ERROR) << "CdnnCaffeAlign method has bug, use cdnn instead currently" << endl;
-            cout << "faConfig.face_size " << faConfig.face_size.size() << endl;
-            cout << "faConfig.align_path " << faConfig.align_path << endl;
             alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
             align_method_ = CdnnAlign;
             break;
@@ -62,6 +60,10 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start face alignment " << endl;
 
+    for (int i = 0; i < frameBatch->batch_size(); ++i) {
+        Frame *f = frameBatch->frames()[i];
+    }
+
     for (auto *obj : to_processed_) {
 
         DGFace::AlignResult align_result;
@@ -73,10 +75,7 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
                 alignment_->align(img, rect, align_result, true);
                 break;
             default:
-                cout << "Img size:  " << img.size << endl;
-                cout << "rect: " << rect.x << rect.y << rect.width << rect.height << endl;
                 alignment_->align(img, rect, align_result, false);
-                cout << "align result: " << align_result.score << endl;
                 break;
         }
 
@@ -123,18 +122,18 @@ bool FaceAlignmentProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
 #endif
     to_processed_.clear();
-    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
+    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_ALIGNMENT);
     for (vector<Object *>::iterator itr = to_processed_.begin();
          itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
         } else if (((Face *) (*itr))->image().rows == 0 || ((Face *) (*itr))->image().cols == 0) {
             itr = to_processed_.erase(itr);
-
         } else {
             itr++;
 
         }
+
     }
     return true;
 }
