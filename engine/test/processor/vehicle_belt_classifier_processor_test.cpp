@@ -14,21 +14,10 @@ static VehicleBeltClassifierProcessor *vbcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
-    VehicleBeltConfig mConfig;
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    mConfig.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    mConfig.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
 
-    mConfig.deploy_file = baseModelPath + "602.txt";
-    mConfig.model_file = baseModelPath + "602.dat";
-
-    vbcprocessor = new VehicleBeltClassifierProcessor(mConfig, true);
+    vbcprocessor = new VehicleBeltClassifierProcessor(0.5, true);
 }
 
 static Operation getOperation() {

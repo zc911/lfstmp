@@ -18,6 +18,9 @@
         "BatchSize":1,
         "TimeOut":100
     },
+    "ModelPath": {
+        "dgvehicle":"data/dgvehicle"
+    },
     "Feature": {
         "Vehicle": {
             "Enable": true,
@@ -111,6 +114,20 @@
         },
         "Ranker": {
             "Maximum": 100000
+        },
+        "PersonReid": {
+            "BatchSize": 1,
+            "InputWidth":20,
+            "InputHeight":20,
+            "CropWidth":20,
+            "CropHeight":10
+        },
+        "CarReid": {
+            "BatchSize": 1,
+            "InputWidth":20,
+            "InputHeight":20,
+            "CropWidth":20,
+            "CropHeight":10
         },
         "ParseImageTimeout": 60
     },

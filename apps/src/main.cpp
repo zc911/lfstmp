@@ -15,7 +15,6 @@
 
 using namespace std;
 using namespace dg;
-using namespace dgvehicle;
 
 #define BOOST_SPIRIT_THREADSAFE
 
@@ -197,6 +196,19 @@ void serveRanker(Config *config, int userPort = 0) {
     }
 }
 
+int GetGPUId(Config *config) {
+    int gpuNum = config->Value(SYSTEM_THREADS + "/Size");
+    int gpu_id = 0;
+    for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
+        int threadNum = (int) config->Value(SYSTEM_THREADS + to_string(gpuId));
+        if (threadNum > 0) {
+            gpu_id = gpuId;
+            config->AddEntry("System/GpuId", AnyConversion(gpuId));
+        }
+    }
+    return gpu_id;
+}
+
 DEFINE_int32(port, 0,
              "Service port number, will overwite the value defined in config file");
 DEFINE_string(config, "config.json", "Config file path");
@@ -222,12 +234,10 @@ int main(int argc, char *argv[]) {
     google::ParseCommandLineFlags(&argc, &argv, false);
 
 
-
     // init curl in the main thread
     // see https://curl.haxx.se/libcurl/c/curl_easy_init.html
     curl_global_init(CURL_GLOBAL_ALL);
 
-    AlgorithmFactory::GetInstance()->Initialize(FLAGS_config);
     Config *config = new Config();
     config->Load(FLAGS_config);
 //    if (FilesAllExist(config) == false) {
@@ -249,6 +259,10 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
+    int gpu_id = GetGPUId(config);
+    bool is_encrypted = (bool) config->Value(DEBUG_MODEL_ENCRYPT);
+    string dgvehiclePath = (string) config->Value(DGVEHICLE_MODEL_PATH);
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
     if (FLAGS_showconfig) {
         config->DumpValues();
     }

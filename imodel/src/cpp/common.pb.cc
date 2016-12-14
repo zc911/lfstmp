@@ -43,9 +43,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Image_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Image_reflection_ = NULL;
-const ::google::protobuf::Descriptor* RecFacePose_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  RecFacePose_reflection_ = NULL;
 const ::google::protobuf::Descriptor* RecFace_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   RecFace_reflection_ = NULL;
@@ -113,7 +110,7 @@ void protobuf_AssignDesc_common_2eproto() {
       "common.proto");
   GOOGLE_CHECK(file != NULL);
   SrcMetadata_descriptor_ = file->message_type(0);
-  static const int SrcMetadata_offsets_[7] = {
+  static const int SrcMetadata_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, timestamp_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, duration_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorid_),
@@ -121,6 +118,7 @@ void protobuf_AssignDesc_common_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorurl_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoinfo_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, objtype_),
   };
   SrcMetadata_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -236,31 +234,12 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Image),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Image, _is_default_instance_));
-  RecFacePose_descriptor_ = file->message_type(7);
-  static const int RecFacePose_offsets_[2] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFacePose, type_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFacePose, angles_),
-  };
-  RecFacePose_reflection_ =
-    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
-      RecFacePose_descriptor_,
-      RecFacePose::default_instance_,
-      RecFacePose_offsets_,
-      -1,
-      -1,
-      -1,
-      sizeof(RecFacePose),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFacePose, _internal_metadata_),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFacePose, _is_default_instance_));
-  RecFace_descriptor_ = file->message_type(8);
-  static const int RecFace_offsets_[7] = {
+  RecFace_descriptor_ = file->message_type(7);
+  static const int RecFace_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, img_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, features_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, confidence_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, pose_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, blurscore_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, alignscore_),
   };
   RecFace_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -273,7 +252,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecFace),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecFace, _is_default_instance_));
-  NameAndConfidence_descriptor_ = file->message_type(9);
+  NameAndConfidence_descriptor_ = file->message_type(8);
   static const int NameAndConfidence_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, name_),
@@ -290,7 +269,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(NameAndConfidence),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(NameAndConfidence, _is_default_instance_));
-  CategoryAndFeature_descriptor_ = file->message_type(10);
+  CategoryAndFeature_descriptor_ = file->message_type(9);
   static const int CategoryAndFeature_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CategoryAndFeature, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CategoryAndFeature, categoryname_),
@@ -307,7 +286,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(CategoryAndFeature),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CategoryAndFeature, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CategoryAndFeature, _is_default_instance_));
-  PeopleAttr_descriptor_ = file->message_type(11);
+  PeopleAttr_descriptor_ = file->message_type(10);
   static const int PeopleAttr_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PeopleAttr, sex_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PeopleAttr, age_),
@@ -325,7 +304,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(PeopleAttr),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PeopleAttr, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PeopleAttr, _is_default_instance_));
-  RecVehicle_descriptor_ = file->message_type(12);
+  RecVehicle_descriptor_ = file->message_type(11);
   static const int RecVehicle_offsets_[11] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, modeltype_),
@@ -350,7 +329,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecVehicle),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecVehicle, _is_default_instance_));
-  RecNonMotorVehicle_descriptor_ = file->message_type(13);
+  RecNonMotorVehicle_descriptor_ = file->message_type(12);
   static const int RecNonMotorVehicle_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle, nmvehicletype_),
@@ -388,7 +367,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecNonMotorVehicle_NonMotorPedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecNonMotorVehicle_NonMotorPedestrian, _is_default_instance_));
-  Passenger_descriptor_ = file->message_type(14);
+  Passenger_descriptor_ = file->message_type(13);
   static const int Passenger_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, passengerattr_),
@@ -406,7 +385,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Passenger),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Passenger, _is_default_instance_));
-  RecPedestrian_descriptor_ = file->message_type(15);
+  RecPedestrian_descriptor_ = file->message_type(14);
   static const int RecPedestrian_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, img_),
@@ -425,7 +404,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(RecPedestrian),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(RecPedestrian, _is_default_instance_));
-  VehicleModelType_descriptor_ = file->message_type(16);
+  VehicleModelType_descriptor_ = file->message_type(15);
   static const int VehicleModelType_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, brandid_),
@@ -451,7 +430,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleModelType),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleModelType, _is_default_instance_));
-  LicensePlate_descriptor_ = file->message_type(17);
+  LicensePlate_descriptor_ = file->message_type(16);
   static const int LicensePlate_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, platetext_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, color_),
@@ -472,7 +451,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(LicensePlate),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LicensePlate, _is_default_instance_));
-  VehicleSymbol_descriptor_ = file->message_type(18);
+  VehicleSymbol_descriptor_ = file->message_type(17);
   static const int VehicleSymbol_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, symbolname_),
@@ -489,7 +468,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleSymbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleSymbol, _is_default_instance_));
-  Symbol_descriptor_ = file->message_type(19);
+  Symbol_descriptor_ = file->message_type(18);
   static const int Symbol_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, cutboard_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, confidence_),
@@ -505,7 +484,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(Symbol),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Symbol, _is_default_instance_));
-  StorageConfig_descriptor_ = file->message_type(20);
+  StorageConfig_descriptor_ = file->message_type(19);
   static const int StorageConfig_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, address_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, type_),
@@ -522,7 +501,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(StorageConfig),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(StorageConfig, _is_default_instance_));
-  VehicleObj_descriptor_ = file->message_type(21);
+  VehicleObj_descriptor_ = file->message_type(20);
   static const int VehicleObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, img_),
@@ -539,7 +518,7 @@ void protobuf_AssignDesc_common_2eproto() {
       sizeof(VehicleObj),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(VehicleObj, _is_default_instance_));
-  PedestrianObj_descriptor_ = file->message_type(22);
+  PedestrianObj_descriptor_ = file->message_type(21);
   static const int PedestrianObj_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianObj, metadata_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PedestrianObj, img_),
@@ -591,8 +570,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       Image_descriptor_, &Image::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-      RecFacePose_descriptor_, &RecFacePose::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       RecFace_descriptor_, &RecFace::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
       NameAndConfidence_descriptor_, &NameAndConfidence::default_instance());
@@ -643,8 +620,6 @@ void protobuf_ShutdownFile_common_2eproto() {
   delete NullMessage_reflection_;
   delete Image::default_instance_;
   delete Image_reflection_;
-  delete RecFacePose::default_instance_;
-  delete RecFacePose_reflection_;
   delete RecFace::default_instance_;
   delete RecFace_reflection_;
   delete NameAndConfidence::default_instance_;
@@ -686,115 +661,113 @@ void protobuf_AddDesc_common_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014common.proto\022\010dg.model\"\215\001\n\013SrcMetadata"
+    "\n\014common.proto\022\010dg.model\"\261\001\n\013SrcMetadata"
     "\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022\020\n"
     "\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n\tS"
     "ensorUrl\030\005 \001(\t\022\016\n\006RepoId\030\006 \001(\005\022\020\n\010RepoIn"
-    "fo\030\007 \001(\t\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001"
-    "(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010Res"
-    "Width\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConfid"
-    "ence\030\007 \001(\002\"S\n\rCutboardImage\022$\n\010Cutboard\030"
-    "\001 \001(\0132\022.dg.model.Cutboard\022\034\n\003Img\030\002 \001(\0132\017"
-    ".dg.model.Image\"\?\n\005Color\022\017\n\007ColorId\030\001 \001("
-    "\005\022\022\n\nConfidence\030\002 \001(\002\022\021\n\tColorName\030\003 \001(\t"
-    "\",\n\rFeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature"
-    "\030\002 \001(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002Id\030\001 \001"
-    "(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013\n\003URI"
-    "\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t\"+\n\013RecFacePose\022\014"
-    "\n\004Type\030\001 \001(\005\022\016\n\006Angles\030\002 \003(\002\"\255\001\n\007RecFace"
-    "\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.Cut"
-    "boardImage\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfiden"
-    "ce\030\004 \001(\002\022#\n\004Pose\030\005 \001(\0132\025.dg.model.RecFac"
-    "ePose\022\021\n\tBlurScore\030\006 \001(\002\022\022\n\nAlignScore\030\007"
-    " \001(\002\"A\n\021NameAndConfidence\022\n\n\002Id\030\001 \001(\005\022\014\n"
-    "\004Name\030\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"b\n\022Categ"
-    "oryAndFeature\022\n\n\002Id\030\001 \001(\005\022\024\n\014CategoryNam"
-    "e\030\002 \001(\t\022*\n\005Items\030\003 \003(\0132\033.dg.model.NameAn"
-    "dConfidence\"\277\001\n\nPeopleAttr\022(\n\003Sex\030\001 \001(\0132"
-    "\033.dg.model.NameAndConfidence\022(\n\003Age\030\002 \001("
-    "\0132\033.dg.model.NameAndConfidence\022-\n\010Nation"
-    "al\030\003 \001(\0132\033.dg.model.NameAndConfidence\022.\n"
-    "\010Category\030\004 \003(\0132\034.dg.model.CategoryAndFe"
-    "ature\"\202\003\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tMode"
-    "lType\030\002 \001(\0132\032.dg.model.VehicleModelType\022"
-    "\036\n\005Color\030\003 \001(\0132\017.dg.model.Color\022%\n\005Plate"
-    "\030\004 \001(\0132\026.dg.model.LicensePlate\022$\n\003Img\030\005 "
-    "\001(\0132\027.dg.model.CutboardImage\022(\n\007Symbols\030"
-    "\006 \003(\0132\027.dg.model.VehicleSymbol\022\020\n\010Featur"
-    "es\030\007 \001(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model"
-    ".ObjType\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Pla"
-    "tes\030\n \003(\0132\026.dg.model.LicensePlate\022\'\n\nPas"
-    "sengers\030\013 \003(\0132\023.dg.model.Passenger\"\305\003\n\022R"
-    "ecNonMotorVehicle\022\n\n\002Id\030\001 \001(\003\0224\n\rNMVehic"
-    "leType\030\002 \001(\0162\035.dg.model.NonMotorVehicleT"
-    "ype\022\031\n\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img\030\004 "
-    "\001(\0132\027.dg.model.CutboardImage\022:\n\020NMVehicl"
-    "eGesture\030\005 \001(\0162 .dg.model.NonMotorVehicl"
-    "eGesture\022B\n\tPassenger\030\006 \003(\0132/.dg.model.R"
-    "ecNonMotorVehicle.NonMotorPedestrian\022/\n\t"
-    "NMVehicle\030\007 \003(\0132\034.dg.model.CategoryAndFe"
-    "ature\032{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001(\003\022"
-    "(\n\003Sex\030\002 \001(\0132\033.dg.model.NameAndConfidenc"
-    "e\022/\n\tAttribute\030\003 \003(\0132\034.dg.model.Category"
-    "AndFeature\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+\n\rP"
-    "assengerAttr\030\002 \001(\0132\024.dg.model.PeopleAttr"
-    "\022\037\n\004Face\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006Dri"
-    "ver\030\004 \001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022"
-    "$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n"
-    "\nConfidence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132\024.d"
-    "g.model.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg.mo"
-    "del.RecFace\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001"
-    " \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001("
-    "\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001"
-    "(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBr"
-    "and\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n"
-    " \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014"
-    "LicensePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color"
-    "\030\002 \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 \001(\005\022"
-    "\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n"
-    "\010Cutboard\030\006 \001(\0132\022.dg.model.Cutboard\022\037\n\027L"
-    "ocalProvinceConfidence\030\007 \001(\002\"X\n\rVehicleS"
-    "ymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 "
-    "\001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symbol\"B"
-    "\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cu"
-    "tboard\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorageCon"
-    "fig\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg."
-    "model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj"
-    "\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMetadat"
-    "a\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022%\n\007Vehic"
-    "le\030\003 \003(\0132\024.dg.model.RecVehicle\"\203\001\n\rPedes"
-    "trianObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.Sr"
-    "cMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022"
-    "+\n\nPedestrian\030\003 \003(\0132\027.dg.model.RecPedest"
-    "rian*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020"
-    "\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025"
-    "\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDEST"
-    "RIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_V"
-    "EHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VEC"
-    "TOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n"
-    "\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TY"
-    "PE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CU"
-    "TBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201"
-    " \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OB"
-    "J_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYP"
-    "E_FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNK"
-    "NOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV"
-    "\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNO"
-    "WN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMA"
-    "LE\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE_UN"
-    "KNOWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATION"
-    "AL_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYP"
-    "E_UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TY"
-    "PE_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE"
-    "_50UP\020\004*\235\001\n\023NonMotorVehicleType\022\032\n\026TRANS"
-    "PORTATION_BICYCLE\020\000\022\033\n\027TRANSPORTATION_VE"
-    "HICLE2\020\001\022\033\n\027TRANSPORTATION_VEHICLE3\020\002\022\027\n"
-    "\023TRANSPORTATION_ROOF\020\003\022\027\n\023TRANSPORTATION"
-    "_SEAL\020\004*i\n\026NonMotorVehicleGesture\022\025\n\021ATT"
-    "ITUDE_POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022\021\n\r"
-    "ATTITUDE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n\006DB"
-    "Type\022\t\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMA"
-    "GE\020\002b\006proto3", 4332);
+    "fo\030\007 \001(\t\022\"\n\007ObjType\030\010 \001(\0162\021.dg.model.Obj"
+    "Type\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r"
+    "\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010ResWidt"
+    "h\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConfidence"
+    "\030\007 \001(\002\"S\n\rCutboardImage\022$\n\010Cutboard\030\001 \001("
+    "\0132\022.dg.model.Cutboard\022\034\n\003Img\030\002 \001(\0132\017.dg."
+    "model.Image\"\?\n\005Color\022\017\n\007ColorId\030\001 \001(\005\022\022\n"
+    "\nConfidence\030\002 \001(\002\022\021\n\tColorName\030\003 \001(\t\",\n\r"
+    "FeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature\030\002 \001"
+    "(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002Id\030\001 \001(\t\022\r"
+    "\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013\n\003URI\030\004 \001"
+    "(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022\n\n\002Id\030\001 \001"
+    "(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage"
+    "\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001(\002\"A"
+    "\n\021NameAndConfidence\022\n\n\002Id\030\001 \001(\005\022\014\n\004Name\030"
+    "\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"b\n\022CategoryAnd"
+    "Feature\022\n\n\002Id\030\001 \001(\005\022\024\n\014CategoryName\030\002 \001("
+    "\t\022*\n\005Items\030\003 \003(\0132\033.dg.model.NameAndConfi"
+    "dence\"\277\001\n\nPeopleAttr\022(\n\003Sex\030\001 \001(\0132\033.dg.m"
+    "odel.NameAndConfidence\022(\n\003Age\030\002 \001(\0132\033.dg"
+    ".model.NameAndConfidence\022-\n\010National\030\003 \001"
+    "(\0132\033.dg.model.NameAndConfidence\022.\n\010Categ"
+    "ory\030\004 \003(\0132\034.dg.model.CategoryAndFeature\""
+    "\202\003\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030"
+    "\002 \001(\0132\032.dg.model.VehicleModelType\022\036\n\005Col"
+    "or\030\003 \001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 \001(\013"
+    "2\026.dg.model.LicensePlate\022$\n\003Img\030\005 \001(\0132\027."
+    "dg.model.CutboardImage\022(\n\007Symbols\030\006 \003(\0132"
+    "\027.dg.model.VehicleSymbol\022\020\n\010Features\030\007 \001"
+    "(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model.ObjTy"
+    "pe\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Plates\030\n "
+    "\003(\0132\026.dg.model.LicensePlate\022\'\n\nPassenger"
+    "s\030\013 \003(\0132\023.dg.model.Passenger\"\305\003\n\022RecNonM"
+    "otorVehicle\022\n\n\002Id\030\001 \001(\003\0224\n\rNMVehicleType"
+    "\030\002 \001(\0162\035.dg.model.NonMotorVehicleType\022\031\n"
+    "\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img\030\004 \001(\0132\027."
+    "dg.model.CutboardImage\022:\n\020NMVehicleGestu"
+    "re\030\005 \001(\0162 .dg.model.NonMotorVehicleGestu"
+    "re\022B\n\tPassenger\030\006 \003(\0132/.dg.model.RecNonM"
+    "otorVehicle.NonMotorPedestrian\022/\n\tNMVehi"
+    "cle\030\007 \003(\0132\034.dg.model.CategoryAndFeature\032"
+    "{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001(\003\022(\n\003Sex"
+    "\030\002 \001(\0132\033.dg.model.NameAndConfidence\022/\n\tA"
+    "ttribute\030\003 \003(\0132\034.dg.model.CategoryAndFea"
+    "ture\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+\n\rPasseng"
+    "erAttr\030\002 \001(\0132\024.dg.model.PeopleAttr\022\037\n\004Fa"
+    "ce\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006Driver\030\004 "
+    "\001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022$\n\003Img"
+    "\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n\nConfi"
+    "dence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132\024.dg.mode"
+    "l.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg.model.Re"
+    "cFace\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017"
+    "\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013M"
+    "odelYearId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004"
+    "Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 "
+    "\001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r"
+    "\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014Licens"
+    "ePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\013"
+    "2\017.dg.model.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010Typ"
+    "eName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutbo"
+    "ard\030\006 \001(\0132\022.dg.model.Cutboard\022\037\n\027LocalPr"
+    "ovinceConfidence\030\007 \001(\002\"X\n\rVehicleSymbol\022"
+    "\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n"
+    "\007Symbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symb"
+    "ol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard"
+    "\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n"
+    "\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model."
+    "DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Me"
+    "tadata\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003I"
+    "mg\030\002 \001(\0132\017.dg.model.Image\022%\n\007Vehicle\030\003 \003"
+    "(\0132\024.dg.model.RecVehicle\"\203\001\n\rPedestrianO"
+    "bj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMetad"
+    "ata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022+\n\nPed"
+    "estrian\030\003 \003(\0132\027.dg.model.RecPedestrian*\303"
+    "\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_"
+    "TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021OBJ_"
+    "TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\004"
+    "\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE"
+    "_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020"
+    "\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_T"
+    "YPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FAC"
+    "E_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBOARD"
+    "\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022\037\n\032O"
+    "BJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_TYPE"
+    "_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_FACE"
+    "_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOWNFM"
+    "T\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003"
+    "PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN\020\000\022\021"
+    "\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020\002*\\"
+    "\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKNOWN\020"
+    "\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL_TYP"
+    "E_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_UNKN"
+    "OWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_153"
+    "0\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_50UP\020"
+    "\004*\235\001\n\023NonMotorVehicleType\022\032\n\026TRANSPORTAT"
+    "ION_BICYCLE\020\000\022\033\n\027TRANSPORTATION_VEHICLE2"
+    "\020\001\022\033\n\027TRANSPORTATION_VEHICLE3\020\002\022\027\n\023TRANS"
+    "PORTATION_ROOF\020\003\022\027\n\023TRANSPORTATION_SEAL\020"
+    "\004*i\n\026NonMotorVehicleGesture\022\025\n\021ATTITUDE_"
+    "POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022\021\n\rATTITU"
+    "DE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n\006DBType\022\t"
+    "\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE\020\002b\006"
+    "proto3", 4246);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -804,7 +777,6 @@ void protobuf_AddDesc_common_2eproto() {
   FeatureVector::default_instance_ = new FeatureVector();
   NullMessage::default_instance_ = new NullMessage();
   Image::default_instance_ = new Image();
-  RecFacePose::default_instance_ = new RecFacePose();
   RecFace::default_instance_ = new RecFace();
   NameAndConfidence::default_instance_ = new NameAndConfidence();
   CategoryAndFeature::default_instance_ = new CategoryAndFeature();
@@ -828,7 +800,6 @@ void protobuf_AddDesc_common_2eproto() {
   FeatureVector::default_instance_->InitAsDefaultInstance();
   NullMessage::default_instance_->InitAsDefaultInstance();
   Image::default_instance_->InitAsDefaultInstance();
-  RecFacePose::default_instance_->InitAsDefaultInstance();
   RecFace::default_instance_->InitAsDefaultInstance();
   NameAndConfidence::default_instance_->InitAsDefaultInstance();
   CategoryAndFeature::default_instance_->InitAsDefaultInstance();
@@ -1015,6 +986,7 @@ const int SrcMetadata::kSensorNameFieldNumber;
 const int SrcMetadata::kSensorUrlFieldNumber;
 const int SrcMetadata::kRepoIdFieldNumber;
 const int SrcMetadata::kRepoInfoFieldNumber;
+const int SrcMetadata::kObjTypeFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SrcMetadata::SrcMetadata()
@@ -1046,6 +1018,7 @@ void SrcMetadata::SharedCtor() {
   sensorurl_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   repoid_ = 0;
   repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  objtype_ = 0;
 }
 
 SrcMetadata::~SrcMetadata() {
@@ -1096,9 +1069,9 @@ void SrcMetadata::Clear() {
 } while (0)
 
   ZR_(timestamp_, sensorid_);
+  ZR_(repoid_, objtype_);
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  repoid_ = 0;
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
 #undef ZR_HELPER_
@@ -1222,6 +1195,22 @@ bool SrcMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(64)) goto parse_ObjType;
+        break;
+      }
+
+      // optional .dg.model.ObjType ObjType = 8;
+      case 8: {
+        if (tag == 64) {
+         parse_ObjType:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_objtype(static_cast< ::dg::model::ObjType >(value));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1300,6 +1289,12 @@ void SrcMetadata::SerializeWithCachedSizes(
       7, this->repoinfo(), output);
   }
 
+  // optional .dg.model.ObjType ObjType = 8;
+  if (this->objtype() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      8, this->objtype(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.SrcMetadata)
 }
 
@@ -1359,6 +1354,12 @@ void SrcMetadata::SerializeWithCachedSizes(
         7, this->repoinfo(), target);
   }
 
+  // optional .dg.model.ObjType ObjType = 8;
+  if (this->objtype() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      8, this->objtype(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.SrcMetadata)
   return target;
 }
@@ -1415,6 +1416,12 @@ int SrcMetadata::ByteSize() const {
         this->repoinfo());
   }
 
+  // optional .dg.model.ObjType ObjType = 8;
+  if (this->objtype() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->objtype());
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -1459,6 +1466,9 @@ void SrcMetadata::MergeFrom(const SrcMetadata& from) {
 
     repoinfo_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.repoinfo_);
   }
+  if (from.objtype() != 0) {
+    set_objtype(from.objtype());
+  }
 }
 
 void SrcMetadata::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1490,6 +1500,7 @@ void SrcMetadata::InternalSwap(SrcMetadata* other) {
   sensorurl_.Swap(&other->sensorurl_);
   std::swap(repoid_, other->repoid_);
   repoinfo_.Swap(&other->repoinfo_);
+  std::swap(objtype_, other->objtype_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1688,6 +1699,20 @@ void SrcMetadata::clear_repoinfo() {
   }
   repoinfo_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), repoinfo);
   // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.RepoInfo)
+}
+
+// optional .dg.model.ObjType ObjType = 8;
+void SrcMetadata::clear_objtype() {
+  objtype_ = 0;
+}
+ ::dg::model::ObjType SrcMetadata::objtype() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.ObjType)
+  return static_cast< ::dg::model::ObjType >(objtype_);
+}
+ void SrcMetadata::set_objtype(::dg::model::ObjType value) {
+  
+  objtype_ = value;
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.ObjType)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -4037,329 +4062,10 @@ void Image::clear_bindata() {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RecFacePose::kTypeFieldNumber;
-const int RecFacePose::kAnglesFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-RecFacePose::RecFacePose()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:dg.model.RecFacePose)
-}
-
-void RecFacePose::InitAsDefaultInstance() {
-  _is_default_instance_ = true;
-}
-
-RecFacePose::RecFacePose(const RecFacePose& from)
-  : ::google::protobuf::Message(),
-    _internal_metadata_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:dg.model.RecFacePose)
-}
-
-void RecFacePose::SharedCtor() {
-    _is_default_instance_ = false;
-  _cached_size_ = 0;
-  type_ = 0;
-}
-
-RecFacePose::~RecFacePose() {
-  // @@protoc_insertion_point(destructor:dg.model.RecFacePose)
-  SharedDtor();
-}
-
-void RecFacePose::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void RecFacePose::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* RecFacePose::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RecFacePose_descriptor_;
-}
-
-const RecFacePose& RecFacePose::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_common_2eproto();
-  return *default_instance_;
-}
-
-RecFacePose* RecFacePose::default_instance_ = NULL;
-
-RecFacePose* RecFacePose::New(::google::protobuf::Arena* arena) const {
-  RecFacePose* n = new RecFacePose;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void RecFacePose::Clear() {
-  type_ = 0;
-  angles_.Clear();
-}
-
-bool RecFacePose::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:dg.model.RecFacePose)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional int32 Type = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &type_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(18)) goto parse_Angles;
-        break;
-      }
-
-      // repeated float Angles = 2;
-      case 2: {
-        if (tag == 18) {
-         parse_Angles:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, this->mutable_angles())));
-        } else if (tag == 21) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitiveNoInline<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 1, 18, input, this->mutable_angles())));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:dg.model.RecFacePose)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:dg.model.RecFacePose)
-  return false;
-#undef DO_
-}
-
-void RecFacePose::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:dg.model.RecFacePose)
-  // optional int32 Type = 1;
-  if (this->type() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->type(), output);
-  }
-
-  // repeated float Angles = 2;
-  if (this->angles_size() > 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteTag(2, ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED, output);
-    output->WriteVarint32(_angles_cached_byte_size_);
-  }
-  for (int i = 0; i < this->angles_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloatNoTag(
-      this->angles(i), output);
-  }
-
-  // @@protoc_insertion_point(serialize_end:dg.model.RecFacePose)
-}
-
-::google::protobuf::uint8* RecFacePose::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dg.model.RecFacePose)
-  // optional int32 Type = 1;
-  if (this->type() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->type(), target);
-  }
-
-  // repeated float Angles = 2;
-  if (this->angles_size() > 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteTagToArray(
-      2,
-      ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED,
-      target);
-    target = ::google::protobuf::io::CodedOutputStream::WriteVarint32ToArray(
-      _angles_cached_byte_size_, target);
-  }
-  for (int i = 0; i < this->angles_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteFloatNoTagToArray(this->angles(i), target);
-  }
-
-  // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecFacePose)
-  return target;
-}
-
-int RecFacePose::ByteSize() const {
-  int total_size = 0;
-
-  // optional int32 Type = 1;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->type());
-  }
-
-  // repeated float Angles = 2;
-  {
-    int data_size = 0;
-    data_size = 4 * this->angles_size();
-    if (data_size > 0) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(data_size);
-    }
-    GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-    _angles_cached_byte_size_ = data_size;
-    GOOGLE_SAFE_CONCURRENT_WRITES_END();
-    total_size += data_size;
-  }
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RecFacePose::MergeFrom(const ::google::protobuf::Message& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  const RecFacePose* source = 
-      ::google::protobuf::internal::DynamicCastToGenerated<const RecFacePose>(
-          &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void RecFacePose::MergeFrom(const RecFacePose& from) {
-  if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
-  angles_.MergeFrom(from.angles_);
-  if (from.type() != 0) {
-    set_type(from.type());
-  }
-}
-
-void RecFacePose::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void RecFacePose::CopyFrom(const RecFacePose& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RecFacePose::IsInitialized() const {
-
-  return true;
-}
-
-void RecFacePose::Swap(RecFacePose* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void RecFacePose::InternalSwap(RecFacePose* other) {
-  std::swap(type_, other->type_);
-  angles_.UnsafeArenaSwap(&other->angles_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::google::protobuf::Metadata RecFacePose::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = RecFacePose_descriptor_;
-  metadata.reflection = RecFacePose_reflection_;
-  return metadata;
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// RecFacePose
-
-// optional int32 Type = 1;
-void RecFacePose::clear_type() {
-  type_ = 0;
-}
- ::google::protobuf::int32 RecFacePose::type() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecFacePose.Type)
-  return type_;
-}
- void RecFacePose::set_type(::google::protobuf::int32 value) {
-  
-  type_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.RecFacePose.Type)
-}
-
-// repeated float Angles = 2;
-int RecFacePose::angles_size() const {
-  return angles_.size();
-}
-void RecFacePose::clear_angles() {
-  angles_.Clear();
-}
- float RecFacePose::angles(int index) const {
-  // @@protoc_insertion_point(field_get:dg.model.RecFacePose.Angles)
-  return angles_.Get(index);
-}
- void RecFacePose::set_angles(int index, float value) {
-  angles_.Set(index, value);
-  // @@protoc_insertion_point(field_set:dg.model.RecFacePose.Angles)
-}
- void RecFacePose::add_angles(float value) {
-  angles_.Add(value);
-  // @@protoc_insertion_point(field_add:dg.model.RecFacePose.Angles)
-}
- const ::google::protobuf::RepeatedField< float >&
-RecFacePose::angles() const {
-  // @@protoc_insertion_point(field_list:dg.model.RecFacePose.Angles)
-  return angles_;
-}
- ::google::protobuf::RepeatedField< float >*
-RecFacePose::mutable_angles() {
-  // @@protoc_insertion_point(field_mutable_list:dg.model.RecFacePose.Angles)
-  return &angles_;
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RecFace::kIdFieldNumber;
 const int RecFace::kImgFieldNumber;
 const int RecFace::kFeaturesFieldNumber;
 const int RecFace::kConfidenceFieldNumber;
-const int RecFace::kPoseFieldNumber;
-const int RecFace::kBlurScoreFieldNumber;
-const int RecFace::kAlignScoreFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RecFace::RecFace()
@@ -4371,7 +4077,6 @@ RecFace::RecFace()
 void RecFace::InitAsDefaultInstance() {
   _is_default_instance_ = true;
   img_ = const_cast< ::dg::model::CutboardImage*>(&::dg::model::CutboardImage::default_instance());
-  pose_ = const_cast< ::dg::model::RecFacePose*>(&::dg::model::RecFacePose::default_instance());
 }
 
 RecFace::RecFace(const RecFace& from)
@@ -4390,9 +4095,6 @@ void RecFace::SharedCtor() {
   img_ = NULL;
   features_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   confidence_ = 0;
-  pose_ = NULL;
-  blurscore_ = 0;
-  alignscore_ = 0;
 }
 
 RecFace::~RecFace() {
@@ -4404,7 +4106,6 @@ void RecFace::SharedDtor() {
   features_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
     delete img_;
-    delete pose_;
   }
 }
 
@@ -4434,25 +4135,11 @@ RecFace* RecFace::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecFace::Clear() {
-#define ZR_HELPER_(f) reinterpret_cast<char*>(\
-  &reinterpret_cast<RecFace*>(16)->f)
-
-#define ZR_(first, last) do {\
-  ::memset(&first, 0,\
-           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
-} while (0)
-
-  ZR_(confidence_, alignscore_);
   id_ = GOOGLE_LONGLONG(0);
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
   img_ = NULL;
   features_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == NULL && pose_ != NULL) delete pose_;
-  pose_ = NULL;
-
-#undef ZR_HELPER_
-#undef ZR_
-
+  confidence_ = 0;
 }
 
 bool RecFace::MergePartialFromCodedStream(
@@ -4520,49 +4207,6 @@ bool RecFace::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(42)) goto parse_Pose;
-        break;
-      }
-
-      // optional .dg.model.RecFacePose Pose = 5;
-      case 5: {
-        if (tag == 42) {
-         parse_Pose:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_pose()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(53)) goto parse_BlurScore;
-        break;
-      }
-
-      // optional float BlurScore = 6;
-      case 6: {
-        if (tag == 53) {
-         parse_BlurScore:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &blurscore_)));
-
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(61)) goto parse_AlignScore;
-        break;
-      }
-
-      // optional float AlignScore = 7;
-      case 7: {
-        if (tag == 61) {
-         parse_AlignScore:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &alignscore_)));
-
-        } else {
-          goto handle_unusual;
-        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -4617,22 +4261,6 @@ void RecFace::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->confidence(), output);
   }
 
-  // optional .dg.model.RecFacePose Pose = 5;
-  if (this->has_pose()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, *this->pose_, output);
-  }
-
-  // optional float BlurScore = 6;
-  if (this->blurscore() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->blurscore(), output);
-  }
-
-  // optional float AlignScore = 7;
-  if (this->alignscore() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->alignscore(), output);
-  }
-
   // @@protoc_insertion_point(serialize_end:dg.model.RecFace)
 }
 
@@ -4667,23 +4295,6 @@ void RecFace::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->confidence(), target);
   }
 
-  // optional .dg.model.RecFacePose Pose = 5;
-  if (this->has_pose()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteMessageNoVirtualToArray(
-        5, *this->pose_, target);
-  }
-
-  // optional float BlurScore = 6;
-  if (this->blurscore() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->blurscore(), target);
-  }
-
-  // optional float AlignScore = 7;
-  if (this->alignscore() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->alignscore(), target);
-  }
-
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.RecFace)
   return target;
 }
@@ -4714,23 +4325,6 @@ int RecFace::ByteSize() const {
 
   // optional float Confidence = 4;
   if (this->confidence() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // optional .dg.model.RecFacePose Pose = 5;
-  if (this->has_pose()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->pose_);
-  }
-
-  // optional float BlurScore = 6;
-  if (this->blurscore() != 0) {
-    total_size += 1 + 4;
-  }
-
-  // optional float AlignScore = 7;
-  if (this->alignscore() != 0) {
     total_size += 1 + 4;
   }
 
@@ -4767,15 +4361,6 @@ void RecFace::MergeFrom(const RecFace& from) {
   if (from.confidence() != 0) {
     set_confidence(from.confidence());
   }
-  if (from.has_pose()) {
-    mutable_pose()->::dg::model::RecFacePose::MergeFrom(from.pose());
-  }
-  if (from.blurscore() != 0) {
-    set_blurscore(from.blurscore());
-  }
-  if (from.alignscore() != 0) {
-    set_alignscore(from.alignscore());
-  }
 }
 
 void RecFace::CopyFrom(const ::google::protobuf::Message& from) {
@@ -4804,9 +4389,6 @@ void RecFace::InternalSwap(RecFace* other) {
   std::swap(img_, other->img_);
   features_.Swap(&other->features_);
   std::swap(confidence_, other->confidence_);
-  std::swap(pose_, other->pose_);
-  std::swap(blurscore_, other->blurscore_);
-  std::swap(alignscore_, other->alignscore_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -4928,71 +4510,6 @@ void RecFace::clear_confidence() {
   
   confidence_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecFace.Confidence)
-}
-
-// optional .dg.model.RecFacePose Pose = 5;
-bool RecFace::has_pose() const {
-  return !_is_default_instance_ && pose_ != NULL;
-}
-void RecFace::clear_pose() {
-  if (GetArenaNoVirtual() == NULL && pose_ != NULL) delete pose_;
-  pose_ = NULL;
-}
-const ::dg::model::RecFacePose& RecFace::pose() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecFace.Pose)
-  return pose_ != NULL ? *pose_ : *default_instance_->pose_;
-}
-::dg::model::RecFacePose* RecFace::mutable_pose() {
-  
-  if (pose_ == NULL) {
-    pose_ = new ::dg::model::RecFacePose;
-  }
-  // @@protoc_insertion_point(field_mutable:dg.model.RecFace.Pose)
-  return pose_;
-}
-::dg::model::RecFacePose* RecFace::release_pose() {
-  
-  ::dg::model::RecFacePose* temp = pose_;
-  pose_ = NULL;
-  return temp;
-}
-void RecFace::set_allocated_pose(::dg::model::RecFacePose* pose) {
-  delete pose_;
-  pose_ = pose;
-  if (pose) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_set_allocated:dg.model.RecFace.Pose)
-}
-
-// optional float BlurScore = 6;
-void RecFace::clear_blurscore() {
-  blurscore_ = 0;
-}
- float RecFace::blurscore() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecFace.BlurScore)
-  return blurscore_;
-}
- void RecFace::set_blurscore(float value) {
-  
-  blurscore_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.RecFace.BlurScore)
-}
-
-// optional float AlignScore = 7;
-void RecFace::clear_alignscore() {
-  alignscore_ = 0;
-}
- float RecFace::alignscore() const {
-  // @@protoc_insertion_point(field_get:dg.model.RecFace.AlignScore)
-  return alignscore_;
-}
- void RecFace::set_alignscore(float value) {
-  
-  alignscore_ = value;
-  // @@protoc_insertion_point(field_set:dg.model.RecFace.AlignScore)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

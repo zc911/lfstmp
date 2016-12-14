@@ -12,15 +12,15 @@
 #include "algorithm_def.h"
 #include "util/convert_util.h"
 
+
 using namespace dgvehicle;
 namespace dg {
 VehicleWindowDetectorProcessor::VehicleWindowDetectorProcessor()
     : Processor() {
 
-    ssd_window_detector_ = AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_windowCaffeSsdDetector);
+    ssd_window_detector_ =
+        AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_windowCaffeSsdDetector);
 
- //   window_target_min_ = wConfig.target_min_size;
- //   window_target_max_ = wConfig.target_max_size;
 }
 
 VehicleWindowDetectorProcessor::~VehicleWindowDetectorProcessor() {
@@ -33,8 +33,8 @@ VehicleWindowDetectorProcessor::~VehicleWindowDetectorProcessor() {
 
 bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start marker and window processor" << frameBatch->id() << endl;
-    VLOG(VLOG_SERVICE) << "Start marker and window processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start window processor" << frameBatch->id() << endl;
+    VLOG(VLOG_SERVICE) << "Start marker and window processor " << frameBatch->id() << endl;
 
     float costtime, diff;
     struct timeval start, end;
@@ -45,9 +45,12 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
     int target_row = 256;
     int target_col = 384;
+
     for (int i = 0; i < crops.size(); i++) {
-        if (crops[i].size() <= 0)
+        if (crops[i].size() <= 0){
             continue;
+        }
+
 
         int xmin = crops[i][0].box.x;
         int ymin = crops[i][0].box.y;
@@ -91,7 +94,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
     gettimeofday(&end, NULL);
     diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-           / 1000.f;
+        / 1000.f;
     VLOG(VLOG_PROCESS_COST) << "Window cost: " << diff << endl;
     objs_.clear();
 
@@ -112,7 +115,9 @@ bool VehicleWindowDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
 
-    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE_MARKER | OPERATION_DRIVER_PHONE | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT);
+    objs_ = frameBatch->CollectObjects(
+        OPERATION_VEHICLE_MARKER | OPERATION_DRIVER_PHONE | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT);
+
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;
@@ -120,9 +125,12 @@ bool VehicleWindowDetectorProcessor::beforeUpdate(FrameBatch *frameBatch) {
         if (obj->type() == OBJECT_CAR) {
 
             Vehicle *v = (Vehicle *) obj;
-            images_.push_back(v->image());
+            // Only the detected vehicle with HEAD pose
+            if (v->pose() == Vehicle::VEHICLE_POSE_HEAD) {
+                images_.push_back(v->image());
+                performance_++;
+            }
             ++itr;
-            performance_++;
 
         } else {
             itr = objs_.erase(itr);

@@ -12,8 +12,8 @@
 #include "processor/vehicle_window_detector_processor.h"
 #include "processor/face_quality_processor.h"
 #include "processor/face_alignment_processor.h"
-
 #include "processor/config_filter.h"
+#include "debug_util.h"
 
 namespace dg {
 
@@ -51,6 +51,47 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
+void WitnessEngine::withoutDetection(FrameBatch *frames) {
+
+    Identification baseid = 0;
+    for (auto frame: frames->frames()) {
+        Operation op = frame->operation();
+        Mat tmp = frame->payload()->data();
+
+        if (tmp.empty()) {
+            LOG(ERROR) << "Mat is empty" << endl;
+            continue;
+        }
+
+        Detection d;
+        d.box = Rect(0, 0, tmp.cols, tmp.rows);
+        Object *obj;
+
+        if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
+            obj = new Pedestrian();
+        } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
+            obj = new NonMotorVehicle(OBJECT_BICYCLE);
+        } else if (op.Check(
+            OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
+                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
+                | OPERATION_DRIVER_PHONE)) {
+            obj = new Vehicle(OBJECT_CAR);
+            // set pose head in default
+            Vehicle *v = (Vehicle*) obj;
+            v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
+        } else if (op.Check(OPERATION_FACE_FEATURE_VECTOR)) {
+            obj = new Face();
+        } else {
+            continue;
+        }
+        obj->set_id(baseid++);
+        obj->set_image(tmp);
+        obj->set_detection(d);
+        frame->put_object(obj);
+    }
+
+}
+
 void WitnessEngine::Process(FrameBatch *frames) {
     float costtime, diff;
     struct timeval start, end;
@@ -66,54 +107,17 @@ void WitnessEngine::Process(FrameBatch *frames) {
     }
 #endif
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
+
+
+    if (!enable_vehicle_detect_ || !enable_face_detect_
+        || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)
+        || !frames->CheckFrameBatchOperation(OPERATION_FACE_DETECT)) {
+
+        withoutDetection(frames);
+    }
+
+
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
-
-        if (!enable_vehicle_detect_
-            || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
-            if (frames->CheckFrameBatchOperation(OPERATION_PEDESTRIAN_ATTR)) {
-                Identification baseid = 0;
-                for (auto frame : frames->frames()) {
-                    Pedestrian *p = new Pedestrian();
-                    Mat tmp = frame->payload()->data();
-                    if (tmp.empty()) {
-                        LOG(ERROR) << "Mat is empty" << endl;
-                        return;
-                    }
-                    p->set_image(tmp);
-                    p->set_id(baseid);
-                    baseid++;
-                    Object *obj = static_cast<Object *>(p);
-                    if (obj) {
-                        Detection d;
-                        d.box = Rect(0, 0, tmp.cols, tmp.rows);
-                        obj->set_detection(d);
-                        frame->put_object(obj);
-                    }
-                }
-            }
-            else {
-                Identification baseid = 0;
-                for (auto frame : frames->frames()) {
-                    Vehicle *v = new Vehicle(OBJECT_CAR);
-                    Mat tmp = frame->payload()->data();
-                    if (tmp.empty()) {
-                        LOG(ERROR) << "Mat is empty" << endl;
-                        return;
-                    }
-                    v->set_image(tmp);
-                    v->set_id(baseid);
-                    baseid++;
-                    Object *obj = static_cast<Object *>(v);
-
-                    if (obj) {
-                        Detection d;
-                        d.box = Rect(0, 0, tmp.cols, tmp.rows);
-                        obj->set_detection(d);
-                        frame->put_object(obj);
-                    }
-                }
-            }
-        }
         if (vehicle_processor_) {
             vehicle_processor_->Update(frames);
         }
@@ -122,16 +126,11 @@ void WitnessEngine::Process(FrameBatch *frames) {
         if (face_processor_)
             face_processor_->Update(frames);
     }
+
     gettimeofday(&end, NULL);
 
-    diff = ((end.tv_sec - start.tv_sec) * 1000000 + end.tv_usec - start.tv_usec)
-        / 1000.f;
-    DLOG(INFO) << " [witness engine ]: " << diff;
-
-//    if (!isWarmuped_ && ((!enable_vehicle_) || (!enable_vehicle_detect_))) {
-//        vehicle_processor_ = vehicle_processor_->GetNextProcessor();
-//        isWarmuped_ = true;
-//    }
+    int cost = TimeCostInMs(start, end);
+    VLOG(VLOG_RUNTIME_DEBUG) << " [witness engine cost]: " << cost;
 
 }
 
@@ -171,7 +170,6 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
         FEATURE_VEHICLE_ENABLE_CODRIVERBELT);
     enable_vehicle_driver_phone_ = (bool) config.Value(
         FEATURE_VEHICLE_ENABLE_PHONE);
-
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
@@ -224,13 +222,11 @@ void WitnessEngine::init(const Config &config) {
     Processor *last = NULL;
     if (enable_vehicle_) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
-
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
-        VehicleCaffeDetectorConfig dConfig;
-        configFilter->createAccelerateConfig(config, dConfig);
+        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
 
-        Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, true);
+        Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
 
         vehicle_processor_ = p;
         last = p;
@@ -238,9 +234,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-            VehicleCaffeDetectorConfig dConfig;
-            configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
-            Processor *p = new VehicleMultiTypeDetectorProcessor(dConfig, false);
+            Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -259,13 +253,15 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_type_) {
             LOG(INFO) << "Enable vehicle type classification processor." << endl;
 
-            Processor *p = new VehicleClassifierProcessor();
+            string mappingFilePath = (string) config.Value("Render/Vehicle/Model");
+            Processor *p = new VehicleClassifierProcessor(mappingFilePath);
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
+
             Processor *p = new VehicleColorProcessor();
             last->SetNextProcessor(p);
             last = p;
@@ -295,34 +291,25 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         if (enable_vehicle_marker_) {
-#if DEBUG
-            p = new VehicleMarkerClassifierProcessor((bool) config.Value(DEBUG_VISUALIZATION));
-#else
-            p = new VehicleMarkerClassifierProcessor(false);
-#endif
+            Processor *p = new VehicleMarkerClassifierProcessor(false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_belt_) {
-
-            VehicleBeltConfig bConfig;
-            configFilter->createDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, true);
-
+            float threshold = (float) config.Value(ADVANCED_DRIVER_BELT_THRESHOLD);
+            p = new VehicleBeltClassifierProcessor(threshold, true);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_codriver_belt_) {
-
-            VehicleBeltConfig bConfig;
-            configFilter->createCoDriverBeltConfig(config, bConfig);
-            p = new VehicleBeltClassifierProcessor(bConfig, false);
+            float threshold = (float) config.Value(ADVANCED_CODRIVER_BELT_THRESHOLD);
+            p = new VehicleBeltClassifierProcessor(threshold, false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_phone_) {
-
-            p = new VehiclePhoneClassifierProcessor();
+            float threshold = (float) config.Value(ADVANCED_PHONE_THRESHOLD);
+            p = new VehiclePhoneClassifierProcessor(threshold);
             last->SetNextProcessor(p);
             last = p;
         }

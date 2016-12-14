@@ -14,7 +14,7 @@ static VehicleMarkerClassifierProcessor *vmcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -94,7 +94,9 @@ TEST(VehicleMarkerDetectorTest, markerDetectorTest) {
 
             if (w == NULL)
                 continue;
+
             vector<Object *>ms = w->children();
+
             for (int k = 0; k < ms.size(); k++) {
                 Marker * m = (Marker * )ms[k];
                 EXPECT_LE(0, w->detection().box.x);

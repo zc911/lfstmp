@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7b5d3ca4318a4c1ccafc8ef45bc1ccb8e1290a699d3dc4d82b8e689e64b1858f
-size 195
+0=非机动车分类
+1=非机动车姿态
+2=乘车人性别
+3=乘车人民族
+4=乘车人头部特征
+5=乘车人附属物品
+6=乘车人上身颜色
+7=乘车人上身款式
+8=非机动车颜色

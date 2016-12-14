@@ -75,7 +75,7 @@ bool NonMotorVehicleClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
 
-    objs_ = frameBatch->CollectObjects(OPERATION_VEHICLE);
+    objs_ = frameBatch->CollectObjects(OPERATION_NON_VEHICLE_ATTR);
     vector<Object *>::iterator itr = objs_.begin();
     while (itr != objs_.end()) {
         Object *obj = *itr;

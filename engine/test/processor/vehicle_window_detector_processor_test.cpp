@@ -14,7 +14,7 @@ static VehicleWindowDetectorProcessor *vwdprocessor;
 static FileReader *resultReader;
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    VehicleCaffeDetectorConfig wConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -80,6 +80,7 @@ TEST(VehicleWindowDetectorTest, windowDetectorTest) {
         int cnt = 0;
         stringstream s;
         s << i;
+
         for (int j = 0; j < vehicles.size(); j++) {
             Vehicle *obj = (Vehicle *)vehicles[j];
             Window *w = (Window *)obj->child(OBJECT_WINDOW);

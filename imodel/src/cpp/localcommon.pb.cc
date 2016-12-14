@@ -29,7 +29,6 @@ const ::google::protobuf::Descriptor* MatrixError_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   MatrixError_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeType_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* RankType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor_ = NULL;
 
 }  // namespace
@@ -74,8 +73,7 @@ void protobuf_AssignDesc_localcommon_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MatrixError, _is_default_instance_));
   RecognizeType_descriptor_ = file->enum_type(0);
-  RankType_descriptor_ = file->enum_type(1);
-  RecognizeFunctions_descriptor_ = file->enum_type(2);
+  RecognizeFunctions_descriptor_ = file->enum_type(1);
 }
 
 namespace {
@@ -115,21 +113,20 @@ void protobuf_AddDesc_localcommon_2eproto() {
     "ixError\022\014\n\004Code\030\001 \001(\005\022\017\n\007Message\030\002 \001(\t*`"
     "\n\rRecognizeType\022\024\n\020REC_TYPE_DEFAULT\020\000\022\024\n"
     "\020REC_TYPE_VEHICLE\020\001\022\021\n\rREC_TYPE_FACE\020\002\022\020"
-    "\n\014REC_TYPE_ALL\020\003*L\n\010RankType\022\025\n\021RANK_TYP"
-    "E_DEFAULT\020\000\022\025\n\021RANK_TYPE_VEHICLE\020\001\022\022\n\016RA"
-    "NK_TYPE_FACE\020\002*\333\003\n\022RecognizeFunctions\022\020\n"
-    "\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032\n\026"
-    "RECFUNC_VEHICLE_DETECT\020\n\022\031\n\025RECFUNC_VEHI"
-    "CLE_TRACK\020\013\022\031\n\025RECFUNC_VEHICLE_STYLE\020\014\022\031"
-    "\n\025RECFUNC_VEHICLE_COLOR\020\r\022\032\n\026RECFUNC_VEH"
-    "ICLE_MARKER\020\016\022\031\n\025RECFUNC_VEHICLE_PLATE\020\017"
-    "\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\020\022\"\n\035"
-    "RECFUNC_VEHICLE_DRIVER_NOBELT\020\252\001\022!\n\034RECF"
-    "UNC_VEHICLE_DRIVER_PHONE\020\253\001\022$\n\037RECFUNC_V"
-    "EHICLE_CODRIVER_NOBELT\020\254\001\022\020\n\014RECFUNC_FAC"
-    "E\020\002\022\031\n\025RECFUNC_FACE_DETECTOR\020\024\022\037\n\033RECFUN"
-    "C_FACE_FEATURE_VECTOR\020\025\022\033\n\027RECFUNC_PEDES"
-    "TRIAN_ATTR\020\003b\006proto3", 780);
+    "\n\014REC_TYPE_ALL\020\003*\371\003\n\022RecognizeFunctions\022"
+    "\020\n\014RECFUNC_NONE\020\000\022\023\n\017RECFUNC_VEHICLE\020\001\022\032"
+    "\n\026RECFUNC_VEHICLE_DETECT\020\n\022\031\n\025RECFUNC_VE"
+    "HICLE_TRACK\020\013\022\031\n\025RECFUNC_VEHICLE_STYLE\020\014"
+    "\022\031\n\025RECFUNC_VEHICLE_COLOR\020\r\022\032\n\026RECFUNC_V"
+    "EHICLE_MARKER\020\016\022\031\n\025RECFUNC_VEHICLE_PLATE"
+    "\020\017\022\"\n\036RECFUNC_VEHICLE_FEATURE_VECTOR\020\020\022\""
+    "\n\035RECFUNC_VEHICLE_DRIVER_NOBELT\020\252\001\022!\n\034RE"
+    "CFUNC_VEHICLE_DRIVER_PHONE\020\253\001\022$\n\037RECFUNC"
+    "_VEHICLE_CODRIVER_NOBELT\020\254\001\022\020\n\014RECFUNC_F"
+    "ACE\020\002\022\031\n\025RECFUNC_FACE_DETECTOR\020\024\022\037\n\033RECF"
+    "UNC_FACE_FEATURE_VECTOR\020\025\022\033\n\027RECFUNC_PED"
+    "ESTRIAN_ATTR\020\003\022\034\n\030RECFUNC_NON_VEHICLE_AT"
+    "TR\020\004b\006proto3", 732);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "localcommon.proto", &protobuf_RegisterTypes);
   Time::default_instance_ = new Time();
@@ -161,21 +158,6 @@ bool RecognizeType_IsValid(int value) {
   }
 }
 
-const ::google::protobuf::EnumDescriptor* RankType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return RankType_descriptor_;
-}
-bool RankType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
 const ::google::protobuf::EnumDescriptor* RecognizeFunctions_descriptor() {
   protobuf_AssignDescriptorsOnce();
   return RecognizeFunctions_descriptor_;
@@ -186,6 +168,7 @@ bool RecognizeFunctions_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
     case 10:
     case 11:
     case 12:
