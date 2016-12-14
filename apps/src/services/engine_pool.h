@@ -85,6 +85,7 @@ public:
     cout << "Gpu num defined in config file: " << gpuNum << endl;
     for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
+      config->AddEntry("System/GpuId", AnyConversion(gpuId));
       int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
       cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
