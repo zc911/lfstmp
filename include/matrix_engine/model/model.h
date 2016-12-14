@@ -504,7 +504,7 @@ class Face: public Object {
         return full_image_;
     }
 
-    void set_full_image(const cv::Mat image) {
+    void set_full_image(const cv::Mat &image) {
         full_image_ = image;
     }
 

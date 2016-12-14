@@ -139,41 +139,22 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
     DetectResult2Detection(detect_result, boxes_in);
 
-//    vector<vector<Rect>> enlarge_boxes;
-    //enlarge_box(boxes_in, enlarge_boxes);
     for (int i = 0; i < frameIds.size(); ++i) {
         int frameId = frameIds[i];
         Frame *frame = frameBatch->frames()[frameId];
         sort(boxes_in[i].begin(), boxes_in[i].end(), BoxCmp);
 
-        /* if (boxes_in[i].size() == 0)
-           continue;
-         int size = 0, index_id = 0;
-         for (size_t bbox_id = 0; bbox_id < boxes_in[i].size(); bbox_id++) {
-           Detection detection = boxes_in[i][bbox_id];
-           if (size < detection.box.area()) {
-             index_id = bbox_id;
-             size=detection.box.area();
-           }
-         }
-         Detection detection = boxes_in[i][index_id];
-         Face *face = new Face(base_id_ + 0, detection,
-                               detection.confidence);
-         cv::Mat data = frame->payload()->data();
-         cv::Mat image = data;
-
-         face->set_image(image);
-         frame->put_object(face);*/
         for (size_t bbox_id = 0; bbox_id < boxes_in[i].size(); bbox_id++) {
             Detection detection = boxes_in[i][bbox_id];
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
-            VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << endl;
+            VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << " detection: " << detection << endl;
             cv::Mat data = frame->payload()->data();
             cv::Mat image = data(detection.box);
             face->set_full_image(data);
             face->set_image(image);
             frame->put_object(face);
+
 
         }
     }

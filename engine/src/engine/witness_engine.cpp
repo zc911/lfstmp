@@ -51,7 +51,7 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
-void WitnessEngine::withoutDetection(FrameBatch *frames) {
+void WitnessEngine::withoutDetection(FrameBatch *frames, Operations oprations) {
 
     Identification baseid = 0;
     for (auto frame: frames->frames()) {
@@ -67,23 +67,34 @@ void WitnessEngine::withoutDetection(FrameBatch *frames) {
         d.box = Rect(0, 0, tmp.cols, tmp.rows);
         Object *obj;
 
-        if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
-            obj = new Pedestrian();
-        } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
-            obj = new NonMotorVehicle(OBJECT_BICYCLE);
-        } else if (op.Check(
-            OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
-                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
-                | OPERATION_DRIVER_PHONE)) {
-            obj = new Vehicle(OBJECT_CAR);
-            // set pose head in default
-            Vehicle *v = (Vehicle*) obj;
-            v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
-        } else if (op.Check(OPERATION_FACE_FEATURE_VECTOR)) {
-            obj = new Face();
+        if (oprations == OPERATION_VEHICLE_DETECT) {
+            if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
+                obj = new Pedestrian();
+            } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
+                obj = new NonMotorVehicle(OBJECT_BICYCLE);
+            } else if (op.Check(
+                OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
+                    | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
+                    | OPERATION_DRIVER_PHONE)) {
+                obj = new Vehicle(OBJECT_CAR);
+                // set pose head in default
+                Vehicle *v = (Vehicle *) obj;
+                v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
+            } else {
+                continue;
+            }
+        } else if (oprations == OPERATION_FACE_DETECT) {
+            if (op.Check(OPERATION_FACE_FEATURE_VECTOR | OPERATION_FACE_ALIGNMENT | OPERATION_FACE_QUALITY)) {
+                obj = new Face();
+                Face *f = (Face *) obj;
+                f->set_full_image(tmp);
+            } else {
+                continue;
+            }
         } else {
             continue;
         }
+
         obj->set_id(baseid++);
         obj->set_image(tmp);
         obj->set_detection(d);
@@ -91,6 +102,7 @@ void WitnessEngine::withoutDetection(FrameBatch *frames) {
     }
 
 }
+
 
 void WitnessEngine::Process(FrameBatch *frames) {
     float costtime, diff;
@@ -108,14 +120,13 @@ void WitnessEngine::Process(FrameBatch *frames) {
 #endif
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
 
-
-    if (!enable_vehicle_detect_ || !enable_face_detect_
-        || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)
-        || !frames->CheckFrameBatchOperation(OPERATION_FACE_DETECT)) {
-
-        withoutDetection(frames);
+    if (!frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+        withoutDetection(frames, OPERATION_VEHICLE_DETECT);
     }
 
+    if (!frames->CheckFrameBatchOperation(OPERATION_FACE_DETECT)) {
+        withoutDetection(frames, OPERATION_FACE_DETECT);
+    }
 
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (vehicle_processor_) {
@@ -157,10 +168,10 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
     enable_face_feature_vector_ = (bool) config.Value(
         FEATURE_FACE_ENABLE_FEATURE_VECTOR);
-    LOG(INFO) << enable_face_feature_vector_;
     enable_face_detect_ = (bool) config.Value(
         FEATURE_FACE_ENABLE_DETECTION);
     enable_face_quality_ = (bool) config.Value(FEATURE_FACE_ENABLE_QUALITY);
+    enable_face_alignment_ = (bool) config.Value(FEATURE_FACE_ENABLE_ALIGNMENT);
     enable_face_pose_ = (bool) config.Value(FEATURE_FACE_ENABLE_POSE);
 
 
@@ -291,23 +302,27 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         if (enable_vehicle_marker_) {
+            LOG(INFO) << "Enable vehicle marker processor." << endl;
             Processor *p = new VehicleMarkerClassifierProcessor(false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_belt_) {
+            LOG(INFO) << "Enable vehicle driver belt processor." << endl;
             float threshold = (float) config.Value(ADVANCED_DRIVER_BELT_THRESHOLD);
             p = new VehicleBeltClassifierProcessor(threshold, true);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_codriver_belt_) {
+            LOG(INFO) << "Enable vehicle co-driver belt processor." << endl;
             float threshold = (float) config.Value(ADVANCED_CODRIVER_BELT_THRESHOLD);
             p = new VehicleBeltClassifierProcessor(threshold, false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_phone_) {
+            LOG(INFO) << "Enable vehicle driver phone processor." << endl;
             float threshold = (float) config.Value(ADVANCED_PHONE_THRESHOLD);
             p = new VehiclePhoneClassifierProcessor(threshold);
             last->SetNextProcessor(p);
@@ -348,8 +363,7 @@ void WitnessEngine::init(const Config &config) {
         face_processor_ = new FaceDetectProcessor(fdconfig, method);
         Processor *last = face_processor_;
 
-        enbale_face_alignment_ = true;
-        if (enbale_face_alignment_) {
+        if (enable_face_alignment_) {
             LOG(INFO) << "Enable face alignment processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
             FaceAlignmentConfig faConfig;

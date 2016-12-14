@@ -69,6 +69,11 @@ int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGF
 
     for (auto itr = to_processed_.begin(); itr != to_processed_.end(); ++itr) {
         Face *face = (Face *) (*itr);
+        // no alignment result
+        if (face->get_align_result().landmarks.size() == 0
+            || face->get_align_result().face_image.cols == 0 || face->get_align_result().face_image.rows == 0) {
+            continue;
+        }
         align_results.push_back(face->get_align_result());
         imgs.push_back(face->get_align_result().face_image.clone());
     }
