@@ -18,6 +18,7 @@ dgLP/2.2.4.5@deepglint/stable_cuda_7.0
 CdnnCaffe/0.1.0@deepglint/stable
 Cdnn/0.1.0@deepglint/stable
 dgface/0.0.2@deepglint/old
+Simple-Web-Server/1.0.0@deepglint/stable
 
 [generators]
 cmake

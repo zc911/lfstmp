@@ -111,7 +111,7 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
     for (int i = 0; i < frameBatch->frames().size(); ++i) {
 
         Frame *frame = frameBatch->frames()[i];
-        if (!frame->operation().Check(OPERATION_FACE_DETECTOR)) {
+        if (!frame->operation().Check(OPERATION_FACE_DETECT)) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Frame " << frame->id() << "does not need face detect"
                 << endl;
             continue;

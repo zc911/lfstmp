@@ -45,7 +45,7 @@ static void destory() {
 static Operation getOperation() {
     Operation op;
     op.Set( OPERATION_FACE |
-            OPERATION_FACE_DETECTOR);
+            OPERATION_FACE_DETECT);
     return op;
 }
 

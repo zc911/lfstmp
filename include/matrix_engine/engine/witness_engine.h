@@ -53,8 +53,10 @@ private:
 
     bool enable_face_;
     bool enable_face_detect_;
-
+    bool enbale_face_alignment_;
+    bool enable_face_quality_;
     bool enable_face_feature_vector_;
+    bool enable_face_pose_;
     unsigned long long performance_ = 0;
 
 };

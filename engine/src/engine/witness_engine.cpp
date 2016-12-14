@@ -348,7 +348,8 @@ void WitnessEngine::init(const Config &config) {
         face_processor_ = new FaceDetectProcessor(fdconfig, method);
         Processor *last = face_processor_;
 
-        if (1) {
+        enbale_face_alignment_ = true;
+        if (enbale_face_alignment_) {
             LOG(INFO) << "Enable face alignment processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
             FaceAlignmentConfig faConfig;

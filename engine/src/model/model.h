@@ -516,13 +516,13 @@ class Face: public Object {
         image_ = image;
     }
 
- private:
     bool IsValid() {
         return is_valid_;
     }
     void set_valid(bool flag) {
         is_valid_ = flag;
     }
+
     void set_qualities(int type, float score) {
         qualities_[type] = score;
     }

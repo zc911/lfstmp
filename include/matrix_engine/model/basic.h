@@ -14,6 +14,7 @@
 #include <opencv2/core/core.hpp>
 #include "fs_util.h"
 #include "watchdog/watch_dog.h"
+
 using namespace std;
 
 namespace dg {
