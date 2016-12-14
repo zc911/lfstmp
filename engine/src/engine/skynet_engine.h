@@ -18,8 +18,9 @@
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/parallel/parallel_node.h"
 #include "processor/parallel/basic_parallel_processor.h"
-
 #include "model/alg_config.h"
+#include "algorithm_factory.h"
+#include "engine_config_value.h"
 
 using namespace std;
 namespace dg {
@@ -66,6 +67,11 @@ private:
         buffer_ = new RingBuffer(100, 640, 480);
         tube_ = new StreamTube(buffer_, video, 25, 1000, 1000, 20000, "TCP");
         display_ = new Displayer(buffer_, "aa", 640, 480, 0, 0, 25);
+
+        int gpu_id = (bool) config.Value(SYSTEM_GPUID);
+        bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+        string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
+        dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
         ConfigFilter *configFilter = ConfigFilter::GetInstance();
         configFilter->initDataConfig(config);
