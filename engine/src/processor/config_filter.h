@@ -40,11 +40,6 @@ class ConfigFilter {
         return instance_;
     }
 
-
-    void createVehicleCaffeDetectorConfig(const Config &cconfig,
-                                          VehicleCaffeDetectorConfig &config);
-    void createAccelerateConfig(const Config &cconfig,
-                                VehicleCaffeDetectorConfig &config);
     void createFaceDetectorConfig(const Config &cconfig,
                                   FaceDetectorConfig &config);
     void createFaceQualityConfig(const Config &cconfig, FaceQualityConfig &fqConfig);
@@ -54,37 +49,49 @@ class ConfigFilter {
 
     void createFaceExtractorConfig(const Config &cconfig,
                                    FaceFeatureExtractorConfig &config);
-    // void createVehicleConfig(const Config &cconfig,
-    //                          vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
-    //void createVehicleColorConfig(const Config &cconfig, vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+
     void createVehiclePlateConfig(const Config &cconfig,
-                                  PlateRecognizer::PlateConfig &pConfig);
+                                PlateRecognizer::PlateConfig &pConfig);
+  void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
+
+//  void createDriverBeltConfig(const Config &cconfig,
+//                              VehicleBeltConfig &bConfig);
+//  void createCoDriverBeltConfig(const Config &cconfig,
+//                                VehicleBeltConfig &cbConfig);
+//  void createVehicleCaffeDetectorConfig(const Config &cconfig,
+//                                        VehicleCaffeDetectorConfig &config);
+//  void createAccelerateConfig(const Config &cconfig,
+//                              VehicleCaffeDetectorConfig &config);
+ // void createFaceDetectorConfig(const Config &cconfig,
+ //                               FaceDetector::FaceDetectorConfig &config);
+ // void createFaceExtractorConfig(const Config &cconfig,
+ //                                FaceFeatureExtractor::FaceFeatureExtractorConfig &config);
+ // void createVehicleConfig(const Config &cconfig,
+ //                          vector<VehicleCaffeClassifier::VehicleCaffeConfig> &configs);
+  //void createVehicleColorConfig(const Config &cconfig, vector<CaffeVehicleColorClassifier::VehicleColorConfig> &configs);
+
 //    void createVehicleMutiTypeDetectorConfig(
 //        const Config &cconfig,
 //        VehicleMultiTypeDetector::VehicleMultiTypeConfig &config);
 //  void createMarkersConfig(const Config &cconfig, MarkerCaffeClassifier::MarkerConfig &mConfig);
 //  void createWindowConfig(const Config &cconfig,
 //                          WindowCaffeDetector::WindowCaffeConfig &wConfig);
-    void createMarkersConfig(const Config &cconfig,
-                             VehicleCaffeDetectorConfig &mConfig);
-    void createDriverBeltConfig(const Config &cconfig,
-                                VehicleBeltConfig &bConfig);
-    void createCoDriverBeltConfig(const Config &cconfig,
-                                  VehicleBeltConfig &cbConfig);
-    void createDriverPhoneConfig(const Config &cconfig,
-                                 VehicleCaffeDetectorConfig &pConfig);
-    void createWindowConfig(const Config &cconfig,
-                            VehicleCaffeDetectorConfig &wConfig);
-    void
-        createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
+//  void createMarkersConfig(const Config &cconfig,
+//                           VehicleCaffeDetectorConfig &mConfig);
+
+//  void createDriverPhoneConfig(const Config &cconfig,
+//                               VehicleCaffeDetectorConfig &pConfig);
+//  void createWindowConfig(const Config &cconfig,
+//                          VehicleCaffeDetectorConfig &wConfig);
 //  void createPedestrianConfig(const Config &cconfig, PedestrianClassifier::PedestrianConfig &pConfig);
 //  void createPedestrianConfig(const Config &cconfig, NonMotorVehicleClassifier::NonMotorVehicleConfig &nmConfig);
-    int initDataConfig(const Config &config);
- private:
-    ConfigFilter();
-    static ConfigFilter *instance_;
+  int initDataConfig(const Config &config);
 
-    Config data_config_;
+private:
+  ConfigFilter();
+  static ConfigFilter *instance_;
+
+  Config data_config_;
 };
 
 }

@@ -25,13 +25,13 @@ typedef enum {
     OBJECT_UNKNOWN = 0,
     OBJECT_CAR = 1,
     OBJECT_PEDESTRIAN = 2,
-    OBJECT_BICYCLE = 3,
-    OBJECT_TRICYCLE = 4,
-    OBJECT_WINDOW = 8,
-    OBJECT_MARKER = 16,
-    OBJECT_DRIVER = 32,
-    OBJECT_CODRIVER = 64,
-    OBJECT_FACE = 128,
+    OBJECT_BICYCLE = 4,
+    OBJECT_TRICYCLE = 8,
+    OBJECT_WINDOW = 16,
+    OBJECT_MARKER = 32,
+    OBJECT_DRIVER = 64,
+    OBJECT_CODRIVER = 128,
+    OBJECT_FACE = 256,
 } ObjectType;
 
 enum DetectionTypeId {
@@ -73,6 +73,7 @@ typedef struct FacePose {
 class Object {
  public:
 
+ public:
     Object(ObjectType type)
         : id_(0),
           type_(type),
@@ -96,6 +97,10 @@ class Object {
     const vector<Object *> &children() const {
         return children_;
     }
+
+    virtual void set_image(const cv::Mat &image) {
+        // empty implements
+    };
 
     void AddChild(Object *child) {
         children_.push_back(child);
@@ -313,6 +318,11 @@ class Pedestrian: public Object {
 class Vehicle: public Object {
  public:
 
+    typedef enum {
+        VEHICLE_POSE_HEAD = 1,
+        VEHICLE_POSE_TAIL = 2
+    } VehiclePose;
+
     typedef struct {
         Identification class_id = -1;
         Confidence confidence = 0;
@@ -383,6 +393,15 @@ class Vehicle: public Object {
     void set_feature(const CarRankFeature &feature) {
         feature_ = feature;
     }
+
+    const VehiclePose pose() const {
+        return pose_;
+    }
+
+    void set_pose(VehiclePose pose) {
+        pose_ = pose;
+    }
+
  private:
 
     cv::Mat image_;
@@ -391,6 +410,7 @@ class Vehicle: public Object {
     vector<Plate> plates_;
     Color color_;
     CarRankFeature feature_;
+    VehiclePose pose_;
 
 };
 
@@ -445,6 +465,8 @@ class NonMotorVehicle: public Object {
 };
 
 class Face: public Object {
+
+ public:
  public:
     enum { BlurM = 0, Frontal = 1 };
     enum { NotFrontalType = 1, FrontalType = 0 };
@@ -493,6 +515,8 @@ class Face: public Object {
     void set_image(const cv::Mat &image) {
         image_ = image;
     }
+
+ private:
     bool IsValid() {
         return is_valid_;
     }

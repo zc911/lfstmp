@@ -5,22 +5,19 @@
  *      Author: jiajaichen
  */
 
+#include <model/alg_config.h>
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
-#include "string_util.h"
 
 using namespace dgvehicle;
 namespace dg {
 
 VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
-    VehicleBeltConfig &mConfig, bool drive)
+    float threshold, bool drive)
     : Processor() {
 
     belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(drive);
-
-    marker_target_min_ = mConfig.target_min_size;
-    marker_target_max_ = mConfig.target_max_size;
-    is_driver = mConfig.is_driver;
+    threshold_ = threshold;
 
 }
 VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
@@ -33,8 +30,8 @@ VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
 
 bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Start belt and window processor" << frameBatch->id() << endl;
-    VLOG(VLOG_SERVICE) << "Start belt processor" << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Start belt processor " << frameBatch->id() << endl;
+    VLOG(VLOG_SERVICE) << "Start belt processor" << frameBatch->id() << endl;
     vector<vector<Prediction> > preds;
     belt_classifier_->BatchProcess(images_, preds);
 
@@ -42,39 +39,35 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
         float value;
         Vehicle *v = (Vehicle *) objs_[i];
 
-        if (is_driver) {
-            Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
-            if (!vr) {
-                vr = new Vehicler(OBJECT_DRIVER);
-                v->set_vehicler(vr);
-            }
-            switch (preds[i][0].first) {
-            case 0:
-                value = preds[i][0].second;
-                vr->set_vehicler_attr(Vehicler::NoBelt, value);
-                break;
-            }
+        if (preds[i][0].second < threshold_) {
+            VLOG(VLOG_RUNTIME_DEBUG)
+            << "Belt detection confidence is lower than threshold " << preds[i][0].second << ":" << threshold_ << endl;
+            continue;
+        }
 
-        } else {
-            if (preds[i][0].first == 1)
-                continue;
-            Vehicler *vr = (Vehicler *) v->child(OBJECT_CODRIVER);
-            if (!vr) {
-                vr = new Vehicler(OBJECT_CODRIVER);
-                v->set_vehicler(vr);
-            }
-            switch (preds[i][0].first) {
-            case 0:
+        switch (preds[i][0].first) {
+            case 0: {
+                ObjectType driverType = OBJECT_DRIVER;
+                if (!is_driver) {
+                    driverType = OBJECT_CODRIVER;
+                }
+                Vehicler *vr = (Vehicler *) v->child(driverType);
+                if (!vr) {
+                    vr = new Vehicler(driverType);
+                    v->set_vehicler(vr);
+                }
                 value = preds[i][0].second;
                 vr->set_vehicler_attr(Vehicler::NoBelt, value);
                 break;
             }
+            default:
+                break;
         }
 
     }
     objs_.clear();
 
-    VLOG(VLOG_RUNTIME_DEBUG) << "Finish marker and window processor" << frameBatch->id() << endl;
+    VLOG(VLOG_RUNTIME_DEBUG) << "Finish Start belt processor " << frameBatch->id() << endl;
     return true;
 }
 
@@ -91,16 +84,15 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
     objs_.clear();
     images_.clear();
     vector<Object *> objs;
-    if(is_driver){
+    if (is_driver) {
         objs = frameBatch->CollectObjects(OPERATION_DRIVER_BELT);
-    }else{
+    } else {
         objs = frameBatch->CollectObjects(OPERATION_CODRIVER_BELT);
     }
     vector<Object *>::iterator itr = objs.begin();
     while (itr != objs.end()) {
         Object *obj = *itr;
         if (obj->type() == OBJECT_CAR) {
-
             for (int i = 0; i < obj->children().size(); i++) {
                 Object *obj_child = obj->children()[i];
                 if (obj_child->type() == OBJECT_WINDOW) {
@@ -113,7 +105,6 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
             }
 
         } else {
-            DLOG(INFO) << "This is not a type of vehicle: " << obj->id() << " " << endl;
         }
         ++itr;
 

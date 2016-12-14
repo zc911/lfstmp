@@ -14,7 +14,7 @@ static VehicleClassifierProcessor *vcfprocessor;
 static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    VehicleCaffeClassifier::VehicleCaffeConfig config;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -32,7 +32,8 @@ static void initConfig() {
     }
     vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
     configs.push_back(config); */
-    vcfprocessor = new VehicleClassifierProcessor(true);
+    string mappingFilePath = "";
+    vcfprocessor = new VehicleClassifierProcessor(mappingFilePath, true);
 }
 
 static void init() {

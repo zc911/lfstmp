@@ -14,7 +14,7 @@ static VehiclePhoneClassifierProcessor *vbcprocessor;
 static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
 /*    VehicleCaffeDetectorConfig mConfig;
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
@@ -28,7 +28,7 @@ static void initConfig() {
     mConfig.deploy_file = baseModelPath + "604.txt";
     mConfig.model_file = baseModelPath + "604.dat"; */
 
-    vbcprocessor = new VehiclePhoneClassifierProcessor();
+    vbcprocessor = new VehiclePhoneClassifierProcessor(0.0);
 }
 
 static Operation getOperation() {

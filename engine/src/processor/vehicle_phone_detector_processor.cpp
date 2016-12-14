@@ -13,13 +13,11 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehiclePhoneClassifierProcessor::VehiclePhoneClassifierProcessor()
-    : Processor() {
+VehiclePhoneClassifierProcessor::VehiclePhoneClassifierProcessor(float threshold)
+    : Processor(), threshold_(threshold) {
 
-    detector_ = AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_phoneCaffeSsdDetector);
-
-//    marker_target_min_ = mConfig.target_min_size;
-//    marker_target_max_ = mConfig.target_max_size;
+    detector_ =
+        AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_phoneCaffeSsdDetector);
 
 }
 VehiclePhoneClassifierProcessor::~VehiclePhoneClassifierProcessor() {
@@ -38,14 +36,20 @@ bool VehiclePhoneClassifierProcessor::process(FrameBatch *frameBatch) {
     detector_->BatchProcess(images_, preds);
 
     for (int i = 0; i < objs_.size(); i++) {
-        int value;
-        Vehicle *v = (Vehicle *) objs_[i];
-        Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
-        if (!vr) {
-            vr = new Vehicler(OBJECT_DRIVER);
-            v->set_vehicler(vr);
-        }
         if (preds[i].size() > 0) {
+            if (preds[i][0].second < threshold_) {
+                VLOG(VLOG_RUNTIME_DEBUG)
+                << "Phone detection confidence lower than threshold " << preds[i][0].second << ":" << threshold_
+                    << endl;
+                continue;
+            }
+
+            Vehicle *v = (Vehicle *) objs_[i];
+            Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
+            if (!vr) {
+                vr = new Vehicler(OBJECT_DRIVER);
+                v->set_vehicler(vr);
+            }
             vr->set_vehicler_attr(Vehicler::Phone, preds[i][0].second);
         }
 

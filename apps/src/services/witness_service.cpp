@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #include <fstream>
@@ -130,7 +130,7 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
                 break;
             case RECFUNC_FACE_DETECTOR:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
-                    op.Set(OPERATION_FACE_DETECTOR);
+                    op.Set(OPERATION_FACE_DETECT);
                 break;
             case RECFUNC_FACE_FEATURE_VECTOR:
                 if ((type == REC_TYPE_FACE) || (type == REC_TYPE_ALL) || (type == REC_TYPE_DEFAULT))
@@ -143,13 +143,16 @@ Operation WitnessAppsService::getOperation(const WitnessRequestContext &ctx) {
             case RECFUNC_VEHICLE_DRIVER_PHONE:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                     op.Set(OPERATION_DRIVER_PHONE);
-
                 break;
             case RECFUNC_VEHICLE_CODRIVER_NOBELT:
                 if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
                     op.Set(OPERATION_CODRIVER_BELT);
-
                 break;
+            case RECFUNC_NON_VEHICLE_ATTR:
+                if ((type == REC_TYPE_VEHICLE) || (type == REC_TYPE_ALL))
+                    op.Set(OPERATION_NON_VEHICLE_ATTR);
+                break;
+
             default:
                 break;
         }
@@ -371,7 +374,6 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
 
 MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle *vobj,
                                                              RecNonMotorVehicle *vrec) {
-
     MatrixError err;
     const Detection &d = vobj->detection();
     RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());

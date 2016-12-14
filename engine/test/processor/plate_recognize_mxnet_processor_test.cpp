@@ -15,7 +15,7 @@ static FileReader *resultReader;
 static PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *config;
 
 static void initConfig() {
-    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("config.json");
+    dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     config = new PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig();
     string baseModelPath;
 #ifdef UNENCRYPTMODEL
