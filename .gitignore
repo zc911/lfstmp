@@ -1,4 +1,5 @@
 lib/*
+include/matrix_util/*
 include/matrix_engine/*
 include/
 build/
@@ -25,3 +26,5 @@ engine/.project
 apps/.project
 .idea/Matrix.iml
 tools/*.json
+lib/matrix_engine
+lib/matrix_util
