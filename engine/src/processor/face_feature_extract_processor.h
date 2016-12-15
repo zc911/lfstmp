@@ -3,36 +3,65 @@
  * Author      : tongliu@deepglint.com
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
- * Created on  : 2016年4月21日 下午3:44:11
+ * Created on  : 2016年10月21日 下午3:44:11
  * Description :
  * ==========================================================================*/
 #ifndef FACE_FEATURE_EXTRACT_PROCESSOR_H_
 #define FACE_FEATURE_EXTRACT_PROCESSOR_H_
 
-//#include "alg/feature/face_feature_extractor.h"
+
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
-#include "algorithm_factory.h"
+#include "dgface/recognition.h"
+#include "dgface/cdnn_score.h"
 
 namespace dg {
 
+typedef struct {
+    bool is_model_encrypt = true;
+    int batch_size = 1;
+    string model_file;
+    string deploy_file;
+    string layer_name;
+    vector<float> mean;
+    float pixel_scale;
+    vector<int> face_size;
+    string pre_process;
+    bool use_GPU;
+    int gpu_id;
+    int method;
+    string model_dir;
+    string model_config;
+    bool islog = false;
+    bool concurrency = false;
+
+} FaceFeatureExtractorConfig;
 class FaceFeatureExtractProcessor: public Processor {
-public:
-	FaceFeatureExtractProcessor();
-	virtual ~FaceFeatureExtractProcessor();
+ public:
+    enum { CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4 };
 
-protected:
-	virtual bool process(Frame *frame);
-	virtual bool process(FrameBatch *frameBatch);
 
-	virtual bool RecordFeaturePerformance();
+    FaceFeatureExtractProcessor(
+        const FaceFeatureExtractorConfig &config);
+    virtual ~FaceFeatureExtractProcessor();
 
-	virtual bool beforeUpdate(FrameBatch *frameBatch);
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch);
 
-private:
-	dgvehicle::IFaceFeatureExtractor *extractor_ = NULL;
-	vector<Object *> to_processed_;
+    virtual bool RecordFeaturePerformance();
+
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
+    int toAlignmentImages(vector<Mat> &imgs, vector<DGFace::AlignResult> &align_results);
+    int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector<FaceRankFeature> &features);
+
+ private:
+    DGFace::Recognition *recognition_ = NULL;
+    vector<Object *> to_processed_;
+    string pre_process_;
+    int face_size_length_;
+    bool islog_;
 };
 
 } /* namespace dg */

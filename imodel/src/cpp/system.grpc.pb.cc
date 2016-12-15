@@ -18,7 +18,6 @@ namespace model {
 
 static const char* SystemService_method_names[] = {
   "/dg.model.SystemService/Ping",
-  "/dg.model.SystemService/Version",
   "/dg.model.SystemService/SystemStatus",
   "/dg.model.SystemService/GetInstances",
   "/dg.model.SystemService/ConfigEngine",
@@ -31,10 +30,9 @@ std::unique_ptr< SystemService::Stub> SystemService::NewStub(const std::shared_p
 
 SystemService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
   : channel_(channel), rpcmethod_Ping_(SystemService_method_names[0], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Version_(SystemService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SystemStatus_(SystemService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetInstances_(SystemService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ConfigEngine_(SystemService_method_names[4], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SystemStatus_(SystemService_method_names[1], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetInstances_(SystemService_method_names[2], ::grpc::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ConfigEngine_(SystemService_method_names[3], ::grpc::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status SystemService::Stub::Ping(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::dg::model::PingResponse* response) {
@@ -43,14 +41,6 @@ SystemService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& chan
 
 ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>* SystemService::Stub::AsyncPingRaw(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) {
   return new ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>(channel_.get(), cq, rpcmethod_Ping_, context, request);
-}
-
-::grpc::Status SystemService::Stub::Version(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::dg::model::VersionResponse* response) {
-  return ::grpc::BlockingUnaryCall(channel_.get(), rpcmethod_Version_, context, request, response);
-}
-
-::grpc::ClientAsyncResponseReader< ::dg::model::VersionResponse>* SystemService::Stub::AsyncVersionRaw(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::grpc::CompletionQueue* cq) {
-  return new ::grpc::ClientAsyncResponseReader< ::dg::model::VersionResponse>(channel_.get(), cq, rpcmethod_Version_, context, request);
 }
 
 ::grpc::Status SystemService::Stub::SystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::dg::model::SystemStatusResponse* response) {
@@ -87,20 +77,15 @@ SystemService::Service::Service() {
   AddMethod(new ::grpc::RpcServiceMethod(
       SystemService_method_names[1],
       ::grpc::RpcMethod::NORMAL_RPC,
-      new ::grpc::RpcMethodHandler< SystemService::Service, ::dg::model::VersionRequest, ::dg::model::VersionResponse>(
-          std::mem_fn(&SystemService::Service::Version), this)));
-  AddMethod(new ::grpc::RpcServiceMethod(
-      SystemService_method_names[2],
-      ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SystemService::Service, ::dg::model::SystemStatusRequest, ::dg::model::SystemStatusResponse>(
           std::mem_fn(&SystemService::Service::SystemStatus), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      SystemService_method_names[3],
+      SystemService_method_names[2],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SystemService::Service, ::dg::model::GetInstancesRequest, ::dg::model::InstanceConfigureResponse>(
           std::mem_fn(&SystemService::Service::GetInstances), this)));
   AddMethod(new ::grpc::RpcServiceMethod(
-      SystemService_method_names[4],
+      SystemService_method_names[3],
       ::grpc::RpcMethod::NORMAL_RPC,
       new ::grpc::RpcMethodHandler< SystemService::Service, ::dg::model::InstanceConfigureRequest, ::dg::model::InstanceConfigureResponse>(
           std::mem_fn(&SystemService::Service::ConfigEngine), this)));
@@ -110,13 +95,6 @@ SystemService::Service::~Service() {
 }
 
 ::grpc::Status SystemService::Service::Ping(::grpc::ServerContext* context, const ::dg::model::PingRequest* request, ::dg::model::PingResponse* response) {
-  (void) context;
-  (void) request;
-  (void) response;
-  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-}
-
-::grpc::Status SystemService::Service::Version(::grpc::ServerContext* context, const ::dg::model::VersionRequest* request, ::dg::model::VersionResponse* response) {
   (void) context;
   (void) request;
   (void) response;

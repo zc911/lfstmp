@@ -85,7 +85,7 @@ public:
 
     MatrixError Ping(const PingRequest *request, PingResponse *response);
 
-    MatrixError Version(const VersionRequest *request, VersionResponse *reponse);
+//    MatrixError Version(const VersionRequest *request, VersionResponse *reponse);
 
     MatrixError SystemStatus(const SystemStatusRequest *request,
                              SystemStatusResponse *response);

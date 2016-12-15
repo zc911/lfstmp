@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 #include <glog/logging.h>
 #include <opencv2/core/core.hpp>
 
@@ -23,7 +24,7 @@ const int CAR_FEATURE_ORB_COLS_MAX = 32;
 const int CAR_FEATURE_DES_MAX_SIZE = CAR_FEATURE_ORB_ROWS_MAX * CAR_FEATURE_ORB_COLS_MAX;
 
 class Score {
-public:
+ public:
     int index_;
     float score_;
 
@@ -51,13 +52,13 @@ public:
 };
 
 class RankFeature {
-public:
+ public:
     virtual string Serialize() const {
     };
     virtual bool Deserialize(string featureStr) {
     };
 
-protected:
+ protected:
     template<typename T>
     static void ConvertToByte(T value, vector<uchar> &data) {
         uchar *ptr = (uchar *) (&value);
@@ -74,7 +75,7 @@ protected:
 };
 
 class CarRankFeature final: public RankFeature {
-public:
+ public:
     ushort width_;
     ushort height_;
     cv::Mat descriptor_;
@@ -85,11 +86,32 @@ public:
 };
 
 class FaceRankFeature final: public RankFeature {
-public:
-    std::vector<float> descriptor_;
+ public:
+    string id_;
+    std::vector<float> feature_;
+    std::string name_;
+    std::map<string, std::set<string>> attributes_;
+    std::string image_uri_;
+    cv::Mat image_;
 
     virtual string Serialize() const override;
     virtual bool Deserialize(string featureStr) override;
+
+    friend ostream &operator<<(std::ostream &os, const FaceRankFeature &f) {
+        os << "ID: " << f.id_ << ", feature:" << f.feature_.size() << ", image uri: " << f.image_uri_
+            << ", attributes: {";
+        for (auto itr = f.attributes_.begin(); itr != f.attributes_.end(); ++itr) {
+            os << "\"" << itr->first << "\"" << ":" << "[";
+            for (auto itr2 = itr->second.begin(); itr2 != itr->second.end(); ++itr2) {
+                os << *itr2 << ",";
+            }
+            os << "]";
+
+        }
+        os << "}" << endl;
+        return os;
+
+    }
 };
 
 }

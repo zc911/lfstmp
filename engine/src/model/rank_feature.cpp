@@ -11,7 +11,6 @@
 #include <opencv2/core/core.hpp>
 #include "rank_feature.h"
 #include "codec/base64.h"
-
 using namespace cv;
 using namespace dg;
 
@@ -100,15 +99,16 @@ bool CarRankFeature::Deserialize(string featureStr) {
 }
 
 string FaceRankFeature::Serialize() const {
-    if (descriptor_.size() == 0) {
+    if (feature_.size() == 0) {
         return "";
     }
-    return Base64::Encode<float>(descriptor_);
+
+    return Base64::Encode<float>(feature_);
 }
 
 bool FaceRankFeature::Deserialize(string featureStr) {
-    descriptor_.clear();
-    Base64::Decode<float>(featureStr, descriptor_);
+    feature_.clear();
+    Base64::Decode<float>(featureStr, feature_);
     return true;
 }
 

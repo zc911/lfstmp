@@ -6,10 +6,123 @@ import "common.proto";
 import "localcommon.proto";
 
 service SimilarityService {
+
+
+
+    rpc RankImage (RankImageRequest) returns (RankImageResponse) {
+    }
+
+    rpc RankFeature (RankFeatureRequest) returns (RankFeatureResponse) {
+
+    }
+
+    rpc AddFeatures (AddFeaturesRequest) returns (AddFeaturesResponse) {
+
+    }
+
+    rpc GetImageContent (GetImageContentRequest) returns (GetImageContentResponse) {
+
+    }
+
+    rpc Search (SearchRequest) returns (SearchResponse) {
+
+    }
+
+
+    rpc RankRepoSize (RankRepoSizeRequest) returns (RankRepoSizeResponse){
+
+    }
+
+    // Deprecated
     rpc GetRankedVector (FeatureRankingRequest) returns (FeatureRankingResponse) {
     }
+
+
 }
 
+message RankRepoSizeRequest{
+}
+
+message RankRepoSizeResponse{
+    RankResponseContext Context = 1;
+    int32 Size = 2;
+    int32 Capacity = 3;
+}
+
+message RankRequestContext {
+    string SessionId = 1; //请求Session
+    string UserName = 2; //用户名信息，需要开启验证功能
+    string Token = 3; //Token验证，需要开启验证功能
+    RankType Type = 4; // Rank类型，车辆或人脸等
+    map<string, string> Params = 5; //扩展参数
+}
+
+message RankResponseContext {
+    string SessionId = 1; //响应Session，如果请求Session不存在，生成UUID，否则复制请求的Session
+    string Status = 2; //响应状态信息
+    string Message = 3; //状态为错误的响应错误信息
+    Time RequestTs = 4; //请求下发给Engine的时间
+    Time ResponseTs = 5; //从Engine读取内容的时间
+    map<string, Time> DebugTs = 6; //Debug用时
+}
+
+message RankFeatureRequest {
+    RankRequestContext Context = 1;
+    FeatureVector Feature = 2; //特征
+    int32 MaxCandidates = 3; // 比对输出条目限制（0为不限制）
+}
+
+message RankItem {
+    string Id = 1;
+    float Score = 2;
+    string Name = 3;
+    string URI = 4;
+    string Data = 5;
+    map<string, string> Attributes = 6;
+}
+
+message SearchRequest {
+    RankRequestContext Context = 1;
+    string Col = 2;
+    string Key = 3;
+}
+
+message SearchResponse {
+    RankResponseContext Context = 1;
+    repeated RankItem Results = 2;
+}
+
+message RankFeatureResponse {
+    RankResponseContext Context = 1;
+    repeated RankItem Candidates = 2;
+    //    repeated int64 Ids = 2; //比对返回的排序结果
+    //    repeated float Scores = 3; //比对返回的相关性分值
+}
+
+message RankImageRequest {
+    RankRequestContext Context = 1;
+    Image Image = 2; //待比对图片信息
+    repeated Cutboard InterestedAreas = 3; //比对设置的感兴趣区域
+    repeated FeatureVector Candidates = 4; //待比对的特征列表
+    int32 MaxCandidates = 5; //比对输出条目限制（0为不限制）
+}
+
+message RankImageResponse {
+    RankResponseContext Context = 1;
+    repeated RankItem Candidates = 2;
+    //    repeated int64 Ids = 2; //比对返回的排序结果
+    //    repeated float Scores = 3; //比对返回的相关性分值
+}
+
+message GetImageContentRequest {
+    string URI = 1;
+}
+
+message GetImageContentResponse {
+    string Data = 1;
+}
+
+// Deprecated
 message FeatureRankingRequest {
     int64 ReqId = 1; //请求的Id
     RecognizeType Type = 2; //
@@ -20,8 +133,23 @@ message FeatureRankingRequest {
     int32 Limit = 7; //比对输出条目限制（0为不限制）
 }
 
+// Deprecated
 message FeatureRankingResponse {
     int64 ReqId = 1; //比对返回的请求Id(对应请求的ReqId)
     repeated int64 Ids = 2; //比对返回的排序结果
     repeated float Scores = 3; //比对返回的相关性分值
+}
+
+message InfoAndFeature {
+    RankItem Info = 1;
+    FeatureVector Feature = 2;
+}
+
+message AddFeaturesRequest {
+    RankRequestContext Context = 1;
+    repeated InfoAndFeature Features = 2;
+}
+
+message AddFeaturesResponse {
+    RankResponseContext Context = 1;
 }

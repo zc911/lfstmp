@@ -51,6 +51,7 @@ private:
     virtual grpc::Status BatchRecognize(grpc::ServerContext *context,
                                         const WitnessBatchRequest *request,
                                         WitnessBatchResponse *response);
+
     //virtual grpc::Status Ping(grpc::ServerContext *context,const PingRequest *request,PingResponse *response);
     //  virtual grpc::Status SystemStatus(grpc::ServerContext *context,const SystemStatusRequest *request,SystemStatusResponse *response);
     WitnessAppsService *service_;
