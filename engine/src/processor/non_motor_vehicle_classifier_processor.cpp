@@ -33,6 +33,7 @@ bool NonMotorVehicleClassifierProcessor::process(FrameBatch *frameBatch) {
     }
 
     vector<vector<NonMotorAttribute> > results;
+
     nonMotorVehicleClassifier->BatchClassify(images_, results);
 
     for (size_t i = 0; i < objs_.size(); ++i) {
@@ -52,7 +53,7 @@ bool NonMotorVehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         nmVehicle->attrs().clear();
         nmVehicle->attrs() = attr_;
     }
-	return true;
+    return true;
 
 }
 

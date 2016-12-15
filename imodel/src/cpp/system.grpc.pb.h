@@ -35,10 +35,6 @@ class SystemService GRPC_FINAL {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::PingResponse>> AsyncPing(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::PingResponse>>(AsyncPingRaw(context, request, cq));
     }
-    virtual ::grpc::Status Version(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::dg::model::VersionResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::VersionResponse>> AsyncVersion(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::VersionResponse>>(AsyncVersionRaw(context, request, cq));
-    }
     virtual ::grpc::Status SystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::dg::model::SystemStatusResponse* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SystemStatusResponse>> AsyncSystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SystemStatusResponse>>(AsyncSystemStatusRaw(context, request, cq));
@@ -53,7 +49,6 @@ class SystemService GRPC_FINAL {
     }
   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::PingResponse>* AsyncPingRaw(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::VersionResponse>* AsyncVersionRaw(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::SystemStatusResponse>* AsyncSystemStatusRaw(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::InstanceConfigureResponse>* AsyncGetInstancesRaw(::grpc::ClientContext* context, const ::dg::model::GetInstancesRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::dg::model::InstanceConfigureResponse>* AsyncConfigEngineRaw(::grpc::ClientContext* context, const ::dg::model::InstanceConfigureRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -64,10 +59,6 @@ class SystemService GRPC_FINAL {
     ::grpc::Status Ping(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::dg::model::PingResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>> AsyncPing(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>>(AsyncPingRaw(context, request, cq));
-    }
-    ::grpc::Status Version(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::dg::model::VersionResponse* response) GRPC_OVERRIDE;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::VersionResponse>> AsyncVersion(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::VersionResponse>>(AsyncVersionRaw(context, request, cq));
     }
     ::grpc::Status SystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::dg::model::SystemStatusResponse* response) GRPC_OVERRIDE;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::dg::model::SystemStatusResponse>> AsyncSystemStatus(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) {
@@ -85,12 +76,10 @@ class SystemService GRPC_FINAL {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     ::grpc::ClientAsyncResponseReader< ::dg::model::PingResponse>* AsyncPingRaw(::grpc::ClientContext* context, const ::dg::model::PingRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
-    ::grpc::ClientAsyncResponseReader< ::dg::model::VersionResponse>* AsyncVersionRaw(::grpc::ClientContext* context, const ::dg::model::VersionRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::model::SystemStatusResponse>* AsyncSystemStatusRaw(::grpc::ClientContext* context, const ::dg::model::SystemStatusRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>* AsyncGetInstancesRaw(::grpc::ClientContext* context, const ::dg::model::GetInstancesRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     ::grpc::ClientAsyncResponseReader< ::dg::model::InstanceConfigureResponse>* AsyncConfigEngineRaw(::grpc::ClientContext* context, const ::dg::model::InstanceConfigureRequest& request, ::grpc::CompletionQueue* cq) GRPC_OVERRIDE;
     const ::grpc::RpcMethod rpcmethod_Ping_;
-    const ::grpc::RpcMethod rpcmethod_Version_;
     const ::grpc::RpcMethod rpcmethod_SystemStatus_;
     const ::grpc::RpcMethod rpcmethod_GetInstances_;
     const ::grpc::RpcMethod rpcmethod_ConfigEngine_;
@@ -102,7 +91,6 @@ class SystemService GRPC_FINAL {
     Service();
     virtual ~Service();
     virtual ::grpc::Status Ping(::grpc::ServerContext* context, const ::dg::model::PingRequest* request, ::dg::model::PingResponse* response);
-    virtual ::grpc::Status Version(::grpc::ServerContext* context, const ::dg::model::VersionRequest* request, ::dg::model::VersionResponse* response);
     virtual ::grpc::Status SystemStatus(::grpc::ServerContext* context, const ::dg::model::SystemStatusRequest* request, ::dg::model::SystemStatusResponse* response);
     virtual ::grpc::Status GetInstances(::grpc::ServerContext* context, const ::dg::model::GetInstancesRequest* request, ::dg::model::InstanceConfigureResponse* response);
     virtual ::grpc::Status ConfigEngine(::grpc::ServerContext* context, const ::dg::model::InstanceConfigureRequest* request, ::dg::model::InstanceConfigureResponse* response);
@@ -128,32 +116,12 @@ class SystemService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_Version : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
-   public:
-    WithAsyncMethod_Version() {
-      ::grpc::Service::MarkMethodAsync(1);
-    }
-    ~WithAsyncMethod_Version() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status Version(::grpc::ServerContext* context, const ::dg::model::VersionRequest* request, ::dg::model::VersionResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-    void RequestVersion(::grpc::ServerContext* context, ::dg::model::VersionRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::VersionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
-    }
-  };
-  template <class BaseClass>
   class WithAsyncMethod_SystemStatus : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_SystemStatus() {
-      ::grpc::Service::MarkMethodAsync(2);
+      ::grpc::Service::MarkMethodAsync(1);
     }
     ~WithAsyncMethod_SystemStatus() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -164,7 +132,7 @@ class SystemService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestSystemStatus(::grpc::ServerContext* context, ::dg::model::SystemStatusRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::SystemStatusResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -173,7 +141,7 @@ class SystemService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_GetInstances() {
-      ::grpc::Service::MarkMethodAsync(3);
+      ::grpc::Service::MarkMethodAsync(2);
     }
     ~WithAsyncMethod_GetInstances() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -184,7 +152,7 @@ class SystemService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetInstances(::grpc::ServerContext* context, ::dg::model::GetInstancesRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::InstanceConfigureResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -193,7 +161,7 @@ class SystemService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithAsyncMethod_ConfigEngine() {
-      ::grpc::Service::MarkMethodAsync(4);
+      ::grpc::Service::MarkMethodAsync(3);
     }
     ~WithAsyncMethod_ConfigEngine() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -204,10 +172,10 @@ class SystemService GRPC_FINAL {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestConfigEngine(::grpc::ServerContext* context, ::dg::model::InstanceConfigureRequest* request, ::grpc::ServerAsyncResponseWriter< ::dg::model::InstanceConfigureResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(4, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_Ping<WithAsyncMethod_Version<WithAsyncMethod_SystemStatus<WithAsyncMethod_GetInstances<WithAsyncMethod_ConfigEngine<Service > > > > > AsyncService;
+  typedef WithAsyncMethod_Ping<WithAsyncMethod_SystemStatus<WithAsyncMethod_GetInstances<WithAsyncMethod_ConfigEngine<Service > > > > AsyncService;
   template <class BaseClass>
   class WithGenericMethod_Ping : public BaseClass {
    private:
@@ -226,29 +194,12 @@ class SystemService GRPC_FINAL {
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_Version : public BaseClass {
-   private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
-   public:
-    WithGenericMethod_Version() {
-      ::grpc::Service::MarkMethodGeneric(1);
-    }
-    ~WithGenericMethod_Version() GRPC_OVERRIDE {
-      BaseClassMustBeDerivedFromService(this);
-    }
-    // disable synchronous version of this method
-    ::grpc::Status Version(::grpc::ServerContext* context, const ::dg::model::VersionRequest* request, ::dg::model::VersionResponse* response) GRPC_FINAL GRPC_OVERRIDE {
-      abort();
-      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
-    }
-  };
-  template <class BaseClass>
   class WithGenericMethod_SystemStatus : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_SystemStatus() {
-      ::grpc::Service::MarkMethodGeneric(2);
+      ::grpc::Service::MarkMethodGeneric(1);
     }
     ~WithGenericMethod_SystemStatus() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -265,7 +216,7 @@ class SystemService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_GetInstances() {
-      ::grpc::Service::MarkMethodGeneric(3);
+      ::grpc::Service::MarkMethodGeneric(2);
     }
     ~WithGenericMethod_GetInstances() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);
@@ -282,7 +233,7 @@ class SystemService GRPC_FINAL {
     void BaseClassMustBeDerivedFromService(const Service *service) {}
    public:
     WithGenericMethod_ConfigEngine() {
-      ::grpc::Service::MarkMethodGeneric(4);
+      ::grpc::Service::MarkMethodGeneric(3);
     }
     ~WithGenericMethod_ConfigEngine() GRPC_OVERRIDE {
       BaseClassMustBeDerivedFromService(this);

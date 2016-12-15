@@ -9,30 +9,31 @@
 #ifndef FACE_RANK_PROCESSOR_H_
 #define FACE_RANK_PROCESSOR_H_
 
-//#include "alg/feature/face_ranker.h"
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
-#include "algorithm_factory.h"
 
 namespace dg {
 
 class FaceRankProcessor: public Processor {
-public:
-	FaceRankProcessor();
-	virtual ~FaceRankProcessor();
-protected:
-	virtual bool process(Frame *frame);
-	virtual bool process(FrameBatch *frameBatch) {
-		return false;
-	}
-	virtual bool beforeUpdate(FrameBatch *frameBatch);
+ public:
+    FaceRankProcessor();
+    FaceRankProcessor(float alpha, float beta);
+    virtual ~FaceRankProcessor();
+ protected:
+    virtual bool process(Frame *frame);
+    virtual bool process(FrameBatch *frameBatch) {
+        return false;
+    }
+    virtual bool beforeUpdate(FrameBatch *frameBatch);
 
 
-	virtual bool RecordFeaturePerformance();
+    virtual bool RecordFeaturePerformance();
 
-private:
-	dgvehicle::IFaceRanker *ranker_ = NULL;
+ private:
+    float alpha_;
+    float beta_;
+
 };
 
 } /* namespace dg */

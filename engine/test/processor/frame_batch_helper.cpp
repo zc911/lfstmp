@@ -1,7 +1,6 @@
 #include <sstream>
 
 #include "frame_batch_helper.h"
-#include <opencv/highgui.h>
 
 using namespace dg;
 

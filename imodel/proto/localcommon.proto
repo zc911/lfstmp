@@ -1,11 +1,18 @@
 syntax = "proto3";
 
 package dg.model;
+
 enum RecognizeType {
     REC_TYPE_DEFAULT = 0;
     REC_TYPE_VEHICLE = 1;
     REC_TYPE_FACE = 2;
     REC_TYPE_ALL = 3;
+}
+
+enum RankType {
+    RANK_TYPE_DEFAULT = 0;
+    RANK_TYPE_VEHICLE = 1;
+    RANK_TYPE_FACE = 2;
 }
 
 enum RecognizeFunctions {
@@ -24,6 +31,8 @@ enum RecognizeFunctions {
     RECFUNC_FACE = 2;
     RECFUNC_FACE_DETECTOR = 20;
     RECFUNC_FACE_FEATURE_VECTOR = 21;
+    RECFUNC_FACE_ALIGNMENT = 22;
+    RECFUNC_FACE_QUALITY = 23;
     RECFUNC_PEDESTRIAN_ATTR = 3;
     RECFUNC_NON_VEHICLE_ATTR = 4;
 }

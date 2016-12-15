@@ -43,7 +43,7 @@ enum FrameStatusValue {
 /// which is the data will be computed and processed. The processed data
 /// will also be found from this class.
 class Frame {
-public:
+ public:
 
     Frame(const Identification id)
         : id_(id),
@@ -99,10 +99,20 @@ public:
     vector<Object *> &objects() {
         return objects_;
     }
-
+    void DeleteInvalidObjects() {
+        for (vector<Object *>::iterator itr = objects_.begin(); itr != objects_.end();) {
+            if ((*itr)->type() == OBJECT_FACE) {
+                if (!((Face *) (*itr))->IsValid()) {
+                    itr = objects_.erase(itr);
+                    continue;
+                }
+            }
+            itr++;
+        }
+    }
     void put_object(Object *obj) {
         for (vector<Object *>::iterator itr = objects_.begin();
-                itr != objects_.end(); ++itr) {
+             itr != objects_.end(); ++itr) {
             Object *old_obj = *itr;
 
             if (old_obj->id() == obj->id()) {
@@ -117,7 +127,7 @@ public:
 
     Object *get_object(Identification id) {
         for (vector<Object *>::iterator itr = objects_.begin();
-                itr != objects_.end(); ++itr) {
+             itr != objects_.end(); ++itr) {
             Object *obj = *itr;
             if (obj->id() == id) {
                 return *itr;
@@ -197,7 +207,7 @@ public:
         rois_.clear();
     }
 
-protected:
+ protected:
     Identification id_;
     Timestamp timestamp_;
     volatile FrameStatus status_;
@@ -209,16 +219,16 @@ protected:
 };
 
 class RenderableFrame: public Frame {
-public:
+ public:
     RenderableFrame();
     ~RenderableFrame();
-private:
+ private:
     cv::Mat render_data_;
 };
 
 // just derive the base class
 class FrameBatch {
-public:
+ public:
     FrameBatch(const Identification id)
         : id_(id), delegate_(true) {
 
@@ -277,18 +287,25 @@ public:
         return false;
     }
 
+    bool FilterInvalid() {
+        for (auto frame : frames_) {
+            frame->DeleteInvalidObjects();
+        }
+    }
+
+
     Identification id() {
         return id_;
     }
 
-private:
+ private:
     Identification id_;
     vector<Frame *> frames_;
     bool delegate_;
 };
 
 class CarRankFrame: public Frame {
-public:
+ public:
     CarRankFrame(Identification id, const Mat &image,
                  const vector<Rect> &hotspots,
                  const vector<CarRankFeature> &candidates)
@@ -305,24 +322,33 @@ public:
 };
 
 class FaceRankFrame: public Frame {
-public:
-    FaceRankFrame(Identification id, Mat &img,
-                  const vector<Rect> &hotspots,
-                  const vector<FaceRankFeature> &candidates)
-        : Frame(id, img),
-          hotspots_(hotspots),
-          candidates_(candidates) {
+ public:
+    FaceRankFrame(Identification id, const FaceRankFeature &feature) : Frame(id) {
+        datum_ = feature;
     }
 
     ~FaceRankFrame() {
     }
+
     void set_feature(FaceRankFeature feature) {
         datum_ = feature;
     }
-    vector<Rect> hotspots_;
-    vector<FaceRankFeature> candidates_;
+
+    unsigned int max_candidates_;
     vector<Score> result_;
     FaceRankFeature datum_;
+};
+
+class FeaturesFrame: public Frame {
+ public:
+    FeaturesFrame(Identification id) : Frame(id) {
+
+    }
+    void AddFeature(const FaceRankFeature &feature) {
+        features_.push_back(feature);
+    }
+
+    vector<FaceRankFeature> features_;
 };
 
 }

@@ -18,10 +18,12 @@
 #include "processor/car_feature_extract_processor.h"
 #include "processor/face_detect_processor.h"
 #include "processor/face_feature_extract_processor.h"
+#include "processor/face_quality_processor.h"
 #include "processor/pedestrian_classifier_processor.h"
 #include "processor/vehicle_phone_detector_processor.h"
 #include "processor/non_motor_vehicle_classifier_processor.h"
 #include "plate_recognize_mxnet_processor.h"
+#include "processor/face_alignment_processor.h"
 
 #include "model/alg_config.h"
 #include "config.h"
@@ -30,15 +32,25 @@
 namespace dg {
 class ConfigFilter {
 
-public:
+ public:
 
-  static ConfigFilter *GetInstance() {
-    if (!instance_)
-      instance_ = new ConfigFilter;
-    return instance_;
-  }
+    static ConfigFilter *GetInstance() {
+        if (!instance_)
+            instance_ = new ConfigFilter;
+        return instance_;
+    }
 
-  void createVehiclePlateConfig(const Config &cconfig,
+    void createFaceDetectorConfig(const Config &cconfig,
+                                  FaceDetectorConfig &config);
+    void createFaceQualityConfig(const Config &cconfig, FaceQualityConfig &fqConfig);
+
+    void createFaceAlignmentConfig(const Config &cconfig,
+                                   FaceAlignmentConfig &faConfig);
+
+    void createFaceExtractorConfig(const Config &cconfig,
+                                   FaceFeatureExtractorConfig &config);
+
+    void createVehiclePlateConfig(const Config &cconfig,
                                 PlateRecognizer::PlateConfig &pConfig);
   void createPlateMxnetConfig(const Config &cconfig, PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *pConfig);
 

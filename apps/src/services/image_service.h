@@ -4,7 +4,7 @@
  * Version     : 1.0.0.0
  * Copyright   : Copyright 2016 DeepGlint Inc.
  * Created on  : 04/15/2016
- * Description : 
+ * Description :
  * ==========================================================================*/
 
 #ifndef MATRIX_APPS_IMAGE_SERVICE_H_
@@ -35,6 +35,15 @@ class ImageService {
                                   vector<ROIImages> &imgMats,
                                   unsigned int timeout, bool concurrent = true);
     static MatrixError ParseImage(const Image &imgDes, ::cv::Mat &imgMat);
+    static void DecodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
+        if (data.size() >= 0) {
+            try {
+                imgMat = ::cv::imdecode(::cv::Mat(data), 1);
+            } catch (exception &e) {
+                LOG(WARNING) << "decode image failed: " << e.what() << endl;
+            }
+        }
+    }
 
  private:
     static MatrixError getImageFromUri(const std::string uri, ::cv::Mat &imgMat,
@@ -42,11 +51,11 @@ class ImageService {
     static MatrixError getImageFromData(const std::string &img64,
                                         ::cv::Mat &imgMat);
     static MatrixError getRelativeROIs(
-            ::google::protobuf::RepeatedPtrField<::dg::model::WitnessRelativeROI>,
-            std::vector<cv::Rect> &rois);
+        ::google::protobuf::RepeatedPtrField<::dg::model::WitnessRelativeROI>,
+        std::vector<cv::Rect> &rois);
     static MatrixError getMarginROIs(
-            ::google::protobuf::RepeatedPtrField<::dg::model::WitnessMarginROI>,
-            std::vector<cv::Rect> &rois, const cv::Mat &img);
+        ::google::protobuf::RepeatedPtrField<::dg::model::WitnessMarginROI>,
+        std::vector<cv::Rect> &rois, const cv::Mat &img);
     static ThreadPool *pool;
 };
 

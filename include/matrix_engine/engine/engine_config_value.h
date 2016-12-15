@@ -39,7 +39,12 @@ static const string FEATURE_FACE_ENABLE_DETECTION =
     "Feature/Face/EnableDetection";
 static const string FEATURE_FACE_ENABLE_FEATURE_VECTOR =
     "Feature/Face/EnableFeatureVector";
-
+static const string FEATURE_FACE_ENABLE_QUALITY =
+    "Feature/Face/EnableQuality";
+static const string FEATURE_FACE_ENABLE_ALIGNMENT =
+    "Feature/Face/EnableAlignment";
+static const string FEATURE_FACE_ENABLE_POSE =
+    "Feature/Face/EnablePose";
 static const string RANKER_DEFAULT_TYPE = "RankerType";
 
 static const string DEBUG_MODEL_ENCRYPT = "Debug/Encrypt";
@@ -92,13 +97,29 @@ static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
 
 static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
     "Advanced/FaceDetect/BatchSize";
+static const string ADVANCED_FACE_DETECT_METHOD = "Advanced/FaceDetect/Method";
 static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
+static const string ADVANCED_FACE_DETECT_MIN = "Advanced/FaceDetect/Min";
+static const string ADVANCED_FACE_DETECT_MAX = "Advanced/FaceDetect/Max";
+
 static const string ADVANCED_FACE_DETECT_CONFIDENCE =
     "Advanced/FaceDetect/Confidence";
 
 static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
     "Advanced/FaceExtract/BatchSize";
-
+static const string ADVANCED_FACE_EXTRACT_ALIGNMENT_FACESIZE =
+    "Advanced/FaceExtract/FaceSize";
+static const string ADVANCED_FACE_EXTRACT_PRE_PROCESS =
+    "Advanced/FaceExtract/PreProcess";
+static const string ADVANCED_FACE_EXTRACT_METHOD =
+    "Advanced/FaceExtract/Method";
+static const string ADVANCED_FACE_ALIGN_METHOD =
+    "Advanced/FaceExtract/AlignMethod";
+static const string ADVANCED_FACE_ALIGN_THRESHOLD =
+    "Advanced/FaceExtract/AlignThreshold";
+static const string ADVANCED_FACE_QUALITY_THRESHOLD =
+    "Advanced/FaceQuality/Threshold";
+static const string ADVANCED_FACE_ENABLE_CONCURRENCY = "Advanced/FaceExtract/EnableConcurrency";
 static const string ADVANCED_PLATE_LOCAL_PROVINCE =
     "Advanced/Plate/LocalProvince";
 static const string ADVANCED_PLATE_OCR = "Advanced/Plate/OCR";
@@ -182,14 +203,25 @@ static const string FILE_FACE_DETECT_DEPLOY_MODEL =
     "File/FaceDetect/DeployModel";
 
 static const string FILE_FACE_EXTRACT_MODEL_PATH = "File/FaceExtract/ModelPath";
+static const string FILE_FACE_EXTRACT_MODEL_DIR = "File/FaceExtract/ModelDir";
 static const string FILE_FACE_EXTRACT_TRAINED_MODEL =
     "File/FaceExtract/TrainedModel";
 static const string FILE_FACE_EXTRACT_DEPLOY_MODEL =
     "File/FaceExtract/DeployModel";
+
+static const string FILE_FACE_EXTRACT_MODEL_CONFIG =
+    "File/FaceExtract/ModelConfig";
+
+static const string FILE_FACE_EXTRACT_LAYERNAME = "File/FaceExtract/LayerName";
+static const string FILE_FACE_EXTRACT_MEAN = "File/FaceExtract/Mean";
+static const string FILE_FACE_EXTRACT_PIXEL_SCALE = "File/FaceExtract/PixelScale";
+
 static const string FILE_FACE_EXTRACT_ALIGN_MODEL =
     "File/FaceExtract/AlignModel";
 static const string FILE_FACE_EXTRACT_ALIGN_DEPLOY = "File/FaceExtract/AlignPic";
-
+static const string FILE_FACE_EXTRACT_ALIGN_CONFIG =
+    "File/FaceExtract/AlignConfig";
+static const string FILE_FACE_EXTRACT_ALIGN_PATH = "File/FaceExtract/AlignPath";
 static const string FILE_PLATE_MODEL_PATH = "File/Plate/ModelPath";
 static const string FILE_PLATE_FCN_SYMBOL = "File/Plate/FcnSymbol";
 static const string FILE_PLATE_FCN_PARAM = "File/Plate/FcnParam";
@@ -204,6 +236,7 @@ static const string FILE_PLATE_CHRECOG_PARAM = "File/Plate/ChrecogParam";
 static const string FILE_PLATE_COLOR_SYMBOL = "File/Plate/ColorSymbol";
 static const string FILE_PLATE_COLOR_PARAM = "File/Plate/ColorParam";
 
+
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
 static const string ADVANCED_PLATE_MXNET_IMGSW = "Advanced/PlateMxnet/ImgStandardWidth";
 static const string ADVANCED_PLATE_MXNET_IMGSH = "Advanced/PlateMxnet/ImgStandardHeight";
@@ -215,10 +248,17 @@ static const string ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE = "Advanced/PlateM
 static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT = "Advanced/PlateMxnet/LocalProvinceText";
 static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE = "Advanced/PlateMxnet/LocalProvinceConfidence";
 
+static const string ADVANCED_RANKER_REPO_PATH = "Advanced/Ranker/RepoPath";
+static const string ADVANCED_RANKER_IMAGE_ROOT_PATH = "Advanced/Ranker/ImageRootPath";
+static const string ADVANCED_RANKER_FEATURE_LENGTH = "Advanced/Ranker/FeatureLen";
 static const string ADVANCED_RANKER_MAXIMUM = "Advanced/Ranker/Maximum";
+static const string ADVANCED_RANKER_NORMALIZE_ALPHA = "Advanced/Ranker/NormalizeAlpha";
+static const string ADVANCED_RANKER_NORMALIZE_BETA = "Advanced/Ranker/NormalizeBeta";
+static const string ADVANCED_RANKER_NEED_SAVE_TO_FILE = "Advanced/Ranker/SaveToFile";
+static const string ADVANCED_RANKER_SAVE_TO_FILE_ITERVAL = "Advanced/Ranker/SaveToFileIterval";
+
 
 static const string DEBUG_VISUALIZATION = "Debug/Visualization";
-
 }
 
 #endif /* ENGINE_CONFIG_VALUE_H_ */

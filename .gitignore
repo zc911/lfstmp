@@ -1,3 +1,6 @@
+lib/*
+include/matrix_engine/*
+include/
 build/
 .idea/workspace.xml
 utils/dist/

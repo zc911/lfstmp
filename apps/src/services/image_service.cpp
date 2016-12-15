@@ -15,7 +15,6 @@
 #include "image_service.h"
 #include "codec/base64.h"
 #include "io/uri_reader.h"
-#include "fs_util.h"
 namespace dg {
 
 ThreadPool *ImageService::pool = new ThreadPool(8);
@@ -68,41 +67,41 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
 
     for (int i = 0; i < imgs.size(); ++i) {
       pool->enqueue(
-        [&roiimages, &finishCount, &countmt, &cv](WitnessImage & img,
-            int size,
-            unsigned int timeout,
-      int index) {
-        cv::Mat mat;
-        if (img.data().uri().size() > 0) {
-          getImageFromUri(img.data().uri(), mat, timeout);
-        } else if (img.data().bindata().size() > 0) {
-          getImageFromData(img.data().bindata(), mat);
-        }
+          [&roiimages, &finishCount, &countmt, &cv](WitnessImage &img,
+                                                    int size,
+                                                    unsigned int timeout,
+                                                    int index) {
+              cv::Mat mat;
+              if (img.data().uri().size() > 0) {
+                getImageFromUri(img.data().uri(), mat, timeout);
+              } else if (img.data().bindata().size() > 0) {
+                getImageFromData(img.data().bindata(), mat);
+              }
 
-        std::vector<cv::Rect> rois;
-        if (img.relativeroi().size() > 0) {
-          getRelativeROIs(img.relativeroi(), rois);
-        } else {
-          getMarginROIs(img.marginroi(), rois, mat);
-        }
+              std::vector<cv::Rect> rois;
+              if (img.relativeroi().size() > 0) {
+                getRelativeROIs(img.relativeroi(), rois);
+              } else {
+                getMarginROIs(img.marginroi(), rois, mat);
+              }
 
-        roiimages[index].data = mat;
-        roiimages[index].rois = rois;
+              roiimages[index].data = mat;
+              roiimages[index].rois = rois;
 
-        {
+              {
 
-          std::unique_lock<mutex> countlc(countmt);
-          ++finishCount;
+                std::unique_lock<mutex> countlc(countmt);
+                ++finishCount;
 
-        }
-        if (finishCount == size) {
-          {
-            cv.notify_all();
-          }
-        }
+              }
+              if (finishCount == size) {
+                {
+                  cv.notify_all();
+                }
+              }
 
-      },
-      imgs[i], imgs.size(), timeout / 2, i);
+          },
+          imgs[i], imgs.size(), timeout / 2, i);
 
     }
 
@@ -110,7 +109,7 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
       std::unique_lock<mutex> waitlc(countmt);
       if (cv.wait_for(waitlc,
                       std::chrono::seconds(timeout),
-      [&finishCount, &imgs]() { return finishCount == imgs.size(); })) {
+                      [&finishCount, &imgs]() { return finishCount == imgs.size(); })) {
         if (roiimages.size() != imgs.size()) {
           LOG(ERROR) << "Parsed images size not equals to input size" << std::endl;
           err.set_code(-1);
@@ -137,15 +136,14 @@ MatrixError ImageService::ParseImage(std::vector<WitnessImage> &imgs,
     return err;
   }
 
-
 }
 MatrixError ImageService::getRelativeROIs(
-  ::google::protobuf::RepeatedPtrField<::dg::model::WitnessRelativeROI> roisSrc,
-  std::vector<cv::Rect> &rois) {
+    ::google::protobuf::RepeatedPtrField<::dg::model::WitnessRelativeROI> roisSrc,
+    std::vector<cv::Rect> &rois) {
   MatrixError ok;
-  for (::google::protobuf::RepeatedPtrField <
-       ::dg::model::WitnessRelativeROI >::iterator it =
-         roisSrc.begin(); it != roisSrc.end(); ++it) {
+  for (::google::protobuf::RepeatedPtrField<
+      ::dg::model::WitnessRelativeROI>::iterator it =
+      roisSrc.begin(); it != roisSrc.end(); ++it) {
     cv::Rect rect(it->posx(), it->posy(), std::max(it->width(), 0),
                   std::max(0, it->height()));
     rois.push_back(rect);
@@ -154,13 +152,13 @@ MatrixError ImageService::getRelativeROIs(
   return ok;
 }
 MatrixError ImageService::getMarginROIs(
-  ::google::protobuf::RepeatedPtrField<::dg::model::WitnessMarginROI> roisSrc,
-  std::vector<cv::Rect> &rois, const cv::Mat &img) {
+    ::google::protobuf::RepeatedPtrField<::dg::model::WitnessMarginROI> roisSrc,
+    std::vector<cv::Rect> &rois, const cv::Mat &img) {
   MatrixError ok;
   int width = img.cols;
   int height = img.rows;
-  for (::google::protobuf::RepeatedPtrField <
-       ::dg::model::WitnessMarginROI >::iterator it = roisSrc.begin();
+  for (::google::protobuf::RepeatedPtrField<
+      ::dg::model::WitnessMarginROI>::iterator it = roisSrc.begin();
        it != roisSrc.end(); ++it) {
     Margin margin;
     margin.left = it->left();
@@ -177,22 +175,14 @@ MatrixError ImageService::getMarginROIs(
   return ok;
 
 }
-static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
-  if (data.size() >= 0) {
-    try {
-      imgMat = ::cv::imdecode(::cv::Mat(data), 1);
-    } catch (exception &e) {
-      LOG(WARNING) << "decode image failed: " << e.what() << endl;
-    }
-  }
-}
+
 
 MatrixError ImageService::getImageFromData(const string &img64,
-    ::cv::Mat &imgMat) {
+                                           ::cv::Mat &imgMat) {
   MatrixError ok;
   vector<uchar> bin;
   Base64::Decode(img64, bin);
-  decodeDataToMat(bin, imgMat);
+  DecodeDataToMat(bin, imgMat);
 
   if ((imgMat.rows & imgMat.cols) == 0) {
     LOG(WARNING) << "Image is empty from BASE64" << endl;
@@ -201,13 +191,13 @@ MatrixError ImageService::getImageFromData(const string &img64,
 }
 
 MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
-    unsigned int timeout) {
+                                          unsigned int timeout) {
   // whatever read, just return ok to let the batch proceed.
   MatrixError ok;
   vector<uchar> bin;
   int ret = UriReader::Read(uri, bin, timeout);
   if (ret == 0) {
-    decodeDataToMat(bin, imgMat);
+    DecodeDataToMat(bin, imgMat);
   } else {
     ok.set_code(-1);
     ok.set_message("Read image failed: " + uri);
