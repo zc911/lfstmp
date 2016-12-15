@@ -10,38 +10,23 @@
 
 #include "processor/processor.h"
 #include "processor_helper.h"
-#include "LPDetectRecog.hpp"
+#include "LPDR.hpp"
+
 namespace dg {
 class PlateRecognizeMxnetProcessor: public Processor {
 
 public:
     typedef struct {
-        string fcnnSymbolFile;
-        string fcnnParamFile;
-        string rpnSymbolFile;
-        string rpnParamFile;
-        string roipSymbolFile;
-        string roipParamFile;
-        string pregSymbolFile;
-        string pregParamFile;
-        string chrecogSymbolFile;
-        string chrecogParamFile;
-        string colorSymbolFile;
-        string colorParamFile;
-        int batchsize = 1;
-        bool is_model_encrypt = true;
+        string modelPath;
         int gpuId;
-        int imageSW;
-        int imageSH;
-        int numsPlates;
-        int plateSW;
-        int plateSH;
-        int numsProposal;
+        bool is_model_encrypt = true;
+        int batchsize = 1;
         bool enableLocalProvince;
         string localProvinceText;
         float localProvinceConfidence;
     } PlateRecognizeMxnetConfig;
-    PlateRecognizeMxnetProcessor(PlateRecognizeMxnetConfig *config);
+
+    PlateRecognizeMxnetProcessor(const PlateRecognizeMxnetConfig& config);
     virtual ~PlateRecognizeMxnetProcessor();
 protected:
     virtual bool process(Frame *frame);
@@ -53,9 +38,10 @@ protected:
 private:
     void vehiclesFilter(FrameBatch *frameBatch);
 
-    void setConfig(LPDRConfig_S *pstConfig);
-    PlateRecognizeMxnetConfig *config_ = NULL;
-    LPDR_HANDLE h_LPDR_Handle_ = 0;
+//    void setConfig(LPDRConfig_S *pstConfig);
+//    PlateRecognizeMxnetConfig *config_ = NULL;
+//    LPDR_HANDLE h_LPDR_Handle_ = 0;
+    dgLP::LPDR *pclsLPDR;
     vector<Object *> objs_;
     LPDR_ImageSet_S stImgSet_;
     vector<Mat> images_;

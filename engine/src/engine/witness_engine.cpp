@@ -12,6 +12,9 @@
 #include "processor/vehicle_window_detector_processor.h"
 #include "processor/face_quality_processor.h"
 #include "processor/face_alignment_processor.h"
+#include "processor/plate_recognize_mxnet_processor.h"
+#include "processor/pedestrian_classifier_processor.h"
+#include "processor/vehicle_phone_detector_processor.h"
 #include "processor/config_filter.h"
 #include "debug_util.h"
 #include "algorithm_factory.h"
@@ -24,7 +27,6 @@ WitnessEngine::WitnessEngine(const Config &config) {
     face_processor_ = NULL;
     is_init_ = false;
     init(config);
-
 }
 
 WitnessEngine::~WitnessEngine() {
@@ -243,16 +245,14 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
         bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
-
         Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
-
         vehicle_processor_ = p;
         last = p;
 
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-            Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, false);
+            p = new VehicleMultiTypeDetectorProcessor(car_only, false);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -261,9 +261,9 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO) << "Enable plate detection processor." << endl;
 
             PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig pConfig;
-            configFilter->createPlateMxnetConfig(config, &pConfig);
+            configFilter->createPlateMxnetConfig(config, pConfig);
 
-            Processor *p = new PlateRecognizeMxnetProcessor(&pConfig);
+            p = new PlateRecognizeMxnetProcessor(pConfig);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -272,7 +272,7 @@ void WitnessEngine::init(const Config &config) {
             LOG(INFO) << "Enable vehicle type classification processor." << endl;
 
             string mappingFilePath = (string) config.Value("Render/Vehicle/Model");
-            Processor *p = new VehicleClassifierProcessor(mappingFilePath);
+            p = new VehicleClassifierProcessor(mappingFilePath);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -280,7 +280,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
 
-            Processor *p = new VehicleColorProcessor();
+            p = new VehicleColorProcessor();
             last->SetNextProcessor(p);
             last = p;
         }
@@ -310,7 +310,7 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_marker_) {
             LOG(INFO) << "Enable vehicle marker processor." << endl;
-            Processor *p = new VehicleMarkerClassifierProcessor(false);
+            p = new VehicleMarkerClassifierProcessor(false);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -337,21 +337,21 @@ void WitnessEngine::init(const Config &config) {
         }
         if (enable_vehicle_feature_vector_) {
             LOG(INFO) << "Enable vehicle feature vector processor." << endl;
-            Processor *p = new CarFeatureExtractProcessor();
+            p = new CarFeatureExtractProcessor();
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_vehicle_pedestrian_attr_) {
             LOG(INFO) << "Enable vehicle pedestrian attr processor." << endl;
-            Processor *p = new PedestrianClassifierProcessor();
+            p = new PedestrianClassifierProcessor();
             last->SetNextProcessor(p);
             last = p;
         }
 
         if (enable_non_motor_vehicle_) {
             LOG(INFO) << "Enable non-motor vehicle attribute processor" << endl;
-            Processor *p = new NonMotorVehicleClassifierProcessor();
+            p = new NonMotorVehicleClassifierProcessor();
             last->SetNextProcessor(p);
             last = p;
         }
