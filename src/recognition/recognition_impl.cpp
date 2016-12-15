@@ -413,11 +413,11 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
     vis::initcaffeglobal(argc, argv, gpu_id);
 
 	string cfg_file;
-	addNameToPath(model_dir, "/recog_cdnn_caffe.json", cfg_file);
+	addNameToPath(model_dir, "/recog_cdnn_caffe.cfg", cfg_file);
 	string cfg_content;
 	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
 	if(ret != 0) {
-		cerr << "can't decrypt the recog_cdnn_caffe.json" << endl;
+		cerr << "can't decrypt the recog_cdnn_caffe.cfg" << endl;
 		return;
 	}
 	

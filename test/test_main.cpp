@@ -82,10 +82,11 @@ int main(int argc, char const *argv[])
     vector<string> names;
     load_names(name_txt, names);
 
-    Detector  *detector 		= create_detector(det_method::FCN, "models/detetor_0.1.0", 0);
-	Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
-	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
-	Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
+    // Detector  *detector 		= create_detector(det_method::FCN, "models/detetor_0.1.0", 0);
+    Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
+	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
+	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
 	// Verification *verification 	= create_verifier(verif_method::EUCLID);
 
 	vector<RecogResult> recognitions(names.size());
@@ -113,12 +114,14 @@ int main(int argc, char const *argv[])
 	    detector->detect(imgs, detect_result);
         if(detect_result[0].boundingBox.size() == 0){
             not_det << names[i] << endl;
+			cout << names[i] << endl;
             continue;
         }
 
 	   
 
         cout << "detect " << detect_result[0].boundingBox.size() << "faces" << endl;
+		/*
 		vector<RecogResult> one_img_recog(detect_result[0].boundingBox.size());
 	    for(size_t det = 0; det < detect_result[0].boundingBox.size(); ++det) {
 
@@ -168,18 +171,20 @@ int main(int argc, char const *argv[])
 			one_img_recog[det] = recog_result[0];
 		    cout << "Recognized!" <<endl;
 	    }
+		*/
 
         int pos = names[i].rfind("/");
         string des = names[i].substr(pos + 1, names[i].length() - 4);
 		string draw_name0 = des + "_det_test_draw_" + to_string(i) + ".png";
-		// imwrite(draw_name0, img_draw);
-		if(!fea_dir.empty()) {
-			bool save_ret = saveFeature(fea_dir + des + ".fea", one_img_recog);
-			if(save_ret == false) {
-				cout << "can't save feature" << endl;
-				return -1;
-			}
-		}
+		drawDetectionResult(img_draw, detect_result[0], true);
+		imwrite(draw_name0, img_draw);
+		// if(!fea_dir.empty()) {
+		// 	bool save_ret = saveFeature(fea_dir + des + ".fea", one_img_recog);
+		// 	if(save_ret == false) {
+		// 		cout << "can't save feature" << endl;
+		// 		return -1;
+		// 	}
+		// }
 		
 	    
     }
