@@ -16,19 +16,6 @@ static FileReader *resultReader;
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
- /*   PedestrianClassifier::PedestrianConfig config;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    config.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    config.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-    config.deploy_file = baseModelPath + "1000.txt";
-    config.model_file = baseModelPath + "1000.dat";
-    config.tag_name_path = baseModelPath + "pedestrian_attribute_tagnames.txt";
-    config.layer_name = "loss3/classifier_personattrib_47"; */
     pcprocessor = new PedestrianClassifierProcessor();
 }
 
@@ -104,9 +91,9 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
     head->process(fb);
 
 #ifdef UNENCRYPTMODEL
-    FileReader mapping("data/0/pedestrian_attribute_tagnames.txt");
+    FileReader mapping("data/dgvehicle/model/classifier/Pedestrian/pedestrian_attribute_tagnames.txt");
 #else
-    FileReader mapping("data/1/pedestrian_attribute_tagnames.txt");
+    FileReader mapping("data/dgvehicle/encryptModel/classifier/Pedestrian/pedestrian_attribute_tagnames.txt");
 #endif
 
     EXPECT_TRUE(mapping.is_open());

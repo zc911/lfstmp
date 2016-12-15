@@ -3,8 +3,8 @@
         "Code": "1.0.0", 
         "Model": "1.9"
     },
-    "ProtocolType": "restful",
-   //   "ProtocolType": "rpc|restful",
+//    "ProtocolType": "restful",
+    "ProtocolType": "rpc|restful",
     "InstanceType": "witness",
    // "InstanceType" : "ranker",
     "System": {
@@ -19,7 +19,8 @@
         "TimeOut":100
     },
     "ModelPath": {
-        "dgvehicle":"data/dgvehicle"
+        "dgvehicle":"data/dgvehicle",
+        "dgLP":"data/dgLP"
     },
     "Feature": {
         "Vehicle": {
@@ -52,14 +53,6 @@
             "CarOnly": false,
             "BatchSize": 1
         },
-        "Color": {
-            "BatchSize": 1,
-            "ModelNum": 1
-        },
-        "Style": {
-            "BatchSize": 1,
-            "ModelNum": 1
-        },
         "Plate": {
             "LocalProvince": "",
             "OCR": 1,
@@ -77,57 +70,18 @@
             "PlateNums": 4, 
             "PlateStandardHeight": 150, 
             "PlateStandardWidth": 250
-        }, 
-        "Marker": {
-            "MOTConfidence": 0.6,
-            "BeltConfidence": 0.8,
-            "GlobalConfidence": 0.8,
-            "AccessoriesConfidence": 0.8,
-            "OthersConfidence": 0.8,
-            "TissueBoxConfidence": 0.8,
-            "SunVisorConfidence": 0.8,
-            "BatchSize": 2
         },
+        "DriverPhone":{
+            "Threshold": 0.0
+         },
         "DriverBelt": {
-            "BatchSize": 2
+            "Threshold": 0.0
         },
         "CoDriverBelt": {
-            "BatchSize": 2
-        },
-        "DriverPhone": {
-            "BatchSize": 2
-        },
-        "Window": {
-            "BatchSize": 1
-        },
-        "FaceDetect": {
-            "BatchSize": 1,
-            "Confidence": 0.7,
-            "BodyRelativeFaceLeft": 0.2,
-            "BodyRelativeFaceRight": 0.2,
-            "BodyRelativeFaceTop": 0.2,
-            "BodyRelativeFaceBottom": 6.0,
-            "Scale": 640
-        },
-        "FaceExtract": {
-            "BatchSize": 1
+            "Threshold": 0.0
         },
         "Ranker": {
             "Maximum": 100000
-        },
-        "PersonReid": {
-            "BatchSize": 1,
-            "InputWidth":20,
-            "InputHeight":20,
-            "CropWidth":20,
-            "CropHeight":10
-        },
-        "CarReid": {
-            "BatchSize": 1,
-            "InputWidth":20,
-            "InputHeight":20,
-            "CropWidth":20,
-            "CropHeight":10
         },
         "ParseImageTimeout": 60
     },
