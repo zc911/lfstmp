@@ -14,6 +14,7 @@
 #include "dgface/recognition/recog_cdnn_caffe.h"
 #include "dgface/recognition/recog_fuse.h"
 #include "processor_helper.h"
+
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
@@ -67,6 +68,9 @@ int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGF
         return -1;
     }
 
+    imgs.clear();
+    align_results.clear();
+
     for (auto itr = to_processed_.begin(); itr != to_processed_.end(); ++itr) {
         Face *face = (Face *) (*itr);
         // no alignment result
@@ -77,6 +81,8 @@ int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGF
         align_results.push_back(face->get_align_result());
         imgs.push_back(face->get_align_result().face_image.clone());
     }
+
+    return 1;
 
 }
 static void draw_landmarks(Mat &img, const DGFace::AlignResult &align_result) {
@@ -100,7 +106,8 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<Mat> align_imgs;
     vector<DGFace::AlignResult> align_results;
 
-    toAlignmentImages(align_imgs, align_results);
+    if(toAlignmentImages(align_imgs, align_results) != 1)
+        return false;
 
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;

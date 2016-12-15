@@ -546,3 +546,5 @@ data/dgvehicle/model/feature/FaceExtractor/AlignModel.dat filter=lfs diff=lfs me
 data/dgvehicle/model/feature/FaceExtractor/config.json filter=lfs diff=lfs merge=lfs -text
 data/dgvehicle/model/feature/FaceExtractor/DetectDeploy.txt filter=lfs diff=lfs merge=lfs -text
 data/dgvehicle/model/feature/FaceExtractor/DetectModel.dat filter=lfs diff=lfs merge=lfs -text
+data/0/recognition_0.4.1/recognition_0.3.3/recognition_0.3.3.d filter=lfs diff=lfs merge=lfs -text
+data/0/recognition_0.4.1/recognition_0.3.3/recognition_0.3.3.d$ filter=lfs diff=lfs merge=lfs -text

@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b37dc6ac7f1fd579eaafc10a7ea216a717d17d71c27f55445b86d98b4dee1741
-size 62
+picture_id,number_of_face
+0,1
+1,1
+2,1
+3,1
+4,1
+5,1
+6,1
+7,0
+8,0
