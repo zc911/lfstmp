@@ -202,7 +202,7 @@ void WitnessEngine::recordPerformance() {
 
 void WitnessEngine::init(const Config &config) {
 
-    int gpu_id = (bool) config.Value(SYSTEM_GPUID);
+    int gpu_id = (int) config.Value(SYSTEM_GPUID);
     bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
     string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
