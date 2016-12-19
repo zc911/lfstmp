@@ -46,12 +46,11 @@ LINK_DIRECTORIES(${LIBSDIR} ${CONAN_LIB_DIRS})
 
 OPTION(ENABLE_CUDA "" ON)
 FIND_PACKAGE(CUDA REQUIRED)
+SET(CUDA_INCLUDE_DIRS ${CONAN_INCLUDE_DIRS_CUDART})
 FIND_PACKAGE(Boost COMPONENTS regex system filesystem coroutine context REQUIRED)
-
 FIND_LIBRARY(LIB_MATRIX_UTILS NAMES matrix_util PATHS ${LIBS_PATH}/matrix_util/${PLATFORM})
 FIND_LIBRARY(LIB_MATRIX matrix PATHS ${LIBS_PATH}/matrix_engine/${PLATFORM})
 FIND_LIBRARY(LIB_MATRIX_CUDA matrix_cuda PATHS ${LIBS_PATH}/matrix_engine/${PLATFORM})
-FIND_LIBRARY(LIB_CUDART NAMES cudart PATHS "/usr/local/cuda/lib64")
 
 LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_PBJSON}
@@ -76,6 +75,10 @@ LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_DGCAFFE}
         ${CONAN_LIBS_CUDART})
 
+get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+foreach(dir ${dirs})
+    message(STATUS "dir='${dir}'")
+endforeach()
 
 LIST(APPEND LIBS cblas boost_regex ${Boost_LIBRARIES}
         glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
