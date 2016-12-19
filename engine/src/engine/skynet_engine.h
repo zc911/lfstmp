@@ -12,13 +12,10 @@
 #include "io/stream_tube.h"
 #include "io/ringbuffer.h"
 #include "vis/display.h"
-//#include "alg/detector/detector.h"
 #include "processor/processor.h"
-#include "processor/config_filter.h"
 #include "processor/vehicle_multi_type_detector_processor.h"
 #include "processor/parallel/parallel_node.h"
 #include "processor/parallel/basic_parallel_processor.h"
-#include "model/alg_config.h"
 #include "algorithm_factory.h"
 #include "engine_config_value.h"
 
@@ -73,11 +70,6 @@ private:
         string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
         dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
-        ConfigFilter *configFilter = ConfigFilter::GetInstance();
-        configFilter->initDataConfig(config);
-      //  VehicleCaffeDetectorConfig dConfig;
-      //  string dataPath = (string) config.Value("DataPath");
-     //   configFilter->createVehicleCaffeDetectorConfig(config, dConfig);
         bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
         processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
 
