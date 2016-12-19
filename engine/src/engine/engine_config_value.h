@@ -16,6 +16,7 @@ namespace dg {
 
 static const string SYSTEM_GPUID = "System/GpuId";
 static const string DGVEHICLE_MODEL_PATH = "ModelPath/dgvehicle";
+static const string DGLP_MODEL_PATH = "ModelPath/dgLP";
 
 // feature/vehicle
 static const string FEATURE_VEHICLE_ENABLE = "Feature/Vehicle/Enable";
