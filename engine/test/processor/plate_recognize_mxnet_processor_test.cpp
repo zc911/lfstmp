@@ -17,42 +17,19 @@ static PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig *config;
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     config = new PlateRecognizeMxnetProcessor::PlateRecognizeMxnetConfig();
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    config->is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    config->is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-    config->fcnnSymbolFile = baseModelPath + "802.txt";
-    config->fcnnParamFile = baseModelPath + "802.dat";
-    config->pregSymbolFile = baseModelPath + "803.txt";
-    config->pregParamFile = baseModelPath + "803.dat";
-    config->chrecogSymbolFile = baseModelPath + "800.txt";
-    config->chrecogParamFile = baseModelPath + "800.dat";
-    config->roipSymbolFile = baseModelPath + "804.txt";
-    config->roipParamFile = baseModelPath + "804.dat";
-    config->rpnSymbolFile = baseModelPath + "805.txt";
-    config->rpnParamFile = baseModelPath + "805.dat";
-    config->colorSymbolFile = baseModelPath + "801.txt";
-    config->colorParamFile = baseModelPath + "801.dat";
 
+    config->is_model_encrypt = false;
     config->gpuId = 0;
-    config->imageSH = 600;
-    config->imageSW = 400;
-    config->numsPlates = 4;
-    config->numsProposal = 20;
-    config->plateSH = 150;
-    config->plateSW = 250;
     config->enableLocalProvince = true;
     config->localProvinceText = "\u4eac";
     config->localProvinceConfidence = 0;
+    config->modelPath = "data/dgLP";
+    config->batchsize = 1;
 }
 
 static void init() {
     initConfig();
-    prmprocessor = new PlateRecognizeMxnetProcessor(config);
+    prmprocessor = new PlateRecognizeMxnetProcessor(*config);
     resultReader = NULL;
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
@@ -138,10 +115,10 @@ TEST(PlateRecognizeMxnetTest, plateRecognizeTest) {
 
 TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
     initConfig();
-    config->imageSH = 1080;//600;
-    config->imageSW = 1920;//400;
-    config->numsPlates = 10;//2;
-    prmprocessor = new PlateRecognizeMxnetProcessor(config);
+//    config->imageSH = 1080;//600;
+//    config->imageSW = 1920;//400;
+//    config->numsPlates = 10;//2;
+    prmprocessor = new PlateRecognizeMxnetProcessor(*config);
     fbhelper = new FrameBatchHelper(1);
     fbhelper->setBasePath("data/testimg/plateRecognize/recognize/");
     fbhelper->readImage(getOperation());
