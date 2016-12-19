@@ -400,6 +400,8 @@ int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, st
 	for(int i = 0; i < mean_vec_size; ++i) {
 		_pixel_means[i] = static_cast<float>(ssd_cfg.Value("mean" + to_string(i)));
 	}
+
+	_bbox_shrink = static_cast<bool>(ssd_cfg.Value("bbox_shrink"));
 }
 
 SSDDetector::SSDDetector(int   img_scale_max,
@@ -473,7 +475,7 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
        
         resized_imgs[idx] = resized_img;
         scale_ratios[idx] = resize_ratio;
-        // cout << "ratio = " << resize_ratio << "w = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
+        // cout << "ratio = " << resize_ratio << "\tw = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
     }
 
     // Add black edge to support batch process for images with different sizes 
@@ -594,16 +596,18 @@ void SSDDetector::detect_impl_kernel(const vector< cv::Mat > &imgs, vector<Detec
             // adjust the bounding box
 
             auto adjust_box = bbox.second;
-            adjust_box=adjust_box&Rect(1,1,imgs[img_id].cols-1,imgs[img_id].rows-1);
+			if(_bbox_shrink) {
+				adjust_box=adjust_box&Rect(1,1,imgs[img_id].cols-1,imgs[img_id].rows-1);
 
-            float a_dist = bbox.second.height * 0.40;
+				float a_dist = bbox.second.height * 0.40;
 
-            adjust_box.y += a_dist;
-            adjust_box.height -= a_dist;
+				adjust_box.y += a_dist;
+				adjust_box.height -= a_dist;
 
-            a_dist = bbox.second.width * 0.1; 
-            adjust_box.x += a_dist;
-            adjust_box.width -= a_dist*2;
+				a_dist = bbox.second.width * 0.1; 
+				adjust_box.x += a_dist;
+				adjust_box.width -= a_dist*2;
+			}
 
 			RotatedBbox rot_bbox;
 			Point2f box_center(adjust_box.x + adjust_box.width * 0.5, adjust_box.y + adjust_box.height * 0.5);
