@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <chrono>
 
 #include <opencv2/opencv.hpp>
 
@@ -82,8 +83,8 @@ int main(int argc, char const *argv[])
     vector<string> names;
     load_names(name_txt, names);
 
-    // Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
-    Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+    Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
+    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
 	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
 	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
 	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
@@ -93,7 +94,7 @@ int main(int argc, char const *argv[])
     ofstream not_det("not_det.log");
     // clock_t start, finish;
     // double duration = 0;
-
+	auto time_start = chrono::high_resolution_clock::now();
     for (size_t i = 0; i < names.size(); ++i)
     //for (size_t i = 0; i < 1; ++i)
     {
@@ -188,6 +189,10 @@ int main(int argc, char const *argv[])
 		
 	    
     }
+    auto time_finish = chrono::high_resolution_clock::now();
+    chrono::duration<double> time_span = chrono::duration_cast<chrono::duration<double> >(time_finish - time_start);
+    cout << "average time : " << time_span.count()/names.size() << " seconds." << endl;
+
     not_det.close();
 
     

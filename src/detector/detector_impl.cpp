@@ -662,7 +662,9 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
 
 FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, 
 						int gpu_id, bool is_encrypt, int batch_size)
-                : Detector(img_scale_max, img_scale_min, is_encrypt) {
+                : Detector(img_scale_max, img_scale_min, is_encrypt),
+					_min_det_face_size(24), _max_det_face_size(-1), 
+					_min_scale_face_to_img(0.1) {
 
     int argc = 1;
     char* argv[] = {""};
@@ -704,6 +706,10 @@ void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& 
 
 	deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
 	model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
+
+	_min_det_face_size = static_cast<int>(fcn_cfg.Value("min_det_face_size"));
+	_max_det_face_size = static_cast<int>(fcn_cfg.Value("max_det_face_size"));
+	_min_scale_face_to_img = static_cast<float>(fcn_cfg.Value("min_scale_face_to_img"));
 }
 
 FcnDetector::~FcnDetector() {
@@ -747,7 +753,9 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
         vector<DetectedFaceInfo> detectInfos;
 
         // detect
-        _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
+        // _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
+        _fcn_detecror->Detect(&ipl_img, _param, detectInfos, 
+						_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
 
         // convert results
         for (size_t result_idx = 0; result_idx < detectInfos.size(); ++result_idx) {
