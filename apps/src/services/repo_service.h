@@ -37,6 +37,8 @@ class RepoService {
                          IndexTxtResponse *response);
 
     MatrixError FillModel(const Vehicle &vobj, RecVehicle *vrec);
+    MatrixError FillModel(NonMotorVehicle &vobj,
+                          RecNonMotorVehicle *vrec);
     MatrixError FillColor(const Vehicle::Color &color, Color *rcolor);
     MatrixError FillPlates(const vector<Vehicle::Plate> &plate, RecVehicle *vrec);
     MatrixError FillPassengers(const vector<Object *> &plate, RecVehicle *vrec);
