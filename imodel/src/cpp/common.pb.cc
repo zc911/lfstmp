@@ -96,7 +96,6 @@ const ::google::protobuf::EnumDescriptor* DataFmtType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* SexType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* NationalType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* AgeType_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* NonMotorVehicleGesture_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* DBType_descriptor_ = NULL;
 
@@ -540,9 +539,8 @@ void protobuf_AssignDesc_common_2eproto() {
   SexType_descriptor_ = file->enum_type(2);
   NationalType_descriptor_ = file->enum_type(3);
   AgeType_descriptor_ = file->enum_type(4);
-  NonMotorVehicleType_descriptor_ = file->enum_type(5);
-  NonMotorVehicleGesture_descriptor_ = file->enum_type(6);
-  DBType_descriptor_ = file->enum_type(7);
+  NonMotorVehicleGesture_descriptor_ = file->enum_type(5);
+  DBType_descriptor_ = file->enum_type(6);
 }
 
 namespace {
@@ -697,77 +695,72 @@ void protobuf_AddDesc_common_2eproto() {
     "(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model.ObjTy"
     "pe\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Plates\030\n "
     "\003(\0132\026.dg.model.LicensePlate\022\'\n\nPassenger"
-    "s\030\013 \003(\0132\023.dg.model.Passenger\"\305\003\n\022RecNonM"
-    "otorVehicle\022\n\n\002Id\030\001 \001(\003\0224\n\rNMVehicleType"
-    "\030\002 \001(\0162\035.dg.model.NonMotorVehicleType\022\031\n"
-    "\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img\030\004 \001(\0132\027."
-    "dg.model.CutboardImage\022:\n\020NMVehicleGestu"
-    "re\030\005 \001(\0162 .dg.model.NonMotorVehicleGestu"
-    "re\022B\n\tPassenger\030\006 \003(\0132/.dg.model.RecNonM"
-    "otorVehicle.NonMotorPedestrian\022/\n\tNMVehi"
-    "cle\030\007 \003(\0132\034.dg.model.CategoryAndFeature\032"
-    "{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001(\003\022(\n\003Sex"
-    "\030\002 \001(\0132\033.dg.model.NameAndConfidence\022/\n\tA"
-    "ttribute\030\003 \003(\0132\034.dg.model.CategoryAndFea"
-    "ture\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+\n\rPasseng"
-    "erAttr\030\002 \001(\0132\024.dg.model.PeopleAttr\022\037\n\004Fa"
-    "ce\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006Driver\030\004 "
-    "\001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001(\003\022$\n\003Img"
-    "\030\002 \001(\0132\027.dg.model.CutboardImage\022\022\n\nConfi"
-    "dence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132\024.dg.mode"
-    "l.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg.model.Re"
-    "cFace\"\335\001\n\020VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017"
-    "\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013M"
-    "odelYearId\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004"
-    "Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 "
-    "\001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r"
-    "\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014Licens"
-    "ePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\013"
-    "2\017.dg.model.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010Typ"
-    "eName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutbo"
-    "ard\030\006 \001(\0132\022.dg.model.Cutboard\022\037\n\027LocalPr"
-    "ovinceConfidence\030\007 \001(\002\"X\n\rVehicleSymbol\022"
-    "\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n"
-    "\007Symbols\030\003 \003(\0132\020.dg.model.Symbol\"B\n\006Symb"
-    "ol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboard"
-    "\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n"
-    "\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model."
-    "DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Me"
-    "tadata\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003I"
-    "mg\030\002 \001(\0132\017.dg.model.Image\022%\n\007Vehicle\030\003 \003"
-    "(\0132\024.dg.model.RecVehicle\"\203\001\n\rPedestrianO"
-    "bj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMetad"
-    "ata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022+\n\nPed"
-    "estrian\030\003 \003(\0132\027.dg.model.RecPedestrian*\303"
-    "\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_"
-    "TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021OBJ_"
-    "TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\004"
-    "\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE"
-    "_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020"
-    "\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_T"
-    "YPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FAC"
-    "E_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBOARD"
-    "\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOARD\020\201 \022\037\n\032O"
-    "BJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_TYPE"
-    "_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_FACE"
-    "_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\nUNKNOWNFM"
-    "T\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003"
-    "PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UNKNOWN\020\000\022\021"
-    "\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020\002*\\"
-    "\n\014NationalType\022\031\n\025NATIONAL_TYPE_UNKNOWN\020"
-    "\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NATIONAL_TYP"
-    "E_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_UNKN"
-    "OWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_153"
-    "0\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_TYPE_50UP\020"
-    "\004*\235\001\n\023NonMotorVehicleType\022\032\n\026TRANSPORTAT"
-    "ION_BICYCLE\020\000\022\033\n\027TRANSPORTATION_VEHICLE2"
-    "\020\001\022\033\n\027TRANSPORTATION_VEHICLE3\020\002\022\027\n\023TRANS"
-    "PORTATION_ROOF\020\003\022\027\n\023TRANSPORTATION_SEAL\020"
-    "\004*i\n\026NonMotorVehicleGesture\022\025\n\021ATTITUDE_"
-    "POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022\021\n\rATTITU"
-    "DE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n\006DBType\022\t"
-    "\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE\020\002b\006"
-    "proto3", 4246);
+    "s\030\013 \003(\0132\023.dg.model.Passenger\"\246\003\n\022RecNonM"
+    "otorVehicle\022\n\n\002Id\030\001 \001(\003\022\025\n\rNMVehicleType"
+    "\030\002 \001(\003\022\031\n\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img"
+    "\030\004 \001(\0132\027.dg.model.CutboardImage\022:\n\020NMVeh"
+    "icleGesture\030\005 \001(\0162 .dg.model.NonMotorVeh"
+    "icleGesture\022B\n\tPassenger\030\006 \003(\0132/.dg.mode"
+    "l.RecNonMotorVehicle.NonMotorPedestrian\022"
+    "/\n\tNMVehicle\030\007 \003(\0132\034.dg.model.CategoryAn"
+    "dFeature\032{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001"
+    "(\003\022(\n\003Sex\030\002 \001(\0132\033.dg.model.NameAndConfid"
+    "ence\022/\n\tAttribute\030\003 \003(\0132\034.dg.model.Categ"
+    "oryAndFeature\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+"
+    "\n\rPassengerAttr\030\002 \001(\0132\024.dg.model.PeopleA"
+    "ttr\022\037\n\004Face\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006"
+    "Driver\030\004 \001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001"
+    "(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage"
+    "\022\022\n\nConfidence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132"
+    "\024.dg.model.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg"
+    ".model.RecFace\"\335\001\n\020VehicleModelType\022\n\n\002I"
+    "d\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003"
+    " \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence\030"
+    "\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010Su"
+    "bBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeI"
+    "d\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276"
+    "\001\n\014LicensePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Co"
+    "lor\030\002 \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 \001"
+    "(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002"
+    "\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.Cutboard\022\037"
+    "\n\027LocalProvinceConfidence\030\007 \001(\002\"X\n\rVehic"
+    "leSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName"
+    "\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symbo"
+    "l\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model"
+    ".Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorage"
+    "Config\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020."
+    "dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicle"
+    "Obj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMeta"
+    "data\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022%\n\007Ve"
+    "hicle\030\003 \003(\0132\024.dg.model.RecVehicle\"\203\001\n\rPe"
+    "destrianObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model"
+    ".SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Ima"
+    "ge\022+\n\nPedestrian\030\003 \003(\0132\027.dg.model.RecPed"
+    "estrian*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020"
+    "\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020"
+    "\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PED"
+    "ESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYP"
+    "E_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_"
+    "VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020"
+    "\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ"
+    "_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE"
+    "_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOAR"
+    "D\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n"
+    "\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_"
+    "TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\n"
+    "UNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003"
+    "CSV\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UN"
+    "KNOWN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_F"
+    "EMALE\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE"
+    "_UNKNOWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NAT"
+    "IONAL_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_"
+    "TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE"
+    "_TYPE_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_T"
+    "YPE_50UP\020\004*i\n\026NonMotorVehicleGesture\022\025\n\021"
+    "ATTITUDE_POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022"
+    "\021\n\rATTITUDE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n"
+    "\006DBType\022\t\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILE"
+    "IMAGE\020\002b\006proto3", 4055);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -905,23 +898,6 @@ const ::google::protobuf::EnumDescriptor* AgeType_descriptor() {
   return AgeType_descriptor_;
 }
 bool AgeType_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return true;
-    default:
-      return false;
-  }
-}
-
-const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return NonMotorVehicleType_descriptor_;
-}
-bool NonMotorVehicleType_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
@@ -7121,7 +7097,7 @@ void RecNonMotorVehicle::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   id_ = GOOGLE_LONGLONG(0);
-  nmvehicletype_ = 0;
+  nmvehicletype_ = GOOGLE_LONGLONG(0);
   nmvehicletypename_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   img_ = NULL;
   nmvehiclegesture_ = 0;
@@ -7173,11 +7149,11 @@ void RecNonMotorVehicle::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  ZR_(nmvehicletype_, nmvehiclegesture_);
-  id_ = GOOGLE_LONGLONG(0);
+  ZR_(id_, nmvehicletype_);
   nmvehicletypename_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (GetArenaNoVirtual() == NULL && img_ != NULL) delete img_;
   img_ = NULL;
+  nmvehiclegesture_ = 0;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -7210,15 +7186,14 @@ bool RecNonMotorVehicle::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+      // optional int64 NMVehicleType = 2;
       case 2: {
         if (tag == 16) {
          parse_NMVehicleType:
-          int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_nmvehicletype(static_cast< ::dg::model::NonMotorVehicleType >(value));
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &nmvehicletype_)));
+
         } else {
           goto handle_unusual;
         }
@@ -7334,10 +7309,9 @@ void RecNonMotorVehicle::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
   }
 
-  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  // optional int64 NMVehicleType = 2;
   if (this->nmvehicletype() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      2, this->nmvehicletype(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->nmvehicletype(), output);
   }
 
   // optional string NMVehicleTypeName = 3;
@@ -7385,10 +7359,9 @@ void RecNonMotorVehicle::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
   }
 
-  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  // optional int64 NMVehicleType = 2;
   if (this->nmvehicletype() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      2, this->nmvehicletype(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->nmvehicletype(), target);
   }
 
   // optional string NMVehicleTypeName = 3;
@@ -7443,10 +7416,11 @@ int RecNonMotorVehicle::ByteSize() const {
         this->id());
   }
 
-  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  // optional int64 NMVehicleType = 2;
   if (this->nmvehicletype() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->nmvehicletype());
+      ::google::protobuf::internal::WireFormatLite::Int64Size(
+        this->nmvehicletype());
   }
 
   // optional string NMVehicleTypeName = 3;
@@ -7668,15 +7642,15 @@ void RecNonMotorVehicle::clear_id() {
   // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.Id)
 }
 
-// optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+// optional int64 NMVehicleType = 2;
 void RecNonMotorVehicle::clear_nmvehicletype() {
-  nmvehicletype_ = 0;
+  nmvehicletype_ = GOOGLE_LONGLONG(0);
 }
- ::dg::model::NonMotorVehicleType RecNonMotorVehicle::nmvehicletype() const {
+ ::google::protobuf::int64 RecNonMotorVehicle::nmvehicletype() const {
   // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleType)
-  return static_cast< ::dg::model::NonMotorVehicleType >(nmvehicletype_);
+  return nmvehicletype_;
 }
- void RecNonMotorVehicle::set_nmvehicletype(::dg::model::NonMotorVehicleType value) {
+ void RecNonMotorVehicle::set_nmvehicletype(::google::protobuf::int64 value) {
   
   nmvehicletype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleType)

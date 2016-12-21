@@ -189,30 +189,6 @@ inline bool AgeType_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<AgeType>(
     AgeType_descriptor(), name, value);
 }
-enum NonMotorVehicleType {
-  TRANSPORTATION_BICYCLE = 0,
-  TRANSPORTATION_VEHICLE2 = 1,
-  TRANSPORTATION_VEHICLE3 = 2,
-  TRANSPORTATION_ROOF = 3,
-  TRANSPORTATION_SEAL = 4,
-  NonMotorVehicleType_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  NonMotorVehicleType_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool NonMotorVehicleType_IsValid(int value);
-const NonMotorVehicleType NonMotorVehicleType_MIN = TRANSPORTATION_BICYCLE;
-const NonMotorVehicleType NonMotorVehicleType_MAX = TRANSPORTATION_SEAL;
-const int NonMotorVehicleType_ARRAYSIZE = NonMotorVehicleType_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* NonMotorVehicleType_descriptor();
-inline const ::std::string& NonMotorVehicleType_Name(NonMotorVehicleType value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    NonMotorVehicleType_descriptor(), value);
-}
-inline bool NonMotorVehicleType_Parse(
-    const ::std::string& name, NonMotorVehicleType* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<NonMotorVehicleType>(
-    NonMotorVehicleType_descriptor(), name, value);
-}
 enum NonMotorVehicleGesture {
   ATTITUDE_POSITIVE = 0,
   ATTITUDE_RIGHT = 1,
@@ -1766,11 +1742,11 @@ class RecNonMotorVehicle : public ::google::protobuf::Message {
   ::google::protobuf::int64 id() const;
   void set_id(::google::protobuf::int64 value);
 
-  // optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+  // optional int64 NMVehicleType = 2;
   void clear_nmvehicletype();
   static const int kNMVehicleTypeFieldNumber = 2;
-  ::dg::model::NonMotorVehicleType nmvehicletype() const;
-  void set_nmvehicletype(::dg::model::NonMotorVehicleType value);
+  ::google::protobuf::int64 nmvehicletype() const;
+  void set_nmvehicletype(::google::protobuf::int64 value);
 
   // optional string NMVehicleTypeName = 3;
   void clear_nmvehicletypename();
@@ -1828,12 +1804,12 @@ class RecNonMotorVehicle : public ::google::protobuf::Message {
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
   ::google::protobuf::int64 id_;
+  ::google::protobuf::int64 nmvehicletype_;
   ::google::protobuf::internal::ArenaStringPtr nmvehicletypename_;
-  int nmvehicletype_;
-  int nmvehiclegesture_;
   ::dg::model::CutboardImage* img_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::RecNonMotorVehicle_NonMotorPedestrian > passenger_;
   ::google::protobuf::RepeatedPtrField< ::dg::model::CategoryAndFeature > nmvehicle_;
+  int nmvehiclegesture_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -4454,15 +4430,15 @@ inline void RecNonMotorVehicle::set_id(::google::protobuf::int64 value) {
   // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.Id)
 }
 
-// optional .dg.model.NonMotorVehicleType NMVehicleType = 2;
+// optional int64 NMVehicleType = 2;
 inline void RecNonMotorVehicle::clear_nmvehicletype() {
-  nmvehicletype_ = 0;
+  nmvehicletype_ = GOOGLE_LONGLONG(0);
 }
-inline ::dg::model::NonMotorVehicleType RecNonMotorVehicle::nmvehicletype() const {
+inline ::google::protobuf::int64 RecNonMotorVehicle::nmvehicletype() const {
   // @@protoc_insertion_point(field_get:dg.model.RecNonMotorVehicle.NMVehicleType)
-  return static_cast< ::dg::model::NonMotorVehicleType >(nmvehicletype_);
+  return nmvehicletype_;
 }
-inline void RecNonMotorVehicle::set_nmvehicletype(::dg::model::NonMotorVehicleType value) {
+inline void RecNonMotorVehicle::set_nmvehicletype(::google::protobuf::int64 value) {
   
   nmvehicletype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.RecNonMotorVehicle.NMVehicleType)
@@ -5950,11 +5926,6 @@ template <> struct is_proto_enum< ::dg::model::AgeType> : ::google::protobuf::in
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::AgeType>() {
   return ::dg::model::AgeType_descriptor();
-}
-template <> struct is_proto_enum< ::dg::model::NonMotorVehicleType> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::dg::model::NonMotorVehicleType>() {
-  return ::dg::model::NonMotorVehicleType_descriptor();
 }
 template <> struct is_proto_enum< ::dg::model::NonMotorVehicleGesture> : ::google::protobuf::internal::true_type {};
 template <>
