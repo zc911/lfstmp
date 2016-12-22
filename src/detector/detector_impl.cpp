@@ -11,6 +11,7 @@
 #include "face_inf.h"
 #include "dgface_utils.h"
 #include "dgface_config.h"
+#include <chrono>
 using namespace cv;
 using namespace std;
 using namespace caffe;
@@ -756,12 +757,11 @@ RotatedRect cvtDetectInfoToRotatedRect(const DetectedFaceInfo& det_info) {
     return RotatedRect(Point2f(rbox[0], rbox[1]), Size2f(rbox[2], rbox[3]), rbox[4]);
 }
 
-//#define FCN_BATCH
+#define FCN_BATCH
 #ifndef FCN_BATCH
 void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
     results.resize(imgs.size());
-
     for (size_t i = 0; i < imgs.size(); ++i) {
         // prepare image
         Mat img_copy = imgs[i].clone();

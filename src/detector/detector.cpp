@@ -5,6 +5,7 @@
 #include "dlib/opencv.h"
 #include "dlib/pixel.h"
 #include "dlib_utils.h"
+#include <chrono>
 
 using namespace std;
 using namespace cv;
