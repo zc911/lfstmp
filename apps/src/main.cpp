@@ -51,14 +51,13 @@ void serveWitness(Config *config, int userPort = 0) {
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
     int thread_num = [](Config * config) {
-        int thread_num;
+        int thread_num = 0;
         int gpuNum = config->Value(SYSTEM_THREADS + "/Size");
         for (int i = 0; i < gpuNum; i++) {
             thread_num += (int) config->Value(SYSTEM_THREADS + to_string(i));
         }
         return thread_num;
     }(config);
-
 
     WitnessAssembler *witness_assembler = new WitnessAssembler(thread_num);
     std::thread assemblerTh(&WitnessAssembler::Run, witness_assembler);
