@@ -41,6 +41,11 @@
     }
   },
   "Advanced": {
+    "Detection": {
+      "TargetMinSize": 400.0,
+      "TargetMaxSize": 600.0,
+      "CarOnly": false
+    },
     "Plate": {
       "LocalProvince": "",
       "OCR": 1,
@@ -152,7 +157,8 @@
     "Enabled": false
   },
   "ModelPath":{
-    "dgvehicle": "data/dgvehicle"
+    "dgvehicle": "data/dgvehicle",
+    "dgLP":"data/dgLP"
   },
   "DataPath": "data/data.dat"
 }
