@@ -19,6 +19,9 @@ class FcnDetector : public Detector {
 
         FCNFaceDetector* _fcn_detecror;
         FacePara _param;
+		int _min_det_face_size;
+		int _max_det_face_size;
+		float _min_scale_face_to_img;
         
 };
 }

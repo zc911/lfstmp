@@ -1,6 +1,6 @@
 [requires]
 Cdnn/0.1.0@deepglint/stable
-CdnnCaffe/0.1.0@deepglint/stable
+CdnnCaffe/0.2.0@deepglint/test
 DGFace/0.1.0@deepglint/test
 Cudnn/4.0.7@deepglint/stable
 Cudart/7.0@deepglint/stable
