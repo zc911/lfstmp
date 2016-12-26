@@ -11,6 +11,7 @@ message SrcMetadata {
     int32 RepoId = 6;
     string RepoInfo = 7;
     ObjType ObjType = 8;
+    string SensorIdStr = 9;
 }
 
 message Cutboard {
@@ -173,6 +174,7 @@ message Passenger {
     PeopleAttr PassengerAttr = 2;
     RecFace Face = 3;
     bool Driver = 4;
+    CutboardImage Img = 5;
 }
 
 message RecPedestrian {
