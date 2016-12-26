@@ -3,9 +3,9 @@
 #include <string>
 #include <recognition.h>
 #include "FaceFeature.h"
-#include "feature_extractor.h"
-#include "face_inf.h"
 namespace DGFace{
+
+class CaffeBatchWrapper;
 
 class CdnnCaffeRecog: public Recognition {
 	public:
@@ -16,18 +16,19 @@ class CdnnCaffeRecog: public Recognition {
 			std::vector<RecogResult>& results);
 	private:
 
-		void ParseConfigFile(const string& cfg_content,
-									vector<string>& model_defs, 
-									vector<string>& weight_files, 
-									vector<string>& layer_names,
-									vector<int>& patch_ids,
-									vector<int>& patch_dims,
+		void ParseConfigFile(const std::string& cfg_content,
+								   std::vector<std::string>& model_defs, 
+								   std::vector<std::string>& weight_files, 
+								   std::vector<std::string>& layer_names,
+								   std::vector<int>& patch_ids,
+								   std::vector<int>& patch_dims,
 									bool* is_color);
+        void ProcessBatchAppend(const std::vector<cv::Mat> &images,
+                std::vector< std::vector<float> > &landmarks,
+                std::vector<RecogResult> &results);
 
-		FacePara _param;
-		bool multi_thread_;
-        bool multi_process_;
-        void * m_CaffeHandler;
+        int _batch_size;
+        CaffeBatchWrapper *_impl;
 
 };
 }

@@ -3,9 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
 #include <opencv2/opencv.hpp>
-
 #include <detector.h>
 #include <alignment.h>
 #include <recognition.h>
@@ -81,24 +79,29 @@ int main(int argc, char const *argv[])
     
     vector<string> names;
     load_names(name_txt, names);
+    int batch_size = 10;
 
     Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
     // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
-	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
-	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
-	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
-	// Verification *verification 	= create_verifier(verif_method::EUCLID);
+	Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
+	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
+	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models/recognition_0.3.3", 0, true, false, batch_size);
+	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models_new/recognition_0.0.5/", 0, true, false, 2);
+	//Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
+	Verification *verification 	= create_verifier(verif_method::EUCLID);
 
-	vector<RecogResult> recognitions(names.size());
     ofstream not_det("not_det.log");
     // clock_t start, finish;
     // double duration = 0;
 
+	vector<RecogResult> recog_results;
+	vector<RecogResult> recog_batch_results;
+	vector<AlignResult> alignments;
+    vector<Mat> faces;
+    vector<string> names_batch;
     for (size_t i = 0; i < names.size(); ++i)
-    //for (size_t i = 0; i < 1; ++i)
     {
         
-	    // Recognition *recognition = create_recognition();
 	    Mat img = imread(names[i]);
 	    if (img.empty())
 	    {
@@ -114,34 +117,16 @@ int main(int argc, char const *argv[])
 	    detector->detect(imgs, detect_result);
         if(detect_result[0].boundingBox.size() == 0){
             not_det << names[i] << endl;
-			cout << names[i] << endl;
+			cout << "Not detected face:" << names[i] << endl;
             continue;
         }
 
-	   
-
-        cout << "detect " << detect_result[0].boundingBox.size() << "faces" << endl;
-		/*
-		vector<RecogResult> one_img_recog(detect_result[0].boundingBox.size());
-	    for(size_t det = 0; det < detect_result[0].boundingBox.size(); ++det) {
-
-
+        cout << "detect " << detect_result[0].boundingBox.size() << "faces from: " << names[i] << endl;
+	    for(size_t det = 0; det < 1/*detect_result[0].boundingBox.size()*/; ++det) {
 		    AlignResult align_result = {};
 		    alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
-		    // alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
-
-			// Mat transformed_img;
-			// AlignResult transformed_align_result = {};
-			// transformation->transform(img, align_result, transformed_img, transformed_align_result);
-			// Mat draw_transformed = transformed_img.clone();
-			// drawLandmarks(draw_transformed, transformed_align_result);
-			// imwrite("trans_test.png", draw_transformed);
-
-		    // alignment->align(img, detect_result[0].boundingBox[det].second, align_result, false);
-            // putText(img_draw, to_string(align_result.score), Point(face_crop.x, face_crop.y+20),  FONT_HERSHEY_SIMPLEX, 1, Scalar(0,0,255));
             float det_score = detect_result[0].boundingBox[det].first;
             float align_score = align_result.score;
-            // putText(img_draw, to_string(det_score+align_score*10), Point(face_crop.x, face_crop.y+40),  FONT_HERSHEY_SIMPLEX, 1, Scalar(0,0,255));
             cout << "det_score: " << det_score << endl;
             cout << "align_score: " << align_score << endl;
             cout << "fuse_score: "  << det_score + align_score * 5 << endl;
@@ -150,48 +135,70 @@ int main(int argc, char const *argv[])
                 continue;
             }
 
-	        // Mat img_draw_landmarks = align_result.face_image.clone();
-		    // draw_landmarks(img_draw_landmarks, align_result);
-		    // string draw_name = "test_draw_" + to_string(i) + "_" + to_string(det) + ".png";
+		    drawLandmarks(img_draw, align_result);
+            // string draw_name = "test_draw_" + to_string(i) + "_" + to_string(det) + ".png";
 		    // imwrite(draw_name, img_draw_landmarks);
 		    if(!valid_landmarks(align_result, img.size())) {
 			cerr << "can't align image!" <<endl;
 			continue;
 		    }
 
-		    vector<Mat> faces {img};
-		    vector<AlignResult> alignments {align_result};
-		    vector<RecogResult> recog_result;
+		    faces.push_back(img);
+            alignments.push_back(align_result);
+            names_batch.push_back(names[i]);
+	    }
+
+        // batch recognition
+        cout << "faces size: " << faces.size() << endl;
+        if (faces.size() == batch_size) {
+            assert(faces.size() == alignments.size());
+            recog_batch_results.clear();
+            recog_batch_results.reserve(batch_size);
             // start = clock();////////-------------->
-		    recognition->recog(faces, alignments, recog_result, "NONE");
+            recognition->recog(faces, alignments, recog_batch_results, "NONE");
             // finish = clock();//////////<--------------------
             // duration += static_cast<double>(finish - start) / CLOCKS_PER_SEC;
-		    
-			cout << "feature size: " <<  recog_result[0].face_feat.size()<<endl;
-			one_img_recog[det] = recog_result[0];
-		    cout << "Recognized!" <<endl;
-	    }
-		*/
 
-        int pos = names[i].rfind("/");
-        string des = names[i].substr(pos + 1, names[i].length() - 4);
-		string draw_name0 = des + "_det_test_draw_" + to_string(i) + ".png";
-		drawDetectionResult(img_draw, detect_result[0], true);
-		imwrite(draw_name0, img_draw);
-		// if(!fea_dir.empty()) {
-		// 	bool save_ret = saveFeature(fea_dir + des + ".fea", one_img_recog);
-		// 	if(save_ret == false) {
-		// 		cout << "can't save feature" << endl;
-		// 		return -1;
-		// 	}
-		// }
-		
-	    
+            //cout << "feature size: " <<  recog_result[0].face_feat.size()<<endl;
+            //cout << "Recognized!" <<endl;
+            if(!fea_dir.empty()) {
+                for (size_t idx = 0; idx < recog_batch_results.size(); idx++) {
+                    string name = names_batch[idx];
+                    cout << name << endl;
+                    string des = name.substr(name.rfind("/") + 1, name.rfind(".jpg"));
+                    if (!saveFeature(fea_dir + "/"+ des + ".fea", vector<RecogResult> (1, recog_batch_results[idx]))) {
+                        cout << "can't save feature" << endl;
+                        return -1;
+                    }
+                }
+            }
+            faces.clear();
+            alignments.clear();
+            names_batch.clear();
+        }
+    }
+    if (faces.size() > 0 && faces.size() < batch_size) {
+        assert(faces.size() == alignments.size());
+        recog_batch_results.clear();
+        recognition->recog(faces, alignments, recog_batch_results, "NONE");
+        recog_batch_results.reserve(faces.size());
+        cout << "face size: " << faces.size() << "alignments size" << alignments.size() << "recog result size: " << recog_batch_results.size() << endl;
+        if(!fea_dir.empty()) {
+            for (size_t idx = 0; idx < recog_batch_results.size(); idx++) {
+                string name = names_batch[idx];
+                cout << name << endl;
+                string des = name.substr(name.rfind("/") + 1, name.rfind(".jpg"));
+                if (!saveFeature(fea_dir + "/"+ des + ".fea", vector<RecogResult> (1, recog_batch_results[idx]))) {
+                    cout << "can't save feature" << endl;
+                    return -1;
+                }
+            }
+        }
+    }
+
+    for (size_t i = 0; i < names.size(); ++i) {
     }
     not_det.close();
-
-    
-    
 	return 0;
 }
  
