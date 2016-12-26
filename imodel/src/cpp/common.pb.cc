@@ -109,7 +109,7 @@ void protobuf_AssignDesc_common_2eproto() {
       "common.proto");
   GOOGLE_CHECK(file != NULL);
   SrcMetadata_descriptor_ = file->message_type(0);
-  static const int SrcMetadata_offsets_[8] = {
+  static const int SrcMetadata_offsets_[9] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, timestamp_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, duration_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensorid_),
@@ -118,6 +118,7 @@ void protobuf_AssignDesc_common_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, repoinfo_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, objtype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SrcMetadata, sensoridstr_),
   };
   SrcMetadata_reflection_ =
     ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
@@ -659,108 +660,108 @@ void protobuf_AddDesc_common_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\014common.proto\022\010dg.model\"\261\001\n\013SrcMetadata"
+    "\n\014common.proto\022\010dg.model\"\306\001\n\013SrcMetadata"
     "\022\021\n\tTimestamp\030\001 \001(\003\022\020\n\010Duration\030\002 \001(\005\022\020\n"
     "\010SensorId\030\003 \001(\005\022\022\n\nSensorName\030\004 \001(\t\022\021\n\tS"
     "ensorUrl\030\005 \001(\t\022\016\n\006RepoId\030\006 \001(\005\022\020\n\010RepoIn"
     "fo\030\007 \001(\t\022\"\n\007ObjType\030\010 \001(\0162\021.dg.model.Obj"
-    "Type\"x\n\010Cutboard\022\t\n\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r"
-    "\n\005Width\030\003 \001(\r\022\016\n\006Height\030\004 \001(\r\022\020\n\010ResWidt"
-    "h\030\005 \001(\r\022\021\n\tResHeight\030\006 \001(\r\022\022\n\nConfidence"
-    "\030\007 \001(\002\"S\n\rCutboardImage\022$\n\010Cutboard\030\001 \001("
-    "\0132\022.dg.model.Cutboard\022\034\n\003Img\030\002 \001(\0132\017.dg."
-    "model.Image\"\?\n\005Color\022\017\n\007ColorId\030\001 \001(\005\022\022\n"
-    "\nConfidence\030\002 \001(\002\022\021\n\tColorName\030\003 \001(\t\",\n\r"
-    "FeatureVector\022\n\n\002Id\030\001 \001(\003\022\017\n\007Feature\030\002 \001"
-    "(\t\"\r\n\013NullMessage\"P\n\005Image\022\n\n\002Id\030\001 \001(\t\022\r"
-    "\n\005Width\030\002 \001(\005\022\016\n\006Height\030\003 \001(\005\022\013\n\003URI\030\004 \001"
-    "(\t\022\017\n\007BinData\030\005 \001(\t\"a\n\007RecFace\022\n\n\002Id\030\001 \001"
-    "(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage"
-    "\022\020\n\010Features\030\003 \001(\t\022\022\n\nConfidence\030\004 \001(\002\"A"
-    "\n\021NameAndConfidence\022\n\n\002Id\030\001 \001(\005\022\014\n\004Name\030"
-    "\002 \001(\t\022\022\n\nConfidence\030\003 \001(\002\"b\n\022CategoryAnd"
-    "Feature\022\n\n\002Id\030\001 \001(\005\022\024\n\014CategoryName\030\002 \001("
-    "\t\022*\n\005Items\030\003 \003(\0132\033.dg.model.NameAndConfi"
-    "dence\"\277\001\n\nPeopleAttr\022(\n\003Sex\030\001 \001(\0132\033.dg.m"
-    "odel.NameAndConfidence\022(\n\003Age\030\002 \001(\0132\033.dg"
-    ".model.NameAndConfidence\022-\n\010National\030\003 \001"
-    "(\0132\033.dg.model.NameAndConfidence\022.\n\010Categ"
-    "ory\030\004 \003(\0132\034.dg.model.CategoryAndFeature\""
-    "\202\003\n\nRecVehicle\022\n\n\002Id\030\001 \001(\003\022-\n\tModelType\030"
-    "\002 \001(\0132\032.dg.model.VehicleModelType\022\036\n\005Col"
-    "or\030\003 \001(\0132\017.dg.model.Color\022%\n\005Plate\030\004 \001(\013"
-    "2\026.dg.model.LicensePlate\022$\n\003Img\030\005 \001(\0132\027."
-    "dg.model.CutboardImage\022(\n\007Symbols\030\006 \003(\0132"
-    "\027.dg.model.VehicleSymbol\022\020\n\010Features\030\007 \001"
-    "(\t\022&\n\013VehicleType\030\010 \001(\0162\021.dg.model.ObjTy"
-    "pe\022\027\n\017VehicleTypeName\030\t \001(\t\022&\n\006Plates\030\n "
-    "\003(\0132\026.dg.model.LicensePlate\022\'\n\nPassenger"
-    "s\030\013 \003(\0132\023.dg.model.Passenger\"\246\003\n\022RecNonM"
-    "otorVehicle\022\n\n\002Id\030\001 \001(\003\022\025\n\rNMVehicleType"
-    "\030\002 \001(\003\022\031\n\021NMVehicleTypeName\030\003 \001(\t\022$\n\003Img"
-    "\030\004 \001(\0132\027.dg.model.CutboardImage\022:\n\020NMVeh"
-    "icleGesture\030\005 \001(\0162 .dg.model.NonMotorVeh"
-    "icleGesture\022B\n\tPassenger\030\006 \003(\0132/.dg.mode"
-    "l.RecNonMotorVehicle.NonMotorPedestrian\022"
-    "/\n\tNMVehicle\030\007 \003(\0132\034.dg.model.CategoryAn"
-    "dFeature\032{\n\022NonMotorPedestrian\022\n\n\002Id\030\001 \001"
-    "(\003\022(\n\003Sex\030\002 \001(\0132\033.dg.model.NameAndConfid"
-    "ence\022/\n\tAttribute\030\003 \003(\0132\034.dg.model.Categ"
-    "oryAndFeature\"u\n\tPassenger\022\n\n\002Id\030\001 \001(\003\022+"
-    "\n\rPassengerAttr\030\002 \001(\0132\024.dg.model.PeopleA"
-    "ttr\022\037\n\004Face\030\003 \001(\0132\021.dg.model.RecFace\022\016\n\006"
-    "Driver\030\004 \001(\010\"\237\001\n\rRecPedestrian\022\n\n\002Id\030\001 \001"
-    "(\003\022$\n\003Img\030\002 \001(\0132\027.dg.model.CutboardImage"
-    "\022\022\n\nConfidence\030\003 \001(\002\022\'\n\tPedesAttr\030\004 \001(\0132"
-    "\024.dg.model.PeopleAttr\022\037\n\004Face\030\005 \001(\0132\021.dg"
-    ".model.RecFace\"\335\001\n\020VehicleModelType\022\n\n\002I"
-    "d\030\001 \001(\003\022\017\n\007BrandId\030\002 \001(\005\022\022\n\nSubBrandId\030\003"
-    " \001(\005\022\023\n\013ModelYearId\030\004 \001(\005\022\022\n\nConfidence\030"
-    "\005 \001(\002\022\014\n\004Type\030\006 \001(\t\022\r\n\005Brand\030\007 \001(\t\022\020\n\010Su"
-    "bBrand\030\010 \001(\t\022\021\n\tModelYear\030\t \001(\t\022\016\n\006TypeI"
-    "d\030\n \001(\005\022\r\n\005Model\030\013 \001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276"
-    "\001\n\014LicensePlate\022\021\n\tPlateText\030\001 \001(\t\022\036\n\005Co"
-    "lor\030\002 \001(\0132\017.dg.model.Color\022\016\n\006TypeId\030\003 \001"
-    "(\005\022\020\n\010TypeName\030\004 \001(\t\022\022\n\nConfidence\030\005 \001(\002"
-    "\022$\n\010Cutboard\030\006 \001(\0132\022.dg.model.Cutboard\022\037"
-    "\n\027LocalProvinceConfidence\030\007 \001(\002\"X\n\rVehic"
-    "leSymbol\022\020\n\010SymbolId\030\001 \001(\005\022\022\n\nSymbolName"
-    "\030\002 \001(\t\022!\n\007Symbols\030\003 \003(\0132\020.dg.model.Symbo"
-    "l\"B\n\006Symbol\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model"
-    ".Cutboard\022\022\n\nConfidence\030\002 \001(\002\"N\n\rStorage"
-    "Config\022\017\n\007Address\030\001 \001(\t\022\036\n\004Type\030\002 \001(\0162\020."
-    "dg.model.DBType\022\014\n\004Tags\030\003 \003(\t\"z\n\nVehicle"
-    "Obj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model.SrcMeta"
-    "data\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\022%\n\007Ve"
-    "hicle\030\003 \003(\0132\024.dg.model.RecVehicle\"\203\001\n\rPe"
-    "destrianObj\022\'\n\010Metadata\030\001 \001(\0132\025.dg.model"
-    ".SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Ima"
-    "ge\022+\n\nPedestrian\030\003 \003(\0132\027.dg.model.RecPed"
-    "estrian*\303\003\n\007ObjType\022\024\n\020OBJ_TYPE_UNKNOWN\020"
-    "\000\022\020\n\014OBJ_TYPE_CAR\020\001\022\024\n\020OBJ_TYPE_BICYCLE\020"
-    "\002\022\025\n\021OBJ_TYPE_TRICYCLE\020\003\022\027\n\023OBJ_TYPE_PED"
-    "ESTRIAN\020\004\022\022\n\rOBJ_TYPE_FACE\020\200\010\022\034\n\027OBJ_TYP"
-    "E_VEHICLE_VECTOR\020\200\020\022\034\n\027OBJ_TYPE_BICYCLE_"
-    "VECTOR\020\201\020\022\035\n\030OBJ_TYPE_TRICYCLE_VECTOR\020\202\020"
-    "\022\037\n\032OBJ_TYPE_PEDESTRIAN_VECTOR\020\203\020\022\031\n\024OBJ"
-    "_TYPE_FACE_VECTOR\020\200\030\022\036\n\031OBJ_TYPE_VEHICLE"
-    "_CUTBOARD\020\200 \022\036\n\031OBJ_TYPE_BICYCLE_CUTBOAR"
-    "D\020\201 \022\037\n\032OBJ_TYPE_TRICYCLE_CUTBOARD\020\202 \022!\n"
-    "\034OBJ_TYPE_PEDESTRIAN_CUTBOARD\020\203 \022\033\n\026OBJ_"
-    "TYPE_FACE_CUTBOARD\020\200(*G\n\013DataFmtType\022\016\n\n"
-    "UNKNOWNFMT\020\000\022\010\n\004JSON\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003"
-    "CSV\020\003\022\007\n\003PDF\020\004*G\n\007SexType\022\024\n\020SEX_TYPE_UN"
-    "KNOWN\020\000\022\021\n\rSEX_TYPE_MALE\020\001\022\023\n\017SEX_TYPE_F"
-    "EMALE\020\002*\\\n\014NationalType\022\031\n\025NATIONAL_TYPE"
-    "_UNKNOWN\020\000\022\025\n\021NATIONAL_TYPE_HAN\020\001\022\032\n\026NAT"
-    "IONAL_TYPE_MINORITY\020\002*k\n\007AgeType\022\024\n\020AGE_"
-    "TYPE_UNKNOWN\020\000\022\021\n\rAGE_TYPE_LT15\020\001\022\021\n\rAGE"
-    "_TYPE_1530\020\002\022\021\n\rAGE_TYPE_3050\020\003\022\021\n\rAGE_T"
-    "YPE_50UP\020\004*i\n\026NonMotorVehicleGesture\022\025\n\021"
-    "ATTITUDE_POSITIVE\020\000\022\022\n\016ATTITUDE_RIGHT\020\001\022"
-    "\021\n\rATTITUDE_LEFT\020\002\022\021\n\rATTITUDE_BACK\020\003*0\n"
-    "\006DBType\022\t\n\005KAFKA\020\000\022\014\n\010POSTGRES\020\001\022\r\n\tFILE"
-    "IMAGE\020\002b\006proto3", 4055);
+    "Type\022\023\n\013SensorIdStr\030\t \001(\t\"x\n\010Cutboard\022\t\n"
+    "\001X\030\001 \001(\r\022\t\n\001Y\030\002 \001(\r\022\r\n\005Width\030\003 \001(\r\022\016\n\006He"
+    "ight\030\004 \001(\r\022\020\n\010ResWidth\030\005 \001(\r\022\021\n\tResHeigh"
+    "t\030\006 \001(\r\022\022\n\nConfidence\030\007 \001(\002\"S\n\rCutboardI"
+    "mage\022$\n\010Cutboard\030\001 \001(\0132\022.dg.model.Cutboa"
+    "rd\022\034\n\003Img\030\002 \001(\0132\017.dg.model.Image\"\?\n\005Colo"
+    "r\022\017\n\007ColorId\030\001 \001(\005\022\022\n\nConfidence\030\002 \001(\002\022\021"
+    "\n\tColorName\030\003 \001(\t\",\n\rFeatureVector\022\n\n\002Id"
+    "\030\001 \001(\003\022\017\n\007Feature\030\002 \001(\t\"\r\n\013NullMessage\"P"
+    "\n\005Image\022\n\n\002Id\030\001 \001(\t\022\r\n\005Width\030\002 \001(\005\022\016\n\006He"
+    "ight\030\003 \001(\005\022\013\n\003URI\030\004 \001(\t\022\017\n\007BinData\030\005 \001(\t"
+    "\"a\n\007RecFace\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.d"
+    "g.model.CutboardImage\022\020\n\010Features\030\003 \001(\t\022"
+    "\022\n\nConfidence\030\004 \001(\002\"A\n\021NameAndConfidence"
+    "\022\n\n\002Id\030\001 \001(\005\022\014\n\004Name\030\002 \001(\t\022\022\n\nConfidence"
+    "\030\003 \001(\002\"b\n\022CategoryAndFeature\022\n\n\002Id\030\001 \001(\005"
+    "\022\024\n\014CategoryName\030\002 \001(\t\022*\n\005Items\030\003 \003(\0132\033."
+    "dg.model.NameAndConfidence\"\277\001\n\nPeopleAtt"
+    "r\022(\n\003Sex\030\001 \001(\0132\033.dg.model.NameAndConfide"
+    "nce\022(\n\003Age\030\002 \001(\0132\033.dg.model.NameAndConfi"
+    "dence\022-\n\010National\030\003 \001(\0132\033.dg.model.NameA"
+    "ndConfidence\022.\n\010Category\030\004 \003(\0132\034.dg.mode"
+    "l.CategoryAndFeature\"\202\003\n\nRecVehicle\022\n\n\002I"
+    "d\030\001 \001(\003\022-\n\tModelType\030\002 \001(\0132\032.dg.model.Ve"
+    "hicleModelType\022\036\n\005Color\030\003 \001(\0132\017.dg.model"
+    ".Color\022%\n\005Plate\030\004 \001(\0132\026.dg.model.License"
+    "Plate\022$\n\003Img\030\005 \001(\0132\027.dg.model.CutboardIm"
+    "age\022(\n\007Symbols\030\006 \003(\0132\027.dg.model.VehicleS"
+    "ymbol\022\020\n\010Features\030\007 \001(\t\022&\n\013VehicleType\030\010"
+    " \001(\0162\021.dg.model.ObjType\022\027\n\017VehicleTypeNa"
+    "me\030\t \001(\t\022&\n\006Plates\030\n \003(\0132\026.dg.model.Lice"
+    "nsePlate\022\'\n\nPassengers\030\013 \003(\0132\023.dg.model."
+    "Passenger\"\246\003\n\022RecNonMotorVehicle\022\n\n\002Id\030\001"
+    " \001(\003\022\025\n\rNMVehicleType\030\002 \001(\003\022\031\n\021NMVehicle"
+    "TypeName\030\003 \001(\t\022$\n\003Img\030\004 \001(\0132\027.dg.model.C"
+    "utboardImage\022:\n\020NMVehicleGesture\030\005 \001(\0162 "
+    ".dg.model.NonMotorVehicleGesture\022B\n\tPass"
+    "enger\030\006 \003(\0132/.dg.model.RecNonMotorVehicl"
+    "e.NonMotorPedestrian\022/\n\tNMVehicle\030\007 \003(\0132"
+    "\034.dg.model.CategoryAndFeature\032{\n\022NonMoto"
+    "rPedestrian\022\n\n\002Id\030\001 \001(\003\022(\n\003Sex\030\002 \001(\0132\033.d"
+    "g.model.NameAndConfidence\022/\n\tAttribute\030\003"
+    " \003(\0132\034.dg.model.CategoryAndFeature\"u\n\tPa"
+    "ssenger\022\n\n\002Id\030\001 \001(\003\022+\n\rPassengerAttr\030\002 \001"
+    "(\0132\024.dg.model.PeopleAttr\022\037\n\004Face\030\003 \001(\0132\021"
+    ".dg.model.RecFace\022\016\n\006Driver\030\004 \001(\010\"\237\001\n\rRe"
+    "cPedestrian\022\n\n\002Id\030\001 \001(\003\022$\n\003Img\030\002 \001(\0132\027.d"
+    "g.model.CutboardImage\022\022\n\nConfidence\030\003 \001("
+    "\002\022\'\n\tPedesAttr\030\004 \001(\0132\024.dg.model.PeopleAt"
+    "tr\022\037\n\004Face\030\005 \001(\0132\021.dg.model.RecFace\"\335\001\n\020"
+    "VehicleModelType\022\n\n\002Id\030\001 \001(\003\022\017\n\007BrandId\030"
+    "\002 \001(\005\022\022\n\nSubBrandId\030\003 \001(\005\022\023\n\013ModelYearId"
+    "\030\004 \001(\005\022\022\n\nConfidence\030\005 \001(\002\022\014\n\004Type\030\006 \001(\t"
+    "\022\r\n\005Brand\030\007 \001(\t\022\020\n\010SubBrand\030\010 \001(\t\022\021\n\tMod"
+    "elYear\030\t \001(\t\022\016\n\006TypeId\030\n \001(\005\022\r\n\005Model\030\013 "
+    "\001(\t\022\016\n\006IsHead\030\014 \001(\005\"\276\001\n\014LicensePlate\022\021\n\t"
+    "PlateText\030\001 \001(\t\022\036\n\005Color\030\002 \001(\0132\017.dg.mode"
+    "l.Color\022\016\n\006TypeId\030\003 \001(\005\022\020\n\010TypeName\030\004 \001("
+    "\t\022\022\n\nConfidence\030\005 \001(\002\022$\n\010Cutboard\030\006 \001(\0132"
+    "\022.dg.model.Cutboard\022\037\n\027LocalProvinceConf"
+    "idence\030\007 \001(\002\"X\n\rVehicleSymbol\022\020\n\010SymbolI"
+    "d\030\001 \001(\005\022\022\n\nSymbolName\030\002 \001(\t\022!\n\007Symbols\030\003"
+    " \003(\0132\020.dg.model.Symbol\"B\n\006Symbol\022$\n\010Cutb"
+    "oard\030\001 \001(\0132\022.dg.model.Cutboard\022\022\n\nConfid"
+    "ence\030\002 \001(\002\"N\n\rStorageConfig\022\017\n\007Address\030\001"
+    " \001(\t\022\036\n\004Type\030\002 \001(\0162\020.dg.model.DBType\022\014\n\004"
+    "Tags\030\003 \003(\t\"z\n\nVehicleObj\022\'\n\010Metadata\030\001 \001"
+    "(\0132\025.dg.model.SrcMetadata\022\034\n\003Img\030\002 \001(\0132\017"
+    ".dg.model.Image\022%\n\007Vehicle\030\003 \003(\0132\024.dg.mo"
+    "del.RecVehicle\"\203\001\n\rPedestrianObj\022\'\n\010Meta"
+    "data\030\001 \001(\0132\025.dg.model.SrcMetadata\022\034\n\003Img"
+    "\030\002 \001(\0132\017.dg.model.Image\022+\n\nPedestrian\030\003 "
+    "\003(\0132\027.dg.model.RecPedestrian*\303\003\n\007ObjType"
+    "\022\024\n\020OBJ_TYPE_UNKNOWN\020\000\022\020\n\014OBJ_TYPE_CAR\020\001"
+    "\022\024\n\020OBJ_TYPE_BICYCLE\020\002\022\025\n\021OBJ_TYPE_TRICY"
+    "CLE\020\003\022\027\n\023OBJ_TYPE_PEDESTRIAN\020\004\022\022\n\rOBJ_TY"
+    "PE_FACE\020\200\010\022\034\n\027OBJ_TYPE_VEHICLE_VECTOR\020\200\020"
+    "\022\034\n\027OBJ_TYPE_BICYCLE_VECTOR\020\201\020\022\035\n\030OBJ_TY"
+    "PE_TRICYCLE_VECTOR\020\202\020\022\037\n\032OBJ_TYPE_PEDEST"
+    "RIAN_VECTOR\020\203\020\022\031\n\024OBJ_TYPE_FACE_VECTOR\020\200"
+    "\030\022\036\n\031OBJ_TYPE_VEHICLE_CUTBOARD\020\200 \022\036\n\031OBJ"
+    "_TYPE_BICYCLE_CUTBOARD\020\201 \022\037\n\032OBJ_TYPE_TR"
+    "ICYCLE_CUTBOARD\020\202 \022!\n\034OBJ_TYPE_PEDESTRIA"
+    "N_CUTBOARD\020\203 \022\033\n\026OBJ_TYPE_FACE_CUTBOARD\020"
+    "\200(*G\n\013DataFmtType\022\016\n\nUNKNOWNFMT\020\000\022\010\n\004JSO"
+    "N\020\001\022\014\n\010PROTOBUF\020\002\022\007\n\003CSV\020\003\022\007\n\003PDF\020\004*G\n\007S"
+    "exType\022\024\n\020SEX_TYPE_UNKNOWN\020\000\022\021\n\rSEX_TYPE"
+    "_MALE\020\001\022\023\n\017SEX_TYPE_FEMALE\020\002*\\\n\014National"
+    "Type\022\031\n\025NATIONAL_TYPE_UNKNOWN\020\000\022\025\n\021NATIO"
+    "NAL_TYPE_HAN\020\001\022\032\n\026NATIONAL_TYPE_MINORITY"
+    "\020\002*k\n\007AgeType\022\024\n\020AGE_TYPE_UNKNOWN\020\000\022\021\n\rA"
+    "GE_TYPE_LT15\020\001\022\021\n\rAGE_TYPE_1530\020\002\022\021\n\rAGE"
+    "_TYPE_3050\020\003\022\021\n\rAGE_TYPE_50UP\020\004*i\n\026NonMo"
+    "torVehicleGesture\022\025\n\021ATTITUDE_POSITIVE\020\000"
+    "\022\022\n\016ATTITUDE_RIGHT\020\001\022\021\n\rATTITUDE_LEFT\020\002\022"
+    "\021\n\rATTITUDE_BACK\020\003*0\n\006DBType\022\t\n\005KAFKA\020\000\022"
+    "\014\n\010POSTGRES\020\001\022\r\n\tFILEIMAGE\020\002b\006proto3", 4076);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "common.proto", &protobuf_RegisterTypes);
   SrcMetadata::default_instance_ = new SrcMetadata();
@@ -963,6 +964,7 @@ const int SrcMetadata::kSensorUrlFieldNumber;
 const int SrcMetadata::kRepoIdFieldNumber;
 const int SrcMetadata::kRepoInfoFieldNumber;
 const int SrcMetadata::kObjTypeFieldNumber;
+const int SrcMetadata::kSensorIdStrFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 SrcMetadata::SrcMetadata()
@@ -995,6 +997,7 @@ void SrcMetadata::SharedCtor() {
   repoid_ = 0;
   repoinfo_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   objtype_ = 0;
+  sensoridstr_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 SrcMetadata::~SrcMetadata() {
@@ -1006,6 +1009,7 @@ void SrcMetadata::SharedDtor() {
   sensorname_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   repoinfo_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sensoridstr_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (this != default_instance_) {
   }
 }
@@ -1049,6 +1053,7 @@ void SrcMetadata::Clear() {
   sensorname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   sensorurl_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   repoinfo_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sensoridstr_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -1187,6 +1192,23 @@ bool SrcMetadata::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(74)) goto parse_SensorIdStr;
+        break;
+      }
+
+      // optional string SensorIdStr = 9;
+      case 9: {
+        if (tag == 74) {
+         parse_SensorIdStr:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_sensoridstr()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->sensoridstr().data(), this->sensoridstr().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "dg.model.SrcMetadata.SensorIdStr"));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1271,6 +1293,16 @@ void SrcMetadata::SerializeWithCachedSizes(
       8, this->objtype(), output);
   }
 
+  // optional string SensorIdStr = 9;
+  if (this->sensoridstr().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sensoridstr().data(), this->sensoridstr().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.SrcMetadata.SensorIdStr");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      9, this->sensoridstr(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:dg.model.SrcMetadata)
 }
 
@@ -1336,6 +1368,17 @@ void SrcMetadata::SerializeWithCachedSizes(
       8, this->objtype(), target);
   }
 
+  // optional string SensorIdStr = 9;
+  if (this->sensoridstr().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->sensoridstr().data(), this->sensoridstr().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "dg.model.SrcMetadata.SensorIdStr");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        9, this->sensoridstr(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:dg.model.SrcMetadata)
   return target;
 }
@@ -1398,6 +1441,13 @@ int SrcMetadata::ByteSize() const {
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->objtype());
   }
 
+  // optional string SensorIdStr = 9;
+  if (this->sensoridstr().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->sensoridstr());
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
@@ -1445,6 +1495,10 @@ void SrcMetadata::MergeFrom(const SrcMetadata& from) {
   if (from.objtype() != 0) {
     set_objtype(from.objtype());
   }
+  if (from.sensoridstr().size() > 0) {
+
+    sensoridstr_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.sensoridstr_);
+  }
 }
 
 void SrcMetadata::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1477,6 +1531,7 @@ void SrcMetadata::InternalSwap(SrcMetadata* other) {
   std::swap(repoid_, other->repoid_);
   repoinfo_.Swap(&other->repoinfo_);
   std::swap(objtype_, other->objtype_);
+  sensoridstr_.Swap(&other->sensoridstr_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -1689,6 +1744,49 @@ void SrcMetadata::clear_objtype() {
   
   objtype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.ObjType)
+}
+
+// optional string SensorIdStr = 9;
+void SrcMetadata::clear_sensoridstr() {
+  sensoridstr_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ const ::std::string& SrcMetadata::sensoridstr() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorIdStr)
+  return sensoridstr_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void SrcMetadata::set_sensoridstr(const ::std::string& value) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorIdStr)
+}
+ void SrcMetadata::set_sensoridstr(const char* value) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorIdStr)
+}
+ void SrcMetadata::set_sensoridstr(const char* value, size_t size) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorIdStr)
+}
+ ::std::string* SrcMetadata::mutable_sensoridstr() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorIdStr)
+  return sensoridstr_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* SrcMetadata::release_sensoridstr() {
+  
+  return sensoridstr_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void SrcMetadata::set_allocated_sensoridstr(::std::string* sensoridstr) {
+  if (sensoridstr != NULL) {
+    
+  } else {
+    
+  }
+  sensoridstr_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensoridstr);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorIdStr)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

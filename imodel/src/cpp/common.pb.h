@@ -355,6 +355,17 @@ class SrcMetadata : public ::google::protobuf::Message {
   ::dg::model::ObjType objtype() const;
   void set_objtype(::dg::model::ObjType value);
 
+  // optional string SensorIdStr = 9;
+  void clear_sensoridstr();
+  static const int kSensorIdStrFieldNumber = 9;
+  const ::std::string& sensoridstr() const;
+  void set_sensoridstr(const ::std::string& value);
+  void set_sensoridstr(const char* value);
+  void set_sensoridstr(const char* value, size_t size);
+  ::std::string* mutable_sensoridstr();
+  ::std::string* release_sensoridstr();
+  void set_allocated_sensoridstr(::std::string* sensoridstr);
+
   // @@protoc_insertion_point(class_scope:dg.model.SrcMetadata)
  private:
 
@@ -368,6 +379,7 @@ class SrcMetadata : public ::google::protobuf::Message {
   ::google::protobuf::internal::ArenaStringPtr repoinfo_;
   ::google::protobuf::int32 repoid_;
   int objtype_;
+  ::google::protobuf::internal::ArenaStringPtr sensoridstr_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_common_2eproto();
   friend void protobuf_AssignDesc_common_2eproto();
@@ -3065,6 +3077,49 @@ inline void SrcMetadata::set_objtype(::dg::model::ObjType value) {
   
   objtype_ = value;
   // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.ObjType)
+}
+
+// optional string SensorIdStr = 9;
+inline void SrcMetadata::clear_sensoridstr() {
+  sensoridstr_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& SrcMetadata::sensoridstr() const {
+  // @@protoc_insertion_point(field_get:dg.model.SrcMetadata.SensorIdStr)
+  return sensoridstr_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SrcMetadata::set_sensoridstr(const ::std::string& value) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:dg.model.SrcMetadata.SensorIdStr)
+}
+inline void SrcMetadata::set_sensoridstr(const char* value) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:dg.model.SrcMetadata.SensorIdStr)
+}
+inline void SrcMetadata::set_sensoridstr(const char* value, size_t size) {
+  
+  sensoridstr_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:dg.model.SrcMetadata.SensorIdStr)
+}
+inline ::std::string* SrcMetadata::mutable_sensoridstr() {
+  
+  // @@protoc_insertion_point(field_mutable:dg.model.SrcMetadata.SensorIdStr)
+  return sensoridstr_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* SrcMetadata::release_sensoridstr() {
+  
+  return sensoridstr_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void SrcMetadata::set_allocated_sensoridstr(::std::string* sensoridstr) {
+  if (sensoridstr != NULL) {
+    
+  } else {
+    
+  }
+  sensoridstr_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), sensoridstr);
+  // @@protoc_insertion_point(field_set_allocated:dg.model.SrcMetadata.SensorIdStr)
 }
 
 // -------------------------------------------------------------------

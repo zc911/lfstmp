@@ -131,11 +131,11 @@ protected:
           }
         }
 
-        MatrixError error = func(&protobufRequestMessage, &protobufResponseMessage);
-        if (error.code() != 0) {
-          responseText(response, ServiceError, error.message());
-          return;
-        }
+        func(&protobufRequestMessage, &protobufResponseMessage);
+//        if (error.code() != 0) {
+//          responseText(response, ServiceError, error.message());
+//          return;
+//        }
 
         content = "";
         pbjson::pb2json(&protobufResponseMessage, content);
