@@ -39,6 +39,7 @@ int getConfigContent(string file, bool is_encrypt, string& content) {
 		//content.assign(ch_src, (int)length);
 	}
 	free(src);
+	fclose(fp);
 	return 0;
 }
 

@@ -42,6 +42,7 @@ class SSDDetector : public Detector {
         int _batch_size;
         int _gpuid;
                         bool device_setted_=false;
+		bool _bbox_shrink;
 
         cv::Size _image_size;
 };

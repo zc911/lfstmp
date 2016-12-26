@@ -11,6 +11,7 @@
 #include "face_inf.h"
 #include "dgface_utils.h"
 #include "dgface_config.h"
+#include <chrono>
 using namespace cv;
 using namespace std;
 using namespace caffe;
@@ -388,9 +389,13 @@ int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, st
 
 	if(!static_cast<string>(ssd_cfg.Value("img_scale_max")).empty()) {
 		_img_scale_max = static_cast<int>(ssd_cfg.Value("img_scale_max"));
+	} else {
+		_img_scale_max = 0;
 	}
 	if(!static_cast<string>(ssd_cfg.Value("img_scale_min")).empty()) {
 		_img_scale_min = static_cast<int>(ssd_cfg.Value("img_scale_min"));
+	} else {
+		_img_scale_min = 0;
 	}
 	
 	int mean_vec_size = static_cast<int>(ssd_cfg.Value("mean/Size"));
@@ -400,6 +405,8 @@ int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, st
 	for(int i = 0; i < mean_vec_size; ++i) {
 		_pixel_means[i] = static_cast<float>(ssd_cfg.Value("mean" + to_string(i)));
 	}
+
+	_bbox_shrink = static_cast<bool>(ssd_cfg.Value("bbox_shrink"));
 }
 
 SSDDetector::SSDDetector(int   img_scale_max,
@@ -441,6 +448,7 @@ SSDDetector::~SSDDetector(void){
 
 }
 
+/*========================
 void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results){
     vector<Mat> resized_imgs;
     resized_imgs.reserve(imgs.size());
@@ -473,7 +481,7 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
        
         resized_imgs[idx] = resized_img;
         scale_ratios[idx] = resize_ratio;
-        // cout << "ratio = " << resize_ratio << "w = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
+        // cout << "ratio = " << resize_ratio << "\tw = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
     }
 
     // Add black edge to support batch process for images with different sizes 
@@ -501,7 +509,8 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
         }
     }
 }
-void SSDDetector::detect_impl_kernel(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
+*/
+void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
     if (!device_setted_) {
         Caffe::SetDevice(_gpuid);
@@ -594,16 +603,18 @@ void SSDDetector::detect_impl_kernel(const vector< cv::Mat > &imgs, vector<Detec
             // adjust the bounding box
 
             auto adjust_box = bbox.second;
-            adjust_box=adjust_box&Rect(1,1,imgs[img_id].cols-1,imgs[img_id].rows-1);
+			if(_bbox_shrink) {
+				adjust_box=adjust_box&Rect(1,1,imgs[img_id].cols-1,imgs[img_id].rows-1);
 
-            float a_dist = bbox.second.height * 0.40;
+				float a_dist = bbox.second.height * 0.40;
 
-            adjust_box.y += a_dist;
-            adjust_box.height -= a_dist;
+				adjust_box.y += a_dist;
+				adjust_box.height -= a_dist;
 
-            a_dist = bbox.second.width * 0.1; 
-            adjust_box.x += a_dist;
-            adjust_box.width -= a_dist*2;
+				a_dist = bbox.second.width * 0.1; 
+				adjust_box.x += a_dist;
+				adjust_box.width -= a_dist*2;
+			}
 
 			RotatedBbox rot_bbox;
 			Point2f box_center(adjust_box.x + adjust_box.width * 0.5, adjust_box.y + adjust_box.height * 0.5);
@@ -658,7 +669,9 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
 
 FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, 
 						int gpu_id, bool is_encrypt, int batch_size)
-                : Detector(img_scale_max, img_scale_min, is_encrypt) {
+                : Detector(img_scale_max, img_scale_min, is_encrypt),
+					_min_det_face_size(24), _max_det_face_size(-1), 
+					_min_scale_face_to_img(0.1) {
 
     int argc = 1;
     char* argv[] = {""};
@@ -700,6 +713,21 @@ void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& 
 
 	deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
 	model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
+
+	if(!static_cast<string>(fcn_cfg.Value("img_scale_max")).empty()) {
+		_img_scale_max = static_cast<int>(fcn_cfg.Value("img_scale_max"));
+	} else {
+		_img_scale_max = 0;
+	}
+	if(!static_cast<string>(fcn_cfg.Value("img_scale_min")).empty()) {
+		_img_scale_min = static_cast<int>(fcn_cfg.Value("img_scale_min"));
+	} else {
+		_img_scale_min = 0;
+	}
+
+	_min_det_face_size = static_cast<int>(fcn_cfg.Value("min_det_face_size"));
+	_max_det_face_size = static_cast<int>(fcn_cfg.Value("max_det_face_size"));
+	_min_scale_face_to_img = static_cast<float>(fcn_cfg.Value("min_scale_face_to_img"));
 }
 
 FcnDetector::~FcnDetector() {
@@ -729,21 +757,22 @@ RotatedRect cvtDetectInfoToRotatedRect(const DetectedFaceInfo& det_info) {
     return RotatedRect(Point2f(rbox[0], rbox[1]), Size2f(rbox[2], rbox[3]), rbox[4]);
 }
 
+#define FCN_BATCH
+#ifndef FCN_BATCH
 void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
-    results.resize(0);
     results.resize(imgs.size());
-
     for (size_t i = 0; i < imgs.size(); ++i) {
         // prepare image
         Mat img_copy = imgs[i].clone();
         IplImage ipl_img = img_copy;
-
         // prepare detection results vector
         vector<DetectedFaceInfo> detectInfos;
 
         // detect
-        _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
+        // _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
+        _fcn_detecror->Detect(&ipl_img, _param, detectInfos, 
+						_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
 
         // convert results
         for (size_t result_idx = 0; result_idx < detectInfos.size(); ++result_idx) {
@@ -755,6 +784,40 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
     }
 
 }
+#else
+void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
+{
+    results.resize(imgs.size());
+
+	// prepare image
+	vector<IplImage*> ipl_imgs;
+    for (size_t i = 0; i < imgs.size(); ++i) {
+		IplImage ipl_tmp = IplImage(imgs[i]);
+		IplImage* ipl_store = cvCreateImage(cvSize(imgs[i].cols, imgs[i].rows),8,imgs[i].channels());
+		cvCopy(&ipl_tmp, ipl_store);
+		ipl_imgs.push_back(ipl_store);
+	}
+	
+	vector<vector<DetectedFaceInfo> > detectInfos;
+    // detect
+    _fcn_detecror->Detect(ipl_imgs, _param, detectInfos, 
+				     _min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
+
+    // convert results
+    for (size_t i = 0; i < imgs.size(); ++i) {
+		const auto& one_img_detectInfo = detectInfos[i];
+        for (size_t result_idx = 0; result_idx < one_img_detectInfo.size(); ++result_idx) {
+            RotatedRect rot_rect = cvtDetectInfoToRotatedRect(one_img_detectInfo[result_idx]);
+            auto confidence = one_img_detectInfo[result_idx].conf;
+            results[i].boundingBox.push_back(make_pair(static_cast<float>(confidence),rot_rect));
+        }
+	}
+	
+    for (size_t i = 0; i < imgs.size(); ++i) {
+			cvReleaseImage(&(ipl_imgs[i]));
+	}
+}
+#endif
 
 /*====================== select detector ======================== */
 /*----------------------

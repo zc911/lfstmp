@@ -5,6 +5,7 @@
 #include "dlib/opencv.h"
 #include "dlib/pixel.h"
 #include "dlib_utils.h"
+#include <chrono>
 
 using namespace std;
 using namespace cv;
@@ -32,11 +33,12 @@ void Detector::edge_complete(vector<cv::Mat> &imgs)
     } 
 }
 
+/*------------------------------------
 void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
 	detect_impl(imgs, results);
 }
+*/
 
-/*------------------------------------
 void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
     vector<Mat> resized_imgs;
     resized_imgs.reserve(imgs.size());
@@ -52,11 +54,13 @@ void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
         Size image_resize;
         // image resize, short edge is up to _img_scale
         float resize_ratio = 1;
-        if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
-            resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
-        } else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
-            resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
-        }
+		if(_img_scale_max > 0 || _img_scale_min > 0) {
+			if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
+				resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
+			} else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
+				resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
+			}
+		}
         //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
         int width  = img.cols * resize_ratio;
         int height = img.rows * resize_ratio;
@@ -69,7 +73,9 @@ void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
        
         resized_imgs[idx] = resized_img;
         scale_ratios[idx] = resize_ratio;
-        // cout << "ratio = " << resize_ratio << "w = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
+        cout << "ratio = " << resize_ratio 
+			<< "\tw = " << resized_imgs[idx].cols 
+			<< "\th = " << resized_imgs[idx].rows << endl;
     }
 
     // Add black edge to support batch process for images with different sizes 
@@ -81,22 +87,21 @@ void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
         auto &bboxes = results[idx].boundingBox;
         float ratio  = scale_ratios[idx];
         for (size_t i = 0; i < bboxes.size(); i++) {
-            Rect &bbox   = bboxes[i].second;
-            bbox.x      /= ratio;
-            bbox.y      /= ratio;
-            bbox.width  /= ratio;
-            bbox.height /= ratio;
-            bbox &= img_bbox;
-            assert(bbox.x >= 0);
-            assert(bbox.y >= 0);
-            assert(bbox.x + bbox.width <= imgs[idx].cols);
-            assert(bbox.y + bbox.height <= imgs[idx].rows);
+            auto &bbox   = bboxes[i].second;
+            bbox.center.x    /= ratio;
+            bbox.center.y    /= ratio;
+            bbox.size.width  /= ratio;
+            bbox.size.height /= ratio;
+            // bbox &= img_bbox;
+            // assert(bbox.x >= 0);
+            // assert(bbox.y >= 0);
+            // assert(bbox.x + bbox.width <= imgs[idx].cols);
+            // assert(bbox.y + bbox.height <= imgs[idx].rows);
 
             // Rect rect = results[idx].boundingBox[0].second;
             // cout << "bboxes: x=" << rect.x << ", y = " << rect.y << ", width = " << rect.width << ", height = " << rect.height << endl;
         }
     }
 }
-*/
 
 }
