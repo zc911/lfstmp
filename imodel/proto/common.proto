@@ -174,7 +174,7 @@ message Passenger {
     PeopleAttr PassengerAttr = 2;
     RecFace Face = 3;
     bool Driver = 4;
-    CutboardImage Img = 5;
+    //CutboardImage Img = 5;
 }
 
 message RecPedestrian {
