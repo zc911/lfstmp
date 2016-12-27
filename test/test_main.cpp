@@ -98,15 +98,12 @@ int main(int argc, char const *argv[])
     bool visualize = static_cast<bool>(atoi(argv[2]));
     int batch_size = static_cast<int>(atoi(argv[3]));
 
-    
-    vector<string> names = load_names(name_txt);
-    auto img_list = read_images(names);
-    auto splited_list = split_list(img_list, batch_size);
-    cout << img_list.size() << endl;
-    cout << splited_list.size() << endl;
-    Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0, false, batch_size);
-    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0, false, batch_size);
-    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd_vgg", 0, false, batch_size);
+    Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
+    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
+	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
+	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
+	// Verification *verification 	= create_verifier(verif_method::EUCLID);
 
     ofstream not_det("not_det.log");
     vector<DetectResult> detect_results;
