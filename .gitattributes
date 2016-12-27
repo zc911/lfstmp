@@ -547,3 +547,15 @@ data/dgvehicle/model/feature/FaceExtractor/config.json filter=lfs diff=lfs merge
 data/dgvehicle/model/feature/FaceExtractor/DetectDeploy.txt filter=lfs diff=lfs merge=lfs -text
 data/dgvehicle/model/feature/FaceExtractor/DetectModel.dat filter=lfs diff=lfs merge=lfs -text
 data/dgvehicle/encryptModel/classifier/NonMotorVehicle/RpnModel.dat filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/detector/VehicleRFCN/config.json filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/detector/VehicleRFCN/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/detector/VehicleRFCN/model.dat filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/classifier/Color/config.json filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/classifier/Color/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/encryptModel/classifier/Color/model.dat filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/classifier/Color/config.json filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/classifier/Color/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/classifier/Color/model.dat filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/detector/VehicleRFCN/config.json filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/detector/VehicleRFCN/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgvehicle/model/detector/VehicleRFCN/model.dat filter=lfs diff=lfs merge=lfs -text

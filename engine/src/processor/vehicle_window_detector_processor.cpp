@@ -51,7 +51,6 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
             continue;
         }
 
-
         int xmin = crops[i][0].box.x;
         int ymin = crops[i][0].box.y;
         int xmax = crops[i][0].box.x + crops[i][0].box.width;
@@ -73,7 +72,6 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
         params.push_back(tymin);
         params.push_back(tymax);
-
 
         params.push_back(img.rows * 1.0 / target_row);
         params.push_back(img.cols * 1.0 / target_col);
