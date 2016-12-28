@@ -1794,6 +1794,7 @@ inline ::std::string* PingResponse::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* PingResponse::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.PingResponse.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1845,6 +1846,7 @@ inline ::std::string* VersionResponse::mutable_codeversion() {
   return codeversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VersionResponse::release_codeversion() {
+  // @@protoc_insertion_point(field_release:dg.model.VersionResponse.CodeVersion)
   
   return codeversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1888,6 +1890,7 @@ inline ::std::string* VersionResponse::mutable_modelversion() {
   return modelversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* VersionResponse::release_modelversion() {
+  // @@protoc_insertion_point(field_release:dg.model.VersionResponse.ModelVersion)
   
   return modelversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1939,6 +1942,7 @@ inline ::std::string* SystemStatusResponse::mutable_modelver() {
   return modelver_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_modelver() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.ModelVer)
   
   return modelver_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1982,6 +1986,7 @@ inline ::std::string* SystemStatusResponse::mutable_enginever() {
   return enginever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_enginever() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.EngineVer)
   
   return enginever_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2025,6 +2030,7 @@ inline ::std::string* SystemStatusResponse::mutable_servicever() {
   return servicever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_servicever() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.ServiceVer)
   
   return servicever_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2068,6 +2074,7 @@ inline ::std::string* SystemStatusResponse::mutable_cpuusage() {
   return cpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_cpuusage() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.CpuUsage)
   
   return cpuusage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2111,6 +2118,7 @@ inline ::std::string* SystemStatusResponse::mutable_availmem() {
   return availmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_availmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.AvailMem)
   
   return availmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2154,6 +2162,7 @@ inline ::std::string* SystemStatusResponse::mutable_totalmem() {
   return totalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_totalmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.TotalMem)
   
   return totalmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2197,6 +2206,7 @@ inline ::std::string* SystemStatusResponse::mutable_availdisk() {
   return availdisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_availdisk() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.AvailDisk)
   
   return availdisk_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2240,6 +2250,7 @@ inline ::std::string* SystemStatusResponse::mutable_totaldisk() {
   return totaldisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_totaldisk() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.TotalDisk)
   
   return totaldisk_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2283,6 +2294,7 @@ inline ::std::string* SystemStatusResponse::mutable_netiosend() {
   return netiosend_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_netiosend() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.NetIOSend)
   
   return netiosend_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2326,6 +2338,7 @@ inline ::std::string* SystemStatusResponse::mutable_netiorecv() {
   return netiorecv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_netiorecv() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.NetIORecv)
   
   return netiorecv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2369,6 +2382,7 @@ inline ::std::string* SystemStatusResponse::mutable_gpuusage() {
   return gpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gpuusage() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuUsage)
   
   return gpuusage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2412,6 +2426,7 @@ inline ::std::string* SystemStatusResponse::mutable_gpuavailmem() {
   return gpuavailmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gpuavailmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuAvailMem)
   
   return gpuavailmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2455,6 +2470,7 @@ inline ::std::string* SystemStatusResponse::mutable_gputotalmem() {
   return gputotalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* SystemStatusResponse::release_gputotalmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuTotalMem)
   
   return gputotalmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2493,6 +2509,7 @@ inline ::dg::model::RecImageVConfig* InstanceConfigureRequest::mutable_recimagev
   return recimagevconfig_;
 }
 inline ::dg::model::RecImageVConfig* InstanceConfigureRequest::release_recimagevconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecImageVConfig)
   
   ::dg::model::RecImageVConfig* temp = recimagevconfig_;
   recimagevconfig_ = NULL;
@@ -2530,6 +2547,7 @@ inline ::dg::model::RecImageFConfig* InstanceConfigureRequest::mutable_recimagef
   return recimagefconfig_;
 }
 inline ::dg::model::RecImageFConfig* InstanceConfigureRequest::release_recimagefconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecImageFConfig)
   
   ::dg::model::RecImageFConfig* temp = recimagefconfig_;
   recimagefconfig_ = NULL;
@@ -2567,6 +2585,7 @@ inline ::dg::model::RecVideoVConfig* InstanceConfigureRequest::mutable_recvideov
   return recvideovconfig_;
 }
 inline ::dg::model::RecVideoVConfig* InstanceConfigureRequest::release_recvideovconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecVideoVConfig)
   
   ::dg::model::RecVideoVConfig* temp = recvideovconfig_;
   recvideovconfig_ = NULL;
@@ -2604,6 +2623,7 @@ inline ::dg::model::RecVideoFConfig* InstanceConfigureRequest::mutable_recvideof
   return recvideofconfig_;
 }
 inline ::dg::model::RecVideoFConfig* InstanceConfigureRequest::release_recvideofconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecVideoFConfig)
   
   ::dg::model::RecVideoFConfig* temp = recvideofconfig_;
   recvideofconfig_ = NULL;
@@ -2641,6 +2661,7 @@ inline ::dg::model::RankVConfig* InstanceConfigureRequest::mutable_rankvconfig()
   return rankvconfig_;
 }
 inline ::dg::model::RankVConfig* InstanceConfigureRequest::release_rankvconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RankVConfig)
   
   ::dg::model::RankVConfig* temp = rankvconfig_;
   rankvconfig_ = NULL;
@@ -2678,6 +2699,7 @@ inline ::dg::model::RankFConfig* InstanceConfigureRequest::mutable_rankfconfig()
   return rankfconfig_;
 }
 inline ::dg::model::RankFConfig* InstanceConfigureRequest::release_rankfconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RankFConfig)
   
   ::dg::model::RankFConfig* temp = rankfconfig_;
   rankfconfig_ = NULL;
@@ -2732,6 +2754,7 @@ inline ::std::string* InstanceConfigureResponse::mutable_status() {
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InstanceConfigureResponse::release_status() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureResponse.Status)
   
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2775,6 +2798,7 @@ inline ::std::string* InstanceConfigureResponse::mutable_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 inline ::std::string* InstanceConfigureResponse::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureResponse.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2901,6 +2925,7 @@ inline ::dg::model::StorageConfig* InstanceConfig::mutable_storageconfig() {
   return storageconfig_;
 }
 inline ::dg::model::StorageConfig* InstanceConfig::release_storageconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfig.StorageConfig)
   
   ::dg::model::StorageConfig* temp = storageconfig_;
   storageconfig_ = NULL;
@@ -2942,6 +2967,7 @@ inline ::dg::model::InstanceConfig* RecImageVConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RecImageVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecImageVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -2983,6 +3009,7 @@ inline ::dg::model::InstanceConfig* RecImageFConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RecImageFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecImageFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -3024,6 +3051,7 @@ inline ::dg::model::InstanceConfig* RecVideoVConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RecVideoVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVideoVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -3121,6 +3149,7 @@ inline ::dg::model::InstanceConfig* RecVideoFConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RecVideoFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVideoFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -3218,6 +3247,7 @@ inline ::dg::model::InstanceConfig* RankVConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RankVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RankVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -3259,6 +3289,7 @@ inline ::dg::model::InstanceConfig* RankFConfig::mutable_instances() {
   return instances_;
 }
 inline ::dg::model::InstanceConfig* RankFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;

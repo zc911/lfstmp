@@ -502,11 +502,13 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
         PeopleAttr *attr;
         pa = vrec->add_passengers();
         pa->set_id(p->id());
+        pa->set_driver(is_driver);
+        CopyCutboard(p->detection(), pa->mutable_img()->mutable_cutboard());
+        
         attr = pa->mutable_passengerattr();
         caf = attr->add_category();
         caf->set_id(BEHAVIOR);
         caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
-        pa->set_driver(is_driver);
         if (nobelt > 0) {
             NameAndConfidence *nac = caf->add_items();
             SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);

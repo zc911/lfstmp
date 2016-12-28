@@ -40,6 +40,7 @@ private:
     vector<Object *> objs_;
     vector<vector<float> >params_;
     vector<Mat> images_;
+    vector<Detection> detections_;
     bool is_driver_;
     float threshold_;
 };

@@ -382,6 +382,7 @@ SkynetRequest* SkynetRequest::New(::google::protobuf::Arena* arena) const {
 }
 
 void SkynetRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetRequest)
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
@@ -390,7 +391,7 @@ void SkynetRequest::Clear() {
 
 bool SkynetRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetRequest)
   for (;;) {
@@ -484,6 +485,7 @@ void SkynetRequest::SerializeWithCachedSizes(
 }
 
 int SkynetRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetRequest)
   int total_size = 0;
 
   // optional .dg.model.SkynetRequestContext Context = 1;
@@ -507,18 +509,22 @@ int SkynetRequest::ByteSize() const {
 }
 
 void SkynetRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetRequest)
     MergeFrom(*source);
   }
 }
 
 void SkynetRequest::MergeFrom(const SkynetRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_context()) {
     mutable_context()->::dg::model::SkynetRequestContext::MergeFrom(from.context());
@@ -529,12 +535,14 @@ void SkynetRequest::MergeFrom(const SkynetRequest& from) {
 }
 
 void SkynetRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetRequest::CopyFrom(const SkynetRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -588,6 +596,7 @@ const ::dg::model::SkynetRequestContext& SkynetRequest::context() const {
   return context_;
 }
 ::dg::model::SkynetRequestContext* SkynetRequest::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequest.Context)
   
   ::dg::model::SkynetRequestContext* temp = context_;
   context_ = NULL;
@@ -625,6 +634,7 @@ const ::dg::model::SkynetRequestData& SkynetRequest::data() const {
   return data_;
 }
 ::dg::model::SkynetRequestData* SkynetRequest::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequest.Data)
   
   ::dg::model::SkynetRequestData* temp = data_;
   data_ = NULL;
@@ -715,6 +725,7 @@ SkynetResponse* SkynetResponse::New(::google::protobuf::Arena* arena) const {
 }
 
 void SkynetResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetResponse)
   if (GetArenaNoVirtual() == NULL && context_ != NULL) delete context_;
   context_ = NULL;
   if (GetArenaNoVirtual() == NULL && data_ != NULL) delete data_;
@@ -723,7 +734,7 @@ void SkynetResponse::Clear() {
 
 bool SkynetResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetResponse)
   for (;;) {
@@ -817,6 +828,7 @@ void SkynetResponse::SerializeWithCachedSizes(
 }
 
 int SkynetResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetResponse)
   int total_size = 0;
 
   // optional .dg.model.SkynetResponseContext Context = 1;
@@ -840,18 +852,22 @@ int SkynetResponse::ByteSize() const {
 }
 
 void SkynetResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetResponse)
     MergeFrom(*source);
   }
 }
 
 void SkynetResponse::MergeFrom(const SkynetResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_context()) {
     mutable_context()->::dg::model::SkynetResponseContext::MergeFrom(from.context());
@@ -862,12 +878,14 @@ void SkynetResponse::MergeFrom(const SkynetResponse& from) {
 }
 
 void SkynetResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetResponse::CopyFrom(const SkynetResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -921,6 +939,7 @@ const ::dg::model::SkynetResponseContext& SkynetResponse::context() const {
   return context_;
 }
 ::dg::model::SkynetResponseContext* SkynetResponse::release_context() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetResponse.Context)
   
   ::dg::model::SkynetResponseContext* temp = context_;
   context_ = NULL;
@@ -958,6 +977,7 @@ const ::dg::model::SkynetResponseData& SkynetResponse::data() const {
   return data_;
 }
 ::dg::model::SkynetResponseData* SkynetResponse::release_data() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetResponse.Data)
   
   ::dg::model::SkynetResponseData* temp = data_;
   data_ = NULL;
@@ -1055,6 +1075,7 @@ SkynetRequestContext* SkynetRequestContext::New(::google::protobuf::Arena* arena
 }
 
 void SkynetRequestContext::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetRequestContext)
   sessionid_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_ = 0;
   if (GetArenaNoVirtual() == NULL && storage_ != NULL) delete storage_;
@@ -1064,7 +1085,7 @@ void SkynetRequestContext::Clear() {
 
 bool SkynetRequestContext::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetRequestContext)
   for (;;) {
@@ -1267,6 +1288,7 @@ void SkynetRequestContext::SerializeWithCachedSizes(
 }
 
 int SkynetRequestContext::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetRequestContext)
   int total_size = 0;
 
   // optional string SessionId = 1;
@@ -1309,18 +1331,22 @@ int SkynetRequestContext::ByteSize() const {
 }
 
 void SkynetRequestContext::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetRequestContext)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetRequestContext* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetRequestContext>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetRequestContext)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetRequestContext)
     MergeFrom(*source);
   }
 }
 
 void SkynetRequestContext::MergeFrom(const SkynetRequestContext& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetRequestContext)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   params_.MergeFrom(from.params_);
   if (from.sessionid().size() > 0) {
@@ -1336,12 +1362,14 @@ void SkynetRequestContext::MergeFrom(const SkynetRequestContext& from) {
 }
 
 void SkynetRequestContext::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetRequestContext)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetRequestContext::CopyFrom(const SkynetRequestContext& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetRequestContext)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1406,6 +1434,7 @@ void SkynetRequestContext::clear_sessionid() {
   return sessionid_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestContext::release_sessionid() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestContext.SessionId)
   
   return sessionid_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1454,6 +1483,7 @@ const ::dg::model::StorageConfig& SkynetRequestContext::storage() const {
   return storage_;
 }
 ::dg::model::StorageConfig* SkynetRequestContext::release_storage() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestContext.Storage)
   
   ::dg::model::StorageConfig* temp = storage_;
   storage_ = NULL;
@@ -1573,8 +1603,17 @@ SkynetOutput* SkynetOutput::New(::google::protobuf::Arena* arena) const {
 }
 
 void SkynetOutput::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetOutput)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(SkynetOutput, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<SkynetOutput*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -1592,7 +1631,7 @@ void SkynetOutput::Clear() {
 
 bool SkynetOutput::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetOutput)
   for (;;) {
@@ -1860,6 +1899,7 @@ void SkynetOutput::SerializeWithCachedSizes(
 }
 
 int SkynetOutput::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetOutput)
   int total_size = 0;
 
   // optional string Address = 1;
@@ -1923,18 +1963,22 @@ int SkynetOutput::ByteSize() const {
 }
 
 void SkynetOutput::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetOutput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetOutput* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetOutput>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetOutput)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetOutput)
     MergeFrom(*source);
   }
 }
 
 void SkynetOutput::MergeFrom(const SkynetOutput& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetOutput)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.address().size() > 0) {
 
@@ -1965,12 +2009,14 @@ void SkynetOutput::MergeFrom(const SkynetOutput& from) {
 }
 
 void SkynetOutput::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetOutput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetOutput::CopyFrom(const SkynetOutput& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetOutput)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2039,6 +2085,7 @@ void SkynetOutput::clear_address() {
   return address_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetOutput::release_address() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetOutput.Address)
   
   return address_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2082,6 +2129,7 @@ void SkynetOutput::clear_type() {
   return type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetOutput::release_type() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetOutput.Type)
   
   return type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2275,8 +2323,17 @@ SkynetRequestData* SkynetRequestData::New(::google::protobuf::Arena* arena) cons
 }
 
 void SkynetRequestData::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetRequestData)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(SkynetRequestData, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<SkynetRequestData*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -2302,7 +2359,7 @@ void SkynetRequestData::Clear() {
 
 bool SkynetRequestData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetRequestData)
   for (;;) {
@@ -2719,6 +2776,7 @@ void SkynetRequestData::SerializeWithCachedSizes(
 }
 
 int SkynetRequestData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetRequestData)
   int total_size = 0;
 
   // optional int32 SensorId = 1;
@@ -2814,18 +2872,22 @@ int SkynetRequestData::ByteSize() const {
 }
 
 void SkynetRequestData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetRequestData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetRequestData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetRequestData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetRequestData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetRequestData)
     MergeFrom(*source);
   }
 }
 
 void SkynetRequestData::MergeFrom(const SkynetRequestData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetRequestData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   hotspots_.MergeFrom(from.hotspots_);
   disableareas_.MergeFrom(from.disableareas_);
@@ -2867,12 +2929,14 @@ void SkynetRequestData::MergeFrom(const SkynetRequestData& from) {
 }
 
 void SkynetRequestData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetRequestData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetRequestData::CopyFrom(const SkynetRequestData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetRequestData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2959,6 +3023,7 @@ void SkynetRequestData::clear_sensorname() {
   return sensorname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestData::release_sensorname() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorName)
   
   return sensorname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3002,6 +3067,7 @@ void SkynetRequestData::clear_sensoruri() {
   return sensoruri_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestData::release_sensoruri() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorURI)
   
   return sensoruri_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3045,6 +3111,7 @@ void SkynetRequestData::clear_sensortype() {
   return sensortype_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestData::release_sensortype() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.SensorType)
   
   return sensortype_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3190,6 +3257,7 @@ void SkynetRequestData::clear_deepv() {
   return deepv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestData::release_deepv() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.DeepV)
   
   return deepv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3233,6 +3301,7 @@ void SkynetRequestData::clear_resultoutput() {
   return resultoutput_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SkynetRequestData::release_resultoutput() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.ResultOutput)
   
   return resultoutput_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3267,6 +3336,7 @@ const ::dg::model::SkynetOutput& SkynetRequestData::videooutput() const {
   return videooutput_;
 }
 ::dg::model::SkynetOutput* SkynetRequestData::release_videooutput() {
+  // @@protoc_insertion_point(field_release:dg.model.SkynetRequestData.VideoOutput)
   
   ::dg::model::SkynetOutput* temp = videooutput_;
   videooutput_ = NULL;
@@ -3349,11 +3419,12 @@ SkynetResponseContext* SkynetResponseContext::New(::google::protobuf::Arena* are
 }
 
 void SkynetResponseContext::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetResponseContext)
 }
 
 bool SkynetResponseContext::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetResponseContext)
   for (;;) {
@@ -3391,6 +3462,7 @@ void SkynetResponseContext::SerializeWithCachedSizes(
 }
 
 int SkynetResponseContext::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetResponseContext)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3400,28 +3472,34 @@ int SkynetResponseContext::ByteSize() const {
 }
 
 void SkynetResponseContext::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetResponseContext)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetResponseContext* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetResponseContext>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetResponseContext)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetResponseContext)
     MergeFrom(*source);
   }
 }
 
 void SkynetResponseContext::MergeFrom(const SkynetResponseContext& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetResponseContext)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void SkynetResponseContext::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetResponseContext)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetResponseContext::CopyFrom(const SkynetResponseContext& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetResponseContext)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3518,11 +3596,12 @@ SkynetResponseData* SkynetResponseData::New(::google::protobuf::Arena* arena) co
 }
 
 void SkynetResponseData::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SkynetResponseData)
 }
 
 bool SkynetResponseData::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SkynetResponseData)
   for (;;) {
@@ -3560,6 +3639,7 @@ void SkynetResponseData::SerializeWithCachedSizes(
 }
 
 int SkynetResponseData::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SkynetResponseData)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3569,28 +3649,34 @@ int SkynetResponseData::ByteSize() const {
 }
 
 void SkynetResponseData::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SkynetResponseData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SkynetResponseData* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SkynetResponseData>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SkynetResponseData)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SkynetResponseData)
     MergeFrom(*source);
   }
 }
 
 void SkynetResponseData::MergeFrom(const SkynetResponseData& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SkynetResponseData)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void SkynetResponseData::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SkynetResponseData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SkynetResponseData::CopyFrom(const SkynetResponseData& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SkynetResponseData)
   if (&from == this) return;
   Clear();
   MergeFrom(from);

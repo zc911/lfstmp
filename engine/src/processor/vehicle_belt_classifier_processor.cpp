@@ -8,6 +8,7 @@
 #include <model/alg_config.h>
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
+#include "util/caffe_helper.h"
 
 using namespace dgvehicle;
 namespace dg {
@@ -27,6 +28,17 @@ VehicleBeltClassifierProcessor::~VehicleBeltClassifierProcessor() {
         delete belt_classifier_;
     }
     images_.clear();
+}
+
+float GetConfidence(const vector<Prediction>& predictions) {
+    float value = 0;
+    for (int i = 0; i < predictions.size(); i++) {
+        if (predictions[i].first == 1 || predictions[i].second < 0) {
+            continue;
+        }
+        value += predictions[i].second;
+    }
+    return value;
 }
 
 bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
@@ -52,10 +64,19 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
                 if (!is_driver_) {
                     driverType = OBJECT_CODRIVER;
                 }
+                float confidence = GetConfidence(preds[i]);
                 Vehicler *vr = (Vehicler *) v->child(driverType);
                 if (!vr) {
                     vr = new Vehicler(driverType);
+                    Detection detection;
+                    GetPassengerDetection(detections_[i], detection, is_driver_);
+                    detection.confidence = confidence;
+                    vr->set_detection(detection);
                     v->set_vehicler(vr);
+                } else {
+                    Detection detection = vr->detection();
+                    detection.confidence = confidence;
+                    vr->set_detection(detection);
                 }
                 value = preds[i][0].second;
                 vr->set_vehicler_attr(Vehicler::NoBelt, value);
@@ -84,6 +105,7 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #endif
     objs_.clear();
     images_.clear();
+    detections_.clear();
     vector<Object *> objs;
     if (is_driver_) {
         objs = frameBatch->CollectObjects(OPERATION_DRIVER_BELT);
@@ -99,6 +121,7 @@ bool VehicleBeltClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
                 if (obj_child->type() == OBJECT_WINDOW) {
                     Window *w = (Window *) obj->children()[i];
                     images_.push_back(w->resized_image());
+                    detections_.push_back(w->detection());
                     performance_++;
                     objs_.push_back(obj);
 

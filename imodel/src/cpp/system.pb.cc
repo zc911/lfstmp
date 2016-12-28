@@ -660,11 +660,12 @@ PingRequest* PingRequest::New(::google::protobuf::Arena* arena) const {
 }
 
 void PingRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.PingRequest)
 }
 
 bool PingRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.PingRequest)
   for (;;) {
@@ -702,6 +703,7 @@ void PingRequest::SerializeWithCachedSizes(
 }
 
 int PingRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.PingRequest)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -711,28 +713,34 @@ int PingRequest::ByteSize() const {
 }
 
 void PingRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.PingRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const PingRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PingRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.PingRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.PingRequest)
     MergeFrom(*source);
   }
 }
 
 void PingRequest::MergeFrom(const PingRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.PingRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void PingRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.PingRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void PingRequest::CopyFrom(const PingRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.PingRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -833,12 +841,13 @@ PingResponse* PingResponse::New(::google::protobuf::Arena* arena) const {
 }
 
 void PingResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.PingResponse)
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool PingResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.PingResponse)
   for (;;) {
@@ -918,6 +927,7 @@ void PingResponse::SerializeWithCachedSizes(
 }
 
 int PingResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.PingResponse)
   int total_size = 0;
 
   // optional string Message = 1;
@@ -934,18 +944,22 @@ int PingResponse::ByteSize() const {
 }
 
 void PingResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.PingResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const PingResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PingResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.PingResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.PingResponse)
     MergeFrom(*source);
   }
 }
 
 void PingResponse::MergeFrom(const PingResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.PingResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.message().size() > 0) {
 
@@ -954,12 +968,14 @@ void PingResponse::MergeFrom(const PingResponse& from) {
 }
 
 void PingResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.PingResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void PingResponse::CopyFrom(const PingResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.PingResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1021,6 +1037,7 @@ void PingResponse::clear_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* PingResponse::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.PingResponse.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1100,11 +1117,12 @@ VersionRequest* VersionRequest::New(::google::protobuf::Arena* arena) const {
 }
 
 void VersionRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.VersionRequest)
 }
 
 bool VersionRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VersionRequest)
   for (;;) {
@@ -1142,6 +1160,7 @@ void VersionRequest::SerializeWithCachedSizes(
 }
 
 int VersionRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.VersionRequest)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1151,28 +1170,34 @@ int VersionRequest::ByteSize() const {
 }
 
 void VersionRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.VersionRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VersionRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VersionRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.VersionRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.VersionRequest)
     MergeFrom(*source);
   }
 }
 
 void VersionRequest::MergeFrom(const VersionRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.VersionRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void VersionRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.VersionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VersionRequest::CopyFrom(const VersionRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.VersionRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1276,13 +1301,14 @@ VersionResponse* VersionResponse::New(::google::protobuf::Arena* arena) const {
 }
 
 void VersionResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.VersionResponse)
   codeversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   modelversion_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 bool VersionResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.VersionResponse)
   for (;;) {
@@ -1400,6 +1426,7 @@ void VersionResponse::SerializeWithCachedSizes(
 }
 
 int VersionResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.VersionResponse)
   int total_size = 0;
 
   // optional string CodeVersion = 1;
@@ -1423,18 +1450,22 @@ int VersionResponse::ByteSize() const {
 }
 
 void VersionResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.VersionResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const VersionResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const VersionResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.VersionResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.VersionResponse)
     MergeFrom(*source);
   }
 }
 
 void VersionResponse::MergeFrom(const VersionResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.VersionResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.codeversion().size() > 0) {
 
@@ -1447,12 +1478,14 @@ void VersionResponse::MergeFrom(const VersionResponse& from) {
 }
 
 void VersionResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.VersionResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void VersionResponse::CopyFrom(const VersionResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.VersionResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1515,6 +1548,7 @@ void VersionResponse::clear_codeversion() {
   return codeversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VersionResponse::release_codeversion() {
+  // @@protoc_insertion_point(field_release:dg.model.VersionResponse.CodeVersion)
   
   return codeversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1558,6 +1592,7 @@ void VersionResponse::clear_modelversion() {
   return modelversion_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* VersionResponse::release_modelversion() {
+  // @@protoc_insertion_point(field_release:dg.model.VersionResponse.ModelVersion)
   
   return modelversion_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -1637,11 +1672,12 @@ SystemStatusRequest* SystemStatusRequest::New(::google::protobuf::Arena* arena) 
 }
 
 void SystemStatusRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SystemStatusRequest)
 }
 
 bool SystemStatusRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SystemStatusRequest)
   for (;;) {
@@ -1679,6 +1715,7 @@ void SystemStatusRequest::SerializeWithCachedSizes(
 }
 
 int SystemStatusRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SystemStatusRequest)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -1688,28 +1725,34 @@ int SystemStatusRequest::ByteSize() const {
 }
 
 void SystemStatusRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SystemStatusRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SystemStatusRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SystemStatusRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SystemStatusRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SystemStatusRequest)
     MergeFrom(*source);
   }
 }
 
 void SystemStatusRequest::MergeFrom(const SystemStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SystemStatusRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void SystemStatusRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SystemStatusRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SystemStatusRequest::CopyFrom(const SystemStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SystemStatusRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1846,6 +1889,7 @@ SystemStatusResponse* SystemStatusResponse::New(::google::protobuf::Arena* arena
 }
 
 void SystemStatusResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.SystemStatusResponse)
   modelver_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   enginever_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   servicever_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1863,7 +1907,7 @@ void SystemStatusResponse::Clear() {
 
 bool SystemStatusResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.SystemStatusResponse)
   for (;;) {
@@ -2399,6 +2443,7 @@ void SystemStatusResponse::SerializeWithCachedSizes(
 }
 
 int SystemStatusResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.SystemStatusResponse)
   int total_size = 0;
 
   // optional string ModelVer = 1;
@@ -2499,18 +2544,22 @@ int SystemStatusResponse::ByteSize() const {
 }
 
 void SystemStatusResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.SystemStatusResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const SystemStatusResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SystemStatusResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.SystemStatusResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.SystemStatusResponse)
     MergeFrom(*source);
   }
 }
 
 void SystemStatusResponse::MergeFrom(const SystemStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.SystemStatusResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.modelver().size() > 0) {
 
@@ -2567,12 +2616,14 @@ void SystemStatusResponse::MergeFrom(const SystemStatusResponse& from) {
 }
 
 void SystemStatusResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.SystemStatusResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void SystemStatusResponse::CopyFrom(const SystemStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.SystemStatusResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2646,6 +2697,7 @@ void SystemStatusResponse::clear_modelver() {
   return modelver_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_modelver() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.ModelVer)
   
   return modelver_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2689,6 +2741,7 @@ void SystemStatusResponse::clear_enginever() {
   return enginever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_enginever() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.EngineVer)
   
   return enginever_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2732,6 +2785,7 @@ void SystemStatusResponse::clear_servicever() {
   return servicever_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_servicever() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.ServiceVer)
   
   return servicever_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2775,6 +2829,7 @@ void SystemStatusResponse::clear_cpuusage() {
   return cpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_cpuusage() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.CpuUsage)
   
   return cpuusage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2818,6 +2873,7 @@ void SystemStatusResponse::clear_availmem() {
   return availmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_availmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.AvailMem)
   
   return availmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2861,6 +2917,7 @@ void SystemStatusResponse::clear_totalmem() {
   return totalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_totalmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.TotalMem)
   
   return totalmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2904,6 +2961,7 @@ void SystemStatusResponse::clear_availdisk() {
   return availdisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_availdisk() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.AvailDisk)
   
   return availdisk_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2947,6 +3005,7 @@ void SystemStatusResponse::clear_totaldisk() {
   return totaldisk_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_totaldisk() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.TotalDisk)
   
   return totaldisk_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -2990,6 +3049,7 @@ void SystemStatusResponse::clear_netiosend() {
   return netiosend_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_netiosend() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.NetIOSend)
   
   return netiosend_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3033,6 +3093,7 @@ void SystemStatusResponse::clear_netiorecv() {
   return netiorecv_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_netiorecv() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.NetIORecv)
   
   return netiorecv_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3076,6 +3137,7 @@ void SystemStatusResponse::clear_gpuusage() {
   return gpuusage_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_gpuusage() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuUsage)
   
   return gpuusage_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3119,6 +3181,7 @@ void SystemStatusResponse::clear_gpuavailmem() {
   return gpuavailmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_gpuavailmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuAvailMem)
   
   return gpuavailmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3162,6 +3225,7 @@ void SystemStatusResponse::clear_gputotalmem() {
   return gputotalmem_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* SystemStatusResponse::release_gputotalmem() {
+  // @@protoc_insertion_point(field_release:dg.model.SystemStatusResponse.GpuTotalMem)
   
   return gputotalmem_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -3265,6 +3329,7 @@ InstanceConfigureRequest* InstanceConfigureRequest::New(::google::protobuf::Aren
 }
 
 void InstanceConfigureRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.InstanceConfigureRequest)
   if (GetArenaNoVirtual() == NULL && recimagevconfig_ != NULL) delete recimagevconfig_;
   recimagevconfig_ = NULL;
   if (GetArenaNoVirtual() == NULL && recimagefconfig_ != NULL) delete recimagefconfig_;
@@ -3281,7 +3346,7 @@ void InstanceConfigureRequest::Clear() {
 
 bool InstanceConfigureRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.InstanceConfigureRequest)
   for (;;) {
@@ -3479,6 +3544,7 @@ void InstanceConfigureRequest::SerializeWithCachedSizes(
 }
 
 int InstanceConfigureRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.InstanceConfigureRequest)
   int total_size = 0;
 
   // optional .dg.model.RecImageVConfig RecImageVConfig = 1;
@@ -3530,18 +3596,22 @@ int InstanceConfigureRequest::ByteSize() const {
 }
 
 void InstanceConfigureRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.InstanceConfigureRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const InstanceConfigureRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const InstanceConfigureRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.InstanceConfigureRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.InstanceConfigureRequest)
     MergeFrom(*source);
   }
 }
 
 void InstanceConfigureRequest::MergeFrom(const InstanceConfigureRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.InstanceConfigureRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_recimagevconfig()) {
     mutable_recimagevconfig()->::dg::model::RecImageVConfig::MergeFrom(from.recimagevconfig());
@@ -3564,12 +3634,14 @@ void InstanceConfigureRequest::MergeFrom(const InstanceConfigureRequest& from) {
 }
 
 void InstanceConfigureRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.InstanceConfigureRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void InstanceConfigureRequest::CopyFrom(const InstanceConfigureRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.InstanceConfigureRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3627,6 +3699,7 @@ const ::dg::model::RecImageVConfig& InstanceConfigureRequest::recimagevconfig() 
   return recimagevconfig_;
 }
 ::dg::model::RecImageVConfig* InstanceConfigureRequest::release_recimagevconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecImageVConfig)
   
   ::dg::model::RecImageVConfig* temp = recimagevconfig_;
   recimagevconfig_ = NULL;
@@ -3664,6 +3737,7 @@ const ::dg::model::RecImageFConfig& InstanceConfigureRequest::recimagefconfig() 
   return recimagefconfig_;
 }
 ::dg::model::RecImageFConfig* InstanceConfigureRequest::release_recimagefconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecImageFConfig)
   
   ::dg::model::RecImageFConfig* temp = recimagefconfig_;
   recimagefconfig_ = NULL;
@@ -3701,6 +3775,7 @@ const ::dg::model::RecVideoVConfig& InstanceConfigureRequest::recvideovconfig() 
   return recvideovconfig_;
 }
 ::dg::model::RecVideoVConfig* InstanceConfigureRequest::release_recvideovconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecVideoVConfig)
   
   ::dg::model::RecVideoVConfig* temp = recvideovconfig_;
   recvideovconfig_ = NULL;
@@ -3738,6 +3813,7 @@ const ::dg::model::RecVideoFConfig& InstanceConfigureRequest::recvideofconfig() 
   return recvideofconfig_;
 }
 ::dg::model::RecVideoFConfig* InstanceConfigureRequest::release_recvideofconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RecVideoFConfig)
   
   ::dg::model::RecVideoFConfig* temp = recvideofconfig_;
   recvideofconfig_ = NULL;
@@ -3775,6 +3851,7 @@ const ::dg::model::RankVConfig& InstanceConfigureRequest::rankvconfig() const {
   return rankvconfig_;
 }
 ::dg::model::RankVConfig* InstanceConfigureRequest::release_rankvconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RankVConfig)
   
   ::dg::model::RankVConfig* temp = rankvconfig_;
   rankvconfig_ = NULL;
@@ -3812,6 +3889,7 @@ const ::dg::model::RankFConfig& InstanceConfigureRequest::rankfconfig() const {
   return rankfconfig_;
 }
 ::dg::model::RankFConfig* InstanceConfigureRequest::release_rankfconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureRequest.RankFConfig)
   
   ::dg::model::RankFConfig* temp = rankfconfig_;
   rankfconfig_ = NULL;
@@ -3894,11 +3972,12 @@ GetInstancesRequest* GetInstancesRequest::New(::google::protobuf::Arena* arena) 
 }
 
 void GetInstancesRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.GetInstancesRequest)
 }
 
 bool GetInstancesRequest::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.GetInstancesRequest)
   for (;;) {
@@ -3936,6 +4015,7 @@ void GetInstancesRequest::SerializeWithCachedSizes(
 }
 
 int GetInstancesRequest::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.GetInstancesRequest)
   int total_size = 0;
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -3945,28 +4025,34 @@ int GetInstancesRequest::ByteSize() const {
 }
 
 void GetInstancesRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.GetInstancesRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const GetInstancesRequest* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const GetInstancesRequest>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.GetInstancesRequest)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.GetInstancesRequest)
     MergeFrom(*source);
   }
 }
 
 void GetInstancesRequest::MergeFrom(const GetInstancesRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.GetInstancesRequest)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
 }
 
 void GetInstancesRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.GetInstancesRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void GetInstancesRequest::CopyFrom(const GetInstancesRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.GetInstancesRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4071,6 +4157,7 @@ InstanceConfigureResponse* InstanceConfigureResponse::New(::google::protobuf::Ar
 }
 
 void InstanceConfigureResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.InstanceConfigureResponse)
   status_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   message_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   results_.Clear();
@@ -4078,7 +4165,7 @@ void InstanceConfigureResponse::Clear() {
 
 bool InstanceConfigureResponse::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.InstanceConfigureResponse)
   for (;;) {
@@ -4226,6 +4313,7 @@ void InstanceConfigureResponse::SerializeWithCachedSizes(
 }
 
 int InstanceConfigureResponse::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.InstanceConfigureResponse)
   int total_size = 0;
 
   // optional string Status = 1;
@@ -4257,18 +4345,22 @@ int InstanceConfigureResponse::ByteSize() const {
 }
 
 void InstanceConfigureResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.InstanceConfigureResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const InstanceConfigureResponse* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const InstanceConfigureResponse>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.InstanceConfigureResponse)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.InstanceConfigureResponse)
     MergeFrom(*source);
   }
 }
 
 void InstanceConfigureResponse::MergeFrom(const InstanceConfigureResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.InstanceConfigureResponse)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   results_.MergeFrom(from.results_);
   if (from.status().size() > 0) {
@@ -4282,12 +4374,14 @@ void InstanceConfigureResponse::MergeFrom(const InstanceConfigureResponse& from)
 }
 
 void InstanceConfigureResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.InstanceConfigureResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void InstanceConfigureResponse::CopyFrom(const InstanceConfigureResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.InstanceConfigureResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4351,6 +4445,7 @@ void InstanceConfigureResponse::clear_status() {
   return status_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* InstanceConfigureResponse::release_status() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureResponse.Status)
   
   return status_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4394,6 +4489,7 @@ void InstanceConfigureResponse::clear_message() {
   return message_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
  ::std::string* InstanceConfigureResponse::release_message() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfigureResponse.Message)
   
   return message_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -4512,8 +4608,17 @@ InstanceConfig* InstanceConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void InstanceConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.InstanceConfig)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(InstanceConfig, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<InstanceConfig*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -4532,7 +4637,7 @@ void InstanceConfig::Clear() {
 
 bool InstanceConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.InstanceConfig)
   for (;;) {
@@ -4707,6 +4812,7 @@ void InstanceConfig::SerializeWithCachedSizes(
 }
 
 int InstanceConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.InstanceConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceType Type = 1;
@@ -4753,18 +4859,22 @@ int InstanceConfig::ByteSize() const {
 }
 
 void InstanceConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.InstanceConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const InstanceConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const InstanceConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.InstanceConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.InstanceConfig)
     MergeFrom(*source);
   }
 }
 
 void InstanceConfig::MergeFrom(const InstanceConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.InstanceConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   functions_.MergeFrom(from.functions_);
   if (from.type() != 0) {
@@ -4779,12 +4889,14 @@ void InstanceConfig::MergeFrom(const InstanceConfig& from) {
 }
 
 void InstanceConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.InstanceConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void InstanceConfig::CopyFrom(const InstanceConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.InstanceConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -4898,6 +5010,7 @@ const ::dg::model::StorageConfig& InstanceConfig::storageconfig() const {
   return storageconfig_;
 }
 ::dg::model::StorageConfig* InstanceConfig::release_storageconfig() {
+  // @@protoc_insertion_point(field_release:dg.model.InstanceConfig.StorageConfig)
   
   ::dg::model::StorageConfig* temp = storageconfig_;
   storageconfig_ = NULL;
@@ -4984,13 +5097,14 @@ RecImageVConfig* RecImageVConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecImageVConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RecImageVConfig)
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
 
 bool RecImageVConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecImageVConfig)
   for (;;) {
@@ -5058,6 +5172,7 @@ void RecImageVConfig::SerializeWithCachedSizes(
 }
 
 int RecImageVConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RecImageVConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -5074,18 +5189,22 @@ int RecImageVConfig::ByteSize() const {
 }
 
 void RecImageVConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecImageVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecImageVConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecImageVConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecImageVConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecImageVConfig)
     MergeFrom(*source);
   }
 }
 
 void RecImageVConfig::MergeFrom(const RecImageVConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecImageVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -5093,12 +5212,14 @@ void RecImageVConfig::MergeFrom(const RecImageVConfig& from) {
 }
 
 void RecImageVConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecImageVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecImageVConfig::CopyFrom(const RecImageVConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecImageVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5151,6 +5272,7 @@ const ::dg::model::InstanceConfig& RecImageVConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RecImageVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecImageVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -5237,13 +5359,14 @@ RecImageFConfig* RecImageFConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecImageFConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RecImageFConfig)
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
 
 bool RecImageFConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecImageFConfig)
   for (;;) {
@@ -5311,6 +5434,7 @@ void RecImageFConfig::SerializeWithCachedSizes(
 }
 
 int RecImageFConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RecImageFConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -5327,18 +5451,22 @@ int RecImageFConfig::ByteSize() const {
 }
 
 void RecImageFConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecImageFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecImageFConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecImageFConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecImageFConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecImageFConfig)
     MergeFrom(*source);
   }
 }
 
 void RecImageFConfig::MergeFrom(const RecImageFConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecImageFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -5346,12 +5474,14 @@ void RecImageFConfig::MergeFrom(const RecImageFConfig& from) {
 }
 
 void RecImageFConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecImageFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecImageFConfig::CopyFrom(const RecImageFConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecImageFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5404,6 +5534,7 @@ const ::dg::model::InstanceConfig& RecImageFConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RecImageFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecImageFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -5498,8 +5629,17 @@ RecVideoVConfig* RecVideoVConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecVideoVConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RecVideoVConfig)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(RecVideoVConfig, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<RecVideoVConfig*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -5517,7 +5657,7 @@ void RecVideoVConfig::Clear() {
 
 bool RecVideoVConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecVideoVConfig)
   for (;;) {
@@ -5685,6 +5825,7 @@ void RecVideoVConfig::SerializeWithCachedSizes(
 }
 
 int RecVideoVConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RecVideoVConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -5729,18 +5870,22 @@ int RecVideoVConfig::ByteSize() const {
 }
 
 void RecVideoVConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecVideoVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecVideoVConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecVideoVConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecVideoVConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecVideoVConfig)
     MergeFrom(*source);
   }
 }
 
 void RecVideoVConfig::MergeFrom(const RecVideoVConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecVideoVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -5760,12 +5905,14 @@ void RecVideoVConfig::MergeFrom(const RecVideoVConfig& from) {
 }
 
 void RecVideoVConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecVideoVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecVideoVConfig::CopyFrom(const RecVideoVConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecVideoVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -5822,6 +5969,7 @@ const ::dg::model::InstanceConfig& RecVideoVConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RecVideoVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVideoVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -5972,8 +6120,17 @@ RecVideoFConfig* RecVideoFConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RecVideoFConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RecVideoFConfig)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(RecVideoFConfig, f) \
+  _Pragma("clang diagnostic pop")
+#else
 #define ZR_HELPER_(f) reinterpret_cast<char*>(\
   &reinterpret_cast<RecVideoFConfig*>(16)->f)
+#endif
 
 #define ZR_(first, last) do {\
   ::memset(&first, 0,\
@@ -5991,7 +6148,7 @@ void RecVideoFConfig::Clear() {
 
 bool RecVideoFConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RecVideoFConfig)
   for (;;) {
@@ -6159,6 +6316,7 @@ void RecVideoFConfig::SerializeWithCachedSizes(
 }
 
 int RecVideoFConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RecVideoFConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -6201,18 +6359,22 @@ int RecVideoFConfig::ByteSize() const {
 }
 
 void RecVideoFConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RecVideoFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RecVideoFConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RecVideoFConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RecVideoFConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RecVideoFConfig)
     MergeFrom(*source);
   }
 }
 
 void RecVideoFConfig::MergeFrom(const RecVideoFConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RecVideoFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -6232,12 +6394,14 @@ void RecVideoFConfig::MergeFrom(const RecVideoFConfig& from) {
 }
 
 void RecVideoFConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RecVideoFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RecVideoFConfig::CopyFrom(const RecVideoFConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RecVideoFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6294,6 +6458,7 @@ const ::dg::model::InstanceConfig& RecVideoFConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RecVideoFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RecVideoFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -6436,13 +6601,14 @@ RankVConfig* RankVConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RankVConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankVConfig)
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
 
 bool RankVConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RankVConfig)
   for (;;) {
@@ -6510,6 +6676,7 @@ void RankVConfig::SerializeWithCachedSizes(
 }
 
 int RankVConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankVConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -6526,18 +6693,22 @@ int RankVConfig::ByteSize() const {
 }
 
 void RankVConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RankVConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RankVConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankVConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankVConfig)
     MergeFrom(*source);
   }
 }
 
 void RankVConfig::MergeFrom(const RankVConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankVConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -6545,12 +6716,14 @@ void RankVConfig::MergeFrom(const RankVConfig& from) {
 }
 
 void RankVConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RankVConfig::CopyFrom(const RankVConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankVConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6603,6 +6776,7 @@ const ::dg::model::InstanceConfig& RankVConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RankVConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RankVConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -6689,13 +6863,14 @@ RankFConfig* RankFConfig::New(::google::protobuf::Arena* arena) const {
 }
 
 void RankFConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.RankFConfig)
   if (GetArenaNoVirtual() == NULL && instances_ != NULL) delete instances_;
   instances_ = NULL;
 }
 
 bool RankFConfig::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.RankFConfig)
   for (;;) {
@@ -6763,6 +6938,7 @@ void RankFConfig::SerializeWithCachedSizes(
 }
 
 int RankFConfig::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.RankFConfig)
   int total_size = 0;
 
   // optional .dg.model.InstanceConfig Instances = 1;
@@ -6779,18 +6955,22 @@ int RankFConfig::ByteSize() const {
 }
 
 void RankFConfig::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.RankFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const RankFConfig* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const RankFConfig>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.RankFConfig)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.RankFConfig)
     MergeFrom(*source);
   }
 }
 
 void RankFConfig::MergeFrom(const RankFConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.RankFConfig)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   if (from.has_instances()) {
     mutable_instances()->::dg::model::InstanceConfig::MergeFrom(from.instances());
@@ -6798,12 +6978,14 @@ void RankFConfig::MergeFrom(const RankFConfig& from) {
 }
 
 void RankFConfig::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.RankFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void RankFConfig::CopyFrom(const RankFConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.RankFConfig)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -6856,6 +7038,7 @@ const ::dg::model::InstanceConfig& RankFConfig::instances() const {
   return instances_;
 }
 ::dg::model::InstanceConfig* RankFConfig::release_instances() {
+  // @@protoc_insertion_point(field_release:dg.model.RankFConfig.Instances)
   
   ::dg::model::InstanceConfig* temp = instances_;
   instances_ = NULL;
@@ -6941,13 +7124,14 @@ EngineStatus* EngineStatus::New(::google::protobuf::Arena* arena) const {
 }
 
 void EngineStatus::Clear() {
+// @@protoc_insertion_point(message_clear_start:dg.model.EngineStatus)
   instances_ = 0;
   rpcports_.Clear();
 }
 
 bool EngineStatus::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:dg.model.EngineStatus)
   for (;;) {
@@ -7056,6 +7240,7 @@ void EngineStatus::SerializeWithCachedSizes(
 }
 
 int EngineStatus::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:dg.model.EngineStatus)
   int total_size = 0;
 
   // optional int32 Instances = 1;
@@ -7089,18 +7274,22 @@ int EngineStatus::ByteSize() const {
 }
 
 void EngineStatus::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:dg.model.EngineStatus)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   const EngineStatus* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const EngineStatus>(
           &from);
   if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:dg.model.EngineStatus)
     ::google::protobuf::internal::ReflectionOps::Merge(from, this);
   } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:dg.model.EngineStatus)
     MergeFrom(*source);
   }
 }
 
 void EngineStatus::MergeFrom(const EngineStatus& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dg.model.EngineStatus)
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   rpcports_.MergeFrom(from.rpcports_);
   if (from.instances() != 0) {
@@ -7109,12 +7298,14 @@ void EngineStatus::MergeFrom(const EngineStatus& from) {
 }
 
 void EngineStatus::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:dg.model.EngineStatus)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 void EngineStatus::CopyFrom(const EngineStatus& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dg.model.EngineStatus)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
