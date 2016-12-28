@@ -1,9 +1,9 @@
 
 {
   "BatchSize":1,
-  "StandardHeight":1080,
-  "StandardWidth":1920,
-  "Roi_Per_Image":16,
+  "StandardHeight":600,
+  "StandardWidth":400,
+  "Roi_Per_Image":2,
   "Rpn_Height":150,
   "Rpn_Width":250
 }
