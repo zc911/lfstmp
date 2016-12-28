@@ -13,7 +13,7 @@ Grpcpp/0.14.1@deepglint/stable
 Cudart/8.0@deepglint/stable
 Mxnet/0.7.0.4@deepglint/stable_cuda_8.0
 dgvehicle/0.2.0@deepglint/stable_cuda_8.0
-dgLP/2.2.4.6@deepglint/stable_cuda_8.0
+dgLP/2.2.4.7@deepglint/stable_cuda_8.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_8.0
 CdnnCaffe/0.1.0@deepglint/stable
 dgface/0.0.3@deepglint/old

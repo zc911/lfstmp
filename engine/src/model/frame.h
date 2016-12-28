@@ -102,7 +102,9 @@ class Frame {
     void DeleteInvalidObjects() {
         for (vector<Object *>::iterator itr = objects_.begin(); itr != objects_.end();) {
             if ((*itr)->type() == OBJECT_FACE) {
-                if (!((Face *) (*itr))->IsValid()) {
+                Face *f = (Face *) (*itr);
+                if (!f->IsValid()) {
+                    delete f;
                     itr = objects_.erase(itr);
                     continue;
                 }
