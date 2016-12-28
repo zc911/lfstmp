@@ -29,18 +29,17 @@ sys.setdefaultencoding("utf-8")
 ## global configure infomation
 conf = dict(
     #address = "http://192.168.2.21:8600/rec/image",     # service address
-    address = "http://192.168.2.21:6500/rec/image",     # service address
+    address = "http://127.0.0.1:6501/rec/image",     # service address
     batch_num = 1,                 # batch num
     thread_num = 4,                 # thread num
     photo_path = "/home/chenzhen/dgface",           # image path
     input_path = "input",           # file input path
-    mode = 1,                       # 0 means single, 1 means batch
-    read_method = 1,                # 0 means read from files, 1 means read from folder
-    uri_type = 2,                   # 0 means local path, 1 means http path, 2 means encode to base64
+    mode = 0,                       # 0 means single, 1 means batch
+    read_method = 0,                # 0 means read from files, 1 means read from folder
+    uri_type = 1,                   # 0 means local path, 1 means http path, 2 means encode to base64
     svr_type = 3,                   # 1:car 2:face 3:all 0:default(face)
     functions = [2,20,21],
-    #uri_header = 'http://192.168.2.21:3002/faceimage',
-    uri_header = '',
+    uri_header = 'http://192.168.2.21:3002/DG_blacklist/',
     file_header = '',
     timeout = 20,                   # timeout
     requestID = 0,                  # request Id
