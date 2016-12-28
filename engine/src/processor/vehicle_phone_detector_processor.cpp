@@ -9,6 +9,7 @@
 #include "processor_helper.h"
 #include "string_util.h"
 #include "algorithm_def.h"
+#include "util/caffe_helper.h"
 
 using namespace dgvehicle;
 namespace dg {
@@ -48,6 +49,9 @@ bool VehiclePhoneClassifierProcessor::process(FrameBatch *frameBatch) {
             Vehicler *vr = (Vehicler *) v->child(OBJECT_DRIVER);
             if (!vr) {
                 vr = new Vehicler(OBJECT_DRIVER);
+                Detection detection;
+                GetPassengerDetection(detections_[i], detection, true);
+                vr->set_detection(detection);
                 v->set_vehicler(vr);
             }
             vr->set_vehicler_attr(Vehicler::Phone, preds[i][0].second);
@@ -72,6 +76,7 @@ bool VehiclePhoneClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
 #endif
     objs_.clear();
     images_.clear();
+    detections_.clear();
 
     vector<Object *> objs = frameBatch->CollectObjects(OPERATION_DRIVER_PHONE);
     vector<Object *>::iterator itr = objs.begin();
@@ -84,6 +89,7 @@ bool VehiclePhoneClassifierProcessor::beforeUpdate(FrameBatch *frameBatch) {
                 if (obj_child->type() == OBJECT_WINDOW) {
                     Window *w = (Window *) obj->children()[i];
                     images_.push_back(w->phone_image());
+                    detections_.push_back(w->detection());
                     performance_++;
                     objs_.push_back(obj);
 
