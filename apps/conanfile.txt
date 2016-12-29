@@ -11,7 +11,7 @@ Grpc/0.14.1@deepglint/stable
 Grpcpp/0.14.1@deepglint/stable
 Mxnet/0.7.0.4@deepglint/stable_cuda_7.0
 Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
-dgvehicle/0.3.0@deepglint/stable_cuda_7.0
+dgvehicle/0.3.1@deepglint/stable_cuda_7.0
 dgLP/2.2.4.7@deepglint/stable_cuda_7.0
 Cudart/7.0@deepglint/stable
 Cudnn/4.0.7@deepglint/stable
