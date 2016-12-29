@@ -60,7 +60,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         cv::Mat phone_image = images_[i].clone();
 
         Mat phone_img = crop_phone_image(phone_image, xmin, ymin, xmax, ymax, &cpxmin, &cpymin);
-        Mat img = crop_image(image, xmin, ymin, xmax, ymax);
+        Mat img = crop_image(image, xmin, ymin, xmax, ymax, &cxmin, &cymin);
 
         vector<float> params;
         params.push_back(cxmin);

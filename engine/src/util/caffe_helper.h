@@ -309,7 +309,7 @@ static cv::Mat crop_phone_image(cv::Mat image, float xmin, float ymin, float xma
     return img;
 }
 
-static Mat crop_image(Mat image, float xmin, float ymin, float xmax, float ymax) {
+static Mat crop_image(Mat image, float xmin, float ymin, float xmax, float ymax, int* cxmin, int* cymin) {
     Mat img = image.clone();
     int img_width = img.cols;
     int img_height = img.rows;
@@ -372,6 +372,8 @@ static Mat crop_image(Mat image, float xmin, float ymin, float xmax, float ymax)
         crop_ymin = img_height - crop_height;
     }
     img = img(Rect(crop_xmin, crop_ymin, floor(crop_xmax - crop_xmin), floor(crop_ymax - crop_ymin)));
+    *cxmin = crop_xmin;
+    *cymin = crop_ymin;
 
     return img;
 }
