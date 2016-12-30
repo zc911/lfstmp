@@ -212,7 +212,7 @@ MatrixError ImageService::getImageFromData(const string &img64,
     Base64::Decode(img64, bin);
     decodeDataToMat(bin, imgMat);
 
-    if ((imgMat.rows & imgMat.cols) == 0) {
+    if (imgMat.rows == 0 || imgMat.cols == 0) {
         LOG(WARNING) << "Image is empty from BASE64" << endl;
         ok.set_code(-1);
         ok.set_message("Image is empty from BASE64");
