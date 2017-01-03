@@ -2,6 +2,7 @@
 #include <recognition/recog_lbp.h>
 #include <recognition/recog_cdnn.h>
 #include <recognition/recog_cdnn_caffe.h>
+#include <recognition/caffe_batch_wrapper.h>
 #include <recognition/recog_fuse.h>
 #include <stdexcept>
 #include "caffe_interface.h"
@@ -364,8 +365,8 @@ void CdnnCaffeRecog::ParseConfigFile(const string& cfg_content,
 									bool* is_color) {
 	stringstream ss_cfg(cfg_content);
 
-	multi_thread_ = false; // use the multi-thread version for feature extraction
-    multi_process_ = false; // use the multi-process version for feature extraction
+    // multi_thread_ = false; // use the multi-thread version for feature extraction
+    // multi_process_ = false; // use the multi-process version for feature extraction
     int num_patches;
     int patch_id;
     int color;
@@ -375,22 +376,23 @@ void CdnnCaffeRecog::ParseConfigFile(const string& cfg_content,
     *is_color = (color > 0);
     ss_cfg >> multi_thread_or_proc;
     ss_cfg >> num_patches;
-    if (multi_thread_or_proc == 1) {
-        multi_thread_ = true;
-        assert(num_patches > 1);
-    } else if (multi_thread_or_proc == 2) {
-        multi_process_ = true;
-        assert(num_patches > 1);
-    }
-    int num_models = (multi_thread_ || multi_process_ ) ? num_patches + 1 : 1;
+    // if (multi_thread_or_proc == 1) {
+    //     multi_thread_ = true;
+    //     assert(num_patches > 1);
+    // } else if (multi_thread_or_proc == 2) {
+    //     multi_process_ = true;
+    //     assert(num_patches > 1);
+    // }
+    // int num_models = (multi_thread_ || multi_process_ ) ? num_patches + 1 : 1;
+    int num_models = 1;
     for (int i = 0; i < num_models; ++i) {
         string model_def, weight_file, layer_name;
         int patch_dim;
         ss_cfg >> model_def;
         ss_cfg >> weight_file;
         ss_cfg >> layer_name;
-        if (multi_process_)
-            ss_cfg >> patch_dim;
+        // if (multi_process_)
+        //     ss_cfg >> patch_dim;
         model_defs.push_back(model_def);
         weight_files.push_back(weight_file);
         layer_names.push_back(layer_name);
@@ -406,12 +408,6 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
 								int gpu_id,
 								bool is_encrypt, 
 								int batch_size) : Recognition(is_encrypt) {
-    _param.gpu      = gpu_id;
-    int argc = 1;
-    char* argv[] = {""};
-
-    vis::initcaffeglobal(argc, argv, gpu_id);
-
 	string cfg_file;
 	addNameToPath(model_dir, "/recog_cdnn_caffe.cfg", cfg_file);
 	string cfg_content;
@@ -427,27 +423,15 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
     vector <int> patch_dims;
 	ParseConfigFile(cfg_content, model_defs, weight_files, layer_names, patch_ids, patch_dims, &is_color);
 	assert(model_defs.size() == weight_files.size());
+    assert(model_defs.size() == 1);
+    assert(layer_names.size() == 1);
 	for(size_t i = 0; i < model_defs.size(); ++i) {
 		addNameToPath(model_dir, "/" + model_defs[i], model_defs[i]);
 		addNameToPath(model_dir, "/" + weight_files[i], weight_files[i]);
 	}
     
-	m_CaffeHandler = NULL;
-    if (multi_thread_) {
-        m_CaffeHandler = (MultiThreadFeatureExtractor*)
-                         (new MultiThreadFeatureExtractor(model_defs, weight_files, layer_names, patch_ids, is_color));
-    }
-    else if (multi_process_) {
-        m_CaffeHandler = (MultiProcFeatureExtractor*)
-                         (new MultiProcFeatureExtractor(model_defs, weight_files, layer_names, patch_ids, patch_dims, is_color));
-    }
-    else {
-        m_CaffeHandler = (FeatureExtractor*)
-                         (new FeatureExtractor(model_defs[0], weight_files[0], layer_names[0], patch_ids, is_color));
-    }
-	if(m_CaffeHandler == NULL) {
-    	throw new runtime_error("can't initialize CdnnCaffeRecog");
-	}
+	_impl = new CaffeBatchWrapper(gpu_id, layer_names[0], batch_size,
+        model_defs[0], weight_files[0], patch_ids);
 
 	_transformation = NULL;
 	_transformation = new CdnnTransformation(); // use cdnn transformation temporarily
@@ -458,9 +442,7 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
 
 
 CdnnCaffeRecog::~CdnnCaffeRecog() {
-    delete [] m_CaffeHandler;
-    m_CaffeHandler = NULL;
-
+    delete _impl;
 	if(_transformation) {
 		delete _transformation;
 		_transformation = NULL;
@@ -473,7 +455,9 @@ void CdnnCaffeRecog::recog_impl(const vector<cv::Mat>& faces,
 
     assert(faces.size() == alignment.size());
     results.clear();
-    results.resize(faces.size());
+    results.reserve(faces.size());
+    vector<Mat> images;
+    vector< vector<float> > landmarks;
     for (size_t idx = 0; idx < faces.size(); ++idx) {
         // prepare landmarks
         // prepare image
@@ -484,28 +468,34 @@ void CdnnCaffeRecog::recog_impl(const vector<cv::Mat>& faces,
 		vector<double> transformedLandmark;
 		cvtLandmarks(transformed_alignment.landmarks, transformedLandmark);
 		vector<float> target_lmks(transformedLandmark.begin(), transformedLandmark.end());
-        
-        //extract feature
-        auto& feature = results[idx].face_feat;
-        feature.clear();
 
-        int ret = 0;
-        std::vector<float> float_features;
-        if (multi_process_) {
-            ret = ((MultiProcFeatureExtractor*)m_CaffeHandler)->
-                  extract_features(transform_img, target_lmks, float_features);
-        } else if (multi_thread_) {
-            ret = ((MultiThreadFeatureExtractor*)m_CaffeHandler)->
-                  extract_features(transform_img, target_lmks, float_features);
-        } else {
-            ret = ((FeatureExtractor*)m_CaffeHandler)->
-                  extract_features(transform_img, target_lmks, float_features);
+        images.push_back(transform_img);
+        landmarks.push_back(target_lmks);
+
+        if (images.size() == _batch_size) {
+            ProcessBatchAppend(images, landmarks, results);
+            images.clear();
+            landmarks.clear();
         }
-
-		feature.assign(float_features.begin(), float_features.end());
+        
+    }
+    if (images.size() > 0 && images.size() < _batch_size) {
+        ProcessBatchAppend(images, landmarks, results);
     }
 }
 
+void CdnnCaffeRecog::ProcessBatchAppend(const vector<Mat> &images,
+        vector< vector<float> > &landmarks,
+        vector<RecogResult> &results) {
+    vector< vector<float> > output;
+    _impl->predict(images, landmarks, output);
+    size_t base_idx = results.size();
+    results.resize(base_idx + images.size());
+    for (size_t i = 0; i < images.size(); i++) {
+        auto& feature = results[base_idx + i].face_feat;
+        feature.assign(output[i].begin(), output[i].end());
+    }
+}
 
 /////////////////////////////////////////////////////////////////////
 // ----------------------recogintion fusion-----------------------//
