@@ -225,9 +225,6 @@ int main(int argc, char *argv[]) {
 
     Config *config = new Config();
     config->Load(FLAGS_config);
-    if (FilesAllExist(config) == false) {
-        exit(-1);
-    }
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 
 #ifdef DEBUG
@@ -243,6 +240,10 @@ int main(int argc, char *argv[]) {
         config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(false));
     }
 #endif
+
+    if (FilesAllExist(config) == false) {
+        exit(-1);
+    }
 
     if (FLAGS_showconfig) {
         config->DumpValues();
