@@ -18,6 +18,8 @@ static void init() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
     frprocessor = new FaceRankProcessor();
     fbhelper = new FrameBatchHelper(1);
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

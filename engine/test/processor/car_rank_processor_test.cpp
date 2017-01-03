@@ -25,6 +25,7 @@ static void initConfig() {
 static void init() {
     initConfig();
     fbhelper = new FrameBatchHelper(1);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

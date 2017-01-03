@@ -367,6 +367,7 @@ void WitnessEngine::init(const Config &config) {
 //    initGpuMemory(framebatch);
     this->Process(&framebatch);
 
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
     is_init_ = true;
 
 }
