@@ -59,6 +59,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
         face_extractor_ = new FaceFeatureExtractProcessor();
         face_ranker_ = new FaceRankProcessor();
     }
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 SimpleRankEngine::~SimpleRankEngine() {

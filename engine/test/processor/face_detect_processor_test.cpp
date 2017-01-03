@@ -26,6 +26,8 @@ static void initConfig() {
     config.model_file = baseModelPath + "400.dat"; */
     fdprocessor = new FaceDetectProcessor();
     fbhelper = new FrameBatchHelper(1);
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

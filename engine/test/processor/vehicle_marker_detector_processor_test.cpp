@@ -15,18 +15,6 @@ static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    VehicleCaffeDetectorConfig mConfig;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    mConfig.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    mConfig.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-
-    mConfig.deploy_file = baseModelPath + "601.txt";
-    mConfig.model_file = baseModelPath + "601.dat"; */
 
     vmcprocessor = new VehicleMarkerClassifierProcessor(false);
 }
@@ -50,6 +38,7 @@ static void init() {
 
     head->setNextProcessor(window->getProcessor());
     window->setNextProcessor(vmcprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 
 }
 

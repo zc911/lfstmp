@@ -81,6 +81,8 @@ private:
         bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
         processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
 
+        dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
+
     }
 
     RingBuffer *buffer_;
