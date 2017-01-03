@@ -91,10 +91,10 @@ TEST(VehicleMarkerClassifierTest, markerClassifierTest) {
         s << i;
         for (int j = 0; j < v.size(); ++j) {
             Vehicle *vehicle = (Vehicle*)v[j];
-            EXPECT_LE(resultReader->getIntValue(s.str(), 1), vehicle->detection().box.x);
-            EXPECT_LE(resultReader->getIntValue(s.str(), 2), vehicle->detection().box.y);
-            EXPECT_GE(resultReader->getIntValue(s.str(), 3), vehicle->detection().box.width);
-            EXPECT_GE(resultReader->getIntValue(s.str(), 4), vehicle->detection().box.height);
+            EXPECT_LE(resultReader->getIntValue(s.str(), 1), vehicle->detection().box().x);
+            EXPECT_LE(resultReader->getIntValue(s.str(), 2), vehicle->detection().box().y);
+            EXPECT_GE(resultReader->getIntValue(s.str(), 3), vehicle->detection().box().width);
+            EXPECT_GE(resultReader->getIntValue(s.str(), 4), vehicle->detection().box().height);
         }
     }
 

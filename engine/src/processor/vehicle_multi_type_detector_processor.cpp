@@ -105,13 +105,13 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
             }
 
             Detection d = ConvertDgvehicleDetection(imageDetection[j]);
-            if (!roiFilter(frame->get_rois(), d.box))
+            if (!roiFilter(frame->get_rois(), d.box()))
                 continue;
             Object *obj = NULL;
             if (d.id == DETECTION_PEDESTRIAN) {
                 // if is pedestrain
                 Pedestrian *p = new Pedestrian();
-                Mat roi = CutImage(frame->payload()->data(), d.box);
+                Mat roi = CutImage(frame->payload()->data(), d.box());
 
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;
@@ -135,7 +135,7 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                 else
                     objectType = OBJECT_UNKNOWN;
 
-                Mat roi = CutImage(frame->payload()->data(), d.box);
+                Mat roi = CutImage(frame->payload()->data(), d.box());
 
                 if (roi.rows == 0 || roi.cols == 0) {
                     continue;

@@ -257,7 +257,7 @@ MatrixError RepoService::FillPlates(const vector<Vehicle::Plate> &plates,
         LicensePlate *rplate = vrec->add_plates();
         rplate->set_platetext(plate.plate_num);
         Detection d;
-        d.box = plate.box;
+        d.set_box(plate.box);
         CopyCutboard(d, rplate->mutable_cutboard());
         rplate->mutable_color()->set_colorid(plate.color_id);
         int typeId = plate.plate_type;

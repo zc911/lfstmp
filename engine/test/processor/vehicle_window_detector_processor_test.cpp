@@ -87,10 +87,10 @@ TEST(VehicleWindowDetectorTest, windowDetectorTest) {
             if (w == NULL)
                 continue;
 
-            EXPECT_LE(0, w->detection().box.x);
-            EXPECT_LE(0, w->detection().box.y);
-            EXPECT_GE(obj->detection().box.width, w->detection().box.width + w->detection().box.x);
-            EXPECT_GE(obj->detection().box.height, w->detection().box.height + w->detection().box.y);
+            EXPECT_LE(0, w->detection().box().x);
+            EXPECT_LE(0, w->detection().box().y);
+            EXPECT_GE(obj->detection().box().width, w->detection().box().width + w->detection().box().x);
+            EXPECT_GE(obj->detection().box().height, w->detection().box().height + w->detection().box().y);
             cnt += obj->children(OBJECT_WINDOW).size();
 
         }

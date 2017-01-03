@@ -140,20 +140,20 @@ static void detectionNMS(vector<Detection> &p, float threshold) {
         cnt += 1;
         for (int j = i + 1; j < p.size(); j++) {
             if (!p[j].deleted) {
-                cv::Rect intersect = p[i].box & p[j].box;
+                cv::Rect intersect = p[i].box() & p[j].box();
                 float iou =
                     intersect.area() * 1.0
-                    / (p[i].box.area() + p[j].box.area()
+                    / (p[i].box().area() + p[j].box().area()
                        - intersect.area());
                 if (iou > threshold) {
                     p[j].deleted = true;
                 }
-                if (intersect.x >= p[i].box.x - 0.2
-                        && intersect.y >= p[i].box.y - 0.2
+                if (intersect.x >= p[i].box().x - 0.2
+                        && intersect.y >= p[i].box().y - 0.2
                         && (intersect.x + intersect.width)
-                        <= (p[i].box.x + p[i].box.width + 0.2)
+                        <= (p[i].box().x + p[i].box().width + 0.2)
                         && (intersect.y + intersect.height)
-                        <= (p[i].box.y + p[i].box.height + 0.2)) {
+                        <= (p[i].box().y + p[i].box().height + 0.2)) {
                     p[j].deleted = true;
 
                 }

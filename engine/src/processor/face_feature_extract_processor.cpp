@@ -8,47 +8,56 @@
  * ==========================================================================*/
 //#include <alg/feature/face_alignment.h>
 #include "processor/face_feature_extract_processor.h"
-#include "dgface/recognition/recog_cnn.h"
-#include "dgface/recognition/recog_lbp.h"
-#include "dgface/recognition/recog_cdnn.h"
-#include "dgface/recognition/recog_cdnn_caffe.h"
-#include "dgface/recognition/recog_fuse.h"
 #include "processor_helper.h"
 
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config) {
-    islog_ = config.islog;
 
     switch (config.method) {
         case CNNRecog:
-            recognition_ = new DGFace::CNNRecog(config.deploy_file,
-                                                config.model_file,
-                                                config.layer_name,
-                                                config.mean,
-                                                config.pixel_scale,
-                                                config.use_GPU,
-                                                config.gpu_id);
+            recognition_ = DGFace::create_recognition(DGFace::recog_method::CNN, config.model_dir,
+                                                      config.gpu_id, false,
+                                                      config.is_model_encrypt, config.batch_size);
+//            recognition_ = new DGFace::CNNRecog(config.deploy_file,
+//                                                config.model_file,
+//                                                config.layer_name,
+//                                                config.mean,
+//                                                config.pixel_scale,
+//                                                config.use_GPU,
+//                                                config.gpu_id);
             break;
         case LBPRecog: {
-            int radius = 1;
-            int neighbors = 8;
-            int grid_x = 8;
-            int grid_y = 8;
-            recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
+            recognition_ = DGFace::create_recognition(DGFace::recog_method::LBP, config.model_dir,
+                                                      config.gpu_id, false,
+                                                      config.is_model_encrypt, config.batch_size);
+//            int radius = 1;
+//            int neighbors = 8;
+//            int grid_x = 8;
+//            int grid_y = 8;
+//            recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
             break;
         }
         case CDNNRecog: {
-            recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
+            recognition_ = DGFace::create_recognition(DGFace::recog_method::CDNN, config.model_dir,
+                                                      config.gpu_id, false,
+                                                      config.is_model_encrypt, config.batch_size);
+//            recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
             break;
         }
         case CdnnCaffeRecog: {
-            recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
+            recognition_ = DGFace::create_recognition(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
+                                                      config.gpu_id, false,
+                                                      config.is_model_encrypt, config.batch_size);
+//            recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
             break;
         }
         case CdnnFuse: {
-            recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
+            recognition_ = DGFace::create_recognition(DGFace::recog_method::FUSION, config.model_dir,
+                                                      config.gpu_id, false,
+                                                      config.is_model_encrypt, config.batch_size);
+//            recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
         }
 
     }
@@ -61,6 +70,7 @@ FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
         delete recognition_;
     to_processed_.clear();
 }
+
 int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGFace::AlignResult> &align_results) {
 
 
@@ -75,11 +85,12 @@ int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGF
         Face *face = (Face *) (*itr);
         // no alignment result
         if (face->get_align_result().landmarks.size() == 0
-            || face->get_align_result().face_image.cols == 0 || face->get_align_result().face_image.rows == 0) {
+            || face->get_align_result().face_image.cols == 0
+            || face->get_align_result().face_image.rows == 0) {
             continue;
         }
         align_results.push_back(face->get_align_result());
-        imgs.push_back(face->get_align_result().face_image.clone());
+        imgs.push_back(face->full_image());
     }
 
     return 1;
@@ -106,7 +117,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<Mat> align_imgs;
     vector<DGFace::AlignResult> align_results;
 
-    if(toAlignmentImages(align_imgs, align_results) != 1)
+    if (toAlignmentImages(align_imgs, align_results) != 1)
         return false;
 
     vector<FaceRankFeature> features;

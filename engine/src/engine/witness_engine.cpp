@@ -68,7 +68,7 @@ void WitnessEngine::withoutDetection(FrameBatch *frames, Operations oprations) {
         }
 
         Detection d;
-        d.box = Rect(0, 0, tmp.cols, tmp.rows);
+        d.set_box(Rect(0, 0, tmp.cols, tmp.rows));
         Object *obj;
 
         if (oprations == OPERATION_VEHICLE_DETECT) {
@@ -362,12 +362,12 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
+        unsigned int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
 
         VLOG(VLOG_RUNTIME_DEBUG) << "Start load face detection model" << endl;
         FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
-        face_processor_ = new FaceDetectProcessor(fdconfig, method);
+        face_processor_ = new FaceDetectProcessor(fdconfig, (FaceDetectProcessor::FaceDetectMethod)method);
         Processor *last = face_processor_;
 
         if (enable_face_alignment_) {
@@ -375,7 +375,7 @@ void WitnessEngine::init(const Config &config) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
             FaceAlignmentConfig faConfig;
             configFilter->createFaceAlignmentConfig(config, faConfig);
-            Processor *p = new FaceAlignmentProcessor(faConfig);
+            Processor *p = new FaceAlignmentProcessor(faConfig, (FaceDetectProcessor::FaceDetectMethod)method);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -445,7 +445,7 @@ void WitnessEngine::initGpuMemory(FrameBatch &batch) {
         vehicle->set_image(smallImage);
         vector<Detection> markers;
         Detection det;
-        det.box = cv::Rect(1, 1, 10, 10);
+        det.set_box(cv::Rect(1, 1, 10, 10));
         markers.push_back(det);
         //vehicle->set_markers(markers);
         Pedestrian *pedestrain = new Pedestrian();

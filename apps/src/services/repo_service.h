@@ -76,10 +76,10 @@ class RepoService {
     }
 
     static void CopyCutboard(const Detection &b, Cutboard *cb) {
-        cb->set_x(b.box.x);
-        cb->set_y(b.box.y);
-        cb->set_width(b.box.width);
-        cb->set_height(b.box.height);
+        cb->set_x(b.box().x);
+        cb->set_y(b.box().y);
+        cb->set_width(b.box().width);
+        cb->set_height(b.box().height);
         cb->set_confidence(b.confidence);
     }
 

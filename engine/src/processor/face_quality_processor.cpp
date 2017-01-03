@@ -4,8 +4,8 @@
 namespace dg {
 
 FaceQualityProcessor::FaceQualityProcessor(const FaceQualityConfig &config) {
-    blur_quality_ = new DGFace::BlurMQuality();
-    pose_quality_ = new DGFace::PoseQuality();
+    blur_quality_ =  DGFace::create_quality(DGFace::BLURM,"", 0);
+    pose_quality_ =  DGFace::create_quality(DGFace::POSE, "", 0);
 
     blur_threshold_ = config.blur_threshold;
 }

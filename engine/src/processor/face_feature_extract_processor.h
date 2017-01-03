@@ -14,7 +14,6 @@
 #include "model/model.h"
 #include "processor/processor.h"
 #include "dgface/recognition.h"
-#include "dgface/cdnn_score.h"
 
 namespace dg {
 
@@ -37,6 +36,7 @@ typedef struct {
     bool concurrency = false;
 
 } FaceFeatureExtractorConfig;
+
 class FaceFeatureExtractProcessor: public Processor {
  public:
     enum { CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4 };
@@ -60,8 +60,6 @@ class FaceFeatureExtractProcessor: public Processor {
     DGFace::Recognition *recognition_ = NULL;
     vector<Object *> to_processed_;
     string pre_process_;
-    int face_size_length_;
-    bool islog_;
 };
 
 } /* namespace dg */

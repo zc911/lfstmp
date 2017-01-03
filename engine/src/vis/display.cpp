@@ -59,7 +59,7 @@ void Displayer::render(Frame *frame) {
     Mat rdata = frame->payload()->data();
     for (auto o : objs) {
         const Detection &d = o->detection();
-        cv::rectangle(rdata, d.box, cv::Scalar(255, 0, 0));
+        cv::rectangle(rdata, d.box(), cv::Scalar(255, 0, 0));
     }
 }
 

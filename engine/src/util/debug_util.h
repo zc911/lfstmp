@@ -17,8 +17,8 @@ using namespace std;
 namespace dg {
 
 static void print(Detection &d) {
-    cout << "Detection: " << "[" << d.box.x << "," << d.box.y << ","
-        << d.box.width << "," << d.box.height << "] ";
+    cout << "Detection: " << "[" << d.box().x << "," << d.box().y << ","
+        << d.box().width << "," << d.box().height << "] ";
     string type;
     switch (d.id) {
         case 0:

@@ -9,6 +9,7 @@
 #include "model/model.h"
 #include "processor/processor.h"
 #include "dgface/alignment.h"
+#include "processor/face_detect_processor.h"
 
 namespace dg {
 
@@ -25,6 +26,7 @@ typedef struct {
     int gpu_id;
     float threshold = 0;
     string align_model_path;
+    string model_dir;
 } FaceAlignmentConfig;
 
 class FaceAlignmentProcessor: public Processor {
@@ -32,7 +34,7 @@ class FaceAlignmentProcessor: public Processor {
 
     enum { DlibAlign = 0, CdnnAlign = 1, CdnnCaffeAlign = 2 };
 
-    FaceAlignmentProcessor(const FaceAlignmentConfig &faConfig);
+    FaceAlignmentProcessor(const FaceAlignmentConfig &faConfig, FaceDetectProcessor::FaceDetectMethod detectMethod);
     ~FaceAlignmentProcessor();
     virtual bool RecordFeaturePerformance();
 
@@ -78,6 +80,7 @@ class FaceAlignmentProcessor: public Processor {
     int align_method_;
     int face_size_length_;
     float align_threshold_;
+    FaceDetectProcessor::FaceDetectMethod detect_method_;
 };
 
 }

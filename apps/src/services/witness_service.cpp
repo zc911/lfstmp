@@ -299,7 +299,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             result info;
             info.recP = recP;
             info.recP = recP;
-            Rect FaceBox = fobj->detection().box;
+            Rect FaceBox = fobj->detection().box();
             Rect BodyBox = Rect(recP->img().cutboard().x(), recP->img().cutboard().y(),
                                 recP->img().cutboard().width(), recP->img().cutboard().height());
             Rect overLap = FaceBox & BodyBox;
@@ -364,16 +364,16 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             float rightTimes = RepoService::GetInstance().FindBodyRelativeFace("right");
             float topTimes = RepoService::GetInstance().FindBodyRelativeFace("top");
             float bottomTimes = RepoService::GetInstance().FindBodyRelativeFace("bottom");
-            pedCutboard->set_x(Max(d.box.x - d.box.width * leftTimes, 0));
-            pedCutboard->set_y(Max(d.box.y - d.box.height * topTimes, 0));
-            pedCutboard->set_width(Min(d.box.width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
-            pedCutboard->set_height(Min(d.box.height * (1.0 + topTimes + bottomTimes),
+            pedCutboard->set_x(Max(d.box().x - d.box().width * leftTimes, 0));
+            pedCutboard->set_y(Max(d.box().y - d.box().height * topTimes, 0));
+            pedCutboard->set_width(Min(d.box().width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
+            pedCutboard->set_height(Min(d.box().height * (1.0 + topTimes + bottomTimes),
                                         imgHeight - 1 - pedCutboard->y()));
         }
-        faceCutboard->set_x(Max(d.box.x - pedCutboard->x(), 0));
-        faceCutboard->set_y(Max(d.box.y - pedCutboard->y(), 0));
-        faceCutboard->set_width(Min(d.box.width, pedCutboard->x() + pedCutboard->width() - d.box.x));
-        faceCutboard->set_height(Min(d.box.height, pedCutboard->y() + pedCutboard->height() - d.box.y));
+        faceCutboard->set_x(Max(d.box().x - pedCutboard->x(), 0));
+        faceCutboard->set_y(Max(d.box().y - pedCutboard->y(), 0));
+        faceCutboard->set_width(Min(d.box().width, pedCutboard->x() + pedCutboard->width() - d.box().x));
+        faceCutboard->set_height(Min(d.box().height, pedCutboard->y() + pedCutboard->height() - d.box().y));
         faceCutboard->set_confidence(d.confidence);
     }
 

@@ -64,7 +64,7 @@ void FrameBatchHelper::printFrame(Frame * frame) {
         if (type >= OBJECT_CAR && type <= OBJECT_TRICYCLE && type != OBJECT_PEDESTRIAN) {
             Vehicle *v = (Vehicle *) obj;
             cout << "Vehicle class id   : " << v->class_id() << "\t\t, confidence : "
-            << v->confidence() << " " << v->detection().box << endl;
+            << v->confidence() << " " << v->detection().box() << endl;
             cout << "Vehicle color      : " << getVehicleColor(v->color().class_id) << "\t, confidence : "
             << v->color().confidence << endl;
             if (!v->plates().empty()) {

@@ -146,7 +146,7 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
 
     return 0;
 }
-static Mat CutImage(const Mat &src, Box &box) {
+static Mat CutImage(const Mat &src, const Box &box) {
     Mat dst(box.height, box.width, CV_8UC3);
     for (int i = 0; i < box.height; i++) {
         memcpy(dst.data + 3 * (i * box.width),

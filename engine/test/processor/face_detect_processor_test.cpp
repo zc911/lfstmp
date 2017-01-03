@@ -23,7 +23,7 @@ static void initConfig() {
 #endif
     config.deploy_file = baseModelPath + "400.txt";
     config.model_file = baseModelPath + "400.dat";
-    fdprocessor = new FaceDetectProcessor(config,1);
+    fdprocessor = new FaceDetectProcessor(config, (FaceDetectProcessor::FaceDetectMethod) 1);
     fbhelper = new FrameBatchHelper(1);
 }
 
@@ -44,8 +44,8 @@ static void destory() {
 
 static Operation getOperation() {
     Operation op;
-    op.Set( OPERATION_FACE |
-            OPERATION_FACE_DETECT);
+    op.Set(OPERATION_FACE |
+        OPERATION_FACE_DETECT);
     return op;
 }
 

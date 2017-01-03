@@ -17,6 +17,7 @@
 
 namespace dg {
 typedef struct {
+
     bool is_model_encrypt = false;
     int batch_size = 1;
     int gpu_id = 0;
@@ -25,19 +26,21 @@ typedef struct {
     float scale = 1.0f;
     float confidence = 0.7;
     bool use_gpu = true;
-
-
     string deploy_file;
     string model_file;
+    string model_dir;
+
 } FaceDetectorConfig;
+
 class FaceDetectProcessor: public Processor {
 
  public:
-    enum { DlibMethod = 0, RpnMethod = 1, SsdMethod = 2, FcnMethod = 3 };
+    enum FaceDetectMethod: unsigned int {
+        DlibMethod = 0, RpnMethod = 1, SsdMethod = 2, FcnMethod = 3
+    };
 
 
-    //FaceDetectProcessor(FaceDetectorConfig config, int method);
-    FaceDetectProcessor(FaceDetectorConfig config, int method);
+    FaceDetectProcessor(FaceDetectorConfig config, FaceDetectMethod method);
 
     virtual ~FaceDetectProcessor();
 
@@ -49,7 +52,6 @@ class FaceDetectProcessor: public Processor {
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     int DetectResult2Detection
         (const vector<DGFace::DetectResult> &detect_result, vector<vector<Detection> > &detections);
-    void enlarge_box(vector<vector<Detection>> boxes, vector<vector<Rect>> &enlarge_boxes);
  private:
     DGFace::Detector *detector_ = NULL;
     //FaceDetector *detector_ = NULL;
