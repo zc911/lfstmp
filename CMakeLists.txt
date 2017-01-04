@@ -37,4 +37,4 @@ LIST(APPEND LIBS pthread cblas crypto jsoncpp)
 # add_custom_target(release COMMAND conan upload ${PROJECT_NAME}/${VERSION}@deepglint/demo)
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(test)
+#ADD_SUBDIRECTORY(test)
