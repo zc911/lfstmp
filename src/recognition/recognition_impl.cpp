@@ -657,7 +657,7 @@ const std::map<recog_method, std::string> recog_map {
 	Config path_cfg;
 	path_cfg.Load(config_file);
 	string model_path = static_cast<string>(path_cfg.Value(full_key));
-	if(model_path != ""){
+	if(model_path.empty()){
 		throw new runtime_error(full_key + " not exist!");
 	} else {
 		return create_recognition(method, model_path, gpu_id, multi_thread, is_encrypt, batch_size);

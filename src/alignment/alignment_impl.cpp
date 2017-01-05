@@ -340,7 +340,7 @@ const std::map<align_method, std::string> align_map {
 	Config path_cfg;
 	path_cfg.Load(config_file);
 	string model_path = static_cast<string>(path_cfg.Value(full_key));
-	if(model_path != ""){
+	if(model_path.empty()){
 		throw new runtime_error(full_key + " not exist!");
 	} else {
 		return create_alignment(method, model_path, gpu_id, is_encrypt, batch_size);
