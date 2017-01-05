@@ -21,7 +21,7 @@
     },
     "VehicleCaffeDetector":
     {
-        "Path":"detector/Vehicle",
+        "Path":"detector/VehicleSmall",
         "BatchSize":1
     },
     "VehicleRFCNDetector":
