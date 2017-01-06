@@ -31,15 +31,15 @@ struct Bbox {
 };
 
 static void GetPassengerDetection(const Detection& windowDetection, Detection& passengerDec, bool isDriver) {
-    int x = windowDetection.box.x;
-    int y = windowDetection.box.y;
-    int width = windowDetection.box.width;
-    int height = windowDetection.box.height;
+    int x = windowDetection.box().x;
+    int y = windowDetection.box().y;
+    int width = windowDetection.box().width;
+    int height = windowDetection.box().height;
     width /= 2;
     if (isDriver) {
         x += width;
     }
-    passengerDec.box = Rect(x, y, width, height);
+    passengerDec.set_box(Rect(x, y, width, height));
     passengerDec.id = 0;
 }
 

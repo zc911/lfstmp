@@ -10,7 +10,6 @@
 #include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
-#include "check_file_exist.h"
 
 using namespace std;
 using namespace dg;
@@ -241,9 +240,9 @@ int main(int argc, char *argv[]) {
     }
 #endif
 
-    if (FilesAllExist(config) == false) {
-        exit(-1);
-    }
+//    if (FilesAllExist(config) == false) {
+//        exit(-1);
+//    }
 
     if (FLAGS_showconfig) {
         config->DumpValues();

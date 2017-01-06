@@ -5,5 +5,5 @@
 	"deployfile": "detector.t",
 	"min_det_face_size": 24,
 	"max_det_face_size": -1,
-	"min_scale_face_to_img": 0.1
+	"min_scale_face_to_img": 0.05
 }
