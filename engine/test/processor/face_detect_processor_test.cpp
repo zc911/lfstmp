@@ -21,9 +21,9 @@ static void initConfig() {
     config.is_model_encrypt = true;
     baseModelPath = "data/1/";
 #endif
-    config.deploy_file = baseModelPath + "400.txt";
-    config.model_file = baseModelPath + "400.dat";
-    fdprocessor = new FaceDetectProcessor(config, (FaceDetectProcessor::FaceDetectMethod) 1);
+//    config.deploy_file = baseModelPath + "400.txt";
+//    config.model_file = baseModelPath + "400.dat";
+//    fdprocessor = new FaceDetectProcessor(config, (FaceDetectProcessor::FaceDetectMethod) 1);
     fbhelper = new FrameBatchHelper(1);
 }
 

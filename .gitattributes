@@ -398,3 +398,6 @@ lib/protobuf/Linux-x86_64/libprotobuf.so filter=lfs diff=lfs merge=lfs -text
 lib/thplateid/Linux-x86_64/libthplateid.a filter=lfs diff=lfs merge=lfs -text
 lib/watchdog/Linux-x86_64/libhasp.a filter=lfs diff=lfs merge=lfs -text
 lib/watchdog/Linux-x86_64/libwatchdog.a filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/alignment/cdnn/0.4.2/alignment.cdnn filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/alignment/cdnn/0.4.2/alignment.cdnn filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/alignment/cdnn/0.4.2/alignment.mean filter=lfs diff=lfs merge=lfs -text

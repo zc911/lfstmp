@@ -18,7 +18,7 @@
   },
   "Feature": {
     "Vehicle": {
-      "Enable": true,
+      "Enable": false,
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
@@ -74,28 +74,22 @@
       "Threshold": 0.0
     },
     "FaceDetect": {
-      "BatchSize": 1,
-      "Confidence": 0.7,
       "Method": 3,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
-      "BodyRelativeFaceBottom": 6.0,
-      "Scale": 1,
-      "Min": 240,
-      "Max": 720
+      "BodyRelativeFaceBottom": 6.0
+    },
+    "FaceAlignment":{
+      "Method": 1,
+      "Threshold": 0
     },
     "FaceQuality": {
-      "Threshold": 0
+      "BlurThreshold": 0
     },
     "FaceExtract": {
       "BatchSize": 1,
-      "FaceSize": [
-        600
-      ],
       "Method": 3,
-      "PreProcess": "",
-      "AlignThreshold": 0.8,
       "EnableConcurrency": false
     },
 
@@ -158,7 +152,8 @@
   },
   "ModelPath":{
     "dgvehicle": "data/dgvehicle",
-    "dgLP":"data/dgLP"
+    "dgLP":"data/dgLP",
+    "dgface":"data/dgface"
   },
   "DataPath": "data/data.dat"
 }

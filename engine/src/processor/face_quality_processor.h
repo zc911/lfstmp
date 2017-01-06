@@ -13,9 +13,6 @@
 #include "model/model.h"
 #include "processor/processor.h"
 #include "dgface/quality.h"
-//#include "dgface/quality/qual_blurm.h"
-//#include "dgface/quality/qual_posem.h"
-//#include "dgface/quality/qual_frontalm.h"
 
 
 namespace dg {

@@ -13,56 +13,49 @@
 namespace dg {
 
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
-    const FaceFeatureExtractorConfig &config) {
-
-    switch (config.method) {
-        case CNNRecog:
-            recognition_ = DGFace::create_recognition(DGFace::recog_method::CNN, config.model_dir,
-                                                      config.gpu_id, false,
-                                                      config.is_model_encrypt, config.batch_size);
-//            recognition_ = new DGFace::CNNRecog(config.deploy_file,
-//                                                config.model_file,
-//                                                config.layer_name,
-//                                                config.mean,
-//                                                config.pixel_scale,
-//                                                config.use_GPU,
-//                                                config.gpu_id);
+    const FaceFeatureExtractorConfig &config, RecognitionMethod method) {
+    method_ = method;
+    switch (method_) {
+        case RecognitionMethod::CNNRecog:
+            LOG(FATAL) << "CNN Recognition not implemented " << endl;
+            exit(-1);
+//            recognition_ = DGFace::create_recognition(DGFace::recog_method::CNN, config.model_dir,
+//                                                      config.gpu_id, false,
+//                                                      config.is_model_encrypt, config.batch_size);
             break;
-        case LBPRecog: {
-            recognition_ = DGFace::create_recognition(DGFace::recog_method::LBP, config.model_dir,
-                                                      config.gpu_id, false,
-                                                      config.is_model_encrypt, config.batch_size);
-//            int radius = 1;
-//            int neighbors = 8;
-//            int grid_x = 8;
-//            int grid_y = 8;
-//            recognition_ = new DGFace::LbpRecog(radius, neighbors, grid_x, grid_y);
+        case RecognitionMethod::LBPRecog: {
+            LOG(FATAL) << "LBP Recognition not implemented " << endl;
+            exit(-1);
+//            recognition_ = DGFace::create_recognition(DGFace::recog_method::LBP, config.model_dir,
+//                                                      config.gpu_id, false,
+//                                                      config.is_model_encrypt, config.batch_size);
             break;
         }
-        case CDNNRecog: {
-            recognition_ = DGFace::create_recognition(DGFace::recog_method::CDNN, config.model_dir,
-                                                      config.gpu_id, false,
-                                                      config.is_model_encrypt, config.batch_size);
+        case RecognitionMethod::CDNNRecog: {
+            LOG(INFO) << "Create Cdnn face recognition " << endl;
+            recognition_ = DGFace::create_recognition_with_config(DGFace::recog_method::CDNN, config.model_dir,
+                                                                  config.gpu_id, false,
+                                                                  config.is_model_encrypt, config.batch_size);
 //            recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
             break;
         }
-        case CdnnCaffeRecog: {
-            recognition_ = DGFace::create_recognition(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
-                                                      config.gpu_id, false,
-                                                      config.is_model_encrypt, config.batch_size);
-//            recognition_ = new DGFace::CdnnCaffeRecog(config.model_dir, config.gpu_id);
+        case RecognitionMethod::CdnnCaffeRecog: {
+            LOG(INFO) << "Create Cdnn caffe face recognition" << endl;
+            recognition_ =
+                DGFace::create_recognition_with_config(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
+                                                       config.gpu_id, false,
+                                                       config.is_model_encrypt, config.batch_size);
             break;
         }
-        case CdnnFuse: {
-            recognition_ = DGFace::create_recognition(DGFace::recog_method::FUSION, config.model_dir,
-                                                      config.gpu_id, false,
-                                                      config.is_model_encrypt, config.batch_size);
-//            recognition_ = new DGFace::FuseRecog(config.model_dir, config.gpu_id, config.concurrency);
+        case RecognitionMethod::CdnnFuse: {
+            LOG(INFO) << "Create Cdnn fusion face recogniztion" << endl;
+            recognition_ = DGFace::create_recognition_with_config(DGFace::recog_method::FUSION, config.model_dir,
+                                                                  config.gpu_id, false,
+                                                                  config.is_model_encrypt, config.batch_size);
         }
 
     }
 
-    pre_process_ = config.pre_process;
 }
 
 FaceFeatureExtractProcessor::~FaceFeatureExtractProcessor() {
@@ -84,13 +77,16 @@ int FaceFeatureExtractProcessor::toAlignmentImages(vector<Mat> &imgs, vector<DGF
     for (auto itr = to_processed_.begin(); itr != to_processed_.end(); ++itr) {
         Face *face = (Face *) (*itr);
         // no alignment result
-        if (face->get_align_result().landmarks.size() == 0
-            || face->get_align_result().face_image.cols == 0
-            || face->get_align_result().face_image.rows == 0) {
+        if (face->get_align_result().landmarks.size() == 0) {
             continue;
         }
         align_results.push_back(face->get_align_result());
         imgs.push_back(face->full_image());
+    }
+
+    if (imgs.size() == 0 || align_results.size() == 0) {
+        LOG(ERROR) << "No alignment results in frame" << endl;
+        return -1;
     }
 
     return 1;
@@ -123,7 +119,7 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     vector<FaceRankFeature> features;
     vector<DGFace::RecogResult> results;
 
-    recognition_->recog(align_imgs, align_results, results, pre_process_);
+    recognition_->recog(align_imgs, align_results, results, "");
 
     RecognResult2MatrixRecogn(results, features);
     if (features.size() != align_imgs.size()) {

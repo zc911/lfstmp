@@ -17,65 +17,31 @@
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
-    FaceDetectorConfig config, FaceDetectMethod method) {
+    FaceDetectorConfig config, DetectMethod method) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
 
     //Initialize face detector
     switch (method) {
-        case DlibMethod:
-            detector_ = DGFace::create_detector(DGFace::det_method::DLIB, config.model_dir,
-                                         config.gpu_id, config.is_model_encrypt, config.batch_size);
-//            detector_ = new DGFace::DlibDetector(config.img_scale_max, config.img_scale_min);
-//            detect_type_ = "";
+        case DetectMethod::DlibMethod:
+            LOG(FATAL) << "Not implemented DLIB Detection" << endl;
+            exit(-1);
             break;
-        case RpnMethod: {
+        case DetectMethod::RpnMethod: {
             LOG(FATAL) << "Not implemented RPN Detection" << endl;
             exit(-1);
-
-//            detector_ = DGFace::create_detector(DGFace::det_method.RPN, config.model_dir,
-//                                         config.gpu_id, config.is_model_encrypt, config.batch_size);
-//            size_t stride = 16;
-//            size_t max_per_img = 100;
-//            vector<float> area = {576, 1152, 2304, 4608, 9216, 18432, 36864};
-//            vector<float> ratio = {1};
-//            vector<float> mean = {128, 128, 128};
-//            string clsname = "conv_face_16_cls";
-//            string regname = "conv_face_16_reg";
-//
-//            detector_ = new DGFace::RpnDetector(config.img_scale_max,
-//                                                config.img_scale_min,
-//                                                config.deploy_file, config.model_file, clsname,
-//                                                regname, area,
-//                                                ratio, mean, config.confidence, max_per_img,
-//                                                stride, config.scale, config.use_gpu, config.gpu_id);
-//            detect_type_ = "rpn";
             break;
         }
-        case SsdMethod: {
-            detector_ = DGFace::create_detector(DGFace::det_method::SSD, config.model_dir,
-                                         config.gpu_id, config.is_model_encrypt, config.batch_size);
-//            vector<float> mean = {104, 117, 123};
-//            detector_ = new DGFace::SSDDetector(config.img_scale_max,
-//                                                config.img_scale_min,
-//                                                config.deploy_file,
-//                                                config.model_file,
-//                                                mean,
-//                                                config.confidence,
-//                                                config.scale,
-//                                                config.use_gpu,
-//                                                config.gpu_id);
-//            detect_type_ = "ssd";
+        case DetectMethod::SsdMethod: {
+            LOG(INFO) << "Create SSD face detector" << endl;
+            detector_ = DGFace::create_detector_with_config(DGFace::det_method::SSD, config.model_dir,
+                                                            config.gpu_id, config.is_model_encrypt, config.batch_size);
             break;
         }
-        case FcnMethod: {
-            detector_ = DGFace::create_detector(DGFace::det_method::FCN, config.model_dir,
-                                         config.gpu_id, config.is_model_encrypt, config.batch_size);
-//            detector_ = new DGFace::FcnDetector(config.img_scale_max,
-//                                                config.img_scale_min,
-//                                                config.deploy_file,
-//                                                config.model_file,
-//                                                config.gpu_id);
+        case DetectMethod::FcnMethod: {
+            LOG(INFO) << "Create FCN face detector" << endl;
+            detector_ = DGFace::create_detector_with_config(DGFace::det_method::FCN, config.model_dir,
+                                                            config.gpu_id, config.is_model_encrypt, config.batch_size);
             break;
         }
     }

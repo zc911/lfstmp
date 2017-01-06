@@ -70,7 +70,8 @@ private:
         string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
         dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
-        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+//        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+        bool car_only = false;
         processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
 
     }

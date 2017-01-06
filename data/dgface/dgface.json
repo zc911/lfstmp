@@ -1,0 +1,17 @@
+{
+    "FaceDetector":
+    {
+        "SSD":"data/dgface/model/detector/ssd",
+        "FCN":"data/dgface/model/detector/fcn/0.4.5"
+    },
+    "FaceAlignment":
+    {
+        "CDNN":"data/dgface/model/alignment/cdnn/0.4.2"
+    },
+    "FaceRecognition":
+    {
+        "CDNN":"data/dgface/model/recognition/cdnn",
+        "CDNN_CAFFE":"data/dgface/model/recognition/cdnn_caffe/0.0.5",
+        "FUSION":"data/dgface/model/recognition/fusion"
+    }
+}

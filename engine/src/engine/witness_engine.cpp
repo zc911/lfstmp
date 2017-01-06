@@ -18,7 +18,6 @@
 #include "processor/config_filter.h"
 #include "debug_util.h"
 #include "algorithm_factory.h"
-#include "engine_config_value.h"
 
 namespace dg {
 
@@ -244,7 +243,8 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
-        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+//        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+        bool car_only = false;
         Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
         vehicle_processor_ = p;
         last = p;
@@ -362,20 +362,24 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        unsigned int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
+        unsigned int detectMethod = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
+
 
         VLOG(VLOG_RUNTIME_DEBUG) << "Start load face detection model" << endl;
         FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
-        face_processor_ = new FaceDetectProcessor(fdconfig, (FaceDetectProcessor::FaceDetectMethod)method);
+        face_processor_ = new FaceDetectProcessor(fdconfig, (FaceDetectProcessor::DetectMethod) detectMethod);
         Processor *last = face_processor_;
 
         if (enable_face_alignment_) {
             LOG(INFO) << "Enable face alignment processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
             FaceAlignmentConfig faConfig;
+            unsigned int alignMethod = (int) config.Value(ADVANCED_FACE_ALIGN_METHOD);
             configFilter->createFaceAlignmentConfig(config, faConfig);
-            Processor *p = new FaceAlignmentProcessor(faConfig, (FaceDetectProcessor::FaceDetectMethod)method);
+            Processor *p = new FaceAlignmentProcessor(faConfig,
+                                                      (FaceAlignmentProcessor::AlignmentMethod) alignMethod,
+                                                      (FaceDetectProcessor::DetectMethod) detectMethod);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -396,7 +400,9 @@ void WitnessEngine::init(const Config &config) {
             FaceFeatureExtractorConfig feconfig;
             FaceAlignmentConfig faConfig;
             configFilter->createFaceExtractorConfig(config, feconfig);
-            Processor *p = new FaceFeatureExtractProcessor(feconfig);
+            unsigned int recogMethod = (int) config.Value(ADVANCED_FACE_EXTRACT_METHOD);
+            Processor *p =
+                new FaceFeatureExtractProcessor(feconfig, (FaceFeatureExtractProcessor::RecognitionMethod) recogMethod);
             last->SetNextProcessor(p);
             last = p;
         }

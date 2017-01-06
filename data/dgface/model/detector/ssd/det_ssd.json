@@ -1,0 +1,10 @@
+{
+	"img_scale_max": 180,
+	"img_scale_min": 150,
+	"modelfile": "model.dat",
+	"deployfile": "deploy.txt",
+	"pixel_scale": 1.0,
+	"det_thresh": 0.1,
+	"mean": [104, 117, 123],
+	"bbox_shrink": false
+}

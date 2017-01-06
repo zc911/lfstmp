@@ -14,7 +14,7 @@ Gtest/1.7@deepglint/stable
 Cudnn/4.0.7@deepglint/stable
 dgvehicle/0.2.0@deepglint/stable_cuda_7.0
 dgLP/2.2.4.7@deepglint/stable_cuda_7.0
-dgface/1.0.0@deepglint/stable
+dgface/1.0.1@deepglint/stable
 Cudart/7.0@deepglint/stable
 
 

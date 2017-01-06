@@ -1,0 +1,6 @@
+{
+	"cdnnFolder": "../cdnn",
+	"cdnnWeight": 0.7071068,
+	"cdnnCaffeFolder": "../cdnn_caffe/0.0.4",
+	"cdnnCaffeWeight": 0.7071068
+}
