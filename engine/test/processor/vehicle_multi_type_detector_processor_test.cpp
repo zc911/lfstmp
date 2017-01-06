@@ -18,6 +18,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     resultReader = NULL;
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

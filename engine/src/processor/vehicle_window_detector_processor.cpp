@@ -51,7 +51,6 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
             continue;
         }
 
-
         int xmin = crops[i][0].box.x;
         int ymin = crops[i][0].box.y;
         int xmax = crops[i][0].box.x + crops[i][0].box.width;
@@ -62,6 +61,7 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
 
         Mat phone_img = crop_phone_image(phone_image, xmin, ymin, xmax, ymax, &cpxmin, &cpymin);
         Mat img = crop_image(image, xmin, ymin, xmax, ymax, &cxmin, &cymin);
+        Mat resized_img = crop_image(image, xmin, ymin, xmax, ymax);
 
         vector<float> params;
         params.push_back(cxmin);
@@ -74,13 +74,10 @@ bool VehicleWindowDetectorProcessor::process(FrameBatch *frameBatch) {
         params.push_back(tymin);
         params.push_back(tymax);
 
-
         params.push_back(img.rows * 1.0 / target_row);
         params.push_back(img.cols * 1.0 / target_col);
         vector<Rect> fob = forbidden_area(xmin, ymin, xmax, ymax);
-        Mat resized_img;
 
-        resize(img, resized_img, Size(512, 256));
         resize(phone_img, phone_img, Size(512, 256));
         resize(img, img, Size(target_col, target_row));
 

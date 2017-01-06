@@ -34,6 +34,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(prmprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

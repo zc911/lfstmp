@@ -74,6 +74,8 @@ private:
         bool car_only = false;
         processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
 
+        dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
+
     }
 
     RingBuffer *buffer_;

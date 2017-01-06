@@ -1,0 +1,6 @@
+{
+    "DeployModel": "DetectDeploy.txt",
+    "TrainedModel": "DetectModel.dat",
+    "AlignDeployModel": "AlignDeploy.jpg",
+    "AlignTrainedModel": "AlignModel.dat"
+}

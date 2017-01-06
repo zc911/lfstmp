@@ -15,21 +15,6 @@ static FileReader *resultReader;
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    VehicleCaffeDetectorConfig wConfig;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    wConfig.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    wConfig.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-
-    wConfig.deploy_file = baseModelPath + "701.txt";
-    wConfig.model_file = baseModelPath + "701.dat";
-
-    wConfig.target_max_size = 160;
-    wConfig.target_min_size = 80; */
     vwdprocessor = new VehicleWindowDetectorProcessor();
 }
 
@@ -47,6 +32,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(vwdprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

@@ -21,7 +21,12 @@
     },
     "VehicleCaffeDetector":
     {
-        "Path":"detector/Vehicle",
+        "Path":"detector/VehicleSmall",
+        "BatchSize":1
+    },
+    "VehicleRFCNDetector":
+    {
+        "Path":"detector/VehicleRFCN",
         "BatchSize":1
     },
     "CarOnlyCaffeDetector":
@@ -67,6 +72,11 @@
     "CaffeVehicleColorClassifier":
     {
         "Path":"classifier/VehicleColor",
+        "BatchSize":1
+    },
+    "ColorClassifier":
+    {
+        "Path":"classifier/Color",
         "BatchSize":1
     },
     "PedestrianClassifier":
