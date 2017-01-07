@@ -189,9 +189,9 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_driver_belt_ = (bool) config.Value(
                                       FEATURE_VEHICLE_ENABLE_DRIVERBELT) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
-                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT) && (CheckFeature(FEATURE_CAR_BEHAVIOR_PHONE, false) == ERR_FEATURE_ON);
+                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
     enable_vehicle_driver_phone_ = (bool) config.Value(
-                                       FEATURE_VEHICLE_ENABLE_PHONE) && (CheckFeature(FEATURE_CAR_BEHAVIOR_NOBELT, false) == ERR_FEATURE_ON);
+                                       FEATURE_VEHICLE_ENABLE_PHONE) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
 #endif
 
 }
@@ -293,23 +293,27 @@ void WitnessEngine::init(const Config &config) {
             last = p;
         }
         if (enable_vehicle_marker_) {
+            LOG(INFO) << "Enable vehicle marker processor." << endl;
             Processor *p = new VehicleMarkerClassifierProcessor(false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_belt_) {
+            LOG(INFO) << "Enable vehicle driver belt processor." << endl;
             float threshold = (float) config.Value(ADVANCED_DRIVER_BELT_THRESHOLD);
             p = new VehicleBeltClassifierProcessor(threshold, true);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_codriver_belt_) {
+            LOG(INFO) << "Enable vehicle codriver belt processor." << endl;
             float threshold = (float) config.Value(ADVANCED_CODRIVER_BELT_THRESHOLD);
             p = new VehicleBeltClassifierProcessor(threshold, false);
             last->SetNextProcessor(p);
             last = p;
         }
         if (enable_vehicle_driver_phone_) {
+            LOG(INFO) << "Enable vehicle driver phone processor." << endl;
             float threshold = (float) config.Value(ADVANCED_PHONE_THRESHOLD);
             p = new VehiclePhoneClassifierProcessor(threshold);
             last->SetNextProcessor(p);
