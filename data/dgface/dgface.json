@@ -1,17 +1,3 @@
-{
-    "FaceDetector":
-    {
-        "SSD":"data/dgface/model/detector/ssd",
-        "FCN":"data/dgface/model/detector/fcn/0.4.5"
-    },
-    "FaceAlignment":
-    {
-        "CDNN":"data/dgface/model/alignment/cdnn/0.4.2"
-    },
-    "FaceRecognition":
-    {
-        "CDNN":"data/dgface/model/recognition/cdnn",
-        "CDNN_CAFFE":"data/dgface/model/recognition/cdnn_caffe/0.0.5",
-        "FUSION":"data/dgface/model/recognition/fusion"
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:021d724ca4b19b7d65a38ddcec12562c076443ea4bb9a1dd05961215017c2a59
+size 442

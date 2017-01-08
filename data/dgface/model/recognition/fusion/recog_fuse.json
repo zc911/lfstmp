@@ -1,6 +1,3 @@
-{
-	"cdnnFolder": "../cdnn",
-	"cdnnWeight": 0.7071068,
-	"cdnnCaffeFolder": "../cdnn_caffe/0.0.4",
-	"cdnnCaffeWeight": 0.7071068
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:62ef612d394742d226fe98b4ff3c6ef28a3f3cf7f8e775c9893a0cd9efd62629
+size 129

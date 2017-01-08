@@ -1,11 +1,3 @@
-
-{
-  "BatchSize":1,
-  "StandardHeight":600,
-  "StandardWidth":400,
-  "Roi_Per_Image":2,
-  "Rpn_Height":150,
-  "Rpn_Width":250
-}
-
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:831e5cec629ce2ee832594d31c60620697430845f40c7a33649a7790b897d6b8
+size 129

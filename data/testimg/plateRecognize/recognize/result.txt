@@ -1,12 +1,3 @@
-picture_id,plate,plate,...
-0,蒙GUT288
-1,京P0SG96
-2
-3,贵A01P89
-4,贵JAB353
-5,苏DW7782
-6 
-7,京PM8P28
-8,京NFA261
-9,京N9D3H9
-10,鄂AX7D07,鄂AX0468,鄂ATT967
+version https://git-lfs.github.com/spec/v1
+oid sha256:d058b2e87af47e66397e4e769d6a318b05ccee9d6b9afc74d470ce2d1de7ad60
+size 161

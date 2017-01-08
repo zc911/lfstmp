@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 wget http://192.168.2.119/matrix/pull_models.tar
 tar xvf pull_models.tar
 cp pull_models/model_encrypt . 
