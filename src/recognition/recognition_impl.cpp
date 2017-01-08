@@ -431,7 +431,7 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
 	}
     
 	_impl = new CaffeBatchWrapper(gpu_id, layer_names[0], batch_size,
-        model_defs[0], weight_files[0], patch_ids);
+        model_defs[0], weight_files[0], patch_ids, is_encrypt);
 
 	_transformation = NULL;
 	_transformation = new CdnnTransformation(); // use cdnn transformation temporarily
@@ -637,6 +637,17 @@ Recognition *create_recognition(const string & prefix) {
 }
 */
 
+Recognition *create_recognition_with_global_dir(const recog_method& method, 
+											const string& global_dir,
+											int gpu_id,
+											bool multi_thread,
+											bool is_encrypt,
+											int batch_size) {
+	string global_config_file;
+	string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+	addNameToPath(global_dir, "/"+tmp_model_dir+"/"+getGlobalConfig(), global_config_file); 
+	return create_recognition_with_config(method, global_config_file, gpu_id, multi_thread, is_encrypt, batch_size);
+}
 Recognition *create_recognition_with_config(const recog_method& method, 
 										const string& config_file,
 										int gpu_id,

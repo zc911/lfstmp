@@ -7,8 +7,15 @@
 #include "face_inf.h"
 
 namespace DGFace {
+
+inline std::string getEncryptModelDir() {return "encryptModel";}
+inline std::string getNonEncryptModelDir() {return "model";}
+inline std::string getGlobalConfig() {return "dgface.json";}
+
+//
 // decrypt config file
 int getConfigContent(std::string file, bool is_encrypt, std::string& content);
+int getFileContent(std::string file, bool is_encrypt, std::string& content);
 void addNameToPath(const std::string& model_dir, const std::string& name, std::string& appended_dir);
 
 //
