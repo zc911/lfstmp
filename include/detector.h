@@ -40,6 +40,8 @@ Detector *create_detector(const det_method& method, const std::string& model_dir
 						int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
 Detector *create_detector_with_config(const det_method& method, const std::string& config_file,
 						int gpu_id = 0,	bool is_encrypt = false, int batch_size = 1);
+Detector *create_detector_with_global_dir(const det_method& method, const std::string& global_dir,
+						int gpu_id = 0,	bool is_encrypt = false, int batch_size = 1);
 }
 
 #endif

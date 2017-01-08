@@ -37,6 +37,8 @@ Alignment *create_alignment(const align_method& method, const std::string& model
 							int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
 Alignment *create_alignment_with_config(const align_method& method, const std::string& config_file, 
 							int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
+Alignment *create_alignment_with_global_dir(const align_method& method, const std::string& global_dir, 
+							int gpu_id = 0, bool is_encrypt = false, int batch_size = 1);
 
 }
 #endif

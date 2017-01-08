@@ -36,6 +36,9 @@ Recognition *create_recognition(const recog_method& method, const std::string& m
 Recognition *create_recognition_with_config(const recog_method& method, const std::string& config_file, 
 											int gpu_id = 0, bool multi_thread = true,
 											bool is_encrypt = false, int batch_size = 1 );
+Recognition *create_recognition_with_global_dir(const recog_method& method, const std::string& global_dir, 
+											int gpu_id = 0, bool multi_thread = true,
+											bool is_encrypt = false, int batch_size = 1 );
 }
 #endif
 

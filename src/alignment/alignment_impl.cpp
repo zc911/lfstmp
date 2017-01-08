@@ -324,6 +324,17 @@ Alignment *create_alignment(const string &prefix) {
 }
 */
 
+Alignment *create_alignment_with_global_dir(const align_method& method, 
+										const string& global_dir,
+										int gpu_id, 
+										bool is_encrypt, 
+										int batch_size) {
+	string global_config_file;
+	string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+	addNameToPath(global_dir, "/"+tmp_model_dir+"/"+getGlobalConfig(), global_config_file); 
+	return create_alignment_with_config(method, global_config_file, gpu_id, is_encrypt, batch_size);
+}
+
 Alignment *create_alignment_with_config(const align_method& method, 
 									const string& config_file,
 									int gpu_id, 
