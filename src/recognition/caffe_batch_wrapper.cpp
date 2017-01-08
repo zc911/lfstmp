@@ -19,7 +19,7 @@ CaffeBatchWrapper::CaffeBatchWrapper(int deviceId, const string &layer_name, int
 	Caffe::set_mode(Caffe::GPU);
 
 	_net_param.reset(new caffe::NetParameter());
-	SAY("load model definition: %s", model_def.c_str());
+//	SAY("load model definition: %s", model_def.c_str());
 	caffe::ReadNetParamsFromTextFileOrDie(model_def, _net_param.get());
 	_net_param->mutable_state()->set_phase(caffe::TEST);
 

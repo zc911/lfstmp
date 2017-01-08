@@ -11,6 +11,7 @@ endforeach(releasehead)
 INSTALL(FILES ${FULL_RELEASE_H} DESTINATION ${PROJECT_SOURCE_DIR}/dist/include/dgface)
 add_custom_command(
 		TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND rm -rf ${PROJECT_SOURCE_DIR}/release/include ${PROJECT_SOURCE_DIR}/release/lib
 		COMMAND ln -s ${PROJECT_SOURCE_DIR}/dist/include ${PROJECT_SOURCE_DIR}/release/include
 		COMMAND ln -s ${PROJECT_SOURCE_DIR}/dist/lib ${PROJECT_SOURCE_DIR}/release/lib
 )
