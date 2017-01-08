@@ -220,3 +220,5 @@ data/model/recognition/cdnn_caffe/0.0.4/recognition.d filter=lfs diff=lfs merge=
 data/model/recognition/cdnn_caffe/0.0.5/recognition.d filter=lfs diff=lfs merge=lfs -text
 data/model/recognition/cdnn/8.c filter=lfs diff=lfs merge=lfs -text
 doc/git-lfs-1.4.1/git-lfs filter=lfs diff=lfs merge=lfs -text
+data/encryptModel/recognition/cdnn/8.c filter=lfs diff=lfs merge=lfs -text
+data/model/recognition/cdnn/8.c filter=lfs diff=lfs merge=lfs -text
