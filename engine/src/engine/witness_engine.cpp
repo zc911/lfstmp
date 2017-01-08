@@ -51,7 +51,7 @@ WitnessEngine::~WitnessEngine() {
     }
 }
 
-void WitnessEngine::withoutDetection(FrameBatch *frames) {
+void WitnessEngine::withoutDetection(FrameBatch *frames, Operations operations) {
 
     Identification baseid = 0;
     for (auto frame: frames->frames()) {
@@ -67,29 +67,31 @@ void WitnessEngine::withoutDetection(FrameBatch *frames) {
         d.box = Rect(0, 0, tmp.cols, tmp.rows);
         Object *obj;
 
-        if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
-            obj = new Pedestrian();
-        } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
-            obj = new NonMotorVehicle(OBJECT_BICYCLE);
-        } else if (op.Check(
-            OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
-                | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
-                | OPERATION_DRIVER_PHONE)) {
-            obj = new Vehicle(OBJECT_CAR);
-            // set pose head in default
-            Vehicle *v = (Vehicle*) obj;
-            v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
-        } else if (op.Check(OPERATION_FACE_FEATURE_VECTOR)) {
-            obj = new Face();
+        if (operations == OPERATION_VEHICLE_DETECT) {
+            if (op.Check(OPERATION_PEDESTRIAN_ATTR)) {
+                obj = new Pedestrian();
+            } else if (op.Check(OPERATION_NON_VEHICLE_ATTR)) {
+                obj = new NonMotorVehicle(OBJECT_BICYCLE);
+            } else if (op.Check(
+                OPERATION_VEHICLE_STYLE | OPERATION_VEHICLE_COLOR | OPERATION_VEHICLE_MARKER | OPERATION_VEHICLE_PLATE
+                    | OPERATION_VEHICLE_FEATURE_VECTOR | OPERATION_DRIVER_BELT | OPERATION_CODRIVER_BELT
+                    | OPERATION_DRIVER_PHONE)) {
+                obj = new Vehicle(OBJECT_CAR);
+                // set pose head in default
+                Vehicle *v = (Vehicle *) obj;
+                v->set_pose(Vehicle::VEHICLE_POSE_HEAD);
+            } else {
+                continue;
+            }
         } else {
             continue;
         }
+
         obj->set_id(baseid++);
         obj->set_image(tmp);
         obj->set_detection(d);
         frame->put_object(obj);
     }
-
 }
 
 void WitnessEngine::Process(FrameBatch *frames) {
@@ -108,14 +110,9 @@ void WitnessEngine::Process(FrameBatch *frames) {
 #endif
     VLOG(VLOG_RUNTIME_DEBUG) << "Start witness engine process" << endl;
 
-
-    if (!enable_vehicle_detect_ || !enable_face_detect_
-        || !frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)
-        || !frames->CheckFrameBatchOperation(OPERATION_FACE_DETECT)) {
-
-        withoutDetection(frames);
+    if (!frames->CheckFrameBatchOperation(OPERATION_VEHICLE_DETECT)) {
+        withoutDetection(frames, OPERATION_VEHICLE_DETECT);
     }
-
 
     if (frames->CheckFrameBatchOperation(OPERATION_VEHICLE)) {
         if (vehicle_processor_) {
