@@ -2,7 +2,6 @@ build/
 release/include
 release/lib
 .idea
-models
 release
 dist
 bin
