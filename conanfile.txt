@@ -1,9 +1,10 @@
 [requires]
 Cdnn/0.1.0@deepglint/stable
-CdnnCaffe/0.2.0@deepglint/test
+CdnnCaffe/0.2.1@deepglint/test
+DGFace/0.1.0@deepglint/test
 Cudnn/4.0.7@deepglint/stable
 Cudart/7.0@deepglint/stable
-Dgcaffe/0.1.0@deepglint/stable_cuda_7.0
+Dgcaffe/0.3.0@deepglint/test
 Dlib/0.1.0@deepglint/stable
 Grpc/0.14.0@deepglint/stable
 Gtest/1.7@deepglint/stable

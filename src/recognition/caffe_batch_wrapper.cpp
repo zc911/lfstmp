@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <opencv2/opencv.hpp>
 #include <recognition/caffe_batch_wrapper.h>
+#include "dgface_utils.h"
 #define SAY(format, ...)    \
     fprintf(stderr, "%s(%s:%i): \t" format "\n",    \
          __func__, __FILE__, __LINE__, __VA_ARGS__)
@@ -12,20 +13,39 @@ using namespace DGFace;
 enum face_patch {main_face = 0, left_eye, right_eye, nose, mouth, middle_eye, left_mouth, right_mouth, mini_face, left_brow, right_brow, middle_brow};
 
 CaffeBatchWrapper::CaffeBatchWrapper(int deviceId, const string &layer_name, int batch_size,
-        const string &model_def, const string &weights, const vector<int> &patch_ids)
+        const string &model_def, const string &weights, const vector<int> &patch_ids, bool is_encrypt)
         : _batch_size(batch_size), _input_blob(NULL), _output_blob(NULL),
           _patch_ids(patch_ids) {
 	Caffe::SetDevice(deviceId);
 	Caffe::set_mode(Caffe::GPU);
 
-	_net_param.reset(new caffe::NetParameter());
-//	SAY("load model definition: %s", model_def.c_str());
-	caffe::ReadNetParamsFromTextFileOrDie(model_def, _net_param.get());
-	_net_param->mutable_state()->set_phase(caffe::TEST);
+	if(is_encrypt) {
+		string deploy_content, weight_content;
+		int ret = 0;
+		ret = getFileContent(model_def, is_encrypt, deploy_content);
+		if(ret != 0) {
+			LOG(ERROR) << "failed decrypt " << model_def << endl;
+			throw new runtime_error("decrypt failed!");
+		}
+		ret = getFileContent(weights, is_encrypt, weight_content);
+		if(ret != 0) {
+			LOG(ERROR) << "failed decrypt " << weights << endl;
+			throw new runtime_error("decrypt failed!");
+		}
 
-	_net.reset(new Net<float>(*_net_param));
-	// SAY("load weights: %s", weights.c_str());
-	_net->CopyTrainedLayersFrom(weights);
+		/* Load the network. */
+		_net.reset(new Net<float>(model_def, deploy_content, caffe::TEST));
+		_net->CopyTrainedLayersFrom(weights, weight_content);
+	} else {
+		_net_param.reset(new caffe::NetParameter());
+//		SAY("load model definition: %s", model_def.c_str());
+		caffe::ReadNetParamsFromTextFileOrDie(model_def, _net_param.get());
+		_net_param->mutable_state()->set_phase(caffe::TEST);
+
+		_net.reset(new Net<float>(*_net_param));
+		// SAY("load weights: %s", weights.c_str());
+		_net->CopyTrainedLayersFrom(weights);
+	}
 
 	_input_blob  = _net->input_blobs()[0];
     do {

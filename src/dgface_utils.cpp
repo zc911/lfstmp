@@ -43,6 +43,65 @@ int getConfigContent(string file, bool is_encrypt, string& content) {
 	return 0;
 }
 
+long FileSize(const string &file) {
+	ifstream is;
+	is.open(file.c_str(), ios::binary|ios::ate);
+	
+	// get length of file:
+	is.seekg(0, std::ios::end);
+	
+	long length = is.tellg();
+	is.seekg(0, std::ios::beg);
+	is.close();
+	return length;
+}
+
+string ReadStringFromFile(const string& filePath, const string& mode) {
+	long length = FileSize(filePath);
+	FILE *file = fopen(filePath.c_str(), mode.c_str());
+	if (file == NULL) {
+		return "";
+	}
+	char *data = (char *)malloc(length);
+	memset(data, 0, length);
+	length = fread(data, sizeof(char), length, file);
+	fclose(file);
+	string result(data,length);
+	free(data);
+	return result;
+}
+
+// Actually, getFileContent == getConfigContent 
+int getFileContent(string file, bool is_encrypt, string& content) {
+	// return getConfigContent(file, is_encrypt, content);
+	if (!is_encrypt) {
+		content = ReadStringFromFile(file, "rb");
+	} else {
+		int length;
+		length = FileSize(file);
+		FILE *fp = fopen(file.c_str(), "rb");
+		if (fp == NULL) {
+		return -1;
+		}
+		unsigned char *src = (unsigned char *)calloc(length, 1);
+		
+		length = fread(src, sizeof(char), length, fp);
+		fclose(fp);
+		unsigned char * dst = (unsigned char *)calloc(length, 1);
+		DecryptModel((unsigned char *)src, length, dst);
+		if (file.back() == 't') {
+			string content_tmp((char *)dst);
+			content = content_tmp;
+		} else {
+			string content_tmp((char *)dst, length);
+			content = content_tmp;
+		}
+		
+		free(src);
+		free(dst);
+	}
+}
+
 void addNameToPath(const string& model_dir, const string& name, string& appended_dir) {
 	appended_dir.clear();
 	if(model_dir.empty()) {

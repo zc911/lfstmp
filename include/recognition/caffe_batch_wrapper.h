@@ -11,7 +11,7 @@ class CaffeBatchWrapper {
 	public:
 		CaffeBatchWrapper(int deviceId, const std::string &layer_name, int batch_size,
             const std::string &model_def, const std::string &weights,
-            const std::vector<int> &patch_ids);
+            const std::vector<int> &patch_ids, bool is_encrypt);
         void predict(const std::vector<cv::Mat> &images,
             const std::vector< std::vector<float> > &landmarks,
             std::vector< std::vector<float> > &output);
