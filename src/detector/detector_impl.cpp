@@ -93,9 +93,7 @@ RpnDetector::RpnDetector(int img_scale_max,
     }
 
     /* Load the network. */
-    cout<<"loading "<<model_file<<endl;
     _net.reset(new Net<float>(model_file, TEST));
-    cout<<"loading "<<trained_file<<endl;
     _net->CopyTrainedLayersFrom(trained_file);
 
     Blob<float>* input_blob = _net->input_blobs()[0];
@@ -346,19 +344,17 @@ SSDDetector::SSDDetector(int img_scale_max,
 	int ret = 0;
 	ret = getFileContent(deploy_file, is_encrypt, deploy_content);
 	if(ret != 0) {
-		cout << "failed decrypt " << deploy_file << endl;
+		LOG(ERROR) << "failed decrypt " << deploy_file << endl;
 		throw new runtime_error("decrypt failed!");
 	}
 	ret = getFileContent(model_file, is_encrypt, model_content);
 	if(ret != 0) {
-		cout << "failed decrypt " << model_file << endl;
+		LOG(ERROR) << "failed decrypt " << model_file << endl;
 		throw new runtime_error("decrypt failed!");
 	}
 
 	/* Load the network. */
-	cout<<"loading "<<deploy_file<<endl;
 	_net.reset(new Net<float>(deploy_file, deploy_content, TEST));
-	cout<<"loading "<<model_file<<endl;
 	_net->CopyTrainedLayersFrom(model_file, model_content);
 
 	//CHECK_EQ(_net->num_inputs(), 1) << "Network should have exactly one input.";

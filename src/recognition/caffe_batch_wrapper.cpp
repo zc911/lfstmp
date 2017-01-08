@@ -24,23 +24,21 @@ CaffeBatchWrapper::CaffeBatchWrapper(int deviceId, const string &layer_name, int
 		int ret = 0;
 		ret = getFileContent(model_def, is_encrypt, deploy_content);
 		if(ret != 0) {
-			cout << "failed decrypt " << model_def << endl;
+			LOG(ERROR) << "failed decrypt " << model_def << endl;
 			throw new runtime_error("decrypt failed!");
 		}
 		ret = getFileContent(weights, is_encrypt, weight_content);
 		if(ret != 0) {
-			cout << "failed decrypt " << weights << endl;
+			LOG(ERROR) << "failed decrypt " << weights << endl;
 			throw new runtime_error("decrypt failed!");
 		}
 
 		/* Load the network. */
-		cout<<"loading "<<model_def<<endl;
 		_net.reset(new Net<float>(model_def, deploy_content, caffe::TEST));
-		cout<<"loading "<<weights<<endl;
 		_net->CopyTrainedLayersFrom(weights, weight_content);
 	} else {
 		_net_param.reset(new caffe::NetParameter());
-		SAY("load model definition: %s", model_def.c_str());
+//		SAY("load model definition: %s", model_def.c_str());
 		caffe::ReadNetParamsFromTextFileOrDie(model_def, _net_param.get());
 		_net_param->mutable_state()->set_phase(caffe::TEST);
 

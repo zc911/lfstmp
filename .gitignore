@@ -1,4 +1,6 @@
 build/
+release/include
+release/lib
 .idea
 release
 dist

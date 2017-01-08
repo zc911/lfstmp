@@ -3,7 +3,7 @@
 
 #include <opencv2/opencv.hpp>
 #include "common.h"
-#include <alignment.h>
+#include "alignment.h"
 
 namespace DGFace{
 
