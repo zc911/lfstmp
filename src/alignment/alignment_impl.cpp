@@ -195,7 +195,7 @@ void CdnnCaffeAlignment::ParseConfigFile(const string& cfg_file,
 	model_files.clear();
 
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
+	int ret = getConfigContent(cfg_file, false, cfg_content);
 	if(ret != 0) {
 		cout << "fail to decrypt config file." << endl;
 		return;
@@ -329,10 +329,27 @@ Alignment *create_alignment_with_global_dir(const align_method& method,
 										int gpu_id, 
 										bool is_encrypt, 
 										int batch_size) {
-	string global_config_file;
-	string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
-	addNameToPath(global_dir, "/"+tmp_model_dir+"/"+getGlobalConfig(), global_config_file); 
-	return create_alignment_with_config(method, global_config_file, gpu_id, is_encrypt, batch_size);
+const std::map<align_method, std::string> align_map {
+	{align_method::DLIB, "DLIB"},
+	{align_method::CDNN, "CDNN"},
+	{align_method::CDNN_CAFFE, "CDNN_CAFFE"}
+};
+	string align_key = "FaceAlignment";
+	string full_key = align_key + "/" + align_map.at(method);
+
+	string config_file;
+	addNameToPath(global_dir, "/"+getGlobalConfig(), config_file); 
+	Config config;
+	config.Load(config_file);
+	string local_model_path = static_cast<string>(config.Value(full_key));
+	if(local_model_path.empty()){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+		string model_path; 
+		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+		return create_alignment(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
 }
 
 Alignment *create_alignment_with_config(const align_method& method, 

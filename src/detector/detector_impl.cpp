@@ -675,7 +675,7 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
 
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
+	int ret = getConfigContent(cfg_file, false, cfg_content);
 	if(ret != 0) {
 		cout << "fail to decrypt " << cfg_file << endl;
 		deploy_file.clear();
@@ -861,10 +861,30 @@ Detector *create_detector_with_global_dir(const det_method& method,
 										int gpu_id, 
 										bool is_encrypt, 
 										int batch_size) {
-	string global_config_file;
-	string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
-	addNameToPath(global_dir, "/"+tmp_model_dir+"/"+getGlobalConfig(), global_config_file); 
-	return create_detector_with_config(method, global_config_file, gpu_id, is_encrypt, batch_size);
+
+const std::map<det_method, std::string> det_map {
+	{det_method::DLIB, "DLIB"},
+	{det_method::SSD, "SSD"},
+	{det_method::RPN, "RPN"},
+	{det_method::FCN, "FCN"}
+};
+	string det_key = "FaceDetector";
+	string full_key = det_key + "/" + det_map.at(method);
+
+	string config_file;
+	addNameToPath(global_dir, "/"+getGlobalConfig(), config_file); 
+
+	Config config;
+	config.Load(config_file);
+	string local_model_path = static_cast<string>(config.Value(full_key));
+	if(local_model_path.empty()){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+		string model_path; 
+		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
 }
 
 Detector *create_detector_with_config(const det_method& method, 
