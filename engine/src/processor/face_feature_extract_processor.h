@@ -50,6 +50,7 @@ class FaceFeatureExtractProcessor: public Processor {
     DGFace::Recognition *recognition_ = NULL;
     vector<Object *> to_processed_;
     RecognitionMethod method_;
+    unsigned int batch_size_;
 };
 
 } /* namespace dg */

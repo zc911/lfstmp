@@ -15,6 +15,7 @@ namespace dg {
 FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, RecognitionMethod method) {
     method_ = method;
+    batch_size_ = config.batch_size;
     switch (method_) {
         case RecognitionMethod::CNNRecog:
             LOG(FATAL) << "CNN Recognition not implemented " << endl;
@@ -116,25 +117,41 @@ bool FaceFeatureExtractProcessor::process(FrameBatch *frameBatch) {
     if (toAlignmentImages(align_imgs, align_results) != 1)
         return false;
 
-    vector<FaceRankFeature> features;
-    vector<DGFace::RecogResult> results;
+    auto imageItr = align_imgs.begin();
+    auto alignItr = align_results.begin();
+    unsigned int start = 0;
 
-    recognition_->recog(align_imgs, align_results, results, "");
+    for (int batchIndex = 0; batchIndex < (align_imgs.size() / batch_size_) + 1; batchIndex++) {
 
-    RecognResult2MatrixRecogn(results, features);
-    if (features.size() != align_imgs.size()) {
-        LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size()
-            << endl;
-        return false;
+        start = batchIndex * batch_size_;
+
+        vector<DGFace::RecogResult> results;
+        vector<FaceRankFeature> features;
+
+        int batchSize = align_imgs.size() - start < batch_size_ ? align_imgs.size() - start : batch_size_;
+        vector<Mat> batchImgs(imageItr, imageItr + batchSize);
+        vector<DGFace::AlignResult> batchAlignResult(alignItr, alignItr + batchSize);
+        imageItr += batchSize;
+        alignItr += batchSize;
+
+        recognition_->recog(batchImgs, batchAlignResult, results, "");
+        RecognResult2MatrixRecogn(results, features);
+        if (features.size() != batchImgs.size()) {
+            LOG(ERROR) << "Face image size not equals to feature size: " << align_imgs.size() << ":" << features.size()
+                << endl;
+            return false;
+        }
+
+        for (int i = 0; i < features.size(); ++i) {
+            FaceRankFeature feature = features[i];
+            Face *face = (Face *) to_processed_[i + start];
+            face->set_feature(feature);
+            face->set_align_result(align_results[i]);
+
+        }
+
     }
 
-    for (int i = 0; i < features.size(); ++i) {
-        FaceRankFeature feature = features[i];
-        Face *face = (Face *) to_processed_[i];
-        face->set_feature(feature);
-        face->set_align_result(align_results[i]);
-
-    }
 
     return true;
 }
@@ -143,7 +160,7 @@ int FaceFeatureExtractProcessor::RecognResult2MatrixRecogn(const vector<DGFace::
                                                            vector<FaceRankFeature> &features) {
     for (auto result : recog_results) {
         FaceRankFeature feature;
-        feature.feature_ = (result.face_feat);
+        feature.feature_ = result.face_feat;
         features.push_back(feature);
     }
 }
@@ -164,18 +181,14 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
 #endif
     to_processed_.clear();
-    to_processed_ = frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR);
-    for (vector<Object *>::iterator itr = to_processed_.begin();
-         itr != to_processed_.end();) {
-        if ((*itr)->type() != OBJECT_FACE) {
-            itr = to_processed_.erase(itr);
-        } else if (((Face *) (*itr))->image().rows == 0 || ((Face *) (*itr))->image().cols == 0) {
-            itr = to_processed_.erase(itr);
-
-        } else {
-            itr++;
-
+    for(auto toProcess : frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR)){
+        if(toProcess->type() != OBJECT_FACE)
+            continue;
+        Face *face = (Face*) toProcess;
+        if(face->image().rows == 0 || face->image().cols == 0){
+            continue;
         }
+        to_processed_.push_back(face);
     }
     //LOG(INFO) << to_processed_.size();
     return true;

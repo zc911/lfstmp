@@ -97,8 +97,8 @@ static const string ADVANCED_PHONE_THRESHOLD = "Advanced/DriverPhone/Threshold";
 //static const string ADVANCED_MARKER_SUNVISOR_CONFIDENCE =
 //    "Advanced/Marker/SunVisorConfidence";
 
-//static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
-//    "Advanced/FaceDetect/BatchSize";
+static const string ADVANCED_FACE_DETECT_BATCH_SIZE =
+    "Advanced/FaceDetect/BatchSize";
 static const string ADVANCED_FACE_DETECT_METHOD = "Advanced/FaceDetect/Method";
 //static const string ADVANCED_FACE_DETECT_SCALE = "Advanced/FaceDetect/Scale";
 //static const string ADVANCED_FACE_DETECT_MIN = "Advanced/FaceDetect/Min";
@@ -107,8 +107,8 @@ static const string ADVANCED_FACE_DETECT_METHOD = "Advanced/FaceDetect/Method";
 //static const string ADVANCED_FACE_DETECT_CONFIDENCE =
 //    "Advanced/FaceDetect/Confidence";
 
-//static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
-//    "Advanced/FaceExtract/BatchSize";
+static const string ADVANCED_FACE_EXTRACT_BATCH_SIZE =
+    "Advanced/FaceExtract/BatchSize";
 //static const string ADVANCED_FACE_EXTRACT_ALIGNMENT_FACESIZE =
 //    "Advanced/FaceExtract/FaceSize";
 //static const string ADVANCED_FACE_EXTRACT_PRE_PROCESS =
@@ -240,12 +240,12 @@ static const string FILE_PLATE_COLOR_PARAM = "File/Plate/ColorParam";
 
 
 static const string ADVANCED_PLATE_MXNET_BATCHSIZE = "Advanced/PlateMxnet/BatchSize";
-static const string ADVANCED_PLATE_MXNET_IMGSW = "Advanced/PlateMxnet/ImgStandardWidth";
-static const string ADVANCED_PLATE_MXNET_IMGSH = "Advanced/PlateMxnet/ImgStandardHeight";
-static const string ADVANCED_PLATE_MXNET_PLATESW = "Advanced/PlateMxnet/PlateStandardWidth";
-static const string ADVANCED_PLATE_MXNET_PLATESH = "Advanced/PlateMxnet/PlateStandardHeight";
-static const string ADVANCED_PLATE_MXNET_PLATENUMS = "Advanced/PlateMxnet/PlateNums";
-static const string ADVANCED_PLATE_MXNET_NUMSPROPOSAL = "Advanced/PlateMxnet/NumsProposal";
+//static const string ADVANCED_PLATE_MXNET_IMGSW = "Advanced/PlateMxnet/ImgStandardWidth";
+//static const string ADVANCED_PLATE_MXNET_IMGSH = "Advanced/PlateMxnet/ImgStandardHeight";
+//static const string ADVANCED_PLATE_MXNET_PLATESW = "Advanced/PlateMxnet/PlateStandardWidth";
+//static const string ADVANCED_PLATE_MXNET_PLATESH = "Advanced/PlateMxnet/PlateStandardHeight";
+//static const string ADVANCED_PLATE_MXNET_PLATENUMS = "Advanced/PlateMxnet/PlateNums";
+//static const string ADVANCED_PLATE_MXNET_NUMSPROPOSAL = "Advanced/PlateMxnet/NumsProposal";
 static const string ADVANCED_PLATE_MXNET_ENABLE_LOCALPROVINCE = "Advanced/PlateMxnet/EnableLocalProvince";
 static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_TEXT = "Advanced/PlateMxnet/LocalProvinceText";
 static const string ADVANCED_PLATE_MXNET_LOCALPROVINCE_CONFIDENCE = "Advanced/PlateMxnet/LocalProvinceConfidence";

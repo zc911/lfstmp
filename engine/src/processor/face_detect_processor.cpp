@@ -9,10 +9,6 @@
 
 #include "processor/face_detect_processor.h"
 #include "processor_helper.h"
-//#include "dgface/detector/det_dlib.h"
-//#include "dgface/detector/det_rpn.h"
-//#include "dgface/detector/det_ssd.h"
-//#include "dgface/detector/det_fcn.h"
 
 namespace dg {
 
@@ -46,6 +42,7 @@ FaceDetectProcessor::FaceDetectProcessor(
         }
     }
     base_id_ = 5000;
+    batch_size_ = config.batch_size;
     DLOG(INFO) << "Face detector has been initialized" << std::endl;
 
 }
@@ -78,7 +75,6 @@ static bool BoxCmp(const Detection &d1, const Detection &d2) {
     return d1.box().area() > d2.box().area();
 }
 
-// TODO change to "real" batch
 bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
 
     VLOG(VLOG_RUNTIME_DEBUG) << "Start face detector " << endl;
@@ -127,10 +123,8 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
             VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << " detection: " << detection << endl;
-            cv::Mat data = frame->payload()->data();
-            cv::Mat image = data(detection.box());
-            face->set_full_image(data);
-            face->set_image(image);
+            face->set_full_image(frame->payload()->data());
+            face->set_image(detection);
             frame->put_object(face);
 
         }

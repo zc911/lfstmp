@@ -76,8 +76,6 @@ bool FaceQualityProcessor::beforeUpdate(FrameBatch *frameBatch) {
     return true;
 }
 bool FaceQualityProcessor::RecordFeaturePerformance() {
-
-    return RecordPerformance(FEATURE_FACE_DETECTION, performance_);
-
+    return true;
 }
 }

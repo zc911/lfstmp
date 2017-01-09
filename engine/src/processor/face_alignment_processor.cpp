@@ -93,16 +93,6 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
             continue;
         }
 
-//        if (align_method_ != DlibAlign) {
-//            for (auto landmark : align_result.landmarks) {
-//                if (!landmark.inside(Rect(0, 0, face_size_length_, face_size_length_))) {
-//                    face->set_valid(false);
-//                    LOG(ERROR) << "Face landmarks invalid";
-//                    continue;
-//                }
-//            }
-//        }
-
         face->set_align_result(align_result);
         performance_++;
 
@@ -113,9 +103,7 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool FaceAlignmentProcessor::RecordFeaturePerformance() {
-
-    return RecordPerformance(FEATURE_FACE_EXTRACT, performance_);
-
+    return true;
 }
 
 

@@ -69,6 +69,9 @@ static void normalize_image(const Mat &input_img, Mat &result) {
     }
 }
 
+// TODO should be template function
+// template<typename T>
+// static vector<vector<T>> PrepareBatch(const vector<T> &input, unsigned int batchSize)
 static vector<vector<Mat> > PrepareBatch(const vector<Mat> &image,
         int batch_size) {
     vector<vector<Mat> > vimg;

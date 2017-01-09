@@ -411,14 +411,6 @@ void WitnessEngine::init(const Config &config) {
             last->SetNextProcessor(p);
             last = p;
         }
-//        if (enable_face_feature_vector_) {
-//            LOG(INFO) << "Enable face pose processor." << endl;
-//            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face pose model" << endl;
-//            FacePoseConfig fpconfig;
-//            Processor *p = new FacePoseProcessor(fpconfig);
-//            last->SetNextProcessor(p);
-//            last = p;
-//        }
         last->SetNextProcessor(NULL);
 
 

@@ -43,26 +43,13 @@
   "Advanced": {
     "Detection": {
       "TargetMinSize": 400.0,
-      "TargetMaxSize": 600.0,
-      "CarOnly": false
-    },
-    "Plate": {
-      "LocalProvince": "",
-      "OCR": 1,
-      "Locate": 5,
-      "EnableSharp": false
+      "TargetMaxSize": 600.0
     },
     "PlateMxnet": {
       "BatchSize": 1,
       "EnableLocalProvince": false,
-      "ImgStandardHeight": 600,
-      "ImgStandardWidth": 400,
       "LocalProvinceConfidence": 0.6,
-      "LocalProvinceText": "\u4eac",
-      "NumsProposal": 20,
-      "PlateNums": 4,
-      "PlateStandardHeight": 150,
-      "PlateStandardWidth": 250
+      "LocalProvinceText": "\u4eac"
     },
     "DriverPhone":{
       "Threshold": 0.0
@@ -75,6 +62,7 @@
     },
     "FaceDetect": {
       "Method": 3,
+      "BatchSize": 8,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
@@ -90,6 +78,7 @@
     "FaceExtract": {
       "BatchSize": 1,
       "Method": 3,
+      "BatchSize": 8,
       "EnableConcurrency": false
     },
 
@@ -154,6 +143,5 @@
     "dgvehicle": "data/dgvehicle",
     "dgLP":"data/dgLP",
     "dgface":"data/dgface"
-  },
-  "DataPath": "data/data.dat"
+  }
 }

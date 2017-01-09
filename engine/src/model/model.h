@@ -538,6 +538,18 @@ class Face: public Object {
         image_ = image;
     }
 
+    void set_image(const Detection detection) {
+        Box newBox = detection.box();
+        if(detection.box().x + detection.box().width >= full_image_.cols){
+            newBox.width = full_image_.cols - detection.box().x;
+        }
+        if(detection.box().y + detection.box().height >= full_image_.rows){
+            newBox.height = full_image_.rows - detection.box().y;
+        }
+        image_ = full_image_(newBox);
+    }
+
+
     bool IsValid() {
         return is_valid_;
     }

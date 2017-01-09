@@ -49,4 +49,4 @@ if __name__ == "__main__":
     parser.add_argument("-p", dest="prefix", default="", help="the image prefix image path")
     parser.add_argument("-r", dest="recursive", default=False, help="is recursive?")
 
-start()
+    start()

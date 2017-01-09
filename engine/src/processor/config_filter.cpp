@@ -6,7 +6,6 @@
  */
 
 #include "config_filter.h"
-#include "face_alignment_processor.h"
 
 namespace dg {
 
@@ -24,6 +23,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
     config.is_model_encrypt = is_encrypted;
     config.model_dir = model_path;
     config.gpu_id = gpu_id;
+    config.batch_size = (int) cconfig.Value(ADVANCED_FACE_DETECT_BATCH_SIZE);
 
 }
 void ConfigFilter::createFaceQualityConfig(const Config &cconfig, FaceQualityConfig &fqConfig) {
@@ -55,6 +55,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
     config.gpu_id = gpu_id;
     config.use_GPU = true;
     config.concurrency = (bool) cconfig.Value(ADVANCED_FACE_ENABLE_CONCURRENCY);
+    config.batch_size = (int) cconfig.Value(ADVANCED_FACE_EXTRACT_BATCH_SIZE);
     config.model_dir = model_path;
 
 }

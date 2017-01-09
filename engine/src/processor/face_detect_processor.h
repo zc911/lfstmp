@@ -51,6 +51,7 @@ class FaceDetectProcessor: public Processor {
     int base_id_;
     vector<Mat> imgs_;
     vector<Object *> objs_;
+    unsigned int batch_size_;
 
 };
 
