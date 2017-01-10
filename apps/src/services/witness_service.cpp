@@ -392,16 +392,7 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
     return err;
 }
 
-MatrixError WitnessAppsService::getRecognizedNonMotorVehicle(NonMotorVehicle *vobj,
-                                                             RecNonMotorVehicle *vrec) {
-    MatrixError err;
-    const Detection &d = vobj->detection();
-    RepoService::CopyCutboard(d, vrec->mutable_img()->mutable_cutboard());
-    vrec->set_id(vobj->id());
-    RepoService::GetInstance().FillModel(*vobj, vrec);
 
-    return err;
-}
 
 
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,

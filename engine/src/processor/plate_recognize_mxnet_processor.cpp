@@ -26,18 +26,19 @@ const char *paInv_chardict[79] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "
                                   "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
                                   "青", "藏", "川", "宁", "琼", "使", "领", "试", \
                                   "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
-                                 };
-PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(PlateRecognizeMxnetConfig *config
-                                                          )
-    : config_(config), h_LPDR_Handle_(0) {
-    LPDRConfig_S stConfig;
-    setConfig(&stConfig);
-    LPDR_Create(&h_LPDR_Handle_, &stConfig);
+};
+
+PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(const PlateRecognizeMxnetConfig& config) {
+    batch_size_ = config.batchsize;
+    enable_local_province_ = config.enableLocalProvince;
+    local_province_ = config.localProvinceText;
+    local_province_confidence_ = config.localProvinceConfidence;
+    pclsLPDR = new dgLP::LPDR(config.modelPath, config.gpuId, config.is_model_encrypt);
 }
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
     // TODO Auto-generated destructor stub
-    LPDR_Release(h_LPDR_Handle_);
+    delete pclsLPDR;
 }
 bool PlateRecognizeMxnetProcessor::process(Frame *frame) {
     return false;
@@ -53,7 +54,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
     int imagesize = images_.size();
     VLOG(VLOG_RUNTIME_DEBUG) << "LPDR loop: " << (ceil((float) imagesize / (float) batchsize) * batchsize) << endl;
     for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
-                batchsize) {
+                                                                                       batchsize) {
         stImgSet_.dwImageNum = 0;
         for (int j = 0; j < batchsize; j++) {
             if (i + j < imagesize) {
@@ -68,7 +69,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
         LPDR_OutputSet_S stOutput;
 
         VLOG(VLOG_RUNTIME_DEBUG) << "Start LPDR: " << frameBatch->id() << endl;
-        LPDR_Process(h_LPDR_Handle_, &stImgSet_, &stOutput);
+        pclsLPDR->Process(&stImgSet_, &stOutput);
         VLOG(VLOG_RUNTIME_DEBUG) << "Finish LPDR: " << frameBatch->id() << endl;
 
 
@@ -139,6 +140,8 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
     this->vehiclesFilter(frameBatch);
     return true;
 }
+
+/*
 void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     readModuleFile(config_->fcnnSymbolFile, config_->fcnnParamFile,
                    &pstConfig->stFCNN, config_->is_model_encrypt);
@@ -196,6 +199,8 @@ void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
     local_province_ = config_->localProvinceText;
     local_province_confidence_ = config_->localProvinceConfidence;
 }
+*/
+
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();
      images_.push_back(frameBatch->frames()[0]->payload()->data());
