@@ -18,7 +18,7 @@ void ConfigFilter::createFaceDetectorConfig(const Config &cconfig,
                                             FaceDetectorConfig &config) {
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
-    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH) + "/dgface.json";
+    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
     config.is_model_encrypt = is_encrypted;
     config.model_dir = model_path;
@@ -34,7 +34,7 @@ void ConfigFilter::createFaceAlignmentConfig(const Config &cconfig, FaceAlignmen
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
 
-    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH) + "/dgface.json";
+    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
     float alignThreshold = (float) cconfig.Value(ADVANCED_FACE_ALIGN_THRESHOLD);
     faConfig.align_threshold = alignThreshold;
@@ -50,7 +50,7 @@ void ConfigFilter::createFaceExtractorConfig(const Config &cconfig,
 
     bool is_encrypted = (bool) cconfig.Value(DEBUG_MODEL_ENCRYPT);
     int gpu_id = (int) cconfig.Value(SYSTEM_GPUID);
-    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH) + "/dgface.json";
+    string model_path = (string) cconfig.Value(DGFACE_MODEL_PATH);
     config.is_model_encrypt = is_encrypted;
     config.gpu_id = gpu_id;
     config.use_GPU = true;

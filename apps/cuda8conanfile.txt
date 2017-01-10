@@ -17,7 +17,7 @@ dgvehicle/0.3.0@deepglint/stable_cuda_8.0
 dgLP/2.2.4.7@deepglint/stable_cuda_8.0
 CdnnCaffe/0.2.1@deepglint/test
 Cdnn/0.1.0@deepglint/stable
-dgface/1.0.2@deepglint/stable
+dgface/1.0.4@deepglint/stable
 Simple-Web-Server/1.0.0@deepglint/stable
 
 [generators]

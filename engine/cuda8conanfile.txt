@@ -13,7 +13,7 @@ Dgmedia/1.8.0@deepglint/stable
 Gtest/1.7@deepglint/stable
 dgvehicle/0.3.0@deepglint/stable_cuda_8.0
 dgLP/2.2.4.7@deepglint/stable_cuda_8.0
-dgface/1.0.3@deepglint/stable
+dgface/1.0.4@deepglint/stable
 Cudart/8.0@deepglint/stable
 Cudnn/4.0.7@deepglint/stable
 

@@ -5,7 +5,7 @@ import commands
 import os
 import shutil
 
-ignore_file_ext = [".json", ".cfg"]
+ignore_file_ext = [".json", ".cfg", ".cdnn", ".mean", ".a", ".b", ".config", ".c"]
 
 
 def encrypt(encrypt_cmd, input_file_path, output_file_path):
@@ -31,9 +31,9 @@ def start(input_folder_path, output_folder_path, encrypt_cmd, recursive=True):
                 print "Create folder: " + output_folder
                 os.makedirs(output_folder)
 
-            # just copy config file without encrypt
+            # just copy file without encryption if in ignore list
             if ext_name in ignore_file_ext:
-                print "Copy config file %s to %s without encryption" % (full_path, output_file_path)
+                print "Copy file %s to %s without encryption" % (full_path, output_file_path)
                 shutil.copyfile(full_path, output_file_path)
                 continue
 

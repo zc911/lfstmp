@@ -30,13 +30,13 @@ FaceDetectProcessor::FaceDetectProcessor(
         }
         case DetectMethod::SsdMethod: {
             LOG(INFO) << "Create SSD face detector" << endl;
-            detector_ = DGFace::create_detector_with_config(DGFace::det_method::SSD, config.model_dir,
+            detector_ = DGFace::create_detector_with_global_dir(DGFace::det_method::SSD, config.model_dir,
                                                             config.gpu_id, config.is_model_encrypt, config.batch_size);
             break;
         }
         case DetectMethod::FcnMethod: {
             LOG(INFO) << "Create FCN face detector" << endl;
-            detector_ = DGFace::create_detector_with_config(DGFace::det_method::FCN, config.model_dir,
+            detector_ = DGFace::create_detector_with_global_dir(DGFace::det_method::FCN, config.model_dir,
                                                             config.gpu_id, config.is_model_encrypt, config.batch_size);
             break;
         }

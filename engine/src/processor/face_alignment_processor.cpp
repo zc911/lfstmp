@@ -14,30 +14,20 @@ FaceAlignmentProcessor::FaceAlignmentProcessor(const FaceAlignmentConfig &faConf
     align_method_ = alignMethod;
     switch (align_method_) {
         case AlignmentMethod::CdnnAlign:
-            alignment_ = DGFace::create_alignment_with_config(DGFace::align_method::CDNN,
-                                                              faConfig.model_dir,
-                                                              faConfig.gpu_id,
-                                                              faConfig.is_model_encrypt,
-                                                              faConfig.batch_size);
+            alignment_ = DGFace::create_alignment_with_global_dir(DGFace::align_method::CDNN,
+                                                                  faConfig.model_dir,
+                                                                  faConfig.gpu_id,
+                                                                  faConfig.is_model_encrypt,
+                                                                  faConfig.batch_size);
             break;
         case AlignmentMethod::DlibAlign: {
             LOG(FATAL) << "Dlib method not implemented, use cdnn instead currently" << endl;
             exit(-1);
-//            alignment_ = DGFace::create_alignment_with_config(DGFace::align_method::CDNN,
-//                                                              faConfig.model_dir,
-//                                                              faConfig.gpu_id,
-//                                                              faConfig.is_model_encrypt,
-//                                                              faConfig.batch_size);
             break;
         }
         case AlignmentMethod::CdnnCaffeAlign: {
             LOG(FATAL) << "CdnnCaffeAlign method has bug, use cdnn instead currently" << endl;
             exit(-1);
-//            alignment_ = DGFace::create_alignment_with_config(DGFace::align_method::CDNN,
-//                                                              faConfig.model_dir,
-//                                                              faConfig.gpu_id,
-//                                                              faConfig.is_model_encrypt,
-//                                                              faConfig.batch_size);
             break;
         }
         default: {

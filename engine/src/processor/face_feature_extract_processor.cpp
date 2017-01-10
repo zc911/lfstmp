@@ -6,7 +6,6 @@
  * Created on  : 2016年10月21日 下午3:44:11
  * Description :
  * ==========================================================================*/
-//#include <alg/feature/face_alignment.h>
 #include "processor/face_feature_extract_processor.h"
 #include "processor_helper.h"
 
@@ -16,43 +15,37 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
     const FaceFeatureExtractorConfig &config, RecognitionMethod method) {
     method_ = method;
     batch_size_ = config.batch_size;
+
     switch (method_) {
         case RecognitionMethod::CNNRecog:
             LOG(FATAL) << "CNN Recognition not implemented " << endl;
             exit(-1);
-//            recognition_ = DGFace::create_recognition(DGFace::recog_method::CNN, config.model_dir,
-//                                                      config.gpu_id, false,
-//                                                      config.is_model_encrypt, config.batch_size);
             break;
         case RecognitionMethod::LBPRecog: {
             LOG(FATAL) << "LBP Recognition not implemented " << endl;
             exit(-1);
-//            recognition_ = DGFace::create_recognition(DGFace::recog_method::LBP, config.model_dir,
-//                                                      config.gpu_id, false,
-//                                                      config.is_model_encrypt, config.batch_size);
             break;
         }
         case RecognitionMethod::CDNNRecog: {
             LOG(INFO) << "Create Cdnn face recognition " << endl;
-            recognition_ = DGFace::create_recognition_with_config(DGFace::recog_method::CDNN, config.model_dir,
-                                                                  config.gpu_id, false,
-                                                                  config.is_model_encrypt, config.batch_size);
-//            recognition_ = new DGFace::CdnnRecog(config.model_config, config.model_dir);
+            recognition_ = DGFace::create_recognition_with_global_dir(DGFace::recog_method::CDNN, config.model_dir,
+                                                                      config.gpu_id, false,
+                                                                      config.is_model_encrypt, config.batch_size);
             break;
         }
         case RecognitionMethod::CdnnCaffeRecog: {
             LOG(INFO) << "Create Cdnn caffe face recognition" << endl;
             recognition_ =
-                DGFace::create_recognition_with_config(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
-                                                       config.gpu_id, false,
-                                                       config.is_model_encrypt, config.batch_size);
+                DGFace::create_recognition_with_global_dir(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
+                                                           config.gpu_id, false,
+                                                           config.is_model_encrypt, config.batch_size);
             break;
         }
         case RecognitionMethod::CdnnFuse: {
             LOG(INFO) << "Create Cdnn fusion face recogniztion" << endl;
-            recognition_ = DGFace::create_recognition_with_config(DGFace::recog_method::FUSION, config.model_dir,
-                                                                  config.gpu_id, false,
-                                                                  config.is_model_encrypt, config.batch_size);
+            recognition_ = DGFace::create_recognition_with_global_dir(DGFace::recog_method::FUSION, config.model_dir,
+                                                                      config.gpu_id, false,
+                                                                      config.is_model_encrypt, config.batch_size);
         }
 
     }
@@ -181,11 +174,11 @@ bool FaceFeatureExtractProcessor::beforeUpdate(FrameBatch *frameBatch) {
     }
 #endif
     to_processed_.clear();
-    for(auto toProcess : frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR)){
-        if(toProcess->type() != OBJECT_FACE)
+    for (auto toProcess : frameBatch->CollectObjects(OPERATION_FACE_FEATURE_VECTOR)) {
+        if (toProcess->type() != OBJECT_FACE)
             continue;
-        Face *face = (Face*) toProcess;
-        if(face->image().rows == 0 || face->image().cols == 0){
+        Face *face = (Face *) toProcess;
+        if (face->image().rows == 0 || face->image().cols == 0) {
             continue;
         }
         to_processed_.push_back(face);
