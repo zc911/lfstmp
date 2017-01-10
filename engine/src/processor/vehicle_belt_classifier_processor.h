@@ -9,6 +9,7 @@
 #define SRC_PROCESSOR_VEHICLE_BELT_CLASSIFIER_PROCESSOR_H_
 #include "processor/processor.h"
 #include "algorithm_factory.h"
+#include "model/alg_config.h"
 
 namespace dg {
 

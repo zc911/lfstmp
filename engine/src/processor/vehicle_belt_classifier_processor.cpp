@@ -5,6 +5,7 @@
  *      Author: jiajaichen
  */
 
+#include "model/alg_config.h"
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
 #include "util/caffe_helper.h"

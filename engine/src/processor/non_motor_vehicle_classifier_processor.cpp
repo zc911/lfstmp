@@ -53,7 +53,7 @@ bool NonMotorVehicleClassifierProcessor::process(FrameBatch *frameBatch) {
         nmVehicle->attrs().clear();
         nmVehicle->attrs() = attr_;
     }
-    return true;
+	return true;
 
 }
 

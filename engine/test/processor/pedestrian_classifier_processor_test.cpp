@@ -92,9 +92,9 @@ TEST(PedestrianClassiFierProcessorTest, pedestrianAttributeTest) {
     head->process(fb);
 
 #ifdef UNENCRYPTMODEL
-    FileReader mapping("data/dgvehicle/model/classifier/Pedestrian/pedestrian_attribute_tagnames.txt");
+    FileReader mapping("data/0/pedestrian_attribute_tagnames.txt");
 #else
-    FileReader mapping("data/dgvehicle/encryptModel/classifier/Pedestrian/pedestrian_attribute_tagnames.txt");
+    FileReader mapping("data/1/pedestrian_attribute_tagnames.txt");
 #endif
 
     EXPECT_TRUE(mapping.is_open());

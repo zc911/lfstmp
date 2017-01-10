@@ -1,0 +1,818 @@
+[2016-09-10 11:33:07 MyLogger INFO] [[time.time:1473478387]]
+[2016-09-10 11:33:07 MyLogger INFO] [[loadtest start at 2016-09-10 11:33:07.430355]]
+[2016-09-10 11:33:07 MyLogger INFO] Timeout Threshold: 5000ms
+[2016-09-10 11:33:07 MyLogger INFO] threadNum: 30
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 StatLogger INFO] [[time.time:1473478387]]
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 StatLogger INFO] [[loadtest start at 2016-09-10 11:33:07.533856]]
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 StatLogger INFO] Timeout Threshold: 5000ms
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 StatLogger INFO] threadNum: 30
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010110001409.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:07 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:07 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:07 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1680
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1680
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:08 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:08 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:08 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1680
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1682
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011060001402.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:09 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:09 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:09 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:09 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:09 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2751
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2751
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2751
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2750
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2851
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2851
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2752
+[2016-09-10 11:33:10 MyLogger ERROR] Color Error, ColorId=-1
+[2016-09-10 11:33:10 MyLogger ERROR] {u'Plate': {u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}, u'VehicleType': 3, u'Features': u'', u'Img': {u'Cutboard': {u'Confidence': 0.6553896069526672, u'ResWidth': 0, u'ResHeight': 0, u'Height': 523, u'Width': 162, u'Y': 680, u'X': 0}, u'Img': {u'Width': 0, u'BinData': u'', u'Id': u'', u'URI': u'', u'Height': 0}}, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'ModelType': {u'TypeId': -1, u'Confidence': 0.0, u'Brand': u'', u'SubBrandId': -1, u'BrandId': -1, u'IsHead': -1, u'ModelYear': u'', u'ModelYearId': -1, u'Model': u'', u'SubBrand': u'', u'Type': u'', u'Id': -1}, u'Symbols': [], u'Plates': [{u'PlateText': u'', u'TypeId': -1, u'Confidence': 0.0, u'Color': {u'ColorId': -1, u'Confidence': 0.0, u'ColorName': u'UNKNOWN'}, u'LocalProvinceConfidence': 0.0, u'TypeName': u'UNKNOWN', u'Cutboard': {u'Confidence': 0.0, u'ResWidth': 0, u'ResHeight': 0, u'Height': 0, u'Width': 0, u'Y': 0, u'X': 0}}], u'VehicleTypeName': u'\u4e09\u8f6e\u8f66', u'Id': 0}
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010090001406.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:10 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:10 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:10 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2849
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2851
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2851
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1684
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1685
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:11 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:11 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:11 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1684
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1685
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2851
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 2852
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//519020418905-20150101093714-4-1.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 StatLogger INFO] ##########################2016-09-10 11:33:12.554244##########################
+verbose:
+### Search time:110, ErrorCount:0, HttpErrorCount:0,
+### timeoutCount:0, avgTimeoutCount:0.00/s,
+### avgQPS/avgEffectiveQPS:22.00/22.00/s,
+### avgRequestTime/avgEffectiveRequestTime:1208.63ms/1208.63ms,
+### maxQPS/minQPS:22.00/22.00,
+### maxReqestTime/minRequestTime:2373.43ms/260.98ms,
+### Throughput per Day:1900800,
+### Timecost per 1W::454.55s,
+### colorCount:140,0.8235 plateCount:170,1.0000 carCount:170,
+### car per photo:1.55,
+### elapse:5s
+Time distro:              Car Num distro:         Http Code distro:         DeepV Status Code distro:   
+  0   - 500 ms: 8           [ 0   - 1  ): 0         200 : 110                 200 : 110                 
+  500 - 1000 ms: 29         [ 1   - 2  ): 50                                                            
+  1000 - 1500 ms: 42        [ 2   - 3  ): 60                                                            
+  1500 - 2000 ms: 29        [ 3   - 5  ): 0                                                             
+  2000 - 2500 ms: 2         [ 5   - 10 ): 0                                                             
+  2500 - 3000 ms: 0         [ 10  - 20 ): 0                                                             
+  3000 - 3500 ms: 0         >  20 : 0                                                                   
+  3500 - 4000 ms: 0                                                                                     
+  4000 - 4500 ms: 0                                                                                     
+  4500 - 5000 ms: 0                                                                                     
+  >  5000 ms  : 0                                                                                       
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+### Search time:110, ErrorCount:0, HttpErrorCount:0,
+### timeoutCount:0, avgTimeoutCount:0.00/s,
+### avgQPS/avgEffectiveQPS:22.00/22.00/s,
+### avgRequestTime/avgEffectiveRequestTime:1208.63ms/1208.63ms,
+### maxQPS/minQPS:22.00/22.00,
+### maxReqestTime/minRequestTime:2373.43ms/260.98ms,
+### Throughput per Day:1900800,
+### Timecost per 1W::454.55s,
+### colorCount:140,0.8235 plateCount:170,1.0000 carCount:170,
+### car per photo:1.55,
+### elapse:5s
+Time distro:              Car Num distro:         Http Code distro:         DeepV Status Code distro:   
+  0   - 500 ms: 8           [ 0   - 1  ): 0         200 : 110                 200 : 110                 
+  500 - 1000 ms: 29         [ 1   - 2  ): 50                                                            
+  1000 - 1500 ms: 42        [ 2   - 3  ): 60                                                            
+  1500 - 2000 ms: 29        [ 3   - 5  ): 0                                                             
+  2000 - 2500 ms: 2         [ 5   - 10 ): 0                                                             
+  2500 - 3000 ms: 0         [ 10  - 20 ): 0                                                             
+  3000 - 3500 ms: 0         >  20 : 0                                                                   
+  3500 - 4000 ms: 0                                                                                     
+  4000 - 4500 ms: 0                                                                                     
+  4500 - 5000 ms: 0                                                                                     
+  >  5000 ms  : 0                                                                                       
+
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:12 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:12 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:12 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1686
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1687
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010130001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1680
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1680
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1677
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1678
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161011170001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']
+[2016-09-10 11:33:13 urllib3.connectionpool INFO] Starting new HTTP connection (1): 127.0.0.1
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] Setting read timeout to None
+[2016-09-10 11:33:13 urllib3.connectionpool DEBUG] "POST /rec/image HTTP/1.1" 200 1681
+[2016-09-10 11:33:13 MyLogger INFO] raw query:['/home/chenzhen/testimage/testImg-sz/dayfront//201503161010560001402.jpg']

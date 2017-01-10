@@ -1,0 +1,19 @@
+{
+  "File": {
+    "Plate": {
+      "ModelPath": "data/",
+      "FcnSymbol": "802.txt",
+      "FcnParam": "802.dat",
+      "RpnSymbol": "805.txt",
+      "RpnParam": "805.dat",
+      "PolyRegSymbol": "803.txt",
+      "PolyRegParam": "803.dat",
+      "RoipSymbol": "804.txt",
+      "RoipParam": "804.dat",
+      "ColorSymbol": "801.txt",
+      "ColorParam": "801.dat",
+      "ChrecogSymbol": "800.txt",
+      "ChrecogParam": "800.dat"
+    }
+  }
+}
