@@ -65,6 +65,9 @@ bool VehicleBeltClassifierProcessor::process(FrameBatch *frameBatch) {
                     driverType = OBJECT_CODRIVER;
                 }
                 float confidence = GetConfidence(preds[i]);
+                if (!is_driver_ && confidence < 0.5) {
+                    break;
+                }
                 Vehicler *vr = (Vehicler *) v->child(driverType);
                 if (!vr) {
                     vr = new Vehicler(driverType);
