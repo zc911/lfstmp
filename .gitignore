@@ -1,4 +1,5 @@
 lib/*
+imodel/src
 include/matrix_util/*
 include/matrix_engine/*
 include/
