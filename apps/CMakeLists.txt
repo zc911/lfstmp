@@ -75,6 +75,10 @@ LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_DGCAFFE}
         ${CONAN_LIBS_CUDART})
 
+message("aaaa" ${CONAN_LIB_DIRS_CUDART})
+message("bbbb" ${CONAN_LIBS_OPENCV})
+message("cccc" ${CONAN_LIBS_DIRS_CDNNCAFFE})
+
 LIST(APPEND LIBS cblas boost_regex ${Boost_LIBRARIES}
         glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid
         freetype hdf5_hl hdf5 m crypto gstreamer-0.10 gobject-2.0 gmodule-2.0
