@@ -1,0 +1,12 @@
+dgLP/encryptModel/chrecog_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/chrecog.symbol filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/color_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/color.symbol filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/fcn_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/fcn.symbol filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/polyreg_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/polyreg.symbol filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/roip_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/roip.symbol filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/rpn_params.bin filter=lfs diff=lfs merge=lfs -text
+dgLP/encryptModel/rpn.symbol filter=lfs diff=lfs merge=lfs -text
