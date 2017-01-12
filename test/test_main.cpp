@@ -105,8 +105,8 @@ int main(int argc, char const *argv[])
     cout << splited_list.size() << endl;
 
     // Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
-    // Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.1.0", 0);
-    Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.1.1", 0);
+    // Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.0.3", 0);
+    Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.0.4", 0);
 	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
 	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
 	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
