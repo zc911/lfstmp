@@ -6,7 +6,7 @@ Dlib/0.1.0@deepglint/stable
 OpenCV/2.4.8@deepglint/stable
 Mxnet/0.7.0.4@deepglint/stable_cuda_8.0
 Dgcaffe/0.3.0@deepglint/test
-CdnnCaffe/0.2.1@deepglint/test
+CdnnCaffe/0.2.1@deepglint/stable_cuda_8.0
 Cdnn/0.1.0@deepglint/stable
 Thplateid/1.0.0@deepglint/stable
 Dgmedia/1.8.0@deepglint/stable
