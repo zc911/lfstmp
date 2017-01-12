@@ -15,7 +15,6 @@ Thplateid/1.0.0@deepglint/stable
 OpenCV/2.4.8@deepglint/stable
 Pbjson/1.0.0@deepglint/stable
 Watchdog/0.1.0@deepglint/stable
-Cuda/7.0@deepglint/stable_cuda_7.0
 
 [generators]
 cmake

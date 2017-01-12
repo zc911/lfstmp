@@ -82,7 +82,7 @@ int main(int argc, char const *argv[])
     int batch_size = 10;
 
     Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
-    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+    //Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
 	Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
 	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
 	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models/recognition_0.3.3", 0, true, false, batch_size);
