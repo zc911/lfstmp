@@ -664,7 +664,7 @@ const std::map<recog_method, std::string> recog_map {
 		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
 		string model_path; 
 		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
-		return create_recognition(method, model_path, gpu_id, is_encrypt, batch_size);
+		return create_recognition(method, model_path, gpu_id, multi_thread, is_encrypt, batch_size);
 	}
 }
 Recognition *create_recognition_with_config(const recog_method& method, 
