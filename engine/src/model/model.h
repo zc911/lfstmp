@@ -540,12 +540,19 @@ class Face: public Object {
 
     void set_image(const Detection detection) {
         Box newBox = detection.box();
-        if(detection.box().x + detection.box().width >= full_image_.cols){
-            newBox.width = full_image_.cols - detection.box().x;
+        if (newBox.x < 0) {
+            newBox.x = 0;
         }
-        if(detection.box().y + detection.box().height >= full_image_.rows){
-            newBox.height = full_image_.rows - detection.box().y;
+        if (newBox.y < 0) {
+            newBox.y = 0;
         }
+        if (newBox.x + newBox.width >= full_image_.cols) {
+            newBox.width = full_image_.cols - newBox.x;
+        }
+        if (newBox.y + newBox.height >= full_image_.rows) {
+            newBox.height = full_image_.rows - newBox.y;
+        }
+
         image_ = full_image_(newBox);
     }
 
