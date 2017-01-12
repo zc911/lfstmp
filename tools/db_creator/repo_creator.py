@@ -25,7 +25,7 @@ sys.setdefaultencoding("utf-8")
 
 ## global configure infomation
 conf = dict(
-    address="http://127.0.0.1:6501/rec/image",  # service address
+    address="http://192.168.2.130:6501/rec/image",  # service address
     # address = "http://127.0.0.1:5500/rec/image",     # service address
     batch_num=8,  # batch num
     thread_num=4,  # thread num
