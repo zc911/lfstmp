@@ -98,17 +98,25 @@ int main(int argc, char const *argv[])
     bool visualize = static_cast<bool>(atoi(argv[2]));
     int batch_size = static_cast<int>(atoi(argv[3]));
 
-    Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
+    vector<string> names = load_names(name_txt);
+    auto img_list = read_images(names);
+    auto splited_list = split_list(img_list, batch_size);
+    cout << img_list.size() << endl;
+    cout << splited_list.size() << endl;
+
+    // Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
     // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd_0.1.3", 0);
 	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
 	// Transformation *transformation   = create_transformation(transform_method::CDNN, "");
 	// Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
 	// Verification *verification 	= create_verifier(verif_method::EUCLID);
+	Detector *detector = create_detector_with_global_dir(det_method::FCN, "../../data/", 0);
 
     ofstream not_det("not_det.log");
     vector<DetectResult> detect_results;
 
-    chrono::duration<double> time_span(0.0);
+    //chrono::duration<double> time_span(0.0);
     for(const auto& one_batch: splited_list) {
         
 		vector<Mat> imgs(one_batch.size());
@@ -116,13 +124,13 @@ int main(int argc, char const *argv[])
                     [](const image_info& one_info) {return one_info.image;});
 		vector<DetectResult> curr_result;
         
-        auto time_start = chrono::high_resolution_clock::now();
+        //auto time_start = chrono::high_resolution_clock::now();
 	    detector->detect(imgs, curr_result);
-        auto time_finish = chrono::high_resolution_clock::now();
-        time_span += chrono::duration_cast<chrono::duration<double> >(time_finish - time_start);
+        //auto time_finish = chrono::high_resolution_clock::now();
+        //time_span += chrono::duration_cast<chrono::duration<double> >(time_finish - time_start);
         detect_results.insert(detect_results.end(), curr_result.begin(), curr_result.end());
     }
-    cout << "compute time : " << time_span.count() << " seconds." << endl;
+    //cout << "compute time : " << time_span.count() << " seconds." << endl;
 
     assert(detect_results.size() == img_list.size());
     if(visualize) {
@@ -134,6 +142,21 @@ int main(int argc, char const *argv[])
             imwrite(draw_name0, img_list[i].image);
         }
     }
+	
+	ofstream det_result_file("det_info.txt");
+	for(size_t i = 0; i < img_list.size(); ++i) {
+		det_result_file << img_list[i].name << endl;
+		const auto& all_det_bbox = detect_results[i].boundingBox;
+		det_result_file << all_det_bbox.size() << endl;
+		for(const auto& one_bbox: all_det_bbox) {
+			det_result_file << one_bbox.first;
+			auto common_box = one_bbox.second.boundingRect();
+			det_result_file << " " << common_box.x
+							<< " " << common_box.y
+							<< " " << common_box.width
+							<< " " << common_box.height << endl;
+		}
+	}
 
 /*
     for (size_t i = 0; i < names.size(); ++i)

@@ -6,6 +6,7 @@ namespace DGFace{
 
 class SSDDetector : public Detector {
     public:
+			/*
         SSDDetector(int   img_scale_max,
                     int   img_scale_min,
                     const std::string& model_file,
@@ -15,6 +16,7 @@ class SSDDetector : public Detector {
                     const float pixel_scale = 1.0f,
                     const bool  use_GPU = true,
                     const int    gpu_id = 0);
+					*/
 		SSDDetector(int img_scale_max,
 					int img_scale_min,
 					const std::string& model_dir,
@@ -43,6 +45,7 @@ class SSDDetector : public Detector {
         int _gpuid;
                         bool device_setted_=false;
 		bool _bbox_shrink;
+		bool _use_deploy_input_size;
 
         cv::Size _image_size;
 };

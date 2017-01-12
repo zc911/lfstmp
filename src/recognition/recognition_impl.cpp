@@ -431,7 +431,7 @@ CdnnCaffeRecog::CdnnCaffeRecog(const string& model_dir,
 	}
     
 	_impl = new CaffeBatchWrapper(gpu_id, layer_names[0], batch_size,
-        model_defs[0], weight_files[0], patch_ids);
+        model_defs[0], weight_files[0], patch_ids, is_encrypt);
 
 	_transformation = NULL;
 	_transformation = new CdnnTransformation(); // use cdnn transformation temporarily
@@ -637,6 +637,36 @@ Recognition *create_recognition(const string & prefix) {
 }
 */
 
+Recognition *create_recognition_with_global_dir(const recog_method& method, 
+											const string& global_dir,
+											int gpu_id,
+											bool multi_thread,
+											bool is_encrypt,
+											int batch_size) {
+const std::map<recog_method, std::string> recog_map {
+	{recog_method::LBP, "LBP"},
+	{recog_method::CNN, "CNN"},
+	{recog_method::CDNN, "CDNN"},
+	{recog_method::CDNN_CAFFE, "CDNN_CAFFE"},
+	{recog_method::FUSION, "FUSION"}
+};
+	string recog_key = "FaceRecognition";
+	string full_key = recog_key + "/" + recog_map.at(method);
+
+	string config_file;
+	addNameToPath(global_dir, "/"+getGlobalConfig(), config_file); 
+	Config config;
+	config.Load(config_file);
+	string local_model_path = static_cast<string>(config.Value(full_key));
+	if(local_model_path.empty()){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+		string model_path; 
+		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+		return create_recognition(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
+}
 Recognition *create_recognition_with_config(const recog_method& method, 
 										const string& config_file,
 										int gpu_id,
@@ -657,7 +687,7 @@ const std::map<recog_method, std::string> recog_map {
 	Config path_cfg;
 	path_cfg.Load(config_file);
 	string model_path = static_cast<string>(path_cfg.Value(full_key));
-	if(model_path != ""){
+	if(model_path.empty()){
 		throw new runtime_error(full_key + " not exist!");
 	} else {
 		return create_recognition(method, model_path, gpu_id, multi_thread, is_encrypt, batch_size);

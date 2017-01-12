@@ -93,9 +93,7 @@ RpnDetector::RpnDetector(int img_scale_max,
     }
 
     /* Load the network. */
-    cout<<"loading "<<model_file<<endl;
     _net.reset(new Net<float>(model_file, TEST));
-    cout<<"loading "<<trained_file<<endl;
     _net->CopyTrainedLayersFrom(trained_file);
 
     Blob<float>* input_blob = _net->input_blobs()[0];
@@ -342,12 +340,22 @@ SSDDetector::SSDDetector(int img_scale_max,
 	addNameToPath(model_dir, "/" + deploy_file, deploy_file);
 	addNameToPath(model_dir, "/" + model_file, model_file);
 
+	string deploy_content, model_content;
+	int ret = 0;
+	ret = getFileContent(deploy_file, is_encrypt, deploy_content);
+	if(ret != 0) {
+		LOG(ERROR) << "failed decrypt " << deploy_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
+	ret = getFileContent(model_file, is_encrypt, model_content);
+	if(ret != 0) {
+		LOG(ERROR) << "failed decrypt " << model_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
 
 	/* Load the network. */
-	cout<<"loading "<<deploy_file<<endl;
-	_net.reset(new Net<float>(deploy_file, TEST));
-	cout<<"loading "<<model_file<<endl;
-	_net->CopyTrainedLayersFrom(model_file);
+	_net.reset(new Net<float>(deploy_file, deploy_content, TEST));
+	_net->CopyTrainedLayersFrom(model_file, model_content);
 
 	//CHECK_EQ(_net->num_inputs(), 1) << "Network should have exactly one input.";
 	Blob<float>* input_blob = _net->input_blobs()[0];
@@ -407,8 +415,10 @@ int SSDDetector::ParseConfigFile(const string& cfg_file, string& deploy_file, st
 	}
 
 	_bbox_shrink = static_cast<bool>(ssd_cfg.Value("bbox_shrink"));
+	_use_deploy_input_size = static_cast<bool>(ssd_cfg.Value("use_deploy_input_size"));
 }
 
+/*
 SSDDetector::SSDDetector(int   img_scale_max,
                         int   img_scale_min,
                         const string& model_file,
@@ -429,7 +439,6 @@ SSDDetector::SSDDetector(int   img_scale_max,
        Caffe::set_mode(Caffe::CPU);
    }
 
-   /* Load the network. */
    cout<<"loading "<<model_file<<endl;
    _net.reset(new Net<float>(model_file, TEST));
    cout<<"loading "<<trained_file<<endl;
@@ -443,73 +452,12 @@ SSDDetector::SSDDetector(int   img_scale_max,
    CHECK(_num_channels == 3 || _num_channels == 1)
        << "Input layer should have 1 or 3 channels.";
 }
+*/
 
 SSDDetector::~SSDDetector(void){
 
 }
 
-/*========================
-void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results){
-    vector<Mat> resized_imgs;
-    resized_imgs.reserve(imgs.size());
-    vector<float> scale_ratios;
-    resized_imgs.resize(imgs.size());
-    scale_ratios.resize(imgs.size());
-    results.resize(imgs.size());
-    _max_image_size = Size(0, 0);
-    for (size_t idx = 0; idx < imgs.size(); idx++) {
-        Mat img = imgs[idx];
-        Mat resized_img;
-        results[idx].image_size = Size(img.cols, img.rows); //record the original img size
-        Size image_resize;
-        // image resize, short edge is up to _img_scale
-        float resize_ratio = 1;
-        if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
-            resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
-        } else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
-            resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
-        }
-        //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
-        int width  = img.cols * resize_ratio;
-        int height = img.rows * resize_ratio;
-
-        // record the maximum width and height as mask
-        _max_image_size.width  = max(_max_image_size.width, width);
-        _max_image_size.height = max(_max_image_size.height, height);
-        image_resize = Size(width, height);
-        resize(img, resized_img, image_resize);
-       
-        resized_imgs[idx] = resized_img;
-        scale_ratios[idx] = resize_ratio;
-        // cout << "ratio = " << resize_ratio << "\tw = " << resized_imgs[idx].cols << "\th = " << resized_imgs[idx].rows << endl;
-    }
-
-    // Add black edge to support batch process for images with different sizes 
-    edge_complete(resized_imgs);
-
-    detect_impl_kernel(resized_imgs, results);
-    for (size_t idx = 0; idx < imgs.size(); idx++) {
-        Rect img_bbox = Rect(0, 0, imgs[idx].cols, imgs[idx].rows);
-        auto &bboxes = results[idx].boundingBox;
-        float ratio  = scale_ratios[idx];
-        for (size_t i = 0; i < bboxes.size(); i++) {
-            auto &bbox   = bboxes[i].second;
-            bbox.center.x    /= ratio;
-            bbox.center.y    /= ratio;
-            bbox.size.width  /= ratio;
-            bbox.size.height /= ratio;
-            // bbox &= img_bbox;
-            // assert(bbox.x >= 0);
-            // assert(bbox.y >= 0);
-            // assert(bbox.x + bbox.width <= imgs[idx].cols);
-            // assert(bbox.y + bbox.height <= imgs[idx].rows);
-
-            // Rect rect = results[idx].boundingBox[0].second;
-            // cout << "bboxes: x=" << rect.x << ", y = " << rect.y << ", width = " << rect.width << ", height = " << rect.height << endl;
-        }
-    }
-}
-*/
 void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
     if (!device_setted_) {
@@ -522,16 +470,28 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 
     Blob<float>* input_blob = _net->input_blobs()[0];
 
-    _image_size = Size(imgs[0].cols, imgs[0].rows);
+	vector<Mat> resized_imgs(imgs.size());
+	if(_use_deploy_input_size) {
+		_image_size = Size(input_blob->width(), input_blob->height());
+		for(size_t i = 0; i < imgs.size(); ++i) {
+			cv::resize(imgs[i], resized_imgs[i], _image_size);
+		}	
+	} else {
+    	_image_size = Size(imgs[0].cols, imgs[0].rows);
+		for(size_t i = 0; i < imgs.size(); ++i) {
+			resized_imgs[i] = imgs[i];
+		}	
+	}
     vector<int> shape = {static_cast<int>(imgs.size()), _num_channels, _image_size.height, _image_size.width};
     input_blob->Reshape(shape);
     _net->Reshape();
     float* input_data = input_blob->mutable_cpu_data();
+    cout << "[debug num, channels, height, width] " << input_blob->num() << " " << input_blob->channels() << " " << input_blob->height() << " " << input_blob->width() << endl;
     //cout<<_pixel_scale<<" "<<_pixel_means[0];
-    for(size_t i = 0; i < imgs.size(); i++)
+    for(size_t i = 0; i < resized_imgs.size(); i++)
     {
         Mat sample;
-        Mat img = imgs[i];
+        Mat img = resized_imgs[i];
         // images from the same batch should have the same size
         assert(img.rows == _image_size.height && img.cols == _image_size.width);
         if (img.channels() == 3 && _num_channels == 1)
@@ -581,14 +541,19 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 
     // vector<Bbox> &bboxes = results[i].boundingBox;
     // results[i].boundingBox.resize(outputs[0]->height);
+	auto input_image_size = Size(imgs[0].cols, imgs[0].rows);
     for(int j = 0; j < outputs[0]->height(); j++) {
         int  img_id = top_data[j * 7];
         // int cls = top_data_win[j * 7 + 1];
         float score = top_data[j * 7 + 2];
-        float xmin = top_data[j * 7 + 3]*_image_size.width;
-        float ymin = top_data[j * 7 + 4]*_image_size.height; 
-        float xmax = top_data[j * 7 + 5]*_image_size.width; 
-        float ymax = top_data[j * 7 + 6]*_image_size.height;
+        //float xmin = top_data[j * 7 + 3]*_image_size.width;
+        //float ymin = top_data[j * 7 + 4]*_image_size.height; 
+        //float xmax = top_data[j * 7 + 5]*_image_size.width; 
+        //float ymax = top_data[j * 7 + 6]*_image_size.height;
+        float xmin = top_data[j * 7 + 3]*input_image_size.width;
+        float ymin = top_data[j * 7 + 4]*input_image_size.height; 
+        float xmax = top_data[j * 7 + 5]*input_image_size.width; 
+        float ymax = top_data[j * 7 + 6]*input_image_size.height;
 
         //cout << "img id: " << img_id << ", score:" << score << " " << xmin << " " << ymin << " " << xmax-xmin << " " << ymax-ymin << endl;
         if(score > _det_thresh){
@@ -687,15 +652,30 @@ FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string
 	string full_deploy_file, full_model_file;
 	addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
 	addNameToPath(model_dir, "/" + model_file, full_model_file);
+
+	string full_deploy_content, full_model_content;
+	int ret = 0;
+	ret = getFileContent(full_deploy_file, is_encrypt, full_deploy_content);
+	if(ret != 0) {
+		cout << "failed decrypt " << full_deploy_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
+	ret = getFileContent(full_model_file, is_encrypt, full_model_content);
+	if(ret != 0) {
+		cout << "failed decrypt " << full_model_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
 	
-    _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
+	vector<string> deploy_file_content {full_deploy_file, full_deploy_content};
+	vector<string> model_file_content {full_model_file, full_model_content};
+    _fcn_detecror = new FCNFaceDetector(deploy_file_content, model_file_content);
 
 }
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
 
 	string cfg_content;
-	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
+	int ret = getConfigContent(cfg_file, false, cfg_content);
 	if(ret != 0) {
 		cout << "fail to decrypt " << cfg_file << endl;
 		deploy_file.clear();
@@ -876,6 +856,37 @@ Detector *create_detector(const string &prefix) {
 }
 */
 
+Detector *create_detector_with_global_dir(const det_method& method, 
+										const string& global_dir,
+										int gpu_id, 
+										bool is_encrypt, 
+										int batch_size) {
+
+const std::map<det_method, std::string> det_map {
+	{det_method::DLIB, "DLIB"},
+	{det_method::SSD, "SSD"},
+	{det_method::RPN, "RPN"},
+	{det_method::FCN, "FCN"}
+};
+	string det_key = "FaceDetector";
+	string full_key = det_key + "/" + det_map.at(method);
+
+	string config_file;
+	addNameToPath(global_dir, "/"+getGlobalConfig(), config_file); 
+
+	Config config;
+	config.Load(config_file);
+	string local_model_path = static_cast<string>(config.Value(full_key));
+	if(local_model_path.empty()){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
+		string model_path; 
+		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
+}
+
 Detector *create_detector_with_config(const det_method& method, 
 									const string& config_file,
 									int gpu_id, 
@@ -893,7 +904,7 @@ const std::map<det_method, std::string> det_map {
 	Config path_cfg;
 	path_cfg.Load(config_file);
 	string model_path = static_cast<string>(path_cfg.Value(full_key));
-	if(model_path != ""){
+	if(model_path.empty()){
 		throw new runtime_error(full_key + " not exist!");
 	} else {
 		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
