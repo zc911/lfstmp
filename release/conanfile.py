@@ -2,7 +2,7 @@ from conans import ConanFile, CMake
 
 class DgFace(ConanFile):
     name = "dgface"
-    version = "1.0.2"
+    version = "1.0.4"
     settings = "os", "compiler", "build_type", "arch"
     exports = "*"
     url = "https://github.com/deepglint/dgface.git"

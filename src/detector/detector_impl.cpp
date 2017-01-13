@@ -366,7 +366,6 @@ SSDDetector::SSDDetector(int img_scale_max,
 		input_blob->Reshape(org_shape);
 		_net->Reshape();
 	} 
-	cout << "batch size : " << input_blob->num() << endl;
 
 	_num_channels = input_blob->channels();
 	CHECK(_num_channels == 3 || _num_channels == 1)
@@ -883,6 +882,7 @@ const std::map<det_method, std::string> det_map {
 		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
 		string model_path; 
 		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+
 		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
 	}
 }
