@@ -34,7 +34,7 @@ class FaceDetectProcessor: public Processor {
     };
 
 
-    FaceDetectProcessor(FaceDetectorConfig config, DetectMethod method);
+    FaceDetectProcessor(FaceDetectorConfig &config, DetectMethod method);
 
     virtual ~FaceDetectProcessor();
 

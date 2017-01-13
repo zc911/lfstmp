@@ -13,7 +13,7 @@
 namespace dg {
 
 FaceDetectProcessor::FaceDetectProcessor(
-    FaceDetectorConfig config, DetectMethod method) {
+    FaceDetectorConfig &config, DetectMethod method) {
     //Initialize face detection caffe model and arguments
     DLOG(INFO) << "Start loading face detector model" << std::endl;
 
