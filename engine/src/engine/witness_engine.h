@@ -60,6 +60,7 @@ private:
     bool enable_face_feature_vector_;
     bool enable_face_pose_;
     unsigned long long performance_ = 0;
+    bool enable_demo_;
 
 };
 

@@ -11,9 +11,13 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehicleColorProcessor::VehicleColorProcessor() {
+VehicleColorProcessor::VehicleColorProcessor(bool enable_demo) {
 
-    AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_caffeVehicleColorClassifier, classifiers_);
+    if (!enable_demo) {
+        AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_caffeVehicleColorClassifier, classifiers_);
+    } else {
+        AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_perfectVehicleColorClassifier, classifiers_);
+    }
 }
 
 VehicleColorProcessor::~VehicleColorProcessor() {

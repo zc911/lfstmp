@@ -9,13 +9,33 @@ namespace dg {
 
 using namespace AlgorithmProcessorType;
 
-VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate)
+VehicleMultiTypeDetectorProcessor::VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate, bool enable_demo)
     : Processor(), car_only_(car_only) , car_only_detector_(NULL), car_only_confirm_(NULL), vehicle_detector_(NULL) {
     if (car_only_) {
-        car_only_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyCaffeDetector, accelate);
-        car_only_confirm_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_carOnlyConfirmCaffeDetector, accelate);
+        if (accelate) {
+            car_only_detector_ =
+                AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_accelarateCarDetector);
+            car_only_confirm_ =
+                AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_accelerateCarConfirmDetector);
+        } else {
+            car_only_detector_ =
+                AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_carDetector);
+            car_only_confirm_ =
+                AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_carConfirmDetector);
+        }
     } else {
-        vehicle_detector_ = AlgorithmFactory::GetInstance()->CreateMultiTypeDetector(c_vehicleCaffeDetector, accelate);
+        if (accelate) {
+            vehicle_detector_ =
+                AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_accelerateVehicleDetector);
+        } else {
+            if (!enable_demo) {
+                vehicle_detector_ =
+                    AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_vehicleDetector);
+            } else {
+                vehicle_detector_ =
+                    AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_vehicleRFCNDetector);
+            }
+        }
     }
 
     base_id_ = 0;

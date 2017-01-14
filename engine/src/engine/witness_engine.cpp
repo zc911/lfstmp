@@ -152,6 +152,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
     enable_vehicle_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE);
     enable_face_ = (bool) config.Value(FEATURE_FACE_ENABLE);
     enable_non_motor_vehicle_ = (bool) config.Value(FEATURE_NON_MOTOR_VEHICLE_ENABLE);
+    enable_demo_ = (bool) config.Value(DEMO_ENABLE);
 
 #if DEBUG
     enable_vehicle_detect_ = (bool) config.Value(
@@ -251,14 +252,14 @@ void WitnessEngine::init(const Config &config) {
 
 //        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
         bool car_only = false;
-        Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
+        Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true, false);
         vehicle_processor_ = p;
         last = p;
 
         if (enable_vehicle_detect_) {
             LOG(INFO) << "Enable  detection processor." << endl;
 
-            p = new VehicleMultiTypeDetectorProcessor(car_only, false);
+            p = new VehicleMultiTypeDetectorProcessor(car_only, false, enable_demo_);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -286,7 +287,7 @@ void WitnessEngine::init(const Config &config) {
         if (enable_vehicle_color_) {
             LOG(INFO) << "Enable vehicle color classification processor." << endl;
 
-            p = new VehicleColorProcessor();
+            p = new VehicleColorProcessor(enable_demo_);
             last->SetNextProcessor(p);
             last = p;
         }

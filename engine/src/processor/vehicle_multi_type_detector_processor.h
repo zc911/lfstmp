@@ -20,7 +20,7 @@ namespace dg {
 class VehicleMultiTypeDetectorProcessor: public Processor {
 public:
 
-    VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate);
+    VehicleMultiTypeDetectorProcessor(bool car_only, bool accelate, bool enable_demo);
 
     ~VehicleMultiTypeDetectorProcessor();
 

@@ -1,0 +1,402 @@
+{
+  "nodes": [
+    {
+      "op": "null",
+      "param": {},
+      "name": "data",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_0_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_0_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "2",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_0",
+      "inputs": [[0, 0], [1, 0], [2, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Pooling",
+      "param": {
+        "kernel": "(2,2)",
+        "pad": "(0,0)",
+        "pool_type": "max",
+        "stride": "(2,2)"
+      },
+      "name": "pool_0",
+      "inputs": [[3, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_0",
+      "inputs": [[4, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_1_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_1_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "4",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_1",
+      "inputs": [[5, 0], [6, 0], [7, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Pooling",
+      "param": {
+        "kernel": "(2,2)",
+        "pad": "(0,0)",
+        "pool_type": "max",
+        "stride": "(2,2)"
+      },
+      "name": "pool_1",
+      "inputs": [[8, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_1",
+      "inputs": [[9, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_2_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_2_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_2",
+      "inputs": [[10, 0], [11, 0], [12, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Pooling",
+      "param": {
+        "kernel": "(2,2)",
+        "pad": "(0,0)",
+        "pool_type": "max",
+        "stride": "(2,2)"
+      },
+      "name": "pool_2",
+      "inputs": [[13, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_2",
+      "inputs": [[14, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_3_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_3_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_3",
+      "inputs": [[15, 0], [16, 0], [17, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_3",
+      "inputs": [[18, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_4_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_4_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_4",
+      "inputs": [[19, 0], [20, 0], [21, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_4",
+      "inputs": [[22, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_5_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_5_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_5",
+      "inputs": [[23, 0], [24, 0], [25, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_5",
+      "inputs": [[26, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_6_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_6_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_6",
+      "inputs": [[27, 0], [28, 0], [29, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_6",
+      "inputs": [[30, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_7_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_7_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "8",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_7",
+      "inputs": [[31, 0], [32, 0], [33, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "relu_7",
+      "inputs": [[34, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_cls_hid_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "conv_cls_hid_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Convolution",
+      "param": {
+        "dilate": "(1,1)",
+        "kernel": "(3,3)",
+        "no_bias": "False",
+        "num_filter": "1",
+        "num_group": "1",
+        "pad": "(1,1)",
+        "stride": "(1,1)",
+        "workspace": "512"
+      },
+      "name": "conv_cls_hid",
+      "inputs": [[35, 0], [36, 0], [37, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "sigmoid"},
+      "name": "sigmoid_cls_hid",
+      "inputs": [[38, 0]],
+      "backward_source_id": -1
+    }
+  ],
+  "arg_nodes": [
+    0,
+    1,
+    2,
+    6,
+    7,
+    11,
+    12,
+    16,
+    17,
+    20,
+    21,
+    24,
+    25,
+    28,
+    29,
+    32,
+    33,
+    36,
+    37
+  ],
+  "heads": [[39, 0]]
+}

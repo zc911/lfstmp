@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_data",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "boxes",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "ROIPooling",
+      "param": {
+        "pooled_size": "(7,7)",
+        "spatial_scale": "0.25"
+      },
+      "name": "roipooling",
+      "inputs": [[0, 0], [1, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Flatten",
+      "param": {},
+      "name": "roip_latten",
+      "inputs": [[2, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_fc_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_fc_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "FullyConnected",
+      "param": {
+        "no_bias": "False",
+        "num_hidden": "512"
+      },
+      "name": "roip_fc",
+      "inputs": [[3, 0], [4, 0], [5, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "relu"},
+      "name": "roip_act",
+      "inputs": [[6, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Dropout",
+      "param": {"p": "0.5"},
+      "name": "roip_fcdropout",
+      "inputs": [[7, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_cls_fc_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_cls_fc_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "FullyConnected",
+      "param": {
+        "no_bias": "False",
+        "num_hidden": "1"
+      },
+      "name": "roip_cls_fc",
+      "inputs": [[8, 0], [9, 0], [10, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "Activation",
+      "param": {"act_type": "sigmoid"},
+      "name": "roip_cls_act",
+      "inputs": [[11, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_clsnet_label",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "LinearRegressionOutput",
+      "param": {"grad_scale": "1"},
+      "name": "roip_clsnet",
+      "inputs": [[12, 0], [13, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_reg_fc_weight",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_reg_fc_bias",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "FullyConnected",
+      "param": {
+        "no_bias": "False",
+        "num_hidden": "4"
+      },
+      "name": "roip_reg_fc",
+      "inputs": [[8, 0], [15, 0], [16, 0]],
+      "backward_source_id": -1
+    },
+    {
+      "op": "null",
+      "param": {},
+      "name": "roip_reg_label",
+      "inputs": [],
+      "backward_source_id": -1
+    },
+    {
+      "op": "LinearRegressionOutput",
+      "param": {"grad_scale": "1"},
+      "name": "roip_regnet",
+      "inputs": [[17, 0], [18, 0]],
+      "backward_source_id": -1
+    }
+  ],
+  "arg_nodes": [0, 1, 4, 5, 9, 10, 13, 15, 16, 18],
+  "heads": [[14, 0], [19, 0]]
+}
