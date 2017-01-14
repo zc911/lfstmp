@@ -775,3 +775,6 @@ lib/protobuf/Linux-x86_64/libprotobuf.so filter=lfs diff=lfs merge=lfs -text
 lib/thplateid/Linux-x86_64/libthplateid.a filter=lfs diff=lfs merge=lfs -text
 lib/watchdog/Linux-x86_64/libhasp.a filter=lfs diff=lfs merge=lfs -text
 lib/watchdog/Linux-x86_64/libwatchdog.a filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/detector/ssd/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/detector/ssd/det_ssd.json filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/detector/ssd/model.dat filter=lfs diff=lfs merge=lfs -text
