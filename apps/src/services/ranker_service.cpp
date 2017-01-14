@@ -153,6 +153,8 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
     if (request->features().size() == 0) {
         err.set_code(-1);
         err.set_message("Add features request is empty");
+        response->mutable_context()->set_status("400");
+        response->mutable_context()->set_message("Add features request is empty");
         return err;
     }
 
@@ -165,6 +167,8 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
         if (f.feature().feature().size() == 0) {
             err.set_code(-1);
             err.set_message("Feature vector is empty");
+            response->mutable_context()->set_status("400");
+            response->mutable_context()->set_message("Feature vector is empty");
             return err;
         }
 

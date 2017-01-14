@@ -1,3 +1,49 @@
+# Matrix Apps
+### Version 0.7.0
+2017-01-13
+
+```
+同时支持人脸和车的相关功能
+启用batch模式，大幅度提升人脸相关算法的吞吐量
+支持人脸的ranker
+支持CUDA7 和 CUDA8
+重新整理人脸、车和车牌的模型及参数文件
+```
+
+### Modules version
+| *Matix Engine* | *Matrix Util* | *Vehicle Model* | *Face Model* |
+|:--------------:|:-------------:|:---------------:|:------------:|
+| 0.7.0 | 0.1.5 | 1.10 | * |
+
+### Feature
+- 同时支持人脸和车的相关功能
+- 启用batch模式，大幅度提升人脸相关算法的吞吐量
+- 支持人脸的ranker
+- 支持CUDA7 和 CUDA8
+- 重新整理人脸、车和车牌的模型及参数文件
+
+
+### Bugs
+
+
+
+### How to Install/Update
+```
+$ wget -O install.sh http://192.168.2.119/matrix/install.sh
+$ chmod +x install.sh
+$ ./install.sh 
+```
+
+### How to Run
+```
+$ sudo ./matrix_app [-port=$PORT] [-config=$CONFIG_FILE_PATH]
+or
+$ sudo ./matrix_app -help
+for more help details 
+```
+
+### Config File
+```json
 {
   "Version": {
     "Code": "1.0.0",
@@ -145,3 +191,5 @@
     "dgface":"data/dgface"
   }
 }
+
+```
