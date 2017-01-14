@@ -111,17 +111,16 @@ int main(int argc, char const *argv[]) {
     // Transformation *transformation   = create_transformation(transform_method::CDNN, "");
     // Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
     // Verification *verification 	= create_verifier(verif_method::EUCLID);
-    Detector *detector = create_detector_with_global_dir(det_method::FCN, "../../data/", 0, false);
-    cout << "Create alignment: " << endl;
-    Alignment *alignment = create_alignment_with_global_dir(align_method::CDNN, "../../data/", 0, false, 8);
-    cout << "Finish create alignment" << endl;
-    Recognition *recognition_ = create_recognition_with_global_dir(recog_method::CDNN_CAFFE, "../../data/",
-                                                                   0, false,
-                                                                   false, 1);
+    Detector *detector = create_detector_with_global_dir(det_method::SSD, "../../data/", 1, false);
 
 //    ofstream not_det("not_det.log");
-//    vector<DetectResult> detect_results;
+    vector<DetectResult> detect_results;
 //
+cv::Mat m = cv::imread("test.jpg");
+std::vector<cv::Mat> ms = {m};
+
+detector->detect(ms, detect_results);
+
 //    //chrono::duration<double> time_span(0.0);
 //    for(const auto& one_batch: splited_list) {
 //
