@@ -10,7 +10,6 @@
 #include "watchdog/watch_dog.h"
 #include "restful/witness_restful.h"
 #include "restful/ranker_restful.h"
-#include "check_file_exist.h"
 
 using namespace std;
 using namespace dg;
@@ -51,14 +50,13 @@ void serveWitness(Config *config, int userPort = 0) {
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
     int thread_num = [](Config * config) {
-        int thread_num;
+        int thread_num = 0;
         int gpuNum = config->Value(SYSTEM_THREADS + "/Size");
         for (int i = 0; i < gpuNum; i++) {
             thread_num += (int) config->Value(SYSTEM_THREADS + to_string(i));
         }
         return thread_num;
     }(config);
-
 
     WitnessAssembler *witness_assembler = new WitnessAssembler(thread_num);
     std::thread assemblerTh(&WitnessAssembler::Run, witness_assembler);
@@ -226,9 +224,6 @@ int main(int argc, char *argv[]) {
 
     Config *config = new Config();
     config->Load(FLAGS_config);
-//    if (FilesAllExist(config) == false) {
-//        exit(-1);
-//    }
     config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(true));
 
 #ifdef DEBUG
@@ -244,6 +239,10 @@ int main(int argc, char *argv[]) {
         config->AddEntry(DEBUG_MODEL_ENCRYPT, AnyConversion(false));
     }
 #endif
+
+//    if (FilesAllExist(config) == false) {
+//        exit(-1);
+//    }
 
     if (FLAGS_showconfig) {
         config->DumpValues();

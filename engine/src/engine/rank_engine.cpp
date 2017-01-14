@@ -79,6 +79,8 @@ SimpleRankEngine::SimpleRankEngine(const Config &config)
         RankCandidatesRepo::GetInstance().Init(repoPath, imageRootPath, capacity, featureLen, needSave, saveIterval);
 
     }
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 SimpleRankEngine::~SimpleRankEngine() {

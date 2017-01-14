@@ -15,7 +15,7 @@
 namespace dg {
 class PlateRecognizeMxnetProcessor: public Processor {
 
-public:
+ public:
     typedef struct {
         string modelPath;
         int gpuId;
@@ -26,16 +26,16 @@ public:
         float localProvinceConfidence;
     } PlateRecognizeMxnetConfig;
 
-    PlateRecognizeMxnetProcessor(const PlateRecognizeMxnetConfig& config);
+    PlateRecognizeMxnetProcessor(const PlateRecognizeMxnetConfig &config);
     virtual ~PlateRecognizeMxnetProcessor();
-protected:
+ protected:
     virtual bool process(Frame *frame);
     virtual bool process(FrameBatch *frameBatch);
 
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
-private:
+ private:
     void vehiclesFilter(FrameBatch *frameBatch);
 
 //    void setConfig(LPDRConfig_S *pstConfig);

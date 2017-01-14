@@ -18,6 +18,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     resultReader = NULL;
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {
@@ -196,10 +197,10 @@ TEST(VehicleMultiTypeDectorTest, vehiclePositionTest) {
     for (int i = 0; i < fb->batch_size(); ++i) {
         vector<int> expectResult, realResult;
         for (int j = 0; j < fb->frames()[i]->objects().size(); ++j) {
-            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box.x);
-            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box.y);
-            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box.height);
-            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box.width);
+            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box().x);
+            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box().y);
+            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box().height);
+            realResult.push_back(fb->frames()[i]->objects()[j]->detection().box().width);
         }
         stringstream s;
         s << i;

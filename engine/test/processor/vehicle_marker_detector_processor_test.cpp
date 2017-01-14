@@ -15,27 +15,15 @@ static FileReader *resultReader;
 static VehicleWindowProcessor *window;
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    VehicleCaffeDetectorConfig mConfig;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    mConfig.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    mConfig.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-
-    mConfig.deploy_file = baseModelPath + "601.txt";
-    mConfig.model_file = baseModelPath + "601.dat"; */
 
     vmcprocessor = new VehicleMarkerClassifierProcessor(false);
 }
 
 static Operation getOperation() {
     Operation op;
-    op.Set( OPERATION_VEHICLE |
-            OPERATION_VEHICLE_MARKER |
-            OPERATION_VEHICLE_DETECT );
+    op.Set(OPERATION_VEHICLE |
+        OPERATION_VEHICLE_MARKER |
+        OPERATION_VEHICLE_DETECT);
     return op;
 }
 
@@ -50,6 +38,7 @@ static void init() {
 
     head->setNextProcessor(window->getProcessor());
     window->setNextProcessor(vmcprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 
 }
 
@@ -80,34 +69,36 @@ TEST(VehicleMarkerDetectorTest, markerDetectorTest) {
     resultReader->read(",");
 
     for (int i = 0; i < fb->batch_size(); ++i) {
-        vector<Object *>vehicles = fb->frames()[i]->objects();
+        vector<Object *> vehicles = fb->frames()[i]->objects();
 
         stringstream s;
         s << i;
         int symbols[10];
-        for(int j=0;j<10;j++)
-            symbols[j]=0;
+        for (int j = 0; j < 10; j++)
+            symbols[j] = 0;
 
         for (int j = 0; j < vehicles.size(); j++) {
-            Vehicle *obj = (Vehicle *)vehicles[j];
-            Window *w = (Window *)obj->child(OBJECT_WINDOW);
+            Vehicle *obj = (Vehicle *) vehicles[j];
+            Window *w = (Window *) obj->child(OBJECT_WINDOW);
 
             if (w == NULL)
                 continue;
 
-            vector<Object *>ms = w->children();
+            vector<Object *> ms = w->children();
 
             for (int k = 0; k < ms.size(); k++) {
-                Marker * m = (Marker * )ms[k];
-                EXPECT_LE(0, w->detection().box.x);
-                EXPECT_LE(0, w->detection().box.y);
-                EXPECT_GE(obj->detection().box.width, m->detection().box.width + m->detection().box.x)<<"i = "<<i<<endl;
-                EXPECT_GE(obj->detection().box.height, m->detection().box.height + m->detection().box.y)<<"i = "<<i<<endl;
+                Marker *m = (Marker *) ms[k];
+                EXPECT_LE(0, w->detection().box().x);
+                EXPECT_LE(0, w->detection().box().y);
+                EXPECT_GE(obj->detection().box().width, m->detection().box().width + m->detection().box().x)
+                                << "i = " << i << endl;
+                EXPECT_GE(obj->detection().box().height, m->detection().box().height + m->detection().box().y)
+                                << "i = " << i << endl;
                 symbols[m->class_id()]++;
             }
         }
         for (int j = 0; j < 10; ++j) {
-            EXPECT_EQ(resultReader->getIntValue(s.str(),j), symbols[j]) << "i = " << i << " j = " << j << endl;
+            EXPECT_EQ(resultReader->getIntValue(s.str(), j), symbols[j]) << "i = " << i << " j = " << j << endl;
         }
     }
 

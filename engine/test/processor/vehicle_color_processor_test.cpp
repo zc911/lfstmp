@@ -15,19 +15,6 @@ static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    CaffeVehicleColorClassifier::VehicleColorConfig config;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    config.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    config.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-    config.deploy_file = baseModelPath + "200.txt";
-    config.model_file = baseModelPath + "200.dat"; */
-//    vector<CaffeVehicleColorClassifier::VehicleColorConfig> configs;
-//    configs.push_back(config);
     vcprocessor = new VehicleColorProcessor();
 }
 
@@ -36,6 +23,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(vcprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

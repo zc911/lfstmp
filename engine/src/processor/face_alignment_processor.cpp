@@ -3,45 +3,41 @@
 //
 
 #include "face_alignment_processor.h"
-#include "dgface/alignment/align_dlib.h"
-#include "dgface/alignment/align_cdnn.h"
-#include "dgface/alignment/align_cdnn_caffe.h"
 #include "processor_helper.h"
+
 namespace dg {
 
-FaceAlignmentProcessor::FaceAlignmentProcessor(const FaceAlignmentConfig &faConfig) {
-    switch (faConfig.method) {
-
-        case CdnnAlign:
-            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            align_method_ = CdnnAlign;
+FaceAlignmentProcessor::FaceAlignmentProcessor(const FaceAlignmentConfig &faConfig,
+                                               FaceAlignmentProcessor::AlignmentMethod alignMethod,
+                                               FaceDetectProcessor::DetectMethod detectMethod) {
+    detect_method_ = detectMethod;
+    align_method_ = alignMethod;
+    switch (align_method_) {
+        case AlignmentMethod::CdnnAlign:
+            alignment_ = DGFace::create_alignment_with_global_dir(DGFace::align_method::CDNN,
+                                                                  faConfig.model_dir,
+                                                                  faConfig.gpu_id,
+                                                                  faConfig.is_model_encrypt,
+                                                                  faConfig.batch_size);
             break;
-        case DlibAlign: {
-            VLOG(VLOG_RUNTIME_DEBUG) << "Use dlib alignment " << endl;
-            Mat avg_face = imread(faConfig.align_deploy);
-            Rect avgfacebbox = Rect(Point(0, 0), avg_face.size());
-            adjust_box(faConfig.detect_type, avgfacebbox);
-            alignment_ = new DGFace::DlibAlignment(faConfig.face_size, faConfig.align_model, faConfig.detect_type);
-            alignment_->set_avgface(avg_face, avgfacebbox);
-            align_method_ = DlibAlign;
+        case AlignmentMethod::DlibAlign: {
+            LOG(FATAL) << "Dlib method not implemented, use cdnn instead currently" << endl;
+            exit(-1);
             break;
         }
-        case CdnnCaffeAlign: {
-            LOG(ERROR) << "CdnnCaffeAlign method has bug, use cdnn instead currently" << endl;
-            alignment_ = new DGFace::CdnnAlignment(faConfig.face_size, faConfig.align_path);
-            align_method_ = CdnnAlign;
+        case AlignmentMethod::CdnnCaffeAlign: {
+            LOG(FATAL) << "CdnnCaffeAlign method has bug, use cdnn instead currently" << endl;
+            exit(-1);
             break;
         }
         default: {
-            LOG(FATAL) << "Face alignment method invalid: " << faConfig.method << endl;
+            LOG(FATAL) << "Face alignment method invalid: " << (int) detectMethod << endl;
             exit(-1);
-            break;
         }
 
     }
 
-    face_size_length_ = faConfig.face_size[0];
-    align_threshold_ = faConfig.threshold;
+    align_threshold_ = faConfig.align_threshold;
 }
 
 FaceAlignmentProcessor::~FaceAlignmentProcessor() {
@@ -69,31 +65,22 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
         DGFace::AlignResult align_result;
         Face *face = static_cast<Face *>(obj);
         Mat img = face->full_image();
-        Rect rect = face->detection().box;
         switch (align_method_) {
-            case DlibAlign:
-                alignment_->align(img, rect, align_result, true);
+            case AlignmentMethod::DlibAlign:
+                alignment_->align(img, face->detection().rotated_box(), align_result, true);
                 break;
             default:
-                alignment_->align(img, rect, align_result, false);
+                alignment_->align(img, face->detection().rotated_box(), align_result, false);
                 break;
         }
 
         float det_threshold = face->detection().confidence;
-        if (!alignment_->is_face(det_threshold, align_result.score, align_threshold_)) {
+        // only with FCN detection, invoke is_face assert
+        if (detect_method_ == FaceDetectProcessor::DetectMethod::FcnMethod
+            && !alignment_->is_face(det_threshold, align_result.score, align_threshold_)) {
             VLOG(VLOG_RUNTIME_DEBUG) << "Face alignment think this is not a typical face" << endl;
             face->set_valid(false);
             continue;
-        }
-
-        if (align_method_ != DlibAlign) {
-            for (auto landmark : align_result.landmarks) {
-                if (!landmark.inside(Rect(0, 0, face_size_length_, face_size_length_))) {
-                    face->set_valid(false);
-                    LOG(ERROR) << "Face landmarks invalid";
-                    continue;
-                }
-            }
         }
 
         face->set_align_result(align_result);
@@ -106,9 +93,7 @@ bool FaceAlignmentProcessor::process(FrameBatch *frameBatch) {
 }
 
 bool FaceAlignmentProcessor::RecordFeaturePerformance() {
-
-    return RecordPerformance(FEATURE_FACE_EXTRACT, performance_);
-
+    return true;
 }
 
 
@@ -127,7 +112,7 @@ bool FaceAlignmentProcessor::beforeUpdate(FrameBatch *frameBatch) {
          itr != to_processed_.end();) {
         if ((*itr)->type() != OBJECT_FACE) {
             itr = to_processed_.erase(itr);
-        } else if (((Face *) (*itr))->image().rows == 0 || ((Face *) (*itr))->image().cols == 0) {
+        } else if (((Face * )(*itr))->image().rows == 0 || ((Face * )(*itr))->image().cols == 0) {
             itr = to_processed_.erase(itr);
         } else {
             itr++;

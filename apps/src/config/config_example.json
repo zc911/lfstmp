@@ -10,7 +10,7 @@
     "Port": 6500,
     "Threads": [1]
   },
-  "RankerType": "car|face",
+  "RankerType": "face",
   "Pack":{
     "Enable":false,
     "BatchSize":1,
@@ -18,7 +18,7 @@
   },
   "Feature": {
     "Vehicle": {
-      "Enable": true,
+      "Enable": false,
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
@@ -43,59 +43,42 @@
   "Advanced": {
     "Detection": {
       "TargetMinSize": 400.0,
-      "TargetMaxSize": 600.0,
-      "CarOnly": false
-    },
-    "Plate": {
-      "LocalProvince": "",
-      "OCR": 1,
-      "Locate": 5,
-      "EnableSharp": false
+      "TargetMaxSize": 600.0
     },
     "PlateMxnet": {
       "BatchSize": 1,
       "EnableLocalProvince": false,
-      "ImgStandardHeight": 600,
-      "ImgStandardWidth": 400,
       "LocalProvinceConfidence": 0.6,
-      "LocalProvinceText": "\u4eac",
-      "NumsProposal": 20,
-      "PlateNums": 4,
-      "PlateStandardHeight": 150,
-      "PlateStandardWidth": 250
+      "LocalProvinceText": "\u4eac"
     },
     "DriverPhone":{
-      "Threshold": 0.0
+      "Threshold": 0.9
     },
     "DriverBelt": {
-      "Threshold": 0.0
+      "Threshold": 0.9
     },
     "CoDriverBelt": {
-      "Threshold": 0.0
+      "Threshold": 0.9
     },
     "FaceDetect": {
-      "BatchSize": 1,
-      "Confidence": 0.7,
       "Method": 3,
+      "BatchSize": 8,
       "BodyRelativeFaceLeft": 0.2,
       "BodyRelativeFaceRight": 0.2,
       "BodyRelativeFaceTop": 0.2,
-      "BodyRelativeFaceBottom": 6.0,
-      "Scale": 1,
-      "Min": 240,
-      "Max": 720
+      "BodyRelativeFaceBottom": 6.0
+    },
+    "FaceAlignment":{
+      "Method": 1,
+      "Threshold": 0
     },
     "FaceQuality": {
-      "Threshold": 0
+      "BlurThreshold": 0
     },
     "FaceExtract": {
       "BatchSize": 1,
-      "FaceSize": [
-        600
-      ],
       "Method": 3,
-      "PreProcess": "",
-      "AlignThreshold": 0.8,
+      "BatchSize": 8,
       "EnableConcurrency": false
     },
 
@@ -158,7 +141,7 @@
   },
   "ModelPath":{
     "dgvehicle": "data/dgvehicle",
-    "dgLP":"data/dgLP"
-  },
-  "DataPath": "data/data.dat"
+    "dgLP":"data/dgLP",
+    "dgface":"data/dgface"
+  }
 }

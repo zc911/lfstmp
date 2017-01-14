@@ -14,36 +14,26 @@
 #include "model/model.h"
 #include "processor/processor.h"
 #include "dgface/recognition.h"
-#include "dgface/cdnn_score.h"
 
 namespace dg {
 
 typedef struct {
     bool is_model_encrypt = true;
     int batch_size = 1;
-    string model_file;
-    string deploy_file;
-    string layer_name;
-    vector<float> mean;
-    float pixel_scale;
-    vector<int> face_size;
-    string pre_process;
     bool use_GPU;
     int gpu_id;
-    int method;
     string model_dir;
-    string model_config;
-    bool islog = false;
     bool concurrency = false;
 
 } FaceFeatureExtractorConfig;
+
 class FaceFeatureExtractProcessor: public Processor {
  public:
-    enum { CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4 };
+    enum class RecognitionMethod: int { CNNRecog = 0, LBPRecog = 1, CDNNRecog = 2, CdnnCaffeRecog = 3, CdnnFuse = 4 };
 
 
     FaceFeatureExtractProcessor(
-        const FaceFeatureExtractorConfig &config);
+        const FaceFeatureExtractorConfig &config, RecognitionMethod method);
     virtual ~FaceFeatureExtractProcessor();
 
  protected:
@@ -59,9 +49,8 @@ class FaceFeatureExtractProcessor: public Processor {
  private:
     DGFace::Recognition *recognition_ = NULL;
     vector<Object *> to_processed_;
-    string pre_process_;
-    int face_size_length_;
-    bool islog_;
+    RecognitionMethod method_;
+    unsigned int batch_size_;
 };
 
 } /* namespace dg */

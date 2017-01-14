@@ -1,4 +1,8 @@
 lib/*
+tools/db_creator/feature
+tools/db_creator/log
+tools/db_creator/input
+imodel/src
 include/matrix_util/*
 include/matrix_engine/*
 include/

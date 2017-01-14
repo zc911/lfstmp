@@ -12,9 +12,7 @@
 #include "model/frame.h"
 #include "model/model.h"
 #include "processor/processor.h"
-#include "dgface/quality/qual_blurm.h"
-#include "dgface/quality/qual_posem.h"
-#include "dgface/quality/qual_frontalm.h"
+#include "dgface/quality.h"
 
 
 namespace dg {
@@ -38,8 +36,8 @@ class FaceQualityProcessor: public Processor {
 
  private:
     vector<Object *> to_processed_;
-    DGFace::BlurMQuality *blur_quality_;
-    DGFace::PoseQuality *pose_quality_;
+    DGFace::Quality *blur_quality_;
+    DGFace::Quality *pose_quality_;
     float blur_threshold_;
 
 };

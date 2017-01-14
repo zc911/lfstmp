@@ -4,15 +4,14 @@
 namespace dg {
 
 FaceQualityProcessor::FaceQualityProcessor(const FaceQualityConfig &config) {
-    blur_quality_ = new DGFace::BlurMQuality();
-    pose_quality_ = new DGFace::PoseQuality();
+    blur_quality_ = DGFace::create_quality(DGFace::BLURM, "", 0);
+    pose_quality_ = DGFace::create_quality(DGFace::POSE, "", 0);
 
     blur_threshold_ = config.blur_threshold;
 }
 
 FaceQualityProcessor::~FaceQualityProcessor() {
 
-//    delete frontal_quality_;
     delete blur_quality_;
     delete pose_quality_;
 }
@@ -28,7 +27,7 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
 
     for (vector<Object *>::iterator itr = to_processed_.begin(); itr != to_processed_.end(); itr++) {
 
-        Face *face = (Face *) (*itr);
+        Face *face = (Face *)(*itr);
         Mat faceImg = face->image();
 
 
@@ -77,8 +76,6 @@ bool FaceQualityProcessor::beforeUpdate(FrameBatch *frameBatch) {
     return true;
 }
 bool FaceQualityProcessor::RecordFeaturePerformance() {
-
-    return RecordPerformance(FEATURE_FACE_DETECTION, performance_);
-
+    return true;
 }
 }

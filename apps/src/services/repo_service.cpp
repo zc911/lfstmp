@@ -2,9 +2,14 @@
 // Created by chenzhen on 7/18/16.
 //
 #include "repo_service.h"
-#include "string_util.h"
 
 namespace dg {
+
+const static string PEDESTRIAN_ATTR_UNKNOWN_ = "未知";
+const static string PEDESTRIAN_ATTR_MALE_ = "男";
+const static string PEDESTRIAN_ATTR_FEMALE_ = "女";
+const static string PEDESTRIAN_ATTR_HAN_ = "汉族";
+const static string PEDESTRIAN_ATTR_MINORITY_ = "少数民族";
 
 bool RepoService::is_init_ = false;
 
@@ -73,27 +78,27 @@ MatrixError RepoService::IndexTxt(const IndexTxtRequest *request,
     MatrixError err;
     string data;
     switch (request->indextype()) {
-    case INDEX_CAR_TYPE:
-        data = model_mapping_data_;
-        break;
-    case INDEX_CAR_PLATE_COLOR:
-        data = plate_color_mapping_data_;
-        break;
-    case INDEX_CAR_PLATE_TYPE:
-        data = plate_type_mapping_data_;
-        break;
-    case INDEX_CAR_COLOR:
-        data = color_mapping_data_;
-        break;
-    case INDEX_CAR_MARKER:
-        data = symbol_mapping_data_;
-        break;
-    case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
-        data = pedestrian_attr_mapping_data_;
-        break;
-    case INDEX_NONMOTORVEHICLE_ATTR_TYPE:
-        data = nonMotor_attr_mapping_data_;
-        break;
+        case INDEX_CAR_TYPE:
+            data = model_mapping_data_;
+            break;
+        case INDEX_CAR_PLATE_COLOR:
+            data = plate_color_mapping_data_;
+            break;
+        case INDEX_CAR_PLATE_TYPE:
+            data = plate_type_mapping_data_;
+            break;
+        case INDEX_CAR_COLOR:
+            data = color_mapping_data_;
+            break;
+        case INDEX_CAR_MARKER:
+            data = symbol_mapping_data_;
+            break;
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE:
+            data = pedestrian_attr_mapping_data_;
+            break;
+        case INDEX_NONMOTORVEHICLE_ATTR_TYPE:
+            data = nonMotor_attr_mapping_data_;
+            break;
     }
     response->set_context(data);
 
@@ -150,6 +155,10 @@ void RepoService::init_vehicle_map(string filename, string sep,
     vector<std::pair<int, VehicleModelType>> pairs;
     map<int, string> typeMap;
     for (string line; std::getline(input, line);) {
+        if(line.size() == 0 || line == " "){
+            continue;
+        }
+
         vector<string> tokens;
         boost::iter_split(tokens, line, boost::first_finder(sep));
         assert(tokens.size() == 10);
@@ -194,7 +203,7 @@ void RepoService::init_vehicle_map(string filename, string sep,
 }
 
 const string &RepoService::lookup_string(const vector<string> &array,
-        int index) {
+                                         int index) {
     if (index < 0 || index > array.size()) {
         return unknown_string_;
     }
@@ -239,6 +248,161 @@ MatrixError RepoService::FillModel(const Vehicle &vobj,
     return err;
 }
 
+MatrixError RepoService::FillModel(NonMotorVehicle &vobj,
+                                   RecNonMotorVehicle *vrec) {
+
+    auto SetNameAndConfidence = [&](NameAndConfidence *nac, NonMotorVehicle::Attr &attribute) {
+        nac->set_name(FindNonMotorAttrName(attribute.mappingId));
+        nac->set_confidence(attribute.confidence);
+        nac->set_id(attribute.index);
+    };
+
+    MatrixError err;
+    vector<NonMotorVehicle::Attr> attrs(vobj.attrs());
+    float NonMotorVehicleConfidence = -2.0;
+    float NonMotorVehicleGestureConfidence = -2.0;
+    int vehicleType = 0;
+    if(vobj.type() == OBJECT_BICYCLE){
+        vehicleType = 3;
+    }else if (vobj.type() == OBJECT_TRICYCLE){
+        vehicleType = 4;
+    }
+    vrec->set_nmvehicletype(vehicleType);
+    string typeName = lookup_string(vehicle_type_repo_, vehicleType);
+    vrec->set_nmvehicletypename(typeName);
+
+    for (int i = 0; i < attrs.size(); ++i) {
+        // type judge
+        if (attrs[i].categoryId == 0) {
+            if (attrs[i].confidence >= NonMotorVehicleConfidence) {
+                NonMotorVehicleConfidence = attrs[i].confidence;
+                int mappingId = attrs[i].mappingId;
+
+                // this fucking code transform from bitri attributes to vehicle type
+                if (mappingId == 10) {
+                    vehicleType = 5;
+                } else if (mappingId == 11) {
+                    vehicleType = 6;
+                } else if (mappingId == 41) {
+                    vehicleType = 7;
+                } else if (mappingId == 42) {
+                    vehicleType = 3;
+                } else if (mappingId == 43) {
+                    vehicleType = 4;
+                }
+
+                vrec->set_nmvehicletype(vehicleType);
+                string typeName = lookup_string(vehicle_type_repo_, vehicleType);
+                vrec->set_nmvehicletypename(typeName);
+            }
+        } else if (attrs[i].categoryId == 1) {
+            //gesture judge
+            enum NonMotorVehicleGesture NMVehicleGesture;
+            if (attrs[i].confidence >= NonMotorVehicleGestureConfidence) {
+                NonMotorVehicleGestureConfidence = attrs[i].confidence;
+                int mappingId = attrs[i].mappingId;
+                if (mappingId == 0) {
+                    NMVehicleGesture = ATTITUDE_POSITIVE;
+                } else if (mappingId == 1) {
+                    NMVehicleGesture = ATTITUDE_RIGHT;
+                } else if (mappingId == 2) {
+                    NMVehicleGesture = ATTITUDE_LEFT;
+                } else if (mappingId == 3) {
+                    NMVehicleGesture = ATTITUDE_BACK;
+                }
+                vrec->set_nmvehiclegesture(NMVehicleGesture);
+            }
+        } else if (attrs[i].categoryId == 2) {
+            RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+
+            if (vrec->passenger_size() == 0) {
+                nmp = vrec->add_passenger();
+                nmp->set_id(0);
+            } else {
+                nmp = vrec->mutable_passenger(0);
+            }
+            NameAndConfidence *caf = nmp->mutable_sex();
+            caf->set_id(0);
+            caf->set_confidence(attrs[i].confidence);
+            if (attrs[i].confidence < 0.5) {
+                caf->set_name(PEDESTRIAN_ATTR_FEMALE_);
+            } else {
+                caf->set_name(PEDESTRIAN_ATTR_MALE_);
+            }
+        } else {
+            if (attrs[i].categoryId == 3) {
+                RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+
+                if (vrec->passenger_size() == 0) {
+                    nmp = vrec->add_passenger();
+                    nmp->set_id(0);
+                } else {
+                    nmp = vrec->mutable_passenger(0);
+                }
+                CategoryAndFeature *caf = nmp->add_attribute();
+                caf->set_id(attrs[i].categoryId);
+                caf->set_categoryname(FindNonMotorAttrCategory(attrs[i].categoryId));
+                NameAndConfidence *nac = caf->add_items();
+                nac->set_id(attrs[i].mappingId);
+                nac->set_confidence(attrs[i].confidence);
+                if (attrs[i].confidence < 0.5) {
+                    nac->set_name(PEDESTRIAN_ATTR_HAN_);
+                } else {
+                    nac->set_name(PEDESTRIAN_ATTR_MINORITY_);
+                }
+            } else if (attrs[i].confidence >= attrs[i].threshold_lower) {
+                // others judge
+                int categoryId = attrs[i].categoryId;
+                if (categoryId == 8) {
+                    CategoryAndFeature *caf = NULL;
+                    for (int j = 0; j < vrec->nmvehicle_size(); ++j) {
+                        if (attrs[i].categoryId == vrec->mutable_nmvehicle(j)->id()) {
+                            caf = vrec->mutable_nmvehicle(j);
+                            break;
+                        }
+                    }
+                    if (caf == NULL) {
+                        caf = vrec->add_nmvehicle();
+                        caf->set_id(attrs[i].categoryId);
+                        caf->set_categoryname(
+                            FindNonMotorAttrCategory(attrs[i].categoryId));
+                    }
+
+                    NameAndConfidence *nac = caf->add_items();
+                    SetNameAndConfidence(nac, attrs[i]);
+                } else {
+                    RecNonMotorVehicle_NonMotorPedestrian *nmp = NULL;
+                    if (vrec->passenger_size() == 0) {
+                        nmp = vrec->add_passenger();
+                        nmp->set_id(0);
+                    } else {
+                        nmp = vrec->mutable_passenger(0);
+                    }
+                    CategoryAndFeature *caf = NULL;
+                    for (int j = 0; j < nmp->attribute_size(); ++j) {
+                        if (attrs[i].categoryId == nmp->mutable_attribute(j)->id()) {
+                            caf = nmp->mutable_attribute(j);
+                            break;
+                        }
+                    }
+                    if (caf == NULL) {
+                        caf = nmp->add_attribute();
+                        caf->set_id(attrs[i].categoryId);
+                        caf->set_categoryname(
+                            FindNonMotorAttrCategory(attrs[i].categoryId));
+                    }
+
+                    NameAndConfidence *nac = caf->add_items();
+                    SetNameAndConfidence(nac, attrs[i]);
+                }
+            }
+        }
+
+    }
+
+    return err;
+}
+
 MatrixError RepoService::FillColor(const Vehicle::Color &color,
                                    Color *rcolor) {
     MatrixError err;
@@ -257,7 +421,7 @@ MatrixError RepoService::FillPlates(const vector<Vehicle::Plate> &plates,
         LicensePlate *rplate = vrec->add_plates();
         rplate->set_platetext(plate.plate_num);
         Detection d;
-        d.box = plate.box;
+        d.set_box(plate.box);
         CopyCutboard(d, rplate->mutable_cutboard());
         rplate->mutable_color()->set_colorid(plate.color_id);
         int typeId = plate.plate_type;
@@ -320,9 +484,9 @@ MatrixError RepoService::FillSymbols(const vector<Object *> &objects,
 }
 MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecVehicle *vrec) {
 
-    auto FillPassengersAttr = [](RecVehicle * vrec, Vehicler * p, bool is_driver) {
+    auto FillPassengersAttr = [](RecVehicle *vrec, Vehicler *p, bool is_driver) {
 
-        auto SetNameAndConfidence = [](NameAndConfidence * nac, int key, float value) {
+        auto SetNameAndConfidence = [](NameAndConfidence *nac, int key, float value) {
             nac->set_name(RepoService::GetInstance().FindPedestrianAttrName(key));
             nac->set_confidence(value);
             nac->set_id(key);
@@ -334,15 +498,17 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
         phone = p->vehicler_attr_value(Vehicler::Phone);
 
         CategoryAndFeature *caf;
-        Passenger * pa;
-        PeopleAttr* attr;
+        Passenger *pa;
+        PeopleAttr *attr;
         pa = vrec->add_passengers();
         pa->set_id(p->id());
+        pa->set_driver(is_driver);
+        CopyCutboard(p->detection(), pa->mutable_img()->mutable_cutboard());
+        
         attr = pa->mutable_passengerattr();
         caf = attr->add_category();
         caf->set_id(BEHAVIOR);
         caf->set_categoryname(RepoService::GetInstance().FindPedestrianAttrCatagory(BEHAVIOR));
-        pa->set_driver(is_driver);
         if (nobelt > 0) {
             NameAndConfidence *nac = caf->add_items();
             SetNameAndConfidence(nac, Vehicler::NoBelt, nobelt);
@@ -354,15 +520,15 @@ MatrixError RepoService::FillPassengers(const vector<Object *> &passengers, RecV
 
     };
     for (auto *obj : passengers) {
-        Vehicler *p = (Vehicler *)obj;
+        Vehicler *p = (Vehicler *) obj;
 
         switch (obj->type()) {
-        case OBJECT_CODRIVER:
-            FillPassengersAttr(vrec, p, false);
-            break;
-        case OBJECT_DRIVER:
-            FillPassengersAttr(vrec, p, true);
-            break;
+            case OBJECT_CODRIVER:
+                FillPassengersAttr(vrec, p, false);
+                break;
+            case OBJECT_DRIVER:
+                FillPassengersAttr(vrec, p, true);
+                break;
 
         }
 
@@ -375,111 +541,111 @@ MatrixError RepoService::Index(const IndexRequest *request,
                                IndexResponse *response) {
     MatrixError err;
     switch (request->indextype()) {
-    case INDEX_CAR_BRAND: {
-        if (response->has_index())
-            break;
-        BrandIndex *sIndex = response->mutable_brandindex();
+        case INDEX_CAR_BRAND: {
+            if (response->has_index())
+                break;
+            BrandIndex *sIndex = response->mutable_brandindex();
 
-        for (int i = 0; i < vehicle_repo_.size(); i++) {
-            VehicleModelType model = vehicle_repo_[i];
-            BrandIndex_Item *item = sIndex->add_items();
-            item->set_mainbrandid(model.brandid());
-            item->set_subbrandid(model.subbrandid());
-            item->set_yearmodelid(model.modelyearid());
-            item->set_mainbrandname(model.brand());
-            item->set_subbrandname(model.subbrand());
-            item->set_yearmodelname(model.modelyear());
-        }
-        break;
-    }
-    case INDEX_CAR_TYPE: {
-        if (response->has_brandindex())
+            for (int i = 0; i < vehicle_repo_.size(); i++) {
+                VehicleModelType model = vehicle_repo_[i];
+                BrandIndex_Item *item = sIndex->add_items();
+                item->set_mainbrandid(model.brandid());
+                item->set_subbrandid(model.subbrandid());
+                item->set_yearmodelid(model.modelyearid());
+                item->set_mainbrandname(model.brand());
+                item->set_subbrandname(model.subbrand());
+                item->set_yearmodelname(model.modelyear());
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < car_type_repo_.size(); i++) {
-            string value = car_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_PLATE_COLOR: {
+        case INDEX_CAR_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < car_type_repo_.size(); i++) {
+                string value = car_type_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
+            break;
+        }
+        case INDEX_CAR_PLATE_COLOR: {
 
-        if (response->has_brandindex())
-            break;
+            if (response->has_brandindex())
+                break;
 
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < plate_color_repo_.size(); i++) {
-            string value = plate_color_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
-        }
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < plate_color_repo_.size(); i++) {
+                string value = plate_color_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
 
-        break;
-    }
-    case INDEX_CAR_PLATE_TYPE: {
-        if (response->has_brandindex())
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < plate_type_repo_.size(); i++) {
-            string value = plate_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_COLOR: {
-        if (response->has_brandindex())
+        case INDEX_CAR_PLATE_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < plate_type_repo_.size(); i++) {
+                string value = plate_type_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < color_repo_.size(); i++) {
-            string value = color_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_CAR_MARKER: {
-        if (response->has_brandindex())
+        case INDEX_CAR_COLOR: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < color_repo_.size(); i++) {
+                string value = color_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < symbol_repo_.size(); i++) {
-            pair<int, string> symbol = symbol_repo_[i];
+        }
+        case INDEX_CAR_MARKER: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < symbol_repo_.size(); i++) {
+                pair<int, string> symbol = symbol_repo_[i];
 
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(symbol.first);
-            item->set_name(symbol.second);
-        }
-        break;
-    }
-    case INDEX_CAR_PEDESTRIAN_ATTR_TYPE: {
-        if (response->has_brandindex())
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(symbol.first);
+                item->set_name(symbol.second);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
-            string value = pedestrian_attr_type_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
-    case INDEX_NONMOTORVEHICLE_ATTR_TYPE: {
-        if (response->has_brandindex())
+        case INDEX_CAR_PEDESTRIAN_ATTR_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < pedestrian_attr_type_repo_.size(); i++) {
+                string value = pedestrian_attr_type_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
             break;
-        CommonIndex *cIndex = response->mutable_index();
-        for (int i = 0; i < nonMotor_attr_mapping_repo_.size(); ++i) {
-            string value = nonMotor_attr_mapping_repo_[i].data();
-            CommonIndex_Item *item = cIndex->add_items();
-            item->set_id(i);
-            item->set_name(value);
         }
-        break;
-    }
+        case INDEX_NONMOTORVEHICLE_ATTR_TYPE: {
+            if (response->has_brandindex())
+                break;
+            CommonIndex *cIndex = response->mutable_index();
+            for (int i = 0; i < nonMotor_attr_mapping_repo_.size(); ++i) {
+                string value = nonMotor_attr_mapping_repo_[i].data();
+                CommonIndex_Item *item = cIndex->add_items();
+                item->set_id(i);
+                item->set_name(value);
+            }
+            break;
+        }
     }
 
     return err;

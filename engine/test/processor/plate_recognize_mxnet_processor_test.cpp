@@ -34,6 +34,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(prmprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {
@@ -133,7 +134,7 @@ TEST(PlateRecognizeMxnetTest, handleWithNoDectorTest) {
         Vehicle *vehicle = new Vehicle(OBJECT_CAR);
         Mat tmp = frame->payload()->data();
         Detection d;
-        d.box = Rect(0, 0, tmp.cols, tmp.rows);
+        d.set_box(Rect(0, 0, tmp.cols, tmp.rows));
         vehicle->set_id(i);
         vehicle->set_image(tmp);
         Object *obj = static_cast<Object *>(vehicle);

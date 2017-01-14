@@ -26,7 +26,7 @@ const char *paInv_chardict[79] = {"_", "0", "1", "2", "3", "4", "5", "6", "7", "
                                   "桂", "甘", "晋", "蒙", "陕", "吉", "贵", "粤", \
                                   "青", "藏", "川", "宁", "琼", "使", "领", "试", \
                                   "学", "临", "时", "警", "港", "O", "挂", "澳", "#"
-                                 };
+};
 
 PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(const PlateRecognizeMxnetConfig& config) {
     batch_size_ = config.batchsize;
@@ -34,7 +34,7 @@ PlateRecognizeMxnetProcessor::PlateRecognizeMxnetProcessor(const PlateRecognizeM
     local_province_ = config.localProvinceText;
     local_province_confidence_ = config.localProvinceConfidence;
     pclsLPDR = new dgLP::LPDR(config.modelPath, config.gpuId, config.is_model_encrypt);
- }
+}
 
 PlateRecognizeMxnetProcessor::~PlateRecognizeMxnetProcessor() {
     // TODO Auto-generated destructor stub
@@ -54,7 +54,7 @@ bool PlateRecognizeMxnetProcessor::process(FrameBatch *frameBatch) {
     int imagesize = images_.size();
     VLOG(VLOG_RUNTIME_DEBUG) << "LPDR loop: " << (ceil((float) imagesize / (float) batchsize) * batchsize) << endl;
     for (int i = 0; i < (ceil((float) imagesize / (float) batchsize) * batchsize); i +=
-                batchsize) {
+                                                                                       batchsize) {
         stImgSet_.dwImageNum = 0;
         for (int j = 0; j < batchsize; j++) {
             if (i + j < imagesize) {

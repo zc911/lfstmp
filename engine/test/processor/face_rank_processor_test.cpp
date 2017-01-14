@@ -16,6 +16,8 @@ static vector<vector<FaceRankFeature> *> vCandidates;
 static void init() {
     frprocessor = new FaceRankProcessor();
     fbhelper = new FrameBatchHelper(1);
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

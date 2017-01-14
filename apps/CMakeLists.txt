@@ -26,8 +26,8 @@ ELSE ()
     SET(CMAKE_BUILD_TYPE "Debug")
 ENDIF ()
 
-SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -w")
-SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -O3 -w")
+SET(CMAKE_CXX_FLAGS_DEBUG " $ENV{CXXFLAGS} -std=c++11 -DDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -g -O3 -w")
+SET(CMAKE_CXX_FLAGS_RELEASE " $ENV{CXXFLAGS} -std=c++11 -DNDEBUG -DUSE_CUDA -DDLIB_NO_GUI_SUPPORT -w")
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
@@ -74,11 +74,6 @@ LIST(APPEND LIBS ${CONAN_LIBS_DGVEHICLE}
         ${CONAN_LIBS_MXNET}
         ${CONAN_LIBS_DGCAFFE}
         ${CONAN_LIBS_CUDART})
-
-get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-foreach(dir ${dirs})
-    message(STATUS "dir='${dir}'")
-endforeach()
 
 LIST(APPEND LIBS cblas boost_regex ${Boost_LIBRARIES}
         glog gflags leveldb jsoncpp b64 snappy lmdb jpeg png GL glut curl uuid

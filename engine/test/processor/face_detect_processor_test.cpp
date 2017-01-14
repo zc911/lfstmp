@@ -21,10 +21,12 @@ static void initConfig() {
     config.is_model_encrypt = true;
     baseModelPath = "data/1/";
 #endif
-    config.deploy_file = baseModelPath + "400.txt";
-    config.model_file = baseModelPath + "400.dat";
-    fdprocessor = new FaceDetectProcessor(config,1);
+//    config.deploy_file = baseModelPath + "400.txt";
+//    config.model_file = baseModelPath + "400.dat";
+//    fdprocessor = new FaceDetectProcessor(config, (FaceDetectProcessor::FaceDetectMethod) 1);
     fbhelper = new FrameBatchHelper(1);
+
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {
@@ -44,8 +46,8 @@ static void destory() {
 
 static Operation getOperation() {
     Operation op;
-    op.Set( OPERATION_FACE |
-            OPERATION_FACE_DETECT);
+    op.Set(OPERATION_FACE |
+        OPERATION_FACE_DETECT);
     return op;
 }
 

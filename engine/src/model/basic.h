@@ -24,6 +24,7 @@ typedef float Confidence;
 typedef int64_t Timestamp;
 typedef pair<int, float> Prediction;
 typedef cv::Rect Box;
+typedef cv::RotatedRect RotatedBox;
 
 enum ContentType {
     IMAGE_JPEG = 1,

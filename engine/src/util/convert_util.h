@@ -12,7 +12,7 @@ static Detection ConvertDgvehicleDetection(dgvehicle::Detection d) {
     Detection det;
     det.id = d.id;
     det.deleted = d.deleted;
-    det.box = d.box;
+    det.set_box(d.box);
     det.confidence = d.confidence;
     det.col_ratio = d.col_ratio;
     det.row_ratio = d.row_ratio;

@@ -39,7 +39,8 @@ static void init() {
 
     head->setNextProcessor(window->getProcessor());
     window->setNextProcessor(vbcprocessor);
-
+    
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

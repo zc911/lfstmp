@@ -11,6 +11,7 @@ message SrcMetadata {
     int32 RepoId = 6;
     string RepoInfo = 7;
     ObjType ObjType = 8;
+    string SensorIdStr = 9;
 }
 
 message Cutboard {
@@ -145,13 +146,13 @@ message RecVehicle {
     repeated Passenger Passengers = 11;
 }
 
-enum NonMotorVehicleType {
-    TRANSPORTATION_BICYCLE = 0;
-    TRANSPORTATION_VEHICLE2 = 1;
-    TRANSPORTATION_VEHICLE3 = 2;
-    TRANSPORTATION_ROOF = 3;
-    TRANSPORTATION_SEAL = 4;
-}
+//enum NonMotorVehicleType {
+//    TRANSPORTATION_BICYCLE = 0;
+//    TRANSPORTATION_VEHICLE2 = 1;
+//    TRANSPORTATION_VEHICLE3 = 2;
+//    TRANSPORTATION_ROOF = 3;
+//    TRANSPORTATION_SEAL = 4;
+//}
 
 enum NonMotorVehicleGesture {
     ATTITUDE_POSITIVE = 0;
@@ -162,7 +163,7 @@ enum NonMotorVehicleGesture {
 
 message RecNonMotorVehicle {
     int64 Id = 1;
-    NonMotorVehicleType NMVehicleType = 2;
+    int64 NMVehicleType = 2;
     string NMVehicleTypeName = 3;
     CutboardImage Img = 4;
     NonMotorVehicleGesture NMVehicleGesture = 5;
@@ -180,6 +181,7 @@ message Passenger {
     PeopleAttr PassengerAttr = 2;
     RecFace Face = 3;
     bool Driver = 4;
+    CutboardImage Img = 5;
 }
 
 message RecPedestrian {

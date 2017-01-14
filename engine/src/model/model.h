@@ -45,23 +45,45 @@ enum DetectionTypeId {
 
 
 typedef struct Detection {
+ public:
     int id = -1;
     bool deleted;
-    Box box;
     Confidence confidence = 0;
     float col_ratio = 1.0;
     float row_ratio = 1.0;
+
     void Rescale(float scale) {
-        box.x = box.x / scale;
-        box.y = box.y / scale;
-        box.width = box.width / scale;
-        box.height = box.height / scale;
+        box_.x = box_.x / scale;
+        box_.y = box_.y / scale;
+        box_.width = box_.width / scale;
+        box_.height = box_.height / scale;
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
-        return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box.x << ","
-            << det.box.y << "," << det.box.width << "," << det.box.height
-            << "] Conf: " << det.confidence;
+//        return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box().x << ","
+//            << det.box().y << "," << det.box().width << "," << det.box().height
+//            << "] Conf: " << det.confidence;
+        return os;
     }
+    void set_rotated_box(const RotatedBox &rbox) {
+        rotated_box_ = rbox;
+        box_ = rbox.boundingRect();
+    }
+    void set_box(const Box &bbox) {
+        Point2f center = Point2f(bbox.x + bbox.width / 2, bbox.y + bbox.height / 2);
+        Size2f size = Size2f(bbox.width, bbox.height);
+        rotated_box_ = cv::RotatedRect(center, size, 0);
+        box_ = bbox;
+    }
+    Box box() const {
+        return box_;
+    }
+    RotatedBox rotated_box() const {
+        return rotated_box_;
+    }
+
+ private:
+    Box box_;
+    RotatedBox rotated_box_;
 
 } Detection;
 
@@ -489,7 +511,7 @@ class Face: public Object {
         : Object(OBJECT_FACE), is_valid_(true) {
         id_ = id;
         confidence_ = confidence;
-        detection_.box = Box(x, y, width, height);
+        detection_.set_box(Box(x, y, width, height));
     }
 
     FaceRankFeature feature() const {
@@ -516,6 +538,25 @@ class Face: public Object {
         image_ = image;
     }
 
+    void set_image(const Detection detection) {
+        Box newBox = detection.box();
+        if (newBox.x < 0) {
+            newBox.x = 0;
+        }
+        if (newBox.y < 0) {
+            newBox.y = 0;
+        }
+        if (newBox.x + newBox.width >= full_image_.cols) {
+            newBox.width = full_image_.cols - newBox.x;
+        }
+        if (newBox.y + newBox.height >= full_image_.rows) {
+            newBox.height = full_image_.rows - newBox.y;
+        }
+
+        image_ = full_image_(newBox);
+    }
+
+
     bool IsValid() {
         return is_valid_;
     }
@@ -526,7 +567,7 @@ class Face: public Object {
     void set_qualities(int type, float score) {
         qualities_[type] = score;
     }
-    const map<int, float> &get_qualities() const{
+    const map<int, float> &get_qualities() const {
         return qualities_;
     }
     void set_pose(vector<float> angles) {
@@ -543,7 +584,7 @@ class Face: public Object {
     void set_align_result(DGFace::AlignResult align_result) {
         align_result_ = align_result;
     }
-    const DGFace::AlignResult &get_align_result() const{
+    const DGFace::AlignResult &get_align_result() const {
         return align_result_;
     }
  private:

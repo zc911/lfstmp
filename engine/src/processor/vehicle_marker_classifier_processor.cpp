@@ -66,8 +66,8 @@ bool VehicleMarkerClassifierProcessor::process(FrameBatch *frameBatch) {
                 if (d.id > color_.size())
                     continue;
                 rectangle(draw_images_[i], preds[i][j].box, color_[d.id]);
-                int midx = d.box.x + d.box.width / 2 - 4;
-                int midy = d.box.y + d.box.height / 2 + 4;
+                int midx = d.box().x + d.box().width / 2 - 4;
+                int midy = d.box().y + d.box().height / 2 + 4;
                 string id = i2string(d.id);
                 cv::putText(draw_images_[i], id, cv::Point(midx, midy), FONT_HERSHEY_COMPLEX_SMALL, 1, color_[d.id]);
             }

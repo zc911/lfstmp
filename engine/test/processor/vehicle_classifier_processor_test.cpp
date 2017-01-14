@@ -15,23 +15,6 @@ static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    VehicleCaffeClassifier::VehicleCaffeConfig config;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    config.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    config.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-    for (int i = 0; i < 8; ++i) {
-        char index[2] = {0};
-        index[0] = '0' + i;
-        config.deploy_file = baseModelPath + "10" + string(index) + ".txt";
-        config.model_file = baseModelPath + "10" + string(index) + ".dat";
-    }
-    vector<VehicleCaffeClassifier::VehicleCaffeConfig> configs;
-    configs.push_back(config); */
     string mappingFilePath = "";
     vcfprocessor = new VehicleClassifierProcessor(mappingFilePath, true);
 }
@@ -41,6 +24,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(vcfprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {

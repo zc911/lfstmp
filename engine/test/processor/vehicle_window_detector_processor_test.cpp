@@ -15,21 +15,6 @@ static FileReader *resultReader;
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-/*    VehicleCaffeDetectorConfig wConfig;
-    string baseModelPath;
-#ifdef UNENCRYPTMODEL
-    wConfig.is_model_encrypt = false;
-    baseModelPath = "data/0/";
-#else
-    wConfig.is_model_encrypt = true;
-    baseModelPath = "data/1/";
-#endif
-
-    wConfig.deploy_file = baseModelPath + "701.txt";
-    wConfig.model_file = baseModelPath + "701.dat";
-
-    wConfig.target_max_size = 160;
-    wConfig.target_min_size = 80; */
     vwdprocessor = new VehicleWindowDetectorProcessor();
 }
 
@@ -47,6 +32,7 @@ static void init() {
     head = new VehicleProcessorHead();
     fbhelper = new FrameBatchHelper(1);
     head->setNextProcessor(vwdprocessor);
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 
 static void destory() {
@@ -87,10 +73,10 @@ TEST(VehicleWindowDetectorTest, windowDetectorTest) {
             if (w == NULL)
                 continue;
 
-            EXPECT_LE(0, w->detection().box.x);
-            EXPECT_LE(0, w->detection().box.y);
-            EXPECT_GE(obj->detection().box.width, w->detection().box.width + w->detection().box.x);
-            EXPECT_GE(obj->detection().box.height, w->detection().box.height + w->detection().box.y);
+            EXPECT_LE(0, w->detection().box().x);
+            EXPECT_LE(0, w->detection().box().y);
+            EXPECT_GE(obj->detection().box().width, w->detection().box().width + w->detection().box().x);
+            EXPECT_GE(obj->detection().box().height, w->detection().box().height + w->detection().box().y);
             cnt += obj->children(OBJECT_WINDOW).size();
 
         }

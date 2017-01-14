@@ -18,7 +18,6 @@
 #include "processor/config_filter.h"
 #include "debug_util.h"
 #include "algorithm_factory.h"
-#include "engine_config_value.h"
 
 namespace dg {
 
@@ -68,7 +67,7 @@ void WitnessEngine::withoutDetection(FrameBatch *frames, Operations oprations) {
         }
 
         Detection d;
-        d.box = Rect(0, 0, tmp.cols, tmp.rows);
+        d.set_box(Rect(0, 0, tmp.cols, tmp.rows));
         Object *obj;
 
         if (oprations == OPERATION_VEHICLE_DETECT) {
@@ -225,8 +224,13 @@ void WitnessEngine::recordPerformance() {
 
 void WitnessEngine::init(const Config &config) {
 
-    int gpu_id = (bool) config.Value(SYSTEM_GPUID);
-    bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+    int gpu_id = (int) config.Value(SYSTEM_GPUID);
+    bool is_encrypted = true;
+
+#ifdef DEBUG
+    is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+#endif
+
     string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
@@ -244,7 +248,8 @@ void WitnessEngine::init(const Config &config) {
         LOG(INFO) << "Init vehicle processor pipeline. " << endl;
         LOG(INFO) << "Enable accelerate detection processor." << endl;
 
-        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+//        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
+        bool car_only = false;
         Processor *p = new VehicleMultiTypeDetectorProcessor(car_only, true);
         vehicle_processor_ = p;
         last = p;
@@ -362,20 +367,24 @@ void WitnessEngine::init(const Config &config) {
 
     if (enable_face_) {
         LOG(INFO) << "Init face processor pipeline. " << endl;
-        int method = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
+        unsigned int detectMethod = (int) config.Value(ADVANCED_FACE_DETECT_METHOD);
+
 
         VLOG(VLOG_RUNTIME_DEBUG) << "Start load face detection model" << endl;
         FaceDetectorConfig fdconfig;
         configFilter->createFaceDetectorConfig(config, fdconfig);
-        face_processor_ = new FaceDetectProcessor(fdconfig, method);
+        face_processor_ = new FaceDetectProcessor(fdconfig, (FaceDetectProcessor::DetectMethod) detectMethod);
         Processor *last = face_processor_;
 
         if (enable_face_alignment_) {
             LOG(INFO) << "Enable face alignment processor." << endl;
             VLOG(VLOG_RUNTIME_DEBUG) << "Start load face alignment model" << endl;
             FaceAlignmentConfig faConfig;
+            unsigned int alignMethod = (int) config.Value(ADVANCED_FACE_ALIGN_METHOD);
             configFilter->createFaceAlignmentConfig(config, faConfig);
-            Processor *p = new FaceAlignmentProcessor(faConfig);
+            Processor *p = new FaceAlignmentProcessor(faConfig,
+                                                      (FaceAlignmentProcessor::AlignmentMethod) alignMethod,
+                                                      (FaceDetectProcessor::DetectMethod) detectMethod);
             last->SetNextProcessor(p);
             last = p;
         }
@@ -396,18 +405,12 @@ void WitnessEngine::init(const Config &config) {
             FaceFeatureExtractorConfig feconfig;
             FaceAlignmentConfig faConfig;
             configFilter->createFaceExtractorConfig(config, feconfig);
-            Processor *p = new FaceFeatureExtractProcessor(feconfig);
+            unsigned int recogMethod = (int) config.Value(ADVANCED_FACE_EXTRACT_METHOD);
+            Processor *p =
+                new FaceFeatureExtractProcessor(feconfig, (FaceFeatureExtractProcessor::RecognitionMethod) recogMethod);
             last->SetNextProcessor(p);
             last = p;
         }
-//        if (enable_face_feature_vector_) {
-//            LOG(INFO) << "Enable face pose processor." << endl;
-//            VLOG(VLOG_RUNTIME_DEBUG) << "Start load face pose model" << endl;
-//            FacePoseConfig fpconfig;
-//            Processor *p = new FacePoseProcessor(fpconfig);
-//            last->SetNextProcessor(p);
-//            last = p;
-//        }
         last->SetNextProcessor(NULL);
 
 
@@ -428,6 +431,7 @@ void WitnessEngine::init(const Config &config) {
 
     this->Process(&framebatch);
 
+    dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
     is_init_ = true;
 
 }
@@ -445,7 +449,7 @@ void WitnessEngine::initGpuMemory(FrameBatch &batch) {
         vehicle->set_image(smallImage);
         vector<Detection> markers;
         Detection det;
-        det.box = cv::Rect(1, 1, 10, 10);
+        det.set_box(cv::Rect(1, 1, 10, 10));
         markers.push_back(det);
         //vehicle->set_markers(markers);
         Pedestrian *pedestrain = new Pedestrian();

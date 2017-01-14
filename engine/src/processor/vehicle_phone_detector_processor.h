@@ -33,6 +33,7 @@ private:
     float threshold_;
     vector<Object *> objs_;
     vector<Mat> images_;
+    vector<Detection> detections_;
 //    int marker_target_min_;
 //    int marker_target_max_;
 };
