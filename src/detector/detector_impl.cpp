@@ -321,14 +321,14 @@ SSDDetector::SSDDetector(int img_scale_max,
 						int batch_size)
 						:Detector(img_scale_max, img_scale_min, is_encrypt), 
 						_net(nullptr), _gpuid(gpu_id) {
-						
+device_setted_ = false;						
 	if (_gpuid < 0) {
 		_useGPU = false;
-		Caffe::set_mode(Caffe::GPU);
-		Caffe::SetDevice(gpu_id);
-	} else {
-		_useGPU = true;
 		Caffe::set_mode(Caffe::CPU);
+	} else {
+	_useGPU = true;
+Caffe::SetDevice(gpu_id);
+		Caffe::set_mode(Caffe::GPU);
 	}
 
 	string cfg_file;
@@ -366,7 +366,6 @@ SSDDetector::SSDDetector(int img_scale_max,
 		input_blob->Reshape(org_shape);
 		_net->Reshape();
 	} 
-	cout << "batch size : " << input_blob->num() << endl;
 
 	_num_channels = input_blob->channels();
 	CHECK(_num_channels == 3 || _num_channels == 1)
@@ -461,7 +460,7 @@ SSDDetector::~SSDDetector(void){
 void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
 {
     if (!device_setted_) {
-        Caffe::SetDevice(_gpuid);
+Caffe::SetDevice(_gpuid);
         Caffe::set_mode(Caffe::GPU);
         device_setted_ = true;
     }
@@ -486,7 +485,6 @@ void SSDDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
     input_blob->Reshape(shape);
     _net->Reshape();
     float* input_data = input_blob->mutable_cpu_data();
-    cout << "[debug num, channels, height, width] " << input_blob->num() << " " << input_blob->channels() << " " << input_blob->height() << " " << input_blob->width() << endl;
     //cout<<_pixel_scale<<" "<<_pixel_means[0];
     for(size_t i = 0; i < resized_imgs.size(); i++)
     {
@@ -883,6 +881,7 @@ const std::map<det_method, std::string> det_map {
 		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
 		string model_path; 
 		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
+
 		return create_detector(method, model_path, gpu_id, is_encrypt, batch_size);
 	}
 }
