@@ -224,3 +224,7 @@ data/encryptModel/recognition/cdnn/8.c filter=lfs diff=lfs merge=lfs -text
 data/model/recognition/cdnn/8.c filter=lfs diff=lfs merge=lfs -text
 data/encryptModel/alignment/cdnn/0.4.2/alignment.cdnn filter=lfs diff=lfs merge=lfs -text
 data/encryptModel/alignment/cdnn/0.4.2/alignment.mean filter=lfs diff=lfs merge=lfs -text
+data/model/recognition/cdnn_caffe/0.1.0/ filter=lfs diff=lfs merge=lfs -text
+data/model/recognition/cdnn_caffe/0.1.0/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/model/recognition/cdnn_caffe/0.1.0/model.dat filter=lfs diff=lfs merge=lfs -text
+data/model/recognition/cdnn_caffe/0.1.0/recog_cdnn_caffe.cfg filter=lfs diff=lfs merge=lfs -text
