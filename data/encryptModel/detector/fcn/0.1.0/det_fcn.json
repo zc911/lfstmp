@@ -1,0 +1,9 @@
+{
+	"img_scale_max": 0,
+	"img_scale_min": 0,
+	"modelfile": "model.dat",
+	"deployfile": "deploy.txt",
+	"min_det_face_size": 24,
+	"max_det_face_size": -1,
+	"min_scale_face_to_img": 0.01
+}

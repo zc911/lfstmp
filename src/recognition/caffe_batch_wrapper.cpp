@@ -18,7 +18,6 @@ CaffeBatchWrapper::CaffeBatchWrapper(int deviceId, const string &layer_name, int
           _patch_ids(patch_ids) {
 	Caffe::SetDevice(deviceId);
 	Caffe::set_mode(Caffe::GPU);
-
 	if(is_encrypt) {
 		string deploy_content, weight_content;
 		int ret = 0;
