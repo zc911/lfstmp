@@ -1,5 +1,12 @@
 #!/bin/bash
 
+makesure_dir_exist(){
+    if [ ! -d "$1" ]; then
+        mkdir -p "$1"
+    fi
+}
+
+
 if [ -z "$1" ]; then
     echo "Usage: proto_gen.sh cpp|python|golang"
     exit
@@ -9,6 +16,7 @@ if [ "$1" == "cpp" ]; then
     grpc_x_plugin=`which grpc_cpp_plugin`
     target="--cpp_out"
     target_dir="../src/cpp"
+    makesure_dir_exist $target_dir
     protoc -I . $target=$target_dir *.proto
     protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} common.proto
     protoc -I . --grpc_out=$target_dir --plugin=protoc-gen-grpc=${grpc_x_plugin} witness.proto
@@ -24,10 +32,12 @@ elif [ "$1" == "python" ]; then
     grpc_x_plugin=`which grpc_python_plugin`
     target="--python_out"
     target_dir="../src/python"
+    makesure_dir_exist $target_dir
     python -m grpc.tools.protoc -I . --python_out=$target_dir --grpc_python_out=$target_dir *.proto
 elif [ "$1" == "golang" ]; then
     target="--go_out"
     target_dir="../src/golang"
+    makesure_dir_exist $target_dir
     protoc -I . $target=$target_dir common.proto
     protoc -I . $target=$target_dir localcommon.proto
     protoc ranker.proto $target=plugins=grpc:$target_dir
@@ -38,7 +48,7 @@ else
     exit
 fi
 
-echo "Finish"
+echo "proto src file generated finished"
 
 
 
