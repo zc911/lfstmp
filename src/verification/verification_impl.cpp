@@ -1,5 +1,6 @@
 #include <verification/veri_cos.h>
 #include <verification/veri_euclid.h>
+#include <verification/veri_neuclid.h>
 #include <stdexcept>
 #include <string>
 
@@ -24,9 +25,43 @@ float CosVerification::verify(const FeatureType &feature1, const FeatureType &fe
         denom_a += val1 * val1;
         denom_b += val2 * val2;
     }
-    return dot / (sqrt(denom_a) * sqrt(denom_b));
+    return 0.5 + 0.5 * dot / (sqrt(denom_a) * sqrt(denom_b));
 }
 
+///////////////////////////////////////////////////////////////
+NormEuclidVerification::NormEuclidVerification(void) {
+}
+
+NormEuclidVerification::~NormEuclidVerification(void) {
+}
+
+float NormEuclidVerification::verify(const FeatureType &feature1, const FeatureType &feature2) {
+    assert(feature1.size() && feature1.size() == feature2.size());
+    float dot = 0.0, denom_a = 0.0, denom_b = 0.0 ;
+    // L2 normalization
+    for(size_t i = 0; i < feature1.size(); ++i) {
+        auto val1 = feature1[i];
+        auto val2 = feature2[i];
+        denom_a += val1 * val1;
+        denom_b += val2 * val2;
+    }
+    denom_a = sqrt(denom_a);
+    denom_b = sqrt(denom_b);
+
+    for(size_t i = 0; i < feature1.size(); ++i) {
+        auto val1 = feature1[i] / denom_a;
+        auto val2 = feature2[i] / denom_b;
+        dot += (val1 - val2) * (val1 - val2);
+    }
+
+    //for(size_t i = 0; i < feature1.size(); ++i) {
+    //    auto val1 = (feature1[i] - _mean[i]) / _sigma[i];
+    //    auto val2 = (feature2[i] - _mean[i]) / _sigma[i];
+    //    dot += (val1 - val2) * (val1 - val2);
+    //}
+    
+    return 1.0 / (1 + sqrt(dot));
+}
 
 ///////////////////////////////////////////////////////////////
 EuclidVerification::EuclidVerification() {
@@ -82,6 +117,10 @@ Verification *create_verifier(const verif_method& method) {
 		}
 		case verif_method::EUCLID: {
 			return new EuclidVerification();
+			break;
+		}
+		case verif_method::NEUCLID: {
+			return new NormEuclidVerification();
 			break;
 		}
 		default:

@@ -76,6 +76,10 @@ int getFileContent(string file, bool is_encrypt, string& content) {
 	// return getConfigContent(file, is_encrypt, content);
 	if (!is_encrypt) {
 		content = ReadStringFromFile(file, "rb");
+        if(content == "")
+            return -1;
+        else
+            return 0;
 	} else {
 		int length;
 		length = FileSize(file);
