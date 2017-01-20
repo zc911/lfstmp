@@ -10,7 +10,6 @@
 #include <fstream>
 #include <glog/logging.h>
 #include <sys/time.h>
-#include <uuid/uuid.h>
 #include <opencv2/core/core.hpp>
 #include <boost/algorithm/string/split.hpp>
 
@@ -353,12 +352,12 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
         face->set_id(fobj->id());
         face->set_confidence((float) fobj->confidence());
         face->set_alignscore(fobj->get_align_result().score);
-        if(fobj->get_qualities().count(Face::BlurM) > 0) {
+        if (fobj->get_qualities().count(Face::BlurM) > 0) {
             face->set_blurscore(fobj->get_qualities().find(Face::BlurM)->second);
         }
         face->set_features(fobj->feature().Serialize());
         ::dg::model::RecFacePose *pose = face->mutable_pose();
-        if(fobj->get_pose().angles.size() > 0) {
+        if (fobj->get_pose().angles.size() > 0) {
             pose->set_type(fobj->get_pose().type);
             pose->mutable_angles()->Add(fobj->get_pose().angles[0]);
             pose->mutable_angles()->Add(fobj->get_pose().angles[1]);
@@ -378,7 +377,8 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
             float bottomTimes = RepoService::GetInstance().FindBodyRelativeFace("bottom");
             pedCutboard->set_x(Max(d.box().x - d.box().width * leftTimes, 0));
             pedCutboard->set_y(Max(d.box().y - d.box().height * topTimes, 0));
-            pedCutboard->set_width(Min(d.box().width * (1.0 + leftTimes + rightTimes), imgWidth - 1 - pedCutboard->x()));
+            pedCutboard->set_width(Min(d.box().width * (1.0 + leftTimes + rightTimes),
+                                       imgWidth - 1 - pedCutboard->x()));
             pedCutboard->set_height(Min(d.box().height * (1.0 + topTimes + bottomTimes),
                                         imgHeight - 1 - pedCutboard->y()));
         }
@@ -391,8 +391,6 @@ MatrixError WitnessAppsService::getRecognizedFace(const vector<const Face *> fac
 
     return err;
 }
-
-
 
 
 MatrixError WitnessAppsService::getRecognizeResult(Frame *frame,
@@ -681,8 +679,6 @@ MatrixError WitnessAppsService::BatchRecognize(
         ctx->set_message(err.message());
         return err;
     }
-
-
 
 
     FrameBatch framebatch(curr_id);

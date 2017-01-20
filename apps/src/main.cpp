@@ -23,7 +23,7 @@ string getServerAddress(Config *config, int userPort = 0) {
     }
 
     return (string) config->Value("System/Ip") + ":"
-           + (string) config->Value("System/Port");
+        + (string) config->Value("System/Port");
 }
 
 void serveWitness(Config *config, int userPort = 0) {
@@ -38,8 +38,8 @@ void serveWitness(Config *config, int userPort = 0) {
 
     WitnessBucket::Instance().SetMaxSize(100);
     bool enable_improve_throughput = (bool) config->Value(PACK_ENABLE);
-    int batchsize =1;
-    if(enable_improve_throughput){
+    int batchsize = 1;
+    if (enable_improve_throughput) {
         batchsize = config->Value(PACK_BATCHSIZE);
     }
     int timeout = config->Value(PACK_TIMEOUT);
@@ -49,7 +49,7 @@ void serveWitness(Config *config, int userPort = 0) {
     SpringGrpcClientImpl *client = new SpringGrpcClientImpl(*config);
     std::thread springTh(&SpringGrpcClientImpl::Run, client);
 
-    int thread_num = [](Config * config) {
+    int thread_num = [](Config *config) {
         int thread_num = 0;
         int gpuNum = config->Value(SYSTEM_THREADS + "/Size");
         for (int i = 0; i < gpuNum; i++) {
@@ -109,11 +109,11 @@ void serveWitness(Config *config, int userPort = 0) {
         }
         else {
             cout << "Invalid protocol, should be rpc, restful or rpc|restful"
-                 << endl;
+                << endl;
             exit(-1);
         }
     }
-    catch (const std::exception & e) {
+    catch (const std::exception &e) {
         cout << e.what() << endl;
         quick_exit(EXIT_FAILURE);
     }
@@ -134,7 +134,7 @@ void serveRanker(Config *config, int userPort = 0) {
     try {
         if (protocolType == "restful") {
             RestRankerServiceImpl *service = new RestRankerServiceImpl(*config,
-                    address);
+                                                                       address);
             service->Run();
             for (auto e : service->getExceptions()) {
                 if (e != nullptr) {
@@ -145,7 +145,7 @@ void serveRanker(Config *config, int userPort = 0) {
         } else if (protocolType == "rpc") {
 
             GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
-                    address);
+                                                                                   address);
             std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
             grpc_ranker_thread.join();
             for (auto e : grpc_ranker_service->getExceptions()) {
@@ -156,12 +156,12 @@ void serveRanker(Config *config, int userPort = 0) {
 
         } else if (protocolType == "restful|rpc" || protocolType == "rpc|restful") {
             GrpcRankerServiceImpl *grpc_ranker_service = new GrpcRankerServiceImpl(*config,
-                    address);
+                                                                                   address);
             std::thread grpc_ranker_thread(&GrpcRankerServiceImpl::Run, grpc_ranker_service);
             string rest_ranker_addr = getServerAddress(config,
-                                      (int) config->Value("System/Port") + 1);
+                                                       (int) config->Value("System/Port") + 1);
             RestRankerServiceImpl *rest_ranker_service = new RestRankerServiceImpl(*config,
-                    rest_ranker_addr);
+                                                                                   rest_ranker_addr);
             std::thread rest_ranker_thread(&RestRankerServiceImpl::Run, rest_ranker_service);
 
             grpc_ranker_thread.join();
@@ -183,11 +183,11 @@ void serveRanker(Config *config, int userPort = 0) {
 
         else {
             cout << "Invalid protocol, should be rpc, restful or rpc|restful"
-                 << endl;
+                << endl;
             exit(-1);
         }
     }
-    catch (const exception & e) {
+    catch (const exception &e) {
         cout << e.what() << endl;
         quick_exit(EXIT_FAILURE);
     }
@@ -212,7 +212,7 @@ int main(int argc, char *argv[]) {
 
     google::SetUsageMessage(
         "Usage: " + string(argv[0])
-        + " [--port=6500] [--config=config.json] [--encrypt=false (valid only in DEBUG mode)]");
+            + " [--port=6500] [--config=config.json] [--encrypt=false (valid only in DEBUG mode)]");
 
     google::SetVersionString("0.2.4");
     google::ParseCommandLineFlags(&argc, &argv, false);
@@ -260,7 +260,7 @@ int main(int argc, char *argv[]) {
     }
     else {
         cout << "Invalid instance type , should be either witness or ranker."
-             << endl;
+            << endl;
         return -1;
     }
 

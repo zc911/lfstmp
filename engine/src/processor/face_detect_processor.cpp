@@ -122,10 +122,13 @@ bool FaceDetectProcessor::process(FrameBatch *frameBatch) {
             Detection detection = boxes_in[i][bbox_id];
             Face *face = new Face(base_id_ + bbox_id, detection,
                                   detection.confidence);
-            VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << " detection: " << detection << endl;
             face->set_full_image(frame->payload()->data());
-            face->set_image(detection);
+            if(!face->set_image(detection)){
+                delete face;
+                continue;
+            }
             frame->put_object(face);
+            VLOG(VLOG_RUNTIME_DEBUG) << "Create a face object: " << face->id() << " detection: " << detection << endl;
 
         }
     }

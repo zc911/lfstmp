@@ -538,22 +538,15 @@ class Face: public Object {
         image_ = image;
     }
 
-    void set_image(const Detection detection) {
+    bool set_image(const Detection detection) {
         Box newBox = detection.box();
-        if (newBox.x < 0) {
-            newBox.x = 0;
+        cv::Rect newRect = newBox & cv::Rect(0, 0, full_image_.cols, full_image_.rows);
+        if (newRect.height == 0 || newRect.width == 0) {
+            LOG(ERROR) << "The detection result invalid: " << newRect << endl;
+            return false;
         }
-        if (newBox.y < 0) {
-            newBox.y = 0;
-        }
-        if (newBox.x + newBox.width >= full_image_.cols) {
-            newBox.width = full_image_.cols - newBox.x;
-        }
-        if (newBox.y + newBox.height >= full_image_.rows) {
-            newBox.height = full_image_.rows - newBox.y;
-        }
-
-        image_ = full_image_(newBox);
+        image_ = full_image_(newRect);
+        return true;
     }
 
 
