@@ -189,7 +189,7 @@ MatrixError RankerAppsService::AddFeatures(const AddFeaturesRequest *request, Ad
     MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
     EngineData data;
     data.func = [&frame, &data]() -> void {
-        return (bind(&SimpleRankEngine::AddFeatures, (SimpleRankEngine *) data.apps,
+        return (bind(&SimpleRankEngine::AddFeatures, (SimpleRankEngine *) data.get_apps(),
                      placeholders::_1))(&frame);
     };
 
@@ -418,7 +418,7 @@ MatrixError RankerAppsService::getFaceScoredVector(
     MatrixEnginesPool<SimpleRankEngine> *engine_pool = MatrixEnginesPool<SimpleRankEngine>::GetInstance();
     EngineData data;
     data.func = [&f, &data]() -> void {
-        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.apps,
+        return (bind(&SimpleRankEngine::RankFace, (SimpleRankEngine *) data.get_apps(),
                      placeholders::_1))(&f);
     };
 

@@ -364,7 +364,6 @@ static Mat crop_image(Mat image, float xmin, float ymin, float xmax, float ymax)
     {
         crop_ymin = 0;
         crop_ymax = crop_height;
-        cout << "add rows started" << endl;
         Mat rows = Mat::zeros(int(crop_height) - img_height + 1, img.cols, img.type()); // +1 for input > 0
         img.push_back(rows);
     }

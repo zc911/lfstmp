@@ -127,7 +127,7 @@ class WitnessAssembler {
 
                     EngineData data;
                     data.func = [&framebatch, &data]() -> void {
-                        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.apps,
+                        return (bind(&WitnessEngine::Process, (WitnessEngine *) data.get_apps(),
                                      placeholders::_1))(&framebatch);
                     };
 
