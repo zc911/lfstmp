@@ -67,8 +67,7 @@ class WitnessCollector {
                 break;
             }
         }
-        LOG(WARNING) << "Package size more than batch size, performance warning " << results->size() << ":"
-            << batch_size_ << endl;
+
         not_full.notify_all();
         return results;
     }

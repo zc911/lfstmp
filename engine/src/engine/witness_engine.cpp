@@ -203,6 +203,7 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
     enable_face_detect_ = (bool) config.Value(
                               FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+    enable_face_alignment_ = (bool) config.Value(FEATURE_FACE_ENABLE_ALIGNMENT);
     enable_face_quality_ = (bool) config.Value( FEATURE_FACE_ENABLE_QUALITY);
     enable_face_pose_ = (bool) config.Value( FEATURE_FACE_ENABLE_POSE);
 

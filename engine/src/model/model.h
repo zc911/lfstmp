@@ -59,9 +59,9 @@ typedef struct Detection {
         box_.height = box_.height / scale;
     }
     friend ostream &operator<<(std::ostream &os, const Detection &det) {
-//        return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box().x << ","
-//            << det.box().y << "," << det.box().width << "," << det.box().height
-//            << "] Conf: " << det.confidence;
+        return os << "DETECTION_ID: " << det.id << " BOX: [" << det.box().x << ","
+            << det.box().y << "," << det.box().width << "," << det.box().height
+            << "] Conf: " << det.confidence;
         return os;
     }
     void set_rotated_box(const RotatedBox &rbox) {
