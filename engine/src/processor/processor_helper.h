@@ -147,6 +147,7 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
     return 0;
 }
 static Mat CutImage(const Mat &src, const Box &box) {
+
     Box insectBox = box & cv::Rect(0, 0, src.cols, src.rows);
     if (insectBox.width == 0) {
         insectBox.width = 1;
@@ -155,7 +156,7 @@ static Mat CutImage(const Mat &src, const Box &box) {
         insectBox.height = 1;
     }
 
-    return src(insectBox);
+    return src(insectBox).clone();
 
 }
 static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen, bool is_encrypt_enabled) {

@@ -86,20 +86,52 @@ class MatrixEnginesPool {
         vector<int> threadsOnGpu;
         int gpuNum = config_->Value(SYSTEM_THREADS + "/Size");
         cout << "Gpu num defined in config file: " << gpuNum << endl;
+        unsigned int totalThreadNum = 0;
+        std::atomic_int initEngineCount(0);
+        std::condition_variable initCv;
+        std::mutex initMutex;
+
+        for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
+            int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
+            totalThreadNum += threadNum;
+        }
+
         for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
 
             config->AddEntry("System/GpuId", AnyConversion(gpuId));
             int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
             cout << "Threads num: " << threadNum << " on GPU: " << gpuId << endl;
 
+            // copy the config instance because it will be changed by another thread
+            Config configCopy = *config;
+            std::mutex initMutex;
             for (int i = 0; i < threadNum; ++i) {
                 string name = "engines_" + to_string(gpuId) + "_" + to_string(i);
 
-                EngineType *engine = new EngineType(*config_);
-                cout << "Start thread: " << name << " " << engine << endl;
+                workers_.emplace_back([this, name, configCopy, &initEngineCount, totalThreadNum, &initCv, &initMutex] {
+                    cout << "Start: " << name  << " at gpu " << (int)configCopy.Value("System/GpuId") << " and thread no.: "
+                        << std::this_thread::get_id() << endl;
 
-                workers_.emplace_back([this, name, config, engine] {
+                    EngineType *engine = nullptr;
+                    // since dgface fcn detection must be init in seperated threads, so we init the engine
+                    // in threads. But the engine init is not thread safe, so we init the engines one by one.
+                    {
+                        std::lock_guard<std::mutex> initLock(initMutex);
+                        engine = new EngineType(configCopy);
+                    }
+
+                    if (engine == nullptr){
+                        LOG(FATAL) << "Init engine error" << endl;
+                    }
+
+                    initEngineCount++;
+                    if (initEngineCount == totalThreadNum) {
+                        initCv.notify_all();
+                    }
+
+
                     for (; ;) {
+
                         EngineData *task;
                         {
 
@@ -116,27 +148,38 @@ class MatrixEnginesPool {
                             this->tasks_.pop();
                             lock.unlock();
                         }
-                        LOG(INFO) << name << " " << task;
+                        VLOG(VLOG_RUNTIME_DEBUG) << name << " " << task;
 
                         // assign the current engine instance to task
-//                        task->apps = (void *) engine;
-
                         // task first binds the engine instance to the specific member methods
                         // and then invoke the binded function
-
+                        VLOG(VLOG_RUNTIME_DEBUG)
+                        << "Process at engine: " << name << " at thread: " << std::this_thread::get_id() << endl;
                         task->Run((void *) engine);
 
                     }
                     cout << "end thread: " << name << endl;
-
                     LOG(ERROR) << "Engine thread " << name << " crashed!!!" << endl;
                 });
             }
 
         }
+
+        // make sure all threads are init successfully
+        std::unique_lock<std::mutex> lck(initMutex);
+        if (initCv.wait_for(lck, std::chrono::seconds(1200), [&]() {
+            return totalThreadNum == initEngineCount;
+        })) {
+            cout << "All engine threads init successful, thread number: " << initEngineCount << endl;
+        } else {
+            LOG(FATAL) << "Engine threads init timeout or error, init count " << initEngineCount << " but should be "
+                << totalThreadNum << endl;
+        }
+
         ModelsMap *modelsMap = ModelsMap::GetInstance();
         modelsMap->clearModels();
         cout << "Engine pool worker number: " << workers_.size() << endl;
+
         stop_ = false;
     }
 
