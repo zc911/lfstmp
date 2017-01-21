@@ -15,7 +15,7 @@ static FileReader fileReader("data/mapping/vehicle_color.txt");
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-    vcprocessor = new VehicleColorProcessor();
+    vcprocessor = new VehicleColorProcessor(false);
 }
 
 static void init() {

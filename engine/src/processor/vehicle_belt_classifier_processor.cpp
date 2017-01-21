@@ -8,6 +8,7 @@
 #include "vehicle_belt_classifier_processor.h"
 #include "processor_helper.h"
 #include "util/caffe_helper.h"
+#include "algorithm_def.h"
 
 using namespace dgvehicle;
 namespace dg {
@@ -16,7 +17,13 @@ VehicleBeltClassifierProcessor::VehicleBeltClassifierProcessor(
     float threshold, bool driver)
     : Processor() {
 
-    belt_classifier_ = AlgorithmFactory::GetInstance()->CreateBeltClassifier(driver);
+    if (driver) {
+        belt_classifier_ =
+            AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_driverBeltClassifier);
+    } else {
+        belt_classifier_ =
+            AlgorithmFactory::GetInstance()->CreateProcessorInstance(AlgorithmProcessorType::c_codriverBeltClassifier);
+    }
     threshold_ = threshold;
     is_driver_ = driver;
 

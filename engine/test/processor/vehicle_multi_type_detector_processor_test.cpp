@@ -159,7 +159,7 @@ TEST(VehicleMultiTypeDectorTest, carOnlyTest) {
     config.model_file = baseModelPath + "310.dat";
     config.confirm_deploy_file = baseModelPath + "311.txt";
     config.confirm_model_file = baseModelPath + "311.dat"; */
-    VehicleMultiTypeDetectorProcessor *carOnlyProcessor = new VehicleMultiTypeDetectorProcessor(true, false);
+    VehicleMultiTypeDetectorProcessor *carOnlyProcessor = new VehicleMultiTypeDetectorProcessor(true, false, false);
 
 
     fbhelper = new FrameBatchHelper(1);

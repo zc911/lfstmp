@@ -20,7 +20,7 @@ namespace dg {
 static int SHIFT_COLOR = 1000;
 class VehicleColorProcessor: public Processor {
 public:
-    VehicleColorProcessor();
+    VehicleColorProcessor(bool enable_demo);
     ~VehicleColorProcessor();
 
 protected:

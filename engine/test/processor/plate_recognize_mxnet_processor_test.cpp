@@ -23,7 +23,7 @@ static void initConfig() {
     config->enableLocalProvince = true;
     config->localProvinceText = "\u4eac";
     config->localProvinceConfidence = 0;
-    config->modelPath = "data/dgLP";
+    config->modelPath = "data/dgLP/Product";
     config->batchsize = 1;
 }
 

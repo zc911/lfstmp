@@ -18,6 +18,7 @@ static const string SYSTEM_GPUID = "System/GpuId";
 static const string DGVEHICLE_MODEL_PATH = "ModelPath/dgvehicle";
 static const string DGLP_MODEL_PATH = "ModelPath/dgLP";
 static const string DGFACE_MODEL_PATH = "ModelPath/dgface";
+static const string DEMO_ENABLE = "DemoEnable";
 
 // feature/vehicle
 static const string FEATURE_VEHICLE_ENABLE = "Feature/Vehicle/Enable";

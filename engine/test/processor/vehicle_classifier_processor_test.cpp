@@ -15,8 +15,8 @@ static FileReader fileReader("data/mapping/front_day_index_1_10.txt");
 
 static void initConfig() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-    string mappingFilePath = "";
-    vcfprocessor = new VehicleClassifierProcessor(mappingFilePath, true);
+    string mappingFilePath = "data/mapping/vehicle_style_v1.12_4063.txt";
+    vcfprocessor = new VehicleClassifierProcessor(mappingFilePath);
 }
 
 static void init() {

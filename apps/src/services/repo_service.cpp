@@ -322,7 +322,7 @@ MatrixError RepoService::FillModel(NonMotorVehicle &vobj,
                 nmp = vrec->mutable_passenger(0);
             }
             NameAndConfidence *caf = nmp->mutable_sex();
-            caf->set_id(0);
+            caf->set_id(attrs[i].categoryId);
             caf->set_confidence(attrs[i].confidence);
             if (attrs[i].confidence < 0.5) {
                 caf->set_name(PEDESTRIAN_ATTR_FEMALE_);
