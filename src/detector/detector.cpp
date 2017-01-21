@@ -73,9 +73,11 @@ void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
        
         resized_imgs[idx] = resized_img;
         scale_ratios[idx] = resize_ratio;
-//        cout << "ratio = " << resize_ratio
-//			<< "\tw = " << resized_imgs[idx].cols
-//			<< "\th = " << resized_imgs[idx].rows << endl;
+#ifdef SHOW_DEBUG
+		cout << "ratio = " << resize_ratio
+		<< "\tw = " << resized_imgs[idx].cols
+		<< "\th = " << resized_imgs[idx].rows << endl;
+#endif
     }
 
     // Add black edge to support batch process for images with different sizes 
