@@ -90,6 +90,7 @@ class MatrixEnginesPool {
         std::atomic_int initEngineCount(0);
         std::condition_variable initCv;
         std::mutex initMutex;
+        std::mutex threadMutex;
 
         for (int gpuId = 0; gpuId < gpuNum; ++gpuId) {
             int threadNum = (int) config_->Value(SYSTEM_THREADS + to_string(gpuId));
@@ -104,31 +105,31 @@ class MatrixEnginesPool {
 
             // copy the config instance because it will be changed by another thread
             Config configCopy = *config;
-            std::mutex initMutex;
             for (int i = 0; i < threadNum; ++i) {
                 string name = "engines_" + to_string(gpuId) + "_" + to_string(i);
 
-                workers_.emplace_back([this, name, configCopy, &initEngineCount, totalThreadNum, &initCv, &initMutex] {
-                    cout << "Start: " << name  << " at gpu " << (int)configCopy.Value("System/GpuId") << " and thread no.: "
-                        << std::this_thread::get_id() << endl;
+                workers_.emplace_back([this, name, configCopy, &initEngineCount, totalThreadNum, &initCv, &threadMutex] {
+
 
                     EngineType *engine = nullptr;
                     // since dgface fcn detection must be init in seperated threads, so we init the engine
                     // in threads. But the engine init is not thread safe, so we init the engines one by one.
                     {
-                        std::lock_guard<std::mutex> initLock(initMutex);
+                        std::lock_guard<std::mutex> initLock(threadMutex);
+                        cout << "Start: " << name << " at gpu " << (int) configCopy.Value("System/GpuId")
+                            << " and thread no.: "
+                            << std::this_thread::get_id() << endl;
                         engine = new EngineType(configCopy);
                     }
 
-                    if (engine == nullptr){
+                    if (engine == nullptr) {
                         LOG(FATAL) << "Init engine error" << endl;
                     }
 
                     initEngineCount++;
                     if (initEngineCount == totalThreadNum) {
-                        initCv.notify_all();
+                        initCv.notify_one();
                     }
-
 
                     for (; ;) {
 
