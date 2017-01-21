@@ -8,6 +8,7 @@
 //#include <matrix_engine/model/model.h>
 #include "plate_recognize_mxnet_processor.h"
 #include "debug_util.h"
+#include <opencv2/highgui/highgui.hpp>
 
 namespace dg {
 /*const char *paInv_chardict[LPDR_CLASS_NUM] = { "_", "0", "1", "2", "3", "4",
@@ -140,66 +141,6 @@ bool PlateRecognizeMxnetProcessor::beforeUpdate(FrameBatch *frameBatch) {
     this->vehiclesFilter(frameBatch);
     return true;
 }
-
-/*
-void PlateRecognizeMxnetProcessor::setConfig(LPDRConfig_S *pstConfig) {
-    readModuleFile(config_->fcnnSymbolFile, config_->fcnnParamFile,
-                   &pstConfig->stFCNN, config_->is_model_encrypt);
-    pstConfig->stFCNN.adwShape[0] = config_->batchsize;
-    pstConfig->stFCNN.adwShape[1] = 1;    //channel
-    pstConfig->stFCNN.adwShape[2] = config_->imageSH;  //standard height .
-    pstConfig->stFCNN.adwShape[3] = config_->imageSW;  //standard width .
-
-    readModuleFile(config_->rpnSymbolFile, config_->rpnParamFile,
-                   &pstConfig->stRPN, config_->is_model_encrypt);
-    pstConfig->stRPN.adwShape[0] = pstConfig->stFCNN.adwShape[0];
-    pstConfig->stRPN.adwShape[1] = config_->numsPlates;//number of plates per image; .
-    pstConfig->stRPN.adwShape[2] = 1;
-    pstConfig->stRPN.adwShape[3] = config_->plateSH;// .
-    pstConfig->stRPN.adwShape[4] = config_->plateSW;// .
-
-    readModuleFile(config_->roipSymbolFile, config_->roipParamFile,
-                   &pstConfig->stROIP, config_->is_model_encrypt);
-    pstConfig->stROIP.adwShape[0] = pstConfig->stRPN.adwShape[0]
-                                    * pstConfig->stRPN.adwShape[1];
-    pstConfig->stROIP.adwShape[1] = 0;
-    pstConfig->stROIP.adwShape[2] = 0;
-    pstConfig->stROIP.adwShape[3] = 0;
-    pstConfig->stROIP.adwShape[4] = pstConfig->stROIP.adwShape[0];
-    pstConfig->stROIP.adwShape[5] = config_->numsProposal;//split to 20 small picture   proposal number of the image .
-    pstConfig->stROIP.adwShape[6] = 5;
-
-    readModuleFile(config_->pregSymbolFile, config_->pregParamFile,
-                   &pstConfig->stPREG, config_->is_model_encrypt);
-    pstConfig->stPREG.adwShape[0] = 1;
-    pstConfig->stPREG.adwShape[1] = 1;
-    pstConfig->stPREG.adwShape[2] = 64;
-    pstConfig->stPREG.adwShape[3] = 64 * 2;
-
-    readModuleFile(config_->chrecogSymbolFile, config_->chrecogParamFile,
-                   &pstConfig->stCHRECOG, config_->is_model_encrypt);
-    pstConfig->stCHRECOG.adwShape[0] = 50;
-    pstConfig->stCHRECOG.adwShape[1] = 1;
-    pstConfig->stCHRECOG.adwShape[2] = 32;
-    pstConfig->stCHRECOG.adwShape[3] = 32;
-
-
-    readModuleFile(config_->colorSymbolFile, config_->colorParamFile,
-                   &pstConfig->stCOLOR, config_->is_model_encrypt);
-    pstConfig->stCOLOR.adwShape[0] = 1;
-    pstConfig->stCOLOR.adwShape[1] = 3;
-    pstConfig->stCOLOR.adwShape[2] = 32;
-    pstConfig->stCOLOR.adwShape[3] = 32 * 4;
-
-    pstConfig->dwDevType = 2;
-    pstConfig->dwDevID = config_->gpuId;
-
-    batch_size_ = config_->batchsize;
-    enable_local_province_ = config_->enableLocalProvince;
-    local_province_ = config_->localProvinceText;
-    local_province_confidence_ = config_->localProvinceConfidence;
-}
-*/
 
 void PlateRecognizeMxnetProcessor::vehiclesFilter(FrameBatch *frameBatch) {
     /*   images_.clear();

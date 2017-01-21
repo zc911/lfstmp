@@ -147,14 +147,17 @@ static int readBinFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen
     return 0;
 }
 static Mat CutImage(const Mat &src, const Box &box) {
-    Mat dst(box.height, box.width, CV_8UC3);
-    for (int i = 0; i < box.height; i++) {
-        memcpy(dst.data + 3 * (i * box.width),
-               src.data + 3 * (box.x + src.cols * i + src.cols * box.y),
-               sizeof(uchar) * 3 * box.width);
+
+    Box insectBox = box & cv::Rect(0, 0, src.cols, src.rows);
+    if (insectBox.width == 0) {
+        insectBox.width = 1;
+    }
+    if (insectBox.height == 0) {
+        insectBox.height = 1;
     }
 
-    return dst;
+    return src(insectBox).clone();
+
 }
 static int readTxtFileAuto(const char *pbyFN, char **ppbyBuffer, int *pdwBufflen, bool is_encrypt_enabled) {
     char *pbyBuffer = 0;

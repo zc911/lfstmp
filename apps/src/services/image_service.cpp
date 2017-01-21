@@ -198,7 +198,7 @@ MatrixError ImageService::getMarginROIs(
 static void decodeDataToMat(vector<uchar> &data, cv::Mat &imgMat) {
     if (data.size() >= 0) {
         try {
-            imgMat = ::cv::imdecode(::cv::Mat(data), 1);
+            imgMat = ::cv::imdecode(::cv::Mat(data), CV_LOAD_IMAGE_COLOR);
         } catch (exception &e) {
             LOG(WARNING) << "decode image failed: " << e.what() << endl;
         }
@@ -229,6 +229,7 @@ MatrixError ImageService::getImageFromUri(const string uri, ::cv::Mat &imgMat,
     if (ret == 0) {
         decodeDataToMat(bin, imgMat);
     } else {
+        LOG(ERROR) << "Read image failed: " + uri << endl;
         ok.set_code(-1);
         ok.set_message("Read image failed: " + uri);
         return ok;

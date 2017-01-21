@@ -103,7 +103,6 @@ bool VehicleMultiTypeDetectorProcessor::process(FrameBatch *frameBatch) {
                     << endl;
                 continue;
             }
-
             Detection d = ConvertDgvehicleDetection(imageDetection[j]);
             if (!roiFilter(frame->get_rois(), d.box()))
                 continue;

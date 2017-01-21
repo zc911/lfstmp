@@ -187,33 +187,34 @@ void WitnessEngine::initFeatureOptions(const Config &config) {
 
 #else
     enable_vehicle_detect_ = (bool) config.Value(
-                                 FEATURE_VEHICLE_ENABLE_DETECTION) && (CheckFeature(FEATURE_CAR_DETECTION, false) == ERR_FEATURE_ON);
-    enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE) && (CheckFeature(FEATURE_CAR_STYLE, false) == ERR_FEATURE_ON);
+                                 FEATURE_VEHICLE_ENABLE_DETECTION) & (CheckFeature(FEATURE_CAR_DETECTION, false) == ERR_FEATURE_ON);
+    enable_vehicle_type_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_TYPE) & (CheckFeature(FEATURE_CAR_STYLE, false) == ERR_FEATURE_ON);
 
-    enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR) && (CheckFeature(FEATURE_CAR_COLOR, false) == ERR_FEATURE_ON);
-    enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE) && (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
+    enable_vehicle_color_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_COLOR) & (CheckFeature(FEATURE_CAR_COLOR, false) == ERR_FEATURE_ON);
+    enable_vehicle_plate_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_PLATE) & (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
     enable_vehicle_plate_gpu_ = (bool) config.Value(
-                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE) && (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
+                                    FEATURE_VEHICLE_ENABLE_GPU_PLATE) & (CheckFeature(FEATURE_CAR_PLATE, false) == ERR_FEATURE_ON);
 
-    enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
+    enable_vehicle_marker_ = (bool) config.Value(FEATURE_VEHICLE_ENABLE_MARKER) & (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
     enable_vehicle_feature_vector_ = (bool) config.Value(
-                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_CAR_EXTRACT, false) == ERR_FEATURE_ON);
+                                         FEATURE_VEHICLE_ENABLE_FEATURE_VECTOR) & (CheckFeature(FEATURE_CAR_EXTRACT, false) == ERR_FEATURE_ON);
     enable_vehicle_pedestrian_attr_ = (bool) config.Value(
-                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR) && (CheckFeature(FEATURE_CAR_PEDESTRIAN_ATTR, false) == ERR_FEATURE_ON);
+                                          FEATURE_VEHICLE_ENABLE_PEDISTRIAN_ATTR) & (CheckFeature(FEATURE_CAR_PEDESTRIAN_ATTR, false) == ERR_FEATURE_ON);
 
     enable_face_detect_ = (bool) config.Value(
-                              FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+                              FEATURE_FACE_ENABLE_FEATURE_VECTOR) & (CheckFeature(FEATURE_FACE_DETECTION, false) == ERR_FEATURE_ON);
+    enable_face_alignment_ = (bool) config.Value(FEATURE_FACE_ENABLE_ALIGNMENT);
     enable_face_quality_ = (bool) config.Value( FEATURE_FACE_ENABLE_QUALITY);
     enable_face_pose_ = (bool) config.Value( FEATURE_FACE_ENABLE_POSE);
 
     enable_face_feature_vector_ = (bool) config.Value(
-                                      FEATURE_FACE_ENABLE_FEATURE_VECTOR) && (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
+                                      FEATURE_FACE_ENABLE_FEATURE_VECTOR) & (CheckFeature(FEATURE_FACE_EXTRACT, false) == ERR_FEATURE_ON);
     enable_vehicle_driver_belt_ = (bool) config.Value(
-                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT) && (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
+                                      FEATURE_VEHICLE_ENABLE_DRIVERBELT) & (CheckFeature(FEATURE_CAR_MARK, false) == ERR_FEATURE_ON);
     enable_vehicle_codriver_belt_ = (bool) config.Value(
-                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT) && (CheckFeature(FEATURE_CAR_BEHAVIOR_PHONE, false) == ERR_FEATURE_ON);
+                                        FEATURE_VEHICLE_ENABLE_CODRIVERBELT) & (CheckFeature(FEATURE_CAR_BEHAVIOR_PHONE, false) == ERR_FEATURE_ON);
     enable_vehicle_driver_phone_ = (bool) config.Value(
-                                       FEATURE_VEHICLE_ENABLE_PHONE) && (CheckFeature(FEATURE_CAR_BEHAVIOR_NOBELT, false) == ERR_FEATURE_ON);
+                                       FEATURE_VEHICLE_ENABLE_PHONE) & (CheckFeature(FEATURE_CAR_BEHAVIOR_NOBELT, false) == ERR_FEATURE_ON);
 #endif
 
 }

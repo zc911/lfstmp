@@ -27,7 +27,7 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
 
     for (vector<Object *>::iterator itr = to_processed_.begin(); itr != to_processed_.end(); itr++) {
 
-        Face *face = (Face *)(*itr);
+        Face *face = (Face * )(*itr);
         Mat faceImg = face->image();
 
 
@@ -42,8 +42,13 @@ bool FaceQualityProcessor::process(FrameBatch *frameBatch) {
         face->set_qualities(Face::BlurM, blur_score);
 
         // get face pose
-        vector<float> scores = pose_quality_->quality(face->get_align_result());
-        face->set_pose(scores);
+        if(face->get_align_result().landmarks.size() != 0){
+            vector<float> scores = pose_quality_->quality(face->get_align_result());
+            face->set_pose(scores);
+        }else{
+            LOG(ERROR) << "There is not align result for face " << face->id() << endl;
+        }
+
 
         performance_++;
     }
