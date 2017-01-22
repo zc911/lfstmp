@@ -12,13 +12,13 @@
   },
   "RankerType": "face",
   "Pack":{
-    "Enable":false,
-    "BatchSize":1,
-    "TimeOut":100
+    "Enable": true,
+    "BatchSize": 8,
+    "TimeOut": 100
   },
   "Feature": {
     "Vehicle": {
-      "Enable": false,
+      "Enable": true,
       "EnableDetection": true,
       "EnableType": true,
       "EnableColor": true,
@@ -76,7 +76,6 @@
       "BlurThreshold": 0
     },
     "FaceExtract": {
-      "BatchSize": 1,
       "Method": 3,
       "BatchSize": 8,
       "EnableConcurrency": false
@@ -89,7 +88,7 @@
       "FeatureLen": 128,
       "SaveToFile": true,
       "SaveToFileIterval": 10000, // seconds
-      "RepoPath": "./repo/shenyang",
+      "RepoPath": "./repo/test",
       // must be absolutely path if use file://
       "ImageRootPath": "file:///home/chenzhen/Workspace/cpp/Matrix/apps/bin/Debug/repo/dgface/"
     },
