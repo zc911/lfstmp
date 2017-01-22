@@ -321,13 +321,13 @@ SSDDetector::SSDDetector(int img_scale_max,
 						int batch_size)
 						:Detector(img_scale_max, img_scale_min, is_encrypt), 
 						_net(nullptr), _gpuid(gpu_id) {
-device_setted_ = false;						
+	device_setted_ = false;						
 	if (_gpuid < 0) {
 		_useGPU = false;
 		Caffe::set_mode(Caffe::CPU);
 	} else {
-	_useGPU = true;
-Caffe::SetDevice(gpu_id);
+		_useGPU = true;
+		Caffe::SetDevice(gpu_id);
 		Caffe::set_mode(Caffe::GPU);
 	}
 
@@ -596,78 +596,56 @@ Caffe::SetDevice(_gpuid);
 }
 
 /*====================== fcn detector ======================== */
-/*
-FcnDetector::FcnDetector(int img_scale_max, int img_scale_min,std::string deploy_file, std::string model_file, int gpu_id)
-                : Detector(img_scale_max, img_scale_min) {
+FcnDetector::FcnDetector(int img_scale_max, 
+			int img_scale_min, 
+			const std::string& model_dir, 
+			int gpu_id, 
+			bool is_encrypt, 
+			int batch_size)
+                	: Detector(img_scale_max, img_scale_min, is_encrypt),
+			_min_det_face_size(24), _max_det_face_size(-1), 
+			_min_scale_face_to_img(0.1), _gpuid(gpu_id) {
 
-    int argc = 1;
-    char* argv[] = {""};
-    vis::initcaffeglobal(argc, argv, gpu_id);
-    _fcn_detecror = new FCNFaceDetector(deploy_file,model_file);
+    _device_setted_ = false;						
+    if (_gpuid < 0) {
+	_useGPU = false;
+	Caffe::set_mode(Caffe::CPU);
+    } else {
+	_useGPU = true;
+	Caffe::SetDevice(gpu_id);
+	Caffe::set_mode(Caffe::GPU);
+    }
 
-}
-*/
-
-/*
-FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, int gpu_id)
-                : Detector(img_scale_max, img_scale_min) {
-
-    int argc = 1;
-    char* argv[] = {""};
-    vis::initcaffeglobal(argc, argv, gpu_id);
+    int _batch_size = batch_size;
 	
-	string cfg_file;
-	string deploy_file, model_file;
-	addNameToPath(model_dir, "/det_fcn.cfg", cfg_file);	
-	ParseConfigFile(cfg_file, deploy_file, model_file);
+    string cfg_file;
+    string deploy_file, model_file;
+    addNameToPath(model_dir, "/det_fcn.json", cfg_file);	
+    
+    ParseConfigFile(cfg_file, deploy_file, model_file);
+    
+    string full_deploy_file, full_model_file;
+    addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
+    addNameToPath(model_dir, "/" + model_file, full_model_file);
+    
+    string full_deploy_content, full_model_content;
+    int ret = 0;
+    ret = getFileContent(full_deploy_file, is_encrypt, full_deploy_content);
+    if(ret != 0) {
+    	cout << "failed decrypt " << full_deploy_file << endl;
+    	throw new runtime_error("decrypt failed!");
+    }
+    ret = getFileContent(full_model_file, is_encrypt, full_model_content);
+    if(ret != 0) {
+    	cout << "failed decrypt " << full_model_file << endl;
+    	throw new runtime_error("decrypt failed!");
+    }
 
-	string full_deploy_file, full_model_file;
-	addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
-	addNameToPath(model_dir, "/" + model_file, full_model_file);
-	
-    _fcn_detecror = new FCNFaceDetector(full_deploy_file,full_model_file);
+    /* Load the network. */
+    _net.reset(new Net<float>(full_deploy_file, full_deploy_content, TEST));
+    _net->CopyTrainedLayersFrom(full_model_file, full_model_content);
 
-}
-*/
-
-FcnDetector::FcnDetector(int img_scale_max, int img_scale_min, const std::string& model_dir, 
-						int gpu_id, bool is_encrypt, int batch_size)
-                : Detector(img_scale_max, img_scale_min, is_encrypt),
-					_min_det_face_size(24), _max_det_face_size(-1), 
-					_min_scale_face_to_img(0.1) {
-
-    int argc = 1;
-    char* argv[] = {""};
-    vis::initcaffeglobal(argc, argv, gpu_id);
-	int _batch_size = batch_size;
-	
-	string cfg_file;
-	string deploy_file, model_file;
-	addNameToPath(model_dir, "/det_fcn.json", cfg_file);	
-	
-	ParseConfigFile(cfg_file, deploy_file, model_file);
-
-	string full_deploy_file, full_model_file;
-	addNameToPath(model_dir, "/" + deploy_file, full_deploy_file);
-	addNameToPath(model_dir, "/" + model_file, full_model_file);
-
-	string full_deploy_content, full_model_content;
-	int ret = 0;
-	ret = getFileContent(full_deploy_file, is_encrypt, full_deploy_content);
-	if(ret != 0) {
-		cout << "failed decrypt " << full_deploy_file << endl;
-		throw new runtime_error("decrypt failed!");
-	}
-	ret = getFileContent(full_model_file, is_encrypt, full_model_content);
-	if(ret != 0) {
-		cout << "failed decrypt " << full_model_file << endl;
-		throw new runtime_error("decrypt failed!");
-	}
-	
-	vector<string> deploy_file_content {full_deploy_file, full_deploy_content};
-	vector<string> model_file_content {full_model_file, full_model_content};
-    _fcn_detecror = new FCNFaceDetector(deploy_file_content, model_file_content);
-
+    _pryd_db = new db::PyramidDenseBox(_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
 }
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
@@ -709,8 +687,8 @@ void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& 
 }
 
 FcnDetector::~FcnDetector() {
-    if (_fcn_detecror) {
-        delete _fcn_detecror;
+    if(_pryd_db) {
+    	delete _pryd_db;
     }
 }
 
@@ -735,124 +713,106 @@ RotatedRect cvtDetectInfoToRotatedRect(const DetectedFaceInfo& det_info) {
     return RotatedRect(Point2f(rbox[0], rbox[1]), Size2f(rbox[2], rbox[3]), rbox[4]);
 }
 
-#define FCN_BATCH
-#ifndef FCN_BATCH
-void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
-{
+RotatedBbox cvtPyrdBoxToRotatedBbox(const db::RotateBBox<float>& rBBox) {
+    RotatedBbox output_bbox;
+    output_bbox.first = rBBox.score;
+    float bbox_width = std::sqrt( (rBBox.rt_x - rBBox.lt_x)*(rBBox.rt_x - rBBox.lt_x)
+	         		+ (rBBox.rt_y - rBBox.lt_y)*(rBBox.rt_y - rBBox.lt_y) );
+    output_bbox.second.size.width = bbox_width;
+    output_bbox.second.size.height = bbox_width;
+
+    float degree_rad  = std::atan2( rBBox.rt_y-rBBox.lt_y, rBBox.rt_x-rBBox.lt_x );
+    float cos_degree = cos(degree_rad),
+          sin_degree = sin(degree_rad);
+
+    float center_x = rBBox.lt_x + (cos_degree - sin_degree) * bbox_width /2;
+    float center_y = rBBox.lt_y + (sin_degree + cos_degree) * bbox_width /2;
+    output_bbox.second.center.x = center_x;
+    output_bbox.second.center.y = center_y;
+
+    float degree = degree_rad * 180 / CV_PI;
+    output_bbox.second.angle = degree>0 ? (degree+0.5) : (degree-0.5);
+    
+    return output_bbox;
+}
+
+void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results) {
     results.resize(imgs.size());
-    for (size_t i = 0; i < imgs.size(); ++i) {
-        // prepare image
-        Mat img_copy = imgs[i].clone();
-        IplImage ipl_img = img_copy;
-        // prepare detection results vector
-        vector<DetectedFaceInfo> detectInfos;
+    
+    vector<vector< db::RotateBBox<float> > > rotateFaces;
+    _pryd_db->predictPyramidDenseBox(_net, imgs, rotateFaces);
 
-        // detect
-        // _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
-        _fcn_detecror->Detect(&ipl_img, _param, detectInfos, 
-						_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
-
-        // convert results
-        for (size_t result_idx = 0; result_idx < detectInfos.size(); ++result_idx) {
-            RotatedRect rot_rect = cvtDetectInfoToRotatedRect(detectInfos[result_idx]);
-            auto confidence = detectInfos[result_idx].conf;
-            results[i].boundingBox.push_back(make_pair(static_cast<float>(confidence),rot_rect));
-        }
-
+    for(size_t i = 0; i < results.size(); ++i) {
+	const auto& one_img_rotFaces = rotateFaces[i];
+    	for(size_t j = 0; j < one_img_rotFaces.size(); ++j) {
+	    results[i].boundingBox.push_back(cvtPyrdBoxToRotatedBbox(one_img_rotFaces[j]));
+	}
     }
-
 }
-#else
-void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
-{
-    results.resize(imgs.size());
 
-	// prepare image
-	vector<IplImage*> ipl_imgs;
-    for (size_t i = 0; i < imgs.size(); ++i) {
-		IplImage ipl_tmp = IplImage(imgs[i]);
-		IplImage* ipl_store = cvCreateImage(cvSize(imgs[i].cols, imgs[i].rows),8,imgs[i].channels());
-		cvCopy(&ipl_tmp, ipl_store);
-		ipl_imgs.push_back(ipl_store);
-	}
-	
-	vector<vector<DetectedFaceInfo> > detectInfos;
-    // detect
-    _fcn_detecror->Detect(ipl_imgs, _param, detectInfos, 
-				     _min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
-
-    // convert results
-    for (size_t i = 0; i < imgs.size(); ++i) {
-		const auto& one_img_detectInfo = detectInfos[i];
-        for (size_t result_idx = 0; result_idx < one_img_detectInfo.size(); ++result_idx) {
-            RotatedRect rot_rect = cvtDetectInfoToRotatedRect(one_img_detectInfo[result_idx]);
-            auto confidence = one_img_detectInfo[result_idx].conf;
-            results[i].boundingBox.push_back(make_pair(static_cast<float>(confidence),rot_rect));
-        }
-	}
-	
-    for (size_t i = 0; i < imgs.size(); ++i) {
-			cvReleaseImage(&(ipl_imgs[i]));
-	}
-}
-#endif
+// #define FCN_BATCH
+// #ifndef FCN_BATCH
+// void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
+// {
+//     results.resize(imgs.size());
+//     for (size_t i = 0; i < imgs.size(); ++i) {
+//         // prepare image
+//         Mat img_copy = imgs[i].clone();
+//         IplImage ipl_img = img_copy;
+//         // prepare detection results vector
+//         vector<DetectedFaceInfo> detectInfos;
+// 
+//         // detect
+//         // _fcn_detecror->Detect(&ipl_img, _param, detectInfos);
+//         _fcn_detecror->Detect(&ipl_img, _param, detectInfos, 
+// 						_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
+// 
+//         // convert results
+//         for (size_t result_idx = 0; result_idx < detectInfos.size(); ++result_idx) {
+//             RotatedRect rot_rect = cvtDetectInfoToRotatedRect(detectInfos[result_idx]);
+//             auto confidence = detectInfos[result_idx].conf;
+//             results[i].boundingBox.push_back(make_pair(static_cast<float>(confidence),rot_rect));
+//         }
+// 
+//     }
+// 
+// }
+// #else
+// void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results)
+// {
+//     results.resize(imgs.size());
+// 
+// 	// prepare image
+// 	vector<IplImage*> ipl_imgs;
+//     for (size_t i = 0; i < imgs.size(); ++i) {
+// 		IplImage ipl_tmp = IplImage(imgs[i]);
+// 		IplImage* ipl_store = cvCreateImage(cvSize(imgs[i].cols, imgs[i].rows),8,imgs[i].channels());
+// 		cvCopy(&ipl_tmp, ipl_store);
+// 		ipl_imgs.push_back(ipl_store);
+// 	}
+// 	
+// 	vector<vector<DetectedFaceInfo> > detectInfos;
+//     // detect
+//     _fcn_detecror->Detect(ipl_imgs, _param, detectInfos, 
+// 				     _min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
+// 
+//     // convert results
+//     for (size_t i = 0; i < imgs.size(); ++i) {
+// 		const auto& one_img_detectInfo = detectInfos[i];
+//         for (size_t result_idx = 0; result_idx < one_img_detectInfo.size(); ++result_idx) {
+//             RotatedRect rot_rect = cvtDetectInfoToRotatedRect(one_img_detectInfo[result_idx]);
+//             auto confidence = one_img_detectInfo[result_idx].conf;
+//             results[i].boundingBox.push_back(make_pair(static_cast<float>(confidence),rot_rect));
+//         }
+// 	}
+// 	
+//     for (size_t i = 0; i < imgs.size(); ++i) {
+// 			cvReleaseImage(&(ipl_imgs[i]));
+// 	}
+// }
+// #endif
 
 /*====================== select detector ======================== */
-/*----------------------
-Detector *create_detector(const string &prefix) {
-    Config *config    = Config::instance();
-    string type       = config->GetConfig<string>(prefix + "detector", "dlib");
-    int img_scale_max = config->GetConfig(prefix + "detector.img_scale_max", 720);
-    int img_scale_min = config->GetConfig(prefix + "detector.img_scale_min", 240);
-    cout << img_scale_max << ", " << img_scale_min << endl;
-
-    if (type == "dlib") {
-		throw new runtime_error("don't use dlib!");
-        return new DlibDetector(img_scale_max, img_scale_min);
-	}
-    else if (type == "rpn") {
-		throw new runtime_error("don't use rpn!");
-        string model_file     = config->GetConfig<string>(prefix + "detector.rpn.model_file");
-        string trained_file   = config->GetConfig<string>(prefix + "detector.rpn.trained_file");
-        string layer_name_cls = config->GetConfig<string>(prefix + "detector.rpn.layer_name_cls");
-        string layer_name_reg = config->GetConfig<string>(prefix + "detector.rpn.layer_name_reg");
-        float det_thresh      = config->GetConfig(prefix + "detector.rpn.det_thresh", 0.8f);
-        size_t max_per_img    = config->GetConfig(prefix + "detector.rpn.max_per_img", 100);
-        size_t stride         = config->GetConfig(prefix + "detector.rpn.stride", 16);
-        float pixel_scale     = config->GetConfig(prefix + "detector.rpn.pixel_scale", 1.0f);
-        bool use_GPU          = config->GetConfig(prefix + "detector.rpn.use_GPU", true);
-        int  gpu_id           = config->GetConfig(prefix + "detector.rpn.gpu_id", 0);
-        vector<float> area    = config->GetConfigArr(prefix + "detector.area",
-                vector<float> {576, 1152, 2304, 4608, 9216, 36864, 147456});
-        vector<float> ratio   = config->GetConfigArr(prefix + "detector.ratio",
-                vector<float> {2, 1, 0.5});
-        vector<float> mean    = config->GetConfigArr(prefix + "detector.rpn.mean", vector<float> {128, 128, 128});
-        
-        return new RpnDetector(img_scale_max, img_scale_min, model_file, trained_file,
-                layer_name_cls, layer_name_reg, area, ratio, mean, 
-                det_thresh, max_per_img, stride, pixel_scale, use_GPU, gpu_id);
-    }
-    else if (type == "ssd") {
-		throw new runtime_error("don't use ssd!");
-        string model_file     = config->GetConfig<string>(prefix + "detector.ssd.model_file");
-        string trained_file   = config->GetConfig<string>(prefix + "detector.ssd.trained_file");
-        float det_thresh      = config->GetConfig(prefix + "detector.ssd.det_thresh", 0.8f);
-        float pixel_scale     = config->GetConfig(prefix + "detector.ssd.pixel_scale", 1.0f);
-        bool use_GPU          = config->GetConfig(prefix + "detector.ssd.use_GPU", true);
-        int  gpu_id           = config->GetConfig(prefix + "detector.ssd.gpu_id", 0);
-        vector<float> mean    = config->GetConfigArr(prefix + "detector.ssd.mean", vector<float> {104, 117, 123});
-        
-        return new SSDDetector(img_scale_max, img_scale_min, model_file, trained_file,
-                mean, det_thresh, pixel_scale, use_GPU, gpu_id);
-    }
-    else if (type == "fcn") {
-		string model_dir = config->GetConfig<string>(prefix + "detector.fcn.model_dir");
-        int gpu_id          = config->GetConfig(prefix + "detector.fcn.gpu_id", 0);// -1 for CPU, 0~3 for GPU
-        return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id);
-    }
-    throw new runtime_error("unknown detector");
-}
-*/
 
 Detector *create_detector_with_global_dir(const det_method& method, 
 										const string& global_dir,
