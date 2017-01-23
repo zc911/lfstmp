@@ -643,9 +643,15 @@ FcnDetector::FcnDetector(int img_scale_max,
 
     /* Load the network. */
     _net.reset(new Net<float>(full_deploy_file, full_deploy_content, TEST));
+    LOG(INFO) << "Load file " << full_deploy_file;
+
     _net->CopyTrainedLayersFrom(full_model_file, full_model_content);
+    LOG(INFO) << "Load file " << full_model_file;
 
     _pryd_db = new db::PyramidDenseBox(_min_det_face_size, _max_det_face_size, _min_scale_face_to_img);
+    assert(_pryd_db != nullptr);
+
+    LOG(INFO) << "FCN Initialized";
 }
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
@@ -722,8 +728,8 @@ RotatedBbox cvtPyrdBoxToRotatedBbox(const db::RotateBBox<float>& rBBox) {
     output_bbox.second.size.height = bbox_width;
 
     float degree_rad  = std::atan2( rBBox.rt_y-rBBox.lt_y, rBBox.rt_x-rBBox.lt_x );
-    float cos_degree = cos(degree_rad),
-          sin_degree = sin(degree_rad);
+    float cos_degree = std::cos(degree_rad),
+          sin_degree = std::sin(degree_rad);
 
     float center_x = rBBox.lt_x + (cos_degree - sin_degree) * bbox_width /2;
     float center_y = rBBox.lt_y + (sin_degree + cos_degree) * bbox_width /2;
@@ -815,10 +821,10 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 /*====================== select detector ======================== */
 
 Detector *create_detector_with_global_dir(const det_method& method, 
-										const string& global_dir,
-										int gpu_id, 
-										bool is_encrypt, 
-										int batch_size) {
+					const string& global_dir,
+					int gpu_id, 
+					bool is_encrypt, 
+					int batch_size) {
 
 const std::map<det_method, std::string> det_map {
 	{det_method::DLIB, "DLIB"},
@@ -880,8 +886,8 @@ Detector *create_detector(const det_method& method,
 	switch(method) {
 		case det_method::FCN: {
 			return new FcnDetector(img_scale_max, img_scale_min, model_dir, gpu_id, is_encrypt, batch_size);
-	break;
-}
+			break;
+		}
 		case det_method::DLIB: {
 			throw new runtime_error("don't use dlib!");
 			break;
