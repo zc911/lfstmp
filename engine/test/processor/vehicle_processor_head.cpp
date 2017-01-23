@@ -16,7 +16,7 @@ VehicleProcessorHead::~VehicleProcessorHead() {
 
 void VehicleProcessorHead::init() {
     dgvehicle::AlgorithmFactory::GetInstance()->Initialize("data/dgvehicle", 0, false);
-    processor = new VehicleMultiTypeDetectorProcessor(false, false);
+    processor = new VehicleMultiTypeDetectorProcessor(false, false, false);
     dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 }
 

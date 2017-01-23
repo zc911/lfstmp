@@ -138,9 +138,10 @@
     ],
     "Enabled": false
   },
+  "DemoEnable": false,
   "ModelPath":{
     "dgvehicle": "data/dgvehicle",
-    "dgLP":"data/dgLP",
+    "dgLP":"data/dgLP/Product",
     "dgface":"data/dgface"
   }
 }

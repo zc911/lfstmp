@@ -67,12 +67,13 @@ private:
 
         int gpu_id = (bool) config.Value(SYSTEM_GPUID);
         bool is_encrypted = (bool) config.Value(DEBUG_MODEL_ENCRYPT);
+        bool enable_demo = (bool) config.Value(DEMO_ENABLE);
         string dgvehiclePath = (string) config.Value(DGVEHICLE_MODEL_PATH);
         dgvehicle::AlgorithmFactory::GetInstance()->Initialize(dgvehiclePath, gpu_id, is_encrypted);
 
 //        bool car_only = (bool) config.Value(ADVANCED_DETECTION_CAR_ONLY);
         bool car_only = false;
-        processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false);
+        processor_ = new VehicleMultiTypeDetectorProcessor(car_only, false, enable_demo);
 
         dgvehicle::AlgorithmFactory::GetInstance()->ReleaseUselessModel();
 

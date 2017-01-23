@@ -8,11 +8,10 @@
 using namespace dgvehicle;
 namespace dg {
 
-VehicleClassifierProcessor::VehicleClassifierProcessor(string &mappingFilePath, bool encrypt) {
+VehicleClassifierProcessor::VehicleClassifierProcessor(string &mappingFilePath) {
 
     AlgorithmFactory::GetInstance()->CreateBatchProcessor(AlgorithmProcessorType::c_vehicleCaffeClassifier,
-                                                          classifiers_,
-                                                          encrypt);
+                                                          classifiers_);
 
     initIsHeadRepo(mappingFilePath);
 }

@@ -18,7 +18,7 @@ namespace dg {
 class VehicleClassifierProcessor: public Processor {
  public:
 
-    VehicleClassifierProcessor(string &mappingFilePath, bool encrypt = false);
+    VehicleClassifierProcessor(string &mappingFilePath);
 
     ~VehicleClassifierProcessor();
 
