@@ -9,10 +9,13 @@
 #define PROCESSOR_H_
 #include <sys/file.h>
 #include <atomic>
+#include <sys/time.h>
 #include "model/basic.h"
 #include "model/model.h"
 #include "model/frame.h"
 #include "log/log_val.h"
+#include "debug_util.h"
+
 
 namespace dg {
 
@@ -20,7 +23,7 @@ namespace dg {
 /// interfaces each derived processor must to implement.
 const int RECORD_UNIT = 1000;
 class Processor {
-public:
+ public:
     Processor()
         : next_(0), performance_(0) {
 
@@ -45,7 +48,10 @@ public:
 /// Update the input Frame.
     virtual void Update(Frame *frame) {
         if (beforeUpdate(frame)) {
+            gettimeofday(&start_ts_, NULL);
             process(frame);
+            gettimeofday(&end_ts_, NULL);
+            printProcessorCost();
         }
         processNext(frame);
     }
@@ -54,12 +60,15 @@ public:
 /// A FrameBatch is a package of one or more Frame.
     virtual void Update(FrameBatch *frameBatch) {
         if (beforeUpdate(frameBatch)) {
+            gettimeofday(&start_ts_, NULL);
             process(frameBatch);
+            gettimeofday(&end_ts_, NULL);
+            printProcessorCost();
         }
         processNext(frameBatch);
     }
 
-protected:
+ protected:
     /// The interfaces derived class must to implement
     virtual bool beforeUpdate(Frame *frame) { return true; }
     virtual bool beforeUpdate(FrameBatch *frameBatch) { return true; };
@@ -71,7 +80,7 @@ protected:
     virtual bool checkStatus(FrameBatch *frameBatch) { return true; };
 
 
-private:
+ private:
 /// This method will invoke the next processor chained to the
 /// current processor.
 /// Each processor must invoke Proceed to drive the engine running.
@@ -89,10 +98,18 @@ private:
         }
     }
     virtual bool RecordFeaturePerformance() = 0;
+    virtual string processorName() = 0;
 
-protected:
+    inline void printProcessorCost() {
+        VLOG(VLOG_PROCESS_COST)
+        << "Processor " << processorName() << " cost " << TimeCostInMs(start_ts_, end_ts_) << "ms" << endl;
+    }
+
+ protected:
     Processor *next_;
     unsigned long long performance_;
+    struct timeval start_ts_;
+    struct timeval end_ts_;
 };
 }
 #endif /* PROCESSOR_H_ */

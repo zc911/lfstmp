@@ -662,7 +662,6 @@ MatrixError WitnessAppsService::BatchRecognize(
 
     struct timeval start, end;
     gettimeofday(&start, NULL);
-    gettimeofday(&start, NULL);
     //fill response
     WitnessResponseContext *ctx = batchResponse->mutable_context();
     ctx->set_sessionid(sessionid);
@@ -751,7 +750,7 @@ MatrixError WitnessAppsService::BatchRecognize(
     }
 
     gettimeofday(&end, NULL);
-    VLOG(VLOG_PROCESS_COST) << "Parse batch Image cost: " << TimeCostInMs(start, end) << endl;
+    VLOG(VLOG_PROCESS_COST) << "Load and parse input images cost: " << TimeCostInMs(start, end) << endl;
 
     gettimeofday(&start, NULL);
 
@@ -773,13 +772,9 @@ MatrixError WitnessAppsService::BatchRecognize(
         return err;
     }
 
-    engine_pool->enqueue(&data);
     gettimeofday(&start, NULL);
-
+    engine_pool->enqueue(&data);
     data.Wait();
-
-
-    // rec_lock_.unlock();
     gettimeofday(&end, NULL);
     VLOG(VLOG_PROCESS_COST) << "Rec batch Image cost(pure): " << TimeCostInMs(start, end) << endl;
 

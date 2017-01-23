@@ -32,6 +32,9 @@ protected:
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
 
+    virtual string processorName() {
+        return "VehicleBeltClassifierProcessor";
+    }
 
 private:
     dgvehicle::AlgorithmProcessor *belt_classifier_ = NULL;

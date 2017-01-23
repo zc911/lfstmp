@@ -35,6 +35,9 @@ protected:
 
     bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "VehicleMultiTypeDetectorProcessor";
+    }
 
 private:
 

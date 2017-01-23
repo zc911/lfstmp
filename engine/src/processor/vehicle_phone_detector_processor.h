@@ -26,6 +26,9 @@ protected:
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "VehiclePhoneClassifierProcessor";
+    }
 
 
 private:

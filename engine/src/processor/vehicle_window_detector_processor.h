@@ -22,6 +22,9 @@ protected:
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "VehicleWindowDetectorProcessor";
+    }
 
 private:
     dgvehicle::AlgorithmProcessor *ssd_window_detector_ = NULL;

@@ -38,6 +38,9 @@ protected:
 
     virtual bool RecordFeaturePerformance();
 
+    virtual string processorName() {
+        return "CarRankProcessor";
+    }
 private:
     dgvehicle::ICarMatcher *car_matcher_ = NULL;
     dgvehicle::ICarFeatureExtractor* car_feature_extractor_ = nullptr;

@@ -35,6 +35,11 @@ class PlateRecognizeMxnetProcessor: public Processor {
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+
+    virtual string processorName() {
+        return "PlateRecognizeMxnetProcessor";
+    }
+
  private:
     void vehiclesFilter(FrameBatch *frameBatch);
 

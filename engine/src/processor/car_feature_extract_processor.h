@@ -28,6 +28,9 @@ protected:
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "CarFeatureExtractProcessor";
+    }
 
 
 private:

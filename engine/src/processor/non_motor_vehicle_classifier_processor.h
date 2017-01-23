@@ -27,6 +27,9 @@ protected:
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "NonMotorVehicleClassifierProcessor";
+    }
 private:
     void vehiclesResizedMat(FrameBatch *frameBatch);
     dgvehicle::INonMotorVehicleClassifier *nonMotorVehicleClassifier = nullptr;

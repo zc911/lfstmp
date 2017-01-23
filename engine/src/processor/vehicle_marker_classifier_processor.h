@@ -31,6 +31,9 @@ protected:
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
 
+    virtual string processorName() {
+        return "VehicleMarkerClassifierProcessor";
+    }
 
 private:
     dgvehicle::IMarkerCaffeSsdDetector *ssd_marker_detector_ = NULL;

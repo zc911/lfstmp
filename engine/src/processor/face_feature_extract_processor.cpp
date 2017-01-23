@@ -39,6 +39,9 @@ FaceFeatureExtractProcessor::FaceFeatureExtractProcessor(
                 DGFace::create_recognition_with_global_dir(DGFace::recog_method::CDNN_CAFFE, config.model_dir,
                                                            config.gpu_id, false,
                                                            config.is_model_encrypt, config.batch_size);
+            cout << config.model_dir << " " <<
+                config.gpu_id << " " <<
+                config.is_model_encrypt << " " << config.batch_size << endl;
             break;
         }
         case RecognitionMethod::CdnnFuse: {

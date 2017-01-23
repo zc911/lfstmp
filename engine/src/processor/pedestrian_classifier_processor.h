@@ -30,7 +30,9 @@ protected:
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
-
+    virtual string processorName() {
+        return "PedestrianClassifierProcessor";
+    }
 private:
     dgvehicle::IPedestrianClassifier *classifier_ = NULL;
     vector<Object *> objs_;

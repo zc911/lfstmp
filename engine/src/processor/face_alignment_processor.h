@@ -33,7 +33,9 @@ class FaceAlignmentProcessor: public Processor {
     virtual bool RecordFeaturePerformance();
 
  private:
-
+    virtual string processorName() {
+        return "FaceAlignmentProcessor";
+    }
     bool process(Frame *frame);
     bool process(FrameBatch *frameBatch);
     bool beforeUpdate(FrameBatch *frameBatch);

@@ -75,7 +75,11 @@ protected:
     }
 protected:
     void vehiclesResizedMat(FrameBatch *frameBatch);
-private:
+    virtual string processorName() {
+        return "VehicleColorProcessor";
+    }
+
+ private:
 
     vector<dgvehicle::AlgorithmProcessor *> classifiers_;
     vector<Object *> objs_;

@@ -29,7 +29,9 @@ class FaceRankProcessor: public Processor {
 
 
     virtual bool RecordFeaturePerformance();
-
+    virtual string processorName() {
+        return "FaceRankProcessor";
+    }
  private:
     float alpha_;
     float beta_;

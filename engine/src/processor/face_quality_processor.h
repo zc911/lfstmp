@@ -33,7 +33,9 @@ class FaceQualityProcessor: public Processor {
 
     virtual bool RecordFeaturePerformance();
     virtual bool beforeUpdate(FrameBatch *frameBatch);
-
+    virtual string processorName() {
+        return "FaceQualityProcessor";
+    }
  private:
     vector<Object *> to_processed_;
     DGFace::Quality *blur_quality_;

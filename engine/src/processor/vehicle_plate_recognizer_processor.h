@@ -28,6 +28,9 @@ protected:
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "PlateRecognizerProcessor";
+    }
 
 private:
     void sharpenImage(const cv::Mat &image, cv::Mat &result);

@@ -29,6 +29,9 @@ class VehicleClassifierProcessor: public Processor {
     virtual bool process(FrameBatch *frameBatch);
     virtual bool beforeUpdate(FrameBatch *frameBatch);
     virtual bool RecordFeaturePerformance();
+    virtual string processorName() {
+        return "VehicleClassifierProcessor";
+    }
 
  private:
     void vehiclesResizedMat(FrameBatch *frameBatch);

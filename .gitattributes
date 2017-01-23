@@ -778,3 +778,6 @@ lib/watchdog/Linux-x86_64/libwatchdog.a filter=lfs diff=lfs merge=lfs -text
 data/dgface/model/detector/ssd/deploy.txt filter=lfs diff=lfs merge=lfs -text
 data/dgface/model/detector/ssd/det_ssd.json filter=lfs diff=lfs merge=lfs -text
 data/dgface/model/detector/ssd/model.dat filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/recognition/cdnn_caffe/0.1.0/deploy.txt filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/recognition/cdnn_caffe/0.1.0/model.dat filter=lfs diff=lfs merge=lfs -text
+data/dgface/model/recognition/cdnn_caffe/0.1.0/recog_cdnn_caffe.cfg filter=lfs diff=lfs merge=lfs -text

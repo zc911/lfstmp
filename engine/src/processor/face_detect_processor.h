@@ -44,6 +44,9 @@ class FaceDetectProcessor: public Processor {
 
     virtual bool RecordFeaturePerformance();
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual string processorName() {
+        return "FaceDetectProcessor";
+    }
     int DetectResult2Detection
         (const vector<DGFace::DetectResult> &detect_result, vector<vector<Detection> > &detections);
  private:

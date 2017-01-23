@@ -43,6 +43,9 @@ class FaceFeatureExtractProcessor: public Processor {
     virtual bool RecordFeaturePerformance();
 
     virtual bool beforeUpdate(FrameBatch *frameBatch);
+    virtual string processorName() {
+        return "FaceFeatureExtractProcessor";
+    }
     int toAlignmentImages(vector<Mat> &imgs, vector<DGFace::AlignResult> &align_results);
     int RecognResult2MatrixRecogn(const vector<DGFace::RecogResult> &recog_results, vector<FaceRankFeature> &features);
 
