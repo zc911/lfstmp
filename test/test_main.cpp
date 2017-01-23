@@ -103,7 +103,7 @@ int main(int argc, char const *argv[]) {
     cout << img_list.size() << endl;
     cout << splited_list.size() << endl;
 
-    Detector  *detector 		= create_detector(det_method::FCN, "../../data/model/detector/fcn/0.1.0", 0);
+    Detector  *detector 		= create_detector(det_method::FCN, "../../data/model/detector/fcn/0.1.0", 0, false, batch_size);
     // Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.0.3", 0);
     // Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd/0.0.4", 0);
 	// Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
