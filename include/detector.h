@@ -27,11 +27,14 @@ class Detector {
 
         // find landmark only -> landmarks
         //virtual void landmark_impl(const cv::Mat &img, std::vector<DetectResult> &result) = 0; 
-		bool _is_encrypt;
+	bool _is_encrypt;
     //private:
         int _img_scale_max; //maximum image edge size (the relative short edge)
         int _img_scale_min; //minimum image edge size (the relative long edge)
         cv::Size _max_image_size;
+
+	int _batch_img_height;
+	int _batch_img_width;
 
         void edge_complete(std::vector<cv::Mat> &imgs);
 };

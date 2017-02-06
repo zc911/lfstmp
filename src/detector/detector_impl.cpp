@@ -687,6 +687,13 @@ void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& 
 		_img_scale_min = 0;
 	}
 
+	if(!static_cast<string>(fcn_cfg.Value("batch_img_height")).empty()) {
+	    _batch_img_height = static_cast<int>(fcn_cfg.Value("batch_img_height"));
+	}
+	if(!static_cast<string>(fcn_cfg.Value("batch_img_width")).empty()) {
+	    _batch_img_width = static_cast<int>(fcn_cfg.Value("batch_img_width"));
+	}
+
 	_min_det_face_size = static_cast<int>(fcn_cfg.Value("min_det_face_size"));
 	_max_det_face_size = static_cast<int>(fcn_cfg.Value("max_det_face_size"));
 	_min_scale_face_to_img = static_cast<float>(fcn_cfg.Value("min_scale_face_to_img"));

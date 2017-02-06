@@ -116,7 +116,7 @@ int main(int argc, char const *argv[]) {
 
     vector<DetectResult> detect_results;
 
-    //chrono::duration<double> time_span(0.0);
+    chrono::duration<double> time_span(0.0);
     for(const auto& one_batch: splited_list) {
 
 	vector<Mat> imgs(one_batch.size());
@@ -124,13 +124,13 @@ int main(int argc, char const *argv[]) {
                     [](const image_info& one_info) {return one_info.image;});
 	vector<DetectResult> curr_result;
 
-        //auto time_start = chrono::high_resolution_clock::now();
+        auto time_start = chrono::high_resolution_clock::now();
 	detector->detect(imgs, curr_result);
-        //auto time_finish = chrono::high_resolution_clock::now();
-        //time_span += chrono::duration_cast<chrono::duration<double> >(time_finish - time_start);
+        auto time_finish = chrono::high_resolution_clock::now();
+        time_span += chrono::duration_cast<chrono::duration<double> >(time_finish - time_start);
         detect_results.insert(detect_results.end(), curr_result.begin(), curr_result.end());
     }
-    //cout << "compute time : " << time_span.count() << " seconds." << endl;
+    cout << "compute time : " << time_span.count() << " seconds." << endl;
 
     assert(detect_results.size() == img_list.size());
     if(visualize) {
