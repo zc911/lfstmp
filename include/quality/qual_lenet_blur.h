@@ -16,8 +16,6 @@ private:
 			std::string& model_file);
 	caffe::shared_ptr<caffe::Net<float> > _net;
 	std::vector<float> _pixel_means;
-	float _det_thresh;
-	float _pixel_scale;
 	bool _useGPU;
 	int _num_channels;
 	int _batch_size;

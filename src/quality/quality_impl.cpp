@@ -202,7 +202,6 @@ LenetBlurQuality::~LenetBlurQuality() {
 }
 
 float LenetBlurQuality::quality(const Mat &image) {
-	printf("lenet blur quality\n");
 	Mat resized_img;
 	Blob<float>* input_blob = _net->input_blobs()[0];
 	_image_size = Size(input_blob->width(), input_blob->height());
