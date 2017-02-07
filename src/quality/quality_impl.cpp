@@ -1,13 +1,19 @@
 #include <quality/qual_blurm.h>
+#include <quality/qual_lenet_blur.h>
 #include <quality/qual_frontalm.h>
 #include <quality/qual_posem.h>
 #include <stdexcept>
 #include <string>
 #include <memory>
 #include <stdint.h>
+#include "caffe_interface.h"
+#include "dgface_utils.h"
+#include "dgface_config.h"
 
 using namespace cv;
 using namespace std;
+using namespace caffe;
+
 namespace DGFace{
 
 /*======================= blur_metric quality ========================= */
@@ -123,6 +129,129 @@ float BlurMQuality::quality(const Mat &image) {
 }
 
 
+/*======================= LenetBlur quality ============================*/
+
+const int LenetBlurQuality::kBatchSize = 1;
+int LenetBlurQuality::ParseConfigFile(const std::string& cfg_file, std::string& deploy_file,
+			std::string& model_file) {
+	Config ssd_cfg;
+	if (!ssd_cfg.Load(cfg_file)) {
+		cout << "fail to parse " << cfg_file << endl;
+		deploy_file.clear();
+		model_file.clear();
+	}
+
+	deploy_file = static_cast<string>(ssd_cfg.Value("deployfile"));
+	model_file = static_cast<string>(ssd_cfg.Value("modelfile"));
+	return 0;
+}
+
+LenetBlurQuality::LenetBlurQuality(const std::string& model_dir, int gpu_id):_gpuid(gpu_id), _net(nullptr) {
+	if (_gpuid < 0) {
+		_useGPU = false;
+		Caffe::set_mode(Caffe::CPU);
+	} else {
+		_useGPU = true;
+		Caffe::SetDevice(gpu_id);
+		Caffe::set_mode(Caffe::GPU);
+	}
+	string cfg_file;
+	addNameToPath(model_dir, "/blur_lenet.json", cfg_file);
+	string deploy_file, model_file;
+	// parse config file and read parameters(pixel_scale, det_thresh, mean)
+	ParseConfigFile(cfg_file, deploy_file, model_file);
+	addNameToPath(model_dir, "/" + deploy_file, deploy_file);
+	addNameToPath(model_dir, "/" + model_file, model_file);
+	string deploy_content, model_content;
+	int ret = 0;
+	bool is_encrypt = false;
+	ret = getFileContent(deploy_file, is_encrypt, deploy_content);
+	if (ret != 0) {
+		LOG(ERROR) << "failed decrypt " << deploy_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
+	ret = getFileContent(model_file, is_encrypt, model_content);
+	if (ret != 0) {
+		LOG(ERROR) << "failed decrypt " << model_file << endl;
+		throw new runtime_error("decrypt failed!");
+	}
+	/* Load the network. */
+	_net.reset(new Net<float>(deploy_file, deploy_content, TEST));
+	_net->CopyTrainedLayersFrom(model_file, model_content);
+	//CHECK_EQ(_net->num_inputs(), 1) << "Network should have exactly one input.";
+	Blob<float>* input_blob = _net->input_blobs()[0];
+	_batch_size = kBatchSize;
+	if (input_blob->num() != _batch_size) {
+		vector<int> org_shape = input_blob->shape();
+		org_shape[0] = _batch_size;
+		input_blob->Reshape(org_shape);
+		_net->Reshape();
+	}
+	_num_channels = input_blob->channels();
+	CHECK(_num_channels == 3 || _num_channels == 1)
+			<< "Input layer should have 1 or 3 channels.";
+//	_pixel_means.push_back(128);
+	for (int i=0; i<3; i++ ) {
+		_pixel_means.push_back(128);
+		printf("_pixel_means[%d] = %f\n", i, _pixel_means[i]);
+	}
+}
+
+LenetBlurQuality::~LenetBlurQuality() {
+
+}
+
+float LenetBlurQuality::quality(const Mat &image) {
+	printf("lenet blur quality\n");
+	Mat resized_img;
+	Blob<float>* input_blob = _net->input_blobs()[0];
+	_image_size = Size(input_blob->width(), input_blob->height());
+	resize(image, resized_img, _image_size);
+	vector<int> shape = { 1, _num_channels,
+			_image_size.height, _image_size.width };
+	input_blob->Reshape(shape);
+	_net->Reshape();
+	float* input_data = input_blob->mutable_cpu_data();
+	Mat sample;
+	Mat img = resized_img;
+	// images from the same batch should have the same size
+	assert(img.rows == _image_size.height && img.cols == _image_size.width);
+	if (img.channels() == 3 && _num_channels == 1)
+		cvtColor(img, sample, CV_BGR2GRAY);
+	else if (img.channels() == 4 && _num_channels == 1)
+		cvtColor(img, sample, CV_BGRA2GRAY);
+	else if (img.channels() == 4 && _num_channels == 3)
+		cvtColor(img, sample, CV_BGRA2BGR);
+	else if (img.channels() == 1 && _num_channels == 3)
+		cvtColor(img, sample, CV_GRAY2BGR);
+	else
+		sample = img;
+	for (int k = 0; k < sample.channels(); k++) {
+		size_t channel_off = k * sample.rows * sample.cols;
+		for (int row = 0; row < sample.rows; row++) {
+			size_t row_off = row * sample.cols;
+			for (int col = 0; col < sample.cols; col++) {
+				input_data[channel_off + row_off + col] = (float(
+						sample.at<uchar>(row, col * sample.channels() + k))
+						- _pixel_means[k]) / 255.0;
+			}
+		}
+	}
+	_net->ForwardPrefilled();
+	if (_useGPU) {
+		cudaDeviceSynchronize();
+	}
+	vector<Blob<float>*> outputs;
+	outputs.clear();
+	for (int i = 0; i < _net->num_outputs(); i++) {
+		Blob<float>* output_layer = _net->output_blobs()[i];
+		outputs.push_back(output_layer);
+	}
+	const float* top_data = outputs[0]->mutable_cpu_data();
+	printf("top_data = %f\n", top_data[0]);
+	return top_data[0];
+}
+
 /*======================= Frontal face quality ========================= */
 FrontalMQuality::FrontalMQuality(void) : _detector(new DlibDetector(60, 45)) {
 }
@@ -192,6 +321,9 @@ Quality *create_quality(const quality_method& method, const std::string& model_d
         	return new BlurMQuality();
 			break;
 		}
+		case LENET_BLUR:
+			return new LenetBlurQuality(model_dir, gpu_id);
+			break;
 		case FRONT: {
         	return new FrontalMQuality();
 			break;

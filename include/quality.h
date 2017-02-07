@@ -9,6 +9,7 @@ namespace DGFace{
 
 enum quality_method {
 	BLURM,
+	LENET_BLUR,
 	FRONT,
 	POSE,
 };
