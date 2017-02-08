@@ -2,6 +2,7 @@ build/
 release/include
 release/lib
 .idea
+.project
 release
 dist
 bin

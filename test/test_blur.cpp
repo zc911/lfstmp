@@ -13,7 +13,8 @@ using namespace DGFace;
 
 int main( int argc, char* argv[] ) {
 	cout<<"hello world"<<endl;
-	string img_loc = "/home/zhaoxin/lena.jpg";
+	string img_loc = "test/images/lena.jpg";
+	const float ground_truth = -0.230997f;
 	cv::Mat m = cv::imread(img_loc);
 	imshow("m", m);
 	waitKey(0);
@@ -30,8 +31,23 @@ int main( int argc, char* argv[] ) {
 	imshow("face_img", face_img);
 	waitKey(0);
 
-	Quality *quality = create_quality(quality_method::LENET_BLUR, "data/model/quality/blur", 0);
+	Quality *quality = create_quality(quality_method::LENET_BLUR, "data/model/quality/blur/0.1.0", 0, false, 4);
+//	Quality *quality = create_quality_with_global_dir(quality_method::LENET_BLUR, "data", 0, false);
 	float blur = quality->quality(face_img);
-	printf("blur = %f\n", blur);
+	printf("predict blur = %f\n", blur);
+	if (fabs(blur-ground_truth)>1e-6) {
+		printf("ERROR: ground_truth = %f, predict blur = %f\n", ground_truth, blur);
+	}
+
+	vector<Mat> imgs;
+	imgs.push_back(face_img);
+	imgs.push_back(face_img);
+	imgs.push_back(face_img);
+	imgs.push_back(face_img);
+	vector<float> blurs;
+	quality->quality(imgs, blurs);
+	for (size_t i=0; i<blurs.size(); i++ ) {
+		printf("blurs[%d] = %f\n", i, blurs[i]);
+	}
 	return 0;
 }

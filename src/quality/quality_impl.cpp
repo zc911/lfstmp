@@ -146,7 +146,7 @@ int LenetBlurQuality::ParseConfigFile(const std::string& cfg_file, std::string& 
 	return 0;
 }
 
-LenetBlurQuality::LenetBlurQuality(const std::string& model_dir, int gpu_id):_gpuid(gpu_id), _net(nullptr) {
+LenetBlurQuality::LenetBlurQuality(const std::string& model_dir, int gpu_id, bool is_encrypt, int batch_size):_gpuid(gpu_id), _net(nullptr) {
 	if (_gpuid < 0) {
 		_useGPU = false;
 		Caffe::set_mode(Caffe::CPU);
@@ -164,7 +164,6 @@ LenetBlurQuality::LenetBlurQuality(const std::string& model_dir, int gpu_id):_gp
 	addNameToPath(model_dir, "/" + model_file, model_file);
 	string deploy_content, model_content;
 	int ret = 0;
-	bool is_encrypt = false;
 	ret = getFileContent(deploy_file, is_encrypt, deploy_content);
 	if (ret != 0) {
 		LOG(ERROR) << "failed decrypt " << deploy_file << endl;
@@ -180,7 +179,7 @@ LenetBlurQuality::LenetBlurQuality(const std::string& model_dir, int gpu_id):_gp
 	_net->CopyTrainedLayersFrom(model_file, model_content);
 	//CHECK_EQ(_net->num_inputs(), 1) << "Network should have exactly one input.";
 	Blob<float>* input_blob = _net->input_blobs()[0];
-	_batch_size = kBatchSize;
+	_batch_size = batch_size;
 	if (input_blob->num() != _batch_size) {
 		vector<int> org_shape = input_blob->shape();
 		org_shape[0] = _batch_size;
@@ -247,8 +246,75 @@ float LenetBlurQuality::quality(const Mat &image) {
 		outputs.push_back(output_layer);
 	}
 	const float* top_data = outputs[0]->mutable_cpu_data();
-	printf("top_data = %f\n", top_data[0]);
 	return top_data[0];
+}
+
+void LenetBlurQuality::quality(const std::vector<cv::Mat> &imgs, std::vector<float> &results) {
+	results.resize(0);
+	results.resize(imgs.size());
+
+	Blob<float>* input_blob = _net->input_blobs()[0];
+
+	vector<Mat> resized_imgs(imgs.size());
+	_image_size = Size(input_blob->width(), input_blob->height());
+	for (size_t i = 0; i < imgs.size(); ++i) {
+		cv::resize(imgs[i], resized_imgs[i], _image_size);
+	}
+
+	vector<int> shape = {static_cast<int>(imgs.size()), _num_channels, _image_size.height, _image_size.width};
+	input_blob->Reshape(shape);
+	_net->Reshape();
+	float* input_data = input_blob->mutable_cpu_data();
+	//cout<<_pixel_scale<<" "<<_pixel_means[0];
+	for(size_t i = 0; i < resized_imgs.size(); i++)
+	{
+	    Mat sample;
+	    Mat img = resized_imgs[i];
+	    // images from the same batch should have the same size
+	    assert(img.rows == _image_size.height && img.cols == _image_size.width);
+	    if (img.channels() == 3 && _num_channels == 1)
+	        cvtColor(img, sample, CV_BGR2GRAY);
+	    else if (img.channels() == 4 && _num_channels == 1)
+	        cvtColor(img, sample, CV_BGRA2GRAY);
+	    else if (img.channels() == 4 && _num_channels == 3)
+	        cvtColor(img, sample, CV_BGRA2BGR);
+	    else if (img.channels() == 1 && _num_channels == 3)
+	        cvtColor(img, sample, CV_GRAY2BGR);
+	    else
+	        sample = img;
+
+	    size_t image_off = i * sample.channels() * sample.rows * sample.cols;
+	    for(int k = 0; k < sample.channels(); k++)
+	    {
+	        size_t channel_off = k * sample.rows * sample.cols;
+	        for(int row = 0; row < sample.rows; row++)
+	        {
+	            size_t row_off = row * sample.cols;
+	            for(int col = 0; col < sample.cols; col++)
+	            {
+	                input_data[image_off + channel_off + row_off + col] =
+	                    (float(sample.at<uchar>(row, col * sample.channels() + k)) - _pixel_means[k]) / 255.0;
+	            }
+	        }
+	    }
+	}
+	_net->ForwardPrefilled();
+	if(_useGPU) {
+	    cudaDeviceSynchronize();
+	}
+	/* Copy the output layer to a std::vector */
+	vector<Blob<float>* > outputs;
+	outputs.clear();
+	for(int i = 0; i < _net->num_outputs(); i++) {
+	    Blob<float>* output_layer = _net->output_blobs()[i];
+	    outputs.push_back(output_layer);
+	}
+	const float* top_data = outputs[0]->mutable_cpu_data();
+	printf("batch_size = %d\n", _batch_size);
+	for ( int i=0; i<_batch_size; i++ ) {
+		results[i] = top_data[i];
+	}
+	memset(_net->output_blobs()[0]->mutable_cpu_data(), 0, sizeof(*_net->output_blobs()[0]->mutable_cpu_data()) * _net->output_blobs()[0]->count());
 }
 
 /*======================= Frontal face quality ========================= */
@@ -314,14 +380,14 @@ Quality *create_quality(const string &prefix) {
     throw new runtime_error("unknown quality measure");
 }
 */
-Quality *create_quality(const quality_method& method, const std::string& model_dir, int gpu_id) {
+Quality *create_quality(const quality_method& method, const std::string& model_dir, int gpu_id, bool is_encrypt, int batch_size) {
 	switch(method) {
 		case BLURM: {
         	return new BlurMQuality();
 			break;
 		}
 		case LENET_BLUR:
-			return new LenetBlurQuality(model_dir, gpu_id);
+			return new LenetBlurQuality(model_dir, gpu_id, is_encrypt, batch_size);
 			break;
 		case FRONT: {
         	return new FrontalMQuality();
@@ -334,14 +400,33 @@ Quality *create_quality(const quality_method& method, const std::string& model_d
 		default:
 			throw new runtime_error("unknown quality measure");
 	}
-	// if (method == "blurm")
-    //     return new BlurMQuality();
-    // else if (method == "frontalm")
-    //     // create dlib frontal face detector
-    //     return new FrontalMQuality();
-	// else if (method == "posem")
-	//     // create pose estimation
-	// 	return new PoseQuality();
-    // throw new runtime_error("unknown quality measure");
+}
+
+Quality *create_quality_with_global_dir(const quality_method& method, const std::string& global_dir,
+						int gpu_id,	bool is_encrypt, int batch_size) {
+	const std::map<quality_method, std::string> quality_map {
+		{quality_method::BLURM, "BLURM"},
+		{quality_method::LENET_BLUR, "LENET_BLUR"},
+		{quality_method::FRONT, "FRONT"},
+		{quality_method::POSE, "POSE"}
+	};
+	string quality_key = "FaceQuality";
+	string full_key = quality_key + "/" + quality_map.at(method);
+
+	string config_file;
+	addNameToPath(global_dir, "/"+getGlobalConfig(), config_file);
+
+	Config config;
+	config.Load(config_file);
+	string local_model_path = static_cast<string>(config.Value(full_key));
+	if(local_model_path.empty()){
+		throw new runtime_error(full_key + " not exist!");
+	} else {
+		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;
+		string model_path;
+		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path);
+
+		return create_quality(method, model_path, gpu_id, is_encrypt, batch_size);
+	}
 }
 }
