@@ -86,7 +86,8 @@ int main(int argc, char const *argv[])
     Alignment *alignment 		= create_alignment(align_method::CDNN, "data/model/alignment/cdnn/0.4.2", -1);
 	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
 	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.0.5", 0, true, false, batch_size);
-	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.1.0", 0, true, false, batch_size);
+	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.1.0", 0, true, false, batch_size);
+	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/max_pooling", 0, true, false, batch_size);
 	//Recognition *recognition 	= create_recognition(recog_method::CNN,"data/model/recognition/LCNN/0.1.0", 0, true, false, batch_size);
 	//Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
 	Verification *verification 	= create_verifier(verif_method::EUCLID);

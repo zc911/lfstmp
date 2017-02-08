@@ -40,15 +40,12 @@ void Batch_det_align (vector<Mat>& imgs, vector<string>& names, Detector* detect
     detector->detect(imgs, detect_result);
     for (size_t img_idx = 0; img_idx < detect_result.size(); img_idx++) {
         size_t num_bbox = detect_result[img_idx].boundingBox.size();
-        if(num_bbox == 0){
-            cout << "Not detected face:" << endl;
-            continue;
-        }
         string name = names[img_idx];
         name = name.substr(0, name.find(".jpg"));
-        if (num_bbox < 1) {
+        if(num_bbox == 0){
             not_det_align << "det no face" << name << endl;
             cout << "det no face: " << name << endl;
+            continue;
         }
         for (size_t bbox_idx = 0; bbox_idx < num_bbox; bbox_idx++) {
             char tmp[1024];
