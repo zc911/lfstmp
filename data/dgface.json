@@ -12,7 +12,7 @@
     {
         "CDNN":"recognition/cdnn",
         "CDNN_CAFFE":"recognition/cdnn_caffe/0.1.0",
-        "FUSION":"recognition/fusion"
+        "FUSION":"recognition/fusion",
         "GPU_FUSION":"recognition/gpu_fusion"
     },
     "FaceQuality":
