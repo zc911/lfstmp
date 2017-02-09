@@ -1,7 +1,0 @@
-{
-        "modelfile": "model.dat",
-        "deployfile": "deploy.txt",
-        "pixel_scale": 1.0,
-        "mean": [128, 128, 128],
-        "use_deploy_input_size": true
-}
