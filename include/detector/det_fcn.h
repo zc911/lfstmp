@@ -3,7 +3,8 @@
 #include <detector.h>
 #include <caffe/caffe.hpp>
 
-#include "FaceDetector.h"
+// #include "FaceDetector.h"
+#include "detector/PyramidDenseBox.hpp"
 namespace DGFace{
 
 class FcnDetector : public Detector {
@@ -15,14 +16,21 @@ class FcnDetector : public Detector {
         void detect_impl(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results);
     private:
 
-		void ParseConfigFile(std::string cfg_file, std::string& deploy_file, std::string& model_file);
+	void ParseConfigFile(std::string cfg_file, std::string& deploy_file, std::string& model_file);
+        void detect_batch(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results);
 
-        FCNFaceDetector* _fcn_detecror;
-        FacePara _param;
-		int _min_det_face_size;
-		int _max_det_face_size;
-		float _min_scale_face_to_img;
-        
+        // FCNFaceDetector* _fcn_detecror;
+        // FacePara _param;
+	int _min_det_face_size;
+	int _max_det_face_size;
+	float _min_scale_face_to_img;
+
+        caffe::shared_ptr<caffe::Net<float> > _net;
+	db::PyramidDenseBox *_pryd_db = nullptr;
+        bool _useGPU;
+	int _gpuid;
+	int _batch_size;
+	bool _device_setted_;
 };
 }
 #endif

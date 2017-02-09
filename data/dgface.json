@@ -1,3 +1,22 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:65d21d855e987b2e7792827cb0a8bbcc364310d7c293d228fb6d825eed0c096a
-size 335
+{
+    "FaceDetector":
+    {
+        "SSD":"detector/ssd",
+        "FCN":"detector/fcn/0.1.0"
+    },
+    "FaceAlignment":
+    {
+        "CDNN":"alignment/cdnn/0.4.2"
+    },
+    "FaceRecognition":
+    {
+        "CDNN":"recognition/cdnn",
+        "CDNN_CAFFE":"recognition/cdnn_caffe/0.1.0",
+        "FUSION":"recognition/fusion",
+        "GPU_FUSION":"recognition/gpu_fusion"
+    },
+    "FaceQuality":
+    {
+    	"LENET_BLUR":"quality/blur/0.1.0"
+    }
+}
