@@ -17,6 +17,7 @@ class FcnDetector : public Detector {
     private:
 
 	void ParseConfigFile(std::string cfg_file, std::string& deploy_file, std::string& model_file);
+        void detect_batch(const std::vector<cv::Mat> &imgs, std::vector<DetectResult> &results);
 
         // FCNFaceDetector* _fcn_detecror;
         // FacePara _param;
@@ -28,6 +29,7 @@ class FcnDetector : public Detector {
 	db::PyramidDenseBox *_pryd_db = nullptr;
         bool _useGPU;
 	int _gpuid;
+	int _batch_size;
 	bool _device_setted_;
 };
 }

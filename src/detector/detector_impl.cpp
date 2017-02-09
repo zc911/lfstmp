@@ -604,7 +604,8 @@ FcnDetector::FcnDetector(int img_scale_max,
 			int batch_size)
                 	: Detector(img_scale_max, img_scale_min, is_encrypt),
 			_min_det_face_size(24), _max_det_face_size(-1), 
-			_min_scale_face_to_img(0.1), _gpuid(gpu_id) {
+			_min_scale_face_to_img(0.1), _gpuid(gpu_id),
+                        _batch_size(batch_size) {
 
     _device_setted_ = false;						
     if (_gpuid < 0) {
@@ -616,8 +617,6 @@ FcnDetector::FcnDetector(int img_scale_max,
 	Caffe::set_mode(Caffe::GPU);
     }
 
-    int _batch_size = batch_size;
-	
     string cfg_file;
     string deploy_file, model_file;
     addNameToPath(model_dir, "/det_fcn.json", cfg_file);	
@@ -656,47 +655,47 @@ FcnDetector::FcnDetector(int img_scale_max,
 
 void FcnDetector::ParseConfigFile(string cfg_file, string& deploy_file, string& model_file) {
 
-	string cfg_content;
-	int ret = getConfigContent(cfg_file, false, cfg_content);
-	if(ret != 0) {
-		cout << "fail to decrypt " << cfg_file << endl;
-		deploy_file.clear();
-		model_file.clear();
-		return;
-	}
-
-	Config fcn_cfg;
-	if(!fcn_cfg.LoadString(cfg_content)) {
-		cout << "fail to parse " << cfg_file << endl;
-		deploy_file.clear();
-		model_file.clear();
-		return;
-	}
-
-	deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
-	model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
-
-	if(!static_cast<string>(fcn_cfg.Value("img_scale_max")).empty()) {
-		_img_scale_max = static_cast<int>(fcn_cfg.Value("img_scale_max"));
-	} else {
-		_img_scale_max = 0;
-	}
-	if(!static_cast<string>(fcn_cfg.Value("img_scale_min")).empty()) {
-		_img_scale_min = static_cast<int>(fcn_cfg.Value("img_scale_min"));
-	} else {
-		_img_scale_min = 0;
-	}
-
-	if(!static_cast<string>(fcn_cfg.Value("batch_img_height")).empty()) {
-	    _batch_img_height = static_cast<int>(fcn_cfg.Value("batch_img_height"));
-	}
-	if(!static_cast<string>(fcn_cfg.Value("batch_img_width")).empty()) {
-	    _batch_img_width = static_cast<int>(fcn_cfg.Value("batch_img_width"));
-	}
-
-	_min_det_face_size = static_cast<int>(fcn_cfg.Value("min_det_face_size"));
-	_max_det_face_size = static_cast<int>(fcn_cfg.Value("max_det_face_size"));
-	_min_scale_face_to_img = static_cast<float>(fcn_cfg.Value("min_scale_face_to_img"));
+    string cfg_content;
+    int ret = getConfigContent(cfg_file, false, cfg_content);
+    if(ret != 0) {
+	LOG(ERROR) << "fail to decrypt " << cfg_file;
+    	deploy_file.clear();
+    	model_file.clear();
+    	return;
+    }
+    
+    Config fcn_cfg;
+    if(!fcn_cfg.LoadString(cfg_content)) {
+    	LOG(ERROR) << "fail to parse " << cfg_file;
+    	deploy_file.clear();
+    	model_file.clear();
+    	return;
+    }
+    
+    deploy_file = static_cast<string>(fcn_cfg.Value("deployfile"));
+    model_file = static_cast<string>(fcn_cfg.Value("modelfile"));
+    
+    if(!static_cast<string>(fcn_cfg.Value("img_scale_max")).empty()) {
+    	_img_scale_max = static_cast<int>(fcn_cfg.Value("img_scale_max"));
+    } else {
+    	_img_scale_max = 0;
+    }
+    if(!static_cast<string>(fcn_cfg.Value("img_scale_min")).empty()) {
+    	_img_scale_min = static_cast<int>(fcn_cfg.Value("img_scale_min"));
+    } else {
+    	_img_scale_min = 0;
+    }
+    
+    if(!static_cast<string>(fcn_cfg.Value("batch_img_height")).empty()) {
+        _batch_img_height = static_cast<int>(fcn_cfg.Value("batch_img_height"));
+    }
+    if(!static_cast<string>(fcn_cfg.Value("batch_img_width")).empty()) {
+        _batch_img_width = static_cast<int>(fcn_cfg.Value("batch_img_width"));
+    }
+    
+    _min_det_face_size = static_cast<int>(fcn_cfg.Value("min_det_face_size"));
+    _max_det_face_size = static_cast<int>(fcn_cfg.Value("max_det_face_size"));
+    _min_scale_face_to_img = static_cast<float>(fcn_cfg.Value("min_scale_face_to_img"));
 }
 
 FcnDetector::~FcnDetector() {
@@ -750,6 +749,31 @@ RotatedBbox cvtPyrdBoxToRotatedBbox(const db::RotateBBox<float>& rBBox) {
 }
 
 void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results) {
+    results.clear();
+    vector<Mat> batch_imgs;
+    for(size_t i = 0; i < imgs.size(); ++i) {
+        batch_imgs.push_back(imgs[i]);
+
+	if(batch_imgs == _batch_size) {
+            vector<DetectResult> batch_results;
+	    detect_batch(batch_imgs, batch_results);
+
+	    results.insert(results.end(), batch_results.begin(), batch_results.end());
+	    batch_imgs.clear();
+	}
+    }
+    if(batch_imgs.size() > 0) {
+        CHECK(batch_imgs.size() <= _batch_size) << "actual batch size too large";
+
+        vector<DetectResult> batch_results;
+        detect_batch(batch_imgs, batch_results);
+
+        results.insert(results.end(), batch_results.begin(), batch_results.end());
+	batch_imgs.clear();
+    }
+}
+
+void FcnDetector::detect_batch(const vector< cv::Mat > &imgs, vector<DetectResult> &results) {
     results.resize(imgs.size());
     
     vector<vector< db::RotateBBox<float> > > rotateFaces;
@@ -762,6 +786,19 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
 	}
     }
 }
+// void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult> &results) {
+//     results.resize(imgs.size());
+//     
+//     vector<vector< db::RotateBBox<float> > > rotateFaces;
+//     _pryd_db->predictPyramidDenseBox(_net, imgs, rotateFaces);
+// 
+//     for(size_t i = 0; i < results.size(); ++i) {
+// 	const auto& one_img_rotFaces = rotateFaces[i];
+//     	for(size_t j = 0; j < one_img_rotFaces.size(); ++j) {
+// 	    results[i].boundingBox.push_back(cvtPyrdBoxToRotatedBbox(one_img_rotFaces[j]));
+// 	}
+//     }
+// }
 
 // #define FCN_BATCH
 // #ifndef FCN_BATCH
