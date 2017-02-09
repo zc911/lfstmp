@@ -754,7 +754,7 @@ void FcnDetector::detect_impl(const vector< cv::Mat > &imgs, vector<DetectResult
     for(size_t i = 0; i < imgs.size(); ++i) {
         batch_imgs.push_back(imgs[i]);
 
-	if(batch_imgs == _batch_size) {
+	if(batch_imgs.size() == _batch_size) {
             vector<DetectResult> batch_results;
 	    detect_batch(batch_imgs, batch_results);
 
