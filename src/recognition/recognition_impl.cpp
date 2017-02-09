@@ -19,44 +19,96 @@ using namespace caffe;
 namespace DGFace {
 
 /*======================= CNN recognition  ========================= */
-CNNRecog::CNNRecog(const string& model_file,
-                   const string& trained_file,
-                   const string& layer_name,
-                   const vector<float> mean,
-                   const float pixel_scale,
-                   const bool use_GPU,
-                   const int  gpu_id)
-    : Recognition(false), _net(nullptr), _useGPU(use_GPU), _pixel_means(mean),
-      _pixel_scale(pixel_scale), _layer_name(layer_name) {
-    if (use_GPU) {
+void CNNRecog::ParseConfigFile(const string& cfg_file,
+                                     string& model_def,
+                                     string& weight_file) {
+    string cfg_content;
+	int ret = getConfigContent(cfg_file, _is_encrypt, cfg_content);
+	if(ret != 0 ) {
+		cout << "fail to decrypt config file: " << cfg_file << endl;
+		return;
+	}
+	Config cnn_cfg;
+	if(!cnn_cfg.LoadString(cfg_content)) {
+		cout << "fail to parse " << cfg_file << endl;
+		return;
+	}
+	model_def   = static_cast<string>(cnn_cfg.Value("deploy"));
+	weight_file = static_cast<string>(cnn_cfg.Value("model"));
+	_layer_name  = static_cast<string>(cnn_cfg.Value("layer_name"));
+    _pixel_scale = static_cast<int>(cnn_cfg.Value("pixel_scale"));
+
+	int mean_vec_size = static_cast<int>(cnn_cfg.Value("pixel_means/Size"));
+	CHECK(mean_vec_size == 3 || mean_vec_size == 1)
+	   << "Mean vector should have 1 or 3 entries.";
+	_pixel_means.resize(mean_vec_size);
+	for(int i = 0; i < mean_vec_size; ++i) {
+		_pixel_means[i] = static_cast<float>(cnn_cfg.Value("pixel_means" + to_string(i)));
+	}
+
+	int num_face_size = static_cast<int>(cnn_cfg.Value("face_size/Size"));
+	CHECK(num_face_size == 2 || num_face_size == 1)
+	   << "Face size vector should have 1 or 2 entries.";
+	_face_size.resize(num_face_size);
+	for(int i = 0; i < num_face_size; ++i) {
+		_face_size[i] = static_cast<float>(cnn_cfg.Value("face_size" + to_string(i)));
+	}
+    if (num_face_size == 1) _face_size.push_back(_face_size[0]);
+}
+
+
+CNNRecog::CNNRecog(const string& model_dir, 
+                   int gpu_id,
+                   bool is_encrypt, 
+                   int batch_size) : _batch_size(batch_size), Recognition(is_encrypt) {
+	string cfg_file, model_def, weight_file;
+    vector<float> pixel_mean;
+    float pixel_scale;
+	addNameToPath(model_dir, "/recog_cnn.json", cfg_file);
+	ParseConfigFile(cfg_file, model_def, weight_file);
+    addNameToPath(model_dir, "/" + model_def, model_def);
+    addNameToPath(model_dir, "/" + weight_file, weight_file);
+
+    if (gpu_id >= 0) {
         Caffe::set_mode(Caffe::GPU);
         Caffe::SetDevice(gpu_id);
+        _use_gpu = true;
     }
     else
     {
         Caffe::set_mode(Caffe::CPU);
+        _use_gpu = false;
     }
-
     /* Load the network. */
-    _net.reset(new Net<float>(model_file, TEST));
-    _net->CopyTrainedLayersFrom(trained_file);
+    _net = nullptr;
+    cout << "loading " << model_def << endl;
+    _net.reset(new Net<float>(model_def, TEST));
+    cout << "loading " << weight_file << endl;
+    _net->CopyTrainedLayersFrom(weight_file);
 
     Blob<float>* input_blob = _net->input_blobs()[0];
-    _batch_size = input_blob->num();
 
-    _num_channels  = input_blob->channels();
+    _num_channels = input_blob->channels();
     CHECK(_num_channels == 3 || _num_channels == 1)
             << "Input layer should have 1 or 3 channels.";
+
+	_transformation = NULL;
+	_transformation = new CdnnTransformation(); // use cdnn transformation temporarily
+	if(_transformation == NULL) {
+    	throw new runtime_error("can't initialize transformation in CdnnCaffeRecog");
+	}
+}
+                         
+CNNRecog::~CNNRecog(void) {
+	if(_transformation) {
+		delete _transformation;
+		_transformation = NULL;
+	}
 }
 
-CNNRecog::~CNNRecog(void) {
-}
 void CNNRecog::recog_impl(const std::vector<cv::Mat>& faces,
                           const std::vector<AlignResult>& alignment,
                           std::vector<RecogResult>& results) {
-    recog_impl(faces, results);
-}
-void CNNRecog::recog_impl(const vector<Mat> &faces, vector<RecogResult> &results) {
     Blob<float>* input_blob = _net->input_blobs()[0];
     //assert((int)faces.size() <= _batch_size);
     vector<int> shape = input_blob->shape();
@@ -70,8 +122,22 @@ void CNNRecog::recog_impl(const vector<Mat> &faces, vector<RecogResult> &results
     float* input_data = input_blob->mutable_cpu_data();
     for (size_t i = 0; i < faces.size(); i++)
     {
-        Mat sample;
-        Mat face = faces[i];
+	    AlignResult transformed_alignment = {};
+        Mat face, sample;
+	    _transformation->transform(faces[i], alignment[i], face, transformed_alignment);
+
+	    vector<double> transformedLandmark;
+        cvtLandmarks(transformed_alignment.landmarks, transformedLandmark);
+        vector<Point> face_lmks;
+        int num_landmarks = transformedLandmark.size() / 2;
+        for (int tmp = 0; tmp < num_landmarks; tmp++) {
+           face_lmks.push_back(Point(transformedLandmark[tmp*2], transformedLandmark[tmp*2+1]));
+        }
+        Rect image_bbox = Rect(Point(0, 0), face.size());
+        Rect rect = boundingRect(face_lmks);
+        rect &= image_bbox;
+
+        resize(face(rect), face, Size(_face_size[1], _face_size[0]));
         //assert(face.cols == input_blob->width() && face.rows == input_blob->height());
         if (face.cols != input_blob->width() || face.rows != input_blob->height())
             resize(face, face, Size(input_blob->width(), input_blob->height()));
@@ -104,7 +170,7 @@ void CNNRecog::recog_impl(const vector<Mat> &faces, vector<RecogResult> &results
     }
 
     _net->ForwardPrefilled();
-    if (_useGPU)
+    if (_use_gpu)
     {
         cudaDeviceSynchronize();
     }
@@ -817,7 +883,7 @@ Recognition *create_recognition(const recog_method& method,
 			break;
 		}
 		case recog_method::CNN: {
-			throw new runtime_error("don't use cnn!");
+        	return new CNNRecog(model_dir, gpu_id, is_encrypt, batch_size);
 			break;
 		}
 		case recog_method::LBP: {

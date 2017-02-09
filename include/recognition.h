@@ -13,7 +13,7 @@ enum class recog_method : unsigned char{
 	CDNN,
 	CDNN_CAFFE,
 	FUSION,
-	GPU_FUSION,
+  GPU_FUSION
 };
 
 class Recognition {

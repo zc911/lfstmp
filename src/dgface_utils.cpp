@@ -72,36 +72,38 @@ string ReadStringFromFile(const string &filePath, const string &mode) {
 }
 
 // Actually, getFileContent == getConfigContent 
-int getFileContent(string file, bool is_encrypt, string &content) {
-    // return getConfigContent(file, is_encrypt, content);
-    if (!is_encrypt) {
-        content = ReadStringFromFile(file, "rb");
-    } else {
-        int length;
-        length = FileSize(file);
-        FILE *fp = fopen(file.c_str(), "rb");
-        if (fp == NULL) {
+int getFileContent(string file, bool is_encrypt, string& content) {
+	// return getConfigContent(file, is_encrypt, content);
+	if (!is_encrypt) {
+		content = ReadStringFromFile(file, "rb");
+        if(content == "")
             return -1;
-        }
-        unsigned char *src = (unsigned char *) calloc(length, 1);
-
-        length = fread(src, sizeof(char), length, fp);
-        fclose(fp);
-        unsigned char *dst = (unsigned char *) calloc(length, 1);
-        DecryptModel((unsigned char *) src, length, dst);
-
-        if (file.substr (file.size() - 3, 3) == "txt") {
-            string content_tmp((char *) dst);
-            content = content_tmp;
-        } else {
-            string content_tmp((char *) dst, length);
-            content = content_tmp;
-        }
-
-        free(src);
-        free(dst);
-    }
-    return 0;
+        else
+            return 0;
+	} else {
+		int length;
+		length = FileSize(file);
+		FILE *fp = fopen(file.c_str(), "rb");
+		if (fp == NULL) {
+		return -1;
+		}
+		unsigned char *src = (unsigned char *)calloc(length, 1);
+		
+		length = fread(src, sizeof(char), length, fp);
+		fclose(fp);
+		unsigned char * dst = (unsigned char *)calloc(length, 1);
+		DecryptModel((unsigned char *)src, length, dst);
+		if (file.back() == 't') {
+			string content_tmp((char *)dst);
+			content = content_tmp;
+		} else {
+			string content_tmp((char *)dst, length);
+			content = content_tmp;
+		}
+		
+		free(src);
+		free(dst);
+	}
 }
 
 void addNameToPath(const string &model_dir, const string &name, string &appended_dir) {
@@ -378,4 +380,47 @@ float computeMAP(const vector <vector<float>> &score_vec,
     }
 }
 
+// compute top1 ROC
+void computeROC(const vector<vector<float> >& score_vec, const vector<vector<bool> >& true_vec, vector<pair<float, float> >& ROC_points, const float step) {
+    assert(score_vec.size() == true_vec.size());
+    vector<float> scores;
+    vector<bool> trues;
+    scores.clear();
+    trues.clear();
+    for (size_t id = 0; id < score_vec.size(); id++) {
+        vector<pair<float, bool> > score_label_vec(score_vec[id].size());
+        for(size_t i = 0; i < score_label_vec.size(); ++i) {
+            score_label_vec[i].first  = score_vec[id][i];
+            score_label_vec[i].second = true_vec[id][i];
+        }
+        std::sort(score_label_vec.begin(), score_label_vec.end(), [](const pair<float, bool> &left, const pair<float, bool> &right) {
+            return left.first > right.first;
+        });
+        scores.push_back(score_label_vec[0].first);
+        trues.push_back(score_label_vec[0].second);
+    }
+
+	return computeROC(scores, trues, ROC_points, step);
+}
+
+void computeROC(const vector<float>& scores, const vector<bool>& trues, vector<pair<float, float> >& ROC_points, const float step) {
+    size_t num_data = scores.size();
+    int num_P = 0;
+    int num_N = 0;
+    for (size_t i = 0; i < num_data; i++) {
+        if (trues[i]) num_P++;
+        else num_N++;
+    } 
+
+    for (float thr = 0.f; thr < 1.0f; thr += step) {
+        int TP = 0;
+        int FP = 0; 
+        for (size_t i = 0; i < num_data; i++) {
+            if (scores[i] > thr && trues[i]) TP++;
+            else if (scores[i] > thr && (!trues[i])) FP++;  
+        }
+        //cout << "thr: " << thr << " TP: " << TP << " P: " << num_P << " FP: " << FP << " N: " << num_N << " TPR: " << TP/(float(num_P) + 1e-5) << "NPR: " << FP/(float(num_N) + 1e-5) << endl; 
+        ROC_points.push_back(make_pair(FP/(float(num_N) + 1e-5), TP/(float(num_P) + 1e-5)));
+    }
+}
 }

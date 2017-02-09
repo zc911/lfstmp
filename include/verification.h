@@ -7,6 +7,7 @@ namespace DGFace{
 enum class verif_method : unsigned char{
 	COS,
 	EUCLID,
+    NEUCLID
 };
 
 class Verification {
