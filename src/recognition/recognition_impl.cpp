@@ -4,6 +4,7 @@
 #include <recognition/recog_cdnn_caffe.h>
 #include <recognition/caffe_batch_wrapper.h>
 #include <recognition/recog_fuse.h>
+#include <recognition/recog_gpu_fuse.h>
 #include <stdexcept>
 #include "caffe_interface.h"
 
@@ -662,6 +663,102 @@ void FuseRecog::recog_impl(const vector<cv::Mat>& faces,
     feature_combine(recog_0_result, recog_1_result, fuse_weight_0, fuse_weight_1, results);
 }
 
+/////////////////////////////////////////////////////////////////////
+// ----------------------gpu fusion-----------------------//
+GPUFuseRecog::GPUFuseRecog(const std::string& model_dir, int gpu_id, 
+			bool is_encrypt, int batch_size): Recognition(is_encrypt) {
+    
+    string cfg_file;
+    addNameToPath(model_dir, "/recog_gpu_fuse.json", cfg_file);
+
+    vector<string> model_dir_vec;
+    ParseConfigFile(cfg_file, model_dir_vec, _fuse_weights);
+
+    _recognizers.resize(model_dir_vec.size(), nullptr);
+    for(size_t i = 0; i < model_dir_vec.size(); ++i) {
+	string full_model_dir;
+	addNameToPath(model_dir, "/" + model_dir_vec[i], full_model_dir);
+        _recognizers[i] = new CdnnCaffeRecog(full_model_dir, gpu_id, is_encrypt, batch_size);
+
+	CHECK(_recognizers[i] != nullptr) << full_model_dir << " in gpu fuse recognition init failed!";  
+    } 
+}
+
+void GPUFuseRecog::ParseConfigFile(const string& cfg_file, vector<string>& model_dir, vector<float>& fuse_weight) {
+    
+    Config gpu_fuse_cfg;
+    // int ret = gpu_fuse_cfg.Load(cfg_file);
+    // if(ret != 0 ) {
+    if(!gpu_fuse_cfg.Load(cfg_file)) {
+    	LOG(ERROR) << "fail to parse config file: " << cfg_file << endl;
+    	model_dir.clear();
+    	fuse_weight.clear();
+    	return;
+    }
+
+    int model_dir_num = static_cast<int>(gpu_fuse_cfg.Value("model_dir/Size"));
+    CHECK(model_dir_num > 1) << "At least two model for fusing";
+    int weight_num = static_cast<int>(gpu_fuse_cfg.Value("weight/Size"));
+    CHECK(weight_num > 1) << "At least two weight to set";
+    CHECK(model_dir_num == weight_num) << "number of model and weight not match";
+
+    model_dir.resize(model_dir_num);
+    fuse_weight.resize(weight_num);
+    for(int i = 0; i < model_dir_num; ++i) {
+        model_dir[i] = static_cast<string>(gpu_fuse_cfg.Value("model_dir" + to_string(i)));
+	fuse_weight[i] = static_cast<float>(gpu_fuse_cfg.Value("weight" + to_string(i)));
+    }
+}
+
+GPUFuseRecog::~GPUFuseRecog() {
+    for(size_t i = 0; i < _recognizers.size(); ++i) {
+        delete _recognizers[i];
+	_recognizers[i] = nullptr;
+    }
+}
+
+void GPUFuseRecog::feature_combine(const vector<RecogResult>& result, RecogResult& combined_result) {
+    combined_result.face_feat.clear();
+    for(size_t i = 0; i < result.size(); ++i ) {
+    	CHECK(result[i].face_feat.size() != 0) << i << " feature is empty!";
+    }
+
+    for(size_t i = 0; i < result.size(); ++i) {
+	for(auto fea_ele: result[i].face_feat) {
+	    combined_result.face_feat.push_back(fea_ele * _fuse_weights[i]);
+	}
+    }
+}
+
+void GPUFuseRecog::feature_combine(const vector<vector<RecogResult> >& results, 
+                                   vector<RecogResult>& combined_results) {
+    combined_results.clear();
+    for(size_t i = 1; i < results.size(); ++i) {
+        CHECK(results[i].size() == results[0].size()) << "results number not match!";
+    } 
+
+    combined_results.resize(results[0].size());
+    for(size_t i = 0; i < combined_results.size(); ++i) {
+	vector<RecogResult> single_fea_vec;
+	for(size_t m = 0; m < results.size(); ++m) {
+	    single_fea_vec.push_back(results[m][i]);
+	}
+
+	feature_combine(single_fea_vec, combined_results[i]);
+    }
+}
+
+void GPUFuseRecog::recog_impl(const vector<Mat>& faces,
+		              const vector<AlignResult>& alignments,
+			      vector<RecogResult>& results) {
+    vector<vector<RecogResult> > recog_results(_recognizers.size());
+
+    for(size_t i = 0; i < recog_results.size(); ++i) {
+        _recognizers[i]->recog(faces, alignments, recog_results[i], "NONE");
+    }
+
+    feature_combine(recog_results, results);
+}
 /*====================== select recognizer ======================== */
 /*------------
 Recognition *create_recognition(const string & prefix) {
@@ -712,7 +809,8 @@ const std::map<recog_method, std::string> recog_map {
 	{recog_method::CNN, "CNN"},
 	{recog_method::CDNN, "CDNN"},
 	{recog_method::CDNN_CAFFE, "CDNN_CAFFE"},
-	{recog_method::FUSION, "FUSION"}
+	{recog_method::FUSION, "FUSION"},
+	{recog_method::GPU_FUSION, "GPU_FUSION"}
 };
 	string recog_key = "FaceRecognition";
 	string full_key = recog_key + "/" + recog_map.at(method);
@@ -728,7 +826,7 @@ const std::map<recog_method, std::string> recog_map {
 		string tmp_model_dir = is_encrypt ? getEncryptModelDir() : getNonEncryptModelDir() ;	
 		string model_path; 
 		addNameToPath(global_dir, "/"+tmp_model_dir+"/"+local_model_path, model_path); 
-		return create_recognition(method, model_path, gpu_id, is_encrypt, batch_size);
+		return create_recognition(method, model_path, gpu_id, multi_thread, is_encrypt, batch_size);
 	}
 }
 Recognition *create_recognition_with_config(const recog_method& method, 
@@ -767,6 +865,10 @@ Recognition *create_recognition(const recog_method& method,
 		case recog_method::FUSION: {
         	return new FuseRecog(model_dir, gpu_id, multi_thread, is_encrypt, batch_size);
 			break;	
+		}
+		case recog_method::GPU_FUSION: {
+		return new GPUFuseRecog(model_dir, gpu_id, is_encrypt, batch_size);
+			break;
 		}
 		case recog_method::CDNN_CAFFE: {
         	return new CdnnCaffeRecog(model_dir, gpu_id, is_encrypt, batch_size);

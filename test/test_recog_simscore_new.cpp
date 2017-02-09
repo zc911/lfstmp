@@ -18,7 +18,6 @@ using namespace std;
 using namespace DGFace;
 
 #define DEBUG true;
-//#define FUSE true;
 
 bool valid_landmarks(const AlignResult &align_result, const Size& img_size) {
     auto &landmarks = align_result.landmarks;
@@ -128,7 +127,7 @@ vector<vector<bool> > get_labels(const vector<string>& names, const int num_gall
 
 int main(int argc, char const *argv[])
 {
-    if (argc > 7 || argc < 5)
+    if (argc > 8 || argc < 6)
     {
         cout << "Number of argments not match." << endl;
         exit(-1);
@@ -138,15 +137,17 @@ int main(int argc, char const *argv[])
     string eval = argv[2]; //"euc"; 
     string gallary_txt = argv[3];
     string query_txt = argv[4];
+    string log_root = argv[5];
     string recog_name2 = ""; //"0.1.0"; 
     string fea_dir = "";
     bool FUSE = false;
-    if (argc > 5) {
-        recog_name2 = argv[5];
+    string fuse_config_path = "data/model/recognition/gpu_fusion/recog_gpu_fuse.json";
+    if (argc > 6) {
+        recog_name2 = argv[6];
         FUSE = true;
     }
-    if (argc == 7) {
-        fea_dir = argv[6];
+    if (argc == 8) {
+        fea_dir = argv[7];
     }
 
     // FileConfig config("config.txt");
@@ -163,10 +164,10 @@ int main(int argc, char const *argv[])
     string gallary_root = gallary_txt.substr(tmp, gallary_txt.find(".txt") - tmp);
     string log_fold_name;
     if (recog_name2 == "") {
-        log_fold_name = "recog" + recog_name  + "_" + eval + "_" + query_root + "_" + gallary_root;
+        log_fold_name = log_root + "/recog" + recog_name  + "_" + eval + "_" + query_root + "_" + gallary_root;
     }
     else {
-        log_fold_name = "recog" + recog_name + "_recog2" + recog_name2 + "_" + eval + "_" + query_root + "_" + gallary_root;
+        log_fold_name = log_root + "/recog" + recog_name + "_recog2" + recog_name2 + "_" + eval + "_" + query_root + "_" + gallary_root;
     }
     cout << log_fold_name << endl;
     system(("mkdir -p " + log_fold_name).c_str());
@@ -174,10 +175,18 @@ int main(int argc, char const *argv[])
     Detector  *detector 		= create_detector(det_method::FCN, "data/model/detector/fcn/0.1.0", 0);
     //Detector  *detector 		= create_detector(det_method::SSD, "data/model/detector/ssd", 0);
     Alignment *alignment 		= create_alignment(align_method::CDNN, "data/model/alignment/cdnn/0.4.2", -1);
-    Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/"+recog_name, 0, true, false, batch_size);
-    Recognition *recognition_step2;
+
+    Recognition *recognition;
     if (FUSE) {
-        recognition_step2 = create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/"+recog_name2, 0, true, false, batch_size);
+        ofstream fuse_config(fuse_config_path);
+        fuse_config << "{" << endl;
+        fuse_config << "\t\"model_dir\":[\"../cdnn_caffe/" + recog_name + "\", \"../cdnn_caffe/" + recog_name2 + "\"]," << endl;
+        fuse_config << "\t\"weight\":[0.7071068, 0.7071068]" << endl;
+        fuse_config << "}" << endl;
+        fuse_config.close();
+        recognition	= create_recognition(recog_method::GPU_FUSION, "data/model/recognition/gpu_fusion", 0, true, false, batch_size);
+    } else {
+        recognition	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/"+recog_name, 0, true, false, batch_size);
     }
     Verification *verification;
     if (eval == "euc") verification  = create_verifier(verif_method::EUCLID);
@@ -304,12 +313,6 @@ int main(int argc, char const *argv[])
             // start = clock();////////-------------->
             recognition->recog(faces, alignments, recog_batch_results, "NONE");
             recog_results.insert(recog_results.end(), recog_batch_results.begin(), recog_batch_results.end());
-            if (FUSE) {
-                recog_batch_results_step2.clear();
-                recog_batch_results_step2.reserve(batch_size);
-                recognition_step2->recog(faces, alignments, recog_batch_results_step2, "NONE");
-                recog_results_step2.insert(recog_results_step2.end(), recog_batch_results_step2.begin(), recog_batch_results_step2.end());
-            }
             // finish = clock();//////////<--------------------
             // duration += static_cast<double>(finish - start) / CLOCKS_PER_SEC;
 
@@ -340,12 +343,6 @@ int main(int argc, char const *argv[])
         recog_batch_results.reserve(faces.size());
         recognition->recog(faces, alignments, recog_batch_results, "NONE");
         recog_results.insert(recog_results.end(), recog_batch_results.begin(), recog_batch_results.end());
-        if (FUSE) {
-            recog_batch_results_step2.clear();
-            recog_batch_results_step2.reserve(batch_size);
-            recognition_step2->recog(faces, alignments, recog_batch_results_step2, "NONE");
-            recog_results_step2.insert(recog_results_step2.end(), recog_batch_results_step2.begin(), recog_batch_results_step2.end());
-        }
 
         cout << "face size: " << faces.size() << ", alignments size: " << alignments.size() << ", recog result size: " << recog_batch_results.size() << endl;
         if(!fea_dir.empty()) {
@@ -364,65 +361,7 @@ int main(int argc, char const *argv[])
     vector<vector<bool> >labels = get_labels(names, num_g_new);
     vector<vector<float> > scores;
     /////////////////////////////////////////////////////////////////////
-    if (FUSE) {
-        // feat wise combine
-        vector<RecogResult> recog_results_comb;
-        recog_results_comb.reserve(recog_results.size());
-        for (size_t idx = 0; idx < recog_results.size(); idx++) {
-            RecogResult recog_feat_tmp = recog_results[idx];
-            recog_feat_tmp.face_feat.insert(recog_feat_tmp.face_feat.end(), recog_results_step2[idx].face_feat.begin(), recog_results_step2[idx].face_feat.end());
-            recog_results_comb.push_back(recog_feat_tmp);
-        }
-
-        scores = compute_scores(recog_results_comb, num_g_new, verification);
-        assert(scores.size() == labels.size());
-        //
-        /////////////////////////////////////////////////////////////////////
-        // score combine
-        //scores = compute_scores(recog_results, num_g_new, verification);
-        //vector<vector<float> >scores_step2 = compute_scores(recog_results_step2, num_g_new, verification);
-        //assert(scores.size() == labels.size());
-        //assert(scores_step2.size() == labels.size());
-        //for (size_t idx = 0; idx < scores.size(); idx++) {
-        //    for (size_t i = 0; i < scores[idx].size(); i++) {
-        //        scores[idx][i] = (scores[idx][i] + scores_step2[idx][i] ) / 2.0;
-        //    }
-        //}
-        /////////////////////////////////////////////////////////////////////
-        // hierachical sort
-        //int step1_num_thresh = 10; //2200; //10;
-        //float score_thresh = .0f;
-        //scores = compute_scores(recog_results, num_g_new, verification);
-        //vector<vector<float> >scores_step2 = compute_scores(recog_results_step2, num_g_new, verification);
-        //vector<vector<float> > top1_scores;
-        //vector<vector<float> > topN_scores;
-        //vector<float> tmp_topN_scores;
-        //for(size_t idx = 0; idx < scores.size(); idx++) {
-        //    vector<float> curr_score = scores[idx];
-        //    sort(curr_score.begin(), curr_score.end(), greater<float>());
-        //    if (curr_score.size() > step1_num_thresh) {
-        //        score_thresh = curr_score[step1_num_thresh];
-        //    }
-        //    float step2_top1 = 0;
-        //    tmp_topN_scores.clear();
-        //    for (size_t i = 0; i < scores[idx].size(); i++) {
-        //        if (scores[idx][i] < score_thresh) {
-        //            scores[idx][i] = 0;
-        //        } else {
-        //            scores[idx][i] = scores_step2[idx][i];
-        //            step2_top1 = max(step2_top1, scores[idx][i]);
-        //            tmp_topN_scores.push_back(scores[idx][i]);
-        //            tmp_topN_scores.push_back(scores_step2[idx][i]);
-        //        }
-        //    }
-        //    vector<float> tmp_top1_scores = {curr_score[0], step2_top1};
-        //    top1_scores.push_back(tmp_top1_scores);
-        //    topN_scores.push_back(tmp_topN_scores);
-        //}
-    }
-    if (!FUSE) {
-        scores = compute_scores(recog_results, num_g_new, verification);
-    }
+    scores = compute_scores(recog_results, num_g_new, verification);
 
 #ifdef DEBUG 
     // record query-gallary similarity matrix
@@ -459,28 +398,7 @@ int main(int argc, char const *argv[])
     float mean_ap = computeMAP(scores, labels, ap_vec);
     for(size_t i = 0; i < ap_vec.size(); ++i) {
 #ifdef DEBUG
-        //if (FUSE) {
-        //    cout << paths_new[i+num_g_new] << " : " << ap_vec[i] << "\t" << "step1: " << top1_scores[i][0] << "\tstep2: " << top1_scores[i][1]<< endl;
-        //    if (ap_vec[i] < 0.5) {
-        //        low_score << paths_new[i+num_g_new] << endl;
-        //    }
-        //    top1_score << paths_new[i+num_g_new] << "\t" << ap_vec[i] << "\t";
-        //    top1_score << top1_scores[i][0] << "\t";
-        //    top1_score << top1_scores[i][1] << endl; 
-
-        //    topN_score << paths_new[i+num_g_new] << "\t" << ap_vec[i] << endl;
-        //    for (int topi = 0; topi < step1_num_thresh; topi++) {
-        //        topN_score << topN_scores[i][topi/2] << "\t";
-        //    }
-        //    topN_score << endl;
-        //    for (int topi = 0; topi < step1_num_thresh; topi++) {
-        //        topN_score << topN_scores[i][topi/2+1] << "\t";
-        //    }
-        //    topN_score << endl; 
-        //}
-        //if (!FUSE) {
-            cout << paths_new[i+num_g_new] << " : " << ap_vec[i] << "\t" << scores[i][0] << endl;
-        //}
+        cout << paths_new[i+num_g_new] << " : " << ap_vec[i] << "\t" << scores[i][0] << endl;
 #endif
     }
     cout << "mean-AP: " << mean_ap << endl;
