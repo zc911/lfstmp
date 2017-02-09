@@ -13,8 +13,9 @@ namespace DGFace{
 
 Detector::Detector(int img_scale_max, int img_scale_min, bool is_encrypt)
         : _img_scale_max(img_scale_max), 
-		_img_scale_min(img_scale_min),
-		_is_encrypt(is_encrypt){
+	_img_scale_min(img_scale_min),
+	_is_encrypt(is_encrypt),
+	_batch_img_height(0), _batch_img_width(0){
     assert(img_scale_min < img_scale_max);
 }
 
@@ -54,22 +55,39 @@ void Detector::detect(const vector<Mat> &imgs, vector<DetectResult> &results) {
         Size image_resize;
         // image resize, short edge is up to _img_scale
         float resize_ratio = 1;
-		if(_img_scale_max > 0 || _img_scale_min > 0) {
-			if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
-				resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
-			} else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
-				resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
-			}
-		}
-        //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
-        int width  = img.cols * resize_ratio;
-        int height = img.rows * resize_ratio;
+	if(_batch_img_width > 0 && _batch_img_height > 0) {
+	    int max_side = max(img.rows, img.cols);
+	    if(max_side == img.rows) {
+	    	resize_ratio = float(_batch_img_height) / img.rows;
+	    } else {
+	    	resize_ratio = float(_batch_img_width) / img.cols;
+	    }
+            //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
+            int width  = img.cols * resize_ratio;
+            int height = img.rows * resize_ratio;
 
-        // record the maximum width and height as mask
-        _max_image_size.width  = max(_max_image_size.width, width);
-        _max_image_size.height = max(_max_image_size.height, height);
-        image_resize = Size(width, height);
-        resize(img, resized_img, image_resize);
+            // record the maximum width and height as mask
+            _max_image_size.width  = _batch_img_width;
+            _max_image_size.height = _batch_img_height;
+            image_resize = Size(width, height);
+            resize(img, resized_img, image_resize);
+
+	} else if(_img_scale_max > 0 || _img_scale_min > 0) {
+	    if (img.rows > _img_scale_max && img.cols > _img_scale_max) {
+	    	resize_ratio = float(_img_scale_max) / min(img.cols, img.rows);
+	    } else if (img.rows < _img_scale_min || img.cols < _img_scale_min) {
+	    	resize_ratio = float(_img_scale_min) / min(img.cols, img.rows);
+	    }
+            //cout << img.cols * resize_ratio << "cols, rows" <<  img.rows * resize_ratio << endl;
+            int width  = img.cols * resize_ratio;
+            int height = img.rows * resize_ratio;
+
+            // record the maximum width and height as mask
+            _max_image_size.width  = max(_max_image_size.width, width);
+            _max_image_size.height = max(_max_image_size.height, height);
+            image_resize = Size(width, height);
+            resize(img, resized_img, image_resize);
+	}
        
         resized_imgs[idx] = resized_img;
         scale_ratios[idx] = resize_ratio;

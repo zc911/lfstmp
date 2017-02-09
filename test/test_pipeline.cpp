@@ -81,13 +81,13 @@ int main(int argc, char const *argv[])
     load_names(name_txt, names);
     int batch_size = 10;
 
-    Detector  *detector 		= create_detector(det_method::FCN, "data/model/detector/fcn/0.1.0", 0);
+    Detector  *detector 		= create_detector(det_method::FCN, "../../data/model/detector/fcn/0.1.0", 0);
     // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
-	Alignment *alignment 		= create_alignment(align_method::CDNN, "data/model/alignment/cdnn/0.4.2/", 0);
+	Alignment *alignment 		= create_alignment(align_method::CDNN, "../../data/model/alignment/cdnn/0.4.2/", -1);
 	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
-	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.1.0", 0, true, false, batch_size);
+	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"../../data/model/recognition/cdnn_caffe/0.0.4", 0, true, false, batch_size);
 	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models_new/recognition_0.0.5/", 0, true, false, 2);
-	//Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
+    Recognition *recognition 	= create_recognition(recog_method::GPU_FUSION,"../../data/model/recognition/gpu_fusion",0,true );
 	Verification *verification 	= create_verifier(verif_method::EUCLID);
 
     ofstream not_det("not_det.log");
