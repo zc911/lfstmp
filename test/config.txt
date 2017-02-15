@@ -25,9 +25,9 @@
 # detector.rpn.layer_name_reg = conv_face_16_reg
 # detector.rpn.det_thresh = 0.7
 detector = fcn
-detector.fcn.model_dir = models/detector_0.4.5
-#detector.fcn.model_dir = models/detector_0.1.0
-detector.fcn.gpu_id = 1
+#detector.fcn.model_dir = models/detector_0.4.5
+detector.fcn.model_dir = models/detector_0.1.0
+detector.fcn.gpu_id = 0
 # =========== alignment ===============
 # alignment = dlib
 #alignment.face_size = 112, 96
@@ -64,15 +64,15 @@ transformation = cdnn
 # recognition.cdnn.multi_thread =true 
 #-------------------------------------------
 
-# recognition = cdnn_caffe
-# recognition.cdnn_caffe.model_dir = ./models/recognition_0.3.3
-# recognition.dnn_caffe.gpu_id = 1
+recognition = cdnn_caffe
+recognition.cdnn_caffe.model_dir = ./models/recognition_0.3.3
+recognition.dnn_caffe.gpu_id = 1
 ##-------------------------------------------
 
-recognition = fusion
-recognition.fusion.model_dir = ./models/recognition_0.4.1
-recognition.fusion.gpu_id = 1
-recognition.fusion.multi_thread = true
+# recognition = fusion
+# recognition.fusion.model_dir = ./models/recognition_0.4.1
+# recognition.fusion.gpu_id = 1
+# recognition.fusion.multi_thread = true
  =========== verifier ===============
 # verifier = cos
 verifier = euclid

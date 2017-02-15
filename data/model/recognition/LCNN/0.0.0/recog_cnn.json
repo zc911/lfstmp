@@ -1,0 +1,8 @@
+{
+	"deploy": "lcnn.prototxt",
+	"model": "lcnn.caffemodel",
+    "layer_name": "eltwise6",
+    "pixel_means": [128, 128, 128],
+    "pixel_scale": 256.0,
+    "face_size": [128]
+}

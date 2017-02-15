@@ -7,6 +7,7 @@ class EuclidVerification : public Verification {
         EuclidVerification(void);
         virtual ~EuclidVerification(void);
         float verify(const FeatureType &feature1, const FeatureType &feature2);
+    private:
         float score_normalize(float euclid_dist);
 };
 }

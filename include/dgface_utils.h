@@ -48,5 +48,8 @@ float computeAP(const std::vector<float>& scores, const std::vector<bool>& trues
 float computeMAP(const std::vector<std::vector<float> >& score_vec, const std::vector<std::vector<bool> >& true_vec);
 float computeMAP(const std::vector<std::vector<float> >& score_vec, const std::vector<std::vector<bool> >& true_vec, std::vector<float>& AP_vec);
 
+void computeROC(const std::vector<std::vector<float> >& score_vec, const std::vector<std::vector<bool> >& true_vec, vector<pair<float, float> >& ROC_points , const float step);
+void computeROC(const std::vector<float>& scores, const std::vector<bool>& trues, vector<pair<float, float> >& ROC_points, const float step);
+
 }
 #endif

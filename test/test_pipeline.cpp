@@ -79,14 +79,16 @@ int main(int argc, char const *argv[])
     
     vector<string> names;
     load_names(name_txt, names);
-    int batch_size = 10;
+    int batch_size = 8;
 
-    Detector  *detector 		= create_detector(det_method::FCN, "models/detector_0.1.0", 0);
-    // Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
-	Alignment *alignment 		= create_alignment(align_method::CDNN, "models/alignment_0.4.2/", -1);
+    Detector  *detector 		= create_detector(det_method::FCN, "data/model/detector/fcn/0.1.0", 0);
+    //Detector  *detector 		= create_detector(det_method::SSD, "models/detector_ssd", 0);
+    Alignment *alignment 		= create_alignment(align_method::CDNN, "data/model/alignment/cdnn/0.4.2", -1);
 	Transformation *transformation   = create_transformation(transform_method::CDNN, "");
-	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models/recognition_0.3.3", 0, true, false, batch_size);
-	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"models_new/recognition_0.0.5/", 0, true, false, 2);
+	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.0.5", 0, true, false, batch_size);
+	//Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/0.1.0", 0, true, false, batch_size);
+	Recognition *recognition 	= create_recognition(recog_method::CDNN_CAFFE,"data/model/recognition/cdnn_caffe/max_pooling", 0, true, false, batch_size);
+	//Recognition *recognition 	= create_recognition(recog_method::CNN,"data/model/recognition/LCNN/0.1.0", 0, true, false, batch_size);
 	//Recognition *recognition 	= create_recognition(recog_method::FUSION,"models/recognition_0.4.1",0,true );
 	Verification *verification 	= create_verifier(verif_method::EUCLID);
 
@@ -154,10 +156,11 @@ int main(int argc, char const *argv[])
             assert(faces.size() == alignments.size());
             recog_batch_results.clear();
             recog_batch_results.reserve(batch_size);
-            // start = clock();////////-------------->
+            clock_t start = clock();////////-------------->
             recognition->recog(faces, alignments, recog_batch_results, "NONE");
-            // finish = clock();//////////<--------------------
-            // duration += static_cast<double>(finish - start) / CLOCKS_PER_SEC;
+            clock_t finish = clock();//////////<--------------------
+            double duration = (double)(finish - start) / CLOCKS_PER_SEC;
+            cout << "recog time: " << duration << endl;
 
             //cout << "feature size: " <<  recog_result[0].face_feat.size()<<endl;
             //cout << "Recognized!" <<endl;
@@ -180,8 +183,8 @@ int main(int argc, char const *argv[])
     if (faces.size() > 0 && faces.size() < batch_size) {
         assert(faces.size() == alignments.size());
         recog_batch_results.clear();
-        recognition->recog(faces, alignments, recog_batch_results, "NONE");
         recog_batch_results.reserve(faces.size());
+        recognition->recog(faces, alignments, recog_batch_results, "NONE");
         cout << "face size: " << faces.size() << "alignments size" << alignments.size() << "recog result size: " << recog_batch_results.size() << endl;
         if(!fea_dir.empty()) {
             for (size_t idx = 0; idx < recog_batch_results.size(); idx++) {
